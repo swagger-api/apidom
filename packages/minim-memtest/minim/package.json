@@ -1,0 +1,14 @@
+{
+  "name": "minim-memtest-minim",
+  "version": "0.1.0",
+  "description": "Memory measurements on top of minim library with no additional namespaces.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Vladimír Gorej",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "minim": "=0.23.6"
+  }
+}

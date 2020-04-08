@@ -1,0 +1,16 @@
+{
+  "name": "minim-memtest-api-elements",
+  "version": "0.1.0",
+  "description": "Memory measurements on top of minim library with ApiElements namespace.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Vladimír Gorej",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "api-elements": "=0.2.3",
+    "fury": "^3.0.0-beta.13",
+    "fury-adapter-swagger": "^0.28.3"
+  }
+}

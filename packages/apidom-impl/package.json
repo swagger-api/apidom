@@ -1,0 +1,15 @@
+{
+  "name": "apidom-impl",
+  "version": "0.1.0",
+  "description": "Prototype of ApiDOM ",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Vladimír Gorej",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "json-refs": "=3.0.15",
+    "stampit": "=4.3.1"
+  }
+}

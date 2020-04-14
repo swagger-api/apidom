@@ -3,7 +3,31 @@
   "info": {
     "title": "Sample API",
     "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
-    "version": "0.1.9"
+    "termsOfService": "Terms of service",
+    "version": "0.1.9",
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "contact": {
+      "name": "Vladimir Gorej",
+      "url": "https://www.linkedin.com/in/vladimirgorej/",
+      "email": "vladimir.gorej@gmail.com"
+    }
+  },
+  "components": {
+    "schemas": {
+      "user": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
   },
   "servers": [
     {
@@ -30,6 +54,16 @@
                   "items": {
                     "type": "string"
                   }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "A response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
                 }
               }
             }

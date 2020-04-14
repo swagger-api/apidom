@@ -9,7 +9,8 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "json-refs": "=3.0.15",
-    "stampit": "=4.3.1"
+    "minim": "=0.23.6",
+    "ramda": "=0.27.0",
+    "ramda-adjunct": "=2.26.0"
   }
 }

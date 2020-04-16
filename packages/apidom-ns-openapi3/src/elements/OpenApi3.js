@@ -14,6 +14,7 @@ class Openapi3 extends ObjectElement {
     constructor(...args) {
         super(...args);
         this.element = 'openapi3';
+        this.classes.push('api');
     }
 
     get openapi() {

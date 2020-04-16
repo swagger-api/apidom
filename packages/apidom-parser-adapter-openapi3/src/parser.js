@@ -2,8 +2,13 @@
 
 const { path } = require('ramda');
 const { isString, isObj } = require('ramda-adjunct');
+const apiDOM = require('apidom');
+const openapi3 = require('apidom-ns-openapi3');
 
-const parse = namespace => pojo => {
+const parse = source => {
+    const namespace = apiDOM.createNamespace(openapi3);
+    const pojo = JSON.parse(source); // very simplified parsing
+
     // constructing openapi
     const openapi = new namespace.elements.Openapi();
     openapi.set(pojo.openapi);
@@ -52,6 +57,4 @@ const parse = namespace => pojo => {
     return openApi3;
 };
 
-module.exports = {
-    parse,
-}
+module.exports = parse;

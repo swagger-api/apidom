@@ -1,3 +1,5 @@
+'use strict';
+
 const { StringElement } = require('minim');
 
 /**

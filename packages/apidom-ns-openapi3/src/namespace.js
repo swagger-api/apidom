@@ -1,0 +1,23 @@
+'use strict';
+
+const OpenApi3 = require('./elements/OpenApi3');
+const Openapi = require('./elements/Openapi');
+const Info = require('./elements/Info');
+const License = require('./elements/License');
+const Contact = require('./elements/Contact');
+
+const openApi3 = {
+    namespace: (options) => {
+        const { base } = options;
+
+        base.register('openApi3', OpenApi3);
+        base.register('openapi', Openapi);
+        base.register('info', Info);
+        base.register('license', License);
+        base.register('contact', Contact);
+
+        return base;
+    },
+}
+
+module.exports = openApi3;

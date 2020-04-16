@@ -227,34 +227,11 @@ ready to use library called [minim](https://github.com/refractproject/minim).
 Ideally minim API should not leak outside of out `facade` API, and if it does,
 only specific `facade` methods should be documented, if they'll exist.
 
-```js
-const ast = {...}; // JavaScript representation of parsed OAS3 JSON form
-
-const namespace = new apiDOM.openApi3.Namespace();
-const openApi3 = namespace.of(ast);
-
-openApi3.openapi.toValue(); // 3.0.0
-openApi3.info; // instance of Info element
-```
-
 **Requirement: Being able to utilize existing ADD parsers**
 
 For various ADD (Api Description Document) DSL(s), there are already
 ready to be used quality parsers. Our goal here is to use them and be able 
 to embed their AST into ApiDOM. 
-
-```js
-// using existing swagger tooling to transform yaml into JSON
-const yamlSpec = swaggerTooling.readYamlSpec('./swagger.yaml');
-const jsonSpec = swaggerTooling.toJSONSpec(yamlSpec);
-const ast = JSON.parse(jsonSpec);
-
-const namespace = new apiDOM.openApi3.Namespace();
-const openApi3 = namespace.of(ast);
-
-openApi3.openapi.toValue(); // 3.0.0
-openApi3.info; // instance of Info element
-```
 
 **Requirement: ApiDOM should expose original AST to the consumer**
 
@@ -272,46 +249,12 @@ JSON OAS3 -> ApiDOM (JSON OAS3 + meta) -> JSON OAS3
 This conversion must be lossless and it is up to *discussion* if the ApiDOM should 
 handle references in JSON OAS3. 
 
-```js
-const ast = {...}; // JavaScript representation of parsed OAS3 JSON form
-
-const namespace = new apiDOM.openApi3.Namespace();
-const openApi3 = namespace.of(ast);
-
-openApi3.openapi.toValue(); // 3.0.0
-openApi3.info.contact.toValue();
-/**
- * {
- *  name: 'Vladimir Gorej',
- *  url: 'https://www.linkedin.com/in/vladimirgorej/',
- *  email: 'vladimir.gorej@gmail.com'
- * }
- */
-```
-
 **Requirement: ApiDOM fragment reference original AST fragment**
 
 Selected ApiDOM fragments (certainly not all) should have reference to original AST fragment.
 
 **Note:** we currently assume that the AST will always be JSON, so we can always transform
 original JSON AST from ApiDOM.
-
-```js
-const ast = {...}; // JavaScript representation of parsed OAS3 JSON form
-
-const namespace = new apiDOM.openApi3.Namespace();
-const openApi3 = namespace.of(ast);
-
-openApi3.openapi.toValue(); // 3.0.0
-openApi3.info.contact.toValue();
-/**
- * {
- *  name: 'Vladimir Gorej',
- *  url: 'https://www.linkedin.com/in/vladimirgorej/',
- *  email: 'vladimir.gorej@gmail.com'
- * }
- */
-```
 
 **Requirement: Represent Refs as abstract datastructures**
 

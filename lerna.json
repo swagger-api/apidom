@@ -3,5 +3,10 @@
     "packages/*"
   ],
   "npmClient": "npm",
-  "version": "independent"
+  "version": "independent",
+  "command": {
+    "bootstrap": {
+      "hoist": true
+    }
+  }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "apidom-parser-adapter-openapi3",
+  "version": "0.1.0",
+  "description": "OpenAPI3 adapter for ApiDOM parser",
+  "main": "./src/adapter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Gorej",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "apidom": "^0.1.0",
+    "apidom-ns-openapi3": "^0.1.0"
+  }
+}

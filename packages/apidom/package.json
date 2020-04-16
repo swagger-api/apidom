@@ -9,8 +9,11 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "minim": "=0.23.6",
-    "ramda": "=0.27.0",
-    "ramda-adjunct": "=2.26.0"
+    "minim": "^0.23.6"
+  },
+  "devDependencies": {
+    "apidom-ns-openapi3": "^0.1.0",
+    "apidom-parser": "^0.1.0",
+    "apidom-parser-adapter-openapi3": "^0.1.0"
   }
 }

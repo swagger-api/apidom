@@ -1,5 +1,5 @@
 {
-  "name": "apidom-impl",
+  "name": "apidom",
   "version": "0.1.0",
   "description": "Prototype of ApiDOM ",
   "main": "src/index.js",

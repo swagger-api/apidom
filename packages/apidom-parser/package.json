@@ -1,0 +1,11 @@
+{
+  "name": "apidom-parser",
+  "version": "0.1.0",
+  "description": "Parser tools for ApiDOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Gorej",
+  "license": "Apache-2.0"
+}

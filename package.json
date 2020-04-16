@@ -1,0 +1,22 @@
+{
+  "name": "apidom",
+  "version": "0.1.0",
+  "description": "ApiDOM",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "test": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
+  },
+  "author": "Vladimir Gorej",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/swagger-api/apidom/issues"
+  },
+  "homepage": "https://github.com/swagger-api/apidom#readme",
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  }
+}

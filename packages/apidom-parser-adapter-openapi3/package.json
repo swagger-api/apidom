@@ -10,6 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "apidom": "^0.1.0",
-    "apidom-ns-openapi3": "^0.1.0"
+    "apidom-ns-openapi3": "^0.1.0",
+    "json-ast": "^2.1.7"
   }
 }

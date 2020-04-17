@@ -3,14 +3,14 @@
 const { ObjectElement } = require('minim');
 
 /**
- * @class Openapi3
+ * @class OpenApi3
  *
  * @param {object} content
  * @param meta
  * @param attributes
  * @extends ObjectElement
  */
-class Openapi3 extends ObjectElement {
+class OpenApi3 extends ObjectElement {
     constructor(...args) {
         super(...args);
         this.element = 'openapi3';
@@ -26,4 +26,4 @@ class Openapi3 extends ObjectElement {
     }
 }
 
-module.exports = Openapi3;
+module.exports = OpenApi3;

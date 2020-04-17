@@ -13,5 +13,4 @@ console.log(adapter.detect(spec));
 console.log(adapter.mediaTypes);
 
 const parseResult = adapter.parse(spec);
-console.log(parseResult);
-console.log(apiDOM.toJSON(namespace, parseResult));
+console.log(JSON.stringify(apiDOM.toJSON(namespace, parseResult), null, 2));

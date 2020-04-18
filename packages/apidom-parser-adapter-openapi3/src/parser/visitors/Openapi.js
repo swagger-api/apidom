@@ -4,15 +4,18 @@ const ApiDOMVisitor = require('./ApiDOM');
 const LiteralVisitor = require('./Literal');
 
 class Openapi extends ApiDOMVisitor {
-    property(propertyNode) {
-        const keyVisitor = new LiteralVisitor();
+    value(valueNode) {
         const valueVisitor = new LiteralVisitor();
-        const { MemberElement } = this.namespace.elements.Element.prototype;
+        const sourceMap = new this.namespace.elements.SourceMap();
 
-        propertyNode.key.accept(keyVisitor);
-        propertyNode.value.accept(valueVisitor);
+        valueNode.accept(valueVisitor);
+        sourceMap.position = valueNode.position;
 
-        this.result = new MemberElement(keyVisitor.result, valueVisitor.result);
+        const openapi = new this.namespace.elements.Openapi();
+        openapi.set(valueVisitor.result);
+        openapi.meta.set('sourceMap', sourceMap);
+
+        this.result = openapi;
         this.stop = true;
     }
 }

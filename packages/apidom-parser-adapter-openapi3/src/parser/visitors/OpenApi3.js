@@ -2,6 +2,7 @@
 
 const ApiDOMVisitor = require('./ApiDOM');
 const OpenapiVisitor = require('./Openapi');
+const InfoVisitor = require('./Info');
 
 class OpenApi3Visitor extends ApiDOMVisitor {
     constructor(...args) {
@@ -18,13 +19,23 @@ class OpenApi3Visitor extends ApiDOMVisitor {
     }
 
     openapi(propertyNode) {
-        const visitor = new OpenapiVisitor(this.namespace);
-        propertyNode.accept(visitor);
-        this.result.content.push(visitor.result);
+        const openapiVisitor = new OpenapiVisitor(this.namespace);
+        const { MemberElement } = this.namespace.elements.Element.prototype;
+        const keyElement = this.toLiteral(propertyNode.key);
+
+        propertyNode.value.accept(openapiVisitor);
+
+        this.result.content.push(new MemberElement(keyElement, openapiVisitor.result));
     }
 
     info(propertyNode) {
+        const infoVisitor = new InfoVisitor(this.namespace);
+        const { MemberElement } = this.namespace.elements.Element.prototype;
+        const keyElement = this.toLiteral(propertyNode.key);
 
+        propertyNode.value.accept(infoVisitor);
+
+        this.result.content.push(new MemberElement(keyElement, infoVisitor.result));
     }
 }
 

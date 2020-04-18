@@ -20,10 +20,14 @@ const fromJSON = (namespace, json) => namespace.fromRefract(json);
 // fromJSONString :: (Namespace, String) -> Element
 const fromJSONString = (namespace, jsonString) => fromJSON(JSON.parse(jsonString));
 
+// toValue
+const toValue = element => element.toValue();
+
 module.exports = {
     createNamespace,
     toJSON,
     toJSONString,
     fromJSON,
     fromJSONString,
+    toValue,
 }

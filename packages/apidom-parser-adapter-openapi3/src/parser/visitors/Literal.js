@@ -8,24 +8,20 @@ class LiteralVisitor extends Visitor {
         this.result = null;
     }
 
-    key(keyNode) {
-        this.result = keyNode.value;
-    }
-
     string(stringNode) {
-        this.result = stringNode.value;
+        this.result = String(stringNode.value);
     }
 
     number(numberNode) {
-        this.result = numberNode.value;
+        this.result = Number(numberNode.value);
     }
 
     boolean(booleanNode){
-        this.result = booleanNode.value;
+        this.result = booleanNode.value === 'true';
     };
 
-    nil(nullNode) {
-        this.result = nullNode.value;
+    nil() {
+        this.result = null
     }
 }
 

@@ -20,7 +20,10 @@ const fromJSON = (namespace, json) => namespace.fromRefract(json);
 // fromJSONString :: (Namespace, String) -> Element
 const fromJSONString = (namespace, jsonString) => fromJSON(JSON.parse(jsonString));
 
-// toValue
+// Reconstructs the ApiDOM into JavaScript POJO.
+// This POJO would be  the result of parsing the original
+// JSON string with JSON.parse function.
+// toValue :: Element -> Object
 const toValue = element => element.toValue();
 
 module.exports = {

@@ -1,32 +1,9 @@
 {
-<<<<<<< c9b832a3084ae2d0ca3e667016c07c2c3ced03f4
-  "name": "apidom",
-  "version": "0.1.0",
-  "description": "ApiDOM",
-  "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "test": "lerna run test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/swagger-api/apidom.git"
-  },
-  "author": "Vladimir Gorej",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/swagger-api/apidom/issues"
-  },
-  "homepage": "https://github.com/swagger-api/apidom#readme",
-  "devDependencies": {
-    "lerna": "^3.20.2"
-=======
   "name": "codegen",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "handlebars": "^4.7.6",
     "typescript": "^3.8.3"
->>>>>>> add experiment on typescript/codegen
   }
 }

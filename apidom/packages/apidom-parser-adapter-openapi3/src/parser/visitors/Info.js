@@ -23,8 +23,8 @@ class InfoVisitor extends ApiDOMVisitor {
 
     property(propertyNode) {
         if (propertyNode.value instanceof JsonString) {
-            const keyElement = this.toLiteral(propertyNode.key);
-            const valueElement = this.toLiteral(propertyNode.value);
+            const keyElement = this.toElement(propertyNode.key);
+            const valueElement = this.toElement(propertyNode.value);
             const { MemberElement } = this.namespace.elements.Element.prototype;
 
             this.result.push(new MemberElement(keyElement, valueElement));

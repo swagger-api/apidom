@@ -1,6 +1,6 @@
 'use strict';
 
-const { ArrayElement, ObjectElement } = require('minim');
+const { ArrayElement } = require('minim');
 
 /**
  * @class SourceMap
@@ -8,7 +8,7 @@ const { ArrayElement, ObjectElement } = require('minim');
  * @param {string} content
  * @param meta
  * @param attributes
- * @extends ObjectElement
+ * @extends ArrayElement
  */
 class SourceMap extends ArrayElement {
     constructor(...args) {

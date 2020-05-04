@@ -17,12 +17,22 @@
   },
   "components": {
     "schemas": {
-      "user": {
+      "User": {
         "properties": {
           "id": {
             "type": "integer"
           },
           "name": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        }
+      },
+      "UserProfile": {
+        "properties": {
+          "email": {
             "type": "string"
           }
         }
@@ -63,7 +73,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }

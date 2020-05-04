@@ -3,7 +3,7 @@
   "info": {
     "title": "Sample API",
     "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
-    "termsOfService": "https://www.example.com/terms-of-service",
+    "termsOfService": "Terms of service",
     "version": "0.1.9",
     "license": {
       "name": "Apache-2.0",
@@ -17,12 +17,22 @@
   },
   "components": {
     "schemas": {
-      "user": {
+      "User": {
         "properties": {
           "id": {
             "type": "integer"
           },
           "name": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        }
+      },
+      "UserProfile": {
+        "properties": {
+          "email": {
             "type": "string"
           }
         }
@@ -63,7 +73,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/user"
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }

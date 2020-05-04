@@ -2,7 +2,7 @@
 
 const ApiDOMVisitor = require('./ApiDOM');
 
-class Openapi extends ApiDOMVisitor {
+class OpenapiVisitor extends ApiDOMVisitor {
     value(valueNode) {
         const openapi = new this.namespace.elements.Openapi();
         const element = this.toElement(valueNode);
@@ -14,4 +14,4 @@ class Openapi extends ApiDOMVisitor {
     }
 }
 
-module.exports = Openapi;
+module.exports = OpenapiVisitor;

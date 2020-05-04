@@ -4,15 +4,11 @@ const { AST: { JsonString }} = require('json-ast');
 const ApiDOMVisitor = require('./ApiDOM');
 
 class InfoVisitor extends ApiDOMVisitor {
-    constructor(...args) {
-        super(...args);
-        this.result = null;
-    }
-
     visit(node) {
         if (this.result === null) {
             const sourceMap = new this.namespace.elements.SourceMap();
             sourceMap.position = node.position;
+            sourceMap.astNode = node;
 
             this.result = new this.namespace.elements.Info();
             this.result.meta.set('sourceMap', sourceMap);

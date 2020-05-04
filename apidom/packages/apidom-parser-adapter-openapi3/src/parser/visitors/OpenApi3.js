@@ -3,13 +3,9 @@
 const ApiDOMVisitor = require('./ApiDOM');
 const OpenapiVisitor = require('./Openapi');
 const InfoVisitor = require('./Info');
+const ComponentsVisitor = require('./Components');
 
 class OpenApi3Visitor extends ApiDOMVisitor {
-    constructor(...args) {
-        super(...args);
-        this.result = null;
-    }
-
     visit(node) {
         if (this.result === null) {
             this.result = new this.namespace.elements.OpenApi3();
@@ -27,6 +23,8 @@ class OpenApi3Visitor extends ApiDOMVisitor {
             this.openapi(propertyNode);
         } else if (propertyNode.key.value === 'info') {
             this.info(propertyNode);
+        } else if (propertyNode.key.value === 'components') {
+            this.components(propertyNode);
         }
     }
 
@@ -54,6 +52,19 @@ class OpenApi3Visitor extends ApiDOMVisitor {
         infoElement.astNode = propertyNode;
 
         this.result.content.push(infoElement);
+    }
+
+    components(propertyNode) {
+        const componentsVisitor = new ComponentsVisitor(this.namespace);
+        const { MemberElement } = this.namespace.elements.Element.prototype;
+        const keyElement = this.toElement(propertyNode.key);
+
+        propertyNode.value.accept(componentsVisitor);
+
+        const componentsElement = new MemberElement(keyElement, componentsVisitor.result);
+        componentsElement.astNode = propertyNode;
+
+        this.result.content.push(componentsElement);
     }
 }
 

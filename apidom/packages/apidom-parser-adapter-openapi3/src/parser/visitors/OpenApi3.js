@@ -7,7 +7,19 @@ const InfoVisitor = require('./Info');
 class OpenApi3Visitor extends ApiDOMVisitor {
     constructor(...args) {
         super(...args);
-        this.result = new this.namespace.elements.OpenApi3();
+        this.result = null;
+    }
+
+    visit(node) {
+        if (this.result === null) {
+            this.result = new this.namespace.elements.OpenApi3();
+            const sourceMap = new this.namespace.elements.SourceMap();
+            sourceMap.position = node.position;
+            sourceMap.astNode = node;
+            this.result.meta.set('sourceMap', sourceMap);
+        }
+
+        return super.visit(node);
     }
 
     property(propertyNode) {
@@ -21,21 +33,27 @@ class OpenApi3Visitor extends ApiDOMVisitor {
     openapi(propertyNode) {
         const openapiVisitor = new OpenapiVisitor(this.namespace);
         const { MemberElement } = this.namespace.elements.Element.prototype;
-        const keyElement = this.toLiteral(propertyNode.key);
+        const keyElement = this.toElement(propertyNode.key);
 
         propertyNode.value.accept(openapiVisitor);
 
-        this.result.content.push(new MemberElement(keyElement, openapiVisitor.result));
+        const openapiElement = new MemberElement(keyElement, openapiVisitor.result);
+        openapiElement.astNode = propertyNode;
+
+        this.result.content.push(openapiElement);
     }
 
     info(propertyNode) {
         const infoVisitor = new InfoVisitor(this.namespace);
         const { MemberElement } = this.namespace.elements.Element.prototype;
-        const keyElement = this.toLiteral(propertyNode.key);
+        const keyElement = this.toElement(propertyNode.key);
 
         propertyNode.value.accept(infoVisitor);
 
-        this.result.content.push(new MemberElement(keyElement, infoVisitor.result));
+        const infoElement = new MemberElement(keyElement, infoVisitor.result);
+        infoElement.astNode = propertyNode;
+
+        this.result.content.push(infoElement);
     }
 }
 

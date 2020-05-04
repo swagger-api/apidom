@@ -3,25 +3,49 @@
 const { Visitor } = require('json-ast');
 
 class LiteralVisitor extends Visitor {
-    constructor(...args) {
-        super(...args);
+    constructor(namespace) {
+        super();
+        this.namespace = namespace;
         this.result = null;
     }
 
+    key(keyNode) {
+        return this.string(keyNode);
+    }
+
     string(stringNode) {
-        this.result = String(stringNode.value);
+        const element = new this.namespace.elements.String(String(stringNode.value));
+        this.result = this._decorateWithSourcemap(element, stringNode);
+        this.stop = true;
     }
 
     number(numberNode) {
-        this.result = Number(numberNode.value);
+        const element = new this.namespace.elements.Number(Number(numberNode.value));
+        this.result = this._decorateWithSourcemap(element, numberNode);
+        this.stop = true;
     }
 
     boolean(booleanNode){
-        this.result = booleanNode.value === 'true';
+        const element = new this.namespace.elements.Boolean(booleanNode.value === 'true');
+        this.result = this._decorateWithSourcemap(element, booleanNode);
+        this.stop = true;
     };
 
-    nil() {
-        this.result = null
+    nil(nullNode) {
+        const element = new this.namespace.elements.Null();
+        this.result = this._decorateWithSourcemap(element, nullNode);
+        this.stop = true;
+    }
+
+    _decorateWithSourcemap(element, node) {
+        const sourceMap = new this.namespace.elements.SourceMap();
+
+        sourceMap.position = node.position;
+        sourceMap.astNode = node;
+
+        element.meta.set('sourceMap', sourceMap);
+
+        return element;
     }
 }
 

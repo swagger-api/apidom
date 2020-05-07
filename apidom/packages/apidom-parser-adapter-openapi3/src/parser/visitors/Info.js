@@ -2,16 +2,12 @@
 
 const { AST: { JsonString }} = require('json-ast');
 const ApiDOMVisitor = require('./ApiDOM');
+const { decorateWithSourcemap } = require('../utils');
 
 class InfoVisitor extends ApiDOMVisitor {
     visit(node) {
         if (this.result === null) {
-            const sourceMap = new this.namespace.elements.SourceMap();
-            sourceMap.position = node.position;
-            sourceMap.astNode = node;
-
-            this.result = new this.namespace.elements.Info();
-            this.result.meta.set('sourceMap', sourceMap);
+            this.result = decorateWithSourcemap(node, new this.namespace.elements.Info());
         }
 
         return super.visit(node);
@@ -23,7 +19,7 @@ class InfoVisitor extends ApiDOMVisitor {
             const valueElement = this.toElement(propertyNode.value);
             const { MemberElement } = this.namespace.elements.Element.prototype;
 
-            this.result.push(new MemberElement(keyElement, valueElement));
+            this.result.push(decorateWithSourcemap(propertyNode, new MemberElement(keyElement, valueElement)));
         } else if (propertyNode.key.value === 'license') {
             this.license(propertyNode);
         } else if (propertyNode.key.value === 'contact') {

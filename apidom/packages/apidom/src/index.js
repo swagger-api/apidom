@@ -27,6 +27,7 @@ const fromJSONString = (namespace, jsonString) => fromJSON(JSON.parse(jsonString
 const toValue = element => element.toValue();
 
 module.exports = {
+    namespace: defaultNamespace,
     createNamespace,
     toJSON,
     toJSONString,

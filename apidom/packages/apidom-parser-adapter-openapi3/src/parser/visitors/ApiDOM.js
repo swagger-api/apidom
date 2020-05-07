@@ -1,6 +1,6 @@
 const { Visitor } = require('json-ast');
 
-const LiteralVisitor = require('./Literal');
+const PrimitiveVisitor = require('./Primitive');
 
 class ApiDOMVisitor extends Visitor {
     constructor(namespace) {
@@ -10,9 +10,9 @@ class ApiDOMVisitor extends Visitor {
     }
 
     toElement(node) {
-        const literalVisitor = new LiteralVisitor(this.namespace);
-        node.accept(literalVisitor);
-        return literalVisitor.result;
+        const primitiveVisitor = new PrimitiveVisitor(this.namespace);
+        node.accept(primitiveVisitor);
+        return primitiveVisitor.result;
     }
 }
 

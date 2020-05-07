@@ -2,7 +2,9 @@
 
 const { Visitor } = require('json-ast');
 
-class LiteralVisitor extends Visitor {
+const { decorateWithSourcemap } = require('../utils');
+
+class PrimitiveVisitor extends Visitor {
     constructor(namespace) {
         super();
         this.namespace = namespace;
@@ -15,38 +17,27 @@ class LiteralVisitor extends Visitor {
 
     string(stringNode) {
         const element = new this.namespace.elements.String(String(stringNode.value));
-        this.result = this._decorateWithSourcemap(element, stringNode);
+        this.result = decorateWithSourcemap(stringNode, element);
         this.stop = true;
     }
 
     number(numberNode) {
         const element = new this.namespace.elements.Number(Number(numberNode.value));
-        this.result = this._decorateWithSourcemap(element, numberNode);
+        this.result = decorateWithSourcemap(numberNode, element);
         this.stop = true;
     }
 
     boolean(booleanNode){
         const element = new this.namespace.elements.Boolean(booleanNode.value === 'true');
-        this.result = this._decorateWithSourcemap(element, booleanNode);
+        this.result = decorateWithSourcemap(booleanNode, element);
         this.stop = true;
     };
 
     nil(nullNode) {
         const element = new this.namespace.elements.Null();
-        this.result = this._decorateWithSourcemap(element, nullNode);
+        this.result = decorateWithSourcemap(nullNode, element);
         this.stop = true;
-    }
-
-    _decorateWithSourcemap(element, node) {
-        const sourceMap = new this.namespace.elements.SourceMap();
-
-        sourceMap.position = node.position;
-        sourceMap.astNode = node;
-
-        element.meta.set('sourceMap', sourceMap);
-
-        return element;
     }
 }
 
-module.exports = LiteralVisitor;
+module.exports = PrimitiveVisitor;

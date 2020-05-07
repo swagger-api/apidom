@@ -21,6 +21,8 @@ class SourceMap extends ArrayElement {
     }
 
     set position(position) {
+        if (position === null) { return this; }
+
         const start = new ArrayElement([position.start.line, position.start.column, position.start.char]);
         const end = new ArrayElement([position.end.line, position.end.column, position.end.char]);
 

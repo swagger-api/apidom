@@ -2,16 +2,12 @@
 
 const ApiDOMVisitor = require('./ApiDOM');
 const SchemasVisitor = require('./Schemas');
+const { decorateWithSourcemap } = require('../utils');
 
 class ComponentsVisitor extends ApiDOMVisitor {
     visit(node) {
         if (this.result === null) {
-            const sourceMap = new this.namespace.elements.SourceMap();
-            sourceMap.position = node.position;
-            sourceMap.astNode = node;
-
-            this.result = new this.namespace.elements.Components();
-            this.result.meta.set('sourceMap', sourceMap);
+            this.result = decorateWithSourcemap(node, new this.namespace.elements.Components());
         }
 
         return super.visit(node);
@@ -30,8 +26,7 @@ class ComponentsVisitor extends ApiDOMVisitor {
 
         propertyNode.value.accept(schemasVisitor);
 
-        const schemasElement = new MemberElement(keyElement, schemasVisitor.result);
-        schemasElement.astNode = propertyNode;
+        const schemasElement = decorateWithSourcemap(propertyNode, new MemberElement(keyElement, schemasVisitor.result));
 
         this.result.content.push(schemasElement);
     }

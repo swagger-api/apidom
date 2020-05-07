@@ -3,16 +3,12 @@
 const { AST: { JsonString }} = require('json-ast');
 const ApiDOMVisitor = require('./ApiDOM');
 const SchemaVisitor = require('./Schema');
+const { decorateWithSourcemap } = require('../utils');
 
 class SchemasVisitor extends ApiDOMVisitor {
     visit(node) {
         if (this.result === null) {
-            const sourceMap = new this.namespace.elements.SourceMap();
-            sourceMap.position = node.position;
-            sourceMap.astNode = node;
-
-            this.result = new this.namespace.elements.Schemas();
-            this.result.meta.set('sourceMap', sourceMap);
+           this.result = decorateWithSourcemap(node, new this.namespace.elements.Schemas());
         }
 
         return super.visit(node);
@@ -25,7 +21,7 @@ class SchemasVisitor extends ApiDOMVisitor {
             const schemaVisitor = new SchemaVisitor(this.namespace);
 
             propertyNode.value.accept(schemaVisitor);
-            this.result.push(new MemberElement(keyElement, schemaVisitor.result));
+            this.result.push(decorateWithSourcemap(propertyNode, new MemberElement(keyElement, schemaVisitor.result)));
         });
         this.stop = true;
     }

@@ -4,15 +4,12 @@ const ApiDOMVisitor = require('./ApiDOM');
 const OpenapiVisitor = require('./Openapi');
 const InfoVisitor = require('./Info');
 const ComponentsVisitor = require('./Components');
+const { decorateWithSourcemap } = require('../utils');
 
 class OpenApi3Visitor extends ApiDOMVisitor {
     visit(node) {
         if (this.result === null) {
-            this.result = new this.namespace.elements.OpenApi3();
-            const sourceMap = new this.namespace.elements.SourceMap();
-            sourceMap.position = node.position;
-            sourceMap.astNode = node;
-            this.result.meta.set('sourceMap', sourceMap);
+            this.result = decorateWithSourcemap(node, new this.namespace.elements.OpenApi3());
         }
 
         return super.visit(node);
@@ -35,8 +32,7 @@ class OpenApi3Visitor extends ApiDOMVisitor {
 
         propertyNode.value.accept(openapiVisitor);
 
-        const openapiElement = new MemberElement(keyElement, openapiVisitor.result);
-        openapiElement.astNode = propertyNode;
+        const openapiElement = decorateWithSourcemap(propertyNode, new MemberElement(keyElement, openapiVisitor.result));
 
         this.result.content.push(openapiElement);
     }
@@ -48,8 +44,7 @@ class OpenApi3Visitor extends ApiDOMVisitor {
 
         propertyNode.value.accept(infoVisitor);
 
-        const infoElement = new MemberElement(keyElement, infoVisitor.result);
-        infoElement.astNode = propertyNode;
+        const infoElement = decorateWithSourcemap(propertyNode, new MemberElement(keyElement, infoVisitor.result));
 
         this.result.content.push(infoElement);
     }
@@ -61,8 +56,7 @@ class OpenApi3Visitor extends ApiDOMVisitor {
 
         propertyNode.value.accept(componentsVisitor);
 
-        const componentsElement = new MemberElement(keyElement, componentsVisitor.result);
-        componentsElement.astNode = propertyNode;
+        const componentsElement = decorateWithSourcemap(propertyNode, new MemberElement(keyElement, componentsVisitor.result));
 
         this.result.content.push(componentsElement);
     }

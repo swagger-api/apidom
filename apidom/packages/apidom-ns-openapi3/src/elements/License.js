@@ -1,6 +1,6 @@
 'use strict';
 
-const { ObjectElement } = require('minim');
+const {ObjectElement} = require('minim');
 
 /**
  * @class License
@@ -11,26 +11,26 @@ const { ObjectElement } = require('minim');
  * @extends ObjectElement
  */
 class License extends ObjectElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'license';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'license';
+  }
 
-    get name() {
-        return this.get('name');
-    }
+  get name() {
+    return this.get('name');
+  }
 
-    get url() {
-        return this.get('url');
-    }
+  get url() {
+    return this.get('url');
+  }
 
-    set name(name) {
-        return this.set('name', name);
-    }
+  set name(name) {
+    return this.set('name', name);
+  }
 
-    set url(url) {
-        return this.set('url', url);
-    }
+  set url(url) {
+    return this.set('url', url);
+  }
 }
 
 module.exports = License;

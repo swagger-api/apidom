@@ -1,6 +1,6 @@
 'use strict';
 
-const { StringElement } = require('minim');
+const {StringElement} = require('minim');
 
 /**
  * @class Annotation
@@ -11,18 +11,18 @@ const { StringElement } = require('minim');
  * @extends StringElement
  */
 class Annotation extends StringElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'annotation';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'annotation';
+  }
 
-    get code() {
-        return this.attributes.get('code');
-    }
+  get code() {
+    return this.attributes.get('code');
+  }
 
-    set code(value) {
-        return this.attributes.set('code', value);
-    }
+  set code(value) {
+    return this.attributes.set('code', value);
+  }
 }
 
 module.exports = Annotation;

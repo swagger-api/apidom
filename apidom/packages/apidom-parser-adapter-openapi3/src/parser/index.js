@@ -3,16 +3,17 @@
 const apiDOM = require('apidom');
 const openapi3 = require('apidom-ns-openapi3');
 const jsonAst = require('json-ast');
-const ParseResultVisitor = require('./visitors/ParseResult');
+const DocumentVisitor = require('./visitors/document');
+const { visit } = require('./visitor');
 
-const parse = source => {
-    const namespace = apiDOM.createNamespace(openapi3);
-    const ast = jsonAst.parse(source, {verbose: true, junker: true});
+const parse = (source, { sourceMap = false } = {}) => {
+  const namespace = apiDOM.createNamespace(openapi3);
+  const ast = jsonAst.parse(source, { verbose: true, junker: true });
+  const documentVisitor = DocumentVisitor();
 
-    const parseResultVisitor = new ParseResultVisitor(namespace);
-    ast.accept(parseResultVisitor);
+  visit(ast, documentVisitor, { state: { namespace, sourceMap }});
 
-    return parseResultVisitor.result;
+  return documentVisitor.element;
 };
 
 module.exports = parse;

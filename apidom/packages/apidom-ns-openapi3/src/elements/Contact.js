@@ -1,6 +1,6 @@
 'use strict';
 
-const { ObjectElement } = require('minim');
+const {ObjectElement} = require('minim');
 
 /**
  * @class Contact
@@ -11,34 +11,34 @@ const { ObjectElement } = require('minim');
  * @extends ObjectElement
  */
 class Contact extends ObjectElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'contact';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'contact';
+  }
 
-    get name() {
-        return this.get('name');
-    }
+  get name() {
+    return this.get('name');
+  }
 
-    get url() {
-        return this.get('url');
-    }
+  get url() {
+    return this.get('url');
+  }
 
-    get email() {
-        return this.get('email');
-    }
+  get email() {
+    return this.get('email');
+  }
 
-    set name(name) {
-        return this.set('name', name);
-    }
+  set name(name) {
+    return this.set('name', name);
+  }
 
-    set url(url) {
-        return this.set('url', url);
-    }
+  set url(url) {
+    return this.set('url', url);
+  }
 
-    set email(email) {
-        return this.set('email', email);
-    }
+  set email(email) {
+    return this.set('email', email);
+  }
 }
 
 module.exports = Contact;

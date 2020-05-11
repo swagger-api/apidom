@@ -1,6 +1,6 @@
 'use strict';
 
-const { ObjectElement } = require('minim');
+const {ObjectElement} = require('minim');
 
 /**
  * @class Info
@@ -11,58 +11,58 @@ const { ObjectElement } = require('minim');
  * @extends ObjectElement
  */
 class Info extends ObjectElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'info';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'info';
+  }
 
-    get title() {
-        return this.get('title');
-    }
+  get title() {
+    return this.get('title');
+  }
 
-    get description() {
-        return this.get('description');
-    }
+  get description() {
+    return this.get('description');
+  }
 
-    get termsOfService() {
-        return this.get('termsOfService');
-    }
+  get termsOfService() {
+    return this.get('termsOfService');
+  }
 
-    get version() {
-        return this.get('version');
-    }
+  get version() {
+    return this.get('version');
+  }
 
-    get license() {
-        return this.get('license');
-    }
+  get license() {
+    return this.get('license');
+  }
 
-    get contact() {
-        return this.get('contact');
-    }
+  get contact() {
+    return this.get('contact');
+  }
 
-    set title(title) {
-        return this.set('title', title);
-    }
+  set title(title) {
+    return this.set('title', title);
+  }
 
-    set description(description) {
-        return this.set('description', description);
-    }
+  set description(description) {
+    return this.set('description', description);
+  }
 
-    set termsOfService(tos) {
-        return this.set('termsOfService', tos);
-    }
+  set termsOfService(tos) {
+    return this.set('termsOfService', tos);
+  }
 
-    set version(version) {
-        return this.set('version', version);
-    }
+  set version(version) {
+    return this.set('version', version);
+  }
 
-    set license(licenseElement) {
-        return this.set('license', licenseElement);
-    }
+  set license(licenseElement) {
+    return this.set('license', licenseElement);
+  }
 
-    set contact(contactElement) {
-        return this.set('contact', contactElement);
-    }
+  set contact(contactElement) {
+    return this.set('contact', contactElement);
+  }
 }
 
 module.exports = Info;

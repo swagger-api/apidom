@@ -1,6 +1,6 @@
 'use strict';
 
-const { ObjectElement } = require('minim');
+const {ObjectElement} = require('minim');
 
 /**
  * @class OpenApi3
@@ -11,19 +11,19 @@ const { ObjectElement } = require('minim');
  * @extends ObjectElement
  */
 class OpenApi3 extends ObjectElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'openapi3';
-        this.classes.push('api');
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'openapi3';
+    this.classes.push('api');
+  }
 
-    get openapi() {
-        return this.get('openapi');
-    }
+  get openapi() {
+    return this.get('openapi');
+  }
 
-    get info() {
-        return this.get('info');
-    }
+  get info() {
+    return this.get('info');
+  }
 }
 
 module.exports = OpenApi3;

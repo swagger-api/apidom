@@ -12,7 +12,7 @@ const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')
 const namespace = apiDOM.createNamespace(openapi3);
 
 (async () => {
-    const parseResult = await parser.parse(spec);
-    console.log(parseResult);
-    console.log(apiDOM.toJSON(namespace, parseResult));
+  const parseResult = await parser.parse(spec);
+  console.log(parseResult);
+  console.log(apiDOM.toJSON(namespace, parseResult));
 })();

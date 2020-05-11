@@ -1,6 +1,6 @@
 'use strict';
 
-const { StringElement } = require('minim');
+const {StringElement} = require('minim');
 
 /**
  * @class Openapi *
@@ -11,10 +11,10 @@ const { StringElement } = require('minim');
  * @extends StringElement
  */
 class Openapi extends StringElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'openapi';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'openapi';
+  }
 }
 
 module.exports = Openapi;

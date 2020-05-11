@@ -1,6 +1,6 @@
 'use strict';
 
-const { ObjectElement } = require('minim');
+const {ObjectElement} = require('minim');
 
 /**
  * @class Schema
@@ -11,10 +11,10 @@ const { ObjectElement } = require('minim');
  * @extends ObjectElement
  */
 class Schema extends ObjectElement {
-    constructor(...args) {
-        super(...args);
-        this.element = 'schema';
-    }
+  constructor(...args) {
+    super(...args);
+    this.element = 'schema';
+  }
 }
 
 module.exports = Schema;

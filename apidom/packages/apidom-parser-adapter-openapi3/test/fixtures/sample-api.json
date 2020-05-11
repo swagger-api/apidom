@@ -18,6 +18,7 @@
   "components": {
     "schemas": {
       "User": {
+        "type": "object",
         "properties": {
           "id": {
             "type": "integer"
@@ -31,6 +32,7 @@
         }
       },
       "UserProfile": {
+        "type": "object",
         "properties": {
           "email": {
             "type": "string"

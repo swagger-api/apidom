@@ -3,9 +3,9 @@
 const defaultNamespace = require('./namespace');
 
 const createNamespace = (namespacePlugin) => {
-    const namespace =  new defaultNamespace.Namespace()
-    namespace.use(namespacePlugin);
-    return namespace;
+  const namespace = new defaultNamespace.Namespace()
+  namespace.use(namespacePlugin);
+  return namespace;
 };
 
 // toJSON :: (Namespace, Element) -> Object
@@ -27,11 +27,11 @@ const fromJSONString = (namespace, jsonString) => fromJSON(JSON.parse(jsonString
 const toValue = element => element.toValue();
 
 module.exports = {
-    namespace: defaultNamespace,
-    createNamespace,
-    toJSON,
-    toJSONString,
-    fromJSON,
-    fromJSONString,
-    toValue,
+  namespace: defaultNamespace,
+  createNamespace,
+  toJSON,
+  toJSONString,
+  fromJSON,
+  fromJSONString,
+  toValue,
 }

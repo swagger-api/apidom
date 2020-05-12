@@ -9,14 +9,14 @@ const SchemasVisitor = () => ({
 
   property(propertyNode) {
     const state = { namespace: this.namespace, sourceMap: this.sourceMap };
-    const schemaVisitor = SchemaVisitor();
     const schemasElement = parseSchemas(
       { namespace: this.namespace, sourceMap: this.sourceMap },
       propertyNode,
     );
 
     propertyNode.value.properties.forEach(schemaNode => {
-      visit(schemaNode, schemaVisitor, { state: { ...state, schemaName: schemaNode.key.value } });
+      const schemaVisitor = SchemaVisitor();
+      visit(schemaNode, schemaVisitor, { state: { ...state, schemaKeyNode: schemaNode.key } });
 
       schemasElement.value.content.push(schemaVisitor.element);
     });

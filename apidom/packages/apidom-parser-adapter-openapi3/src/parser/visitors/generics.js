@@ -1,11 +1,15 @@
 'use strict';
 
-const { last } = require('ramda');
+const { last, pick } = require('ramda');
+const { isNotNull } = require('ramda-adjunct');
 const { addSourceMap } = require('../source-map');
-const { visit } = require('../visitor');
+const { visit, BREAK } = require('../visitor');
 
 const ArrayVisitor = () => {
   const stack = [];
+  const createStatefulValueVisitor = ({ namespace, sourceMap }) => {
+    return Object.assign({}, ValueVisitor(), { namespace, sourceMap });
+  };
 
   return {
     element: null,
@@ -26,42 +30,55 @@ const ArrayVisitor = () => {
 
     string(stringNode) {
       const arrayElement = last(stack);
-      const stringElement = new this.namespace.elements.String(stringNode.value);
+      const valueVisitor = createStatefulValueVisitor(this);
 
-      arrayElement.push(this.sourceMap ? addSourceMap(stringNode, stringElement) : stringElement);
+      valueVisitor.string(stringNode);
+      arrayElement.push(valueVisitor.element);
     },
 
     number(numberNode) {
       const arrayElement = last(stack);
-      const numberElement = new this.namespace.elements.Number(Number(numberNode.value));
+      const valueVisitor = createStatefulValueVisitor(this);
 
-      arrayElement.push(this.sourceMap ? addSourceMap(numberNode, numberElement) : numberElement);
+      valueVisitor.number(numberNode);
+      arrayElement.push(valueVisitor.element);
     },
 
     true(trueNode) {
       const arrayElement = last(stack);
-      const booleanElement = new this.namespace.elements.Boolean(trueNode.value);
+      const valueVisitor = createStatefulValueVisitor(this);
 
-      arrayElement.push(this.sourceMap ? addSourceMap(trueNode, booleanElement) : booleanElement);
+      valueVisitor.true(trueNode);
+      arrayElement.push(valueVisitor.element);
     },
 
     false(falseNode) {
       const arrayElement = last(stack);
-      const booleanElement = new this.namespace.elements.Boolean(falseNode.value);
+      const valueVisitor = createStatefulValueVisitor(this);
 
-      arrayElement.push(this.sourceMap ? addSourceMap(falseNode, booleanElement) : booleanElement);
+      valueVisitor.false(falseNode);
+      arrayElement.push(valueVisitor.element);
     },
 
     null(nullNode) {
       const arrayElement = last(stack);
-      const nullElement = new this.namespace.elements.Null(nullNode.value);
+      const valueVisitor = createStatefulValueVisitor(this);
 
-      arrayElement.push(this.sourceMap ? addSourceMap(nullNode, nullElement) : nullElement);
+      valueVisitor.null(nullNode);
+      arrayElement.push(valueVisitor.element);
     },
 
     array: {
       enter() {
-        stack.push(new this.namespace.elements.Array());
+        const arrayElement = new this.namespace.elements.Array();
+
+        stack.push(arrayElement);
+
+        if (isNotNull(this.element)) {
+          this.element.push(arrayElement);
+        } else {
+          this.element = arrayElement;
+        }
       },
       leave() {
         this.element = stack.pop();
@@ -79,11 +96,8 @@ const ObjectVisitor = () => {
     property(propertyNode) {
       const objElement = last(stack);
       const { MemberElement } = this.namespace.elements.Element.prototype;
-      let keyElement;
+      const keyElement = new this.namespace.elements.String(propertyNode.key.value);
       let valueElement;
-
-      // object property key handling
-      keyElement = new this.namespace.elements.String(propertyNode.key.value);
 
       // object property value handling
       if (propertyNode.value.type === 'object') {
@@ -127,7 +141,64 @@ const ObjectVisitor = () => {
   };
 };
 
+const ValueVisitor = () => ({
+  element: null,
+
+  array(arrayNode) {
+    const state = { namespace: this.namespace, sourceMap: this.sourceMap };
+    const arrayVisitor = ArrayVisitor();
+
+    visit(arrayNode, arrayVisitor, { state });
+
+    this.element = arrayVisitor.element;
+
+    return BREAK;
+  },
+
+  object(objectNode) {
+    const state = { namespace: this.namespace, sourceMap: this.sourceMap };
+    const objectVisitor = ObjectVisitor();
+
+    visit(objectNode, objectVisitor, { state });
+
+    this.element = objectVisitor.element;
+
+    return BREAK;
+  },
+
+  string(stringNode) {
+    const stringElement = new this.namespace.elements.String(stringNode.value);
+    this.element = this.sourceMap ? addSourceMap(stringNode, stringElement) : stringElement;
+    return BREAK;
+  },
+
+  number(numberNode) {
+    const numberElement = new this.namespace.elements.Number(Number(numberNode.value));
+    this.element = this.sourceMap ? addSourceMap(numberNode, numberElement) : numberElement;
+    return BREAK;
+  },
+
+  true(trueNode) {
+    const booleanElement = new this.namespace.elements.Boolean(trueNode.value);
+    this.element = this.sourceMap ? addSourceMap(trueNode, booleanElement) : booleanElement;
+    return BREAK;
+  },
+
+  false(falseNode) {
+    const booleanElement = new this.namespace.elements.Boolean(falseNode.value);
+    this.element = this.sourceMap ? addSourceMap(falseNode, booleanElement) : booleanElement;
+    return BREAK;
+  },
+
+  null(nullNode) {
+    const nullElement = new this.namespace.elements.Null(nullNode.value);
+    this.element = this.sourceMap ? addSourceMap(nullNode, nullElement) : nullElement;
+    return BREAK;
+  },
+});
+
 module.exports = {
   ObjectVisitor,
   ArrayVisitor,
+  ValueVisitor,
 };

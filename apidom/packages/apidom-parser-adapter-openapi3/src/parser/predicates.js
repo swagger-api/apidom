@@ -1,9 +1,9 @@
 'use strict';
 
-const { length, pathEq } = require('ramda');
+const { length, pathEq, pathSatisfies, startsWith, both } = require('ramda');
 const { isInteger } = require('ramda-adjunct');
 
-// isComponentsSchemas :: (Options, JsonNode) -> Boolean
+// isComponentsSchemas :: (Options, PropertyNode) -> Boolean
 const isComponentsSchemas = ({ ancestors }, node) => {
   const totalAncestors = length(ancestors);
 
@@ -12,6 +12,14 @@ const isComponentsSchemas = ({ ancestors }, node) => {
     && pathEq([totalAncestors - 2, 'key', 'value'], 'components', ancestors)
 };
 
+// isOpenApiExtension :: (Options, PropertyNode) -> Boolean
+const isOpenApiExtension = (options, node) =>
+    both(
+      pathEq(['type'], 'property'),
+      pathSatisfies(startsWith('x-'), ['key', 'value'])
+    )(node);
+
 module.exports = {
   isComponentsSchemas,
+  isOpenApiExtension,
 };

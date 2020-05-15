@@ -13,7 +13,7 @@ const {ObjectElement} = require('minim');
 class OpenApi3 extends ObjectElement {
   constructor(...args) {
     super(...args);
-    this.element = 'openapi3';
+    this.element = 'openApi3';
     this.classes.push('api');
   }
 

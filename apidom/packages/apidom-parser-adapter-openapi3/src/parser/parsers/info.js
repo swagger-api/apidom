@@ -1,6 +1,8 @@
 'use strict';
 
 const { addSourceMap } = require('../source-map');
+const { isOpenApiExtension } = require('../predicates');
+const parseOpenApiExtension = require('./open-api-extension');
 
 // parseContact :: (Options, JsonNode) -> Element
 const parseContact = ({ namespace, sourceMap }, node) => {
@@ -64,6 +66,8 @@ const parseInfo = ({ namespace, sourceMap }, node) => {
         sourceMap ? addSourceMap(propertyNode.key, keyElement) : keyElement,
         sourceMap ? addSourceMap(propertyNode.value, valueElement): valueElement,
       ));
+    } else if (isOpenApiExtension({}, propertyNode)) {
+      infoElement.content.push(parseOpenApiExtension(state, propertyNode));
     } else if (propertyNode.key.value === 'contact') {
       infoElement.content.push(parseContact(state, propertyNode));
     } else if (propertyNode.key.value === 'license') {

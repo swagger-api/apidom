@@ -1,6 +1,6 @@
 'use strict';
 
-const { last, pick } = require('ramda');
+const { last } = require('ramda');
 const { isNotNull } = require('ramda-adjunct');
 const { addSourceMap } = require('../source-map');
 const { visit, BREAK } = require('../visitor');

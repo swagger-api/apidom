@@ -3,6 +3,7 @@
 const { addSourceMap } = require('../source-map');
 const { visit } = require('../visitor');
 const { ValueVisitor } = require('../visitors/generics');
+const { isOpenApiExtension } = require('../predicates');
 
 // parseOpenApiExtension :: (Options, PropertyNode) -> Element
 const parseOpenApiExtension = ({ namespace, sourceMap }, node) => {
@@ -17,7 +18,10 @@ const parseOpenApiExtension = ({ namespace, sourceMap }, node) => {
     sourceMap ? addSourceMap(node.key, keyElement) : keyElement,
     sourceMap ? addSourceMap(node.value, valueElement): valueElement,
   )
-  memberElement.classes.push('openApiExtension');
+
+  if (isOpenApiExtension({}, node)) {
+    memberElement.classes.push('openApiExtension');
+  }
 
   return memberElement;
 };

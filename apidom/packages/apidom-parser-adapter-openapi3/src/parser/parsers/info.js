@@ -1,5 +1,6 @@
 'use strict';
 
+const { partition } = require('ramda');
 const { addSourceMap } = require('../source-map');
 const { isOpenApiExtension } = require('../predicates');
 const parseOpenApiExtension = require('./open-api-extension');
@@ -9,9 +10,9 @@ const parseContact = ({ namespace, sourceMap }, node) => {
   const contactKeyElement = new namespace.elements.String('contact');
   const contactElement = new namespace.elements.Object();
   const { MemberElement } = namespace.elements.Element.prototype;
+  const [openApiExtensions, properties] = partition(isOpenApiExtension({}), node.value.properties);
 
-  contactElement.classes.push('contact');
-  node.value.properties.forEach(propertyNode => {
+  properties.forEach(propertyNode => {
     const keyElement = new namespace.elements.String(propertyNode.key.value);
     const valueElement = new namespace.elements.String(propertyNode.value.value);
 
@@ -20,6 +21,12 @@ const parseContact = ({ namespace, sourceMap }, node) => {
       sourceMap ? addSourceMap(propertyNode.value, valueElement): valueElement,
     ))
   });
+
+  openApiExtensions.forEach(propertyNode => {
+    contactElement.content.push(parseOpenApiExtension({ namespace, sourceMap }, propertyNode));
+  });
+
+  contactElement.classes.push('contact');
 
   return new MemberElement(
     sourceMap ? addSourceMap(node.key, contactKeyElement) : contactKeyElement,
@@ -32,9 +39,9 @@ const parseLicense = ({ namespace, sourceMap }, node) => {
   const licenseKeyElement = new namespace.elements.String('license');
   const licenseElement = new namespace.elements.Object();
   const { MemberElement } = namespace.elements.Element.prototype;
+  const [openApiExtensions, properties] = partition(isOpenApiExtension({}), node.value.properties);
 
-  licenseElement.classes.push('license');
-  node.value.properties.forEach(propertyNode => {
+  properties.forEach(propertyNode => {
     const keyElement = new namespace.elements.String(propertyNode.key.value);
     const valueElement = new namespace.elements.String(propertyNode.value.value);
 
@@ -43,6 +50,12 @@ const parseLicense = ({ namespace, sourceMap }, node) => {
       sourceMap ? addSourceMap(propertyNode.value, valueElement): valueElement,
     ))
   });
+
+  openApiExtensions.forEach(propertyNode => {
+    licenseElement.content.push(parseOpenApiExtension({ namespace, sourceMap }, propertyNode));
+  });
+
+  licenseElement.classes.push('license');
 
   return new MemberElement(
     sourceMap ? addSourceMap(node.key, licenseKeyElement) : licenseKeyElement,

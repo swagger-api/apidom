@@ -8,10 +8,12 @@
     "x-version": "0.1.9-beta",
     "license": {
       "name": "Apache-2.0",
+      "x-fullName": "Apache License 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0"
     },
     "contact": {
       "name": "Vladimir Gorej",
+      "x-username": "char0n",
       "url": "https://www.linkedin.com/in/vladimirgorej/",
       "email": "vladimir.gorej@gmail.com"
     }

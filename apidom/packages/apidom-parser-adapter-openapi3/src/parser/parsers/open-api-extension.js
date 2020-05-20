@@ -26,4 +26,17 @@ const parseOpenApiExtension = ({ namespace, sourceMap }, node) => {
   return memberElement;
 };
 
-module.exports = parseOpenApiExtension;
+// parseOpenApiExtensions :: (Options, Array.<PropertyNode>) -> Element
+const parseOpenApiExtensions = ({ namespace, sourceMap, accumulator }, nodeList) => {
+  return nodeList
+    .filter(isOpenApiExtension({}))
+    .reduce((acc, node) => {
+      acc.push(parseOpenApiExtension({ namespace, sourceMap }, node));
+      return acc;
+    }, new namespace.elements.Array());
+};
+
+module.exports = {
+  parseOpenApiExtension,
+  parseOpenApiExtensions,
+};

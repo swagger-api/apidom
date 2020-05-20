@@ -3,6 +3,8 @@
 const parseOpenapi = require('./openapi');
 const parseInfo = require('./info');
 const parseComponents = require('./components');
+const { parseOpenApiExtension } = require('./open-api-extension');
+const { isOpenApiExtension } = require('../predicates');
 
 // parseOpenApi3 :: (Options, JsonNode) -> Element
 const parseOpenApi3 = ({ namespace, sourceMap }, node) => {
@@ -16,6 +18,8 @@ const parseOpenApi3 = ({ namespace, sourceMap }, node) => {
       openApi3Element.content.push(parseInfo(state, propertyNode));
     } else if (propertyNode.key.value === 'components') {
       openApi3Element.content.push(parseComponents(state, propertyNode));
+    } else if (isOpenApiExtension({}, propertyNode)) {
+      openApi3Element.content.push(parseOpenApiExtension(state, propertyNode));
     }
   });
 

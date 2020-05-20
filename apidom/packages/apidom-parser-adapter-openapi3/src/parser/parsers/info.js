@@ -3,12 +3,12 @@
 const { partition } = require('ramda');
 const { addSourceMap } = require('../source-map');
 const { isOpenApiExtension } = require('../predicates');
-const parseOpenApiExtension = require('./open-api-extension');
+const { parseOpenApiExtension, parseOpenApiExtensions } = require('./open-api-extension');
 
 // parseContact :: (Options, JsonNode) -> Element
 const parseContact = ({ namespace, sourceMap }, node) => {
   const contactKeyElement = new namespace.elements.String('contact');
-  const contactElement = new namespace.elements.Object();
+  let contactElement = new namespace.elements.Object();
   const { MemberElement } = namespace.elements.Element.prototype;
   const [openApiExtensions, properties] = partition(isOpenApiExtension({}), node.value.properties);
 
@@ -22,9 +22,9 @@ const parseContact = ({ namespace, sourceMap }, node) => {
     ))
   });
 
-  openApiExtensions.forEach(propertyNode => {
-    contactElement.content.push(parseOpenApiExtension({ namespace, sourceMap }, propertyNode));
-  });
+  contactElement = contactElement.concat(
+    parseOpenApiExtensions({ namespace, sourceMap }, openApiExtensions)
+  );
 
   contactElement.classes.push('contact');
 
@@ -37,7 +37,7 @@ const parseContact = ({ namespace, sourceMap }, node) => {
 // parseLicense :: (Options, JsonNode) -> Element
 const parseLicense = ({ namespace, sourceMap }, node) => {
   const licenseKeyElement = new namespace.elements.String('license');
-  const licenseElement = new namespace.elements.Object();
+  let licenseElement = new namespace.elements.Object();
   const { MemberElement } = namespace.elements.Element.prototype;
   const [openApiExtensions, properties] = partition(isOpenApiExtension({}), node.value.properties);
 
@@ -51,9 +51,9 @@ const parseLicense = ({ namespace, sourceMap }, node) => {
     ))
   });
 
-  openApiExtensions.forEach(propertyNode => {
-    licenseElement.content.push(parseOpenApiExtension({ namespace, sourceMap }, propertyNode));
-  });
+  licenseElement = licenseElement.concat(
+    parseOpenApiExtensions({ namespace, sourceMap }, openApiExtensions)
+  );
 
   licenseElement.classes.push('license');
 

@@ -1,5 +1,6 @@
 {
   "openapi": "3.0.0",
+  "x-top-level": "value",
   "info": {
     "title": "Sample API",
     "description": "Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.",
@@ -20,6 +21,14 @@
   },
   "components": {
     "schemas": {
+      "x-model": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type:": "integer"
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -38,7 +47,8 @@
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "x-nullable": true
           }
         }
       }

@@ -4,6 +4,7 @@ const { last } = require('ramda');
 const { isNotNull } = require('ramda-adjunct');
 const { addSourceMap } = require('../source-map');
 const { visit, BREAK } = require('../visitor');
+const { isOpenApiExtension } = require('../predicates');
 
 const ArrayVisitor = () => {
   const stack = [];
@@ -117,16 +118,30 @@ const ObjectVisitor = () => {
       } else if (propertyNode.key.value === '$ref') { // $ref property key special handling
         valueElement = new this.namespace.elements.Ref(propertyNode.value.value);
         valueElement.path = propertyNode.value.value;
-      } else {
+      } else if (!isOpenApiExtension({}, propertyNode)) {
         valueElement = this.namespace.toElement(propertyNode.value.value);
       }
 
-      objElement.content.push(
-        new MemberElement(
-          this.sourceMap ? addSourceMap(propertyNode.key, keyElement) : keyElement,
-          this.sourceMap ? addSourceMap(propertyNode.value, valueElement): valueElement,
-        )
-      );
+      /**
+       * @todo(vladimir.gorej@gmail.com): we have a circular dependency here which needs to be eliminated in future.
+       */
+      if (isOpenApiExtension({}, propertyNode)) {
+        const { parseOpenApiExtension } = require('../parsers/open-api-extension');
+
+        objElement.content.push(
+          parseOpenApiExtension(
+            { namespace: this.namespace, sourceMap: this.sourceMap },
+            propertyNode
+          )
+        );
+      } else {
+        objElement.content.push(
+          new MemberElement(
+            this.sourceMap ? addSourceMap(propertyNode.key, keyElement) : keyElement,
+            this.sourceMap ? addSourceMap(propertyNode.value, valueElement): valueElement,
+          )
+        );
+      }
 
       return false;
     },

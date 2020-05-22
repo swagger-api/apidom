@@ -13,6 +13,7 @@
     "apidom-ns-openapi3": "^0.1.0",
     "json-ast": "^2.1.7",
     "ramda": "^0.27.0",
-    "ramda-adjunct": "^2.26.0"
+    "ramda-adjunct": "^2.26.0",
+    "stampit": "^4.3.1"
   }
 }

@@ -20,6 +20,7 @@
     }
   },
   "components": {
+    "x-extension": "value",
     "schemas": {
       "x-model": {
         "type": "object",

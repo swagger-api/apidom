@@ -8,12 +8,20 @@ const { visit } = require('./visitor');
 
 const parse = (source, { sourceMap = false, verbose = true, junker = true, specObj = specification } = {}) => {
   const namespace = apiDOM.createNamespace(openapi3);
-  const ast = jsonAst.parse(source, { verbose, junker });
+  const parseResultElement = new namespace.elements.ParseResult();
   const documentVisitor = specObj.visitors.document.$visitor();
+  let ast = null;
 
-  visit(ast, documentVisitor, { state: { namespace, specObj, sourceMap }});
-
-  return documentVisitor.element;
+  try {
+    ast = jsonAst.parse(source, {verbose, junker});
+    visit(ast, documentVisitor, { state: { namespace, specObj, sourceMap, element: parseResultElement }});
+    return documentVisitor.element;
+  } catch (error) {
+    const annotation = new namespace.elements.Annotation(error.message)
+    annotation.classes.push('error');
+    parseResultElement.push(annotation);
+    return parseResultElement;
+  }
 };
 
 module.exports = parse;

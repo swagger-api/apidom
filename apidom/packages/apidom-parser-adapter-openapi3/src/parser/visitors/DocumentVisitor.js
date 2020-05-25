@@ -8,7 +8,6 @@ const CommentVisitor = require('./CommentVisitor');
 const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {
     document(documentNode) {
-      this.element = new this.namespace.elements.ParseResult();
       const openApiVisitor = this.retrieveVisitorInstance(['document', 'openApi']);
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 

@@ -6,9 +6,9 @@ const jsonAst = require('json-ast');
 const { specification } = require('./specification');
 const { visit } = require('./visitor');
 
-const parse = (source, { sourceMap = false, specObj = specification } = {}) => {
+const parse = (source, { sourceMap = false, verbose = true, junker = true, specObj = specification } = {}) => {
   const namespace = apiDOM.createNamespace(openapi3);
-  const ast = jsonAst.parse(source, { verbose: true, junker: true });
+  const ast = jsonAst.parse(source, { verbose, junker });
   const documentVisitor = specObj.visitors.document.$visitor();
 
   visit(ast, documentVisitor, { state: { namespace, specObj, sourceMap }});

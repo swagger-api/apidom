@@ -3,7 +3,6 @@
 const stampit = require('stampit');
 const { visit, BREAK } = require('../../../visitor');
 const SpecificationVisitor = require('../../SpecificationVisitor');
-const { ValueVisitor } = require('../../generics');
 const { isOpenApiExtension } = require('../../../predicates');
 
 const LicenseVisitor = stampit(SpecificationVisitor, {
@@ -18,6 +17,7 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const licenseElement = new this.namespace.elements.Object();
       const { MemberElement } = this.namespace.elements.Element.prototype;
+      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
       objectNode.properties.forEach(propertyNode => {
         if (['name', 'url'].includes(propertyNode.key.value)) {
@@ -31,6 +31,8 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
         }
       });
 
+      visit(objectNode.comments, commentVisitor);
+      licenseElement.meta.set('comments', commentVisitor.element);
       licenseElement.classes.push('license');
 
       this.element = new MemberElement(

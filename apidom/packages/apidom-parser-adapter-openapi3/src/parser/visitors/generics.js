@@ -64,10 +64,14 @@ const ArrayVisitor = stampit(SpecificationVisitor).init(function ArrayVisitor() 
   };
 
   this.array = {
-    enter: () => {
-      const arrayElement = new this.namespace.elements.Array();
+    enter: (arrayNode) => {
+      const arrayElement = this.maybeAddSourceMap(arrayNode, new this.namespace.elements.Array());
+      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
       stack.push(arrayElement);
+
+      visit(arrayNode.comments, commentVisitor);
+      arrayElement.meta.set('comments', commentVisitor.element);
 
       if (isNotNull(this.element)) {
         this.element.push(arrayElement);
@@ -128,8 +132,13 @@ const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectVisitor(
 
 
   this.object = {
-    enter: () => {
-      stack.push(new this.namespace.elements.Object());
+    enter: (objectNode) => {
+      const objectElement = this.maybeAddSourceMap(objectNode, new this.namespace.elements.Object());
+      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
+
+      visit(objectNode.comments, commentVisitor);
+      objectElement.meta.set('comments', commentVisitor.element);
+      stack.push(objectElement);
     },
     leave: () => {
       this.element = stack.pop();

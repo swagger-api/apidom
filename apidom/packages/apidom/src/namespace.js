@@ -3,6 +3,7 @@ const minim = require('minim');
 const ParseResult = require('./elements/ParseResult');
 const Annotation = require('./elements/Annotation');
 const SourceMap = require('./elements/SourceMap');
+const Comment = require('./elements/Comment');
 
 class Namespace extends minim.Namespace {
     constructor() {
@@ -11,6 +12,7 @@ class Namespace extends minim.Namespace {
         this.register('parseResult', ParseResult);
         this.register('annotation', Annotation);
         this.register('sourceMap', SourceMap);
+        this.register('comment', Comment);
     }
 }
 

@@ -2,7 +2,7 @@
 
 const stampit = require('stampit');
 const SpecificationVisitor = require('../SpecificationVisitor');
-const { BREAK } = require('../../visitor');
+const { visit, BREAK } = require('../../visitor');
 
 const SchemasVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -16,14 +16,18 @@ const SchemasVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const schemasElement = new this.namespace.elements.Object();
       const { MemberElement } = this.namespace.elements.Element.prototype;
-
-      schemasElement.classes.push('schemas');
+      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
       objectNode.properties.forEach(propertyNode => {
         schemasElement.content.push(
           this.mapPropertyNodeToMemberElement(['document', 'openApi', 'schema'], propertyNode)
         );
       });
+
+      visit(objectNode.comments, commentVisitor);
+      schemasElement.meta.set('comments', commentVisitor.element);
+      schemasElement.classes.push('schemas');
+
 
       this.element = new MemberElement(
         this.keyElement,

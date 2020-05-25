@@ -3,7 +3,6 @@
 const stampit = require('stampit');
 const { visit, BREAK } = require('../../visitor');
 const SpecificationVisitor = require('../SpecificationVisitor');
-const { ValueVisitor } = require('../generics');
 const { isOpenApiExtension } = require('../../predicates');
 
 const ComponentsVisitor = stampit(SpecificationVisitor, {
@@ -18,6 +17,7 @@ const ComponentsVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const componentsElement = new this.namespace.elements.Components();
       const { MemberElement } = this.namespace.elements.Element.prototype;
+      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
       const supportedProps = ['schemas'];
 
       objectNode.properties.forEach(propertyNode => {
@@ -31,6 +31,9 @@ const ComponentsVisitor = stampit(SpecificationVisitor, {
           );
         }
       });
+
+      visit(objectNode.comments, commentVisitor);
+      componentsElement.meta.set('comments', commentVisitor.element);
 
       this.element = new MemberElement(
         this.keyElement,

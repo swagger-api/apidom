@@ -1,6 +1,7 @@
 'use strict';
 
 const DocumentVisitor = require('./visitors/DocumentVisitor');
+const CommentVisitor = require('./visitors/CommentVisitor');
 const OpenApiVisitor = require('./visitors/OpenApiVisitor');
 const OpenApiExtensionVisitor = require('./visitors/OpenApiExtensionVisitor');
 const OpenapiVisitor = require('./visitors/OpenapiVisitor');
@@ -34,6 +35,7 @@ const specification = {
     array: ArrayVisitor,
     document: {
       $visitor: DocumentVisitor,
+      comment: CommentVisitor,
       openApi: {
         openApiExtension: OpenApiExtensionVisitor,
         schema: SchemaVisitor,

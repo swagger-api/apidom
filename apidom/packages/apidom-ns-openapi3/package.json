@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "description": "OpenAPI3 profile for ApiDOM",
   "main": "./src/namespace.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "minim": "^0.23.6"
+    "minim": "=0.23.6"
   }
 }

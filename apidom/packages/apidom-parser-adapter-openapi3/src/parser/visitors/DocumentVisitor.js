@@ -3,7 +3,6 @@
 const stampit = require('stampit');
 const { visit, BREAK } = require('../visitor');
 const SpecificationVisitor = require('./SpecificationVisitor');
-const CommentVisitor = require('./CommentVisitor');
 
 const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {

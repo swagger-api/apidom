@@ -4,18 +4,16 @@
   "description": "Parser tools for ApiDOM",
   "main": "./src/parser.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/index.js"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "ramda": "^0.27.0",
-    "ramda-adjunct": "^2.26.0",
-    "stampit": "^4.3.1"
+    "ramda": "=0.27.0",
+    "ramda-adjunct": "=2.26.0",
+    "stampit": "=4.3.1"
   },
   "devDependencies": {
-    "apidom": "^0.1.0",
-    "apidom-ns-openapi3": "^0.1.0",
-    "apidom-parser-adapter-openapi3": "^0.1.0"
+    "apidom": "file:../apidom"
   }
 }

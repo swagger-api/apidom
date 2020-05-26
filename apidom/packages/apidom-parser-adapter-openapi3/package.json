@@ -4,16 +4,16 @@
   "description": "OpenAPI3 adapter for ApiDOM parser",
   "main": "./src/adapter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/index.js"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "apidom": "^0.1.0",
-    "apidom-ns-openapi3": "^0.1.0",
-    "json-ast": "^2.1.7",
-    "ramda": "^0.27.0",
-    "ramda-adjunct": "^2.26.0",
-    "stampit": "^4.3.1"
+    "apidom": "file:../apidom",
+    "apidom-ns-openapi3": "file:../apidom-ns-openapi3",
+    "json-ast": "=2.1.7",
+    "ramda": "=0.27.0",
+    "ramda-adjunct": "=2.26.0",
+    "stampit": "=4.3.1"
   }
 }

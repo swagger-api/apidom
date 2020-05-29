@@ -13,7 +13,7 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off', // ['error', { devDependencies: true }],
     'import/no-mutable-exports': 0,
     'no-labels': 0,
     'no-restricted-syntax': 0,

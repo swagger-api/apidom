@@ -28,17 +28,17 @@ jobs:
       run: npm ci
       working-directory: ./apidom
     - name: Bootstrap monorepo
-      run: npm bootstrap
+      run: npm run bootstrap
       working-directory: ./apidom
     - name: Lint code
-      run: npm lint
+      run: npm run lint
       working-directory: ./apidom
     - name: Check TypeScript types
-      run: npm check-types
+      run: npm run check-types
       working-directory: ./apidom
     - name: Execute tests in monorepo
-      run: npm test
+      run: npm run test
       working-directory: ./apidom
     - name: Build monorepo
-      run: npm build
+      run: npm run build
       working-directory: ./apidom

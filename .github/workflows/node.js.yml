@@ -36,9 +36,9 @@ jobs:
     - name: Check TypeScript types
       run: npm run check-types
       working-directory: ./apidom
-    - name: Execute tests in monorepo
-      run: npm run test
-      working-directory: ./apidom
     - name: Build monorepo
       run: npm run build
+      working-directory: ./apidom
+    - name: Execute tests in monorepo
+      run: npm run test
       working-directory: ./apidom

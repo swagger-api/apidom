@@ -24,9 +24,21 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm bootstrap  
-    - run: npm lint
-    - run: npm check-types
-    - run: npm test
-    - run: npm build  
+    - name: Install dependencies
+      run: npm ci
+      working-directory: ./apidom
+    - name: Bootstrap monorepo
+      run: npm bootstrap
+      working-directory: ./apidom
+    - name: Lint code
+      run: npm lint
+      working-directory: ./apidom
+    - name: Check TypeScript types
+      run: npm check-types
+      working-directory: ./apidom
+    - name: Execute tests in monorepo
+      run: npm test
+      working-directory: ./apidom
+    - name: Build monorepo
+      run: npm build
+      working-directory: ./apidom

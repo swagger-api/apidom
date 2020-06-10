@@ -17,7 +17,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./lib ./dist",
-    "check-types": "tsc --noEmit"
+    "typescript:check-types": "tsc --noEmit"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

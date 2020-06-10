@@ -1,7 +1,6 @@
 /dist
 /es
 /lib
-/types
 /config
 /.eslintrc.js
 /.nyc_output

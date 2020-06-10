@@ -2,13 +2,28 @@
   "name": "apidom-parser",
   "version": "0.1.0",
   "description": "Parser tools for ApiDOM",
-  "main": "./src/parser.js",
+  "main": "lib/parser.js",
+  "module": "es/parser.js",
+  "jsnext:main": "es/parser.js",
+  "browser": "dist/apidom-parser.browser.js",
+  "unpkg": "dist/apidom-parser.browser.min.js",
   "scripts": {
-    "test": "node test/index.js"
+    "build": "cross-env npm run build:es && npm run build:commonjs && npm run build:umd",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions '.ts' --root-mode 'upward'",
+    "build:umd": "cross-env npm run build:umd:node && npm run build:umd:browser",
+    "build:umd:node": "cross-env BABEL_ENV=node webpack --config config/webpack/node.config.js --progress",
+    "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix",
+    "clean": "rimraf ./es ./lib ./dist",
+    "typescript:check-types": "tsc --noEmit",
+    "test": "cross-env BABEL_ENV=commonjs mocha"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
+    "@types/ramda": "=0.27.6",
     "ramda": "=0.27.0",
     "ramda-adjunct": "=2.26.0",
     "stampit": "=4.3.1"

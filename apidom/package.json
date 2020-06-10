@@ -6,7 +6,8 @@
     "bootstrap": "cross-env lerna bootstrap && npm run link-parent-bin",
     "build": "lerna run build",
     "lint": "lerna run lint",
-    "check-types": "lerna run check-types",
+    "typescript:check-types": "lerna run typescript:check-types",
+    "typescript:declaration": "lerna run typescript:declaration",
     "clean": "lerna run clean",
     "test": "lerna run test",
     "link-parent-bin": "link-parent-bin"

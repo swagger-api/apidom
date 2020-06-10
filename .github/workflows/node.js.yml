@@ -33,8 +33,11 @@ jobs:
     - name: Lint code
       run: npm run lint
       working-directory: ./apidom
+    - name: Generate TypeScript declaration files
+      run: npm run typescript:declaration
+      working-directory: ./apidom
     - name: Check TypeScript types
-      run: npm run check-types
+      run: npm run typescript:check-types
       working-directory: ./apidom
     - name: Build monorepo
       run: npm run build

@@ -56,4 +56,12 @@ declare module 'minim' {
 
     push(value: any): ArrayElement;
   }
+
+  export class ObjectElement extends ArrayElement {
+    constructor(content: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
+
+    get(key: string): any;
+
+    set(key: string | StringElement, value: any): void;
+  }
 }

@@ -1,7 +1,7 @@
 import { Attributes, Meta, ObjectElement } from 'minim';
 
 class Contact extends ObjectElement {
-  constructor(content: Record<string, unknown>, meta: Meta, attributes: Attributes) {
+  constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
     this.element = 'contact';
   }

@@ -5,16 +5,35 @@ declare module 'minim' {
   export type Meta = Record<string, any>;
   export type Attributes = Record<string, any>;
   export type Predicate = (element: Element) => boolean;
-  interface Type<T> extends Function {
+
+  export class Element {
+    public element: string;
+
+    public classes: ArrayElement;
+
+    public attributes: Attributes;
+
+    public children: ArrayElement;
+
+    constructor(content: Array<unknown>, meta?: Meta, attributes?: Attributes);
+
+    toValue(): any;
+  }
+
+  interface Type<T> extends Element {
     new (...args: any[]): T;
   }
 
+  type ExtendingElement<T extends Element = Element> = Record<string, T>;
+
   export class Namespace {
+    get elements(): Record<string, Element>;
+
     toRefract(element: Element): JSON;
 
     fromRefract(doc: JSON): Element;
 
-    register(name: string, elementClass: Type<Element>): Namespace;
+    register(name: string, elementClass: typeof Element): Namespace;
 
     use(plugin: NamespacePlugin): Namespace;
   }
@@ -27,25 +46,9 @@ declare module 'minim' {
     namespace(options: NamespacePluginOptions): Namespace;
   }
 
-  export class Element {
-    public element: string;
-
-    public classes: ArrayElement;
-
-    public attributes: Attributes;
-
-    public children: ArrayElement;
-
-    constructor(content: string, meta?: Meta, attributes?: Attributes);
-
-    toValue(): any;
-  }
-
   export class StringElement extends Element {}
 
   export class ArrayElement extends Element {
-    constructor(content: Array<any>, meta?: Meta, attributes?: Attributes);
-
     first: Element | undefined;
 
     second: Element | undefined;
@@ -58,7 +61,7 @@ declare module 'minim' {
   }
 
   export class ObjectElement extends ArrayElement {
-    constructor(content: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     get(key: string): any;
 

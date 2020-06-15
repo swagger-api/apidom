@@ -3,7 +3,7 @@ import OpenapiElement from './Openapi';
 import InfoElement from './Info';
 
 class OpenApi3 extends ObjectElement {
-  constructor(content: Record<string, unknown>, meta: Meta, attributes: Attributes) {
+  constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
     this.element = 'openApi3';
     this.classes.push('api');

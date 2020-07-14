@@ -1,13 +1,13 @@
 {
-  "name": "apidom-parser",
+  "name": "apidom-ns-openapi3-1",
   "version": "0.1.0",
-  "description": "Parser tools for ApiDOM",
-  "main": "lib/parser.js",
-  "module": "es/parser.js",
-  "jsnext:main": "es/parser.js",
-  "browser": "dist/apidom-parser.browser.js",
-  "unpkg": "dist/apidom-parser.browser.min.js",
-  "types": "types/parser.d.ts",
+  "description": "OpenAPI 3.1 profile for ApiDOM",
+  "main": "lib/namespace.js",
+  "module": "es/namespace.js",
+  "jsnext:main": "es/namespace.js",
+  "browser": "dist/apidom-ns-openapi3-1.browser.js",
+  "unpkg": "dist/apidom-ns-openapi3-1.browser.min.js",
+  "types": "types/namespace.d.ts",
   "scripts": {
     "build": "npm run typescript:declaration && npm run build:es && npm run build:commonjs && npm run build:umd",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
@@ -19,18 +19,11 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./lib ./dist",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json",
-    "test": "cross-env BABEL_ENV=commonjs mocha"
+    "typescript:declaration": "tsc -p declaration.tsconfig.json"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@types/ramda": "=0.27.6",
-    "ramda": "=0.27.0",
-    "ramda-adjunct": "=2.26.0",
-    "stampit": "=4.3.1"
-  },
-  "devDependencies": {
-    "apidom": "file:../apidom"
+    "minim": "=0.23.6"
   }
 }

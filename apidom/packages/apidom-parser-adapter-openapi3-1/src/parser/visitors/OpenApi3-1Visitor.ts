@@ -3,12 +3,12 @@ import { visit, BREAK } from '../visitor';
 import { isOpenApiExtension } from '../predicates';
 import SpecificationVisitor from './SpecificationVisitor';
 
-const OpenApi3Visitor = stampit(SpecificationVisitor, {
+const OpenApi3_1Visitor = stampit(SpecificationVisitor, {
   methods: {
     object(objectNode) {
       this.element = new this.namespace.elements.OpenApi3();
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
-      const supportedProps = ['openapi', 'info', 'components'];
+      const supportedProps = ['openapi', 'info', 'components', 'servers'];
 
       objectNode.properties.forEach((propertyNode) => {
         if (supportedProps.includes(propertyNode.key.value)) {
@@ -36,4 +36,4 @@ const OpenApi3Visitor = stampit(SpecificationVisitor, {
   },
 });
 
-export default OpenApi3Visitor;
+export default OpenApi3_1Visitor;

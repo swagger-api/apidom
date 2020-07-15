@@ -7,9 +7,15 @@ declare module 'json-ast' {
     junker?: boolean;
   }
 
+  interface NodeTypes {
+    OBJECT: 'object';
+  }
+
   export class JsonNode {}
 
   export class JsonDocument extends JsonNode {}
+
+  export const nodeTypes: NodeTypes;
 
   export const parse: (source: string, options: ParseOptions) => JsonDocument;
 }

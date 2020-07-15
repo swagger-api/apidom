@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 import ContactElement from './Contact';
 import LicenseElement from './License';
 
@@ -8,43 +8,43 @@ class Info extends ObjectElement {
     this.element = 'info';
   }
 
-  get title(): string {
+  get title(): StringElement {
     return this.get('title');
   }
 
-  set title(title: string) {
+  set title(title: StringElement) {
     this.set('title', title);
   }
 
-  get description(): string {
+  get description(): StringElement {
     return this.get('description');
   }
 
-  set description(description: string) {
+  set description(description: StringElement) {
     this.set('description', description);
   }
 
-  get summary(): string {
+  get summary(): StringElement {
     return this.get('summary');
   }
 
-  set summary(description: string) {
+  set summary(description: StringElement) {
     this.set('summary', description);
   }
 
-  get termsOfService(): string {
+  get termsOfService(): StringElement {
     return this.get('termsOfService');
   }
 
-  set termsOfService(tos: string) {
+  set termsOfService(tos: StringElement) {
     this.set('termsOfService', tos);
   }
 
-  get version(): string {
+  get version(): StringElement {
     return this.get('version');
   }
 
-  set version(version: string) {
+  set version(version: StringElement) {
     this.set('version', version);
   }
 

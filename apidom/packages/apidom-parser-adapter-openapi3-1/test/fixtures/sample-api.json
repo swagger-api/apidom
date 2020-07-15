@@ -67,8 +67,18 @@
       "description": "Optional server description, e.g. Main (production) server"
     },
     {
-      "url": "http://staging-api.example.com",
-      "description": "Optional server description, e.g. Internal staging server for testing"
+      "url": "http:{port}//staging-api.example.com",
+      "description": "Optional server description, e.g. Internal staging server for testing",
+      "variables": {
+        "port": {
+          "enum": [
+            "8443",
+            "443"
+          ],
+          "default": "8443",
+          "description": "Port description"
+        }
+      }
     }
   ],
   "paths": {

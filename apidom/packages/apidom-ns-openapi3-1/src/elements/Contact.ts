@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
 class Contact extends ObjectElement {
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
@@ -6,27 +6,27 @@ class Contact extends ObjectElement {
     this.element = 'contact';
   }
 
-  get name(): string {
+  get name(): StringElement {
     return this.get('name').toValue();
   }
 
-  set name(name: string) {
+  set name(name: StringElement) {
     this.set('name', name);
   }
 
-  get url(): string {
+  get url(): StringElement {
     return this.get('url');
   }
 
-  set url(url: string) {
+  set url(url: StringElement) {
     this.set('url', url);
   }
 
-  get email(): string {
+  get email(): StringElement {
     return this.get('email');
   }
 
-  set email(email: string) {
+  set email(email: StringElement) {
     this.set('email', email);
   }
 }

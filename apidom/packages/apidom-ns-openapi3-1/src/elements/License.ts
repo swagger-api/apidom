@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
 class License extends ObjectElement {
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
@@ -6,27 +6,27 @@ class License extends ObjectElement {
     this.element = 'license';
   }
 
-  get name(): string {
+  get name(): StringElement {
     return this.get('name');
   }
 
-  set name(name: string) {
+  set name(name: StringElement) {
     this.set('name', name);
   }
 
-  get identifier(): string {
+  get identifier(): StringElement {
     return this.get('identifier');
   }
 
-  set identifier(name: string) {
+  set identifier(name: StringElement) {
     this.set('identifier', name);
   }
 
-  get url(): string {
+  get url(): StringElement {
     return this.get('url');
   }
 
-  set url(url: string) {
+  set url(url: StringElement) {
     this.set('url', url);
   }
 }

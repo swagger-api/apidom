@@ -21,7 +21,7 @@ const SchemasVisitor = stampit(SpecificationVisitor, {
 
       objectNode.properties.forEach((propertyNode) => {
         schemasElement.content.push(
-          this.mapPropertyNodeToMemberElement(['document', 'openApi', 'schema'], propertyNode),
+          this.mapPropertyNodeToMemberElement(['document', 'objects', 'Schema'], propertyNode),
         );
       });
 

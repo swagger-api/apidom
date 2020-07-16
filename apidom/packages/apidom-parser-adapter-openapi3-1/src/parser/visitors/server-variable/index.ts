@@ -25,16 +25,13 @@ const ServerVariableVisitor = stampit(SpecificationVisitor, {
         if (supportedProps.includes(propertyNode.key.value)) {
           serverVariableElement.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'serverVariable', propertyNode.key.value],
+              ['document', 'objects', 'ServerVariable', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           serverVariableElement.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

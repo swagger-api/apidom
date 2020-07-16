@@ -115,10 +115,7 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
 
     if (isOpenApiExtension({}, propertyNode)) {
       objElement.content.push(
-        this.mapPropertyNodeToMemberElement(
-          ['document', 'openApi', 'openApiExtension'],
-          propertyNode,
-        ),
+        this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
       );
     } else {
       objElement.content.push(

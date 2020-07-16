@@ -5,7 +5,7 @@ import SpecificationVisitor from './SpecificationVisitor';
 const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {
     document(documentNode) {
-      const openApiVisitor = this.retrieveVisitorInstance(['document', 'openApi']);
+      const openApiVisitor = this.retrieveVisitorInstance(['document', 'objects', 'OpenApi']);
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
       visit(documentNode.child, openApiVisitor);

@@ -2,7 +2,7 @@ import { Attributes, Meta, ObjectElement } from 'minim';
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';
 
-class OpenApi3 extends ObjectElement {
+class OpenApi3_1 extends ObjectElement {
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
     this.element = 'openApi3';
@@ -18,4 +18,4 @@ class OpenApi3 extends ObjectElement {
   }
 }
 
-export default OpenApi3;
+export default OpenApi3_1;

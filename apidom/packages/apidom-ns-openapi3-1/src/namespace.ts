@@ -1,5 +1,5 @@
 import { NamespacePluginOptions } from 'minim';
-import OpenApi3 from './elements/OpenApi3';
+import OpenApi3_1 from './elements/OpenApi3-1';
 import Openapi from './elements/Openapi';
 import Info from './elements/Info';
 import License from './elements/License';
@@ -9,11 +9,11 @@ import Schema from './elements/Schema';
 import Server from './elements/Server';
 import ServerVariable from './elements/ServerVariable';
 
-const openApi3 = {
+const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
-    base.register('openApi3', OpenApi3);
+    base.register('openApi3_1', OpenApi3_1);
     base.register('openapi', Openapi);
     base.register('info', Info);
     base.register('license', License);
@@ -27,4 +27,4 @@ const openApi3 = {
   },
 };
 
-export default openApi3;
+export default openApi3_1;

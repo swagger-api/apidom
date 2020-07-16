@@ -16,7 +16,7 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
     },
 
     object(objectNode) {
-      const licenseElement = new this.namespace.elements.Object();
+      const licenseElement = new this.namespace.elements.License();
       const { MemberElement } = this.namespace.elements.Element.prototype;
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
@@ -37,7 +37,6 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
 
       visit(objectNode.comments, commentVisitor);
       licenseElement.meta.set('comments', commentVisitor.element);
-      licenseElement.classes.push('license');
 
       this.element = new MemberElement(
         this.keyElement,

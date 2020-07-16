@@ -16,7 +16,7 @@ const ContactVisitor = stampit(SpecificationVisitor, {
     },
 
     object(objectNode) {
-      const contactElement = new this.namespace.elements.Object();
+      const contactElement = new this.namespace.elements.Contact();
       const { MemberElement } = this.namespace.elements.Element.prototype;
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
@@ -37,7 +37,6 @@ const ContactVisitor = stampit(SpecificationVisitor, {
 
       visit(objectNode.comments, commentVisitor);
       contactElement.meta.set('comments', commentVisitor.element);
-      contactElement.classes.push('contact');
 
       this.element = new MemberElement(
         this.keyElement,

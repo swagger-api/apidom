@@ -22,7 +22,7 @@ const VariablesVisitor = stampit(SpecificationVisitor, {
       objectNode.properties.forEach((propertyNode) => {
         variablesElement.content.push(
           this.mapPropertyNodeToMemberElement(
-            ['document', 'openApi', 'serverVariable'],
+            ['document', 'objects', 'ServerVariable'],
             propertyNode,
           ),
         );

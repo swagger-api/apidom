@@ -21,7 +21,7 @@ const ServersVisitor = stampit(SpecificationVisitor, {
       const serverElements = arrayNode.items
         .filter((jsonNode) => jsonNode.type === nodeTypes.OBJECT)
         .map((objectNode) => {
-          const serverVisitor = this.retrieveVisitorInstance(['document', 'openApi', 'server']);
+          const serverVisitor = this.retrieveVisitorInstance(['document', 'objects', 'Server']);
           visit(objectNode, serverVisitor);
           return serverVisitor.element;
         });

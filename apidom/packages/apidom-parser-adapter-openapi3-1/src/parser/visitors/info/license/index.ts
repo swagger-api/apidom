@@ -24,16 +24,13 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
         if (['name', 'identifier', 'url'].includes(propertyNode.key.value)) {
           licenseElement.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'info', 'license', propertyNode.key.value],
+              ['document', 'objects', 'License', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           licenseElement.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

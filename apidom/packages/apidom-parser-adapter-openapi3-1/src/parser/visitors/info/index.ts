@@ -30,16 +30,13 @@ const InfoVisitor = stampit(SpecificationVisitor, {
         if (supportedProps.includes(propertyNode.key.value)) {
           infoElement.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'info', propertyNode.key.value],
+              ['document', 'objects', 'Info', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           infoElement.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

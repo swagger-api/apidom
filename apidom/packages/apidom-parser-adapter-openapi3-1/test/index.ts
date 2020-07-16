@@ -11,7 +11,7 @@ describe('apidom-parser', function () {
     console.log(adapter.detect(spec));
     console.log(adapter.mediaTypes);
 
-    const parseResult = adapter.parse(spec, { sourceMap: true, verbose: true, junker: true });
+    const parseResult = await adapter.parse(spec, { sourceMap: true, verbose: true, junker: true });
     console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
     // console.log  (JSON.stringify(apiDOM.toJSON(namespace, parseResult), null, null));
   });

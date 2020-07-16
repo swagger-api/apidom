@@ -4,7 +4,7 @@ import SpecificationVisitor from './SpecificationVisitor';
 import { isOpenApiExtension } from '../predicates';
 import { BREAK, visit } from '../visitor';
 
-const OpenApiExtensionVisitor = stampit(SpecificationVisitor, {
+const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
   methods: {
     property(propertyNode) {
       const keyElement = new this.namespace.elements.String(propertyNode.key.value);
@@ -20,7 +20,7 @@ const OpenApiExtensionVisitor = stampit(SpecificationVisitor, {
       );
 
       if (isOpenApiExtension({}, propertyNode)) {
-        memberElement.classes.push('openApiExtension');
+        memberElement.classes.push('specificationExtension');
       }
 
       this.element = memberElement;
@@ -30,4 +30,4 @@ const OpenApiExtensionVisitor = stampit(SpecificationVisitor, {
   },
 });
 
-export default OpenApiExtensionVisitor;
+export default SpecificationExtensionVisitor;

@@ -6,24 +6,21 @@ import SpecificationVisitor from './SpecificationVisitor';
 const OpenApi3_1Visitor = stampit(SpecificationVisitor, {
   methods: {
     object(objectNode) {
-      this.element = new this.namespace.elements.OpenApi3();
+      this.element = new this.namespace.elements.OpenApi3_1();
       const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
-      const supportedProps = ['openapi', 'info', 'components', 'servers'];
+      const supportedProps = ['openapi', 'info', 'servers', 'components'];
 
       objectNode.properties.forEach((propertyNode) => {
         if (supportedProps.includes(propertyNode.key.value)) {
           this.element.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', propertyNode.key.value],
+              ['document', 'objects', 'OpenApi', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           this.element.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

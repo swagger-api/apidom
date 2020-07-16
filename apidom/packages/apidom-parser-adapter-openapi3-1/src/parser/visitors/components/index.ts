@@ -25,16 +25,13 @@ const ComponentsVisitor = stampit(SpecificationVisitor, {
         if (supportedProps.includes(propertyNode.key.value)) {
           componentsElement.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'components', propertyNode.key.value],
+              ['document', 'objects', 'Components', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           componentsElement.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

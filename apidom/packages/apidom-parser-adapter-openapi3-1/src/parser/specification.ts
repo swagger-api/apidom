@@ -1,7 +1,7 @@
 import DocumentVisitor from './visitors/DocumentVisitor';
 import CommentVisitor from './visitors/CommentVisitor';
 import OpenApi3_1Visitor from './visitors/OpenApi3-1Visitor';
-import OpenApiExtensionVisitor from './visitors/OpenApiExtensionVisitor';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import OpenapiVisitor from './visitors/OpenapiVisitor';
 import InfoVisitor from './visitors/info';
 import InfoTitleVisitor from './visitors/info/TitleVisitor';
@@ -36,6 +36,8 @@ import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
  * when traversing the AST.
  * Specification also allows us to create new parser adapters from
  * existing ones by manipulating it.
+ *
+ * Note: Specification object allows to use relative JSON pointers.
  */
 const specification = {
   visitors: {
@@ -45,49 +47,79 @@ const specification = {
     document: {
       $visitor: DocumentVisitor,
       comment: CommentVisitor,
-      openApi: {
-        openApiExtension: OpenApiExtensionVisitor,
-        schema: SchemaVisitor,
-        server: {
-          $visitor: ServerVisitor,
-          url: ServerUrlVisitor,
-          description: ServerDescriptionVisitor,
-          variables: ServerVariablesVisitor,
+      objects: {
+        OpenApi: {
+          $visitor: OpenApi3_1Visitor,
+          fields: {
+            openapi: OpenapiVisitor,
+            info: {
+              $ref: '#/visitors/document/objects/Info',
+            },
+            servers: ServersVisitor,
+            components: {
+              $ref: '#/visitors/document/objects/Components',
+            },
+          },
         },
-        serverVariable: {
-          $visitor: ServerVariableVisitor,
-          enum: ServerVariableEnumVisitor,
-          default: ServerVariableDefaultVisitor,
-          description: ServerVariableDescriptionVisitor,
-        },
-        $visitor: OpenApi3_1Visitor,
-        openapi: OpenapiVisitor,
-        info: {
+        Info: {
           $visitor: InfoVisitor,
-          title: InfoTitleVisitor,
-          description: InfoDescriptionVisitor,
-          summary: InfoSummaryVisitor,
-          termsOfService: InfoTermsOfServiceVisitor,
-          version: InfoVersionVisitor,
-          contact: {
-            $visitor: ContactVisitor,
+          fields: {
+            title: InfoTitleVisitor,
+            description: InfoDescriptionVisitor,
+            summary: InfoSummaryVisitor,
+            termsOfService: InfoTermsOfServiceVisitor,
+            version: InfoVersionVisitor,
+            contact: {
+              $ref: '#/visitors/document/objects/Contact',
+            },
+            license: {
+              $ref: '#/visitors/document/objects/License',
+            },
+          },
+        },
+        Contact: {
+          $visitor: ContactVisitor,
+          fields: {
             name: ContactNameVisitor,
             url: ContactUrlVisitor,
             email: ContactEmailVisitor,
           },
-          license: {
-            $visitor: LicenseVisitor,
+        },
+        License: {
+          $visitor: LicenseVisitor,
+          fields: {
             name: LicenseNameVisitor,
             identifier: LicenseIdentifierVisitor,
             url: LicenseUrlVisitor,
           },
         },
-        servers: ServersVisitor,
-        components: {
+        Server: {
+          $visitor: ServerVisitor,
+          fields: {
+            url: ServerUrlVisitor,
+            description: ServerDescriptionVisitor,
+            variables: ServerVariablesVisitor,
+          },
+        },
+        ServerVariable: {
+          $visitor: ServerVariableVisitor,
+          fields: {
+            enum: ServerVariableEnumVisitor,
+            default: ServerVariableDefaultVisitor,
+            description: ServerVariableDescriptionVisitor,
+          },
+        },
+        Schema: {
+          $visitor: SchemaVisitor,
+        },
+        Components: {
           $visitor: ComponentsVisitor,
-          schemas: SchemasVisitor,
+          fields: {
+            schemas: SchemasVisitor,
+          },
         },
       },
+      extension: SpecificationExtensionVisitor,
     },
   },
 };

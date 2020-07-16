@@ -24,16 +24,13 @@ const ContactVisitor = stampit(SpecificationVisitor, {
         if (['name', 'url', 'email'].includes(propertyNode.key.value)) {
           contactElement.content.push(
             this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'info', 'contact', propertyNode.key.value],
+              ['document', 'objects', 'Contact', 'fields', propertyNode.key.value],
               propertyNode,
             ),
           );
         } else if (isOpenApiExtension({}, propertyNode)) {
           contactElement.content.push(
-            this.mapPropertyNodeToMemberElement(
-              ['document', 'openApi', 'openApiExtension'],
-              propertyNode,
-            ),
+            this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
           );
         }
       });

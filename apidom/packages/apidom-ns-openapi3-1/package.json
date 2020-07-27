@@ -19,11 +19,14 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./lib ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json"
+    "typescript:declaration": "tsc -p declaration.tsconfig.json",
+    "security-audit": "run-s -sc security-audit:prod security-audit:dev",
+    "security-audit:prod": "npm-audit --production --only=prod --audit-level=low",
+    "security-audit:dev": "npm-audit --only=dev --audit-level=moderate"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "minim": "=0.23.6"
+    "minim": "=0.23.8"
   }
 }

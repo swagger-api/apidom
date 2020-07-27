@@ -30,8 +30,17 @@ jobs:
     - name: Bootstrap monorepo
       run: npm run bootstrap
       working-directory: ./apidom
+    - name: Lint commit message
+      run: git log -1 --pretty=format:"%s" | npx commitlint
     - name: Lint code
       run: npm run lint
+      working-directory: ./apidom
+    - name: Security audit
+      # filtering production deps only supported on >=npm@6.10.0
+      if: startsWith(matrix.node-version, '12') || startsWith(matrix.node-version, '14')
+      run: npm run security-audit
+      env:
+        CI: true
       working-directory: ./apidom
     - name: Generate TypeScript declaration files
       run: npm run typescript:declaration

@@ -32,6 +32,7 @@ jobs:
       working-directory: ./apidom
     - name: Lint commit message
       run: git log -1 --pretty=format:"%s" | npx commitlint
+      working-directory: ./apidom
     - name: Lint code
       run: npm run lint
       working-directory: ./apidom

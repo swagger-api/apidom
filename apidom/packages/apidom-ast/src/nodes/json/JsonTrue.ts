@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 
 import JsonValue from './JsonValue';
-import NodeType from '../node-type';
+import NodeType from './node-type';
 
 type JsonTrue = JsonValue;
 

@@ -2,16 +2,20 @@ import stampit from 'stampit';
 
 import JsonNode from './traits/JsonNode';
 import JsonComments from './traits/JsonComments';
-import NodeType from '../node-type';
+import NodeType from './node-type';
 
-type JsonDocument = JsonNode & JsonComments;
+interface JsonDocument extends JsonNode, JsonComments {
+  child: JsonNode | null;
+}
 
 const JsonDocument: stampit.Stamp<JsonDocument> = stampit(JsonNode, JsonComments, {
   props: {
     child: null,
   },
-  init() {
+  init({ child = null, position = null } = {}) {
     this.type = NodeType.Document;
+    this.child = child;
+    this.position = position;
   },
 });
 

@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import NodeType from '../../node-type';
-import Position from '../../Position';
+import NodeType from '../node-type';
+import Position from '../../../Position';
 
 interface JsonNode {
   type: NodeType;

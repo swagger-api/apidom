@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 
 import JsonNode from './traits/JsonNode';
-import NodeType from '../node-type';
+import NodeType from './node-type';
 import JsonKey from './JsonKey';
 import JsonValue from './JsonValue';
 
@@ -15,8 +15,11 @@ const JsonProperty: stampit.Stamp<JsonProperty> = stampit(JsonNode, {
     key: null,
     value: null,
   },
-  init() {
+  init({ key = null, value = null, position = null } = {}) {
     this.type = NodeType.Property;
+    this.key = key;
+    this.value = value;
+    this.position = position;
   },
 });
 

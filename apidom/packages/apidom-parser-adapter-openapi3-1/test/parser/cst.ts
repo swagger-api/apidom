@@ -10,6 +10,7 @@ import {
   JsonTrue,
   JsonFalse,
   JsonString,
+  Missing,
 } from 'apidom-ast';
 
 import { transform } from '../../src/parser/cst';
@@ -20,6 +21,7 @@ describe('tree-sitter', function () {
       context('given object with missing ending bracket', function () {
         let cst: Parser.Tree;
         let ast: ParseResult;
+        let missingNode: Missing;
 
         beforeEach(function () {
           const parser = new Parser();
@@ -28,21 +30,23 @@ describe('tree-sitter', function () {
           const jsonString = '{"prop": "value"';
           cst = parser.parse(jsonString);
           ast = transform(cst);
+          [, missingNode] = ast.rootNode.child.children;
         });
 
         specify('should be part of resulting AST', function () {
-          assert.propertyVal(ast.rootNode.child.children[1], 'type', 'missing');
+          assert.propertyVal(missingNode, 'type', 'missing');
         });
 
         specify('should accumulate into annotations collection', function () {
           assert.lengthOf(ast.annotations, 1);
-          assert.strictEqual(ast.annotations[0], ast.rootNode.child.children[1]);
+          assert.strictEqual(ast.annotations[0], missingNode);
         });
       });
 
       context('given array with missing ending bracket', function () {
         let cst: Parser.Tree;
         let ast: ParseResult;
+        let missingNode: Missing;
 
         beforeEach(function () {
           const parser = new Parser();
@@ -51,15 +55,16 @@ describe('tree-sitter', function () {
           const jsonString = '["a", 1';
           cst = parser.parse(jsonString);
           ast = transform(cst);
+          [, , missingNode] = ast.rootNode.child.children;
         });
 
         specify('should be part of resulting AST', function () {
-          assert.propertyVal(ast.rootNode.child.children[2], 'type', 'missing');
+          assert.propertyVal(missingNode, 'type', 'missing');
         });
 
         specify('should accumulate into annotations collection', function () {
           assert.lengthOf(ast.annotations, 1);
-          assert.strictEqual(ast.annotations[0], ast.rootNode.child.children[2]);
+          assert.strictEqual(ast.annotations[0], missingNode);
         });
       });
     });

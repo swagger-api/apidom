@@ -14,6 +14,11 @@ const ParseResult: stampit.Stamp<ParseResult> = stampit({
     annotations: [],
     rootNode: null,
   },
+  init({ rootNode = null, errors = [], annotations = [] } = {}) {
+    this.rootNode = rootNode;
+    this.errors = errors;
+    this.annotations = annotations;
+  },
 });
 
 export default ParseResult;

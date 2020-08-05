@@ -15,6 +15,56 @@ import {
 import { transform } from '../../src/parser/cst';
 
 describe('tree-sitter', function () {
+  context('given CST containing errors', function () {
+    context('MISSING CST nodes', function () {
+      context('given object with missing ending bracket', function () {
+        let cst: Parser.Tree;
+        let ast: ParseResult;
+
+        beforeEach(function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '{"prop": "value"';
+          cst = parser.parse(jsonString);
+          ast = transform(cst);
+        });
+
+        specify('should be part of resulting AST', function () {
+          assert.propertyVal(ast.rootNode.child.children[1], 'type', 'missing');
+        });
+
+        specify('should accumulate into annotations collection', function () {
+          assert.lengthOf(ast.annotations, 1);
+          assert.strictEqual(ast.annotations[0], ast.rootNode.child.children[1]);
+        });
+      });
+
+      context('given array with missing ending bracket', function () {
+        let cst: Parser.Tree;
+        let ast: ParseResult;
+
+        beforeEach(function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '["a", 1';
+          cst = parser.parse(jsonString);
+          ast = transform(cst);
+        });
+
+        specify('should be part of resulting AST', function () {
+          assert.propertyVal(ast.rootNode.child.children[2], 'type', 'missing');
+        });
+
+        specify('should accumulate into annotations collection', function () {
+          assert.lengthOf(ast.annotations, 1);
+          assert.strictEqual(ast.annotations[0], ast.rootNode.child.children[2]);
+        });
+      });
+    });
+  });
+
   context('given error-less CST to AST transformation', function () {
     let cst: Parser.Tree;
     let ast: ParseResult;
@@ -207,6 +257,10 @@ describe('tree-sitter', function () {
 
       specify('should be part of resulting AST', function () {
         assert.propertyVal(stringNode, 'type', 'string');
+      });
+
+      specify('should have specific string value', function () {
+        assert.propertyVal(stringNode, 'value', 'a');
       });
 
       specify('should have Position', function () {

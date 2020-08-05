@@ -161,13 +161,8 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
         if (inArray) {
           node = node.slice();
         } else {
-          const clone = {};
-          for (const k in node) {
-            if (Object.prototype.hasOwnProperty.call(node, k)) {
-              clone[k] = node[k];
-            }
-          }
-          node = clone;
+          // creating clone
+          node = Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
         }
         let editOffset = 0;
         for (let ii = 0; ii < edits.length; ii += 1) {

@@ -7,6 +7,8 @@ enum NodeType {
   Key = 'key',
   Comment = 'comment',
   String = 'string',
+  StringContent = 'stringContent',
+  EscapeSequence = 'escapeSequence',
   Number = 'number',
   True = 'true',
   False = 'false',

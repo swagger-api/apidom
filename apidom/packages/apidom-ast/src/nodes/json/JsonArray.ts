@@ -1,38 +1,21 @@
 import stampit from 'stampit';
-import { anyPass, propEq } from 'ramda';
+import { anyPass } from 'ramda';
 
-import JsonNode from './traits/JsonNode';
-import JsonComments from './traits/JsonComments';
-import NodeType from './node-type';
+import Node from '../../Node';
+import { isFalse, isTrue, isNull, isNumber, isString, isArray, isObject } from './predicates';
 
-interface JsonArray extends JsonNode, JsonComments {
-  children: unknown[];
-}
+type JsonArray = Node;
 
-const JsonArray: stampit.Stamp<JsonArray> = stampit(JsonNode, JsonComments, {
-  props: {
-    children: [],
-  },
-  init({ children = [], position = null } = {}) {
-    this.type = NodeType.Array;
-    this.children = children;
-    this.position = position;
+const JsonArray: stampit.Stamp<JsonArray> = stampit(Node, {
+  statics: {
+    type: 'array',
   },
   methods: {
     get items(): unknown[] {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return this.children.filter(
-        anyPass([
-          propEq('type', NodeType.Comment),
-          propEq('type', NodeType.False),
-          propEq('type', NodeType.True),
-          propEq('type', NodeType.Null),
-          propEq('type', NodeType.Number),
-          propEq('type', NodeType.String),
-          propEq('type', NodeType.Array),
-          propEq('type', NodeType.Object),
-        ]),
+        anyPass([isFalse, isTrue, isNull, isNumber, isString, isArray, isObject]),
       );
     },
   },

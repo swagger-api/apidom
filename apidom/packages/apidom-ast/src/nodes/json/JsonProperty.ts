@@ -1,25 +1,33 @@
 import stampit from 'stampit';
+import { head, last } from 'ramda';
 
-import JsonNode from './traits/JsonNode';
-import NodeType from './node-type';
+import Node from '../../Node';
 import JsonKey from './JsonKey';
-import JsonValue from './JsonValue';
 
-interface JsonProperty extends JsonNode {
+interface JsonProperty extends Node {
   key: JsonKey;
-  value: JsonValue;
+  value: unknown;
 }
 
-const JsonProperty: stampit.Stamp<JsonProperty> = stampit(JsonNode, {
-  props: {
-    key: null,
-    value: null,
+const JsonProperty: stampit.Stamp<JsonProperty> = stampit(Node, {
+  statics: {
+    type: 'property',
   },
-  init({ key = null, value = null, position = null } = {}) {
-    this.type = NodeType.Property;
-    this.key = key;
-    this.value = value;
-    this.position = position;
+  methods: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    get key(): unknown {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return head(this.children);
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    get value(): unknown {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return last(this.children);
+    },
   },
 });
 

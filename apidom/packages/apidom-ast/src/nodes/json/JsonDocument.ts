@@ -1,21 +1,24 @@
 import stampit from 'stampit';
+import { head } from 'ramda';
 
-import JsonNode from './traits/JsonNode';
-import JsonComments from './traits/JsonComments';
-import NodeType from './node-type';
+import Node from '../../Node';
 
-interface JsonDocument extends JsonNode, JsonComments {
-  child: JsonNode | null;
+interface JsonDocument extends Node {
+  child: unknown | null;
 }
 
-const JsonDocument: stampit.Stamp<JsonDocument> = stampit(JsonNode, JsonComments, {
-  props: {
-    child: null,
+const JsonDocument: stampit.Stamp<JsonDocument> = stampit(Node, {
+  statics: {
+    type: 'document',
   },
-  init({ child = null, position = null } = {}) {
-    this.type = NodeType.Document;
-    this.child = child;
-    this.position = position;
+  methods: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    get child(): unknown {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return head(this.children);
+    },
   },
 });
 

@@ -15,26 +15,22 @@ import {
   ParseResult,
   Point,
   Position,
-  Missing,
+  Literal,
+  Error,
 } from 'apidom-ast';
 
 import { visit } from './visitor';
 
-const keyMap = {
-  document: ['child'],
+export const keyMap = {
+  document: ['children'],
   object: ['children'],
   array: ['children'],
   string: ['children'],
-  property: ['key', 'value'],
+  property: ['children'],
+  error: ['children'],
 };
 
 const Visitor = stampit({
-  props: {
-    // we're collecting errors and annotations here into flat collection explicitly
-    // to avoid full AST traversal just to get flat list of either errors or annotations
-    errors: [],
-    annotations: [],
-  },
   init() {
     /**
      * Private API.
@@ -59,21 +55,14 @@ const Visitor = stampit({
      * Public API.
      */
 
-    this.errors = [];
-    this.annotations = [];
-
     this.enter = function enter(node: SyntaxNode) {
-      if (node.isMissing()) {
-        const position = toPosition(node);
-        const missingNode = Missing({ value: node.type, position });
-
-        this.annotations.push(missingNode);
-
-        return missingNode;
-      }
-
+      // missing anonymous literals from CST transformed into AST literal nodes
       if (!node.isNamed) {
-        return null;
+        const position = toPosition(node);
+        const value = node.type || node.text;
+        const isMissing = node.isMissing();
+
+        return Literal({ value, position, isMissing });
       }
 
       return undefined;
@@ -82,82 +71,94 @@ const Visitor = stampit({
     this.document = function document(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonDocument({ child: node.firstChild, position });
+      return JsonDocument({
+        children: node.children,
+        position,
+        isMissing: node.isMissing(),
+      });
     };
 
     this.object = function object(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonObject({ children: node.children, position });
+      return JsonObject({ children: node.children, position, isMissing: node.isMissing() });
     };
 
     this.pair = function pair(node: SyntaxNode) {
       const position = toPosition(node);
-      const key = node.firstNamedChild;
-      const value = node.lastNamedChild;
 
-      return JsonProperty({ key, value, position });
+      return JsonProperty({ children: node.children, position, isMissing: node.isMissing() });
     };
 
     this.array = function array(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonArray({ children: node.children, position });
+      return JsonArray({ children: node.children, position, isMissing: node.isMissing() });
     };
 
     this.string = function string(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonString({ children: node.children, position });
+      return JsonString({ children: node.children, position, isMissing: node.isMissing() });
     };
 
     this.string_content = function string_content(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonStringContent({ value: node.text, position });
+      return JsonStringContent({ value: node.text, position, isMissing: node.isMissing() });
     };
 
     this.escape_sequence = function escape_sequence(node: SyntaxNode) {
       const position = toPosition(node);
 
-      return JsonEscapeSequence({ value: node.text, position });
+      return JsonEscapeSequence({ value: node.text, position, isMissing: node.isMissing() });
     };
 
     this.number = function number(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonNumber({ value, position });
+      return JsonNumber({ value, position, isMissing: node.isMissing() });
     };
 
     this.null = function _null(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonNull({ value, position });
+      return JsonNull({ value, position, isMissing: node.isMissing() });
     };
 
     this.true = function _true(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonTrue({ value, position });
+      return JsonTrue({ value, position, isMissing: node.isMissing() });
     };
 
     this.false = function _false(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonFalse({ value, position });
+      return JsonFalse({ value, position, isMissing: node.isMissing() });
+    };
+
+    this.ERROR = function ERROR(node: SyntaxNode) {
+      const position = toPosition(node);
+
+      return Error({
+        children: node.children,
+        position,
+        isUnexpected: !node.hasError(),
+        isMissing: node.isMissing(),
+        value: node.text,
+      });
     };
   },
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const transform = (cst: Parser.Tree): ParseResult => {
   const visitor = Visitor();
   const rootNode = visit(cst.rootNode, visitor, { keyMap });
-  const { errors, annotations } = visitor;
 
-  return ParseResult({ rootNode, errors, annotations });
+  return ParseResult({ children: [rootNode] });
 };

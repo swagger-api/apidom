@@ -1,21 +1,20 @@
 import stampit from 'stampit';
 
-import JsonNode from './traits/JsonNode';
-import NodeType from './node-type';
+import Node from '../../Node';
 
-interface JsonValue extends JsonNode {
-  type: NodeType.Value;
+interface JsonValue extends Node {
   value: unknown;
 }
 
-const JsonValue: stampit.Stamp<JsonValue> = stampit(JsonNode, {
+const JsonValue: stampit.Stamp<JsonValue> = stampit(Node, {
+  statics: {
+    type: 'value',
+  },
   props: {
     value: null,
   },
-  init({ value = null, position = null } = {}) {
-    this.type = NodeType.Value;
+  init({ value = null } = {}) {
     this.value = value;
-    this.position = position;
   },
 });
 

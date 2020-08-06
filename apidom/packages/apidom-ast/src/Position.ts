@@ -1,18 +1,22 @@
 import stampit from 'stampit';
 
 interface Point {
+  type: 'point';
   row: number | null;
   column: number | null;
   char: number | null;
 }
 
-interface Position {
+interface Position extends Node {
   type: 'position';
-  startPosition: Point | null;
-  endPosition: Point | null;
+  start: Point | null;
+  end: Point | null;
 }
 
 export const Point: stampit.Stamp<Point> = stampit({
+  statics: {
+    type: 'point',
+  },
   props: {
     type: 'point',
     row: null,
@@ -27,6 +31,9 @@ export const Point: stampit.Stamp<Point> = stampit({
 });
 
 const Position: stampit.Stamp<Position> = stampit({
+  statics: {
+    type: 'position',
+  },
   props: {
     type: 'position',
     start: null,

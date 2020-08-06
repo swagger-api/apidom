@@ -10,66 +10,12 @@ import {
   JsonTrue,
   JsonFalse,
   JsonString,
-  Missing,
 } from 'apidom-ast';
 
-import { transform } from '../../src/parser/cst';
+import { transform, keyMap } from '../../src/parser/cst';
+import { visit } from '../../src/parser/visitor';
 
 describe('tree-sitter', function () {
-  context('given CST containing errors', function () {
-    context('MISSING CST nodes', function () {
-      context('given object with missing ending bracket', function () {
-        let cst: Parser.Tree;
-        let ast: ParseResult;
-        let missingNode: Missing;
-
-        beforeEach(function () {
-          const parser = new Parser();
-          parser.setLanguage(JSONLanguage);
-
-          const jsonString = '{"prop": "value"';
-          cst = parser.parse(jsonString);
-          ast = transform(cst);
-          [, missingNode] = ast.rootNode.child.children;
-        });
-
-        specify('should be part of resulting AST', function () {
-          assert.propertyVal(missingNode, 'type', 'missing');
-        });
-
-        specify('should accumulate into annotations collection', function () {
-          assert.lengthOf(ast.annotations, 1);
-          assert.strictEqual(ast.annotations[0], missingNode);
-        });
-      });
-
-      context('given array with missing ending bracket', function () {
-        let cst: Parser.Tree;
-        let ast: ParseResult;
-        let missingNode: Missing;
-
-        beforeEach(function () {
-          const parser = new Parser();
-          parser.setLanguage(JSONLanguage);
-
-          const jsonString = '["a", 1';
-          cst = parser.parse(jsonString);
-          ast = transform(cst);
-          [, , missingNode] = ast.rootNode.child.children;
-        });
-
-        specify('should be part of resulting AST', function () {
-          assert.propertyVal(missingNode, 'type', 'missing');
-        });
-
-        specify('should accumulate into annotations collection', function () {
-          assert.lengthOf(ast.annotations, 1);
-          assert.strictEqual(ast.annotations[0], missingNode);
-        });
-      });
-    });
-  });
-
   context('given error-less CST to AST transformation', function () {
     let cst: Parser.Tree;
     let ast: ParseResult;
@@ -86,14 +32,6 @@ describe('tree-sitter', function () {
     context('ParseResult', function () {
       specify('should be the result of transformation', function () {
         assert.propertyVal(ast, 'type', 'parseResult');
-      });
-
-      specify('should have no errors', function () {
-        assert.lengthOf(ast.errors, 0);
-      });
-
-      specify('should have no annotations', function () {
-        assert.lengthOf(ast.annotations, 0);
       });
     });
 
@@ -273,6 +211,115 @@ describe('tree-sitter', function () {
           type: 'position',
           start: { type: 'point', row: 0, column: 32, char: 32 },
           end: { type: 'point', row: 0, column: 35, char: 35 },
+        });
+      });
+    });
+  });
+
+  context('given CST containing errors', function () {
+    context('missing nodes', function () {
+      context('given object with missing ending bracket', function () {
+        specify('should be part of the AST', function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '{"prop": "value"';
+          const cst = parser.parse(jsonString);
+          const ast = transform(cst);
+
+          const visitor = {
+            missing: [],
+            enter(node) {
+              if (node.isMissing) {
+                this.missing.push(node);
+              }
+            },
+          };
+
+          visit(ast.rootNode, visitor, { keyMap });
+
+          assert.lengthOf(visitor.missing, 1);
+          assert.propertyVal(visitor.missing[0], 'type', 'literal');
+          assert.propertyVal(visitor.missing[0], 'value', '}');
+        });
+      });
+
+      context('given array with missing ending bracket', function () {
+        specify('should be part of the AST', function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '["a", 1';
+          const cst = parser.parse(jsonString);
+          const ast = transform(cst);
+
+          const visitor = {
+            missing: [],
+            enter(node) {
+              if (node.isMissing) {
+                this.missing.push(node);
+              }
+            },
+          };
+
+          visit(ast.rootNode, visitor, { keyMap });
+
+          assert.lengthOf(visitor.missing, 1);
+          assert.propertyVal(visitor.missing[0], 'type', 'literal');
+          assert.propertyVal(visitor.missing[0], 'value', ']');
+        });
+      });
+    });
+
+    context('error nodes', function () {
+      context('given object with missing colon', function () {
+        specify('should be part of the AST', function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '{"a" "b"}';
+          const cst = parser.parse(jsonString);
+          const ast = transform(cst);
+
+          const visitor = {
+            errors: [],
+            error(node) {
+              this.errors.push(node);
+            },
+          };
+
+          visit(ast.rootNode, visitor, { keyMap });
+
+          assert.lengthOf(visitor.errors, 1);
+          assert.propertyVal(visitor.errors[0], 'type', 'error');
+        });
+      });
+    });
+
+    context('unexpected nodes', function () {
+      context('given object with unexpected symbols', function () {
+        specify('should be part of the AST', function () {
+          const parser = new Parser();
+          parser.setLanguage(JSONLanguage);
+
+          const jsonString = '{a: b}';
+          const cst = parser.parse(jsonString);
+          const ast = transform(cst);
+
+          const visitor = {
+            errors: [],
+            error(node) {
+              this.errors.push(node);
+            },
+          };
+
+          visit(ast.rootNode, visitor, { keyMap });
+
+          assert.lengthOf(visitor.errors, 3);
+          assert.propertyVal(visitor.errors[1], 'type', 'error');
+          assert.propertyVal(visitor.errors[1], 'isUnexpected', true);
+          assert.propertyVal(visitor.errors[2], 'type', 'error');
+          assert.propertyVal(visitor.errors[2], 'isUnexpected', true);
         });
       });
     });

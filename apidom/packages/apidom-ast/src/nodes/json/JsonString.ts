@@ -1,21 +1,18 @@
 import stampit from 'stampit';
-import { either, propEq } from 'ramda';
+import { either } from 'ramda';
 
-import JsonNode from './traits/JsonNode';
-import NodeType from './node-type';
+import Node from '../../Node';
 import JsonStringContent from './JsonStringContent';
 import JsonEscapeSequence from './JsonEscapeSequence';
+import { isEscapeSequence, isStringContent } from './predicates';
 
-interface JsonString extends JsonNode {
-  children: unknown[];
+interface JsonString extends Node {
   value: string;
 }
 
-const JsonString: stampit.Stamp<JsonString> = stampit(JsonNode, {
-  init({ children = [], position = null } = {}) {
-    this.type = NodeType.String;
-    this.children = children;
-    this.position = position;
+const JsonString: stampit.Stamp<JsonString> = stampit(Node, {
+  statics: {
+    type: 'string',
   },
   methods: {
     get value(): string {
@@ -23,9 +20,7 @@ const JsonString: stampit.Stamp<JsonString> = stampit(JsonNode, {
         this.children
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .filter(
-            either(propEq('type', NodeType.StringContent), propEq('type', NodeType.EscapeSequence)),
-          )
+          .filter(either(isStringContent, isEscapeSequence))
           .reduce(
             (acc: string, cur: JsonStringContent | JsonEscapeSequence): string => acc + cur.value,
             '',

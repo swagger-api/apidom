@@ -323,5 +323,19 @@ describe('tree-sitter', function () {
         });
       });
     });
+
+    specify('should support having error node as root node', function () {
+      const parser = new Parser();
+      parser.setLanguage(JSONLanguage);
+
+      const jsonString = '^';
+      const cst = parser.parse(jsonString);
+      const ast = transform(cst);
+
+      assert.propertyVal(ast.rootNode, 'type', 'error');
+      assert.propertyVal(ast.rootNode, 'isUnexpected', false);
+      assert.propertyVal(ast.rootNode.children[0], 'type', 'error');
+      assert.propertyVal(ast.rootNode.children[0], 'isUnexpected', true);
+    });
   });
 });

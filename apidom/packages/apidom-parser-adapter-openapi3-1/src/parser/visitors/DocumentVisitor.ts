@@ -1,15 +1,27 @@
 import stampit from 'stampit';
-import { visit, BREAK } from '.';
+import { visit } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
 
 const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {
+    literal(literalNode) {
+      if (literalNode.isMissing) {
+        const errorVisitor = this.retrieveVisitorInstance(['error']);
+        visit(literalNode, errorVisitor);
+        this.element.content.push(errorVisitor.element);
+      }
+    },
+
     document(documentNode) {
       const openApiVisitor = this.retrieveVisitorInstance(['document', 'objects', 'OpenApi']);
       visit(documentNode.child, openApiVisitor);
       this.element.content.push(openApiVisitor.element);
+    },
 
-      return BREAK;
+    error(errorNode) {
+      const errorVisitor = this.retrieveVisitorInstance(['error']);
+      visit(errorNode, errorVisitor);
+      this.element.content.push(errorVisitor.element);
     },
   },
 });

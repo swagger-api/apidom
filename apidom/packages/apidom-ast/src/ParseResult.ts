@@ -5,8 +5,6 @@ import Node from './Node';
 
 interface ParseResult extends Node {
   type: 'parseResult';
-  errors: unknown[];
-  annotations: unknown[];
   rootNode: unknown;
 }
 

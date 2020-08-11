@@ -1,4 +1,11 @@
-import { JsonArray, JsonDocument, JsonObject, JsonProperty, visit as astVisit } from 'apidom-ast';
+import {
+  JsonArray,
+  JsonDocument,
+  JsonObject,
+  JsonProperty,
+  Error,
+  visit as astVisit,
+} from 'apidom-ast';
 
 export { BREAK } from 'apidom-ast';
 
@@ -13,6 +20,8 @@ const keyMapDefault = {
   [JsonProperty.type]: ['key', 'value'],
   // @ts-ignore
   [JsonArray.type]: ['items'],
+  // @ts-ignore
+  [Error.type]: ['children'],
 };
 
 // @ts-ignore

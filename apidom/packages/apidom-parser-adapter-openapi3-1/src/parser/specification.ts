@@ -28,6 +28,7 @@ import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-var
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/SchemaVisitor';
+import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
 
 /**
@@ -43,6 +44,7 @@ const specification = {
     value: ValueVisitor,
     object: ObjectVisitor,
     array: ArrayVisitor,
+    error: ErrorVisitor,
     document: {
       $visitor: DocumentVisitor,
       objects: {

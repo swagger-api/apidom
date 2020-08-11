@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { visit, BREAK } from '../../../visitor';
+import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import { isOpenApiExtension } from '../../../predicates';
 
@@ -18,8 +18,8 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const licenseElement = new this.namespace.elements.License();
       const { MemberElement } = this.namespace.elements.Element.prototype;
-      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
+      // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
         if (['name', 'identifier', 'url'].includes(propertyNode.key.value)) {
           licenseElement.content.push(
@@ -34,9 +34,6 @@ const LicenseVisitor = stampit(SpecificationVisitor, {
           );
         }
       });
-
-      visit(objectNode.comments, commentVisitor);
-      licenseElement.meta.set('comments', commentVisitor.element);
 
       this.element = new MemberElement(
         this.keyElement,

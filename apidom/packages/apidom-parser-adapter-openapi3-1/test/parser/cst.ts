@@ -1,5 +1,6 @@
 import Parser from 'tree-sitter';
 import { assert } from 'chai';
+// @ts-ignore
 import JSONLanguage from 'tree-sitter-json';
 import {
   ParseResult,
@@ -10,10 +11,10 @@ import {
   JsonTrue,
   JsonFalse,
   JsonString,
+  visit,
 } from 'apidom-ast';
 
 import { transform, keyMap } from '../../src/parser/cst';
-import { visit } from '../../src/parser/visitor';
 
 describe('tree-sitter', function () {
   context('given error-less CST to AST transformation', function () {

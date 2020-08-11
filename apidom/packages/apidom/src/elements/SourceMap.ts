@@ -1,7 +1,7 @@
 import { ArrayElement, Element, Attributes, Meta } from 'minim';
 
 interface Position {
-  line: number;
+  row: number;
   column: number;
   char: number;
 }
@@ -25,17 +25,17 @@ class SourceMap extends ArrayElement {
     return this.children.filter((item) => item.classes.contains('position')).second;
   }
 
-  set position(position: PositionRange) {
+  set position(position: PositionRange | null) {
     if (position === null) {
       return;
     }
 
     const start = new ArrayElement([
-      position.start.line,
+      position.start.row,
       position.start.column,
       position.start.char,
     ]);
-    const end = new ArrayElement([position.end.line, position.end.column, position.end.char]);
+    const end = new ArrayElement([position.end.row, position.end.column, position.end.char]);
 
     start.classes.push('position');
     end.classes.push('position');

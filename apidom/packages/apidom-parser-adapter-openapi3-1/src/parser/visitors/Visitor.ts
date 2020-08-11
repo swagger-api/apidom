@@ -7,6 +7,7 @@ const Visitor = stampit({
     namespace: null,
     sourceMap: false,
   },
+  // @ts-ignore
   init({ namespace = this.namespace, sourceMap = this.sourceMap } = {}) {
     this.namespace = namespace;
     this.sourceMap = sourceMap;

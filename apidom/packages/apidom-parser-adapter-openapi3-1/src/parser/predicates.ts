@@ -2,6 +2,7 @@ import { length, pathEq, pathSatisfies, startsWith, both, curry } from 'ramda';
 import { isInteger } from 'ramda-adjunct';
 
 // isComponentsSchemas :: (Options, PropertyNode) -> Boolean
+// @ts-ignore
 export const isComponentsSchemas = ({ ancestors }, node) => {
   const totalAncestors = length(ancestors);
 

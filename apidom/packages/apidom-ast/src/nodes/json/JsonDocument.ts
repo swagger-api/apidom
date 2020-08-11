@@ -12,10 +12,8 @@ const JsonDocument: stampit.Stamp<JsonDocument> = stampit(Node, {
     type: 'document',
   },
   methods: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     get child(): unknown {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return head(this.children);
     },

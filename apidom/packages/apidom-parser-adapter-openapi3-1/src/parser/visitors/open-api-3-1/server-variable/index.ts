@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { visit, BREAK } from '../../../visitor';
+import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import { isOpenApiExtension } from '../../../predicates';
 
@@ -17,10 +17,10 @@ const ServerVariableVisitor = stampit(SpecificationVisitor, {
 
     object(objectNode) {
       const serverVariableElement = new this.namespace.elements.ServerVariable();
-      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
       const { MemberElement } = this.namespace.elements.Element.prototype;
       const supportedProps = ['enum', 'default', 'description'];
 
+      // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
         if (supportedProps.includes(propertyNode.key.value)) {
           serverVariableElement.content.push(
@@ -35,9 +35,6 @@ const ServerVariableVisitor = stampit(SpecificationVisitor, {
           );
         }
       });
-
-      visit(objectNode.comments, commentVisitor);
-      serverVariableElement.meta.set('comments', commentVisitor.element);
 
       this.element = new MemberElement(
         this.keyElement,

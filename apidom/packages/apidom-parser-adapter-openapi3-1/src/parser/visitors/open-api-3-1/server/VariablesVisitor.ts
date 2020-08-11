@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { visit, BREAK } from '../../../visitor';
+import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
 const VariablesVisitor = stampit(SpecificationVisitor, {
@@ -17,8 +17,8 @@ const VariablesVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const variablesElement = new this.namespace.elements.Object();
       const { MemberElement } = this.namespace.elements.Element.prototype;
-      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
+      // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
         variablesElement.content.push(
           this.mapPropertyNodeToMemberElement(
@@ -28,9 +28,7 @@ const VariablesVisitor = stampit(SpecificationVisitor, {
         );
       });
 
-      visit(objectNode.comments, commentVisitor);
       variablesElement.classes.push('variables');
-      variablesElement.meta.set('comments', commentVisitor.element);
 
       this.element = new MemberElement(
         this.keyElement,

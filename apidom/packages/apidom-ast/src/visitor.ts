@@ -1,9 +1,9 @@
-import { nodeTypes } from 'json-ast';
 import { pathSatisfies } from 'ramda';
 import { isFunction, isString, isNotNil } from 'ramda-adjunct';
 
 // getVisitFn :: (Visitor, String, Boolean) -> Function
-const getVisitFn = (visitor, type, isLeaving) => {
+// @ts-ignore
+export const getVisitFn = (visitor, type: string, isLeaving: boolean) => {
   const typeVisitor = visitor[type];
 
   if (isNotNil(typeVisitor)) {
@@ -59,7 +59,7 @@ const isNode = pathSatisfies(isString, ['type']);
  *         // @return
  *         //   undefined: no action
  *         //   false: skip visiting this node
- *         //   visitor.BREAK: stop visiting altogether
+ *         //   BREAK: stop visiting altogether
  *         //   null: delete this node
  *         //   any value: replace this node with the returned value
  *       },
@@ -67,7 +67,7 @@ const isNode = pathSatisfies(isString, ['type']);
  *         // @return
  *         //   undefined: no action
  *         //   false: no action
- *         //   visitor.BREAK: stop visiting altogether
+ *         //   BREAK: stop visiting altogether
  *         //   null: delete this node
  *         //   any value: replace this node with the returned value
  *       }
@@ -129,13 +129,15 @@ const isNode = pathSatisfies(isString, ['type']);
  *  @sig visit :: (Node, Visitor, Options)
  *  @sig      Options = { keyMap: Object, state: Object }
  */
-export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
-  const visitorKeys = keyMap || {
-    [nodeTypes.DOCUMENT]: ['comments', 'child'],
-    [nodeTypes.OBJECT]: ['comments', 'properties'],
-    [nodeTypes.PROPERTY]: ['key', 'value'],
-    [nodeTypes.ARRAY]: ['comments', 'items'],
-  };
+
+export const visit = (
+  // @ts-ignore
+  root,
+  // @ts-ignore
+  visitor,
+  { keyMap = null, state = {}, breakSymbol = BREAK, visitFnGetter = getVisitFn } = {},
+) => {
+  const visitorKeys = keyMap || {};
 
   let stack;
   let inArray = Array.isArray(root);
@@ -144,6 +146,7 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
   let parent;
   let edits = [];
   const path = [];
+  // @ts-ignore
   const ancestors = [];
   let newRoot = root;
 
@@ -156,9 +159,11 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
       node = parent;
+      // @ts-ignore
       parent = ancestors.pop();
       if (isEdited) {
         if (inArray) {
+          // @ts-ignore
           node = node.slice();
         } else {
           // creating clone
@@ -181,8 +186,11 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
       }
       index = stack.index;
       keys = stack.keys;
+      // @ts-ignore
       edits = stack.edits;
+      // @ts-ignore
       inArray = stack.inArray;
+      // @ts-ignore
       stack = stack.prev;
     } else {
       key = parent ? (inArray ? index : keys[index]) : undefined;
@@ -200,7 +208,7 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
       if (!isNode(node)) {
         throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
-      const visitFn = getVisitFn(visitor, node.type, isLeaving);
+      const visitFn = visitFnGetter(visitor, node.type, isLeaving);
       if (visitFn) {
         // assign state
         for (const [stateKey, stateValue] of Object.entries(state)) {
@@ -209,7 +217,7 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
 
         result = visitFn.call(visitor, node, key, parent, path, ancestors);
 
-        if (result === BREAK) {
+        if (result === breakSymbol) {
           break;
         }
 
@@ -239,6 +247,7 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
     if (!isLeaving) {
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
+      // @ts-ignore
       keys = inArray ? node : visitorKeys[node.type] || [];
       index = -1;
       edits = [];
@@ -255,4 +264,5 @@ export const visit = (root, visitor, { keyMap = null, state = {} } = {}) => {
 
   return newRoot;
 };
+
 /* eslint-enable */

@@ -18,7 +18,6 @@ const JsonString: stampit.Stamp<JsonString> = stampit(Node, {
     get value(): string {
       return (
         this.children
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           .filter(either(isStringContent, isEscapeSequence))
           .reduce(

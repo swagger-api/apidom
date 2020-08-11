@@ -1,4 +1,6 @@
 import stampit from 'stampit';
+import { tail } from 'ramda';
+import { isFalse } from 'ramda-adjunct';
 import Parser, { SyntaxNode } from 'tree-sitter';
 import {
   JsonArray,
@@ -7,6 +9,7 @@ import {
   JsonNull,
   JsonNumber,
   JsonObject,
+  JsonKey,
   JsonProperty,
   JsonString,
   JsonStringContent,
@@ -17,9 +20,8 @@ import {
   Position,
   Literal,
   Error,
+  visit,
 } from 'apidom-ast';
-
-import { visit } from './visitor';
 
 export const keyMap = {
   document: ['children'],
@@ -27,6 +29,7 @@ export const keyMap = {
   array: ['children'],
   string: ['children'],
   property: ['children'],
+  key: ['children'],
   error: ['children'],
 };
 
@@ -36,7 +39,11 @@ const Visitor = stampit({
      * Private API.
      */
 
-    const toPosition = (node: SyntaxNode): Position => {
+    const toPosition = (node: SyntaxNode | null): Position | null => {
+      if (node === null) {
+        return null;
+      }
+
       const start = Point({
         row: node.startPosition.row,
         column: node.startPosition.column,
@@ -57,7 +64,7 @@ const Visitor = stampit({
 
     this.enter = function enter(node: SyntaxNode) {
       // missing anonymous literals from CST transformed into AST literal nodes
-      if (!node.isNamed) {
+      if (isFalse(node.isNamed)) {
         const position = toPosition(node);
         const value = node.type || node.text;
         const isMissing = node.isMissing();
@@ -86,8 +93,20 @@ const Visitor = stampit({
 
     this.pair = function pair(node: SyntaxNode) {
       const position = toPosition(node);
+      const children = tail<Parser.SyntaxNode | JsonKey>(node.children);
+      const keyValuePairNodeCount = 3;
 
-      return JsonProperty({ children: node.children, position, isMissing: node.isMissing() });
+      if (node.childCount >= keyValuePairNodeCount && node.firstChild !== null) {
+        const key = JsonKey({
+          children: node.firstChild.children,
+          position: toPosition(node.firstChild),
+          isMissing: node.firstChild.isMissing(),
+        });
+
+        children.unshift(key);
+      }
+
+      return JsonProperty({ children, position, isMissing: node.isMissing() });
     };
 
     this.array = function array(node: SyntaxNode) {
@@ -158,6 +177,7 @@ const Visitor = stampit({
 
 export const transform = (cst: Parser.Tree): ParseResult => {
   const visitor = Visitor();
+  // @ts-ignore
   const rootNode = visit(cst.rootNode, visitor, { keyMap });
 
   return ParseResult({ children: [rootNode] });

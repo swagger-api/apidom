@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import Visitor from './Visitor';
-import { visit } from '../visitor';
+import { visit } from './index';
 
 /**
  * This is a base Type for every visitor that does
@@ -12,6 +12,7 @@ const SpecificationVisitor = stampit(Visitor, {
   props: {
     specObj: null,
   },
+  // @ts-ignore
   init({ specObj = this.specObj }) {
     this.specObj = specObj;
   },

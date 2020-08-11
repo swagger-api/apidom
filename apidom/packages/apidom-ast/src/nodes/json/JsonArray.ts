@@ -12,7 +12,6 @@ const JsonArray: stampit.Stamp<JsonArray> = stampit(Node, {
   },
   methods: {
     get items(): unknown[] {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return this.children.filter(
         anyPass([isFalse, isTrue, isNull, isNumber, isString, isArray, isObject]),

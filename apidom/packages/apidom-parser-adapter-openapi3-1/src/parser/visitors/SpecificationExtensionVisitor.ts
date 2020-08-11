@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { ValueVisitor } from './generics';
 import SpecificationVisitor from './SpecificationVisitor';
 import { isOpenApiExtension } from '../predicates';
-import { BREAK, visit } from '../visitor';
+import { BREAK, visit } from '.';
 
 const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
   methods: {
@@ -12,6 +12,7 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
       const state = { namespace: this.namespace, sourceMap: this.sourceMap, specObj: this.specObj };
       const valueVisitor = ValueVisitor();
 
+      // @ts-ignore
       visit(propertyNode.value, valueVisitor, { state });
 
       const memberElement = new MemberElement(

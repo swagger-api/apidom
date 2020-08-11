@@ -1,5 +1,4 @@
 import DocumentVisitor from './visitors/DocumentVisitor';
-import CommentVisitor from './visitors/CommentVisitor';
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import OpenapiVisitor from './visitors/open-api-3-1/OpenapiVisitor';
@@ -46,7 +45,6 @@ const specification = {
     array: ArrayVisitor,
     document: {
       $visitor: DocumentVisitor,
-      comment: CommentVisitor,
       objects: {
         OpenApi: {
           $visitor: OpenApi3_1Visitor,

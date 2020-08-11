@@ -1,10 +1,10 @@
 import stampit from 'stampit';
 
-import JsonValue from './JsonValue';
+import JsonString from './JsonString';
 
-type JsonKey = JsonValue;
+type JsonKey = JsonString;
 
-const JsonKey: stampit.Stamp<JsonKey> = stampit(JsonValue, {
+const JsonKey: stampit.Stamp<JsonKey> = stampit(JsonString, {
   statics: {
     type: 'key',
   },

@@ -19,3 +19,5 @@ export const isStringContent = isNodeType('stringContent');
 export const isEscapeSequence = isNodeType('escapeSequence');
 
 export const isProperty = isNodeType('property');
+
+export const isKey = isNodeType('key');

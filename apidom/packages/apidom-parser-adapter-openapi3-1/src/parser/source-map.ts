@@ -1,7 +1,10 @@
 import { namespace } from 'apidom';
 
-// eslint-disable-next-line import/prefer-default-export
+/* eslint-disable import/prefer-default-export */
+
+// @ts-ignore
 export const addSourceMap = (node, element) => {
+  // @ts-ignore
   const sourceMap = new namespace.elements.SourceMap();
 
   sourceMap.position = node.position;

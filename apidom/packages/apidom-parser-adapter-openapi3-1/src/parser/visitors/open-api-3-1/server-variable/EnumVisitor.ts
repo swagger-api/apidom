@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import SpecificationVisitor from '../../SpecificationVisitor';
-import { BREAK, visit } from '../../../visitor';
+import { BREAK, visit } from '../..';
 
 const EnumVisitor = stampit(SpecificationVisitor, {
   methods: {

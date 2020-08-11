@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import SpecificationVisitor from '../../SpecificationVisitor';
-import { visit, BREAK } from '../../../visitor';
+import { BREAK } from '../..';
 
 const SchemasVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -17,16 +17,14 @@ const SchemasVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const schemasElement = new this.namespace.elements.Object();
       const { MemberElement } = this.namespace.elements.Element.prototype;
-      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
 
+      // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
         schemasElement.content.push(
           this.mapPropertyNodeToMemberElement(['document', 'objects', 'Schema'], propertyNode),
         );
       });
 
-      visit(objectNode.comments, commentVisitor);
-      schemasElement.meta.set('comments', commentVisitor.element);
       schemasElement.classes.push('schemas');
 
       this.element = new MemberElement(

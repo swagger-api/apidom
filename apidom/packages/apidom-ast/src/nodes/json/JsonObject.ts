@@ -11,7 +11,6 @@ const JsonObject: stampit.Stamp<JsonObject> = stampit(Node, {
   },
   methods: {
     get properties(): unknown[] {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return this.children.filter(isProperty);
     },

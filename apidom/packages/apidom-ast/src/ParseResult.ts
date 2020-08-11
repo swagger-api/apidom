@@ -15,10 +15,8 @@ const ParseResult: stampit.Stamp<ParseResult> = stampit(Node, {
     type: 'parseResult',
   },
   methods: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     get rootNode(): unknown {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return head(this.children);
     },

@@ -1,8 +1,18 @@
 import stampit from 'stampit';
-import { head, last } from 'ramda';
+import { anyPass } from 'ramda';
 
 import Node from '../../Node';
 import JsonKey from './JsonKey';
+import {
+  isArray,
+  isFalse,
+  isKey,
+  isNull,
+  isNumber,
+  isObject,
+  isString,
+  isTrue,
+} from './predicates';
 
 interface JsonProperty extends Node {
   key: JsonKey;
@@ -14,19 +24,17 @@ const JsonProperty: stampit.Stamp<JsonProperty> = stampit(Node, {
     type: 'property',
   },
   methods: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    get key(): unknown {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    get key(): JsonKey {
       // @ts-ignore
-      return head(this.children);
+      return this.children.find(isKey);
     },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     get value(): unknown {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      return last(this.children);
+      return this.children.find(
+        anyPass([isFalse, isTrue, isNull, isNumber, isString, isArray, isObject]),
+      );
     },
   },
 });

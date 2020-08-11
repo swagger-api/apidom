@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { visit, BREAK } from '../../visitor';
+import { visit, BREAK } from '..';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const SchemaVisitor = stampit(SpecificationVisitor, {

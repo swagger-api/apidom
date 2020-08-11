@@ -1,3 +1,4 @@
+// JSON AST related exports
 export { default as JsonDocument } from './nodes/json/JsonDocument';
 export { default as JsonObject } from './nodes/json/JsonObject';
 export { default as JsonProperty } from './nodes/json/JsonProperty';
@@ -11,7 +12,23 @@ export { default as JsonNumber } from './nodes/json/JsonNumber';
 export { default as JsonTrue } from './nodes/json/JsonTrue';
 export { default as JsonFalse } from './nodes/json/JsonFalse';
 export { default as JsonNull } from './nodes/json/JsonNull';
+export {
+  isFalse as isJsonFalse,
+  isProperty as isJsonProperty,
+  isStringContent as isJsonStringContent,
+  isEscapeSequence as isJsonEscapeSequence,
+  isArray as isJsonArray,
+  isKey as isJsonKey,
+  isNull as isJsonNull,
+  isNumber as isJsonNumber,
+  isObject as isJsonObject,
+  isString as isJsonString,
+  isTrue as isJsonTrue,
+} from './nodes/json/predicates';
+// generic AST related exports
 export { default as Literal } from './Literal';
 export { Point, default as Position } from './Position';
 export { default as Error } from './Error';
 export { default as ParseResult } from './ParseResult';
+// AST traversal related exports
+export { getVisitFn, BREAK, visit } from './visitor';

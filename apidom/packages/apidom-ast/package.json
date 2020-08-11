@@ -34,6 +34,8 @@
   },
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "dependencies": {
+    "ramda": "=0.27.0",
+    "ramda-adjunct": "=2.26.0",
     "stampit": "=4.3.1"
   }
 }

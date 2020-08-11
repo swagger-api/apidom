@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { nodeTypes } from 'json-ast';
-import { visit, BREAK } from '../../visitor';
+import { JsonObject } from 'apidom-ast';
+import { visit, BREAK } from '..';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const ServersVisitor = stampit(SpecificationVisitor, {
@@ -17,20 +17,17 @@ const ServersVisitor = stampit(SpecificationVisitor, {
 
     array(arrayNode) {
       const { MemberElement } = this.namespace.elements.Element.prototype;
-      const commentVisitor = this.retrieveVisitorInstance(['document', 'comment']);
       const serverElements = arrayNode.items
-        .filter((jsonNode) => jsonNode.type === nodeTypes.OBJECT)
-        .map((objectNode) => {
+        // @ts-ignore
+        .filter((jsonNode) => jsonNode.type === JsonObject.type)
+        .map((objectNode: JsonObject) => {
           const serverVisitor = this.retrieveVisitorInstance(['document', 'objects', 'Server']);
           visit(objectNode, serverVisitor);
           return serverVisitor.element;
         });
 
-      visit(arrayNode.comments, commentVisitor);
-
       const serversElement = new this.namespace.elements.Array(serverElements);
       serversElement.classes.push('servers');
-      serversElement.meta.set('comments', commentVisitor.element);
 
       this.element = new MemberElement(
         this.keyElement,

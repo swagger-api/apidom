@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { defaultTo } from 'ramda';
 import SpecificationVisitor from '../SpecificationVisitor';
-import { BREAK } from '../../visitor';
+import { BREAK } from '..';
 
 const PropertyVisitor = stampit(SpecificationVisitor, {
   props: {

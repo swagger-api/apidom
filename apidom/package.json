@@ -1,6 +1,6 @@
 {
-  "name": "apidom",
-  "version": "0.1.0",
+  "name": "apidom-monorepo",
+  "version": "0.0.0-ignore",
   "description": "ApiDOM",
   "engines": {
     "node": ">=10.21.0",

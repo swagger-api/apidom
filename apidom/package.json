@@ -1,9 +1,13 @@
 {
-  "name": "apidom",
-  "version": "0.1.0",
+  "name": "apidom-monorepo",
+  "version": "0.0.0-ignore",
   "description": "ApiDOM",
+  "engines": {
+    "node": ">=10.21.0",
+    "npm": ">=6.14.5"
+  },
   "scripts": {
-    "bootstrap": "cross-env lerna bootstrap && npm run link-parent-bin",
+    "postinstall": "npm run link-parent-bin",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint",
@@ -43,9 +47,6 @@
     "@types/mocha": "=7.0.2",
     "@typescript-eslint/eslint-plugin": "=3.0.2",
     "@typescript-eslint/parser": "=3.0.2",
-    "apidom": "file:packages/apidom",
-    "apidom-ns-openapi3-1": "file:packages/apidom-ns-openapi3-1",
-    "apidom-parser-adapter-openapi3-1": "file:packages/apidom-parser-adapter-openapi3-1",
     "babel-loader": "=8.1.0",
     "chai": "=4.2.0",
     "core-js": "=3.6.5",
@@ -72,6 +73,7 @@
   },
   "dependencies": {
     "apidom": "file:packages/apidom",
+    "apidom-ast": "file:packages/apidom-ast",
     "apidom-ns-openapi3-1": "file:packages/apidom-ns-openapi3-1",
     "apidom-parser": "file:packages/apidom-parser",
     "apidom-parser-adapter-openapi3-1": "file:packages/apidom-parser-adapter-openapi3-1"

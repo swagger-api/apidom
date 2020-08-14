@@ -5,7 +5,6 @@
   "main": "lib/namespace.js",
   "module": "es/namespace.js",
   "jsnext:main": "es/namespace.js",
-  "browser": "dist/apidom-ns-openapi3-1.browser.js",
   "unpkg": "dist/apidom-ns-openapi3-1.browser.min.js",
   "types": "types/namespace.d.ts",
   "scripts": {

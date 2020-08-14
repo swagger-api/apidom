@@ -5,7 +5,6 @@
   "main": "lib/parser.js",
   "module": "es/parser.js",
   "jsnext:main": "es/parser.js",
-  "browser": "dist/apidom-parser.browser.js",
   "unpkg": "dist/apidom-parser.browser.min.js",
   "types": "types/parser.d.ts",
   "scripts": {

@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
-  "browser": "dist/apidom.browser.js",
   "unpkg": "dist/apidom.browser.min.js",
   "types": "types/index.d.ts",
   "scripts": {

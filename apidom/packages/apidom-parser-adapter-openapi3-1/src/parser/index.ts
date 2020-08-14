@@ -1,8 +1,5 @@
-import Parser from 'tree-sitter';
-// @ts-ignore
-import JSONLanguage from 'tree-sitter-json';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
-import * as apiDOM from 'apidom';
+import { createNamespace, ParseResultElement } from 'apidom';
 import { Error, JsonArray, JsonDocument, JsonObject, JsonProperty } from 'apidom-ast';
 import openapi3_1 from 'apidom-ns-openapi3-1';
 import { transform } from './cst';
@@ -11,18 +8,16 @@ import { visit } from './visitors';
 
 const parse = async (
   source: string,
-  { sourceMap = false, specObj = specification } = {},
-): Promise<apiDOM.ParseResultElement> => {
+  { sourceMap = false, specObj = specification, parser = null } = {},
+): Promise<ParseResultElement> => {
   const resolvedSpecObj = await $RefParser.dereference(specObj);
-  const namespace = apiDOM.createNamespace(openapi3_1);
+  const namespace = createNamespace(openapi3_1);
   // @ts-ignore
   const parseResultElement = new namespace.elements.ParseResult();
   // @ts-ignore
   const documentVisitor = resolvedSpecObj.visitors.document.$visitor();
 
-  const parser = new Parser();
-  parser.setLanguage(JSONLanguage);
-
+  // @ts-ignore
   const cst = parser.parse(source);
   const ast = transform(cst);
 

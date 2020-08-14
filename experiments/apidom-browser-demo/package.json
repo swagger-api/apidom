@@ -1,0 +1,15 @@
+{
+  "name": "apidom-browser-demo",
+  "version": "0.1.0",
+  "description": "Demo for apidom browser usage",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Gorej",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "http-server": "=0.12.3"
+  }
+}

@@ -10,7 +10,12 @@
       [
         "camel-case",
         "kebab-case",
-        "upper-case"
+        "upper-case",
+        "lower-case",
+        "pascal-case",
+        "sentence-case",
+        "snake-case",
+        "start-case"
       ]
     ],
     "subject-case": [

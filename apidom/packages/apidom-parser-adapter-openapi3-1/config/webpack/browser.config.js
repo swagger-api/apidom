@@ -5,8 +5,11 @@ const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
 const browser = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/adapter.ts'],
+  entry: ['./src/polyfills.ts', './src/adapter-browser.ts'],
   target: 'web',
+  node: {
+    fs: 'empty',
+  },
   performance: {
     maxEntrypointSize: 712000,
     maxAssetSize: 712000,
@@ -15,13 +18,18 @@ const browser = {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-openapi3-1.browser.js',
     libraryTarget: 'umd',
-    library: 'apidom',
+    library: 'apidomParserAdapterOpenApi3_1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
   },
   module: {
     rules: [
+      {
+        test: /\.wasm$/,
+        loader: 'file-loader',
+        type: 'javascript/auto',
+      },
       {
         test: /\.(ts|js)?$/,
         exclude: /node_modules/,
@@ -40,19 +48,27 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/adapter.ts'],
+  entry: ['./src/polyfills.ts', './src/adapter-browser.ts'],
   target: 'web',
+  node: {
+    fs: 'empty',
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-openapi3-1.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidom',
+    library: 'apidomParserAdapterOpenApi3_1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
   },
   module: {
     rules: [
+      {
+        test: /\.wasm$/,
+        loader: 'file-loader',
+        type: 'javascript/auto',
+      },
       {
         test: /\.(ts|js)?$/,
         exclude: /node_modules/,

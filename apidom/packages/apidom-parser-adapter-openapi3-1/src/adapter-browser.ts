@@ -1,4 +1,4 @@
-export { default as parse } from './parser/index-browser';
+export { default as parse, namespace } from './parser/index-browser';
 
 export const mediaTypes = ['application/vnd.oai.openapi', 'application/vnd.oai.openapi+json'];
 

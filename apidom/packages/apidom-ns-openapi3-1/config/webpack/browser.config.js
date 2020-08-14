@@ -15,7 +15,7 @@ const browser = {
     path: path.resolve('./dist'),
     filename: 'apidom-ns-openapi3-1.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomNsOpenapi3',
+    library: 'apidomNsOpenapi3_1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -46,7 +46,7 @@ const browserMin = {
     path: path.resolve('./dist'),
     filename: 'apidom-ns-openapi3-1.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomNsOpenapi3',
+    library: 'apidomNsOpenapi3_1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

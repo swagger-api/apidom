@@ -5,6 +5,8 @@ import * as apiDOM from 'apidom';
 
 import parse from '.';
 
+export { namespace } from './index';
+
 const parseNode = async (
   source: string,
   options: Record<string, unknown> = {},

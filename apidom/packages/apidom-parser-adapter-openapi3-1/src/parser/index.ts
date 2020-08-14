@@ -6,12 +6,13 @@ import { transform } from './cst';
 import specification from './specification';
 import { visit } from './visitors';
 
+export const namespace = createNamespace(openapi3_1);
+
 const parse = async (
   source: string,
   { sourceMap = false, specObj = specification, parser = null } = {},
 ): Promise<ParseResultElement> => {
   const resolvedSpecObj = await $RefParser.dereference(specObj);
-  const namespace = createNamespace(openapi3_1);
   // @ts-ignore
   const parseResultElement = new namespace.elements.ParseResult();
   // @ts-ignore

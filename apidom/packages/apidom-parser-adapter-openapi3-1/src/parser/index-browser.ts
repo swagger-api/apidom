@@ -7,6 +7,8 @@ import parse from '.';
 // @ts-ignore
 import treeSitterJson from '../../tree-sitter-json.wasm';
 
+export { namespace } from './index';
+
 const parserP = (async () => {
   await Parser.init();
   const JsonLanguage = await Parser.Language.load(treeSitterJson);

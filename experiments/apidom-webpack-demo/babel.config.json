@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "debug": false,
+            "useBuiltIns": "entry",
+            "corejs": 3
+          }
+        ],
+        "@babel/preset-typescript"
+      ],
+      "plugins": [
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread",
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  }
+}

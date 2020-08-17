@@ -1,14 +1,15 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) 2018 TypeFox GmbH (http://www.typefox.io). All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-import { getLanguageService, TextDocument } from "vscode-json-languageservice";
+import {getLanguageService, TokensLegend} from "./apidom/apidomLanguageService";
+import { TextDocument } from 'vscode-languageserver-textdocument';
+import {Position} from "monaco-editor-core";
 import {
   MonacoToProtocolConverter,
   ProtocolToMonacoConverter,
 } from "monaco-languageclient/lib/monaco-converter";
 
-const LANGUAGE_ID = "json";
+//import { SemanticTokenTypes, SemanticTokenModifiers } from 'vscode-languageserver-protocol/lib/protocol.sematicTokens.proposed';
+import { Proposed } from 'vscode-languageserver-protocol';
+
+const LANGUAGE_ID = "openapi";
 const MODEL_URI = "inmemory://model.json";
 const MONACO_URI = monaco.Uri.parse(MODEL_URI);
 
@@ -30,20 +31,144 @@ export default ({ monaco, containerId }) => {
 
   // create the Monaco editor
   const value = `{
-    "$schema": "http://json.schemastore.org/coffeelint",
-    "line_endings": "unix"
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.1.9"
+  }    
 }`;
-  monaco.editor.create(document.getElementById(containerId)!, {
-    model: monaco.editor.createModel(value, LANGUAGE_ID, MONACO_URI),
+
+  const value2 = `{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.1.9"
+  }, 
+  "paths" : {
+    "/a" : {
+      "get": {
+        "operationId": "a"
+      }
+    }
+  }    
+}`;
+
+  const valueAsync = `{
+  "asyncapi": "2.0.0",
+  "info": {
+    "version": "1.0.1"
+  }
+}`;
+
+
+  const editor = monaco.editor.create(document.getElementById(containerId)!, {
+    //model: monaco.editor.createModel(value, LANGUAGE_ID, MONACO_URI),
+    'semanticHighlighting.enabled': true,
+    language: LANGUAGE_ID,
+    value: value2,
     glyphMargin: true,
     lightbulb: {
       enabled: true,
     },
+    //theme: "vs-dark",
+    theme: "vs"
   });
 
+  const monacoModel: monaco.editor.IModel = editor.getModel();
+  const MONACO_URI = monacoModel.uri;
+  const MODEL_URI = MONACO_URI.toString();
+  const LSP_URI = { uri: MODEL_URI };
+
+
+
+  function getModel(): monaco.editor.IModel {
+    return monacoModel;
+  }
+/*
   function getModel(): monaco.editor.IModel {
     return monaco.editor.getModel(MONACO_URI) as monaco.editor.IModel;
   }
+*/
+
+  const darkThemeMap = {
+    "keyword": 12,
+    "comment": 7,
+    "parameter": 6,
+    "property": 14,
+    "operator": 1,
+    "label": 16,
+    "class": 3,
+    "macro": 11,
+    "string": 5,
+    "specVersion": 7,
+    "info": 6,
+    "version": 14,
+    "operation": 12,
+    "path": 11,
+    "variable": {
+      "declaration": 8,
+      "definition": 8,
+      "deprecated": 8,
+      "reference": 4,
+    }
+  }
+  function getStyleMetadataDark(type: string, modifiers: string[]) {
+    let color = (darkThemeMap as any)[type];
+    if (type === "variable") {
+      color = (darkThemeMap[type] as any)[modifiers[0]];
+    }
+    const style = {
+      foreground: color,
+      bold: false,
+      underline: false,
+      italic: false
+    };
+    if (true) {
+      return style;
+    }
+  };
+
+  const lightThemeMap = {
+    "keyword": 0,
+    "comment": 7,
+    "parameter": 5,
+    "property": 4,
+    "operator": 1,
+    "label": 11,
+    "class": 5,
+    "macro": 3,
+    "string": 11,
+    "specVersion": 7,
+    "info": 5,
+    "version": 4,
+    "operation": 0,
+    "path": 3,
+    "variable": {
+      "declaration": 12,
+      "definition": 12,
+      "deprecated": 12,
+      "reference": 13,
+    }
+  }
+  function getStyleMetadataLight(type: string, modifiers: string[]) {
+    let color = (lightThemeMap as any)[type];
+    if (type === "variable") {
+      color = (lightThemeMap[type] as any)[modifiers[0]];
+    }
+    const style = {
+      foreground: color,
+      bold: false,
+      underline: false,
+      italic: false
+    };
+    if (true) {
+      return style;
+    }
+  };
+
+  monaco.editor.setTheme('vs');
+  editor._themeService._theme.getTokenStyleMetadata = getStyleMetadataLight;
+
+  monaco.editor.setTheme('vs-dark');
+  editor._themeService._theme.getTokenStyleMetadata = getStyleMetadataDark
 
   function createDocument(model: monaco.editor.IReadOnlyModel) {
     return TextDocument.create(
@@ -54,134 +179,30 @@ export default ({ monaco, containerId }) => {
     );
   }
 
-  function resolveSchema(url: string): Promise<string> {
-    const promise = new Promise<string>((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.open("GET", url, true);
-      xhr.send();
-    });
-    return promise;
-  }
-
   const m2p = new MonacoToProtocolConverter();
   const p2m = new ProtocolToMonacoConverter();
-  const jsonService = getLanguageService({
-    schemaRequestService: resolveSchema,
-  });
-  const pendingValidationRequests = new Map<string, number>();
+  const apidomService = getLanguageService({
 
-  monaco.languages.registerCompletionItemProvider(LANGUAGE_ID, {
-    provideCompletionItems(
-      model,
-      position,
-      context,
-      token
-    ): monaco.Thenable<monaco.languages.CompletionList> {
-      const document = createDocument(model);
-      const wordUntil = model.getWordUntilPosition(position);
-      const defaultRange = new monaco.Range(
-        position.lineNumber,
-        wordUntil.startColumn,
-        position.lineNumber,
-        wordUntil.endColumn
-      );
-      const jsonDocument = jsonService.parseJSONDocument(document);
-      return jsonService
-        .doComplete(
-          document,
-          m2p.asPosition(position.lineNumber, position.column),
-          jsonDocument
-        )
-        .then((list) => {
-          return p2m.asCompletionResult(list, defaultRange);
-        });
-    },
-
-    resolveCompletionItem(
-      model,
-      position,
-      item,
-      token
-    ):
-      | monaco.languages.CompletionItem
-      | monaco.Thenable<monaco.languages.CompletionItem> {
-      return jsonService
-        .doResolve(m2p.asCompletionItem(item))
-        .then((result) => p2m.asCompletionItem(result, item.range));
-    },
   });
 
-  monaco.languages.registerDocumentRangeFormattingEditProvider(LANGUAGE_ID, {
-    provideDocumentRangeFormattingEdits(
-      model,
-      range,
-      options,
-      token
-    ):
-      | monaco.languages.TextEdit[]
-      | monaco.Thenable<monaco.languages.TextEdit[]> {
-      const document = createDocument(model);
-      const edits = jsonService.format(
-        document,
-        m2p.asRange(range),
-        m2p.asFormattingOptions(options)
-      );
-      return p2m.asTextEdits(edits);
-    },
-  });
-
-  monaco.languages.registerDocumentSymbolProvider(LANGUAGE_ID, {
-    provideDocumentSymbols(
-      model,
-      token
-    ):
-      | monaco.languages.DocumentSymbol[]
-      | monaco.Thenable<monaco.languages.DocumentSymbol[]> {
-      const document = createDocument(model);
-      const jsonDocument = jsonService.parseJSONDocument(document);
-      return p2m.asSymbolInformations(
-        jsonService.findDocumentSymbols(document, jsonDocument)
-      );
-    },
-  });
-
-  monaco.languages.registerHoverProvider(LANGUAGE_ID, {
-    provideHover(
-      model,
-      position,
-      token
-    ): monaco.languages.Hover | monaco.Thenable<monaco.languages.Hover> {
-      const document = createDocument(model);
-      const jsonDocument = jsonService.parseJSONDocument(document);
-      return jsonService
-        .doHover(
-          document,
-          m2p.asPosition(position.lineNumber, position.column),
-          jsonDocument
-        )
-        .then((hover) => {
-          return p2m.asHover(hover)!;
-        });
-    },
-  });
-
-  getModel().onDidChangeContent((event) => {
-    validate();
-  });
 
   function validate(): void {
     const document = createDocument(getModel());
     cleanPendingValidation(document);
     pendingValidationRequests.set(
-      document.uri,
-      setTimeout(() => {
-        pendingValidationRequests.delete(document.uri);
-        doValidate(document);
-      })
+        document.uri,
+        setTimeout(() => {
+          pendingValidationRequests.delete(document.uri);
+          doValidate(document);
+        })
     );
   }
+
+  /**
+   * Validation
+   */
+
+  const pendingValidationRequests = new Map<string, number>();
 
   function cleanPendingValidation(document: TextDocument): void {
     const request = pendingValidationRequests.get(document.uri);
@@ -196,8 +217,7 @@ export default ({ monaco, containerId }) => {
       cleanDiagnostics();
       return;
     }
-    const jsonDocument = jsonService.parseJSONDocument(document);
-    jsonService.doValidation(document, jsonDocument).then((diagnostics) => {
+    apidomService.doValidation(document).then((diagnostics) => {
       const markers = p2m.asDiagnostics(diagnostics);
       monaco.editor.setModelMarkers(getModel(), "default", markers);
     });
@@ -206,4 +226,136 @@ export default ({ monaco, containerId }) => {
   function cleanDiagnostics(): void {
     monaco.editor.setModelMarkers(getModel(), "default", []);
   }
+
+
+
+
+  getModel().onDidChangeContent((event) => {
+    validate();
+  });
+
+
+  /**
+   *  add providers to monaco editor
+   */
+
+  monaco.languages.registerCompletionItemProvider(LANGUAGE_ID, {
+    provideCompletionItems(
+      model,
+      position: Position,
+      context,
+      token
+    ): monaco.Thenable<monaco.languages.CompletionList> {
+      const document = createDocument(model);
+      const wordUntil = model.getWordUntilPosition(position);
+      const defaultRange = new monaco.Range(
+        position.lineNumber,
+        wordUntil.startColumn,
+        position.lineNumber,
+        wordUntil.endColumn
+      );
+      return apidomService
+        .doComplete(
+          document,
+          m2p.asPosition(position.lineNumber, position.column)
+        )
+        .then((list) => {
+          return p2m.asCompletionResult(list, defaultRange);
+        });
+    },
+
+    resolveCompletionItem(
+      model,
+      position,
+      item,
+      token
+    ):
+      | monaco.languages.CompletionItem
+      | monaco.Thenable<monaco.languages.CompletionItem> {
+      return apidomService
+        .doResolve(m2p.asCompletionItem(item))
+        .then((result) => p2m.asCompletionItem(result, item.range));
+    },
+  });
+
+  TokensLegend.init();
+
+  monaco.languages.registerDocumentSemanticTokensProvider(LANGUAGE_ID, {
+    getLegend() {
+      return TokensLegend.getLegend();
+    },
+
+    //provideDocumentSemanticTokens(model: any): monaco.Thenable<monaco.languages.SemanticTokens> {
+    provideDocumentSemanticTokens(model: any) {
+
+      return apidomService.computeSemanticTokens(model.getValue());
+    },
+
+    releaseDocumentSemanticTokens() {
+      // nothing to do
+    }
+  });
+
+  monaco.languages.registerDocumentSymbolProvider(LANGUAGE_ID, {
+    provideDocumentSymbols(
+      model,
+      token
+    ):
+      | monaco.languages.DocumentSymbol[]
+      | monaco.Thenable<monaco.languages.DocumentSymbol[]> {
+      const document = createDocument(model);
+
+      return apidomService.findDocumentSymbols(document).then(s => {
+        return p2m.asSymbolInformations(s);
+      })
+
+    },
+  });
+
+
+  /*
+  TODO
+   */
+
+  monaco.languages.registerHoverProvider(LANGUAGE_ID, {
+    provideHover(
+        model,
+        position: Position,
+        token
+    ): monaco.languages.Hover | monaco.Thenable<monaco.languages.Hover> {
+      const document = createDocument(model);
+      const jsonDocument = {}; //apidomService.parseJSONDocument(document);
+      return apidomService
+          .doHover(
+              document,
+              m2p.asPosition(position.lineNumber, position.column),
+              jsonDocument
+          )
+          .then((hover) => {
+            return p2m.asHover(hover)!;
+          });
+    },
+  });
+
+  monaco.languages.registerDocumentRangeFormattingEditProvider(LANGUAGE_ID, {
+    provideDocumentRangeFormattingEdits(
+        model,
+        range,
+        options,
+        token
+    ):
+        | monaco.languages.TextEdit[]
+        | monaco.Thenable<monaco.languages.TextEdit[]> {
+      const document = createDocument(model);
+      const edits = apidomService.format(
+          document,
+          m2p.asRange(range),
+          m2p.asFormattingOptions(options)
+      );
+      return p2m.asTextEdits(edits);
+    },
+  });
+
+  validate();
+
 };

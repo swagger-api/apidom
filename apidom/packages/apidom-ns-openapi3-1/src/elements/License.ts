@@ -4,6 +4,7 @@ class License extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'license';
+    this.classes.push('license');
   }
 
   get name(): StringElement {

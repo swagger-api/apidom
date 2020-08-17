@@ -1,4 +1,4 @@
-import minim from 'minim';
+import * as minim from 'minim';
 
 import ParseResult from './elements/ParseResult';
 import Annotation from './elements/Annotation';

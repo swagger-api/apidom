@@ -38,6 +38,9 @@ const SpecificationVisitor = stampit(Visitor, {
     nodeToElement(specPath: string[], node) {
       const visitor = this.retrieveVisitorInstance(specPath);
       visit(node, visitor);
+      if (node.key) {
+        visitor.element.value.classes.push(node.key.value);
+      }
       return visitor.element;
     },
   },

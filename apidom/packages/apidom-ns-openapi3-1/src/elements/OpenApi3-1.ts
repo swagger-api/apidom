@@ -9,6 +9,7 @@ class OpenApi3_1 extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'openApi3-1';
     this.classes.push('api');
+    this.attributes.set('properties', ['openapi', 'info', 'servers', 'components']);
   }
 
   get openapi(): OpenapiElement {

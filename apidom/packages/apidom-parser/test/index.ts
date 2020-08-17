@@ -10,6 +10,7 @@ import ApiDOMParser from '../src/parser';
 
 const parser = ApiDOMParser().use(openapi3_1Adapter);
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
+const specBasic = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api-basic.json')).toString();
 const namespace = apiDOM.createNamespace(openapi3_1);
 
 describe('apidom-parser', function () {

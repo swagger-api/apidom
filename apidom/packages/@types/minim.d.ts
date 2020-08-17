@@ -15,11 +15,16 @@ declare module 'minim' {
 
     public children: ArrayElement;
 
+    public parent: Element;
+
+    public meta: Meta;
+
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     equals(value: any): boolean;
 
     toValue(): any;
+    freeze(): void;
 
     getMetaProperty(name: string, value: any): any;
 
@@ -67,6 +72,8 @@ declare module 'minim' {
 
     second: Element | undefined;
 
+    isEmpty: boolean;
+
     filter(predicate: Predicate): ArrayElement;
 
     contains(value: any): boolean;
@@ -84,6 +91,8 @@ declare module 'minim' {
     set(key: string | StringElement, value: any): void;
 
     hasKey(value: string): boolean;
+
+    getMember(key: string): MemberElement;
   }
 
   export class MemberElement extends Element {

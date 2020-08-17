@@ -5,7 +5,9 @@ import SpecificationVisitor from './SpecificationVisitor';
 const ErrorVisitor = stampit(SpecificationVisitor, {
   methods: {
     literal(literalNode) {
+      console.log("ft - ErrorVisitor literal")
       if (literalNode.isMissing) {
+        console.log("ErrorVisitor isMissing")
         const message = `(Missing ${literalNode.value})`;
         this.element = new this.namespace.elements.Annotation(message);
 

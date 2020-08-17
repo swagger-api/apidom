@@ -10,6 +10,7 @@ class AsyncApi2_0 extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'asyncApi2-0';
     this.classes.push('api');
+    this.attributes.set('properties', ['asyncapi', 'id', 'info', 'components']);
   }
 
   get asyncapi(): AsyncapiElement {

@@ -19,6 +19,5 @@ Now change directory to `./experiment/sapidom-monaco` and run following commands
  $ npm start
 ```
 
-Edit files in `./src` directory for experimenting with ApiDOM and Monca integration.
+Edit files in `./src` directory for experimenting with ApiDOM and Monaco integration.
 
- 

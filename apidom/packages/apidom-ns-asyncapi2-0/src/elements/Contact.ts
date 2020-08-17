@@ -4,6 +4,7 @@ class Contact extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'contact';
+    this.classes.push('contact');
   }
 
   get name(): StringElement {

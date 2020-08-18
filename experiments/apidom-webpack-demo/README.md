@@ -16,7 +16,7 @@ Now change directory to this `apidom-webpack-demo` and run following commands:
 ```sh
  $ npm i
  $ npm run build
- $ npm run start
+ $ npm start
 ```
 
 Edit `src/index.ts` as you wish to create other experiments that gets bundled via webpack and run in browser.

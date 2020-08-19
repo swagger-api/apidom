@@ -1,27 +1,25 @@
 import stampit from 'stampit';
 import { tail } from 'ramda';
 import { isFalse } from 'ramda-adjunct';
-import Parser, { SyntaxNode } from 'tree-sitter';
-import {
-  JsonArray,
-  JsonDocument,
-  JsonFalse,
-  JsonNull,
-  JsonNumber,
-  JsonObject,
-  JsonKey,
-  JsonProperty,
-  JsonString,
-  JsonStringContent,
-  JsonEscapeSequence,
-  JsonTrue,
-  ParseResult,
-  Point,
-  Position,
-  Literal,
-  Error,
-  visit,
-} from 'apidom-ast';
+import { Tree, SyntaxNode } from 'tree-sitter';
+
+import JsonArray from '../nodes/json/JsonArray';
+import JsonDocument from '../nodes/json/JsonDocument';
+import JsonFalse from '../nodes/json/JsonFalse';
+import JsonNull from '../nodes/json/JsonNull';
+import JsonNumber from '../nodes/json/JsonNumber';
+import JsonObject from '../nodes/json/JsonObject';
+import JsonKey from '../nodes/json/JsonKey';
+import JsonProperty from '../nodes/json/JsonProperty';
+import JsonString from '../nodes/json/JsonString';
+import JsonStringContent from '../nodes/json/JsonStringContent';
+import JsonEscapeSequence from '../nodes/json/JsonEscapeSequence';
+import JsonTrue from '../nodes/json/JsonTrue';
+import ParseResult from '../ParseResult';
+import Position, { Point } from '../Position';
+import Literal from '../Literal';
+import Error from '../Error';
+import { visit } from '../visitor';
 
 export const keyMap = {
   document: ['children'],
@@ -93,7 +91,7 @@ const Visitor = stampit({
 
     this.pair = function pair(node: SyntaxNode) {
       const position = toPosition(node);
-      const children = tail<Parser.SyntaxNode | JsonKey>(node.children);
+      const children = tail<SyntaxNode | JsonKey>(node.children);
       const keyValuePairNodeCount = 3;
 
       if (node.childCount >= keyValuePairNodeCount && node.firstChild !== null) {
@@ -175,7 +173,7 @@ const Visitor = stampit({
   },
 });
 
-export const transform = (cst: Parser.Tree): ParseResult => {
+export const transform = (cst: Tree): ParseResult => {
   const visitor = Visitor();
   // @ts-ignore
   const rootNode = visit(cst.rootNode, visitor, { keyMap });

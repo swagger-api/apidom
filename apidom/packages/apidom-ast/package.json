@@ -17,6 +17,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./lib ./dist ./types",
+    "test": "cross-env BABEL_ENV=commonjs mocha",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
     "security-audit": "run-s -sc security-audit:prod security-audit:dev",
@@ -37,5 +38,9 @@
     "ramda": "=0.27.0",
     "ramda-adjunct": "=2.26.0",
     "stampit": "=4.3.1"
+  },
+  "devDependencies": {
+    "tree-sitter": "=0.16.1",
+    "tree-sitter-json": "=0.16.0"
   }
 }

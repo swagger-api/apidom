@@ -1,0 +1,8 @@
+/dist
+/es
+/lib
+/config
+/.eslintrc.js
+/.nyc_output
+/node_modules
+/**/*.js

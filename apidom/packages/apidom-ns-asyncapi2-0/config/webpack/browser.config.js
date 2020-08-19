@@ -3,15 +3,19 @@
 const path = require('path');
 const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
-const node = {
+const browser = {
   mode: 'production',
   entry: ['./src/polyfills.ts', './src/namespace.ts'],
-  target: 'node',
+  target: 'web',
+  performance: {
+    maxEntrypointSize: 712000,
+    maxAssetSize: 712000,
+  },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-ns-openapi3-1.node.js',
+    filename: 'apidom-ns-asyncapi2-0.browser.js',
     libraryTarget: 'umd',
-    library: 'apidom',
+    library: 'apidomNsAsyncAPI2_0',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -34,15 +38,15 @@ const node = {
   ...nonMinimizeTrait,
 };
 
-const nodeMin = {
+const browserMin = {
   mode: 'production',
   entry: ['./src/polyfills.ts', './src/namespace.ts'],
-  target: 'node',
+  target: 'web',
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-ns-openapi3-1.node.min.js',
+    filename: 'apidom-ns-asyncapi2-0.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidom',
+    library: 'apidomNsAsyncAPI2_0',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -65,4 +69,4 @@ const nodeMin = {
   ...minimizeTrait,
 };
 
-module.exports = [node, nodeMin];
+module.exports = [browser, browserMin];

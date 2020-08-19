@@ -1,7 +1,7 @@
 {
-  "name": "apidom-ns-openapi3-1",
+  "name": "apidom-ns-asyncapi2-0",
   "version": "0.1.0",
-  "description": "OpenAPI 3.1 profile for ApiDOM",
+  "description": "AsyncAPI namespace for ApiDOM",
   "main": "lib/namespace.js",
   "module": "es/namespace.js",
   "jsnext:main": "es/namespace.js",

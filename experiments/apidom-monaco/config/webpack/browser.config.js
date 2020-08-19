@@ -70,7 +70,7 @@ const browser = {
       ...apidomPackage("apidom-ast"),
       ...apidomPackage("apidom-ns-openapi3-1"),
       ...apidomPackage("apidom-parser"),
-      ...apidomPackage("apidom-parser-adapter-openapi3-1"),
+      ...apidomPackage("apidom-parser-adapter-openapi3-1-json"),
     },
   },
   module: {

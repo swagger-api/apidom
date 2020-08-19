@@ -5,7 +5,7 @@ import * as apiDOM from 'apidom';
 /* @ts-ignore */
 import openapi3_1 from 'apidom-ns-openapi3-1';
 /* @ts-ignore */
-import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi3-1';
+import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi3-1-json';
 import ApiDOMParser from '../src/parser';
 
 const parser = ApiDOMParser().use(openapi3_1Adapter);

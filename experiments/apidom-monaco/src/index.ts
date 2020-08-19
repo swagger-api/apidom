@@ -1,7 +1,7 @@
 import * as monaco from "monaco-editor-core";
 import * as apiDOM from "apidom";
 import ApiDOMParser from "apidom-parser";
-import * as openapi3_1Adapter from "apidom-parser-adapter-openapi3-1";
+import * as openapi3_1Adapter from "apidom-parser-adapter-openapi3-1-json";
 
 import initClient from "./client";
 

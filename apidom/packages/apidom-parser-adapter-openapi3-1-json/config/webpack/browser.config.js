@@ -16,9 +16,9 @@ const browser = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-openapi3-1.browser.js',
+    filename: 'apidom-parser-adapter-openapi3-1-json.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterOpenApi3_1',
+    library: 'apidomParserAdapterOpenApi3_1Json',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -55,9 +55,9 @@ const browserMin = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-openapi3-1.browser.min.js',
+    filename: 'apidom-parser-adapter-openapi3-1-json.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterOpenApi3_1',
+    library: 'apidomParserAdapterOpenApi3_1Json',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

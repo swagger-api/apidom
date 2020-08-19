@@ -1,26 +1,26 @@
 import { Attributes, Meta, ObjectElement } from 'minim';
-import OpenapiElement from './Openapi';
-import InfoElement from './Info';
-import ServerElement from './Server';
+import AsyncapiElement from './Asyncapi';
+import IdentifierElement from './Identifier';
 import ComponentsElement from './Components';
+import InfoElement from './Info';
 
 class OpenApi3_1 extends ObjectElement {
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
-    this.element = 'openApi3-1';
+    this.element = 'asyncApi2-0';
     this.classes.push('api');
   }
 
-  get openapi(): OpenapiElement {
+  get asyncapi(): AsyncapiElement {
     return this.get('openapi');
+  }
+
+  get id(): IdentifierElement {
+    return this.get('id');
   }
 
   get info(): InfoElement {
     return this.get('info');
-  }
-
-  get servers(): ServerElement[] {
-    return this.get('servers');
   }
 
   get components(): ComponentsElement {

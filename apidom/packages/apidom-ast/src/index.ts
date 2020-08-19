@@ -32,3 +32,8 @@ export { default as Error } from './Error';
 export { default as ParseResult } from './ParseResult';
 // AST traversal related exports
 export { getVisitFn, BREAK, visit } from './visitor';
+// CST/AST transformers related exports
+export {
+  transform as transformTreeSitterJsonCST,
+  keyMap as treeSitterJsonKeyMap,
+} from './transformers/tree-sitter-json';

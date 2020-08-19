@@ -1,8 +1,14 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
-import { Error, JsonArray, JsonDocument, JsonObject, JsonProperty } from 'apidom-ast';
+import {
+  Error,
+  JsonArray,
+  JsonDocument,
+  JsonObject,
+  JsonProperty,
+  transformTreeSitterJsonCST,
+} from 'apidom-ast';
 import openapi3_1 from 'apidom-ns-openapi3-1';
-import { transform } from './cst';
 import specification from './specification';
 import { visit } from './visitors';
 
@@ -20,7 +26,7 @@ const parse = async (
 
   // @ts-ignore
   const cst = parser.parse(source);
-  const ast = transform(cst);
+  const ast = transformTreeSitterJsonCST(cst);
 
   const keyMap = {
     // @ts-ignore

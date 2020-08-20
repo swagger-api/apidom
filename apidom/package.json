@@ -8,12 +8,12 @@
   },
   "comments": {
     "scripts": {
-      "prebuild": "We have prebuild script to download and initialize the docker image used to build WASM fragments"
+      "prebuild": "We build WASM here once and copy into specific packages to avoid multiple WASM build"
     }
   },
   "scripts": {
     "postinstall": "npm run link-parent-bin",
-    "prebuild": "tree-sitter build-wasm ./node_modules/tree-sitter-json && rimraf tree-sitter-json.wasm",
+    "prebuild": "tree-sitter build-wasm ./node_modules/tree-sitter-json && copyfiles tree-sitter-json.wasm packages/apidom-parser-adapter-asyncapi2-0-json && copyfiles tree-sitter-json.wasm packages/apidom-parser-adapter-openapi3-1-json",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint",
@@ -55,6 +55,7 @@
     "@typescript-eslint/parser": "=3.0.2",
     "babel-loader": "=8.1.0",
     "chai": "=4.2.0",
+    "copyfiles": "=2.3.0",
     "core-js": "=3.6.5",
     "cross-env": "=7.0.2",
     "eslint": "=7.1.0",

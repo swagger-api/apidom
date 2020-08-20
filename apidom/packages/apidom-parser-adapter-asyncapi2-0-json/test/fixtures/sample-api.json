@@ -1,1 +1,55 @@
-{}
+{
+  "asyncapi": "2.0.0",
+  "id": "urn:com:smartylighting:streetlights:server",
+  "info": {
+    "title": "AsyncAPI Sample App",
+    "description": "This is a sample server.",
+    "termsOfService": "http://asyncapi.org/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.asyncapi.org/support",
+      "email": "support@asyncapi.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.1"
+  },
+  "components": {
+    "x-extension": "value",
+    "schemas": {
+      "x-model": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type:": "integer"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        }
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "x-nullable": true
+          }
+        }
+      }
+    }
+  }
+}

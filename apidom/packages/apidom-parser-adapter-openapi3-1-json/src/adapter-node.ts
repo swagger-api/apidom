@@ -1,6 +1,2 @@
 export { default as parse, namespace } from './parser/index-node';
-
-export const mediaTypes = ['application/vnd.oai.openapi', 'application/vnd.oai.openapi+json'];
-
-export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)openapi\1\s*:\s*(["']?)3\.\d+\.\d+\2/g);
+export { mediaTypes, detect } from './adapter';

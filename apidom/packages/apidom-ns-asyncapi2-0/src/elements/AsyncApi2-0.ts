@@ -4,7 +4,7 @@ import IdentifierElement from './Identifier';
 import ComponentsElement from './Components';
 import InfoElement from './Info';
 
-class OpenApi3_1 extends ObjectElement {
+class AsyncApi2_0 extends ObjectElement {
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
     this.element = 'asyncApi2-0';
@@ -12,7 +12,7 @@ class OpenApi3_1 extends ObjectElement {
   }
 
   get asyncapi(): AsyncapiElement {
-    return this.get('openapi');
+    return this.get('asyncapi');
   }
 
   get id(): IdentifierElement {
@@ -28,4 +28,4 @@ class OpenApi3_1 extends ObjectElement {
   }
 }
 
-export default OpenApi3_1;
+export default AsyncApi2_0;

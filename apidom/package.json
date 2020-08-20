@@ -8,6 +8,7 @@
   },
   "scripts": {
     "postinstall": "npm run link-parent-bin",
+    "prebuild": "tree-sitter build-wasm ./node_modules/tree-sitter-json && rimraf tree-sitter-json.wasm",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint",
@@ -79,6 +80,7 @@
     "apidom-ns-asyncapi2-0": "file:packages/apidom-ns-asyncapi2-0",
     "apidom-ns-openapi3-1": "file:packages/apidom-ns-openapi3-1",
     "apidom-parser": "file:packages/apidom-parser",
+    "apidom-parser-adapter-asyncapi2-0-json": "file:packages/apidom-parser-adapter-asyncapi2-0-json",
     "apidom-parser-adapter-openapi3-1-json": "file:packages/apidom-parser-adapter-openapi3-1-json"
   }
 }

@@ -6,6 +6,9 @@
     "node": ">=10.21.0",
     "npm": ">=6.14.5"
   },
+  "comments": {
+    "scripts:prebuild": "We have prebuild script to download and initialize the docker image used to build WASM fragments"
+  },
   "scripts": {
     "postinstall": "npm run link-parent-bin",
     "prebuild": "tree-sitter build-wasm ./node_modules/tree-sitter-json && rimraf tree-sitter-json.wasm",

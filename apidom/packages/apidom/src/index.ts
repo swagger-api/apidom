@@ -16,6 +16,8 @@ export {
   isArrayElement,
   isObjectElement,
   isMemberElement,
+  isLinkElement,
+  isRefElement,
 } from './predicates';
 
 export const createNamespace = (namespacePlugin: NamespacePlugin): ApiDOMNamespace => {

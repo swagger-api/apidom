@@ -8,6 +8,8 @@ import {
   NullElement,
   BooleanElement,
   MemberElement,
+  LinkElement,
+  RefElement,
 } from 'minim';
 
 import {
@@ -19,6 +21,8 @@ import {
   isArrayElement,
   isObjectElement,
   isMemberElement,
+  isLinkElement,
+  isRefElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -450,6 +454,121 @@ describe('predicates', function () {
 
       assert.isTrue(isMemberElement(memberElementDuck));
       assert.isFalse(isMemberElement(memberElementSwan));
+    });
+  });
+
+  context('isLinkElement', function () {
+    context('given LinkElement instance value', function () {
+      specify('should return true', function () {
+        const element = new LinkElement();
+
+        assert.isTrue(isLinkElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class LinkSubElement extends LinkElement {}
+
+        assert.isTrue(isLinkElement(new LinkSubElement()));
+      });
+    });
+
+    context('given non LinkElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isLinkElement(1));
+        assert.isFalse(isLinkElement(null));
+        assert.isFalse(isLinkElement(undefined));
+        assert.isFalse(isLinkElement({}));
+        assert.isFalse(isLinkElement([]));
+        assert.isFalse(isLinkElement('string'));
+
+        assert.isFalse(isLinkElement(new StringElement()));
+        assert.isFalse(isLinkElement(new BooleanElement()));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const linkElementDuck = {
+        element: 'link',
+        content: [],
+        primitive() {
+          return undefined;
+        },
+        get href() {
+          return 'href';
+        },
+        get relation() {
+          return 'relation';
+        },
+      };
+
+      const linkElementSwan = {
+        element: 'link',
+        content: [],
+        primitive() {
+          return undefined;
+        },
+      };
+
+      assert.isTrue(isLinkElement(linkElementDuck));
+      assert.isFalse(isLinkElement(linkElementSwan));
+    });
+  });
+
+  context('isRefElement', function () {
+    context('given RefElement instance value', function () {
+      specify('should return true', function () {
+        const element = new RefElement();
+
+        assert.isTrue(isRefElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class RefSubElement extends RefElement {}
+
+        assert.isTrue(isRefElement(new RefSubElement()));
+      });
+    });
+
+    context('given non RefElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isRefElement(1));
+        assert.isFalse(isRefElement(null));
+        assert.isFalse(isRefElement(undefined));
+        assert.isFalse(isRefElement({}));
+        assert.isFalse(isRefElement([]));
+        assert.isFalse(isRefElement('string'));
+
+        assert.isFalse(isRefElement(new StringElement()));
+        assert.isFalse(isRefElement(new BooleanElement()));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const refElementDuck = {
+        element: 'ref',
+        content: [],
+        primitive() {
+          return undefined;
+        },
+        get path() {
+          return 'href';
+        },
+      };
+
+      const refElementSwan = {
+        element: 'ref',
+        content: [],
+        primitive() {
+          return undefined;
+        },
+      };
+
+      assert.isTrue(isRefElement(refElementDuck));
+      assert.isFalse(isRefElement(refElementSwan));
     });
   });
 });

@@ -29,7 +29,7 @@
     "apidom-ast": "file:../apidom-ast",
     "apidom-ns-asyncapi2-0": "file:../apidom-ns-asyncapi2-0",
     "ramda": "=0.27.0",
-    "ramda-adjunct": "=2.26.0",
+    "ramda-adjunct": "=2.27.0",
     "stampit": "=4.3.1",
     "tree-sitter": "=0.16.1",
     "tree-sitter-json": "=0.16.0",

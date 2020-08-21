@@ -7,6 +7,17 @@ export { default as CommentElement } from './elements/Comment';
 export { default as ParseResultElement } from './elements/ParseResult';
 export { default as SourceMapElement } from './elements/SourceMap';
 
+export {
+  isElement,
+  isStringElement,
+  isNumberElement,
+  isNullElement,
+  isBooleanElement,
+  isArrayElement,
+  isObjectElement,
+  isMemberElement,
+} from './predicates';
+
 export const createNamespace = (namespacePlugin: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();
   namespace.use(namespacePlugin);

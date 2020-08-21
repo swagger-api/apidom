@@ -15,7 +15,7 @@ declare module 'minim' {
 
     public children: ArrayElement;
 
-    constructor(content: Array<unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     toValue(): any;
   }
@@ -48,6 +48,12 @@ declare module 'minim' {
 
   export class StringElement extends Element {}
 
+  export class NumberElement extends Element {}
+
+  export class NullElement extends Element {}
+
+  export class BooleanElement extends Element {}
+
   export class ArrayElement extends Element {
     first: Element | undefined;
 
@@ -61,10 +67,22 @@ declare module 'minim' {
   }
 
   export class ObjectElement extends ArrayElement {
-    constructor(content: Array<unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     get(key: string): any;
 
     set(key: string | StringElement, value: any): void;
+  }
+
+  export class MemberElement extends Element {
+    constructor(key?: unknown, value?: unknown, meta?: Meta, attributes?: Attributes);
+
+    get key(): unknown;
+
+    set key(key: unknown);
+
+    get value(): unknown;
+
+    set value(value: unknown);
   }
 }

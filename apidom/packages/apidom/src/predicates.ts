@@ -7,6 +7,8 @@ import {
   ArrayElement,
   ObjectElement,
   MemberElement,
+  LinkElement,
+  RefElement,
 } from 'minim';
 import { either, allPass, is, both, has, curry, pathSatisfies, pathEq } from 'ramda';
 import { invokeArgs, isFunction } from 'ramda-adjunct';
@@ -118,5 +120,33 @@ export const isMemberElement = either(
     hasGetter('key'),
     // @ts-ignore
     hasGetter('value'),
+  ]),
+);
+
+export const isLinkElement = either(
+  is(LinkElement),
+  allPass([
+    hasBasicElementProps,
+    // @ts-ignore
+    isElementType('link'),
+    // @ts-ignore
+    primitiveEq(undefined),
+    // @ts-ignore
+    hasGetter('relation'),
+    // @ts-ignore
+    hasGetter('href'),
+  ]),
+);
+
+export const isRefElement = either(
+  is(RefElement),
+  allPass([
+    hasBasicElementProps,
+    // @ts-ignore
+    isElementType('ref'),
+    // @ts-ignore
+    primitiveEq(undefined),
+    // @ts-ignore
+    hasGetter('path'),
   ]),
 );

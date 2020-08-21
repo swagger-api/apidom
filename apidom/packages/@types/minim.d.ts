@@ -85,4 +85,24 @@ declare module 'minim' {
 
     set value(value: unknown);
   }
+
+  export class LinkElement extends Element {
+    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
+
+    get relation(): unknown;
+
+    set relation(relation: unknown);
+
+    get href(): unknown;
+
+    set href(key: unknown);
+  }
+
+  export class RefElement extends Element {
+    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
+
+    get path(): unknown;
+
+    set path(path: unknown);
+  }
 }

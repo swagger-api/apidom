@@ -19,6 +19,7 @@ export {
   isLinkElement,
   isRefElement,
 } from './predicates';
+export { default as createPredicate } from './predicates/helpers';
 
 export const createNamespace = (namespacePlugin: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();

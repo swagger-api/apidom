@@ -5,7 +5,7 @@ import ComponentsElement from './Components';
 import InfoElement from './Info';
 
 class AsyncApi2_0 extends ObjectElement {
-  constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
+  constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'asyncApi2-0';
     this.classes.push('api');

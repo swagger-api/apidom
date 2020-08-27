@@ -19,6 +19,10 @@ const primitiveEq = curry(
     invokeArgs(['primitive'], [], obj) === val,
 );
 
+const hasClass = curry((cls: string, obj: Record<string, unknown>): boolean =>
+  invokeArgs(['classes', 'includes'], [cls], obj),
+);
+
 const isElementType = pathEq(['element']);
 
 interface PredicateHelpers {
@@ -27,6 +31,7 @@ interface PredicateHelpers {
   hasBasicElementProps: typeof hasBasicElementProps;
   primitiveEq: typeof primitiveEq;
   isElementType: typeof isElementType;
+  hasClass: typeof hasClass;
 }
 
 type PredicateCreator = (helpers: PredicateHelpers) => Pred;
@@ -34,7 +39,14 @@ type PredicateCreator = (helpers: PredicateHelpers) => Pred;
 const createPredicate = (predicateCreator: PredicateCreator): Pred => {
   return curryN(
     1,
-    predicateCreator({ hasGetter, hasMethod, hasBasicElementProps, primitiveEq, isElementType }),
+    predicateCreator({
+      hasGetter,
+      hasMethod,
+      hasBasicElementProps,
+      primitiveEq,
+      isElementType,
+      hasClass,
+    }),
   );
 };
 

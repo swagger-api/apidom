@@ -5,73 +5,75 @@ import {
   isSchemaElement,
   isLicenseElement,
   isInfoElement,
-  isIdentifierElement,
   isContactElement,
   isComponentsElement,
-  isAsycapiElement,
-  isAsycApi2_0Element,
-  AsyncApi2_0Element,
-  AsyncapiElement,
+  isOpenapiElement,
+  isOpenApiApi3_1Element,
+  isServerElement,
+  isServerVariableElement,
+  OpenApi3_1Element,
+  OpenapiElement,
   SchemaElement,
-  IdentifierElement,
   ComponentsElement,
   InfoElement,
   LicenseElement,
   ContactElement,
+  ServerElement,
+  ServerVariableElement,
 } from '../src';
 
 describe('predicates', function () {
-  context('isAsyncApi2_0Element', function () {
-    context('given AsyncApi2_0Element instance value', function () {
+  context('isOpenApiApi3_1Element', function () {
+    context('given OpenApi3_1Element instance value', function () {
       specify('should return true', function () {
-        const element = new AsyncApi2_0Element();
+        const element = new OpenApi3_1Element();
 
-        assert.isTrue(isAsycApi2_0Element(element));
+        assert.isTrue(isOpenApiApi3_1Element(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class AsyncApi2_0SubElement extends AsyncApi2_0Element {}
+        class OpenApi3_1SubElement extends OpenApi3_1Element {}
 
-        assert.isTrue(isAsycApi2_0Element(new AsyncApi2_0SubElement()));
+        assert.isTrue(isOpenApiApi3_1Element(new OpenApi3_1SubElement()));
       });
     });
 
-    context('given non AsyncApi2_0Element instance value', function () {
+    context('given non OpenApi3_1SubElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isAsycApi2_0Element(1));
-        assert.isFalse(isAsycApi2_0Element(null));
-        assert.isFalse(isAsycApi2_0Element(undefined));
-        assert.isFalse(isAsycApi2_0Element({}));
-        assert.isFalse(isAsycApi2_0Element([]));
-        assert.isFalse(isAsycApi2_0Element('string'));
+        assert.isFalse(isOpenApiApi3_1Element(1));
+        assert.isFalse(isOpenApiApi3_1Element(null));
+        assert.isFalse(isOpenApiApi3_1Element(undefined));
+        assert.isFalse(isOpenApiApi3_1Element({}));
+        assert.isFalse(isOpenApiApi3_1Element([]));
+        assert.isFalse(isOpenApiApi3_1Element('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const asyncApi2_0ElementDuck = {
-        element: 'asyncApi2-0',
+      const openApi3_1ElementDuck = {
+        element: 'openApi3-1',
         classes: new ArrayElement(['api']),
         content: [],
         primitive() {
           return 'object';
         },
-        get asyncapi() {
-          return 'asyncapi';
-        },
-        get id() {
-          return 'id';
+        get openapi() {
+          return 'openapi';
         },
         get info() {
           return 'info';
+        },
+        get servers() {
+          return 'servers';
         },
         get components() {
           return 'components';
         },
       };
 
-      const asyncApi2_0ElementSwan = {
+      const openApi3_1ElementSwan = {
         element: undefined,
         content: undefined,
         primitive() {
@@ -82,8 +84,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isAsycApi2_0Element(asyncApi2_0ElementDuck));
-      assert.isFalse(isAsycApi2_0Element(asyncApi2_0ElementSwan));
+      assert.isTrue(isOpenApiApi3_1Element(openApi3_1ElementDuck));
+      assert.isFalse(isOpenApiApi3_1Element(openApi3_1ElementSwan));
     });
   });
 
@@ -137,90 +139,37 @@ describe('predicates', function () {
     });
   });
 
-  context('isIdentifierElement', function () {
-    context('given IdentifierElement instance value', function () {
+  context('isOpenapiElement', function () {
+    context('given OpenapiElement instance value', function () {
       specify('should return true', function () {
-        const element = new IdentifierElement();
+        const element = new OpenapiElement();
 
-        assert.isTrue(isIdentifierElement(element));
+        assert.isTrue(isOpenapiElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class IdentifierSubElement extends IdentifierElement {}
+        class OpenapiSubElement extends OpenapiElement {}
 
-        assert.isTrue(isIdentifierElement(new IdentifierSubElement()));
+        assert.isTrue(isOpenapiElement(new OpenapiSubElement()));
       });
     });
 
-    context('given non IdentifierElement instance value', function () {
+    context('given non OpenapiElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isIdentifierElement(1));
-        assert.isFalse(isIdentifierElement(null));
-        assert.isFalse(isIdentifierElement(undefined));
-        assert.isFalse(isIdentifierElement({}));
-        assert.isFalse(isIdentifierElement([]));
-        assert.isFalse(isIdentifierElement('string'));
+        assert.isFalse(isOpenapiElement(1));
+        assert.isFalse(isOpenapiElement(null));
+        assert.isFalse(isOpenapiElement(undefined));
+        assert.isFalse(isOpenapiElement({}));
+        assert.isFalse(isOpenapiElement([]));
+        assert.isFalse(isOpenapiElement('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const identifierElementDuck = {
-        element: 'identifier',
-        content: [],
-        primitive() {
-          return 'string';
-        },
-        get length() {
-          return 0;
-        },
-      };
-
-      const identifierElementSwan = {
-        element: undefined,
-        content: undefined,
-        primitive() {
-          return 'swan';
-        },
-      };
-
-      assert.isTrue(isIdentifierElement(identifierElementDuck));
-      assert.isFalse(isIdentifierElement(identifierElementSwan));
-    });
-  });
-
-  context('isAsyncapiElement', function () {
-    context('given AsyncapiElement instance value', function () {
-      specify('should return true', function () {
-        const element = new AsyncapiElement();
-
-        assert.isTrue(isAsycapiElement(element));
-      });
-    });
-
-    context('given subtype instance value', function () {
-      specify('should return true', function () {
-        class AsyncapiSubElement extends AsyncapiElement {}
-
-        assert.isTrue(isAsycapiElement(new AsyncapiSubElement()));
-      });
-    });
-
-    context('given non AsyncapiElement instance value', function () {
-      specify('should return false', function () {
-        assert.isFalse(isAsycapiElement(1));
-        assert.isFalse(isAsycapiElement(null));
-        assert.isFalse(isAsycapiElement(undefined));
-        assert.isFalse(isAsycapiElement({}));
-        assert.isFalse(isAsycapiElement([]));
-        assert.isFalse(isAsycapiElement('string'));
-      });
-    });
-
-    specify('should support duck-typing', function () {
-      const asyncapiElementDuck = {
-        element: 'asyncapi',
+      const openapiElementDuck = {
+        element: 'openapi',
         content: '',
         primitive() {
           return 'string';
@@ -230,7 +179,7 @@ describe('predicates', function () {
         },
       };
 
-      const asyncapiElementSwan = {
+      const openapiElementSwan = {
         element: undefined,
         content: undefined,
         primitive() {
@@ -238,8 +187,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isAsycapiElement(asyncapiElementDuck));
-      assert.isFalse(isAsycapiElement(asyncapiElementSwan));
+      assert.isTrue(isOpenapiElement(openapiElementDuck));
+      assert.isFalse(isOpenapiElement(openapiElementSwan));
     });
   });
 
@@ -337,6 +286,9 @@ describe('predicates', function () {
         get description() {
           return 'description';
         },
+        get summary() {
+          return 'summary';
+        },
         get termsOfService() {
           return 'termsOfService';
         },
@@ -401,6 +353,9 @@ describe('predicates', function () {
         },
         get name() {
           return 'name';
+        },
+        get identifier() {
+          return 'identifier';
         },
         get url() {
           return 'url';
@@ -476,6 +431,124 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(concatElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isServerElement', function () {
+    context('given ServerElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ServerElement();
+
+        assert.isTrue(isServerElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServerSubElement extends ServerElement {}
+
+        assert.isTrue(isServerElement(new ServerSubElement()));
+      });
+    });
+
+    context('given non ServerElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServerElement(1));
+        assert.isFalse(isServerElement(null));
+        assert.isFalse(isServerElement(undefined));
+        assert.isFalse(isServerElement({}));
+        assert.isFalse(isServerElement([]));
+        assert.isFalse(isServerElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serverElementDuck = {
+        element: 'server',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get url() {
+          return 'url';
+        },
+        get description() {
+          return 'description';
+        },
+        get variables() {
+          return 'variables';
+        },
+      };
+
+      const serverElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServerElement(serverElementDuck));
+      assert.isFalse(isServerElement(serverElementSwan));
+    });
+  });
+
+  context('isServerVariableElement', function () {
+    context('given ServerVariable instance value', function () {
+      specify('should return true', function () {
+        const element = new ServerVariableElement();
+
+        assert.isTrue(isServerVariableElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServerVariableSubElement extends ServerVariableElement {}
+
+        assert.isTrue(isServerVariableElement(new ServerVariableSubElement()));
+      });
+    });
+
+    context('given non ServerVariableElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServerVariableElement(1));
+        assert.isFalse(isServerVariableElement(null));
+        assert.isFalse(isServerVariableElement(undefined));
+        assert.isFalse(isServerVariableElement({}));
+        assert.isFalse(isServerVariableElement([]));
+        assert.isFalse(isServerVariableElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serverVariableElementDuck = {
+        element: 'serverVariable',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get default() {
+          return 'default';
+        },
+        get description() {
+          return 'description';
+        },
+        get enum() {
+          return 'enum';
+        },
+      };
+
+      const serverVariableElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServerVariableElement(serverVariableElementDuck));
+      assert.isFalse(isServerVariableElement(serverVariableElementSwan));
     });
   });
 });

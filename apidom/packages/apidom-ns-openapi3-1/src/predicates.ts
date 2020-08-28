@@ -1,63 +1,51 @@
 import { allPass, either, is } from 'ramda';
 import { createPredicate } from 'apidom';
 
-import AsyncApi2_0Element from './elements/AsyncApi2-0';
-import AsyncapiElement from './elements/Asyncapi';
-import IdentifierElement from './elements/Identifier';
+import ComponentsElement from './elements/Components';
+import ContactElement from './elements/Contact';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
-import ContactElement from './elements/Contact';
-import ComponentsElement from './elements/Components';
+import OpenapiElement from './elements/Openapi';
+import OpenApi3_1Element from './elements/OpenApi3-1';
 import SchemaElement from './elements/Schema';
+import ServerElement from './elements/Server';
+import ServerVariableElement from './elements/ServerVariable';
 
-export const isAsycApi2_0Element = createPredicate(
+export const isOpenApiApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
-    const isElementTypeAsyncApi2_0 = isElementType('asyncApi2-0');
+    const isElementTypeOpenApi3_1 = isElementType('openApi3-1');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
-    const hasGetterAsyncapi = hasGetter('asyncapi');
-    const hasGetterId = hasGetter('id');
+    const hasGetterOpenapi = hasGetter('openapi');
     const hasGetterInfo = hasGetter('info');
+    const hasGetterServers = hasGetter('servers');
     const hasGetterComponents = hasGetter('components');
 
     return either(
-      is(AsyncApi2_0Element),
+      is(OpenApi3_1Element),
       allPass([
         hasBasicElementProps,
-        isElementTypeAsyncApi2_0,
+        isElementTypeOpenApi3_1,
         primitiveEqObject,
         hasClassApi,
-        hasGetterAsyncapi,
-        hasGetterId,
+        hasGetterOpenapi,
         hasGetterInfo,
+        hasGetterServers,
         hasGetterComponents,
       ]),
     );
   },
 );
 
-export const isAsycapiElement = createPredicate(
+export const isOpenapiElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeAsyncapi = isElementType('asyncapi');
+    const isElementTypeOpenapi = isElementType('openapi');
     const primitiveEqString = primitiveEq('string');
     const hasGetterLength = hasGetter('length');
 
     return either(
-      is(AsyncapiElement),
-      allPass([hasBasicElementProps, isElementTypeAsyncapi, primitiveEqString, hasGetterLength]),
-    );
-  },
-);
-
-export const isIdentifierElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeIdentifier = isElementType('identifier');
-    const primitiveEqString = primitiveEq('string');
-    const hasGetterLength = hasGetter('length');
-
-    return either(
-      is(IdentifierElement),
-      allPass([hasBasicElementProps, isElementTypeIdentifier, primitiveEqString, hasGetterLength]),
+      is(OpenapiElement),
+      allPass([hasBasicElementProps, isElementTypeOpenapi, primitiveEqString, hasGetterLength]),
     );
   },
 );
@@ -68,6 +56,7 @@ export const isInfoElement = createPredicate(
     const primitiveEqObject = primitiveEq('object');
     const hasGetterTitle = hasGetter('title');
     const hasGetterDescription = hasGetter('description');
+    const hasGetterSummary = hasGetter('summary');
     const hasGetterTermsOfService = hasGetter('termsOfService');
     const hasGetterVersion = hasGetter('version');
     const hasGetterLicense = hasGetter('license');
@@ -81,6 +70,7 @@ export const isInfoElement = createPredicate(
         primitiveEqObject,
         hasGetterTitle,
         hasGetterDescription,
+        hasGetterSummary,
         hasGetterTermsOfService,
         hasGetterVersion,
         hasGetterLicense,
@@ -95,6 +85,7 @@ export const isLicenseElement = createPredicate(
     const isElementTypeLicense = isElementType('license');
     const primitiveEqObject = primitiveEq('object');
     const hasGetterName = hasGetter('name');
+    const hasGetterIdentifier = hasGetter('identifier');
     const hasGetterUrl = hasGetter('url');
 
     return either(
@@ -104,6 +95,7 @@ export const isLicenseElement = createPredicate(
         isElementTypeLicense,
         primitiveEqObject,
         hasGetterName,
+        hasGetterIdentifier,
         hasGetterUrl,
       ]),
     );
@@ -153,6 +145,50 @@ export const isSchemaElement = createPredicate(
     return either(
       is(SchemaElement),
       allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+    );
+  },
+);
+
+export const isServerElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeInfo = isElementType('server');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetterUrl = hasGetter('url');
+    const hasGetterDescription = hasGetter('description');
+    const hasGetterVariables = hasGetter('variables');
+
+    return either(
+      is(ServerElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeInfo,
+        primitiveEqObject,
+        hasGetterUrl,
+        hasGetterDescription,
+        hasGetterVariables,
+      ]),
+    );
+  },
+);
+
+export const isServerVariableElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeInfo = isElementType('serverVariable');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetterDefault = hasGetter('default');
+    const hasGetterDescription = hasGetter('description');
+    const hasGetterEnum = hasGetter('enum');
+
+    return either(
+      is(ServerVariableElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeInfo,
+        primitiveEqObject,
+        hasGetterDefault,
+        hasGetterDescription,
+        hasGetterEnum,
+      ]),
     );
   },
 );

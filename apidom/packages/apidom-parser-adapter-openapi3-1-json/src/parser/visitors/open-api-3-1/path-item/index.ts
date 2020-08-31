@@ -22,14 +22,14 @@ const PathItemVisitor = stampit(SpecificationVisitor, {
         '$ref',
         'description',
         'summary',
-        'get',
-        'put',
-        'post',
-        'delete',
-        'options',
-        'head',
-        'patch',
-        'trace',
+        // 'get',
+        // 'put',
+        // 'post',
+        // 'delete',
+        // 'options',
+        // 'head',
+        // 'patch',
+        // 'trace',
       ];
 
       // @ts-ignore

@@ -4,19 +4,20 @@ import { visit, BREAK } from '..';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const ServersVisitor = stampit(SpecificationVisitor, {
-  props: {
-    keyElement: null,
-  },
   methods: {
     key(keyNode) {
-      this.keyElement = this.maybeAddSourceMap(
+      this.element.key = this.maybeAddSourceMap(
         keyNode,
         new this.namespace.elements.String('servers'),
       );
     },
 
-    array(arrayNode) {
+    property(propertyNode) {
       const { MemberElement } = this.namespace.elements.Element.prototype;
+      this.element = this.maybeAddSourceMap(propertyNode, new MemberElement());
+    },
+
+    array(arrayNode) {
       const serverElements = arrayNode.items
         // @ts-ignore
         .filter((jsonNode) => jsonNode.type === JsonObject.type)
@@ -29,10 +30,7 @@ const ServersVisitor = stampit(SpecificationVisitor, {
       const serversElement = new this.namespace.elements.Array(serverElements);
       serversElement.classes.push('servers');
 
-      this.element = new MemberElement(
-        this.keyElement,
-        this.maybeAddSourceMap(arrayNode, serversElement),
-      );
+      this.element.value = this.maybeAddSourceMap(arrayNode, serversElement);
 
       return BREAK;
     },

@@ -8,9 +8,12 @@ const OpenapiVisitor = stampit(SpecificationVisitor, {
       const openapiElement = new this.namespace.elements.Openapi(propertyNode.value.value);
       const { MemberElement } = this.namespace.elements.Element.prototype;
 
-      this.element = new MemberElement(
-        this.maybeAddSourceMap(propertyNode.key, keyElement),
-        this.maybeAddSourceMap(propertyNode.value, openapiElement),
+      this.element = this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, openapiElement),
+        ),
       );
     },
   },

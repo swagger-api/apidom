@@ -3,20 +3,21 @@ import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
 const VariablesVisitor = stampit(SpecificationVisitor, {
-  props: {
-    keyElement: null,
-  },
   methods: {
     key(keyNode) {
-      this.keyElement = this.maybeAddSourceMap(
+      this.element.key = this.maybeAddSourceMap(
         keyNode,
         new this.namespace.elements.String('variables'),
       );
     },
 
+    property(propertyNode) {
+      const { MemberElement } = this.namespace.elements.Element.prototype;
+      this.element = this.maybeAddSourceMap(propertyNode, new MemberElement());
+    },
+
     object(objectNode) {
       const variablesElement = new this.namespace.elements.Object();
-      const { MemberElement } = this.namespace.elements.Element.prototype;
 
       // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
@@ -30,10 +31,7 @@ const VariablesVisitor = stampit(SpecificationVisitor, {
 
       variablesElement.classes.push('variables');
 
-      this.element = new MemberElement(
-        this.keyElement,
-        this.maybeAddSourceMap(objectNode, variablesElement),
-      );
+      this.element.value = this.maybeAddSourceMap(objectNode, variablesElement);
 
       return BREAK;
     },

@@ -8,7 +8,7 @@ const OpenApi3_1Visitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const openApi3_1Element = new this.namespace.elements.OpenApi3_1();
 
-      const supportedProps = ['openapi', 'info', 'servers', 'components'];
+      const supportedProps = ['openapi', 'info', 'servers', 'components', 'paths'];
 
       // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {

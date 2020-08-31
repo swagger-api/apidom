@@ -28,6 +28,11 @@ import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-var
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/SchemaVisitor';
+import PathsVisitor from './visitors/open-api-3-1/PathsVisitor';
+import PathItemVisitor from './visitors/open-api-3-1/path-item';
+import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
+import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
+import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
 
@@ -58,6 +63,9 @@ const specification = {
             servers: ServersVisitor,
             components: {
               $ref: '#/visitors/document/objects/Components',
+            },
+            paths: {
+              $ref: '#/visitors/document/objects/Paths',
             },
           },
         },
@@ -116,6 +124,17 @@ const specification = {
           $visitor: ComponentsVisitor,
           fields: {
             schemas: SchemasVisitor,
+          },
+        },
+        Paths: {
+          $visitor: PathsVisitor,
+        },
+        PathItem: {
+          $visitor: PathItemVisitor,
+          fields: {
+            $ref: PathItem$RefVisitor,
+            summary: PathItemSummaryVisitor,
+            description: PathItemDescriptionVisitor,
           },
         },
       },

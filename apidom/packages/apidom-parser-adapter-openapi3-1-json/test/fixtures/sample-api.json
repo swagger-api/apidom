@@ -79,6 +79,8 @@
   ],
   "paths": {
     "/users": {
+      "summary": "path item summary",
+      "description": "path item description",
       "get": {
         "summary": "Returns a list of users.",
         "description": "Optional extended description in CommonMark or HTML.",

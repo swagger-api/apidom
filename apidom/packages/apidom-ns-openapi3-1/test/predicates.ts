@@ -11,6 +11,8 @@ import {
   isOpenApiApi3_1Element,
   isServerElement,
   isServerVariableElement,
+  isPathsElement,
+  isPathItemElement,
   OpenApi3_1Element,
   OpenapiElement,
   SchemaElement,
@@ -20,6 +22,8 @@ import {
   ContactElement,
   ServerElement,
   ServerVariableElement,
+  PathsElement,
+  PathItemElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -549,6 +553,142 @@ describe('predicates', function () {
 
       assert.isTrue(isServerVariableElement(serverVariableElementDuck));
       assert.isFalse(isServerVariableElement(serverVariableElementSwan));
+    });
+  });
+
+  context('isPathsElement', function () {
+    context('given PathsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new PathsElement();
+
+        assert.isTrue(isPathsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class PathsSubElement extends PathsElement {}
+
+        assert.isTrue(isPathsElement(new PathsSubElement()));
+      });
+    });
+
+    context('given non PathsElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isPathsElement(1));
+        assert.isFalse(isPathsElement(null));
+        assert.isFalse(isPathsElement(undefined));
+        assert.isFalse(isPathsElement({}));
+        assert.isFalse(isPathsElement([]));
+        assert.isFalse(isPathsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const pathsElementDuck = {
+        element: 'paths',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+      };
+
+      const pathsElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isPathsElement(pathsElementDuck));
+      assert.isFalse(isPathsElement(pathsElementSwan));
+    });
+  });
+
+  context('isPathItemElement', function () {
+    context('given PathItemElement instance value', function () {
+      specify('should return true', function () {
+        const element = new PathItemElement();
+
+        assert.isTrue(isPathItemElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class PathItemSubElement extends PathItemElement {}
+
+        assert.isTrue(isPathItemElement(new PathItemSubElement()));
+      });
+    });
+
+    context('given non PathItemElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isPathItemElement(1));
+        assert.isFalse(isPathItemElement(null));
+        assert.isFalse(isPathItemElement(undefined));
+        assert.isFalse(isPathItemElement({}));
+        assert.isFalse(isPathItemElement([]));
+        assert.isFalse(isPathItemElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const pathItemElementDuck = {
+        element: 'pathItem',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get $ref() {
+          return '$ref';
+        },
+        get summary() {
+          return 'summary';
+        },
+        get description() {
+          return 'description';
+        },
+        get GET() {
+          return 'get';
+        },
+        get PUT() {
+          return 'put';
+        },
+        get POST() {
+          return 'post';
+        },
+        get DELETE() {
+          return 'delete';
+        },
+        get OPTIONS() {
+          return 'options';
+        },
+        get HEAD() {
+          return 'head';
+        },
+        get PATCH() {
+          return 'patch';
+        },
+        get TRACE() {
+          return 'trace';
+        },
+        get servers() {
+          return 'servers';
+        },
+      };
+
+      const pathItemElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isPathItemElement(pathItemElementDuck));
+      assert.isFalse(isPathItemElement(pathItemElementSwan));
     });
   });
 });

@@ -23,6 +23,8 @@ export {
   isOpenapiElement,
   isServerElement,
   isServerVariableElement,
+  isPathsElement,
+  isPathItemElement,
 } from './predicates';
 
 export { default as ComponentsElement } from './elements/Components';
@@ -34,3 +36,6 @@ export { default as OpenApi3_1Element } from './elements/OpenApi3-1';
 export { default as SchemaElement } from './elements/Schema';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
+export { default as PathsElement } from './elements/Paths';
+export { default as PathItemElement } from './elements/PathItem';
+export { default as OperationElement } from './elements/Operation';

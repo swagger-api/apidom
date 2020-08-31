@@ -10,6 +10,8 @@ import OpenApi3_1Element from './elements/OpenApi3-1';
 import SchemaElement from './elements/Schema';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
+import PathsElement from './elements/Paths';
+import PathItemElement from './elements/PathItem';
 
 export const isOpenApiApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
@@ -188,6 +190,56 @@ export const isServerVariableElement = createPredicate(
         hasGetterDefault,
         hasGetterDescription,
         hasGetterEnum,
+      ]),
+    );
+  },
+);
+
+export const isPathsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeInfo = isElementType('paths');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(PathsElement),
+      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+    );
+  },
+);
+
+export const isPathItemElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeInfo = isElementType('pathItem');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetter$Ref = hasGetter('$ref');
+    const hasGetterSummary = hasGetter('summary');
+    const hasGetterDescription = hasGetter('description');
+    const hasGetterGET = hasGetter('GET');
+    const hasGetterPUT = hasGetter('PUT');
+    const hasGetterPOST = hasGetter('POST');
+    const hasGetterDELETE = hasGetter('DELETE');
+    const hasGetterOPTIONS = hasGetter('OPTIONS');
+    const hasGetterHEAD = hasGetter('HEAD');
+    const hasGetterPATCH = hasGetter('PATCH');
+    const hasGetterTRACE = hasGetter('TRACE');
+
+    return either(
+      is(PathItemElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeInfo,
+        primitiveEqObject,
+        hasGetter$Ref,
+        hasGetterSummary,
+        hasGetterDescription,
+        hasGetterGET,
+        hasGetterPUT,
+        hasGetterPOST,
+        hasGetterDELETE,
+        hasGetterOPTIONS,
+        hasGetterHEAD,
+        hasGetterPATCH,
+        hasGetterTRACE,
       ]),
     );
   },

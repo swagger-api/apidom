@@ -64,6 +64,8 @@ declare module 'minim' {
     contains(value: any): boolean;
 
     push(value: any): ArrayElement;
+
+    [Symbol.iterator](): IterableIterator<any>;
   }
 
   export class ObjectElement extends ArrayElement {

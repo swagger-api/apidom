@@ -141,9 +141,12 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
       );
     } else {
       objElement.content.push(
-        new MemberElement(
-          this.maybeAddSourceMap(propertyNode.key, keyElement),
-          this.maybeAddSourceMap(propertyNode.value, valueElement),
+        this.maybeAddSourceMap(
+          propertyNode,
+          new MemberElement(
+            this.maybeAddSourceMap(propertyNode.key, keyElement),
+            this.maybeAddSourceMap(propertyNode.value, valueElement),
+          ),
         ),
       );
     }

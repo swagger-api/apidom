@@ -4,20 +4,21 @@ import { isOpenApiExtension } from '../../../predicates';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
 const PathItemVisitor = stampit(SpecificationVisitor, {
-  props: {
-    keyElement: null,
-  },
   methods: {
     key(keyNode) {
-      this.keyElement = this.maybeAddSourceMap(
+      this.element.key = this.maybeAddSourceMap(
         keyNode,
         new this.namespace.elements.String(keyNode.value),
       );
     },
 
+    property(propertyNode) {
+      const { MemberElement } = this.namespace.elements.Element.prototype;
+      this.element = this.maybeAddSourceMap(propertyNode, new MemberElement());
+    },
+
     object(objectNode) {
       const pathItemElement = new this.namespace.elements.PathItem();
-      const { MemberElement } = this.namespace.elements.Element.prototype;
       const supportedProps = [
         '$ref',
         'description',
@@ -48,10 +49,7 @@ const PathItemVisitor = stampit(SpecificationVisitor, {
         }
       });
 
-      this.element = new MemberElement(
-        this.keyElement,
-        this.maybeAddSourceMap(objectNode, pathItemElement),
-      );
+      this.element.value = this.maybeAddSourceMap(objectNode, pathItemElement);
 
       return BREAK;
     },

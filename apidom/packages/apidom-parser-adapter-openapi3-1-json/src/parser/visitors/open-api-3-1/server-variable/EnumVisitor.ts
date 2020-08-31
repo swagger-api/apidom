@@ -11,9 +11,12 @@ const EnumVisitor = stampit(SpecificationVisitor, {
 
       visit(propertyNode.value, arrayVisitor);
 
-      this.element = new MemberElement(
-        this.maybeAddSourceMap(propertyNode.key, keyElement),
-        this.maybeAddSourceMap(propertyNode.value, arrayVisitor.element),
+      this.element = this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, arrayVisitor.element),
+        ),
       );
 
       return BREAK;

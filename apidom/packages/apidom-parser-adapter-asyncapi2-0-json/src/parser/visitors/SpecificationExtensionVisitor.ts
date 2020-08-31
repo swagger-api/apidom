@@ -15,9 +15,12 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
       // @ts-ignore
       visit(propertyNode.value, valueVisitor, { state });
 
-      const memberElement = new MemberElement(
-        this.maybeAddSourceMap(propertyNode.key, keyElement),
-        this.maybeAddSourceMap(propertyNode.value, valueVisitor.element),
+      const memberElement = this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, valueVisitor.element),
+        ),
       );
 
       if (isAsyncApiExtension({}, propertyNode)) {

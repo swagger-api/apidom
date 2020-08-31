@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { tail } from 'ramda';
-import { isFalse } from 'ramda-adjunct';
+import { isFalse, isFunction } from 'ramda-adjunct';
 import { Tree, SyntaxNode } from 'tree-sitter';
 
 import JsonArray from '../nodes/json/JsonArray';
@@ -62,7 +62,11 @@ const Visitor = stampit({
 
     this.enter = function enter(node: SyntaxNode) {
       // missing anonymous literals from CST transformed into AST literal nodes
-      if (isFalse(node.isNamed)) {
+      // WARNING: be aware that web-tree-sitter and tree-sitter node bindings have inconsistency
+      // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
+      // whether tree-sitter node binding has it defined as a boolean property.
+      // @ts-ignore
+      if ((isFunction(node.isNamed) && !node.isNamed()) || isFalse(node.isNamed)) {
         const position = toPosition(node);
         const value = node.type || node.text;
         const isMissing = node.isMissing();

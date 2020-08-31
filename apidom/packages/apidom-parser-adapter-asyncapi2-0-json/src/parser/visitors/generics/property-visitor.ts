@@ -18,9 +18,12 @@ const PropertyVisitor = stampit(SpecificationVisitor, {
           : new this.namespace.elements[this.type](propertyNode.value.value);
       const { MemberElement } = this.namespace.elements.Element.prototype;
 
-      this.element = new MemberElement(
-        this.maybeAddSourceMap(propertyNode.key, keyElement),
-        this.maybeAddSourceMap(propertyNode.value, valueElement),
+      this.element = this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, valueElement),
+        ),
       );
 
       return BREAK;

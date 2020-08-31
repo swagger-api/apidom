@@ -8,9 +8,12 @@ const AsyncapiVisitor = stampit(SpecificationVisitor, {
       const asyncapiElement = new this.namespace.elements.Asyncapi(propertyNode.value.value);
       const { MemberElement } = this.namespace.elements.Element.prototype;
 
-      this.element = new MemberElement(
-        this.maybeAddSourceMap(propertyNode.key, keyElement),
-        this.maybeAddSourceMap(propertyNode.value, asyncapiElement),
+      this.element = this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, asyncapiElement),
+        ),
       );
     },
   },

@@ -4,20 +4,21 @@ import SpecificationVisitor from '../../SpecificationVisitor';
 import { isAsyncApiExtension } from '../../../predicates';
 
 const ContactVisitor = stampit(SpecificationVisitor, {
-  props: {
-    keyElement: null,
-  },
   methods: {
     key(keyNode) {
-      this.keyElement = this.maybeAddSourceMap(
+      this.element.key = this.maybeAddSourceMap(
         keyNode,
         new this.namespace.elements.String('contact'),
       );
     },
 
+    property(propertyNode) {
+      const { MemberElement } = this.namespace.elements.Element.prototype;
+      this.element = this.maybeAddSourceMap(propertyNode, new MemberElement());
+    },
+
     object(objectNode) {
       const contactElement = new this.namespace.elements.Contact();
-      const { MemberElement } = this.namespace.elements.Element.prototype;
 
       // @ts-ignore
       objectNode.properties.forEach((propertyNode) => {
@@ -35,10 +36,7 @@ const ContactVisitor = stampit(SpecificationVisitor, {
         }
       });
 
-      this.element = new MemberElement(
-        this.keyElement,
-        this.maybeAddSourceMap(objectNode, contactElement),
-      );
+      this.element.value = this.maybeAddSourceMap(objectNode, contactElement);
 
       return BREAK;
     },

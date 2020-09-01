@@ -1,17 +1,18 @@
 # ApiDOM Monaco
 
 This repo demonstrates usage of ApiDOM with [Monaco editor](https://microsoft.github.io/monaco-editor/).
+We assume that your `CWD` is now ApiDOM GitHub repository.
 
 ### Installation
 
-Change directory to `ApiDOM` monorepo and run following commands:
+Change directory to `./apidom/` monorepo and run following commands:
 
 ```sh
  $ npm i
  $ npm run build
 ```
 
-Now change directory to this `apidom-monaco` and run following commands:
+Now change directory to `./experiment/sapidom-monaco` and run following commands:
 
 ```sh
  $ npm i

@@ -2,6 +2,7 @@
 /es
 /lib
 /config
+/types
 /.eslintrc.js
 /.nyc_output
 /node_modules

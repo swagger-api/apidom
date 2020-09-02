@@ -1,4 +1,4 @@
-import { pathSatisfies } from 'ramda';
+import { prop, pipe, curryN } from 'ramda';
 import { isFunction, isString, isNotNil } from 'ramda-adjunct';
 
 // getVisitFn :: (Visitor, String, Boolean) -> Function
@@ -36,8 +36,11 @@ export const getVisitFn = (visitor, type: string, isLeaving: boolean) => {
 
 export const BREAK = {};
 
+// getNodeType :: Node -> String
+const getNodeType = prop('type');
+
 // isNode :: Node -> Boolean
-const isNode = pathSatisfies(isString, ['type']);
+const isNode = curryN(1, pipe(getNodeType, isString));
 
 /* eslint-disable no-continue, no-nested-ternary, no-param-reassign */
 /**
@@ -135,7 +138,14 @@ export const visit = (
   root,
   // @ts-ignore
   visitor,
-  { keyMap = null, state = {}, breakSymbol = BREAK, visitFnGetter = getVisitFn } = {},
+  {
+    keyMap = null,
+    state = {},
+    breakSymbol = BREAK,
+    visitFnGetter = getVisitFn,
+    nodeTypeGetter = getNodeType,
+    nodePredicate = isNode,
+  } = {},
 ) => {
   const visitorKeys = keyMap || {};
 
@@ -205,10 +215,10 @@ export const visit = (
 
     let result;
     if (!Array.isArray(node)) {
-      if (!isNode(node)) {
+      if (!nodePredicate(node)) {
         throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
-      const visitFn = visitFnGetter(visitor, node.type, isLeaving);
+      const visitFn = visitFnGetter(visitor, nodeTypeGetter(node), isLeaving);
       if (visitFn) {
         // assign state
         for (const [stateKey, stateValue] of Object.entries(state)) {
@@ -229,7 +239,7 @@ export const visit = (
         } else if (result !== undefined) {
           edits.push([key, result]);
           if (!isLeaving) {
-            if (isNode(result)) {
+            if (nodePredicate(result)) {
               node = result;
             } else {
               path.pop();
@@ -248,7 +258,7 @@ export const visit = (
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
       // @ts-ignore
-      keys = inArray ? node : visitorKeys[node.type] || [];
+      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] || [];
       index = -1;
       edits = [];
       if (parent) {

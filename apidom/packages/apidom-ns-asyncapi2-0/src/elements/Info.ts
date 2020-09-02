@@ -7,7 +7,7 @@ class Info extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'info';
     this.classes.push('info');
-    this.attributes.set('symbols', ['info']);
+    this.getMetaProperty('symbols', []).push(['info']);
   }
 
   get title(): StringElement {

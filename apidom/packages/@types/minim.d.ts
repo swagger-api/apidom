@@ -18,6 +18,8 @@ declare module 'minim' {
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     toValue(): any;
+
+    getMetaProperty(name: any, value: any): any;
   }
 
   interface Type<T> extends Element {

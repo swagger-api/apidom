@@ -33,6 +33,16 @@ import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import PathItemGetVisitor from './visitors/open-api-3-1/path-item/GetVisitor';
+import PathItemPutVisitor from './visitors/open-api-3-1/path-item/PutVisitor';
+import PathItemPostVisitor from './visitors/open-api-3-1/path-item/PostVisitor';
+import PathItemDeleteVisitor from './visitors/open-api-3-1/path-item/DeleteVisitor';
+import PathItemOptionsVisitor from './visitors/open-api-3-1/path-item/OptionsVisitor';
+import PathItemHeadVisitor from './visitors/open-api-3-1/path-item/HeadVisitor';
+import PathItemPatchVisitor from './visitors/open-api-3-1/path-item/PatchVisitor';
+import PathItemTraceVisitor from './visitors/open-api-3-1/path-item/TraceVisitor';
+import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
 
@@ -135,6 +145,16 @@ const specification = {
             $ref: PathItem$RefVisitor,
             summary: PathItemSummaryVisitor,
             description: PathItemDescriptionVisitor,
+            get: PathItemGetVisitor,
+            put: PathItemPutVisitor,
+            post: PathItemPostVisitor,
+            delete: PathItemDeleteVisitor,
+            options: PathItemOptionsVisitor,
+            head: PathItemHeadVisitor,
+            patch: PathItemPatchVisitor,
+            trace: PathItemTraceVisitor,
+            servers: ServersVisitor,
+            parameters: ParametersVisitor,
           },
         },
       },

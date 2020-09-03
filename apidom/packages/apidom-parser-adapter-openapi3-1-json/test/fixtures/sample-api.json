@@ -109,6 +109,18 @@
             }
           }
         }
+      },
+      "servers": [
+        {
+          "url": "http://api.example.com/v2",
+          "description": "Redundant server description, e.g. redundant server"
+        }
+      ],
+      "parameters": {
+        "name": "userId",
+        "in": "query",
+        "description": "ID of the user",
+        "required": true
       }
     }
   }

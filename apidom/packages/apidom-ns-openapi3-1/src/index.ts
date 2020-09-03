@@ -39,3 +39,4 @@ export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as PathsElement } from './elements/Paths';
 export { default as PathItemElement } from './elements/PathItem';
 export { default as OperationElement } from './elements/Operation';
+export { default as ParameterElement } from './elements/Parameter';

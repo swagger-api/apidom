@@ -11,6 +11,8 @@ import ServerVariable from './elements/ServerVariable';
 import Paths from './elements/Paths';
 import PathItem from './elements/PathItem';
 import Operation from './elements/Operation';
+import Parameter from './elements/Parameter';
+import Reference from './elements/Reference';
 
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -28,6 +30,8 @@ const openApi3_1 = {
     base.register('paths', Paths);
     base.register('pathItem', PathItem);
     base.register('operation', Operation);
+    base.register('parameter', Parameter);
+    base.register('reference', Reference);
 
     return base;
   },

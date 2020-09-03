@@ -1,4 +1,5 @@
 import { NamespacePlugin, Element } from 'minim';
+import { isPlainObject } from 'ramda-adjunct';
 import { Namespace as ApiDOMNamespace } from './namespace';
 
 export { default as namespace, Namespace } from './namespace';
@@ -21,9 +22,16 @@ export {
 } from './predicates';
 export { default as createPredicate } from './predicates/helpers';
 
-export const createNamespace = (namespacePlugin: NamespacePlugin): ApiDOMNamespace => {
+export { ArraySlice } from 'minim';
+export { filter, reject, find, some } from './traversal';
+
+export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();
-  namespace.use(namespacePlugin);
+
+  if (isPlainObject(namespacePlugin)) {
+    namespace.use(namespacePlugin);
+  }
+
   return namespace;
 };
 

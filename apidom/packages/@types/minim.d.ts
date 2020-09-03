@@ -17,6 +17,8 @@ declare module 'minim' {
 
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
+    equals(value: any): boolean;
+
     toValue(): any;
 
     getMetaProperty(name: any, value: any): any;
@@ -108,5 +110,15 @@ declare module 'minim' {
     get path(): unknown;
 
     set path(path: unknown);
+  }
+
+  export class ArraySlice {
+    constructor(elements?: Array<unknown>);
+
+    get length(): number;
+
+    hasKey(value: string): boolean;
+
+    get<T extends Element>(index: number): T;
   }
 }

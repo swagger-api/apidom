@@ -27,6 +27,8 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
+    "apidom-ast": "file:../apidom-ast",
+    "stampit": "=4.3.1",
     "minim": "=0.23.8",
     "ramda": "=0.27.0",
     "ramda-adjunct": "=2.27.0"

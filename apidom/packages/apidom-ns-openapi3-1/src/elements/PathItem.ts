@@ -2,6 +2,8 @@ import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
 import ServerElement from './Server';
 import OperationElement from './Operation';
+import ParameterElement from './Parameter';
+import ReferenceElement from './Reference';
 
 class PathItem extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
@@ -57,6 +59,8 @@ class PathItem extends ObjectElement {
     return this.get('servers');
   }
 
-  // @todo(vladimir.gorej@gmail.com): implement `parameters` field here
+  get parameters(): ParameterElement | ReferenceElement {
+    return this.get('parameters');
+  }
 }
 export default PathItem;

@@ -1,11 +1,6 @@
 import stampit from 'stampit';
-import PropertyVisitor from '../../generics/property-visitor';
+import JsonStringVisitor from '../../generics/JsonStringVisitor';
 
-const TermsOfServiceVisitor = stampit(PropertyVisitor, {
-  props: {
-    name: 'termsOfService',
-    type: 'String',
-  },
-});
+const TermsOfServiceVisitor = stampit(JsonStringVisitor);
 
 export default TermsOfServiceVisitor;

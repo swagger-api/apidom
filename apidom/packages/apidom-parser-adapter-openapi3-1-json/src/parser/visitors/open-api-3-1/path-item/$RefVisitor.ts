@@ -1,10 +1,17 @@
 import stampit from 'stampit';
-import PropertyVisitor from '../../generics/property-visitor';
 
-const $RefVisitor = stampit(PropertyVisitor, {
-  props: {
-    name: '$ref',
-    type: 'String',
+import SpecificationVisitor from '../../SpecificationVisitor';
+import { BREAK } from '../..';
+
+const $RefVisitor = stampit(SpecificationVisitor, {
+  methods: {
+    string(stringNode) {
+      const refElement = new this.namespace.elements.Ref(stringNode.value);
+      refElement.path = stringNode.value;
+      this.element = this.maybeAddSourceMap(stringNode, refElement);
+
+      return BREAK;
+    },
   },
 });
 

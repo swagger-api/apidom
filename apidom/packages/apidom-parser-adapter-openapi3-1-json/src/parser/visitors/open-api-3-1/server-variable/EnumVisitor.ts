@@ -4,20 +4,10 @@ import { BREAK, visit } from '../..';
 
 const EnumVisitor = stampit(SpecificationVisitor, {
   methods: {
-    property(propertyNode) {
+    array(arrayNode) {
       const arrayVisitor = this.retrieveVisitorInstance(['array']);
-      const keyElement = new this.namespace.elements.String('enum');
-      const { MemberElement } = this.namespace.elements.Element.prototype;
-
-      visit(propertyNode.value, arrayVisitor);
-
-      this.element = this.maybeAddSourceMap(
-        propertyNode,
-        new MemberElement(
-          this.maybeAddSourceMap(propertyNode.key, keyElement),
-          this.maybeAddSourceMap(propertyNode.value, arrayVisitor.element),
-        ),
-      );
+      visit(arrayNode, arrayVisitor);
+      this.element = this.maybeAddSourceMap(arrayNode, arrayVisitor.element);
 
       return BREAK;
     },

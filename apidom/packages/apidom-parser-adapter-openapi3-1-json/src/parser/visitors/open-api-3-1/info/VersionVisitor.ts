@@ -1,19 +1,14 @@
 import stampit from 'stampit';
-import PropertyVisitor from '../../generics/property-visitor';
 import { appendMetadata } from '../../../metadata';
+import JsonStringVisitor from '../../generics/JsonStringVisitor';
 
-const VersionVisitor = stampit(PropertyVisitor, {
-  props: {
-    name: 'version',
-    type: 'String',
-  },
+const VersionVisitor = stampit(JsonStringVisitor, {
   methods: {
-    property(propertyNode) {
+    string(stringNode) {
       // @ts-ignore
-      const result = PropertyVisitor.compose.methods.property.call(this, propertyNode);
-      const { value: versionElement } = this.element;
+      const result = JsonStringVisitor.compose.methods.string.call(this, stringNode);
 
-      appendMetadata(['version'], versionElement);
+      appendMetadata(['version'], this.element);
 
       return result;
     },

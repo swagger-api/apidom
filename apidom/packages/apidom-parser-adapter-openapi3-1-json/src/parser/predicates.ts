@@ -1,6 +1,15 @@
 import { isJsonObject, isJsonProperty } from 'apidom-ast';
-import { length, pathEq, pathSatisfies, startsWith, both, curry } from 'ramda';
+import { length, pathEq, pathSatisfies, startsWith, both, curry, anyPass, filter } from 'ramda';
 import { isInteger } from 'ramda-adjunct';
+
+// hasKey :: String -> JsonProperty -> Boolean
+const hasKey = pathEq(['key', 'value']);
+
+// hasKeys :: [String] -> [JsonProperty] -> Boolean
+const hasKeys = curry((keyNames, properties) => {
+  const predicates = keyNames.map((keyName: string) => hasKey(keyName));
+  return filter(anyPass(predicates), properties).length === keyNames.length;
+});
 
 // isComponentsSchemas :: (Options, PropertyNode) -> Boolean
 // @ts-ignore
@@ -24,12 +33,7 @@ export const isParameterObject = curry((options, node) => {
   if (!isJsonObject(node)) {
     return false;
   }
-  // @ts-ignore
-  const requiredProperties = node.properties.filter((property) => {
-    return property.key.value === 'name' || property.key.value === 'in';
-  });
-
-  return requiredProperties.length === 2;
+  return hasKeys(['name', 'in'], node.properties);
 });
 
 // isReferenceObject :: Options -> JsonObject -> Boolean
@@ -37,8 +41,12 @@ export const isReferenceObject = curry((options, node) => {
   if (!isJsonObject(node)) {
     return false;
   }
-  // @ts-ignore
-  const requiredProperties = node.properties.filter((property) => property.key.value === '$ref');
+  return hasKeys(['$ref'], node.properties);
+});
 
-  return requiredProperties.length === 1;
+export const isServerObject = curry((options, node) => {
+  if (!isJsonObject(node)) {
+    return false;
+  }
+  return hasKeys(['url'], node.properties);
 });

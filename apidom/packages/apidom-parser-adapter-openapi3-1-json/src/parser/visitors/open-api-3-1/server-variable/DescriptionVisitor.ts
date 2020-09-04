@@ -1,11 +1,6 @@
 import stampit from 'stampit';
-import PropertyVisitor from '../../generics/property-visitor';
+import JsonStringVisitor from '../../generics/JsonStringVisitor';
 
-const DescriptionVisitor = stampit(PropertyVisitor, {
-  props: {
-    name: 'description',
-    type: 'String',
-  },
-});
+const DescriptionVisitor = stampit(JsonStringVisitor);
 
 export default DescriptionVisitor;

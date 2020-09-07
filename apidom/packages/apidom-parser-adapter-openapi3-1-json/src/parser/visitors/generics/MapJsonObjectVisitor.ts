@@ -52,6 +52,8 @@ const MapJsonObjectVisitor = stampit(SpecificationVisitor, {
         }
       });
 
+      this.maybeAddSourceMap(objectNode, this.element);
+
       return BREAK;
     },
   },

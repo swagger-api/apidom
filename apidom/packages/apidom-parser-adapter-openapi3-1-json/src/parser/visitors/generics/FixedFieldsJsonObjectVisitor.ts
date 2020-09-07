@@ -56,6 +56,8 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
         }
       });
 
+      this.maybeAddSourceMap(objectNode, this.element);
+
       return BREAK;
     },
   },

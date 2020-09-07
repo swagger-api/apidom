@@ -6,15 +6,17 @@ import { isParameterObject, isReferenceObject } from '../../predicates';
 const ParametersVisitor = stampit(SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
+    this.element.classes.push('parameters');
   },
   methods: {
+    array(arrayNode) {
+      this.maybeAddSourceMap(arrayNode, this.element);
+    },
     object(objectNode) {
       if (isParameterObject({}, objectNode)) {
-        // TODO(vladimir.gorej@gmail.com): replace with real Parameter Object implementation
-        this.element.content.push(new this.namespace.elements.Object());
+        this.element.content.push(new this.namespace.elements.Parameter());
       } else if (isReferenceObject({}, objectNode)) {
-        // TODO(vladimir.gorej@gmail.com): replace with real Reference Object implementation
-        this.element.content.push(new this.namespace.elements.Object());
+        this.element.content.push(new this.namespace.elements.Reference());
       }
     },
   },

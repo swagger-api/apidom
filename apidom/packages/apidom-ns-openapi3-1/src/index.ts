@@ -41,3 +41,8 @@ export { default as PathsElement } from './elements/Paths';
 export { default as PathItemElement } from './elements/PathItem';
 export { default as OperationElement } from './elements/Operation';
 export { default as ParameterElement } from './elements/Parameter';
+export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';
+export { default as RequestBodyElement } from './elements/RequestBody';
+export { default as ResponsesElement } from './elements/Responses';
+export { default as CallbackElement } from './elements/Callback';
+export { default as SecurityRequirementElement } from './elements/SecurityRequirement';

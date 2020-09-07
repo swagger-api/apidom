@@ -13,6 +13,11 @@ import PathItem from './elements/PathItem';
 import Operation from './elements/Operation';
 import Parameter from './elements/Parameter';
 import Reference from './elements/Reference';
+import ExternalDocumentation from './elements/ExternalDocumentation';
+import RequestBody from './elements/RequestBody';
+import Responses from './elements/Responses';
+import Callback from './elements/Callback';
+import SecurityRequirement from './elements/SecurityRequirement';
 
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -32,6 +37,11 @@ const openApi3_1 = {
     base.register('operation', Operation);
     base.register('parameter', Parameter);
     base.register('reference', Reference);
+    base.register('externalDocumentation', ExternalDocumentation);
+    base.register('requestBody', RequestBody);
+    base.register('responses', Responses);
+    base.register('callback', Callback);
+    base.register('securityRequirement', SecurityRequirement);
 
     return base;
   },

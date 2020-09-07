@@ -1,6 +1,7 @@
 import { Attributes, BooleanElement, Meta, ObjectElement, StringElement } from 'minim';
 import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
+import ServerElement from './Server';
 
 class Operation extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
@@ -57,6 +58,14 @@ class Operation extends ObjectElement {
 
   set parameters(parameters: ParameterElement | ReferenceElement) {
     this.set('parameters', parameters);
+  }
+
+  get servers(): ServerElement[] {
+    return this.get('severs');
+  }
+
+  set servers(servers: ServerElement[]) {
+    this.set('servers', servers);
   }
 
   // TODO(vladimir.gorej@gmail.com): need to implement the rest of the fileds

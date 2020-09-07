@@ -21,7 +21,9 @@ declare module 'minim' {
 
     toValue(): any;
 
-    getMetaProperty(name: any, value: any): any;
+    getMetaProperty(name: string, value: any): any;
+
+    setMetaProperty(name: string, value: any): void;
   }
 
   interface Type<T> extends Element {

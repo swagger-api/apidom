@@ -13,6 +13,7 @@ import {
   isServerVariableElement,
   isPathsElement,
   isPathItemElement,
+  isOperationElement,
   OpenApi3_1Element,
   OpenapiElement,
   SchemaElement,
@@ -24,6 +25,7 @@ import {
   ServerVariableElement,
   PathsElement,
   PathItemElement,
+  OperationElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -689,6 +691,71 @@ describe('predicates', function () {
 
       assert.isTrue(isPathItemElement(pathItemElementDuck));
       assert.isFalse(isPathItemElement(pathItemElementSwan));
+    });
+  });
+
+  context('isOperationElement', function () {
+    context('given OperationElement instance value', function () {
+      specify('should return true', function () {
+        const element = new OperationElement();
+
+        assert.isTrue(isOperationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class OperationSubElement extends OperationElement {}
+
+        assert.isTrue(isOperationElement(new OperationSubElement()));
+      });
+    });
+
+    context('given non OperationElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isOperationElement(1));
+        assert.isFalse(isOperationElement(null));
+        assert.isFalse(isOperationElement(undefined));
+        assert.isFalse(isOperationElement({}));
+        assert.isFalse(isOperationElement([]));
+        assert.isFalse(isOperationElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const operationElementDuck = {
+        element: 'operation',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get summary() {
+          return 'summary';
+        },
+        get description() {
+          return 'description';
+        },
+        get tags() {
+          return 'tags';
+        },
+        get operationId() {
+          return 'operationId';
+        },
+        get parameters() {
+          return 'parameters';
+        },
+      };
+
+      const operationElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isOperationElement(operationElementDuck));
+      assert.isFalse(isOperationElement(operationElementSwan));
     });
   });
 });

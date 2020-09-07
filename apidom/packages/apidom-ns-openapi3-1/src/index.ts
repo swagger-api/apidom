@@ -25,6 +25,7 @@ export {
   isServerVariableElement,
   isPathsElement,
   isPathItemElement,
+  isOperationElement,
 } from './predicates';
 
 export { default as ComponentsElement } from './elements/Components';

@@ -12,6 +12,7 @@ import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import PathsElement from './elements/Paths';
 import PathItemElement from './elements/PathItem';
+import OperationElement from './elements/Operation';
 
 export const isOpenApiApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
@@ -240,6 +241,32 @@ export const isPathItemElement = createPredicate(
         hasGetterHEAD,
         hasGetterPATCH,
         hasGetterTRACE,
+      ]),
+    );
+  },
+);
+
+export const isOperationElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeOperation = isElementType('operation');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetterTags = hasGetter('tags');
+    const hasGetterSummary = hasGetter('summary');
+    const hasGetterDescription = hasGetter('description');
+    const hasGetterOperationId = hasGetter('operationId');
+    const hasGetterParameters = hasGetter('parameters');
+
+    return either(
+      is(OperationElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeOperation,
+        primitiveEqObject,
+        hasGetterTags,
+        hasGetterSummary,
+        hasGetterDescription,
+        hasGetterOperationId,
+        hasGetterParameters,
       ]),
     );
   },

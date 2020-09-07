@@ -71,7 +71,6 @@ export class ApiDOMCompletion {
 
 		return parser.parse(text, {sourceMap: true}).then(
 			result => {
-				console.log("PARSER RESULT: ", result);
 				//console.log("parseResult", JSON.stringify(result));
 				const api: namespace.Element = result.api
 				//const api: namespace.OpenApi3_1 = <namespace.OpenApi3_1>result.api;
@@ -96,9 +95,7 @@ export class ApiDOMCompletion {
 					};
 
 					let offset = document.offsetAt(position);
-					console.log("offset", offset);
 					let node = findNodeAtOffset(api, offset, true);
-					console.log("findNodeAtOffset", node.toValue());
 /*
 					if (this.isInComment(document, node ? node.offset : 0, offset)) {
 						return Promise.resolve(result);
@@ -110,13 +107,11 @@ export class ApiDOMCompletion {
 						if (isObjectElement(node) && ch === '}' || isArrayElement(node) && ch === ']') {
 							// after ] or }
 							node = node.parent;
-							console.log("node = node.parent", node.toValue());
 						}
 					}
 
 					sm = getSourceMap(node);
 					let currentWord = this.getCurrentWord(document, offset);
-					console.log("currentWord", currentWord);
 					let overwriteRange = null;
 
 					if (node && (isStringElement(node) || isNumberElement(node) || isBooleanElement(node) || isNullElement(node))) {
@@ -214,7 +209,6 @@ export class ApiDOMCompletion {
 
 						if (schema) {
 							// property proposals with schema
-							console.log("getPropertyCompletions", node.toValue());
 							this.getPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
 						} else {
 							// property proposals without schema
@@ -271,7 +265,6 @@ export class ApiDOMCompletion {
 
 
 	private buildMatchingSchemas(schema: any, node: namespace.Element, mss: Map<namespace.Element, any>) {
-		console.log('build', node.toValue(), schema);
 		mss.set(node, schema);
 /*
 		let ms : MatchingSchema = new MatchingSchema();
@@ -317,7 +310,6 @@ export class ApiDOMCompletion {
 
 		let mss: Map<namespace.Element, any> = new Map();
 		this.buildMatchingSchemas(schema, doc, mss);
-		console.log("mss", mss);
 		let sm: SourceMap = getSourceMap(node);;
 		//let matchingSchemas = doc.getMatchingSchemas(schema, sm.offset);
 		const nodeSchema = mss.get(node);

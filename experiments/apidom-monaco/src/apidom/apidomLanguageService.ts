@@ -33,7 +33,7 @@ import * as asyncapi2_0Adapter from "apidom-parser-adapter-asyncapi2-0-json";
 import {
     allClasses,
     findAllTreeClasses,
-    findAllTreeElementsWithClasses,
+    findAllTreeElementsWithClasses, findNodeAtOffset,
     getSourceMap,
     SourceMap
 } from "./utils/objects";
@@ -42,6 +42,9 @@ import {
 import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
 
 import { ApiDOMCompletion } from './completion/ApiDOMCompletion';
+
+// @ts-ignore
+import {isMemberElement, ArraySlice, MemberElement, ObjectElement, Element} from 'apidom'
 
 import { Proposed } from 'vscode-languageserver-protocol';
 //import SemanticTokens = monaco.languages.SemanticTokens;
@@ -119,7 +122,7 @@ export interface LanguageService {
     //computeSemanticTokens(content: string): monaco.languages.SemanticTokens;
 
 
-    doHover(document: TextDocument, position: Position, doc: JSONDocument): Thenable<Hover | null>;
+    doHover(document: TextDocument, position: Position): Thenable<Hover | null>;
 
 
     doResolve(item: CompletionItem): Thenable<CompletionItem>;
@@ -155,7 +158,7 @@ export function getLanguageService(params: LanguageServiceParams): LanguageServi
         findDocumentSymbols: (document: TextDocument, context?: DocumentSymbolsContext) => findDocumentSymbols(document, context),
         computeSemanticTokens: (content: string) => computeSemanticTokens(content),
 
-        doHover: (document: TextDocument, position: Position, doc: JSONDocument) => Promise.resolve(null),
+        doHover: (document: TextDocument, position: Position) => computeHover(document, position),
 
         /* todo */
         doResolve: (item: CompletionItem) => Promise.resolve(item),
@@ -266,4 +269,34 @@ export async function computeSemanticTokens(content: string) {
     return {
         data: tokens.flat()
     } as Proposed.SemanticTokens
+}
+
+export async function computeHover(document: TextDocument, position: Position) {
+    let parser = getParser(document);
+
+    const parseResult = await parser.parse(document.getText(), {sourceMap: true});
+
+    const api: namespace.Element = parseResult.api
+    api.freeze() // !! freeze and add parent !!
+
+
+    let offset = document.offsetAt(position);
+    let node = findNodeAtOffset(api, offset, true);
+    if (node.parent && isMemberElement(node.parent)) {
+        const opEl: ObjectElement = (<MemberElement>node.parent).value;
+        if (opEl.classes.toValue().includes('operation')) {
+            const sm = getSourceMap(node);
+            const httpMethod = opEl.getMetaProperty("httpMethod").toValue();
+            const path = node.parent.parent.parent.key.toValue();
+            const basePath = 'http://localhost';
+            let hover = 'curl -X '+ httpMethod + ' ' + basePath + path;
+            let hoverRange = Range.create(document.positionAt(sm.offset), document.positionAt(sm.offset + sm.length));
+            let result: Hover = {
+                contents: [hover],
+                range: hoverRange
+            };
+            return result;
+        }
+    }
+    return Promise.resolve(null);
 }

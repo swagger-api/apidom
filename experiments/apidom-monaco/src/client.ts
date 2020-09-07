@@ -332,9 +332,6 @@ export default ({ monaco, containerId }) => {
   });
 
 
-  /*
-  TODO
-   */
 
   monaco.languages.registerHoverProvider(LANGUAGE_ID, {
     provideHover(
@@ -343,18 +340,20 @@ export default ({ monaco, containerId }) => {
         token
     ): monaco.languages.Hover | monaco.Thenable<monaco.languages.Hover> {
       const document = createDocument(model);
-      const jsonDocument = {}; //apidomService.parseJSONDocument(document);
       return apidomService
           .doHover(
               document,
-              m2p.asPosition(position.lineNumber, position.column),
-              jsonDocument
+              m2p.asPosition(position.lineNumber, position.column)
           )
           .then((hover) => {
             return p2m.asHover(hover)!;
           });
     },
   });
+
+  /*
+TODO
+ */
 
   monaco.languages.registerDocumentRangeFormattingEditProvider(LANGUAGE_ID, {
     provideDocumentRangeFormattingEdits(

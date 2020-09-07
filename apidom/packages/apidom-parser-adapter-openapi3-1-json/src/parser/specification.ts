@@ -33,15 +33,13 @@ import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
-import PathItemGetVisitor from './visitors/open-api-3-1/path-item/GetVisitor';
-import PathItemPutVisitor from './visitors/open-api-3-1/path-item/PutVisitor';
-import PathItemPostVisitor from './visitors/open-api-3-1/path-item/PostVisitor';
-import PathItemDeleteVisitor from './visitors/open-api-3-1/path-item/DeleteVisitor';
-import PathItemOptionsVisitor from './visitors/open-api-3-1/path-item/OptionsVisitor';
-import PathItemHeadVisitor from './visitors/open-api-3-1/path-item/HeadVisitor';
-import PathItemPatchVisitor from './visitors/open-api-3-1/path-item/PatchVisitor';
-import PathItemTraceVisitor from './visitors/open-api-3-1/path-item/TraceVisitor';
 import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+import OperationVisitor from './visitors/open-api-3-1/operation';
+import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
+import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
+import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
+import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
+import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
 
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
@@ -145,16 +143,42 @@ const specification = {
             $ref: PathItem$RefVisitor,
             summary: PathItemSummaryVisitor,
             description: PathItemDescriptionVisitor,
-            get: PathItemGetVisitor,
-            put: PathItemPutVisitor,
-            post: PathItemPostVisitor,
-            delete: PathItemDeleteVisitor,
-            options: PathItemOptionsVisitor,
-            head: PathItemHeadVisitor,
-            patch: PathItemPatchVisitor,
-            trace: PathItemTraceVisitor,
+            get: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            put: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            post: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            delete: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            options: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            head: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            patch: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            trace: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
             servers: ServersVisitor,
             parameters: ParametersVisitor,
+          },
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fields: {
+            tags: OperationTagsVisitor,
+            summary: OperationSummaryVisitor,
+            description: OperationDescriptionVisitor,
+            operationId: OperationOperationIdVisitor,
+            deprecated: OperationDeprecatedVisitor,
           },
         },
       },

@@ -58,7 +58,9 @@ declare module 'minim' {
 
   export class NullElement extends Element {}
 
-  export class BooleanElement extends Element {}
+  export class BooleanElement extends Element {
+    constructor(content?: boolean, meta?: Meta, attributes?: Attributes);
+  }
 
   export class ArrayElement extends Element {
     first: Element | undefined;
@@ -80,6 +82,8 @@ declare module 'minim' {
     get(key: string): any;
 
     set(key: string | StringElement, value: any): void;
+
+    hasKey(value: string): boolean;
   }
 
   export class MemberElement extends Element {

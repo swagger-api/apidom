@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, BooleanElement, Meta, ObjectElement, StringElement } from 'minim';
 import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
 
@@ -38,6 +38,17 @@ class Operation extends ObjectElement {
 
   set operationId(operationId: StringElement) {
     this.set('operationId', operationId);
+  }
+
+  get deprecated(): BooleanElement {
+    if (this.hasKey('deprecated')) {
+      return this.get('deprecated');
+    }
+    return new BooleanElement(false);
+  }
+
+  set deprecated(deprecated: BooleanElement) {
+    this.set('deprecated', deprecated);
   }
 
   get parameters(): ParameterElement | ReferenceElement {

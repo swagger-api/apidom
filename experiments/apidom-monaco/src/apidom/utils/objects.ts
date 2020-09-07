@@ -272,7 +272,6 @@ export function findElementsWithClasses(el: namespace.Element, elementNames: str
     };
 
     const checkElement = (array, element) => {
-
         if (elementNames.some(i => element.classes.toValue().includes(i))){
             array.push(element);
         }
@@ -344,5 +343,5 @@ export function findAllTreeElementsWithClasses(el: namespace.Element) {
 }
 
 export function allClasses(): string[] {
-    return ["info", "version", "specVersion", "license", "operation"];
+    return ["info", "version", "specVersion", "license", "operation", "pathItem", "httpMethod"];
 }

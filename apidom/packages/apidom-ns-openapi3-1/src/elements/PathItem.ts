@@ -9,6 +9,8 @@ class PathItem extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'pathItem';
+    this.classes.push('pathItem');
+    this.attributes.set('symbols', ['pathItem']);
   }
 
   get $ref(): StringElement {

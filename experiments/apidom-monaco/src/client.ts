@@ -47,7 +47,12 @@ export default ({ monaco, containerId }) => {
       "get": {
         "operationId": "a"
       }
-    }
+    },
+    "/b" : {
+      "post": {
+        "operationId": "a"
+      }
+    }    
   }    
 }`;
 
@@ -101,18 +106,25 @@ export default ({ monaco, containerId }) => {
     "specVersion": 7,
     "info": 6,
     "version": 14,
-    "operation": 12,
-    "path": 11,
+    //"operation": 12,
+    "operation": {
+      "httpMethod-GET": 4,
+      "httpMethod-POST": 8
+    },
+    "pathItem": 11,
     "variable": {
       "declaration": 8,
       "definition": 8,
       "deprecated": 8,
-      "reference": 4,
+      "reference": 4
     }
   }
   function getStyleMetadataDark(type: string, modifiers: string[]) {
     let color = (darkThemeMap as any)[type];
     if (type === "variable") {
+      color = (darkThemeMap[type] as any)[modifiers[0]];
+    }
+    if (type === "operation") {
       color = (darkThemeMap[type] as any)[modifiers[0]];
     }
     const style = {
@@ -139,19 +151,26 @@ export default ({ monaco, containerId }) => {
     "specVersion": 7,
     "info": 5,
     "version": 4,
-    "operation": 0,
-    "path": 3,
+    //"operation": 0,
+    "operation": {
+      "httpMethod-GET": 13,
+      "httpMethod-POST": 12
+    },
+    "pathItem": 3,
     "variable": {
       "declaration": 12,
       "definition": 12,
       "deprecated": 12,
-      "reference": 13,
+      "reference": 13
     }
   }
   function getStyleMetadataLight(type: string, modifiers: string[]) {
     let color = (lightThemeMap as any)[type];
     if (type === "variable") {
       color = (lightThemeMap[type] as any)[modifiers[0]];
+    }
+    if (type === "operation") {
+      color = (darkThemeMap[type] as any)[modifiers[0]];
     }
     const style = {
       foreground: color,

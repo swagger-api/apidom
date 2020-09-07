@@ -71,12 +71,14 @@ export class TokensLegend {
         this.tokenTypes["version"] = 11;
         this.tokenTypes["info"] = 12;
         this.tokenTypes["operation"] = 13;
-        this.tokenTypes["path"] = 14;
+        this.tokenTypes["pathItem"] = 14;
 
         this.tokenModifiers[Proposed.SemanticTokenModifiers.declaration] = 1;
         this.tokenModifiers[Proposed.SemanticTokenModifiers.definition] = 2;
         this.tokenModifiers[Proposed.SemanticTokenModifiers.deprecated] = 4;
         this.tokenModifiers[Proposed.SemanticTokenModifiers.reference] = 8;
+        this.tokenModifiers["httpMethod-GET"] = 16;
+        this.tokenModifiers["httpMethod-POST"] = 32;
     }
 
     public static getLegend() {
@@ -117,6 +119,7 @@ export interface LanguageService {
     //computeSemanticTokens(content: string): monaco.languages.SemanticTokens;
 
 
+    doHover(document: TextDocument, position: Position, doc: JSONDocument): Thenable<Hover | null>;
 
 
     doResolve(item: CompletionItem): Thenable<CompletionItem>;
@@ -125,7 +128,6 @@ export interface LanguageService {
 
     getColorPresentations(document: TextDocument, doc: JSONDocument, color: Color, range: Range): ColorPresentation[];
 
-    doHover(document: TextDocument, position: Position, doc: JSONDocument): Thenable<Hover | null>;
 
     format(document: TextDocument, range: Range, options: FormattingOptions): TextEdit[];
 
@@ -153,11 +155,12 @@ export function getLanguageService(params: LanguageServiceParams): LanguageServi
         findDocumentSymbols: (document: TextDocument, context?: DocumentSymbolsContext) => findDocumentSymbols(document, context),
         computeSemanticTokens: (content: string) => computeSemanticTokens(content),
 
+        doHover: (document: TextDocument, position: Position, doc: JSONDocument) => Promise.resolve(null),
+
         /* todo */
         doResolve: (item: CompletionItem) => Promise.resolve(item),
         findDocumentColors: (document: TextDocument, doc: JSONDocument, context?: DocumentColorsContext) => null,
         getColorPresentations: (document: TextDocument, doc: JSONDocument, color: Color, range: Range) => null,
-        doHover: (document: TextDocument, position: Position, doc: JSONDocument) => Promise.resolve(null),
         getFoldingRanges: (document: TextDocument, context?: FoldingRangesContext) => null,
         getSelectionRanges: (document: TextDocument, positions: Position[], doc: JSONDocument) => null,
         format: (d, r, o) => null
@@ -242,12 +245,17 @@ export async function computeSemanticTokens(content: string) {
                 } else {
                     sm = getSourceMap(e);
                 }
+                let modifier = 0;
+                if ("operation" == s) {
+                    // check for httpMethod
+                    modifier = TokensLegend.getTokenModifiers(["httpMethod-" + e.getMetaProperty("httpMethod").toValue()]);
+                }
                 const token = [
                     sm.line - lastLine,
                     sm.line == lastLine ? sm.column - lastColumn: sm.column,
                     sm.endOffset - sm.offset,
                     TokensLegend.getTokenType(s),
-                    0 ];
+                    modifier ];
                 tokens.push(token);
                 lastLine = sm.line;
                 lastColumn = sm.column

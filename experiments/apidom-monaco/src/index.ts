@@ -40,7 +40,12 @@ import {
       "get": {
         "operationId": "a"
       }
-    }
+    },
+    "/b" : {
+      "post": {
+        "operationId": "a"
+      }
+    }    
   }    
 }`;
   const value3 = `{
@@ -51,7 +56,7 @@ import {
     }`;
 
   parser.use(openapi3_1Adapter);
-  const parseResult = await parser.parse(value3, {sourceMap: true});
+  const parseResult = await parser.parse(value2, {sourceMap: true});
   //console.log("Par", JSON.stringify(parseResult));
   const api: namespace.OpenApi3_1 = <namespace.OpenApi3_1>parseResult.api;
   api.freeze() // !! freeze and add parent !!

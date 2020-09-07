@@ -1,19 +1,30 @@
 import { assert } from 'chai';
 import { StringElement } from 'minim';
-import { F as stubFalse } from 'ramda';
+import {call, F as stubFalse} from 'ramda';
 import {
   filter,
   reject,
   find,
   some,
+  traverse,
   createNamespace,
   isMemberElement,
   isNumberElement,
   isStringElement,
-  ArraySlice,
+  ArraySlice
 } from '../src';
 
 const namespace = createNamespace();
+
+let callbackCounter = 0;
+function callback(element: unknown) {
+  console.log("traverse callback", element.toValue());
+  callbackCounter++;
+}
+
+const buildTokens = (element: unknown) => {
+  console.log("buildTokens", element.toValue());
+}
 
 describe('traversal', function () {
   context('filter', function () {
@@ -105,4 +116,17 @@ describe('traversal', function () {
       });
     });
   });
+
+  context('traverse', function () {
+    context('given ObjectElement', function () {
+      const objElement = new namespace.elements.Object({ a: 'b', c: 'd' });
+
+      specify('should traverse', function () {
+        traverse(buildTokens, objElement);
+        assert.equal(callbackCounter, 7);
+      });
+
+    });
+  });
+
 });

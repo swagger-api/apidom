@@ -260,6 +260,11 @@ export function findNodeAtOffset(node: namespace.Element, offset: number, includ
 }
 
 
+/*
+    FROM HERE PROBABLY NOT USED, OBSOLETE TODO DELETE
+
+ */
+
 export function findElementsWithClasses(el: namespace.Element, elementNames: string[]) {
     if (arguments.length > 1 && !el.isFrozen) {
         throw new Error('Cannot find recursive with multiple element names without first freezing the element. Call `element.freeze()`');

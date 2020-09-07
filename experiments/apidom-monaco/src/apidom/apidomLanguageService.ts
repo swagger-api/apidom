@@ -44,7 +44,7 @@ import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
 import { ApiDOMCompletion } from './completion/ApiDOMCompletion';
 
 // @ts-ignore
-import {isMemberElement, ArraySlice, MemberElement, ObjectElement, Element} from 'apidom'
+import {isMemberElement, isElement, isArrayElement, isStringElement, isNumberElement, ArraySlice, MemberElement, ObjectElement, Element, filter, traverse} from 'apidom'
 
 import { Proposed } from 'vscode-languageserver-protocol';
 //import SemanticTokens = monaco.languages.SemanticTokens;
@@ -75,6 +75,9 @@ export class TokensLegend {
         this.tokenTypes["info"] = 12;
         this.tokenTypes["operation"] = 13;
         this.tokenTypes["pathItem"] = 14;
+        this.tokenTypes["key"] = 15;
+        this.tokenTypes["value"] = 16;
+        this.tokenTypes["number"] = 17;
 
         this.tokenModifiers[Proposed.SemanticTokenModifiers.declaration] = 1;
         this.tokenModifiers[Proposed.SemanticTokenModifiers.definition] = 2;
@@ -82,6 +85,8 @@ export class TokensLegend {
         this.tokenModifiers[Proposed.SemanticTokenModifiers.reference] = 8;
         this.tokenModifiers["httpMethod-GET"] = 16;
         this.tokenModifiers["httpMethod-POST"] = 32;
+        this.tokenModifiers["string"] = 64;
+        this.tokenModifiers["number"] = 128;
     }
 
     public static getLegend() {
@@ -215,8 +220,9 @@ export async function findDocumentSymbols(document: TextDocument, context?: Docu
 }
 
 
-//export function computeSemanticTokens(content: string): Proposed.SemanticTokens {
-export async function computeSemanticTokens(content: string) {
+/* TODO OBSOLETE, here for reference, delete.
+/*
+export async function computeSemanticTokensOld(content: string) {
 
     let document = TextDocument.create("", "", 0, content);
     let parser = getParser(document);
@@ -256,11 +262,121 @@ export async function computeSemanticTokens(content: string) {
                     modifier ];
                 tokens.push(token);
                 lastLine = sm.line;
-                lastColumn = sm.column
+                lastColumn = sm.endColumn
             }
         })
     })
 
+    return {
+        data: tokens.flat()
+    } as Proposed.SemanticTokens
+}
+*/
+
+//export function computeSemanticTokens(content: string): Proposed.SemanticTokens {
+export async function computeSemanticTokens(content: string) {
+
+    let document = TextDocument.create("", "", 0, content);
+    let parser = getParser(document);
+
+    const parseResult = await parser.parse(document.getText(), {sourceMap: true});
+
+    const api: namespace.Element = parseResult.api
+    api.freeze() // !! freeze and add parent !!
+
+    let tokens: number[][] = [];
+
+    let lastLine = 0;
+    let lastColumn = 0;
+
+    let processed: Element[] = []
+
+    const buildTokens = (element) => {
+        let foundClasses = false;
+        let parentNode = false;
+        if (element.classes) {
+            const set: string[] = Array.from(new Set(element.classes.toValue()));
+            set.forEach(s => {
+                if (allClasses().includes(s)) {
+                    foundClasses = true;
+                    let r: Range;
+                    let sm: SourceMap;
+                    if (element.parent && element.parent.key) {
+                        sm = getSourceMap(element.parent.key);
+                        parentNode = true;
+                        processed.push(element.parent.key);
+                    } else {
+                        sm = getSourceMap(element);
+                        processed.push(element);
+                    }
+                    let modifier = 0;
+                    if ("operation" == s) {
+                        // check for httpMethod
+                        modifier = TokensLegend.getTokenModifiers(["httpMethod-" + element.getMetaProperty("httpMethod").toValue()]);
+                    }
+                    const token = [
+                        sm.line - lastLine,
+                        sm.line == lastLine ? sm.column - lastColumn: sm.column,
+                        sm.endOffset - sm.offset,
+                        TokensLegend.getTokenType(s),
+                        modifier ];
+                    tokens.push(token);
+                    lastLine = sm.line;
+                    lastColumn = sm.column
+                }
+            });
+        }
+        if (!processed.includes(element) && (!foundClasses || parentNode)) {
+
+            if (isStringElement(element) || isNumberElement(element)) {
+                let sm: SourceMap = getSourceMap(element);
+                let token;
+                /*if (element.parent && element.parent.key && element.parent.key === element) {
+                    // this is a key
+                    console.log("KEY", element.toValue());
+                    token = [
+                        sm.line - lastLine,
+                        sm.line == lastLine ? sm.column - lastColumn: sm.column,
+                        sm.endOffset - sm.offset,
+                        TokensLegend.getTokenType("key"),
+                        TokensLegend.getTokenModifiers(isStringElement(element) ? ["string"] : ["number"])
+                    ];
+
+                } else if (element.parent && element.parent.value && element.parent.value === element) {*/
+                if (element.parent && element.parent.value && element.parent.value === element) {
+                    // this is a value
+                    token = [
+                        sm.line - lastLine,
+                        sm.line == lastLine ? sm.column - lastColumn : sm.column,
+                        sm.endOffset - sm.offset,
+                        TokensLegend.getTokenType("value"),
+                        TokensLegend.getTokenModifiers(isStringElement(element) ? ["string"] : ["number"])
+                    ];
+                    tokens.push(token);
+                    lastLine = sm.line;
+                    lastColumn = sm.column
+
+                    //} else {
+                } else if (!(element.parent && element.parent.key && element.parent.key === element)) {
+                    // just a string or number
+                    token = [
+                        sm.line - lastLine,
+                        sm.line == lastLine ? sm.column - lastColumn: sm.column,
+                        sm.endOffset - sm.offset,
+                        TokensLegend.getTokenType(isStringElement(element) ? "string": "number"),
+                        0
+                    ];
+                    tokens.push(token);
+                    lastLine = sm.line;
+                    lastColumn = sm.column
+
+                }
+            }
+        }
+
+    }
+
+    traverse(buildTokens, api);
     return {
         data: tokens.flat()
     } as Proposed.SemanticTokens

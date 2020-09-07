@@ -23,7 +23,7 @@ export {
 export { default as createPredicate } from './predicates/helpers';
 
 export { ArraySlice } from 'minim';
-export { filter, reject, find, some } from './traversal';
+export { filter, reject, find, some, traverse } from './traversal';
 
 export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();

@@ -131,33 +131,42 @@ export default ({ monaco, containerId }) => {
     "comment": 7,
     "parameter": 6,
     "property": 14,
-    "operator": 1,
     "label": 16,
     "class": 3,
     "macro": 11,
     "string": 5,
+    "variable": {
+      "declaration": 8,
+      "definition": 8,
+      "deprecated": 8,
+      "reference": 4
+    },
+    "operator": 1,
     "specVersion": 7,
-    "info": 6,
     "version": 14,
+    "info": 6,
     //"operation": 12,
     "operation": {
       "httpMethod-GET": 4,
       "httpMethod-POST": 8
     },
     "pathItem": 11,
-    "variable": {
-      "declaration": 8,
-      "definition": 8,
-      "deprecated": 8,
-      "reference": 4
-    }
+    "key": {
+      "string": 5,
+      "number": 6
+    },
+    "value": {
+      "string": 16,
+      "number": 6
+    },
+    "number": 6
   }
   function getStyleMetadataDark(type: string, modifiers: string[]) {
     let color = (darkThemeMap as any)[type];
     if (type === "variable") {
       color = (darkThemeMap[type] as any)[modifiers[0]];
     }
-    if (type === "operation") {
+    if (type === "operation" || type === "key" || type === "value") {
       color = (darkThemeMap[type] as any)[modifiers[0]];
     }
     const style = {
@@ -176,33 +185,42 @@ export default ({ monaco, containerId }) => {
     "comment": 7,
     "parameter": 5,
     "property": 4,
-    "operator": 1,
     "label": 11,
     "class": 5,
     "macro": 3,
     "string": 11,
+    "variable": {
+      "declaration": 12,
+      "definition": 12,
+      "deprecated": 12,
+      "reference": 13
+    },
+    "operator": 1,
     "specVersion": 7,
-    "info": 5,
     "version": 4,
+    "info": 5,
     //"operation": 0,
     "operation": {
       "httpMethod-GET": 13,
       "httpMethod-POST": 12
     },
     "pathItem": 3,
-    "variable": {
-      "declaration": 12,
-      "definition": 12,
-      "deprecated": 12,
-      "reference": 13
-    }
+    "key": {
+      "string": 11,
+      "number": 5
+    },
+    "value": {
+      "string": 5,
+      "number": 4
+    },
+    "number": 4
   }
   function getStyleMetadataLight(type: string, modifiers: string[]) {
     let color = (lightThemeMap as any)[type];
     if (type === "variable") {
       color = (lightThemeMap[type] as any)[modifiers[0]];
     }
-    if (type === "operation") {
+    if (type === "operation" || type === "key" || type === "value") {
       color = (darkThemeMap[type] as any)[modifiers[0]];
     }
     const style = {

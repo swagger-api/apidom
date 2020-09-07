@@ -11,7 +11,7 @@ import {
   isNullElement,
   isBooleanElement,
   isMemberElement,
-  isStringElement,
+  isStringElement, isElement,
 } from './predicates';
 
 // getNodeType :: Node -> String
@@ -69,6 +69,24 @@ const Visitor = stampit({
   },
 });
 
+const TraversalVisitor = stampit({
+  props: {
+    predicate: isElement,
+    callback: function (element: unknown) {console.log(element);},
+  },
+  init({ callback }) {
+    this.callback = callback;
+    this.predicate = isElement;
+  },
+  methods: {
+    enter(element) {
+      if (this.predicate(element)) {
+        this.callback(element);
+      }
+    },
+  },
+});
+
 // finds all elements matching the predicate
 // filter :: Pred -> Element -> ArraySlice
 export const filter = curry(
@@ -79,6 +97,15 @@ export const filter = curry(
     visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, nodePredicate: isNode });
 
     return new ArraySlice(visitor.result);
+  },
+);
+
+export const traverse = curry(
+  <T extends Element>(callback: Function, element: T) : boolean => {
+    const visitor = TraversalVisitor({ callback });
+    // @ts-ignore
+    visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, nodePredicate: isNode });
+    return true;
   },
 );
 

@@ -50,3 +50,10 @@ export const isServerObject = curry((options, node) => {
   }
   return hasKeys(['url'], node.properties);
 });
+
+export const isRequestBodyObject = curry((options, node) => {
+  if (!isJsonObject(node)) {
+    return false;
+  }
+  return hasKeys(['content'], node.properties);
+});

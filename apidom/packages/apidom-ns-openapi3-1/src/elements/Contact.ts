@@ -7,7 +7,7 @@ class Contact extends ObjectElement {
   }
 
   get name(): StringElement {
-    return this.get('name').toValue();
+    return this.get('name');
   }
 
   set name(name: StringElement) {

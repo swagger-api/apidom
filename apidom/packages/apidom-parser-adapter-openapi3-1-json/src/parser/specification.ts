@@ -40,6 +40,12 @@ import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/Descr
 import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
 import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
 import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
+import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
+import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
+import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
+import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
+import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
+import ReferenceVisitor from './visitors/open-api-3-1/reference';
 
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
@@ -177,9 +183,30 @@ const specification = {
             tags: OperationTagsVisitor,
             summary: OperationSummaryVisitor,
             description: OperationDescriptionVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
             operationId: OperationOperationIdVisitor,
+            parameters: ParametersVisitor,
+            requestBody: OperationRequestBodyVisitor,
             deprecated: OperationDeprecatedVisitor,
+            servers: ServersVisitor,
           },
+        },
+        ExternalDocumentation: {
+          $visitor: ExternalDocumentationVisitor,
+          fields: {
+            description: ExternalDocumentationDescriptionVisitor,
+            url: ExternalDocumentationUrlVisitor,
+          },
+        },
+        RequestBody: {
+          $visitor: RequestBodyVisitor,
+          fields: {},
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fields: {},
         },
       },
       extension: SpecificationExtensionVisitor,

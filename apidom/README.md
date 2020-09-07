@@ -12,6 +12,10 @@ Change directory to `./apidom` monorepo to run all the following commands.
   },
 ```
 
+## Monorepo management
+
+All the information necessary for working with monorepo can be found in this [article](https://www.linkedin.com/pulse/things-i-wish-had-known-when-started-javascript-monorepo-gorej/).
+
 [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) need to be installed
 on your operating system. We strongly recommend to go with a docker option.
 

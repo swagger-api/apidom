@@ -142,11 +142,6 @@ export interface LanguageService {
 export function getLanguageService(params: LanguageServiceParams): LanguageService {
     let promise = Promise;
 
-    //let jsonCompletion = new JSONCompletion(jsonSchemaService, params.contributions, promise, params.clientCapabilities);
-    //let jsonHover = new JSONHover(jsonSchemaService, params.contributions, promise);
-    //let jsonDocumentSymbols = new JSONDocumentSymbols(jsonSchemaService);
-    //let jsonValidation = new JSONValidation(jsonSchemaService, promise);
-
     let apidomCompletion = new ApiDOMCompletion(promise, params.clientCapabilities);
 
     let validationService = new ValidationService();
@@ -288,11 +283,12 @@ export async function computeHover(document: TextDocument, position: Position) {
             const sm = getSourceMap(node);
             const httpMethod = opEl.getMetaProperty("httpMethod").toValue();
             const path = node.parent.parent.parent.key.toValue();
-            const basePath = 'http://localhost';
-            let hover = 'curl -X '+ httpMethod + ' ' + basePath + path;
+            const basePath = 'http://localhost:8082';
+            const url = basePath + path;
+            let hover = 'curl -X '+ httpMethod + ' ' + url;
             let hoverRange = Range.create(document.positionAt(sm.offset), document.positionAt(sm.offset + sm.length));
             let result: Hover = {
-                contents: [hover],
+                contents: ['operation', url, httpMethod, hover],
                 range: hoverRange
             };
             return result;

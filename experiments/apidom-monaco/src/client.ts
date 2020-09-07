@@ -13,6 +13,14 @@ const LANGUAGE_ID = "openapi";
 const MODEL_URI = "inmemory://model.json";
 const MONACO_URI = monaco.Uri.parse(MODEL_URI);
 
+export interface OperationEx {
+  url: string,
+  method: string,
+  accept: string,
+  content_type: string
+
+}
+
 export default ({ monaco, containerId }) => {
   // register the JSON language with Monaco
   monaco.languages.register({
@@ -30,14 +38,14 @@ export default ({ monaco, containerId }) => {
   });
 
   // create the Monaco editor
-  const value = `{
+  const valueSimple = `{
   "openapi": "3.0.0",
   "info": {
     "version": "0.1.9"
   }    
 }`;
 
-  const value2 = `{
+  const valueWithPaths = `{
   "openapi": "3.0.0",
   "info": {
     "version": "0.1.9"
@@ -45,18 +53,43 @@ export default ({ monaco, containerId }) => {
   "paths" : {
     "/a" : {
       "get": {
-        "operationId": "a"
-      }
+        "operationId": "aget"
+      },
+      "post": {
+        "operationId": "apost"
+      }      
     },
     "/b" : {
       "post": {
-        "operationId": "a"
+        "operationId": "bpost"
       }
     }    
   }    
 }`;
 
-  const valueAsync = `{
+  const valueWithPathsAndErrors = `{
+  "openapi": "3.0.0",
+  "info":::: {
+    "version":> "0.1.9"
+  }, 
+  "paths" : {
+    "/a" : {{{:::
+      "get": {{{:;;
+        "operationId": "aget"
+      },
+      "post": {
+        "operationId": "apost"
+      }      
+    },
+    "/b" : {
+      "post": {
+        "operationId": "bpost"
+      }
+    }    
+  }    
+}`;
+
+  const valueAsyncSimple = `{
   "asyncapi": "2.0.0",
   "info": {
     "version": "1.0.1"
@@ -68,7 +101,7 @@ export default ({ monaco, containerId }) => {
     //model: monaco.editor.createModel(value, LANGUAGE_ID, MONACO_URI),
     'semanticHighlighting.enabled': true,
     language: LANGUAGE_ID,
-    value: value2,
+    value: valueWithPaths,
     glyphMargin: true,
     lightbulb: {
       enabled: true,
@@ -188,6 +221,43 @@ export default ({ monaco, containerId }) => {
 
   monaco.editor.setTheme('vs-dark');
   editor._themeService._theme.getTokenStyleMetadata = getStyleMetadataDark
+
+  let editorLoadedCondition = editor.createContextKey(/*key name*/'editorLoadedCondition', /*default value*/false);
+  let operationContextCondition = editor.createContextKey(/*key name*/'operationContextCondition', /*default value*/false);
+
+  let currentCommand: OperationEx = null;
+
+  editor.addCommand(monaco.KeyCode.F6, function() {
+    if (!currentCommand) {
+      window.document.getElementById("commands").innerHTML='';
+    } else {
+      fetch(currentCommand.url, {
+        method: currentCommand.method,
+      })
+        .then(result => {
+          result.text().then(function (text) {
+            window.document.getElementById("commands").innerHTML='' +
+                '<div>endpoint: ' + currentCommand.url + '</div>' +
+                '<div>method: ' + currentCommand.method + '</div>' +
+                '<div>result:</div>' +
+                '<div>' + text + '</div>';
+
+          });
+
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, 'editorLoadedCondition && operationContextCondition');
+
+  editor.addCommand(monaco.KeyCode.F5, function() {
+      window.document.getElementById("commands").innerHTML='';
+      currentCommand = null;
+  });
+
+  editorLoadedCondition.set(true);
+  //operationContextCondition.set(true);
 
   function createDocument(model: monaco.editor.IReadOnlyModel) {
     return TextDocument.create(
@@ -346,6 +416,20 @@ export default ({ monaco, containerId }) => {
               m2p.asPosition(position.lineNumber, position.column)
           )
           .then((hover) => {
+            //console.log(hover);
+            if (hover && hover.contents && hover.contents[0] && hover.contents[0] == 'operation') {
+
+              currentCommand = {
+                accept: "application/json",
+                content_type: "application/json",
+                method:  hover.contents[2],
+                url:  hover.contents[1]
+
+              }
+              operationContextCondition.set(true);
+            } else {
+              operationContextCondition.set(false);
+            }
             return p2m.asHover(hover)!;
           });
     },

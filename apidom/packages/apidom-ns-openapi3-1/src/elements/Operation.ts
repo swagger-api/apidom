@@ -2,6 +2,11 @@ import { Attributes, BooleanElement, Meta, ObjectElement, StringElement } from '
 import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
 import ServerElement from './Server';
+import ExternalDocumentationElement from './ExternalDocumentation';
+import RequestBodyElement from './RequestBody';
+import ResponsesElement from './Responses';
+import CallbackElement from './Callback';
+import SecurityRequirementElement from './SecurityRequirement';
 
 class Operation extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
@@ -33,12 +38,52 @@ class Operation extends ObjectElement {
     this.set('description', description);
   }
 
+  set externalDocs(externalDocs: ExternalDocumentationElement) {
+    this.set('externalDocs', externalDocs);
+  }
+
+  get externalDocs(): ExternalDocumentationElement {
+    return this.get('externalDocs');
+  }
+
   get operationId(): StringElement {
     return this.get('operationId');
   }
 
   set operationId(operationId: StringElement) {
     this.set('operationId', operationId);
+  }
+
+  get parameters(): ParameterElement[] | ReferenceElement[] {
+    return this.get('parameters');
+  }
+
+  set parameters(parameters: ParameterElement[] | ReferenceElement[]) {
+    this.set('parameters', parameters);
+  }
+
+  get requestBody(): RequestBodyElement {
+    return this.get('requestBody');
+  }
+
+  set requestBody(requestBody: RequestBodyElement) {
+    this.set('requestBody', requestBody);
+  }
+
+  get responses(): ResponsesElement {
+    return this.get('responses');
+  }
+
+  set responses(responses: ResponsesElement) {
+    this.set('responses', responses);
+  }
+
+  get callbacks(): Record<string, CallbackElement | ReferenceElement> {
+    return this.get('callbacks');
+  }
+
+  set callbacks(callbacks: Record<string, CallbackElement | ReferenceElement>) {
+    this.set('callbacks', callbacks);
   }
 
   get deprecated(): BooleanElement {
@@ -52,12 +97,12 @@ class Operation extends ObjectElement {
     this.set('deprecated', deprecated);
   }
 
-  get parameters(): ParameterElement | ReferenceElement {
-    return this.get('parameters');
+  get security(): SecurityRequirementElement[] {
+    return this.get('security');
   }
 
-  set parameters(parameters: ParameterElement | ReferenceElement) {
-    this.set('parameters', parameters);
+  set security(security: SecurityRequirementElement[]) {
+    this.set('security', security);
   }
 
   get servers(): ServerElement[] {
@@ -67,8 +112,6 @@ class Operation extends ObjectElement {
   set servers(servers: ServerElement[]) {
     this.set('servers', servers);
   }
-
-  // TODO(vladimir.gorej@gmail.com): need to implement the rest of the fileds
 }
 
 export default Operation;

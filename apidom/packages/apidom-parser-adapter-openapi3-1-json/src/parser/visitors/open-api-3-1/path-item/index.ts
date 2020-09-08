@@ -1,12 +1,13 @@
 import stampit from 'stampit';
 import { StringElement } from 'minim';
+import { always } from 'ramda';
 import { isOperationElement, OperationElement } from 'apidom-ns-openapi3-1';
 
 import FixedFieldsJsonObjectVisitor from '../../generics/FixedFieldsJsonObjectVisitor';
 
 const PathItemVisitor = stampit(FixedFieldsJsonObjectVisitor, {
   props: {
-    specPath: ['document', 'objects', 'PathItem'],
+    specPath: always(['document', 'objects', 'PathItem']),
   },
   init() {
     this.element = new this.namespace.elements.PathItem();

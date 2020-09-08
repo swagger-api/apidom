@@ -1,10 +1,11 @@
 import stampit from 'stampit';
+import { always } from 'ramda';
 
 import FixedFieldsJsonObjectVisitor from '../../generics/FixedFieldsJsonObjectVisitor';
 
 const InfoVisitor = stampit(FixedFieldsJsonObjectVisitor, {
   props: {
-    specPath: ['document', 'objects', 'Info'],
+    specPath: always(['document', 'objects', 'Info']),
   },
   init() {
     this.element = new this.namespace.elements.Info();

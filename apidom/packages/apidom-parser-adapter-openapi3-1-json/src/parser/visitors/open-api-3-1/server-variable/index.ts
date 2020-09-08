@@ -1,10 +1,11 @@
 import stampit from 'stampit';
+import { always } from 'ramda';
 
 import FixedFieldsJsonObjectVisitor from '../../generics/FixedFieldsJsonObjectVisitor';
 
 const ServerVariableVisitor = stampit(FixedFieldsJsonObjectVisitor, {
   props: {
-    specPath: ['document', 'objects', 'ServerVariable'],
+    specPath: always(['document', 'objects', 'ServerVariable']),
     canSupportSpecificationExtensions: true,
   },
   init() {

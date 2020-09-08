@@ -216,7 +216,9 @@ const specification = {
         },
         Responses: {
           $visitor: ResponsesVisitor,
-          fields: {},
+          fields: {
+            default: ExternalDocumentationDescriptionVisitor,
+          },
         },
         Callback: {
           $visitor: CallbackVisitor,

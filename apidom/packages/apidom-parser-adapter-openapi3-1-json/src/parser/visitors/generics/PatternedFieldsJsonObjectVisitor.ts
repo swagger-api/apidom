@@ -1,15 +1,17 @@
 import stampit from 'stampit';
+import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
 import { visit, BREAK } from '..';
 
-const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
+const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   props: {
+    fieldPatternPredicate: stubFalse,
     specPath: noop,
     ignoredFields: [],
-    canSupportSpecificationExtensions: true,
+    canSupportSpecificationExtensions: false,
   },
   init({
     // @ts-ignore
@@ -25,18 +27,16 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   },
   methods: {
     object(objectNode) {
-      const specPath = this.specPath(objectNode);
-      const fields = this.retrieveFields(specPath);
-
       objectNode.properties.forEach((propertyNode: any) => {
         const keyName = propertyNode.key.value;
 
-        if (fields.includes(keyName) && !this.ignoredFields.includes(keyName)) {
-          const visitor = this.retrieveVisitorInstance([
-            ...specPath,
-            'fields',
-            propertyNode.key.value,
-          ]);
+        if (this.canSupportSpecificationExtensions && isOpenApiExtension({}, propertyNode)) {
+          const visitor = this.retrieveVisitorInstance(['document', 'extension']);
+          visit(propertyNode, visitor);
+          this.element.content.push(visitor.element);
+        } else if (!this.ignoredFields.includes(keyName) && this.fieldPatternPredicate(keyName)) {
+          const specPath = this.specPath(propertyNode.value);
+          const visitor = this.retrieveVisitorInstance(specPath);
           const keyElement = new this.namespace.elements.String(keyName);
           const { MemberElement } = this.namespace.elements.Element.prototype;
 
@@ -51,10 +51,6 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           );
 
           this.element.content.push(memberElement);
-        } else if (this.canSupportSpecificationExtensions && isOpenApiExtension({}, propertyNode)) {
-          const visitor = this.retrieveVisitorInstance(['document', 'extension']);
-          visit(propertyNode, visitor);
-          this.element.content.push(visitor.element);
         }
       });
 
@@ -65,4 +61,4 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   },
 });
 
-export default FixedFieldsJsonObjectVisitor;
+export default PatternedFieldsJsonObjectVisitor;

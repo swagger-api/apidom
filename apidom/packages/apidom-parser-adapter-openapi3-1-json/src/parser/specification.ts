@@ -41,11 +41,16 @@ import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/Opera
 import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
 import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
 import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
+import OperationCallbacksVisitor from './visitors/open-api-3-1/operation/CallbacksVisitor';
 import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
 import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
 import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
+import ResponsesVisitor from './visitors/open-api-3-1/responses';
+import CallbackVisitor from './visitors/open-api-3-1/callback';
+import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
+import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
@@ -189,7 +194,12 @@ const specification = {
             operationId: OperationOperationIdVisitor,
             parameters: ParametersVisitor,
             requestBody: OperationRequestBodyVisitor,
+            responses: {
+              $ref: '#/visitors/document/objects/Responses',
+            },
+            callbacks: OperationCallbacksVisitor,
             deprecated: OperationDeprecatedVisitor,
+            security: SecurityVisitor,
             servers: ServersVisitor,
           },
         },
@@ -204,8 +214,20 @@ const specification = {
           $visitor: RequestBodyVisitor,
           fields: {},
         },
+        Responses: {
+          $visitor: ResponsesVisitor,
+          fields: {},
+        },
+        Callback: {
+          $visitor: CallbackVisitor,
+          fields: {},
+        },
         Reference: {
           $visitor: ReferenceVisitor,
+          fields: {},
+        },
+        SecurityRequirement: {
+          $visitor: SecurityRequirementVisitor,
           fields: {},
         },
       },

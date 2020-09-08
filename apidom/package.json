@@ -2,6 +2,7 @@
   "name": "apidom-monorepo",
   "version": "0.0.0-ignore",
   "description": "ApiDOM",
+  "private": true,
   "engines": {
     "node": ">=10.21.0",
     "npm": ">=6.14.5"

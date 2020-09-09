@@ -136,9 +136,7 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
     }
 
     if (isAsyncApiExtension({}, propertyNode)) {
-      objElement.content.push(
-        this.mapPropertyNodeToMemberElement(['document', 'extension'], propertyNode),
-      );
+      objElement.content.push(this.nodeToElement(['document', 'extension'], propertyNode));
     } else {
       objElement.content.push(
         this.maybeAddSourceMap(

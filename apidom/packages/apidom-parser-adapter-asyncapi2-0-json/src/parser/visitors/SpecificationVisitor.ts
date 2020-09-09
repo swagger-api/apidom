@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { pathSatisfies, path, pick } from 'ramda';
+import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import Visitor from './Visitor';
 import { visit } from './index';
@@ -17,6 +17,10 @@ const SpecificationVisitor = stampit(Visitor, {
     this.specObj = specObj;
   },
   methods: {
+    retrieveFields(specPath) {
+      return pipe(path(['visitors', ...specPath, 'fields']), keys)(this.specObj);
+    },
+
     retrieveVisitor(specPath) {
       if (pathSatisfies(isFunction, ['visitors', ...specPath], this.specObj)) {
         return path(['visitors', ...specPath], this.specObj);
@@ -31,11 +35,9 @@ const SpecificationVisitor = stampit(Visitor, {
       return this.retrieveVisitor(specPath)({ ...passingOpts, ...options });
     },
 
-    mapPropertyNodeToMemberElement(specPath, propertyNode) {
+    nodeToElement(specPath: string[], node) {
       const visitor = this.retrieveVisitorInstance(specPath);
-
-      visit(propertyNode, visitor);
-
+      visit(node, visitor);
       return visitor.element;
     },
   },

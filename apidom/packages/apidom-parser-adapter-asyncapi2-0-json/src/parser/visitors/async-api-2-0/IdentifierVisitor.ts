@@ -1,20 +1,13 @@
 import stampit from 'stampit';
+import { BREAK } from 'apidom-ast';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const IdentifierVisitor = stampit(SpecificationVisitor, {
   methods: {
-    property(propertyNode) {
-      const keyElement = new this.namespace.elements.String(propertyNode.key.value);
-      const identifierElement = new this.namespace.elements.Identifier(propertyNode.value.value);
-      const { MemberElement } = this.namespace.elements.Element.prototype;
-
-      this.element = this.maybeAddSourceMap(
-        propertyNode,
-        new MemberElement(
-          this.maybeAddSourceMap(propertyNode.key, keyElement),
-          this.maybeAddSourceMap(propertyNode.value, identifierElement),
-        ),
-      );
+    string(stringNode) {
+      const identifierElement = new this.namespace.elements.Identifier(stringNode.value);
+      this.element = this.maybeAddSourceMap(stringNode, identifierElement);
+      return BREAK;
     },
   },
 });

@@ -390,6 +390,7 @@ export async function computeHover(document: TextDocument, position: Position) {
     const api: namespace.Element = parseResult.api
     api.freeze() // !! freeze and add parent !!
 
+    const asyncapi: boolean = isAsyncDoc(document);
 
     let offset = document.offsetAt(position);
     let node = findNodeAtOffset(api, offset, true);
@@ -399,7 +400,15 @@ export async function computeHover(document: TextDocument, position: Position) {
             const sm = getSourceMap(node);
             const httpMethod = opEl.getMetaProperty("httpMethod").toValue();
             const path = node.parent.parent.parent.key.toValue();
-            const basePath = 'http://localhost:8082';
+            // TODO cheat now use specific ns traversion, change to use class/meta providing server url
+            //const basePath = 'http://localhost:8082';
+            let basePath = '';
+            if (asyncapi) {
+                basePath = api.servers.toValue()['dev'].url;
+            } else {
+                basePath = api.servers.toValue()[0].url;
+            }
+            console.log("URL", basePath);
             const url = basePath + path;
             let hover = 'curl -X '+ httpMethod + ' ' + url;
             let hoverRange = Range.create(document.positionAt(sm.offset), document.positionAt(sm.offset + sm.length));

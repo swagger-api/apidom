@@ -55,8 +55,35 @@ import {
       }
     }`;
 
+  const value4 = `{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.1.9"
+  }, 
+  "servers" : [
+    {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  ],
+  "paths" : {
+    "/a" : {
+      "get": {
+        "operationId": "a"
+      }
+    },
+    "/b" : {
+      "post": {
+        "operationId": "a"
+      }
+    },    
+    "/2" : {
+      "get": {
+        "operationId": "2get"
+      }
+    }        
+  }    
+}`;
+
   parser.use(openapi3_1Adapter);
-  const parseResult = await parser.parse(value2, {sourceMap: true});
+  const parseResult = await parser.parse(value4, {sourceMap: true});
   //console.log("Par", JSON.stringify(parseResult));
   const api: namespace.OpenApi3_1 = <namespace.OpenApi3_1>parseResult.api;
   api.freeze() // !! freeze and add parent !!

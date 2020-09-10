@@ -50,6 +50,9 @@ export default ({ monaco, containerId }) => {
   "info": {
     "version": "0.1.9"
   }, 
+  "servers" : [
+    {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  ], 
   "paths" : {
     "/a" : {
       "get": {
@@ -63,6 +66,11 @@ export default ({ monaco, containerId }) => {
       "post": {
         "operationId": "bpost"
       }
+    },    
+    "/2" : {
+      "get": {
+        "operationId": "2get"
+      }
     }    
   }    
 }`;
@@ -72,6 +80,9 @@ export default ({ monaco, containerId }) => {
   "info":::: {
     "version":> "0.1.9"
   }, 
+  "servers" : [
+    {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  ],  
   "paths" : {
     "/a" : {{{:::
       "get": {{{:;;
@@ -84,6 +95,11 @@ export default ({ monaco, containerId }) => {
     "/b" : {
       "post": {
         "operationId": "bpost"
+      }
+    },    
+    "/2" : {
+      "get": {
+        "operationId": "2get"
       }
     }    
   }    
@@ -107,7 +123,9 @@ export default ({ monaco, containerId }) => {
       enabled: true,
     },
     //theme: "vs-dark",
-    theme: "vs"
+    theme: "vs",
+    lineNumbers: "on",
+    autoIndent: "full"
   });
 
   const monacoModel: monaco.editor.IModel = editor.getModel();
@@ -276,6 +294,60 @@ export default ({ monaco, containerId }) => {
 
   editorLoadedCondition.set(true);
   //operationContextCondition.set(true);
+
+  editor.addAction({
+    // An unique identifier of the contributed action.
+    id: 'apidom-execute-op',
+
+    // A label of the action that will be presented to the user.
+    label: 'ApiDOM execute operation',
+
+    // An optional array of keybindings for the action.
+    keybindings: [
+      monaco.KeyMod.CtrlCmd | monaco.KeyCode.F10,
+      // chord
+      monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_K, monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_M)
+    ],
+
+    // A precondition for this action.
+    precondition: "editorLoadedCondition && operationContextCondition",
+
+    // A rule to evaluate on top of the precondition in order to dispatch the keybindings.
+    keybindingContext: null,
+
+    contextMenuGroupId: 'navigation',
+
+    contextMenuOrder: 1.5,
+
+    // Method that will be executed when the action is triggered.
+    // @param editor The editor instance is passed in as a convinience
+    run: function(ed) {
+      if (!currentCommand) {
+        window.document.getElementById("commands").innerHTML='';
+      } else {
+        fetch(currentCommand.url, {
+          method: currentCommand.method,
+        })
+            .then(result => {
+              result.text().then(function (text) {
+                window.document.getElementById("commands").innerHTML='' +
+                    '<div>endpoint: ' + currentCommand.url + '</div>' +
+                    '<div>method: ' + currentCommand.method + '</div>' +
+                    '<div>result:</div>' +
+                    '<div>' + text + '</div>';
+
+              });
+
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+      }
+
+      return null;
+    }
+  });
+
 
   function createDocument(model: monaco.editor.IReadOnlyModel) {
     return TextDocument.create(

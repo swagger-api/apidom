@@ -23,6 +23,11 @@ import ComponentsVisitor from './visitors/async-api-2-0/components';
 import SchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
 import ChannelsVisitor from './visitors/async-api-2-0/channels';
 import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
+import ChannelItem$RefVisitor from './visitors/async-api-2-0/channel-item/$RefVisitor';
+import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item/DescriptionVisitor';
+import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
+import OperationVisitor from './visitors/async-api-2-0/operation';
+import ParametersVisitor from './visitors/async-api-2-0/parameters';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -96,7 +101,33 @@ const specification = {
         },
         ChannelItem: {
           $visitor: ChannelItemVisitor,
+          fields: {
+            $ref: ChannelItem$RefVisitor,
+            description: ChannelItemDescriptionVisitor,
+            subscribe: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            publish: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            parameters: {
+              $ref: '#/visitors/document/objects/Parameters',
+            },
+            bindings: {
+              $ref: '#/visitors/document/objects/ChannelBindings',
+            },
+          },
+        },
+        ChannelBindings: {
+          $visitor: ChannelBindingsVisitor,
           fields: {},
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fields: {},
+        },
+        Parameters: {
+          $visitor: ParametersVisitor,
         },
         Components: {
           $visitor: ComponentsVisitor,

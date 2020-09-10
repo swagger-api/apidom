@@ -9,6 +9,9 @@ import Components from './elements/Components';
 import Schema from './elements/Schema';
 import Channels from './elements/Channels';
 import ChannelItem from './elements/ChannelItem';
+import Operation from './elements/Operation';
+import Parameters from './elements/Parameters';
+import ChannelBindings from './elements/ChannelBindings';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -24,6 +27,9 @@ const asyncApi2_0 = {
     base.register('schema', Schema);
     base.register('channels', Channels);
     base.register('channelItem', ChannelItem);
+    base.register('operation', Operation);
+    base.register('parameters', Parameters);
+    base.register('channelBindings', ChannelBindings);
 
     return base;
   },

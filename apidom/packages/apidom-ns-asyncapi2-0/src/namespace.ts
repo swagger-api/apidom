@@ -7,6 +7,8 @@ import License from './elements/License';
 import Contact from './elements/Contact';
 import Components from './elements/Components';
 import Schema from './elements/Schema';
+import Channels from './elements/Channels';
+import ChannelItem from './elements/ChannelItem';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -20,6 +22,8 @@ const asyncApi2_0 = {
     base.register('contact', Contact);
     base.register('components', Components);
     base.register('schema', Schema);
+    base.register('channels', Channels);
+    base.register('channelItem', ChannelItem);
 
     return base;
   },

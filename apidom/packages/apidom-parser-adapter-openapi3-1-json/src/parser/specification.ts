@@ -27,8 +27,8 @@ import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variabl
 import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
-import SchemaVisitor from './visitors/open-api-3-1/SchemaVisitor';
-import PathsVisitor from './visitors/open-api-3-1/PathsVisitor';
+import SchemaVisitor from './visitors/open-api-3-1/schema';
+import PathsVisitor from './visitors/open-api-3-1/paths';
 import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';

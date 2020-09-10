@@ -9,6 +9,7 @@ import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
 import ComponentsElement from './elements/Components';
 import SchemaElement from './elements/Schema';
+import ChannelsElement from './elements/Channels';
 
 export const isAsycApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
@@ -16,9 +17,8 @@ export const isAsycApi2_0Element = createPredicate(
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
     const hasGetterAsyncapi = hasGetter('asyncapi');
-    const hasGetterId = hasGetter('id');
     const hasGetterInfo = hasGetter('info');
-    const hasGetterComponents = hasGetter('components');
+    const hasGetterChannels = hasGetter('channels');
 
     return either(
       is(AsyncApi2_0Element),
@@ -28,9 +28,8 @@ export const isAsycApi2_0Element = createPredicate(
         primitiveEqObject,
         hasClassApi,
         hasGetterAsyncapi,
-        hasGetterId,
         hasGetterInfo,
-        hasGetterComponents,
+        hasGetterChannels,
       ]),
     );
   },
@@ -153,6 +152,18 @@ export const isSchemaElement = createPredicate(
     return either(
       is(SchemaElement),
       allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+    );
+  },
+);
+
+export const isChannelsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeChannels = isElementType('channels');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ChannelsElement),
+      allPass([hasBasicElementProps, isElementTypeChannels, primitiveEqObject]),
     );
   },
 );

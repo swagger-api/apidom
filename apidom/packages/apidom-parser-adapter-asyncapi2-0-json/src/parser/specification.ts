@@ -18,9 +18,11 @@ import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
-import SchemaVisitor from './visitors/async-api-2-0/SchemaVisitor';
+import SchemaVisitor from './visitors/async-api-2-0/schema';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import SchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
+import ChannelsVisitor from './visitors/async-api-2-0/channels';
+import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -46,6 +48,9 @@ const specification = {
             id: IdentifierVisitor,
             info: {
               $ref: '#/visitors/document/objects/Info',
+            },
+            channels: {
+              $ref: '#/visitors/document/objects/Channels',
             },
             components: {
               $ref: '#/visitors/document/objects/Components',
@@ -85,6 +90,13 @@ const specification = {
         },
         Schema: {
           $visitor: SchemaVisitor,
+        },
+        Channels: {
+          $visitor: ChannelsVisitor,
+        },
+        ChannelItem: {
+          $visitor: ChannelItemVisitor,
+          fields: {},
         },
         Components: {
           $visitor: ComponentsVisitor,

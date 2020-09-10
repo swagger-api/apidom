@@ -22,6 +22,7 @@ export {
   isInfoElement,
   isLicenseElement,
   isSchemaElement,
+  isChannelsElement,
 } from './predicates';
 
 export { default as AsyncapiElement } from './elements/Asyncapi';
@@ -32,3 +33,5 @@ export { default as IdentifierElement } from './elements/Identifier';
 export { default as InfoElement } from './elements/Info';
 export { default as LicenseElement } from './elements/License';
 export { default as SchemaElement } from './elements/Schema';
+export { default as ChannelsElement } from './elements/Channels';
+export { default as ChannelItem } from './elements/ChannelItem';

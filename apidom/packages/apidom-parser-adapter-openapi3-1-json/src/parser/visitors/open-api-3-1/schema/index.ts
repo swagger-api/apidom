@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { BREAK } from '..';
-import SpecificationVisitor from '../SpecificationVisitor';
+import { BREAK } from '../..';
+import SpecificationVisitor from '../../SpecificationVisitor';
 
 const SchemaVisitor = stampit(SpecificationVisitor, {
   methods: {

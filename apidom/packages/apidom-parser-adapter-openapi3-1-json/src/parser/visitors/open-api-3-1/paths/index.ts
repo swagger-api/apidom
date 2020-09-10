@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import MapJsonObjectVisitor from '../generics/MapJsonObjectVisitor';
+import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
 
 const PathsVisitor = stampit(MapJsonObjectVisitor, {
   props: {

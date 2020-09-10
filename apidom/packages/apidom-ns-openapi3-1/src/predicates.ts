@@ -129,32 +129,32 @@ export const isContactElement = createPredicate(
 
 export const isComponentsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeInfo = isElementType('components');
+    const isElementTypeComponents = isElementType('components');
     const primitiveEqObject = primitiveEq('object');
     const hasGetterSchemes = hasGetter('schemas');
 
     return either(
       is(ComponentsElement),
-      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject, hasGetterSchemes]),
+      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject, hasGetterSchemes]),
     );
   },
 );
 
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeInfo = isElementType('schema');
+    const isElementTypeSchema = isElementType('schema');
     const primitiveEqObject = primitiveEq('object');
 
     return either(
       is(SchemaElement),
-      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+      allPass([hasBasicElementProps, isElementTypeSchema, primitiveEqObject]),
     );
   },
 );
 
 export const isServerElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeInfo = isElementType('server');
+    const isElementTypeServer = isElementType('server');
     const primitiveEqObject = primitiveEq('object');
     const hasGetterUrl = hasGetter('url');
     const hasGetterDescription = hasGetter('description');
@@ -164,7 +164,7 @@ export const isServerElement = createPredicate(
       is(ServerElement),
       allPass([
         hasBasicElementProps,
-        isElementTypeInfo,
+        isElementTypeServer,
         primitiveEqObject,
         hasGetterUrl,
         hasGetterDescription,
@@ -176,7 +176,7 @@ export const isServerElement = createPredicate(
 
 export const isServerVariableElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeInfo = isElementType('serverVariable');
+    const isElementTypeServerVariable = isElementType('serverVariable');
     const primitiveEqObject = primitiveEq('object');
     const hasGetterDefault = hasGetter('default');
     const hasGetterDescription = hasGetter('description');
@@ -186,7 +186,7 @@ export const isServerVariableElement = createPredicate(
       is(ServerVariableElement),
       allPass([
         hasBasicElementProps,
-        isElementTypeInfo,
+        isElementTypeServerVariable,
         primitiveEqObject,
         hasGetterDefault,
         hasGetterDescription,
@@ -198,19 +198,19 @@ export const isServerVariableElement = createPredicate(
 
 export const isPathsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeInfo = isElementType('paths');
+    const isElementTypePaths = isElementType('paths');
     const primitiveEqObject = primitiveEq('object');
 
     return either(
       is(PathsElement),
-      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+      allPass([hasBasicElementProps, isElementTypePaths, primitiveEqObject]),
     );
   },
 );
 
 export const isPathItemElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
-    const isElementTypeInfo = isElementType('pathItem');
+    const isElementTypePathItem = isElementType('pathItem');
     const primitiveEqObject = primitiveEq('object');
     const hasGetter$Ref = hasGetter('$ref');
     const hasGetterSummary = hasGetter('summary');
@@ -228,7 +228,7 @@ export const isPathItemElement = createPredicate(
       is(PathItemElement),
       allPass([
         hasBasicElementProps,
-        isElementTypeInfo,
+        isElementTypePathItem,
         primitiveEqObject,
         hasGetter$Ref,
         hasGetterSummary,

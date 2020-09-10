@@ -16,37 +16,71 @@
     },
     "version": "1.0.1"
   },
+  "channels": {
+    "user/signup": {
+      "subscribe": {
+        "$ref": "#/components/messages/userSignUp"
+      }
+    }
+  },
   "components": {
     "x-extension": "value",
     "schemas": {
-      "x-model": {
+      "Category": {
         "type": "object",
         "properties": {
           "id": {
-            "type:": "integer"
-          }
-        }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           },
           "name": {
             "type": "string"
-          },
-          "profile": {
-            "$ref": "#/components/schemas/UserProfile"
           }
         }
       },
-      "UserProfile": {
+      "Tag": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "x-nullable": true
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "messages": {
+      "userSignUp": {
+        "summary": "Action to sign a user up.",
+        "description": "Multiline description of what this action does.\nHere you have another line.\n",
+        "tags": [
+          {
+            "name": "user"
+          },
+          {
+            "name": "signup"
+          }
+        ],
+        "headers": {
+          "type": "object",
+          "properties": {
+            "applicationInstanceId": {
+              "description": "Unique identifier for a given instance of the publishing application",
+              "type": "string"
+            }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "$ref": "#/components/schemas/userCreate"
+            },
+            "signup": {
+              "$ref": "#/components/schemas/signup"
+            }
           }
         }
       }

@@ -10,6 +10,7 @@ import {
   isComponentsElement,
   isAsycapiElement,
   isAsycApi2_0Element,
+  isChannelsElement,
   AsyncApi2_0Element,
   AsyncapiElement,
   SchemaElement,
@@ -18,6 +19,7 @@ import {
   InfoElement,
   LicenseElement,
   ContactElement,
+  ChannelsElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -60,14 +62,11 @@ describe('predicates', function () {
         get asyncapi() {
           return 'asyncapi';
         },
-        get id() {
-          return 'id';
-        },
         get info() {
           return 'info';
         },
-        get components() {
-          return 'components';
+        get channels() {
+          return 'channels';
         },
       };
 
@@ -476,6 +475,56 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(concatElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isChannelsElement', function () {
+    context('given ChannelsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ChannelsElement();
+
+        assert.isTrue(isChannelsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ChannelsSubElement extends ChannelsElement {}
+
+        assert.isTrue(isChannelsElement(new ChannelsSubElement()));
+      });
+    });
+
+    context('given non ChannelsElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isChannelsElement(1));
+        assert.isFalse(isChannelsElement(null));
+        assert.isFalse(isChannelsElement(undefined));
+        assert.isFalse(isChannelsElement({}));
+        assert.isFalse(isChannelsElement([]));
+        assert.isFalse(isChannelsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const channelsElementDuck = {
+        element: 'channels',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+      };
+
+      const channelsElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isChannelsElement(channelsElementDuck));
+      assert.isFalse(isChannelsElement(channelsElementSwan));
     });
   });
 });

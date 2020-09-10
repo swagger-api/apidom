@@ -10,6 +10,7 @@ import ContactElement from './elements/Contact';
 import ComponentsElement from './elements/Components';
 import SchemaElement from './elements/Schema';
 import ChannelsElement from './elements/Channels';
+import ChannelItemElement from './elements/ChannelItem';
 
 export const isAsycApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
@@ -164,6 +165,34 @@ export const isChannelsElement = createPredicate(
     return either(
       is(ChannelsElement),
       allPass([hasBasicElementProps, isElementTypeChannels, primitiveEqObject]),
+    );
+  },
+);
+
+export const isChannelItemElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeChannelItem = isElementType('channelItem');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetter$Ref = hasGetter('$ref');
+    const hasGetterDescription = hasGetter('description');
+    const hasGetterSubscribe = hasGetter('subscribe');
+    const hasGetterPublish = hasGetter('publish');
+    const hasGetterParameters = hasGetter('parameters');
+    const hasGetterBindings = hasGetter('bindings');
+
+    return either(
+      is(ChannelItemElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeChannelItem,
+        primitiveEqObject,
+        hasGetter$Ref,
+        hasGetterDescription,
+        hasGetterSubscribe,
+        hasGetterPublish,
+        hasGetterParameters,
+        hasGetterBindings,
+      ]),
     );
   },
 );

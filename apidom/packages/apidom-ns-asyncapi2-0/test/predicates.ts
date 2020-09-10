@@ -11,6 +11,7 @@ import {
   isAsycapiElement,
   isAsycApi2_0Element,
   isChannelsElement,
+  isChannelItemElement,
   AsyncApi2_0Element,
   AsyncapiElement,
   SchemaElement,
@@ -20,6 +21,7 @@ import {
   LicenseElement,
   ContactElement,
   ChannelsElement,
+  ChannelItemElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -525,6 +527,74 @@ describe('predicates', function () {
 
       assert.isTrue(isChannelsElement(channelsElementDuck));
       assert.isFalse(isChannelsElement(channelsElementSwan));
+    });
+  });
+
+  context('isChannelItemElement', function () {
+    context('given ChannelItem instance value', function () {
+      specify('should return true', function () {
+        const element = new ChannelItemElement();
+
+        assert.isTrue(isChannelItemElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ChannelItemSubElement extends ChannelItemElement {}
+
+        assert.isTrue(isChannelItemElement(new ChannelItemSubElement()));
+      });
+    });
+
+    context('given non ChannelItem instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isChannelItemElement(1));
+        assert.isFalse(isChannelItemElement(null));
+        assert.isFalse(isChannelItemElement(undefined));
+        assert.isFalse(isChannelItemElement({}));
+        assert.isFalse(isChannelItemElement([]));
+        assert.isFalse(isChannelItemElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const channelItemElementDuck = {
+        element: 'channelItem',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get $ref() {
+          return '$ref';
+        },
+        get description() {
+          return 'description';
+        },
+        get subscribe() {
+          return 'subscribe';
+        },
+        get publish() {
+          return 'publish';
+        },
+        get parameters() {
+          return 'parameters';
+        },
+        get bindings() {
+          return 'bindings';
+        },
+      };
+
+      const channelItemElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isChannelItemElement(channelItemElementDuck));
+      assert.isFalse(isChannelItemElement(channelItemElementSwan));
     });
   });
 });

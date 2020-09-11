@@ -14,6 +14,7 @@ import {
   isChannelItemElement,
   isServersElement,
   isServerElement,
+  isServerVariableElement,
   AsyncApi2_0Element,
   AsyncapiElement,
   SchemaElement,
@@ -26,6 +27,7 @@ import {
   ChannelItemElement,
   ServersElement,
   ServerElement,
+  ServerVariableElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -587,6 +589,68 @@ describe('predicates', function () {
 
       assert.isTrue(isServerElement(serverElementDuck));
       assert.isFalse(isServerElement(serverElementSwan));
+    });
+  });
+
+  context('isServerVariableElement', function () {
+    context('given ServerVariableElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ServerVariableElement();
+
+        assert.isTrue(isServerVariableElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServerVariableSubElement extends ServerVariableElement {}
+
+        assert.isTrue(isServerVariableElement(new ServerVariableSubElement()));
+      });
+    });
+
+    context('given non ServerVariableElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServerVariableElement(1));
+        assert.isFalse(isServerVariableElement(null));
+        assert.isFalse(isServerVariableElement(undefined));
+        assert.isFalse(isServerVariableElement({}));
+        assert.isFalse(isServerVariableElement([]));
+        assert.isFalse(isServerVariableElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serverVariableElementDuck = {
+        element: 'serverVariable',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get enum() {
+          return 'enum';
+        },
+        get default() {
+          return 'default';
+        },
+        get description() {
+          return 'description';
+        },
+        get examples() {
+          return 'examples';
+        },
+      };
+
+      const serverVariableElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServerVariableElement(serverVariableElementDuck));
+      assert.isFalse(isServerVariableElement(serverVariableElementSwan));
     });
   });
 

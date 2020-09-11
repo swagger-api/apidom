@@ -1,9 +1,41 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
 class ServerVariable extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'serverVariable';
+  }
+
+  get enum(): StringElement[] {
+    return this.get('enum');
+  }
+
+  set enum(value: StringElement[]) {
+    this.set('enum', value);
+  }
+
+  get default(): StringElement {
+    return this.get('default');
+  }
+
+  set default(value: StringElement) {
+    this.set('default', value);
+  }
+
+  get description(): StringElement {
+    return this.get('description');
+  }
+
+  set description(description: StringElement) {
+    this.set('description', description);
+  }
+
+  get examples(): StringElement[] {
+    return this.get('examples');
+  }
+
+  set examples(examples: StringElement[]) {
+    this.set('examples', examples);
   }
 }
 

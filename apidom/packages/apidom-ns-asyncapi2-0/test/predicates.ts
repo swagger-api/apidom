@@ -12,6 +12,8 @@ import {
   isAsycApi2_0Element,
   isChannelsElement,
   isChannelItemElement,
+  isServersElement,
+  isServerElement,
   AsyncApi2_0Element,
   AsyncapiElement,
   SchemaElement,
@@ -22,6 +24,8 @@ import {
   ContactElement,
   ChannelsElement,
   ChannelItemElement,
+  ServersElement,
+  ServerElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -477,6 +481,112 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(concatElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isServersElement', function () {
+    context('given ServersElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ServersElement();
+
+        assert.isTrue(isServersElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServersSubElement extends ServersElement {}
+
+        assert.isTrue(isServersElement(new ServersSubElement()));
+      });
+    });
+
+    context('given non ServersElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServersElement(1));
+        assert.isFalse(isServersElement(null));
+        assert.isFalse(isServersElement(undefined));
+        assert.isFalse(isServersElement({}));
+        assert.isFalse(isServersElement([]));
+        assert.isFalse(isServersElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serversElementDuck = {
+        element: 'servers',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+      };
+
+      const serversElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServersElement(serversElementDuck));
+      assert.isFalse(isServersElement(serversElementSwan));
+    });
+  });
+
+  context('isServerElement', function () {
+    context('given ServerElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ServerElement();
+
+        assert.isTrue(isServerElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServerSubElement extends ServerElement {}
+
+        assert.isTrue(isServerElement(new ServerSubElement()));
+      });
+    });
+
+    context('given non ServerElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServerElement(1));
+        assert.isFalse(isServerElement(null));
+        assert.isFalse(isServerElement(undefined));
+        assert.isFalse(isServerElement({}));
+        assert.isFalse(isServerElement([]));
+        assert.isFalse(isServerElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serverElementDuck = {
+        element: 'server',
+        content: [],
+        primitive() {
+          return 'object';
+        },
+        get url() {
+          return 'url';
+        },
+        get protocol() {
+          return 'protocol';
+        },
+      };
+
+      const serverElementSwan = {
+        element: undefined,
+        content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServerElement(serverElementDuck));
+      assert.isFalse(isServerElement(serverElementSwan));
     });
   });
 

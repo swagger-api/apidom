@@ -11,6 +11,8 @@ import ComponentsElement from './elements/Components';
 import SchemaElement from './elements/Schema';
 import ChannelsElement from './elements/Channels';
 import ChannelItemElement from './elements/ChannelItem';
+import ServersElement from './elements/Servers';
+import ServerElement from './elements/Server';
 
 export const isAsycApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
@@ -127,6 +129,38 @@ export const isContactElement = createPredicate(
         hasGetterName,
         hasGetterUrl,
         hasGetterEmail,
+      ]),
+    );
+  },
+);
+
+export const isServersElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeChannels = isElementType('servers');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ServersElement),
+      allPass([hasBasicElementProps, isElementTypeChannels, primitiveEqObject]),
+    );
+  },
+);
+
+export const isServerElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+    const isElementTypeChannels = isElementType('server');
+    const primitiveEqObject = primitiveEq('object');
+    const hasGetterUrl = hasGetter('url');
+    const hasGetterProtocol = hasGetter('protocol');
+
+    return either(
+      is(ServerElement),
+      allPass([
+        hasBasicElementProps,
+        isElementTypeChannels,
+        primitiveEqObject,
+        hasGetterUrl,
+        hasGetterProtocol,
       ]),
     );
   },

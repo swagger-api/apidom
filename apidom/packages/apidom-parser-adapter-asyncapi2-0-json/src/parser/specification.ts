@@ -30,6 +30,15 @@ import OperationVisitor from './visitors/async-api-2-0/operation';
 import ParametersVisitor from './visitors/async-api-2-0/parameters';
 import ServersVisitor from './visitors/async-api-2-0/servers';
 import ServerVisitor from './visitors/async-api-2-0/server';
+import ServerUrlVisitor from './visitors/async-api-2-0/server/UrlVisitor';
+import ServerProtocolVisitor from './visitors/async-api-2-0/server/ProtocolVisitor';
+import ServerProtocolVersionVisitor from './visitors/async-api-2-0/server/ProtocolVersionVisitor';
+import ServerDescriptionVisitor from './visitors/async-api-2-0/server/DescriptionVisitor';
+import ServerVariablesVisitor from './visitors/async-api-2-0/server/VariablesVisitor';
+import ServerSecurityVisitor from './visitors/async-api-2-0/server/SecurityVisitor';
+import ServerVariableVisitor from './visitors/async-api-2-0/server-variable';
+import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
+import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -103,7 +112,28 @@ const specification = {
         },
         Server: {
           $visitor: ServerVisitor,
+          fields: {
+            url: ServerUrlVisitor,
+            protocol: ServerProtocolVisitor,
+            protocolVersion: ServerProtocolVersionVisitor,
+            description: ServerDescriptionVisitor,
+            variables: ServerVariablesVisitor,
+            security: ServerSecurityVisitor,
+            bindings: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+          },
+        },
+        ServerVariable: {
+          $visitor: ServerVariableVisitor,
           fields: {},
+        },
+        ServerBindings: {
+          $visitor: ServerBindingsVisitor,
+          fields: {},
+        },
+        SecurityRequirement: {
+          $visitor: SecurityRequirementVisitor,
         },
         Schema: {
           $visitor: SchemaVisitor,

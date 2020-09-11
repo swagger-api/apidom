@@ -230,7 +230,6 @@ const specification = {
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
-          fields: {},
         },
       },
       extension: SpecificationExtensionVisitor,

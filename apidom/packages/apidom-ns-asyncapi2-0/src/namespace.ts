@@ -14,6 +14,9 @@ import Parameters from './elements/Parameters';
 import ChannelBindings from './elements/ChannelBindings';
 import Servers from './elements/Servers';
 import Server from './elements/Server';
+import ServerVariable from './elements/ServerVariable';
+import SecurityRequirement from './elements/SecurityRequirement';
+import ServerBindings from './elements/ServerBindings';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -34,6 +37,9 @@ const asyncApi2_0 = {
     base.register('channelBindings', ChannelBindings);
     base.register('servers', Servers);
     base.register('server', Server);
+    base.register('serverVariable', ServerVariable);
+    base.register('securityRequirement', SecurityRequirement);
+    base.register('serverBindings', ServerBindings);
 
     return base;
   },

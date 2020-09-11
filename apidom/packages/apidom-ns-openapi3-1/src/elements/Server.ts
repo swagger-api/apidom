@@ -23,11 +23,11 @@ class Server extends ObjectElement {
     this.set('description', description);
   }
 
-  get variables(): ServerVariable {
+  get variables(): Record<string, ServerVariable> {
     return this.get('variables');
   }
 
-  set variables(variables: ServerVariable) {
+  set variables(variables: Record<string, ServerVariable>) {
     this.set('variables', variables);
   }
 }

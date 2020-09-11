@@ -28,6 +28,8 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
 import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import OperationVisitor from './visitors/async-api-2-0/operation';
 import ParametersVisitor from './visitors/async-api-2-0/parameters';
+import ServersVisitor from './visitors/async-api-2-0/servers';
+import ServerVisitor from './visitors/async-api-2-0/server';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -53,6 +55,9 @@ const specification = {
             id: IdentifierVisitor,
             info: {
               $ref: '#/visitors/document/objects/Info',
+            },
+            servers: {
+              $ref: '#/visitors/document/objects/Servers',
             },
             channels: {
               $ref: '#/visitors/document/objects/Channels',
@@ -93,6 +98,13 @@ const specification = {
             url: LicenseUrlVisitor,
           },
         },
+        Servers: {
+          $visitor: ServersVisitor,
+        },
+        Server: {
+          $visitor: ServerVisitor,
+          fields: {},
+        },
         Schema: {
           $visitor: SchemaVisitor,
         },
@@ -118,12 +130,12 @@ const specification = {
             },
           },
         },
-        ChannelBindings: {
-          $visitor: ChannelBindingsVisitor,
-          fields: {},
-        },
         Operation: {
           $visitor: OperationVisitor,
+          fields: {},
+        },
+        ChannelBindings: {
+          $visitor: ChannelBindingsVisitor,
           fields: {},
         },
         Parameters: {

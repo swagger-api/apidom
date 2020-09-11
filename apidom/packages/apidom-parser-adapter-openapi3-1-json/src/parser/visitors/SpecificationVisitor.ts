@@ -17,8 +17,8 @@ const SpecificationVisitor = stampit(Visitor, {
     this.specObj = specObj;
   },
   methods: {
-    retrieveFields(specPath) {
-      return pipe(path(['visitors', ...specPath, 'fields']), keys)(this.specObj);
+    retrieveFixedFields(specPath) {
+      return pipe(path(['visitors', ...specPath, 'fixedFields']), keys)(this.specObj);
     },
 
     retrieveVisitor(specPath) {

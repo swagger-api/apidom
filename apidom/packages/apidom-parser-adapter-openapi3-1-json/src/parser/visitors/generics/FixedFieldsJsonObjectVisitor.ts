@@ -26,7 +26,7 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   methods: {
     object(objectNode) {
       const specPath = this.specPath(objectNode);
-      const fields = this.retrieveFields(specPath);
+      const fields = this.retrieveFixedFields(specPath);
 
       objectNode.properties.forEach((propertyNode: any) => {
         const keyName = propertyNode.key.value;
@@ -34,7 +34,7 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
         if (fields.includes(keyName) && !this.ignoredFields.includes(keyName)) {
           const visitor = this.retrieveVisitorInstance([
             ...specPath,
-            'fields',
+            'fixedFields',
             propertyNode.key.value,
           ]);
           const keyElement = new this.namespace.elements.String(keyName);

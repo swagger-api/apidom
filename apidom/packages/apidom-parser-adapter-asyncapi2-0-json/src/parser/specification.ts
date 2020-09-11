@@ -63,7 +63,7 @@ const specification = {
       objects: {
         AsyncApi: {
           $visitor: AsyncApi2_0Visitor,
-          fields: {
+          fixedFields: {
             asyncapi: AsyncapiVisitor,
             id: IdentifierVisitor,
             info: {
@@ -82,7 +82,7 @@ const specification = {
         },
         Info: {
           $visitor: InfoVisitor,
-          fields: {
+          fixedFields: {
             title: InfoTitleVisitor,
             description: InfoDescriptionVisitor,
             summary: InfoSummaryVisitor,
@@ -98,7 +98,7 @@ const specification = {
         },
         Contact: {
           $visitor: ContactVisitor,
-          fields: {
+          fixedFields: {
             name: ContactNameVisitor,
             url: ContactUrlVisitor,
             email: ContactEmailVisitor,
@@ -106,7 +106,7 @@ const specification = {
         },
         License: {
           $visitor: LicenseVisitor,
-          fields: {
+          fixedFields: {
             name: LicenseNameVisitor,
             url: LicenseUrlVisitor,
           },
@@ -116,7 +116,7 @@ const specification = {
         },
         Server: {
           $visitor: ServerVisitor,
-          fields: {
+          fixedFields: {
             url: ServerUrlVisitor,
             protocol: ServerProtocolVisitor,
             protocolVersion: ServerProtocolVersionVisitor,
@@ -130,7 +130,7 @@ const specification = {
         },
         ServerVariable: {
           $visitor: ServerVariableVisitor,
-          fields: {
+          fixedFields: {
             enum: ServerVariableEnumVisitor,
             default: ServerVariableDefaultVisitor,
             description: ServerVariableDescriptionVisitor,
@@ -139,7 +139,7 @@ const specification = {
         },
         ServerBindings: {
           $visitor: ServerBindingsVisitor,
-          fields: {},
+          fixedFields: {},
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
@@ -152,7 +152,7 @@ const specification = {
         },
         ChannelItem: {
           $visitor: ChannelItemVisitor,
-          fields: {
+          fixedFields: {
             $ref: ChannelItem$RefVisitor,
             description: ChannelItemDescriptionVisitor,
             subscribe: {
@@ -171,18 +171,18 @@ const specification = {
         },
         Operation: {
           $visitor: OperationVisitor,
-          fields: {},
+          fixedFields: {},
         },
         ChannelBindings: {
           $visitor: ChannelBindingsVisitor,
-          fields: {},
+          fixedFields: {},
         },
         Parameters: {
           $visitor: ParametersVisitor,
         },
         Components: {
           $visitor: ComponentsVisitor,
-          fields: {
+          fixedFields: {
             schemas: SchemasVisitor,
           },
         },

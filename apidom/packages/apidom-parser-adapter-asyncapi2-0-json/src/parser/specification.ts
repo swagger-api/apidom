@@ -37,6 +37,10 @@ import ServerDescriptionVisitor from './visitors/async-api-2-0/server/Descriptio
 import ServerVariablesVisitor from './visitors/async-api-2-0/server/VariablesVisitor';
 import ServerSecurityVisitor from './visitors/async-api-2-0/server/SecurityVisitor';
 import ServerVariableVisitor from './visitors/async-api-2-0/server-variable';
+import ServerVariableEnumVisitor from './visitors/async-api-2-0/server-variable/EnumVisitor';
+import ServerVariableDefaultVisitor from './visitors/async-api-2-0/server-variable/DefaultVisitor';
+import ServerVariableDescriptionVisitor from './visitors/async-api-2-0/server-variable/DescriptionVisitor';
+import ServerVariableExamplesVisitor from './visitors/async-api-2-0/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
 import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
 
@@ -126,7 +130,12 @@ const specification = {
         },
         ServerVariable: {
           $visitor: ServerVariableVisitor,
-          fields: {},
+          fields: {
+            enum: ServerVariableEnumVisitor,
+            default: ServerVariableDefaultVisitor,
+            description: ServerVariableDescriptionVisitor,
+            examples: ServerVariableExamplesVisitor,
+          },
         },
         ServerBindings: {
           $visitor: ServerBindingsVisitor,

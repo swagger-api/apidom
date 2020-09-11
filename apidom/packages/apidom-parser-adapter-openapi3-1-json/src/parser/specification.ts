@@ -74,7 +74,7 @@ const specification = {
       objects: {
         OpenApi: {
           $visitor: OpenApi3_1Visitor,
-          fields: {
+          fixedFields: {
             openapi: OpenapiVisitor,
             info: {
               $ref: '#/visitors/document/objects/Info',
@@ -90,7 +90,7 @@ const specification = {
         },
         Info: {
           $visitor: InfoVisitor,
-          fields: {
+          fixedFields: {
             title: InfoTitleVisitor,
             description: InfoDescriptionVisitor,
             summary: InfoSummaryVisitor,
@@ -106,7 +106,7 @@ const specification = {
         },
         Contact: {
           $visitor: ContactVisitor,
-          fields: {
+          fixedFields: {
             name: ContactNameVisitor,
             url: ContactUrlVisitor,
             email: ContactEmailVisitor,
@@ -114,7 +114,7 @@ const specification = {
         },
         License: {
           $visitor: LicenseVisitor,
-          fields: {
+          fixedFields: {
             name: LicenseNameVisitor,
             identifier: LicenseIdentifierVisitor,
             url: LicenseUrlVisitor,
@@ -122,7 +122,7 @@ const specification = {
         },
         Server: {
           $visitor: ServerVisitor,
-          fields: {
+          fixedFields: {
             url: ServerUrlVisitor,
             description: ServerDescriptionVisitor,
             variables: ServerVariablesVisitor,
@@ -130,7 +130,7 @@ const specification = {
         },
         ServerVariable: {
           $visitor: ServerVariableVisitor,
-          fields: {
+          fixedFields: {
             enum: ServerVariableEnumVisitor,
             default: ServerVariableDefaultVisitor,
             description: ServerVariableDescriptionVisitor,
@@ -141,7 +141,7 @@ const specification = {
         },
         Components: {
           $visitor: ComponentsVisitor,
-          fields: {
+          fixedFields: {
             schemas: SchemasVisitor,
           },
         },
@@ -150,7 +150,7 @@ const specification = {
         },
         PathItem: {
           $visitor: PathItemVisitor,
-          fields: {
+          fixedFields: {
             $ref: PathItem$RefVisitor,
             summary: PathItemSummaryVisitor,
             description: PathItemDescriptionVisitor,
@@ -184,7 +184,7 @@ const specification = {
         },
         Operation: {
           $visitor: OperationVisitor,
-          fields: {
+          fixedFields: {
             tags: OperationTagsVisitor,
             summary: OperationSummaryVisitor,
             description: OperationDescriptionVisitor,
@@ -205,28 +205,28 @@ const specification = {
         },
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,
-          fields: {
+          fixedFields: {
             description: ExternalDocumentationDescriptionVisitor,
             url: ExternalDocumentationUrlVisitor,
           },
         },
         RequestBody: {
           $visitor: RequestBodyVisitor,
-          fields: {},
+          fixedFields: {},
         },
         Responses: {
           $visitor: ResponsesVisitor,
-          fields: {
+          fixedFields: {
             default: ExternalDocumentationDescriptionVisitor,
           },
         },
         Callback: {
           $visitor: CallbackVisitor,
-          fields: {},
+          fixedFields: {},
         },
         Reference: {
           $visitor: ReferenceVisitor,
-          fields: {},
+          fixedFields: {},
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,

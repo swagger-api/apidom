@@ -313,9 +313,23 @@ export default ({ monaco, containerId }) => {
     }
   }, 'editorLoadedCondition && operationContextCondition');
 
+
   editor.addCommand(monaco.KeyCode.F5, function() {
       window.document.getElementById("commands").innerHTML='';
       currentCommand = null;
+  });
+
+  editor.addCommand(monaco.KeyCode.F4, function() {
+    window.document.getElementById("commands").innerHTML='';
+    currentCommand = null;
+    editor.setValue(valueAsyncLessSimple);
+  });
+
+  editor.addCommand(monaco.KeyCode.F3, function() {
+    window.document.getElementById("commands").innerHTML='';
+    currentCommand = null;
+    editor.setValue(valueWithPaths);
+
   });
 
   editorLoadedCondition.set(true);

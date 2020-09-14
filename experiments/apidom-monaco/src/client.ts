@@ -8,6 +8,7 @@ import {
 
 //import { SemanticTokenTypes, SemanticTokenModifiers } from 'vscode-languageserver-protocol/lib/protocol.sematicTokens.proposed';
 import { Proposed } from 'vscode-languageserver-protocol';
+import {Range} from "./apidom/languageServiceTypes";
 
 const LANGUAGE_ID = "openapi";
 const MODEL_URI = "inmemory://model.json";
@@ -298,6 +299,51 @@ export default ({ monaco, containerId }) => {
   editorLoadedCondition.set(true);
   //operationContextCondition.set(true);
 
+  monaco.languages.registerCodeActionProvider(LANGUAGE_ID, {
+    provideCodeActions: (
+        model /**ITextModel*/,
+        range /**Range*/,
+        context /**CodeActionContext*/,
+        token /**CancellationToken*/
+    ) => {
+
+      const actions = context.markers.map(error => {
+        const source = error.source.split('__');
+        const offset = Number(source[1]) + 1;
+        const replaceText = source[0];
+        const startPos = model.getPositionAt(offset);
+        const range = {
+          endColumn: startPos.column,
+          endLineNumber: startPos.lineNumber,
+          startColumn: startPos.column,
+          startLineNumber: startPos.lineNumber
+        };
+        return {
+          title: `fix ` + error.message,
+          diagnostics: [error],
+          kind: "quickfix",
+          edit: {
+            edits: [
+              {
+                resource: model.uri,
+                edit: {
+                  range: range,
+                  text: replaceText
+                }
+              }
+            ]
+          },
+          isPreferred: true
+        };
+      });
+      return {
+        actions: actions,
+        dispose: () => {}
+      }
+    }
+  });
+
+
   editor.addAction({
     // An unique identifier of the contributed action.
     id: 'apidom-execute-op',
@@ -522,10 +568,12 @@ export default ({ monaco, containerId }) => {
             } else {
               operationContextCondition.set(false);
             }
-            hover.contents[0] = '**Operation**';
-            hover.contents[1] = '_' + hover.contents[2] + '_ ' + hover.contents[1];
-            hover.contents[2] = hover.contents[3];
-            hover.contents.pop();
+            if (hover) {
+              hover.contents[0] = '**Operation**';
+              hover.contents[1] = '_' + hover.contents[2] + '_ ' + hover.contents[1];
+              hover.contents[2] = hover.contents[3];
+              hover.contents.pop();
+            }
             return p2m.asHover(hover)!;
           });
     },

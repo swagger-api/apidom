@@ -66,7 +66,12 @@ export class ValidationService implements IValidationService {
 
                     return validationResult.problems.map(p => {
                         let range = Range.create(textDocument.positionAt(p.location.offset), textDocument.positionAt(p.location.offset + p.location.length));
-                        return Diagnostic.create(range, p.message, p.severity, p.code);
+                        if (p.quickFix && p.quickFixLocation) {
+                            return Diagnostic.create(range, p.message, p.severity, p.code, p.quickFix + '__' + p.quickFixLocation.offset);
+                        } else {
+                            return Diagnostic.create(range, p.message, p.severity, p.code);
+                        }
+
                     });
 
                 });

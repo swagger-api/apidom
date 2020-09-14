@@ -112,6 +112,10 @@ export interface IProblem {
     severity: DiagnosticSeverity;
     code?: ErrorCode;
     message: string;
+    jsonSchema?: any;
+    quickFix?: string;
+    quickFixLocation?: IRange;
+
 }
 
 export enum ErrorCode {

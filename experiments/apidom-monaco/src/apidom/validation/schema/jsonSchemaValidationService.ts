@@ -1,20 +1,9 @@
 // @ts-ignore
 import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
-import {JSONSchema, JSONSchemaRef} from './jsonSchema';
-import {contains, getSourceMap, isBoolean, ValidationResult} from "../../utils/objects";
-import {
-    isElement,
-    isStringElement,
-    isNumberElement,
-    isNullElement,
-    isBooleanElement,
-    isArrayElement,
-    isObjectElement,
-    isMemberElement,
-    isLinkElement,
-    isRefElement,
-    // @ts-ignore
-} from 'apidom';
+import {JSONSchema} from './jsonSchema';
+import {contains, ErrorCode, getSourceMap, isBoolean, ValidationResult} from "../../utils/objects";
+// @ts-ignore
+import {isArrayElement, isMemberElement, isNumberElement, isObjectElement, isStringElement,} from 'apidom';
 import {DiagnosticSeverity} from '../../languageServiceTypes'
 
 
@@ -143,10 +132,16 @@ function validate(node: namespace.Element, schema: JSONSchema, validationResult:
                         const keySourceMap = getSourceMap(keyNode);
                         location = {offset: keySourceMap.offset, length: keySourceMap.length};
                     }
+                    const propSchema = schema.properties[propertyName];
+                    const propValue = "string" == propSchema.type ? '""' : '{}';
                     validationResult.problems.push({
                         location: location,
                         severity: DiagnosticSeverity.Warning,
-                        message: 'Missing property ' + propertyName
+                        code: ErrorCode.PropertyExpected,
+                        message: 'Missing property ' + propertyName,
+                        quickFix: "\n    \"" + propertyName + "\": " + propValue + ",",
+                        quickFixLocation: {offset: nodeSourceMap.offset, length: 1},
+                        jsonSchema: propSchema
                     });
                 }
             }

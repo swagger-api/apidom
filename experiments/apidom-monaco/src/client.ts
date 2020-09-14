@@ -511,7 +511,6 @@ export default ({ monaco, containerId }) => {
           .then((hover) => {
             //console.log(hover);
             if (hover && hover.contents && hover.contents[0] && hover.contents[0] == 'operation') {
-
               currentCommand = {
                 accept: "application/json",
                 content_type: "application/json",
@@ -523,6 +522,10 @@ export default ({ monaco, containerId }) => {
             } else {
               operationContextCondition.set(false);
             }
+            hover.contents[0] = '**Operation**';
+            hover.contents[1] = '_' + hover.contents[2] + '_ ' + hover.contents[1];
+            hover.contents[2] = hover.contents[3];
+            hover.contents.pop();
             return p2m.asHover(hover)!;
           });
     },

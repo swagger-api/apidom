@@ -108,8 +108,11 @@ export default ({ monaco, containerId }) => {
   const valueAsyncSimple = `{
   "asyncapi": "2.0.0",
   "info": {
-    "version": "1.0.1"
-  }
+    "version": "0.1.9"
+  }, 
+  "servers" : {
+    "prod": {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  }    
 }`;
 
 

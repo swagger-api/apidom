@@ -394,6 +394,7 @@ export async function computeHover(document: TextDocument, position: Position) {
 
     let offset = document.offsetAt(position);
     let node = findNodeAtOffset(api, offset, true);
+    let result: Hover;
     if (node.parent && isMemberElement(node.parent)) {
         const opEl: ObjectElement = (<MemberElement>node.parent).value;
         if (opEl.classes.toValue().includes('operation')) {
@@ -404,7 +405,7 @@ export async function computeHover(document: TextDocument, position: Position) {
             //const basePath = 'http://localhost:8082';
             let basePath = '';
             if (asyncapi) {
-                basePath = api.servers.toValue()['dev'].url;
+                basePath = api.servers.toValue()['prod'].url;
             } else {
                 basePath = api.servers.toValue()[0].url;
             }
@@ -412,12 +413,18 @@ export async function computeHover(document: TextDocument, position: Position) {
             const url = basePath + path;
             let hover = 'curl -X '+ httpMethod + ' ' + url;
             let hoverRange = Range.create(document.positionAt(sm.offset), document.positionAt(sm.offset + sm.length));
-            let result: Hover = {
+            result = {
                 contents: ['operation', url, httpMethod, hover],
                 range: hoverRange
             };
-            return result;
         }
+        // check if we have some docs
+        if (opEl.attributes.get('docs')) {
+            window.document.getElementById("if").src = opEl.attributes.get('docs').toValue();
+        }
+    }
+    if (result) {
+        return result;
     }
     return Promise.resolve(null);
 }

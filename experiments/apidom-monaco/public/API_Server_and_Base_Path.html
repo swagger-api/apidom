@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://swagger.io/docs/specification/api-host-and-base-path/ -->
+<html class=""><head id="head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- Google Tag Manager -->
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="./API_Server_and_Base_Path_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5JKCFZ');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Start Optimize Hide Script -->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+})(window,document.documentElement,'async-hide','dataLayer',4000,
+{'GTM-PL25XRT':true});</script>
+<!-- End Optimize Hide Script -->
+
+<!-- Start Google Analytics with Optimize -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-404707-37', 'auto');
+  ga('require', 'GTM-PL25XRT');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics with Optimize --><title>
+	API Server and Base Path
+</title> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- Bootstrap CSS -->
+
+<link rel="stylesheet" href="./API_Server_and_Base_Path_files/stylesheet.min.css">
+
+<meta name="page_template" content="Swagger Documentation Page">
+
+<link href="./API_Server_and_Base_Path_files/css" rel="stylesheet">
+<script src="./API_Server_and_Base_Path_files/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="./API_Server_and_Base_Path_files/scripts.min.js" type="text/javascript"></script> 
+<link href="https://static1.smartbear.co/swagger/media/assets/swagger_fav.png" type="image/png" rel="shortcut icon">
+<link href="https://static1.smartbear.co/swagger/media/assets/swagger_fav.png" type="image/png" rel="icon">
+<link rel="stylesheet" type="text/css" href="./API_Server_and_Base_Path_files/prettify.css"><style>body.sb-search-open{overflow:hidden}.sb-search{display:block;position:fixed;z-index:9999;left:0;top:0;width:100%;visibility:hidden;font-family:"Open Sans", Arial}.sb-search *{box-sizing:border-box;line-height:initial}.sb-search input{all:unset;box-sizing:border-box;background-color:#ffffff}.sb-search input::placeholder{all:unset;color:#777}.sb-search .fal{font-family:"Font Awesome 5 Pro"}.sb-search .overlay{height:100%;width:100%;position:fixed;max-height:100%;background-color:rgba(230,235,240,0.9);transition:opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;top:0;left:0;visibility:hidden;opacity:0;z-index:1000}.sb-search .close-overlay{right:15px;padding-top:23px;font-size:16px;position:absolute;color:#173647;opacity:1;transition:color 0.3s ease-in-out}.sb-search .close-overlay:hover,.sb-search .close-overlay:focus{color:#FF8F0F;opacity:1;cursor:pointer}.sb-search .close-overlay .close-label{float:right;font-size:14px;margin:0 0 0 7px;font-family:"Open Sans", Arial}.sb-search.show-embed .app,.sb-search.show-embed .overlay,.sb-search.show .app,.sb-search.show .overlay{visibility:visible !important;opacity:1 !important}.sb-search.show-embed .app{margin-top:0px}.sb-search.show-embed .close-overlay,.sb-search.show-embed .overlay{display:none}.sb-search.show-embed{position:relative !important}.sb-search.show-embed::after{content:" ";display:table;clear:both}.sb-search .app{opacity:0;position:relative;visibility:hidden;transition:opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;z-index:1500;max-width:1276px;margin:75px auto 0 auto}.sb-search .app .hidden{visibility:hidden !important}.sb-search .app-start{text-align:center}.sb-search .app-start-logo{max-width:250px;max-height:150px}.sb-search .app-start-logo path{fill:#666}.sb-search .app-start-message{color:#666;padding-top:22vh;margin:auto;font-size:36px}.sb-search .app-input-wrap{padding:10px 0 30px;position:relative;width:50%;float:right;margin-right:25%}.sb-search .app-input-wrap .fa-search{position:absolute;left:15px;top:25px;font-size:14px;line-height:14px;font-style:normal}.sb-search .app-input-wrap .clear{position:absolute;right:15px;top:22px;line-height:19px;cursor:pointer;font-size:14px;color:#0071b8}.sb-search .app-input-query{border:1px solid #aaadaf;padding:10px 10px 10px 40px;border-radius:5px;width:100%;font-size:16px;line-height:20px;text-align:left}.sb-search .app-input-query:focus,.sb-search .app-input-query:active,.sb-search .app-input-query:hover{border:1px solid #0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search .app-input:after{content:"";clear:both;display:table}.sb-search .app-input-auto{position:absolute;background:#fff;padding:1px 0;border:1px solid #aaadaf;border-radius:4px;width:100%;z-index:100;box-shadow:0 0 10px rgba(170,173,175,0.9)}.sb-search .app-input-auto-item{padding:5px 20px;text-align:left}.sb-search .app-input-auto-item.active,.sb-search .app-input-auto-item:hover{cursor:pointer;background-color:#f9f9f9}.sb-search .app .fa-times-circle:before{padding-right:5px}.sb-search .app-view-filter{min-width:23%;float:left;margin:0 1% 0 0}.sb-search .app-view-result{width:75%;float:right}.sb-search .app-view .filters,.sb-search .app-view .results{background:#fff;padding:20px;border:1px solid #aaadaf;border-radius:4px}.sb-search .app-view .filters{margin:0 0 20px 0}.sb-search .app-view .results{padding:0;max-height:80vh;min-height:50vh;overflow-x:hidden}.sb-search .app-view .results .location{border-bottom:2px solid #dddddd}.sb-search .app-view .results .location:last-child{border:none}.sb-search .app-view .results .location:after{content:"";clear:both;display:table}.sb-search .app-view .results .location .result-list:after{content:"";clear:both;display:table}.sb-search .app-view .results .location-title{color:#333333;padding-bottom:15px;font-size:15px;font-weight:500;text-transform:uppercase;font-weight:600;padding:20px 20px 10px 20px}.sb-search .app-view .results .location .item{padding:8px 25px}.sb-search .app-view .results .location .item:hover{background-color:#f9f9f9}.sb-search .app-view .results .location .item:after{content:"";clear:both;display:table}.sb-search .app-view .results .location .item-info{width:20%;float:left;padding:5px 20px 0 0;font-size:14px;text-align:right;font-weight:400;color:#000;min-height:70px;border-right:3px solid #aaaaaa}.sb-search .app-view .results .location .item-info .dateCreated{font-size:13px;text-align:right;padding:10px 0;color:#555}.sb-search .app-view .results .location .item-info .search-label{width:100%;padding-bottom:25px;padding-top:25px}.sb-search .app-view .results .location .item-info .solve-icon{color:#38b832;font-size:16px;padding:8px 0 0 0}.sb-search .app-view .results .location .item-info .section{overflow:hidden;text-overflow:ellipsis}.sb-search .app-view .results .location .item.solved .info{border-right:3px solid #38b832}.sb-search .app-view .results .location .item-content{width:77%;float:right;position:relative}.sb-search .app-view .results .location .item-content .link{text-decoration:none !important}.sb-search .app-view .results .location .item-content .link-title{color:#333;font-size:16px;font-weight:600}.sb-search .app-view .results .location .item-content .link-text{color:#616369;margin:5px 0 15px 0;font-size:14px;line-height:19px}.sb-search .app-view .results .location .item-content .link-breadcrumb{color:#909090;font-size:14px;padding:3px 0}.sb-search .app-view .results .location .item-content em{font-weight:600;background-color:#ffeadb;font-style:normal;padding:0 3px}.sb-search .app-view .results .location .item-video{width:30%;display:inline-table;margin:0 0 5% 20px;max-height:230px;overflow:hidden}.sb-search .app-view .results .location .item-video-title{padding:8px 0 0 0;color:#333;font-size:16px;line-height:20px;font-weight:600;text-decoration:none;display:block}.sb-search .app-view .results .location .view-more{padding:0 20px 10px 0;text-align:center;display:block;cursor:pointer;font-size:14px;text-align:right;color:#0071b8;margin:20px 0 0 0;float:right}.sb-search .app-view .filters{max-width:290px}.sb-search .app-view .filters .item-renderer>span{display:inherit !important}.sb-search .app-view .filters .dropdown-heading:focus,.sb-search .app-view .filters .dropdown-heading:focus-within,.sb-search .app-view .filters .dropdown-heading:active{border:1px solid #ff730b !important}.sb-search .app-view .filters .dropdown-heading:focus .dropdown-heading-dropdown-arrow>span,.sb-search .app-view .filters .dropdown-heading:focus-within .dropdown-heading-dropdown-arrow>span,.sb-search .app-view .filters .dropdown-heading:active .dropdown-heading-dropdown-arrow>span{border-color:#ff730b transparent transparent !important}.sb-search .app-view .filters .chip,.sb-search .app-view .filters .optionContainer .lhyQmCtWOINviMz0WG_gr,.sb-search .app-view .filters .option:hover{background:#ff730b}.sb-search .app-view .filters .products-filter{margin-top:15px;width:100%}.sb-search .app-view .filters .products-filter .css-1pahdxg-control{border-color:#0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search .app-view .filters .filter-item{color:#333333;border-bottom:2px solid #d8dadb;padding:8px 0;font-size:15px;position:relative;cursor:pointer}.sb-search .app-view .filters .filter-item.disabled{cursor:not-allowed !important;color:#aaa;padding-bottom:10px}.sb-search .app-view .filters .filter-item.disabled .filter-item-name-count{color:#aaa}.sb-search .app-view .filters .filter-item .fa-shevron-right{font-size:14px;width:20px;height:20px;position:absolute;right:0;top:10px}.sb-search .app-view .filters .filter-item a:hover{cursor:pointer;color:#0071b8}.sb-search .app-view .filters .filter-item-name{display:block}.sb-search .app-view .filters .filter-item-name-count{display:inline;background-color:#eff0f0;padding:2px 8px 2px;min-width:30px;border-radius:15px;color:#798591;font-weight:600;font-size:13px;margin:0 0 0 5px}.sb-search .app-view .filters .filter-item-name .fas{color:#aaaaaa;float:right;padding:5px}.sb-search .app-view .filters .filter-item-ico{display:none;width:70px;height:50px;font-family:"Font Awesome 5 Pro";font-size:28px;font-weight:900}.sb-search .app-view .filters .filter-item-ico:after{content:"\f085";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Documentation:after{content:"\f15c";top:10px;left:30px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Blog:after{content:"\f781";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Community:after{content:"\f0c0";top:10px;left:20px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Videos:after{content:"\f03d";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item.active .filter-item-ico,.sb-search .app-view .filters .filter-item.active .filter-item-name,.sb-search .app-view .filters .filter-item.active .filter-item-name-count,.sb-search .app-view .filters .filter-item.active .fas{color:#FF8F0F}.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-ico,.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-name,.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-name-count,.sb-search .app-view .filters .filter-item.disabled:hover .fas{color:#aaa}.sb-search .app-view .filters .filter-item:hover .filter-item-ico,.sb-search .app-view .filters .filter-item:hover .filter-item-name,.sb-search .app-view .filters .filter-item:hover .filter-item-name-count,.sb-search .app-view .filters .filter-item:hover .fas{color:#FF8F0F}.sb-search .app-view .filters .filter-item:last-child{border:none}@media only screen and (max-width: 980px){.sb-search .close{color:#798591}.sb-search .close-overlay{color:#333}.sb-search .close-overlay .close-label{display:none}.sb-search .app{width:100%;margin:0 auto}.sb-search .app-start{width:100%;margin-top:40px}.sb-search .app-input{background-color:#fafafc;padding:0 10px}.sb-search .app-input-wrap{float:none;margin:0;width:85%;padding:10px 0}.sb-search .app-view-result,.sb-search .app-view-filter{float:none;width:100%;margin:0}.sb-search .app .filters,.sb-search .app .results{border:none;padding:0;float:none;border-radius:0}.sb-search .app .filters{max-width:100%;border-top:2px solid #dddddd;border-bottom:2px solid #dddddd;border-radius:0;margin:0}.sb-search .app .filters .locations-filter{border-bottom:2px solid #dddddd}.sb-search .app .filters .locations-filter:after{content:"";clear:both;display:table}.sb-search .app .filters .products-filter{margin:0}.sb-search .app .filters .products-filter .css-1pahdxg-control,.sb-search .app .filters .products-filter .css-yk16xz-control{border-radius:0}.sb-search .app .filters .products-filter .css-1pahdxg-control{border-color:#0071b8;box-shadow:0 0 1px #0071b8}.sb-search .app .filters .filter-item{float:left;border-bottom:2px solid transparent;padding:0 5px 5px 5px;top:2px}.sb-search .app .filters .filter-item.disabled{padding-bottom:5px}.sb-search .app .filters .filter-item.disabled:hover,.sb-search .app .filters .filter-item.disabled:active,.sb-search .app .filters .filter-item.disabled:focus{border-bottom:2px solid transparent}.sb-search .app .filters .filter-item:hover{padding-bottom:5px;border-bottom:2px solid #FF8F0F}.sb-search .app .filters .filter-item.active{padding-bottom:5px;border-bottom:2px solid #FF8F0F}.sb-search .app .filters .filter-item-name{font-size:10px;text-align:center}.sb-search .app .filters .filter-item-name-count{display:none}.sb-search .app .filters .filter-item-name i{display:none}.sb-search .app .filters .filter-item-ico{display:inline-block}.sb-search .app .results{height:76vh;padding:0 10px}.sb-search .app .results .location .title{padding:20px 0 10px 0}.sb-search .app .results .location .result-list .link{text-decoration:none}.sb-search .app .results .location .result-list .link .item{padding:8px 0}.sb-search .app .results .location .result-list .link .item .info{display:none}.sb-search .app .results .location .result-list .link .item .content{float:none;width:100%}.sb-search .app .results .location .result-list .item-video{width:100%;max-height:100vh;margin:0 0 5% 0}.sb-search .app .results .location .view-more{text-align:center;padding:20px;margin:0}}
+</style><style>.sb-search-lite{width:100%;font-family:"Open Sans", Arial}.sb-search-lite *{box-sizing:border-box;line-height:initial}.sb-search-lite input{all:unset;box-sizing:border-box;background-color:#ffffff}.sb-search-lite input::placeholder{all:unset;color:#777}.sb-search-lite .fal{font-family:"Font Awesome 5 Pro"}.sb-search-lite .app{position:relative}.sb-search-lite .app-input-wrap{padding:0;position:relative}.sb-search-lite .app-input-wrap .fa-search{position:absolute;left:15px;top:15px;font-size:14px;line-height:14px;font-style:normal}.sb-search-lite .app-input-wrap .clear{position:absolute;right:15px;top:12px;line-height:19px;cursor:pointer;font-size:14px;color:#0071b8}.sb-search-lite .app-input-query{border:1px solid #aaadaf;padding:10px 10px 10px 40px;border-radius:5px;width:100%;font-size:16px;line-height:20px;text-align:left}.sb-search-lite .app-input-query:focus,.sb-search-lite .app-input-query:active,.sb-search-lite .app-input-query:hover{border:1px solid #0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search-lite .app-input:after{content:"";clear:both;display:table}.sb-search-lite .app-input-auto{position:absolute;background:#fff;padding:1px 0;border:1px solid #aaadaf;border-radius:4px;width:100%;z-index:100;box-shadow:0 0 10px rgba(170,173,175,0.9)}.sb-search-lite .app-input-auto-item{padding:5px 20px;text-align:left}.sb-search-lite .app-input-auto-item.active,.sb-search-lite .app-input-auto-item:hover{cursor:pointer;background-color:#f9f9f9}.sb-search-lite .app .fa-times-circle:before{padding-right:5px}@media only screen and (max-width: 980px){.sb-search-lite .app{width:100%;margin:0 auto}.sb-search-lite .app-input{background-color:#fafafc;padding:0 10px}.sb-search-lite .app-input-wrap{float:none;margin:0;width:100%;padding:0}}
+</style><link type="text/css" rel="stylesheet" href="./API_Server_and_Base_Path_files/all.css" integrity="sha384-vlOMx0hKjUCl4WzuhIhSNZSm2yQCaf0mOU1hEDK/iztH3gU4v5NMmJln9273A6Jz" crossorigin="anonymous"><style data-emotion="css"></style></head>
+<body class="LTR Chrome ENUS ContentBody swagger" cz-shortcut-listen="true">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JKCFZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    
+    <form method="post" action="https://swagger.io/docs/specification/api-host-and-base-path/" id="form">
+<div class="aspNetHidden">
+<input type="hidden" name="__CMSCsrfToken" id="__CMSCsrfToken" value="8+mDCbmizNf4h937qNYqYzhrfCenUjLaZtiNEuX+Vu1p16l6+Ge7cLVCDQC1QVOqWae97aI8qiUFd39TcMU7oqcQ0SY=">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./API_Server_and_Base_Path_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	//<![CDATA[
+
+function PM_Postback(param) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); } if(window.CMSContentManager) { CMSContentManager.allowSubmit = true; }; __doPostBack('m$am',param); }
+function PM_Callback(param, callback, ctx) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); }if (window.CMSContentManager) { CMSContentManager.storeContentChangedStatus(); };WebForm_DoCallback('m$am',param,callback,ctx,null,true); }
+//]]>
+</script>
+<script type="text/javascript">
+	//<![CDATA[
+
+var CMS = CMS || {};
+CMS.Application = {
+  "language": "en",
+  "imagesUrl": "/CMSPages/GetResource.ashx?image=%5bImages.zip%5d%2f",
+  "isDebuggingEnabled": false,
+  "applicationUrl": "/",
+  "isDialog": false,
+  "isRTL": "false"
+};
+
+//]]>
+</script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A3F9E7FD">
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0">
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0">
+</div>
+    
+    <div id="ctxM">
+
+</div>
+    
+<header>
+    
+<div class="nav-main">
+    <div class="container">
+        <nav class="main">
+            <a href="https://swagger.io/" class="navbar-brand">
+                <img src="./API_Server_and_Base_Path_files/swagger_logo.svg" height="50" width="174" alt="Swagger Logo">
+            </a>
+            <ul class="nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/api-host-and-base-path/#" role="button" aria-haspopup="true" aria-expanded="false">Why Swagger?</a>
+                    <div class="dropdown-menu menu-single">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <a class="item" href="https://swagger.io/solutions/api-design/" title="API Design"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_1_CLR.svg">
+                                            </span>API Design</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-development" title="API Development"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_2_CLR.svg">
+                                            </span>API Development</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-documentation/" title="API Documentation"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_3_CLR.svg">
+                                            </span>API Documentation</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-testing/" title="API Testing"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_4_CLR.svg">
+                                            </span>API Testing</a>
+                                        <a class="item" href="https://swagger.io/solutions/mocking-and-virtualization/" title="API Mocking and Virtualization"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_5_CLR.svg">
+                                            </span>API Mocking and Virtualization</a>
+                                        <a class="item" href="https://swagger.io/solutions/governance-and-standardization" title="API Governance"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_6_CLR.svg">
+                                            </span>API Governance</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-monitoring/" title="API Monitoring"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_7_CLR.svg">
+                                            </span>API Monitoring</a>
+                                        <a class="item" href="https://swagger.io/solutions/getting-started-with-oas/" title="OpenAPI &amp; Swagger"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu1_8_CLR.svg">
+                                            </span>OpenAPI &amp; Swagger</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/api-host-and-base-path/#" role="button" aria-haspopup="true" aria-expanded="false">Tools</a>
+                    <div class="dropdown-menu menu-double">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="tools">
+                                        <a href="https://swagger.io/docs/specification/api-host-and-base-path/#proDocumentation" aria-controls="proDocumentation" role="tab" data-toggle="tab" class="active pl-3 pl-lg-0"><svg xmlns="http://www.w3.org/2000/svg" width="37.724" height="37.026" viewBox="0 0 37.724 37.026">
+                                                <g transform="translate(-1.798 -1.988)">
+                                                    <path d="M6.25,14.539a15.464,15.464,0,0,0-.988,3.5l-2.428,1.12a.921.921,0,0,0-.535.871l.092,2.364a.921.921,0,0,0,.6.828l2.508.929a15.572,15.572,0,0,0,1.255,3.413L5.448,29.892a.923.923,0,0,0,.079,1.021L6.99,32.771a.918.918,0,0,0,.972.317l2.578-.724a15.609,15.609,0,0,0,3.017,2.022L12,33.471a15.587,15.587,0,0,0,1.57.92l.317,2.657a.923.923,0,0,0,.664.778l2.275.641a.918.918,0,0,0,.972-.317l1.656-2.1a15.778,15.778,0,0,0,3.629-.146l1.82,1.964a.92.92,0,0,0,1,.238l2.218-.819a.921.921,0,0,0,.6-.828l.106-2.671a15.535,15.535,0,0,0,2.853-2.252l2.623.518a.922.922,0,0,0,.945-.392l1.312-1.968a.919.919,0,0,0,0-1.022l-1.485-2.223a15.53,15.53,0,0,0,.986-3.5l2.426-1.121a.922.922,0,0,0,.535-.873l-.094-2.364a.921.921,0,0,0-.6-.828l-2.511-.927a15.7,15.7,0,0,0-1.256-3.408l1.305-2.335a.923.923,0,0,0-.081-1.021L34.317,8.215a.923.923,0,0,0-.974-.317l-2.576.725a15.7,15.7,0,0,0-1.451-1.1,15.935,15.935,0,0,0-1.57-.92L27.43,3.95a.923.923,0,0,0-.664-.778l-2.275-.637a.918.918,0,0,0-.972.317l-1.656,2.1a15.678,15.678,0,0,0-3.629.146l-1.82-1.964a.92.92,0,0,0-1-.238L13.2,3.716a.921.921,0,0,0-.6.828l-.106,2.671A15.535,15.535,0,0,0,9.64,9.468L7.017,8.949a.918.918,0,0,0-.945.391L4.76,11.307a.919.919,0,0,0,0,1.022l1.485,2.223a15.624,15.624,0,0,0-.986,3.5" transform="translate(0)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" fill-rule="evenodd"></path>
+                                                    <circle cx="6.746" cy="6.746" r="6.746" transform="translate(13.916 13.755)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></circle>
+                                                </g>
+                                            </svg>
+                                            <p class="header-tools">Pro</p>
+                                        </a>
+                                    </li>
+                                    <li role="tools">
+                                        <a href="https://swagger.io/docs/specification/api-host-and-base-path/#openSource" aria-controls="openSource" role="tab" data-toggle="tab"><svg xmlns="http://www.w3.org/2000/svg" width="43.162" height="37.181" viewBox="0 0 43.162 37.181">
+                                                <g transform="translate(-0.126 -1.952)">
+                                                    <path d="M21.772,18.461V32.21m-5.719-9.79L1.1,13.957l5.972-3.78,14.678,8.185Z" transform="translate(0 6.156)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M33.781,14.416v6.137L19.123,29.167,4.489,20.72l-.076-6.543" transform="translate(2.676 9.387)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M17.78,28.667,32.735,20.2,27.212,16.26,12.535,24.445Zm.392-26.022,14.954,8.463-5.972,3.78L12.477,6.7Z" transform="translate(9.189 0.073)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M16.27,2.554,1.316,11.017l5.522,3.944L21.516,6.777Z" transform="translate(0.175)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                </g>
+                                            </svg>
+                                            <p class="header-tools">Open Source</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active col-lg-6" id="proDocumentation">
+                                        <a href="https://swagger.io/tools/swaggerhub/" class="item-main-wrapper"><span class="item-main">SwaggerHub</span>
+                                            <p class="content"> Design &amp; document all your REST APIs in one collaborative platform. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swaggerhub/enterprise/" class="item-main-wrapper"><span class="item-main">SwaggerHub Enterprise</span>
+                                            <p class="content"> Standardize your APIs with projects, style checks, and reusable domains. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-inspector/" class="item-main-wrapper"><span class="item-main">Swagger Inspector</span>
+                                            <p class="content"> Test and generate API definitions from your browser in seconds. </p>
+                                        </a>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane col-lg-6" id="openSource">
+                                        <a href="https://swagger.io/tools/swagger-codegen/" class="item-main-wrapper"><span class="item-main">Swagger Codegen</span>
+                                            <p class="content"> Generate server stubs and client SDKs from OpenAPI Specification definitions </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-editor/" class="item-main-wrapper"><span class="item-main">Swagger Editor</span>
+                                            <p class="content"> API editor for designing APIs with the OpenAPI Specification. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-ui/" class="item-main-wrapper"><span class="item-main">Swagger UI</span>
+                                            <p class="content"> Visualize OpenAPI Specification definitions in an interactive UI. </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-bottom-cta text-white bg-green small py-1">
+                            <a class="py-1" href="https://swagger.io/tools">Explore all tools<i class="pl-2 far fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/api-host-and-base-path/#" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>
+                    <div class="dropdown-menu menu-single">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <div class="col-12">
+                                    <div class="item-main-wrapper">
+                                        <a href="https://swagger.io/resources/" class="item-main">Resources</a>
+                                    </div>
+                                    <div class="d-flex flex-column pt-3">
+                                        <a class="item" href="https://swagger.io/resources/open-api/" title="OpenAPI Specification"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu3_1_CLR.svg">
+                                            </span>OpenAPI Specification</a>
+                                        <a class="item" href="https://swagger.io/docs/" title="Docs"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu3_2_CLR.svg">
+                                            </span>Docs</a>
+                                        <a class="item" href="https://swagger.io/blog/" title="Blog"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu3_3_CLR.svg">
+                                            </span>Blog</a>
+                                        <a class="item" href="https://swagger.io/support/" title="Support"><span class="pr-2">
+                                                <img class="item-icon" src="./API_Server_and_Base_Path_files/SW_Menu3_4_CLR.svg">
+                                            </span>Support</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item nav-item-search ml-auto">
+                    <style type="text/css">
+                        header .nav-item-search a::after {
+                            display: none !important;
+                        }
+                    </style>
+                    <a class="nav-link header-search-ico sb-search-ico text-center" href="https://swagger.io/docs/specification/api-host-and-base-path/#"><i class="fal fa-search">&nbsp;</i> </a>
+                    <script type="text/javascript">
+                        (function (w, d) {
+                            function initSearch() {
+                                var config = {
+                                    locations: ['Swagger_Website', 'Swagger_Documentation', 'Community', 'Swagger_Blog'],
+                                    availableProducts: ['SwaggerHub', 'Swagger Inspector', 'Swagger Editor', 'Swagger Codegen', 'Swagger UI', 'Swagger Open Source Tools', 'OAS']
+                                }
+                                w.sbSearch.init(config);
+                            }
+
+                            var s = document.createElement('script');
+                            s.src = 'https://static' + ((w.location.href.indexOf('stag') == -1) ? 1 : 0) + '.smartbear.co/smartbear/react/search/search.js?t=' + Math.random();
+                            s.async = true;
+                            s.onreadystatechange = function () {
+                                if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                                    initSearch();
+                                }
+                            };
+                            s.onload = initSearch;
+                            d.body.appendChild(s);
+                        })(window, document);
+                    </script>
+                </li>
+                <li class="nav-item nav-item-login">
+                    <a href="https://app.swaggerhub.com/login?channel=direct" class="btn btn-swagger btn-swagger-outlined btn-nav" title="Sign In">Sign In</a>
+                </li>
+                <li class="nav-item nav-item-free-trial">
+                    <a class="btn btn-swagger btn-nav" href="https://swagger.io/tools" alt="Try Free">Try Free</a>
+                </li>
+            </ul>
+            <div class="nav-main-toggle">
+                <div class="hamburger"></div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+    
+
+</header>
+<div class="nav-spacer"></div>
+
+
+<div class="documentation_page mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-9 order-md-2">
+              <div class="documentation_content">
+                <p class="version-note"><span class="label oas3">OAS <b>3</b></span> This page applies to OpenAPI 3 – the latest version of the OpenAPI Specification. If you use OpenAPI 2 (fka Swagger), visit <a href="https://swagger.io/docs/specification/2-0/api-host-and-base-path/">OpenAPI 2 pages</a>.</p>
+
+<h2>API Server and Base URL</h2>
+All API endpoints are relative to the base URL. For example, assuming the base URL of <code>https://api.example.com/v1</code>, the <code>/users</code> endpoint refers to&nbsp;<code>https://api.example.com/v1/users</code>.
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">https</span><span class="pun">:</span><span class="com">//api.example.com/v1/users?role=admin&amp;status=active</span></code></li><li class="L1"><code><span class="pln">\________________________</span><span class="pun">/</span><span class="pln">\____</span><span class="pun">/</span><span class="pln"> \______________________</span><span class="pun">/</span></code></li><li class="L2"><code><span class="pln">         server URL       endpoint    query parameters</span></code></li><li class="L3"><code><span class="pln">                            path</span></code></li></ol></pre>
+In OpenAPI 3.0, you use the <code>servers</code> array to specify one or more base URLs for your API. <code>servers</code> replaces the <code>host</code>, <code>basePath</code> and <code>schemes</code> keywords used in OpenAPI 2.0. Each server has an <code>url</code> and an optional Markdown-formatted <code>description</code>.
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">  </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com/v1 &nbsp;&nbsp;&nbsp;# The "url: " prefix is required</span></code></li></ol></pre>
+You can also have multiple servers, for example, production and sandbox:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">  </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com/v1</span></code></li><li class="L2"><code><span class="pln">    description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Production</span><span class="pln"> server </span><span class="pun">(</span><span class="pln">uses live data</span><span class="pun">)</span></code></li><li class="L3"><code><span class="pln">  </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//sandbox-api.example.com:8443/v1</span></code></li><li class="L4"><code><span class="pln">    description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Sandbox</span><span class="pln"> server </span><span class="pun">(</span><span class="pln">uses test data</span><span class="pun">)</span></code></li></ol></pre>
+<a name="url-format"></a>
+
+<h3>Server URL Format</h3>
+Server URL format follows <a href="https://tools.ietf.org/html/rfc3986" rel="noopener" target="_blank">RFC 3986</a> and usually looks like this:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">scheme</span><span class="pun">:</span><span class="com">//host[:port][/path]</span></code></li></ol></pre>
+The host can be a name or IP address (IPv4 or IPv6). WebSocket schemes <em>ws://</em> and <em>wss://</em> from OpenAPI 2.0 are also supported in OpenAPI 3.0. Examples of valid server URLs:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">https</span><span class="pun">:</span><span class="com">//api.example.com</span></code></li><li class="L1"><code><span class="pln">https</span><span class="pun">:</span><span class="com">//api.example.com:8443/v1/reports</span></code></li><li class="L2"><code><span class="pln">http</span><span class="pun">:</span><span class="com">//localhost:3025/v1</span></code></li><li class="L3"><code><span class="pln">http</span><span class="pun">:</span><span class="com">//10.0.81.36/v1</span></code></li><li class="L4"><code><span class="pln">ws</span><span class="pun">:</span><span class="com">//api.example.com/v1</span></code></li><li class="L5"><code><span class="pln">wss</span><span class="pun">:</span><span class="com">//api.example.com/v1</span></code></li><li class="L6"><code><span class="pun">/</span><span class="pln">v1</span><span class="pun">/</span><span class="pln">reports</span></code></li><li class="L7"><code><span class="pun">/</span></code></li><li class="L8"><code><span class="com">//api.example.com</span></code></li></ol></pre>
+If the server URL is relative, it is resolved against the server where the given OpenAPI definition file is hosted (more on that <a href="https://swagger.io/docs/specification/api-host-and-base-path/#relative-urls">below</a>). <strong>Note:</strong> Server URL must not include query string parameters. For example, this is invalid:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">https</span><span class="pun">:</span><span class="com">//api.example.com/v1</span><span style="color: red;"><span class="com">?route=</span></span></code></li></ol></pre>
+If the <code>servers</code> array is not provided or is empty, the server URL defaults to <code>/</code>:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">  </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> </span><span class="pun">/</span></code></li></ol></pre>
+<a name="templating"></a>
+
+<h3>Server Templating</h3>
+Any part of the server URL – scheme, host name or its parts, port, subpath – can be parameterized using variables. Variables are indicated by {curly braces} in the server url, like so:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//{customerId}.saas-app.com:{port}/v2</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; variables</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; customerId</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> demo</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Customer</span><span class="pln"> ID assigned </span><span class="kwd">by</span><span class="pln"> the service provider</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">enum</span><span class="pun">:</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> </span><span class="str">'443'</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> </span><span class="str">'8443'</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> </span><span class="str">'443'</span></code></li></ol></pre>
+Unlike <a href="https://swagger.io/docs/specification/describing-parameters/#path">path parameters</a>, server variables do not use a <code>schema</code>. Instead, they are assumed to be strings. Variables can have arbitrary values, or may be restricted to an <code>enum</code>. In any case, a <code>default</code> value is required, which will be used if the client does not supply a value. Variable <code>description</code> is optional, but useful to have and supports Markdown (<a href="http://commonmark.org/help/" rel="noopener" target="_blank">CommonMark</a>) for rich text formatting. Common use cases for server templating:
+
+<ul>
+	<li>Specifying multiple protocols (such as HTTP vs HTTPS).</li>
+	<li>SaaS (hosted) applications where each customer has their own subdomain.</li>
+	<li>Regional servers in different geographical regions (example: Amazon Web Services).</li>
+	<li>Single API definition for SaaS and on-premise APIs.</li>
+</ul>
+<a name="examples"></a>
+
+<h4>Examples</h4>
+
+<h5>HTTPS and HTTP</h5>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//api.example.com</span></code></li><li class="L2"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com</span></code></li></ol></pre>
+Or using templating:
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'{protocol}://api.example.com'</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; variables</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protocol</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">enum</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> http</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> https</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> https</span></code></li></ol></pre>
+<strong>Note:</strong> These two examples are semantically different. The second example explicitly sets the HTTPS server as <code>default</code>, whereas the first example does not have a default server.
+
+<h5>Production, Development and Staging</h5>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//{environment}.example.com/v2</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; variables</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; environment</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> api&nbsp;&nbsp;&nbsp; </span><span class="com"># Production server</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">enum</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="pun">-</span><span class="pln"> api&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="com"># Production server</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> api</span><span class="pun">.</span><span class="pln">dev&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="com"># Development server</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> api</span><span class="pun">.</span><span class="pln">staging </span><span class="com"># Staging server</span></code></li></ol></pre>
+
+<h5>SaaS and On-Premise</h5>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'{server}/v1'</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; variables</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; server</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com&nbsp; # SaaS server</span></code></li></ol></pre>
+
+<h5>Regional Endpoints for Different Geographical Areas</h5>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//{region}.api.cognitive.microsoft.com</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; variables</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; region</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">default</span><span class="pun">:</span><span class="pln"> westus</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">enum</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> westus</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> eastus2</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> westcentralus</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> westeurope</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> southeastasia</span></code></li></ol></pre>
+<a name="overriding"></a>
+
+<h3>Overriding Servers</h3>
+The global <code>servers</code> array can be overridden on the path level or operation level. This is handy if some endpoints use a different server or base path than the rest of the API. Common examples are:
+
+<ul>
+	<li>Different base URL for file upload and download operations,</li>
+	<li>Deprecated but still functional endpoints.</li>
+</ul>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com/v1</span></code></li><li class="L2"><code></code></li><li class="L3"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">files</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">File</span><span class="pln"> upload </span><span class="kwd">and</span><span class="pln"> download operations</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp; servers</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//files.example.com</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Override</span><span class="pln"> </span><span class="kwd">base</span><span class="pln"> path </span><span class="kwd">for</span><span class="pln"> all operations </span><span class="kwd">with</span><span class="pln"> the </span><span class="pun">/</span><span class="pln">files path</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L0"><code></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">ping</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servers</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//echo.example.com</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Override</span><span class="pln"> </span><span class="kwd">base</span><span class="pln"> path </span><span class="kwd">for</span><span class="pln"> the GET </span><span class="pun">/</span><span class="pln">ping operation</span></code></li></ol></pre>
+<a name="relative-urls"></a>
+
+<h3>Relative URLs</h3>
+The URLs in the <code>servers</code> array can be relative, such as <code>/v2</code>. In this case, the URL is resolved against the server that hosts the given OpenAPI definition. This is useful in on-premises installations hosted on your customer’s own servers. For example, if the definition hosted at <code>http://localhost:3001/openapi.yaml</code> specifies <code>url: /v2</code>, the <code>url</code> is resolved to <code>http://localhost:3001/v2</code>. Relative URL resolution rules follow <a href="https://tools.ietf.org/html/rfc3986" rel="noopener" target="_blank">RFC 3986</a>. Moreover, almost all other URLs in an API definition, including OAuth 2 flow endpoints, <code>termsOfService</code>, external documentation URL and others, can be specified relative to the server URL.
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com</span></code></li><li class="L2"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//sandbox-api.example.com</span></code></li><li class="L3"><code></code></li><li class="L4"><code><span class="com"># Relative URL to Terms of Service</span></code></li><li class="L5"><code><span class="pln">info</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pln">&nbsp; version</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.0</span><span class="pun">.</span><span class="lit">0</span></code></li><li class="L7"><code><span class="pln">&nbsp; title</span><span class="pun">:</span><span class="pln"> test</span></code></li><li class="L8"><code><span class="pln">&nbsp; termsOfService</span><span class="pun">:</span><span class="pln"> </span><span class="pun">/</span><span class="pln">terms</span><span class="pun">-</span><span class="kwd">of</span><span class="pun">-</span><span class="kwd">use</span></code></li><li class="L9"><code></code></li><li class="L0"><code><span class="com"># Relative URL to external documentation</span></code></li><li class="L1"><code><span class="pln">externalDocs</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp; url</span><span class="pun">:</span><span class="pln"> </span><span class="pun">/</span><span class="pln">docs</span></code></li><li class="L3"><code><span class="pln">&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Find</span><span class="pln"> more info here</span></code></li><li class="L4"><code></code></li><li class="L5"><code><span class="com"># Relative URLs to OAuth2 authorization and token URLs</span></code></li><li class="L6"><code><span class="pln">components</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp; securitySchemes</span><span class="pun">:</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp; oauth2</span><span class="pun">:</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> oauth2</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flows</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; authorizationCode</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; authorizationUrl</span><span class="pun">:</span><span class="pln"> </span><span class="str">/oauth/</span><span class="pln">dialog</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tokenUrl</span><span class="pun">:</span><span class="pln"> </span><span class="str">/oauth/</span><span class="pln">token</span></code></li></ol></pre>
+Note that if using multiple servers, the resources specified by relative URLs are expected to exist on all servers.
+
+<h3>References</h3>
+
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#server-object">Server Object</a></p>
+
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#relativeReferences">Relative References in URLs</a></p>
+
+<p>&nbsp;&nbsp;</p>
+
+<p><i>Did not find what you were looking for? <a href="https://community.smartbear.com/t5/Swagger-Open-Source-Tools/bd-p/SwaggerOSTools" target="_blank" rel="noopener noreferrer">Ask the community</a><br>
+Found a mistake? <a href="https://github.com/swagger-api/swagger.io/issues" target="_blank" rel="noopener noreferrer">Let us know</a></i></p>
+
+                </div>
+              </div>
+            <div class="col-12 col-lg-4 col-xl-3 order-md-1">
+              <div class="documentation_nav pt-4">
+                
+	<ul id="menuElem" class="CMSListMenuUL">
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://app.swaggerhub.com/help/">SwaggerHub</a>
+		</li>
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://swagger.io/docs/swagger-inspector/how-to-use-swagger-inspector/">Swagger Inspector</a>
+		</li>
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://swagger.io/docs/open-source-tools/swagger-editor/">Open Source Tools</a>
+		</li>
+		<li class="CMSListMenuHighlightedLI">
+			<a class="CMSListMenuLinkHighlighted" href="https://swagger.io/docs/specification/about">Specification</a>
+			<ul class="CMSListMenuUL">
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/about/">What Is OpenAPI?</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/basic-structure/">Basic Structure</a>
+				</li>
+				<li class="CMSListMenuHighlightedLI">
+					<a class="CMSListMenuLinkHighlighted active" href="https://swagger.io/docs/specification/api-host-and-base-path/">API Server and Base Path</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/media-types/">Media Types</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/paths-and-operations/">Paths and Operations</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-parameters/">Describing Parameters</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/serialization/">Parameter Serialization</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-request-body/">Describing Request Body</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-responses/">Describing Responses</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/data-models/">Data Models (Schemas)</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/adding-examples/">Adding Examples</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/authentication/">Authentication</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/links/">Links</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/callbacks/">Callbacks</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/components/">Components Section</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/using-ref/">Using $ref</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/api-general-info/">API General Info</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/grouping-operations-with-tags/">Grouping Operations With Tags</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/openapi-extensions/">OpenAPI Extensions</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/2-0/basic-structure">2.0</a>
+				</li>
+
+			</ul>
+		</li>
+
+	</ul>
+
+
+
+                <div class="doc-ad-zone">
+                    <div class="doc-ad-content">
+                        
+<p><a href="https://smartbear.com/resources/webinars/building-api-standards/" target="_blank" rel="noopener noreferrer"><img alt="" src="./API_Server_and_Base_Path_files/Building-Standards-Blog-Ad_1.png" style="width: 152px; height: 300px;"></a></p>
+
+
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script async="">
+document.querySelector('.documentation_nav a[href^="' + document.location.pathname + '"]').classList.add('active');
+var elems = document.querySelectorAll('pre');
+  elems.forEach(function(e) {
+  e.className += "prettyprint linenums"
+});
+var item_to_move = document.querySelector("#table-of-contents + ul");
+var item_clone = item_to_move.cloneNode(true);
+document.querySelector(".table_of_contents").appendChild(item_clone);
+</script>
+
+<footer class="footer">
+  
+<footer>
+    <div class="swagger_footer" style="background-image: url(/swagger/media/images/backgrounds/photos/sw-ws-bgphoto5.png);background-size: cover; background-position: center;background-repeat:no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer_brand_logo">
+                        <img src="./API_Server_and_Base_Path_files/sw_full-wt.svg" style="" alt="Swagger Logo">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Swagger Open Source</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/license/">Open Source License</a></li>
+                        <li><a class="external-link-arrow" href="https://community.smartbear.com/t5/Swagger-Open-Source-Tools/bd-p/SwaggerOSTools">Swagger Forum</a></li>
+                        <li><a href="https://swagger.io/irc/">Swagger IRC</a></li>
+                        <li><a href="https://swagger.io/community">Swagger Community</a></li>
+                        <li><a href="https://swagger.io/tools/open-source">Swagger Projects</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Swagger</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/about/">About Swagger</a></li>
+                        <li><a href="https://swagger.io/blog/">Blog</a></li>
+                        <li><a href="https://swagger.io/support/">Support</a></li>
+                        <li><a href="https://swagger.io/blog/news/">News</a></li>
+                        <li><a class="external-link-arrow" href="https://smartbear.com/contact-us/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Pro Tools</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/tools/swaggerhub/">SwaggerHub</a></li>
+                        <li><a href="https://swagger.io/tools/swagger-inspector/">Swagger Inspector</a></li>
+                        <li><a href="https://swagger.io/tools/swaggerhub/enterprise/">SwaggerHub Enterprise</a></li>
+                        <li><a href="https://swagger.io/open-source-comparison/">SwaggerHub vs OSS</a></li>
+                        <li><a href="https://swagger.io/tools/swaggerhub/integrations/">SwaggerHub Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Resources</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/specification/">OpenAPI Specification</a></li>
+                        <li><a href="https://swagger.io/resources/">Resources</a></li>
+                        <li><a href="https://swagger.io/docs/swagger-tools/">Open Source Docs</a></li>
+                        <li><a href="https://swagger.io/docs/swagger-inspector/">Swagger Inspector Docs</a></li>
+                        <li><a class="external-link-arrow" href="https://app.swaggerhub.com/help/index">SwaggerHub Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-9">
+                    <div class="row">
+                        <div class="product-column col-12">
+                            <div class="display-5 product-column-category ab-orange-sm text-white">Explore SmartBear Tools <i class="d-inline d-sm-none fa fa-plus-square"></i></div>
+                            <div class="product-column-content" id="menu-1">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/alertsite/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon as inverse sm"></span>AlertSite</a></li>
+                                            <li><a href="https://smartbear.com/product/aqtime-pro/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon aqt inverse sm"></span>AQTime Pro</a></li>
+                                            <li><a href="https://bitbar.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon bb inverse sm"></span>BitBar</a></li>
+                                            <li><a href="https://www.getzephyr.com/products/capture?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ca inverse sm"></span>Capture for Jira</a></li>
+                                            <li><a href="https://crossbrowsertesting.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon cbt inverse sm"></span>CrossBrowserTesting</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/collaborator/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external"><span class="prod-icon co inverse sm"></span>Collaborator</a></li>
+                                            <li><a href="https://marketplace.atlassian.com/apps/1221264/cucumber-for-jira" target="_blank" rel="noopener noreferrer" class="footer-external"><span class="prod-icon c4j inverse sm"></span>Cucumber for Jira</a></li>
+                                            <li><a href="https://cucumber.io/tools/cucumberstudio/" class="footer-external"><span class="prod-icon c4j inverse sm"></span>CucumberStudio</a></li>
+                                            <li><a href="https://loadninja.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ln inverse sm"></span>LoadNinja</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/loadui/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon lup inverse sm"></span>LoadUI Pro</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/ready-api/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ra inverse sm"></span>ReadyAPI</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/servicev/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon sv inverse sm"></span>ServiceV Pro</a></li>
+                                            <li><a href="https://www.soapui.org/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon su inverse sm"></span>SoapUI</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/soapui/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon sup inverse sm"></span>SoapUI Pro</a></li>
+                                            <li><a href="https://swagger.io/tools/open-source/" target="_blank" rel="noopener noreferrer"><span class="prod-icon sw inverse sm"></span>Swagger</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://swagger.io/tools/swaggerhub/" target="_blank" rel="noopener noreferrer"><span class="prod-icon swh inverse sm"></span>SwaggerHub</a></li>
+                                            <li><a href="https://smartbear.com/product/testcomplete/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon tc inverse sm"></span>TestComplete</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/testengine/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ten inverse sm"></span>TestEngine</a></li>
+                                            <li><a href="https://smartbear.com/product/testleft/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon tl inverse sm"></span>TestLeft</a></li>
+                                            <li><a href="https://www.getzephyr.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ze inverse sm"></span>Zephyr</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side col-12 col-md-12 col-xl-3">
+                    <div class="right-side-container">
+                        <div class="contact-block">
+                            <div class="more-links col-12">
+                                <ul>
+                                    <li><a href="https://smartbear.com/company/about-us/">About Us</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/company/careers/">Careers</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/solutions/">Solutions</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/partners/">Partners</a></li>
+                                </ul>
+                                <hr>
+                            </div>
+                            <div class="contact col-12">
+                                <ul>
+                                    <li><a href="https://smartbear.com/contact-us/" class="text-orange">Contact Us <span class="">
+                                                <!--?xml version="1.0" encoding="utf-8"?-->
+                                                <!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                                                <svg style="width:19px;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24.773 20.137" xml:space="preserve">
+                                                    <style type="text/css">
+                                                        .envelope {
+                                                            fill: none;
+                                                            stroke: #758491;
+                                                            stroke-width: 2;
+                                                            stroke-miterlimit: 10;
+                                                        }
+                                                    </style>
+                                                    <g>
+                                                        <path class="envelope" d="M20.346,19.137H4.428C2.543,19.137,1,17.595,1,15.709V4.428C1,2.543,2.543,1,4.428,1h15.918
+                                    		c1.885,0,3.428,1.543,3.428,3.428v11.282C23.773,17.595,22.231,19.137,20.346,19.137z"></path>
+                                                        <polyline class="envelope" points="1.076,3.862 12.305,12.064 23.7,3.697 	"></polyline>
+                                                        <line class="envelope" x1="23.535" y1="16.248" x2="15.498" y2="10.358"></line>
+                                                        <line class="envelope" x1="1.076" y1="16.303" x2="8.948" y2="10.358"></line>
+                                                    </g>
+                                                </svg>
+                                            </span></a></li><span class="vertical-line"> | </span>
+                                    <li>+1 617-684-2600 <span class="">USA</span></li><span class="vertical-line"> | </span>
+                                    <li>+353 91 398300 <span class="">EUR</span></li><span class="vertical-line"> | </span>
+                                    <li>+61 391929960 <span class="">AUS</span></li><span class="vertical-line"> | </span>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gearbear">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.141 28.719">
+                            <defs>
+                                <style>
+                                    .gb-footer {
+                                        fill: #d2e1e8;
+                                        opacity: .15;
+                                    }
+                                </style>
+                            </defs>
+                            <path id="Path_111" data-name="Path 111" class="gb-footer" d="M29.591,24.318H21.549l-1.442,4.4H31Zm21.549,4.4L46.929,15.744,49.66,7.36,39.531,0,32.4,5.2H18.741L11.609,0,1.48,7.36l2.732,8.384L0,28.719H13.316l-1.024-3.187,13.316-9.674,13.316,9.674L37.9,28.719Z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="bottom-links-container col-md-8">
+                    <span class="copyright">© 2020 SmartBear Software. All Rights Reserved.</span><br>
+                    <div class="bottom-links col-md-12">
+                        <ul>
+                            <li><a href="https://smartbear.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://smartbear.com/terms-of-use/">Terms of Use</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://swagger.io/site-map/">Site Map</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://smartbear.com/website-terms-of-use/">Website Terms of Use</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="social-links-container col-md-4">
+                    <a href="http://twitter.com/smartbear" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-twitter-square"></i></a>
+                    <a href="http://www.facebook.com/smartbear" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.linkedin.com/company/smartbear/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="http://www.youtube.com/user/SmartBearSoftware" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</footer>
+
+</footer>
+<div class="stick_trigger"></div>
+<div class="modal_overlay_content_wrapper product_login">
+    <div class="modal_close"></div>
+	<div class="product_login_heading">Choose Your Product</div>
+	<div class="product_login_products">
+		<ul>
+			<li><a href="https://app.swaggerhub.com/login">SwaggerHub</a></li>
+			<li><a href="https://inspector.swagger.io/">Swagger Inspector</a></li>
+		</ul>
+	</div>
+	<div class="product_login_signup">
+		<p>Don’t have an account? Sign up here: <a href="https://app.swaggerhub.com/signup?channel=direct">SwaggerHub</a> | <a href="https://inspector.swagger.io/">Swagger Inspector</a></p>
+	</div>
+</div>
+<div class="modal_overlay_content_wrapper product_signup">
+    <div class="modal_close"></div>
+	<div class="product_login_heading">Choose a Product</div>
+	<div class="product_login_products">
+		<ul>
+			<li><a href="https://app.swaggerhub.com/signup?channel=direct">SwaggerHub</a></li>
+			<li><a href="https://inspector.swagger.io/">Swagger Inspector</a></li>
+		</ul>
+	</div>
+	<div class="product_login_signup">
+		<p>Have an account? Sign in here: <a href="https://app.swaggerhub.com/login">SwaggerHub</a> | <a href="https://inspector.swagger.io/">Swagger Inspector</a></p>
+	</div>
+</div>
+<div class="modal_overlay_fill"></div>
+
+
+    
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+WebForm_InitCallback();
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form><script src="./API_Server_and_Base_Path_files/search.js" async=""></script>
+    
+
+
+
+<div id="searchComponent"><div class="sb-search"><div class="app"><div class="app-input"><i class="far fa-times close-overlay"><div class="close-label">Close</div></i><div class="app-input-wrap"><i class="fal fa-search"></i><input type="text" class="app-input-query" placeholder="Search..." name="search" value=""><div class="clear">Clear</div></div></div><div class="app-view"><div class="app-view-filter"><div class="filters"><div class="locations-filter"><div class="filter-item  disabled"><div class="filter-item-ico Website " data-location="Swagger_Website"></div><div class="filter-item-name" data-location="Swagger_Website">Website<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Documentation " data-location="Swagger_Documentation"></div><div class="filter-item-name" data-location="Swagger_Documentation">Documentation<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Community " data-location="Community"></div><div class="filter-item-name" data-location="Community">Community<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Blog " data-location="Swagger_Blog"></div><div class="filter-item-name" data-location="Swagger_Blog">Blog<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div></div><div class="products-filter css-14jk2my-container"><div class=" css-1fhf3k1-control"><div class=" css-1hwfws3"><div class=" css-1wa3eu0-placeholder">Products...</div><div class="css-1g6gooi"><div class="" style="display: inline-block;"><input disabled="" autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-2-input" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" value="" style="box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;"><div style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 16px; font-family: &quot;Open Sans&quot;, Arial; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;"></div></div></div></div><div class=" css-1wy0on6"><span class=" css-109onse-indicatorSeparator"></span><div aria-hidden="true" class=" css-tlfecz-indicatorContainer"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div></div></div></div></div></div><div class="app-view-result"><div class="results"><div class="app-start"><div class="app-start-message">Start typing to perform a search.</div></div></div></div></div></div><div class="overlay"></div></div></div></body></html>

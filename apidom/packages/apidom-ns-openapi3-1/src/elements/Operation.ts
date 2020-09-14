@@ -14,6 +14,10 @@ class Operation extends ObjectElement {
     this.element = 'operation';
     this.classes.push('operation');
     this.attributes.set('symbols', ['operation']);
+    //this.attributes.set('docs', 'https://swagger.io/docs/specification/paths-and-operations/');
+    this.attributes.set('docs', 'Paths_and_Operations.html');
+
+
   }
 
   get tags(): StringElement[] {

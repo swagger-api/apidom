@@ -5,9 +5,12 @@ import * as apiDOM from "apidom";
 import ApiDOMParser from "apidom-parser";
 // @ts-ignore
 import * as openapi3_1Adapter from "apidom-parser-adapter-openapi3-1-json";
-
 // @ts-ignore
 import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
+// @ts-ignore
+import * as asyncapi2_0Adapter from "apidom-parser-adapter-asyncapi2-0-json";
+// @ts-ignore
+import {namespace as namespaceAsync} from 'apidom-parser-adapter-asyncapi2-0-json';
 
 import initClient from "./client";
 
@@ -82,10 +85,22 @@ import {
   }    
 }`;
 
-  parser.use(openapi3_1Adapter);
-  const parseResult = await parser.parse(value4, {sourceMap: true});
+  const valueAsyncSimple = `{
+  "asyncapi": "2.0.0",
+  "info": {
+    "version": "0.1.9"
+  }, 
+  "servers" : {
+    "prod": {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  }    
+}`;
+
+  //parser.use(openapi3_1Adapter);
+  parser.use(asyncapi2_0Adapter);
+  const parseResult = await parser.parse(valueAsyncSimple, {sourceMap: true});
   //console.log("Par", JSON.stringify(parseResult));
-  const api: namespace.OpenApi3_1 = <namespace.OpenApi3_1>parseResult.api;
+  //const api: namespace.OpenApi3_1 = <namespace.OpenApi3_1>parseResult.api;
+  const api: namespaceAsync.AsyncApi2_0 = <namespaceAsync.AsyncApi2_0>parseResult.api;
   api.freeze() // !! freeze and add parent !!
 })();
 

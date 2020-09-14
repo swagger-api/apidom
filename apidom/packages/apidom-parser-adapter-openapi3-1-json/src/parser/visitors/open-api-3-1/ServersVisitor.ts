@@ -15,6 +15,8 @@ const ServersVisitor = stampit(SpecificationVisitor, {
 
       const serversElement = new this.namespace.elements.Array(serverElements);
       serversElement.classes.push('servers');
+      serversElement.attributes.set('docs', 'API_Server_and_Base_Path.html');
+
 
       this.element = this.maybeAddSourceMap(arrayNode, serversElement);
 

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)https://swagger.io/docs/specification/paths-and-operations/ -->
+<html class=""><head id="head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- Google Tag Manager -->
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="./Paths and Operations_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5JKCFZ');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Start Optimize Hide Script -->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+})(window,document.documentElement,'async-hide','dataLayer',4000,
+{'GTM-PL25XRT':true});</script>
+<!-- End Optimize Hide Script -->
+
+<!-- Start Google Analytics with Optimize -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-404707-37', 'auto');
+  ga('require', 'GTM-PL25XRT');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics with Optimize --><title>
+	Paths and Operations
+</title> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- Bootstrap CSS -->
+
+<link rel="stylesheet" href="./Paths and Operations_files/stylesheet.min.css">
+
+<meta name="page_template" content="Swagger Documentation Page">
+
+<link href="./Paths and Operations_files/css" rel="stylesheet">
+<script src="./Paths and Operations_files/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="./Paths and Operations_files/scripts.min.js" type="text/javascript"></script> 
+<link href="https://static1.smartbear.co/swagger/media/assets/swagger_fav.png" type="image/png" rel="shortcut icon">
+<link href="https://static1.smartbear.co/swagger/media/assets/swagger_fav.png" type="image/png" rel="icon">
+<link rel="stylesheet" type="text/css" href="./Paths and Operations_files/prettify.css"><style>body.sb-search-open{overflow:hidden}.sb-search{display:block;position:fixed;z-index:9999;left:0;top:0;width:100%;visibility:hidden;font-family:"Open Sans", Arial}.sb-search *{box-sizing:border-box;line-height:initial}.sb-search input{all:unset;box-sizing:border-box;background-color:#ffffff}.sb-search input::placeholder{all:unset;color:#777}.sb-search .fal{font-family:"Font Awesome 5 Pro"}.sb-search .overlay{height:100%;width:100%;position:fixed;max-height:100%;background-color:rgba(230,235,240,0.9);transition:opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;top:0;left:0;visibility:hidden;opacity:0;z-index:1000}.sb-search .close-overlay{right:15px;padding-top:23px;font-size:16px;position:absolute;color:#173647;opacity:1;transition:color 0.3s ease-in-out}.sb-search .close-overlay:hover,.sb-search .close-overlay:focus{color:#FF8F0F;opacity:1;cursor:pointer}.sb-search .close-overlay .close-label{float:right;font-size:14px;margin:0 0 0 7px;font-family:"Open Sans", Arial}.sb-search.show-embed .app,.sb-search.show-embed .overlay,.sb-search.show .app,.sb-search.show .overlay{visibility:visible !important;opacity:1 !important}.sb-search.show-embed .app{margin-top:0px}.sb-search.show-embed .close-overlay,.sb-search.show-embed .overlay{display:none}.sb-search.show-embed{position:relative !important}.sb-search.show-embed::after{content:" ";display:table;clear:both}.sb-search .app{opacity:0;position:relative;visibility:hidden;transition:opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;z-index:1500;max-width:1276px;margin:75px auto 0 auto}.sb-search .app .hidden{visibility:hidden !important}.sb-search .app-start{text-align:center}.sb-search .app-start-logo{max-width:250px;max-height:150px}.sb-search .app-start-logo path{fill:#666}.sb-search .app-start-message{color:#666;padding-top:22vh;margin:auto;font-size:36px}.sb-search .app-input-wrap{padding:10px 0 30px;position:relative;width:50%;float:right;margin-right:25%}.sb-search .app-input-wrap .fa-search{position:absolute;left:15px;top:25px;font-size:14px;line-height:14px;font-style:normal}.sb-search .app-input-wrap .clear{position:absolute;right:15px;top:22px;line-height:19px;cursor:pointer;font-size:14px;color:#0071b8}.sb-search .app-input-query{border:1px solid #aaadaf;padding:10px 10px 10px 40px;border-radius:5px;width:100%;font-size:16px;line-height:20px;text-align:left}.sb-search .app-input-query:focus,.sb-search .app-input-query:active,.sb-search .app-input-query:hover{border:1px solid #0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search .app-input:after{content:"";clear:both;display:table}.sb-search .app-input-auto{position:absolute;background:#fff;padding:1px 0;border:1px solid #aaadaf;border-radius:4px;width:100%;z-index:100;box-shadow:0 0 10px rgba(170,173,175,0.9)}.sb-search .app-input-auto-item{padding:5px 20px;text-align:left}.sb-search .app-input-auto-item.active,.sb-search .app-input-auto-item:hover{cursor:pointer;background-color:#f9f9f9}.sb-search .app .fa-times-circle:before{padding-right:5px}.sb-search .app-view-filter{min-width:23%;float:left;margin:0 1% 0 0}.sb-search .app-view-result{width:75%;float:right}.sb-search .app-view .filters,.sb-search .app-view .results{background:#fff;padding:20px;border:1px solid #aaadaf;border-radius:4px}.sb-search .app-view .filters{margin:0 0 20px 0}.sb-search .app-view .results{padding:0;max-height:80vh;min-height:50vh;overflow-x:hidden}.sb-search .app-view .results .location{border-bottom:2px solid #dddddd}.sb-search .app-view .results .location:last-child{border:none}.sb-search .app-view .results .location:after{content:"";clear:both;display:table}.sb-search .app-view .results .location .result-list:after{content:"";clear:both;display:table}.sb-search .app-view .results .location-title{color:#333333;padding-bottom:15px;font-size:15px;font-weight:500;text-transform:uppercase;font-weight:600;padding:20px 20px 10px 20px}.sb-search .app-view .results .location .item{padding:8px 25px}.sb-search .app-view .results .location .item:hover{background-color:#f9f9f9}.sb-search .app-view .results .location .item:after{content:"";clear:both;display:table}.sb-search .app-view .results .location .item-info{width:20%;float:left;padding:5px 20px 0 0;font-size:14px;text-align:right;font-weight:400;color:#000;min-height:70px;border-right:3px solid #aaaaaa}.sb-search .app-view .results .location .item-info .dateCreated{font-size:13px;text-align:right;padding:10px 0;color:#555}.sb-search .app-view .results .location .item-info .search-label{width:100%;padding-bottom:25px;padding-top:25px}.sb-search .app-view .results .location .item-info .solve-icon{color:#38b832;font-size:16px;padding:8px 0 0 0}.sb-search .app-view .results .location .item-info .section{overflow:hidden;text-overflow:ellipsis}.sb-search .app-view .results .location .item.solved .info{border-right:3px solid #38b832}.sb-search .app-view .results .location .item-content{width:77%;float:right;position:relative}.sb-search .app-view .results .location .item-content .link{text-decoration:none !important}.sb-search .app-view .results .location .item-content .link-title{color:#333;font-size:16px;font-weight:600}.sb-search .app-view .results .location .item-content .link-text{color:#616369;margin:5px 0 15px 0;font-size:14px;line-height:19px}.sb-search .app-view .results .location .item-content .link-breadcrumb{color:#909090;font-size:14px;padding:3px 0}.sb-search .app-view .results .location .item-content em{font-weight:600;background-color:#ffeadb;font-style:normal;padding:0 3px}.sb-search .app-view .results .location .item-video{width:30%;display:inline-table;margin:0 0 5% 20px;max-height:230px;overflow:hidden}.sb-search .app-view .results .location .item-video-title{padding:8px 0 0 0;color:#333;font-size:16px;line-height:20px;font-weight:600;text-decoration:none;display:block}.sb-search .app-view .results .location .view-more{padding:0 20px 10px 0;text-align:center;display:block;cursor:pointer;font-size:14px;text-align:right;color:#0071b8;margin:20px 0 0 0;float:right}.sb-search .app-view .filters{max-width:290px}.sb-search .app-view .filters .item-renderer>span{display:inherit !important}.sb-search .app-view .filters .dropdown-heading:focus,.sb-search .app-view .filters .dropdown-heading:focus-within,.sb-search .app-view .filters .dropdown-heading:active{border:1px solid #ff730b !important}.sb-search .app-view .filters .dropdown-heading:focus .dropdown-heading-dropdown-arrow>span,.sb-search .app-view .filters .dropdown-heading:focus-within .dropdown-heading-dropdown-arrow>span,.sb-search .app-view .filters .dropdown-heading:active .dropdown-heading-dropdown-arrow>span{border-color:#ff730b transparent transparent !important}.sb-search .app-view .filters .chip,.sb-search .app-view .filters .optionContainer .lhyQmCtWOINviMz0WG_gr,.sb-search .app-view .filters .option:hover{background:#ff730b}.sb-search .app-view .filters .products-filter{margin-top:15px;width:100%}.sb-search .app-view .filters .products-filter .css-1pahdxg-control{border-color:#0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search .app-view .filters .filter-item{color:#333333;border-bottom:2px solid #d8dadb;padding:8px 0;font-size:15px;position:relative;cursor:pointer}.sb-search .app-view .filters .filter-item.disabled{cursor:not-allowed !important;color:#aaa;padding-bottom:10px}.sb-search .app-view .filters .filter-item.disabled .filter-item-name-count{color:#aaa}.sb-search .app-view .filters .filter-item .fa-shevron-right{font-size:14px;width:20px;height:20px;position:absolute;right:0;top:10px}.sb-search .app-view .filters .filter-item a:hover{cursor:pointer;color:#0071b8}.sb-search .app-view .filters .filter-item-name{display:block}.sb-search .app-view .filters .filter-item-name-count{display:inline;background-color:#eff0f0;padding:2px 8px 2px;min-width:30px;border-radius:15px;color:#798591;font-weight:600;font-size:13px;margin:0 0 0 5px}.sb-search .app-view .filters .filter-item-name .fas{color:#aaaaaa;float:right;padding:5px}.sb-search .app-view .filters .filter-item-ico{display:none;width:70px;height:50px;font-family:"Font Awesome 5 Pro";font-size:28px;font-weight:900}.sb-search .app-view .filters .filter-item-ico:after{content:"\f085";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Documentation:after{content:"\f15c";top:10px;left:30px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Blog:after{content:"\f781";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Community:after{content:"\f0c0";top:10px;left:20px;position:absolute}.sb-search .app-view .filters .filter-item-ico.Videos:after{content:"\f03d";top:10px;left:25px;position:absolute}.sb-search .app-view .filters .filter-item.active .filter-item-ico,.sb-search .app-view .filters .filter-item.active .filter-item-name,.sb-search .app-view .filters .filter-item.active .filter-item-name-count,.sb-search .app-view .filters .filter-item.active .fas{color:#FF8F0F}.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-ico,.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-name,.sb-search .app-view .filters .filter-item.disabled:hover .filter-item-name-count,.sb-search .app-view .filters .filter-item.disabled:hover .fas{color:#aaa}.sb-search .app-view .filters .filter-item:hover .filter-item-ico,.sb-search .app-view .filters .filter-item:hover .filter-item-name,.sb-search .app-view .filters .filter-item:hover .filter-item-name-count,.sb-search .app-view .filters .filter-item:hover .fas{color:#FF8F0F}.sb-search .app-view .filters .filter-item:last-child{border:none}@media only screen and (max-width: 980px){.sb-search .close{color:#798591}.sb-search .close-overlay{color:#333}.sb-search .close-overlay .close-label{display:none}.sb-search .app{width:100%;margin:0 auto}.sb-search .app-start{width:100%;margin-top:40px}.sb-search .app-input{background-color:#fafafc;padding:0 10px}.sb-search .app-input-wrap{float:none;margin:0;width:85%;padding:10px 0}.sb-search .app-view-result,.sb-search .app-view-filter{float:none;width:100%;margin:0}.sb-search .app .filters,.sb-search .app .results{border:none;padding:0;float:none;border-radius:0}.sb-search .app .filters{max-width:100%;border-top:2px solid #dddddd;border-bottom:2px solid #dddddd;border-radius:0;margin:0}.sb-search .app .filters .locations-filter{border-bottom:2px solid #dddddd}.sb-search .app .filters .locations-filter:after{content:"";clear:both;display:table}.sb-search .app .filters .products-filter{margin:0}.sb-search .app .filters .products-filter .css-1pahdxg-control,.sb-search .app .filters .products-filter .css-yk16xz-control{border-radius:0}.sb-search .app .filters .products-filter .css-1pahdxg-control{border-color:#0071b8;box-shadow:0 0 1px #0071b8}.sb-search .app .filters .filter-item{float:left;border-bottom:2px solid transparent;padding:0 5px 5px 5px;top:2px}.sb-search .app .filters .filter-item.disabled{padding-bottom:5px}.sb-search .app .filters .filter-item.disabled:hover,.sb-search .app .filters .filter-item.disabled:active,.sb-search .app .filters .filter-item.disabled:focus{border-bottom:2px solid transparent}.sb-search .app .filters .filter-item:hover{padding-bottom:5px;border-bottom:2px solid #FF8F0F}.sb-search .app .filters .filter-item.active{padding-bottom:5px;border-bottom:2px solid #FF8F0F}.sb-search .app .filters .filter-item-name{font-size:10px;text-align:center}.sb-search .app .filters .filter-item-name-count{display:none}.sb-search .app .filters .filter-item-name i{display:none}.sb-search .app .filters .filter-item-ico{display:inline-block}.sb-search .app .results{height:76vh;padding:0 10px}.sb-search .app .results .location .title{padding:20px 0 10px 0}.sb-search .app .results .location .result-list .link{text-decoration:none}.sb-search .app .results .location .result-list .link .item{padding:8px 0}.sb-search .app .results .location .result-list .link .item .info{display:none}.sb-search .app .results .location .result-list .link .item .content{float:none;width:100%}.sb-search .app .results .location .result-list .item-video{width:100%;max-height:100vh;margin:0 0 5% 0}.sb-search .app .results .location .view-more{text-align:center;padding:20px;margin:0}}
+</style><style>.sb-search-lite{width:100%;font-family:"Open Sans", Arial}.sb-search-lite *{box-sizing:border-box;line-height:initial}.sb-search-lite input{all:unset;box-sizing:border-box;background-color:#ffffff}.sb-search-lite input::placeholder{all:unset;color:#777}.sb-search-lite .fal{font-family:"Font Awesome 5 Pro"}.sb-search-lite .app{position:relative}.sb-search-lite .app-input-wrap{padding:0;position:relative}.sb-search-lite .app-input-wrap .fa-search{position:absolute;left:15px;top:15px;font-size:14px;line-height:14px;font-style:normal}.sb-search-lite .app-input-wrap .clear{position:absolute;right:15px;top:12px;line-height:19px;cursor:pointer;font-size:14px;color:#0071b8}.sb-search-lite .app-input-query{border:1px solid #aaadaf;padding:10px 10px 10px 40px;border-radius:5px;width:100%;font-size:16px;line-height:20px;text-align:left}.sb-search-lite .app-input-query:focus,.sb-search-lite .app-input-query:active,.sb-search-lite .app-input-query:hover{border:1px solid #0071b8;box-shadow:0 0 5px rgba(0,113,184,0.5)}.sb-search-lite .app-input:after{content:"";clear:both;display:table}.sb-search-lite .app-input-auto{position:absolute;background:#fff;padding:1px 0;border:1px solid #aaadaf;border-radius:4px;width:100%;z-index:100;box-shadow:0 0 10px rgba(170,173,175,0.9)}.sb-search-lite .app-input-auto-item{padding:5px 20px;text-align:left}.sb-search-lite .app-input-auto-item.active,.sb-search-lite .app-input-auto-item:hover{cursor:pointer;background-color:#f9f9f9}.sb-search-lite .app .fa-times-circle:before{padding-right:5px}@media only screen and (max-width: 980px){.sb-search-lite .app{width:100%;margin:0 auto}.sb-search-lite .app-input{background-color:#fafafc;padding:0 10px}.sb-search-lite .app-input-wrap{float:none;margin:0;width:100%;padding:0}}
+</style><link type="text/css" rel="stylesheet" href="./Paths and Operations_files/all.css" integrity="sha384-vlOMx0hKjUCl4WzuhIhSNZSm2yQCaf0mOU1hEDK/iztH3gU4v5NMmJln9273A6Jz" crossorigin="anonymous"><style data-emotion="css"></style></head>
+<body class="LTR Chrome ENUS ContentBody swagger" cz-shortcut-listen="true">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JKCFZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    
+    <form method="post" action="https://swagger.io/docs/specification/paths-and-operations/" id="form">
+<div class="aspNetHidden">
+<input type="hidden" name="__CMSCsrfToken" id="__CMSCsrfToken" value="UJ2HrVpfnDaaNilRhla1GI699xmoD0E3AmvHJUdVzkvS0xwFFfaNLT2cDd3N0YheptXQ7eP+DFjF007fvBxf9W55S/4=">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form'];
+if (!theForm) {
+    theForm = document.form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./Paths and Operations_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+	//<![CDATA[
+
+function PM_Postback(param) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); } if(window.CMSContentManager) { CMSContentManager.allowSubmit = true; }; __doPostBack('m$am',param); }
+function PM_Callback(param, callback, ctx) { if (window.top.HideScreenLockWarningAndSync) { window.top.HideScreenLockWarningAndSync(1080); }if (window.CMSContentManager) { CMSContentManager.storeContentChangedStatus(); };WebForm_DoCallback('m$am',param,callback,ctx,null,true); }
+//]]>
+</script>
+<script type="text/javascript">
+	//<![CDATA[
+
+var CMS = CMS || {};
+CMS.Application = {
+  "language": "en",
+  "imagesUrl": "/CMSPages/GetResource.ashx?image=%5bImages.zip%5d%2f",
+  "isDebuggingEnabled": false,
+  "applicationUrl": "/",
+  "isDialog": false,
+  "isRTL": "false"
+};
+
+//]]>
+</script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A3F9E7FD">
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0">
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0">
+</div>
+    
+    <div id="ctxM">
+
+</div>
+    
+<header>
+    
+<div class="nav-main">
+    <div class="container">
+        <nav class="main">
+            <a href="https://swagger.io/" class="navbar-brand">
+                <img src="./Paths and Operations_files/swagger_logo.svg" height="50" width="174" alt="Swagger Logo">
+            </a>
+            <ul class="nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/paths-and-operations/#" role="button" aria-haspopup="true" aria-expanded="false">Why Swagger?</a>
+                    <div class="dropdown-menu menu-single">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <a class="item" href="https://swagger.io/solutions/api-design/" title="API Design"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_1_CLR.svg">
+                                            </span>API Design</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-development" title="API Development"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_2_CLR.svg">
+                                            </span>API Development</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-documentation/" title="API Documentation"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_3_CLR.svg">
+                                            </span>API Documentation</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-testing/" title="API Testing"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_4_CLR.svg">
+                                            </span>API Testing</a>
+                                        <a class="item" href="https://swagger.io/solutions/mocking-and-virtualization/" title="API Mocking and Virtualization"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_5_CLR.svg">
+                                            </span>API Mocking and Virtualization</a>
+                                        <a class="item" href="https://swagger.io/solutions/governance-and-standardization" title="API Governance"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_6_CLR.svg">
+                                            </span>API Governance</a>
+                                        <a class="item" href="https://swagger.io/solutions/api-monitoring/" title="API Monitoring"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_7_CLR.svg">
+                                            </span>API Monitoring</a>
+                                        <a class="item" href="https://swagger.io/solutions/getting-started-with-oas/" title="OpenAPI &amp; Swagger"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu1_8_CLR.svg">
+                                            </span>OpenAPI &amp; Swagger</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/paths-and-operations/#" role="button" aria-haspopup="true" aria-expanded="false">Tools</a>
+                    <div class="dropdown-menu menu-double">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="tools">
+                                        <a href="https://swagger.io/docs/specification/paths-and-operations/#proDocumentation" aria-controls="proDocumentation" role="tab" data-toggle="tab" class="active pl-3 pl-lg-0"><svg xmlns="http://www.w3.org/2000/svg" width="37.724" height="37.026" viewBox="0 0 37.724 37.026">
+                                                <g transform="translate(-1.798 -1.988)">
+                                                    <path d="M6.25,14.539a15.464,15.464,0,0,0-.988,3.5l-2.428,1.12a.921.921,0,0,0-.535.871l.092,2.364a.921.921,0,0,0,.6.828l2.508.929a15.572,15.572,0,0,0,1.255,3.413L5.448,29.892a.923.923,0,0,0,.079,1.021L6.99,32.771a.918.918,0,0,0,.972.317l2.578-.724a15.609,15.609,0,0,0,3.017,2.022L12,33.471a15.587,15.587,0,0,0,1.57.92l.317,2.657a.923.923,0,0,0,.664.778l2.275.641a.918.918,0,0,0,.972-.317l1.656-2.1a15.778,15.778,0,0,0,3.629-.146l1.82,1.964a.92.92,0,0,0,1,.238l2.218-.819a.921.921,0,0,0,.6-.828l.106-2.671a15.535,15.535,0,0,0,2.853-2.252l2.623.518a.922.922,0,0,0,.945-.392l1.312-1.968a.919.919,0,0,0,0-1.022l-1.485-2.223a15.53,15.53,0,0,0,.986-3.5l2.426-1.121a.922.922,0,0,0,.535-.873l-.094-2.364a.921.921,0,0,0-.6-.828l-2.511-.927a15.7,15.7,0,0,0-1.256-3.408l1.305-2.335a.923.923,0,0,0-.081-1.021L34.317,8.215a.923.923,0,0,0-.974-.317l-2.576.725a15.7,15.7,0,0,0-1.451-1.1,15.935,15.935,0,0,0-1.57-.92L27.43,3.95a.923.923,0,0,0-.664-.778l-2.275-.637a.918.918,0,0,0-.972.317l-1.656,2.1a15.678,15.678,0,0,0-3.629.146l-1.82-1.964a.92.92,0,0,0-1-.238L13.2,3.716a.921.921,0,0,0-.6.828l-.106,2.671A15.535,15.535,0,0,0,9.64,9.468L7.017,8.949a.918.918,0,0,0-.945.391L4.76,11.307a.919.919,0,0,0,0,1.022l1.485,2.223a15.624,15.624,0,0,0-.986,3.5" transform="translate(0)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1" fill-rule="evenodd"></path>
+                                                    <circle cx="6.746" cy="6.746" r="6.746" transform="translate(13.916 13.755)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></circle>
+                                                </g>
+                                            </svg>
+                                            <p class="header-tools">Pro</p>
+                                        </a>
+                                    </li>
+                                    <li role="tools">
+                                        <a href="https://swagger.io/docs/specification/paths-and-operations/#openSource" aria-controls="openSource" role="tab" data-toggle="tab"><svg xmlns="http://www.w3.org/2000/svg" width="43.162" height="37.181" viewBox="0 0 43.162 37.181">
+                                                <g transform="translate(-0.126 -1.952)">
+                                                    <path d="M21.772,18.461V32.21m-5.719-9.79L1.1,13.957l5.972-3.78,14.678,8.185Z" transform="translate(0 6.156)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M33.781,14.416v6.137L19.123,29.167,4.489,20.72l-.076-6.543" transform="translate(2.676 9.387)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M17.78,28.667,32.735,20.2,27.212,16.26,12.535,24.445Zm.392-26.022,14.954,8.463-5.972,3.78L12.477,6.7Z" transform="translate(9.189 0.073)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                    <path d="M16.27,2.554,1.316,11.017l5.522,3.944L21.516,6.777Z" transform="translate(0.175)" fill="none" stroke="#6a6a6a" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"></path>
+                                                </g>
+                                            </svg>
+                                            <p class="header-tools">Open Source</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active col-lg-6" id="proDocumentation">
+                                        <a href="https://swagger.io/tools/swaggerhub/" class="item-main-wrapper"><span class="item-main">SwaggerHub</span>
+                                            <p class="content"> Design &amp; document all your REST APIs in one collaborative platform. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swaggerhub/enterprise/" class="item-main-wrapper"><span class="item-main">SwaggerHub Enterprise</span>
+                                            <p class="content"> Standardize your APIs with projects, style checks, and reusable domains. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-inspector/" class="item-main-wrapper"><span class="item-main">Swagger Inspector</span>
+                                            <p class="content"> Test and generate API definitions from your browser in seconds. </p>
+                                        </a>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane col-lg-6" id="openSource">
+                                        <a href="https://swagger.io/tools/swagger-codegen/" class="item-main-wrapper"><span class="item-main">Swagger Codegen</span>
+                                            <p class="content"> Generate server stubs and client SDKs from OpenAPI Specification definitions </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-editor/" class="item-main-wrapper"><span class="item-main">Swagger Editor</span>
+                                            <p class="content"> API editor for designing APIs with the OpenAPI Specification. </p>
+                                        </a>
+                                        <a href="https://swagger.io/tools/swagger-ui/" class="item-main-wrapper"><span class="item-main">Swagger UI</span>
+                                            <p class="content"> Visualize OpenAPI Specification definitions in an interactive UI. </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu-bottom-cta text-white bg-green small py-1">
+                            <a class="py-1" href="https://swagger.io/tools">Explore all tools<i class="pl-2 far fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-display="static" href="https://swagger.io/docs/specification/paths-and-operations/#" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>
+                    <div class="dropdown-menu menu-single">
+                        <div class="dropdown-mega row">
+                            <div class="container">
+                                <div class="col-12">
+                                    <div class="item-main-wrapper">
+                                        <a href="https://swagger.io/resources/" class="item-main">Resources</a>
+                                    </div>
+                                    <div class="d-flex flex-column pt-3">
+                                        <a class="item" href="https://swagger.io/resources/open-api/" title="OpenAPI Specification"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu3_1_CLR.svg">
+                                            </span>OpenAPI Specification</a>
+                                        <a class="item" href="https://swagger.io/docs/" title="Docs"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu3_2_CLR.svg">
+                                            </span>Docs</a>
+                                        <a class="item" href="https://swagger.io/blog/" title="Blog"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu3_3_CLR.svg">
+                                            </span>Blog</a>
+                                        <a class="item" href="https://swagger.io/support/" title="Support"><span class="pr-2">
+                                                <img class="item-icon" src="./Paths and Operations_files/SW_Menu3_4_CLR.svg">
+                                            </span>Support</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item nav-item-search ml-auto">
+                    <style type="text/css">
+                        header .nav-item-search a::after {
+                            display: none !important;
+                        }
+                    </style>
+                    <a class="nav-link header-search-ico sb-search-ico text-center" href="https://swagger.io/docs/specification/paths-and-operations/#"><i class="fal fa-search">&nbsp;</i> </a>
+                    <script type="text/javascript">
+                        (function (w, d) {
+                            function initSearch() {
+                                var config = {
+                                    locations: ['Swagger_Website', 'Swagger_Documentation', 'Community', 'Swagger_Blog'],
+                                    availableProducts: ['SwaggerHub', 'Swagger Inspector', 'Swagger Editor', 'Swagger Codegen', 'Swagger UI', 'Swagger Open Source Tools', 'OAS']
+                                }
+                                w.sbSearch.init(config);
+                            }
+
+                            var s = document.createElement('script');
+                            s.src = 'https://static' + ((w.location.href.indexOf('stag') == -1) ? 1 : 0) + '.smartbear.co/smartbear/react/search/search.js?t=' + Math.random();
+                            s.async = true;
+                            s.onreadystatechange = function () {
+                                if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                                    initSearch();
+                                }
+                            };
+                            s.onload = initSearch;
+                            d.body.appendChild(s);
+                        })(window, document);
+                    </script>
+                </li>
+                <li class="nav-item nav-item-login">
+                    <a href="https://app.swaggerhub.com/login?channel=direct" class="btn btn-swagger btn-swagger-outlined btn-nav" title="Sign In">Sign In</a>
+                </li>
+                <li class="nav-item nav-item-free-trial">
+                    <a class="btn btn-swagger btn-nav" href="https://swagger.io/tools" alt="Try Free">Try Free</a>
+                </li>
+            </ul>
+            <div class="nav-main-toggle">
+                <div class="hamburger"></div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+    
+
+</header>
+<div class="nav-spacer"></div>
+
+
+<div class="documentation_page mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-9 order-md-2">
+              <div class="documentation_content">
+                <p class="version-note"><span class="label oas3">OAS <b>3</b></span> This page applies to OpenAPI 3 – the latest version of the OpenAPI Specification. If you use OpenAPI 2 (fka Swagger), visit <a href="https://swagger.io/docs/specification/2-0/paths-and-operations/">OpenAPI 2 pages</a>.</p>
+
+<h2>Paths and Operations</h2>
+
+<p>In OpenAPI terms, <strong>paths</strong> are endpoints (resources), such as <code>/users</code> or <code>/reports/summary/</code>, that your API exposes, and <strong>operations</strong> are the HTTP methods used to manipulate these paths, such as GET, POST or DELETE. <a name="paths"></a></p>
+
+<h3>Paths</h3>
+
+<p>API paths and operations are defined in the global <code>paths</code> section of the API specification.</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">ping</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L3"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">users</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L5"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">users</span><span class="pun">/{</span><span class="pln">id</span><span class="pun">}:</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li></ol></pre>
+
+<p>All paths are relative to the <a href="https://swagger.io/docs/specification/api-host-and-base-path/">API server URL</a>. The full request URL is constructed as <code>&lt;server-url&gt;/path</code>. Global <code>servers</code> can also be overridden on the path level or operation level (more on that <a href="https://swagger.io/docs/specification/paths-and-operations/#overriding-servers">below</a>). Paths may have an optional short <code>summary</code> and a longer <code>description</code> for documentation purposes. This information is supposed to be relevant to all operations in this path. <code>description</code> can be <a href="http://stackoverflow.com/questions/3790454/in-yaml-how-do-i-break-a-string-over-multiple-lines" rel="noopener" target="_blank">multi-line</a> and supports <a href="http://commonmark.org/help/" rel="noopener" target="_blank">Markdown</a> (CommonMark) for rich text representation.</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="str">/users/</span><span class="pun">{</span><span class="pln">id</span><span class="pun">}:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; summary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Represents</span><span class="pln"> a user</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&gt;</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="typ">This</span><span class="pln"> resource represents an individual user </span><span class="kwd">in</span><span class="pln"> the system</span><span class="pun">.</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span class="typ">Each</span><span class="pln"> user </span><span class="kwd">is</span><span class="pln"> identified </span><span class="kwd">by</span><span class="pln"> a numeric </span><span class="str">`id`</span><span class="pun">.</span></code></li><li class="L6"><code></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp; patch</span><span class="pun">:</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">delete</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li></ol></pre>
+
+<p><a name="path-templating"></a></p>
+
+<h3>Path Templating</h3>
+
+<p>You can use curly braces <code>{}</code> to mark parts of an URL as <a href="https://swagger.io/docs/specification/describing-parameters/#path-parameters">path parameters</a>:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="str">/users/</span><span class="pun">{</span><span class="pln">id</span><span class="pun">}</span></code></li><li class="L1"><code><span class="pun">/</span><span class="pln">organizations</span><span class="pun">/{</span><span class="pln">orgId</span><span class="pun">}/</span><span class="pln">members</span><span class="pun">/{</span><span class="pln">memberId</span><span class="pun">}</span></code></li><li class="L2"><code><span class="pun">/</span><span class="pln">report</span><span class="pun">.{</span><span class="pln">format</span><span class="pun">}</span></code></li></ol></pre>
+
+<p>The API client needs to provide appropriate parameter values when making an API call, such as <code>/users/5</code> or <code>/users/12</code>. <a name="operations"></a></p>
+
+<h3>Operations</h3>
+
+<p>For each path, you define operations (HTTP methods) that can be used to access that path. OpenAPI 3.0 supports <code>get</code>, <code>post</code>, <code>put</code>, <code>patch</code>, <code>delete</code>, <code>head</code>, <code>options</code>, and <code>trace</code>. A single path can support multiple operations, for example <code>GET&nbsp;/users</code> to get a list of users and <code>POST&nbsp;/users</code> to add a new user. OpenAPI defines a unique operation as a combination of a path and an HTTP method. This means that two GET or two POST methods for the same path are not allowed – even if they have different parameters (parameters have no effect on uniqueness). Below is a minimal example of an operation:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">ping</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; responses</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="str">'200'</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> OK</span></code></li></ol></pre>
+
+<p>Here is a more detailed example with parameters and response schema:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="str">/users/</span><span class="pun">{</span><span class="pln">id</span><span class="pun">}:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tags</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> </span><span class="typ">Users</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; summary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Gets</span><span class="pln"> a user </span><span class="kwd">by</span><span class="pln"> ID</span><span class="pun">.</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&gt;</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A detailed description </span><span class="kwd">of</span><span class="pln"> the operation</span><span class="pun">.</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="typ">Use</span><span class="pln"> markdown </span><span class="kwd">for</span><span class="pln"> rich text representation</span><span class="pun">,</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; such </span><span class="kwd">as</span><span class="pln"> </span><span class="pun">**</span><span class="pln">bold</span><span class="pun">**,</span><span class="pln"> </span><span class="pun">*</span><span class="pln">italic</span><span class="pun">*,</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> </span><span class="pun">[</span><span class="pln">links</span><span class="pun">](</span><span class="pln">https</span><span class="pun">:</span><span class="com">//swagger.io).</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; operationId</span><span class="pun">:</span><span class="pln"> getUserById</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parameters</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> name</span><span class="pun">:</span><span class="pln"> id</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">in</span><span class="pun">:</span><span class="pln"> path</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">User</span><span class="pln"> ID</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schema</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> integer</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format</span><span class="pun">:</span><span class="pln"> int64</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; responses</span><span class="pun">:</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="str">'200'</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Successful</span><span class="pln"> operation</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; application</span><span class="pun">/</span><span class="pln">json</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schema</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ref</span><span class="pun">:</span><span class="pln"> </span><span class="str">'#/components/schemas/User'</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; externalDocs</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Learn</span><span class="pln"> more about user operations provided </span><span class="kwd">by</span><span class="pln"> </span><span class="kwd">this</span><span class="pln"> API</span><span class="pun">.</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//api.example.com/docs/user-operations/</span></code></li><li class="L9"><code></code></li><li class="L0"><code><span class="pln">components</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; schemas</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="typ">User</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">object</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; properties</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> integer</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format</span><span class="pun">:</span><span class="pln"> int64</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name</span><span class="pun">:</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span></code></li><li class="L0"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> id</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> name</span></code></li></ol></pre>
+
+<p>Operations also support some optional elements for documentation purposes:</p>
+
+<ul>
+	<li>A short <code>summary</code> and a longer <code>description</code> of what an operation does. <code>description</code> can be <a href="http://stackoverflow.com/questions/3790454/in-yaml-how-do-i-break-a-string-over-multiple-lines" rel="noopener" target="_blank">multi-line</a> and supports <a href="http://commonmark.org/help/" rel="noopener" target="_blank">Markdown</a> (CommonMark) for rich text representation.</li>
+	<li><code>tags</code> – used to group operations logically by resources or any other qualifier. See <a href="https://swagger.io/docs/specification/grouping-operations-with-tags/">Grouping Operations With Tags</a>.</li>
+	<li><code>externalDocs</code> – used to reference an external resource that contains additional documentation.</li>
+</ul>
+
+<p><a name="parameters"></a></p>
+
+<h3>Operation Parameters</h3>
+
+<p>OpenAPI 3.0 supports operation parameters passed via path, query string, headers, and cookies. You can also define the request body for operations that transmit data to the server, such as POST, PUT and PATCH. For details, see <a href="https://swagger.io/docs/specification/describing-parameters/">Describing Parameters</a> and <a href="https://swagger.io/docs/specification/describing-request-body/">Describing Request Body</a>. <a name="query-string-in-paths"></a></p>
+
+<h3>Query String in Paths</h3>
+
+<p>Query string parameters <strong>must not</strong> be included in paths. They should be defined as <a href="https://swagger.io/docs/specification/describing-parameters/#query-parameters">query parameters</a> instead.</p>
+<p>Incorrect:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">users</span><span class="pun">?</span><span class="pln">role</span><span class="pun">={</span><span class="pln">role</span><span class="pun">}:</span></code></li></ol></pre>
+
+<p>Correct:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">users</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parameters</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> </span><span class="kwd">in</span><span class="pun">:</span><span class="pln"> query</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name</span><span class="pun">:</span><span class="pln"> role</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schema</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">string</span></code></li><li class="L8"><code><span class="pln">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kwd">enum</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">user</span><span class="pun">,</span><span class="pln"> poweruser</span><span class="pun">,</span><span class="pln"> admin</span><span class="pun">]</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span></code></li></ol></pre>
+
+<p>This also means that it is impossible to have multiple paths that differ only in query string, such as:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">GET </span><span class="pun">/</span><span class="pln">users</span><span class="pun">?</span><span class="pln">firstName</span><span class="pun">=</span><span class="kwd">value</span><span class="pun">&amp;</span><span class="pln">lastName</span><span class="pun">=</span><span class="kwd">value</span></code></li><li class="L1"><code><span class="pln">GET </span><span class="pun">/</span><span class="pln">users</span><span class="pun">?</span><span class="pln">role</span><span class="pun">=</span><span class="kwd">value</span></code></li></ol></pre>
+
+<p>This is because OpenAPI considers a unique operation as a combination of a path and the HTTP method, and additional parameters do not make the operation unique. Instead, you should use unique paths such as:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">GET </span><span class="pun">/</span><span class="pln">users</span><span class="pun">/</span><span class="pln">findByName</span><span class="pun">?</span><span class="pln">firstName</span><span class="pun">=</span><span class="kwd">value</span><span class="pun">&amp;</span><span class="pln">lastName</span><span class="pun">=</span><span class="kwd">value</span></code></li><li class="L1"><code><span class="pln">GET </span><span class="pun">/</span><span class="pln">users</span><span class="pun">/</span><span class="pln">findByRole</span><span class="pun">?</span><span class="pln">role</span><span class="pun">=</span><span class="kwd">value</span></code></li></ol></pre>
+
+<p><a name="operationid"></a></p>
+
+<h3>operationId</h3>
+
+<p><code>operationId</code> is an optional unique string used to identify an operation. If provided, these IDs must be unique among all operations described in your API.</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pun">/</span><span class="pln">users</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; operationId</span><span class="pun">:</span><span class="pln"> getUsers</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp; summary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Gets</span><span class="pln"> all users</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L5"><code><span class="pln">&nbsp; post</span><span class="pun">:</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp; operationId</span><span class="pun">:</span><span class="pln"> addUser</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp; summary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Adds</span><span class="pln"> a </span><span class="kwd">new</span><span class="pln"> user</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L9"><code><span class="pun">/</span><span class="pln">user</span><span class="pun">/{</span><span class="pln">id</span><span class="pun">}:</span></code></li><li class="L0"><code><span class="pln">&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp;&nbsp;&nbsp; operationId</span><span class="pun">:</span><span class="pln"> getUserById</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; summary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Gets</span><span class="pln"> a user </span><span class="kwd">by</span><span class="pln"> user ID</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li></ol></pre>
+
+<p>Some common use cases for operationId are:</p>
+
+<ul>
+	<li>Some code generators use this value to name the corresponding methods in code.</li>
+	<li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#linkObject">Links</a> can refer to the linked operations by <code>operationId</code>.</li>
+</ul>
+
+<p><a name="deprecated"></a></p>
+
+<h3>Deprecated Operations</h3>
+
+<p>You can mark specific operations as <code>deprecated</code> to indicate that they should be transitioned out of usage:</p>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="str">/pet/</span><span class="pln">findByTags</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; deprecated</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span></code></li></ol></pre>
+
+<p>Tools may handle deprecated operations in a specific way. For example, Swagger UI displays them with a different style:</p>
+
+<p><br>
+<img alt="Deprecated operation in Swagger UI" class="alignnone size-full" src="./Paths and Operations_files/deprecated.png"> <a name="overriding-servers"></a></p>
+
+<h3>Overriding Global Servers</h3>
+
+<p>The global <code>servers</code> array can be overridden on the path level or operation level. This is useful if some endpoints use a different server or base path than the rest of the API. Common examples are:</p>
+
+<ul>
+	<li>Different base URL for file upload and download operations.</li>
+	<li>Deprecated but still functional endpoints.</li>
+</ul>
+
+<pre class="prettyprint linenums prettyprinted" style=""><ol class="linenums"><li class="L0"><code><span class="pln">servers</span><span class="pun">:</span></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//api.example.com/v1</span></code></li><li class="L2"><code></code></li><li class="L3"><code><span class="pln">paths</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">files</span><span class="pun">:</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">File</span><span class="pln"> upload </span><span class="kwd">and</span><span class="pln"> download operations</span></code></li><li class="L6"><code><span class="pln">&nbsp;&nbsp;&nbsp; servers</span><span class="pun">:</span></code></li><li class="L7"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//files.example.com</span></code></li><li class="L8"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Override</span><span class="pln"> </span><span class="kwd">base</span><span class="pln"> path </span><span class="kwd">for</span><span class="pln"> all operations </span><span class="kwd">with</span><span class="pln"> the </span><span class="pun">/</span><span class="pln">files path</span></code></li><li class="L9"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="pun">...</span></code></li><li class="L0"><code></code></li><li class="L1"><code><span class="pln">&nbsp; </span><span class="pun">/</span><span class="pln">ping</span><span class="pun">:</span></code></li><li class="L2"><code><span class="pln">&nbsp;&nbsp;&nbsp; </span><span class="kwd">get</span><span class="pun">:</span></code></li><li class="L3"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; servers</span><span class="pun">:</span></code></li><li class="L4"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> https</span><span class="pun">:</span><span class="com">//echo.example.com</span></code></li><li class="L5"><code><span class="pln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Override</span><span class="pln"> </span><span class="kwd">base</span><span class="pln"> path </span><span class="kwd">for</span><span class="pln"> the GET </span><span class="pun">/</span><span class="pln">ping operation</span></code></li></ol></pre>
+
+<p>&nbsp;&nbsp;</p>
+
+<p><i>Did not find what you were looking for? <a href="https://community.smartbear.com/t5/Swagger-Open-Source-Tools/bd-p/SwaggerOSTools" target="_blank" rel="noopener noreferrer">Ask the community</a><br>
+Found a mistake? <a href="https://github.com/swagger-api/swagger.io/issues" target="_blank" rel="noopener noreferrer">Let us know</a></i></p>
+                </div>
+              </div>
+            <div class="col-12 col-lg-4 col-xl-3 order-md-1">
+              <div class="documentation_nav pt-4">
+                
+	<ul id="menuElem" class="CMSListMenuUL">
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://app.swaggerhub.com/help/">SwaggerHub</a>
+		</li>
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://swagger.io/docs/swagger-inspector/how-to-use-swagger-inspector/">Swagger Inspector</a>
+		</li>
+		<li class="CMSListMenuLI">
+			<a class="CMSListMenuLink" href="https://swagger.io/docs/open-source-tools/swagger-editor/">Open Source Tools</a>
+		</li>
+		<li class="CMSListMenuHighlightedLI">
+			<a class="CMSListMenuLinkHighlighted" href="https://swagger.io/docs/specification/about">Specification</a>
+			<ul class="CMSListMenuUL">
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/about/">What Is OpenAPI?</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/basic-structure/">Basic Structure</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/api-host-and-base-path/">API Server and Base Path</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/media-types/">Media Types</a>
+				</li>
+				<li class="CMSListMenuHighlightedLI">
+					<a class="CMSListMenuLinkHighlighted active" href="https://swagger.io/docs/specification/paths-and-operations/">Paths and Operations</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-parameters/">Describing Parameters</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/serialization/">Parameter Serialization</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-request-body/">Describing Request Body</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/describing-responses/">Describing Responses</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/data-models/">Data Models (Schemas)</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/adding-examples/">Adding Examples</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/authentication/">Authentication</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/links/">Links</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/callbacks/">Callbacks</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/components/">Components Section</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/using-ref/">Using $ref</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/api-general-info/">API General Info</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/grouping-operations-with-tags/">Grouping Operations With Tags</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/openapi-extensions/">OpenAPI Extensions</a>
+				</li>
+				<li class="CMSListMenuLI">
+					<a class="CMSListMenuLink" href="https://swagger.io/docs/specification/2-0/basic-structure">2.0</a>
+				</li>
+
+			</ul>
+		</li>
+
+	</ul>
+
+
+
+                <div class="doc-ad-zone">
+                    <div class="doc-ad-content">
+                        
+<p><a href="https://smartbear.com/resources/webinars/building-api-standards/" target="_blank" rel="noopener noreferrer"><img alt="" src="./Paths and Operations_files/Building-Standards-Blog-Ad_1.png" style="width: 152px; height: 300px;"></a></p>
+
+
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script async="">
+document.querySelector('.documentation_nav a[href^="' + document.location.pathname + '"]').classList.add('active');
+var elems = document.querySelectorAll('pre');
+  elems.forEach(function(e) {
+  e.className += "prettyprint linenums"
+});
+var item_to_move = document.querySelector("#table-of-contents + ul");
+var item_clone = item_to_move.cloneNode(true);
+document.querySelector(".table_of_contents").appendChild(item_clone);
+</script>
+
+<footer class="footer">
+  
+<footer>
+    <div class="swagger_footer" style="background-image: url(/swagger/media/images/backgrounds/photos/sw-ws-bgphoto5.png);background-size: cover; background-position: center;background-repeat:no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer_brand_logo">
+                        <img src="./Paths and Operations_files/sw_full-wt.svg" style="" alt="Swagger Logo">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Swagger Open Source</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/license/">Open Source License</a></li>
+                        <li><a class="external-link-arrow" href="https://community.smartbear.com/t5/Swagger-Open-Source-Tools/bd-p/SwaggerOSTools">Swagger Forum</a></li>
+                        <li><a href="https://swagger.io/irc/">Swagger IRC</a></li>
+                        <li><a href="https://swagger.io/community">Swagger Community</a></li>
+                        <li><a href="https://swagger.io/tools/open-source">Swagger Projects</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Swagger</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/about/">About Swagger</a></li>
+                        <li><a href="https://swagger.io/blog/">Blog</a></li>
+                        <li><a href="https://swagger.io/support/">Support</a></li>
+                        <li><a href="https://swagger.io/blog/news/">News</a></li>
+                        <li><a class="external-link-arrow" href="https://smartbear.com/contact-us/">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Pro Tools</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/tools/swaggerhub/">SwaggerHub</a></li>
+                        <li><a href="https://swagger.io/tools/swagger-inspector/">Swagger Inspector</a></li>
+                        <li><a href="https://swagger.io/tools/swaggerhub/enterprise/">SwaggerHub Enterprise</a></li>
+                        <li><a href="https://swagger.io/open-source-comparison/">SwaggerHub vs OSS</a></li>
+                        <li><a href="https://swagger.io/tools/swaggerhub/integrations/">SwaggerHub Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="h5">Resources</div>
+                    <ul class="pl-0">
+                        <li><a href="https://swagger.io/specification/">OpenAPI Specification</a></li>
+                        <li><a href="https://swagger.io/resources/">Resources</a></li>
+                        <li><a href="https://swagger.io/docs/swagger-tools/">Open Source Docs</a></li>
+                        <li><a href="https://swagger.io/docs/swagger-inspector/">Swagger Inspector Docs</a></li>
+                        <li><a class="external-link-arrow" href="https://app.swaggerhub.com/help/index">SwaggerHub Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xl-9">
+                    <div class="row">
+                        <div class="product-column col-12">
+                            <div class="display-5 product-column-category ab-orange-sm text-white">Explore SmartBear Tools <i class="d-inline d-sm-none fa fa-plus-square"></i></div>
+                            <div class="product-column-content" id="menu-1">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/alertsite/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon as inverse sm"></span>AlertSite</a></li>
+                                            <li><a href="https://smartbear.com/product/aqtime-pro/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon aqt inverse sm"></span>AQTime Pro</a></li>
+                                            <li><a href="https://bitbar.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon bb inverse sm"></span>BitBar</a></li>
+                                            <li><a href="https://www.getzephyr.com/products/capture?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ca inverse sm"></span>Capture for Jira</a></li>
+                                            <li><a href="https://crossbrowsertesting.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon cbt inverse sm"></span>CrossBrowserTesting</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/collaborator/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external"><span class="prod-icon co inverse sm"></span>Collaborator</a></li>
+                                            <li><a href="https://marketplace.atlassian.com/apps/1221264/cucumber-for-jira" target="_blank" rel="noopener noreferrer" class="footer-external"><span class="prod-icon c4j inverse sm"></span>Cucumber for Jira</a></li>
+                                            <li><a href="https://cucumber.io/tools/cucumberstudio/" class="footer-external"><span class="prod-icon c4j inverse sm"></span>CucumberStudio</a></li>
+                                            <li><a href="https://loadninja.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ln inverse sm"></span>LoadNinja</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/loadui/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon lup inverse sm"></span>LoadUI Pro</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://smartbear.com/product/ready-api/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ra inverse sm"></span>ReadyAPI</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/servicev/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon sv inverse sm"></span>ServiceV Pro</a></li>
+                                            <li><a href="https://www.soapui.org/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon su inverse sm"></span>SoapUI</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/soapui/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon sup inverse sm"></span>SoapUI Pro</a></li>
+                                            <li><a href="https://swagger.io/tools/open-source/" target="_blank" rel="noopener noreferrer"><span class="prod-icon sw inverse sm"></span>Swagger</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <ul>
+                                            <li><a href="https://swagger.io/tools/swaggerhub/" target="_blank" rel="noopener noreferrer"><span class="prod-icon swh inverse sm"></span>SwaggerHub</a></li>
+                                            <li><a href="https://smartbear.com/product/testcomplete/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon tc inverse sm"></span>TestComplete</a></li>
+                                            <li><a href="https://smartbear.com/product/ready-api/testengine/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ten inverse sm"></span>TestEngine</a></li>
+                                            <li><a href="https://smartbear.com/product/testleft/overview/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon tl inverse sm"></span>TestLeft</a></li>
+                                            <li><a href="https://www.getzephyr.com/?utm_medium=referral&amp;utm_source=swagger.io&amp;utm_campaign=footer" class="footer-external" target="_blank" rel="noopener noreferrer"><span class="prod-icon ze inverse sm"></span>Zephyr</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side col-12 col-md-12 col-xl-3">
+                    <div class="right-side-container">
+                        <div class="contact-block">
+                            <div class="more-links col-12">
+                                <ul>
+                                    <li><a href="https://smartbear.com/company/about-us/">About Us</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/company/careers/">Careers</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/solutions/">Solutions</a></li><span class="vertical-line"> | </span>
+                                    <li><a href="https://smartbear.com/partners/">Partners</a></li>
+                                </ul>
+                                <hr>
+                            </div>
+                            <div class="contact col-12">
+                                <ul>
+                                    <li><a href="https://smartbear.com/contact-us/" class="text-orange">Contact Us <span class="">
+                                                <!--?xml version="1.0" encoding="utf-8"?-->
+                                                <!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                                                <svg style="width:19px;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24.773 20.137" xml:space="preserve">
+                                                    <style type="text/css">
+                                                        .envelope {
+                                                            fill: none;
+                                                            stroke: #758491;
+                                                            stroke-width: 2;
+                                                            stroke-miterlimit: 10;
+                                                        }
+                                                    </style>
+                                                    <g>
+                                                        <path class="envelope" d="M20.346,19.137H4.428C2.543,19.137,1,17.595,1,15.709V4.428C1,2.543,2.543,1,4.428,1h15.918
+                                    		c1.885,0,3.428,1.543,3.428,3.428v11.282C23.773,17.595,22.231,19.137,20.346,19.137z"></path>
+                                                        <polyline class="envelope" points="1.076,3.862 12.305,12.064 23.7,3.697 	"></polyline>
+                                                        <line class="envelope" x1="23.535" y1="16.248" x2="15.498" y2="10.358"></line>
+                                                        <line class="envelope" x1="1.076" y1="16.303" x2="8.948" y2="10.358"></line>
+                                                    </g>
+                                                </svg>
+                                            </span></a></li><span class="vertical-line"> | </span>
+                                    <li>+1 617-684-2600 <span class="">USA</span></li><span class="vertical-line"> | </span>
+                                    <li>+353 91 398300 <span class="">EUR</span></li><span class="vertical-line"> | </span>
+                                    <li>+61 391929960 <span class="">AUS</span></li><span class="vertical-line"> | </span>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gearbear">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.141 28.719">
+                            <defs>
+                                <style>
+                                    .gb-footer {
+                                        fill: #d2e1e8;
+                                        opacity: .15;
+                                    }
+                                </style>
+                            </defs>
+                            <path id="Path_111" data-name="Path 111" class="gb-footer" d="M29.591,24.318H21.549l-1.442,4.4H31Zm21.549,4.4L46.929,15.744,49.66,7.36,39.531,0,32.4,5.2H18.741L11.609,0,1.48,7.36l2.732,8.384L0,28.719H13.316l-1.024-3.187,13.316-9.674,13.316,9.674L37.9,28.719Z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="bottom-links-container col-md-8">
+                    <span class="copyright">© 2020 SmartBear Software. All Rights Reserved.</span><br>
+                    <div class="bottom-links col-md-12">
+                        <ul>
+                            <li><a href="https://smartbear.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://smartbear.com/terms-of-use/">Terms of Use</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://swagger.io/site-map/">Site Map</a></li><span class="vertical-line"> | </span>
+                            <li><a href="https://smartbear.com/website-terms-of-use/">Website Terms of Use</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="social-links-container col-md-4">
+                    <a href="http://twitter.com/smartbear" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-twitter-square"></i></a>
+                    <a href="http://www.facebook.com/smartbear" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.linkedin.com/company/smartbear/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="http://www.youtube.com/user/SmartBearSoftware" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</footer>
+
+</footer>
+<div class="stick_trigger"></div>
+<div class="modal_overlay_content_wrapper product_login">
+    <div class="modal_close"></div>
+	<div class="product_login_heading">Choose Your Product</div>
+	<div class="product_login_products">
+		<ul>
+			<li><a href="https://app.swaggerhub.com/login">SwaggerHub</a></li>
+			<li><a href="https://inspector.swagger.io/">Swagger Inspector</a></li>
+		</ul>
+	</div>
+	<div class="product_login_signup">
+		<p>Don’t have an account? Sign up here: <a href="https://app.swaggerhub.com/signup?channel=direct">SwaggerHub</a> | <a href="https://inspector.swagger.io/">Swagger Inspector</a></p>
+	</div>
+</div>
+<div class="modal_overlay_content_wrapper product_signup">
+    <div class="modal_close"></div>
+	<div class="product_login_heading">Choose a Product</div>
+	<div class="product_login_products">
+		<ul>
+			<li><a href="https://app.swaggerhub.com/signup?channel=direct">SwaggerHub</a></li>
+			<li><a href="https://inspector.swagger.io/">Swagger Inspector</a></li>
+		</ul>
+	</div>
+	<div class="product_login_signup">
+		<p>Have an account? Sign in here: <a href="https://app.swaggerhub.com/login">SwaggerHub</a> | <a href="https://inspector.swagger.io/">Swagger Inspector</a></p>
+	</div>
+</div>
+<div class="modal_overlay_fill"></div>
+
+
+    
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+WebForm_InitCallback();
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form><script src="./Paths and Operations_files/search.js" async=""></script>
+    
+
+
+
+<div id="searchComponent"><div class="sb-search"><div class="app"><div class="app-input"><i class="far fa-times close-overlay"><div class="close-label">Close</div></i><div class="app-input-wrap"><i class="fal fa-search"></i><input type="text" class="app-input-query" placeholder="Search..." name="search" value=""><div class="clear">Clear</div></div></div><div class="app-view"><div class="app-view-filter"><div class="filters"><div class="locations-filter"><div class="filter-item  disabled"><div class="filter-item-ico Website " data-location="Swagger_Website"></div><div class="filter-item-name" data-location="Swagger_Website">Website<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Documentation " data-location="Swagger_Documentation"></div><div class="filter-item-name" data-location="Swagger_Documentation">Documentation<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Community " data-location="Community"></div><div class="filter-item-name" data-location="Community">Community<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div><div class="filter-item  disabled"><div class="filter-item-ico Blog " data-location="Swagger_Blog"></div><div class="filter-item-name" data-location="Swagger_Blog">Blog<div class="filter-item-name-count">0</div><i class="fas fa-chevron-right"></i></div></div></div><div class="products-filter css-14jk2my-container"><div class=" css-1fhf3k1-control"><div class=" css-1hwfws3"><div class=" css-1wa3eu0-placeholder">Products...</div><div class="css-1g6gooi"><div class="" style="display: inline-block;"><input disabled="" autocapitalize="none" autocomplete="off" autocorrect="off" id="react-select-2-input" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" value="" style="box-sizing: content-box; width: 2px; background: 0px center; border: 0px; font-size: inherit; opacity: 1; outline: 0px; padding: 0px; color: inherit;"><div style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-size: 16px; font-family: &quot;Open Sans&quot;, Arial; font-weight: 400; font-style: normal; letter-spacing: normal; text-transform: none;"></div></div></div></div><div class=" css-1wy0on6"><span class=" css-109onse-indicatorSeparator"></span><div aria-hidden="true" class=" css-tlfecz-indicatorContainer"><svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="css-19bqh2r"><path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg></div></div></div></div></div></div><div class="app-view-result"><div class="results"><div class="app-start"><div class="app-start-message">Start typing to perform a search.</div></div></div></div></div></div><div class="overlay"></div></div></div></body></html>

@@ -95,6 +95,28 @@ import {
   }    
 }`;
 
+  const valueAsyncLessSimple = `{
+  "asyncapi": "2.0.0",
+  "info": {
+    "version": "0.1.9"
+  }, 
+  "servers" : {
+    "prod": {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  },
+  "channels": {
+    "4": {
+      "subscribe": {
+        "summary": "A user signed up.",
+        "message": {
+          "payload": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }    
+}`;
+
   //parser.use(openapi3_1Adapter);
   parser.use(asyncapi2_0Adapter);
   const parseResult = await parser.parse(valueAsyncSimple, {sourceMap: true});

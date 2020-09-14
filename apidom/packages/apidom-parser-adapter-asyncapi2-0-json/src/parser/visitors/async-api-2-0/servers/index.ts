@@ -10,6 +10,8 @@ const ServersVisitor = stampit(PatternedFieldsJsonObjectVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Servers();
+    this.element.classes.push('servers');
+    this.element.attributes.set('docs', 'Servers_AsyncAPI_Initiative.html');
   },
 });
 

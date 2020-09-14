@@ -312,7 +312,7 @@ export async function computeSemanticTokens(content: string) {
                     let modifier = 0;
                     if ("operation" == s) {
                         // check for httpMethod
-                        modifier = TokensLegend.getTokenModifiers(["httpMethod-" + element.getMetaProperty("httpMethod").toValue()]);
+                        modifier = TokensLegend.getTokenModifiers(["httpMethod-" + element.getMetaProperty("httpMethod", 'GET').toValue()]);
                     }
                     const token = [
                         sm.line - lastLine,
@@ -399,7 +399,7 @@ export async function computeHover(document: TextDocument, position: Position) {
         const opEl: ObjectElement = (<MemberElement>node.parent).value;
         if (opEl.classes.toValue().includes('operation')) {
             const sm = getSourceMap(node);
-            const httpMethod = opEl.getMetaProperty("httpMethod").toValue();
+            const httpMethod = opEl.getMetaProperty("httpMethod", 'GET').toValue();
             const path = node.parent.parent.parent.key.toValue();
             // TODO cheat now use specific ns traversion, change to use class/meta providing server url
             //const basePath = 'http://localhost:8082';

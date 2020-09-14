@@ -8,6 +8,8 @@ class ChannelItem extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'channelItem';
+    this.classes.push('pathItem');
+    this.attributes.set('symbols', ['pathItem']);
   }
 
   get $ref(): StringElement {

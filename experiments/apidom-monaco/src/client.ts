@@ -288,6 +288,7 @@ export default ({ monaco, containerId }) => {
   let operationContextCondition = editor.createContextKey(/*key name*/'operationContextCondition', /*default value*/false);
 
   let currentCommand: OperationEx = null;
+  let currentDocs: string = null;
 
   editor.addCommand(monaco.KeyCode.F6, function() {
     if (!currentCommand) {
@@ -312,6 +313,15 @@ export default ({ monaco, containerId }) => {
         });
     }
   }, 'editorLoadedCondition && operationContextCondition');
+
+
+  editor.addCommand(monaco.KeyCode.F2, function() {
+    if (!currentDocs) {
+      window.document.getElementById("if").src='Empty.html';
+    } else {
+      window.document.getElementById("if").src = currentDocs;
+    }
+  }, 'editorLoadedCondition');
 
 
   editor.addCommand(monaco.KeyCode.F5, function() {
@@ -599,18 +609,33 @@ export default ({ monaco, containerId }) => {
                 method:  hover.contents[2],
                 url:  hover.contents[1]
 
+              };
+
+              if (hover && hover.contents && hover.contents[4]) {
+                currentDocs = hover.contents[4];
+              } else {
+                currentDocs = null;
               }
+
               operationContextCondition.set(true);
             } else {
               operationContextCondition.set(false);
+              if (hover && hover.contents && hover.contents[0]) {
+                currentDocs = hover.contents[0];
+              } else {
+                currentDocs = null;
+              }
             }
-            if (hover) {
+            if (hover && hover.contents && hover.contents[0] && hover.contents[0] == 'operation') {
               hover.contents[0] = '**Operation**';
               hover.contents[1] = '_' + hover.contents[2] + '_ ' + hover.contents[1];
               hover.contents[2] = hover.contents[3];
               hover.contents.pop();
+              hover.contents.pop();
             }
-            return p2m.asHover(hover)!;
+            if (hover && hover.range != null) {
+              return p2m.asHover(hover)!;
+            }
           });
     },
   });

@@ -210,8 +210,19 @@ export async function findDocumentSymbols(document: TextDocument, context?: Docu
                     const sm = getSourceMap(e);
                     r = Range.create({line: sm.line, character: sm.column}, {line: sm.endLine, character: sm.endColumn});
                 }
+                // cheat now here for demo
+                if (s == "operation") {
+                    const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+                    si.containerName = e.parent.parent.parent.key.toValue() + ' -> ' + e.parent.key.toValue();
+                    symbols.push(si);
+                } else if (s == "pathItem") {
+                    const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+                    si.containerName = e.parent.key.toValue();
+                    symbols.push(si);
+                } else {
+                    symbols.push(SymbolInformation.create(s, SymbolKind.Property, r));
+                }
 
-                symbols.push(SymbolInformation.create(s, SymbolKind.Property, r));
             }
         })
     })
@@ -409,7 +420,6 @@ export async function computeHover(document: TextDocument, position: Position) {
             } else {
                 basePath = api.servers.toValue()[0].url;
             }
-            console.log("URL", basePath);
             const url = basePath + path;
             let hover = 'curl -X '+ httpMethod + ' ' + url;
             let hoverRange = Range.create(document.positionAt(sm.offset), document.positionAt(sm.offset + sm.length));
@@ -420,7 +430,15 @@ export async function computeHover(document: TextDocument, position: Position) {
         }
         // check if we have some docs
         if (opEl.attributes.get('docs')) {
-            window.document.getElementById("if").src = opEl.attributes.get('docs').toValue();
+            if (result && result.contents) {
+                result.contents.push(opEl.attributes.get('docs').toValue());
+                //window.document.getElementById("if").src = opEl.attributes.get('docs').toValue();
+            } else {
+                result = {
+                    contents: [opEl.attributes.get('docs').toValue()],
+                    range: null
+                };
+            }
         }
     }
     if (result) {

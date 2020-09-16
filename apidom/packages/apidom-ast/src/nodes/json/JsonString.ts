@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { either } from 'ramda';
 
-import Node from '../../Node';
+import JsonNode from './JsonNode';
 import JsonStringContent from './JsonStringContent';
 import JsonEscapeSequence from './JsonEscapeSequence';
 import { isEscapeSequence, isStringContent } from './predicates';
@@ -10,7 +10,7 @@ interface JsonString extends Node {
   value: string;
 }
 
-const JsonString: stampit.Stamp<JsonString> = stampit(Node, {
+const JsonString: stampit.Stamp<JsonString> = stampit(JsonNode, {
   statics: {
     type: 'string',
   },

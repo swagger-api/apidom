@@ -1,4 +1,5 @@
 // JSON AST related exports
+export { default as JsonNode } from './nodes/json/JsonNode';
 export { default as JsonDocument } from './nodes/json/JsonDocument';
 export { default as JsonObject } from './nodes/json/JsonObject';
 export { default as JsonProperty } from './nodes/json/JsonProperty';

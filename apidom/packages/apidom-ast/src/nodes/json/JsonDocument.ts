@@ -1,13 +1,13 @@
 import stampit from 'stampit';
 import { head } from 'ramda';
 
-import Node from '../../Node';
+import JsonNode from './JsonNode';
 
 interface JsonDocument extends Node {
   child: unknown | null;
 }
 
-const JsonDocument: stampit.Stamp<JsonDocument> = stampit(Node, {
+const JsonDocument: stampit.Stamp<JsonDocument> = stampit(JsonNode, {
   statics: {
     type: 'document',
   },

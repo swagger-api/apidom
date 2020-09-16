@@ -1,12 +1,12 @@
 import stampit from 'stampit';
 
-import Node from '../../Node';
+import JsonNode from './JsonNode';
 
-interface JsonValue extends Node {
+interface JsonValue extends JsonNode {
   value: unknown;
 }
 
-const JsonValue: stampit.Stamp<JsonValue> = stampit(Node, {
+const JsonValue: stampit.Stamp<JsonValue> = stampit(JsonNode, {
   statics: {
     type: 'value',
   },

@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { anyPass } from 'ramda';
 
-import Node from '../../Node';
+import JsonNode from './JsonNode';
 import JsonKey from './JsonKey';
 import {
   isArray,
@@ -19,7 +19,7 @@ interface JsonProperty extends Node {
   value: unknown;
 }
 
-const JsonProperty: stampit.Stamp<JsonProperty> = stampit(Node, {
+const JsonProperty: stampit.Stamp<JsonProperty> = stampit(JsonNode, {
   statics: {
     type: 'property',
   },

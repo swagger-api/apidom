@@ -1,11 +1,11 @@
 import stampit from 'stampit';
 
-import Node from '../../Node';
+import JsonNode from './JsonNode';
 import { isProperty } from './predicates';
 
-type JsonObject = Node;
+type JsonObject = JsonNode;
 
-const JsonObject: stampit.Stamp<JsonObject> = stampit(Node, {
+const JsonObject: stampit.Stamp<JsonObject> = stampit(JsonNode, {
   statics: {
     type: 'object',
   },

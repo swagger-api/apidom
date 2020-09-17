@@ -46,3 +46,4 @@ export { default as RequestBodyElement } from './elements/RequestBody';
 export { default as ResponsesElement } from './elements/Responses';
 export { default as CallbackElement } from './elements/Callback';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
+export { default as ResponseElement } from './elements/Response';

@@ -1,17 +1,17 @@
 import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 
-import { isRequestBodyObject, isReferenceObject } from '../../../predicates';
+import { isReferenceObject, isResponseObject } from '../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 
-const RequestBodyVisitor = stampit(AlternatingVisitor, {
+const DefaultVisitor = stampit(AlternatingVisitor, {
   props: {
     alternator: [
-      { predicate: isRequestBodyObject({}), specPath: ['document', 'objects', 'RequestBody'] },
       { predicate: isReferenceObject({}), specPath: ['document', 'objects', 'Reference'] },
+      { predicate: isResponseObject({}), specPath: ['document', 'objects', 'Response'] },
       { predicate: stubTrue, specPath: ['value'] },
     ],
   },
 });
 
-export default RequestBodyVisitor;
+export default DefaultVisitor;

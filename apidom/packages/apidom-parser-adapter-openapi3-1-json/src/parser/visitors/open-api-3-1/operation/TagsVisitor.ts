@@ -1,22 +1,17 @@
 import stampit from 'stampit';
-import { JsonString, isJsonString } from 'apidom-ast';
 
-import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
+import { ValueVisitor } from '../../generics';
 
-const TagsVisitor = stampit(SpecificationVisitor, {
+const TagsVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {
     array(arrayNode) {
-      const tagElements = arrayNode.items
-        .filter(isJsonString)
-        .map((stringNode: JsonString) => this.nodeToElement(['value'], stringNode));
+      // @ts-ignore
+      const result = ValueVisitor.compose.methods.array.call(this, arrayNode);
 
-      const tagsElement = new this.namespace.elements.Array(tagElements);
-      tagsElement.classes.push('tags');
+      this.element.classes.push('tags');
 
-      this.element = this.maybeAddSourceMap(arrayNode, tagsElement);
-
-      return BREAK;
+      return result;
     },
   },
 });

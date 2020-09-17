@@ -1,6 +1,7 @@
 import stampit from 'stampit';
-import JsonBooleanVisitor from '../../generics/JsonBooleanVisitor';
 
-const DeprecatedVisitor = stampit(JsonBooleanVisitor);
+import { ValueVisitor } from '../../generics';
+
+const DeprecatedVisitor = stampit(ValueVisitor);
 
 export default DeprecatedVisitor;

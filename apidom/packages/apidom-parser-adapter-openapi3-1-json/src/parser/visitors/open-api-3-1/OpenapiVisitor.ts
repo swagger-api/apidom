@@ -1,8 +1,10 @@
 import stampit from 'stampit';
 import { BREAK } from 'apidom-ast';
-import SpecificationVisitor from '../SpecificationVisitor';
 
-const OpenapiVisitor = stampit(SpecificationVisitor, {
+import SpecificationVisitor from '../SpecificationVisitor';
+import { ValueVisitor } from '../generics';
+
+const OpenapiVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {
     string(stringNode) {
       const openapiElement = new this.namespace.elements.Openapi(stringNode.value);

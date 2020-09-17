@@ -48,9 +48,11 @@ import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-do
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
+import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
+import ResponseVisitor from './visitors/open-api-3-1/response';
 
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
@@ -217,8 +219,12 @@ const specification = {
         Responses: {
           $visitor: ResponsesVisitor,
           fixedFields: {
-            default: ExternalDocumentationDescriptionVisitor,
+            default: ResponsesDefaultVisitor,
           },
+        },
+        Response: {
+          $visitor: ResponseVisitor,
+          fixedFields: {},
         },
         Callback: {
           $visitor: CallbackVisitor,

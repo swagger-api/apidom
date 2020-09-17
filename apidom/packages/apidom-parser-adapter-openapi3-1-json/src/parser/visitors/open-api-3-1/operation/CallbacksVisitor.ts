@@ -1,15 +1,19 @@
 import stampit from 'stampit';
+import { isJsonObject, JsonNode } from 'apidom-ast';
 
 import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
 import { isReferenceObject } from '../../../predicates';
+import { ValueVisitor } from '../../generics';
 
-const CallbacksVisitor = stampit(MapJsonObjectVisitor, {
+const CallbacksVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
   props: {
-    specPath: (node: any) => {
-      if (isReferenceObject(node)) {
-        return ['document', 'objects', 'Reference'];
-      }
-      return ['document', 'objects', 'Callback'];
+    specPath: (node: JsonNode) => {
+      // eslint-disable-next-line no-nested-ternary
+      return isReferenceObject(node)
+        ? ['document', 'objects', 'Reference']
+        : isJsonObject(node)
+        ? ['document', 'objects', 'Callback']
+        : ['value'];
     },
   },
   init() {

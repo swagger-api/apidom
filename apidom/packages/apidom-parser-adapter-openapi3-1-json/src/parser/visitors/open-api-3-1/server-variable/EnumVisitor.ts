@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 
-import { ArrayVisitor } from '../../generics';
+import { ValueVisitor } from '../../generics';
 
-const EnumVisitor = stampit(ArrayVisitor);
+const EnumVisitor = stampit(ValueVisitor);
 
 export default EnumVisitor;

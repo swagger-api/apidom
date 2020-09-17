@@ -1,16 +1,12 @@
 import stampit from 'stampit';
-import { isJsonString } from 'apidom-ast';
+import { always } from 'ramda';
 
 import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
+import { ValueVisitor } from '../../generics';
 
-const VariablesVisitor = stampit(MapJsonObjectVisitor, {
+const VariablesVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
   props: {
-    specPath: (node: any) => {
-      if (isJsonString(node)) {
-        return ['value'];
-      }
-      return ['document', 'objects', 'ServerVariable'];
-    },
+    specPath: always(['document', 'objects', 'ServerVariable']),
   },
   init() {
     this.element = new this.namespace.elements.Object();

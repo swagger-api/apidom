@@ -1,12 +1,13 @@
 import stampit from 'stampit';
-import { appendMetadata } from '../../../metadata';
-import JsonStringVisitor from '../../generics/JsonStringVisitor';
 
-const VersionVisitor = stampit(JsonStringVisitor, {
+import { appendMetadata } from '../../../metadata';
+import { ValueVisitor } from '../../generics';
+
+const VersionVisitor = stampit(ValueVisitor, {
   methods: {
     string(stringNode) {
       // @ts-ignore
-      const result = JsonStringVisitor.compose.methods.string.call(this, stringNode);
+      const result = ValueVisitor.compose.methods.string.call(this, stringNode);
 
       appendMetadata(['version'], this.element);
 

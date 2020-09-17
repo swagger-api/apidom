@@ -1,22 +1,29 @@
 import stampit from 'stampit';
-import { JsonObject } from 'apidom-ast';
+import { JsonNode } from 'apidom-ast';
+
 import { BREAK } from '..';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isServerObject } from '../../predicates';
+import { ValueVisitor } from '../generics';
 
-const ServersVisitor = stampit(SpecificationVisitor, {
+const ServersVisitor = stampit(ValueVisitor, SpecificationVisitor, {
+  init() {
+    this.element = new this.namespace.elements.Array();
+    this.element.classes.push('servers');
+  },
   methods: {
     array(arrayNode) {
-      const serverElements = arrayNode.items
-        .filter(isServerObject({}))
-        .map((objectNode: JsonObject) =>
-          this.nodeToElement(['document', 'objects', 'Server'], objectNode),
-        );
+      arrayNode.items.forEach((item: JsonNode) => {
+        if (isServerObject({}, item)) {
+          const element = this.nodeToElement(['document', 'objects', 'Server'], item);
+          this.element.push(element);
+        } else {
+          const element = this.nodeToElement(['value'], item);
+          this.element.push(element);
+        }
+      });
 
-      const serversElement = new this.namespace.elements.Array(serverElements);
-      serversElement.classes.push('servers');
-
-      this.element = this.maybeAddSourceMap(arrayNode, serversElement);
+      this.maybeAddSourceMap(arrayNode, this.element);
 
       return BREAK;
     },

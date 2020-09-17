@@ -18,6 +18,7 @@ import RequestBody from './elements/RequestBody';
 import Responses from './elements/Responses';
 import Callback from './elements/Callback';
 import SecurityRequirement from './elements/SecurityRequirement';
+import Response from './elements/Response';
 
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -42,6 +43,7 @@ const openApi3_1 = {
     base.register('responses', Responses);
     base.register('callback', Callback);
     base.register('securityRequirement', SecurityRequirement);
+    base.register('response', Response);
 
     return base;
   },

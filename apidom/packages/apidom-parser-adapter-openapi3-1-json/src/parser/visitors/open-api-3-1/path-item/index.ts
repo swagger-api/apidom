@@ -4,8 +4,9 @@ import { always } from 'ramda';
 import { isOperationElement, OperationElement } from 'apidom-ns-openapi3-1';
 
 import FixedFieldsJsonObjectVisitor from '../../generics/FixedFieldsJsonObjectVisitor';
+import { ValueVisitor } from '../../generics';
 
-const PathItemVisitor = stampit(FixedFieldsJsonObjectVisitor, {
+const PathItemVisitor = stampit(ValueVisitor, FixedFieldsJsonObjectVisitor, {
   props: {
     specPath: always(['document', 'objects', 'PathItem']),
   },

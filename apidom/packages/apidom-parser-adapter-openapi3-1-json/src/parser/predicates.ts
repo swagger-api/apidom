@@ -44,6 +44,14 @@ export const isReferenceObject = curry((options, node) => {
   return hasKeys(['$ref'], node.properties);
 });
 
+// isResponseObject :: Options -> JsonObject -> Boolean
+export const isResponseObject = curry((options, node) => {
+  if (!isJsonObject(node)) {
+    return false;
+  }
+  return hasKeys(['description'], node.properties);
+});
+
 // isServerObject :: Options -> JsonObject -> Boolean
 export const isServerObject = curry((options, node) => {
   if (!isJsonObject(node)) {

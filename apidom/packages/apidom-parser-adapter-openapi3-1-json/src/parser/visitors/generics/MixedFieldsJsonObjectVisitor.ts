@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { noop } from 'ramda-adjunct';
 
 import { BREAK } from '..';
 import FixedFieldsJsonObjectVisitor from './FixedFieldsJsonObjectVisitor';
@@ -8,12 +9,26 @@ const MixedFieldsJsonObjectVisitor = stampit(
   FixedFieldsJsonObjectVisitor,
   PatternedFieldsJsonObjectVisitor,
   {
+    props: {
+      specPathFixedFields: noop,
+      specPathPatternedFields: noop,
+    },
     methods: {
       object(objectNode) {
-        // @ts-ignore
-        FixedFieldsJsonObjectVisitor.compose.methods.object.call(this, objectNode);
-        // @ts-ignore
-        PatternedFieldsJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+        const { specPath } = this;
+
+        try {
+          this.specPath = this.specPathFixedFields;
+          // @ts-ignore
+          FixedFieldsJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+
+          this.specPath = this.specPathPatternedFields;
+          // @ts-ignore
+          PatternedFieldsJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+        } catch (e) {
+          this.specPath = specPath;
+          throw e;
+        }
 
         return BREAK;
       },

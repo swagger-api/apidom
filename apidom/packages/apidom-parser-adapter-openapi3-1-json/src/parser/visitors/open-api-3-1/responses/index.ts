@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { test } from 'ramda';
-import { isJsonObject, JsonNode } from 'apidom-ast';
+import { test, always } from 'ramda';
+import { JsonNode } from 'apidom-ast';
 
 import { isReferenceObject, isResponseObject } from '../../../predicates';
 import MixedFieldsJsonObjectVisitor from '../../generics/MixedFieldsJsonObjectVisitor';
@@ -8,14 +8,13 @@ import { ValueVisitor } from '../../generics';
 
 const ResponsesVisitor = stampit(ValueVisitor, MixedFieldsJsonObjectVisitor, {
   props: {
-    specPath: (node: JsonNode) => {
+    specPathFixedFields: always(['document', 'objects', 'Responses']),
+    specPathPatternedFields: (node: JsonNode) => {
       /* eslint-disable no-nested-ternary */
       return isReferenceObject({}, node)
         ? ['document', 'objects', 'Reference']
         : isResponseObject({}, node)
         ? ['document', 'objects', 'Response']
-        : isJsonObject(node)
-        ? ['document', 'objects', 'Responses']
         : ['value'];
       /* eslint-enable */
     },

@@ -27,6 +27,7 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       const specPath = this.specPath(objectNode);
       const fields = this.retrieveFixedFields(specPath);
+      const { MemberElement } = this.namespace.elements.Element.prototype;
 
       objectNode.properties.forEach((propertyNode: any) => {
         const keyName = propertyNode.key.value;
@@ -38,9 +39,8 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
             propertyNode.key.value,
           ]);
           const keyElement = new this.namespace.elements.String(keyName);
-          const { MemberElement } = this.namespace.elements.Element.prototype;
 
-          visit(propertyNode, visitor);
+          visit(propertyNode.value, visitor);
 
           const memberElement = this.maybeAddSourceMap(
             propertyNode,
@@ -49,12 +49,23 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
               visitor.element,
             ),
           );
+          memberElement.classes.push('fixedField');
 
           this.element.content.push(memberElement);
         } else if (this.canSupportSpecificationExtensions && isOpenApiExtension({}, propertyNode)) {
           const visitor = this.retrieveVisitorInstance(['document', 'extension']);
           visit(propertyNode, visitor);
           this.element.content.push(visitor.element);
+        } else if (!this.ignoredFields.includes(keyName)) {
+          const keyElement = new this.namespace.elements.String(keyName);
+          const memberElement = this.maybeAddSourceMap(
+            propertyNode,
+            new MemberElement(
+              this.maybeAddSourceMap(propertyNode.key, keyElement),
+              this.nodeToElement(['value'], propertyNode.value),
+            ),
+          );
+          this.element.content.push(memberElement);
         }
       });
 

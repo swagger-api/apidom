@@ -29,6 +29,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
     object(objectNode) {
       objectNode.properties.forEach((propertyNode: any) => {
         const keyName = propertyNode.key.value;
+        const { MemberElement } = this.namespace.elements.Element.prototype;
 
         if (this.canSupportSpecificationExtensions && isOpenApiExtension({}, propertyNode)) {
           const visitor = this.retrieveVisitorInstance(['document', 'extension']);
@@ -38,7 +39,6 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           const specPath = this.specPath(propertyNode.value);
           const visitor = this.retrieveVisitorInstance(specPath);
           const keyElement = new this.namespace.elements.String(keyName);
-          const { MemberElement } = this.namespace.elements.Element.prototype;
 
           visit(propertyNode, visitor);
 
@@ -49,7 +49,18 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
               visitor.element,
             ),
           );
+          memberElement.classes.push('patternedField');
 
+          this.element.content.push(memberElement);
+        } else if (!this.ignoredFields.includes(keyName)) {
+          const keyElement = new this.namespace.elements.String(keyName);
+          const memberElement = this.maybeAddSourceMap(
+            propertyNode,
+            new MemberElement(
+              this.maybeAddSourceMap(propertyNode.key, keyElement),
+              this.nodeToElement(['value'], propertyNode.value),
+            ),
+          );
           this.element.content.push(memberElement);
         }
       });

@@ -1,8 +1,10 @@
 import stampit from 'stampit';
+
 import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
+import { ValueVisitor } from '../../generics';
 
-const SchemaVisitor = stampit(SpecificationVisitor, {
+const SchemaVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {
     object(objectNode) {
       const objectElement = this.nodeToElement(['object'], objectNode);

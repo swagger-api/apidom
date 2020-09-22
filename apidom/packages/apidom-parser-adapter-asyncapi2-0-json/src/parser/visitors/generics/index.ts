@@ -204,13 +204,13 @@ export const ValueVisitor = stampit(SpecificationVisitor, {
     },
 
     true(trueNode: JsonTrue) {
-      const booleanElement = new this.namespace.elements.Boolean(trueNode.value);
+      const booleanElement = new this.namespace.elements.Boolean(true);
       this.element = this.maybeAddSourceMap(trueNode, booleanElement);
       return BREAK;
     },
 
     false(falseNode: JsonFalse) {
-      const booleanElement = new this.namespace.elements.Boolean(falseNode.value);
+      const booleanElement = new this.namespace.elements.Boolean(false);
       this.element = this.maybeAddSourceMap(falseNode, booleanElement);
       return BREAK;
     },

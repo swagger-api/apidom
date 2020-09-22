@@ -1,4 +1,6 @@
 import stampit from 'stampit';
+import { isJsonObject } from 'apidom-ast';
+
 import { visit } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
 
@@ -13,9 +15,13 @@ const DocumentVisitor = stampit(SpecificationVisitor, {
     },
 
     document(documentNode) {
-      const openApiVisitor = this.retrieveVisitorInstance(['document', 'objects', 'AsyncApi']);
-      visit(documentNode.child, openApiVisitor);
-      this.element.content.push(openApiVisitor.element);
+      const specPath = isJsonObject(documentNode.child)
+        ? ['document', 'objects', 'AsyncApi']
+        : ['value'];
+
+      const visitor = this.retrieveVisitorInstance(specPath);
+      visit(documentNode.child, visitor);
+      this.element.content.push(visitor.element);
     },
 
     error(errorNode) {

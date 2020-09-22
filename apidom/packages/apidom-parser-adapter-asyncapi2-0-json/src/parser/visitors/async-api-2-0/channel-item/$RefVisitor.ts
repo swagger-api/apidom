@@ -2,8 +2,9 @@ import stampit from 'stampit';
 
 import SpecificationVisitor from '../../SpecificationVisitor';
 import { BREAK } from '../..';
+import { ValueVisitor } from '../../generics';
 
-const $RefVisitor = stampit(SpecificationVisitor, {
+const $RefVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {
     string(stringNode) {
       const refElement = new this.namespace.elements.Ref(stringNode.value);

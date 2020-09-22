@@ -1,22 +1,27 @@
 import stampit from 'stampit';
-import { JsonObject, isJsonObject } from 'apidom-ast';
+import { isJsonObject, JsonNode } from 'apidom-ast';
 
 import { BREAK } from '../..';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
 const SecurityVisitor = stampit(SpecificationVisitor, {
+  init() {
+    this.element = new this.namespace.elements.Array();
+    this.element.classes.push('security');
+  },
   methods: {
     array(arrayNode) {
-      const securityRequirementElements = arrayNode.items
-        .filter(isJsonObject)
-        .map((objectNode: JsonObject) =>
-          this.nodeToElement(['document', 'objects', 'SecurityRequirement'], objectNode),
-        );
+      arrayNode.items.forEach((item: JsonNode) => {
+        if (isJsonObject(item)) {
+          const element = this.nodeToElement(['document', 'objects', 'SecurityRequirement'], item);
+          this.element.push(element);
+        } else {
+          const element = this.nodeToElement(['value'], item);
+          this.element.push(element);
+        }
+      });
 
-      const securitiesElement = new this.namespace.elements.Array(securityRequirementElements);
-      securitiesElement.classes.push('security');
-
-      this.element = this.maybeAddSourceMap(arrayNode, securitiesElement);
+      this.maybeAddSourceMap(arrayNode, this.element);
 
       return BREAK;
     },

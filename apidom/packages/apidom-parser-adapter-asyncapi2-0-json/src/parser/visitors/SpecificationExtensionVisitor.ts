@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ValueVisitor } from './generics';
+
 import SpecificationVisitor from './SpecificationVisitor';
 import { isAsyncApiExtension } from '../predicates';
 import { BREAK, visit } from '.';
@@ -10,7 +10,7 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
       const keyElement = new this.namespace.elements.String(propertyNode.key.value);
       const { MemberElement } = this.namespace.elements.Element.prototype;
       const state = { namespace: this.namespace, sourceMap: this.sourceMap, specObj: this.specObj };
-      const valueVisitor = ValueVisitor();
+      const valueVisitor = this.retrieveVisitorInstance(['value']);
 
       // @ts-ignore
       visit(propertyNode.value, valueVisitor, { state });

@@ -1,6 +1,7 @@
 import stampit from 'stampit';
-import JsonStringVisitor from '../../generics/JsonStringVisitor';
 
-const NameVisitor = stampit(JsonStringVisitor);
+import { ValueVisitor } from '../../generics';
+
+const NameVisitor = stampit(ValueVisitor);
 
 export default NameVisitor;

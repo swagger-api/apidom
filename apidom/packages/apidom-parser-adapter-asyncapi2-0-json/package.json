@@ -12,7 +12,7 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions '.ts' --root-mode 'upward'",
     "build:umd:browser": "npm run build:wasm && cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
-    "build:wasm": "node ./scripts/file-exists.js tree-sitter-json.wasm && exit 0 || tree-sitter build-wasm ../../node_modules/tree-sitter-json",
+    "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-json/tree-sitter-json.wasm && exit 0 || cd ../../node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./lib ./dist tree-sitter-json.wasm",
@@ -33,7 +33,7 @@
     "stampit": "=4.3.1",
     "tree-sitter": "=0.16.2",
     "tree-sitter-json": "=0.16.0",
-    "web-tree-sitter": "=0.16.4"
+    "web-tree-sitter": "=0.16.2"
   },
   "devDependencies": {
     "tree-sitter-cli": "=0.16.9"

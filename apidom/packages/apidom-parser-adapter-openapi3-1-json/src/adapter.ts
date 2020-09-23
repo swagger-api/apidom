@@ -1,7 +1,6 @@
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',
   'application/vnd.oai.openapi+json;version=3.1.0',
-  'application/vnd.oai.openapi+yaml;version=3.1.0',
 ];
 
 export const detect = (source: string): boolean =>

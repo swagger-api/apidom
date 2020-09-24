@@ -31,11 +31,11 @@
     "ramda": "=0.27.0",
     "ramda-adjunct": "=2.27.0",
     "stampit": "=4.3.1",
-    "tree-sitter": "=0.16.2",
+    "tree-sitter": "=0.17.0",
     "tree-sitter-json": "=0.16.0",
-    "web-tree-sitter": "=0.16.2"
+    "web-tree-sitter": "=0.17.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.16.9"
+    "tree-sitter-cli": "=0.17.0"
   }
 }

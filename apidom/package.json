@@ -9,12 +9,12 @@
   },
   "comments": {
     "scripts": {
-      "prebuild": "We build WASM here once and copy into specific packages to avoid multiple WASM build"
+      "prebuild": "We build WASM directly inside node_modules"
     }
   },
   "scripts": {
     "postinstall": "npm run link-parent-bin",
-    "prebuild": "tree-sitter build-wasm ./node_modules/tree-sitter-json && copyfiles tree-sitter-json.wasm packages/apidom-parser-adapter-asyncapi2-0-json && copyfiles tree-sitter-json.wasm packages/apidom-parser-adapter-openapi3-1-json",
+    "prebuild": "cd ./node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm && cd ../tree-sitter-yaml && cross-env BABEL_ENV=commonjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint",
@@ -76,7 +76,7 @@
     "regenerator-runtime": "=0.13.5",
     "rimraf": "=3.0.2",
     "terser-webpack-plugin": "=3.0.2",
-    "tree-sitter-cli": "=0.16.9",
+    "tree-sitter-cli": "=0.17.0",
     "typescript": "=3.9.3",
     "webpack": "=4.43.0",
     "webpack-cli": "=3.3.11"
@@ -88,6 +88,7 @@
     "apidom-ns-openapi3-1": "file:packages/apidom-ns-openapi3-1",
     "apidom-parser": "file:packages/apidom-parser",
     "apidom-parser-adapter-asyncapi2-0-json": "file:packages/apidom-parser-adapter-asyncapi2-0-json",
-    "apidom-parser-adapter-openapi3-1-json": "file:packages/apidom-parser-adapter-openapi3-1-json"
+    "apidom-parser-adapter-openapi3-1-json": "file:packages/apidom-parser-adapter-openapi3-1-json",
+    "apidom-parser-adapter-openapi3-1-yaml": "file:packages/apidom-parser-adapter-openapi3-1-yaml"
   }
 }

@@ -1,5 +1,4 @@
 node_modules/
 /lerna-debug.log
-/tree-sitter-json.wasm
 .idea/
 *.iml

@@ -5,16 +5,20 @@
         <script src="./apidom.browser.js"></script>
         <script src="./apidom-parser.browser.js"></script>
         <script src="./apidom-parser-adapter-openapi3-1-json.browser.js"></script>
+        <script src="./apidom-parser-adapter-openapi3-1-yaml.browser.js"></script>
         <script>
             (async () => {
                 const { default: ApiDomParser } = apidomParser;
                 const parser = ApiDomParser();
 
-                parser.use(apidomParserAdapterOpenApi3_1);
-                const parseResult = await parser.parse('{"openapi": "3.1.0"}');
-                const spec = apidom.toValue(parseResult.api);
+                parser.use(apidomParserAdapterOpenApi3_1Json);
+                parser.use(apidomParserAdapterOpenApi3_1Yaml);
 
-                console.dir(spec);
+                const jsonParseResult = await parser.parse('{"openapi": "3.1.0"}', { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0'});
+                console.dir(jsonParseResult);
+
+                const yamlParseResult = await parser.parse('openapi: 3.1.0', { mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0'});
+                console.dir(yamlParseResult);
             })();
         </script>
     </head>

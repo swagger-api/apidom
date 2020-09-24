@@ -2,10 +2,10 @@ import './index-browser-patch';
 
 import Parser from 'web-tree-sitter';
 import * as apiDOM from 'apidom';
+// @ts-ignore
+import treeSitterJson from 'tree-sitter-json/tree-sitter-json.wasm';
 
 import parse from '.';
-// @ts-ignore
-import treeSitterJson from '../../tree-sitter-json.wasm';
 
 export { namespace } from './index';
 

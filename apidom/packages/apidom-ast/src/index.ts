@@ -26,6 +26,30 @@ export {
   isString as isJsonString,
   isTrue as isJsonTrue,
 } from './nodes/json/predicates';
+// YAML AST related exports
+export { default as YamlAlias } from './nodes/yaml/YamlAlias';
+export { default as YamlCollection } from './nodes/yaml/YamlCollection';
+export { default as YamlComment } from './nodes/yaml/YamlComment';
+export { default as YamlDirective } from './nodes/yaml/YamlDirective';
+export { default as YamlDocument } from './nodes/yaml/YamlDocument';
+export { default as YamlKeyValuePair } from './nodes/yaml/YamlKeyValuePair';
+export { default as YamlMapping } from './nodes/yaml/YamlMapping';
+export { default as YamlNode } from './nodes/yaml/YamlNode';
+export { default as YamlScalar } from './nodes/yaml/YamlScalar';
+export { default as YamlSequence } from './nodes/yaml/YamlSequence';
+export { default as YamlStream } from './nodes/yaml/YamlStream';
+export { default as YamlTag } from './nodes/yaml/YamlTag';
+export {
+  isAlias as isYamlAlias,
+  isKeyValuePair as isYamlKeyValuePair,
+  isDirective as isYamlDirective,
+  isDocument as isYamlDocument,
+  isMapping as isYamlMapping,
+  isScalar as isYamlScalar,
+  isSequence as isYamlSequence,
+  isStream as isYamlStream,
+  isTag as isYamlTag,
+} from './nodes/yaml/predicates';
 // generic AST related exports
 export { default as Literal } from './Literal';
 export { Point, default as Position } from './Position';

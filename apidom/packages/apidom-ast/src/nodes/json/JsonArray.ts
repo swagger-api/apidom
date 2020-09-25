@@ -4,7 +4,7 @@ import { anyPass } from 'ramda';
 import JsonNode from './JsonNode';
 import { isFalse, isTrue, isNull, isNumber, isString, isArray, isObject } from './predicates';
 
-type JsonArray = Node;
+type JsonArray = JsonNode;
 
 const JsonArray: stampit.Stamp<JsonArray> = stampit(JsonNode, {
   statics: {

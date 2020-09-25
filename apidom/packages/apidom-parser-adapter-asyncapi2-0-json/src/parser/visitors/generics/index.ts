@@ -216,7 +216,7 @@ export const ValueVisitor = stampit(SpecificationVisitor, {
     },
 
     null(nullNode: JsonNull) {
-      const nullElement = new this.namespace.elements.Null(nullNode.value);
+      const nullElement = new this.namespace.elements.Null();
       this.element = this.maybeAddSourceMap(nullNode, nullElement);
       return BREAK;
     },

@@ -3,7 +3,7 @@ import { head } from 'ramda';
 
 import JsonNode from './JsonNode';
 
-interface JsonDocument extends Node {
+interface JsonDocument extends JsonNode {
   child: unknown | null;
 }
 

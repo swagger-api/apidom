@@ -14,7 +14,7 @@ import {
   isTrue,
 } from './predicates';
 
-interface JsonProperty extends Node {
+interface JsonProperty extends JsonNode {
   key: JsonKey;
   value: unknown;
 }

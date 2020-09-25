@@ -6,7 +6,7 @@ import JsonStringContent from './JsonStringContent';
 import JsonEscapeSequence from './JsonEscapeSequence';
 import { isEscapeSequence, isStringContent } from './predicates';
 
-interface JsonString extends Node {
+interface JsonString extends JsonNode {
   value: string;
 }
 

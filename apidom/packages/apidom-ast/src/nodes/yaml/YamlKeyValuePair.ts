@@ -1,11 +1,12 @@
 import stampit from 'stampit';
-import YamlNode from './YamlNode';
 
-interface YamlKeyValuePair extends YamlNode {
+import Node from '../../Node';
+
+interface YamlKeyValuePair extends Node {
   type: 'keyValuePair';
 }
 
-const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(YamlNode, {
+const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, {
   statics: {
     type: 'keyValuePair',
   },

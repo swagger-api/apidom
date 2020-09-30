@@ -37,10 +37,10 @@ export const getVisitFn = (visitor, type: string, isLeaving: boolean) => {
 export const BREAK = {};
 
 // getNodeType :: Node -> String
-const getNodeType = prop('type');
+export const getNodeType = prop('type');
 
 // isNode :: Node -> Boolean
-const isNode = curryN(1, pipe(getNodeType, isString));
+export const isNode = curryN(1, pipe(getNodeType, isString));
 
 /* eslint-disable no-continue, no-nested-ternary, no-param-reassign */
 /**

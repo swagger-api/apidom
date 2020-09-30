@@ -1,12 +1,14 @@
 import stampit from 'stampit';
 
 import Node from '../../Node';
+import YamlTag from './YamlTag';
+import YamlAnchor from './YamlAnchor';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle';
 
 interface YamlNode extends Node {
   content: unknown | null;
-  anchor: unknown | null;
-  tag: unknown | null;
+  anchor: YamlAnchor | null;
+  tag: YamlTag | null;
   style: YamlStyle;
   styleGroup: YamlStyleGroup;
 }

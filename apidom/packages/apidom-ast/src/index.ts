@@ -39,6 +39,7 @@ export { default as YamlScalar } from './nodes/yaml/YamlScalar';
 export { default as YamlSequence } from './nodes/yaml/YamlSequence';
 export { default as YamlStream } from './nodes/yaml/YamlStream';
 export { default as YamlTag } from './nodes/yaml/YamlTag';
+export { default as YamlAnchor } from './nodes/yaml/YamlAnchor';
 export {
   isAlias as isYamlAlias,
   isKeyValuePair as isYamlKeyValuePair,
@@ -57,8 +58,13 @@ export { default as Error } from './Error';
 export { default as ParseResult } from './ParseResult';
 // AST traversal related exports
 export { getVisitFn, BREAK, visit } from './visitor';
-// CST/AST transformers related exports
+// JSON CST/AST transformers related exports
 export {
   transform as transformTreeSitterJsonCST,
   keyMap as treeSitterJsonKeyMap,
 } from './transformers/tree-sitter-json';
+// YAML CST/AST transformers related exports
+export {
+  transform as transformTreeSitterYamlCST,
+  keyMap as treeSitterYamlKeyMap,
+} from './transformers/tree-sitter-yaml';

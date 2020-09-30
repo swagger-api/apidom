@@ -1,3 +1,4 @@
+// @ts-ignore
 import Parser from 'tree-sitter';
 import { assert } from 'chai';
 // @ts-ignore

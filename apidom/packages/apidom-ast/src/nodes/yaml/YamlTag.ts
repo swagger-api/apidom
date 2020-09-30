@@ -2,13 +2,13 @@ import stampit from 'stampit';
 
 import Node from '../../Node';
 
-enum YamlNodeKind {
+export enum YamlNodeKind {
   Scalar = 'Scalar',
   Sequence = 'Sequence',
   Mapping = 'Mapping',
 }
 
-interface YamlTag {
+interface YamlTag extends Node {
   type: 'tag';
   name: string | null;
   kind: YamlNodeKind | null;

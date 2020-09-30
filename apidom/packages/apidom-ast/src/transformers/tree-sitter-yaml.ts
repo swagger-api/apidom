@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { either, flatten, lensProp, over } from 'ramda';
-import { isArray, isFunction, isFalse } from 'ramda-adjunct';
+import { isArray, isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
 import YamlStream from '../nodes/yaml/YamlStream';
@@ -11,6 +11,7 @@ import YamlKeyValuePair from '../nodes/yaml/YamlKeyValuePair';
 import YamlTag, { YamlNodeKind } from '../nodes/yaml/YamlTag';
 import YamlAnchor from '../nodes/yaml/YamlAnchor';
 import YamlScalar from '../nodes/yaml/YamlScalar';
+import YamlComment from '../nodes/yaml/YamlComment';
 import { YamlStyle, YamlStyleGroup } from '../nodes/yaml/YamlStyle';
 import ParseResult from '../ParseResult';
 import Position, { Point } from '../Position';
@@ -185,6 +186,38 @@ const Visitor = stampit({
         return YamlKeyValuePair({
           children: node.children,
           position,
+          styleGroup: YamlStyleGroup.Block,
+          isMissing: node.isMissing(),
+        });
+      },
+    };
+
+    this.flow_mapping = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tag = toTag(node);
+        const anchor = toAnchor(node);
+
+        return YamlMapping({
+          children: node.children,
+          position,
+          anchor,
+          tag,
+          styleGroup: YamlStyleGroup.Flow,
+          style: YamlStyle.Explicit,
+          isMissing: node.isMissing(),
+        });
+      },
+    };
+
+    this.flow_pair = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+
+        return YamlKeyValuePair({
+          children: node.children,
+          position,
+          styleGroup: YamlStyleGroup.Flow,
           isMissing: node.isMissing(),
         });
       },
@@ -193,6 +226,29 @@ const Visitor = stampit({
     this.keyValuePair = {
       leave(node: YamlKeyValuePair) {
         return flattenChildren(node);
+      },
+    };
+
+    this.block_sequence = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tag = toTag(node);
+        const anchor = toAnchor(node);
+
+        return YamlSequence({
+          children: node.children,
+          position,
+          anchor,
+          tag,
+          styleGroup: YamlStyleGroup.Block,
+          style: YamlStyle.NextLine,
+        });
+      },
+    };
+
+    this.block_sequence_item = {
+      enter(node: SyntaxNode) {
+        return node.children;
       },
     };
 
@@ -233,6 +289,69 @@ const Visitor = stampit({
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.Plain,
         });
+      },
+    };
+
+    this.single_quote_scalar = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tag = toTag(node);
+        const anchor = toAnchor(node);
+
+        return YamlScalar({
+          content: node.text,
+          anchor,
+          tag,
+          position,
+          styleGroup: YamlStyleGroup.Flow,
+          style: YamlStyle.SingleQuoted,
+        });
+      },
+    };
+
+    this.double_quote_scalar = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tag = toTag(node);
+        const anchor = toAnchor(node);
+
+        return YamlScalar({
+          content: node.text,
+          anchor,
+          tag,
+          position,
+          styleGroup: YamlStyleGroup.Flow,
+          style: YamlStyle.DoubleQuoted,
+        });
+      },
+    };
+
+    this.block_scalar = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tag = toTag(node);
+        const anchor = toAnchor(node);
+        // eslint-disable-next-line no-nested-ternary
+        const style = node.text.startsWith('|')
+          ? YamlStyle.Literal
+          : node.text.startsWith('>')
+          ? YamlStyle.Folded
+          : null;
+
+        return YamlScalar({
+          content: node.text,
+          anchor,
+          tag,
+          position,
+          styleGroup: YamlStyleGroup.Block,
+          style,
+        });
+      },
+    };
+
+    this.comment = {
+      enter(node: SyntaxNode) {
+        return YamlComment({ content: node.text });
       },
     };
   },

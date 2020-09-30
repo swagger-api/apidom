@@ -17,3 +17,5 @@ export const isScalar = isNodeType('scalar');
 export const isAlias = isNodeType('alias');
 
 export const isDirective = isNodeType('directive');
+
+export const isComment = isNodeType('comment');

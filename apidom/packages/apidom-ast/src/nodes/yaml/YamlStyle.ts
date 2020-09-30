@@ -1,3 +1,5 @@
+import stampit from 'stampit';
+
 export enum YamlStyle {
   Plain = 'Plain',
   SingleQuoted = 'SingleQuoted',
@@ -14,3 +16,17 @@ export enum YamlStyleGroup {
   Flow = 'Flow',
   Block = 'Block',
 }
+
+interface YamlStyleModel {
+  styleGroup: YamlStyleGroup | null;
+  style: YamlStyle | null;
+}
+
+const YamlStyleModel: stampit.Stamp<YamlStyleModel> = stampit({
+  props: {
+    styleGroup: null,
+    style: null,
+  },
+});
+
+export default YamlStyleModel;

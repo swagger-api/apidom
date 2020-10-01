@@ -17,6 +17,7 @@ import { YamlStyle, YamlStyleGroup } from '../nodes/yaml/YamlStyle';
 import ParseResult from '../ParseResult';
 import Position, { Point } from '../Position';
 import Literal from '../Literal';
+import Error from '../Error';
 import { isNode, visit } from '../visitor';
 
 export const keyMap = {
@@ -25,6 +26,7 @@ export const keyMap = {
   mapping: ['children'],
   keyValuePair: ['children'],
   sequence: ['children'],
+  error: ['children'],
 };
 
 const Visitor = stampit({
@@ -404,6 +406,18 @@ const Visitor = stampit({
       enter(node: SyntaxNode) {
         return YamlComment({ content: node.text });
       },
+    };
+
+    this.ERROR = function ERROR(node: SyntaxNode) {
+      const position = toPosition(node);
+
+      return Error({
+        children: node.children,
+        position,
+        isUnexpected: !node.hasError(),
+        isMissing: node.isMissing(),
+        value: node.text,
+      });
     };
   },
 });

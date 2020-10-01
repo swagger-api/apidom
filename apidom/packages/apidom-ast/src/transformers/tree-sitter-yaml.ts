@@ -1,8 +1,9 @@
 import stampit from 'stampit';
-import { either, flatten, lensProp, over } from 'ramda';
+import { either, flatten, lensProp, over, propOr, pathOr } from 'ramda';
 import { isArray, isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
+import YamlDirective from '../nodes/yaml/YamlDirective';
 import YamlStream from '../nodes/yaml/YamlStream';
 import YamlDocument from '../nodes/yaml/YamlDocument';
 import YamlSequence from '../nodes/yaml/YamlSequence';
@@ -118,6 +119,56 @@ const Visitor = stampit({
           children: node.children,
           position,
           isMissing: node.isMissing(),
+        });
+      },
+    };
+
+    this.yaml_directive = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const version = pathOr(null, ['firstNamedChild', 'text'], node);
+
+        return YamlDirective({
+          position,
+          name: '%YAML',
+          parameters: {
+            version,
+          },
+        });
+      },
+    };
+
+    this.tag_directive = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const tagHandleNode = node.child(0);
+        const tagPrefixNode = node.child(1);
+
+        return YamlDirective({
+          position,
+          name: '%TAG',
+          parameters: {
+            handle: propOr(null, 'text', tagHandleNode),
+            prefix: propOr(null, 'text', tagPrefixNode),
+          },
+        });
+      },
+    };
+
+    this.reserved_directive = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
+        const directiveNameNode = node.child(0);
+        const directiveParameter1Node = node.child(1);
+        const directiveParameter2Node = node.child(2);
+
+        return YamlDirective({
+          position,
+          name: propOr(null, 'text', directiveNameNode),
+          parameters: {
+            handle: propOr(null, 'text', directiveParameter1Node),
+            prefix: propOr(null, 'text', directiveParameter2Node),
+          },
         });
       },
     };

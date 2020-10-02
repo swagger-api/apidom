@@ -5,7 +5,7 @@ import SpecificationVisitor from './SpecificationVisitor';
 
 const StreamVisitor = stampit(SpecificationVisitor, {
   props: {
-    firstDocumentVisited: false,
+    processedDocumentCount: 0,
   },
   methods: {
     literal(literalNode: Literal) {
@@ -16,18 +16,21 @@ const StreamVisitor = stampit(SpecificationVisitor, {
     },
 
     document(documentNode: YamlDocument) {
-      if (this.firstDocumentVisited) {
+      if (this.processedDocumentCount === 1) {
         const message =
           'Only first document within YAML stream will be used. Rest of them will be discarded.';
         const annotationElement = new this.namespace.elements.Annotation(message);
         annotationElement.classes.push('warning');
         this.element.content.push(annotationElement);
+      }
+
+      if (this.processedDocumentCount >= 1) {
         return false;
       }
 
       const element = this.nodeToElement(['document'], documentNode);
       this.element.content.push(element);
-      this.firstDocumentVisited = true;
+      this.processedDocumentCount += 1;
       return undefined;
     },
 

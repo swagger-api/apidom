@@ -1,33 +1,29 @@
 import stampit from 'stampit';
-import { isJsonObject } from 'apidom-ast';
+import { isJsonObject, Literal, Error, JsonDocument } from 'apidom-ast';
 
-import { visit } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
 
 const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {
-    literal(literalNode) {
+    literal(literalNode: Literal) {
       if (literalNode.isMissing) {
-        const errorVisitor = this.retrieveVisitorInstance(['error']);
-        visit(literalNode, errorVisitor);
-        this.element.content.push(errorVisitor.element);
+        const element = this.nodeToElement(['error'], literalNode);
+        this.element.content.push(element);
       }
     },
 
-    document(documentNode) {
+    document(documentNode: JsonDocument) {
       const specPath = isJsonObject(documentNode.child)
         ? ['document', 'objects', 'OpenApi']
         : ['value'];
 
-      const visitor = this.retrieveVisitorInstance(specPath);
-      visit(documentNode.child, visitor);
-      this.element.content.push(visitor.element);
+      const element = this.nodeToElement(specPath, documentNode);
+      this.element.content.push(element);
     },
 
-    error(errorNode) {
-      const errorVisitor = this.retrieveVisitorInstance(['error']);
-      visit(errorNode, errorVisitor);
-      this.element.content.push(errorVisitor.element);
+    error(errorNode: Error) {
+      const element = this.nodeToElement(['error'], errorNode);
+      this.element.content.push(element);
     },
   },
 });

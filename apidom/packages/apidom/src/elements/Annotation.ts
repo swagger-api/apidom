@@ -1,6 +1,8 @@
 import { Attributes, Meta, StringElement } from 'minim';
 
 class Annotation extends StringElement {
+  // classes: warning | error
+
   constructor(content: Array<unknown>, meta: Meta, attributes: Attributes) {
     super(content, meta, attributes);
     this.element = 'annotation';

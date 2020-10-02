@@ -1,0 +1,24 @@
+---
+openapi: 3.1.0
+x-top-level: value
+info:
+  title: Sample API
+  unknownFixedField: value
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/)
+    or HTML.
+  summary: example summary
+  termsOfService: Terms of service
+  version: 0.1.9
+  x-version: 0.1.9-beta
+  license:
+    name: Apache License 2.0
+    x-fullName: Apache License 2.0
+    identifier: Apache License 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Vladimir Gorej
+    x-username: char0n
+    url: https://www.linkedin.com/in/vladimirgorej/
+    email: vladimir.gorej@gmail.com
+...
+prop: value

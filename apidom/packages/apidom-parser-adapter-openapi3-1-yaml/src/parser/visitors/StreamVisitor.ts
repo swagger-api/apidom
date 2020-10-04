@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Literal, Error, YamlDocument } from 'apidom-ast';
+import { Literal, Error, YamlDocument, YamlComment } from 'apidom-ast';
 
 import SpecificationVisitor from './SpecificationVisitor';
 
@@ -13,6 +13,17 @@ const StreamVisitor = stampit(SpecificationVisitor, {
         const element = this.nodeToElement(['error'], literalNode);
         this.element.content.push(element);
       }
+    },
+
+    comment(commentNode: YamlComment) {
+      if (this.processedDocumentCount >= 1) {
+        return false;
+      }
+
+      const commentElement = new this.namespace.elements.Comment(commentNode.content);
+
+      this.element.content.push(commentElement);
+      return undefined;
     },
 
     document(documentNode: YamlDocument) {

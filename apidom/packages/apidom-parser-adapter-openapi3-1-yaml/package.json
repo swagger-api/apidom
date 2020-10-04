@@ -32,7 +32,7 @@
     "ramda-adjunct": "=2.27.0",
     "stampit": "=4.3.1",
     "tree-sitter": "=0.17.0",
-    "tree-sitter-yaml": "=0.2.0",
+    "tree-sitter-yaml": "=0.3.0",
     "web-tree-sitter": "=0.17.0"
   },
   "devDependencies": {

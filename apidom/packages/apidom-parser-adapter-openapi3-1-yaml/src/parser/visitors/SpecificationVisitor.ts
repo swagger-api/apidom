@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import Visitor from './Visitor';
-import { visit } from './index';
+import { visit } from '.';
 
 /**
  * This is a base Type for every visitor that does
@@ -35,9 +35,9 @@ const SpecificationVisitor = stampit(Visitor, {
       return this.retrieveVisitor(specPath)({ ...passingOpts, ...options });
     },
 
-    nodeToElement(specPath: string[], node) {
+    nodeToElement(specPath: string[], node, options = {}) {
       const visitor = this.retrieveVisitorInstance(specPath);
-      visit(node, visitor);
+      visit(node, visitor, options);
       return visitor.element;
     },
   },

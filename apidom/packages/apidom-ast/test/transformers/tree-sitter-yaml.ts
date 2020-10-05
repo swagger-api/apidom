@@ -15,9 +15,11 @@ describe('tree-sitter-yaml', function () {
       const parser = new Parser();
       parser.setLanguage(YAMLLanguage);
 
-      const jsonString = '# comment\ntest';
+      const jsonString = 'prop: value';
       cst = parser.parse(jsonString);
       ast = transform(cst);
+      // const util = require('util');
+      // console.log(util.inspect(ast, { showHidden: false, compact: false, depth: null }));
     });
 
     context('ParseResult', function () {

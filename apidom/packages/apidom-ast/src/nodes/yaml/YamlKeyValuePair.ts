@@ -4,11 +4,12 @@ import { filter, anyPass, pipe, nth } from 'ramda';
 import Node from '../../Node';
 import YamlStyleModel from './YamlStyle';
 import { isScalar, isMapping, isSequence } from './predicates';
+import YamlScalar from './YamlScalar';
 
 interface YamlKeyValuePair extends Node, YamlStyleModel {
   type: 'keyValuePair';
-  readonly key: unknown;
-  readonly value: unknown;
+  readonly key: YamlScalar;
+  readonly value: YamlScalar | any;
 }
 
 const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyleModel, {
@@ -17,12 +18,12 @@ const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyl
   },
   methods: {
     // @ts-ignore
-    get key(): unknown {
+    get key() {
       // @ts-ignore
       return pipe(filter(anyPass([isScalar, isMapping, isSequence])), nth(0))(this.children);
     },
     // @ts-ignore
-    get value(): unknown {
+    get value() {
       // @ts-ignore
       return pipe(filter(anyPass([isScalar, isMapping, isSequence])), nth(1))(this.children);
     },

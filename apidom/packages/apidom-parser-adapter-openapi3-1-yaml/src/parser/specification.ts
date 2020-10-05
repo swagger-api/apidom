@@ -2,6 +2,8 @@ import StreamVisitor from './visitors/StreamVisitor';
 import DocumentVisitor from './visitors/DocumentVisitor';
 
 import ErrorVisitor from './visitors/ErrorVisitor';
+import { ScalarVisitor, MappingVisitor, SequenceVisitor, KindVisitor } from './visitors/generics';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -13,12 +15,17 @@ import ErrorVisitor from './visitors/ErrorVisitor';
  */
 const specification = {
   visitors: {
+    scalar: ScalarVisitor,
+    mapping: MappingVisitor,
+    sequence: SequenceVisitor,
+    kind: KindVisitor,
     error: ErrorVisitor,
     stream: {
       $visitor: StreamVisitor,
     },
     document: {
       $visitor: DocumentVisitor,
+      extension: SpecificationExtensionVisitor,
     },
   },
 };

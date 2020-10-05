@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { either, flatten, lensProp, over, propOr, pathOr } from 'ramda';
+import { either, unnest, propOr, pathOr } from 'ramda';
 import { isArray, isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
@@ -28,6 +28,8 @@ export const keyMap = {
   sequence: ['children'],
   error: ['children'],
 };
+
+/* eslint-disable no-param-reassign */
 
 const Visitor = stampit({
   init() {
@@ -89,8 +91,6 @@ const Visitor = stampit({
 
       return YamlAnchor({ name: previousSibling.text, position: toPosition(previousSibling) });
     };
-
-    const flattenChildren = over(lensProp('children'), flatten);
 
     /**
      * Public API.
@@ -186,7 +186,7 @@ const Visitor = stampit({
         });
       },
       leave(node: YamlDocument) {
-        return flattenChildren(node);
+        node.children = unnest(node.children);
       },
     };
 
@@ -268,7 +268,7 @@ const Visitor = stampit({
         const position = toPosition(node);
 
         return YamlKeyValuePair({
-          children: node.children,
+          children: unnest(node.children),
           position,
           styleGroup: YamlStyleGroup.Flow,
           isMissing: node.isMissing(),
@@ -278,7 +278,7 @@ const Visitor = stampit({
 
     this.keyValuePair = {
       leave(node: YamlKeyValuePair) {
-        return flattenChildren(node);
+        node.children = unnest(node.children);
       },
     };
 
@@ -289,7 +289,7 @@ const Visitor = stampit({
         const anchor = toAnchor(node);
 
         return YamlSequence({
-          children: node.children,
+          children: unnest(node.children),
           position,
           anchor,
           tag,
@@ -312,7 +312,7 @@ const Visitor = stampit({
         const anchor = toAnchor(node);
 
         return YamlSequence({
-          children: node.children,
+          children: unnest(node.children),
           position,
           anchor,
           tag,
@@ -324,7 +324,7 @@ const Visitor = stampit({
 
     this.sequence = {
       leave(node: YamlSequence) {
-        return flattenChildren(node);
+        node.children = unnest(node.children);
       },
     };
 

@@ -4,6 +4,10 @@ import { namespace } from 'apidom';
 
 // @ts-ignore
 export const addSourceMap = (node, element) => {
+  if (node === null) {
+    return element;
+  }
+
   // @ts-ignore
   const sourceMap = new namespace.elements.SourceMap();
 

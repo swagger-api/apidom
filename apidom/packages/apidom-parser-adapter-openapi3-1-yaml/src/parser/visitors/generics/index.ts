@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { last } from 'ramda';
+import { last, propOr } from 'ramda';
 import { isNotNull } from 'ramda-adjunct';
 import {
   YamlKeyValuePair,
@@ -78,9 +78,10 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
     // @ts-ignore
     const objElement = last(stack);
     const { MemberElement } = this.namespace.elements.Element.prototype;
-    type YamlValue = YamlScalar | YamlMapping | YamlSequence | YamlAlias;
+    type YamlValue = YamlScalar | YamlMapping | YamlSequence | YamlAlias | null;
     const { key: keyNode } = keyValuePairNode;
     const { value: valueNode }: { value: YamlValue } = keyValuePairNode;
+    const valueNodeContent = propOr(null, 'content', valueNode);
     const keyElement = new this.namespace.elements.String(keyNode.content);
     let valueElement;
 
@@ -91,12 +92,11 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
     } else if (keyNode.content === '$ref') {
       // $ref property key special handling
       // @ts-ignore
-      valueElement = new this.namespace.elements.Ref(value.content);
-      // @ts-ignore
-      valueElement.path = value.content;
+      valueElement = new this.namespace.elements.Ref(valueNodeContent);
+      valueElement.path = valueNodeContent;
     } else if (!isOpenApiExtension({}, keyValuePairNode)) {
       // @ts-ignore
-      valueElement = this.namespace.toElement(valueNode.content);
+      valueElement = this.namespace.toElement(valueNodeContent);
     }
 
     if (isOpenApiExtension({}, keyValuePairNode)) {

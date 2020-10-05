@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { Literal, Error, YamlDocument, YamlComment } from 'apidom-ast';
 
+import { visit, BREAK } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
 
 const StreamVisitor = stampit(SpecificationVisitor, {
@@ -16,31 +17,48 @@ const StreamVisitor = stampit(SpecificationVisitor, {
     },
 
     comment(commentNode: YamlComment) {
-      if (this.processedDocumentCount >= 1) {
+      // we're only interested of stream comments before the first document
+      const shouldSkipVisitingMoreDocuments = this.processedDocumentCount >= 1;
+
+      if (shouldSkipVisitingMoreDocuments) {
         return false;
       }
 
       const commentElement = new this.namespace.elements.Comment(commentNode.content);
-
       this.element.content.push(commentElement);
       return undefined;
     },
 
     document(documentNode: YamlDocument) {
-      if (this.processedDocumentCount === 1) {
+      // we're only interested in first document
+      const shouldWarnAboutMoreDocuments = this.processedDocumentCount === 1;
+      const shouldSkipVisitingMoreDocuments = this.processedDocumentCount >= 1;
+
+      if (shouldWarnAboutMoreDocuments) {
         const message =
-          'Only first document within YAML stream will be used. Rest of them will be discarded.';
+          'Only first document within YAML stream will be used. Rest will be discarded.';
         const annotationElement = new this.namespace.elements.Annotation(message);
         annotationElement.classes.push('warning');
         this.element.content.push(annotationElement);
       }
 
-      if (this.processedDocumentCount >= 1) {
-        return false;
+      if (shouldSkipVisitingMoreDocuments) {
+        return BREAK;
       }
 
-      const element = this.nodeToElement(['document'], documentNode);
-      this.element.content.push(element);
+      const documentVisitor = this.retrieveVisitorInstance(['document']);
+      const keyMap = {
+        // @ts-ignore
+        [YamlDocument.type]: ['children'],
+      };
+      visit(documentNode, documentVisitor, {
+        keyMap,
+        // @ts-ignore
+        state: {
+          element: this.element,
+        },
+      });
+
       this.processedDocumentCount += 1;
       return undefined;
     },

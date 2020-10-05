@@ -16,7 +16,7 @@ const keyMapDefault = {
   // @ts-ignore
   [YamlStream.type]: ['children'],
   // @ts-ignore
-  [YamlDocument.type]: ['child'],
+  [YamlDocument.type]: ['children'],
   // @ts-ignore
   [YamlMapping.type]: ['children'],
   // @ts-ignore

@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "tree-sitter": "=0.17.0",
-    "tree-sitter-json": "=0.16.0"
+    "tree-sitter-json": "=0.16.0",
+    "tree-sitter-yaml": "=0.3.0"
   }
 }

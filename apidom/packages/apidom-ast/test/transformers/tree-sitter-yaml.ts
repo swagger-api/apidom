@@ -15,7 +15,8 @@ describe('tree-sitter-yaml', function () {
       const parser = new Parser();
       parser.setLanguage(YAMLLanguage);
 
-      const jsonString = 'prop: value';
+      const jsonString = 'prop: &anchor !!str';
+
       cst = parser.parse(jsonString);
       ast = transform(cst);
       // const util = require('util');

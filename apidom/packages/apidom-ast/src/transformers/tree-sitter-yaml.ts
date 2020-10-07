@@ -1,5 +1,15 @@
 import stampit from 'stampit';
-import { either, unnest, propOr, pathOr } from 'ramda';
+import {
+  either,
+  unnest,
+  propOr,
+  pathOr,
+  find,
+  anyPass,
+  curry,
+  propSatisfies,
+  endsWith,
+} from 'ramda';
 import { isArray, isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
@@ -56,7 +66,7 @@ const Visitor = stampit({
       return Position({ start, end });
     };
 
-    const toTag = (node: SyntaxNode): YamlTag | null => {
+    const kindNodeToYamlTag = (node: SyntaxNode): YamlTag | null => {
       let { previousSibling } = node;
 
       while (previousSibling !== null && previousSibling.type !== 'tag') {
@@ -78,7 +88,7 @@ const Visitor = stampit({
       return YamlTag({ name: previousSibling.text, kind, position });
     };
 
-    const toAnchor = (node: SyntaxNode): YamlAnchor | null => {
+    const kindNodeToYamlAnchor = (node: SyntaxNode): YamlAnchor | null => {
       let { previousSibling } = node;
 
       while (previousSibling !== null && previousSibling.type !== 'anchor') {
@@ -90,6 +100,59 @@ const Visitor = stampit({
       }
 
       return YamlAnchor({ name: previousSibling.text, position: toPosition(previousSibling) });
+    };
+
+    const isKind = curry((ending, node) => propSatisfies(endsWith(ending), 'type', node));
+    const isScalar = isKind('scalar');
+    const isMapping = isKind('mapping');
+    const isSequence = isKind('sequence');
+
+    const isValuelessKeyValuePair = (node: SyntaxNode) => {
+      if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
+        return false;
+      }
+      // key value was not explicitly provided; tag and anchor are missing too
+      // @ts-ignore
+      if (node.valueNode === null) {
+        return true;
+      }
+      // key value was not explicitly provided; tag or anchor are provided though
+      // @ts-ignore
+      return !node.valueNode.children.some(anyPass([isScalar, isSequence, isMapping]));
+    };
+
+    const createKeyValuePairSurrogateValue = (node: SyntaxNode) => {
+      const surrogatePoint = Point({
+        row: node.endPosition.row,
+        column: node.endPosition.column,
+        char: node.endIndex,
+      });
+      const children = pathOr([], ['valueNode', 'children'], node);
+      const tagNode: any | undefined = find(isKind('tag'), children);
+      const anchorNode: any | undefined = find(isKind('anchor'), children);
+      let tag = null;
+      let anchor = null;
+
+      if (tagNode !== undefined) {
+        tag = YamlTag({
+          name: tagNode.text,
+          kind: YamlNodeKind.Scalar,
+          position: toPosition(tagNode),
+        });
+      }
+
+      if (anchorNode !== undefined) {
+        anchor = YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) });
+      }
+
+      return YamlScalar({
+        content: '',
+        position: Position({ start: surrogatePoint, end: surrogatePoint }),
+        tag,
+        anchor,
+        styleGroup: YamlStyleGroup.Flow,
+        style: YamlStyle.Plain,
+      });
     };
 
     /**
@@ -217,8 +280,8 @@ const Visitor = stampit({
     this.block_mapping = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlMapping({
           children: node.children,
@@ -235,9 +298,15 @@ const Visitor = stampit({
     this.block_mapping_pair = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
+        const children: Array<SyntaxNode | YamlScalar> = [...node.children];
+
+        if (isValuelessKeyValuePair(node)) {
+          const valueNode = createKeyValuePairSurrogateValue(node);
+          children.push(valueNode);
+        }
 
         return YamlKeyValuePair({
-          children: node.children,
+          children,
           position,
           styleGroup: YamlStyleGroup.Block,
           isMissing: node.isMissing(),
@@ -248,8 +317,8 @@ const Visitor = stampit({
     this.flow_mapping = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlMapping({
           children: node.children,
@@ -266,9 +335,15 @@ const Visitor = stampit({
     this.flow_pair = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
+        const children: Array<SyntaxNode | YamlScalar> = [...node.children];
+
+        if (isValuelessKeyValuePair(node)) {
+          const valueNode = createKeyValuePairSurrogateValue(node);
+          children.push(valueNode);
+        }
 
         return YamlKeyValuePair({
-          children: unnest(node.children),
+          children,
           position,
           styleGroup: YamlStyleGroup.Flow,
           isMissing: node.isMissing(),
@@ -285,11 +360,11 @@ const Visitor = stampit({
     this.block_sequence = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlSequence({
-          children: unnest(node.children),
+          children: node.children,
           position,
           anchor,
           tag,
@@ -308,8 +383,8 @@ const Visitor = stampit({
     this.flow_sequence = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlSequence({
           children: unnest(node.children),
@@ -331,8 +406,8 @@ const Visitor = stampit({
     this.plain_scalar = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
           content: node.text,
@@ -348,8 +423,8 @@ const Visitor = stampit({
     this.single_quote_scalar = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
           content: node.text,
@@ -365,8 +440,8 @@ const Visitor = stampit({
     this.double_quote_scalar = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
           content: node.text,
@@ -382,8 +457,8 @@ const Visitor = stampit({
     this.block_scalar = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const tag = toTag(node);
-        const anchor = toAnchor(node);
+        const tag = kindNodeToYamlTag(node);
+        const anchor = kindNodeToYamlAnchor(node);
         // eslint-disable-next-line no-nested-ternary
         const style = node.text.startsWith('|')
           ? YamlStyle.Literal

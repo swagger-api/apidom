@@ -1,16 +1,15 @@
 import stampit from 'stampit';
-import { filter, anyPass, pipe, nth, pathOr, identical, complement, both } from 'ramda';
+import { filter, anyPass, pipe, nth, identical, complement, both } from 'ramda';
 
 import Node from '../../Node';
 import YamlStyleModel from './YamlStyle';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates';
 import YamlScalar from './YamlScalar';
-import YamlAlias from './YamlAlias';
 
 interface YamlKeyValuePair extends Node, YamlStyleModel {
   type: 'keyValuePair';
   readonly key: YamlScalar;
-  readonly value: YamlScalar | YamlAlias | null | any;
+  readonly value: any;
 }
 
 const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyleModel, {
@@ -28,8 +27,7 @@ const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyl
       const excludeKeyPredicate = complement(identical(this.key));
       const valuePredicate = anyPass([isScalar, isMapping, isSequence, isAlias]);
       // @ts-ignore
-      const filtered = filter(both(excludeKeyPredicate, valuePredicate), this.children);
-      return pathOr(null, [0], filtered);
+      return pipe(filter(both(excludeKeyPredicate, valuePredicate)), nth(0))(this.children);
     },
   },
 });

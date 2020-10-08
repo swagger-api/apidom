@@ -47,12 +47,7 @@ const StreamVisitor = stampit(SpecificationVisitor, {
       }
 
       const documentVisitor = this.retrieveVisitorInstance(['document']);
-      const keyMap = {
-        // @ts-ignore
-        [YamlDocument.type]: ['children'],
-      };
       visit(documentNode, documentVisitor, {
-        keyMap,
         // @ts-ignore
         state: {
           element: this.element,

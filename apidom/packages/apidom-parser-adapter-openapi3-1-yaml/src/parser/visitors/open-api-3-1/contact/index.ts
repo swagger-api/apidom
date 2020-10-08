@@ -1,10 +1,10 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import FixedFieldsJsonObjectVisitor from '../../generics/FixedFieldsJsonObjectVisitor';
-import { ValueVisitor } from '../../generics';
+import FixedFieldsYamlMappingVisitor from '../../generics/FixedFieldsYamlMappingVisitor';
+import { KindVisitor } from '../../generics';
 
-const ContactVisitor = stampit(ValueVisitor, FixedFieldsJsonObjectVisitor, {
+const ContactVisitor = stampit(KindVisitor, FixedFieldsYamlMappingVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Contact']),
   },

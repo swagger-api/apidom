@@ -6,7 +6,6 @@ import YamlAnchor from './YamlAnchor';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle';
 
 interface YamlNode extends Node {
-  content: unknown | null;
   anchor: YamlAnchor | null;
   tag: YamlTag | null;
   style: YamlStyle;
@@ -15,14 +14,12 @@ interface YamlNode extends Node {
 
 const YamlNode: stampit.Stamp<YamlNode> = stampit(Node, {
   props: {
-    content: null,
     anchor: null,
     tag: null,
     style: null,
     styleGroup: null,
   },
-  init({ content = null, anchor = null, tag = null, style = null, styleGroup = null } = {}) {
-    this.content = content;
+  init({ anchor = null, tag = null, style = null, styleGroup = null } = {}) {
     this.anchor = anchor;
     this.tag = tag;
     this.style = style;

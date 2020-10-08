@@ -1,3 +1,4 @@
+import { propOr } from 'ramda';
 import {
   YamlStream,
   YamlDocument,
@@ -29,6 +30,9 @@ const keyMapDefault = {
 
 // @ts-ignore
 export const visit = (root, visitor, { keyMap = keyMapDefault, ...rest } = {}) => {
+  // if visitor is associated with the keymap, we prefer this visitor keymap
+  const effectiveKeyMap = propOr(keyMap, 'keyMap', visitor);
+
   // @ts-ignore
-  return astVisit(root, visitor, { ...rest, keyMap });
+  return astVisit(root, visitor, { ...rest, keyMap: effectiveKeyMap });
 };

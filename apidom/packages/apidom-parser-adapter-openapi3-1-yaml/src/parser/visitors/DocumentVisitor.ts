@@ -1,9 +1,15 @@
 import stampit from 'stampit';
-import { YamlComment, YamlMapping, YamlScalar, YamlSequence } from 'apidom-ast';
+import { YamlComment, YamlDocument, YamlMapping, YamlScalar, YamlSequence } from 'apidom-ast';
 
 import SpecificationVisitor from './SpecificationVisitor';
 
 const DocumentVisitor = stampit(SpecificationVisitor, {
+  props: {
+    keyMap: {
+      // @ts-ignore
+      [YamlDocument.type]: ['children'],
+    },
+  },
   methods: {
     scalar(scalarNode: YamlScalar) {
       const element = this.nodeToElement(['scalar'], scalarNode);
@@ -11,7 +17,7 @@ const DocumentVisitor = stampit(SpecificationVisitor, {
     },
 
     mapping(mappingNode: YamlMapping) {
-      const openApiElement = this.nodeToElement(['mapping'], mappingNode);
+      const openApiElement = this.nodeToElement(['document', 'objects', 'OpenApi'], mappingNode);
       this.element.content.push(openApiElement);
     },
 

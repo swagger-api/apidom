@@ -146,7 +146,7 @@ const Visitor = stampit({
       }
 
       return YamlScalar({
-        content: '',
+        text: '',
         position: Position({ start: surrogatePoint, end: surrogatePoint }),
         tag,
         anchor,
@@ -410,7 +410,7 @@ const Visitor = stampit({
         const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
-          content: node.text,
+          text: node.text,
           anchor,
           tag,
           position,

@@ -191,7 +191,7 @@ export default ({ monaco, containerId }) => {
     "info": 6,
     //"operation": 12,
     "operation": {
-      "httpMethod-GET": 4,
+      "httpMethod-GET": 12,
       "httpMethod-POST": 8
     },
     "pathItem": 11,

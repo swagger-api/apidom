@@ -58,6 +58,15 @@
       }
     }
   },
+  "security": [
+    {},
+    {
+      "petstore_auth": [
+        "write:pets",
+        "read:pets"
+      ]
+    }
+  ],
   "servers": [
     {
       "url": "http://api.example.com/v1",

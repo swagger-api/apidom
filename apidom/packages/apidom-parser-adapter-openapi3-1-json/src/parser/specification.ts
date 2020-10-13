@@ -85,6 +85,7 @@ const specification = {
             components: {
               $ref: '#/visitors/document/objects/Components',
             },
+            security: SecurityVisitor,
             paths: {
               $ref: '#/visitors/document/objects/Paths',
             },

@@ -1,19 +1,19 @@
 import stampit from 'stampit';
-import { isJsonObject, JsonNode } from 'apidom-ast';
+import { isYamlMapping } from 'apidom-ast';
 
-import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
+import MapYamlMappingVisitor from '../../generics/MapYamlMappingVisitor';
 import { isReferenceObject } from '../../../predicates';
-import { ValueVisitor } from '../../generics';
+import { KindVisitor } from '../../generics';
 
-const CallbacksVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
+const CallbacksVisitor = stampit(KindVisitor, MapYamlMappingVisitor, {
   props: {
-    specPath: (node: JsonNode) => {
+    specPath: (node: unknown) => {
       // eslint-disable-next-line no-nested-ternary
       return isReferenceObject({}, node)
         ? ['document', 'objects', 'Reference']
-        : isJsonObject(node)
+        : isYamlMapping(node)
         ? ['document', 'objects', 'Callback']
-        : ['value'];
+        : ['kind'];
     },
   },
   init() {

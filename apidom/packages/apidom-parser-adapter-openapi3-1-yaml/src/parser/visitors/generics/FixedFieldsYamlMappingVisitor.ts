@@ -45,7 +45,7 @@ const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
         const visitor = this.retrieveVisitorInstance([...specPath, 'fixedFields', keyName]);
         const keyElement = new this.namespace.elements.String(keyName);
 
-        visit(keyValuePairNode.value, visitor);
+        visit(valueNode, visitor);
 
         const memberElement = this.maybeAddSourceMap(
           keyValuePairNode,

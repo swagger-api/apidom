@@ -428,7 +428,7 @@ const Visitor = stampit({
         const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
-          content: node.text,
+          text: node.text,
           anchor,
           tag,
           position,
@@ -445,7 +445,7 @@ const Visitor = stampit({
         const anchor = kindNodeToYamlAnchor(node);
 
         return YamlScalar({
-          content: node.text,
+          text: node.text,
           anchor,
           tag,
           position,

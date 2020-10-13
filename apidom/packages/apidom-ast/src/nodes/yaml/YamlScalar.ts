@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 
 import YamlNode from './YamlNode';
+import { YamlStyle } from './YamlStyle';
 
 interface YamlScalar extends YamlNode {
   type: 'scalar';
@@ -23,6 +24,10 @@ const YamlScalar: stampit.Stamp<YamlScalar> = stampit(YamlNode, {
   methods: {
     // @ts-ignore
     get content() {
+      if (this.style === YamlStyle.SingleQuoted) {
+        // @ts-ignore
+        return this.text.replace(/^'/, '').replace(/'$/, '');
+      }
       // @ts-ignore
       return this.text;
     },

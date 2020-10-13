@@ -17,7 +17,7 @@ import SpecificationVisitor from '../SpecificationVisitor';
 export const ScalarVisitor = stampit(SpecificationVisitor, {
   methods: {
     scalar(scalarNode: YamlScalar): typeof BREAK {
-      const stringElement = new this.namespace.elements.String(scalarNode.content);
+      const stringElement = this.namespace.toElement(scalarNode.content);
       this.element = this.maybeAddSourceMap(scalarNode, stringElement);
       return BREAK;
     },

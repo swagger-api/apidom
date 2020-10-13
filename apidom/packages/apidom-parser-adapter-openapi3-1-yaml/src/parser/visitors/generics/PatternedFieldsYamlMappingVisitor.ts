@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 import { YamlKeyValuePair, YamlMapping } from 'apidom-ast';
 
@@ -6,15 +7,16 @@ import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
 import { visit } from '..';
 
-const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
+const PatternedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
   props: {
+    fieldPatternPredicate: stubFalse,
     specPath: noop,
     ignoredFields: [],
     keyMap: {
       // @ts-ignore
       [YamlMapping.type]: ['children'],
     },
-    canSupportSpecificationExtensions: true,
+    canSupportSpecificationExtensions: false,
   },
   init({
     // @ts-ignore
@@ -34,32 +36,28 @@ const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
     },
 
     keyValuePair(keyValuePairNode: YamlKeyValuePair) {
-      const specPath = this.specPath(keyValuePairNode);
-      const fields = this.retrieveFixedFields(specPath);
-      const { MemberElement } = this.namespace.elements.Element.prototype;
-
       const { key: keyNode, value: valueNode } = keyValuePairNode;
       const keyName = keyNode.content;
+      const { MemberElement } = this.namespace.elements.Element.prototype;
 
-      if (fields.includes(keyName) && !this.ignoredFields.includes(keyName)) {
-        const visitor = this.retrieveVisitorInstance([...specPath, 'fixedFields', keyName]);
+      if (this.canSupportSpecificationExtensions && isOpenApiExtension({}, keyValuePairNode)) {
+        const visitor = this.retrieveVisitorInstance(['document', 'extension']);
+        visit(keyValuePairNode, visitor);
+        this.element.content.push(visitor.element);
+      } else if (!this.ignoredFields.includes(keyName) && this.fieldPatternPredicate(keyName)) {
+        const specPath = this.specPath(valueNode);
+        const visitor = this.retrieveVisitorInstance(specPath);
         const keyElement = new this.namespace.elements.String(keyName);
 
-        visit(keyValuePairNode.value, visitor);
+        visit(keyValuePairNode, visitor);
 
         const memberElement = this.maybeAddSourceMap(
           keyValuePairNode,
           new MemberElement(this.maybeAddSourceMap(keyNode, keyElement), visitor.element),
         );
-        memberElement.classes.push('fixedField');
+        memberElement.classes.push('patternedField');
+
         this.element.content.push(memberElement);
-      } else if (
-        this.canSupportSpecificationExtensions &&
-        isOpenApiExtension({}, keyValuePairNode)
-      ) {
-        const visitor = this.retrieveVisitorInstance(['document', 'extension']);
-        visit(keyValuePairNode, visitor);
-        this.element.content.push(visitor.element);
       } else if (!this.ignoredFields.includes(keyName)) {
         const keyElement = new this.namespace.elements.String(keyName);
         const memberElement = this.maybeAddSourceMap(
@@ -75,4 +73,4 @@ const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
   },
 });
 
-export default FixedFieldsYamlMappingVisitor;
+export default PatternedFieldsYamlMappingVisitor;

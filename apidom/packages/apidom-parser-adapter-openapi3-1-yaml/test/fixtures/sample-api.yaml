@@ -21,5 +21,17 @@ info:
     x-username: char0n
     url: https://www.linkedin.com/in/vladimirgorej/
     email: vladimir.gorej@gmail.com
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http:{port}//staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+    variables:
+      port:
+        enum:
+          - '8443'
+          - '443'
+        default: '8443'
+        description: Port description
 ...
 prop: value

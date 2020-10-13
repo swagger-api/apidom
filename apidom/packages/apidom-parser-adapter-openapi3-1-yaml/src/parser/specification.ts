@@ -20,6 +20,15 @@ import LicenseVisitor from './visitors/open-api-3-1/license';
 import LicenseNameVisitor from './visitors/open-api-3-1/license/NameVisitor';
 import LicenseIdentifierVisitor from './visitors/open-api-3-1/license/IdentifierVisitor';
 import LicenseUrlVisitor from './visitors/open-api-3-1/license/UrlVisitor';
+import ServersVisitor from './visitors/open-api-3-1/ServersVisitor';
+import ServerVisitor from './visitors/open-api-3-1/server';
+import ServerUrlVisitor from './visitors/open-api-3-1/server/UrlVisitor';
+import ServerDescriptionVisitor from './visitors/open-api-3-1/server/DescriptionVisitor';
+import ServerVariablesVisitor from './visitors/open-api-3-1/server/VariablesVisitor';
+import ServerVariableVisitor from './visitors/open-api-3-1/server-variable';
+import ServerVariableEnumVisitor from './visitors/open-api-3-1/server-variable/EnumVisitor';
+import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variable/DefaultVisitor';
+import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -49,6 +58,7 @@ const specification = {
             info: {
               $ref: '#/visitors/document/objects/Info',
             },
+            servers: ServersVisitor,
           },
         },
         Info: {
@@ -81,6 +91,22 @@ const specification = {
             name: LicenseNameVisitor,
             identifier: LicenseIdentifierVisitor,
             url: LicenseUrlVisitor,
+          },
+        },
+        Server: {
+          $visitor: ServerVisitor,
+          fixedFields: {
+            url: ServerUrlVisitor,
+            description: ServerDescriptionVisitor,
+            variables: ServerVariablesVisitor,
+          },
+        },
+        ServerVariable: {
+          $visitor: ServerVariableVisitor,
+          fixedFields: {
+            enum: ServerVariableEnumVisitor,
+            default: ServerVariableDefaultVisitor,
+            description: ServerVariableDescriptionVisitor,
           },
         },
       },

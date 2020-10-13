@@ -30,3 +30,27 @@ export const isServerObject = curry((options, node) => {
   }
   return hasKeys(['url'], node.content);
 });
+
+// isParameterObject :: Options -> JsonObject -> Boolean
+export const isParameterObject = curry((options, node) => {
+  if (!isYamlMapping(node)) {
+    return false;
+  }
+  return hasKeys(['name', 'in'], node.content);
+});
+
+// isReferenceObject :: Options -> JsonObject -> Boolean
+export const isReferenceObject = curry((options, node) => {
+  if (!isYamlMapping(node)) {
+    return false;
+  }
+  return hasKeys(['$ref'], node.content);
+});
+
+// isRequestBodyObject :: Options -> JsonObject -> Boolean
+export const isRequestBodyObject = curry((options, node) => {
+  if (!isYamlMapping(node)) {
+    return false;
+  }
+  return hasKeys(['content'], node.content);
+});

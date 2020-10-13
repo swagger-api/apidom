@@ -15,7 +15,6 @@ const ServersVisitor = stampit(ValueVisitor, SpecificationVisitor, {
     array(arrayNode) {
       arrayNode.items.forEach((item: JsonNode) => {
         if (isServerObject({}, item)) {
-          console.dir('server object');
           const element = this.nodeToElement(['document', 'objects', 'Server'], item);
           this.element.push(element);
         } else {

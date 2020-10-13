@@ -34,6 +34,26 @@ import SecurityRequirementVisitor from './visitors/open-api-3-1/security-require
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
+import PathsVisitor from './visitors/open-api-3-1/paths';
+import PathItemVisitor from './visitors/open-api-3-1/path-item';
+import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
+import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
+import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+import OperationVisitor from './visitors/open-api-3-1/operation';
+import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
+import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
+import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
+import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
+import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
+import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
+import OperationCallbacksVisitor from './visitors/open-api-3-1/operation/CallbacksVisitor';
+import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
+import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
+import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
+import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
+import ReferenceVisitor from './visitors/open-api-3-1/reference';
+import CallbackVisitor from './visitors/open-api-3-1/callback';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -68,6 +88,9 @@ const specification = {
               $ref: '#/visitors/document/objects/Components',
             },
             security: SecurityVisitor,
+            paths: {
+              $ref: '#/visitors/document/objects/Paths',
+            },
           },
         },
         Info: {
@@ -126,6 +149,83 @@ const specification = {
           fixedFields: {
             schemas: SchemasVisitor,
           },
+        },
+        Paths: {
+          $visitor: PathsVisitor,
+        },
+        PathItem: {
+          $visitor: PathItemVisitor,
+          fixedFields: {
+            $ref: PathItem$RefVisitor,
+            summary: PathItemSummaryVisitor,
+            description: PathItemDescriptionVisitor,
+            get: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            put: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            post: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            delete: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            options: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            head: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            patch: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            trace: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            servers: ServersVisitor,
+            parameters: ParametersVisitor,
+          },
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fixedFields: {
+            tags: OperationTagsVisitor,
+            summary: OperationSummaryVisitor,
+            description: OperationDescriptionVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            operationId: OperationOperationIdVisitor,
+            parameters: ParametersVisitor,
+            requestBody: OperationRequestBodyVisitor,
+            // responses: {
+            //   $ref: '#/visitors/document/objects/Responses',
+            // },
+            callbacks: OperationCallbacksVisitor,
+            deprecated: OperationDeprecatedVisitor,
+            security: SecurityVisitor,
+            servers: ServersVisitor,
+          },
+        },
+        ExternalDocumentation: {
+          $visitor: ExternalDocumentationVisitor,
+          fixedFields: {
+            description: ExternalDocumentationDescriptionVisitor,
+            url: ExternalDocumentationUrlVisitor,
+          },
+        },
+        RequestBody: {
+          $visitor: RequestBodyVisitor,
+          fixedFields: {},
+        },
+        Callback: {
+          $visitor: CallbackVisitor,
+          fixedFields: {},
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {},
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,

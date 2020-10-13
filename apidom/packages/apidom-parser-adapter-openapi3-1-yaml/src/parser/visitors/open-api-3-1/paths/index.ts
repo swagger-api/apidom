@@ -1,10 +1,10 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
 
-import PatternedFieldsJsonObjectVisitor from '../../generics/PatternedFieldsJsonObjectVisitor';
-import { ValueVisitor } from '../../generics';
+import PatternedFieldsYamlMappingVisitor from '../../generics/PatternedFieldsYamlMappingVisitor';
+import { KindVisitor } from '../../generics';
 
-const PathsVisitor = stampit(ValueVisitor, PatternedFieldsJsonObjectVisitor, {
+const PathsVisitor = stampit(KindVisitor, PatternedFieldsYamlMappingVisitor, {
   props: {
     fieldPatternPredicate: test(/^\/(?<path>.*)$/),
     specPath: always(['document', 'objects', 'PathItem']),

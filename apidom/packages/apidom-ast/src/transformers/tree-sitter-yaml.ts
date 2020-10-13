@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import {
   either,
   unnest,
+  flatten,
   propOr,
   pathOr,
   find,
@@ -399,7 +400,7 @@ const Visitor = stampit({
 
     this.sequence = {
       leave(node: YamlSequence) {
-        node.children = unnest(node.children);
+        node.children = flatten(node.children);
       },
     };
 

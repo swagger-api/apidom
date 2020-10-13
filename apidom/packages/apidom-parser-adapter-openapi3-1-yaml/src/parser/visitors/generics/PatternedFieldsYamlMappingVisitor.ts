@@ -49,7 +49,7 @@ const PatternedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
         const visitor = this.retrieveVisitorInstance(specPath);
         const keyElement = new this.namespace.elements.String(keyName);
 
-        visit(keyValuePairNode, visitor);
+        visit(valueNode, visitor);
 
         const memberElement = this.maybeAddSourceMap(
           keyValuePairNode,

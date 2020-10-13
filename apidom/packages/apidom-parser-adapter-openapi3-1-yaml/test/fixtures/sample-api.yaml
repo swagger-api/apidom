@@ -29,9 +29,14 @@ servers:
     variables:
       port:
         enum:
-          - '8443'
-          - '443'
-        default: '8443'
+          - 8443
+          - 443
+        default: 8443
         description: Port description
+security:
+  - {}
+  - petstore_auth:
+      - write:pets
+      - read:pets
 ...
 prop: value

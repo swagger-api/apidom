@@ -31,6 +31,9 @@ import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variabl
 import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
+import ComponentsVisitor from './visitors/open-api-3-1/components';
+import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
+import SchemaVisitor from './visitors/open-api-3-1/schema';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -61,6 +64,9 @@ const specification = {
               $ref: '#/visitors/document/objects/Info',
             },
             servers: ServersVisitor,
+            components: {
+              $ref: '#/visitors/document/objects/Components',
+            },
             security: SecurityVisitor,
           },
         },
@@ -110,6 +116,15 @@ const specification = {
             enum: ServerVariableEnumVisitor,
             default: ServerVariableDefaultVisitor,
             description: ServerVariableDescriptionVisitor,
+          },
+        },
+        Schema: {
+          $visitor: SchemaVisitor,
+        },
+        Components: {
+          $visitor: ComponentsVisitor,
+          fixedFields: {
+            schemas: SchemasVisitor,
           },
         },
         SecurityRequirement: {

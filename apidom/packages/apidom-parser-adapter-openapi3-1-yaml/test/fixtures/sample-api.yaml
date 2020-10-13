@@ -33,6 +33,29 @@ servers:
           - 443
         default: 8443
         description: Port description
+components:
+  x-extension: value
+  schemas:
+    x-model:
+      type: object
+      properties:
+        id:
+          type: integer
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        profile:
+          $ref: #/components/schemas/UserProfile
+    UserProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          x-nullable: true
 security:
   - {}
   - petstore_auth:

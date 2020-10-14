@@ -9,9 +9,10 @@ const Visitor = stampit({
     keyMap: null,
   },
   // @ts-ignore
-  init({ namespace = this.namespace, sourceMap = this.sourceMap } = {}) {
+  init({ namespace = this.namespace, sourceMap = this.sourceMap, element = this.element } = {}) {
     this.namespace = namespace;
     this.sourceMap = sourceMap;
+    this.element = element;
   },
   methods: {
     maybeAddSourceMap(node, element) {

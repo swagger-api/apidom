@@ -22,11 +22,14 @@ const PatternedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
     // @ts-ignore
     specPath = this.specPath,
     // @ts-ignore
+    fieldPatternPredicate = this.fieldPatternPredicate,
+    // @ts-ignore
     ignoredFields = this.ignoredFields,
     // @ts-ignore
     canSupportSpecificationExtensions = this.canSupportSpecificationExtensions,
   } = {}) {
     this.specPath = specPath;
+    this.fieldPatternPredicate = fieldPatternPredicate;
     this.ignoredFields = ignoredFields;
     this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
   },

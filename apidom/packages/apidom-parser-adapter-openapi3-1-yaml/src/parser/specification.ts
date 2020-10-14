@@ -54,6 +54,9 @@ import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-do
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
+import ResponsesVisitor from './visitors/open-api-3-1/responses';
+import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
+import ResponseVisitor from './visitors/open-api-3-1/response';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -199,9 +202,9 @@ const specification = {
             operationId: OperationOperationIdVisitor,
             parameters: ParametersVisitor,
             requestBody: OperationRequestBodyVisitor,
-            // responses: {
-            //   $ref: '#/visitors/document/objects/Responses',
-            // },
+            responses: {
+              $ref: '#/visitors/document/objects/Responses',
+            },
             callbacks: OperationCallbacksVisitor,
             deprecated: OperationDeprecatedVisitor,
             security: SecurityVisitor,
@@ -217,6 +220,16 @@ const specification = {
         },
         RequestBody: {
           $visitor: RequestBodyVisitor,
+          fixedFields: {},
+        },
+        Responses: {
+          $visitor: ResponsesVisitor,
+          fixedFields: {
+            default: ResponsesDefaultVisitor,
+          },
+        },
+        Response: {
+          $visitor: ResponseVisitor,
           fixedFields: {},
         },
         Callback: {

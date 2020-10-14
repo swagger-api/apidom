@@ -17,6 +17,10 @@ const SpecificationVisitor = stampit(Visitor, {
     this.specObj = specObj;
   },
   methods: {
+    retrievePassingOptions() {
+      return pick(['namespace', 'sourceMap', 'specObj'], this);
+    },
+
     retrieveFixedFields(specPath) {
       return pipe(path(['visitors', ...specPath, 'fixedFields']), keys)(this.specObj);
     },
@@ -30,7 +34,7 @@ const SpecificationVisitor = stampit(Visitor, {
     },
 
     retrieveVisitorInstance(specPath, options = {}) {
-      const passingOpts = pick(['namespace', 'sourceMap', 'specObj'], this);
+      const passingOpts = this.retrievePassingOptions();
 
       return this.retrieveVisitor(specPath)({ ...passingOpts, ...options });
     },

@@ -1,6 +1,5 @@
 import StreamVisitor from './visitors/StreamVisitor';
 import DocumentVisitor from './visitors/DocumentVisitor';
-
 import ErrorVisitor from './visitors/ErrorVisitor';
 import { ScalarVisitor, MappingVisitor, SequenceVisitor, KindVisitor } from './visitors/generics';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';

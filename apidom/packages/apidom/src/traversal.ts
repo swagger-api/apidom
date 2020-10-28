@@ -1,10 +1,11 @@
-import { visit, BREAK } from 'apidom-ast';
 import stampit from 'stampit';
 import { ArraySlice } from 'minim';
-import { Pred, curry, curryN, pipe, F as stubFalse, complement, pathOr } from 'ramda';
-import { isString, isNotUndefined } from 'ramda-adjunct';
+import { Pred, curry, curryN, pipe, F as stubFalse, complement, pathOr, defaultTo } from 'ramda';
+import { isString, isFunction, isNotUndefined, noop } from 'ramda-adjunct';
+import { visit, BREAK } from 'apidom-ast';
 
 import {
+  isElement,
   isObjectElement,
   isArrayElement,
   isNumberElement,
@@ -48,13 +49,14 @@ const keyMap = {
   member: ['key', 'value'],
 };
 
-const Visitor = stampit({
+const PredicateVisitor = stampit({
   props: {
     result: [],
     predicate: stubFalse,
     return: undefined,
   },
-  init({ predicate }) {
+  // @ts-ignore
+  init({ predicate = this.predicate } = {}) {
     this.result = [];
     this.predicate = predicate;
   },
@@ -69,11 +71,30 @@ const Visitor = stampit({
   },
 });
 
+const CallbackVisitor = stampit(PredicateVisitor, {
+  props: {
+    callback: noop,
+  },
+  // @ts-ignore
+  init({ callback = this.callback } = {}) {
+    this.callback = callback;
+  },
+  methods: {
+    enter(element) {
+      if (this.predicate(element)) {
+        this.callback(element);
+        return this.return;
+      }
+      return undefined;
+    },
+  },
+});
+
 // finds all elements matching the predicate
 // filter :: Pred -> Element -> ArraySlice
 export const filter = curry(
   <T extends Element>(predicate: Pred, element: T): ArraySlice => {
-    const visitor = Visitor({ predicate });
+    const visitor = PredicateVisitor({ predicate });
 
     // @ts-ignore
     visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, nodePredicate: isNode });
@@ -93,7 +114,7 @@ export const reject = curry(
 // first first element in that satisfies the provided predicate
 // find :: Pred -> Element -> Element | Undefined
 export const find = curry(<T extends Element>(predicate: Pred, element: T): T | undefined => {
-  const visitor = Visitor({ predicate, return: BREAK });
+  const visitor = PredicateVisitor({ predicate, return: BREAK });
 
   // @ts-ignore
   visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, nodePredicate: isNode });
@@ -106,3 +127,32 @@ export const find = curry(<T extends Element>(predicate: Pred, element: T): T | 
 export const some = curry(<T extends Element>(predicate: Pred, element: T): boolean => {
   return isNotUndefined(find(predicate)(element));
 });
+
+type Callback = <T extends Element>(element: T) => void;
+interface TraverseOptions {
+  callback?: Callback;
+  predicate?: Pred;
+}
+
+// executes the callback on this object and all descendants
+// traverse :: Callback | { predicate: Pred, callback: Callback } -> Element -> Undefined
+export const traverse = curry(
+  <T extends Element>(options: Callback | TraverseOptions, element: T): void => {
+    let callback;
+    let predicate;
+
+    if (isFunction(options)) {
+      callback = options;
+    } else {
+      ({ callback, predicate } = options);
+    }
+
+    const visitor = CallbackVisitor({
+      callback: defaultTo(noop, callback),
+      predicate: defaultTo(isElement, predicate),
+    });
+
+    // @ts-ignore
+    visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, nodePredicate: isNode });
+  },
+);

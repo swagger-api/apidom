@@ -1,0 +1,18 @@
+{
+	"name": "apidom-lsp",
+	"description": "ApiDOM based language service library",
+	"version": "1.0.0",
+	"author": "frantuma@yahoo.com",
+	"license": "MIT",
+	"main": "dist/server.js",
+	"types": "dist/server.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/swagger-api/apidom"
+	},
+	"dependencies": {
+		"vscode-languageserver": "^6.1.1",
+		"vscode-languageserver-textdocument": "^1.0.1"
+	},
+	"scripts": {}
+}

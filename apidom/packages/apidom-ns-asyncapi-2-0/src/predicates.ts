@@ -16,121 +16,74 @@ import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 
 export const isAsycApi2_0Element = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     const isElementTypeAsyncApi2_0 = isElementType('asyncApi2-0');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
-    const hasGetterAsyncapi = hasGetter('asyncapi');
-    const hasGetterInfo = hasGetter('info');
-    const hasGetterChannels = hasGetter('channels');
 
     return either(
       is(AsyncApi2_0Element),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeAsyncApi2_0,
-        primitiveEqObject,
-        hasClassApi,
-        hasGetterAsyncapi,
-        hasGetterInfo,
-        hasGetterChannels,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeAsyncApi2_0, primitiveEqObject, hasClassApi]),
     );
   },
 );
 
 export const isAsycapiElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeAsyncapi = isElementType('asyncapi');
     const primitiveEqString = primitiveEq('string');
-    const hasGetterLength = hasGetter('length');
 
     return either(
       is(AsyncapiElement),
-      allPass([hasBasicElementProps, isElementTypeAsyncapi, primitiveEqString, hasGetterLength]),
+      allPass([hasBasicElementProps, isElementTypeAsyncapi, primitiveEqString]),
     );
   },
 );
 
 export const isIdentifierElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeIdentifier = isElementType('identifier');
     const primitiveEqString = primitiveEq('string');
-    const hasGetterLength = hasGetter('length');
 
     return either(
       is(IdentifierElement),
-      allPass([hasBasicElementProps, isElementTypeIdentifier, primitiveEqString, hasGetterLength]),
+      allPass([hasBasicElementProps, isElementTypeIdentifier, primitiveEqString]),
     );
   },
 );
 
 export const isInfoElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeInfo = isElementType('info');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterTitle = hasGetter('title');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterTermsOfService = hasGetter('termsOfService');
-    const hasGetterVersion = hasGetter('version');
-    const hasGetterLicense = hasGetter('license');
-    const hasGetterContact = hasGetter('contact');
 
     return either(
       is(InfoElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeInfo,
-        primitiveEqObject,
-        hasGetterTitle,
-        hasGetterDescription,
-        hasGetterTermsOfService,
-        hasGetterVersion,
-        hasGetterLicense,
-        hasGetterContact,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
     );
   },
 );
 
 export const isLicenseElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeLicense = isElementType('license');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterName = hasGetter('name');
-    const hasGetterUrl = hasGetter('url');
 
     return either(
       is(LicenseElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeLicense,
-        primitiveEqObject,
-        hasGetterName,
-        hasGetterUrl,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeLicense, primitiveEqObject]),
     );
   },
 );
 
 export const isContactElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeContact = isElementType('contact');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterName = hasGetter('name');
-    const hasGetterUrl = hasGetter('url');
-    const hasGetterEmail = hasGetter('email');
 
     return either(
       is(ContactElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeContact,
-        primitiveEqObject,
-        hasGetterName,
-        hasGetterUrl,
-        hasGetterEmail,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeContact, primitiveEqObject]),
     );
   },
 );
@@ -148,58 +101,37 @@ export const isServersElement = createPredicate(
 );
 
 export const isServerElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeChannels = isElementType('server');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterUrl = hasGetter('url');
-    const hasGetterProtocol = hasGetter('protocol');
 
     return either(
       is(ServerElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeChannels,
-        primitiveEqObject,
-        hasGetterUrl,
-        hasGetterProtocol,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeChannels, primitiveEqObject]),
     );
   },
 );
 
 export const isServerVariableElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeChannels = isElementType('serverVariable');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterEnum = hasGetter('enum');
-    const hasGetterDefault = hasGetter('default');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterExamples = hasGetter('examples');
 
     return either(
       is(ServerVariableElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeChannels,
-        primitiveEqObject,
-        hasGetterEnum,
-        hasGetterDefault,
-        hasGetterDescription,
-        hasGetterExamples,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeChannels, primitiveEqObject]),
     );
   },
 );
 
 export const isComponentsElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeInfo = isElementType('components');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterSchemes = hasGetter('schemas');
 
     return either(
       is(ComponentsElement),
-      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject, hasGetterSchemes]),
+      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
     );
   },
 );
@@ -229,29 +161,13 @@ export const isChannelsElement = createPredicate(
 );
 
 export const isChannelItemElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeChannelItem = isElementType('channelItem');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetter$Ref = hasGetter('$ref');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterSubscribe = hasGetter('subscribe');
-    const hasGetterPublish = hasGetter('publish');
-    const hasGetterParameters = hasGetter('parameters');
-    const hasGetterBindings = hasGetter('bindings');
 
     return either(
       is(ChannelItemElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeChannelItem,
-        primitiveEqObject,
-        hasGetter$Ref,
-        hasGetterDescription,
-        hasGetterSubscribe,
-        hasGetterPublish,
-        hasGetterParameters,
-        hasGetterBindings,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeChannelItem, primitiveEqObject]),
     );
   },
 );

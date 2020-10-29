@@ -61,31 +61,22 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const asyncApi2_0ElementDuck = {
-        element: 'asyncApi2-0',
+        _storedElement: 'asyncApi2-0',
+        _content: [],
         classes: new ArrayElement(['api']),
-        content: [],
         primitive() {
           return 'object';
         },
-        get asyncapi() {
-          return 'asyncapi';
-        },
-        get info() {
-          return 'info';
-        },
-        get channels() {
-          return 'channels';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const asyncApi2_0ElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
-        },
-        get length() {
-          return 0;
         },
       };
 
@@ -124,16 +115,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const schemaElementDuck = {
-        element: 'schema',
-        content: [],
+        _storedElement: 'schema',
+        _content: [],
         primitive() {
           return 'object';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const schemaElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -174,19 +168,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const identifierElementDuck = {
-        element: 'identifier',
-        content: [],
+        _storedElement: 'identifier',
+        _content: [],
         primitive() {
           return 'string';
         },
-        get length() {
-          return 0;
+        get element() {
+          return this._storedElement;
         },
       };
 
       const identifierElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -227,19 +221,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const asyncapiElementDuck = {
-        element: 'asyncapi',
-        content: '',
+        _storedElement: 'asyncapi',
+        _content: '',
         primitive() {
           return 'string';
         },
-        get length() {
-          return 0;
+        get element() {
+          return this._storedElement;
         },
       };
 
       const asyncapiElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -280,19 +274,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const componentsElementDuck = {
-        element: 'components',
-        content: [],
+        _storedElement: 'components',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get schemas() {
-          return 'schemas';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const componentsElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -333,34 +327,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const infoElementDuck = {
-        element: 'info',
-        content: [],
+        _storedElement: 'info',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get title() {
-          return 'title';
-        },
-        get description() {
-          return 'description';
-        },
-        get termsOfService() {
-          return 'termsOfService';
-        },
-        get version() {
-          return 'version';
-        },
-        get license() {
-          return 'license';
-        },
-        get contact() {
-          return 'contact';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const infoElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -401,22 +380,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const licenseElementDuck = {
-        element: 'license',
-        content: [],
+        _storedElement: 'license',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get name() {
-          return 'name';
-        },
-        get url() {
-          return 'url';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const licenseElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -457,25 +433,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const concatElementDuck = {
-        element: 'contact',
-        content: [],
+        _storedElement: 'contact',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get name() {
-          return 'name';
-        },
-        get url() {
-          return 'url';
-        },
-        get email() {
-          return 'email';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const contactElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -516,16 +486,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const serversElementDuck = {
-        element: 'servers',
-        content: [],
+        _storedElement: 'servers',
+        _content: [],
         primitive() {
           return 'object';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const serversElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -566,22 +539,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const serverElementDuck = {
-        element: 'server',
-        content: [],
+        _storedElement: 'server',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get url() {
-          return 'url';
-        },
-        get protocol() {
-          return 'protocol';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const serverElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -622,28 +592,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const serverVariableElementDuck = {
-        element: 'serverVariable',
-        content: [],
+        _storedElement: 'serverVariable',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get enum() {
-          return 'enum';
-        },
-        get default() {
-          return 'default';
-        },
-        get description() {
-          return 'description';
-        },
-        get examples() {
-          return 'examples';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const serverVariableElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -684,16 +645,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const channelsElementDuck = {
-        element: 'channels',
-        content: [],
+        _storedElement: 'channels',
+        _content: [],
         primitive() {
           return 'object';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const channelsElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -734,34 +698,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const channelItemElementDuck = {
-        element: 'channelItem',
-        content: [],
+        _storedElement: 'channelItem',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get $ref() {
-          return '$ref';
-        },
-        get description() {
-          return 'description';
-        },
-        get subscribe() {
-          return 'subscribe';
-        },
-        get publish() {
-          return 'publish';
-        },
-        get parameters() {
-          return 'parameters';
-        },
-        get bindings() {
-          return 'bindings';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const channelItemElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },

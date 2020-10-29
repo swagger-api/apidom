@@ -15,127 +15,74 @@ import PathItemElement from './elements/PathItem';
 import OperationElement from './elements/Operation';
 
 export const isOpenApiApi3_1Element = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter, hasClass }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     const isElementTypeOpenApi3_1 = isElementType('openApi3-1');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
-    const hasGetterOpenapi = hasGetter('openapi');
-    const hasGetterInfo = hasGetter('info');
-    const hasGetterServers = hasGetter('servers');
-    const hasGetterComponents = hasGetter('components');
 
     return either(
       is(OpenApi3_1Element),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeOpenApi3_1,
-        primitiveEqObject,
-        hasClassApi,
-        hasGetterOpenapi,
-        hasGetterInfo,
-        hasGetterServers,
-        hasGetterComponents,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeOpenApi3_1, primitiveEqObject, hasClassApi]),
     );
   },
 );
 
 export const isOpenapiElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeOpenapi = isElementType('openapi');
     const primitiveEqString = primitiveEq('string');
-    const hasGetterLength = hasGetter('length');
 
     return either(
       is(OpenapiElement),
-      allPass([hasBasicElementProps, isElementTypeOpenapi, primitiveEqString, hasGetterLength]),
+      allPass([hasBasicElementProps, isElementTypeOpenapi, primitiveEqString]),
     );
   },
 );
 
 export const isInfoElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeInfo = isElementType('info');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterTitle = hasGetter('title');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterSummary = hasGetter('summary');
-    const hasGetterTermsOfService = hasGetter('termsOfService');
-    const hasGetterVersion = hasGetter('version');
-    const hasGetterLicense = hasGetter('license');
-    const hasGetterContact = hasGetter('contact');
 
     return either(
       is(InfoElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeInfo,
-        primitiveEqObject,
-        hasGetterTitle,
-        hasGetterDescription,
-        hasGetterSummary,
-        hasGetterTermsOfService,
-        hasGetterVersion,
-        hasGetterLicense,
-        hasGetterContact,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
     );
   },
 );
 
 export const isLicenseElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeLicense = isElementType('license');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterName = hasGetter('name');
-    const hasGetterIdentifier = hasGetter('identifier');
-    const hasGetterUrl = hasGetter('url');
 
     return either(
       is(LicenseElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeLicense,
-        primitiveEqObject,
-        hasGetterName,
-        hasGetterIdentifier,
-        hasGetterUrl,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeLicense, primitiveEqObject]),
     );
   },
 );
 
 export const isContactElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeContact = isElementType('contact');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterName = hasGetter('name');
-    const hasGetterUrl = hasGetter('url');
-    const hasGetterEmail = hasGetter('email');
 
     return either(
       is(ContactElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeContact,
-        primitiveEqObject,
-        hasGetterName,
-        hasGetterUrl,
-        hasGetterEmail,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeContact, primitiveEqObject]),
     );
   },
 );
 
 export const isComponentsElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeComponents = isElementType('components');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterSchemes = hasGetter('schemas');
 
     return either(
       is(ComponentsElement),
-      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject, hasGetterSchemes]),
+      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject]),
     );
   },
 );
@@ -153,45 +100,25 @@ export const isSchemaElement = createPredicate(
 );
 
 export const isServerElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeServer = isElementType('server');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterUrl = hasGetter('url');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterVariables = hasGetter('variables');
 
     return either(
       is(ServerElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeServer,
-        primitiveEqObject,
-        hasGetterUrl,
-        hasGetterDescription,
-        hasGetterVariables,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeServer, primitiveEqObject]),
     );
   },
 );
 
 export const isServerVariableElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeServerVariable = isElementType('serverVariable');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterDefault = hasGetter('default');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterEnum = hasGetter('enum');
 
     return either(
       is(ServerVariableElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeServerVariable,
-        primitiveEqObject,
-        hasGetterDefault,
-        hasGetterDescription,
-        hasGetterEnum,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeServerVariable, primitiveEqObject]),
     );
   },
 );
@@ -209,65 +136,25 @@ export const isPathsElement = createPredicate(
 );
 
 export const isPathItemElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypePathItem = isElementType('pathItem');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetter$Ref = hasGetter('$ref');
-    const hasGetterSummary = hasGetter('summary');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterGET = hasGetter('GET');
-    const hasGetterPUT = hasGetter('PUT');
-    const hasGetterPOST = hasGetter('POST');
-    const hasGetterDELETE = hasGetter('DELETE');
-    const hasGetterOPTIONS = hasGetter('OPTIONS');
-    const hasGetterHEAD = hasGetter('HEAD');
-    const hasGetterPATCH = hasGetter('PATCH');
-    const hasGetterTRACE = hasGetter('TRACE');
 
     return either(
       is(PathItemElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypePathItem,
-        primitiveEqObject,
-        hasGetter$Ref,
-        hasGetterSummary,
-        hasGetterDescription,
-        hasGetterGET,
-        hasGetterPUT,
-        hasGetterPOST,
-        hasGetterDELETE,
-        hasGetterOPTIONS,
-        hasGetterHEAD,
-        hasGetterPATCH,
-        hasGetterTRACE,
-      ]),
+      allPass([hasBasicElementProps, isElementTypePathItem, primitiveEqObject]),
     );
   },
 );
 
 export const isOperationElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeOperation = isElementType('operation');
     const primitiveEqObject = primitiveEq('object');
-    const hasGetterTags = hasGetter('tags');
-    const hasGetterSummary = hasGetter('summary');
-    const hasGetterDescription = hasGetter('description');
-    const hasGetterOperationId = hasGetter('operationId');
-    const hasGetterParameters = hasGetter('parameters');
 
     return either(
       is(OperationElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeOperation,
-        primitiveEqObject,
-        hasGetterTags,
-        hasGetterSummary,
-        hasGetterDescription,
-        hasGetterOperationId,
-        hasGetterParameters,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeOperation, primitiveEqObject]),
     );
   },
 );

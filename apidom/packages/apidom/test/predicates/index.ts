@@ -23,6 +23,9 @@ import {
   isMemberElement,
   isLinkElement,
   isRefElement,
+  isSourceMapElement,
+  hasElementSourceMap,
+  SourceMapElement,
 } from '../../src';
 
 describe('predicates', function () {
@@ -56,8 +59,8 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const elementDuck = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return undefined;
         },
@@ -102,24 +105,21 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const stringElementDuck = {
-        element: 'string',
-        content: undefined,
+        _storedElement: 'string',
+        _content: undefined,
         primitive() {
           return 'string';
         },
-        get length() {
-          return 0;
+        get element() {
+          return this._storedElement;
         },
       };
 
       const stringElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
-        },
-        get length() {
-          return 0;
         },
       };
 
@@ -161,16 +161,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const numberElementDuck = {
-        element: 'number',
-        content: undefined,
+        _storedElement: 'number',
+        _content: undefined,
         primitive() {
           return 'number';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const numberElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -214,16 +217,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const nullElementDuck = {
-        element: 'null',
-        content: undefined,
+        _storedElement: 'null',
+        _content: undefined,
         primitive() {
           return 'null';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const nullElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -267,16 +273,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const booleanElementDuck = {
-        element: 'boolean',
-        content: undefined,
+        _storedElement: 'boolean',
+        _content: undefined,
         primitive() {
           return 'boolean';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const booleanElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -318,8 +327,8 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const arrayElementDuck = {
-        element: 'array',
-        content: [],
+        _storedElement: 'array',
+        _content: [],
         primitive() {
           return 'array';
         },
@@ -327,11 +336,14 @@ describe('predicates', function () {
         unshift() {},
         map() {},
         reduce() {},
+        get element() {
+          return this._storedElement;
+        },
       };
 
       const arrayElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -375,19 +387,22 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const objectElementDuck = {
-        element: 'object',
-        content: [],
+        _storedElement: 'object',
+        _content: [],
         primitive() {
           return 'object';
         },
         keys() {},
         values() {},
         items() {},
+        get element() {
+          return this._storedElement;
+        },
       };
 
       const objectElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -399,7 +414,7 @@ describe('predicates', function () {
   });
 
   context('isMemberElement', function () {
-    context('given MemberELement instance value', function () {
+    context('given MemberElement instance value', function () {
       specify('should return true', function () {
         const element = new MemberElement();
 
@@ -431,22 +446,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const memberElementDuck = {
-        element: 'member',
-        content: {},
+        _storedElement: 'member',
+        _content: {},
         primitive() {
           return undefined;
         },
-        get key() {
-          return 'key';
-        },
-        get value() {
-          return 'value';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const memberElementSwan = {
-        element: 'member',
-        content: {},
+        _storedElement: 'member',
+        _content: {},
         primitive() {
           return undefined;
         },
@@ -490,22 +502,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const linkElementDuck = {
-        element: 'link',
-        content: [],
+        _storedElement: 'link',
+        _content: [],
         primitive() {
           return undefined;
         },
-        get href() {
-          return 'href';
-        },
-        get relation() {
-          return 'relation';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const linkElementSwan = {
-        element: 'link',
-        content: [],
+        _storedElement: 'link',
+        _content: [],
         primitive() {
           return undefined;
         },
@@ -549,19 +558,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const refElementDuck = {
-        element: 'ref',
-        content: [],
+        _storedElement: 'ref',
+        _content: [],
         primitive() {
           return undefined;
         },
-        get path() {
-          return 'href';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const refElementSwan = {
-        element: 'ref',
-        content: [],
+        _storedElement: 'ref',
+        _content: [],
         primitive() {
           return undefined;
         },
@@ -569,6 +578,91 @@ describe('predicates', function () {
 
       assert.isTrue(isRefElement(refElementDuck));
       assert.isFalse(isRefElement(refElementSwan));
+    });
+  });
+
+  context('isSourceMapElement', function () {
+    context('given SourceMapElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SourceMapElement();
+
+        assert.isTrue(isSourceMapElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SourceMapSubElement extends SourceMapElement {}
+
+        assert.isTrue(isSourceMapElement(new SourceMapSubElement()));
+      });
+    });
+
+    context('given non SourceMapSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSourceMapElement(1));
+        assert.isFalse(isSourceMapElement(null));
+        assert.isFalse(isSourceMapElement(undefined));
+        assert.isFalse(isSourceMapElement({}));
+        assert.isFalse(isSourceMapElement([]));
+        assert.isFalse(isSourceMapElement('string'));
+
+        assert.isFalse(isSourceMapElement(new StringElement()));
+        assert.isFalse(isSourceMapElement(new BooleanElement()));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const sourceMapElementDuck = {
+        _storedElement: 'sourceMap',
+        _content: [],
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const sourceMapElementSwan = {
+        _storedElement: 'sourceMap',
+        _content: [],
+        primitive() {
+          return undefined;
+        },
+      };
+
+      assert.isTrue(isSourceMapElement(sourceMapElementDuck));
+      assert.isFalse(isSourceMapElement(sourceMapElementSwan));
+    });
+  });
+
+  context('hasSourceMapElement', function () {
+    context('given element has sourcemap', function () {
+      specify('should return true', function () {
+        const element = new ObjectElement({ prop: 'val' });
+        const sourceMap = new SourceMapElement();
+        element.setMetaProperty('sourceMap', sourceMap);
+
+        assert.isTrue(hasElementSourceMap(element));
+      });
+
+      context('and sourcemap is not SourceMapElement', function () {
+        specify('should return false', function () {
+          const element = new ObjectElement({ prop: 'val' });
+          element.setMetaProperty('sourceMap', null);
+
+          assert.isFalse(hasElementSourceMap(element));
+        });
+      });
+    });
+
+    context("given element hasn't sourcemap", function () {
+      const element = new ObjectElement({ prop: 'val' });
+
+      specify('should return false', function () {
+        assert.isFalse(hasElementSourceMap(element));
+      });
     });
   });
 });

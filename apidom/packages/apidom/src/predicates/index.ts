@@ -12,6 +12,7 @@ import {
 } from 'minim';
 import { either, allPass, is, both } from 'ramda';
 
+import SourceMapElement from '../elements/SourceMap';
 import createPredicate from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
@@ -21,14 +22,13 @@ export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq })
 });
 
 export const isStringElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeString = isElementType('string');
     const primitiveEqString = primitiveEq('string');
-    const hasGetterLength = hasGetter('length');
 
     return either(
       is(StringElement),
-      allPass([hasBasicElementProps, isElementTypeString, primitiveEqString, hasGetterLength]),
+      allPass([hasBasicElementProps, isElementTypeString, primitiveEqString]),
     );
   },
 );
@@ -116,54 +116,53 @@ export const isObjectElement = createPredicate(
 );
 
 export const isMemberElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeMember = isElementType('member');
     const primitiveEqUndefined = primitiveEq(undefined);
-    const hasGetterKey = hasGetter('key');
-    const hasGetterValue = hasGetter('value');
 
     return either(
       is(MemberElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeMember,
-        primitiveEqUndefined,
-        hasGetterKey,
-        hasGetterValue,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeMember, primitiveEqUndefined]),
     );
   },
 );
 
 export const isLinkElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeLink = isElementType('link');
     const primitiveEqUndefined = primitiveEq(undefined);
-    const hasGetterRelation = hasGetter('relation');
-    const hasGetterHref = hasGetter('href');
 
     return either(
       is(LinkElement),
-      allPass([
-        hasBasicElementProps,
-        isElementTypeLink,
-        primitiveEqUndefined,
-        hasGetterRelation,
-        hasGetterHref,
-      ]),
+      allPass([hasBasicElementProps, isElementTypeLink, primitiveEqUndefined]),
     );
   },
 );
 
 export const isRefElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasGetter }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeRef = isElementType('ref');
     const primitiveEqUndefined = primitiveEq(undefined);
-    const hasGetterPath = hasGetter('path');
 
     return either(
       is(RefElement),
-      allPass([hasBasicElementProps, isElementTypeRef, primitiveEqUndefined, hasGetterPath]),
+      allPass([hasBasicElementProps, isElementTypeRef, primitiveEqUndefined]),
     );
   },
 );
+
+export const isSourceMapElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeSourceMap = isElementType('sourceMap');
+    const primitiveEqArray = primitiveEq('array');
+
+    return either(
+      is(SourceMapElement),
+      allPass([hasBasicElementProps, isElementTypeSourceMap, primitiveEqArray]),
+    );
+  },
+);
+
+export const hasElementSourceMap = createPredicate(() => {
+  return (element) => isSourceMapElement(element.meta.get('sourceMap'));
+});

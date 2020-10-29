@@ -1,4 +1,4 @@
-import { ArrayElement, Attributes, Element, Meta } from 'minim';
+import { ArrayElement, ArraySlice, Attributes, Element, Meta } from 'minim';
 
 class ParseResult extends ArrayElement {
   constructor(content: Array<any>, meta: Meta, attributes: Attributes) {
@@ -10,17 +10,17 @@ class ParseResult extends ArrayElement {
     return this.children.filter((item) => item.classes.contains('api')).first;
   }
 
-  get annotations(): ArrayElement {
+  get annotations(): ArraySlice {
     return this.children.filter((item) => item.element === 'annotation');
   }
 
-  get warnings(): ArrayElement {
+  get warnings(): ArraySlice {
     return this.children.filter(
       (item) => item.element === 'annotation' && item.classes.contains('warning'),
     );
   }
 
-  get errors(): ArrayElement {
+  get errors(): ArraySlice {
     return this.children.filter(
       (item) => item.element === 'annotation' && item.classes.contains('error'),
     );

@@ -59,29 +59,20 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const openApi3_1ElementDuck = {
-        element: 'openApi3-1',
+        _storedElement: 'openApi3-1',
         classes: new ArrayElement(['api']),
-        content: [],
+        _content: [],
         primitive() {
           return 'object';
         },
-        get openapi() {
-          return 'openapi';
-        },
-        get info() {
-          return 'info';
-        },
-        get servers() {
-          return 'servers';
-        },
-        get components() {
-          return 'components';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const openApi3_1ElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -125,16 +116,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const schemaElementDuck = {
-        element: 'schema',
-        content: [],
+        _storedElement: 'schema',
+        _content: [],
         primitive() {
           return 'object';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const schemaElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -175,19 +169,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const openapiElementDuck = {
-        element: 'openapi',
-        content: '',
+        _storedElement: 'openapi',
+        _content: '',
         primitive() {
           return 'string';
         },
-        get length() {
-          return 0;
+        get element() {
+          return this._storedElement;
         },
       };
 
       const openapiElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -228,19 +222,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const componentsElementDuck = {
-        element: 'components',
-        content: [],
+        _storedElement: 'components',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get schemas() {
-          return 'schemas';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const componentsElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -281,37 +275,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const infoElementDuck = {
-        element: 'info',
-        content: [],
+        _storedElement: 'info',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get title() {
-          return 'title';
-        },
-        get description() {
-          return 'description';
-        },
-        get summary() {
-          return 'summary';
-        },
-        get termsOfService() {
-          return 'termsOfService';
-        },
-        get version() {
-          return 'version';
-        },
-        get license() {
-          return 'license';
-        },
-        get contact() {
-          return 'contact';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const infoElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -352,25 +328,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const licenseElementDuck = {
-        element: 'license',
-        content: [],
+        _storedElement: 'license',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get name() {
-          return 'name';
-        },
-        get identifier() {
-          return 'identifier';
-        },
-        get url() {
-          return 'url';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const licenseElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -411,25 +381,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const concatElementDuck = {
-        element: 'contact',
-        content: [],
+        _storedElement: 'contact',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get name() {
-          return 'name';
-        },
-        get url() {
-          return 'url';
-        },
-        get email() {
-          return 'email';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const contactElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -470,25 +434,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const serverElementDuck = {
-        element: 'server',
-        content: [],
+        _storedElement: 'server',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get url() {
-          return 'url';
-        },
-        get description() {
-          return 'description';
-        },
-        get variables() {
-          return 'variables';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const serverElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -529,25 +487,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const serverVariableElementDuck = {
-        element: 'serverVariable',
-        content: [],
+        _storedElement: 'serverVariable',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get default() {
-          return 'default';
-        },
-        get description() {
-          return 'description';
-        },
-        get enum() {
-          return 'enum';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const serverVariableElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -588,16 +540,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const pathsElementDuck = {
-        element: 'paths',
-        content: [],
+        _storedElement: 'paths',
+        _content: [],
         primitive() {
           return 'object';
+        },
+        get element() {
+          return this._storedElement;
         },
       };
 
       const pathsElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -638,52 +593,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const pathItemElementDuck = {
-        element: 'pathItem',
-        content: [],
+        _storedElement: 'pathItem',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get $ref() {
-          return '$ref';
-        },
-        get summary() {
-          return 'summary';
-        },
-        get description() {
-          return 'description';
-        },
-        get GET() {
-          return 'get';
-        },
-        get PUT() {
-          return 'put';
-        },
-        get POST() {
-          return 'post';
-        },
-        get DELETE() {
-          return 'delete';
-        },
-        get OPTIONS() {
-          return 'options';
-        },
-        get HEAD() {
-          return 'head';
-        },
-        get PATCH() {
-          return 'patch';
-        },
-        get TRACE() {
-          return 'trace';
-        },
-        get servers() {
-          return 'servers';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const pathItemElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },
@@ -724,31 +646,19 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const operationElementDuck = {
-        element: 'operation',
-        content: [],
+        _storedElement: 'operation',
+        _content: [],
         primitive() {
           return 'object';
         },
-        get summary() {
-          return 'summary';
-        },
-        get description() {
-          return 'description';
-        },
-        get tags() {
-          return 'tags';
-        },
-        get operationId() {
-          return 'operationId';
-        },
-        get parameters() {
-          return 'parameters';
+        get element() {
+          return this._storedElement;
         },
       };
 
       const operationElementSwan = {
-        element: undefined,
-        content: undefined,
+        _storedElement: undefined,
+        _content: undefined,
         primitive() {
           return 'swan';
         },

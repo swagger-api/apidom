@@ -19,11 +19,13 @@ export {
   isMemberElement,
   isLinkElement,
   isRefElement,
+  isSourceMapElement,
+  hasElementSourceMap,
 } from './predicates';
 export { default as createPredicate } from './predicates/helpers';
 
 export { ArraySlice } from 'minim';
-export { filter, reject, find, some, traverse } from './traversal';
+export { filter, reject, find, findAtOffset, some, traverse } from './traversal';
 
 export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();

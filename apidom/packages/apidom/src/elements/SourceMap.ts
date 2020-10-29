@@ -12,17 +12,17 @@ interface PositionRange {
 }
 
 class SourceMap extends ArrayElement {
-  constructor(content: Array<any>, meta: Meta, attributes: Attributes) {
+  constructor(content?: Array<any>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'sourceMap';
   }
 
   get positionStart(): Element | undefined {
-    return this.children.filter((item) => item.classes.contains('position')).first;
+    return this.children.filter((item) => item.classes.contains('position')).get(0);
   }
 
   get positionEnd(): Element | undefined {
-    return this.children.filter((item) => item.classes.contains('position')).second;
+    return this.children.filter((item) => item.classes.contains('position')).get(1);
   }
 
   set position(position: PositionRange | null) {

@@ -13,7 +13,7 @@ declare module 'minim' {
 
     public attributes: Attributes;
 
-    public children: ArrayElement;
+    public children: ArraySlice;
 
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
@@ -21,7 +21,7 @@ declare module 'minim' {
 
     toValue(): any;
 
-    getMetaProperty(name: string, value: any): any;
+    getMetaProperty(name: string, value?: any): any;
 
     setMetaProperty(name: string, value: any): void;
   }
@@ -67,7 +67,7 @@ declare module 'minim' {
 
     second: Element | undefined;
 
-    filter(predicate: Predicate): ArrayElement;
+    filter(predicate: Predicate): ArraySlice;
 
     contains(value: any): boolean;
 
@@ -122,6 +122,10 @@ declare module 'minim' {
     constructor(elements?: Array<unknown>);
 
     get length(): number;
+
+    get first(): Element;
+
+    filter(predicate: Predicate): ArraySlice;
 
     hasKey(value: string): boolean;
 

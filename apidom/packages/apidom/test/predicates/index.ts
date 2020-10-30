@@ -25,6 +25,8 @@ import {
   isRefElement,
   isSourceMapElement,
   hasElementSourceMap,
+  includesSymbols,
+  includesClasses,
   SourceMapElement,
 } from '../../src';
 
@@ -662,6 +664,111 @@ describe('predicates', function () {
 
       specify('should return false', function () {
         assert.isFalse(hasElementSourceMap(element));
+      });
+    });
+  });
+
+  context('includesSymbols', function () {
+    context('given intersecting symbols', function () {
+      specify('should return true', function () {
+        const element = new ObjectElement();
+        element.attributes.set('symbols', ['symbol1', 'symbol2', 'symbol3']);
+
+        assert.isTrue(includesSymbols(['symbol1', 'symbol3'], element));
+      });
+    });
+
+    context('given no symbols key in attributes', function () {
+      let element;
+
+      beforeEach(function () {
+        element = new ObjectElement();
+      });
+
+      context('and providing at least one search symbol', function () {
+        specify('should return false', function () {
+          assert.isFalse(includesSymbols(['symbol'], element));
+        });
+      });
+
+      context('and providing no search symbol', function () {
+        specify('should return true', function () {
+          assert.isTrue(includesSymbols([], element));
+        });
+      });
+    });
+
+    context('given empty symbols list in attributes', function () {
+      let element;
+
+      beforeEach(function () {
+        element = new ObjectElement();
+        element.attributes.set('symbols', []);
+      });
+
+      context('and providing at least one search symbol', function () {
+        specify('should return false', function () {
+          assert.isFalse(includesSymbols(['symbol'], element));
+        });
+      });
+
+      context('and providing no search symbol', function () {
+        specify('should return true', function () {
+          assert.isTrue(includesSymbols([], element));
+        });
+      });
+    });
+
+    context('given no intersecting symbols', function () {
+      specify('should return false', function () {
+        const element = new ObjectElement();
+        element.attributes.set('symbols', ['symbol1', 'symbol2', 'symbol3']);
+
+        assert.isFalse(includesSymbols(['xxx'], element));
+      });
+    });
+  });
+
+  context('includesClasses', function () {
+    context('given intersecting classes', function () {
+      specify('should return true', function () {
+        const element = new ObjectElement();
+        element.classes.push('class1');
+        element.classes.push('class2');
+        element.classes.push('class3');
+
+        assert.isTrue(includesClasses(['class1', 'class2'], element));
+      });
+    });
+
+    context('given empty classes list in attributes', function () {
+      let element;
+
+      beforeEach(function () {
+        element = new ObjectElement();
+      });
+
+      context('and providing at least one search class', function () {
+        specify('should return false', function () {
+          assert.isFalse(includesClasses(['class'], element));
+        });
+      });
+
+      context('and providing no search class', function () {
+        specify('should return true', function () {
+          assert.isTrue(includesClasses([], element));
+        });
+      });
+    });
+
+    context('given no intersecting classes', function () {
+      specify('should return false', function () {
+        const element = new ObjectElement();
+        element.classes.push('class1');
+        element.classes.push('class2');
+        element.classes.push('class3');
+
+        assert.isFalse(includesClasses(['xxx'], element));
       });
     });
   });

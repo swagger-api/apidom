@@ -10,7 +10,8 @@ import {
   LinkElement,
   RefElement,
 } from 'minim';
-import { either, allPass, is, both } from 'ramda';
+import { all, isEmpty, either, curry, allPass, is, both } from 'ramda';
+import { included } from 'ramda-adjunct';
 
 import SourceMapElement from '../elements/SourceMap';
 import createPredicate from './helpers';
@@ -166,3 +167,29 @@ export const isSourceMapElement = createPredicate(
 export const hasElementSourceMap = createPredicate(() => {
   return (element) => isSourceMapElement(element.meta.get('sourceMap'));
 });
+
+export const includesSymbols = curry(
+  <T extends Element>(symbols: string[], element: T): boolean => {
+    if (isEmpty(symbols)) {
+      return true;
+    }
+
+    const elementSymbols = element.attributes.get('symbols');
+
+    if (!isArrayElement(elementSymbols)) {
+      return false;
+    }
+
+    return all(included(elementSymbols.toValue()), symbols);
+  },
+);
+
+export const includesClasses = curry(
+  <T extends Element>(classes: string[], element: T): boolean => {
+    if (isEmpty(classes)) {
+      return true;
+    }
+
+    return all(included(element.classes.toValue()), classes);
+  },
+);

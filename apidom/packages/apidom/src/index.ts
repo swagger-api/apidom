@@ -21,6 +21,8 @@ export {
   isRefElement,
   isSourceMapElement,
   hasElementSourceMap,
+  includesSymbols,
+  includesClasses,
 } from './predicates';
 export { default as createPredicate } from './predicates/helpers';
 

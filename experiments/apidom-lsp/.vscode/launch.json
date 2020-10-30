@@ -33,6 +33,48 @@
 				"${workspaceRoot}/client/testFixture"
 			],
 			"outFiles": ["${workspaceRoot}/client/out/test/**/*.js"]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Mocha apidomlsp",
+			"program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+			"args": [
+				"-u",
+				"tdd",
+				"-r",
+				"ts-node/register",
+				"--timeout",
+				"999999",
+				"--colors",
+				"${workspaceFolder}/apidomlsp/**/*.spec.ts",
+			],
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": [
+				"<node_internals>/**/*.js"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Mocha Current File",
+			"program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+			"args": [
+				"-u",
+				"tdd",
+				"-r",
+				"ts-node/register",
+				"--timeout",
+				"999999",
+				"--colors",
+				"${file}",
+			],
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": [
+				"<node_internals>/**/*.js"
+			]
 		}
 	],
 	"compounds": [

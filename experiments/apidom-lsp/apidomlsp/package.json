@@ -14,5 +14,18 @@
 		"vscode-languageserver": "^6.1.1",
 		"vscode-languageserver-textdocument": "^1.0.1"
 	},
-	"scripts": {}
+	"devDependencies": {
+		"@types/mocha": "^8.0.3",
+		"assert": "^2.0.0",
+		"mocha": "latest",
+		"@types/node": "^14.14.6",
+		"ts-node": "^9.0.0",
+		"tslint": "^6.1.3",
+		"eslint": "^7.12.1",
+		"@typescript-eslint/parser": "^4.6.0",
+		"typescript": "^4.0.5"
+	},
+	"scripts": {
+		"test": "mocha -u tdd"
+	}
 }

@@ -1,7 +1,4 @@
 import { equal  }  from 'assert';
-//var assert = require('assert');
-//var vscodeLang = require('vscode-languageserver'); 
-//var vscodeText = require('vscode-languageserver-textdocument'); 
 
 import {
 	TextDocuments,

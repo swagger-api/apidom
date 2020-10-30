@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "name": "apidom-monaco-client",
+  "version": "0.0.2",
+  "dependencies": {
+    "file-loader": "^4.3.0",
+    "monaco-languageclient": "^0.13.1-next.1",
+    "monaco-editor-core": "^0.20.0",
+    "vscode-json-languageservice": "3.4.12"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "@types/vscode": "1.43.0",
+    "@types/express": "^4.0.35",
+    "@types/node": "^13.1.7",
+    "@types/normalize-url": "^1.9.1",
+    "@types/ws": "0.0.39",
+    "css-loader": "^0.28.11",
+    "lerna": "^3.16.4",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.20.3",
+    "typescript": "^3.7.5",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "^3.11.0",
+    "webpack-merge": "^4.1.2"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "compile": "tsc",
+    "watch": "tsc -w",
+    "clean": "rimraf lib",
+    "copy": "cp src/index.html lib/index.html",
+    "build": "yarn run compile && webpack && yarn run copy",
+    "update:file-deps": "yarn run clean:file-deps && yarn install",
+    "clean:file-deps": "yarn run clean:monaco-languageclient",
+    "update:monaco-languageclient": "yarn run clean:monaco-languageclient && yarn install",
+    "clean:monaco-languageclient": "rimraf node_modules/monaco-languageclient"
+  }
+}

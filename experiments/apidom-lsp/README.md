@@ -54,3 +54,14 @@ npm link apidomlsp
 - If you want to debug the server as well use the launch configuration `Attach to Server`
 
 
+## Test apidomlsp
+
+Use launch config Mocha apidomlsp or Mocha current file
+
+## Build and run monacoclient
+
+```
+yarn
+yarn run build
+```
+Debug Launch Configuration: MonacoClient Chrome

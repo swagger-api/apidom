@@ -40,6 +40,8 @@ cd ../server
 npm link ../apidomlsp
 cd ../client
 npm link ../apidomlsp
+cd ../monaclient
+npm link ../apidomlsp
 cd ../
 npm link apidomlsp
 ```
@@ -58,10 +60,17 @@ npm link apidomlsp
 
 Use launch config Mocha apidomlsp or Mocha current file
 
-## Build and run monacoclient
+## Build and run monacoclient (at commit e752b87)
 
 ```
 yarn
 yarn run build
 ```
 Debug Launch Configuration: MonacoClient Chrome
+
+## Build and run monacoclient 
+
+```
+cd <ROOT>/
+
+```

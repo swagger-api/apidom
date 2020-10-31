@@ -1,0 +1,50 @@
+{
+  "name": "apidom-ls",
+  "description": "ApiDOM based language service library",
+  "version": "1.0.0",
+  "author": "frantuma@yahoo.com",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env BABEL_ENV=browser webpack-dev-server --config ./config/webpack/browser.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/swagger-api/apidom/issues"
+  },
+  "homepage": "https://github.com/swagger-api/apidom#readme",
+  "devDependencies": {
+    "@babel/cli": "=7.8.4",
+    "@babel/core": "=7.9.6",
+    "@babel/plugin-proposal-class-properties": "=7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "=7.9.6",
+    "@babel/plugin-transform-modules-commonjs": "=7.9.6",
+    "@babel/plugin-transform-runtime": "=7.10.1",
+    "@babel/preset-env": "=7.9.6",
+    "@babel/preset-typescript": "=7.9.0",
+    "@babel/register": "=7.10.1",
+    "babel-loader": "=8.1.0",
+    "core-js": "=3.6.5",
+    "cross-env": "=7.0.2",
+    "css-loader": "^4.2.1",
+    "file-loader": "=6.0.0",
+    "html-webpack-plugin": "=4.3.0",
+    "http-server": "=0.12.3",
+    "regenerator-runtime": "=0.13.5",
+    "rimraf": "=3.0.2",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "=3.0.2",
+    "webpack": "=4.43.0",
+    "webpack-cli": "=3.3.11",
+    "webpack-dev-server": "=3.11.0"
+  },
+  "dependencies": {
+    "vscode-languageserver-textdocument": "^1.0.1",
+    "@apidevtools/json-schema-ref-parser": "^9.0.6",
+    "jsonc-parser": "^2.3.0"
+  }
+}

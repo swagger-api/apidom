@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "resolveJsonModule": true,
+        "target": "es5",
+        "esModuleInterop": true,
+        "lib": [
+            "dom",
+            "es5",
+            "scripthost",
+            "es2015.collection",
+            "es2019"
+        ]
+    }
+}

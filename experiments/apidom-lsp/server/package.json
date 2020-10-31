@@ -3,7 +3,7 @@
 	"description": "ApiDOM node language server",
 	"version": "1.0.0",
 	"author": "frantuma@yahoo.com",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"engines": {
 		"node": "*"
 	},

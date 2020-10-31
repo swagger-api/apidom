@@ -2,6 +2,7 @@
   "private": true,
   "name": "apidom-monaco-client",
   "version": "0.0.2",
+  "license": "Apache-2.0",
   "dependencies": {
     "file-loader": "^4.3.0",
     "monaco-languageclient": "^0.13.1-next.1",

@@ -2,7 +2,7 @@
 	"name": "apidom-lsp",
 	"description": "ApiDOM LSP VsCode extension, client, server, language service library",
 	"author": "frantuma@yahoo.com",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"version": "1.0.0",
 	"repository": {
 		"type": "git",

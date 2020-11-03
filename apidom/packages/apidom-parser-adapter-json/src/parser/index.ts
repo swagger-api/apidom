@@ -8,13 +8,10 @@ import {
   JsonProperty,
   transformTreeSitterJsonCST,
 } from 'apidom-ast';
-import openapi3_1 from 'apidom-ns-openapi-3-1';
-// @ts-ignore
-import { visit } from 'apidom-parser-adapter-json';
-
 import specification from './specification';
+import { visit } from './visitors';
 
-export const namespace = createNamespace(openapi3_1);
+export const namespace = createNamespace();
 
 const parse = async (
   source: string,

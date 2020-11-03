@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { JsonNode } from 'apidom-ast';
+// @ts-ignore
+import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
-import { BREAK } from '..';
-import SpecificationVisitor from '../SpecificationVisitor';
 import { isParameterObject, isReferenceObject } from '../../predicates';
 import { ValueVisitor } from '../generics';
 

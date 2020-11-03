@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
+
 import Visitor from './Visitor';
 import { visit } from './index';
 

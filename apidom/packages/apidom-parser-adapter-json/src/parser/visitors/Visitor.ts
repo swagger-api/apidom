@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+
 import { addSourceMap } from '../source-map';
 
 const Visitor = stampit({

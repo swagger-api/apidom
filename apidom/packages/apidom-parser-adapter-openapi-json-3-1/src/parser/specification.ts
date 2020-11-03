@@ -1,3 +1,7 @@
+import { mergeDeepRight } from 'ramda';
+// @ts-ignore
+import { specification as jsonSpecification } from 'apidom-parser-adapter-json';
+
 import DocumentVisitor from './visitors/DocumentVisitor';
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
@@ -54,9 +58,6 @@ import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import ResponseVisitor from './visitors/open-api-3-1/response';
 
-import ErrorVisitor from './visitors/ErrorVisitor';
-import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
-
 /**
  * Specification object allows us to have complete control over visitors
  * when traversing the AST.
@@ -65,12 +66,8 @@ import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
  *
  * Note: Specification object allows to use relative JSON pointers.
  */
-const specification = {
+const specification = mergeDeepRight(jsonSpecification, {
   visitors: {
-    value: ValueVisitor,
-    object: ObjectVisitor,
-    array: ArrayVisitor,
-    error: ErrorVisitor,
     document: {
       $visitor: DocumentVisitor,
       objects: {
@@ -242,6 +239,6 @@ const specification = {
       extension: SpecificationExtensionVisitor,
     },
   },
-};
+});
 
 export default specification;

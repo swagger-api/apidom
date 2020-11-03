@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+
 import { BREAK } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
 

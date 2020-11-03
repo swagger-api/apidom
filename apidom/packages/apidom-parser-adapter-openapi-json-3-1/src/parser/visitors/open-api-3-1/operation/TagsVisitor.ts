@@ -1,6 +1,7 @@
 import stampit from 'stampit';
+// @ts-ignore
+import { SpecificationVisitor } from 'apidom-parser-adapter-json';
 
-import SpecificationVisitor from '../../SpecificationVisitor';
 import { ValueVisitor } from '../../generics';
 
 const TagsVisitor = stampit(ValueVisitor, SpecificationVisitor, {

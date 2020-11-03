@@ -1,15 +1,8 @@
 import { isJsonObject, isJsonProperty } from 'apidom-ast';
-import { length, pathEq, pathSatisfies, startsWith, both, curry, anyPass, filter } from 'ramda';
+import { length, pathEq, pathSatisfies, startsWith, both, curry } from 'ramda';
 import { isInteger } from 'ramda-adjunct';
-
-// hasKey :: String -> JsonProperty -> Boolean
-const hasKey = pathEq(['key', 'value']);
-
-// hasKeys :: [String] -> [JsonProperty] -> Boolean
-const hasKeys = curry((keyNames, properties) => {
-  const predicates = keyNames.map((keyName: string) => hasKey(keyName));
-  return filter(anyPass(predicates), properties).length === keyNames.length;
-});
+// @ts-ignore
+import { hasKeys } from 'apidom-parser-adapter-json';
 
 // isComponentsSchemas :: (Options, PropertyNode) -> Boolean
 // @ts-ignore

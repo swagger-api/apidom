@@ -1,6 +1,7 @@
 import stampit from 'stampit';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-json';
 
-import { appendMetadata } from '../../../metadata';
 import { ValueVisitor } from '../../generics';
 
 const VersionVisitor = stampit(ValueVisitor, {

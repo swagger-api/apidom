@@ -1,7 +1,7 @@
 import stampit from 'stampit';
-import { BREAK } from 'apidom-ast';
+// @ts-ignore
+import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
-import SpecificationVisitor from '../SpecificationVisitor';
 import { ValueVisitor } from '../generics';
 
 const OpenapiVisitor = stampit(ValueVisitor, SpecificationVisitor, {

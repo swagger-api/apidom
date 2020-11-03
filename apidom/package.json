@@ -88,6 +88,7 @@
     "apidom-ns-asyncapi-2-0": "file:packages/apidom-ns-asyncapi-2-0",
     "apidom-ns-openapi-3-1": "file:packages/apidom-ns-openapi-3-1",
     "apidom-parser": "file:packages/apidom-parser",
+    "apidom-parser-adapter-json": "file:packages/apidom-parser-adapter-json",
     "apidom-parser-adapter-asyncapi-json-2-0": "file:packages/apidom-parser-adapter-asyncapi-json-2-0",
     "apidom-parser-adapter-asyncapi-yaml-2-0": "file:packages/apidom-parser-adapter-asyncapi-yaml-2-0",
     "apidom-parser-adapter-openapi-json-3-1": "file:packages/apidom-parser-adapter-openapi-json-3-1",

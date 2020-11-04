@@ -7,7 +7,7 @@ import treeSitterYaml from 'tree-sitter-yaml/tree-sitter-yaml.wasm';
 
 import parse from '.';
 
-export { namespace } from './index';
+export { namespace } from '.';
 
 const parserP = (async () => {
   await Parser.init();

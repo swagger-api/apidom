@@ -1,18 +1,11 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
-import {
-  Error,
-  YamlStream,
-  YamlDocument,
-  YamlMapping,
-  YamlSequence,
-  YamlKeyValuePair,
-  transformTreeSitterYamlCST,
-} from 'apidom-ast';
+import { transformTreeSitterYamlCST } from 'apidom-ast';
 import openapi3_1 from 'apidom-ns-openapi-3-1';
+// @ts-ignore
+import { visit } from 'apidom-parser-adapter-yaml-1-2';
 
 import specification from './specification';
-import { visit } from './visitors';
 
 export const namespace = createNamespace(openapi3_1);
 
@@ -30,23 +23,7 @@ const parse = async (
   const cst = parser.parse(source);
   const ast = transformTreeSitterYamlCST(cst);
 
-  const keyMap = {
-    // @ts-ignore
-    [YamlStream.type]: ['children'],
-    // @ts-ignore
-    [YamlDocument.type]: ['children'],
-    // @ts-ignore
-    [YamlMapping.type]: ['children'],
-    // @ts-ignore
-    [YamlSequence.type]: ['children'],
-    // @ts-ignore
-    [YamlKeyValuePair.type]: ['children'],
-    // @ts-ignore
-    [Error.type]: ['children'],
-  };
-
   visit(ast.rootNode, streamVisitor, {
-    keyMap,
     // @ts-ignore
     state: {
       namespace,

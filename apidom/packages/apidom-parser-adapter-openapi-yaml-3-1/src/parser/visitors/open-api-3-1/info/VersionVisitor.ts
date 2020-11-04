@@ -1,8 +1,9 @@
 import stampit from 'stampit';
 import { YamlScalar } from 'apidom-ast';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 
 import { KindVisitor } from '../../generics';
-import { appendMetadata } from '../../../metadata';
 
 const VersionVisitor = stampit(KindVisitor, {
   methods: {

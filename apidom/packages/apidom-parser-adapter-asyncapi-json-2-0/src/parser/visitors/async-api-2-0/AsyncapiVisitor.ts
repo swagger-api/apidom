@@ -1,8 +1,8 @@
 import stampit from 'stampit';
-import { BREAK } from 'apidom-ast';
+// @ts-ignore
+import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
 import { ValueVisitor } from '../generics';
-import SpecificationVisitor from '../SpecificationVisitor';
 
 const AsyncapiVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {

@@ -1,33 +1,17 @@
 import stampit from 'stampit';
-import { isJsonObject } from 'apidom-ast';
+import { isJsonObject, JsonDocument } from 'apidom-ast';
+// @ts-ignore
+import { DocumentVisitor as JsonDocumentVisitor } from 'apidom-parser-adapter-json';
 
-import { visit } from '.';
-import SpecificationVisitor from './SpecificationVisitor';
-
-const DocumentVisitor = stampit(SpecificationVisitor, {
+const DocumentVisitor = stampit(JsonDocumentVisitor, {
   methods: {
-    literal(literalNode) {
-      if (literalNode.isMissing) {
-        const errorVisitor = this.retrieveVisitorInstance(['error']);
-        visit(literalNode, errorVisitor);
-        this.element.content.push(errorVisitor.element);
-      }
-    },
-
-    document(documentNode) {
+    document(documentNode: JsonDocument) {
       const specPath = isJsonObject(documentNode.child)
         ? ['document', 'objects', 'AsyncApi']
         : ['value'];
+      const element = this.nodeToElement(specPath, documentNode);
 
-      const visitor = this.retrieveVisitorInstance(specPath);
-      visit(documentNode.child, visitor);
-      this.element.content.push(visitor.element);
-    },
-
-    error(errorNode) {
-      const errorVisitor = this.retrieveVisitorInstance(['error']);
-      visit(errorNode, errorVisitor);
-      this.element.content.push(errorVisitor.element);
+      this.element.content.push(element);
     },
   },
 });

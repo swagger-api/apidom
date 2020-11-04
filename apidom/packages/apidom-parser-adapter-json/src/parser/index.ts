@@ -1,15 +1,8 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
-import {
-  Error,
-  JsonArray,
-  JsonDocument,
-  JsonObject,
-  JsonProperty,
-  transformTreeSitterJsonCST,
-} from 'apidom-ast';
+import { transformTreeSitterJsonCST } from 'apidom-ast';
 import specification from './specification';
-import { visit } from './visitors';
+import { visit, keyMap } from './visitors';
 
 export const namespace = createNamespace();
 
@@ -26,19 +19,6 @@ const parse = async (
   // @ts-ignore
   const cst = parser.parse(source);
   const ast = transformTreeSitterJsonCST(cst);
-
-  const keyMap = {
-    // @ts-ignore
-    [JsonDocument.type]: ['children'],
-    // @ts-ignore
-    [JsonObject.type]: ['children'],
-    // @ts-ignore
-    [JsonProperty.type]: ['children'],
-    // @ts-ignore
-    [JsonArray.type]: ['children'],
-    // @ts-ignore
-    [Error.type]: ['children'],
-  };
 
   visit(ast.rootNode, documentVisitor, {
     keyMap,

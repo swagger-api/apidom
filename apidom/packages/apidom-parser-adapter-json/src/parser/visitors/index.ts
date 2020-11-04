@@ -23,6 +23,7 @@ const keyMapDefault = {
   // @ts-ignore
   [Error.type]: ['children'],
 };
+export { keyMapDefault as keyMap };
 
 // @ts-ignore
 export const visit = (root, visitor, { keyMap = keyMapDefault, ...rest } = {}) => {

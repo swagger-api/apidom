@@ -1,8 +1,7 @@
 import stampit from 'stampit';
 import { isJsonObject, JsonNode } from 'apidom-ast';
-
-import { BREAK } from '../..';
-import SpecificationVisitor from '../../SpecificationVisitor';
+// @ts-ignore
+import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
 const SecurityVisitor = stampit(SpecificationVisitor, {
   init() {

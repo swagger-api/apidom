@@ -1,12 +1,2 @@
-import stampit from 'stampit';
-import { isNonEmptyString } from 'ramda-adjunct';
-
-import PatternedFieldsJsonObjectVisitor from './PatternedFieldsJsonObjectVisitor';
-
-const MapJsonObjectVisitor = stampit(PatternedFieldsJsonObjectVisitor, {
-  props: {
-    fieldPatternPredicate: isNonEmptyString,
-  },
-});
-
-export default MapJsonObjectVisitor;
+// @ts-ignore
+export { MapJsonObjectVisitor as default } from 'apidom-parser-adapter-json';

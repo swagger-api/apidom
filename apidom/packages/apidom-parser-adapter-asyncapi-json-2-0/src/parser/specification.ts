@@ -1,3 +1,7 @@
+import { mergeDeepRight } from 'ramda';
+// @ts-ignore
+import { specification as jsonSpecification } from 'apidom-parser-adapter-json';
+
 import DocumentVisitor from './visitors/DocumentVisitor';
 import AsyncApi2_0Visitor from './visitors/async-api-2-0';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
@@ -16,8 +20,6 @@ import ContactEmailVisitor from './visitors/async-api-2-0/contact/EmailVisitor';
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
-import ErrorVisitor from './visitors/ErrorVisitor';
-import { ValueVisitor, ObjectVisitor, ArrayVisitor } from './visitors/generics';
 import SchemaVisitor from './visitors/async-api-2-0/schema';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import SchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
@@ -43,6 +45,7 @@ import ServerVariableDescriptionVisitor from './visitors/async-api-2-0/server-va
 import ServerVariableExamplesVisitor from './visitors/async-api-2-0/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
 import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
+import { ObjectVisitor } from './visitors/generics';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -52,12 +55,9 @@ import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requir
  *
  * Note: Specification object allows to use relative JSON pointers.
  */
-const specification = {
+const specification = mergeDeepRight(jsonSpecification, {
   visitors: {
-    value: ValueVisitor,
     object: ObjectVisitor,
-    array: ArrayVisitor,
-    error: ErrorVisitor,
     document: {
       $visitor: DocumentVisitor,
       objects: {
@@ -190,6 +190,6 @@ const specification = {
       extension: SpecificationExtensionVisitor,
     },
   },
-};
+});
 
 export default specification;

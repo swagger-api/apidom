@@ -57,6 +57,7 @@ import CallbackVisitor from './visitors/open-api-3-1/callback';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import ResponseVisitor from './visitors/open-api-3-1/response';
+import { ObjectVisitor } from './visitors/generics';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -68,6 +69,7 @@ import ResponseVisitor from './visitors/open-api-3-1/response';
  */
 const specification = mergeDeepRight(jsonSpecification, {
   visitors: {
+    object: ObjectVisitor,
     document: {
       $visitor: DocumentVisitor,
       objects: {

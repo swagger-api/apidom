@@ -7,10 +7,8 @@ import { isOpenApiExtension } from '../../predicates';
 // @ts-ignore
 export { ArrayVisitor, ValueVisitor } from 'apidom-parser-adapter-json';
 
-const ObjectVisitor = stampit(JsonObjectVisitor, {
+export const ObjectVisitor = stampit(JsonObjectVisitor, {
   init() {
     this.specificationExtensionPredicate = isOpenApiExtension({});
   },
 });
-
-export default ObjectVisitor;

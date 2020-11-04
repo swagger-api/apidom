@@ -18,4 +18,4 @@ export { default as MapJsonObjectVisitor } from './parser/visitors/generics/MapJ
 export { default as MixedFieldsJsonObjectVisitor } from './parser/visitors/generics/MixedFieldsJsonObjectVisitor';
 export { default as PatternedFieldsJsonObjectVisitor } from './parser/visitors/generics/PatternedFieldsJsonObjectVisitor';
 
-export { visit, BREAK } from './parser/visitors';
+export { visit, BREAK, keyMap } from './parser/visitors';

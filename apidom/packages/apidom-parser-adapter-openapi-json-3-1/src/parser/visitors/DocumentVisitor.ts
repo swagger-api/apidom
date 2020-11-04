@@ -9,8 +9,8 @@ const DocumentVisitor = stampit(JsonDocumentVisitor, {
       const specPath = isJsonObject(documentNode.child)
         ? ['document', 'objects', 'OpenApi']
         : ['value'];
-
       const element = this.nodeToElement(specPath, documentNode);
+
       this.element.content.push(element);
     },
   },

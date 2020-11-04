@@ -1,8 +1,8 @@
 import stampit from 'stampit';
+// @ts-ignore
+import { SpecificationVisitor, BREAK, visit } from 'apidom-parser-adapter-json';
 
-import SpecificationVisitor from './SpecificationVisitor';
 import { isAsyncApiExtension } from '../predicates';
-import { BREAK, visit } from '.';
 
 const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
   methods: {

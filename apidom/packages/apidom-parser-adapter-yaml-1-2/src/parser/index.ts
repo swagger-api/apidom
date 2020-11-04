@@ -1,13 +1,15 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
 import {
-  JsonDocument,
-  JsonObject,
-  JsonProperty,
-  JsonArray,
   Error,
-  transformTreeSitterJsonCST,
+  YamlStream,
+  YamlDocument,
+  YamlMapping,
+  YamlSequence,
+  YamlKeyValuePair,
+  transformTreeSitterYamlCST,
 } from 'apidom-ast';
+
 import specification from './specification';
 import { visit } from './visitors';
 
@@ -21,26 +23,28 @@ const parse = async (
   // @ts-ignore
   const parseResultElement = new namespace.elements.ParseResult();
   // @ts-ignore
-  const documentVisitor = resolvedSpecObj.visitors.document.$visitor();
+  const streamVisitor = resolvedSpecObj.visitors.stream.$visitor();
 
   // @ts-ignore
   const cst = parser.parse(source);
-  const ast = transformTreeSitterJsonCST(cst);
+  const ast = transformTreeSitterYamlCST(cst);
 
   const keyMap = {
     // @ts-ignore
-    [JsonDocument.type]: ['children'],
+    [YamlStream.type]: ['children'],
     // @ts-ignore
-    [JsonObject.type]: ['children'],
+    [YamlDocument.type]: ['children'],
     // @ts-ignore
-    [JsonProperty.type]: ['children'],
+    [YamlMapping.type]: ['children'],
     // @ts-ignore
-    [JsonArray.type]: ['children'],
+    [YamlSequence.type]: ['children'],
+    // @ts-ignore
+    [YamlKeyValuePair.type]: ['children'],
     // @ts-ignore
     [Error.type]: ['children'],
   };
 
-  visit(ast.rootNode, documentVisitor, {
+  visit(ast.rootNode, streamVisitor, {
     keyMap,
     // @ts-ignore
     state: {

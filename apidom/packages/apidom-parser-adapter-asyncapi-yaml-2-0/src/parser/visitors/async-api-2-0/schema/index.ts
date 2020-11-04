@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { YamlMapping } from 'apidom-ast';
+// @ts-ignore
+import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
-import { BREAK } from '../..';
-import SpecificationVisitor from '../../SpecificationVisitor';
 import { KindVisitor } from '../../generics';
 
 const SchemaVisitor = stampit(KindVisitor, SpecificationVisitor, {

@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { YamlScalar } from 'apidom-ast';
+// @ts-ignore
+import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
-import { BREAK } from '..';
 import { KindVisitor } from '../generics';
-import SpecificationVisitor from '../SpecificationVisitor';
 
 const AsyncapiVisitor = stampit(KindVisitor, SpecificationVisitor, {
   methods: {

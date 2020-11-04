@@ -1,4 +1,7 @@
-import StreamVisitor from './visitors/StreamVisitor';
+import { mergeDeepRight } from 'ramda';
+// @ts-ignore
+import { specification as yamlSpecification } from 'apidom-parser-adapter-yaml-1-2';
+
 import DocumentVisitor from './visitors/DocumentVisitor';
 import AsyncApi2_0Visitor from './visitors/async-api-2-0';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
@@ -17,7 +20,6 @@ import ContactEmailVisitor from './visitors/async-api-2-0/contact/EmailVisitor';
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
-import ErrorVisitor from './visitors/ErrorVisitor';
 import SchemaVisitor from './visitors/async-api-2-0/schema';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import SchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
@@ -43,7 +45,7 @@ import ServerVariableDescriptionVisitor from './visitors/async-api-2-0/server-va
 import ServerVariableExamplesVisitor from './visitors/async-api-2-0/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
 import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
-import { KindVisitor, MappingVisitor, ScalarVisitor, SequenceVisitor } from './visitors/generics';
+import { MappingVisitor } from './visitors/generics';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -53,16 +55,9 @@ import { KindVisitor, MappingVisitor, ScalarVisitor, SequenceVisitor } from './v
  *
  * Note: Specification object allows to use relative JSON pointers.
  */
-const specification = {
+const specification = mergeDeepRight(yamlSpecification, {
   visitors: {
-    scalar: ScalarVisitor,
     mapping: MappingVisitor,
-    sequence: SequenceVisitor,
-    kind: KindVisitor,
-    error: ErrorVisitor,
-    stream: {
-      $visitor: StreamVisitor,
-    },
     document: {
       $visitor: DocumentVisitor,
       objects: {
@@ -195,6 +190,6 @@ const specification = {
       extension: SpecificationExtensionVisitor,
     },
   },
-};
+});
 
 export default specification;

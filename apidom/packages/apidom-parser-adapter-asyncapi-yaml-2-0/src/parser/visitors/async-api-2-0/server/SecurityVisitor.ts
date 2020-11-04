@@ -1,8 +1,7 @@
 import stampit from 'stampit';
 import { isYamlMapping, YamlSequence } from 'apidom-ast';
-
-import { BREAK } from '../..';
-import SpecificationVisitor from '../../SpecificationVisitor';
+// @ts-ignore
+import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
 const SecurityVisitor = stampit(SpecificationVisitor, {
   init() {

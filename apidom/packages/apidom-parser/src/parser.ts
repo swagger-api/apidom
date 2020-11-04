@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { head } from 'ramda';
-import { isFunction, isArray, isUndefined, isNotUndefined } from 'ramda-adjunct';
+import { isFunction, isArray, isUndefined, isString } from 'ramda-adjunct';
 import { ParseResultElement } from 'apidom';
 
 interface ParserOptions {
@@ -28,10 +28,9 @@ const ApiDOMParser = stampit().init(function ApiDOMParser() {
   };
 
   const findAdapter = (source: string, mediaType: string | undefined) => {
-    if (isNotUndefined(mediaType)) {
+    if (isString(mediaType)) {
       return adapters.find((adapter) => {
         if (!isArray(adapter.mediaTypes)) return false;
-        if (isUndefined(mediaType)) return false;
 
         return adapter.mediaTypes.includes(mediaType);
       });

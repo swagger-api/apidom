@@ -4,11 +4,11 @@ import * as apiDOM from 'apidom';
 
 import * as adapter from '../src/adapter-node';
 
-const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json')).toString();
+const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.yaml')).toString();
 
-describe('apidom-parser-adapter-json', function () {
+describe('apidom-parser-adapter-yaml-1-2', function () {
   it('test', async function () {
-    console.log(await adapter.detect(spec));
+    console.log(adapter.detect(spec));
     console.log(adapter.mediaTypes);
 
     const parseResult = await adapter.parse(spec, { sourceMap: true });

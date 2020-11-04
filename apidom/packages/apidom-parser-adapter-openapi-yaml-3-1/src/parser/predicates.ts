@@ -1,22 +1,7 @@
-import { isYamlKeyValuePair, isYamlMapping, isYamlScalar } from 'apidom-ast';
-import { pathSatisfies, startsWith, both, curry, filter, anyPass } from 'ramda';
-
-// hasKey :: String -> YamlKeyValuePair -> Boolean
-const hasKey = curry((keyName, node) => {
-  const { key } = node;
-
-  if (!isYamlScalar(key)) {
-    return false;
-  }
-
-  return key.content === keyName;
-});
-
-// hasKeys :: [String] -> [YamlKeyValuePair] -> Boolean
-const hasKeys = curry((keyNames, keyValuePairs) => {
-  const predicates = keyNames.map((keyName: string) => hasKey(keyName));
-  return filter(anyPass(predicates), keyValuePairs).length === keyNames.length;
-});
+import { isYamlKeyValuePair, isYamlMapping } from 'apidom-ast';
+import { pathSatisfies, startsWith, both, curry } from 'ramda';
+// @ts-ignore
+import { hasKeys } from 'apidom-parser-adapter-yaml-1-2';
 
 // isOpenApiExtension :: Options -> YamlKeyValuePair -> Boolean
 export const isOpenApiExtension = curry((options, node) =>

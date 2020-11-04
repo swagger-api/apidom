@@ -1,5 +1,14 @@
 import stampit from 'stampit';
-import { Literal, Error, YamlDocument, YamlComment } from 'apidom-ast';
+import {
+  Literal,
+  Error,
+  YamlDocument,
+  YamlComment,
+  YamlStream,
+  YamlMapping,
+  YamlSequence,
+  YamlKeyValuePair,
+} from 'apidom-ast';
 
 import { visit, BREAK } from '.';
 import SpecificationVisitor from './SpecificationVisitor';
@@ -7,6 +16,20 @@ import SpecificationVisitor from './SpecificationVisitor';
 const StreamVisitor = stampit(SpecificationVisitor, {
   props: {
     processedDocumentCount: 0,
+    keyMap: {
+      // @ts-ignore
+      [YamlStream.type]: ['children'],
+      // @ts-ignore
+      [YamlDocument.type]: ['children'],
+      // @ts-ignore
+      [YamlMapping.type]: ['children'],
+      // @ts-ignore
+      [YamlSequence.type]: ['children'],
+      // @ts-ignore
+      [YamlKeyValuePair.type]: ['children'],
+      // @ts-ignore
+      [Error.type]: ['children'],
+    },
   },
   methods: {
     literal(literalNode: Literal) {

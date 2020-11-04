@@ -1,7 +1,9 @@
-import StreamVisitor from './visitors/StreamVisitor';
+import { mergeDeepRight } from 'ramda';
+// @ts-ignore
+import { specification as yamlSpecification } from 'apidom-parser-adapter-yaml-1-2';
+
 import DocumentVisitor from './visitors/DocumentVisitor';
-import ErrorVisitor from './visitors/ErrorVisitor';
-import { ScalarVisitor, MappingVisitor, SequenceVisitor, KindVisitor } from './visitors/generics';
+import { MappingVisitor } from './visitors/generics';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
 import OpenapiVisitor from './visitors/open-api-3-1/OpenapiVisitor';
@@ -65,16 +67,9 @@ import ResponseVisitor from './visitors/open-api-3-1/response';
  *
  * Note: Specification object allows to use relative JSON pointers.
  */
-const specification = {
+const specification = mergeDeepRight(yamlSpecification, {
   visitors: {
-    scalar: ScalarVisitor,
     mapping: MappingVisitor,
-    sequence: SequenceVisitor,
-    kind: KindVisitor,
-    error: ErrorVisitor,
-    stream: {
-      $visitor: StreamVisitor,
-    },
     document: {
       $visitor: DocumentVisitor,
       objects: {
@@ -246,6 +241,6 @@ const specification = {
       extension: SpecificationExtensionVisitor,
     },
   },
-};
+});
 
 export default specification;

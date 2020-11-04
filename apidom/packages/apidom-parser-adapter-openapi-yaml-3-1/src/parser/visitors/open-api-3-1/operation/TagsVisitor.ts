@@ -1,7 +1,8 @@
 import stampit from 'stampit';
 import { YamlSequence } from 'apidom-ast';
+// @ts-ignore
+import { SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
-import SpecificationVisitor from '../../SpecificationVisitor';
 import { KindVisitor } from '../../generics';
 
 const TagsVisitor = stampit(KindVisitor, SpecificationVisitor, {

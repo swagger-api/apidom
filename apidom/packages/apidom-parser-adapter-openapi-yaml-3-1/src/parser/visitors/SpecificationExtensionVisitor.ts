@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { YamlAlias, YamlKeyValuePair, YamlMapping, YamlScalar, YamlSequence } from 'apidom-ast';
+// @ts-ignore
+import { SpecificationVisitor, BREAK, visit } from 'apidom-parser-adapter-yaml-1-2';
 
-import SpecificationVisitor from './SpecificationVisitor';
 import { isOpenApiExtension } from '../predicates';
-import { BREAK, visit } from '.';
 
 const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
   methods: {

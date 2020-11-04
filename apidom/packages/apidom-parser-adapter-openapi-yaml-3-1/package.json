@@ -28,6 +28,7 @@
     "apidom": "file:../apidom",
     "apidom-ast": "file:../apidom-ast",
     "apidom-ns-openapi-3-1": "file:../apidom-ns-openapi-3-1",
+    "apidom-parser-adapter-yaml-1-2": "file:../apidom-parser-adapter-yaml-1-2",
     "ramda": "=0.27.0",
     "@types/ramda": "=0.27.6",
     "ramda-adjunct": "=2.27.0",

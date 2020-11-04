@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { YamlSequence } from 'apidom-ast';
+// @ts-ignore
+import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
-import { BREAK } from '..';
-import SpecificationVisitor from '../SpecificationVisitor';
 import { isParameterObject, isReferenceObject } from '../../predicates';
 import { KindVisitor } from '../generics';
 

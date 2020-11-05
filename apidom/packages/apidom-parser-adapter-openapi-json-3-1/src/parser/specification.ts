@@ -51,6 +51,9 @@ import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/ext
 import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
+import Reference$RefVisitor from './visitors/open-api-3-1/reference/$RefVisitor';
+import ReferenceSummaryVisitor from './visitors/open-api-3-1/reference/SummaryVisitor';
+import ReferenceDescriptionVisitor from './visitors/open-api-3-1/reference/DescriptionVisitor';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
 import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
@@ -232,7 +235,11 @@ const specification = mergeDeepRight(jsonSpecification, {
         },
         Reference: {
           $visitor: ReferenceVisitor,
-          fixedFields: {},
+          fixedFields: {
+            $ref: Reference$RefVisitor,
+            summary: ReferenceSummaryVisitor,
+            description: ReferenceDescriptionVisitor,
+          },
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,

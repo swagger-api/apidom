@@ -92,6 +92,8 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
       // @ts-ignore
       valueElement = new this.namespace.elements.Ref(valueNode.content);
       valueElement.path = valueNode.content;
+      objElement.classes.push('json-reference');
+      objElement.classes.push('json-schema-reference');
     } else if (!this.specificationExtensionPredicate(keyValuePairNode)) {
       // @ts-ignore
       valueElement = this.namespace.toElement(valueNode.content);

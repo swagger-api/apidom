@@ -1,3 +1,4 @@
 {
-  "prop": "val"
+  "prop": "val",
+  "$ref": "#/prop"
 }

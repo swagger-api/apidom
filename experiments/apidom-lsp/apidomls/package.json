@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env BABEL_ENV=browser webpack-dev-server --config ./config/webpack/browser.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env BABEL_ENV=commonjs mocha"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,11 @@
     "terser-webpack-plugin": "=3.0.2",
     "webpack": "=4.43.0",
     "webpack-cli": "=3.3.11",
-    "webpack-dev-server": "=3.11.0"
+    "webpack-dev-server": "=3.11.0",
+    "@types/chai": "=4.2.12",
+    "@types/mocha": "=7.0.2",
+    "chai": "=4.2.0",
+    "mocha": "=7.2.0"
   },
   "dependencies": {
     "vscode-languageserver-textdocument": "^1.0.1",

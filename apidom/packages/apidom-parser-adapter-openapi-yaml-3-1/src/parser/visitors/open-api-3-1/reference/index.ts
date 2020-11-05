@@ -7,6 +7,7 @@ import { KindVisitor } from '../../generics';
 const ReferenceVisitor = stampit(KindVisitor, FixedFieldsYamlMappingVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Reference']),
+    canSupportSpecificationExtensions: false,
   },
   init() {
     this.element = new this.namespace.elements.Reference();

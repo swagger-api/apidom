@@ -10,6 +10,9 @@ import {
   JsonProperty,
   JsonString,
   JsonTrue,
+  isJsonObject,
+  isJsonArray,
+  isJsonString,
 } from 'apidom-ast';
 
 import { visit, BREAK } from '..';
@@ -112,26 +115,26 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
     let valueElement;
 
     // object property value handling
-    // @ts-ignore
-    if (propertyNode.value.type === 'object') {
+    if (isJsonObject(propertyNode.value)) {
       const objectVisitor = this.retrieveVisitorInstance(['object']);
 
       visit(propertyNode.value, objectVisitor);
 
       ({ element: valueElement } = objectVisitor);
-      // @ts-ignore
-    } else if (propertyNode.value.type === 'array') {
+    } else if (isJsonArray(propertyNode.value)) {
       const arrayVisitor = this.retrieveVisitorInstance(['array']);
 
       visit(propertyNode.value, arrayVisitor);
 
       ({ element: valueElement } = arrayVisitor);
-    } else if (propertyNode.key.value === '$ref') {
+    } else if (propertyNode.key.value === '$ref' && isJsonString(propertyNode.value)) {
       // $ref property key special handling
       // @ts-ignore
       valueElement = new this.namespace.elements.Ref(propertyNode.value.value);
       // @ts-ignore
       valueElement.path = propertyNode.value.value;
+      objElement.classes.push('json-reference');
+      objElement.classes.push('json-schema-reference');
     } else if (!this.specificationExtensionPredicate(propertyNode)) {
       // @ts-ignore
       valueElement = this.namespace.toElement(propertyNode.value.value);

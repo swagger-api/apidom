@@ -17,6 +17,7 @@ import Server from './elements/Server';
 import ServerVariable from './elements/ServerVariable';
 import SecurityRequirement from './elements/SecurityRequirement';
 import ServerBindings from './elements/ServerBindings';
+import Reference from './elements/Reference';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -40,6 +41,7 @@ const asyncApi2_0 = {
     base.register('serverVariable', ServerVariable);
     base.register('securityRequirement', SecurityRequirement);
     base.register('serverBindings', ServerBindings);
+    base.register('reference', Reference);
 
     return base;
   },

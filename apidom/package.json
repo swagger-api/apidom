@@ -85,6 +85,7 @@
   "dependencies": {
     "apidom": "file:packages/apidom",
     "apidom-ast": "file:packages/apidom-ast",
+    "apidom-reference": "file:packages/apidom-reference",
     "apidom-ns-asyncapi-2-0": "file:packages/apidom-ns-asyncapi-2-0",
     "apidom-ns-openapi-3-1": "file:packages/apidom-ns-openapi-3-1",
     "apidom-parser": "file:packages/apidom-parser",

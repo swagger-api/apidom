@@ -8,7 +8,7 @@
   "unpkg": "dist/apidom.browser.min.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "npm run typescript:declaration && npm run build:es && npm run build:commonjs && npm run build:umd",
+    "build": "npm run clean && npm run typescript:declaration && npm run build:es && npm run build:commonjs && npm run build:umd",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions '.ts' --root-mode 'upward'",
     "build:umd": "npm run build:umd:node && npm run build:umd:browser",

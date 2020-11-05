@@ -8,7 +8,7 @@
   "unpkg": "dist/apidom-ns-openapi3-1.browser.min.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "npm run typescript:declaration && npm run build:es && npm run build:commonjs && npm run build:umd:browser",
+    "build": "npm run clean && npm run typescript:declaration && npm run build:es && npm run build:commonjs && npm run build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions '.ts' --root-mode 'upward'",
     "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",

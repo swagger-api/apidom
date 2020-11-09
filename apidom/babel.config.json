@@ -24,7 +24,8 @@
           "loose": true
         }],
         "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
+        "@babel/proposal-object-rest-spread",
+        "babel-plugin-native-error-extend"
       ]
     },
     "es": {
@@ -42,7 +43,8 @@
       ],
       "plugins": [
         "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
+        "@babel/proposal-object-rest-spread",
+        "babel-plugin-native-error-extend"
       ]
     },
     "node": {
@@ -64,7 +66,8 @@
       "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-runtime",
+        "babel-plugin-native-error-extend"
       ]
     },
     "browser": {
@@ -82,7 +85,8 @@
       "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-runtime",
+        "babel-plugin-native-error-extend"
       ]
     }
   }

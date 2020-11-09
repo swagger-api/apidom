@@ -9,6 +9,7 @@ const browser = {
   target: 'web',
   node: {
     fs: 'empty',
+    util: 'empty',
   },
   performance: {
     maxEntrypointSize: 712000,
@@ -52,6 +53,7 @@ const browserMin = {
   target: 'web',
   node: {
     fs: 'empty',
+    util: 'empty',
   },
   output: {
     path: path.resolve('./dist'),

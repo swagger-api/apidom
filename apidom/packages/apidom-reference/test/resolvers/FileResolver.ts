@@ -6,7 +6,7 @@ import { ResolverError } from '../../src/util/errors';
 
 describe('resolvers', function () {
   context('FileResolver', function () {
-    let resolver: FileResolver;
+    let resolver: any;
 
     beforeEach(function () {
       resolver = FileResolver();
@@ -34,7 +34,7 @@ describe('resolvers', function () {
         });
       });
 
-      context('given paths with known protocols', function () {
+      context('given paths with other known protocols', function () {
         specify('should not consider it a file system path', function () {
           assert.isFalse(resolver.canRead('https://swagger.io/'));
           assert.isFalse(resolver.canRead('http://swagger.io/'));

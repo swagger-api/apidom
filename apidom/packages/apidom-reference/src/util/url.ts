@@ -27,6 +27,14 @@ export const isFileSystemPath = (url: string): boolean => {
 };
 
 /**
+ * Determines whether the given path is an HTTP(S) URL.
+ */
+export const isHttpUrl = (url: string): boolean => {
+  const protocol = getProtocol(url);
+  return protocol === 'http' || protocol === 'https';
+};
+
+/**
  * Converts a URL to a local filesystem path.
  *
  * @param {boolean} [keepFileProtocol] - If true, then "file://" will NOT be stripped

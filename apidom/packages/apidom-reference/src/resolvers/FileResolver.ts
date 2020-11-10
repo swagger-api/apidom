@@ -6,12 +6,7 @@ import Resolver from './Resolver';
 import { isFileSystemPath, toFileSystemPath } from '../util/url';
 import { ResolverError } from '../util/errors';
 
-interface FileResolver extends Resolver {
-  canRead(uri: string): boolean;
-  read(uri: string): Promise<Buffer>;
-}
-
-const FileResolver: stampit.Stamp<FileResolver> = stampit(Resolver, {
+const FileResolver: stampit.Stamp<Resolver> = stampit(Resolver, {
   methods: {
     canRead(uri: string): boolean {
       return isFileSystemPath(uri);

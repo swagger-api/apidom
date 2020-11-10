@@ -4,7 +4,7 @@ import { NotImplementedError } from '../util/errors';
 
 interface Resolver {
   canRead(uri: string): boolean;
-  read(uri: string): Promise<unknown>;
+  read(uri: string): Promise<Buffer>;
 }
 
 const Resolver: stampit.Stamp<Resolver> = stampit({
@@ -12,7 +12,7 @@ const Resolver: stampit.Stamp<Resolver> = stampit({
     canRead() {
       return false;
     },
-    async read() {
+    async read(): Promise<never> {
       throw new NotImplementedError();
     },
   },

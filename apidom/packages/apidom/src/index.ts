@@ -19,6 +19,7 @@ export {
   isMemberElement,
   isLinkElement,
   isRefElement,
+  isAnnotationElement,
   isSourceMapElement,
   hasElementSourceMap,
   includesSymbols,

@@ -125,7 +125,11 @@ declare module 'minim' {
 
     get first(): Element;
 
-    filter(predicate: Predicate): ArraySlice;
+    get isEmpty(): boolean;
+
+    filter(predicate: Predicate, thisArg?: unknown): ArraySlice;
+
+    reject(predicate: Predicate, thisArg?: unknown): ArraySlice;
 
     hasKey(value: string): boolean;
 

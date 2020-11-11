@@ -14,6 +14,7 @@ import { all, isEmpty, either, curry, allPass, is, both } from 'ramda';
 import { included } from 'ramda-adjunct';
 
 import SourceMapElement from '../elements/SourceMap';
+import AnnotationElement from '../elements/Annotation';
 import createPredicate from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
@@ -148,6 +149,18 @@ export const isRefElement = createPredicate(
     return either(
       is(RefElement),
       allPass([hasBasicElementProps, isElementTypeRef, primitiveEqUndefined]),
+    );
+  },
+);
+
+export const isAnnotationElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeAnnotation = isElementType('annotation');
+    const primitiveEqString = primitiveEq('string');
+
+    return either(
+      is(AnnotationElement),
+      allPass([hasBasicElementProps, isElementTypeAnnotation, primitiveEqString]),
     );
   },
 );

@@ -5,7 +5,7 @@ const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
 const browser = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/parser.ts'],
+  entry: ['./src/parser.ts'],
   target: 'web',
   performance: {
     maxEntrypointSize: 712000,
@@ -40,7 +40,7 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/parser.ts'],
+  entry: ['./src/parser.ts'],
   target: 'web',
   output: {
     path: path.resolve('./dist'),

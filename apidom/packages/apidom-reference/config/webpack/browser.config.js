@@ -5,7 +5,7 @@ const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
 const browser = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/index.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   node: {
     fs: 'empty',
@@ -49,7 +49,7 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/index.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   node: {
     fs: 'empty',

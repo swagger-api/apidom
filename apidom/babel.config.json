@@ -3,7 +3,7 @@
     "packages/*"
   ],
   "env": {
-    "commonjs": {
+    "cjs": {
       "presets": [
         [
           "@babel/preset-env",
@@ -25,6 +25,10 @@
         }],
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
+        ["@babel/plugin-transform-runtime", {
+          "corejs": 3,
+          "version": "^7.11.2"
+        }],
         "babel-plugin-native-error-extend"
       ]
     },
@@ -44,29 +48,11 @@
       "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
-        "babel-plugin-native-error-extend"
-      ]
-    },
-    "node": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "debug": false,
-            "targets": {
-              "node": "4"
-            },
-            "useBuiltIns": "entry",
-            "corejs": 3,
-            "ignoreBrowserslistConfig": true
-          }
-        ],
-        "@babel/preset-typescript"
-      ],
-      "plugins": [
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime",
+        ["@babel/plugin-transform-runtime", {
+          "corejs": 3,
+          "version": "^7.11.2",
+          "useESModules": true
+        }],
         "babel-plugin-native-error-extend"
       ]
     },
@@ -76,8 +62,9 @@
           "@babel/preset-env",
           {
             "debug": false,
-            "useBuiltIns": "entry",
-            "corejs": 3
+            "useBuiltIns": false,
+            "corejs": 3,
+            "ignoreBrowserslistConfig": false
           }
         ],
         "@babel/preset-typescript"
@@ -85,7 +72,11 @@
       "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime",
+        ["@babel/plugin-transform-runtime", {
+          "corejs": 3,
+          "version": "^7.11.2",
+          "useESModules": true
+        }],
         "babel-plugin-native-error-extend"
       ]
     }

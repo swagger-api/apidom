@@ -1,5 +1,6 @@
 import { NamespacePlugin, Element } from 'minim';
 import { isPlainObject } from 'ramda-adjunct';
+
 import { Namespace as ApiDOMNamespace } from './namespace';
 
 export { default as namespace, Namespace } from './namespace';

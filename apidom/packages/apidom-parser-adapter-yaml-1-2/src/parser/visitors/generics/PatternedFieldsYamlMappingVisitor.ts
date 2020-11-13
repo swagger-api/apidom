@@ -4,7 +4,7 @@ import { noop } from 'ramda-adjunct';
 import { YamlKeyValuePair, YamlMapping } from 'apidom-ast';
 
 import SpecificationVisitor from '../SpecificationVisitor';
-import { visit } from '..';
+import { visit } from '../index';
 
 const PatternedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
   props: {

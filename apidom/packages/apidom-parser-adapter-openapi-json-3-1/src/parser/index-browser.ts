@@ -5,7 +5,7 @@ import * as apiDOM from 'apidom';
 // @ts-ignore
 import treeSitterJson from 'tree-sitter-json/tree-sitter-json.wasm';
 
-import parse from '.';
+import parse from './index';
 
 export { namespace } from './index';
 

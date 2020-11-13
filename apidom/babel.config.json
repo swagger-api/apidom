@@ -11,9 +11,9 @@
             "debug": false,
             "modules": "commonjs",
             "targets": {
-              "node": "4"
+              "node": "10"
             },
-            "forceAllTransforms": true,
+            "forceAllTransforms": false,
             "ignoreBrowserslistConfig": true
           }
         ],

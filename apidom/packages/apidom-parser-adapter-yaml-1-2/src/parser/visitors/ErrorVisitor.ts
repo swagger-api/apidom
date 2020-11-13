@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 
-import { BREAK } from '.';
+import { BREAK } from './index';
 import SpecificationVisitor from './SpecificationVisitor';
 
 const ErrorVisitor = stampit(SpecificationVisitor, {

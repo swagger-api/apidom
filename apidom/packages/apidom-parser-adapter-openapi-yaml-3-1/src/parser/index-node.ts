@@ -3,7 +3,7 @@ import Parser from 'tree-sitter';
 import YAMLLanguage from 'tree-sitter-yaml';
 import * as apiDOM from 'apidom';
 
-import parse from '.';
+import parse from './index';
 
 export { namespace } from './index';
 

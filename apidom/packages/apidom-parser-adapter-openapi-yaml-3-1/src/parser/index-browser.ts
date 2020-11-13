@@ -5,9 +5,9 @@ import * as apiDOM from 'apidom';
 // @ts-ignore
 import treeSitterYaml from 'tree-sitter-yaml/tree-sitter-yaml.wasm';
 
-import parse from '.';
+import parse from './index';
 
-export { namespace } from '.';
+export { namespace } from './index';
 
 const parserP = (async () => {
   await Parser.init();

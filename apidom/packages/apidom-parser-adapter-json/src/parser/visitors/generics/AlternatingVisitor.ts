@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { ifElse, always, Pred } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
 
-import { BREAK } from '..';
+import { BREAK } from '../index';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const AlternatingVisitor = stampit(SpecificationVisitor, {

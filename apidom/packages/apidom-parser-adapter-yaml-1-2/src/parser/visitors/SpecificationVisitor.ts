@@ -3,7 +3,7 @@ import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 
 import Visitor from './Visitor';
-import { visit } from '.';
+import { visit } from './index';
 
 /**
  * This is a base Type for every visitor that does

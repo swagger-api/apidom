@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
 
-import { BREAK } from '..';
+import { BREAK } from '../index';
 import FixedFieldsJsonObjectVisitor from './FixedFieldsJsonObjectVisitor';
 import PatternedFieldsJsonObjectVisitor from './PatternedFieldsJsonObjectVisitor';
 

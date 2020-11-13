@@ -15,7 +15,7 @@ import {
   isJsonString,
 } from 'apidom-ast';
 
-import { visit, BREAK } from '..';
+import { visit, BREAK } from '../index';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ArrayVisitor = stampit(SpecificationVisitor).init(function ArrayVisitor() {

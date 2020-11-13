@@ -10,7 +10,7 @@ import {
   isYamlSequence,
 } from 'apidom-ast';
 
-import { BREAK } from '..';
+import { BREAK } from '../index';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ScalarVisitor = stampit(SpecificationVisitor, {

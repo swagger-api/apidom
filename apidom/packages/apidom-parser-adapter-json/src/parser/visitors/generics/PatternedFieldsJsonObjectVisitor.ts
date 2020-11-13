@@ -3,7 +3,7 @@ import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 
 import SpecificationVisitor from '../SpecificationVisitor';
-import { visit, BREAK } from '..';
+import { visit, BREAK } from '../index';
 
 const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   props: {

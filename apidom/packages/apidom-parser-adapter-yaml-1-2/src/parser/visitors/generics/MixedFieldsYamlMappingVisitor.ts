@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
 import { YamlMapping } from 'apidom-ast';
 
-import { BREAK, visit } from '..';
+import { BREAK, visit } from '../index';
 import FixedFieldsYamlMappingVisitor from './FixedFieldsYamlMappingVisitor';
 import PatternedFieldsYamlMappingVisitor from './PatternedFieldsYamlMappingVisitor';
 

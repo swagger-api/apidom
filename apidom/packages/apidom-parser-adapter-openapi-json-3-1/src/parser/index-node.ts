@@ -3,7 +3,7 @@ import Parser from 'tree-sitter';
 import JSONLanguage from 'tree-sitter-json';
 import * as apiDOM from 'apidom';
 
-import parse from '.';
+import parse from './index';
 
 export { namespace } from './index';
 

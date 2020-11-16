@@ -45,4 +45,6 @@ jobs:
         working-directory: ./experiments/generic-editor
       - name: Execute tests in monorepo
         run: npm run test
+        env:
+          CI: true
         working-directory: ./experiments/generic-editor

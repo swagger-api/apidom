@@ -23,10 +23,14 @@ import {
   isMemberElement,
   isLinkElement,
   isRefElement,
+  isParseResultElement,
+  isAnnotationElement,
   isSourceMapElement,
   hasElementSourceMap,
   includesSymbols,
   includesClasses,
+  ParseResultElement,
+  AnnotationElement,
   SourceMapElement,
 } from '../../src';
 
@@ -580,6 +584,118 @@ describe('predicates', function () {
 
       assert.isTrue(isRefElement(refElementDuck));
       assert.isFalse(isRefElement(refElementSwan));
+    });
+  });
+
+  context('isParseResultElement', function () {
+    context('given ParseResultElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ParseResultElement();
+
+        assert.isTrue(isParseResultElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ParseResultSubElement extends ParseResultElement {}
+
+        assert.isTrue(isParseResultElement(new ParseResultSubElement()));
+      });
+    });
+
+    context('given non ParseResultElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isParseResultElement(1));
+        assert.isFalse(isParseResultElement(null));
+        assert.isFalse(isParseResultElement(undefined));
+        assert.isFalse(isParseResultElement({}));
+        assert.isFalse(isParseResultElement([]));
+        assert.isFalse(isParseResultElement('string'));
+
+        assert.isFalse(isParseResultElement(new StringElement()));
+        assert.isFalse(isParseResultElement(new BooleanElement()));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const parseResultElementDuck = {
+        _storedElement: 'parseResult',
+        _content: [],
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const parseResultElementSwan = {
+        _storedElement: 'annotation',
+        _content: [],
+        primitive() {
+          return undefined;
+        },
+      };
+
+      assert.isTrue(isParseResultElement(parseResultElementDuck));
+      assert.isFalse(isParseResultElement(parseResultElementSwan));
+    });
+  });
+
+  context('isAnnotationElement', function () {
+    context('given AnnotationElement instance value', function () {
+      specify('should return true', function () {
+        const element = new AnnotationElement();
+
+        assert.isTrue(isAnnotationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class AnnotationSubElement extends AnnotationElement {}
+
+        assert.isTrue(isAnnotationElement(new AnnotationSubElement()));
+      });
+    });
+
+    context('given non AnnotationElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isAnnotationElement(1));
+        assert.isFalse(isAnnotationElement(null));
+        assert.isFalse(isAnnotationElement(undefined));
+        assert.isFalse(isAnnotationElement({}));
+        assert.isFalse(isAnnotationElement([]));
+        assert.isFalse(isAnnotationElement('string'));
+
+        assert.isFalse(isAnnotationElement(new StringElement()));
+        assert.isFalse(isAnnotationElement(new BooleanElement()));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const annotationElementDuck = {
+        _storedElement: 'annotation',
+        _content: [],
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const annotationElementSwan = {
+        _storedElement: 'annotation',
+        _content: [],
+        primitive() {
+          return undefined;
+        },
+      };
+
+      assert.isTrue(isAnnotationElement(annotationElementDuck));
+      assert.isFalse(isAnnotationElement(annotationElementSwan));
     });
   });
 

@@ -1,10 +1,11 @@
 import stampit from 'stampit';
 
 import { NotImplementedError } from '../util/errors';
+import File from '../util/File';
 
 interface Resolver {
-  canRead(uri: string): boolean;
-  read(uri: string): Promise<Buffer>;
+  canRead(file: File): boolean;
+  read(file: File): Promise<Buffer>;
 }
 
 const Resolver: stampit.Stamp<Resolver> = stampit({

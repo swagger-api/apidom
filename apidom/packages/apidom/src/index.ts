@@ -3,6 +3,21 @@ import { isPlainObject } from 'ramda-adjunct';
 
 import { Namespace as ApiDOMNamespace } from './namespace';
 
+export {
+  Element,
+  ObjectElement,
+  MemberElement,
+  ArrayElement,
+  BooleanElement,
+  StringElement,
+  NullElement,
+  NumberElement,
+  RefElement,
+  LinkElement,
+  KeyValuePair,
+  ObjectSlice,
+  ArraySlice,
+} from 'minim';
 export { default as namespace, Namespace } from './namespace';
 export { default as AnnotationElement } from './elements/Annotation';
 export { default as CommentElement } from './elements/Comment';
@@ -20,6 +35,7 @@ export {
   isMemberElement,
   isLinkElement,
   isRefElement,
+  isParseResultElement,
   isAnnotationElement,
   isSourceMapElement,
   hasElementSourceMap,
@@ -28,7 +44,6 @@ export {
 } from './predicates';
 export { default as createPredicate } from './predicates/helpers';
 
-export { ArraySlice } from 'minim';
 export { filter, reject, find, findAtOffset, some, traverse } from './traversal';
 
 export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {

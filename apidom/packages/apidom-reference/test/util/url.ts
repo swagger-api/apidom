@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { T as stubTrue } from 'ramda';
 
-import { toFileSystemPath } from '../../src/util/url';
+import { toFileSystemPath, getExtension } from '../../src/util/url';
 
 describe('url', function () {
   context('toFileSystemPath', function () {
@@ -106,6 +106,24 @@ describe('url', function () {
             assert.strictEqual(fileSystemPathOutput, 'C:\\home\\user\\file.txt');
           },
         );
+      });
+    });
+  });
+
+  context('getExtension', function () {
+    specify('should return extension from url', function () {
+      const url = 'https://swagger.io/file.json';
+      const extension = getExtension(url);
+
+      assert.strictEqual(extension, '.json');
+    });
+
+    context('given multiple extensions', function () {
+      specify('should return last extension from url', function () {
+        const url = 'https://swagger.io/file.yaml.json';
+        const extension = getExtension(url);
+
+        assert.strictEqual(extension, '.json');
       });
     });
   });

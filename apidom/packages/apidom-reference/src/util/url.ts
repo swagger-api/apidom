@@ -18,6 +18,18 @@ export const getProtocol = (url: string): string | undefined => {
 };
 
 /**
+ * Returns the lower-cased file extension of the given URL,
+ * or an empty string if it has no extension.
+ */
+export const getExtension = (url: string): string => {
+  const lastDotPosition = url.lastIndexOf('.');
+  if (lastDotPosition >= 0) {
+    return url.substr(lastDotPosition).toLowerCase();
+  }
+  return '';
+};
+
+/**
  * Determines whether the given path is a filesystem path.
  * This includes "file://" URLs.
  */

@@ -1,9 +1,7 @@
 import { ArrayElement, ArraySlice, Attributes, Element, Meta } from 'minim';
 
-import { isAnnotationElement } from '../predicates';
-
 class ParseResult extends ArrayElement {
-  constructor(content: Array<any>, meta: Meta, attributes: Attributes) {
+  constructor(content?: Array<any>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'parseResult';
   }
@@ -29,7 +27,7 @@ class ParseResult extends ArrayElement {
   }
 
   get isEmpty(): boolean {
-    return this.children.reject(isAnnotationElement).isEmpty;
+    return this.children.reject((item) => item.element === 'annotation').isEmpty;
   }
 }
 

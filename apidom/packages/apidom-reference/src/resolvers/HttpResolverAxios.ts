@@ -4,6 +4,7 @@ import { clone } from 'ramda';
 
 import HttpResolver from './HttpResolver';
 import ResolverError from '../util/errors/ResolverError';
+import File from '../util/File';
 
 const HttpResolverAxios: stampit.Stamp<HttpResolver> = stampit(HttpResolver).init(
   function HttpResolverAxios() {
@@ -25,12 +26,12 @@ const HttpResolverAxios: stampit.Stamp<HttpResolver> = stampit(HttpResolver).ini
       return clone(axiosInstance);
     };
 
-    this.read = async function read(uri: string): Promise<Buffer> {
+    this.read = async function read(file: File): Promise<Buffer> {
       try {
-        const response = await axiosInstance.get(uri);
+        const response = await axiosInstance.get(file.url);
         return response.data;
       } catch (e) {
-        throw new ResolverError(`Error downloading "${uri}"`, e);
+        throw new ResolverError(`Error downloading "${file.url}"`, e);
       }
     };
   },

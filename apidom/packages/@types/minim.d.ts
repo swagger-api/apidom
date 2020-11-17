@@ -9,6 +9,8 @@ declare module 'minim' {
   export class Element {
     public element: string;
 
+    public meta: ObjectElement;
+
     public classes: ArrayElement;
 
     public attributes: Attributes;
@@ -67,19 +69,21 @@ declare module 'minim' {
 
     second: Element | undefined;
 
+    get(index: number): any;
+
     filter(predicate: Predicate): ArraySlice;
 
     contains(value: any): boolean;
 
     push(value: any): ArrayElement;
 
-    [Symbol.iterator](): IterableIterator<any>;
+    get [Symbol.iterator](): IterableIterator<any>;
   }
 
   export class ObjectElement extends ArrayElement {
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
-    get(key: string): any;
+    get(key: string | number): any;
 
     set(key: string | StringElement, value: any): void;
 
@@ -135,4 +139,8 @@ declare module 'minim' {
 
     get<T extends Element>(index: number): T;
   }
+
+  export class ObjectSlice extends ArraySlice {}
+
+  export class KeyValuePair {}
 }

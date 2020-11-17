@@ -3,6 +3,7 @@ import stampit from 'stampit';
 import Resolver from './Resolver';
 import { isHttpUrl } from '../util/url';
 import NotImplementedError from '../util/errors/NotImplementedError';
+import File from '../util/File';
 
 interface HttpResolverConstructorParameters {
   timeout?: number;
@@ -37,8 +38,8 @@ const HttpResolver: stampit.Stamp<HttpResolver> = stampit(Resolver, {
     this.withCredentials = withCredentials;
   },
   methods: {
-    canRead(uri: string): boolean {
-      return isHttpUrl(uri);
+    canRead(file: File): boolean {
+      return isHttpUrl(file.url);
     },
 
     async read(): Promise<never> {

@@ -78,6 +78,8 @@ declare module 'minim' {
     push(value: any): ArrayElement;
 
     get [Symbol.iterator](): IterableIterator<any>;
+
+    get length(): number;
   }
 
   export class ObjectElement extends ArrayElement {

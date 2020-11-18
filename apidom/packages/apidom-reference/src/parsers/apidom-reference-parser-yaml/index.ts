@@ -3,8 +3,8 @@ import { ParseResultElement } from 'apidom';
 // @ts-ignore
 import { parse } from 'apidom-parser-adapter-yaml-1-2';
 
-import File from '../util/File';
-import { ParserError } from '../util/errors';
+import File from '../../util/File';
+import { ParserError } from '../../util/errors';
 
 interface YamlParser {
   allowEmpty: boolean;

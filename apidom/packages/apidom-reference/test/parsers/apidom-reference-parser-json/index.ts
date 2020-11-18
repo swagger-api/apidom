@@ -1,10 +1,9 @@
 import { assert } from 'chai';
-import { isParseResultElement, isSourceMapElement } from 'apidom';
-import { ObjectElement } from 'minim';
+import { ObjectElement, isParseResultElement, isSourceMapElement } from 'apidom';
 
-import File from '../../src/util/File';
-import JsonParser from '../../src/parsers/JsonParser';
-import { ParserError } from '../../src/util/errors';
+import File from '../../../src/util/File';
+import JsonParser from '../../../src/parsers/apidom-reference-parser-json';
+import { ParserError } from '../../../src/util/errors';
 
 describe('parsers', function () {
   context('JsonParser', function () {
@@ -78,7 +77,7 @@ describe('parsers', function () {
 
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
-          specify('should return empty parse result', async function () {
+          specify('should decorate ApiDOM with source maps', async function () {
             const file = File({ url: '/path/to/file.json', data: '{"prop": "val"}' });
             const parser = JsonParser({ sourceMap: true });
             const result = await parser.parse(file);
@@ -89,13 +88,13 @@ describe('parsers', function () {
         });
 
         context('given sourceMap disabled', function () {
-          specify('should return empty parse result', async function () {
+          specify('should not decorate ApiDOM with source maps', async function () {
             const file = File({ url: '/path/to/file.json', data: '{"prop": "val"}' });
             const parser = JsonParser({ sourceMap: false });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
 
-            assert.isFalse(isSourceMapElement(objElement.meta.get('sourceMap')));
+            assert.isUndefined(objElement.meta.get('sourceMap'));
           });
         });
       });

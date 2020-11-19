@@ -27,7 +27,7 @@ const DocumentVisitor = stampit(SpecificationVisitor, {
     },
 
     comment(commentNode: YamlComment) {
-      const commentElement = new this.namespace.elements.Comment(commentNode.content);
+      const commentElement = this.nodeToElement(['comment'], commentNode);
       this.element.content.push(commentElement);
     },
   },

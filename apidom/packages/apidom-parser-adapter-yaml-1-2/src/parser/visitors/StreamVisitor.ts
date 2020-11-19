@@ -47,8 +47,9 @@ const StreamVisitor = stampit(SpecificationVisitor, {
         return false;
       }
 
-      const commentElement = new this.namespace.elements.Comment(commentNode.content);
+      const commentElement = this.nodeToElement(['comment'], commentNode);
       this.element.content.push(commentElement);
+
       return undefined;
     },
 

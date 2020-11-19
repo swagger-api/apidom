@@ -24,7 +24,7 @@ const JsonParser: stampit.Stamp<JsonParser> = stampit({
     /**
      * Whether to generate source map during parsing.
      */
-    sourceMap: true,
+    sourceMap: false,
   },
   init(this: JsonParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
     this.allowEmpty = allowEmpty;

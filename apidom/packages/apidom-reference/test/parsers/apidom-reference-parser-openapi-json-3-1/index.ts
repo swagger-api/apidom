@@ -104,7 +104,7 @@ describe('parsers', function () {
             const data = fs.readFileSync(url).toString();
             const file = File({ url, data });
             const specPath = always(['document', 'objects', 'PathItem']);
-            const parser = OpenApiJson3_1Parser({ specPath });
+            const parser = OpenApiJson3_1Parser({ specPath, sourceMap: true });
             const result = await parser.parse(file);
             const pathItem: PathItemElement = result.get(0);
 

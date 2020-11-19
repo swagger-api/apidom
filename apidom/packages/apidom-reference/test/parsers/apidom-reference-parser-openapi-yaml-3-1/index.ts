@@ -114,7 +114,7 @@ describe('parsers', function () {
             const data = fs.readFileSync(url).toString();
             const file = File({ url, data });
             const specPath = always(['document', 'objects', 'PathItem']);
-            const parser = OpenApiYaml3_1Parser({ specPath });
+            const parser = OpenApiYaml3_1Parser({ specPath, sourceMap: true });
             const result = await parser.parse(file);
             const pathItem: PathItemElement = result.get(0);
 

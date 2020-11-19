@@ -1,3 +1,4 @@
+import { invokeArgs } from 'ramda-adjunct';
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
 import {
@@ -10,7 +11,7 @@ import {
 } from 'apidom-ast';
 import openapi3_1 from 'apidom-ns-openapi-3-1';
 // @ts-ignore
-import { visit, SpecificationVisitor } from 'apidom-parser-adapter-json';
+import { visit } from 'apidom-parser-adapter-json';
 
 import specification from './specification';
 
@@ -21,21 +22,22 @@ const parse = async (
   {
     sourceMap = false,
     specObj = specification,
-    rootVisitorSpecPath = ['document'],
+    rootVisitorSpecPath = ['visitors', 'document', '$visitor'],
     parser = null,
   } = {},
 ): Promise<ParseResultElement> => {
   const resolvedSpecObj = await $RefParser.dereference(specObj);
   // @ts-ignore
   const parseResultElement = new namespace.elements.ParseResult();
-  const rootVisitor = SpecificationVisitor({ specObj: resolvedSpecObj }).retrieveVisitorInstance(
-    rootVisitorSpecPath,
-  );
-
   // @ts-ignore
   const cst = parser.parse(source);
   const ast = transformTreeSitterJsonCST(cst);
-
+  const state = {
+    namespace,
+    specObj: resolvedSpecObj,
+    sourceMap,
+    element: parseResultElement,
+  };
   const keyMap = {
     // @ts-ignore
     [JsonDocument.type]: ['children'],
@@ -48,17 +50,9 @@ const parse = async (
     // @ts-ignore
     [Error.type]: ['children'],
   };
+  const rootVisitor = invokeArgs(rootVisitorSpecPath, [], resolvedSpecObj);
 
-  visit(ast.rootNode, rootVisitor, {
-    keyMap,
-    // @ts-ignore
-    state: {
-      namespace,
-      specObj: resolvedSpecObj,
-      sourceMap,
-      element: parseResultElement,
-    },
-  });
+  visit(ast.rootNode, rootVisitor, { keyMap, state });
 
   return parseResultElement;
 };

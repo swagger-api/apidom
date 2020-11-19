@@ -1,6 +1,7 @@
 import StreamVisitor from './visitors/StreamVisitor';
 import DocumentVisitor from './visitors/DocumentVisitor';
 import ErrorVisitor from './visitors/ErrorVisitor';
+import CommentVisitor from './visitors/CommentVisitor';
 import { ScalarVisitor, MappingVisitor, SequenceVisitor, KindVisitor } from './visitors/generics';
 
 /**
@@ -18,6 +19,7 @@ const specification = {
     sequence: SequenceVisitor,
     kind: KindVisitor,
     error: ErrorVisitor,
+    comment: CommentVisitor,
     stream: {
       $visitor: StreamVisitor,
     },

@@ -28,7 +28,7 @@ const OpenApiYaml3_1Parser: stampit.Stamp<OpenApiYaml3_1Parser> = stampit({
     /**
      * Whether to generate source map during parsing.
      */
-    sourceMap: true,
+    sourceMap: false,
 
     /**
      * Path of the Specification object where visitor is located.

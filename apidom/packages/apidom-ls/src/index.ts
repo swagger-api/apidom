@@ -1,15 +1,7 @@
 // @ts-ignore
-// import * as apiDOM from 'apidom';
-// @ts-ignore
 import ApiDOMParser from 'apidom-parser';
 // @ts-ignore
 import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi-json-3-1';
-// @ts-ignore
-// import {namespace} from 'apidom-parser-adapter-openapi-json-3-1';
-// @ts-ignore
-// import * as asyncapi2_0Adapter from 'apidom-parser-adapter-asyncapi-json-2-0';
-// @ts-ignore
-// import {namespace as namespaceAsync} from 'apidom-parser-adapter-asyncapi-json-2-0';
 
 export {
   isRefElement,
@@ -24,8 +16,6 @@ export {
   isStringElement,
 } from 'apidom';
 
-export { default as MyLicenseElement } from './MyLicense';
-
 export const doit: () => Promise<string> = async () => {
   const parser = ApiDOMParser();
 
@@ -37,7 +27,8 @@ export const doit: () => Promise<string> = async () => {
     }`;
   parser.use(openapi3_1Adapter);
   // parser.use(asyncapi2_0Adapter);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const parseResult = await parser.parse(value, { sourceMap: true });
-  console.log('Par', JSON.stringify(parseResult));
+  // console.log('Par', JSON.stringify(parseResult));
   return 'done';
 };

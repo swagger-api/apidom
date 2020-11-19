@@ -17,6 +17,8 @@ declare module 'minim' {
 
     public children: ArraySlice;
 
+    public meta: Meta;
+
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     equals(value: any): boolean;
@@ -26,6 +28,8 @@ declare module 'minim' {
     getMetaProperty(name: string, value?: any): any;
 
     setMetaProperty(name: string, value: any): void;
+
+    freeze(): void;
   }
 
   interface Type<T> extends Element {
@@ -140,6 +144,8 @@ declare module 'minim' {
     hasKey(value: string): boolean;
 
     get<T extends Element>(index: number): T;
+
+    [Symbol.iterator](): IterableIterator<any>;
   }
 
   export class ObjectSlice extends ArraySlice {}

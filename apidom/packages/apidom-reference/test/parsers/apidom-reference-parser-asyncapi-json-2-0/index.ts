@@ -2,21 +2,21 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { always } from 'ramda';
-import { isPathItemElement, PathItemElement } from 'apidom-ns-openapi-3-1';
+import { isParameterElement, ParameterElement } from 'apidom-ns-asyncapi-2-0';
 import { isParseResultElement, isSourceMapElement } from 'apidom';
 
 import File from '../../../src/util/File';
-import OpenApiJson3_1Parser from '../../../src/parsers/apidom-reference-parser-openapi-json-3-1';
+import AsyncApiJson2_0Parser from '../../../src/parsers/apidom-reference-parser-asyncapi-json-2-0';
 import { ParserError } from '../../../src/util/errors';
 
 describe('parsers', function () {
-  context('OpenApiJson3_1Parser', function () {
+  context('AsyncApiJson2_0Parser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         specify('should return true', function () {
           const file = File({ url: '/path/to/openapi.json' });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
 
           assert.isTrue(parser.canParse(file));
         });
@@ -25,8 +25,8 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', function () {
           const file = File({ url: '/path/to/openapi.yaml' });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
 
           assert.isFalse(parser.canParse(file));
         });
@@ -35,8 +35,8 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', function () {
           const file = File({ url: '/path/to/openapi' });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
 
           assert.isFalse(parser.canParse(file));
         });
@@ -44,28 +44,28 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given OpenApi 3.1.x JSON data', function () {
+      context('given AsyncApi 2.0.x JSON data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'path-item.json');
+          const url = path.join(__dirname, 'fixtures', 'parameter.json');
           const data = fs.readFileSync(url).toString();
           const file = File({ url, data });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
           const result = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(result));
         });
 
         specify('should result in proper ApiDOM fragment', async function () {
-          const url = path.join(__dirname, 'fixtures', 'path-item.json');
+          const url = path.join(__dirname, 'fixtures', 'parameter.json');
           const data = fs.readFileSync(url).toString();
           const file = File({ url, data });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
           const result = await parser.parse(file);
 
           assert.lengthOf(result, 1);
-          assert.isTrue(isPathItemElement(result.get(0)));
+          assert.isTrue(isParameterElement(result.get(0)));
         });
       });
 
@@ -73,8 +73,8 @@ describe('parsers', function () {
         specify('should throw ParserError', async function () {
           try {
             const file = File({ url: '/path/to/file.json', data: 1 });
-            const specPath = always(['document', 'objects', 'PathItem']);
-            const parser = OpenApiJson3_1Parser({ specPath });
+            const specPath = always(['document', 'objects', 'Parameter']);
+            const parser = AsyncApiJson2_0Parser({ specPath });
             await parser.parse(file);
             assert.fail('should throw ParserError');
           } catch (e) {
@@ -88,8 +88,8 @@ describe('parsers', function () {
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
           const file = File({ url: '/path/to/file.json', data: '' });
-          const specPath = always(['document', 'objects', 'PathItem']);
-          const parser = OpenApiJson3_1Parser({ specPath });
+          const specPath = always(['document', 'objects', 'Parameter']);
+          const parser = AsyncApiJson2_0Parser({ specPath });
           const result = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(result));
@@ -100,29 +100,29 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'path-item.json');
+            const url = path.join(__dirname, 'fixtures', 'parameter.json');
             const data = fs.readFileSync(url).toString();
             const file = File({ url, data });
-            const specPath = always(['document', 'objects', 'PathItem']);
-            const parser = OpenApiJson3_1Parser({ specPath, sourceMap: true });
+            const specPath = always(['document', 'objects', 'Parameter']);
+            const parser = AsyncApiJson2_0Parser({ specPath, sourceMap: true });
             const result = await parser.parse(file);
-            const pathItem: PathItemElement = result.get(0);
+            const parameter: ParameterElement = result.get(0);
 
-            assert.isTrue(isSourceMapElement(pathItem.meta.get('sourceMap')));
+            assert.isTrue(isSourceMapElement(parameter.meta.get('sourceMap')));
           });
         });
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'path-item.json');
+            const url = path.join(__dirname, 'fixtures', 'parameter.json');
             const data = fs.readFileSync(url).toString();
             const file = File({ url, data });
-            const specPath = always(['document', 'objects', 'PathItem']);
-            const parser = OpenApiJson3_1Parser({ specPath, sourceMap: false });
+            const specPath = always(['document', 'objects', 'Parameter']);
+            const parser = AsyncApiJson2_0Parser({ specPath, sourceMap: false });
             const result = await parser.parse(file);
-            const pathItem: PathItemElement = result.get(0);
+            const parameter: ParameterElement = result.get(0);
 
-            assert.isUndefined(pathItem.meta.get('sourceMap'));
+            assert.isUndefined(parameter.meta.get('sourceMap'));
           });
         });
       });

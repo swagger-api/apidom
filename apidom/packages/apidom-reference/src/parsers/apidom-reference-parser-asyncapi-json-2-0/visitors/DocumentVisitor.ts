@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 // @ts-ignore
-import { DocumentVisitor as AsyncApiJsonDocumentVisitor } from 'apidom-parser-adapter-asyncapi-json-2-9';
+import { DocumentVisitor as AsyncApiJsonDocumentVisitor } from 'apidom-parser-adapter-asyncapi-json-2-0';
 import { JsonDocument } from 'apidom-ast';
 
 const DocumentVisitor = stampit(AsyncApiJsonDocumentVisitor, {

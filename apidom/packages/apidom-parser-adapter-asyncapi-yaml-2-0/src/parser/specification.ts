@@ -30,6 +30,9 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
 import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import OperationVisitor from './visitors/async-api-2-0/operation';
 import ParametersVisitor from './visitors/async-api-2-0/parameters';
+import ParameterVisitor from './visitors/async-api-2-0/parameter';
+import ParameterDescriptionVisitor from './visitors/async-api-2-0/parameter/DescriptionVisitor';
+import ParameterLocationVisitor from './visitors/async-api-2-0/parameter/LocationVisitor';
 import ServersVisitor from './visitors/async-api-2-0/servers';
 import ServerVisitor from './visitors/async-api-2-0/server';
 import ServerUrlVisitor from './visitors/async-api-2-0/server/UrlVisitor';
@@ -45,6 +48,8 @@ import ServerVariableDescriptionVisitor from './visitors/async-api-2-0/server-va
 import ServerVariableExamplesVisitor from './visitors/async-api-2-0/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
 import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
+import ReferenceVisitor from './visitors/async-api-2-0/reference';
+import Reference$RefVisitor from './visitors/async-api-2-0/reference/$RefVisitor';
 import { MappingVisitor } from './visitors/generics';
 
 /**
@@ -180,10 +185,24 @@ const specification = mergeDeepRight(yamlSpecification, {
         Parameters: {
           $visitor: ParametersVisitor,
         },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            description: ParameterDescriptionVisitor,
+            schema: SchemaVisitor,
+            location: ParameterLocationVisitor,
+          },
+        },
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: SchemasVisitor,
+          },
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {
+            $ref: Reference$RefVisitor,
           },
         },
       },

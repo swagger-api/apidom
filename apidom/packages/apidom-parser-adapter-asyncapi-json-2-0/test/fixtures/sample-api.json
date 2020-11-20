@@ -48,8 +48,16 @@
     }
   },
   "channels": {
-    "user/signup": {
+    "user/{userId}/signup": {
       "description": "This channel is used to exchange messages about users signing up",
+      "parameters": {
+        "userId": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
       "subscribe": {
         "summary": "A user signed up.",
         "message": {

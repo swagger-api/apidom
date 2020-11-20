@@ -41,6 +41,7 @@ export { default as ChannelsElement } from './elements/Channels';
 export { default as ChannelItemElement } from './elements/ChannelItem';
 export { default as OperationElement } from './elements/Operation';
 export { default as ParametersElement } from './elements/Parameters';
+export { default as ParameterElement } from './elements/Parameter';
 export { default as ChannelBindingsElement } from './elements/ChannelBindings';
 export { default as ServersElement } from './elements/Servers';
 export { default as ServerElement } from './elements/Server';

@@ -11,6 +11,7 @@ import Channels from './elements/Channels';
 import ChannelItem from './elements/ChannelItem';
 import Operation from './elements/Operation';
 import Parameters from './elements/Parameters';
+import Parameter from './elements/Parameter';
 import ChannelBindings from './elements/ChannelBindings';
 import Servers from './elements/Servers';
 import Server from './elements/Server';
@@ -35,6 +36,7 @@ const asyncApi2_0 = {
     base.register('channelItem', ChannelItem);
     base.register('operation', Operation);
     base.register('parameters', Parameters);
+    base.register('parameter', Parameter);
     base.register('channelBindings', ChannelBindings);
     base.register('servers', Servers);
     base.register('server', Server);

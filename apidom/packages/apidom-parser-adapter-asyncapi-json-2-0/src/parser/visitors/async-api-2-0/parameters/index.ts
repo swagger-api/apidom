@@ -1,13 +1,21 @@
 import stampit from 'stampit';
-import { test, always } from 'ramda';
+import { test } from 'ramda';
+import { isJsonObject, JsonNode } from 'apidom-ast';
 
 import PatternedFieldsJsonObjectVisitor from '../../generics/PatternedFieldsJsonObjectVisitor';
 import { ValueVisitor } from '../../generics';
+import { isReferenceObject } from '../../../predicates';
 
 const ParametersVisitor = stampit(ValueVisitor, PatternedFieldsJsonObjectVisitor, {
   props: {
-    // TODO(vladimir.gorej@gmail.com): replace generic value spec with concrete objects
-    specPath: always(['value']),
+    specPath: (node: JsonNode) => {
+      // eslint-disable-next-line no-nested-ternary
+      return isReferenceObject({}, node)
+        ? ['document', 'objects', 'Reference']
+        : isJsonObject(node)
+        ? ['document', 'objects', 'Parameter']
+        : ['value'];
+    },
     fieldPatternPredicate: test(/^[A-Za-z0-9_\\-]+$/),
   },
   init() {

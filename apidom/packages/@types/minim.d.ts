@@ -17,8 +17,6 @@ declare module 'minim' {
 
     public children: ArraySlice;
 
-    public meta: Meta;
-
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
     equals(value: any): boolean;

@@ -14,6 +14,7 @@ import ChannelItemElement from './elements/ChannelItem';
 import ServersElement from './elements/Servers';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
+import ParameterElement from './elements/Parameter';
 
 export const isAsycApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
@@ -168,6 +169,18 @@ export const isChannelItemElement = createPredicate(
     return either(
       is(ChannelItemElement),
       allPass([hasBasicElementProps, isElementTypeChannelItem, primitiveEqObject]),
+    );
+  },
+);
+
+export const isParameterElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeParameter = isElementType('parameter');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ParameterElement),
+      allPass([hasBasicElementProps, isElementTypeParameter, primitiveEqObject]),
     );
   },
 );

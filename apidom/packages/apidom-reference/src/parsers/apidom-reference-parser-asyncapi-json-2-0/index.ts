@@ -1,7 +1,6 @@
 import stampit from 'stampit';
 import { assocPath, always } from 'ramda';
 import { ParseResultElement } from 'apidom';
-
 // @ts-ignore
 import { parse, specification } from 'apidom-parser-adapter-asyncapi-json-2-0';
 

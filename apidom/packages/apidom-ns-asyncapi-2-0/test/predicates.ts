@@ -15,6 +15,7 @@ import {
   isServersElement,
   isServerElement,
   isServerVariableElement,
+  isParameterElement,
   AsyncApi2_0Element,
   AsyncapiElement,
   SchemaElement,
@@ -28,6 +29,7 @@ import {
   ServersElement,
   ServerElement,
   ServerVariableElement,
+  ParameterElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -669,7 +671,7 @@ describe('predicates', function () {
   });
 
   context('isChannelItemElement', function () {
-    context('given ChannelItem instance value', function () {
+    context('given ChannelItemElement instance value', function () {
       specify('should return true', function () {
         const element = new ChannelItemElement();
 
@@ -685,7 +687,7 @@ describe('predicates', function () {
       });
     });
 
-    context('given non ChannelItem instance value', function () {
+    context('given non ChannelItemElement instance value', function () {
       specify('should return false', function () {
         assert.isFalse(isChannelItemElement(1));
         assert.isFalse(isChannelItemElement(null));
@@ -718,6 +720,59 @@ describe('predicates', function () {
 
       assert.isTrue(isChannelItemElement(channelItemElementDuck));
       assert.isFalse(isChannelItemElement(channelItemElementSwan));
+    });
+  });
+
+  context('isParameterElement', function () {
+    context('given ParameterElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ParameterElement();
+
+        assert.isTrue(isParameterElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ParameterSubElement extends ParameterElement {}
+
+        assert.isTrue(isParameterElement(new ParameterSubElement()));
+      });
+    });
+
+    context('given non ParameterElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isParameterElement(1));
+        assert.isFalse(isParameterElement(null));
+        assert.isFalse(isParameterElement(undefined));
+        assert.isFalse(isParameterElement({}));
+        assert.isFalse(isParameterElement([]));
+        assert.isFalse(isParameterElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const parameterElementDuck = {
+        _storedElement: 'parameter',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const parameterItemElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isParameterElement(parameterElementDuck));
+      assert.isFalse(isParameterElement(parameterItemElementSwan));
     });
   });
 });

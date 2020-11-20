@@ -20,8 +20,13 @@ export interface ParserOptions {
   parser?: any;
 }
 
-export function isAsyncDoc(document: TextDocument): boolean {
-  const text: string = document.getText();
+export function isAsyncDoc(document: TextDocument | string): boolean {
+  let text = '';
+  if (typeof document === 'string') {
+    text = document;
+  } else {
+    text = document.getText();
+  }
   if (text.indexOf('asyncapi') > -1) {
     return true;
   }

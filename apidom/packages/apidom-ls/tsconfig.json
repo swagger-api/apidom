@@ -4,5 +4,8 @@
     "../@types/**/*.d.ts",
     "src/**/*",
     "test/**/*"
-  ]
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true
+  }
 }

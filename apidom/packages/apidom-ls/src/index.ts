@@ -32,3 +32,15 @@ export const doit: () => Promise<string> = async () => {
   // console.log('Par', JSON.stringify(parseResult));
   return 'done';
 };
+
+export { default as getLanguageService } from './apidomLanguageService';
+
+export type {
+  LanguageService,
+  LanguageSettings,
+  SymbolsContext,
+  ValidationContext,
+  WorkspaceContextService,
+  ColorsContext,
+  LanguageServiceContext,
+} from './apidomLanguageTypes';

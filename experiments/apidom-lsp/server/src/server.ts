@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {
 	createConnection,
 	TextDocuments,
@@ -19,6 +21,8 @@ import {
 
 import {validateTextDocument as myValidate, test} from "apidom-lsp";
 
+// import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageService} from 'apidom-ls';
+import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageService} from '../../../../apidom/packages/apidom-ls';
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
 let connection = createConnection(ProposedFeatures.all);
@@ -31,7 +35,21 @@ let hasWorkspaceFolderCapability: boolean = false;
 let hasDiagnosticRelatedInformationCapability: boolean = false;
 
 connection.onInitialize((params: InitializeParams) => {
+	console.log("XXXXXXXXXXXXXXXX  onInitialize");
 	let capabilities = params.capabilities;
+
+
+	const context: LanguageServiceContext = {};
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+    };
+
+    // valid spec
+    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, '{"openapi": "3.0.1"}');
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
 
 	// Does the client support the `workspace/configuration` request?
 	// If not, we fall back using global settings.
@@ -129,7 +147,7 @@ documents.onDidClose(e => {
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
-	console.log("change");
+	console.log("changeSS");
 	validateTextDocument(change.document);
 });
 
@@ -231,3 +249,4 @@ documents.listen(connection);
 
 // Listen on the connection
 connection.listen();
+console.log("XXXXXXXXXXXXXXXX  Listen");

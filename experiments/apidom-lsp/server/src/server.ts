@@ -27,12 +27,13 @@ import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageS
 // Also include all preview / proposed LSP features.
 let connection = createConnection(ProposedFeatures.all);
 
-// Create a simple text document manager. 
+// Create a simple text document manager.
 let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let hasConfigurationCapability: boolean = false;
 let hasWorkspaceFolderCapability: boolean = false;
 let hasDiagnosticRelatedInformationCapability: boolean = false;
+let languageService: LanguageService;
 
 connection.onInitialize((params: InitializeParams) => {
 	console.log("XXXXXXXXXXXXXXXX  onInitialize");
@@ -40,16 +41,16 @@ connection.onInitialize((params: InitializeParams) => {
 
 
 	const context: LanguageServiceContext = {};
-    const validationContext: ValidationContext = {
+/*     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
     };
-
+ */
     // valid spec
     let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, '{"openapi": "3.0.1"}');
 
-    const languageService: LanguageService = getLanguageService(context);
+    languageService = getLanguageService(context);
 
-    languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
+    // languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
 
 	// Does the client support the `workspace/configuration` request?
 	// If not, we fall back using global settings.
@@ -157,7 +158,15 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	//let diagnostics = await myValidate(textDocument, settings.maxNumberOfProblems, hasDiagnosticRelatedInformationCapability);
 	let aaa = await test();
-	let diagnostics = await myValidate(textDocument, settings.maxNumberOfProblems, hasDiagnosticRelatedInformationCapability);
+	// let diagnostics = await myValidate(textDocument, settings.maxNumberOfProblems, hasDiagnosticRelatedInformationCapability);
+
+	const validationContext: ValidationContext = {
+		comments: DiagnosticSeverity.Error,
+	  };
+
+	let diagnostics = await languageService.doValidation(textDocument, validationContext);
+	console.log(diagnostics);
+	// languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
 	/*
 	// The validator creates diagnostics for all uppercase words length 2 and more
 
@@ -212,7 +221,7 @@ connection.onDidChangeWatchedFiles(_change => {
 connection.onCompletion(
 	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
 		// The pass parameter contains the position of the text document in
-		// which code complete got requested. 
+		// which code complete got requested.
 		return [
 			{
 				label: 'TypeScript',

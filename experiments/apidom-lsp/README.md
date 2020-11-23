@@ -39,9 +39,10 @@ npm i
 npm run build
 ```
 
-### build apidomlsp:
+### build apidomlsp: (build.sh, buildall.sh with apidom)
 
 ```
+
 
 cd ${GIT_ROOT}/apidom/apidom/node_modules/tree-sitter
 node-gyp rebuild --target=9.3.3 --arch=x64 --dist-url=https://electronjs.org/headers

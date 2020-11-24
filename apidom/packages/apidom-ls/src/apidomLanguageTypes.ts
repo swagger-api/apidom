@@ -1,7 +1,12 @@
-import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import { CompletionList, Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { ClientCapabilities } from 'vscode-languageserver-protocol';
+import { ClientCapabilities, CompletionParams } from 'vscode-languageserver-protocol';
 // import { ClientCapabilities, Proposed } from 'vscode-languageserver-protocol';
+
+export enum SUPPORTED_LANGUAGES {
+  OPENAPI_31,
+  ASYNCAPI_20,
+}
 
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
@@ -17,6 +22,12 @@ export interface LanguageSettings {
 
 export interface ValidationContext {
   comments?: DiagnosticSeverity;
+  relatedInformation?: boolean;
+  maxNumberOfProblems?: number;
+}
+
+export interface CompletionContext {
+  maxNumberOfItems?: number;
 }
 
 export interface SymbolsContext {
@@ -34,11 +45,14 @@ export interface WorkspaceContextService {
 }
 
 export interface LanguageService {
-  configure(settings: LanguageSettings): void;
+  configure(settings?: LanguageSettings): void;
 
   doValidation(document: TextDocument, context?: ValidationContext): PromiseLike<Diagnostic[]>;
-  // doValidation(): PromiseLike<String>;
-
+  doCompletion(
+    document: TextDocument,
+    completionParams: CompletionParams,
+    context?: CompletionContext,
+  ): PromiseLike<CompletionList | null>;
   /*
   doComplete(document: TextDocument, position: Position): PromiseLike<CompletionList | null>;
 

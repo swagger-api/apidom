@@ -9,6 +9,7 @@ import * as asyncapi2_0Adapter from "apidom-parser-adapter-asyncapi2-0-json";
 import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
 */
 
+import { DefaultJsonSchemaService } from './services/jsonSchema/jsonSchemaService';
 import { LanguageService, LanguageServiceContext, LanguageSettings } from './apidomLanguageTypes';
 
 /* import {Diagnostic, Position, CompletionList, CompletionItem, SymbolInformation, Hover, ColorInformation, ColorPresentation, Color, FormattingOptions, TextEdit} from "vscode-languageserver-types"
@@ -20,15 +21,22 @@ import { DefaultValidationService } from './services/validation/validationServic
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
   // let apidomCompletion = new ApiDOMCompletion(promise, params.clientCapabilities);
 
-  const validationService = new DefaultValidationService();
+  const jsonSchemaService = new DefaultJsonSchemaService();
+  const validationService = new DefaultValidationService(jsonSchemaService);
+
+  function configureServices(languageSettings?: LanguageSettings) {
+    jsonSchemaService.configure(languageSettings);
+    validationService.configure(languageSettings);
+  }
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    configure: (settings: LanguageSettings): void => {},
+    configure: (settings?: LanguageSettings): void => configureServices(settings),
     // doValidation: () => {return Promise.resolve("res")},
     doValidation: validationService.doValidation.bind(validationService),
 
-    // doComplete: apidomCompletion.doComplete.bind(apidomCompletion),
+    doCompletion: jsonSchemaService.doCompletion.bind(jsonSchemaService),
+
     // findDocumentSymbols: (document: TextDocument, context?: DocumentSymbolsContext) => findDocumentSymbols(document, context),
     // computeSemanticTokens: (content: string) => computeSemanticTokens(content),
 

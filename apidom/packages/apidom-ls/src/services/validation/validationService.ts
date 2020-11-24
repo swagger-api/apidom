@@ -1,7 +1,5 @@
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element } from 'minim';
-import { DefaultJsonSchemaValidationService } from './jsonSchema/jsonSchemaValidationService';
 import { getParser } from '../../parserFactory';
 import { LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
 import { getSourceMap } from '../../utils/utils';
@@ -22,14 +20,18 @@ export class DefaultValidationService implements ValidationService {
 
   private settings: LanguageSettings | undefined;
 
-  public constructor() {
+  private jsonSchemaValidationService: ValidationService;
+
+  public constructor(jsonSchemaValidationService: ValidationService) {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
+    this.jsonSchemaValidationService = jsonSchemaValidationService;
   }
 
-  public configure(settings: LanguageSettings): void {
+  public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings) {
+      this.jsonSchemaValidationService.configure(settings);
       this.validationEnabled = settings.validate;
       this.commentSeverity = settings.allowComments ? undefined : DiagnosticSeverity.Error;
     }
@@ -52,41 +54,56 @@ export class DefaultValidationService implements ValidationService {
       api.freeze(); // !! freeze and add parent !!
       if (result.annotations) {
         for (const annotation of result.annotations) {
+          if (
+            validationContext &&
+            validationContext.maxNumberOfProblems &&
+            diagnostics.length > validationContext.maxNumberOfProblems
+          ) {
+            return diagnostics;
+          }
           const nodeSourceMap = getSourceMap(annotation);
           const location = { offset: nodeSourceMap.offset, length: 1 };
           const range = Range.create(
             textDocument.positionAt(location.offset),
             textDocument.positionAt(location.offset + location.length),
           );
-          diagnostics.push(
-            Diagnostic.create(range, annotation.toValue(), DiagnosticSeverity.Error, 0),
+          const diagnostic = Diagnostic.create(
+            range,
+            annotation.toValue(),
+            DiagnosticSeverity.Error,
+            0,
           );
+          if (validationContext && validationContext.relatedInformation) {
+            diagnostic.relatedInformation = [
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'Syntax error while parsing',
+              },
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'more things',
+              },
+            ];
+          }
+
+          diagnostics.push(diagnostic);
         }
       }
-
-      this.validate(api, text, !!diagnostics.length, diagnostics);
+      const hasSyntaxErrors = !!diagnostics.length;
+      if (!hasSyntaxErrors) {
+        this.jsonSchemaValidationService
+          .doValidation(textDocument, validationContext)
+          .then((jsonSchemaDiagnostics) => {
+            diagnostics.push(...jsonSchemaDiagnostics);
+          });
+      }
       return diagnostics;
     });
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public validate(
-    node: Element,
-    text: string,
-    hasSyntaxErrors: boolean,
-    validationResult: Diagnostic[],
-  ): void {
-    if (!this.validationEnabled) {
-      // eslint-disable-next-line no-useless-return
-      return;
-    }
-    // TODO https://github.com/swagger-api/oss-planning/issues/226
-    // Json schema
-    if (!hasSyntaxErrors) {
-      // TODO (in validation lib) use the "corrected" serialized APiDOM (without error nodes) so we can check jsonschema also with errors
-      const jsonSchemaValidationService = new DefaultJsonSchemaValidationService();
-      jsonSchemaValidationService.configure(this.settings);
-      jsonSchemaValidationService.validate(text, validationResult);
-    }
   }
 }

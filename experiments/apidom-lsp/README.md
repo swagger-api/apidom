@@ -85,6 +85,37 @@ cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonS
 cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/asyncapiSchema.json 
 ```
 
+## Running 
+
+- Open VS Code on this folder.
+- Run configure above
+- Switch to the Debug viewlet.
+- Select `Launch Client` from the drop down.
+- Run the launch config.
+- If you want to debug the server as well use the launch configuration `Attach to Server`
+
+- if something cheange, rebuild the package and relaunch
+
+
+
+## Test apidomlsp
+
+Use launch config Mocha apidomlsp or Mocha current file
+
+## Build and run monacoclient (at commit e752b87)
+
+```
+yarn
+yarn run build
+```
+Debug Launch Configuration: MonacoClient Chrome
+
+## Build and run monacoclient 
+
+```
+cd <ROOT>/
+
+```
 
 ## Configure OLD KEEP FOR REF
 
@@ -255,18 +286,6 @@ npm link apidomlsp
 
 npm build with babel in server
 
-
-## Running 
-
-- Open VS Code on this folder.
-- Run configure above
-- Switch to the Debug viewlet.
-- Select `Launch Client` from the drop down.
-- Run the launch config.
-- If you want to debug the server as well use the launch configuration `Attach to Server`
-
-- if something cheange, rebuild the package and relaunch
-
 ## Running OLD
 
 - Open VS Code on this folder.
@@ -276,22 +295,3 @@ npm build with babel in server
 - Run the launch config.
 - If you want to debug the server as well use the launch configuration `Attach to Server`
 
-
-## Test apidomlsp
-
-Use launch config Mocha apidomlsp or Mocha current file
-
-## Build and run monacoclient (at commit e752b87)
-
-```
-yarn
-yarn run build
-```
-Debug Launch Configuration: MonacoClient Chrome
-
-## Build and run monacoclient 
-
-```
-cd <ROOT>/
-
-```

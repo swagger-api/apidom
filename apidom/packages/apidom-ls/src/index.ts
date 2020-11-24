@@ -40,7 +40,9 @@ export type {
   LanguageSettings,
   SymbolsContext,
   ValidationContext,
+  CompletionContext,
   WorkspaceContextService,
   ColorsContext,
   LanguageServiceContext,
+  SUPPORTED_LANGUAGES,
 } from './apidomLanguageTypes';

@@ -39,5 +39,7 @@ cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 
 cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 
-cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/openapiSchema.json 
-cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/asyncapiSchema.json 
+// cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/openapiSchema.json 
+// cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/asyncapiSchema.json 
+cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/jsonSchema/openapiSchema.json 
+cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/jsonSchema/asyncapiSchema.json

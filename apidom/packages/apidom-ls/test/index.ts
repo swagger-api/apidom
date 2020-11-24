@@ -3,9 +3,15 @@ import path from 'path';
 import { assert } from 'chai';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import {
+  CompletionList,
+  Diagnostic,
+  DiagnosticSeverity,
+  Position,
+} from 'vscode-languageserver-types';
 import getLanguageService from '../src/apidomLanguageService';
 import {
+  CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
@@ -22,6 +28,8 @@ describe('apidom-ls', function () {
     const context: LanguageServiceContext = {};
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
     };
 
     // valid spec
@@ -123,5 +131,39 @@ describe('apidom-ls', function () {
         code: 0,
       },
     ]);
+  });
+
+  it('test completion', async function () {
+    // doit();
+    const context: LanguageServiceContext = {};
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: Position.create(0, 0) },
+      completionContext,
+    );
+
+    // console.log(JSON.stringify(result));
+    const expected = {
+      items: [
+        {
+          kind: 10,
+          label: 'test',
+          insertText: 'getInsertTextForProperty',
+          insertTextFormat: 2,
+          filterText: 'getFilterTextForValue',
+          documentation: 'documentation',
+        },
+      ],
+      isIncomplete: false,
+    };
+    assert.deepEqual(result, expected as CompletionList);
   });
 });

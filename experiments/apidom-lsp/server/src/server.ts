@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
 import {
-	createConnection,
 	TextDocuments,
-	Diagnostic,
 	DiagnosticSeverity,
 	ProposedFeatures,
 	InitializeParams,
 	DidChangeConfigurationNotification,
 	CompletionItem,
-	CompletionItemKind,
-	TextDocumentPositionParams,
 	TextDocumentSyncKind,
-	InitializeResult
+	InitializeResult,
+	CompletionParams,
+	CompletionList,
 } from 'vscode-languageserver';
+
+import {createConnection} from 'vscode-languageserver/node';
 
 import {
 	TextDocument
@@ -22,7 +22,7 @@ import {
 import {validateTextDocument as myValidate, test} from "apidom-lsp";
 
 // import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageService} from 'apidom-ls';
-import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageService} from '../../../../apidom/packages/apidom-ls';
+import {getLanguageService, LanguageServiceContext, ValidationContext, CompletionContext, LanguageService} from '../../../../apidom/packages/apidom-ls';
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
 let connection = createConnection(ProposedFeatures.all);
@@ -39,17 +39,11 @@ connection.onInitialize((params: InitializeParams) => {
 	console.log("XXXXXXXXXXXXXXXX  onInitialize");
 	let capabilities = params.capabilities;
 
-
 	const context: LanguageServiceContext = {};
-/*     const validationContext: ValidationContext = {
-      comments: DiagnosticSeverity.Error,
-    };
- */
-    // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, '{"openapi": "3.0.1"}');
 
     languageService = getLanguageService(context);
 
+	// let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, '{"openapi": "3.0.1"}');
     // languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
 
 	// Does the client support the `workspace/configuration` request?
@@ -162,52 +156,13 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	const validationContext: ValidationContext = {
 		comments: DiagnosticSeverity.Error,
+		// relatedInformation: hasDiagnosticRelatedInformationCapability,
+		// maxNumberOfProblems: settings.maxNumberOfProblems
 	  };
 
 	let diagnostics = await languageService.doValidation(textDocument, validationContext);
 	console.log(diagnostics);
-	// languageService.doValidation(doc, validationContext).then(result => {console.log(result);});
-	/*
-	// The validator creates diagnostics for all uppercase words length 2 and more
 
-	let text = textDocument.getText();s
-	let pattern = /\b[A-Z]{2,}\b/g;
-	let m: RegExpExecArray | null;
-
-	let problems = 0;
-	let diagnostics: Diagnostic[] = [];
-	while ((m = pattern.exec(text)) && problems < settings.maxNumberOfProblems) {
-		problems++;
-		let diagnostic: Diagnostic = {
-			severity: DiagnosticSeverity.Warning,
-			range: {
-				start: textDocument.positionAt(m.index),
-				end: textDocument.positionAt(m.index + m[0].length)
-			},
-			message: `${m[0]} is all uppercase.`,
-			source: 'ex'
-		};
-		if (hasDiagnosticRelatedInformationCapability) {
-			diagnostic.relatedInformation = [
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Spelling matterdddds'
-				},
-				{
-					location: {
-						uri: textDocument.uri,
-						range: Object.assign({}, diagnostic.range)
-					},
-					message: 'Particularly for names'
-				}
-			];
-		}
-		diagnostics.push(diagnostic);
-	}
-	*/
 	// Send the computed diagnostics to VSCode.
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
@@ -219,21 +174,19 @@ connection.onDidChangeWatchedFiles(_change => {
 
 // This handler provides the initial list of the completion items.
 connection.onCompletion(
-	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
+	async (completionParams: CompletionParams): Promise<CompletionItem[]> => {
+
+		const completionContext: CompletionContext = {
+			maxNumberOfItems: 100
+		  };
+
+		const doc = documents.get(completionParams.textDocument.uri)!;
+		let list = await languageService.doCompletion(doc, completionParams, completionContext);
+		if (list) console.log(list.items);
+
 		// The pass parameter contains the position of the text document in
 		// which code complete got requested.
-		return [
-			{
-				label: 'TypeScript',
-				kind: CompletionItemKind.Text,
-				data: 1
-			},
-			{
-				label: 'JavaScript',
-				kind: CompletionItemKind.Text,
-				data: 2
-			}
-		];
+		return list ? list.items: [];
 	}
 );
 
@@ -258,4 +211,3 @@ documents.listen(connection);
 
 // Listen on the connection
 connection.listen();
-console.log("XXXXXXXXXXXXXXXX  Listen");

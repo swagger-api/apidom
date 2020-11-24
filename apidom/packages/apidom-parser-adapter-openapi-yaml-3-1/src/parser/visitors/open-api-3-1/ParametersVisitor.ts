@@ -14,10 +14,12 @@ const ParametersVisitor = stampit(KindVisitor, SpecificationVisitor, {
   methods: {
     sequence(sequenceNode: YamlSequence) {
       sequenceNode.content.forEach((item): void => {
-        if (isParameterObject({}, item)) {
-          this.element.push(new this.namespace.elements.Parameter());
-        } else if (isReferenceObject({}, item)) {
-          this.element.push(new this.namespace.elements.Reference());
+        if (isReferenceObject({}, item)) {
+          const referenceElement = this.nodeToElement(['document', 'objects', 'Reference'], item);
+          this.element.push(referenceElement);
+        } else if (isParameterObject({}, item)) {
+          const parameterElement = this.nodeToElement(['document', 'objects', 'Parameter'], item);
+          this.element.push(parameterElement);
         } else {
           const element = this.nodeToElement(['kind'], item);
           this.element.push(element);

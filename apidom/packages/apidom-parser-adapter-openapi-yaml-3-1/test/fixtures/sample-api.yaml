@@ -3,7 +3,6 @@
 openapi: 3.1.0
 x-top-level: value
 info:
-
   title: Sample API
   unknownFixedField: value
   description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/)
@@ -57,6 +56,14 @@ components:
         email:
           type: string
           x-nullable: true
+  parameters:
+    userId:
+      $ref: #/components/parameters/userIdRef
+    userIdRef:
+      name: userId,
+      in: query,
+      description: ID of the user,
+      required: true
 security:
   - {}
   - petstore_auth:
@@ -77,10 +84,7 @@ paths:
         url: https://example.com
       operationId: getUserList
       parameters:
-        name: userId
-        in: query
-        description: ID of the user
-        required: true
+        - "$ref": #/components/parameters/userId
       requestBody:
         content: {}
       responses:
@@ -126,9 +130,9 @@ paths:
       - url: http://api.example.com/v2
         description: Redundant server description, e.g. redundant server
     parameters:
-      name: userId
-      in: query
-      description: ID of the user
-      required: true
+      - name: userId
+        in: query
+        description: ID of the user
+        required: true
 ...
 prop: value

@@ -30,7 +30,8 @@ import ServerVariableEnumVisitor from './visitors/open-api-3-1/server-variable/E
 import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variable/DefaultVisitor';
 import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
 import ComponentsVisitor from './visitors/open-api-3-1/components';
-import SchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
+import ComponentSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
+import ComponentParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
 import PathsVisitor from './visitors/open-api-3-1/paths';
 import PathItemVisitor from './visitors/open-api-3-1/path-item';
@@ -38,6 +39,17 @@ import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
 import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+import ParameterVisitor from './visitors/open-api-3-1/parameter';
+import ParameterNameVisitor from './visitors/open-api-3-1/parameter/NameVisitor';
+import ParameterInVisitor from './visitors/open-api-3-1/parameter/InVisitor';
+import ParameterDescriptionVisitor from './visitors/open-api-3-1/parameter/DescriptionVisitor';
+import ParameterRequiredVisitor from './visitors/open-api-3-1/parameter/RequiredVisitor';
+import ParameterDeprecatedVisitor from './visitors/open-api-3-1/parameter/DeprecatedVisitor';
+import ParameterAllowEmptyValueVisitor from './visitors/open-api-3-1/parameter/AllowEmptyValueVisitor';
+import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisitor';
+import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
+import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
+import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
 import OperationVisitor from './visitors/open-api-3-1/operation';
 import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
 import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
@@ -60,6 +72,8 @@ import CallbackVisitor from './visitors/open-api-3-1/callback';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import ResponseVisitor from './visitors/open-api-3-1/response';
+import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
+import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import { ObjectVisitor } from './visitors/generics';
 
 /**
@@ -147,7 +161,8 @@ const specification = mergeDeepRight(jsonSpecification, {
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
-            schemas: SchemasVisitor,
+            schemas: ComponentSchemasVisitor,
+            parameters: ComponentParametersVisitor,
           },
         },
         Paths: {
@@ -243,6 +258,24 @@ const specification = mergeDeepRight(jsonSpecification, {
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
+        },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            name: ParameterNameVisitor,
+            in: ParameterInVisitor,
+            description: ParameterDescriptionVisitor,
+            required: ParameterRequiredVisitor,
+            deprecated: ParameterDeprecatedVisitor,
+            allowEmptyValue: ParameterAllowEmptyValueVisitor,
+            style: ParameterStyleVisitor,
+            explode: ParameterExplodeVisitor,
+            allowReserved: ParameterAllowReservedVisitor,
+            schema: SchemaVisitor,
+            example: ParameterExampleVisitor,
+            examples: ExamplesVisitor,
+            content: ContentVisitor,
+          },
         },
       },
       extension: SpecificationExtensionVisitor,

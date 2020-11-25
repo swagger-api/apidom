@@ -13,6 +13,7 @@ import ServerVariableElement from './elements/ServerVariable';
 import PathsElement from './elements/Paths';
 import PathItemElement from './elements/PathItem';
 import OperationElement from './elements/Operation';
+import ReferenceElement from './elements/Reference';
 
 export const isOpenApiApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
@@ -155,6 +156,18 @@ export const isOperationElement = createPredicate(
     return either(
       is(OperationElement),
       allPass([hasBasicElementProps, isElementTypeOperation, primitiveEqObject]),
+    );
+  },
+);
+
+export const isReferenceElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeReference = isElementType('reference');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ReferenceElement),
+      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
     );
   },
 );

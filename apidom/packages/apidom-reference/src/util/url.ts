@@ -113,3 +113,15 @@ export const toFileSystemPath = (options: ToFileSystemPathOptions, uri: string):
 
   return path;
 };
+
+/**
+ * Returns the hash (URL fragment), of the given path.
+ * If there is no hash, then the root hash ("#") is returned.
+ */
+export const getHash = (uri: string): string => {
+  const hashIndex = uri.indexOf('#');
+  if (hashIndex !== -1) {
+    return uri.substr(hashIndex);
+  }
+  return '#';
+};

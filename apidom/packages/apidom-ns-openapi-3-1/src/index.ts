@@ -26,6 +26,7 @@ export {
   isPathsElement,
   isPathItemElement,
   isOperationElement,
+  isReferenceElement,
 } from './predicates';
 
 export { default as ComponentsElement } from './elements/Components';
@@ -47,3 +48,4 @@ export { default as ResponsesElement } from './elements/Responses';
 export { default as CallbackElement } from './elements/Callback';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
 export { default as ResponseElement } from './elements/Response';
+export { default as ReferenceElement } from './elements/Reference';

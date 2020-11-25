@@ -26,6 +26,8 @@ import {
   PathsElement,
   PathItemElement,
   OperationElement,
+  ReferenceElement,
+  isReferenceElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -666,6 +668,59 @@ describe('predicates', function () {
 
       assert.isTrue(isOperationElement(operationElementDuck));
       assert.isFalse(isOperationElement(operationElementSwan));
+    });
+  });
+
+  context('isReferenceElement', function () {
+    context('given ReferenceElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ReferenceElement();
+
+        assert.isTrue(isReferenceElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ReferenceSubElement extends ReferenceElement {}
+
+        assert.isTrue(isReferenceElement(new ReferenceSubElement()));
+      });
+    });
+
+    context('given non ReferenceElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isReferenceElement(1));
+        assert.isFalse(isReferenceElement(null));
+        assert.isFalse(isReferenceElement(undefined));
+        assert.isFalse(isReferenceElement({}));
+        assert.isFalse(isReferenceElement([]));
+        assert.isFalse(isReferenceElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const referenceElementDuck = {
+        _storedElement: 'reference',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const referenceElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isReferenceElement(referenceElementDuck));
+      assert.isFalse(isReferenceElement(referenceElementSwan));
     });
   });
 });

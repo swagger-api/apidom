@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { T as stubTrue } from 'ramda';
 
-import { toFileSystemPath, getExtension } from '../../src/util/url';
+import { toFileSystemPath, getExtension, getHash } from '../../src/util/url';
 
 describe('url', function () {
   context('toFileSystemPath', function () {
@@ -124,6 +124,35 @@ describe('url', function () {
         const extension = getExtension(url);
 
         assert.strictEqual(extension, '.json');
+      });
+    });
+  });
+
+  context('getHash', function () {
+    context('given hash only', function () {
+      specify('should act as identity function', function () {
+        const pointer = '#/path/to/json/value';
+        const hash = getHash(pointer);
+
+        assert.strictEqual(hash, '#/path/to/json/value');
+      });
+    });
+
+    context('given absolute url with hash', function () {
+      specify('should return hash part', function () {
+        const pointer = 'https://swagger.io/file.json#/path/to/json/value';
+        const hash = getHash(pointer);
+
+        assert.strictEqual(hash, '#/path/to/json/value');
+      });
+    });
+
+    context('given no hash', function () {
+      specify('should return root hash', function () {
+        const pointer = 'https://swagger.io/file.json';
+        const hash = getHash(pointer);
+
+        assert.strictEqual(hash, '#');
       });
     });
   });

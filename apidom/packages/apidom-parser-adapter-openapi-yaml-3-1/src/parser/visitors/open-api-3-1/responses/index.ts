@@ -1,5 +1,9 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
+import { YamlMapping } from 'apidom-ast';
+import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 
 import { isReferenceObject, isResponseObject } from '../../../predicates';
 import MixedFieldsYamlMappingVisitor from '../../generics/MixedFieldsYamlMappingVisitor';
@@ -22,6 +26,18 @@ const ResponsesVisitor = stampit(KindVisitor, MixedFieldsYamlMappingVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Responses();
+  },
+  methods: {
+    mapping(mappingNode: YamlMapping) {
+      // @ts-ignore
+      const result = MixedFieldsYamlMappingVisitor.compose.methods.mapping.call(this, mappingNode);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        appendMetadata(['openapi-reference-for-response'], referenceElement);
+      });
+
+      return result;
+    },
   },
 });
 

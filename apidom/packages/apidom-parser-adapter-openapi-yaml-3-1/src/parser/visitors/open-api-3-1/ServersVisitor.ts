@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { YamlSequence } from 'apidom-ast';
 // @ts-ignore
-import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
+import { appendMetadata, BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
 import { isServerObject } from '../../predicates';
 import { KindVisitor } from '../generics';
@@ -9,7 +9,7 @@ import { KindVisitor } from '../generics';
 const ServersVisitor = stampit(KindVisitor, SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('servers');
+    appendMetadata(['servers'], this.element);
   },
   methods: {
     sequence(sequenceNode: YamlSequence) {

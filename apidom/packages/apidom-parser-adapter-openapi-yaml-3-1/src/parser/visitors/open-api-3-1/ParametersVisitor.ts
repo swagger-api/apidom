@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { YamlSequence } from 'apidom-ast';
 // @ts-ignore
-import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
+import { appendMetadata, BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
 import { isParameterObject, isReferenceObject } from '../../predicates';
 import { KindVisitor } from '../generics';
@@ -9,13 +9,14 @@ import { KindVisitor } from '../generics';
 const ParametersVisitor = stampit(KindVisitor, SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('parameters');
+    appendMetadata(['parameters'], this.element);
   },
   methods: {
     sequence(sequenceNode: YamlSequence) {
       sequenceNode.content.forEach((item): void => {
         if (isReferenceObject({}, item)) {
           const referenceElement = this.nodeToElement(['document', 'objects', 'Reference'], item);
+          appendMetadata(['openapi-reference-for-parameter'], referenceElement);
           this.element.push(referenceElement);
         } else if (isParameterObject({}, item)) {
           const parameterElement = this.nodeToElement(['document', 'objects', 'Parameter'], item);

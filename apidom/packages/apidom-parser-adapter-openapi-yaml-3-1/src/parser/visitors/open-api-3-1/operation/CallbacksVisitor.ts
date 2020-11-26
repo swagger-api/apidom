@@ -1,5 +1,8 @@
 import stampit from 'stampit';
-import { isYamlMapping } from 'apidom-ast';
+import { isYamlMapping, YamlMapping } from 'apidom-ast';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
+import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
 
 import MapYamlMappingVisitor from '../../generics/MapYamlMappingVisitor';
 import { isReferenceObject } from '../../../predicates';
@@ -18,7 +21,18 @@ const CallbacksVisitor = stampit(KindVisitor, MapYamlMappingVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Object();
-    this.element.classes.push('callbacks');
+    appendMetadata(['callbacks'], this.element);
+  },
+  methods: {
+    mapping(mappingNode: YamlMapping) {
+      const result = MapYamlMappingVisitor.compose.methods.mapping.call(this, mappingNode);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        appendMetadata(['openapi-reference-for-callback'], referenceElement);
+      });
+
+      return result;
+    },
   },
 });
 

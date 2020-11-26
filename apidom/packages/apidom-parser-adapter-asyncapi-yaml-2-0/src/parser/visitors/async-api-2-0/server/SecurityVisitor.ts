@@ -1,12 +1,12 @@
 import stampit from 'stampit';
 import { isYamlMapping, YamlSequence } from 'apidom-ast';
 // @ts-ignore
-import { BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
+import { appendMetadata, BREAK, SpecificationVisitor } from 'apidom-parser-adapter-yaml-1-2';
 
 const SecurityVisitor = stampit(SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('security');
+    appendMetadata(['security'], this.element);
   },
   methods: {
     sequence(sequenceNode: YamlSequence) {

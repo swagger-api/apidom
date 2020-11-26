@@ -28,6 +28,7 @@ export {
   isServerElement,
   isServerVariableElement,
   isParameterElement,
+  isReferenceElement,
 } from './predicates';
 
 export { default as AsyncapiElement } from './elements/Asyncapi';

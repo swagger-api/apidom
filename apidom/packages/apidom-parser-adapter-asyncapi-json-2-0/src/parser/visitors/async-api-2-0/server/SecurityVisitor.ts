@@ -1,12 +1,14 @@
 import stampit from 'stampit';
 import { isJsonObject, JsonNode } from 'apidom-ast';
 // @ts-ignore
-import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
+import { appendMetadata, SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
-const SecurityVisitor = stampit(SpecificationVisitor, {
+import { ValueVisitor } from '../../generics';
+
+const SecurityVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('security');
+    appendMetadata(['security'], this.element);
   },
   methods: {
     array(arrayNode) {

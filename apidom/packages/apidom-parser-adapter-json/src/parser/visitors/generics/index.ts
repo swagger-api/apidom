@@ -16,6 +16,7 @@ import {
 } from 'apidom-ast';
 
 import { visit, BREAK } from '../index';
+import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ArrayVisitor = stampit(SpecificationVisitor).init(function ArrayVisitor() {
@@ -131,8 +132,7 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
       // $ref property key special handling
       // @ts-ignore
       valueElement = new this.namespace.elements.String(propertyNode.value.value);
-      objElement.classes.push('json-reference');
-      objElement.classes.push('json-schema-reference');
+      appendMetadata(['json-reference', 'json-schema-reference'], valueElement);
     } else if (!this.specificationExtensionPredicate(propertyNode)) {
       // @ts-ignore
       valueElement = this.namespace.toElement(propertyNode.value.value);

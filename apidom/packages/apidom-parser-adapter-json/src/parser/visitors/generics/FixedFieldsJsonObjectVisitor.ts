@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 
+import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { visit, BREAK } from '../index';
 
@@ -53,7 +54,7 @@ const FixedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
               visitor.element,
             ),
           );
-          memberElement.classes.push('fixedField');
+          appendMetadata(['fixed-field'], memberElement);
 
           this.element.content.push(memberElement);
         } else if (

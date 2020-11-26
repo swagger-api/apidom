@@ -1,6 +1,9 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
-import { JsonNode } from 'apidom-ast';
+import { JsonNode, JsonObject } from 'apidom-ast';
+import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-json';
 
 import { isReferenceObject, isResponseObject } from '../../../predicates';
 import MixedFieldsJsonObjectVisitor from '../../generics/MixedFieldsJsonObjectVisitor';
@@ -23,6 +26,18 @@ const ResponsesVisitor = stampit(ValueVisitor, MixedFieldsJsonObjectVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Responses();
+  },
+  methods: {
+    object(objectNode: JsonObject) {
+      // @ts-ignore
+      const result = MixedFieldsJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        appendMetadata(['openapi-reference-for-response'], referenceElement);
+      });
+
+      return result;
+    },
   },
 });
 

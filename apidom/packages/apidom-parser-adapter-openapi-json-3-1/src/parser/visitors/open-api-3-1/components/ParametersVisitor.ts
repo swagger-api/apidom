@@ -1,5 +1,8 @@
 import stampit from 'stampit';
-import { JsonNode } from 'apidom-ast';
+import { JsonNode, JsonObject } from 'apidom-ast';
+import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-json';
 
 import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
 import { ValueVisitor } from '../../generics';
@@ -18,7 +21,18 @@ const ParametersVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Object();
-    this.element.classes.push('parameters');
+    appendMetadata(['parameters'], this.element);
+  },
+  methods: {
+    object(objectNode: JsonObject) {
+      const result = MapJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        appendMetadata(['openapi-reference-for-parameter'], referenceElement);
+      });
+
+      return result;
+    },
   },
 });
 

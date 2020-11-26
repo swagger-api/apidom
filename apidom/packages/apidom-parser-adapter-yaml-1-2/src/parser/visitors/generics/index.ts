@@ -8,6 +8,7 @@ import {
   YamlSequence,
   isYamlMapping,
   isYamlSequence,
+  isYamlScalar,
 } from 'apidom-ast';
 
 import { BREAK } from '../index';
@@ -87,15 +88,12 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
       valueElement = this.nodeToElement(['mapping'], valueNode);
     } else if (isYamlSequence(valueNode)) {
       valueElement = this.nodeToElement(['sequence'], valueNode);
-    } else if (keyNode.content === '$ref') {
+    } else if (keyNode.content === '$ref' && isYamlScalar(valueNode)) {
       // $ref property key special handling
-      // @ts-ignore
-      valueElement = new this.namespace.elements.Ref(valueNode.content);
-      valueElement.path = valueNode.content;
+      valueElement = this.namespace.toElement(valueNode.content);
       objElement.classes.push('json-reference');
       objElement.classes.push('json-schema-reference');
     } else if (!this.specificationExtensionPredicate(keyValuePairNode)) {
-      // @ts-ignore
       valueElement = this.namespace.toElement(valueNode.content);
     }
 

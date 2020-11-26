@@ -1,4 +1,5 @@
 # stream comment
 ---
 prop: val
+$ref: #/prop
 ...

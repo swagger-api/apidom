@@ -130,9 +130,7 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
     } else if (propertyNode.key.value === '$ref' && isJsonString(propertyNode.value)) {
       // $ref property key special handling
       // @ts-ignore
-      valueElement = new this.namespace.elements.Ref(propertyNode.value.value);
-      // @ts-ignore
-      valueElement.path = propertyNode.value.value;
+      valueElement = new this.namespace.elements.String(propertyNode.value.value);
       objElement.classes.push('json-reference');
       objElement.classes.push('json-schema-reference');
     } else if (!this.specificationExtensionPredicate(propertyNode)) {

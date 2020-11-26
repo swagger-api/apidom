@@ -3,6 +3,7 @@ import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 import { YamlKeyValuePair, YamlMapping } from 'apidom-ast';
 
+import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { visit } from '../index';
 
@@ -64,7 +65,7 @@ const PatternedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
           keyValuePairNode,
           new MemberElement(this.maybeAddSourceMap(keyNode, keyElement), visitor.element),
         );
-        memberElement.classes.push('patternedField');
+        appendMetadata(['patterned-field'], memberElement);
 
         this.element.content.push(memberElement);
       } else if (!this.ignoredFields.includes(keyName)) {

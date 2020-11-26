@@ -12,6 +12,7 @@ import {
 } from 'apidom-ast';
 
 import { BREAK } from '../index';
+import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ScalarVisitor = stampit(SpecificationVisitor, {
@@ -91,8 +92,7 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
     } else if (keyNode.content === '$ref' && isYamlScalar(valueNode)) {
       // $ref property key special handling
       valueElement = this.namespace.toElement(valueNode.content);
-      objElement.classes.push('json-reference');
-      objElement.classes.push('json-schema-reference');
+      appendMetadata(['json-reference', 'json-schema-reference'], valueElement);
     } else if (!this.specificationExtensionPredicate(keyValuePairNode)) {
       valueElement = this.namespace.toElement(valueNode.content);
     }

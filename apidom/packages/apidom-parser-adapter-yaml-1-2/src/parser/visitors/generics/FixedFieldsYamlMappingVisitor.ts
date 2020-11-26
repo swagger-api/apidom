@@ -5,6 +5,7 @@ import { YamlKeyValuePair, YamlMapping } from 'apidom-ast';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { visit } from '../index';
+import { appendMetadata } from '../../metadata';
 
 const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -55,7 +56,7 @@ const FixedFieldsYamlMappingVisitor = stampit(SpecificationVisitor, {
           keyValuePairNode,
           new MemberElement(this.maybeAddSourceMap(keyNode, keyElement), visitor.element),
         );
-        memberElement.classes.push('fixedField');
+        appendMetadata(['fixed-field'], memberElement);
         this.element.content.push(memberElement);
       } else if (
         this.canSupportSpecificationExtensions &&

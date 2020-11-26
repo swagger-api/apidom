@@ -11,6 +11,7 @@ import {
 } from 'apidom-ast';
 
 import { visit, BREAK } from './index';
+import { appendMetadata } from '../metadata';
 import SpecificationVisitor from './SpecificationVisitor';
 
 const StreamVisitor = stampit(SpecificationVisitor, {
@@ -62,7 +63,7 @@ const StreamVisitor = stampit(SpecificationVisitor, {
         const message =
           'Only first document within YAML stream will be used. Rest will be discarded.';
         const annotationElement = new this.namespace.elements.Annotation(message);
-        annotationElement.classes.push('warning');
+        appendMetadata(['warning'], annotationElement);
         this.element.content.push(annotationElement);
       }
 

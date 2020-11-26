@@ -1,5 +1,6 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
+import { JsonObject } from 'apidom-ast';
 
 import { BREAK } from '../index';
 import FixedFieldsJsonObjectVisitor from './FixedFieldsJsonObjectVisitor';
@@ -14,7 +15,7 @@ const MixedFieldsJsonObjectVisitor = stampit(
       specPathPatternedFields: noop,
     },
     methods: {
-      object(objectNode) {
+      object(objectNode: JsonObject) {
         const { specPath } = this;
 
         try {

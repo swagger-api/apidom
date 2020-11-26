@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 // @ts-ignore
-import { SpecificationVisitor, visit, BREAK } from 'apidom-parser-adapter-json';
+import { appendMetadata, SpecificationVisitor, visit, BREAK } from 'apidom-parser-adapter-json';
 
 import { isOpenApiExtension } from '../predicates';
 
@@ -24,7 +24,7 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
       );
 
       if (isOpenApiExtension({}, propertyNode)) {
-        memberElement.classes.push('specificationExtension');
+        appendMetadata(['specification-extension'], memberElement);
       }
 
       this.element = memberElement;

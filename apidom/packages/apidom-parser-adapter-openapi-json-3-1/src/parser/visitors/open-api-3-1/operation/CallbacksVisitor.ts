@@ -1,5 +1,8 @@
 import stampit from 'stampit';
-import { isJsonObject, JsonNode } from 'apidom-ast';
+import { isJsonObject, JsonNode, JsonObject } from 'apidom-ast';
+import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-json';
 
 import MapJsonObjectVisitor from '../../generics/MapJsonObjectVisitor';
 import { isReferenceObject } from '../../../predicates';
@@ -18,7 +21,18 @@ const CallbacksVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Object();
-    this.element.classes.push('callbacks');
+    appendMetadata(['callbacks'], this.element);
+  },
+  methods: {
+    object(objectNode: JsonObject) {
+      const result = MapJsonObjectVisitor.compose.methods.object.call(this, objectNode);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        appendMetadata(['openapi-reference-for-callback'], referenceElement);
+      });
+
+      return result;
+    },
   },
 });
 

@@ -4,7 +4,7 @@ class Reference extends ObjectElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'reference';
-    this.classes.push('json-schema-reference');
+    this.classes.push('openapi-reference');
   }
 
   get $ref(): StringElement {

@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { JsonNode } from 'apidom-ast';
 // @ts-ignore
-import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
+import { appendMetadata, SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
 import { isParameterObject, isReferenceObject } from '../../predicates';
 import { ValueVisitor } from '../generics';
@@ -9,13 +9,14 @@ import { ValueVisitor } from '../generics';
 const ParametersVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('parameters');
+    appendMetadata(['parameters'], this.element);
   },
   methods: {
     array(arrayNode) {
       arrayNode.items.forEach(<T extends JsonNode>(item: T): void => {
         if (isReferenceObject({}, item)) {
           const referenceElement = this.nodeToElement(['document', 'objects', 'Reference'], item);
+          appendMetadata(['openapi-reference-for-parameter'], referenceElement);
           this.element.push(referenceElement);
         } else if (isParameterObject({}, item)) {
           const parameterElement = this.nodeToElement(['document', 'objects', 'Parameter'], item);

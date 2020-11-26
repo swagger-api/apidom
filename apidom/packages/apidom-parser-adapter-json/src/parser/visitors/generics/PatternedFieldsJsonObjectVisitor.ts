@@ -4,6 +4,7 @@ import { noop } from 'ramda-adjunct';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { visit, BREAK } from '../index';
+import { appendMetadata } from '../../metadata';
 
 const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -55,7 +56,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
               visitor.element,
             ),
           );
-          memberElement.classes.push('patternedField');
+          appendMetadata(['patterned-field'], memberElement);
 
           this.element.content.push(memberElement);
         } else if (!this.ignoredFields.includes(keyName)) {

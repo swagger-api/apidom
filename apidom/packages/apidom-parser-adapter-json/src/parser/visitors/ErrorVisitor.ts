@@ -2,6 +2,7 @@ import stampit from 'stampit';
 
 import { BREAK } from './index';
 import SpecificationVisitor from './SpecificationVisitor';
+import { appendMetadata } from '../metadata';
 
 const ErrorVisitor = stampit(SpecificationVisitor, {
   methods: {
@@ -24,7 +25,7 @@ const ErrorVisitor = stampit(SpecificationVisitor, {
         : `(Error ${errorNode.value})`;
 
       this.element = new this.namespace.elements.Annotation(message);
-      this.element.classes.push('error');
+      appendMetadata(['error'], this.element);
 
       this.maybeAddSourceMap(errorNode, this.element);
 

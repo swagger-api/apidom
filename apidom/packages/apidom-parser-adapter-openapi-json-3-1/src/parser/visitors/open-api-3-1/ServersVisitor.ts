@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { JsonNode } from 'apidom-ast';
 // @ts-ignore
-import { SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
+import { appendMetadata, SpecificationVisitor, BREAK } from 'apidom-parser-adapter-json';
 
 import { isServerObject } from '../../predicates';
 import { ValueVisitor } from '../generics';
@@ -9,7 +9,7 @@ import { ValueVisitor } from '../generics';
 const ServersVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   init() {
     this.element = new this.namespace.elements.Array();
-    this.element.classes.push('servers');
+    appendMetadata(['servers'], this.element);
   },
   methods: {
     array(arrayNode) {

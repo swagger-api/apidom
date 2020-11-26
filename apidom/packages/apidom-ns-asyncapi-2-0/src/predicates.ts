@@ -15,6 +15,7 @@ import ServersElement from './elements/Servers';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import ParameterElement from './elements/Parameter';
+import ReferenceElement from './elements/Reference';
 
 export const isAsycApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
@@ -181,6 +182,18 @@ export const isParameterElement = createPredicate(
     return either(
       is(ParameterElement),
       allPass([hasBasicElementProps, isElementTypeParameter, primitiveEqObject]),
+    );
+  },
+);
+
+export const isReferenceElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeReference = isElementType('reference');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ReferenceElement),
+      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
     );
   },
 );

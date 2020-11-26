@@ -1,5 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+// @ts-ignore
+import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 
 import MapYamlMappingVisitor from '../../generics/MapYamlMappingVisitor';
 import { KindVisitor } from '../../generics';
@@ -10,7 +12,7 @@ const VariablesVisitor = stampit(KindVisitor, MapYamlMappingVisitor, {
   },
   init() {
     this.element = new this.namespace.elements.Object();
-    this.element.classes.push('variables');
+    appendMetadata(['variables'], this.element);
   },
 });
 

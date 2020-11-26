@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { YamlAlias, YamlKeyValuePair, YamlMapping, YamlScalar, YamlSequence } from 'apidom-ast';
 // @ts-ignore
-import { SpecificationVisitor, BREAK, visit } from 'apidom-parser-adapter-yaml-1-2';
+import { appendMetadata, SpecificationVisitor, BREAK, visit } from 'apidom-parser-adapter-yaml-1-2';
 
 import { isOpenApiExtension } from '../predicates';
 
@@ -28,7 +28,7 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
       );
 
       if (isOpenApiExtension({}, keyValuePairNode)) {
-        memberElement.classes.push('specificationExtension');
+        appendMetadata(['specification-extension'], memberElement);
       }
 
       this.element = memberElement;

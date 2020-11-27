@@ -11,36 +11,17 @@ import {
   CompletionItemKind,
   InsertTextFormat,
 } from 'vscode-languageserver-types';
-import {
-  CompletionContext,
-  LanguageSettings,
-  ValidationContext,
-} from 'apidom-ls/src/apidomLanguageTypes';
 import jsonSourceMap from 'json-source-map';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { CompletionService } from 'apidom-ls/src/services/completion/completionService';
+import { CompletionService } from '../completion/completionService';
+import { CompletionContext, LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
 import * as openapiSchemaJson from './openapiSchema.json';
 import * as asyncapiSchemaJson from './asyncapiSchema.json';
 import { isAsyncDoc } from '../../parserFactory';
 import { ValidationService } from '../validation/validationService';
 
-export interface JsonSchemaService extends ValidationService {
-  /*   validate(
-    text: string,
-    validationResult: Diagnostic[],
-    validationContext?: ValidationContext,
-  ): void;
- */
-  doCompletion(
-    text: string,
-    completionParams: CompletionParams,
-    completionContext?: CompletionContext,
-  ): PromiseLike<CompletionList>;
-
-  configure(settings?: LanguageSettings): void;
-}
-
+// eslint-disable-next-line import/prefer-default-export
 export class DefaultJsonSchemaService implements CompletionService, ValidationService {
   private validationEnabled: boolean | undefined;
 
@@ -130,61 +111,6 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationSe
     };
     const completionItems: CompletionItem[] = [];
     completionItems.push(item);
-
-    /*     return parser.parse(text, { sourceMap: true }).then((result) => {
-      const { api } = result;
-      if (!api) {
-        return CompletionList.create(completionItems, false);
-      }
-      api.freeze(); // !! freeze and add parent !!
-      if (result.annotations) {
-        for (const annotation of result.annotations) {
-          if (
-            completionContext &&
-            completionContext.maxNumberOfItems &&
-            completionItems.length > completionContext.maxNumberOfItems
-          ) {
-            return CompletionList.create(completionItems, false);
-          }
-          const nodeSourceMap = getSourceMap(annotation);
-          const location = { offset: nodeSourceMap.offset, length: 1 };
-          const range = Range.create(
-            textDocument.positionAt(location.offset),
-            textDocument.positionAt(location.offset + location.length),
-          );
-          const diagnostic = Diagnostic.create(
-            range,
-            annotation.toValue(),
-            DiagnosticSeverity.Error,
-            0,
-          );
-          if (validationContext && validationContext.relatedInformation) {
-            diagnostic.relatedInformation = [
-              {
-                location: {
-                  uri: textDocument.uri,
-                  range: { ...diagnostic.range },
-                },
-                message: 'Syntax error while parsing',
-              },
-              {
-                location: {
-                  uri: textDocument.uri,
-                  range: { ...diagnostic.range },
-                },
-                message: 'more things',
-              },
-            ];
-          }
-
-          diagnostics.push(diagnostic);
-        }
-      }
-    });      
- */
-
-    // this.validate(api, text, !!diagnostics.length, diagnostics, validationContext);
-    // return diagnostics;
     // return CompletionList.create(completionItems, false);
     return Promise.resolve(CompletionList.create(completionItems, false));
   }

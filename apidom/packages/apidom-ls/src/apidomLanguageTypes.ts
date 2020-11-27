@@ -1,4 +1,9 @@
-import { CompletionList, Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import {
+  CompletionList,
+  Diagnostic,
+  DiagnosticSeverity,
+  SymbolInformation,
+} from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ClientCapabilities, CompletionParams } from 'vscode-languageserver-protocol';
 // import { ClientCapabilities, Proposed } from 'vscode-languageserver-protocol';
@@ -46,19 +51,19 @@ export interface WorkspaceContextService {
 
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
-
   doValidation(document: TextDocument, context?: ValidationContext): PromiseLike<Diagnostic[]>;
   doCompletion(
     document: TextDocument,
     completionParams: CompletionParams,
     context?: CompletionContext,
   ): PromiseLike<CompletionList | null>;
+  doFindDocumentSymbols(
+    textDocument: TextDocument,
+    context?: SymbolsContext,
+  ): PromiseLike<SymbolInformation[]>;
   /*
-  doComplete(document: TextDocument, position: Position): PromiseLike<CompletionList | null>;
 
   doResolveCompletionItem(item: CompletionItem): PromiseLike<CompletionItem>;
-
-  findDocumentSymbols(document: TextDocument, context?: SymbolsContext): PromiseLike<SymbolInformation[]>;
 
   computeSemanticTokens(content: string): PromiseLike<Proposed.SemanticTokens>;
 

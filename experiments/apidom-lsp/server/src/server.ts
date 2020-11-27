@@ -19,7 +19,7 @@ import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
 
-import {validateTextDocument as myValidate, test} from "apidom-lsp";
+import {test} from "apidom-utils";
 
 // import {getLanguageService, LanguageServiceContext, ValidationContext, LanguageService} from 'apidom-ls';
 import {getLanguageService, LanguageServiceContext, ValidationContext, CompletionContext, LanguageService} from '../../../../apidom/packages/apidom-ls';

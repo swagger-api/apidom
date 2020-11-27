@@ -1,5 +1,8 @@
 // @ts-ignore
-import { namespace } from 'apidom-parser-adapter-openapi-json-3-1';
+import { traverse } from 'apidom';
+import { Element } from 'minim';
+import { isOpenApiApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { CompletionItem, CompletionItemKind, InsertTextFormat } from 'vscode-languageserver-types';
 
 export class SourceMap {
   constructor(
@@ -35,7 +38,7 @@ export class SourceMap {
   endOffset: number | undefined;
 }
 
-export function getSourceMap(element: namespace.Element): SourceMap {
+export function getSourceMap(element: Element): SourceMap {
   if (element && element.meta && element.meta.get('sourceMap')) {
     const sourceMap: [][number] = element.meta.get('sourceMap').toValue() as [][number];
     const offset = sourceMap[0][2];
@@ -48,4 +51,75 @@ export function getSourceMap(element: namespace.Element): SourceMap {
     return new SourceMap(offset, length, line, column, endLine, endColumn, endOffset); // TODO ???
   }
   return new SourceMap(1, 2, 0, 1); // TODO ???
+}
+
+export interface ElementMeta {
+  completion?: CompletionItem[];
+  validation?: string[];
+}
+
+export interface MetadataMap {
+  [index: string]: ElementMeta;
+}
+
+export const metadataMap: MetadataMap = {
+  'openApi3-1': {
+    completion: [
+      {
+        label: 'info',
+        kind: CompletionItemKind.Property,
+        insertText: 'info: {$1}',
+        insertTextFormat: InsertTextFormat.Snippet,
+        documentation: 'TODO info docs in MD to retrieve from some submodule or whatever',
+      },
+      {
+        label: 'openapi',
+        kind: CompletionItemKind.Property,
+        insertText: 'openapi: "$1"',
+        insertTextFormat: InsertTextFormat.Snippet,
+        documentation: 'TODO openapi docs in MD to retrieve from some submodule or whatever',
+      },
+      {
+        label: 'paths',
+        kind: CompletionItemKind.Property,
+        insertText: '{$1:0}',
+        insertTextFormat: InsertTextFormat.Snippet,
+        documentation: 'TODO paths docs in MD to retrieve from some submodule or whatever',
+      },
+    ],
+  },
+  info: {
+    completion: [
+      {
+        label: 'license',
+        kind: CompletionItemKind.Property,
+        insertText: 'license: {$1}',
+        insertTextFormat: InsertTextFormat.Snippet,
+        documentation: 'TODO license docs in MD to retrieve from some submodule or whatever',
+      },
+      {
+        label: 'version',
+        kind: CompletionItemKind.Property,
+        insertText: 'version: "$1"',
+        insertTextFormat: InsertTextFormat.Snippet,
+        documentation: 'TODO version docs in MD to retrieve from some submodule or whatever',
+      },
+    ],
+  },
+};
+
+export function addMetadataMapping(root: Element): void {
+  // TODO retrieve from file, series of files with different metadata
+  // TODO sanitize
+  root.setMetaProperty('metadataMap', metadataMap);
+}
+
+export function addMetadata(element: Element): void {
+  if (isOpenApiApi3_1Element(element)) {
+    element.attributes.set('completion', ['info', 'paths']);
+  }
+}
+
+export function traverseAndAddMetadata(root: Element): void {
+  traverse(addMetadata, root);
 }

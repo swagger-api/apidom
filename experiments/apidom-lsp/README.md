@@ -14,9 +14,9 @@ It also includes an End-to-End test.
 
 ```
 .
-├── apidomlsp // ApiDOM language service library
+├── utils // utils package
 │   └── src
-│       └── server.ts // language service library entry point
+│       └── whatever.ts 
 ├── client // Language Client
 │   ├── src
 │   │   ├── test // End to End tests for Language Client / Server
@@ -39,7 +39,7 @@ npm i
 npm run build
 ```
 
-### build apidomlsp: (build.sh, buildall.sh with apidom)
+### build apidom-lsp: (build.sh, buildall.sh with apidom)
 
 ```
 
@@ -53,22 +53,22 @@ node-gyp rebuild --target=9.3.3 --arch=x64 --dist-url=https://electronjs.org/hea
 
 cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 npm install
-cd apidomlsp
+cd utils
 npm install
 tsc
 npm link
 cd ../server
 npm install
-npm link ../apidomlsp
+npm link ../utils
 npm run build
 cd ../client
 npm install
-npm link ../apidomlsp
+npm link ../utils
 tsc -b
 cd ../monacoclient
-npm link ../apidomlsp
+npm link ../utils
 cd ../
-npm link apidomlsp
+npm link utils
 
 # who knows..
 cd ${GIT_ROOT}/apidom/apidom/node_modules/tree-sitter
@@ -98,9 +98,9 @@ cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonS
 
 
 
-## Test apidomlsp
+## Test utils
 
-Use launch config Mocha apidomlsp or Mocha current file
+Use launch config Mocha utils or Mocha current file
 
 ## Build and run monacoclient (at commit e752b87)
 

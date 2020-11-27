@@ -66,7 +66,7 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -b",
 		"watch": "tsc -b -w",
-		"postinstall": "cd apidomlsp && npm install && cd ../client && npm install && cd ../server && npm install && cd ..",
+		"postinstall": "cd utils && npm install && cd ../client && npm install && cd ../server && npm install && cd ..",
 		"test": "sh ./scripts/e2e.sh"
 	},
 	"devDependencies": {

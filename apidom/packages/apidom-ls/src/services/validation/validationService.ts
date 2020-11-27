@@ -97,6 +97,7 @@ export class DefaultValidationService implements ValidationService {
       }
       const hasSyntaxErrors = !!diagnostics.length;
       if (!hasSyntaxErrors) {
+        // TODO try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
         this.jsonSchemaValidationService
           .doValidation(textDocument, validationContext)
           .then((jsonSchemaDiagnostics) => {

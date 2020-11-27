@@ -1,41 +1,30 @@
-/*
-// @ts-ignore
-import ApiDOMParser from "apidom-parser";
-// @ts-ignore
-import * as openapi3_1Adapter from "apidom-parser-adapter-openapi3-1-json";
-// @ts-ignore
-import * as asyncapi2_0Adapter from "apidom-parser-adapter-asyncapi2-0-json";
-// @ts-ignore
-import {namespace} from 'apidom-parser-adapter-openapi3-1-json';
-*/
-
 import { DefaultJsonSchemaService } from './services/jsonSchema/jsonSchemaService';
 import { LanguageService, LanguageServiceContext, LanguageSettings } from './apidomLanguageTypes';
 
-/* import {Diagnostic, Position, CompletionList, CompletionItem, SymbolInformation, Hover, ColorInformation, ColorPresentation, Color, FormattingOptions, TextEdit} from "vscode-languageserver-types"
-import {TextDocument} from "vscode-languageserver-textdocument"
-import {Proposed} from "vscode-languageserver-protocol" */
 import { DefaultValidationService } from './services/validation/validationService';
+import { DefaultCompletionService } from './services/completion/completionService';
+import { DefaultSymbolsService } from './services/symbols/symbolsService';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
-  // let apidomCompletion = new ApiDOMCompletion(promise, params.clientCapabilities);
-
   const jsonSchemaService = new DefaultJsonSchemaService();
+  const symbolsService = new DefaultSymbolsService();
+  const completionService = new DefaultCompletionService(jsonSchemaService);
   const validationService = new DefaultValidationService(jsonSchemaService);
 
   function configureServices(languageSettings?: LanguageSettings) {
     jsonSchemaService.configure(languageSettings);
+    symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
+    completionService.configure(languageSettings);
   }
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     configure: (settings?: LanguageSettings): void => configureServices(settings),
-    // doValidation: () => {return Promise.resolve("res")},
     doValidation: validationService.doValidation.bind(validationService),
-
-    doCompletion: jsonSchemaService.doCompletion.bind(jsonSchemaService),
+    doCompletion: completionService.doCompletion.bind(completionService),
+    doFindDocumentSymbols: symbolsService.doFindDocumentSymbols.bind(symbolsService),
 
     // findDocumentSymbols: (document: TextDocument, context?: DocumentSymbolsContext) => findDocumentSymbols(document, context),
     // computeSemanticTokens: (content: string) => computeSemanticTokens(content),
@@ -53,50 +42,6 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
 }
 
 /*
-export async function findDocumentSymbols(document: TextDocument, context?: DocumentSymbolsContext) {
-
-    let parser = getParser(document);
-
-    const parseResult = await parser.parse(document.getText(), {sourceMap: true});
-
-    const api: namespace.Element = parseResult.api
-    api.freeze() // !! freeze and add parent !!
-
-    const symbols: SymbolInformation[] = [];
-
-    const res  = findAllTreeElementsWithClasses(api);
-    res.forEach(e => {
-        const set: string[] = Array.from(new Set(e.classes.toValue()));
-        set.forEach(s => {
-            if (allClasses().includes(s)) {
-                let r: Range;
-                if (e.parent && e.parent.key) {
-                    const sm = getSourceMap(e.parent.key);
-                    r = Range.create({line: sm.line, character: sm.column}, {line: sm.endLine, character: sm.endColumn});
-                } else {
-                    const sm = getSourceMap(e);
-                    r = Range.create({line: sm.line, character: sm.column}, {line: sm.endLine, character: sm.endColumn});
-                }
-                // cheat now here for demo
-                if (s == "operation") {
-                    const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
-                    si.containerName = e.parent.parent.parent.key.toValue() + ' -> ' + e.parent.key.toValue();
-                    symbols.push(si);
-                } else if (s == "pathItem") {
-                    const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
-                    si.containerName = e.parent.key.toValue();
-                    symbols.push(si);
-                } else {
-                    symbols.push(SymbolInformation.create(s, SymbolKind.Property, r));
-                }
-
-            }
-        })
-    })
-
-    return symbols;
-}
-
 export async function computeSemanticTokens(content: string) {
 
     let document = TextDocument.create("", "", 0, content);

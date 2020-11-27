@@ -118,6 +118,10 @@ export const isObjectElement = createPredicate(
   },
 );
 
+export const isObject = (element: Element): element is ObjectElement => {
+  return isObjectElement(element);
+};
+
 export const isMemberElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeMember = isElementType('member');
@@ -129,6 +133,10 @@ export const isMemberElement = createPredicate(
     );
   },
 );
+
+export const isMember = (element: Element): element is MemberElement => {
+  return isMemberElement(element);
+};
 
 export const isLinkElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

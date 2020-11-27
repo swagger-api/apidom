@@ -15,7 +15,7 @@
 		".vscode-test"
 	],
 	"references": [
-		{ "path": "./apidomlsp" },
+		{ "path": "./utils" },
 		{ "path": "./client" },
 		{ "path": "./server" }
 	]

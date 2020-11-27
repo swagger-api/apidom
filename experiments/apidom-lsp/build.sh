@@ -1,6 +1,7 @@
 #!/bin/bash
 
-GIT_ROOT=/dati/dev/progetti/swagger/projects/apidom/git-lsp-new
+GIT_ROOT="$(cd "$(dirname "$0")"/../../..; pwd -P)/$(basename "$1")"
+GIT_ROOT=${GIT_ROOT%/}
 
 cd ${GIT_ROOT}/apidom/apidom/node_modules/tree-sitter
 node-gyp rebuild --target=9.3.3 --arch=x64 --dist-url=https://electronjs.org/headers
@@ -11,22 +12,22 @@ node-gyp rebuild --target=9.3.3 --arch=x64 --dist-url=https://electronjs.org/hea
 
 cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 npm install
-cd apidomlsp
+cd utils
 npm install
 tsc
 npm link
 cd ../server
 npm install
-npm link ../apidomlsp
+npm link ../utils
 npm run build
 cd ../client
 npm install
-npm link ../apidomlsp
+npm link ../utils
 tsc -b
 cd ../monacoclient
-npm link ../apidomlsp
+npm link ../utils
 cd ../
-npm link apidomlsp
+npm link utils
 
 # who knows..
 cd ${GIT_ROOT}/apidom/apidom/node_modules/tree-sitter
@@ -39,7 +40,7 @@ cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 
 cd ${GIT_ROOT}/apidom/experiments/apidom-lsp
 
-// cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/openapiSchema.json 
-// cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/asyncapiSchema.json 
-cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/jsonSchema/openapiSchema.json 
+# cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/openapiSchema.json
+# cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/validation/jsonSchema/asyncapiSchema.json
+cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/jsonSchema/openapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/jsonSchema/openapiSchema.json
 cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/jsonSchema/asyncapiSchema.json ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/cjs/services/jsonSchema/asyncapiSchema.json

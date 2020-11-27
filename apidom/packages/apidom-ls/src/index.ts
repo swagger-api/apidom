@@ -16,7 +16,21 @@ export {
   isStringElement,
 } from 'apidom';
 
-export const doit: () => Promise<string> = async () => {
+export { default as getLanguageService } from './apidomLanguageService';
+
+export type {
+  LanguageService,
+  LanguageSettings,
+  SymbolsContext,
+  ValidationContext,
+  CompletionContext,
+  WorkspaceContextService,
+  ColorsContext,
+  LanguageServiceContext,
+  SUPPORTED_LANGUAGES,
+} from './apidomLanguageTypes';
+
+export const pocTODOToRemove: () => Promise<string> = async () => {
   const parser = ApiDOMParser();
 
   const value = `{
@@ -32,17 +46,3 @@ export const doit: () => Promise<string> = async () => {
   // console.log('Par', JSON.stringify(parseResult));
   return 'done';
 };
-
-export { default as getLanguageService } from './apidomLanguageService';
-
-export type {
-  LanguageService,
-  LanguageSettings,
-  SymbolsContext,
-  ValidationContext,
-  CompletionContext,
-  WorkspaceContextService,
-  ColorsContext,
-  LanguageServiceContext,
-  SUPPORTED_LANGUAGES,
-} from './apidomLanguageTypes';

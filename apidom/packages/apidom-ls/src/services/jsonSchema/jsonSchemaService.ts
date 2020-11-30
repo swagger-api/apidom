@@ -14,15 +14,17 @@ import {
 import jsonSourceMap from 'json-source-map';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { Element } from 'apidom';
+import { positionRangeForPath } from '../../utils/ast';
 import { CompletionService } from '../completion/completionService';
 import { CompletionContext, LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
 import * as openapiSchemaJson from './openapiSchema.json';
 import * as asyncapiSchemaJson from './asyncapiSchema.json';
-import { isAsyncDoc } from '../../parserFactory';
-import { ValidationService } from '../validation/validationService';
+import { isAsyncDoc, isJsonDoc } from '../../parserFactory';
+import { ValidationProvider } from '../validation/validationService';
 
 // eslint-disable-next-line import/prefer-default-export
-export class DefaultJsonSchemaService implements CompletionService, ValidationService {
+export class DefaultJsonSchemaService implements CompletionService, ValidationProvider {
   private validationEnabled: boolean | undefined;
 
   private commentSeverity: DiagnosticSeverity | undefined;
@@ -36,12 +38,21 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationSe
 
   public doValidation(
     textDocument: TextDocument,
+    api: Element,
     validationContext?: ValidationContext,
   ): PromiseLike<Diagnostic[]> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return new Promise<Diagnostic[]>((resolve, reject) => {
       const diagnostics: Diagnostic[] = [];
-      this.validate(textDocument.getText(), diagnostics, validationContext);
+
+      // get the serialized apidom JSON if doc is yaml
+      const text = textDocument.getText();
+      let jsonText = text;
+      const isYaml = !isJsonDoc(text);
+      if (isYaml) {
+        jsonText = JSON.stringify(api.toValue());
+      }
+      this.validate(jsonText, text, isYaml, diagnostics, validationContext);
       return resolve(diagnostics);
     });
   }
@@ -53,8 +64,9 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationSe
   }
 
   public validate(
-    textDocument: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    jsonDocument: string,
+    originalDocument: string,
+    isYaml: boolean,
     diagnostics: Diagnostic[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationContext?: ValidationContext,
@@ -62,9 +74,9 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationSe
     if (!this.validationEnabled) {
       return;
     }
-    const validateFunction = DefaultJsonSchemaService.compileAjv(this.ajv, textDocument);
+    const validateFunction = DefaultJsonSchemaService.compileAjv(this.ajv, jsonDocument);
 
-    const jsonDoc = JSON.parse(textDocument);
+    const jsonDoc = JSON.parse(jsonDocument);
 
     const valid = validateFunction(jsonDoc);
     if (!valid) {
@@ -78,11 +90,39 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationSe
           ) {
             return;
           }
-          const errorPointer = sourceMap.pointers[error.dataPath];
-          const range = Range.create(
-            Position.create(errorPointer.value.line, errorPointer.value.column),
-            Position.create(errorPointer.valueEnd.line, errorPointer.valueEnd.column),
-          );
+          let range: Range;
+          const errorOnValue = error.keyword === 'pattern' || error.keyword === 'format';
+          if (isYaml) {
+            // eslint-disable-next-line prefer-template
+            const position = positionRangeForPath(
+              originalDocument,
+              error.dataPath.replace(/\/$/, '').replace(/^\"/, '').replace(/^\//, '').split('/'),
+            );
+            if (errorOnValue) {
+              range = Range.create(
+                Position.create(position.start.line, position.start.column),
+                Position.create(position.end.line, position.end.column),
+              );
+            } else {
+              range = Range.create(
+                Position.create(position.key_start.line, position.key_start.column),
+                Position.create(position.key_end.line, position.key_end.column),
+              );
+            }
+          } else {
+            const errorPointer = sourceMap.pointers[error.dataPath];
+            if (errorOnValue) {
+              range = Range.create(
+                Position.create(errorPointer.value.line, errorPointer.value.column),
+                Position.create(errorPointer.valueEnd.line, errorPointer.valueEnd.column),
+              );
+            } else {
+              range = Range.create(
+                Position.create(errorPointer.key.line, errorPointer.key.column),
+                Position.create(errorPointer.keyEnd.line, errorPointer.keyEnd.column),
+              );
+            }
+          }
           diagnostics.push(
             Diagnostic.create(range, error.message || '', DiagnosticSeverity.Error, 0),
           );

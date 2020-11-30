@@ -15,6 +15,7 @@ import {
   isArrayElement,
   isBooleanElement,
   isMember,
+  isMemberElement,
   isNullElement,
   isNumberElement,
   isObject,
@@ -99,7 +100,6 @@ export class DefaultCompletionService implements CompletionService {
       const offset = textDocument.offsetAt(completionParams.position);
       // find the current node
       let node = findAtOffset({ offset, includeRightBound: true }, api);
-
       // only if we have a node
       // TODO add jsonSchema completion, see experiments/apidom-monaco and vscode-json-languageservice
       if (node) {
@@ -108,26 +108,31 @@ export class DefaultCompletionService implements CompletionService {
         // commit chars for yaml
         let valueCommitCharacters = ['\n'];
         let propertyCommitCharacters = [':'];
+        let endObjectNodeChar = '\n';
+        let endArrayNodeChar = '\n';
 
-        // don't suggest keys when the cursor is just before the opening curly brace
         // TODO handle also yaml and others, with specific logic for the format
         if (isJsonDoc(textDocument)) {
           // commit chars for json
           valueCommitCharacters = [',', '}', ']'];
           propertyCommitCharacters = [':'];
-
-          if (node && offset === sm.offset + sm.length && offset > 0) {
-            const ch = text[offset - 1];
-            if ((isObjectElement(node) && ch === '}') || (isArrayElement(node) && ch === ']')) {
-              // after ] or }
-              node = node.parent;
-            }
+          endObjectNodeChar = '}';
+          endArrayNodeChar = ']';
+        }
+        if (node && offset === sm.offset + sm.length && offset > 0) {
+          const ch = text[offset - 1];
+          if (
+            (isObjectElement(node) && ch === endObjectNodeChar) ||
+            (isArrayElement(node) && ch === endArrayNodeChar)
+          ) {
+            // after ] or }
+            node = node.parent;
           }
         }
 
         sm = getSourceMap(node);
         const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
-        console.log('current word', currentWord);
+        console.log('currentWord', currentWord);
         let overwriteRange: Range;
 
         if (
@@ -137,13 +142,11 @@ export class DefaultCompletionService implements CompletionService {
             isBooleanElement(node) ||
             isNullElement(node))
         ) {
-          console.log('isStringElement');
           overwriteRange = Range.create(
             textDocument.positionAt(sm.offset),
             textDocument.positionAt(sm.offset + sm.length),
           );
         } else {
-          console.log('no prim');
           let overwriteStart = offset - currentWord.length;
           if (overwriteStart > 0 && text[overwriteStart - 1] === '"') {
             overwriteStart -= 1;
@@ -153,7 +156,6 @@ export class DefaultCompletionService implements CompletionService {
             completionParams.position,
           );
         }
-        console.log('overwriteRange', overwriteRange);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
 
@@ -161,12 +163,9 @@ export class DefaultCompletionService implements CompletionService {
 
         const collector: CompletionsCollector = {
           add: (suggestion: CompletionItem) => {
-            console.log('add', overwriteRange);
             const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
             let { label } = item;
             const existing = proposed[label];
-            console.log('existing', existing);
-            console.log('label', label);
             if (!existing) {
               label = label.replace(/[\n]/g, '↵');
               if (label.length > 60) {
@@ -176,9 +175,7 @@ export class DefaultCompletionService implements CompletionService {
                 }
               }
               if (overwriteRange) {
-                console.log('SET');
                 item.textEdit = TextEdit.replace(overwriteRange, item.insertText || '');
-                console.log('SET', item.textEdit);
               }
               if (supportsCommitCharacters) {
                 item.commitCharacters =
@@ -218,6 +215,11 @@ export class DefaultCompletionService implements CompletionService {
                 node = parent.parent;
               }
             }
+          } else if (isMemberElement(node)) {
+            const { parent } = node;
+            if (parent) {
+              node = parent;
+            }
           }
         }
         if (node) {
@@ -249,7 +251,8 @@ export class DefaultCompletionService implements CompletionService {
               DefaultCompletionService.getSchemaLessPropertyCompletions(api, node, collector);
             }
 
-            if (
+            // TODO
+            /*             if (
               !schema &&
               currentWord.length > 0 &&
               text.charAt(offset - currentWord.length - 1) !== '"'
@@ -267,6 +270,7 @@ export class DefaultCompletionService implements CompletionService {
               });
               collector.setAsIncomplete();
             }
+ */
           }
         }
 

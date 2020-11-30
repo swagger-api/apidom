@@ -1,12 +1,25 @@
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { Element } from 'apidom';
 import { getParser } from '../../parserFactory';
 import { LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
 import { getSourceMap } from '../../utils/utils';
 
+/* represent the service invoked by LSP server - TODO */
 export interface ValidationService {
   doValidation(
     textDocument: TextDocument,
+    validationContext?: ValidationContext,
+  ): PromiseLike<Diagnostic[]>;
+
+  configure(settings: LanguageSettings): void;
+}
+
+/* represent any validation provider - TODO */
+export interface ValidationProvider {
+  doValidation(
+    textDocument: TextDocument,
+    api: Element,
     validationContext?: ValidationContext,
   ): PromiseLike<Diagnostic[]>;
 
@@ -20,9 +33,9 @@ export class DefaultValidationService implements ValidationService {
 
   private settings: LanguageSettings | undefined;
 
-  private jsonSchemaValidationService: ValidationService;
+  private jsonSchemaValidationService: ValidationProvider;
 
-  public constructor(jsonSchemaValidationService: ValidationService) {
+  public constructor(jsonSchemaValidationService: ValidationProvider) {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
     this.jsonSchemaValidationService = jsonSchemaValidationService;
@@ -99,7 +112,7 @@ export class DefaultValidationService implements ValidationService {
       if (!hasSyntaxErrors) {
         // TODO try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
         this.jsonSchemaValidationService
-          .doValidation(textDocument, validationContext)
+          .doValidation(textDocument, api, validationContext)
           .then((jsonSchemaDiagnostics) => {
             diagnostics.push(...jsonSchemaDiagnostics);
           });

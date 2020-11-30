@@ -83,20 +83,22 @@
     "tree-sitter-cli": "=0.17.0",
     "typescript": "=3.9.3",
     "webpack": "=4.43.0",
-    "webpack-cli": "=3.3.11"
+    "webpack-cli": "=3.3.11",
+    "ts-node": "^9.0.0"
   },
   "dependencies": {
     "apidom": "file:packages/apidom",
     "apidom-ast": "file:packages/apidom-ast",
-    "apidom-reference": "file:packages/apidom-reference",
+    "apidom-ls": "file:packages/apidom-ls",
     "apidom-ns-asyncapi-2-0": "file:packages/apidom-ns-asyncapi-2-0",
     "apidom-ns-openapi-3-1": "file:packages/apidom-ns-openapi-3-1",
     "apidom-parser": "file:packages/apidom-parser",
-    "apidom-parser-adapter-json": "file:packages/apidom-parser-adapter-json",
-    "apidom-parser-adapter-yaml-1-2": "file:packages/apidom-parser-adapter-yaml-1-2",
     "apidom-parser-adapter-asyncapi-json-2-0": "file:packages/apidom-parser-adapter-asyncapi-json-2-0",
     "apidom-parser-adapter-asyncapi-yaml-2-0": "file:packages/apidom-parser-adapter-asyncapi-yaml-2-0",
+    "apidom-parser-adapter-json": "file:packages/apidom-parser-adapter-json",
     "apidom-parser-adapter-openapi-json-3-1": "file:packages/apidom-parser-adapter-openapi-json-3-1",
-    "apidom-parser-adapter-openapi-yaml-3-1": "file:packages/apidom-parser-adapter-openapi-yaml-3-1"
+    "apidom-parser-adapter-openapi-yaml-3-1": "file:packages/apidom-parser-adapter-openapi-yaml-3-1",
+    "apidom-parser-adapter-yaml-1-2": "file:packages/apidom-parser-adapter-yaml-1-2",
+    "apidom-reference": "file:packages/apidom-reference"
   }
 }

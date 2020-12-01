@@ -9,7 +9,7 @@ import {
 } from 'vscode-languageserver-types';
 import { SemanticTokens } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { DefaultJsonSchemaService } from './services/jsonSchema/jsonSchemaService';
+import { DefaultJsonSchemaService } from './services/json-schema/json-schema-service';
 import {
   ColorsContext,
   LanguageService,

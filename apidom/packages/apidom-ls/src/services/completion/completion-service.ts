@@ -20,9 +20,9 @@ import {
   isObjectElement,
   isStringElement,
 } from 'apidom';
-import { LanguageSettings, CompletionContext } from '../../apidomLanguageTypes';
+import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
 import { addMetadataMapping, getSourceMap, isMember, isObject } from '../../utils/utils';
-import { getParser, isJsonDoc } from '../../parserFactory';
+import { getParser, isJsonDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;

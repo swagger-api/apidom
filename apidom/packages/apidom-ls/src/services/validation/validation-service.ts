@@ -1,8 +1,8 @@
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from 'apidom';
-import { getParser } from '../../parserFactory';
-import { LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
+import { getParser } from '../../parser-factory';
+import { LanguageSettings, ValidationContext } from '../../apidom-language-types';
 import { getSourceMap } from '../../utils/utils';
 
 /* represent the service invoked by LSP server - TODO */

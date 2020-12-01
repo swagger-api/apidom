@@ -16,7 +16,7 @@ export {
   isStringElement,
 } from 'apidom';
 
-export { default as getLanguageService } from './apidomLanguageService';
+export { default as getLanguageService } from './apidom-language-service';
 
 export type {
   LanguageService,
@@ -28,7 +28,7 @@ export type {
   ColorsContext,
   LanguageServiceContext,
   SUPPORTED_LANGUAGES,
-} from './apidomLanguageTypes';
+} from './apidom-language-types';
 
 export const pocTODOToRemove: () => Promise<string> = async () => {
   const parser = ApiDOMParser();

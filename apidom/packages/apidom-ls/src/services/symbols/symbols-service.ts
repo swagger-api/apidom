@@ -3,9 +3,9 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from 'apidom';
 import { SymbolKind } from 'vscode-languageserver-types';
-import { getParser } from '../../parserFactory';
+import { getParser } from '../../parser-factory';
 import { addMetadataMapping, getSourceMap, isMember, SourceMap } from '../../utils/utils';
-import { LanguageSettings, SymbolsContext } from '../../apidomLanguageTypes';
+import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
 
 export interface SymbolsService {
   doFindDocumentSymbols(

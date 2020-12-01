@@ -5,7 +5,7 @@ const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
 const browser = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/index.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   node: {
     fs: 'empty',
@@ -27,8 +27,8 @@ const browser = {
     rules: [
       {
         test: /\.wasm$/,
-        loader: "file-loader",
-        type: "javascript/auto",
+        loader: 'file-loader',
+        type: 'javascript/auto',
       },
       {
         test: /\.(ts|js)?$/,
@@ -48,7 +48,7 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/polyfills.ts', './src/index.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   node: {
     fs: 'empty',
@@ -66,8 +66,8 @@ const browserMin = {
     rules: [
       {
         test: /\.wasm$/,
-        loader: "file-loader",
-        type: "javascript/auto",
+        loader: 'file-loader',
+        type: 'javascript/auto',
       },
       {
         test: /\.(ts|js)?$/,

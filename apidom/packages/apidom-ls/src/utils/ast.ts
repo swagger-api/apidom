@@ -8,14 +8,14 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import YAML from 'yaml-js';
-import isArray from 'lodash/isArray';
-import lodashFind from 'lodash/find';
-import memoize from 'lodash/memoize';
+import { find as rfind, propEq, memoizeWith, identity } from 'ramda';
+import { isArray } from 'ramda-adjunct';
 
 /* TODO this is taken from swagger-editor, we would instead import it from swagger-editor when dist will change
     to support single file import
  */
-const cachedCompose = memoize(YAML.compose); // TODO: build a custom cache based on content
+// @ts-ignore
+const cachedCompose = memoizeWith(identity, YAML.compose); // TODO: build a custom cache based on content
 
 const MAP_TAG = 'tag:yaml.org,2002:map';
 const SEQ_TAG = 'tag:yaml.org,2002:seq';
@@ -61,10 +61,10 @@ export function getLineNumberForPath(yaml: any, path: any) {
           // access the array at the index in the path (example: grab the 2 in "tags[2]")
           const index = parseInt(path[0].match(/\[(.*)\]/)[1]);
           if (value.value.length === 1 && index !== 0 && !!index) {
-            var nextVal = lodashFind(value.value[0], { value: index.toString() });
+            var nextVal = rfind(propEq('value', String(index)), value.value[0]);
           } else {
-            // eslint-disable-next-line no-redeclare
-            var nextVal = value.value[index];
+            // @ts-ignore
+            var nextVal = value.value[index]; // eslint-disable no-redeclare
           }
           return find(nextVal, path.slice(1), value.value);
         }

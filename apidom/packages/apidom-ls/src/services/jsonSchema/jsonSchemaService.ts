@@ -16,12 +16,16 @@ import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from 'apidom';
 import { positionRangeForPath } from '../../utils/ast';
-import { CompletionService } from '../completion/completionService';
-import { CompletionContext, LanguageSettings, ValidationContext } from '../../apidomLanguageTypes';
-import * as openapiSchemaJson from './openapiSchema.json';
-import * as asyncapiSchemaJson from './asyncapiSchema.json';
-import { isAsyncDoc, isJsonDoc } from '../../parserFactory';
-import { ValidationProvider } from '../validation/validationService';
+import { CompletionService } from '../completion/completion-service';
+import {
+  CompletionContext,
+  LanguageSettings,
+  ValidationContext,
+} from '../../apidom-language-types';
+import * as openapiSchemaJson from './openapi-schema.json';
+import * as asyncapiSchemaJson from './asyncapi-schema.json';
+import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
+import { ValidationProvider } from '../validation/validation-service';
 
 // eslint-disable-next-line import/prefer-default-export
 export class DefaultJsonSchemaService implements CompletionService, ValidationProvider {

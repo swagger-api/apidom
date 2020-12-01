@@ -15,13 +15,13 @@ import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi-json-3-1';
 // @ts-ignore
 import ApiDOMParser from 'apidom-parser';
 import { addMetadataMapping, metadataMap } from '../src/utils/utils';
-import getLanguageService from '../src/apidomLanguageService';
+import getLanguageService from '../src/apidom-language-service';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidomLanguageTypes';
+} from '../src/apidom-language-types';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 const specCompletion = fs

@@ -15,11 +15,11 @@ import {
   LanguageService,
   LanguageServiceContext,
   LanguageSettings,
-} from './apidomLanguageTypes';
+} from './apidom-language-types';
 
-import { DefaultValidationService } from './services/validation/validationService';
-import { DefaultCompletionService } from './services/completion/completionService';
-import { DefaultSymbolsService } from './services/symbols/symbolsService';
+import { DefaultValidationService } from './services/validation/validation-service';
+import { DefaultCompletionService } from './services/completion/completion-service';
+import { DefaultSymbolsService } from './services/symbols/symbols-service';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {

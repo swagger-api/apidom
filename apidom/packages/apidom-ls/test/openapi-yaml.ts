@@ -11,13 +11,13 @@ import {
   SymbolInformation,
 } from 'vscode-languageserver-types';
 // @ts-ignore
-import getLanguageService from '../src/apidomLanguageService';
+import getLanguageService from '../src/apidom-language-service';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidomLanguageTypes';
+} from '../src/apidom-language-types';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 const specCompletion = fs

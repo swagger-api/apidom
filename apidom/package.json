@@ -56,7 +56,6 @@
     "@typescript-eslint/parser": "=3.0.2",
     "axios-mock-adapter": "=1.19.0",
     "babel-loader": "=8.1.0",
-    "babel-plugin-inline-json-import": "=0.3.2",
     "babel-plugin-native-error-extend": "=2.0.1",
     "chai": "=4.2.0",
     "copyfiles": "=2.3.0",

@@ -1,5 +1,5 @@
 import Ajv from 'ajv';
-import * as jsonSpecV4 from 'ajv/lib/refs/json-schema-draft-04.json';
+import jsonSpecV4 from 'ajv/lib/refs/json-schema-draft-04.json';
 
 import {
   Diagnostic,
@@ -22,8 +22,8 @@ import {
   LanguageSettings,
   ValidationContext,
 } from '../../apidom-language-types';
-import * as openapiSchemaJson from './openapi-schema.json';
-import * as asyncapiSchemaJson from './asyncapi-schema.json';
+import openapiSchemaJson from './openapi-schema.json';
+import asyncapiSchemaJson from './asyncapi-schema.json';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { ValidationProvider } from '../validation/validation-service';
 

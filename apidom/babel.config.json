@@ -23,6 +23,11 @@
         ["@babel/plugin-transform-modules-commonjs", {
           "loose": true
         }],
+        ["babel-plugin-inline-import", {
+          "extensions": [
+            ".json"
+          ]
+        }],
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
         ["@babel/plugin-transform-runtime", {
@@ -48,6 +53,11 @@
       "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
+        ["babel-plugin-inline-import", {
+          "extensions": [
+            ".json"
+          ]
+        }],
         ["@babel/plugin-transform-runtime", {
           "corejs": 3,
           "version": "^7.11.2",

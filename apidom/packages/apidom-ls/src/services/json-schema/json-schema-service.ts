@@ -1,6 +1,4 @@
 import Ajv from 'ajv';
-import jsonSpecV4 from 'ajv/lib/refs/json-schema-draft-04.json';
-
 import {
   Diagnostic,
   DiagnosticSeverity,
@@ -22,6 +20,7 @@ import {
   LanguageSettings,
   ValidationContext,
 } from '../../apidom-language-types';
+import jsonSpecV4 from './refs/json-schema-draft-04.json';
 import openapiSchemaJson from './openapi-schema.json';
 import asyncapiSchemaJson from './asyncapi-schema.json';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';

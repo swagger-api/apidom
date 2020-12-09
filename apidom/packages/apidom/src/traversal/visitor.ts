@@ -71,7 +71,7 @@ export const PredicateVisitor = stampit({
     this.returnOnFalse = returnOnFalse;
   },
   methods: {
-    enter(element): undefined {
+    enter(element: Element): undefined {
       if (this.predicate(element)) {
         this.result.push(element);
         return this.returnOnTrue;
@@ -82,7 +82,7 @@ export const PredicateVisitor = stampit({
 });
 
 // @ts-ignore
-export const visit = (root, visitor, { keyMap = keyMapDefault, ...rest } = {}) => {
+export const visit = (root: Element, visitor, { keyMap = keyMapDefault, ...rest } = {}): void => {
   // if visitor is associated with the keymap, we prefer this visitor keymap
   const effectiveKeyMap = propOr(keyMap, 'keyMap', visitor);
 

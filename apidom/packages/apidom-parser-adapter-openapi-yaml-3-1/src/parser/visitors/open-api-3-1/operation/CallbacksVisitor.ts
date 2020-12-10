@@ -28,7 +28,7 @@ const CallbacksVisitor = stampit(KindVisitor, MapYamlMappingVisitor, {
       const result = MapYamlMappingVisitor.compose.methods.mapping.call(this, mappingNode);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        appendMetadata(['openapi-reference-for-callback'], referenceElement);
+        referenceElement.setMetaProperty('referenced-element', 'callback');
       });
 
       return result;

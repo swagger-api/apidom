@@ -2,8 +2,6 @@ import stampit from 'stampit';
 import { test } from 'ramda';
 import { isYamlMapping, JsonNode, YamlMapping } from 'apidom-ast';
 import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
-// @ts-ignore
-import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 
 import { isReferenceObject } from '../../../predicates';
 import PatternedFieldsYamlMappingVisitor from '../../generics/PatternedFieldsYamlMappingVisitor';
@@ -33,7 +31,7 @@ const ParametersVisitor = stampit(KindVisitor, PatternedFieldsYamlMappingVisitor
       );
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        appendMetadata(['json-reference-for-parameter'], referenceElement);
+        referenceElement.setMetaProperty('referenced-element', 'parameter');
       });
 
       return result;

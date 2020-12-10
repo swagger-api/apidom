@@ -1,8 +1,6 @@
 import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 import { YamlMapping } from 'apidom-ast';
-// @ts-ignore
-import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 import { isReferenceElement } from 'apidom-ns-openapi-3-1';
 
 import { isReferenceObject, isResponseObject } from '../../../predicates';
@@ -21,7 +19,7 @@ const DefaultVisitor = stampit(AlternatingVisitor, {
       const result = AlternatingVisitor.compose.methods.object.call(this, mappingNode);
 
       if (isReferenceElement(this.element)) {
-        appendMetadata(['openapi-reference-for-response'], this.element);
+        this.element.setMetaProperty('referenced-element', 'response');
       }
 
       return result;

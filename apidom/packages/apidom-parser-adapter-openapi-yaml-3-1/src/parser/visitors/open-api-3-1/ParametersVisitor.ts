@@ -16,7 +16,7 @@ const ParametersVisitor = stampit(KindVisitor, SpecificationVisitor, {
       sequenceNode.content.forEach((item): void => {
         if (isReferenceObject({}, item)) {
           const referenceElement = this.nodeToElement(['document', 'objects', 'Reference'], item);
-          appendMetadata(['openapi-reference-for-parameter'], referenceElement);
+          referenceElement.setMetaProperty('referenced-element', 'parameter');
           this.element.push(referenceElement);
         } else if (isParameterObject({}, item)) {
           const parameterElement = this.nodeToElement(['document', 'objects', 'Parameter'], item);

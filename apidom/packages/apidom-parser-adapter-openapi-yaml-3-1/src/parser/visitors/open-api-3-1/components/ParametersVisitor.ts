@@ -1,8 +1,6 @@
 import stampit from 'stampit';
 import { YamlMapping, YamlNode } from 'apidom-ast';
 import { isReferenceElement, ReferenceElement } from 'apidom-ns-openapi-3-1';
-// @ts-ignore
-import { appendMetadata } from 'apidom-parser-adapter-yaml-1-2';
 
 import MapYamlMappingVisitor from '../../generics/MapYamlMappingVisitor';
 import { KindVisitor } from '../../generics';
@@ -28,7 +26,7 @@ const ParametersVisitor = stampit(KindVisitor, MapYamlMappingVisitor, {
       const result = MapYamlMappingVisitor.compose.methods.mapping.call(this, mappingNode);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        appendMetadata(['openapi-reference-for-parameter'], referenceElement);
+        referenceElement.setMetaProperty('referenced-element', 'parameter');
       });
 
       return result;

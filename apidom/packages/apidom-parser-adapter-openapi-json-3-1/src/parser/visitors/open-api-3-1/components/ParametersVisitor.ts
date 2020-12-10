@@ -28,7 +28,7 @@ const ParametersVisitor = stampit(ValueVisitor, MapJsonObjectVisitor, {
       const result = MapJsonObjectVisitor.compose.methods.object.call(this, objectNode);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        appendMetadata(['openapi-reference-for-parameter'], referenceElement);
+        referenceElement.setMetaProperty('referenced-element', 'parameter');
       });
 
       return result;

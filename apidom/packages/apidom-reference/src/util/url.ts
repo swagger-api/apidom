@@ -1,5 +1,5 @@
-import { pathSatisfies, propOr, test } from 'ramda';
-import { isUndefined, isArray, replaceAll } from 'ramda-adjunct';
+import { pathSatisfies, propOr, pipe, test, last } from 'ramda';
+import { isUndefined, isArray, replaceAll, isNotUndefined } from 'ramda-adjunct';
 
 type WindowsPredicate = () => boolean;
 
@@ -16,6 +16,11 @@ export const getProtocol = (url: string): string | undefined => {
   }
   return undefined;
 };
+
+/**
+ * Returns true if given URL has protocol.
+ */
+export const hasProtocol = pipe(getProtocol, isNotUndefined);
 
 /**
  * Returns the lower-cased file extension of the given URL,
@@ -46,19 +51,15 @@ export const isHttpUrl = (url: string): boolean => {
   return protocol === 'http' || protocol === 'https';
 };
 
-/**
- * Converts a URL to a local filesystem path.
- *
- * @param {boolean} [keepFileProtocol] - If true, then "file://" will NOT be stripped
- * @returns {string}
- */
-
 interface ToFileSystemPathOptions {
   keepFileProtocol?: boolean;
   isWindows?: WindowsPredicate;
 }
 
-export const toFileSystemPath = (options: ToFileSystemPathOptions, uri: string): string => {
+/**
+ * Converts a URL to a local filesystem path.
+ */
+export const toFileSystemPath = (uri: string, options?: ToFileSystemPathOptions): string => {
   // RegExp patterns to URL-decode special characters for local filesystem paths
   const urlDecodePatterns = [/%23/g, '#', /%24/g, '$', /%26/g, '&', /%2C/g, ',', /%40/g, '@'];
 
@@ -115,6 +116,43 @@ export const toFileSystemPath = (options: ToFileSystemPathOptions, uri: string):
 };
 
 /**
+ * Converts a filesystem path to a properly-encoded URL.
+ *
+ * This is intended to handle situations where JSON Schema $Ref Parser is called
+ * with a filesystem path that contains characters which are not allowed in URLs.
+ *
+ * @example
+ * The following filesystem paths would be converted to the following URLs:
+ *
+ *    <"!@#$%^&*+=?'>.json              ==>   %3C%22!@%23$%25%5E&*+=%3F\'%3E.json
+ *    C:\\My Documents\\File (1).json   ==>   C:/My%20Documents/File%20(1).json
+ *    file://Project #42/file.json      ==>   file://Project%20%2342/file.json
+ */
+export const fromFileSystemPath = (uri: string): string => {
+  const urlEncodePatterns = [/\?/g, '%3F', /#/g, '%23'];
+  let path = uri;
+
+  // Step 1: On Windows, replace backslashes with forward slashes,
+  // rather than encoding them as "%5C"
+  if (isWindows()) {
+    path = path.replace(/\\/g, '/');
+  }
+
+  // Step 2: `encodeURI` will take care of MOST characters
+  path = encodeURI(path);
+
+  // Step 3: Manually encode characters that are not encoded by `encodeURI`.
+  // This includes characters such as "#" and "?", which have special meaning in URLs,
+  // but are just normal characters in a filesystem path.
+  for (let i = 0; i < urlEncodePatterns.length; i += 2) {
+    // @ts-ignore
+    path = path.replace(urlEncodePatterns[i], urlEncodePatterns[i + 1]);
+  }
+
+  return path;
+};
+
+/**
  * Returns the hash (URL fragment), of the given path.
  * If there is no hash, then the root hash ("#") is returned.
  */
@@ -124,4 +162,37 @@ export const getHash = (uri: string): string => {
     return uri.substr(hashIndex);
   }
   return '#';
+};
+
+/**
+ * Returns the current working directory (in Node) or the current page URL (in browsers).
+ */
+export const cwd = (): string => {
+  // @ts-ignore
+  if (process.browser) {
+    return window.location.href;
+  }
+
+  const path = process.cwd();
+
+  const lastChar = last(path);
+  if (['/', '\\'].includes(lastChar)) {
+    return path;
+  }
+
+  return path + (isWindows() ? '\\' : '/');
+};
+
+/**
+ *  Resolves a target URI relative to a base URI in a manner similar to that of a Web browser resolving an anchor tag HREF.
+ */
+export const resolve = (from: string, to: string): string => {
+  if (isFileSystemPath(from)) {
+    const hasFileProtocol = getProtocol(from) === 'file';
+    const protocol = !hasFileProtocol ? 'file://' : '';
+    const url = String(new URL(to, `${protocol}${from}`));
+    return !hasFileProtocol ? url.replace(/^file:\/\//, '') : url;
+  }
+
+  return new URL(to, from).toString();
 };

@@ -17,10 +17,7 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
-    "test": "cross-env BABEL_ENV=cjs mocha",
-    "security-audit": "run-s -sc security-audit:prod security-audit:dev",
-    "security-audit:prod": "npm-audit --production --only=prod --audit-level=low",
-    "security-audit:dev": "npm-audit --only=dev --audit-level=moderate"
+    "test": "cross-env BABEL_ENV=cjs mocha"
   },
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",

@@ -19,10 +19,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist",
-    "test": "cross-env BABEL_ENV=cjs mocha",
-    "security-audit": "run-s -sc security-audit:prod security-audit:dev",
-    "security-audit:prod": "npm-audit --production --only=prod --audit-level=low",
-    "security-audit:dev": "npm-audit --only=dev --audit-level=moderate"
+    "test": "cross-env BABEL_ENV=cjs mocha"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

@@ -13,7 +13,7 @@ const FileResolver: stampit.Stamp<Resolver> = stampit(Resolver, {
       return isFileSystemPath(file.url);
     },
     async read(file: File): Promise<Buffer> {
-      const fileSystemPath = toFileSystemPath({}, file.url);
+      const fileSystemPath = toFileSystemPath(file.url);
 
       try {
         return await promisify(readFile)(fileSystemPath);

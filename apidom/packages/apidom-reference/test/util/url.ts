@@ -1,9 +1,50 @@
 import { assert } from 'chai';
 import { T as stubTrue } from 'ramda';
 
-import { toFileSystemPath, getExtension, getHash, resolve } from '../../src/util/url';
+import {
+  fromFileSystemPath,
+  toFileSystemPath,
+  getExtension,
+  getHash,
+  resolve,
+  stripHash,
+} from '../../src/util/url';
 
 describe('url', function () {
+  context('fromFileSystemPath', function () {
+    context('given incorrectly escaped file system path', function () {
+      specify('should property escape file system path', function () {
+        assert.strictEqual(
+          fromFileSystemPath('<"!@#$%^&*+=?\'>.json'),
+          "%3C%22!@%23$%25%5E&*+=%3F'%3E.json",
+        );
+        assert.strictEqual(
+          fromFileSystemPath('file://Project #42/file.json'),
+          'file://Project%20%2342/file.json',
+        );
+      });
+
+      context('given on windows', function () {
+        specify('should properly escape windows file system path', function () {
+          const originalPlatform = process.platform;
+
+          Object.defineProperty(process, 'platform', {
+            value: 'win',
+          });
+
+          assert.strictEqual(
+            fromFileSystemPath('C:\\My Documents\\File (1).json'),
+            'C:/My%20Documents/File%20(1).json',
+          );
+
+          Object.defineProperty(process, 'platform', {
+            value: originalPlatform,
+          });
+        });
+      });
+    });
+  });
+
   context('toFileSystemPath', function () {
     context('given valid file system path', function () {
       specify('should return identical file system path', function () {
@@ -161,6 +202,56 @@ describe('url', function () {
         assert.strictEqual(resolve('http://example.com/', ''), 'http://example.com/');
         assert.strictEqual(resolve('http://example.com/', '/one'), 'http://example.com/one');
         assert.strictEqual(resolve('http://example.com/one', '/two'), 'http://example.com/two');
+      });
+    });
+  });
+
+  context('stripHash', function () {
+    context('given file system URI', function () {
+      context('and URI contains hash', function () {
+        specify('should strip hash part of URI', function () {
+          assert.strictEqual(stripHash('/file/system/path#hash'), '/file/system/path');
+        });
+      });
+
+      context('and URI does not contain hash', function () {
+        specify('should return original URI', function () {
+          assert.strictEqual(stripHash('/file/system/path'), '/file/system/path');
+        });
+      });
+    });
+
+    context('given HTTP URL', function () {
+      context('and URL contains hash', function () {
+        specify('should strip hash part of URL', function () {
+          assert.strictEqual(
+            stripHash('http://swagger.io/petstore.json#hash'),
+            'http://swagger.io/petstore.json',
+          );
+        });
+      });
+
+      context('and URL does not contain hash', function () {
+        specify('should return original URL', function () {
+          assert.strictEqual(
+            stripHash('http://swagger.io/petstore.json'),
+            'http://swagger.io/petstore.json',
+          );
+        });
+      });
+    });
+
+    context('given File URL', function () {
+      context('and URL contains hash', function () {
+        specify('should strip hash part of URL', function () {
+          assert.strictEqual(stripHash('file://path/to/file#hash'), 'file://path/to/file');
+        });
+      });
+
+      context('and URL does not contain hash', function () {
+        specify('should return original URL', function () {
+          assert.strictEqual(stripHash('file://path/to/file'), 'file://path/to/file');
+        });
       });
     });
   });

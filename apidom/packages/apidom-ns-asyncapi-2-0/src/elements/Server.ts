@@ -5,7 +5,7 @@ import SecurityRequirementElement from './SecurityRequirement';
 import ServerBindingsElement from './ServerBindings';
 
 class Server extends ObjectElement {
-  constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
+  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'server';
   }

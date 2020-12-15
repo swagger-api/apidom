@@ -45,7 +45,7 @@ declare module 'minim' {
 
     fromRefract(doc: JSON): Element;
 
-    register(name: string, elementClass: typeof Element): Namespace;
+    register(name: string, elementClass: any): Namespace;
 
     use(plugin: NamespacePlugin): Namespace;
   }
@@ -87,7 +87,7 @@ declare module 'minim' {
   }
 
   export class ObjectElement extends ArrayElement {
-    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
 
     get(key: string | number): any;
 
@@ -142,6 +142,8 @@ declare module 'minim' {
     filter(predicate: Predicate, thisArg?: unknown): ArraySlice;
 
     reject(predicate: Predicate, thisArg?: unknown): ArraySlice;
+
+    map(callback: (currentValue: any, index: number) => any, thisArg?: unknown): ArraySlice;
 
     hasKey(value: string): boolean;
 

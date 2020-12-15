@@ -118,7 +118,7 @@ export const toFileSystemPath = (uri: string, options?: ToFileSystemPathOptions)
 /**
  * Converts a filesystem path to a properly-encoded URL.
  *
- * This is intended to handle situations where JSON Schema $Ref Parser is called
+ * This is intended to handle situations where resolver is called
  * with a filesystem path that contains characters which are not allowed in URLs.
  *
  * @example
@@ -195,4 +195,16 @@ export const resolve = (from: string, to: string): string => {
   }
 
   return new URL(to, from).toString();
+};
+
+/**
+ * Removes the hash (URL fragment), if any, from the given path.
+ */
+export const stripHash = (uri: string): string => {
+  const hashIndex = uri.indexOf('#');
+  let hashStrippedUri = uri;
+  if (hashIndex >= 0) {
+    hashStrippedUri = uri.substr(0, hashIndex);
+  }
+  return hashStrippedUri;
 };

@@ -6,7 +6,7 @@ import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
 
 class PathItem extends ObjectElement {
-  constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
+  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'pathItem';
   }

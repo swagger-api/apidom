@@ -1,4 +1,4 @@
-import { transduce, map, mergeDeepRight } from 'ramda';
+import { transduce, map } from 'ramda';
 import { Element, filter } from 'apidom';
 import { ReferenceElement } from 'apidom-ns-openapi-3-1';
 
@@ -6,6 +6,7 @@ import * as url from '../../../util/url';
 import { isExternalReferenceElement } from '../predicates';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
+import { mergeWithDefaults } from '../../../options';
 
 /**
  * 1.) Compute base URI
@@ -33,16 +34,12 @@ const sanitizeBaseURI = (baseURI: string): string => {
   return url.isFileSystemPath(baseURI) ? url.fromFileSystemPath(baseURI) : baseURI;
 };
 
-const defaultOptions = {
-  baseURI: '',
-};
-
 /**
  * Find and resolve ReferenceElements into ReferenceMap.
  */
-const resolve = <T extends Element>(element: T, options = defaultOptions): ReferenceSet => {
-  const mergedOpts = mergeDeepRight(defaultOptions, options);
-  const baseURI = url.resolve(url.cwd(), sanitizeBaseURI(mergedOpts.baseURI)); // make it absolut
+const resolve = <T extends Element>(element: T, options = {}): ReferenceSet => {
+  const mergedOpts = mergeWithDefaults(options);
+  const baseURI = url.resolve(url.cwd(), sanitizeBaseURI(mergedOpts.resolve.baseURI)); // make it absolut
   const externalRefs = filter(isExternalReferenceElement)(element);
   const transducer = map((ref: ReferenceElement) => url.stripHash(ref.$ref.toValue()));
   const iteratorFn = (acc: ReferenceSet, uri: string) =>

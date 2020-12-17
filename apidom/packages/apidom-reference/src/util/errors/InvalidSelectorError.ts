@@ -1,7 +1,8 @@
 class InvalidSelectorError extends Error {
+  public cause: undefined | Error;
+
   constructor(message: string, cause?: Error) {
     super(message);
-    // @ts-ignore
     this.cause = cause;
   }
 }

@@ -57,7 +57,7 @@ const OpenApiJson3_1Parser: stampit.Stamp<OpenApiJson3_1Parser> = stampit({
       try {
         return await parse(file.data, { sourceMap: this.sourceMap, specObj });
       } catch (e) {
-        throw new ParserError(`Error parsing "${file.url}"`, e);
+        throw new ParserError(`Error parsing "${file.uri}"`, e);
       }
     },
   },

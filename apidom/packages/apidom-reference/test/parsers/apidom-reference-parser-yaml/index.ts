@@ -10,7 +10,7 @@ describe('parsers', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         specify('should return true', function () {
-          const file = File({ url: '/path/to/file.yaml' });
+          const file = File({ uri: '/path/to/file.yaml' });
           const parser = YamlParser();
 
           assert.isTrue(parser.canParse(file));
@@ -19,7 +19,7 @@ describe('parsers', function () {
 
       context('given file with .yml extension', function () {
         specify('should return true', function () {
-          const file = File({ url: '/path/to/file.yml' });
+          const file = File({ uri: '/path/to/file.yml' });
           const parser = YamlParser();
 
           assert.isTrue(parser.canParse(file));
@@ -28,7 +28,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/file.txt' });
+          const file = File({ uri: '/path/to/file.txt' });
           const parser = YamlParser();
 
           assert.isFalse(parser.canParse(file));
@@ -37,7 +37,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/file' });
+          const file = File({ uri: '/path/to/file' });
           const parser = YamlParser();
 
           assert.isFalse(parser.canParse(file));
@@ -48,7 +48,7 @@ describe('parsers', function () {
     context('parse', function () {
       context('given generic YAML data', function () {
         specify('should return parse result', async function () {
-          const file = File({ url: '/path/to/file.yaml', data: 'prop: val' });
+          const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
           const parser = YamlParser();
           const result = await parser.parse(file);
           const objElement: ObjectElement = result.get(0);
@@ -61,7 +61,7 @@ describe('parsers', function () {
       context('given data that is not a generic YAML data', function () {
         specify('should throw ParserError', async function () {
           try {
-            const file = File({ url: '/path/to/file.yaml', data: 1 });
+            const file = File({ uri: '/path/to/file.yaml', data: 1 });
             const parser = YamlParser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
@@ -75,7 +75,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({ url: '/path/to/file.yaml', data: '' });
+          const file = File({ uri: '/path/to/file.yaml', data: '' });
           const parser = YamlParser();
           const result = await parser.parse(file);
 
@@ -87,7 +87,7 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const file = File({ url: '/path/to/file.yaml', data: 'prop: val' });
+            const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
             const parser = YamlParser({ sourceMap: true });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
@@ -98,7 +98,7 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const file = File({ url: '/path/to/file.yaml', data: 'prop: val' });
+            const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
             const parser = YamlParser({ sourceMap: false });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);

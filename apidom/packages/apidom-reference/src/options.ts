@@ -1,8 +1,36 @@
+import { mergeDeepRight } from 'ramda';
+
 import FileResolver from './resolvers/FileResolver';
 import HttpResolverAxios from './resolvers/HttpResolverAxios';
+import Resolver from './resolvers/Resolver';
 
-const defaultOptions = {
+interface ReferenceParserOptions {
+  readonly mediaType: string;
+}
+
+interface ReferenceResolveOptions {
+  baseURI: string;
+  readonly resolvers: Array<Resolver>;
+  readonly external: boolean;
+}
+
+interface ReferenceOptions {
+  readonly parse: ReferenceParserOptions;
+  readonly resolve: ReferenceResolveOptions;
+}
+
+const defaultOptions: ReferenceOptions = {
+  parse: {
+    /**
+     * This is media type that
+     */
+    mediaType: 'text/plain',
+  },
   resolve: {
+    /**
+     * baseURI serves as a base for all relative URL found in ApiDOM references.
+     */
+    baseURI: '',
     /**
      * Determines how References will be resolved.
      *
@@ -23,5 +51,15 @@ const defaultOptions = {
     external: true,
   },
 };
+
+/**
+ * Algorithm for deep merging options.
+ */
+export const merge = mergeDeepRight;
+
+/**
+ * Algorithm for deep merging options with default ones.
+ */
+export const mergeWithDefaults = mergeDeepRight(defaultOptions);
 
 export default defaultOptions;

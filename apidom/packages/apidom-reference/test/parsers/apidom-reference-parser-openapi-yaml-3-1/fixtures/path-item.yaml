@@ -9,7 +9,7 @@ get:
   description: Optional extended description in CommonMark or HTML.
   externalDocs:
     description: Find more info here
-    url: https://example.com
+    uri: https://example.com
   operationId: getUserList
   parameters:
     name: userId

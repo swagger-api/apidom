@@ -1,7 +1,8 @@
 class ParserError extends Error {
+  public cause: Error;
+
   constructor(message: string, cause: Error) {
     super(message);
-    // @ts-ignore
     this.cause = cause;
   }
 }

@@ -10,7 +10,7 @@ describe('parsers', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         specify('should return true', function () {
-          const file = File({ url: '/path/to/file.json' });
+          const file = File({ uri: '/path/to/file.json' });
           const parser = JsonParser();
 
           assert.isTrue(parser.canParse(file));
@@ -19,7 +19,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/file.yaml' });
+          const file = File({ uri: '/path/to/file.yaml' });
           const parser = JsonParser();
 
           assert.isFalse(parser.canParse(file));
@@ -28,7 +28,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/file' });
+          const file = File({ uri: '/path/to/file' });
           const parser = JsonParser();
 
           assert.isFalse(parser.canParse(file));
@@ -39,7 +39,7 @@ describe('parsers', function () {
     context('parse', function () {
       context('given generic JSON data', function () {
         specify('should return parse result', async function () {
-          const file = File({ url: '/path/to/file.json', data: '{"prop": "val"}' });
+          const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
           const parser = JsonParser();
           const result = await parser.parse(file);
           const objElement: ObjectElement = result.get(0);
@@ -52,7 +52,7 @@ describe('parsers', function () {
       context('given data that is not a generic JSON data', function () {
         specify('should throw ParserError', async function () {
           try {
-            const file = File({ url: '/path/to/file.json', data: 1 });
+            const file = File({ uri: '/path/to/file.json', data: 1 });
             const parser = JsonParser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
@@ -66,7 +66,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({ url: '/path/to/file.json', data: '' });
+          const file = File({ uri: '/path/to/file.json', data: '' });
           const parser = JsonParser();
           const result = await parser.parse(file);
 
@@ -78,7 +78,7 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const file = File({ url: '/path/to/file.json', data: '{"prop": "val"}' });
+            const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
             const parser = JsonParser({ sourceMap: true });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
@@ -89,7 +89,7 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const file = File({ url: '/path/to/file.json', data: '{"prop": "val"}' });
+            const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
             const parser = JsonParser({ sourceMap: false });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);

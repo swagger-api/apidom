@@ -8,24 +8,24 @@ import { getExtension } from './url';
  */
 
 interface File {
-  url: string;
+  uri: string;
   data: unknown;
   readonly extension: string;
 }
 
 const File: stampit.Stamp<File> = stampit({
   props: {
-    url: null,
+    uri: null,
     data: null,
   },
-  init(this: File, { url = this.url, data = this.data } = {}) {
-    this.url = url;
+  init(this: File, { uri = this.uri, data = this.data } = {}) {
+    this.uri = uri;
     this.data = data;
   },
   methods: {
     get extension(): string {
-      if (isString(this.url)) {
-        return getExtension(this.url);
+      if (isString(this.uri)) {
+        return getExtension(this.uri);
       }
       return '';
     },

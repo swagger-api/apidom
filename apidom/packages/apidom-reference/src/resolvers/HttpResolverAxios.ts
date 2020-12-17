@@ -28,10 +28,10 @@ const HttpResolverAxios: stampit.Stamp<HttpResolver> = stampit(HttpResolver).ini
 
     this.read = async function read(file: File): Promise<Buffer> {
       try {
-        const response = await axiosInstance.get(file.url);
+        const response = await axiosInstance.get(file.uri);
         return response.data;
       } catch (e) {
-        throw new ResolverError(`Error downloading "${file.url}"`, e);
+        throw new ResolverError(`Error downloading "${file.uri}"`, e);
       }
     };
   },

@@ -33,13 +33,14 @@ const HttpResolver: stampit.Stamp<HttpResolver> = stampit(Resolver, {
       withCredentials = this.withCredentials,
     }: HttpResolverConstructorParameters = {},
   ) {
+    this.type = 'http';
     this.timeout = timeout;
     this.redirects = redirects;
     this.withCredentials = withCredentials;
   },
   methods: {
     canRead(file: File): boolean {
-      return isHttpUrl(file.url);
+      return isHttpUrl(file.uri);
     },
 
     async read(): Promise<never> {

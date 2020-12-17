@@ -56,7 +56,7 @@ const AsyncApiYaml2_0Parser: stampit.Stamp<AsyncApiYaml2_0Parser> = stampit({
       try {
         return await parse(file.data, { sourceMap: this.sourceMap, specObj });
       } catch (e) {
-        throw new ParserError(`Error parsing "${file.url}"`, e);
+        throw new ParserError(`Error parsing "${file.uri}"`, e);
       }
     },
   },

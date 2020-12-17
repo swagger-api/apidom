@@ -38,7 +38,7 @@ const JsonParser: stampit.Stamp<JsonParser> = stampit({
       try {
         return await parse(file.data, { sourceMap: this.sourceMap });
       } catch (e) {
-        throw new ParserError(`Error parsing "${file.url}"`, e);
+        throw new ParserError(`Error parsing "${file.uri}"`, e);
       }
     },
   },

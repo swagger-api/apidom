@@ -14,7 +14,7 @@ describe('parsers', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         specify('should return true', function () {
-          const file = File({ url: '/path/to/openapi.yaml' });
+          const file = File({ uri: '/path/to/openapi.yaml' });
           const specPath = always(['document', 'objects', 'PathItem']);
           const parser = OpenApiYaml3_1Parser({ specPath });
 
@@ -24,7 +24,7 @@ describe('parsers', function () {
 
       context('given file with .yml extension', function () {
         specify('should return true', function () {
-          const file = File({ url: '/path/to/openapi.yaml' });
+          const file = File({ uri: '/path/to/openapi.yaml' });
           const specPath = always(['document', 'objects', 'PathItem']);
           const parser = OpenApiYaml3_1Parser({ specPath });
 
@@ -34,7 +34,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/openapi.txt' });
+          const file = File({ uri: '/path/to/openapi.txt' });
           const specPath = always(['document', 'objects', 'PathItem']);
           const parser = OpenApiYaml3_1Parser({ specPath });
 
@@ -44,7 +44,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', function () {
-          const file = File({ url: '/path/to/openapi' });
+          const file = File({ uri: '/path/to/openapi' });
           const specPath = always(['document', 'objects', 'PathItem']);
           const parser = OpenApiYaml3_1Parser({ specPath });
 
@@ -82,7 +82,7 @@ describe('parsers', function () {
       context('given data that is not a generic YAML data', function () {
         specify('should throw ParserError', async function () {
           try {
-            const file = File({ url: '/path/to/file.yaml', data: 1 });
+            const file = File({ uri: '/path/to/file.yaml', data: 1 });
             const specPath = always(['document', 'objects', 'PathItem']);
             const parser = OpenApiYaml3_1Parser({ specPath });
             await parser.parse(file);
@@ -97,7 +97,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({ url: '/path/to/file.yaml', data: '' });
+          const file = File({ uri: '/path/to/file.yaml', data: '' });
           const specPath = always(['document', 'objects', 'PathItem']);
           const parser = OpenApiYaml3_1Parser({ specPath });
           const result = await parser.parse(file);

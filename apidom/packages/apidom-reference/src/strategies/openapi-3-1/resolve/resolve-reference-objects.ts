@@ -4,7 +4,8 @@ import { ReferenceElement } from 'apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
 import { isExternalReferenceElement } from '../predicates';
-import ReferenceMap from '../../../ReferenceMap';
+import ReferenceSet from '../../../ReferenceSet';
+import Reference from '../../../Reference';
 
 /**
  * 1.) Compute base URI
@@ -39,18 +40,19 @@ const defaultOptions = {
 /**
  * Find and resolve ReferenceElements into ReferenceMap.
  */
-const resolve = <T extends Element>(element: T, options = defaultOptions): ReferenceMap => {
+const resolve = <T extends Element>(element: T, options = defaultOptions): ReferenceSet => {
   const mergedOpts = mergeDeepRight(defaultOptions, options);
   const baseURI = url.resolve(url.cwd(), sanitizeBaseURI(mergedOpts.baseURI)); // make it absolut
   const externalRefs = filter(isExternalReferenceElement)(element);
   const transducer = map((ref: ReferenceElement) => url.stripHash(ref.$ref.toValue()));
-  const iteratorFn = (acc: ReferenceMap, uri: string) => acc.set(uri);
-  const refMap = ReferenceMap();
-
-  refMap.set(baseURI);
+  const iteratorFn = (acc: ReferenceSet, uri: string) =>
+    acc.add(Reference({ uri, depth: 0, refSet: acc }));
+  const refSet = ReferenceSet();
+  const rootReference = Reference({ uri: baseURI, depth: 0, refSet });
+  refSet.add(rootReference);
 
   // @ts-ignore
-  return transduce(transducer, iteratorFn, refMap, externalRefs);
+  return transduce(transducer, iteratorFn, refSet, externalRefs);
 };
 
 export default resolve;

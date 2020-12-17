@@ -1,20 +1,23 @@
 import stampit from 'stampit';
 
-interface Reference {
-  depth: number;
-  value: null | unknown;
-  target: null | unknown;
-}
-
 const Reference: stampit.Stamp<Reference> = stampit({
   props: {
+    uri: '',
     depth: 0,
     value: null,
-    target: null,
+    refSet: null,
+    errors: [],
   },
-  init(this: Reference, { depth = this.depth, target = this.target } = {}) {
+  init(this: Reference, { depth = this.depth, refSet = this.refSet, uri = this.uri } = {}) {
+    this.uri = uri;
     this.depth = depth;
-    this.target = target;
+    this.refSet = refSet;
+    this.errors = [];
+  },
+  methods: {
+    async resolve(): Promise<Reference> {
+      return Promise.resolve(this);
+    },
   },
 });
 

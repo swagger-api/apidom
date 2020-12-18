@@ -32,7 +32,17 @@
     "ramda": "=0.27.0",
     "@types/ramda": "=0.27.6",
     "ramda-adjunct": "=2.27.0",
-    "stampit": "=4.3.1"
+    "stampit": "=4.3.1",
+    "apidom": "file:../apidom",
+    "apidom-ast": "file:../apidom-ast",
+    "apidom-ns-openapi-3-1": "file:../apidom-ns-openapi-3-1",
+    "apidom-ns-asyncapi-2-0": "file:../apidom-ns-asyncapi-2-0",
+    "apidom-parser-adapter-json": "file:../apidom-parser-adapter-json",
+    "apidom-parser-adapter-yaml-1-2": "file:../apidom-parser-adapter-yaml-1-2",
+    "apidom-parser-adapter-asyncapi-json-2-0": "file:../apidom-parser-adapter-asyncapi-json-2-0",
+    "apidom-parser-adapter-asyncapi-yaml-2-0": "file:../apidom-parser-adapter-asyncapi-yaml-2-0",
+    "apidom-parser-adapter-openapi-json-3-1": "file:../apidom-parser-adapter-openapi-json-3-1",
+    "apidom-parser-adapter-openapi-yaml-3-1": "file:../apidom-parser-adapter-openapi-yaml-3-1"
   },
   "devDependencies": {
     "axios-mock-adapter": "=1.19.0"

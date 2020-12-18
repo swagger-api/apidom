@@ -2,23 +2,18 @@ import stampit from 'stampit';
 import { isString } from 'ramda-adjunct';
 
 import { getExtension } from './url';
+import { File as IFile } from '../types';
 
 /**
  * This stamp represents a File object with url and data.
  */
 
-interface File {
-  uri: string;
-  data: unknown;
-  readonly extension: string;
-}
-
-const File: stampit.Stamp<File> = stampit({
+const File: stampit.Stamp<IFile> = stampit({
   props: {
     uri: null,
     data: null,
   },
-  init(this: File, { uri = this.uri, data = this.data } = {}) {
+  init(this: IFile, { uri = this.uri, data = this.data } = {}) {
     this.uri = uri;
     this.data = data;
   },

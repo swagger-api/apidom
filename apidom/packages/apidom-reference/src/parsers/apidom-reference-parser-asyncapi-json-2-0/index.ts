@@ -4,20 +4,11 @@ import { ParseResultElement } from 'apidom';
 // @ts-ignore
 import { parse, specification } from 'apidom-parser-adapter-asyncapi-json-2-0';
 
-import File from '../../util/File';
 import { ParserError } from '../../util/errors';
 import { documentVisitorFactory } from './visitors/DocumentVisitor';
+import { File as IFile, Parser as IParser } from '../../types';
 
-interface AsyncApiJson2_0Parser {
-  allowEmpty: boolean;
-  sourceMap: boolean;
-  specPath: string;
-
-  canParse(file: File): boolean;
-  parse(file: File): Promise<ParseResultElement>;
-}
-
-const AsyncApiJson2_0Parser: stampit.Stamp<AsyncApiJson2_0Parser> = stampit({
+const AsyncApiJson2_0Parser: stampit.Stamp<IParser> = stampit({
   props: {
     /**
      * Whether to allow "empty" files. This includes zero-byte files.
@@ -35,7 +26,7 @@ const AsyncApiJson2_0Parser: stampit.Stamp<AsyncApiJson2_0Parser> = stampit({
     specPath: always(['value']),
   },
   init(
-    this: AsyncApiJson2_0Parser,
+    this: IParser,
     { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap, specPath = this.specPath } = {},
   ) {
     this.allowEmpty = allowEmpty;
@@ -43,10 +34,10 @@ const AsyncApiJson2_0Parser: stampit.Stamp<AsyncApiJson2_0Parser> = stampit({
     this.specPath = specPath;
   },
   methods: {
-    canParse(file: File): boolean {
+    canParse(file: IFile): boolean {
       return file.extension === '.json';
     },
-    async parse(file: File): Promise<ParseResultElement> {
+    async parse(file: IFile): Promise<ParseResultElement> {
       const specObj = assocPath(
         ['visitors', 'document', '$visitor'],
         documentVisitorFactory(this.specPath),

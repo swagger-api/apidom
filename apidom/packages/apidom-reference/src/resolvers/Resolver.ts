@@ -1,16 +1,9 @@
 import stampit from 'stampit';
 
 import { NotImplementedError } from '../util/errors';
-import File from '../util/File';
+import { Resolver as IResolver } from '../types';
 
-interface Resolver {
-  type: string;
-
-  canRead(file: File): boolean;
-  read(file: File): Promise<Buffer>;
-}
-
-const Resolver: stampit.Stamp<Resolver> = stampit({
+const Resolver: stampit.Stamp<IResolver> = stampit({
   props: {
     type: null,
   },

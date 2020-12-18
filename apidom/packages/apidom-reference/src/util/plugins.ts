@@ -1,12 +1,12 @@
 import { invokeArgs } from 'ramda-adjunct';
 
-import File from './File';
+import { File as IFile } from '../types';
 import { PluginError } from './errors';
 
 /**
  * Filters the given plugins, returning only the ones return `true` for the given method.
  */
-export const filter = (method: string, file: File, plugins: Array<any>): Array<any> => {
+export const filter = (method: string, file: IFile, plugins: Array<any>): Array<any> => {
   // @ts-ignore
   return plugins.filter(invokeArgs([method], [file]));
 };
@@ -20,7 +20,7 @@ export const filter = (method: string, file: File, plugins: Array<any>): Array<a
  * If the promise rejects then the next plugin is called.
  * If ALL plugins fail, then the last error is thrown.
  */
-export const run = async (method: string, file: File, plugins: Array<any>): Promise<any> => {
+export const run = async (method: string, file: IFile, plugins: Array<any>): Promise<any> => {
   let lastError;
 
   for (const plugin of plugins) {

@@ -3,18 +3,10 @@ import { ParseResultElement } from 'apidom';
 // @ts-ignore
 import { parse } from 'apidom-parser-adapter-yaml-1-2';
 
-import File from '../../util/File';
 import { ParserError } from '../../util/errors';
+import { File as IFile, Parser as IParser } from '../../types';
 
-interface YamlParser {
-  allowEmpty: boolean;
-  sourceMap: boolean;
-
-  canParse(file: File): boolean;
-  parse(file: File): Promise<ParseResultElement>;
-}
-
-const YamlParser: stampit.Stamp<YamlParser> = stampit({
+const YamlParser: stampit.Stamp<IParser> = stampit({
   props: {
     /**
      * Whether to allow "empty" files. This includes zero-byte files.
@@ -26,15 +18,15 @@ const YamlParser: stampit.Stamp<YamlParser> = stampit({
      */
     sourceMap: false,
   },
-  init(this: YamlParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
+  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
     this.allowEmpty = allowEmpty;
     this.sourceMap = sourceMap;
   },
   methods: {
-    canParse(file: File): boolean {
+    canParse(file: IFile): boolean {
       return ['.yaml', '.yml'].includes(file.extension);
     },
-    async parse(file: File): Promise<ParseResultElement> {
+    async parse(file: IFile): Promise<ParseResultElement> {
       try {
         return await parse(file.data, { sourceMap: this.sourceMap });
       } catch (e) {

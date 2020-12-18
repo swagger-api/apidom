@@ -1,6 +1,8 @@
 import stampit from 'stampit';
 
-const Reference: stampit.Stamp<Reference> = stampit({
+import { Reference as IReference } from './types';
+
+const Reference: stampit.Stamp<IReference> = stampit({
   props: {
     uri: '',
     depth: 0,
@@ -8,14 +10,14 @@ const Reference: stampit.Stamp<Reference> = stampit({
     refSet: null,
     errors: [],
   },
-  init(this: Reference, { depth = this.depth, refSet = this.refSet, uri = this.uri } = {}) {
+  init(this: IReference, { depth = this.depth, refSet = this.refSet, uri = this.uri } = {}) {
     this.uri = uri;
     this.depth = depth;
     this.refSet = refSet;
     this.errors = [];
   },
   methods: {
-    async resolve(): Promise<Reference> {
+    async resolve(): Promise<IReference> {
       return Promise.resolve(this);
     },
   },

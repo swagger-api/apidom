@@ -2,24 +2,9 @@ import { mergeDeepRight } from 'ramda';
 
 import FileResolver from './resolvers/FileResolver';
 import HttpResolverAxios from './resolvers/HttpResolverAxios';
-import Resolver from './resolvers/Resolver';
+import { ReferenceOptions as IReferenceOptions } from './types';
 
-interface ReferenceParserOptions {
-  readonly mediaType: string;
-}
-
-interface ReferenceResolveOptions {
-  baseURI: string;
-  readonly resolvers: Array<Resolver>;
-  readonly external: boolean;
-}
-
-interface ReferenceOptions {
-  readonly parse: ReferenceParserOptions;
-  readonly resolve: ReferenceResolveOptions;
-}
-
-const defaultOptions: ReferenceOptions = {
+const defaultOptions: IReferenceOptions = {
   parse: {
     /**
      * This is media type that

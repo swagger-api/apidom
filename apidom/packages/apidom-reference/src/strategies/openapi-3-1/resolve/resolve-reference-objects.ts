@@ -7,6 +7,7 @@ import { isExternalReferenceElement } from '../predicates';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
 import { mergeWithDefaults } from '../../../options';
+import { ReferenceSet as IReferenceSet } from '../../../types';
 
 /**
  * 1.) Compute base URI
@@ -37,12 +38,12 @@ const sanitizeBaseURI = (baseURI: string): string => {
 /**
  * Find and resolve ReferenceElements into ReferenceMap.
  */
-const resolve = <T extends Element>(element: T, options = {}): ReferenceSet => {
+const resolve = <T extends Element>(element: T, options = {}): IReferenceSet => {
   const mergedOpts = mergeWithDefaults(options);
   const baseURI = url.resolve(url.cwd(), sanitizeBaseURI(mergedOpts.resolve.baseURI)); // make it absolut
   const externalRefs = filter(isExternalReferenceElement)(element);
   const transducer = map((ref: ReferenceElement) => url.stripHash(ref.$ref.toValue()));
-  const iteratorFn = (acc: ReferenceSet, uri: string) =>
+  const iteratorFn = (acc: IReferenceSet, uri: string) =>
     acc.add(Reference({ uri, depth: 0, refSet: acc }));
   const refSet = ReferenceSet();
   const rootReference = Reference({ uri: baseURI, depth: 0, refSet });

@@ -3,7 +3,7 @@ import stampit from 'stampit';
 import Resolver from './Resolver';
 import { isHttpUrl } from '../util/url';
 import NotImplementedError from '../util/errors/NotImplementedError';
-import File from '../util/File';
+import { HttpResolver as IHttpResolver, File as IFile } from '../types';
 
 interface HttpResolverConstructorParameters {
   timeout?: number;
@@ -11,22 +11,14 @@ interface HttpResolverConstructorParameters {
   withCredentials?: boolean;
 }
 
-interface HttpResolver extends Resolver {
-  timeout: number;
-  redirects: number;
-  withCredentials: boolean;
-
-  getHttpClient(): unknown;
-}
-
-const HttpResolver: stampit.Stamp<HttpResolver> = stampit(Resolver, {
+const HttpResolver: stampit.Stamp<IHttpResolver> = stampit(Resolver, {
   props: {
     timeout: 5000,
     redirects: 5,
     withCredentials: false,
   },
   init(
-    this: HttpResolver,
+    this: IHttpResolver,
     {
       timeout = this.timeout,
       redirects = this.redirects,
@@ -39,7 +31,7 @@ const HttpResolver: stampit.Stamp<HttpResolver> = stampit(Resolver, {
     this.withCredentials = withCredentials;
   },
   methods: {
-    canRead(file: File): boolean {
+    canRead(file: IFile): boolean {
       return isHttpUrl(file.uri);
     },
 

@@ -2,11 +2,11 @@ import stampit from 'stampit';
 import axios from 'axios';
 import { clone } from 'ramda';
 
-import HttpResolver from './HttpResolver';
 import ResolverError from '../util/errors/ResolverError';
-import File from '../util/File';
+import { HttpResolver as IHttpResolver, File as IFile } from '../types';
+import HttpResolver from './HttpResolver';
 
-const HttpResolverAxios: stampit.Stamp<HttpResolver> = stampit(HttpResolver).init(
+const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).init(
   function HttpResolverAxios() {
     /**
      * Private Api.
@@ -26,7 +26,7 @@ const HttpResolverAxios: stampit.Stamp<HttpResolver> = stampit(HttpResolver).ini
       return clone(axiosInstance);
     };
 
-    this.read = async function read(file: File): Promise<Buffer> {
+    this.read = async function read(file: IFile): Promise<Buffer> {
       try {
         const response = await axiosInstance.get(file.uri);
         return response.data;

@@ -2,20 +2,20 @@ import stampit from 'stampit';
 import { readFile } from 'fs';
 import { promisify } from 'util';
 
+import { Resolver as IResolver, File as IFile } from '../types';
 import Resolver from './Resolver';
 import { isFileSystemPath, toFileSystemPath } from '../util/url';
 import { ResolverError } from '../util/errors';
-import File from '../util/File';
 
-const FileResolver: stampit.Stamp<Resolver> = stampit(Resolver, {
+const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
   init() {
     this.type = 'file';
   },
   methods: {
-    canRead(file: File): boolean {
+    canRead(file: IFile): boolean {
       return isFileSystemPath(file.uri);
     },
-    async read(file: File): Promise<Buffer> {
+    async read(file: IFile): Promise<Buffer> {
       const fileSystemPath = toFileSystemPath(file.uri);
 
       try {

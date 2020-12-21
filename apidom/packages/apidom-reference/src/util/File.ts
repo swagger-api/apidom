@@ -11,10 +11,12 @@ import { File as IFile } from '../types';
 const File: stampit.Stamp<IFile> = stampit({
   props: {
     uri: null,
+    mediaType: 'text/plain',
     data: null,
   },
-  init(this: IFile, { uri = this.uri, data = this.data } = {}) {
+  init(this: IFile, { uri = this.uri, mediaType = this.mediaType, data = this.data } = {}) {
     this.uri = uri;
+    this.mediaType = mediaType;
     this.data = data;
   },
   methods: {

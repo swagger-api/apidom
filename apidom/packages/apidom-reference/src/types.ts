@@ -2,6 +2,7 @@ import { ParseResultElement } from 'apidom';
 
 export interface File {
   uri: string;
+  mediaType: string;
   data: unknown;
   readonly extension: string;
 }
@@ -55,6 +56,7 @@ export interface ReferenceSet {
 
 export interface ReferenceParserOptions {
   readonly mediaType: string;
+  readonly parsers: Array<Parser>;
 }
 
 export interface ReferenceResolveOptions {

@@ -1,11 +1,9 @@
 import stampit from 'stampit';
-import { assocPath, always } from 'ramda';
 import { ParseResultElement } from 'apidom';
 // @ts-ignore
-import { parse, specification } from 'apidom-parser-adapter-asyncapi-yaml-2-0';
+import { parse, mediaTypes } from 'apidom-parser-adapter-asyncapi-yaml-2-0';
 
 import { ParserError } from '../../util/errors';
-import { documentVisitorFactory } from './visitors/DocumentVisitor';
 import { File as IFile, Parser as IParser } from '../../types';
 
 const AsyncApiYaml2_0Parser: stampit.Stamp<IParser> = stampit({
@@ -19,33 +17,18 @@ const AsyncApiYaml2_0Parser: stampit.Stamp<IParser> = stampit({
      * Whether to generate source map during parsing.
      */
     sourceMap: false,
-
-    /**
-     * Path of the Specification object where visitor is located.
-     */
-    specPath: always(['kind']),
   },
-  init(
-    this: IParser,
-    { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap, specPath = this.specPath } = {},
-  ) {
+  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
     this.allowEmpty = allowEmpty;
     this.sourceMap = sourceMap;
-    this.specPath = specPath;
   },
   methods: {
     canParse(file: IFile): boolean {
-      return ['.yaml', '.yml'].includes(file.extension);
+      return mediaTypes.includes(file.mediaType) && ['.yaml', '.yml'].includes(file.extension);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const specObj = assocPath(
-        ['visitors', 'document', '$visitor'],
-        documentVisitorFactory(this.specPath),
-        specification,
-      );
-
       try {
-        return await parse(file.data, { sourceMap: this.sourceMap, specObj });
+        return await parse(file.data, { sourceMap: this.sourceMap });
       } catch (e) {
         throw new ParserError(`Error parsing "${file.uri}"`, e);
       }

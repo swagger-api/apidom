@@ -114,6 +114,22 @@ describe('parsers', function () {
         });
       });
 
+      context('given OpenApi 3.1.x YAML data as buffer', function () {
+        specify('should return parse result', async function () {
+          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+          const data = fs.readFileSync(url);
+          const file = File({
+            url,
+            data,
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+          });
+          const parser = OpenApiYaml3_1Parser();
+          const parseResult = await parser.parse(file);
+
+          assert.isTrue(isParseResultElement(parseResult));
+        });
+      });
+
       context('given data that is not an OpenApi 3.1.x YAML data', function () {
         specify('should throw ParserError', async function () {
           try {

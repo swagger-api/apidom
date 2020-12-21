@@ -28,8 +28,10 @@ const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit({
       return mediaTypes.includes(file.mediaType) && ['.yaml', '.yml'].includes(file.extension);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
+      const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
+
       try {
-        return await parse(file.data, { sourceMap: this.sourceMap });
+        return await parse(source, { sourceMap: this.sourceMap });
       } catch (e) {
         throw new ParserError(`Error parsing "${file.uri}"`, e);
       }

@@ -3,7 +3,7 @@ import { ParseResultElement } from 'apidom';
 export interface File {
   uri: string;
   mediaType: string;
-  data: unknown;
+  data: Buffer;
   readonly extension: string;
 }
 

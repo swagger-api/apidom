@@ -1,5 +1,4 @@
 import { isEmpty } from 'ramda';
-import { lengthEq } from 'ramda-adjunct';
 import { ParseResultElement } from 'apidom';
 
 import { mergeWithDefaults } from './options';
@@ -43,7 +42,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
     const { plugin, result } = await plugins.run('parse', file, parsers);
 
     // empty files handling
-    if (!plugin.allowEmpty && (isEmpty(result) || lengthEq(0, result))) {
+    if (!plugin.allowEmpty && result.isEmpty) {
       return Promise.reject(
         new ParserError(`Error while parsing file "${file.uri}". File is empty.`),
       );
@@ -62,9 +61,9 @@ const parse = async (uri: string, options = {}): Promise<ParseResultElement> => 
   const mergedOpts = mergeWithDefaults(options);
   const uriWithoutHash = url.stripHash(uri);
   const file = File({ uri: uriWithoutHash, mediaType: mergedOpts.parse.mediaType });
+  const data = await readFile(file, mergedOpts);
 
-  file.data = await readFile(file, mergedOpts);
-  return parseFile(file, mergedOpts);
+  return parseFile(File({ ...file, data }), mergedOpts);
 };
 
 export default parse;

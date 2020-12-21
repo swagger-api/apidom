@@ -110,6 +110,18 @@ describe('parsers', function () {
         });
       });
 
+      context('given AsyncApi 2.0.x YAML data as buffer', function () {
+        specify('should return parse result', async function () {
+          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+          const data = fs.readFileSync(url);
+          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.0.0' });
+          const parser = AsyncApiYaml2_0Parser();
+          const parseResult = await parser.parse(file);
+
+          assert.isTrue(isParseResultElement(parseResult));
+        });
+      });
+
       context('given data that is not an AsyncApi 2.0.x YAML data', function () {
         specify('should throw ParserError', async function () {
           try {

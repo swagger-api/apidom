@@ -83,6 +83,22 @@ describe('parsers', function () {
         });
       });
 
+      context('given OpenApi 3.1.x JSON data as buffer', function () {
+        specify('should return parse result', async function () {
+          const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+          const data = fs.readFileSync(url);
+          const file = File({
+            url,
+            data,
+            mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          });
+          const parser = OpenApiJson3_1Parser();
+          const parseResult = await parser.parse(file);
+
+          assert.isTrue(isParseResultElement(parseResult));
+        });
+      });
+
       context('given data that is not an OpenApi 3.1.x JSON data', function () {
         specify('should throw ParserError', async function () {
           try {

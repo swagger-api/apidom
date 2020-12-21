@@ -58,6 +58,18 @@ describe('parsers', function () {
         });
       });
 
+      context('given generic YAML data as buffer', function () {
+        specify('should return parse result', async function () {
+          const file = File({ uri: '/path/to/file.yaml', data: Buffer.from('prop: val') });
+          const parser = YamlParser();
+          const result = await parser.parse(file);
+          const objElement: ObjectElement = result.get(0);
+
+          assert.isTrue(isParseResultElement(result));
+          assert.isTrue(objElement.get('prop').equals('val'));
+        });
+      });
+
       context('given data that is not a generic YAML data', function () {
         specify('should throw ParserError', async function () {
           try {

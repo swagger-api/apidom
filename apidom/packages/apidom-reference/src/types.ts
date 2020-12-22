@@ -34,7 +34,7 @@ export interface Parser {
 export interface Reference {
   uri: string;
   depth: number;
-  value: unknown;
+  value: ParseResultElement;
   refSet: null | ReferenceSet;
   errors: Array<Error>;
 
@@ -48,10 +48,9 @@ export interface ReferenceSet {
   readonly size: number;
 
   add(reference: Reference): ReferenceSet;
-  has(reference: Reference): boolean;
+  has(uri: string): boolean;
   find(callback: (reference: Reference) => boolean): undefined | Reference;
   values(): IterableIterator<Reference>;
-  resolve(): Promise<ReferenceSet>;
 }
 
 export interface ReferenceParserOptions {

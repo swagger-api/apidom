@@ -1,10 +1,8 @@
 import stampit from 'stampit';
-import { curry } from 'ramda';
+import { propEq } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 
 import { Reference as IReference, ReferenceSet as IReferenceSet } from './types';
-
-const comparator = curry((r1: IReference, r2: IReference): boolean => r1.uri === r2.uri);
 
 const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
   props: {
@@ -29,8 +27,8 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       return this;
     },
 
-    has(reference: IReference): boolean {
-      return isNotUndefined(this.find(comparator(reference)));
+    has(uri: string): boolean {
+      return isNotUndefined(this.find(propEq('uri', uri)));
     },
 
     find(callback): IReference | undefined {
@@ -39,10 +37,6 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
 
     *values() {
       yield* this.refs;
-    },
-
-    async resolve(): Promise<IReferenceSet> {
-      return Promise.resolve(this);
     },
   },
 });

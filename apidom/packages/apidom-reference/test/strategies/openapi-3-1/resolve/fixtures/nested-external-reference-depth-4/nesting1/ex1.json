@@ -1,0 +1,5 @@
+{
+  "prop": {
+    "$ref": "nesting2/ex2.json"
+  }
+}

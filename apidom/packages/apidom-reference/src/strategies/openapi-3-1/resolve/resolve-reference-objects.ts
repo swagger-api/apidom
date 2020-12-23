@@ -49,11 +49,12 @@ export const resolveReferenceObject = async (
   // parse the file and register with reference set
   const parseResult = await parse(withoutHash, options);
   const reference = Reference({ uri: withoutHash, depth: 0, refSet, value: parseResult });
+  const passThruOptions = mergeOptions(options, { resolve: { baseURI: withoutHash } });
 
   refSet.add(reference);
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  return flatten(await Promise.all(crawl(parseResult, refSet, options)));
+  return flatten(await Promise.all(crawl(parseResult, refSet, passThruOptions)));
 };
 
 /**

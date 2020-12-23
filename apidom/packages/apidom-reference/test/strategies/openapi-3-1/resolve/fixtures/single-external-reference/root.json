@@ -36,7 +36,7 @@
         "operationId": "getUserList",
         "parameters": [
           {
-            "$ref": "https://swagger.io/path/to/file.json#/components/parameters/userId"
+            "$ref": "ex1.json"
           }
         ],
         "requestBody": {

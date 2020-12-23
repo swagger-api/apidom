@@ -1,4 +1,4 @@
-import { transduce, map, propEq, pathOr, flatten } from 'ramda';
+import { propEq, pathOr, flatten } from 'ramda';
 import { Element, ObjectElement, ParseResultElement, filter } from 'apidom';
 import { ReferenceElement } from 'apidom-ns-openapi-3-1';
 
@@ -6,7 +6,7 @@ import * as url from '../../../util/url';
 import { isExternalReferenceElement, isExternalReferenceLikeElement } from '../predicates';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
-import { mergeWithDefaults } from '../../../options';
+import { mergeWithDefaults, merge as mergeOptions } from '../../../options';
 import {
   ReferenceSet as IReferenceSet,
   ReferenceOptions as IReferenceOptions,
@@ -79,19 +79,24 @@ const crawl = <T extends Element>(
 /**
  * Find and resolve ReferenceElements into ReferenceMap.
  */
-const resolve = <T extends Element>(element: T, options = {}): IReferenceSet => {
+const resolve = async <T extends Element>(element: T, options = {}): Promise<IReferenceSet> => {
   const mergedOpts = mergeWithDefaults(options);
   const baseURI = url.resolve(url.cwd(), sanitizeBaseURI(mergedOpts.resolve.baseURI)); // make it absolute
   const externalReferenceObjects = filter(isExternalReferenceElement)(element);
-  const transducer = map((ref: ReferenceElement) => url.stripHash(ref.$ref.toValue()));
-  const iteratorFn = (acc: IReferenceSet, uri: string) =>
-    acc.add(Reference({ uri, depth: 0, refSet: acc }));
   const refSet = ReferenceSet();
   const rootReference = Reference({ uri: baseURI, depth: 0, refSet, value: element });
+  const passThruOptions = mergeOptions(mergedOpts, { resolve: { baseURI } });
+
+  // manually add root reference
   refSet.add(rootReference);
 
-  // @ts-ignore
-  return transduce(transducer, iteratorFn, refSet, externalReferenceObjects);
+  // resolve all found Reference Object elements
+  for (const externalReferenceObject of externalReferenceObjects) {
+    // eslint-disable-next-line no-await-in-loop
+    await resolveReferenceObject(externalReferenceObject, refSet, passThruOptions);
+  }
+
+  return refSet;
 };
 
 export default resolve;

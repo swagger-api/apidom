@@ -10,8 +10,12 @@ const Reference: stampit.Stamp<IReference> = stampit({
     refSet: null,
     errors: [],
   },
-  init(this: IReference, { depth = this.depth, refSet = this.refSet, uri = this.uri } = {}) {
+  init(
+    this: IReference,
+    { depth = this.depth, refSet = this.refSet, uri = this.uri, value = this.value } = {},
+  ) {
     this.uri = uri;
+    this.value = value;
     this.depth = depth;
     this.refSet = refSet;
     this.errors = [];

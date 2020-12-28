@@ -27,6 +27,13 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       return this;
     },
 
+    merge(anotherRefSet: IReferenceSet): IReferenceSet {
+      for (const reference of anotherRefSet.values()) {
+        this.add(reference);
+      }
+      return this;
+    },
+
     has(uri: string): boolean {
       return isNotUndefined(this.find(propEq('uri', uri)));
     },

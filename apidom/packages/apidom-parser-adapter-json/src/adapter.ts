@@ -1,4 +1,4 @@
-export const mediaTypes = ['application/javascript'];
+export const mediaTypes = ['application/json'];
 
 export const detect = async (source: string): Promise<boolean> => {
   try {

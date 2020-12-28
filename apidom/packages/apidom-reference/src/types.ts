@@ -4,6 +4,7 @@ export interface File {
   uri: string;
   mediaType: string;
   data: Buffer;
+  parseResult: ParseResultElement;
   readonly extension: string;
 }
 
@@ -25,10 +26,18 @@ export interface HttpResolver extends Resolver {
 export interface Parser {
   allowEmpty: boolean;
   sourceMap: boolean;
-  specPath: string;
 
   canParse(file: File): boolean;
   parse(file: File): Promise<ParseResultElement>;
+}
+
+export interface ResolveStrategy {
+  canResolve(file: File): boolean;
+  resolve(file: File, options: ReferenceOptions): Promise<ReferenceSet>;
+}
+
+export interface ComposableResolveStrategy extends ResolveStrategy {
+  readonly strategies: Array<ResolveStrategy>;
 }
 
 export interface Reference {
@@ -48,6 +57,7 @@ export interface ReferenceSet {
   readonly size: number;
 
   add(reference: Reference): ReferenceSet;
+  merge(anotherRefSet: ReferenceSet): ReferenceSet;
   has(uri: string): boolean;
   find(callback: (reference: Reference) => boolean): undefined | Reference;
   values(): IterableIterator<Reference>;
@@ -61,6 +71,8 @@ export interface ReferenceParserOptions {
 export interface ReferenceResolveOptions {
   baseURI: string;
   readonly resolvers: Array<Resolver>;
+  readonly strategy: null | ResolveStrategy;
+  readonly strategies: Array<ResolveStrategy>;
   readonly external: boolean;
 }
 

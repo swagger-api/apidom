@@ -2,6 +2,8 @@ import { assert } from 'chai';
 import path from 'path';
 import { isParseResultElement } from 'apidom';
 
+import defaultOptions from '../src/options';
+import { merge as mergeOptions } from '../src/options/util';
 import parse from '../src/parse';
 import { ParserError, ResolverError, UnmatchedResolverError } from '../src/util/errors';
 import OpenApiJson3_1Parser from '../src/parsers/apidom-reference-parser-openapi-json-3-1';
@@ -10,7 +12,9 @@ describe('parse', function () {
   context('given URI with hash', function () {
     specify('should read & parse the file', async function () {
       const uri = path.join(__dirname, 'fixtures', 'parse', 'sample-openapi-3-1-api.json#hash');
-      const options = { parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' } };
+      const options = mergeOptions(defaultOptions, {
+        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+      });
       const parseResult = await parse(uri, options);
 
       assert.isTrue(isParseResultElement(parseResult));
@@ -23,7 +27,7 @@ describe('parse', function () {
         const uri = path.join(__dirname, 'fixtures', 'parse', 'unknown-extension.ext');
 
         try {
-          await parse(uri);
+          await parse(uri, defaultOptions);
           assert.fail('Should throw UnmatchedResolverError');
         } catch (error) {
           assert.instanceOf(error, UnmatchedResolverError);
@@ -35,7 +39,9 @@ describe('parse', function () {
   context('given URI with non existing file', function () {
     specify('should throw error', async function () {
       const uri = '/path/to/non-existing-file.json';
-      const options = { parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' } };
+      const options = mergeOptions(defaultOptions, {
+        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+      });
 
       try {
         await parse(uri, options);
@@ -49,12 +55,12 @@ describe('parse', function () {
   context("given suitable parser doesn't allow empty files", function () {
     specify('should throw error', async function () {
       const uri = path.join(__dirname, 'fixtures', 'parse', 'empty-openapi-3-1-api.json');
-      const options = {
+      const options = mergeOptions(defaultOptions, {
         parse: {
           mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
           parsers: [OpenApiJson3_1Parser({ allowEmpty: false })],
         },
-      };
+      });
 
       try {
         await parse(uri, options);
@@ -80,12 +86,12 @@ describe('parse', function () {
 
     specify('should throw error', async function () {
       const uri = path.join(__dirname, 'fixtures', 'parse', 'sample-openapi-3-1-api.json');
-      const options = {
+      const options = mergeOptions(defaultOptions, {
         parse: {
           mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
           parsers: [parser],
         },
-      };
+      });
 
       try {
         await parse(uri, options);

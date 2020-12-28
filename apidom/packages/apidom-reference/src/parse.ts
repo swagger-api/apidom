@@ -1,7 +1,6 @@
 import { isEmpty } from 'ramda';
 import { ParseResultElement } from 'apidom';
 
-import { mergeWithDefaults } from './options';
 import * as url from './util/url';
 import File from './util/File';
 import * as plugins from './util/plugins';
@@ -57,13 +56,24 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
 /**
  * Parses a file into ApiDOM.
  */
-const parse = async (uri: string, options = {}): Promise<ParseResultElement> => {
-  const mergedOpts = mergeWithDefaults(options);
+const parse = async (uri: string, options: IReferenceOptions): Promise<ParseResultElement> => {
+  /**
+   * If the path is a filesystem path, then convert it to a URL.
+   *
+   * NOTE: According to the JSON Reference spec, these should already be URLs,
+   * but, in practice, many people use local filesystem paths instead.
+   * So we're being generous here and doing the conversion automatically.
+   * This is not intended to be a 100% bulletproof solution.
+   * If it doesn't work for your use-case, then use a URL instead.
+   */
   const uriWithoutHash = url.stripHash(uri);
-  const file = File({ uri: uriWithoutHash, mediaType: mergedOpts.parse.mediaType });
-  const data = await readFile(file, mergedOpts);
+  const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
+    ? url.fromFileSystemPath(uriWithoutHash)
+    : uriWithoutHash;
+  const file = File({ uri: sanitizedURI, mediaType: options.parse.mediaType });
+  const data = await readFile(file, options);
 
-  return parseFile(File({ ...file, data }), mergedOpts);
+  return parseFile(File({ ...file, data }), options);
 };
 
 export default parse;

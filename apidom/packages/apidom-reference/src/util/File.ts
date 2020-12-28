@@ -13,11 +13,21 @@ const File: stampit.Stamp<IFile> = stampit({
     uri: null,
     mediaType: 'text/plain',
     data: null,
+    parseResult: null,
   },
-  init(this: IFile, { uri = this.uri, mediaType = this.mediaType, data = this.data } = {}) {
+  init(
+    this: IFile,
+    {
+      uri = this.uri,
+      mediaType = this.mediaType,
+      data = this.data,
+      parseResult = this.parseResult,
+    } = {},
+  ) {
     this.uri = uri;
     this.mediaType = mediaType;
     this.data = data;
+    this.parseResult = parseResult;
   },
   methods: {
     get extension(): string {

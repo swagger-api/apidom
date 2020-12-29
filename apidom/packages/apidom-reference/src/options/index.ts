@@ -69,6 +69,11 @@ const defaultOptions: IReferenceOptions = {
      * Instead, external references will simply be ignored.
      */
     external: true,
+    /**
+     * Determines the maximum depth of resolve algorithms.
+     * By default there is no limit.
+     */
+    maxDepth: +Infinity,
   },
 };
 

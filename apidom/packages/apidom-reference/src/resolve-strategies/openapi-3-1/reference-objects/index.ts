@@ -32,6 +32,7 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
   const resolveReferenceObject = async (
     element: ObjectElement | ReferenceElement,
     refSet: IReferenceSet,
+    depth = 0,
     options: IReferenceOptions,
   ): Promise<ParseResultElement | ParseResultElement[]> => {
     const $ref = element.get('$ref').toValue();
@@ -46,13 +47,13 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
 
     // parse the file and register with reference set
     const parseResult = await parse(withoutHash, options);
-    const reference = Reference({ uri: withoutHash, depth: 0, refSet, value: parseResult });
+    const reference = Reference({ uri: withoutHash, depth, refSet, value: parseResult });
     const passThruOptions = mergeOptions(options, { resolve: { baseURI: withoutHash } });
 
     refSet.add(reference);
 
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return flatten(await Promise.all(crawl(parseResult, refSet, passThruOptions)));
+    return flatten(await Promise.all(crawl(parseResult, refSet, depth + 1, passThruOptions)));
   };
 
   /**
@@ -62,13 +63,14 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
   const crawl = <T extends Element>(
     element: T,
     refSet: IReferenceSet,
+    depth = 0,
     options: IReferenceOptions,
   ): Promise<ParseResultElement | ParseResultElement[]>[] => {
     let promises: Promise<ParseResultElement | ParseResultElement[]>[] = [];
     const externalReferenceLikeObjects = filter(isExternalReferenceLikeElement)(element);
 
     for (const externalReferenceLikeObject of externalReferenceLikeObjects) {
-      const resolved = resolveReferenceObject(externalReferenceLikeObject, refSet, options);
+      const resolved = resolveReferenceObject(externalReferenceLikeObject, refSet, depth, options);
       promises = promises.concat(resolved);
     }
 
@@ -107,7 +109,7 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
     // resolve all found Reference Object elements
     for (const externalReferenceObject of externalReferenceObjects) {
       // eslint-disable-next-line no-await-in-loop
-      await resolveReferenceObject(externalReferenceObject, refSet, passThruOptions);
+      await resolveReferenceObject(externalReferenceObject, refSet, 1, passThruOptions);
     }
 
     return refSet;

@@ -74,6 +74,7 @@ export interface ReferenceResolveOptions {
   readonly strategy: null | ResolveStrategy;
   readonly strategies: Array<ResolveStrategy>;
   readonly external: boolean;
+  readonly maxDepth: number;
 }
 
 export interface ReferenceOptions {

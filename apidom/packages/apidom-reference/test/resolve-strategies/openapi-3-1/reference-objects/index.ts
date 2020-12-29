@@ -473,6 +473,39 @@ describe('resolve-strategies', function () {
           },
         );
 
+        context(
+          'given OpenApi 3.1.x document with recursive external reference to itself',
+          function () {
+            let rootFile: IFile;
+            let refSet: IReferenceSet;
+
+            beforeEach(async function () {
+              const uri = path.join(
+                __dirname,
+                'fixtures',
+                'recursive-external-reference',
+                'root.json',
+              );
+              const mediaType = 'application/vnd.oai.openapi;version=3.1.0';
+              const data = fs.readFileSync(uri);
+              const parseResult = await parse(uri, { parse: { mediaType } });
+
+              rootFile = File({ uri, mediaType, data, parseResult });
+              refSet = await strategy.resolve(rootFile, defaultOptions);
+            });
+
+            specify('should have 1 reference in reference set', async function () {
+              assert.strictEqual(refSet.size, 1);
+            });
+
+            specify('should have root reference set to baseURI', async function () {
+              const { rootRef } = refSet;
+
+              assert.strictEqual(rootRef.uri, rootFile.uri);
+            });
+          },
+        );
+
         context('given maxDepth option is set to 2', function () {
           context('and OpenApi 3.1.x document with depth 4 external references', function () {
             specify('should throw MaximumResolverDepthError', async function () {

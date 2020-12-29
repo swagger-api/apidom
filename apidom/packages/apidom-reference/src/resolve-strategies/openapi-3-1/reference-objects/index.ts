@@ -16,6 +16,7 @@ import { merge as mergeOptions } from '../../../options/util';
 import Reference from '../../../Reference';
 import { isExternalReferenceElement, isExternalReferenceLikeElement } from './predicates';
 import ReferenceSet from '../../../ReferenceSet';
+import { MaximumResolverDepthError } from '../../../util/errors';
 
 const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(
   ResolveStrategy,
@@ -38,6 +39,13 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
     const $ref = element.get('$ref').toValue();
     const resolvedURI = url.resolve(options.resolve.baseURI, $ref);
     const withoutHash = url.stripHash(resolvedURI);
+
+    // maximum resolution depth has been exceeded
+    if (depth > options.resolve.maxDepth) {
+      throw new MaximumResolverDepthError(
+        `Maximum resolution depth of ${options.resolve.maxDepth} has been exceeded by file "${withoutHash}"`,
+      );
+    }
 
     // return early if we already recognize this reference
     if (refSet.has(withoutHash)) {

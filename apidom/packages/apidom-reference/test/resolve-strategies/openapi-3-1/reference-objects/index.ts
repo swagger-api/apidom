@@ -6,12 +6,14 @@ import File from '../../../../src/util/File';
 import ReferenceObjectsResolveStrategy from '../../../../src/resolve-strategies/openapi-3-1/reference-objects';
 import { parse } from '../../../../src';
 import defaultOptions from '../../../../src/options';
+import { merge as mergeOptions } from '../../../../src/options/util';
 import * as url from '../../../../src/util/url';
 import {
   File as IFile,
   ReferenceSet as IReferenceSet,
   Reference as IReference,
 } from '../../../../src/types';
+import { MaximumResolverDepthError } from '../../../../src/util/errors';
 
 describe('resolve-strategies', function () {
   context('openapi-3-1', function () {
@@ -470,6 +472,31 @@ describe('resolve-strategies', function () {
             });
           },
         );
+
+        context('given maxDepth option is set to 2', function () {
+          context('and OpenApi 3.1.x document with depth 4 external references', function () {
+            specify('should throw MaximumResolverDepthError', async function () {
+              const uri = path.join(
+                __dirname,
+                'fixtures',
+                'external-reference-depth-4',
+                'root.json',
+              );
+              const mediaType = 'application/vnd.oai.openapi;version=3.1.0';
+              const data = fs.readFileSync(uri);
+              const parseResult = await parse(uri, { parse: { mediaType } });
+              const rootFile = File({ uri, mediaType, data, parseResult });
+              const options = mergeOptions(defaultOptions, { resolve: { maxDepth: 2 } });
+
+              try {
+                await strategy.resolve(rootFile, options);
+                assert.fail('Should throw error here');
+              } catch (error) {
+                assert.instanceOf(error, MaximumResolverDepthError);
+              }
+            });
+          });
+        });
       });
     });
   });

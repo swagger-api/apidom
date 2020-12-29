@@ -99,6 +99,11 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
     // manually add root reference
     refSet.add(rootReference);
 
+    // nothing to resolve, so exit early
+    if (!options.resolve.external) {
+      return refSet;
+    }
+
     // resolve all found Reference Object elements
     for (const externalReferenceObject of externalReferenceObjects) {
       // eslint-disable-next-line no-await-in-loop

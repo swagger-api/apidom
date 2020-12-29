@@ -72,6 +72,11 @@ const defaultOptions: IReferenceOptions = {
     /**
      * Determines the maximum depth of resolve algorithms.
      * By default there is no limit.
+     *
+     * It can be set to any positive integer number.
+     *
+     * The resolver should throw MaximumResolverDepthError if resolution depth
+     * is exceeded by this option.
      */
     maxDepth: +Infinity,
   },

@@ -72,6 +72,15 @@ describe('resolve-strategies', function () {
             assert.strictEqual(rootRef.uri, rootFile.uri);
           });
 
+          specify(
+            'should have root reference depth property set to appropriate value',
+            function () {
+              const { rootRef } = refSet;
+
+              assert.strictEqual(rootRef.depth, 0);
+            },
+          );
+
           context('given 1st reference', function () {
             let firstReference: IReference;
 
@@ -89,6 +98,10 @@ describe('resolve-strategies', function () {
               assert.isTrue(
                 firstReference.value.first?.equals(JSON.parse(rootFile.data.toString())),
               );
+            });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(firstReference.depth, 0);
             });
           });
 
@@ -112,6 +125,10 @@ describe('resolve-strategies', function () {
               const ex1Data = JSON.parse(ex1File.data.toString());
 
               assert.isTrue(secondReference.value.first?.equals(ex1Data));
+            });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(secondReference.depth, 1);
             });
           });
         });
@@ -140,6 +157,15 @@ describe('resolve-strategies', function () {
             assert.strictEqual(rootRef.uri, rootFile.uri);
           });
 
+          specify(
+            'should have root reference depth property set to appropriate value',
+            function () {
+              const { rootRef } = refSet;
+
+              assert.strictEqual(rootRef.depth, 0);
+            },
+          );
+
           context('given 1st reference', function () {
             let firstReference: IReference;
 
@@ -157,6 +183,10 @@ describe('resolve-strategies', function () {
               assert.isTrue(
                 firstReference.value.first?.equals(JSON.parse(rootFile.data.toString())),
               );
+            });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(firstReference.depth, 0);
             });
           });
         });
@@ -203,6 +233,10 @@ describe('resolve-strategies', function () {
                 depth0Reference.value.first?.equals(JSON.parse(rootFile.data.toString())),
               );
             });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(depth0Reference.depth, 0);
+            });
           });
 
           context('given depth 1 reference', function () {
@@ -225,6 +259,10 @@ describe('resolve-strategies', function () {
               const ex1Data = JSON.parse(ex1File.data.toString());
 
               assert.isTrue(depth1Reference.value.first?.equals(ex1Data));
+            });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(depth1Reference.depth, 1);
             });
           });
 
@@ -249,6 +287,10 @@ describe('resolve-strategies', function () {
 
               assert.isTrue(depth2Reference.value.first?.equals(ex2Data));
             });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(depth2Reference.depth, 2);
+            });
           });
 
           context('given depth 3 reference', function () {
@@ -271,6 +313,10 @@ describe('resolve-strategies', function () {
               const ex3Data = JSON.parse(ex3File.data.toString());
 
               assert.isTrue(depth3Reference.value.first?.equals(ex3Data));
+            });
+
+            specify('should have depth property set to appropriate value', function () {
+              assert.strictEqual(depth3Reference.depth, 3);
             });
           });
         });
@@ -306,6 +352,15 @@ describe('resolve-strategies', function () {
               assert.strictEqual(rootRef.uri, rootFile.uri);
             });
 
+            specify(
+              'should have root reference depth property set to appropriate value',
+              function () {
+                const { rootRef } = refSet;
+
+                assert.strictEqual(rootRef.depth, 0);
+              },
+            );
+
             context('given depth 0 reference', function () {
               let depth0Reference: IReference;
 
@@ -323,6 +378,10 @@ describe('resolve-strategies', function () {
                 assert.isTrue(
                   depth0Reference.value.first?.equals(JSON.parse(rootFile.data.toString())),
                 );
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth0Reference.depth, 0);
               });
             });
 
@@ -346,6 +405,10 @@ describe('resolve-strategies', function () {
                 const ex1Data = JSON.parse(ex1File.data.toString());
 
                 assert.isTrue(depth1Reference.value.first?.equals(ex1Data));
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth1Reference.depth, 1);
               });
             });
 
@@ -373,6 +436,10 @@ describe('resolve-strategies', function () {
 
                 assert.isTrue(depth2Reference.value.first?.equals(ex2Data));
               });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth2Reference.depth, 2);
+              });
             });
 
             context('given depth 3 reference', function () {
@@ -395,6 +462,10 @@ describe('resolve-strategies', function () {
                 const ex3Data = JSON.parse(ex3File.data.toString());
 
                 assert.isTrue(depth3Reference.value.first?.equals(ex3Data));
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth3Reference.depth, 3);
               });
             });
           },

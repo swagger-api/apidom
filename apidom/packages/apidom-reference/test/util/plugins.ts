@@ -59,7 +59,7 @@ describe('util', function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
           const suitablePlugins = filter('canRead', file, resolvers);
-          const { plugin } = await run('read', file, suitablePlugins);
+          const { plugin } = await run('read', [file], suitablePlugins);
 
           assert.propertyVal(plugin, 'type', 'file');
         });
@@ -68,7 +68,7 @@ describe('util', function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
           const suitablePlugins = filter('canRead', file, resolvers);
-          const { result } = await run('read', file, suitablePlugins);
+          const { result } = await run('read', [file], suitablePlugins);
 
           assert.strictEqual(result.toString(), '{}\n');
         });
@@ -78,7 +78,7 @@ describe('util', function () {
             const { resolvers } = defaultOptions.resolve;
             const file = File({ uri: fileSystemPath });
             const suitablePlugins = filter('canRead', file, resolvers);
-            const { result } = await run('read', file, [{}, ...suitablePlugins]);
+            const { result } = await run('read', [file], [{}, ...suitablePlugins]);
 
             assert.strictEqual(result.toString(), '{}\n');
           });
@@ -94,7 +94,7 @@ describe('util', function () {
           const suitablePlugins = filter('canRead', file, resolvers);
 
           try {
-            await run('read', file, suitablePlugins);
+            await run('read', [file], suitablePlugins);
             assert.fail('Should throw object with Error here');
           } catch (error) {
             assert.instanceOf(error, PluginError);

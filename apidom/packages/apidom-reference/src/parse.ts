@@ -19,7 +19,7 @@ const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer
   }
 
   try {
-    const { result } = await plugins.run('read', file, resolvers);
+    const { result } = await plugins.run('read', [file], resolvers);
     return result;
   } catch (error) {
     throw new ResolverError(`Error while reading file "${file.uri}"`, error);
@@ -38,7 +38,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
   }
 
   try {
-    const { plugin, result } = await plugins.run('parse', file, parsers);
+    const { plugin, result } = await plugins.run('parse', [file], parsers);
 
     // empty files handling
     if (!plugin.allowEmpty && result.isEmpty) {

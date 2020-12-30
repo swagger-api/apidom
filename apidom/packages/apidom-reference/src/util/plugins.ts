@@ -20,13 +20,13 @@ export const filter = (method: string, file: IFile, plugins: Array<any>): Array<
  * If the promise rejects then the next plugin is called.
  * If ALL plugins fail, then the last error is thrown.
  */
-export const run = async (method: string, file: IFile, plugins: Array<any>): Promise<any> => {
+export const run = async (method: string, parameters: any[], plugins: any[]): Promise<any> => {
   let lastError;
 
   for (const plugin of plugins) {
     try {
       // @ts-ignore
-      const result = await plugin[method].call(plugin, file); // eslint-disable-line no-await-in-loop
+      const result = await plugin[method].call(plugin, ...parameters); // eslint-disable-line no-await-in-loop
       return { plugin, result };
     } catch (error) {
       lastError = new PluginError('Error while running plugin', error, plugin);

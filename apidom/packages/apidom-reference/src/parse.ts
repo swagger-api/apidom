@@ -10,7 +10,7 @@ import { ParserError, ResolverError, UnmatchedResolverError } from './util/error
 /**
  * Reads the given file, using the configured resolver plugins.
  */
-const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer> => {
+export const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer> => {
   const resolvers = plugins.filter('canRead', file, options.resolve.resolvers);
 
   // we couldn't find any resolver for this File

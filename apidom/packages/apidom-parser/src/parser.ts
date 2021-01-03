@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { head } from 'ramda';
-import { isFunction, isArray, isUndefined, isString } from 'ramda-adjunct';
-import { ParseResultElement } from 'apidom';
+import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
+import { ParseResultElement, Namespace } from 'apidom';
 
 interface ParserOptions {
   mediaType?: string;
@@ -14,6 +14,7 @@ interface ApiDOMParserAdapter {
   detect?: Detect;
   mediaTypes?: string[];
   parse: Parse;
+  namespace: Namespace;
 }
 
 const ApiDOMParser = stampit().init(function ApiDOMParser() {
@@ -42,6 +43,12 @@ const ApiDOMParser = stampit().init(function ApiDOMParser() {
   this.use = function use(adapter: ApiDOMParserAdapter) {
     adapters.push(adapter);
     return this;
+  };
+
+  this.namespace = function namespace(source: string, options: ParserOptions = {}) {
+    const adapter = findAdapter(source, options.mediaType);
+
+    return adapter?.namespace;
   };
 
   this.parse = async function parse(source: string, options: ParserOptions = {}) {

@@ -4,4 +4,4 @@ export const mediaTypes = [
 ];
 
 export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)asyncapi\1\s*:\s*(["']?)3\.\d+\.\d+\2/g);
+  !!source.match(/(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/g);

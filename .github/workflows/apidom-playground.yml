@@ -52,10 +52,11 @@ jobs:
         run: npm run build
         working-directory: ./experiments/apidom-playground
       - name: Upload build artifacts
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: ./build/
+          path: ./experiments/apidom-playground/build
 
   deploy:
 

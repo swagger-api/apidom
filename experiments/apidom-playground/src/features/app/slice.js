@@ -22,7 +22,7 @@ const parser = ApiDOMParser()
 
 const initialState = {
   source: '',
-  apiDOM: '{"prop":"value"}',
+  apiDOM: '',
   baseURI: '',
   mediaType: '',
   console: '',

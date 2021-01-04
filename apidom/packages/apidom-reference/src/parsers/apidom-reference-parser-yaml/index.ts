@@ -24,7 +24,10 @@ const YamlParser: stampit.Stamp<IParser> = stampit({
   },
   methods: {
     canParse(file: IFile): boolean {
-      return ['.yaml', '.yml'].includes(file.extension);
+      return (
+        ['text/yaml', 'application/yaml'].includes(file.mediaType) ||
+        ['.yaml', '.yml'].includes(file.extension)
+      );
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;

@@ -324,6 +324,148 @@ describe('resolve-strategies', function () {
         });
 
         context(
+          'given OpenApi 3.1.x document with depth 4 external references with multiple media types',
+          function () {
+            let rootFile: IFile;
+            let refSet: IReferenceSet;
+
+            beforeEach(async function () {
+              const uri = path.join(
+                __dirname,
+                'fixtures',
+                'external-reference-depth-4-multiple-media-types',
+                'root.json',
+              );
+              const mediaType = 'application/vnd.oai.openapi;version=3.1.0';
+              const data = fs.readFileSync(uri);
+              const parseResult = await parse(uri, { parse: { mediaType } });
+
+              rootFile = File({ uri, mediaType, data, parseResult });
+              refSet = await strategy.resolve(rootFile, defaultOptions);
+            });
+
+            specify('should have 4 references in reference set', async function () {
+              assert.strictEqual(refSet.size, 4);
+            });
+
+            specify('should have root reference set to baseURI', async function () {
+              const { rootRef } = refSet;
+
+              assert.strictEqual(rootRef.uri, rootFile.uri);
+            });
+
+            context('given depth 0 reference', function () {
+              let depth0Reference: IReference;
+
+              beforeEach(function () {
+                [depth0Reference] = Array.from(refSet.values());
+              });
+
+              specify('should be identical as root reference', async function () {
+                const { rootRef } = refSet;
+
+                assert.strictEqual(depth0Reference, rootRef);
+              });
+
+              specify('should have expected resolved value', async function () {
+                assert.isTrue(
+                  depth0Reference.value.first?.equals(JSON.parse(rootFile.data.toString())),
+                );
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth0Reference.depth, 0);
+              });
+            });
+
+            context('given depth 1 reference', function () {
+              let depth1Reference: IReference;
+              let ex1File: IFile;
+
+              beforeEach(async function () {
+                const uri = url.resolve(rootFile.uri, 'ex1.json');
+                const data = fs.readFileSync(uri);
+
+                ex1File = File({ uri, data });
+                [, depth1Reference] = Array.from(refSet.values());
+              });
+
+              specify('should have expected URI', async function () {
+                assert.strictEqual(depth1Reference.uri, ex1File.uri);
+              });
+
+              specify('should have expected resolved value', async function () {
+                const ex1Data = JSON.parse(ex1File.data.toString());
+
+                assert.isTrue(depth1Reference.value.first?.equals(ex1Data));
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth1Reference.depth, 1);
+              });
+            });
+
+            context('given depth 2 reference', function () {
+              let depth2Reference: IReference;
+              let ex2File: IFile;
+
+              beforeEach(async function () {
+                const uri = url.resolve(rootFile.uri, 'ex2.yaml');
+                const data = fs.readFileSync(uri);
+
+                ex2File = File({ uri, data });
+                [, , depth2Reference] = Array.from(refSet.values());
+              });
+
+              specify('should have expected URI', async function () {
+                assert.strictEqual(depth2Reference.uri, ex2File.uri);
+              });
+
+              specify('should have expected resolved value', async function () {
+                const ex2Data = {
+                  prop: {
+                    $ref: 'ex3.json',
+                  },
+                };
+
+                assert.isTrue(depth2Reference.value.first?.equals(ex2Data));
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth2Reference.depth, 2);
+              });
+            });
+
+            context('given depth 3 reference', function () {
+              let depth3Reference: IReference;
+              let ex3File: IFile;
+
+              beforeEach(async function () {
+                const uri = url.resolve(rootFile.uri, 'ex3.json');
+                const data = fs.readFileSync(uri);
+
+                ex3File = File({ uri, data });
+                [, , , depth3Reference] = Array.from(refSet.values());
+              });
+
+              specify('should have expected URI', async function () {
+                assert.strictEqual(depth3Reference.uri, ex3File.uri);
+              });
+
+              specify('should have expected resolved value', async function () {
+                const ex3Data = JSON.parse(ex3File.data.toString());
+
+                assert.isTrue(depth3Reference.value.first?.equals(ex3Data));
+              });
+
+              specify('should have depth property set to appropriate value', function () {
+                assert.strictEqual(depth3Reference.depth, 3);
+              });
+            });
+          },
+        );
+
+        context(
           'given OpenApi 3.1.x document with depth 4 nested external references',
           function () {
             let rootFile: IFile;

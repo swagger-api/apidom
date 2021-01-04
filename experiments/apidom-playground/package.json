@@ -3,6 +3,7 @@
   "description": "ApiDOM playground demonstrating various features visually",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "scripts": {
     "preinstall": "node ./scripts/file-exists.js apidom-built && exit 0 || touch apidom-built && cd ../../apidom && npm i && npm run build",
     "start": "node scripts/start.js",

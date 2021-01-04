@@ -1,25 +1,36 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
-import { selectApiDOM } from 'features/app/slice';
+import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 
-const ApiDOM = () => {
-  const apiDOM = useSelector(selectApiDOM);
+/* eslint-disable react/no-danger */
 
+const useStyles = makeStyles(() => ({
+  root: {
+    fontSize: '1rem',
+  },
+}));
+
+const ApiDOM = ({ apiDOM }) => {
+  const classes = useStyles();
   return (
-    <TextField
-      multiline
-      rows={28}
-      fullWidth
-      value={apiDOM}
-      label="ApiDOM"
-      variant="outlined"
-      InputLabelProps={{
-        shrink: true,
-        readOnly: true,
-      }}
+    <Box
+      className={classes.root}
+      borderColor="grey.400"
+      p={1.5}
+      pt={2}
+      borderRadius="borderRadius"
+      border={1}
+      height={568}
+      whiteSpace="pre"
+      overflow="auto"
+      dangerouslySetInnerHTML={{ __html: apiDOM }}
     />
   );
 };
 
-export default ApiDOM;
+ApiDOM.propTypes = {
+  apiDOM: PropTypes.string.isRequired,
+};
+
+export default React.memo(ApiDOM);

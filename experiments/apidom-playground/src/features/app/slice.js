@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import { delayP, isNonEmptyString } from 'ramda-adjunct';
+import { isNonEmptyString } from 'ramda-adjunct';
 import { toJSON } from 'apidom';
 import ApiDOMParser from 'apidom-parser';
 import * as jsonAdapter from 'apidom-parser-adapter-json';
@@ -67,7 +67,6 @@ export const importURL = createAsyncThunk('importURLStatus', async (url) => {
 });
 
 export const parseSource = createAsyncThunk('parseSourceStatus', async ({ source, mediaType }) => {
-  await delayP(200);
   const namespace = parser.namespace(source, { sourceMap: true, mediaType });
   const parseResult = await parser.parse(source, { sourceMap: true, mediaType });
   const json = toJSON(namespace, parseResult);

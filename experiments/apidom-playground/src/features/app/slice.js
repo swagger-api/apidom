@@ -25,6 +25,7 @@ const initialState = {
   apiDOM: '',
   baseURI: '',
   mediaType: '',
+  console: '',
   isLoading: false,
 };
 
@@ -39,6 +40,8 @@ export const selectApiDOM = (state) => state.apiDOM;
 export const selectBaseURI = (state) => state.baseURI;
 
 export const selectMediaType = (state) => state.mediaType;
+
+export const selectConsole = (state) => state.console;
 
 export const selectIsLoading = (state) => state.isLoading;
 
@@ -92,6 +95,9 @@ const appSlice = createSlice({
     setMediaType(state, action) {
       return { ...state, mediaType: action.payload };
     },
+    clearConsole(state) {
+      return { ...state, console: '' };
+    },
   },
   extraReducers: {
     [importURL.pending]: (state) => {
@@ -106,8 +112,10 @@ const appSlice = createSlice({
         isLoading: false,
       };
     },
-    [importURL.rejected]: (state) => {
-      return { ...state, isLoading: false };
+    [importURL.rejected]: (state, action) => {
+      const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
+
+      return { ...state, isLoading: false, console: consoleLines };
     },
     [parseSource.pending]: (state) => {
       return { ...state, isLoading: true };
@@ -115,11 +123,13 @@ const appSlice = createSlice({
     [parseSource.fulfilled]: (state, action) => {
       return { ...state, apiDOM: action.payload, isLoading: false };
     },
-    [parseSource.rejected]: (state) => {
-      return { ...state, isLoading: false };
+    [parseSource.rejected]: (state, action) => {
+      const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
+
+      return { ...state, isLoading: false, console: consoleLines };
     },
   },
 });
 
-export const { setSource, setApiDOM, setBaseURI, setMediaType } = appSlice.actions;
+export const { setSource, setApiDOM, setBaseURI, setMediaType, clearConsole } = appSlice.actions;
 export default appSlice.reducer;

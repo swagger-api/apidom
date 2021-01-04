@@ -61,7 +61,7 @@ jobs:
   deploy:
 
     name: Deploy
-    if: github.ref == 'refs/heads/enabled_this_for_master'
+    if: github.ref == 'refs/heads/master'
 
     needs: [ build ]
     runs-on: ubuntu-latest

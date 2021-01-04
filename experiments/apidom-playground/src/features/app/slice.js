@@ -10,7 +10,7 @@ import * as openapi3_1AdapterYaml from 'apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2_0AdapterJson from 'apidom-parser-adapter-asyncapi-json-2-0';
 import * as asyncapi2_0AdapterYaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
 /* eslint-enable */
-import { readFile } from 'apidom-reference';
+import { readFile, resolveApiDOM as resolveApiDOMReferences } from 'apidom-reference';
 
 const parser = ApiDOMParser()
   .use(jsonAdapter)
@@ -75,6 +75,16 @@ export const parseSource = createAsyncThunk('parseSourceStatus', async ({ source
   return JSON.stringify(json, undefined, 2);
 });
 
+export const resolveApiDOM = createAsyncThunk(
+  'resolveApiDOMStatus',
+  async ({ apiDOM, mediaType }) => {
+    const namespace = parser.namespace('', { mediaType });
+    const parseResult = namespace.fromRefract(apiDOM);
+
+    return resolveApiDOMReferences(parseResult, { parse: { mediaType } });
+  }
+);
+
 /**
  * Slice.
  */
@@ -124,6 +134,14 @@ const appSlice = createSlice({
       return { ...state, apiDOM: action.payload, isLoading: false };
     },
     [parseSource.rejected]: (state, action) => {
+      const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
+
+      return { ...state, isLoading: false, console: consoleLines };
+    },
+    [resolveApiDOM.pending]: (state) => {
+      return { ...state, isLoading: true };
+    },
+    [resolveApiDOM.rejected]: (state, action) => {
       const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
 
       return { ...state, isLoading: false, console: consoleLines };

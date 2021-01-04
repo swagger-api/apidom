@@ -14,11 +14,13 @@ import {
   selectBaseURI,
   selectMediaType,
   selectSource,
+  selectApiDOM,
   selectCanParse,
   selectCanResolve,
   setMediaType,
   setBaseURI,
   parseSource,
+  resolveApiDOM,
 } from 'features/app/slice';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +43,7 @@ const EditorControls = () => {
   const canParse = useSelector(selectCanParse);
   const canResolve = useSelector(selectCanResolve);
   const source = useSelector(selectSource);
+  const apiDOM = useSelector(selectApiDOM);
   const dispatch = useDispatch();
   const [mediaTypeSelectOpen, setMediaTypeSelectOpen] = useState(false);
 
@@ -58,6 +61,9 @@ const EditorControls = () => {
   };
   const handleSourceParse = () => {
     dispatch(parseSource({ source, mediaType }));
+  };
+  const handleApiDOMResolve = () => {
+    dispatch(resolveApiDOM({ apiDOM, mediaType }));
   };
 
   return (
@@ -122,7 +128,9 @@ const EditorControls = () => {
             <Button disabled={!canParse} onClick={handleSourceParse}>
               Parse
             </Button>
-            <Button disabled={!canResolve}>Resolve</Button>
+            <Button disabled={!canResolve} onClick={handleApiDOMResolve}>
+              Resolve
+            </Button>
             <Button disabled>Dereference</Button>
           </ButtonGroup>
         </Grid>

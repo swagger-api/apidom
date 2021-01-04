@@ -24,14 +24,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install monorepo dependencies
-        run: npm ci
-        working-directory: ./apidom
-      - name: Build monorepo
-        run: npm run build
-        working-directory: ./apidom
-
       - name: Install dependencies
         run: npm ci
         working-directory: ./experiments/apidom-playground
@@ -69,8 +61,6 @@ jobs:
     steps:
       - name: Download math result for job 1
         uses: actions/download-artifact@v2
-        with:
-          name: build
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:

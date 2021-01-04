@@ -19,10 +19,9 @@ const UrlImportDialog = ({ open, onClose }) => {
   };
 
   const handleImport = () => {
-    dispatch(importURL(url)).then(() => {
-      setUrl('');
-      onClose();
-    });
+    dispatch(importURL(url));
+    setUrl('');
+    onClose();
   };
 
   return (

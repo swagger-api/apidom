@@ -24,7 +24,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit({
   },
   methods: {
     canParse(file: IFile): boolean {
-      return file.extension === '.json';
+      return file.mediaType === 'application/json' || file.extension === '.json';
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;

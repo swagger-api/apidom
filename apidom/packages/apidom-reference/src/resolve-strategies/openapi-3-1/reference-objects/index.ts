@@ -103,7 +103,7 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
     const rootReference = Reference({ uri: file.uri, depth: 0, refSet, value: element });
     const passThruOptions = mergeOptions(options, {
       resolve: { baseURI: file.uri },
-      parse: { mediaType: 'application/json' },
+      parse: { mediaType: 'text/plain' }, // let parsers handle things according to file extension only
     });
 
     // manually add root reference

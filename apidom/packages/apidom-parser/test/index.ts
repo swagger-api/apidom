@@ -16,6 +16,6 @@ describe('apidom-parser', function () {
   it('test', async function () {
     const parseResult = await parser.parse(spec);
     console.log(parseResult);
-    console.log(apiDOM.toJSON(namespace, parseResult));
+    console.log(apiDOM.dehydrate(parseResult, namespace));
   });
 });

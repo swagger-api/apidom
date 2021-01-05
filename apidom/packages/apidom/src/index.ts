@@ -1,5 +1,6 @@
-import { NamespacePlugin, Element } from 'minim';
-import { isPlainObject } from 'ramda-adjunct';
+import { has } from 'ramda';
+import { isPlainObject, isString } from 'ramda-adjunct';
+import { NamespacePlugin, Element, Namespace as INamespace } from 'minim';
 
 import { Namespace as ApiDOMNamespace } from './namespace';
 
@@ -56,19 +57,44 @@ export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamesp
   return namespace;
 };
 
-export const toJSON = (namespace: ApiDOMNamespace, element: Element): JSON =>
-  namespace.toRefract(element);
+/**
+ * Transforms data to an Element from a particular namespace.
+ */
+export const from = (data: any, namespace: INamespace): Element => {
+  if (isString(data)) {
+    // JSON serialized refract
+    return namespace.fromRefract(JSON.parse(data));
+  }
+  if (isPlainObject(data) && has('element', data)) {
+    // refract javascript structure
+    return namespace.fromRefract(data);
+  }
+  if (isPlainObject(data)) {
+    // javascript POJO
+    return namespace.toElement(data);
+  }
+  throw new Error('Data was not recognized');
+};
 
-export const toJSONString = (namespace: ApiDOMNamespace, element: Element): string =>
-  JSON.stringify(toJSON(namespace, element));
-
-export const fromJSON = (namespace: ApiDOMNamespace, json: JSON): Element =>
-  namespace.fromRefract(json);
-
-export const fromJSONString = (namespace: ApiDOMNamespace, jsonString: string): Element =>
-  fromJSON(namespace, JSON.parse(jsonString));
-
-// Reconstructs the ApiDOM into JavaScript POJO.
-// This POJO would be  the result of parsing the original
-// JSON string with JSON.parse function.
+/**
+ * Reconstructs the ApiDOM into JavaScript POJO.
+ * This POJO would be  the result of parsing the original
+ * JSON string with JSON.parse function.
+ */
 export const toValue = (element: Element): any => element.toValue();
+
+/**
+ * Create a refract representation of Element.
+ * https://github.com/refractproject/refract-spec
+ */
+export const dehydrate = (element: Element, namespace: INamespace): Record<string, any> => {
+  return namespace.toRefract(element);
+};
+
+/**
+ * Create a string representation of Element.
+ */
+export const toString = (element: Element, namespace: INamespace): string => {
+  const refract = dehydrate(element, namespace);
+  return JSON.stringify(refract);
+};

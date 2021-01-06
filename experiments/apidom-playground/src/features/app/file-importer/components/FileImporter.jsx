@@ -11,10 +11,13 @@ import { setSource } from 'features/app/slice';
 import UrlImportDialog from 'features/app/file-importer/url-import-dialog/components/UrlImportDialog';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  speedDial: {
     position: 'absolute',
     top: theme.spacing(10),
     left: theme.spacing(1),
+  },
+  fileInput: {
+    display: 'none',
   },
 }));
 
@@ -64,7 +67,7 @@ const FileImporter = () => {
   return (
     <>
       <input
-        style={{ display: 'none' }}
+        className={classes.fileInput}
         ref={fileUploadRef}
         onChange={handleFileUpload}
         type="file"
@@ -72,7 +75,7 @@ const FileImporter = () => {
       <UrlImportDialog open={openUrlImportDialog} onClose={handleUrlDialogClose} />
       <SpeedDial
         ariaLabel="Import file"
-        className={classes.root}
+        className={classes.speedDial}
         icon={<SpeedDialIcon openIcon={<DescriptionIcon />} />}
         onClose={handleClose}
         onOpen={handleOpen}

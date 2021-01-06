@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
 
 const ApiDOM = ({ apiDOM }) => {
   const classes = useStyles();
+
   return (
     <Box
       className={classes.root}
@@ -21,7 +22,7 @@ const ApiDOM = ({ apiDOM }) => {
       pt={2}
       borderRadius="borderRadius"
       border={1}
-      height={568}
+      height="100%"
       whiteSpace="pre"
       overflow="auto"
       dangerouslySetInnerHTML={{ __html: apiDOM }}

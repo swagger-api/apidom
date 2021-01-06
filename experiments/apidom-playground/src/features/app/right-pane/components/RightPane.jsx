@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -8,23 +10,32 @@ import { selectApiDOM } from 'features/app/slice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
     margin: theme.spacing(2),
   },
 }));
 
-const RightPane = () => {
+const RightPane = ({ className }) => {
   const classes = useStyles();
   const apiDOM = useSelector(selectApiDOM);
 
   return (
-    <div className={classes.root}>
+    <div className={classNames(classes.root, className)}>
       <ApiDOM apiDOM={apiDOM} />
-      <Box mt={2}>
+      <Box mt={2} mb={0} pt={1}>
         <Console />
       </Box>
     </div>
   );
+};
+
+RightPane.propTypes = {
+  className: PropTypes.string,
+};
+
+RightPane.defaultProps = {
+  className: null,
 };
 
 export default RightPane;

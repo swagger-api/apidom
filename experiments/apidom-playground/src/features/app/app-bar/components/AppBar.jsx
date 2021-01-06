@@ -8,19 +8,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
 }));
 
 const AppBar = () => {
   const classes = useStyles();
 
   return (
-    <MUIAppBar className={classes.root} position="static">
+    <MUIAppBar className={classes.root} position="sticky">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           ApiDOM Playground

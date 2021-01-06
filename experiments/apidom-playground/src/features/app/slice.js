@@ -141,12 +141,11 @@ const appSlice = createSlice({
       return { ...state, isLoading: true };
     },
     [resolveApiDOM.fulfilled]: (state, action) => {
-      const summary = `> Resolved ${action.payload.refs.length} reference(s)\n`;
       const resolvedFiles = action.payload.refs.reduce((acc, ref, index) => {
         return `${acc}>  External reference #${index}: "${ref.uri}"\n`;
-      }, state.console);
+      }, `> Resolved ${action.payload.refs.length} reference(s)\n`);
 
-      return { ...state, console: `${summary}${resolvedFiles}`, isLoading: false };
+      return { ...state, console: `${state.console}${resolvedFiles}`, isLoading: false };
     },
     [resolveApiDOM.rejected]: (state, action) => {
       const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;

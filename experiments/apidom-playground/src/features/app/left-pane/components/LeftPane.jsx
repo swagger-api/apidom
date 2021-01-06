@@ -7,8 +7,13 @@ import EditorControls from 'features/app/left-pane/editor-controls/components/Ed
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
     margin: theme.spacing(2),
+  },
+  editor: {
+    flexGrow: 1,
+    display: 'flex',
   },
 }));
 
@@ -16,8 +21,8 @@ const LeftPane = ({ className }) => {
   const classes = useStyles();
 
   return (
-    <div className={classNames(classes.root, className)}>
-      <Editor />
+    <div className={classNames(className, classes.root)}>
+      <Editor className={classes.editor} />
       <EditorControls />
     </div>
   );

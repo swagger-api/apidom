@@ -14,25 +14,31 @@ import Backdrop from 'features/app/backdrop/components/Backdrop';
 
 const themeInstance = unstable_createMuiStrictModeTheme();
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-  },
-  leftPane: {
-    marginLeft: drawerWidth + theme.spacing(2),
-    maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    paper: {
+      maxHeight: 'calc(100vh - 64px)',
+      display: 'flex',
+      flexDirection: 'row',
+      flexGrow: 1,
+    },
+    leftPane: {
+      flexGrow: 1,
+      flexBasis: '50%',
+      marginLeft: drawerWidth + theme.spacing(2),
+      maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
+    },
+    rightPane: {
+      flexBasis: '50%',
+      maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
+    },
+  };
+});
 
 const App = () => {
   const classes = useStyles();
@@ -43,10 +49,10 @@ const App = () => {
         <Backdrop />
         <AppBar className={classes.appBar} />
         <Drawer />
-        <Paper className={classes.paper} square>
+        <Paper className={classes.paper} component="main" square>
           <LeftPane className={classes.leftPane} />
           <Divider orientation="vertical" flexItem />
-          <RightPane />
+          <RightPane className={classes.rightPane} />
         </Paper>
       </div>
     </ThemeProvider>

@@ -43,7 +43,9 @@ declare module 'minim' {
 
     toRefract(element: Element): JSON;
 
-    fromRefract(doc: JSON): Element;
+    toElement(value: any): Element;
+
+    fromRefract(doc: Record<string, any> | Array<any>): Element;
 
     register(name: string, elementClass: any): Namespace;
 

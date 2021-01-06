@@ -15,6 +15,6 @@ describe('apidom', function () {
   it('test', async function () {
     const parseResult = await parser.parse(spec);
 
-    console.dir(apiDOM.toJSON(namespace, parseResult));
+    console.dir(apiDOM.dehydrate(parseResult, namespace));
   });
 });

@@ -13,6 +13,6 @@ describe('apidom-parser-adapter-json', function () {
 
     const parseResult = await adapter.parse(spec, { sourceMap: true });
     console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
-    // console.log(JSON.stringify(apiDOM.toJSON(adapter.namespace, parseResult), null, null));
+    // console.log(JSON.stringify(apiDOM.toJSON(parseResult, adapter.namespace), null, null));
   });
 });

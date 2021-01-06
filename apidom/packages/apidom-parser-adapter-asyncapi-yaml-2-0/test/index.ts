@@ -13,6 +13,6 @@ describe('apidom-parser-adapter-asyncapi-yaml-2-0', function () {
 
     const parseResult = await adapter.parse(spec, { sourceMap: true });
     console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
-    // console.log(JSON.stringify(apiDOM.toJSON(adapter.namespace, parseResult), null, null));
+    // console.log(JSON.stringify(apiDOM.dehydrate(parseResult, adapter.namespace), null, null));
   });
 });

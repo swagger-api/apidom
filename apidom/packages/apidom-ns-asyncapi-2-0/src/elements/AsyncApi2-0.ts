@@ -8,7 +8,7 @@ import ChannelsElement from './Channels';
 class AsyncApi2_0 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'asyncApi2-0';
+    this.element = 'asyncApi2_0';
     this.classes.push('api');
   }
 

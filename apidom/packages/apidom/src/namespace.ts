@@ -1,11 +1,11 @@
-import minim from 'minim';
+import { Namespace as MinimNamespace } from 'minim';
 
 import ParseResult from './elements/ParseResult';
 import Annotation from './elements/Annotation';
 import SourceMap from './elements/SourceMap';
 import Comment from './elements/Comment';
 
-export class Namespace extends minim.Namespace {
+export class Namespace extends MinimNamespace {
   constructor() {
     super();
 

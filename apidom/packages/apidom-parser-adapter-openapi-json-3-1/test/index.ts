@@ -14,6 +14,6 @@ describe('apidom-parser-adapter-openapi-json-3-1', function () {
 
     const parseResult = await adapter.parse(spec, { sourceMap: true });
     console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
-    // console.log  (JSON.stringify(apiDOM.toJSON(namespace, parseResult), null, null));
+    // console.log  (JSON.stringify(apiDOM.dehydrate(parseResult, namespace), null, null));
   });
 });

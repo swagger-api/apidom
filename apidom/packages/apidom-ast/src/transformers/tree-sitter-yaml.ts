@@ -114,12 +114,12 @@ const Visitor = stampit({
       }
       // key value was not explicitly provided; tag and anchor are missing too
       // @ts-ignore
-      if (node.valueNode === null) {
+      if (node.childCount === 2) {
         return true;
       }
       // key value was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !node.valueNode.children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !node.children[2].children.some(anyPass([isScalar, isSequence, isMapping]));
     };
 
     const createKeyValuePairSurrogateValue = (node: SyntaxNode) => {
@@ -128,7 +128,7 @@ const Visitor = stampit({
         column: node.endPosition.column,
         char: node.endIndex,
       });
-      const children = pathOr([], ['valueNode', 'children'], node);
+      const children = pathOr([], [2, 'children'], node);
       const tagNode: any | undefined = find(isKind('tag'), children);
       const anchorNode: any | undefined = find(isKind('anchor'), children);
       let tag = null;

@@ -7,7 +7,7 @@ import ComponentsElement from './Components';
 class OpenApi3_1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'openApi3-1';
+    this.element = 'openApi3_1';
     this.classes.push('api');
   }
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { toJSON } from 'apidom';
+import { from, dehydrate } from 'apidom';
 import ApiDOMParser from 'apidom-parser';
 import * as jsonAdapter from 'apidom-parser-adapter-json';
 import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
@@ -69,18 +69,18 @@ export const importURL = createAsyncThunk('importURLStatus', async (url) => {
 export const parseSource = createAsyncThunk('parseSourceStatus', async ({ source, mediaType }) => {
   const namespace = parser.namespace(source, { sourceMap: true, mediaType });
   const parseResult = await parser.parse(source, { sourceMap: true, mediaType });
-  const json = toJSON(namespace, parseResult);
+  const refract = dehydrate(parseResult, namespace);
 
-  return JSON.stringify(json, undefined, 2);
+  return JSON.stringify(refract, undefined, 2);
 });
 
 export const resolveApiDOM = createAsyncThunk(
   'resolveApiDOMStatus',
-  async ({ apiDOM, mediaType }) => {
+  async ({ apiDOM, mediaType, baseURI }) => {
     const namespace = parser.namespace('', { mediaType });
-    const parseResult = namespace.fromRefract(apiDOM);
+    const parseResult = from(apiDOM, namespace);
 
-    return resolveApiDOMReferences(parseResult, { parse: { mediaType } });
+    return resolveApiDOMReferences(parseResult, { parse: { mediaType }, resolve: { baseURI } });
   }
 );
 
@@ -139,6 +139,14 @@ const appSlice = createSlice({
     },
     [resolveApiDOM.pending]: (state) => {
       return { ...state, isLoading: true };
+    },
+    [resolveApiDOM.fulfilled]: (state, action) => {
+      const summary = `> Resolved ${action.payload.refs.length} reference(s)\n`;
+      const resolvedFiles = action.payload.refs.reduce((acc, ref, index) => {
+        return `${acc}>  External reference #${index}: "${ref.uri}"\n`;
+      }, state.console);
+
+      return { ...state, console: `${summary}${resolvedFiles}`, isLoading: false };
     },
     [resolveApiDOM.rejected]: (state, action) => {
       const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;

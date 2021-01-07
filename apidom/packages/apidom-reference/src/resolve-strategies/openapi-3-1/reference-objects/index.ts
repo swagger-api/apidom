@@ -93,6 +93,7 @@ const ReferenceObjectsResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit
     return [
       'application/vnd.oai.openapi;version=3.1.0',
       'application/vnd.oai.openapi+json;version=3.1.0',
+      'application/vnd.oai.openapi+yaml;version=3.1.0',
     ].includes(file.mediaType);
   };
 

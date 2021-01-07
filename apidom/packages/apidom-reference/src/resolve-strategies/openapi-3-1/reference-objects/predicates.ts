@@ -1,4 +1,5 @@
 import { startsWith } from 'ramda';
+import { isNonEmptyString } from 'ramda-adjunct';
 import { isStringElement, isObjectElement } from 'apidom';
 import { isReferenceElement } from 'apidom-ns-openapi-3-1';
 
@@ -16,7 +17,9 @@ export const isExternalReferenceElement = (element: any): boolean => {
     return false;
   }
 
-  return !startsWith('#', $refElement.toValue());
+  const value = $refElement.toValue();
+
+  return isNonEmptyString(value) && !startsWith('#', value);
 };
 
 /**

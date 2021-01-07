@@ -256,6 +256,31 @@ describe('resolve-strategies', function () {
           });
         });
       });
+
+      context('given YAML OpenApi 3.1.x document with no external reference', function () {
+        let rootFile: IFile;
+        let refSet: IReferenceSet;
+
+        beforeEach(async function () {
+          const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+          const mediaType = 'application/vnd.oai.openapi+yaml;version=3.1.0';
+          const data = fs.readFileSync(uri);
+          const parseResult = await parse(uri, { parse: { mediaType } });
+
+          rootFile = File({ uri, mediaType, data, parseResult });
+          refSet = await strategy.resolve(rootFile, defaultOptions);
+        });
+
+        specify('should have 1 reference in reference set', async function () {
+          assert.strictEqual(refSet.size, 1);
+        });
+
+        specify('should have root reference set to baseURI', async function () {
+          const { rootRef } = refSet;
+
+          assert.strictEqual(rootRef.uri, rootFile.uri);
+        });
+      });
     });
   });
 });

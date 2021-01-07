@@ -67,7 +67,7 @@ export const importURL = createAsyncThunk('importURLStatus', async (url) => {
 });
 
 export const parseSource = createAsyncThunk('parseSourceStatus', async ({ source, mediaType }) => {
-  const namespace = parser.namespace(source, { sourceMap: true, mediaType });
+  const namespace = parser.findNamespace(source, { sourceMap: true, mediaType });
   const parseResult = await parser.parse(source, { sourceMap: true, mediaType });
   const refract = dehydrate(parseResult, namespace);
 
@@ -76,8 +76,8 @@ export const parseSource = createAsyncThunk('parseSourceStatus', async ({ source
 
 export const resolveApiDOM = createAsyncThunk(
   'resolveApiDOMStatus',
-  async ({ apiDOM, mediaType, baseURI }) => {
-    const namespace = parser.namespace('', { mediaType });
+  async ({ source, apiDOM, mediaType, baseURI }) => {
+    const namespace = parser.findNamespace(source, { mediaType });
     const parseResult = from(apiDOM, namespace);
 
     return resolveApiDOMReferences(parseResult, { parse: { mediaType }, resolve: { baseURI } });

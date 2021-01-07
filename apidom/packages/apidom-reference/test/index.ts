@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import { isParseResultElement } from 'apidom';
 import path from 'path';
 
-import { parse, resolve } from '../src';
+import { parse, resolve, resolveApiDOM } from '../src';
 
 describe('apidom-reference', function () {
   context('parse', function () {
@@ -35,6 +35,21 @@ describe('apidom-reference', function () {
         const refSet = await resolve(uri, options);
 
         assert.strictEqual(refSet.size, 4);
+      });
+    });
+  });
+
+  context('resolveApiDOM', function () {
+    context('given ApiDOM data', function () {
+      specify('should resolve ApiDOM', async function () {
+        const uri = path.join(__dirname, 'fixtures', 'resolve', 'sample-openapi-3-1-api.json');
+        const options = {
+          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+        };
+        const parseResult = await parse(uri, options);
+        const refSet = await resolveApiDOM(parseResult, options);
+
+        assert.strictEqual(refSet.size, 1);
       });
     });
   });

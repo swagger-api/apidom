@@ -78,6 +78,8 @@ describe('resolvers', function () {
 
         specify('should throw on timeout', async function () {
           resolver = HttpResolverAxios({ timeout: 1 });
+          axiosInstance = resolver.getHttpClient();
+          axiosMock = new MockAdapter(resolver.getHttpClient());
           const url = 'https://httpbin.org/anything';
 
           axiosMock.onGet(url).timeout();
@@ -108,7 +110,7 @@ describe('resolvers', function () {
         });
 
         context('given withCredentials option', function () {
-          specify('should allow cross-site Access-Control requests', function (done) {
+          specify('should allow cross-site Access-Control requests', async function () {
             resolver = HttpResolverAxios({ withCredentials: true });
             axiosInstance = resolver.getHttpClient();
             axiosMock = new MockAdapter(axiosInstance);
@@ -116,10 +118,9 @@ describe('resolvers', function () {
 
             axiosMock.onGet(url).reply((config: AxiosRequestConfig) => {
               assert.isTrue(config.withCredentials);
-              done();
-              return [200];
+              return [200, Buffer.from('data')];
             });
-            resolver.read(File({ uri: url }));
+            await resolver.read(File({ uri: url }));
           });
         });
 

@@ -10,14 +10,7 @@ import * as openapi3_1Adapter_Yaml from 'apidom-parser-adapter-openapi-yaml-3-1'
 // @ts-ignore
 import * as asyncapi2_0Adapter_Yaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
 
-// @ts-ignore
-import { ParseResultElement } from 'apidom';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
-
-export interface Parser {
-  parse(source: string, options: ParserOptions): PromiseLike<ParseResultElement>;
-}
 
 export interface ParserOptions {
   sourceMap?: boolean;
@@ -58,7 +51,7 @@ export function isJsonDoc(document: TextDocument | string): boolean {
   return jsonStart != null && JSON_ENDS[jsonStart[0]].test(text);
 }
 
-export function getParser(document: TextDocument): Parser {
+export function getParser(document: TextDocument): ApiDOMParser {
   const async = isAsyncDoc(document);
   const json = isJsonDoc(document);
   if (async && json) {

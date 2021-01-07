@@ -63,7 +63,7 @@ const EditorControls = () => {
     dispatch(parseSource({ source, mediaType }));
   };
   const handleApiDOMResolve = () => {
-    dispatch(resolveApiDOM({ apiDOM, mediaType, baseURI }));
+    dispatch(resolveApiDOM({ source, apiDOM, mediaType, baseURI }));
   };
 
   return (

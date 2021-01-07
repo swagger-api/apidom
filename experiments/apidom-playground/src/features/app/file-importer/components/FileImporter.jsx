@@ -7,7 +7,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import { setSource } from 'features/app/slice';
+import { setSource, setBaseURI } from 'features/app/slice';
 import UrlImportDialog from 'features/app/file-importer/url-import-dialog/components/UrlImportDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +46,7 @@ const FileImporter = () => {
     const reader = new FileReader();
     const onloadend = (onloadendEvent) => {
       const source = onloadendEvent.target.result;
+      dispatch(setBaseURI(window.location.href));
       dispatch(setSource(source));
     };
 

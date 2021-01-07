@@ -230,8 +230,13 @@ describe('apidom-ls', function () {
     // parser.use(asyncapi2_0Adapter);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const parseResult = await parser.parse(value, { sourceMap: true });
-    addMetadataMapping(parseResult.api);
 
-    assert.deepEqual(parseResult.api.meta.get('metadataMap').toValue(), metadataMap);
+    if (parseResult.api !== undefined) {
+      addMetadataMapping(parseResult.api);
+
+      assert.deepEqual(parseResult.api.meta.get('metadataMap').toValue(), metadataMap);
+    } else {
+      assert.fail('parserResult.api should return OpenApi Element');
+    }
   });
 });

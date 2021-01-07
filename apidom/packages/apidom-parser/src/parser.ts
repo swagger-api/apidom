@@ -3,12 +3,12 @@ import { head } from 'ramda';
 import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
 import { ParseResultElement, Namespace } from 'apidom';
 
-interface ParserOptions {
+interface ParserOptions extends Record<string, any> {
   mediaType?: string;
 }
 
 type Detect = (source: string) => boolean;
-type Parse = (source: string, options: ParserOptions) => ParseResultElement;
+type Parse = (source: string, options: ParserOptions) => Promise<ParseResultElement>;
 
 interface ApiDOMParserAdapter {
   detect?: Detect;
@@ -17,7 +17,13 @@ interface ApiDOMParserAdapter {
   namespace: Namespace;
 }
 
-const ApiDOMParser = stampit().init(function ApiDOMParser() {
+interface ApiDOMParser {
+  use(adapter: ApiDOMParserAdapter): ApiDOMParser;
+  findNamespace(source: string, options?: ParserOptions): Namespace;
+  parse(source: string, options?: ParserOptions): Promise<ParseResultElement>;
+}
+
+const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(function ApiDOMParser() {
   const adapters: ApiDOMParserAdapter[] = [];
 
   const detectAdapterCandidates = (source: string) => {
@@ -45,7 +51,7 @@ const ApiDOMParser = stampit().init(function ApiDOMParser() {
     return this;
   };
 
-  this.namespace = function namespace(source: string, options: ParserOptions = {}) {
+  this.findNamespace = function findNamespace(source: string, options: ParserOptions = {}) {
     const adapter = findAdapter(source, options.mediaType);
 
     return adapter?.namespace;

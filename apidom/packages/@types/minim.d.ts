@@ -5,6 +5,7 @@ declare module 'minim' {
   export type Meta = Record<string, any>;
   export type Attributes = Record<string, any>;
   export type Predicate = (element: Element) => boolean;
+  type Callback = (element: Element) => void;
 
   export class Element {
     public element: string;
@@ -18,6 +19,8 @@ declare module 'minim' {
     public children: ArraySlice;
 
     public parent: Element;
+
+    public content: Array<unknown>;
 
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
@@ -86,6 +89,8 @@ declare module 'minim' {
     [Symbol.iterator](): IterableIterator<any>;
 
     get length(): number;
+
+    map(callback: (element: Element) => Element, thisArg?: unknown): Array<Element>;
   }
 
   export class ObjectElement extends ArrayElement {
@@ -98,6 +103,11 @@ declare module 'minim' {
     hasKey(value: string): boolean;
 
     getMember(key: string): MemberElement;
+
+    map(
+      callback: (value: Element, key: Element, member: MemberElement) => MemberElement,
+      thisArg?: unknown,
+    ): Array<MemberElement>;
   }
 
   export class MemberElement extends Element {
@@ -144,6 +154,10 @@ declare module 'minim' {
     filter(predicate: Predicate, thisArg?: unknown): ArraySlice;
 
     reject(predicate: Predicate, thisArg?: unknown): ArraySlice;
+
+    forEach(callback: Callback): void;
+
+    reduce<T>(callback: (acc: T, cur: Element) => T, initialValue: T): ArraySlice;
 
     map(callback: (currentValue: any, index: number) => any, thisArg?: unknown): ArraySlice;
 

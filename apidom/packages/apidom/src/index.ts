@@ -2,7 +2,7 @@ import { has } from 'ramda';
 import { isPlainObject, isString } from 'ramda-adjunct';
 import { NamespacePlugin, Element, Namespace as INamespace } from 'minim';
 
-import { Namespace as ApiDOMNamespace } from './namespace';
+import defaultNamespaceInstance, { Namespace as ApiDOMNamespace } from './namespace';
 
 export {
   Element,
@@ -46,6 +46,7 @@ export {
 export { default as createPredicate } from './predicates/helpers';
 
 export { filter, reject, find, findAtOffset, some, traverse } from './traversal';
+export { transclude, default as Transcluder } from './transcluder';
 
 export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {
   const namespace = new ApiDOMNamespace();
@@ -60,7 +61,7 @@ export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamesp
 /**
  * Transforms data to an Element from a particular namespace.
  */
-export const from = (data: any, namespace: INamespace): Element => {
+export const from = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
   if (isString(data)) {
     // JSON serialized refract
     return namespace.fromRefract(JSON.parse(data));
@@ -69,11 +70,8 @@ export const from = (data: any, namespace: INamespace): Element => {
     // refract javascript structure
     return namespace.fromRefract(data);
   }
-  if (isPlainObject(data)) {
-    // javascript POJO
-    return namespace.toElement(data);
-  }
-  throw new Error('Data was not recognized');
+
+  return namespace.toElement(data);
 };
 
 /**
@@ -87,14 +85,20 @@ export const toValue = (element: Element): any => element.toValue();
  * Create a refract representation of Element.
  * https://github.com/refractproject/refract-spec
  */
-export const dehydrate = (element: Element, namespace: INamespace): Record<string, any> => {
+export const dehydrate = (
+  element: Element,
+  namespace: INamespace = defaultNamespaceInstance,
+): Record<string, any> => {
   return namespace.toRefract(element);
 };
 
 /**
  * Create a string representation of Element.
  */
-export const toString = (element: Element, namespace: INamespace): string => {
+export const toString = (
+  element: Element,
+  namespace: INamespace = defaultNamespaceInstance,
+): string => {
   const refract = dehydrate(element, namespace);
   return JSON.stringify(refract);
 };

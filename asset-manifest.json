@@ -5,20 +5,20 @@
     "main.js.map": "./static/js/main.c1d21f8b.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.06fbfed1.js",
     "runtime-main.js.map": "./static/js/runtime-main.06fbfed1.js.map",
-    "static/js/2.921bebc0.chunk.js": "./static/js/2.921bebc0.chunk.js",
-    "static/js/2.921bebc0.chunk.js.map": "./static/js/2.921bebc0.chunk.js.map",
+    "static/js/2.eb64c665.chunk.js": "./static/js/2.eb64c665.chunk.js",
+    "static/js/2.eb64c665.chunk.js.map": "./static/js/2.eb64c665.chunk.js.map",
     "static/js/3.203418a1.chunk.js": "./static/js/3.203418a1.chunk.js",
     "static/js/3.203418a1.chunk.js.map": "./static/js/3.203418a1.chunk.js.map",
-    "tree-sitter-json.wasm": "./41b1b8a55e95121e9249b4b64597e79c.wasm",
-    "tree-sitter-yaml.wasm": "./dddac97a535f47209c7c355526ff75eb.wasm",
-    "tree-sitter.wasm": "./fe67680660b99177da87dcdde447d501.wasm",
+    "tree-sitter.wasm": "./442b2eef0bcf2f31cd44ae2c04d0560f.wasm",
+    "tree-sitter-json.wasm": "./61266c7f25833aadcfe9cc3e6ec1c050.wasm",
+    "tree-sitter-yaml.wasm": "./d431ffcf616a14f025b7bb00acce9779.wasm",
     "index.html": "./index.html",
     "static/css/main.ac35c5f8.chunk.css.map": "./static/css/main.ac35c5f8.chunk.css.map",
-    "static/js/2.921bebc0.chunk.js.LICENSE.txt": "./static/js/2.921bebc0.chunk.js.LICENSE.txt"
+    "static/js/2.eb64c665.chunk.js.LICENSE.txt": "./static/js/2.eb64c665.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.06fbfed1.js",
-    "static/js/2.921bebc0.chunk.js",
+    "static/js/2.eb64c665.chunk.js",
     "static/css/main.ac35c5f8.chunk.css",
     "static/js/main.c1d21f8b.chunk.js"
   ]

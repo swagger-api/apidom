@@ -63,7 +63,9 @@ declare module 'minim' {
     namespace(options: NamespacePluginOptions): Namespace;
   }
 
-  export class StringElement extends Element {}
+  export class StringElement extends Element {
+    constructor(content?: string, meta?: Meta, attributes?: Attributes);
+  }
 
   export class NumberElement extends Element {}
 
@@ -78,7 +80,7 @@ declare module 'minim' {
 
     second: Element | undefined;
 
-    get(index: number): any;
+    get(index: string | number): any;
 
     filter(predicate: Predicate): ArraySlice;
 
@@ -95,8 +97,6 @@ declare module 'minim' {
 
   export class ObjectElement extends ArrayElement {
     constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
-
-    get(key: string | number): any;
 
     set(key: string | StringElement, value: any): void;
 

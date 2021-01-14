@@ -1,8 +1,9 @@
 import { split, replace, tail, startsWith, map, pipe, includes } from 'ramda';
-import { isEmptyString, trimCharsStart } from 'ramda-adjunct';
+import { isEmptyString, trimCharsStart, isInteger } from 'ramda-adjunct';
+import { Element, isObjectElement, isArrayElement, ObjectElement, ArrayElement } from 'apidom';
 
 import { getHash } from '../../util/url';
-import { InvalidJsonPointerError } from './errors';
+import { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';
 
 // escape :: String -> String
 export const escape = pipe(replace(/~/g, '~0'), replace(/\//g, '~1'), encodeURIComponent);
@@ -46,4 +47,28 @@ export const join = (uri: string, tokens: string[]): string => {
   const pointer = compile(tokens);
 
   return `${uriWithHash}${pointer}`;
+};
+
+// evaluates JSON Pointer against ApiDOM fragment
+export const evaluate = (pointer: string, element: ObjectElement | ArrayElement): Element => {
+  const tokens = parse(pointer);
+
+  return tokens.reduce((acc, token) => {
+    if (isObjectElement(acc)) {
+      // @ts-ignore
+      if (!acc.hasKey(token)) {
+        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+      }
+      return acc.get(token);
+    }
+
+    if (isArrayElement(acc)) {
+      if (!(token in acc.content) || !isInteger(Number(token))) {
+        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+      }
+      return acc.get(Number(token));
+    }
+
+    throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+  }, element);
 };

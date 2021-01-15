@@ -24,9 +24,9 @@ export const CallbackVisitor = stampit(PredicateVisitor, {
     enter(element: Element): undefined {
       if (this.predicate(element)) {
         this.callback(element);
-        return this.return;
+        return this.returnOnTrue;
       }
-      return undefined;
+      return this.returnOnFalse;
     },
   },
 });

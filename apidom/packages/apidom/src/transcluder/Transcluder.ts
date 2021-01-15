@@ -13,7 +13,11 @@ const computeEdges = (element: Element, edges = new WeakMap()): WeakMap<Element,
     // @ts-ignore
     edges.set(element.key, element);
     // @ts-ignore
+    computeEdges(element.key, edges);
+    // @ts-ignore
     edges.set(element.value, element);
+    // @ts-ignore
+    computeEdges(element.value, edges);
   } else {
     element.children.forEach((childElement: Element): void => {
       edges.set(childElement, element);

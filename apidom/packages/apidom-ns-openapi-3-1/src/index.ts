@@ -29,6 +29,8 @@ export {
   isReferenceElement,
 } from './predicates';
 
+export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
+
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
 export { default as InfoElement } from './elements/Info';

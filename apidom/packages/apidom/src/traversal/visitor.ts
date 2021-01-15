@@ -17,7 +17,7 @@ import {
 export { BREAK } from 'apidom-ast';
 
 // getNodeType :: Node -> String
-const getNodeType = <T extends Element>(element: T): string | undefined => {
+export const getNodeType = <T extends Element>(element: T): string | undefined => {
   /*
    * We're translating every possible higher element type to primitive minim type here.
    * This allows us keep key mapping to minimum.
@@ -44,7 +44,7 @@ const getNodeType = <T extends Element>(element: T): string | undefined => {
 // isNode :: Node -> Boolean
 const isNode = curryN(1, pipe(getNodeType, isString));
 
-const keyMapDefault = {
+export const keyMapDefault = {
   object: ['content'],
   array: ['content'],
   member: ['key', 'value'],
@@ -88,11 +88,11 @@ export const visit = (root: Element, visitor, { keyMap = keyMapDefault, ...rest 
 
   // @ts-ignore
   return astVisit(root, visitor, {
-    ...rest,
     // @ts-ignore
     keyMap: effectiveKeyMap,
     // @ts-ignore
     nodeTypeGetter: getNodeType,
     nodePredicate: isNode,
+    ...rest,
   });
 };

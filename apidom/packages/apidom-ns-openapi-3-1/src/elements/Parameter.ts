@@ -24,14 +24,6 @@ class Parameter extends ObjectElement {
     this.set('in', val);
   }
 
-  get description(): StringElement {
-    return this.get('description');
-  }
-
-  set description(description: StringElement) {
-    this.set('description', description);
-  }
-
   get required(): BooleanElement {
     return this.get('required');
   }
@@ -112,5 +104,15 @@ class Parameter extends ObjectElement {
     this.set('content', content);
   }
 }
+
+Object.defineProperty(Parameter.prototype, 'description', {
+  get(): StringElement {
+    return this.get('description');
+  },
+  set(description: StringElement) {
+    this.set('description', description);
+  },
+  enumerable: true,
+});
 
 export default Parameter;

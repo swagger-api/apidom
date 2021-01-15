@@ -12,6 +12,7 @@ describe('traversal', function () {
       let callback;
 
       beforeEach(function () {
+        // @ts-ignore
         objElement = new namespace.elements.Object({ a: 'b', c: 'd' });
         callback = sinon.spy();
       });
@@ -95,6 +96,7 @@ describe('traversal', function () {
       let callback;
 
       beforeEach(function () {
+        // @ts-ignore
         arrayElement = new namespace.elements.Array(['a', 'b']);
         callback = sinon.spy();
       });

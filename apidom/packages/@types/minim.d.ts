@@ -33,6 +33,8 @@ declare module 'minim' {
     setMetaProperty(name: string, value: any): void;
 
     freeze(): void;
+
+    clone(): Element;
   }
 
   interface Type<T> extends Element {

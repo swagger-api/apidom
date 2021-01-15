@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+     "parameters": {
+      "userId": {
+        "$ref": "#/components/parameters/indirection",
+        "description": "override"
+      },
+      "indirection": {
+        "$ref": "#/components/parameters/userIdRef",
+        "summary": "indirect summary"
+      },
+      "userIdRef": {
+        "name": "userId",
+        "in": "query",
+        "description": "ID of the user",
+        "required": true
+      },
+      "ref": {
+        "$ref": "#/components/parameters/userIdRef",
+        "description": "another ref"
+      }
+    }
+  }
+}

@@ -275,4 +275,151 @@ export const visit = (
   return newRoot;
 };
 
+/**
+ * Asynchronous version of visit.
+ */
+// @ts-ignore
+visit[Symbol.for('nodejs.util.promisify.custom')] = async (
+  // @ts-ignore
+  root,
+  // @ts-ignore
+  visitor,
+  {
+    keyMap = null,
+    state = {},
+    breakSymbol = BREAK,
+    visitFnGetter = getVisitFn,
+    nodeTypeGetter = getNodeType,
+    nodePredicate = isNode,
+  } = {},
+) => {
+  const visitorKeys = keyMap || {};
+
+  let stack;
+  let inArray = Array.isArray(root);
+  let keys = [root];
+  let index = -1;
+  let parent;
+  let edits = [];
+  const path = [];
+  // @ts-ignore
+  const ancestors = [];
+  let newRoot = root;
+
+  do {
+    index += 1;
+    const isLeaving = index === keys.length;
+    let key;
+    let node;
+    const isEdited = isLeaving && edits.length !== 0;
+    if (isLeaving) {
+      key = ancestors.length === 0 ? undefined : path.pop();
+      node = parent;
+      // @ts-ignore
+      parent = ancestors.pop();
+      if (isEdited) {
+        if (inArray) {
+          // @ts-ignore
+          node = node.slice();
+        } else {
+          // creating clone
+          node = Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
+        }
+        let editOffset = 0;
+        for (let ii = 0; ii < edits.length; ii += 1) {
+          let editKey = edits[ii][0];
+          const editValue = edits[ii][1];
+          if (inArray) {
+            editKey -= editOffset;
+          }
+          if (inArray && editValue === null) {
+            node.splice(editKey, 1);
+            editOffset += 1;
+          } else {
+            node[editKey] = editValue;
+          }
+        }
+      }
+      index = stack.index;
+      keys = stack.keys;
+      // @ts-ignore
+      edits = stack.edits;
+      // @ts-ignore
+      inArray = stack.inArray;
+      // @ts-ignore
+      stack = stack.prev;
+    } else {
+      key = parent ? (inArray ? index : keys[index]) : undefined;
+      node = parent ? parent[key] : newRoot;
+      if (node === null || node === undefined) {
+        continue;
+      }
+      if (parent) {
+        path.push(key);
+      }
+    }
+
+    let result;
+    if (!Array.isArray(node)) {
+      if (!nodePredicate(node)) {
+        throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
+      }
+      const visitFn = visitFnGetter(visitor, nodeTypeGetter(node), isLeaving);
+      if (visitFn) {
+        // assign state
+        for (const [stateKey, stateValue] of Object.entries(state)) {
+          visitor[stateKey] = stateValue;
+        }
+
+        // eslint-disable-next-line no-await-in-loop
+        result = await visitFn.call(visitor, node, key, parent, path, ancestors);
+
+        if (result === breakSymbol) {
+          break;
+        }
+
+        if (result === false) {
+          if (!isLeaving) {
+            path.pop();
+            continue;
+          }
+        } else if (result !== undefined) {
+          edits.push([key, result]);
+          if (!isLeaving) {
+            if (nodePredicate(result)) {
+              node = result;
+            } else {
+              path.pop();
+              continue;
+            }
+          }
+        }
+      }
+    }
+
+    if (result === undefined && isEdited) {
+      edits.push([key, node]);
+    }
+
+    if (!isLeaving) {
+      stack = { inArray, index, keys, edits, prev: stack };
+      inArray = Array.isArray(node);
+      // @ts-ignore
+      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] || [];
+      index = -1;
+      edits = [];
+      if (parent) {
+        ancestors.push(parent);
+      }
+      parent = node;
+    }
+  } while (stack !== undefined);
+
+  if (edits.length !== 0) {
+    [, newRoot] = edits[edits.length - 1];
+  }
+
+  return newRoot;
+};
+
 /* eslint-enable */

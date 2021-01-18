@@ -5,10 +5,13 @@ import stampit from 'stampit';
 import { hasIn } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { transclude, toValue } from 'apidom';
-import { visit, isReferenceElement } from 'apidom-ns-openapi-3-1';
+import { visit } from 'apidom-ns-openapi-3-1';
 // @ts-ignore
 import { parse } from 'apidom-parser-adapter-openapi-json-3-1';
 import { evaluate, uriToPointer } from '../src/selectors/json-pointer';
+
+// @ts-ignore
+const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 const DereferenceVisitor = stampit({
   props: {
@@ -31,17 +34,19 @@ const DereferenceVisitor = stampit({
         throw new Error('Recursive JSON Pointer detected');
       }
 
-      // follow the reference
-      if (isReferenceElement(fragment)) {
-        const innerReference = fragment;
-        const visitor = DereferenceVisitor({
-          element: this.element,
-          indirections: [...this.indirections, innerReference],
-        });
-        visit(innerReference, visitor);
+      // dive deep into the fragment
+      const visitor = DereferenceVisitor({
+        element: this.element,
+        indirections: [...this.indirections, fragment],
+      });
+      visitAsync(fragment, visitor);
 
-        fragment = evaluate(jsonPointer, this.element);
-      }
+      /**
+       * Re-evaluate the JSON Pointer against the fragment as the fragment could
+       * have been another reference and the previous deep dive into fragment
+       * dereferenced it.
+       */
+      fragment = evaluate(jsonPointer, this.element);
 
       // override description and summary (outer has higher priority then inner)
       const hasDescription = isNotUndefined(element.description);
@@ -59,6 +64,7 @@ const DereferenceVisitor = stampit({
         }
       }
 
+      // transclude the element for a fragment
       this.element = transclude(element, fragment, this.element);
       this.indirections.pop();
     },
@@ -73,7 +79,7 @@ describe('dereference', function () {
     const { api } = parseResult;
 
     const visitor = DereferenceVisitor({ element: api });
-    visit(api, visitor);
+    await visitAsync(api, visitor);
 
     console.log(util.inspect(toValue(api), true, null, true));
   });

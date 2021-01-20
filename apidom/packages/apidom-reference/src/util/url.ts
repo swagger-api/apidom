@@ -38,8 +38,8 @@ export const getExtension = (url: string): string => {
  * Determines whether the given path is a filesystem path.
  * This includes "file://" URLs.
  */
-export const isFileSystemPath = (url: string): boolean => {
-  const protocol = getProtocol(url);
+export const isFileSystemPath = (uri: string): boolean => {
+  const protocol = getProtocol(uri);
   return isUndefined(protocol) || protocol === 'file';
 };
 

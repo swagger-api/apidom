@@ -16,8 +16,8 @@
         "description": "ID of the user",
         "required": true
       },
-      "ref": {
-        "$ref": "#/components/parameters/userIdRef",
+      "externalRef": {
+        "$ref": "./external-reference-objects.json",
         "description": "another ref"
       }
     }

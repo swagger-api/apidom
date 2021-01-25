@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import ApiDOM from 'features/app/right-pane/apidom/components/ApiDOM';
 import Console from 'features/app/right-pane/console/components/Console';
-import { selectApiDOM } from 'features/app/slice';
+import { selectApiDOMInterpretation } from 'features/app/slice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RightPane = ({ className }) => {
   const classes = useStyles();
-  const apiDOM = useSelector(selectApiDOM);
+  const apiDOM = useSelector(selectApiDOMInterpretation);
 
   return (
     <div className={classNames(classes.root, className)}>

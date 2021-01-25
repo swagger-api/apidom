@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import BlockIcon from '@material-ui/icons/Block';
+import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import { selectConsole, clearConsole } from 'features/app/slice';
 
@@ -53,14 +54,16 @@ const Console = () => {
           shrink: true,
         }}
       />
-      <IconButton
-        aria-label="Clear console"
-        size="small"
-        className={classes.cleanButton}
-        onClick={handleClearConsole}
-      >
-        <BlockIcon />
-      </IconButton>
+      <Tooltip title="Clear console">
+        <IconButton
+          aria-label="Clear console"
+          size="small"
+          className={classes.cleanButton}
+          onClick={handleClearConsole}
+        >
+          <BlockIcon />
+        </IconButton>
+      </Tooltip>
     </>
   );
 };

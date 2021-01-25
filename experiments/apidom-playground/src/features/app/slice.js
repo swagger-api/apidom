@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import { isNonEmptyString } from 'ramda-adjunct';
-import { from, dehydrate } from 'apidom';
+import { isNonEmptyString, isEmptyString } from 'ramda-adjunct';
+import { from, dehydrate, traverse } from 'apidom';
 import ApiDOMParser from 'apidom-parser';
 import * as jsonAdapter from 'apidom-parser-adapter-json';
 import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
@@ -26,6 +26,7 @@ const initialState = {
   baseURI: '',
   mediaType: '',
   console: '',
+  interpreter: '',
   isLoading: false,
 };
 
@@ -43,7 +44,49 @@ export const selectMediaType = (state) => state.mediaType;
 
 export const selectConsole = (state) => state.console;
 
+export const selectInterpreter = (state) => state.interpreter;
+
 export const selectIsLoading = (state) => state.isLoading;
+
+export const selectApiDOMInstance = createSelector(
+  selectSource,
+  selectApiDOM,
+  selectMediaType,
+  (source, apiDOM, mediaType) => {
+    if (isEmptyString(source) || isEmptyString(apiDOM) || isEmptyString(mediaType)) {
+      return null;
+    }
+    try {
+      const namespace = parser.findNamespace(source, { mediaType });
+      return from(apiDOM, namespace);
+    } catch (e) {
+      return null;
+    }
+  }
+);
+
+export const selectApiDOMInterpretation = createSelector(
+  selectApiDOMInstance,
+  selectApiDOM,
+  selectInterpreter,
+
+  (element, apiDOM, interpreter) => {
+    if (element === null || isEmptyString(interpreter)) {
+      return apiDOM;
+    }
+
+    try {
+      const callback = eval(interpreter); // eslint-disable-line no-eval
+      let result = '';
+      traverse((el) => {
+        result += callback(el);
+      }, element);
+      return result;
+    } catch (e) {
+      return apiDOM;
+    }
+  }
+);
 
 export const selectCanParse = createSelector(selectSource, selectMediaType, (source, mediaType) => {
   return isNonEmptyString(source) && isNonEmptyString(mediaType);
@@ -107,6 +150,9 @@ const appSlice = createSlice({
     clearConsole(state) {
       return { ...state, console: '' };
     },
+    setInterpreter(state, action) {
+      return { ...state, interpreter: action.payload };
+    },
   },
   extraReducers: {
     [importURL.pending]: (state) => {
@@ -155,5 +201,12 @@ const appSlice = createSlice({
   },
 });
 
-export const { setSource, setApiDOM, setBaseURI, setMediaType, clearConsole } = appSlice.actions;
+export const {
+  setSource,
+  setApiDOM,
+  setBaseURI,
+  setMediaType,
+  setInterpreter,
+  clearConsole,
+} = appSlice.actions;
 export default appSlice.reducer;

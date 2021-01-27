@@ -1,12 +1,13 @@
 import stampit from 'stampit';
 
-import YamlNode from './YamlNode';
-import { YamlStyle } from './YamlStyle';
+import YamlNode from '../YamlNode';
+import { YamlStyle } from '../YamlStyle';
+import { formatFlowPlain, formatFlowSingleQuoted, formatFlowDoubleQuoted } from './formats';
 
 interface YamlScalar extends YamlNode {
   type: 'scalar';
   format: string | null;
-  text: string | null;
+  text: string;
   readonly content: string | null;
 }
 
@@ -15,19 +16,27 @@ const YamlScalar: stampit.Stamp<YamlScalar> = stampit(YamlNode, {
     type: 'scalar',
   },
   props: {
-    text: null,
+    text: '',
   },
-  init({ text = null, format = null } = {}) {
+  init({ text } = {}) {
     this.text = text;
-    this.format = format;
   },
   methods: {
     // @ts-ignore
     get content() {
+      if (this.style === YamlStyle.Plain) {
+        // @ts-ignore
+        return formatFlowPlain(this);
+      }
       if (this.style === YamlStyle.SingleQuoted) {
         // @ts-ignore
-        return this.text.replace(/^'/, '').replace(/'$/, '');
+        return formatFlowSingleQuoted(this);
       }
+      if (this.style === YamlStyle.DoubleQuoted) {
+        // @ts-ignore
+        return formatFlowDoubleQuoted(this);
+      }
+
       // @ts-ignore
       return this.text;
     },

@@ -1,0 +1,3 @@
+Several lines of text, containing "double quotes". Escapes (like \n) work.
+In addition, newlines can be escaped to prevent them from being converted to a space.
+Newlines can also be added by leaving a blank line. Leading whitespace on lines is ignored.

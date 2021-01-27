@@ -13,7 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { setInterpreter, selectInterpreter } from 'features/app/slice';
+import { interpretApiDOM, selectInterpreter } from 'features/app/slice';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -36,7 +36,7 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
   const interpreter = useSelector(selectInterpreter);
 
   const handleInterpret = () => {
-    dispatch(setInterpreter(inputRef.current.value));
+    dispatch(interpretApiDOM(inputRef.current.value));
     onClose();
   };
 

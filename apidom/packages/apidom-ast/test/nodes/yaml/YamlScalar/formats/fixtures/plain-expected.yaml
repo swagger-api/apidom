@@ -1,0 +1,2 @@
+Several lines of text, with some "quotes" of various 'types'. Escapes (like \n) don't do anything.
+Newlines can be added by leaving a blank line. Additional leading whitespace is ignored.

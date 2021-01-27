@@ -468,7 +468,7 @@ const Visitor = stampit({
           : null;
 
         return YamlScalar({
-          content: node.text,
+          text: node.text,
           anchor,
           tag,
           position,

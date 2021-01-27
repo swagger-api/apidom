@@ -56,12 +56,9 @@ export const selectApiDOMInstance = createSelector(
     if (isEmptyString(source) || isEmptyString(apiDOM) || isEmptyString(mediaType)) {
       return null;
     }
-    try {
-      const namespace = parser.findNamespace(source, { mediaType });
-      return from(apiDOM, namespace);
-    } catch (e) {
-      return null;
-    }
+
+    const namespace = parser.findNamespace(source, { mediaType });
+    return from(apiDOM, namespace);
   }
 );
 
@@ -75,16 +72,13 @@ export const selectApiDOMInterpretation = createSelector(
       return apiDOM;
     }
 
-    try {
-      const callback = eval(interpreter); // eslint-disable-line no-eval
-      let result = '';
-      traverse((el) => {
-        result += callback(el);
-      }, element);
-      return result;
-    } catch (e) {
-      return apiDOM;
-    }
+    const callback = eval(interpreter); // eslint-disable-line no-eval
+    let result = '';
+    traverse((el) => {
+      result += callback(el);
+    }, element);
+
+    return result;
   }
 );
 
@@ -127,6 +121,11 @@ export const resolveApiDOM = createAsyncThunk(
   }
 );
 
+export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (interpreter) => {
+  eval(interpreter); // eslint-disable-line no-eval
+  return interpreter;
+});
+
 /**
  * Slice.
  */
@@ -149,9 +148,6 @@ const appSlice = createSlice({
     },
     clearConsole(state) {
       return { ...state, console: '' };
-    },
-    setInterpreter(state, action) {
-      return { ...state, interpreter: action.payload };
     },
   },
   extraReducers: {
@@ -198,15 +194,16 @@ const appSlice = createSlice({
 
       return { ...state, isLoading: false, console: consoleLines };
     },
+    [interpretApiDOM.fulfilled]: (state, action) => {
+      return { ...state, interpreter: action.payload };
+    },
+    [interpretApiDOM.rejected]: (state, action) => {
+      const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
+
+      return { ...state, console: consoleLines };
+    },
   },
 });
 
-export const {
-  setSource,
-  setApiDOM,
-  setBaseURI,
-  setMediaType,
-  setInterpreter,
-  clearConsole,
-} = appSlice.actions;
+export const { setSource, setApiDOM, setBaseURI, setMediaType, clearConsole } = appSlice.actions;
 export default appSlice.reducer;

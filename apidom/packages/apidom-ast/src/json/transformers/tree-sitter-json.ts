@@ -3,23 +3,23 @@ import { tail } from 'ramda';
 import { isFalse, isFunction } from 'ramda-adjunct';
 import { Tree, SyntaxNode } from 'tree-sitter';
 
-import JsonArray from '../nodes/json/JsonArray';
-import JsonDocument from '../nodes/json/JsonDocument';
-import JsonFalse from '../nodes/json/JsonFalse';
-import JsonNull from '../nodes/json/JsonNull';
-import JsonNumber from '../nodes/json/JsonNumber';
-import JsonObject from '../nodes/json/JsonObject';
-import JsonKey from '../nodes/json/JsonKey';
-import JsonProperty from '../nodes/json/JsonProperty';
-import JsonString from '../nodes/json/JsonString';
-import JsonStringContent from '../nodes/json/JsonStringContent';
-import JsonEscapeSequence from '../nodes/json/JsonEscapeSequence';
-import JsonTrue from '../nodes/json/JsonTrue';
-import ParseResult from '../ParseResult';
-import Position, { Point } from '../Position';
-import Literal from '../Literal';
-import Error from '../Error';
-import { visit } from '../visitor';
+import JsonArray from '../nodes/JsonArray';
+import JsonDocument from '../nodes/JsonDocument';
+import JsonFalse from '../nodes/JsonFalse';
+import JsonNull from '../nodes/JsonNull';
+import JsonNumber from '../nodes/JsonNumber';
+import JsonObject from '../nodes/JsonObject';
+import JsonKey from '../nodes/JsonKey';
+import JsonProperty from '../nodes/JsonProperty';
+import JsonString from '../nodes/JsonString';
+import JsonStringContent from '../nodes/JsonStringContent';
+import JsonEscapeSequence from '../nodes/JsonEscapeSequence';
+import JsonTrue from '../nodes/JsonTrue';
+import ParseResult from '../../ParseResult';
+import Position, { Point } from '../../Position';
+import Literal from '../../Literal';
+import Error from '../../Error';
+import { visit } from '../../visitor';
 
 export const keyMap = {
   document: ['children'],

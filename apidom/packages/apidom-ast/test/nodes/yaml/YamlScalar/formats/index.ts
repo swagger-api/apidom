@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { assert } from 'chai';
 
-import YamlScalar from '../../../../../src/nodes/yaml/YamlScalar';
-import { YamlStyle, YamlStyleGroup } from '../../../../../src/nodes/yaml/YamlStyle';
+import YamlScalar from '../../../../../src/yaml/nodes/YamlScalar';
+import { YamlStyle, YamlStyleGroup } from '../../../../../src/yaml/nodes/YamlStyle';
 
 const plainPath = path.join(__dirname, 'fixtures', 'plain.yaml');
 const plainExpectedPath = path.join(__dirname, 'fixtures', 'plain-expected.yaml');

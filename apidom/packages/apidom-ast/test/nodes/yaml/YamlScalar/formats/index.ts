@@ -23,11 +23,35 @@ const literalStripExpectedPath = path.join(__dirname, 'fixtures', 'literal-strip
 const literalClipPath = path.join(__dirname, 'fixtures', 'literal-clip.yaml');
 const literalClipExpectedPath = path.join(__dirname, 'fixtures', 'literal-clip-expected.yaml');
 
-const literalIndentationIndicatorPath = path.join(__dirname, 'fixtures', 'literal-clip.yaml');
+const literalIndentationIndicatorPath = path.join(
+  __dirname,
+  'fixtures',
+  'literal-indentation-indicator.yaml',
+);
 const literalIndentationIndicatorExpectedPath = path.join(
   __dirname,
   'fixtures',
-  'literal-clip-expected.yaml',
+  'literal-indentation-indicator-expected.yaml',
+);
+
+const foldedKeepPath = path.join(__dirname, 'fixtures', 'folded-keep.yaml');
+const foldedKeepExpectedPath = path.join(__dirname, 'fixtures', 'folded-keep-expected.yaml');
+
+const foldedStripPath = path.join(__dirname, 'fixtures', 'folded-strip.yaml');
+const foldedStripExpectedPath = path.join(__dirname, 'fixtures', 'folded-strip-expected.yaml');
+
+const foldedClipPath = path.join(__dirname, 'fixtures', 'folded-clip.yaml');
+const foldedClipExpectedPath = path.join(__dirname, 'fixtures', 'folded-clip-expected.yaml');
+
+const foldedIndentationIndicatorPath = path.join(
+  __dirname,
+  'fixtures',
+  'folded-indentation-indicator.yaml',
+);
+const foldedIndentationIndicatorExpectedPath = path.join(
+  __dirname,
+  'fixtures',
+  'folded-indentation-indicator-expected.yaml',
 );
 
 describe('nodes', function () {
@@ -117,6 +141,52 @@ describe('nodes', function () {
               text,
             });
             const expected = fs.readFileSync(literalIndentationIndicatorExpectedPath).toString();
+            assert.strictEqual(scalar.content, expected);
+          });
+        });
+
+        context('formatBlockFolded', function () {
+          specify('should format folded + keep', function () {
+            const text = fs.readFileSync(foldedKeepPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Folded,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(foldedKeepExpectedPath).toString();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format folded + strip', function () {
+            const text = fs.readFileSync(foldedStripPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Folded,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(foldedStripExpectedPath).toString().trimRight();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format folded + clip', function () {
+            const text = fs.readFileSync(foldedClipPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Folded,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(foldedClipExpectedPath).toString();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format folded + clip + indentation indicator', function () {
+            const text = fs.readFileSync(foldedIndentationIndicatorPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Folded,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(foldedIndentationIndicatorExpectedPath).toString();
             assert.strictEqual(scalar.content, expected);
           });
         });

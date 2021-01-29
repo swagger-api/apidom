@@ -2,12 +2,9 @@ import {
   tail,
   compose,
   pathOr,
-  __,
   map,
   concat,
   transduce,
-  ifElse,
-  always,
   prop,
   pipe,
   trim,
@@ -86,7 +83,9 @@ const preventNlCollapseToSpace = (val: string) => val.replace(/\\\n\s*/g, '');
 
 // collapse newlines into spaces
 const collapseNlToSpace = (val: string) =>
-  val.replace(/\n([^\n]+)/g, (match: string, p1: string) => ` ${p1.trimLeft()}`);
+  val
+    .replace(/(?<![\n]+)\n([^\n]+)/g, (match: string, p1: string) => ` ${p1.trimLeft()}`)
+    .replace(/[\n]{2}/g, '\n');
 
 const removeQuotes = curry((quoteType, val) =>
   val.replace(new RegExp(`^${quoteType}`), '').replace(new RegExp(`${quoteType}$`), ''),
@@ -149,9 +148,9 @@ export const formatBlockLiteral = (scalarNode: any): string => {
   const lines = tail(scalarNode.text.split('\n')); // first line only contains indicators
   const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
-  const formatted: string = transduce(transducer, concat, '', lines);
+  const deindented: string = transduce(transducer, concat, '', lines);
 
-  return chomp(chompingIndicator, formatted);
+  return chomp(chompingIndicator, deindented);
 };
 
 /**
@@ -162,14 +161,10 @@ export const formatBlockFolded = (scalarNode: any): string => {
   const indentation = getIndentation(scalarNode);
   const chompingIndicator = getChompingIndicator(scalarNode);
   const lines = tail(scalarNode.text.split('\n')); // first line only contains indicators
+  const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
-  const transducer = compose(
-    map(trimCharsStart(indentation)),
-    // @ts-ignore
-    map(ifElse(isEmptyString, always('\n'), concat(__, ' '))),
-  );
-  // @ts-ignore
-  const formatted: string = transduce(transducer, concat, '', lines);
+  const deindented: string = transduce(transducer, concat, '', lines);
+  const collapsed = collapseNlToSpace(deindented);
 
-  return chomp(chompingIndicator, formatted);
+  return chomp(chompingIndicator, collapsed);
 };

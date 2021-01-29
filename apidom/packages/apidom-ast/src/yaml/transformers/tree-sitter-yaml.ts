@@ -14,22 +14,22 @@ import {
 import { isArray, isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
-import YamlDirective from '../nodes/yaml/YamlDirective';
-import YamlStream from '../nodes/yaml/YamlStream';
-import YamlDocument from '../nodes/yaml/YamlDocument';
-import YamlSequence from '../nodes/yaml/YamlSequence';
-import YamlMapping from '../nodes/yaml/YamlMapping';
-import YamlKeyValuePair from '../nodes/yaml/YamlKeyValuePair';
-import YamlTag, { YamlNodeKind } from '../nodes/yaml/YamlTag';
-import YamlAnchor from '../nodes/yaml/YamlAnchor';
-import YamlScalar from '../nodes/yaml/YamlScalar';
-import YamlComment from '../nodes/yaml/YamlComment';
-import { YamlStyle, YamlStyleGroup } from '../nodes/yaml/YamlStyle';
-import ParseResult from '../ParseResult';
-import Position, { Point } from '../Position';
-import Literal from '../Literal';
-import Error from '../Error';
-import { isNode, visit } from '../visitor';
+import YamlDirective from '../nodes/YamlDirective';
+import YamlStream from '../nodes/YamlStream';
+import YamlDocument from '../nodes/YamlDocument';
+import YamlSequence from '../nodes/YamlSequence';
+import YamlMapping from '../nodes/YamlMapping';
+import YamlKeyValuePair from '../nodes/YamlKeyValuePair';
+import YamlTag, { YamlNodeKind } from '../nodes/YamlTag';
+import YamlAnchor from '../nodes/YamlAnchor';
+import YamlScalar from '../nodes/YamlScalar';
+import YamlComment from '../nodes/YamlComment';
+import { YamlStyle, YamlStyleGroup } from '../nodes/YamlStyle';
+import ParseResult from '../../ParseResult';
+import Position, { Point } from '../../Position';
+import Literal from '../../Literal';
+import Error from '../../Error';
+import { isNode, visit } from '../../visitor';
 
 export const keyMap = {
   stream: ['children'],

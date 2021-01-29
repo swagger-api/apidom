@@ -7,6 +7,7 @@ import {
   formatFlowSingleQuoted,
   formatFlowDoubleQuoted,
   formatBlockLiteral,
+  formatBlockFolded,
 } from './formats';
 
 interface YamlScalar extends YamlNode {
@@ -44,6 +45,10 @@ const YamlScalar: stampit.Stamp<YamlScalar> = stampit(YamlNode, {
       if (this.style === YamlStyle.Literal) {
         // @ts-ignore
         return formatBlockLiteral(this);
+      }
+      if (this.style === YamlStyle.Folded) {
+        // @ts-ignore
+        return formatBlockFolded(this);
       }
 
       // @ts-ignore

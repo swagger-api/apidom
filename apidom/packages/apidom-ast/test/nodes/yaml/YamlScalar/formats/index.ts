@@ -14,6 +14,22 @@ const singleQuotedExceptedPath = path.join(__dirname, 'fixtures', 'single-quoted
 const doubleQuotedPath = path.join(__dirname, 'fixtures', 'double-quoted.yaml');
 const doubleQuotedExceptedPath = path.join(__dirname, 'fixtures', 'double-quoted-expected.yaml');
 
+const literalKeepPath = path.join(__dirname, 'fixtures', 'literal-keep.yaml');
+const literalKeepExpectedPath = path.join(__dirname, 'fixtures', 'literal-keep-expected.yaml');
+
+const literalStripPath = path.join(__dirname, 'fixtures', 'literal-strip.yaml');
+const literalStripExpectedPath = path.join(__dirname, 'fixtures', 'literal-strip-expected.yaml');
+
+const literalClipPath = path.join(__dirname, 'fixtures', 'literal-clip.yaml');
+const literalClipExpectedPath = path.join(__dirname, 'fixtures', 'literal-clip-expected.yaml');
+
+const literalIndentationIndicatorPath = path.join(__dirname, 'fixtures', 'literal-clip.yaml');
+const literalIndentationIndicatorExpectedPath = path.join(
+  __dirname,
+  'fixtures',
+  'literal-clip-expected.yaml',
+);
+
 describe('nodes', function () {
   context('yaml', function () {
     context('YamlScalar', function () {
@@ -55,6 +71,52 @@ describe('nodes', function () {
               text,
             });
             const expected = fs.readFileSync(doubleQuotedExceptedPath).toString().trimRight();
+            assert.strictEqual(scalar.content, expected);
+          });
+        });
+
+        context('formatBlockLiteral', function () {
+          specify('should format literal + keep', function () {
+            const text = fs.readFileSync(literalKeepPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Literal,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(literalKeepExpectedPath).toString();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format literal + strip', function () {
+            const text = fs.readFileSync(literalStripPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Literal,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(literalStripExpectedPath).toString().trimRight();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format literal + clip', function () {
+            const text = fs.readFileSync(literalClipPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Literal,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(literalClipExpectedPath).toString();
+            assert.strictEqual(scalar.content, expected);
+          });
+
+          specify('should format literal + clip + indentation indicator', function () {
+            const text = fs.readFileSync(literalIndentationIndicatorPath).toString();
+            const scalar = YamlScalar({
+              style: YamlStyle.Literal,
+              styleGroup: YamlStyleGroup.Block,
+              text,
+            });
+            const expected = fs.readFileSync(literalIndentationIndicatorExpectedPath).toString();
             assert.strictEqual(scalar.content, expected);
           });
         });

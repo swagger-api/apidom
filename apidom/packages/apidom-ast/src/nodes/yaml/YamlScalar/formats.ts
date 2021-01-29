@@ -1,7 +1,7 @@
 import {
-  repeat,
   tail,
   compose,
+  pathOr,
   __,
   map,
   concat,
@@ -16,13 +16,14 @@ import {
   curry,
 } from 'ramda';
 import {
-  isNonEmptyString,
+  isInteger,
   trimStart,
   trimEnd,
   isUndefined,
-  isArray,
   trimCharsStart,
   isEmptyString,
+  repeatStr,
+  concatRight,
 } from 'ramda-adjunct';
 import unraw from 'unraw';
 
@@ -30,22 +31,41 @@ import unraw from 'unraw';
  * Helpers.
  */
 
-const blockStyleRegExp = /^([|>])([+-])*([0-9]*)\s/;
+const blockStyleRegExp = /^(?<style>[|>])(?<chomping>[+-]?)(?<indentation>[0-9]*)\s/;
+
+const getIndentationIndicator = (scalarNode: any): number | undefined => {
+  const matches = scalarNode.text.match(blockStyleRegExp);
+  const indicator = pathOr('', ['groups', 'indentation'], matches);
+
+  return isEmptyString(indicator) ? undefined : parseInt(indicator, 10);
+};
 
 const getIndentation = (scalarNode: any): string => {
-  const matches = scalarNode.text.match(blockStyleRegExp);
-  const spaceCount =
-    isArray(matches) && isNonEmptyString(matches[3]) ? parseInt(matches[3], 10) : 0;
+  const explicitIndentationIndicator = getIndentationIndicator(scalarNode);
 
-  return repeat(' ', spaceCount).join('');
+  // we have explicit indentation indicator
+  if (isInteger(explicitIndentationIndicator)) {
+    return repeatStr(' ', explicitIndentationIndicator);
+  }
+
+  // we assume indentation indicator from first line
+  const firstLine = pathOr('', [1], scalarNode.text.split('\n'));
+  const implicitIndentationIndicator = pathOr(
+    0,
+    ['groups', 'indentation', 'length'],
+    firstLine.match(/^(?<indentation>[ ]*)/),
+  );
+  return repeatStr(' ', implicitIndentationIndicator);
 };
 
-const getChompingIndicator = (scalarNode: any): string | undefined => {
+const getChompingIndicator = (scalarNode: any): '+' | '-' | undefined => {
   const matches = scalarNode.text.match(blockStyleRegExp);
-  return isArray(matches) ? matches[2] : undefined;
+  const indicator = pathOr('', ['groups', 'chomping'], matches);
+
+  return isEmptyString(indicator) ? undefined : indicator;
 };
 
-const chomp = (indicator: string | undefined, value: string): string => {
+const chomp = (indicator: '+' | '-' | undefined, value: string): string => {
   // clip (single newline at end)
   if (isUndefined(indicator)) {
     return `${trimEnd(value)}\n`;
@@ -127,8 +147,7 @@ export const formatBlockLiteral = (scalarNode: any): string => {
   const indentation = getIndentation(scalarNode);
   const chompingIndicator = getChompingIndicator(scalarNode);
   const lines = tail(scalarNode.text.split('\n')); // first line only contains indicators
-  // @ts-ignore
-  const transducer = compose(map(trimCharsStart(indentation)), map(concat(__, '\n')));
+  const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
   const formatted: string = transduce(transducer, concat, '', lines);
 

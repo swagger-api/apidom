@@ -78,11 +78,18 @@ const chomp = (indicator: '+' | '-' | undefined, value: string): string => {
   return value;
 };
 
-// prevent escaped newlines from being converted to a space
-const preventNlCollapseToSpace = (val: string) => val.replace(/\\\n\s*/g, '');
+/**
+ * Normalizes lines breaks.
+ * https://yaml.org/spec/1.2/spec.html#line%20break/normalization/
+ */
+// @ts-ignore
+const normalizeLineBreaks = (val: string) => val.replace(/\r\n/g, '\n');
 
-// collapse newlines into spaces
-const collapseNlToSpace = (val: string) =>
+// prevent escaped line breaks from being converted to a space
+const preventLineBreakCollapseToSpace = (val: string) => val.replace(/\\\n\s*/g, '');
+
+// collapse line breaks into spaces
+const collapseLineBreakToSpace = (val: string) =>
   val
     .replace(/(?<![\n]+)\n([^\n]+)/g, (match: string, p1: string) => ` ${p1.trimLeft()}`)
     .replace(/[\n]{2}/g, '\n');
@@ -98,8 +105,9 @@ const removeQuotes = curry((quoteType, val) =>
 export const formatFlowPlain = pipe(
   // @ts-ignore
   prop('text'),
+  normalizeLineBreaks,
   trim,
-  collapseNlToSpace,
+  collapseLineBreakToSpace,
   split('\n'),
   map(trimStart),
   join('\n'),
@@ -113,9 +121,10 @@ export const formatFlowPlain = pipe(
 export const formatFlowSingleQuoted = pipe(
   // @ts-ignore
   prop('text'),
+  normalizeLineBreaks,
   trim,
   removeQuotes("'"),
-  collapseNlToSpace,
+  collapseLineBreakToSpace,
   split('\n'),
   map(trimStart),
   join('\n'),
@@ -128,10 +137,11 @@ export const formatFlowSingleQuoted = pipe(
 export const formatFlowDoubleQuoted = pipe(
   // @ts-ignore
   prop('text'),
+  normalizeLineBreaks,
   trim,
   removeQuotes('"'),
-  preventNlCollapseToSpace,
-  collapseNlToSpace,
+  preventLineBreakCollapseToSpace,
+  collapseLineBreakToSpace,
   unraw,
   split('\n'),
   map(trimStart),
@@ -145,7 +155,8 @@ export const formatFlowDoubleQuoted = pipe(
 export const formatBlockLiteral = (scalarNode: any): string => {
   const indentation = getIndentation(scalarNode);
   const chompingIndicator = getChompingIndicator(scalarNode);
-  const lines = tail(scalarNode.text.split('\n')); // first line only contains indicators
+  const normalized = normalizeLineBreaks(scalarNode.text);
+  const lines = tail(normalized.split('\n')); // first line only contains indicators
   const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
   const deindented: string = transduce(transducer, concat, '', lines);
@@ -160,11 +171,12 @@ export const formatBlockLiteral = (scalarNode: any): string => {
 export const formatBlockFolded = (scalarNode: any): string => {
   const indentation = getIndentation(scalarNode);
   const chompingIndicator = getChompingIndicator(scalarNode);
-  const lines = tail(scalarNode.text.split('\n')); // first line only contains indicators
+  const normalized = normalizeLineBreaks(scalarNode.text);
+  const lines = tail(normalized.split('\n')); // first line only contains indicators
   const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
   const deindented: string = transduce(transducer, concat, '', lines);
-  const collapsed = collapseNlToSpace(deindented);
+  const collapsed = collapseLineBreakToSpace(deindented);
 
   return chomp(chompingIndicator, collapsed);
 };

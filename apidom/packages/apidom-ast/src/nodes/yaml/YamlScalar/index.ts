@@ -2,7 +2,12 @@ import stampit from 'stampit';
 
 import YamlNode from '../YamlNode';
 import { YamlStyle } from '../YamlStyle';
-import { formatFlowPlain, formatFlowSingleQuoted, formatFlowDoubleQuoted } from './formats';
+import {
+  formatFlowPlain,
+  formatFlowSingleQuoted,
+  formatFlowDoubleQuoted,
+  formatBlockLiteral,
+} from './formats';
 
 interface YamlScalar extends YamlNode {
   type: 'scalar';
@@ -35,6 +40,10 @@ const YamlScalar: stampit.Stamp<YamlScalar> = stampit(YamlNode, {
       if (this.style === YamlStyle.DoubleQuoted) {
         // @ts-ignore
         return formatFlowDoubleQuoted(this);
+      }
+      if (this.style === YamlStyle.Literal) {
+        // @ts-ignore
+        return formatBlockLiteral(this);
       }
 
       // @ts-ignore

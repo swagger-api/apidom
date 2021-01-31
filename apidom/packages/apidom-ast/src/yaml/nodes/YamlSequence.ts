@@ -17,11 +17,17 @@ const YamlSequence: stampit.Stamp<YamlSequence> = stampit(YamlCollection, {
   statics: {
     type: 'sequence',
   },
-  methods: {
-    get content(): Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias> {
-      return isArray(this.children)
-        ? this.children.filter(anyPass([isSequence, isMapping, isScalar, isAlias]))
-        : [];
+  propertyDescriptors: {
+    content: {
+      get(): Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias> {
+        // @ts-ignore
+        const { children } = this;
+
+        return isArray(children)
+          ? children.filter(anyPass([isSequence, isMapping, isScalar, isAlias]))
+          : [];
+      },
+      enumerable: true,
     },
   },
 });

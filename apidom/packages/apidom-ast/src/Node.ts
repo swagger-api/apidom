@@ -19,6 +19,24 @@ const Node: stampit.Stamp<Node> = stampit({
     this.children = children;
     this.position = position;
   },
+  methods: {
+    // creates shallow clone of node
+    clone() {
+      // 1. copy has same prototype as orig
+      const copy = Object.create(Object.getPrototypeOf(this));
+
+      // 2. copy has all of orig’s properties
+      Object.getOwnPropertyNames(this) // (1)
+        .forEach((propKey) => {
+          // (2)
+          const descriptor = Object.getOwnPropertyDescriptor(this, propKey); // (3)
+          // @ts-ignore
+          Object.defineProperty(copy, propKey, descriptor); // (4)
+        });
+
+      return copy;
+    },
+  },
 });
 
 export default Node;

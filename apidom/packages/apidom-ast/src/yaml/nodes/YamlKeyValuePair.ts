@@ -16,18 +16,24 @@ const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyl
   statics: {
     type: 'keyValuePair',
   },
-  methods: {
-    // @ts-ignore
-    get key() {
-      // @ts-ignore
-      return pipe(filter(anyPass([isScalar, isMapping, isSequence])), nth(0))(this.children);
+  propertyDescriptors: {
+    key: {
+      get() {
+        // @ts-ignore
+        return pipe(filter(anyPass([isScalar, isMapping, isSequence])), nth(0))(this.children);
+      },
+      enumerable: true,
     },
-    // @ts-ignore
-    get value() {
-      const excludeKeyPredicate = complement(identical(this.key));
-      const valuePredicate = anyPass([isScalar, isMapping, isSequence, isAlias]);
-      // @ts-ignore
-      return pipe(filter(both(excludeKeyPredicate, valuePredicate)), nth(0))(this.children);
+    value: {
+      get() {
+        // @ts-ignore
+        const { key, children } = this;
+        const excludeKeyPredicate = complement(identical(key));
+        const valuePredicate = anyPass([isScalar, isMapping, isSequence, isAlias]);
+        // @ts-ignore
+        return pipe(filter(both(excludeKeyPredicate, valuePredicate)), nth(0))(children);
+      },
+      enumerable: true,
     },
   },
 });

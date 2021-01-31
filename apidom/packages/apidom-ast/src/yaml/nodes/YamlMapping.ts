@@ -14,9 +14,13 @@ const YamlMapping: stampit.Stamp<YamlMapping> = stampit(YamlCollection, {
   statics: {
     type: 'mapping',
   },
-  methods: {
-    get content(): Array<YamlKeyValuePair> {
-      return isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
+  propertyDescriptors: {
+    content: {
+      get(): Array<YamlKeyValuePair> {
+        // @ts-ignore
+        return isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
+      },
+      enumerable: true,
     },
   },
 });

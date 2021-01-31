@@ -17,9 +17,13 @@ const YamlStream: stampit.Stamp<YamlStream> = stampit(Node, {
   statics: {
     type: 'stream',
   },
-  methods: {
-    get content(): Array<YamlDocument | YamlComment> {
-      return isArray(this.children) ? this.children.filter(either(isDocument, isComment)) : [];
+  propertyDescriptors: {
+    content: {
+      get(): Array<YamlDocument | YamlComment> {
+        // @ts-ignore
+        return isArray(this.children) ? this.children.filter(either(isDocument, isComment)) : [];
+      },
+      enumerable: true,
     },
   },
 });

@@ -17,7 +17,7 @@ describe('yaml', function () {
           const parser = new Parser();
           parser.setLanguage(YAMLLanguage);
 
-          const jsonString = 'prop: !!str "value"';
+          const jsonString = 'prop: !!bool "true"';
 
           cst = parser.parse(jsonString);
           ast = transform(cst);

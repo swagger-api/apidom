@@ -10,8 +10,8 @@ export enum YamlNodeKind {
 
 interface YamlTag extends Node {
   type: 'tag';
-  name: string | null;
-  kind: YamlNodeKind | null;
+  explicitName: string; // eslint-disable-line
+  kind: YamlNodeKind;
 }
 
 const YamlTag: stampit.Stamp<YamlTag> = stampit(Node, {
@@ -19,11 +19,11 @@ const YamlTag: stampit.Stamp<YamlTag> = stampit(Node, {
     type: 'tag',
   },
   props: {
-    name: null,
+    explicitName: '',
     kind: null,
   },
-  init({ name = null, kind = null } = {}) {
-    this.name = name;
+  init(this: YamlTag, { explicitName, kind } = {}) {
+    this.explicitName = explicitName;
     this.kind = kind;
   },
 });

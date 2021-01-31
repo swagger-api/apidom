@@ -5,7 +5,6 @@ import {
   map,
   concat,
   transduce,
-  prop,
   pipe,
   trim,
   split,
@@ -30,15 +29,15 @@ import unraw from 'unraw';
 
 const blockStyleRegExp = /^(?<style>[|>])(?<chomping>[+-]?)(?<indentation>[0-9]*)\s/;
 
-const getIndentationIndicator = (scalarNode: any): number | undefined => {
-  const matches = scalarNode.text.match(blockStyleRegExp);
+const getIndentationIndicator = (content: string): number | undefined => {
+  const matches = content.match(blockStyleRegExp);
   const indicator = pathOr('', ['groups', 'indentation'], matches);
 
   return isEmptyString(indicator) ? undefined : parseInt(indicator, 10);
 };
 
-const getIndentation = (scalarNode: any): string => {
-  const explicitIndentationIndicator = getIndentationIndicator(scalarNode);
+const getIndentation = (content: string): string => {
+  const explicitIndentationIndicator = getIndentationIndicator(content);
 
   // we have explicit indentation indicator
   if (isInteger(explicitIndentationIndicator)) {
@@ -46,7 +45,7 @@ const getIndentation = (scalarNode: any): string => {
   }
 
   // we assume indentation indicator from first line
-  const firstLine = pathOr('', [1], scalarNode.text.split('\n'));
+  const firstLine = pathOr('', [1], content.split('\n'));
   const implicitIndentationIndicator = pathOr(
     0,
     ['groups', 'indentation', 'length'],
@@ -55,27 +54,27 @@ const getIndentation = (scalarNode: any): string => {
   return repeatStr(' ', implicitIndentationIndicator);
 };
 
-const getChompingIndicator = (scalarNode: any): '+' | '-' | undefined => {
-  const matches = scalarNode.text.match(blockStyleRegExp);
+const getChompingIndicator = (content: string): '+' | '-' | undefined => {
+  const matches = content.match(blockStyleRegExp);
   const indicator = pathOr('', ['groups', 'chomping'], matches);
 
   return isEmptyString(indicator) ? undefined : indicator;
 };
 
-const chomp = (indicator: '+' | '-' | undefined, value: string): string => {
+const chomp = (indicator: '+' | '-' | undefined, content: string): string => {
   // clip (single newline at end)
   if (isUndefined(indicator)) {
-    return `${trimEnd(value)}\n`;
+    return `${trimEnd(content)}\n`;
   }
   // strip (no newline at end)
   if (indicator === '-') {
-    return trimEnd(value);
+    return trimEnd(content);
   }
   // keep (all newlines from end)
   if (indicator === '+') {
-    return value;
+    return content;
   }
-  return value;
+  return content;
 };
 
 /**
@@ -103,8 +102,6 @@ const removeQuotes = curry((quoteType, val) =>
  * https://yaml.org/spec/1.2/spec.html#id2788859
  */
 export const formatFlowPlain = pipe(
-  // @ts-ignore
-  prop('text'),
   normalizeLineBreaks,
   trim,
   collapseLineBreakToSpace,
@@ -119,8 +116,6 @@ export const formatFlowPlain = pipe(
  */
 
 export const formatFlowSingleQuoted = pipe(
-  // @ts-ignore
-  prop('text'),
   normalizeLineBreaks,
   trim,
   removeQuotes("'"),
@@ -135,8 +130,6 @@ export const formatFlowSingleQuoted = pipe(
  * https://yaml.org/spec/1.2/spec.html#id2787109
  */
 export const formatFlowDoubleQuoted = pipe(
-  // @ts-ignore
-  prop('text'),
   normalizeLineBreaks,
   trim,
   removeQuotes('"'),
@@ -152,10 +145,10 @@ export const formatFlowDoubleQuoted = pipe(
  * Formats Block Scalar Literal style.
  * https://yaml.org/spec/1.2/spec.html#id2795688
  */
-export const formatBlockLiteral = (scalarNode: any): string => {
-  const indentation = getIndentation(scalarNode);
-  const chompingIndicator = getChompingIndicator(scalarNode);
-  const normalized = normalizeLineBreaks(scalarNode.text);
+export const formatBlockLiteral = (content: string): string => {
+  const indentation = getIndentation(content);
+  const chompingIndicator = getChompingIndicator(content);
+  const normalized = normalizeLineBreaks(content);
   const lines = tail(normalized.split('\n')); // first line only contains indicators
   const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore
@@ -168,10 +161,10 @@ export const formatBlockLiteral = (scalarNode: any): string => {
  * Formats BLock Scalar Folded style.
  * https://yaml.org/spec/1.2/spec.html#id2796251
  */
-export const formatBlockFolded = (scalarNode: any): string => {
-  const indentation = getIndentation(scalarNode);
-  const chompingIndicator = getChompingIndicator(scalarNode);
-  const normalized = normalizeLineBreaks(scalarNode.text);
+export const formatBlockFolded = (content: string): string => {
+  const indentation = getIndentation(content);
+  const chompingIndicator = getChompingIndicator(content);
+  const normalized = normalizeLineBreaks(content);
   const lines = tail(normalized.split('\n')); // first line only contains indicators
   const transducer = compose(map(trimCharsStart(indentation)), map(concatRight('\n')));
   // @ts-ignore

@@ -11,7 +11,7 @@ import {
   propSatisfies,
   endsWith,
 } from 'ramda';
-import { isArray, isFalse, isFunction } from 'ramda-adjunct';
+import { isArray, isFalse, isFunction, isNotUndefined } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 
 import YamlDirective from '../nodes/YamlDirective';
@@ -30,6 +30,7 @@ import Position, { Point } from '../../Position';
 import Literal from '../../Literal';
 import Error from '../../Error';
 import { isNode, visit } from '../../visitor';
+import FailsafeSchema from '../schemas/failsafe';
 
 export const keyMap = {
   stream: ['children'],
@@ -67,17 +68,18 @@ const Visitor = stampit({
       return Position({ start, end });
     };
 
-    const kindNodeToYamlTag = (node: SyntaxNode): YamlTag | null => {
+    const kindNodeToYamlTag = (node: SyntaxNode) => {
       let { previousSibling } = node;
 
       while (previousSibling !== null && previousSibling.type !== 'tag') {
         ({ previousSibling } = previousSibling);
       }
 
-      if (previousSibling === null) {
-        return null;
-      }
-
+      const explicitName = pathOr(
+        node.type === 'plain_scalar' ? '?' : '!',
+        ['text'],
+        previousSibling,
+      );
       // eslint-disable-next-line no-nested-ternary
       const kind = node.type.endsWith('mapping')
         ? YamlNodeKind.Mapping
@@ -86,7 +88,7 @@ const Visitor = stampit({
         : YamlNodeKind.Scalar;
       const position = toPosition(previousSibling);
 
-      return YamlTag({ name: previousSibling.text, kind, position });
+      return YamlTag({ explicitName, kind, position });
     };
 
     const kindNodeToYamlAnchor = (node: SyntaxNode): YamlAnchor | null => {
@@ -131,23 +133,22 @@ const Visitor = stampit({
       const children = pathOr([], [2, 'children'], node);
       const tagNode: any | undefined = find(isKind('tag'), children);
       const anchorNode: any | undefined = find(isKind('anchor'), children);
-      let tag = null;
-      let anchor = null;
-
-      if (tagNode !== undefined) {
-        tag = YamlTag({
-          name: tagNode.text,
-          kind: YamlNodeKind.Scalar,
-          position: toPosition(tagNode),
-        });
-      }
-
-      if (anchorNode !== undefined) {
-        anchor = YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) });
-      }
+      const tag = isNotUndefined(tagNode)
+        ? YamlTag({
+            explicitName: tagNode.text,
+            kind: YamlNodeKind.Scalar,
+            position: toPosition(tagNode),
+          })
+        : YamlTag({
+            explicitName: '?',
+            kind: YamlNodeKind.Scalar,
+          });
+      const anchor = isNotUndefined(anchorNode)
+        ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
+        : null;
 
       return YamlScalar({
-        text: '',
+        content: '',
         position: Position({ start: surrogatePoint, end: surrogatePoint }),
         tag,
         anchor,
@@ -209,8 +210,7 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tagHandleNode = node.child(0);
         const tagPrefixNode = node.child(1);
-
-        return YamlDirective({
+        const tagDirective = YamlDirective({
           position,
           name: '%TAG',
           parameters: {
@@ -218,6 +218,10 @@ const Visitor = stampit({
             prefix: propOr(null, 'text', tagPrefixNode),
           },
         });
+
+        this.schema.registerTagDirective(tagDirective);
+
+        return tagDirective;
       },
     };
 
@@ -283,8 +287,7 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlMapping({
+        const mappingNode = YamlMapping({
           children: node.children,
           position,
           anchor,
@@ -293,6 +296,8 @@ const Visitor = stampit({
           style: YamlStyle.NextLine,
           isMissing: node.isMissing(),
         });
+
+        return this.schema.resolve(mappingNode);
       },
     };
 
@@ -320,8 +325,7 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlMapping({
+        const mappingNode = YamlMapping({
           children: node.children,
           position,
           anchor,
@@ -330,6 +334,8 @@ const Visitor = stampit({
           style: YamlStyle.Explicit,
           isMissing: node.isMissing(),
         });
+
+        return this.schema.resolve(mappingNode);
       },
     };
 
@@ -363,8 +369,7 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlSequence({
+        const sequenceNode = YamlSequence({
           children: node.children,
           position,
           anchor,
@@ -372,6 +377,8 @@ const Visitor = stampit({
           styleGroup: YamlStyleGroup.Block,
           style: YamlStyle.NextLine,
         });
+
+        return this.schema.resolve(sequenceNode);
       },
     };
 
@@ -386,8 +393,7 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlSequence({
+        const sequenceNode = YamlSequence({
           children: unnest(node.children),
           position,
           anchor,
@@ -395,6 +401,8 @@ const Visitor = stampit({
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.Explicit,
         });
+
+        return this.schema.resolve(sequenceNode);
       },
     };
 
@@ -409,15 +417,16 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlScalar({
-          text: node.text,
+        const scalarNode = YamlScalar({
+          content: node.text,
           anchor,
           tag,
           position,
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.Plain,
         });
+
+        return this.schema.resolve(scalarNode);
       },
     };
 
@@ -426,15 +435,16 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlScalar({
-          text: node.text,
+        const scalarNode = YamlScalar({
+          content: node.text,
           anchor,
           tag,
           position,
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.SingleQuoted,
         });
+
+        return this.schema.resolve(scalarNode);
       },
     };
 
@@ -443,15 +453,16 @@ const Visitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-
-        return YamlScalar({
-          text: node.text,
+        const scalarNode = YamlScalar({
+          content: node.text,
           anchor,
           tag,
           position,
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.DoubleQuoted,
         });
+
+        return this.schema.resolve(scalarNode);
       },
     };
 
@@ -466,15 +477,16 @@ const Visitor = stampit({
           : node.text.startsWith('>')
           ? YamlStyle.Folded
           : null;
-
-        return YamlScalar({
-          text: node.text,
+        const scalarNode = YamlScalar({
+          content: node.text,
           anchor,
           tag,
           position,
           styleGroup: YamlStyleGroup.Block,
           style,
         });
+
+        return this.schema.resolve(scalarNode);
       },
     };
 
@@ -501,8 +513,9 @@ const Visitor = stampit({
 export const transform = (cst: Tree): ParseResult => {
   const visitor = Visitor();
   const nodePredicate = either(isArray, isNode);
+  const schema = FailsafeSchema();
   // @ts-ignore
-  const rootNode = visit(cst.rootNode, visitor, { keyMap, nodePredicate });
+  const rootNode = visit(cst.rootNode, visitor, { keyMap, nodePredicate, state: { schema } });
 
   return ParseResult({ children: [rootNode] });
 };

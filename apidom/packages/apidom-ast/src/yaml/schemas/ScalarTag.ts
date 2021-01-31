@@ -19,6 +19,7 @@ const ScalarTag = stampit({
 
     canonicalFormat(node) {
       let canonicalForm = node.content;
+      const nodeClone = node.clone();
 
       if (node.style === YamlStyle.Plain) {
         // @ts-ignore
@@ -37,7 +38,13 @@ const ScalarTag = stampit({
         canonicalForm = formatBlockFolded(node.content);
       }
 
-      return { ...node, content: canonicalForm };
+      nodeClone.content = canonicalForm;
+
+      return nodeClone;
+    },
+
+    resolve(node) {
+      return node;
     },
   },
 });

@@ -11,7 +11,7 @@ const GenericString = stampit(Tag, {
   },
   methods: {
     resolve(node) {
-      return this.canonicalFormat(node);
+      return node;
     },
   },
 });

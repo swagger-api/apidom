@@ -30,7 +30,7 @@ import Position, { Point } from '../../Position';
 import Literal from '../../Literal';
 import Error from '../../Error';
 import { isNode, visit } from '../../visitor';
-import FailsafeSchema from '../schemas/failsafe';
+import JsonSchema from '../schemas/json';
 
 export const keyMap = {
   stream: ['children'],
@@ -513,7 +513,7 @@ const Visitor = stampit({
 export const transform = (cst: Tree): ParseResult => {
   const visitor = Visitor();
   const nodePredicate = either(isArray, isNode);
-  const schema = FailsafeSchema();
+  const schema = JsonSchema();
   // @ts-ignore
   const rootNode = visit(cst.rootNode, visitor, { keyMap, nodePredicate, state: { schema } });
 

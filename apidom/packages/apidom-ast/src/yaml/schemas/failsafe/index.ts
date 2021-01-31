@@ -3,10 +3,11 @@ import { propEq, reject } from 'ramda';
 import { isUndefined } from 'ramda-adjunct';
 
 import YamlDirective from '../../nodes/YamlDirective';
-import YamlTag, { YamlNodeKind } from '../../nodes/YamlTag';
+import { YamlNodeKind } from '../../nodes/YamlTag';
 import GenericMapping from './GenericMapping';
 import GenericSequence from './GenericSequence';
 import GenericString from './GenericString';
+import ScalarTag from '../ScalarTag';
 
 const FailsafeSchema = stampit({
   props: {
@@ -21,27 +22,27 @@ const FailsafeSchema = stampit({
     this.registerTag(GenericString());
   },
   methods: {
-    toSpecificTagName(tag: YamlTag) {
-      let specificTagName = tag.explicitName;
+    toSpecificTagName(node) {
+      let specificTagName = node.tag.explicitName;
 
-      if (tag.explicitName === '!') {
+      if (node.tag.explicitName === '!') {
         // non-specific tag; we assume tag by kind
-        if (tag.kind === YamlNodeKind.Scalar) {
+        if (node.tag.kind === YamlNodeKind.Scalar) {
           // @ts-ignore
           specificTagName = GenericString.uri;
-        } else if (tag.kind === YamlNodeKind.Sequence) {
+        } else if (node.tag.kind === YamlNodeKind.Sequence) {
           // @ts-ignore
           specificTagName = GenericSequence.uri;
-        } else if (tag.kind === YamlNodeKind.Mapping) {
+        } else if (node.tag.kind === YamlNodeKind.Mapping) {
           // @ts-ignore
           specificTagName = GenericMapping.uri;
         }
-      } else if (tag.explicitName.startsWith('!<')) {
+      } else if (node.tag.explicitName.startsWith('!<')) {
         // verbatim form
-        specificTagName = tag.explicitName.replace(/^!</, '').replace(/>$/, '');
-      } else if (tag.explicitName.startsWith('!!')) {
+        specificTagName = node.tag.explicitName.replace(/^!</, '').replace(/>$/, '');
+      } else if (node.tag.explicitName.startsWith('!!')) {
         // shorthand notation
-        specificTagName = `tag:yaml.org,2002:${tag.explicitName.replace(/^!!/, '')}`;
+        specificTagName = `tag:yaml.org,2002:${node.tag.explicitName.replace(/^!!/, '')}`;
       }
 
       return specificTagName;
@@ -54,8 +55,13 @@ const FailsafeSchema = stampit({
       });
     },
 
-    registerTag(tag) {
-      this.tags.push(tag);
+    registerTag(tag, beginning = false) {
+      if (beginning) {
+        this.tags.unshift(tag);
+      } else {
+        this.tags.push(tag);
+      }
+
       return this;
     },
 
@@ -66,11 +72,17 @@ const FailsafeSchema = stampit({
     },
 
     resolve(node) {
-      const specificTagName = this.toSpecificTagName(node.tag);
+      const specificTagName = this.toSpecificTagName(node);
 
-      // we leave this node unresolved
+      // leave this node unresolved
       if (specificTagName === '?') {
         return node;
+      }
+
+      // turn scalar nodes into canonical format before resolving
+      let canonicalNode = node;
+      if (node.tag.kind === YamlNodeKind.Scalar) {
+        canonicalNode = ScalarTag().canonicalFormat(node);
       }
 
       const tag = this.tags.find(propEq('tag', specificTagName));
@@ -81,11 +93,11 @@ const FailsafeSchema = stampit({
       }
 
       // node content is not compatible with resolving mechanism (tag implementation)
-      if (!tag.test(node)) {
+      if (!tag.test(canonicalNode)) {
         throw new Error(`Node couldn't be resolved against tag "${specificTagName}"`);
       }
 
-      return tag.resolve(node);
+      return tag.resolve(canonicalNode);
     },
   },
 });

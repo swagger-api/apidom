@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { isNonEmptyString, isEmptyString } from 'ramda-adjunct';
-import { from, dehydrate, traverse } from 'apidom';
+import { from, dehydrate, traverse, toValue } from 'apidom';
 import ApiDOMParser from 'apidom-parser';
 import * as jsonAdapter from 'apidom-parser-adapter-json';
 import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
@@ -10,7 +10,11 @@ import * as openapi3_1AdapterYaml from 'apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2_0AdapterJson from 'apidom-parser-adapter-asyncapi-json-2-0';
 import * as asyncapi2_0AdapterYaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
 /* eslint-enable */
-import { readFile, resolveApiDOM as resolveApiDOMReferences } from 'apidom-reference';
+import {
+  readFile,
+  resolveApiDOM as resolveApiDOMReferences,
+  dereferenceApiDOM as derefereceApiDOMReferences,
+} from 'apidom-reference';
 
 const parser = ApiDOMParser()
   .use(jsonAdapter)
@@ -27,6 +31,7 @@ const initialState = {
   mediaType: '',
   console: '',
   interpreter: '',
+  dereferenced: '',
   isLoading: false,
 };
 
@@ -45,6 +50,8 @@ export const selectMediaType = (state) => state.mediaType;
 export const selectConsole = (state) => state.console;
 
 export const selectInterpreter = (state) => state.interpreter;
+
+export const selectDereferenced = (state) => state.dereferenced;
 
 export const selectIsLoading = (state) => state.isLoading;
 
@@ -94,6 +101,14 @@ export const selectCanResolve = createSelector(
   }
 );
 
+export const selectCanDereference = createSelector(
+  selectApiDOM,
+  selectMediaType,
+  (apiDOM, mediaType) => {
+    return isNonEmptyString(apiDOM) && isNonEmptyString(mediaType);
+  }
+);
+
 /**
  * Thunks.
  */
@@ -126,6 +141,32 @@ export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (
   return interpreter;
 });
 
+export const dereferenceApiDOM = createAsyncThunk(
+  'dereferenceApiDOMStatus',
+  async ({ source, apiDOM, mediaType, baseURI }) => {
+    const namespace = parser.findNamespace(source, { mediaType });
+    const parseResult = from(apiDOM, namespace);
+    const dereferenced = await derefereceApiDOMReferences(parseResult.api, {
+      parse: { mediaType },
+      resolve: { baseURI },
+    });
+    const refract = dehydrate(dereferenced, namespace);
+
+    return JSON.stringify(refract, undefined, 2);
+  }
+);
+
+export const humanizeDereferencedApiDOM = createAsyncThunk(
+  'humanizeDereferencedApiDOMStatus',
+  ({ source, mediaType, dereferenced }) => {
+    const namespace = parser.findNamespace(source, { mediaType });
+    const element = from(dereferenced, namespace);
+    const pojo = toValue(element, namespace);
+
+    return JSON.stringify(pojo, undefined, 2);
+  }
+);
+
 /**
  * Slice.
  */
@@ -145,6 +186,9 @@ const appSlice = createSlice({
     },
     setMediaType(state, action) {
       return { ...state, mediaType: action.payload };
+    },
+    setDereferenced(state, action) {
+      return { ...state, dereferenced: action.payload };
     },
     clearConsole(state) {
       return { ...state, console: '' };
@@ -202,8 +246,29 @@ const appSlice = createSlice({
 
       return { ...state, console: consoleLines };
     },
+    [dereferenceApiDOM.pending]: (state) => {
+      return { ...state, isLoading: true };
+    },
+    [dereferenceApiDOM.fulfilled]: (state, action) => {
+      return { ...state, dereferenced: action.payload, isLoading: false };
+    },
+    [dereferenceApiDOM.rejected]: (state, action) => {
+      const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
+
+      return { ...state, console: consoleLines, isLoading: false };
+    },
+    [humanizeDereferencedApiDOM.fulfilled]: (state, action) => {
+      return { ...state, dereferenced: action.payload };
+    },
   },
 });
 
-export const { setSource, setApiDOM, setBaseURI, setMediaType, clearConsole } = appSlice.actions;
+export const {
+  setSource,
+  setApiDOM,
+  setBaseURI,
+  setMediaType,
+  setDereferenced,
+  clearConsole,
+} = appSlice.actions;
 export default appSlice.reducer;

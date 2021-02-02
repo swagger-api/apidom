@@ -12,11 +12,10 @@ import ApiDOMInterpreterDialog from 'features/app/right-pane/apidom/apidom-inter
 const useStyles = makeStyles((theme) => ({
   root: {
     fontSize: '1rem',
-    position: 'relative',
   },
-  launchButton: {
+  launchButtonTooltip: {
     position: 'absolute',
-    right: theme.spacing(0.5),
+    right: theme.spacing(-1),
     bottom: theme.spacing(0),
   },
 }));
@@ -35,31 +34,41 @@ const ApiDOM = ({ apiDOM }) => {
 
   return (
     <Box
+      flexGrow="1"
+      flexDirection="column"
       className={classes.root}
       borderColor="grey.400"
       p={1.5}
       pt={2}
+      pb={0}
       borderRadius="borderRadius"
       border={1}
-      height="100%"
-      whiteSpace="pre"
-      overflow="auto"
+      display="flex"
+      overflow="hidden"
     >
-      <Box height="100%" dangerouslySetInnerHTML={{ __html: apiDOM }} />
-      <Tooltip title="Interpret ApiDOM">
-        <IconButton
-          aria-label="Interpret ApiDOM"
-          size="small"
-          className={classes.launchButton}
-          onClick={handleInterpreterDialogOpen}
-        >
-          <LaunchIcon />
-        </IconButton>
-      </Tooltip>
-      <ApiDOMInterpreterDialog
-        onClose={handleInterpreterDialogClose}
-        open={openInterpreterDialog}
+      <Box
+        flexDirection="column"
+        flexGrow="1"
+        overflow="auto"
+        whiteSpace="pre"
+        dangerouslySetInnerHTML={{ __html: apiDOM }}
       />
+      <Box minHeight={28} position="relative">
+        <Tooltip title="Interpret ApiDOM">
+          <IconButton
+            aria-label="Interpret ApiDOM"
+            size="small"
+            className={classes.launchButtonTooltip}
+            onClick={handleInterpreterDialogOpen}
+          >
+            <LaunchIcon />
+          </IconButton>
+        </Tooltip>
+        <ApiDOMInterpreterDialog
+          onClose={handleInterpreterDialogClose}
+          open={openInterpreterDialog}
+        />
+      </Box>
     </Box>
   );
 };

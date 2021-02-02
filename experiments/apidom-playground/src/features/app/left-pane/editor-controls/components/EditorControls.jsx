@@ -17,11 +17,14 @@ import {
   selectApiDOM,
   selectCanParse,
   selectCanResolve,
+  selectCanDereference,
   setMediaType,
   setBaseURI,
   parseSource,
   resolveApiDOM,
+  dereferenceApiDOM,
 } from 'features/app/slice';
+import DereferenceDialog from 'features/app/dereference/components/DereferenceDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,10 +45,12 @@ const EditorControls = () => {
   const mediaType = useSelector(selectMediaType);
   const canParse = useSelector(selectCanParse);
   const canResolve = useSelector(selectCanResolve);
+  const canDereference = useSelector(selectCanDereference);
   const source = useSelector(selectSource);
   const apiDOM = useSelector(selectApiDOM);
   const dispatch = useDispatch();
   const [mediaTypeSelectOpen, setMediaTypeSelectOpen] = useState(false);
+  const [dereferenceDialogOpen, setDeferenceDialogOpen] = useState(false);
 
   const handleMediaTypeChange = (event) => {
     dispatch(setMediaType(event.target.value));
@@ -64,6 +69,16 @@ const EditorControls = () => {
   };
   const handleApiDOMResolve = () => {
     dispatch(resolveApiDOM({ source, apiDOM, mediaType, baseURI }));
+  };
+  const handleApiDOMDereferenceDialogOpen = () => {
+    setDeferenceDialogOpen(true);
+  };
+  const handleApiDOMDereferenceDialogClose = () => {
+    setDeferenceDialogOpen(false);
+  };
+  const handleApiDOMDereference = () => {
+    handleApiDOMDereferenceDialogOpen();
+    dispatch(dereferenceApiDOM({ source, apiDOM, mediaType, baseURI }));
   };
 
   return (
@@ -131,7 +146,13 @@ const EditorControls = () => {
             <Button disabled={!canResolve} onClick={handleApiDOMResolve}>
               Resolve
             </Button>
-            <Button disabled>Dereference</Button>
+            <Button disabled={!canDereference} onClick={handleApiDOMDereference}>
+              Dereference
+            </Button>
+            <DereferenceDialog
+              onClose={handleApiDOMDereferenceDialogClose}
+              open={dereferenceDialogOpen}
+            />
           </ButtonGroup>
         </Grid>
       </Grid>

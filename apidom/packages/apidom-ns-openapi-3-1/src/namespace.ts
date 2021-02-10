@@ -1,4 +1,5 @@
 import { NamespacePluginOptions } from 'minim';
+
 import OpenApi3_1 from './elements/OpenApi3-1';
 import Openapi from './elements/Openapi';
 import Info from './elements/Info';
@@ -19,6 +20,37 @@ import Responses from './elements/Responses';
 import Callback from './elements/Callback';
 import SecurityRequirement from './elements/SecurityRequirement';
 import Response from './elements/Response';
+
+import { createRefractor } from './refractor';
+
+// register refractors specific to element types
+OpenApi3_1.refract = createRefractor(['visitors', 'document', 'objects', 'OpenApi', '$visitor']);
+Openapi.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OpenApi',
+  'fixedFields',
+  'Openapi',
+]);
+Info.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
+License.refract = createRefractor(['visitors', 'document', 'objects', 'License', '$visitor']);
+Contact.refract = createRefractor(['visitors', 'document', 'objects', 'Contact', '$visitor']);
+Server.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
+ServerVariable.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ServerVariable',
+  '$visitor',
+]);
+SecurityRequirement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SecurityRequirement',
+  '$visitor',
+]);
 
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {

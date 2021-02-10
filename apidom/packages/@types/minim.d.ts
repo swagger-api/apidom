@@ -7,14 +7,18 @@ declare module 'minim' {
   export type Predicate = (element: Element) => boolean;
   type Callback = (element: Element) => void;
 
+  export function refract(value: any): Element;
+
   export class Element {
+    static refract(value: any, option?: Record<string, any>): Element;
+
     public element: string;
 
     public meta: ObjectElement;
 
-    public classes: ArrayElement;
+    public attributes: ObjectElement;
 
-    public attributes: Attributes;
+    public classes: ArrayElement;
 
     public children: ArraySlice;
 
@@ -90,6 +94,8 @@ declare module 'minim' {
 
     push(value: any): ArrayElement;
 
+    forEach(callback: (item: Element, index: number) => void, thisArg?: unknown): void;
+
     [Symbol.iterator](): IterableIterator<any>;
 
     get length(): number;
@@ -105,6 +111,12 @@ declare module 'minim' {
     hasKey(value: string): boolean;
 
     getMember(key: string): MemberElement;
+
+    // @ts-ignore
+    forEach(
+      callback: (value: Element, key: Element, item: Element) => void,
+      thisArg?: unknown,
+    ): void;
 
     map(
       callback: (value: Element, key: Element, member: MemberElement) => MemberElement,

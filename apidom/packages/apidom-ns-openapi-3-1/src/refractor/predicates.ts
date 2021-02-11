@@ -6,7 +6,27 @@ export const isOpenApiExtension = (element: MemberElement): boolean => {
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());
 };
 
-export const isServerLikeElement = <T extends Element>(element: Element): boolean => {
+export const isServerLikeElement = <T extends Element>(element: T): boolean => {
   // @ts-ignore
   return isObjectElement(element) && element.hasKey('url');
+};
+
+export const isReferenceLikeElement = <T extends Element>(element: T): boolean => {
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('$ref');
+};
+
+export const isParameterLikeElement = <T extends Element>(element: T): boolean => {
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('name') && element.hasKey('in');
+};
+
+export const isResponseLikeElement = <T extends Element>(element: T): boolean => {
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('description');
+};
+
+export const isRequestBodyLikeElement = <T extends Element>(element: T): boolean => {
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('content');
 };

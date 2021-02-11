@@ -1,5 +1,5 @@
-import { mapObjIndexed, has, path, defaultTo } from 'ramda';
-import { trimCharsStart, isPlainObject } from 'ramda-adjunct';
+import { mapObjIndexed, has, path, defaultTo, propSatisfies } from 'ramda';
+import { trimCharsStart, isPlainObject, isString } from 'ramda-adjunct';
 
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
 import OpenapiVisitor from './visitors/open-api-3-1/OpenapiVisitor';
@@ -30,6 +30,49 @@ import ServerVariablesVisitor from './visitors/open-api-3-1/server/VariablesVisi
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
+import ComponentsVisitor from './visitors/open-api-3-1/components';
+import ReferenceVisitor from './visitors/open-api-3-1/reference';
+import Reference$RefVisitor from './visitors/open-api-3-1/reference/$RefVisitor';
+import ReferenceSummaryVisitor from './visitors/open-api-3-1/reference/SummaryVisitor';
+import ReferenceDescriptionVisitor from './visitors/open-api-3-1/reference/DescriptionVisitor';
+import ParameterVisitor from './visitors/open-api-3-1/parameter';
+import ParameterNameVisitor from './visitors/open-api-3-1/parameter/NameVisitor';
+import ParameterInVisitor from './visitors/open-api-3-1/parameter/InVisitor';
+import ParameterDescriptionVisitor from './visitors/open-api-3-1/parameter/DescriptionVisitor';
+import ParameterRequiredVisitor from './visitors/open-api-3-1/parameter/RequiredVisitor';
+import ParameterDeprecatedVisitor from './visitors/open-api-3-1/parameter/DeprecatedVisitor';
+import ParameterAllowEmptyValueVisitor from './visitors/open-api-3-1/parameter/AllowEmptyValueVisitor';
+import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisitor';
+import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
+import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
+import SchemaVisitor from './visitors/open-api-3-1/schema';
+import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
+import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
+import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
+import ComponentSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
+import ComponentParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
+import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
+import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
+import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
+import PathsVisitor from './visitors/open-api-3-1/paths';
+import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
+import CallbackVisitor from './visitors/open-api-3-1/callback';
+import ResponseVisitor from './visitors/open-api-3-1/response';
+import ResponsesVisitor from './visitors/open-api-3-1/responses';
+import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
+import OperationVisitor from './visitors/open-api-3-1/operation';
+import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
+import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
+import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
+import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
+import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
+import OperationCallbacksVisitor from './visitors/open-api-3-1/operation/CallbacksVisitor';
+import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
+import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+import PathItemVisitor from './visitors/open-api-3-1/path-item';
+import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
+import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
+import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -52,7 +95,16 @@ const specification = {
               $ref: '#/visitors/document/objects/Info',
             },
             servers: ServersVisitor,
+            paths: {
+              $ref: '#/visitors/document/objects/Paths',
+            },
+            components: {
+              $ref: '#/visitors/document/objects/Components',
+            },
             security: SecurityVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
           },
         },
         Info: {
@@ -103,6 +155,125 @@ const specification = {
             description: ServerVariableDescriptionVisitor,
           },
         },
+        Components: {
+          $visitor: ComponentsVisitor,
+          fixedFields: {
+            schemas: ComponentSchemasVisitor,
+            parameters: ComponentParametersVisitor,
+          },
+        },
+        Paths: {
+          $visitor: PathsVisitor,
+        },
+        PathItem: {
+          $visitor: PathItemVisitor,
+          fixedFields: {
+            $ref: PathItem$RefVisitor,
+            summary: PathItemSummaryVisitor,
+            description: PathItemDescriptionVisitor,
+            get: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            put: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            post: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            delete: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            options: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            head: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            patch: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            trace: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            servers: ServersVisitor,
+            parameters: ParametersVisitor,
+          },
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fixedFields: {
+            tags: OperationTagsVisitor,
+            summary: OperationSummaryVisitor,
+            description: OperationDescriptionVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            operationId: OperationOperationIdVisitor,
+            parameters: ParametersVisitor,
+            requestBody: OperationRequestBodyVisitor,
+            responses: {
+              $ref: '#/visitors/document/objects/Responses',
+            },
+            callbacks: OperationCallbacksVisitor,
+            deprecated: OperationDeprecatedVisitor,
+            security: SecurityVisitor,
+            servers: ServersVisitor,
+          },
+        },
+        ExternalDocumentation: {
+          $visitor: ExternalDocumentationVisitor,
+          fixedFields: {
+            description: ExternalDocumentationDescriptionVisitor,
+            url: ExternalDocumentationUrlVisitor,
+          },
+        },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            name: ParameterNameVisitor,
+            in: ParameterInVisitor,
+            description: ParameterDescriptionVisitor,
+            required: ParameterRequiredVisitor,
+            deprecated: ParameterDeprecatedVisitor,
+            allowEmptyValue: ParameterAllowEmptyValueVisitor,
+            style: ParameterStyleVisitor,
+            explode: ParameterExplodeVisitor,
+            allowReserved: ParameterAllowReservedVisitor,
+            schema: SchemaVisitor,
+            example: ParameterExampleVisitor,
+            examples: ExamplesVisitor,
+            content: ContentVisitor,
+          },
+        },
+        RequestBody: {
+          $visitor: RequestBodyVisitor,
+          fixedFields: {},
+        },
+        Responses: {
+          $visitor: ResponsesVisitor,
+          fixedFields: {
+            default: ResponsesDefaultVisitor,
+          },
+        },
+        Response: {
+          $visitor: ResponseVisitor,
+          fixedFields: {},
+        },
+        Callback: {
+          $visitor: CallbackVisitor,
+          fixedFields: {},
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {
+            $ref: Reference$RefVisitor,
+            summary: ReferenceSummaryVisitor,
+            description: ReferenceDescriptionVisitor,
+          },
+        },
+        Schema: {
+          $visitor: SchemaVisitor,
+        },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
         },
@@ -121,7 +292,7 @@ export const dereference = (
   const rootObject = defaultTo(object, root);
 
   return mapObjIndexed((val) => {
-    if (isPlainObject(val) && has('$ref', val)) {
+    if (isPlainObject(val) && has('$ref', val) && propSatisfies(isString, '$ref', val)) {
       const $ref = path(['$ref'], val);
       // @ts-ignore
       const pointer = trimCharsStart('#/', $ref);

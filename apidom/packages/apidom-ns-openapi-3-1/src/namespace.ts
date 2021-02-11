@@ -17,9 +17,9 @@ import Reference from './elements/Reference';
 import ExternalDocumentation from './elements/ExternalDocumentation';
 import RequestBody from './elements/RequestBody';
 import Responses from './elements/Responses';
+import Response from './elements/Response';
 import Callback from './elements/Callback';
 import SecurityRequirement from './elements/SecurityRequirement';
-import Response from './elements/Response';
 
 import { createRefractor } from './refractor';
 
@@ -36,6 +36,8 @@ Openapi.refract = createRefractor([
 Info.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
 License.refract = createRefractor(['visitors', 'document', 'objects', 'License', '$visitor']);
 Contact.refract = createRefractor(['visitors', 'document', 'objects', 'Contact', '$visitor']);
+Components.refract = createRefractor(['visitors', 'document', 'objects', 'Components', '$visitor']);
+Schema.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
 Server.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
 ServerVariable.refract = createRefractor([
   'visitors',
@@ -44,6 +46,28 @@ ServerVariable.refract = createRefractor([
   'ServerVariable',
   '$visitor',
 ]);
+Paths.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
+PathItem.refract = createRefractor(['visitors', 'document', 'objects', 'PathItem', '$visitor']);
+Operation.refract = createRefractor(['visitors', 'document', 'objects', 'Operation', '$visitor']);
+Parameter.refract = createRefractor(['visitors', 'document', 'objects', 'Parameter', '$visitor']);
+Reference.refract = createRefractor(['visitors', 'document', 'objects', 'Reference', '$visitor']);
+ExternalDocumentation.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ExternalDocumentation',
+  '$visitor',
+]);
+RequestBody.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'RequestBody',
+  '$visitor',
+]);
+Responses.refract = createRefractor(['visitors', 'document', 'objects', 'Responses', '$visitor']);
+Response.refract = createRefractor(['visitors', 'document', 'objects', 'Response', '$visitor']);
+Callback.refract = createRefractor(['visitors', 'document', 'objects', 'Callback', '$visitor']);
 SecurityRequirement.refract = createRefractor([
   'visitors',
   'document',

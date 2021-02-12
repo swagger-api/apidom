@@ -15,7 +15,7 @@ export {
 
 export {
   isAsycApi2_0Element,
-  isAsycapiElement,
+  isAsyncApiVersionElement,
   isComponentsElement,
   isContactElement,
   isIdentifierElement,
@@ -33,7 +33,7 @@ export {
 
 export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
 
-export { default as AsyncapiElement } from './elements/Asyncapi';
+export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
 export { default as AsyncApi2_0Element } from './elements/AsyncApi2-0';
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';

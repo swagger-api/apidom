@@ -1,6 +1,6 @@
 import { NamespacePluginOptions } from 'minim';
 import AsyncApi2_0 from './elements/AsyncApi2-0';
-import Asyncapi from './elements/Asyncapi';
+import AsyncApiVersion from './elements/AsyncApiVersion';
 import Identifier from './elements/Identifier';
 import Info from './elements/Info';
 import License from './elements/License';
@@ -25,7 +25,7 @@ const asyncApi2_0 = {
     const { base } = options;
 
     base.register('asyncApi2_0', AsyncApi2_0);
-    base.register('asyncapi', Asyncapi);
+    base.register('asyncApiVersion', AsyncApiVersion);
     base.register('identifier', Identifier);
     base.register('info', Info);
     base.register('license', License);

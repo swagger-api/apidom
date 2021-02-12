@@ -8,7 +8,7 @@ import { KindVisitor } from '../generics';
 const AsyncapiVisitor = stampit(KindVisitor, SpecificationVisitor, {
   methods: {
     scalar(scalarNode: YamlScalar) {
-      const asyncapiElement = new this.namespace.elements.Asyncapi(scalarNode.content);
+      const asyncapiElement = new this.namespace.elements.AsyncApiVersion(scalarNode.content);
       this.element = this.maybeAddSourceMap(scalarNode, asyncapiElement);
       return BREAK;
     },

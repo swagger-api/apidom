@@ -2,7 +2,7 @@ import { allPass, either, is } from 'ramda';
 import { createPredicate } from 'apidom';
 
 import AsyncApi2_0Element from './elements/AsyncApi2-0';
-import AsyncapiElement from './elements/Asyncapi';
+import AsyncApiVersionElement from './elements/AsyncApiVersion';
 import IdentifierElement from './elements/Identifier';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
@@ -30,14 +30,14 @@ export const isAsycApi2_0Element = createPredicate(
   },
 );
 
-export const isAsycapiElement = createPredicate(
+export const isAsyncApiVersionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeAsyncapi = isElementType('asyncapi');
+    const isElementTypeAsyncApiVersion = isElementType('asyncApiVersion');
     const primitiveEqString = primitiveEq('string');
 
     return either(
-      is(AsyncapiElement),
-      allPass([hasBasicElementProps, isElementTypeAsyncapi, primitiveEqString]),
+      is(AsyncApiVersionElement),
+      allPass([hasBasicElementProps, isElementTypeAsyncApiVersion, primitiveEqString]),
     );
   },
 );

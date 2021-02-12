@@ -1,10 +1,10 @@
 import { Attributes, Meta, StringElement } from 'minim';
 
-class Asyncapi extends StringElement {
+class AsyncApiVersion extends StringElement {
   constructor(content?: string, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'asyncapi';
+    this.element = 'asyncApiVersion';
   }
 }
 
-export default Asyncapi;
+export default AsyncApiVersion;

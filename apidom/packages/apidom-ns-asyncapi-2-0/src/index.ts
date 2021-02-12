@@ -31,6 +31,8 @@ export {
   isReferenceElement,
 } from './predicates';
 
+export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
+
 export { default as AsyncapiElement } from './elements/Asyncapi';
 export { default as AsyncApi2_0Element } from './elements/AsyncApi2-0';
 export { default as ComponentsElement } from './elements/Components';

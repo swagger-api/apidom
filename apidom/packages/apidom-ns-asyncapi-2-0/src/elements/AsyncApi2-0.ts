@@ -1,5 +1,5 @@
 import { Attributes, Meta, ObjectElement } from 'minim';
-import AsyncapiElement from './Asyncapi';
+import AsyncApiVersionElement from './AsyncApiVersion';
 import IdentifierElement from './Identifier';
 import ComponentsElement from './Components';
 import InfoElement from './Info';
@@ -12,11 +12,11 @@ class AsyncApi2_0 extends ObjectElement {
     this.classes.push('api');
   }
 
-  get asyncapi(): AsyncapiElement {
+  get asyncapi(): AsyncApiVersionElement {
     return this.get('asyncapi');
   }
 
-  set asyncapi(asyncapi: AsyncapiElement) {
+  set asyncapi(asyncapi: AsyncApiVersionElement) {
     this.set('asyncapi', asyncapi);
   }
 

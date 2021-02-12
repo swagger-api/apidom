@@ -7,7 +7,7 @@ import { ValueVisitor } from '../generics';
 const AsyncapiVisitor = stampit(ValueVisitor, SpecificationVisitor, {
   methods: {
     string(stringNode) {
-      const asyncapiElement = new this.namespace.elements.Asyncapi(stringNode.value);
+      const asyncapiElement = new this.namespace.elements.AsyncApiVersion(stringNode.value);
       this.element = this.maybeAddSourceMap(stringNode, asyncapiElement);
       return BREAK;
     },

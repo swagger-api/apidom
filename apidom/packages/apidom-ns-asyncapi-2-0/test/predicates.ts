@@ -8,7 +8,7 @@ import {
   isIdentifierElement,
   isContactElement,
   isComponentsElement,
-  isAsycapiElement,
+  isAsyncApiVersionElement,
   isAsycApi2_0Element,
   isChannelsElement,
   isChannelItemElement,
@@ -18,7 +18,7 @@ import {
   isParameterElement,
   isReferenceElement,
   AsyncApi2_0Element,
-  AsyncapiElement,
+  AsyncApiVersionElement,
   SchemaElement,
   IdentifierElement,
   ComponentsElement,
@@ -195,37 +195,37 @@ describe('predicates', function () {
     });
   });
 
-  context('isAsyncapiElement', function () {
-    context('given AsyncapiElement instance value', function () {
+  context('isAsyncApiVersionElement', function () {
+    context('given AsyncApiVersionElement instance value', function () {
       specify('should return true', function () {
-        const element = new AsyncapiElement();
+        const element = new AsyncApiVersionElement();
 
-        assert.isTrue(isAsycapiElement(element));
+        assert.isTrue(isAsyncApiVersionElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class AsyncapiSubElement extends AsyncapiElement {}
+        class AsyncApiVersionSubElement extends AsyncApiVersionElement {}
 
-        assert.isTrue(isAsycapiElement(new AsyncapiSubElement()));
+        assert.isTrue(isAsyncApiVersionElement(new AsyncApiVersionSubElement()));
       });
     });
 
-    context('given non AsyncapiElement instance value', function () {
+    context('given non AsyncApiVersionElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isAsycapiElement(1));
-        assert.isFalse(isAsycapiElement(null));
-        assert.isFalse(isAsycapiElement(undefined));
-        assert.isFalse(isAsycapiElement({}));
-        assert.isFalse(isAsycapiElement([]));
-        assert.isFalse(isAsycapiElement('string'));
+        assert.isFalse(isAsyncApiVersionElement(1));
+        assert.isFalse(isAsyncApiVersionElement(null));
+        assert.isFalse(isAsyncApiVersionElement(undefined));
+        assert.isFalse(isAsyncApiVersionElement({}));
+        assert.isFalse(isAsyncApiVersionElement([]));
+        assert.isFalse(isAsyncApiVersionElement('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const asyncapiElementDuck = {
-        _storedElement: 'asyncapi',
+      const asyncApiVersionElementDuck = {
+        _storedElement: 'asyncApiVersion',
         _content: '',
         primitive() {
           return 'string';
@@ -243,8 +243,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isAsycapiElement(asyncapiElementDuck));
-      assert.isFalse(isAsycapiElement(asyncapiElementSwan));
+      assert.isTrue(isAsyncApiVersionElement(asyncApiVersionElementDuck));
+      assert.isFalse(isAsyncApiVersionElement(asyncapiElementSwan));
     });
   });
 

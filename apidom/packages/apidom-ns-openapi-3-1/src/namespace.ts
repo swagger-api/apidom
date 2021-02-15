@@ -20,7 +20,6 @@ import Responses from './elements/Responses';
 import Response from './elements/Response';
 import Callback from './elements/Callback';
 import SecurityRequirement from './elements/SecurityRequirement';
-
 import { createRefractor } from './refractor';
 
 // register refractors specific to element types

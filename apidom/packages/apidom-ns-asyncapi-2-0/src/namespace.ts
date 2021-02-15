@@ -19,6 +19,64 @@ import ServerVariable from './elements/ServerVariable';
 import SecurityRequirement from './elements/SecurityRequirement';
 import ServerBindings from './elements/ServerBindings';
 import Reference from './elements/Reference';
+import { createRefractor } from './refractor';
+
+// register refractors specific to element types
+AsyncApi2_0.refract = createRefractor(['visitors', 'document', 'objects', 'AsyncApi', '$visitor']);
+AsyncApiVersion.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'AsyncApiVersion',
+  '$visitor',
+]);
+Identifier.refract = createRefractor(['visitors', 'document', 'objects', 'Identifier', '$visitor']);
+Info.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
+License.refract = createRefractor(['visitors', 'document', 'objects', 'License', '$visitor']);
+Contact.refract = createRefractor(['visitors', 'document', 'objects', 'Contact', '$visitor']);
+Components.refract = createRefractor(['visitors', 'document', 'objects', 'Components', '$visitor']);
+Schema.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
+Channels.refract = createRefractor(['visitors', 'document', 'objects', 'Channels', '$visitor']);
+ChannelItem.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ChannelItem',
+  '$visitor',
+]);
+Operation.refract = createRefractor(['visitors', 'document', 'objects', 'Operation', '$visitor']);
+Parameters.refract = createRefractor(['visitors', 'document', 'objects', 'Parameters', '$visitor']);
+ChannelBindings.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ChannelBindings',
+  '$visitor',
+]);
+Servers.refract = createRefractor(['visitors', 'document', 'objects', 'Servers', '$visitor']);
+Server.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
+ServerVariable.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ServerVariable',
+  '$visitor',
+]);
+SecurityRequirement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SecurityRequirement',
+  '$visitor',
+]);
+ServerBindings.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ServerBindings',
+  '$visitor',
+]);
+Reference.refract = createRefractor(['visitors', 'document', 'objects', 'Reference', '$visitor']);
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {

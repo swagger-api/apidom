@@ -9,11 +9,11 @@ import { BREAK } from '../../../traversal/visitor';
 const AsyncApiVersionVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     string(stringElement: StringElement) {
-      const openapiElement = new AsyncApiVersionElement(stringElement.toValue());
+      const asyncApiVersionElement = new AsyncApiVersionElement(stringElement.toValue());
 
-      this.copyMetaAndAttributes(stringElement, openapiElement);
+      this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);
 
-      this.element = openapiElement;
+      this.element = asyncApiVersionElement;
       return BREAK;
     },
   },

@@ -9,6 +9,7 @@ const VersionVisitor = stampit(FallbackVisitor, {
   methods: {
     string(stringElement: StringElement) {
       this.element = new StringElement(stringElement.toValue());
+
       this.copyMetaAndAttributes(stringElement, this.element);
       appendMetadata(['version'], this.element);
 

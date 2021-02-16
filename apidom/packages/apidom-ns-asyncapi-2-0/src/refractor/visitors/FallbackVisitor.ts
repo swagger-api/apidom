@@ -14,7 +14,6 @@ const FallbackVisitor = stampit(Visitor, {
   methods: {
     enter(element: Element) {
       this.element = element.clone();
-      this.copyMetaAndAttributes(element, this.element);
       return BREAK;
     },
   },

@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "./static/css/main.ac35c5f8.chunk.css",
-    "main.js": "./static/js/main.f86dfcf6.chunk.js",
-    "main.js.map": "./static/js/main.f86dfcf6.chunk.js.map",
+    "main.js": "./static/js/main.641e62b5.chunk.js",
+    "main.js.map": "./static/js/main.641e62b5.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.4be4ae28.js",
     "runtime-main.js.map": "./static/js/runtime-main.4be4ae28.js.map",
-    "static/js/2.9279eaf8.chunk.js": "./static/js/2.9279eaf8.chunk.js",
-    "static/js/2.9279eaf8.chunk.js.map": "./static/js/2.9279eaf8.chunk.js.map",
+    "static/js/2.288334ca.chunk.js": "./static/js/2.288334ca.chunk.js",
+    "static/js/2.288334ca.chunk.js.map": "./static/js/2.288334ca.chunk.js.map",
     "static/js/3.34107123.chunk.js": "./static/js/3.34107123.chunk.js",
     "static/js/3.34107123.chunk.js.map": "./static/js/3.34107123.chunk.js.map",
     "tree-sitter.wasm": "./442b2eef0bcf2f31cd44ae2c04d0560f.wasm",
@@ -14,12 +14,12 @@
     "tree-sitter-json.wasm": "./aef8b6d36cb29b1e28a1e42165e60041.wasm",
     "index.html": "./index.html",
     "static/css/main.ac35c5f8.chunk.css.map": "./static/css/main.ac35c5f8.chunk.css.map",
-    "static/js/2.9279eaf8.chunk.js.LICENSE.txt": "./static/js/2.9279eaf8.chunk.js.LICENSE.txt"
+    "static/js/2.288334ca.chunk.js.LICENSE.txt": "./static/js/2.288334ca.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4be4ae28.js",
-    "static/js/2.9279eaf8.chunk.js",
+    "static/js/2.288334ca.chunk.js",
     "static/css/main.ac35c5f8.chunk.css",
-    "static/js/main.f86dfcf6.chunk.js"
+    "static/js/main.641e62b5.chunk.js"
   ]
 }

@@ -11,8 +11,10 @@ const Visitor = stampit({
   },
   methods: {
     copyMetaAndAttributes(from, to) {
-      to.meta = from.meta; // eslint-disable-line no-param-reassign
-      to.attributes = from.attributes; // eslint-disable-line no-param-reassign
+      // copy sourcemaps
+      if (from.meta.hasKey('sourceMap')) {
+        to.meta.set('sourceMap', from.meta.get('sourceMap'));
+      }
     },
   },
 });

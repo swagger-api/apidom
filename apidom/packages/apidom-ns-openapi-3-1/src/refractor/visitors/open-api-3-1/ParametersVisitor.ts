@@ -33,6 +33,7 @@ const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
         }
       });
 
+      this.copyMetaAndAttributes(arrayElement, this.element);
       appendMetadata(['parameters'], this.element);
 
       return BREAK;

@@ -106,7 +106,7 @@ declare module 'minim' {
   export class ObjectElement extends ArrayElement {
     constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
 
-    set(key: string | StringElement, value: any): void;
+    set(key: string | StringElement | number, value: any): ObjectElement;
 
     hasKey(value: string): boolean;
 

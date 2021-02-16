@@ -1,8 +1,8 @@
 import { assert } from 'chai';
 
-import * as adapter from '../src/adapter-node';
+import * as adapter from '../src/adapter';
 
-describe('adapter-node', function () {
+describe('adapter', function () {
   context('given zero byte empty file', function () {
     specify('should return empty parse result', async function () {
       const parseResult = await adapter.parse('', { sourceMap: true });

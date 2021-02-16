@@ -21,6 +21,7 @@ const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
+    appendMetadata(['callbacks'], this.element);
   },
   methods: {
     object(objectElement: ObjectElement) {
@@ -30,8 +31,6 @@ const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'callback');
       });
-
-      appendMetadata(['callbacks'], this.element);
 
       return result;
     },

@@ -135,7 +135,10 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
       appendMetadata(['json-reference', 'json-schema-reference'], valueElement);
     } else if (!this.specificationExtensionPredicate(propertyNode)) {
       // @ts-ignore
-      valueElement = this.namespace.toElement(propertyNode.value.value);
+      const valueVisitor = this.retrieveVisitorInstance(['value']);
+      visit(propertyNode.value, valueVisitor);
+
+      ({ element: valueElement } = valueVisitor);
     }
 
     if (this.specificationExtensionPredicate(propertyNode)) {

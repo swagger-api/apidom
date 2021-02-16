@@ -5,7 +5,7 @@ const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
 
 const browser = {
   mode: 'production',
-  entry: ['./src/adapter-browser.ts'],
+  entry: ['./src/adapter.ts'],
   target: 'web',
   node: {
     fs: 'empty',
@@ -48,7 +48,7 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/adapter-browser.ts'],
+  entry: ['./src/adapter.ts'],
   target: 'web',
   node: {
     fs: 'empty',

@@ -13,16 +13,7 @@ const VariablesVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-  },
-  methods: {
-    object(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.object.call(this, objectElement);
-
-      appendMetadata(['variables'], this.element);
-
-      return result;
-    },
+    appendMetadata(['variables'], this.element);
   },
 });
 

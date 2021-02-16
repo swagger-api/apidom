@@ -21,6 +21,7 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
+    appendMetadata(['parameters'], this.element);
   },
   methods: {
     object(objectElement: ObjectElement) {
@@ -30,8 +31,6 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'parameter');
       });
-
-      appendMetadata(['parameters'], this.element);
 
       return result;
     },

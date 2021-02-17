@@ -22,7 +22,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.12.5",
-    "@apidevtools/json-schema-ref-parser": "=9.0.3",
     "apidom": "file:../apidom",
     "apidom-ast": "file:../apidom-ast",
     "ramda": "=0.27.0",

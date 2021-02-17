@@ -3,7 +3,6 @@ import Parser from 'tree-sitter';
 import { assert } from 'chai';
 // @ts-ignore
 import JSONLanguage from 'tree-sitter-json';
-
 import {
   ParseResult,
   JsonArray,
@@ -14,13 +13,12 @@ import {
   JsonFalse,
   JsonString,
   visit,
-  transformTreeSitterJsonCST as transform,
-  treeSitterJsonKeyMap as keyMap,
-} from '../../../src';
+} from 'apidom-ast';
+import { analyze, keyMap } from '../../src/parser/syntactic-analysis';
 
-context('json', function () {
-  context('transformers', function () {
-    context('tree-sitter-json', function () {
+context('parser', function () {
+  context('syntactic-analysis', function () {
+    context('analyze', function () {
       context('given error-less CST to AST transformation', function () {
         let cst: Parser.Tree;
         let ast: ParseResult;
@@ -31,7 +29,7 @@ context('json', function () {
 
           const jsonString = '{"prop": [1, null, true, false, "a"]}';
           cst = parser.parse(jsonString);
-          ast = transform(cst);
+          ast = analyze(cst);
         });
 
         context('ParseResult', function () {
@@ -230,7 +228,7 @@ context('json', function () {
 
               const jsonString = '{"prop": "value"';
               const cst = parser.parse(jsonString);
-              const ast = transform(cst);
+              const ast = analyze(cst);
 
               const visitor = {
                 missing: [],
@@ -256,7 +254,7 @@ context('json', function () {
 
               const jsonString = '["a", 1';
               const cst = parser.parse(jsonString);
-              const ast = transform(cst);
+              const ast = analyze(cst);
 
               const visitor = {
                 missing: [],
@@ -284,7 +282,7 @@ context('json', function () {
 
               const jsonString = '{"a" "b"}';
               const cst = parser.parse(jsonString);
-              const ast = transform(cst);
+              const ast = analyze(cst);
 
               const visitor = {
                 errors: [],
@@ -309,7 +307,7 @@ context('json', function () {
 
               const jsonString = '{a: b}';
               const cst = parser.parse(jsonString);
-              const ast = transform(cst);
+              const ast = analyze(cst);
 
               const visitor = {
                 errors: [],
@@ -335,7 +333,7 @@ context('json', function () {
 
           const jsonString = '^';
           const cst = parser.parse(jsonString);
-          const ast = transform(cst);
+          const ast = analyze(cst);
 
           assert.propertyVal(ast.rootNode, 'type', 'error');
           assert.propertyVal(ast.rootNode, 'isUnexpected', false);

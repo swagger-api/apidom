@@ -1,15 +1,9 @@
-import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { createNamespace, ParseResultElement } from 'apidom';
-import {
-  JsonDocument,
-  JsonObject,
-  JsonProperty,
-  JsonArray,
-  Error,
-  transformTreeSitterJsonCST,
-} from 'apidom-ast';
-import specification from './specification';
+import { JsonDocument, JsonObject, JsonProperty, JsonArray, Error } from 'apidom-ast';
+
+import specification, { dereference } from './specification';
 import { visit } from './visitors';
+import { analyze } from './syntactic-analysis';
 
 export const namespace = createNamespace();
 
@@ -17,7 +11,7 @@ const parse = async (
   source: string,
   { sourceMap = false, specObj = specification, parser = null } = {},
 ): Promise<ParseResultElement> => {
-  const resolvedSpecObj = await $RefParser.dereference(specObj);
+  const resolvedSpecObj = dereference(specObj);
   // @ts-ignore
   const parseResultElement = new namespace.elements.ParseResult();
   // @ts-ignore
@@ -25,7 +19,7 @@ const parse = async (
 
   // @ts-ignore
   const cst = parser.parse(source);
-  const ast = transformTreeSitterJsonCST(cst);
+  const ast = analyze(cst);
 
   const keyMap = {
     // @ts-ignore

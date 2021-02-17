@@ -29,6 +29,8 @@ export {
   isReferenceElement,
 } from './predicates';
 
+export { isOpenApi3_1LikeElement } from './refractor/predicates';
+
 export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
 
 export { default as ComponentsElement } from './elements/Components';

@@ -1,7 +1,7 @@
-import { isObjectElement, ParseResultElement } from 'apidom';
+import { Element, NumberElement, ParseResultElement } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { OpenApi3_1Element, isOpenApi3_1LikeElement } from 'apidom-ns-openapi-3-1';
 
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',
@@ -16,11 +16,22 @@ export const parse = async (
   options: Record<string, unknown> = {},
 ): Promise<ParseResultElement> => {
   const parseResultElement = await parseYaml(source, options);
+  const results = parseResultElement.findElements(isOpenApi3_1LikeElement, {
+    recursive: false,
+  });
 
-  // refract first element in parse result into OpenApi3_1 element
-  if (isObjectElement(parseResultElement.get(0))) {
-    const openApiElement = OpenApi3_1Element.refract(parseResultElement.get(0));
-    parseResultElement.set(0, openApiElement);
+  if (results.length > 0) {
+    const openApiLikeElement = results[0];
+    const openApiElement = OpenApi3_1Element.refract(openApiLikeElement);
+    let index = 0;
+
+    parseResultElement.forEach((element: Element, indexElement: NumberElement) => {
+      if (openApiElement === element) {
+        index = indexElement.toValue();
+      }
+    });
+
+    parseResultElement.set(index, openApiElement);
   }
 
   return parseResultElement;

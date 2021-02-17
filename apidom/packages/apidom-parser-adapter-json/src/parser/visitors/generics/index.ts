@@ -12,11 +12,9 @@ import {
   JsonTrue,
   isJsonObject,
   isJsonArray,
-  isJsonString,
 } from 'apidom-ast';
 
 import { visit, BREAK } from '../index';
-import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ArrayVisitor = stampit(SpecificationVisitor).init(function ArrayVisitor() {
@@ -117,43 +115,22 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
 
     // object property value handling
     if (isJsonObject(propertyNode.value)) {
-      const objectVisitor = this.retrieveVisitorInstance(['object']);
-
-      visit(propertyNode.value, objectVisitor);
-
-      ({ element: valueElement } = objectVisitor);
+      valueElement = this.nodeToElement(['object'], propertyNode.value);
     } else if (isJsonArray(propertyNode.value)) {
-      const arrayVisitor = this.retrieveVisitorInstance(['array']);
-
-      visit(propertyNode.value, arrayVisitor);
-
-      ({ element: valueElement } = arrayVisitor);
-    } else if (propertyNode.key.value === '$ref' && isJsonString(propertyNode.value)) {
-      // $ref property key special handling
-      // @ts-ignore
-      valueElement = new this.namespace.elements.String(propertyNode.value.value);
-      appendMetadata(['json-reference', 'json-schema-reference'], valueElement);
-    } else if (!this.specificationExtensionPredicate(propertyNode)) {
-      // @ts-ignore
-      const valueVisitor = this.retrieveVisitorInstance(['value']);
-      visit(propertyNode.value, valueVisitor);
-
-      ({ element: valueElement } = valueVisitor);
-    }
-
-    if (this.specificationExtensionPredicate(propertyNode)) {
-      objElement.content.push(this.nodeToElement(['document', 'extension'], propertyNode));
+      valueElement = this.nodeToElement(['array'], propertyNode.value);
     } else {
-      objElement.content.push(
-        this.maybeAddSourceMap(
-          propertyNode,
-          new MemberElement(
-            this.maybeAddSourceMap(propertyNode.key, keyElement),
-            this.maybeAddSourceMap(propertyNode.value, valueElement),
-          ),
-        ),
-      );
+      valueElement = this.nodeToElement(['value'], propertyNode.value);
     }
+
+    objElement.content.push(
+      this.maybeAddSourceMap(
+        propertyNode,
+        new MemberElement(
+          this.maybeAddSourceMap(propertyNode.key, keyElement),
+          this.maybeAddSourceMap(propertyNode.value, valueElement),
+        ),
+      ),
+    );
 
     return false;
   };
@@ -177,7 +154,7 @@ export const ObjectVisitor = stampit(SpecificationVisitor).init(function ObjectV
 
 export const ValueVisitor = stampit(SpecificationVisitor, {
   methods: {
-    array(arrayNode: JsonArray) {
+    array(arrayNode: JsonArray): typeof BREAK {
       const arrayVisitor = this.retrieveVisitorInstance(['array']);
 
       visit(arrayNode, arrayVisitor);
@@ -187,7 +164,7 @@ export const ValueVisitor = stampit(SpecificationVisitor, {
       return BREAK;
     },
 
-    object(objectNode: JsonObject) {
+    object(objectNode: JsonObject): typeof BREAK {
       const objectVisitor = this.retrieveVisitorInstance(['object']);
 
       visit(objectNode, objectVisitor);
@@ -197,31 +174,31 @@ export const ValueVisitor = stampit(SpecificationVisitor, {
       return BREAK;
     },
 
-    string(stringNode: JsonString) {
+    string(stringNode: JsonString): typeof BREAK {
       const stringElement = new this.namespace.elements.String(stringNode.value);
       this.element = this.maybeAddSourceMap(stringNode, stringElement);
       return BREAK;
     },
 
-    number(numberNode: JsonNumber) {
+    number(numberNode: JsonNumber): typeof BREAK {
       const numberElement = new this.namespace.elements.Number(Number(numberNode.value));
       this.element = this.maybeAddSourceMap(numberNode, numberElement);
       return BREAK;
     },
 
-    true(trueNode: JsonTrue) {
+    true(trueNode: JsonTrue): typeof BREAK {
       const booleanElement = new this.namespace.elements.Boolean(true);
       this.element = this.maybeAddSourceMap(trueNode, booleanElement);
       return BREAK;
     },
 
-    false(falseNode: JsonFalse) {
+    false(falseNode: JsonFalse): typeof BREAK {
       const booleanElement = new this.namespace.elements.Boolean(false);
       this.element = this.maybeAddSourceMap(falseNode, booleanElement);
       return BREAK;
     },
 
-    null(nullNode: JsonNull) {
+    null(nullNode: JsonNull): typeof BREAK {
       const nullElement = new this.namespace.elements.Null();
       this.element = this.maybeAddSourceMap(nullNode, nullElement);
       return BREAK;

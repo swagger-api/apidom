@@ -1,7 +1,10 @@
-import { Element, NumberElement, ParseResultElement } from 'apidom';
+import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import { AsyncApi2_0Element, isAsyncApi2_0LikeElement } from 'apidom-ns-asyncapi-2-0';
+import asyncApiNamespace, {
+  AsyncApi2_0Element,
+  isAsyncApi2_0LikeElement,
+} from 'apidom-ns-asyncapi-2-0';
 
 export const mediaTypes = [
   'application/vnd.aai.asyncapi;version=2.0.0',
@@ -36,3 +39,5 @@ export const parse = async (
 
   return parseResultElement;
 };
+
+export const namespace = createNamespace(asyncApiNamespace);

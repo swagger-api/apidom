@@ -1,7 +1,10 @@
-import { Element, NumberElement, ParseResultElement } from 'apidom';
+import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import { OpenApi3_1Element, isOpenApi3_1LikeElement } from 'apidom-ns-openapi-3-1';
+import openApiNamespace, {
+  OpenApi3_1Element,
+  isOpenApi3_1LikeElement,
+} from 'apidom-ns-openapi-3-1';
 
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',
@@ -36,3 +39,5 @@ export const parse = async (
 
   return parseResultElement;
 };
+
+export const namespace = createNamespace(openApiNamespace);

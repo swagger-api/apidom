@@ -23,8 +23,5 @@
     "apidom": "file:../apidom",
     "apidom-ns-openapi-3-1": "file:../apidom-ns-openapi-3-1",
     "apidom-parser-adapter-json": "file:../apidom-parser-adapter-json"
-  },
-  "devDependencies": {
-    "tree-sitter-cli": "=0.18.0"
   }
 }

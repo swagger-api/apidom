@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import * as apiDOM from 'apidom';
 
-import * as adapter from '../src/adapter-node';
+import * as adapter from '../src/adapter';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 

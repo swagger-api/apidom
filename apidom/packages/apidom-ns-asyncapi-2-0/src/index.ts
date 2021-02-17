@@ -31,6 +31,8 @@ export {
   isReferenceElement,
 } from './predicates';
 
+export { isAsyncApi2_0LikeElement } from './refractor/predicates';
+
 export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
 
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';

@@ -1,6 +1,18 @@
 import { MemberElement, isStringElement, isObjectElement, Element } from 'apidom';
 import { startsWith } from 'ramda';
 
+export const isAsyncApi2_0LikeElement = <T extends Element>(element: T): boolean => {
+  return (
+    isObjectElement(element) &&
+    // @ts-ignore
+    element.hasKey('asyncapi') &&
+    // @ts-ignore
+    element.hasKey('info') &&
+    // @ts-ignore
+    element.hasKey('channels')
+  );
+};
+
 export const isAsyncApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());

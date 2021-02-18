@@ -8,11 +8,9 @@ import {
   YamlSequence,
   isYamlMapping,
   isYamlSequence,
-  isYamlScalar,
 } from 'apidom-ast';
 
 import { BREAK } from '../index';
-import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 export const ScalarVisitor = stampit(SpecificationVisitor, {
@@ -82,34 +80,35 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
     const { MemberElement } = this.namespace.elements.Element.prototype;
     const { key: keyNode } = keyValuePairNode;
     const { value: valueNode } = keyValuePairNode;
-    const keyElement = new this.namespace.elements.String(keyNode.content);
+    let keyElement;
     let valueElement;
+
+    // keys in yaml can be other objects
+    if (isYamlMapping(keyNode)) {
+      keyElement = this.nodeToElement(['mapping'], keyNode);
+    } else if (isYamlSequence(keyNode)) {
+      keyElement = this.nodeToElement(['sequence'], keyNode);
+    } else {
+      keyElement = this.nodeToElement(['scalar'], keyNode);
+    }
 
     if (isYamlMapping(valueNode)) {
       valueElement = this.nodeToElement(['mapping'], valueNode);
     } else if (isYamlSequence(valueNode)) {
       valueElement = this.nodeToElement(['sequence'], valueNode);
-    } else if (keyNode.content === '$ref' && isYamlScalar(valueNode)) {
-      // $ref property key special handling
-      valueElement = this.namespace.toElement(valueNode.content);
-      appendMetadata(['json-reference', 'json-schema-reference'], valueElement);
-    } else if (!this.specificationExtensionPredicate(keyValuePairNode)) {
-      valueElement = this.namespace.toElement(valueNode.content);
+    } else {
+      valueElement = this.nodeToElement(['scalar'], valueNode);
     }
 
-    if (this.specificationExtensionPredicate(keyValuePairNode)) {
-      objElement.content.push(this.nodeToElement(['document', 'extension'], keyValuePairNode));
-    } else {
-      objElement.content.push(
-        this.maybeAddSourceMap(
-          keyValuePairNode,
-          new MemberElement(
-            this.maybeAddSourceMap(keyNode, keyElement),
-            this.maybeAddSourceMap(valueNode, valueElement),
-          ),
+    objElement.content.push(
+      this.maybeAddSourceMap(
+        keyValuePairNode,
+        new MemberElement(
+          this.maybeAddSourceMap(keyNode, keyElement),
+          this.maybeAddSourceMap(valueNode, valueElement),
         ),
-      );
-    }
+      ),
+    );
 
     return false;
   };

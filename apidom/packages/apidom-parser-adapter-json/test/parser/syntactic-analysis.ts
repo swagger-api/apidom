@@ -44,6 +44,7 @@ context('parser', function () {
           });
 
           specify('should have Position', function () {
+            // @ts-ignore
             assert.deepEqual(ast.rootNode.position, {
               type: 'position',
               start: { type: 'point', row: 0, column: 0, char: 0 },
@@ -54,10 +55,12 @@ context('parser', function () {
 
         context('JsonObject', function () {
           specify('should be part of resulting AST', function () {
+            // @ts-ignore
             assert.propertyVal(ast.rootNode.child, 'type', 'object');
           });
 
           specify('should have Position', function () {
+            // @ts-ignore
             assert.deepEqual(ast.rootNode.child.position, {
               type: 'position',
               start: { type: 'point', row: 0, column: 0, char: 0 },
@@ -70,18 +73,22 @@ context('parser', function () {
           let objectNode: JsonObject;
 
           beforeEach(function () {
+            // @ts-ignore
             ({ child: objectNode } = ast.rootNode);
           });
 
           specify('should be part of resulting AST', function () {
+            // @ts-ignore
             assert.propertyVal(objectNode.properties[0], 'type', 'property');
           });
 
           specify('should appear in AST specific number of times', function () {
+            // @ts-ignore
             assert.lengthOf(objectNode.properties, 1);
           });
 
           specify('should have Position', function () {
+            // @ts-ignore
             assert.deepEqual(objectNode.properties[0].position, {
               type: 'position',
               start: { type: 'point', row: 0, column: 1, char: 1 },
@@ -94,6 +101,7 @@ context('parser', function () {
           let arrayNode: JsonArray;
 
           beforeEach(function () {
+            // @ts-ignore
             [{ value: arrayNode }] = ast.rootNode.child.properties;
           });
 
@@ -102,11 +110,13 @@ context('parser', function () {
           });
 
           specify('should have specific number of items', function () {
+            // @ts-ignore
             assert.lengthOf(arrayNode.items, 5);
           });
 
           specify('should have Position', function () {
             assert.deepEqual(arrayNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 9, char: 9 },
               end: { type: 'point', row: 0, column: 36, char: 36 },
@@ -118,6 +128,7 @@ context('parser', function () {
           let numberNode: JsonNumber;
 
           beforeEach(function () {
+            // @ts-ignore
             [numberNode] = ast.rootNode.child.properties[0].value.items;
           });
 
@@ -127,6 +138,7 @@ context('parser', function () {
 
           specify('should have Position', function () {
             assert.deepEqual(numberNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 10, char: 10 },
               end: { type: 'point', row: 0, column: 11, char: 11 },
@@ -138,6 +150,7 @@ context('parser', function () {
           let nullNode: JsonNull;
 
           beforeEach(function () {
+            // @ts-ignore
             [, nullNode] = ast.rootNode.child.properties[0].value.items;
           });
 
@@ -147,6 +160,7 @@ context('parser', function () {
 
           specify('should have Position', function () {
             assert.deepEqual(nullNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 13, char: 13 },
               end: { type: 'point', row: 0, column: 17, char: 17 },
@@ -158,6 +172,7 @@ context('parser', function () {
           let trueNode: JsonTrue;
 
           beforeEach(function () {
+            // @ts-ignore
             [, , trueNode] = ast.rootNode.child.properties[0].value.items;
           });
 
@@ -167,6 +182,7 @@ context('parser', function () {
 
           specify('should have Position', function () {
             assert.deepEqual(trueNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 19, char: 19 },
               end: { type: 'point', row: 0, column: 23, char: 23 },
@@ -178,6 +194,7 @@ context('parser', function () {
           let falseNode: JsonFalse;
 
           beforeEach(function () {
+            // @ts-ignore
             [, , , falseNode] = ast.rootNode.child.properties[0].value.items;
           });
 
@@ -187,6 +204,7 @@ context('parser', function () {
 
           specify('should have Position', function () {
             assert.deepEqual(falseNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 25, char: 25 },
               end: { type: 'point', row: 0, column: 30, char: 30 },
@@ -198,6 +216,7 @@ context('parser', function () {
           let stringNode: JsonString;
 
           beforeEach(function () {
+            // @ts-ignore
             [, , , , stringNode] = ast.rootNode.child.properties[0].value.items;
           });
 
@@ -211,6 +230,7 @@ context('parser', function () {
 
           specify('should have Position', function () {
             assert.deepEqual(stringNode.position, {
+              // @ts-ignore
               type: 'position',
               start: { type: 'point', row: 0, column: 32, char: 32 },
               end: { type: 'point', row: 0, column: 35, char: 35 },
@@ -232,13 +252,16 @@ context('parser', function () {
 
               const visitor = {
                 missing: [],
+                // @ts-ignore
                 enter(node) {
                   if (node.isMissing) {
+                    // @ts-ignore
                     this.missing.push(node);
                   }
                 },
               };
 
+              // @ts-ignore
               visit(ast.rootNode, visitor, { keyMap });
 
               assert.lengthOf(visitor.missing, 1);
@@ -258,13 +281,16 @@ context('parser', function () {
 
               const visitor = {
                 missing: [],
+                // @ts-ignore
                 enter(node) {
                   if (node.isMissing) {
+                    // @ts-ignore
                     this.missing.push(node);
                   }
                 },
               };
 
+              // @ts-ignore
               visit(ast.rootNode, visitor, { keyMap });
 
               assert.lengthOf(visitor.missing, 1);
@@ -286,11 +312,14 @@ context('parser', function () {
 
               const visitor = {
                 errors: [],
+                // @ts-ignore
                 error(node) {
+                  // @ts-ignore
                   this.errors.push(node);
                 },
               };
 
+              // @ts-ignore
               visit(ast.rootNode, visitor, { keyMap });
 
               assert.lengthOf(visitor.errors, 1);
@@ -311,11 +340,14 @@ context('parser', function () {
 
               const visitor = {
                 errors: [],
+                // @ts-ignore
                 error(node) {
+                  // @ts-ignore
                   this.errors.push(node);
                 },
               };
 
+              // @ts-ignore
               visit(ast.rootNode, visitor, { keyMap });
 
               assert.lengthOf(visitor.errors, 3);
@@ -337,7 +369,9 @@ context('parser', function () {
 
           assert.propertyVal(ast.rootNode, 'type', 'error');
           assert.propertyVal(ast.rootNode, 'isUnexpected', false);
+          // @ts-ignore
           assert.propertyVal(ast.rootNode.children[0], 'type', 'error');
+          // @ts-ignore
           assert.propertyVal(ast.rootNode.children[0], 'isUnexpected', true);
         });
       });

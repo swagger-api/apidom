@@ -1,7 +1,0 @@
-"Several lines of text,
-  containing \"double quotes\". Escapes (like \\n) work.\nIn addition,
-  newlines can be esc\
-  aped to prevent them from being converted to a space.
-
-  Newlines can also be added by leaving a blank line.
-    Leading whitespace on lines is ignored."

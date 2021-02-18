@@ -1,10 +1,12 @@
 // @ts-ignore
-import Parser from 'tree-sitter';
 import { assert } from 'chai';
 // @ts-ignore
+import Parser from 'tree-sitter';
+// @ts-ignore
 import YAMLLanguage from 'tree-sitter-yaml';
+import { ParseResult } from 'apidom-ast';
 
-import { ParseResult, transformTreeSitterYamlCST as transform } from '../../../src';
+import { analyze } from '../../src/parser/syntactic-analysis';
 
 describe('yaml', function () {
   context('transformers', function () {
@@ -20,7 +22,7 @@ describe('yaml', function () {
           const jsonString = 'prop: !!bool "true"';
 
           cst = parser.parse(jsonString);
-          ast = transform(cst);
+          ast = analyze(cst);
           // const util = require('util');
           // console.log(util.inspect(ast, { showHidden: false, compact: false, depth: null }));
         });

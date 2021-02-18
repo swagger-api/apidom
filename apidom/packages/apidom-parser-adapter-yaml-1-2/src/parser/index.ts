@@ -1,6 +1,6 @@
-import { createNamespace, ParseResultElement } from 'apidom';
+import { createNamespace, ParseResultElement, dereference } from 'apidom';
 
-import specification, { dereference } from './specification';
+import specification from './specification';
 import { analyze } from './syntactic-analysis';
 import { visit } from './visitors';
 

@@ -1,9 +1,9 @@
 import { refract as baseRefract } from 'minim';
-import { Element } from 'apidom';
+import { Element, dereference } from 'apidom';
 import { invokeArgs } from 'ramda-adjunct';
 
 import { visit } from '../traversal/visitor';
-import specification, { dereference } from './specification';
+import specification from './specification';
 
 const refract = <T extends Element>(
   value: any,

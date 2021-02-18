@@ -1,7 +1,7 @@
-import { createNamespace, ParseResultElement } from 'apidom';
+import { createNamespace, ParseResultElement, dereference } from 'apidom';
 import { JsonDocument, JsonObject, JsonProperty, JsonArray, Error } from 'apidom-ast';
 
-import specification, { dereference } from './specification';
+import specification from './specification';
 import { visit } from './visitors';
 import { analyze } from './syntactic-analysis';
 

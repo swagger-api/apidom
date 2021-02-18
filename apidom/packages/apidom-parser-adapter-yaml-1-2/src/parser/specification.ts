@@ -1,6 +1,3 @@
-import { defaultTo, has, mapObjIndexed, path, propSatisfies } from 'ramda';
-import { isPlainObject, isString, trimCharsStart } from 'ramda-adjunct';
-
 import StreamVisitor from './visitors/StreamVisitor';
 import DocumentVisitor from './visitors/DocumentVisitor';
 import ErrorVisitor from './visitors/ErrorVisitor';
@@ -31,26 +28,6 @@ const specification = {
       extension: KindVisitor,
     },
   },
-};
-
-export const dereference = (
-  object: Record<string, any>,
-  root?: Record<string, any>,
-): Record<string, any> => {
-  const rootObject = defaultTo(object, root);
-
-  return mapObjIndexed((val) => {
-    if (isPlainObject(val) && has('$ref', val) && propSatisfies(isString, '$ref', val)) {
-      const $ref = path(['$ref'], val);
-      // @ts-ignore
-      const pointer = trimCharsStart('#/', $ref);
-      return path(pointer.split('/'), rootObject);
-    }
-    if (isPlainObject(val)) {
-      return dereference(val, rootObject);
-    }
-    return val;
-  }, object);
 };
 
 export default specification;

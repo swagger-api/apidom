@@ -85,11 +85,11 @@ export const MappingVisitor = stampit(SpecificationVisitor).init(function Mappin
 
     // keys in yaml can be other objects
     if (isYamlMapping(keyNode)) {
-      keyElement = this.nodeToElement(['mapping'], valueNode);
+      keyElement = this.nodeToElement(['mapping'], keyNode);
     } else if (isYamlSequence(keyNode)) {
-      keyElement = this.nodeToElement(['sequence'], valueNode);
+      keyElement = this.nodeToElement(['sequence'], keyNode);
     } else {
-      keyElement = this.nodeToElement(['scalar'], valueNode);
+      keyElement = this.nodeToElement(['scalar'], keyNode);
     }
 
     if (isYamlMapping(valueNode)) {

@@ -2,36 +2,36 @@ import { assert } from 'chai';
 import { ArrayElement } from 'minim';
 
 import {
-  isSchemaElement,
-  isLicenseElement,
-  isInfoElement,
-  isIdentifierElement,
-  isContactElement,
-  isComponentsElement,
+  isAsyncApi2_0Element,
   isAsyncApiVersionElement,
-  isAsycApi2_0Element,
-  isChannelsElement,
   isChannelItemElement,
-  isServersElement,
-  isServerElement,
-  isServerVariableElement,
+  isChannelsElement,
+  isComponentsElement,
+  isContactElement,
+  isIdentifierElement,
+  isInfoElement,
+  isLicenseElement,
   isParameterElement,
   isReferenceElement,
+  isSchemaElement,
+  isServerElement,
+  isServersElement,
+  isServerVariableElement,
   AsyncApi2_0Element,
   AsyncApiVersionElement,
-  SchemaElement,
-  IdentifierElement,
+  ChannelItemElement,
+  ChannelsElement,
   ComponentsElement,
+  ContactElement,
+  IdentifierElement,
   InfoElement,
   LicenseElement,
-  ContactElement,
-  ChannelsElement,
-  ChannelItemElement,
-  ServersElement,
-  ServerElement,
-  ServerVariableElement,
   ParameterElement,
   ReferenceElement,
+  SchemaElement,
+  ServerElement,
+  ServersElement,
+  ServerVariableElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -40,7 +40,7 @@ describe('predicates', function () {
       specify('should return true', function () {
         const element = new AsyncApi2_0Element();
 
-        assert.isTrue(isAsycApi2_0Element(element));
+        assert.isTrue(isAsyncApi2_0Element(element));
       });
     });
 
@@ -48,18 +48,18 @@ describe('predicates', function () {
       specify('should return true', function () {
         class AsyncApi2_0SubElement extends AsyncApi2_0Element {}
 
-        assert.isTrue(isAsycApi2_0Element(new AsyncApi2_0SubElement()));
+        assert.isTrue(isAsyncApi2_0Element(new AsyncApi2_0SubElement()));
       });
     });
 
     context('given non AsyncApi2_0Element instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isAsycApi2_0Element(1));
-        assert.isFalse(isAsycApi2_0Element(null));
-        assert.isFalse(isAsycApi2_0Element(undefined));
-        assert.isFalse(isAsycApi2_0Element({}));
-        assert.isFalse(isAsycApi2_0Element([]));
-        assert.isFalse(isAsycApi2_0Element('string'));
+        assert.isFalse(isAsyncApi2_0Element(1));
+        assert.isFalse(isAsyncApi2_0Element(null));
+        assert.isFalse(isAsyncApi2_0Element(undefined));
+        assert.isFalse(isAsyncApi2_0Element({}));
+        assert.isFalse(isAsyncApi2_0Element([]));
+        assert.isFalse(isAsyncApi2_0Element('string'));
       });
     });
 
@@ -84,8 +84,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isAsycApi2_0Element(asyncApi2_0ElementDuck));
-      assert.isFalse(isAsycApi2_0Element(asyncApi2_0ElementSwan));
+      assert.isTrue(isAsyncApi2_0Element(asyncApi2_0ElementDuck));
+      assert.isFalse(isAsyncApi2_0Element(asyncApi2_0ElementSwan));
     });
   });
 

@@ -13,7 +13,7 @@ import {
   isInfoElement,
   isLicenseElement,
   isOpenapiElement,
-  isOpenApiApi3_1Element,
+  isOpenApi3_1Element,
   isOperationElement,
   isParameterElement,
   isPathItemElement,
@@ -45,7 +45,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
     ? 'license'
     : isOpenapiElement(element)
     ? 'openapi'
-    : isOpenApiApi3_1Element(element)
+    : isOpenApi3_1Element(element)
     ? 'openApi3-1'
     : isOperationElement(element)
     ? 'operation'

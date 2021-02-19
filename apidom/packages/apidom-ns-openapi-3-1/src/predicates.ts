@@ -21,7 +21,7 @@ import RequestBodyElement from './elements/RequestBody';
 import ResponsesElement from './elements/Responses';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 
-export const isOpenApiApi3_1Element = createPredicate(
+export const isOpenApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     const isElementTypeOpenApi3_1 = isElementType('openApi3-1');
     const primitiveEqObject = primitiveEq('object');

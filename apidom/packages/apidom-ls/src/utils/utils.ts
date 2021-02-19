@@ -1,7 +1,7 @@
 // @ts-ignore
 import { isMemberElement, isObjectElement, traverse } from 'apidom';
 import { Element, ObjectElement, MemberElement } from 'minim';
-import { isOpenApiApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { isOpenApi3_1Element } from 'apidom-ns-openapi-3-1';
 import { CompletionItem, CompletionItemKind, InsertTextFormat } from 'vscode-languageserver-types';
 
 export class SourceMap {
@@ -132,7 +132,7 @@ export function addMetadataMapping(root: Element): void {
 }
 
 export function addMetadata(element: Element): void {
-  if (isOpenApiApi3_1Element(element)) {
+  if (isOpenApi3_1Element(element)) {
     element.attributes.set('completion', ['info', 'paths']);
   }
 }

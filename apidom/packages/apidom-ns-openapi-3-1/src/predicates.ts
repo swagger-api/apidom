@@ -1,6 +1,7 @@
 import { allPass, either, is } from 'ramda';
 import { createPredicate } from 'apidom';
 
+import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import InfoElement from './elements/Info';
@@ -14,8 +15,13 @@ import PathsElement from './elements/Paths';
 import PathItemElement from './elements/PathItem';
 import OperationElement from './elements/Operation';
 import ReferenceElement from './elements/Reference';
+import ExternalDocumentationElement from './elements/ExternalDocumentation';
+import ParameterElement from './elements/Parameter';
+import RequestBodyElement from './elements/RequestBody';
+import ResponsesElement from './elements/Responses';
+import SecurityRequirementElement from './elements/SecurityRequirement';
 
-export const isOpenApiApi3_1Element = createPredicate(
+export const isOpenApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     const isElementTypeOpenApi3_1 = isElementType('openApi3-1');
     const primitiveEqObject = primitiveEq('object');
@@ -83,6 +89,30 @@ export const isComponentsElement = createPredicate(
 
     return either(
       is(ComponentsElement),
+      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject]),
+    );
+  },
+);
+
+export const isCallbackElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeComponents = isElementType('callback');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(CallbackElement),
+      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject]),
+    );
+  },
+);
+
+export const isExternalDocumentationElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeComponents = isElementType('externalDocumentation');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ExternalDocumentationElement),
       allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject]),
     );
   },
@@ -160,6 +190,18 @@ export const isOperationElement = createPredicate(
   },
 );
 
+export const isParameterElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeOperation = isElementType('parameter');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ParameterElement),
+      allPass([hasBasicElementProps, isElementTypeOperation, primitiveEqObject]),
+    );
+  },
+);
+
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeReference = isElementType('reference');
@@ -167,6 +209,42 @@ export const isReferenceElement = createPredicate(
 
     return either(
       is(ReferenceElement),
+      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
+    );
+  },
+);
+
+export const isRequestBodyElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeReference = isElementType('requestBody');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(RequestBodyElement),
+      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
+    );
+  },
+);
+
+export const isResponsesBodyElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeReference = isElementType('responses');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ResponsesElement),
+      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
+    );
+  },
+);
+
+export const isSecurityRequirementElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeReference = isElementType('securityRequirement');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(SecurityRequirementElement),
       allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
     );
   },

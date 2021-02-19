@@ -14,7 +14,7 @@ export {
 } from 'apidom';
 
 export {
-  isOpenApiApi3_1Element,
+  isOpenApi3_1Element,
   isContactElement,
   isLicenseElement,
   isInfoElement,

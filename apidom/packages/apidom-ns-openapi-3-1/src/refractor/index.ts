@@ -7,13 +7,10 @@ import specification from './specification';
 
 const refract = <T extends Element>(
   value: any,
-  {
-    specPath = ['visitors', 'document', 'objects', 'OpenApi', '$visitor'],
-    specObj = specification,
-  } = {},
+  { specPath = ['visitors', 'document', 'objects', 'OpenApi', '$visitor'] } = {},
 ): T => {
   const element = baseRefract(value);
-  const resolvedSpec = dereference(specObj);
+  const resolvedSpec = dereference(specification);
   const visitor = invokeArgs(specPath, [], resolvedSpec);
 
   // @ts-ignore

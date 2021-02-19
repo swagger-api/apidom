@@ -8,7 +8,7 @@ import {
   isContactElement,
   isComponentsElement,
   isOpenapiElement,
-  isOpenApiApi3_1Element,
+  isOpenApi3_1Element,
   isServerElement,
   isServerVariableElement,
   isPathsElement,
@@ -36,7 +36,7 @@ describe('predicates', function () {
       specify('should return true', function () {
         const element = new OpenApi3_1Element();
 
-        assert.isTrue(isOpenApiApi3_1Element(element));
+        assert.isTrue(isOpenApi3_1Element(element));
       });
     });
 
@@ -44,18 +44,18 @@ describe('predicates', function () {
       specify('should return true', function () {
         class OpenApi3_1SubElement extends OpenApi3_1Element {}
 
-        assert.isTrue(isOpenApiApi3_1Element(new OpenApi3_1SubElement()));
+        assert.isTrue(isOpenApi3_1Element(new OpenApi3_1SubElement()));
       });
     });
 
     context('given non OpenApi3_1SubElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isOpenApiApi3_1Element(1));
-        assert.isFalse(isOpenApiApi3_1Element(null));
-        assert.isFalse(isOpenApiApi3_1Element(undefined));
-        assert.isFalse(isOpenApiApi3_1Element({}));
-        assert.isFalse(isOpenApiApi3_1Element([]));
-        assert.isFalse(isOpenApiApi3_1Element('string'));
+        assert.isFalse(isOpenApi3_1Element(1));
+        assert.isFalse(isOpenApi3_1Element(null));
+        assert.isFalse(isOpenApi3_1Element(undefined));
+        assert.isFalse(isOpenApi3_1Element({}));
+        assert.isFalse(isOpenApi3_1Element([]));
+        assert.isFalse(isOpenApi3_1Element('string'));
       });
     });
 
@@ -83,8 +83,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isOpenApiApi3_1Element(openApi3_1ElementDuck));
-      assert.isFalse(isOpenApiApi3_1Element(openApi3_1ElementSwan));
+      assert.isTrue(isOpenApi3_1Element(openApi3_1ElementDuck));
+      assert.isFalse(isOpenApi3_1Element(openApi3_1ElementSwan));
     });
   });
 

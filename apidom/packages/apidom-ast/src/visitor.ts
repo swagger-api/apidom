@@ -1,5 +1,5 @@
-import { prop, pipe, curryN } from 'ramda';
-import { isFunction, isString, isNotNil } from 'ramda-adjunct';
+import { prop, pipe, curryN, tail, forEachObjIndexed, defaultTo, identity, pathOr } from 'ramda';
+import { isFunction, isString, isNotNil, isNotUndefined, isPlainObject } from 'ramda-adjunct';
 
 // getVisitFn :: (Visitor, String, Boolean) -> Function
 // @ts-ignore
@@ -41,6 +41,111 @@ export const getNodeType = prop('type');
 
 // isNode :: Node -> Boolean
 export const isNode = curryN(1, pipe(getNodeType, isString));
+
+// wrap visitor functions to allow to run them in parallel
+const wrapVisitorFn = (previousVisitorFn: any, visitorFn: any) => {
+  function wrapper(...args: any[]) {
+    const result = previousVisitorFn(...args);
+
+    // don't run visitor function as previous one stopped the visiting
+    if ([false, null, BREAK].includes(result)) {
+      return result;
+    }
+
+    // node has been replaced
+    if (isNotUndefined(result)) {
+      return visitorFn(result, ...tail(args));
+    }
+
+    return visitorFn(...args);
+  }
+
+  Object.defineProperty(wrapper, 'name', {
+    value: visitorFn.name,
+  });
+
+  return wrapper;
+};
+
+// normalized all possible visitor shapes into standardized form.
+const normalize = (visitor: any) => {
+  const normalized: any = {};
+
+  forEachObjIndexed((value: any, key) => {
+    if (key === 'enter' && isFunction(value)) {
+      // { enter() {} }
+      normalized.enter = value.bind(normalized);
+    } else if (key === 'leave' && isFunction(value)) {
+      // { enter() {}, leave() {} }
+      normalized.leave = value.bind(normalized);
+    } else if (key === 'enter' && isPlainObject(value)) {
+      // { enter: { Type() {} } }
+      forEachObjIndexed((visitorFn: any, type) => {
+        normalized[type] = defaultTo({}, normalized[type]);
+        normalized[type].enter = visitorFn.bind(normalized);
+      }, value);
+    } else if (key === 'leave' && isPlainObject(value)) {
+      // { leave: { Type() {} } }
+      forEachObjIndexed((visitorFn: any, type) => {
+        normalized[type] = defaultTo({}, normalized[type]);
+        normalized[type].leave = visitorFn.bind(normalized);
+      }, value);
+    } else if (isFunction(value)) {
+      // { Type() {} }
+      normalized[key] = {
+        enter: value.bind(normalized),
+      };
+    } else if (isPlainObject(value)) {
+      // { Type: { enter() {}, leave() {} } }
+      normalized[key] = {};
+      // @ts-ignore
+      if (isFunction(value.enter)) {
+        // @ts-ignore
+        normalized[key].enter = value.enter.bind(normalized);
+      }
+      // @ts-ignore
+      if (isFunction(value.leave)) {
+        // @ts-ignore
+        normalized[key].leave = value.leave.bind(normalized);
+      }
+    }
+  }, visitor);
+
+  return normalized;
+};
+
+// merge all visitors provided in list
+export const mergeAll = (visitors: any[]) => {
+  return visitors.reduce((mergedVisitors, visitor) => {
+    /* eslint-disable no-param-reassign */
+    const normalizedVisitor = normalize(visitor);
+
+    forEachObjIndexed((value, type: any) => {
+      if (type === 'enter') {
+        const previousEnterFn = defaultTo(identity, mergedVisitors.enter);
+        mergedVisitors.enter = wrapVisitorFn(previousEnterFn, value).bind(mergedVisitors);
+      } else if (type === 'leave') {
+        const previousLeaveFn = defaultTo(identity, mergedVisitors.leave);
+        mergedVisitors.leave = wrapVisitorFn(previousLeaveFn, value).bind(mergedVisitors);
+      } else if (isFunction(value.enter)) {
+        const previousTypeEnterFn = pathOr(identity, [type, 'enter'], mergedVisitors);
+        mergedVisitors[type] = defaultTo({}, mergedVisitors.type);
+        mergedVisitors[type].enter = wrapVisitorFn(previousTypeEnterFn, value.enter).bind(
+          mergedVisitors,
+        );
+      } else if (isFunction(value.leave)) {
+        const previousTypeLeaveFn = pathOr(identity, [type, 'leave'], mergedVisitors);
+        mergedVisitors[type] = defaultTo({}, mergedVisitors.type);
+        mergedVisitors[type].enter = wrapVisitorFn(previousTypeLeaveFn, value.leave).bind(
+          mergedVisitors,
+        );
+      }
+    }, normalizedVisitor);
+
+    return mergedVisitors;
+  }, {});
+  /* eslint-enable */
+};
 
 /* eslint-disable no-continue, no-nested-ternary, no-param-reassign */
 /**

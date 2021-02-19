@@ -60,4 +60,4 @@ export { Point, default as Position } from './Position';
 export { default as Error } from './Error';
 export { default as ParseResult } from './ParseResult';
 // AST traversal related exports
-export { getVisitFn, BREAK, visit, isNode } from './visitor';
+export { getVisitFn, BREAK, mergeAll as mergeAllVisitors, visit, isNode } from './visitor';

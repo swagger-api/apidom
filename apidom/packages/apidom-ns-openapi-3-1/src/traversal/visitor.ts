@@ -5,12 +5,72 @@ import {
   keyMap as keyMapBase,
   getNodeType as getNodeTypeBase,
 } from 'apidom';
-import { isReferenceElement } from '../predicates';
+import {
+  isCallbackElement,
+  isComponentsElement,
+  isContactElement,
+  isExternalDocumentationElement,
+  isInfoElement,
+  isLicenseElement,
+  isOpenapiElement,
+  isOpenApiApi3_1Element,
+  isOperationElement,
+  isParameterElement,
+  isPathItemElement,
+  isPathsElement,
+  isReferenceElement,
+  isRequestBodyElement,
+  isResponsesBodyElement,
+  isSchemaElement,
+  isSecurityRequirementElement,
+  isServerElement,
+  isServerVariableElement,
+} from '../predicates';
 
 export { BREAK } from 'apidom';
 
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
-  return isReferenceElement(element) ? 'reference' : getNodeTypeBase(element);
+  /* eslint-disable no-nested-ternary */
+  return isCallbackElement(element)
+    ? 'callback'
+    : isComponentsElement(element)
+    ? 'components'
+    : isContactElement(element)
+    ? 'contact'
+    : isExternalDocumentationElement(element)
+    ? 'externalDocumentation'
+    : isInfoElement(element)
+    ? 'info'
+    : isLicenseElement(element)
+    ? 'license'
+    : isOpenapiElement(element)
+    ? 'openapi'
+    : isOpenApiApi3_1Element(element)
+    ? 'openApi3-1'
+    : isOperationElement(element)
+    ? 'operation'
+    : isParameterElement(element)
+    ? 'parameter'
+    : isPathItemElement(element)
+    ? 'pathItem'
+    : isPathsElement(element)
+    ? 'paths'
+    : isReferenceElement(element)
+    ? 'reference'
+    : isRequestBodyElement(element)
+    ? 'requestBody'
+    : isResponsesBodyElement(element)
+    ? 'responses'
+    : isSchemaElement(element)
+    ? 'schema'
+    : isSecurityRequirementElement(element)
+    ? 'securityRequirement'
+    : isServerElement(element)
+    ? 'server'
+    : isServerVariableElement(element)
+    ? 'serverVariable'
+    : getNodeTypeBase(element);
+  /* eslint-enable */
 };
 
 export const keyMapDefault = {

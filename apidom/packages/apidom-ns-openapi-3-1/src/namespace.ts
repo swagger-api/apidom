@@ -166,8 +166,6 @@ const openApi3_1 = {
     base.register('server', ServerElement);
     base.register('serverVariable', ServerVariableElement);
 
-    base.register('response', Response);
-
     return base;
   },
 };

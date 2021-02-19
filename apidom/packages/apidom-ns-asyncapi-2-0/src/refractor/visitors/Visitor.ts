@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { hasElementSourceMap } from 'apidom';
 
 const Visitor = stampit({
   props: {
@@ -12,7 +13,7 @@ const Visitor = stampit({
   methods: {
     copyMetaAndAttributes(from, to) {
       // copy sourcemaps
-      if (from.meta.hasKey('sourceMap')) {
+      if (hasElementSourceMap(from)) {
         to.meta.set('sourceMap', from.meta.get('sourceMap'));
       }
     },

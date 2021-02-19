@@ -13,9 +13,10 @@ import {
 import { all, isEmpty, either, curry, allPass, is, both } from 'ramda';
 import { included } from 'ramda-adjunct';
 
+import AnnotationElement from '../elements/Annotation';
+import CommentElement from '../elements/Comment';
 import ParserResultElement from '../elements/ParseResult';
 import SourceMapElement from '../elements/SourceMap';
-import AnnotationElement from '../elements/Annotation';
 import createPredicate from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
@@ -154,18 +155,6 @@ export const isRefElement = createPredicate(
   },
 );
 
-export const isParseResultElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeAnnotation = isElementType('parseResult');
-    const primitiveEqString = primitiveEq('array');
-
-    return either(
-      is(ParserResultElement),
-      allPass([hasBasicElementProps, isElementTypeAnnotation, primitiveEqString]),
-    );
-  },
-);
-
 export const isAnnotationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypeAnnotation = isElementType('annotation');
@@ -174,6 +163,30 @@ export const isAnnotationElement = createPredicate(
     return either(
       is(AnnotationElement),
       allPass([hasBasicElementProps, isElementTypeAnnotation, primitiveEqString]),
+    );
+  },
+);
+
+export const isCommentElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeComment = isElementType('comment');
+    const primitiveEqString = primitiveEq('string');
+
+    return either(
+      is(CommentElement),
+      allPass([hasBasicElementProps, isElementTypeComment, primitiveEqString]),
+    );
+  },
+);
+
+export const isParseResultElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeParseResult = isElementType('parseResult');
+    const primitiveEqString = primitiveEq('array');
+
+    return either(
+      is(ParserResultElement),
+      allPass([hasBasicElementProps, isElementTypeParseResult, primitiveEqString]),
     );
   },
 );

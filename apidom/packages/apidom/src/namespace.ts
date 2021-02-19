@@ -1,18 +1,18 @@
 import { Namespace as MinimNamespace } from 'minim';
 
-import ParseResult from './elements/ParseResult';
-import Annotation from './elements/Annotation';
-import SourceMap from './elements/SourceMap';
-import Comment from './elements/Comment';
+import AnnotationElement from './elements/Annotation';
+import CommentElement from './elements/Comment';
+import ParseResultElement from './elements/ParseResult';
+import SourceMapElement from './elements/SourceMap';
 
 export class Namespace extends MinimNamespace {
   constructor() {
     super();
 
-    this.register('parseResult', ParseResult);
-    this.register('annotation', Annotation);
-    this.register('sourceMap', SourceMap);
-    this.register('comment', Comment);
+    this.register('annotation', AnnotationElement);
+    this.register('comment', CommentElement);
+    this.register('parseResult', ParseResultElement);
+    this.register('sourceMap', SourceMapElement);
   }
 }
 

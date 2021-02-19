@@ -5,12 +5,60 @@ import {
   keyMap as keyMapBase,
   getNodeType as getNodeTypeBase,
 } from 'apidom';
-import { isReferenceElement } from '../predicates';
+import {
+  isServerElement,
+  isSchemaElement,
+  isServerVariableElement,
+  isParameterElement,
+  isLicenseElement,
+  isInfoElement,
+  isContactElement,
+  isComponentsElement,
+  isAsyncApiVersionElement,
+  isReferenceElement,
+  isAsyncApi2_0Element,
+  isChannelItemElement,
+  isChannelsElement,
+  isIdentifierElement,
+  isServersElement,
+} from '../predicates';
 
 export { BREAK } from 'apidom';
 
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
-  return isReferenceElement(element) ? 'reference' : getNodeTypeBase(element);
+  /* eslint-disable no-nested-ternary */
+  return isServerElement(element)
+    ? 'server'
+    : isSchemaElement(element)
+    ? 'schema'
+    : isServerVariableElement(element)
+    ? 'serverVariable'
+    : isParameterElement(element)
+    ? 'parameter'
+    : isLicenseElement(element)
+    ? 'license'
+    : isInfoElement(element)
+    ? 'info'
+    : isContactElement(element)
+    ? 'contact'
+    : isComponentsElement(element)
+    ? 'components'
+    : isAsyncApi2_0Element(element)
+    ? 'asyncApi2_0'
+    : isAsyncApiVersionElement(element)
+    ? 'asyncApiVersion'
+    : isChannelItemElement(element)
+    ? 'channelItem'
+    : isChannelsElement(element)
+    ? 'channels'
+    : isIdentifierElement(element)
+    ? 'identifier'
+    : isServersElement(element)
+    ? 'servers'
+    : isReferenceElement(element)
+    ? 'reference'
+    : getNodeTypeBase(element);
+  /* eslint-enable */
 };
 
 export const keyMapDefault = {

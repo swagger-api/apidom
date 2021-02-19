@@ -1,30 +1,65 @@
 import { NamespacePluginOptions } from 'minim';
 
-import OpenApi3_1 from './elements/OpenApi3-1';
-import Openapi from './elements/Openapi';
-import Info from './elements/Info';
-import License from './elements/License';
-import Contact from './elements/Contact';
-import Components from './elements/Components';
-import Schema from './elements/Schema';
-import Server from './elements/Server';
-import ServerVariable from './elements/ServerVariable';
-import Paths from './elements/Paths';
-import PathItem from './elements/PathItem';
-import Operation from './elements/Operation';
-import Parameter from './elements/Parameter';
-import Reference from './elements/Reference';
-import ExternalDocumentation from './elements/ExternalDocumentation';
-import RequestBody from './elements/RequestBody';
-import Responses from './elements/Responses';
-import Response from './elements/Response';
-import Callback from './elements/Callback';
-import SecurityRequirement from './elements/SecurityRequirement';
+import CallbackElement from './elements/Callback';
+import ComponentsElement from './elements/Components';
+import ContactElement from './elements/Contact';
+import ExternalDocumentationElement from './elements/ExternalDocumentation';
+import InfoElement from './elements/Info';
+import LicenseElement from './elements/License';
+import OpenapiElement from './elements/Openapi';
+import OpenApi3_1Element from './elements/OpenApi3-1';
+import OperationElement from './elements/Operation';
+import ParameterElement from './elements/Parameter';
+import PathItemElement from './elements/PathItem';
+import PathsElement from './elements/Paths';
+import ReferenceElement from './elements/Reference';
+import RequestBodyElement from './elements/RequestBody';
+import ResponseElement from './elements/Response';
+import ResponsesElement from './elements/Responses';
+import SchemaElement from './elements/Schema';
+import SecurityRequirementElement from './elements/SecurityRequirement';
+import ServerElement from './elements/Server';
+import ServerVariableElement from './elements/ServerVariable';
 import { createRefractor } from './refractor';
 
 // register refractors specific to element types
-OpenApi3_1.refract = createRefractor(['visitors', 'document', 'objects', 'OpenApi', '$visitor']);
-Openapi.refract = createRefractor([
+CallbackElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Callback',
+  '$visitor',
+]);
+ComponentsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Components',
+  '$visitor',
+]);
+ContactElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Contact',
+  '$visitor',
+]);
+ExternalDocumentationElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ExternalDocumentation',
+  '$visitor',
+]);
+InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
+LicenseElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'License',
+  '$visitor',
+]);
+OpenapiElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -32,46 +67,77 @@ Openapi.refract = createRefractor([
   'fixedFields',
   'Openapi',
 ]);
-Info.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
-License.refract = createRefractor(['visitors', 'document', 'objects', 'License', '$visitor']);
-Contact.refract = createRefractor(['visitors', 'document', 'objects', 'Contact', '$visitor']);
-Components.refract = createRefractor(['visitors', 'document', 'objects', 'Components', '$visitor']);
-Schema.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
-Server.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
-ServerVariable.refract = createRefractor([
+OpenApi3_1Element.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'ServerVariable',
+  'OpenApi',
   '$visitor',
 ]);
-Paths.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
-PathItem.refract = createRefractor(['visitors', 'document', 'objects', 'PathItem', '$visitor']);
-Operation.refract = createRefractor(['visitors', 'document', 'objects', 'Operation', '$visitor']);
-Parameter.refract = createRefractor(['visitors', 'document', 'objects', 'Parameter', '$visitor']);
-Reference.refract = createRefractor(['visitors', 'document', 'objects', 'Reference', '$visitor']);
-ExternalDocumentation.refract = createRefractor([
+OperationElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'ExternalDocumentation',
+  'Operation',
   '$visitor',
 ]);
-RequestBody.refract = createRefractor([
+ParameterElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Parameter',
+  '$visitor',
+]);
+PathItemElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'PathItem',
+  '$visitor',
+]);
+PathsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
+ReferenceElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Reference',
+  '$visitor',
+]);
+RequestBodyElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
   'RequestBody',
   '$visitor',
 ]);
-Responses.refract = createRefractor(['visitors', 'document', 'objects', 'Responses', '$visitor']);
-Response.refract = createRefractor(['visitors', 'document', 'objects', 'Response', '$visitor']);
-Callback.refract = createRefractor(['visitors', 'document', 'objects', 'Callback', '$visitor']);
-SecurityRequirement.refract = createRefractor([
+ResponseElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Response',
+  '$visitor',
+]);
+ResponsesElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Responses',
+  '$visitor',
+]);
+SchemaElement.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
+SecurityRequirementElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
   'SecurityRequirement',
+  '$visitor',
+]);
+ServerElement.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
+ServerVariableElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ServerVariable',
   '$visitor',
 ]);
 
@@ -79,25 +145,27 @@ const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
-    base.register('openApi3_1', OpenApi3_1);
-    base.register('openapi', Openapi);
-    base.register('info', Info);
-    base.register('license', License);
-    base.register('contact', Contact);
-    base.register('components', Components);
-    base.register('schema', Schema);
-    base.register('server', Server);
-    base.register('serverVariable', ServerVariable);
-    base.register('paths', Paths);
-    base.register('pathItem', PathItem);
-    base.register('operation', Operation);
-    base.register('parameter', Parameter);
-    base.register('reference', Reference);
-    base.register('externalDocumentation', ExternalDocumentation);
-    base.register('requestBody', RequestBody);
-    base.register('responses', Responses);
-    base.register('callback', Callback);
-    base.register('securityRequirement', SecurityRequirement);
+    base.register('callback', CallbackElement);
+    base.register('components', ComponentsElement);
+    base.register('contact', ContactElement);
+    base.register('externalDocumentation', ExternalDocumentationElement);
+    base.register('info', InfoElement);
+    base.register('license', LicenseElement);
+    base.register('openapi', OpenapiElement);
+    base.register('openApi3_1', OpenApi3_1Element);
+    base.register('operation', OperationElement);
+    base.register('parameter', ParameterElement);
+    base.register('pathItem', PathItemElement);
+    base.register('paths', PathsElement);
+    base.register('reference', ReferenceElement);
+    base.register('requestBody', RequestBodyElement);
+    base.register('response', ResponseElement);
+    base.register('responses', ResponsesElement);
+    base.register('schema', SchemaElement);
+    base.register('securityRequirement', SecurityRequirementElement);
+    base.register('server', ServerElement);
+    base.register('serverVariable', ServerVariableElement);
+
     base.register('response', Response);
 
     return base;

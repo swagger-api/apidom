@@ -20,7 +20,8 @@ import {
   isPathsElement,
   isReferenceElement,
   isRequestBodyElement,
-  isResponsesBodyElement,
+  isResponseElement,
+  isResponsesElement,
   isSchemaElement,
   isSecurityRequirementElement,
   isServerElement,
@@ -59,7 +60,9 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
     ? 'reference'
     : isRequestBodyElement(element)
     ? 'requestBody'
-    : isResponsesBodyElement(element)
+    : isResponseElement(element)
+    ? 'response'
+    : isResponsesElement(element)
     ? 'responses'
     : isSchemaElement(element)
     ? 'schema'

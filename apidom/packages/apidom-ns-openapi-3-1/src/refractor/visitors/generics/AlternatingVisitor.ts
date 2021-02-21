@@ -11,7 +11,7 @@ const AlternatingVisitor = stampit(SpecificationVisitor, {
     alternator: [],
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       const functions = this.alternator.map(
         ({ predicate, specPath }: { predicate: Pred; specPath: string[] }) =>
           ifElse(predicate, always(specPath), stubUndefined),

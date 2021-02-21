@@ -16,9 +16,9 @@ const DefaultVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
     ],
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = AlternatingVisitor.compose.methods.object.call(this, objectElement);
+      const result = AlternatingVisitor.compose.methods.Object.call(this, objectElement);
 
       if (isReferenceElement(this.element)) {
         this.element.setMetaProperty('referenced-element', 'response');

@@ -32,7 +32,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
     this.specificationExtensionPredicate = specificationExtensionPredicate;
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       // @ts-ignore
       objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
         if (

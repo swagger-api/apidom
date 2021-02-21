@@ -33,52 +33,70 @@ export { BREAK } from 'apidom';
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   /* eslint-disable no-nested-ternary */
   return isCallbackElement(element)
-    ? 'callback'
+    ? 'Callback'
     : isComponentsElement(element)
-    ? 'components'
+    ? 'Components'
     : isContactElement(element)
-    ? 'contact'
+    ? 'Contact'
     : isExternalDocumentationElement(element)
-    ? 'externalDocumentation'
+    ? 'ExternalDocumentation'
     : isInfoElement(element)
-    ? 'info'
+    ? 'Info'
     : isLicenseElement(element)
-    ? 'license'
+    ? 'License'
     : isOpenapiElement(element)
-    ? 'openapi'
+    ? 'Openapi'
     : isOpenApi3_1Element(element)
-    ? 'openApi3-1'
+    ? 'OpenApi3_1'
     : isOperationElement(element)
-    ? 'operation'
+    ? 'Operation'
     : isParameterElement(element)
-    ? 'parameter'
+    ? 'Parameter'
     : isPathItemElement(element)
-    ? 'pathItem'
+    ? 'PathItem'
     : isPathsElement(element)
-    ? 'paths'
+    ? 'Paths'
     : isReferenceElement(element)
-    ? 'reference'
+    ? 'Reference'
     : isRequestBodyElement(element)
-    ? 'requestBody'
+    ? 'RequestBody'
     : isResponseElement(element)
-    ? 'response'
+    ? 'Response'
     : isResponsesElement(element)
-    ? 'responses'
+    ? 'Responses'
     : isSchemaElement(element)
-    ? 'schema'
+    ? 'Schema'
     : isSecurityRequirementElement(element)
-    ? 'securityRequirement'
+    ? 'SecurityRequirement'
     : isServerElement(element)
-    ? 'server'
+    ? 'Server'
     : isServerVariableElement(element)
-    ? 'serverVariable'
+    ? 'ServerVariable'
     : getNodeTypeBase(element);
   /* eslint-enable */
 };
 
 export const keyMapDefault = {
   ...keyMapBase,
-  reference: ['content'],
+  Callback: ['content'],
+  Components: ['content'],
+  Contact: ['content'],
+  ExternalDocumentation: ['content'],
+  Info: ['content'],
+  License: ['content'],
+  OpenApi3_1: ['content'],
+  Operation: ['content'],
+  Parameter: ['content'],
+  PathItem: ['content'],
+  Paths: ['content'],
+  Reference: ['content'],
+  RequestBody: ['content'],
+  Response: ['content'],
+  Responses: ['content'],
+  Schema: ['content'],
+  SecurityRequirement: ['content'],
+  Server: ['content'],
+  ServerVariable: ['content'],
 };
 
 export const visit = (

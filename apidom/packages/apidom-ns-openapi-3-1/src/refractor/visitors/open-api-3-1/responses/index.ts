@@ -28,9 +28,9 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
     this.element = new ResponsesElement();
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = MixedFieldsVisitor.compose.methods.object.call(this, objectElement);
+      const result = MixedFieldsVisitor.compose.methods.Object.call(this, objectElement);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'response');

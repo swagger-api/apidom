@@ -8,7 +8,7 @@ import { BREAK } from '../../../traversal/visitor';
 
 const AsyncApiVersionVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    string(stringElement: StringElement) {
+    String(stringElement: StringElement) {
       const asyncApiVersionElement = new AsyncApiVersionElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);

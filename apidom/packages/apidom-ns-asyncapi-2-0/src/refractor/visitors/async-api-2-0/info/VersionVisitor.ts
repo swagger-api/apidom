@@ -7,7 +7,7 @@ import { BREAK } from '../../../../traversal/visitor';
 
 const VersionVisitor = stampit(FallbackVisitor, {
   methods: {
-    string(stringElement: StringElement) {
+    String(stringElement: StringElement) {
       this.element = new StringElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, this.element);

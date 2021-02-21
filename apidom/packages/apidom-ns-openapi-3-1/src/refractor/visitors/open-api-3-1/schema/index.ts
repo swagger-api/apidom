@@ -8,7 +8,7 @@ import { BREAK } from '../../../../traversal/visitor';
 
 const SchemaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       // @ts-ignore
       const schemaElement = new SchemaElement(objectElement.content);
 

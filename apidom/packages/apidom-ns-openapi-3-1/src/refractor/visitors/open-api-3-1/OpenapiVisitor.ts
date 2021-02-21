@@ -8,7 +8,7 @@ import { BREAK } from '../../../traversal/visitor';
 
 const OpenapiVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    string(stringElement: StringElement) {
+    String(stringElement: StringElement) {
       const openapiElement = new OpenapiElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, openapiElement);

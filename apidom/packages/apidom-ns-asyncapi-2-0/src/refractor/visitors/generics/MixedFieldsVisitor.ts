@@ -12,17 +12,17 @@ const MixedFieldsVisitor = stampit(FixedFieldsVisitor, PatternedFieldsVisitor, {
     specPathPatternedFields: noop,
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       const { specPath } = this;
 
       try {
         this.specPath = this.specPathFixedFields;
         // @ts-ignore
-        FixedFieldsVisitor.compose.methods.object.call(this, objectElement);
+        FixedFieldsVisitor.compose.methods.Object.call(this, objectElement);
 
         this.specPath = this.specPathPatternedFields;
         // @ts-ignore
-        PatternedFieldsVisitor.compose.methods.object.call(this, objectElement);
+        PatternedFieldsVisitor.compose.methods.Object.call(this, objectElement);
       } catch (e) {
         this.specPath = specPath;
         throw e;

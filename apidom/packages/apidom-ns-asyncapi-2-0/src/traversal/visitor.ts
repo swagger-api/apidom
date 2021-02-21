@@ -28,42 +28,54 @@ export { BREAK } from 'apidom';
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   /* eslint-disable no-nested-ternary */
   return isServerElement(element)
-    ? 'server'
+    ? 'Server'
     : isSchemaElement(element)
-    ? 'schema'
+    ? 'Schema'
     : isServerVariableElement(element)
-    ? 'serverVariable'
+    ? 'ServerVariable'
     : isParameterElement(element)
-    ? 'parameter'
+    ? 'Parameter'
     : isLicenseElement(element)
-    ? 'license'
+    ? 'License'
     : isInfoElement(element)
-    ? 'info'
+    ? 'Info'
     : isContactElement(element)
-    ? 'contact'
+    ? 'Contact'
     : isComponentsElement(element)
-    ? 'components'
+    ? 'Components'
     : isAsyncApi2_0Element(element)
-    ? 'asyncApi2_0'
+    ? 'AsyncApi2_0'
     : isAsyncApiVersionElement(element)
-    ? 'asyncApiVersion'
+    ? 'AsyncApiVersion'
     : isChannelItemElement(element)
-    ? 'channelItem'
+    ? 'ChannelItem'
     : isChannelsElement(element)
-    ? 'channels'
+    ? 'Channels'
     : isIdentifierElement(element)
-    ? 'identifier'
+    ? 'Identifier'
     : isServersElement(element)
-    ? 'servers'
+    ? 'Servers'
     : isReferenceElement(element)
-    ? 'reference'
+    ? 'Reference'
     : getNodeTypeBase(element);
   /* eslint-enable */
 };
 
 export const keyMapDefault = {
   ...keyMapBase,
-  reference: ['content'],
+  Server: ['content'],
+  Schema: ['content'],
+  ServerVariable: ['content'],
+  Parameter: ['content'],
+  License: ['content'],
+  Info: ['content'],
+  Contact: ['content'],
+  Components: ['content'],
+  AsyncApi2_0: ['content'],
+  ChannelItem: ['content'],
+  Channels: ['content'],
+  Servers: ['content'],
+  Reference: ['content'],
 };
 
 export const visit = (

@@ -8,7 +8,7 @@ import { BREAK } from '../../../traversal/visitor';
 
 const IdentifierVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    string(stringElement: StringElement) {
+    String(stringElement: StringElement) {
       const identifierElement = new IdentifierElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, identifierElement);

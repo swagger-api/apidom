@@ -16,9 +16,9 @@ const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
     this.element = new PathItemElement();
   },
   methods: {
-    object(objectElement: ObjectElement) {
+    Object(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.object.call(this, objectElement);
+      const result = FixedFieldsVisitor.compose.methods.Object.call(this, objectElement);
 
       // decorate Operation elements with HTTP method
       this.element

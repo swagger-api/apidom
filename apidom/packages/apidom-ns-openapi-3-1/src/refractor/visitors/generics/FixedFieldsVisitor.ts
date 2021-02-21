@@ -30,7 +30,7 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
     this.specificationExtensionPredicate = specificationExtensionPredicate;
   },
   methods: {
-    object(objectElement) {
+    Object(objectElement) {
       const specPath = this.specPath(objectElement);
       const fields = this.retrieveFixedFields(specPath);
 

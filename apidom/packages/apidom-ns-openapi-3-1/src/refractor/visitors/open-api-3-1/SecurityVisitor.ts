@@ -11,7 +11,7 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
     this.element = new ArrayElement();
   },
   methods: {
-    array(arrayElement: ArrayElement) {
+    Array(arrayElement: ArrayElement) {
       arrayElement.forEach((item) => {
         if (isObjectElement(item)) {
           const element = this.toRefractedElement(

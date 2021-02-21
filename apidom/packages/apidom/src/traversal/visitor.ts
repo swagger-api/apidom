@@ -12,6 +12,7 @@ import {
   isNumberElement,
   isObjectElement,
   isStringElement,
+  isParseResultElement,
 } from '../predicates';
 
 export { BREAK } from 'apidom-ast';
@@ -23,20 +24,22 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
    * This allows us keep key mapping to minimum.
    */
   /* eslint-disable no-nested-ternary */
-  return isObjectElement(element)
-    ? 'object'
+  return isParseResultElement(element)
+    ? 'ParseResult'
+    : isObjectElement(element)
+    ? 'Object'
     : isArrayElement(element)
-    ? 'array'
+    ? 'Array'
     : isNumberElement(element)
-    ? 'number'
+    ? 'Number'
     : isNullElement(element)
-    ? 'null'
+    ? 'Null'
     : isBooleanElement(element)
-    ? 'boolean'
+    ? 'Boolean'
     : isMemberElement(element)
-    ? 'member'
+    ? 'Member'
     : isStringElement(element)
-    ? 'string'
+    ? 'String'
     : undefined;
   /* eslint-enable */
 };
@@ -45,9 +48,10 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 const isNode = curryN(1, pipe(getNodeType, isString));
 
 export const keyMapDefault = {
-  object: ['content'],
-  array: ['content'],
-  member: ['key', 'value'],
+  ParseResult: ['content'],
+  Object: ['content'],
+  Array: ['content'],
+  Member: ['key', 'value'],
 };
 
 export const PredicateVisitor = stampit({

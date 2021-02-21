@@ -49,7 +49,7 @@
     "@babel/register": "=7.10.1",
     "@char0n/npm-audit": "gist:2964395223d7943c10396f59df9a8ea0",
     "@commitlint/cli": "=9.1.2",
-    "@commitlint/config-conventional": "=8.3.4",
+    "@commitlint/config-conventional": "=12.0.0",
     "@types/chai": "=4.2.12",
     "@types/mocha": "=7.0.2",
     "@typescript-eslint/eslint-plugin": "=3.0.2",

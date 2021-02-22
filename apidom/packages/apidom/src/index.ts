@@ -46,7 +46,13 @@ export {
 export { default as createPredicate } from './predicates/helpers';
 
 export { filter, reject, find, findAtOffset, some, traverse } from './traversal';
-export { visit, BREAK, getNodeType, keyMapDefault as keyMap } from './traversal/visitor';
+export {
+  visit,
+  BREAK,
+  mergeAllVisitors,
+  getNodeType,
+  keyMapDefault as keyMap,
+} from './traversal/visitor';
 export { transclude, default as Transcluder } from './transcluder';
 export { dereference } from './util';
 

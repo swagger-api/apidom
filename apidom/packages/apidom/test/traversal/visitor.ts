@@ -11,6 +11,19 @@ import {
 
 describe('traversal', function () {
   context('visitor', function () {
+    specify('should replace root', function () {
+      const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
+      const replacement = new ObjectElement({ prop: 'val' });
+      const visitor = {
+        Object() {
+          return replacement;
+        },
+      };
+      const newRoot = visit(objectElement, visitor);
+
+      assert.strictEqual(newRoot, replacement);
+    });
+
     specify('should replace MemberElement in ObjectElement', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const visitor = {
@@ -24,7 +37,7 @@ describe('traversal', function () {
       };
       const newObjectElement = visit(objectElement, visitor);
 
-      assert.deepEqual({ key3: 'value3', key2: 'value2' }, toValue(newObjectElement));
+      assert.deepEqual(toValue(newObjectElement), { key3: 'value3', key2: 'value2' });
     });
 
     specify('should remove MemberElement from ObjectElement', function () {
@@ -40,7 +53,7 @@ describe('traversal', function () {
       };
       const newObjectElement = visit(objectElement, visitor);
 
-      assert.deepEqual({ key2: 'value2' }, toValue(newObjectElement));
+      assert.deepEqual(toValue(newObjectElement), { key2: 'value2' });
     });
 
     specify('should replace value in MemberElement', function () {
@@ -55,7 +68,7 @@ describe('traversal', function () {
       };
       const newObjectElement = visit(objectElement, visitor);
 
-      assert.deepEqual({ key: 'replace' }, toValue(newObjectElement));
+      assert.deepEqual(toValue(newObjectElement), { key: 'replace' });
     });
 
     specify('should replace item in ArrayElement', function () {
@@ -67,7 +80,7 @@ describe('traversal', function () {
       };
       const newArrayElement = visit(arrayElement, visitor);
 
-      assert.deepEqual([1, 'replace'], toValue(newArrayElement));
+      assert.deepEqual(toValue(newArrayElement), [1, 'replace']);
     });
 
     specify('should remove item from ArrayElement', function () {
@@ -79,7 +92,7 @@ describe('traversal', function () {
       };
       const newArrayElement = visit(arrayElement, visitor);
 
-      assert.deepEqual([1], toValue(newArrayElement));
+      assert.deepEqual(toValue(newArrayElement), [1]);
     });
   });
 });

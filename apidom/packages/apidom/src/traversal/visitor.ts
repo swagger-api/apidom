@@ -2,20 +2,11 @@ import stampit from 'stampit';
 import { Element } from 'minim';
 import { curryN, F as stubFalse, pipe, propOr } from 'ramda';
 import { isString } from 'ramda-adjunct';
-import { visit as astVisit } from 'apidom-ast';
+import { visit as astVisit, BREAK, mergeAllVisitors } from 'apidom-ast';
 
-import {
-  isArrayElement,
-  isBooleanElement,
-  isMemberElement,
-  isNullElement,
-  isNumberElement,
-  isObjectElement,
-  isStringElement,
-  isParseResultElement,
-} from '../predicates';
+import { isArrayElement, isMemberElement, isObjectElement } from '../predicates';
 
-export { BREAK } from 'apidom-ast';
+export { BREAK, mergeAllVisitors };
 
 // getNodeType :: Node -> String
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
@@ -24,31 +15,22 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
    * This allows us keep key mapping to minimum.
    */
   /* eslint-disable no-nested-ternary */
-  return isParseResultElement(element)
-    ? 'ParseResult'
-    : isObjectElement(element)
+  return isObjectElement(element)
     ? 'Object'
     : isArrayElement(element)
     ? 'Array'
-    : isNumberElement(element)
-    ? 'Number'
-    : isNullElement(element)
-    ? 'Null'
-    : isBooleanElement(element)
-    ? 'Boolean'
     : isMemberElement(element)
     ? 'Member'
-    : isStringElement(element)
-    ? 'String'
+    : isString(element?.element)
+    ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
     : undefined;
-  /* eslint-enable */
+  /* eslint-disable no-nested-ternary */
 };
 
 // isNode :: Node -> Boolean
 const isNode = curryN(1, pipe(getNodeType, isString));
 
 export const keyMapDefault = {
-  ParseResult: ['content'],
   Object: ['content'],
   Array: ['content'],
   Member: ['key', 'value'],

@@ -10,7 +10,7 @@ declare module 'minim' {
   export function refract(value: any): Element;
 
   export class Element {
-    static refract(value: any, option?: Record<string, any>): Element;
+    static refract(value: any, options?: Record<string, any>): Element;
 
     public element: string;
 

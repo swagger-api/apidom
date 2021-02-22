@@ -4,18 +4,7 @@ import { curryN, F as stubFalse, pipe, propOr } from 'ramda';
 import { isString } from 'ramda-adjunct';
 import { visit as astVisit } from 'apidom-ast';
 
-import {
-  isArrayElement,
-  isBooleanElement,
-  isMemberElement,
-  isNullElement,
-  isNumberElement,
-  isObjectElement,
-  isStringElement,
-  isParseResultElement,
-} from '../predicates';
-
-export { BREAK } from 'apidom-ast';
+export { BREAK, mergeAllVisitors } from 'apidom-ast';
 
 // getNodeType :: Node -> String
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
@@ -23,25 +12,9 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
    * We're translating every possible higher element type to primitive minim type here.
    * This allows us keep key mapping to minimum.
    */
-  /* eslint-disable no-nested-ternary */
-  return isParseResultElement(element)
-    ? 'ParseResult'
-    : isObjectElement(element)
-    ? 'Object'
-    : isArrayElement(element)
-    ? 'Array'
-    : isNumberElement(element)
-    ? 'Number'
-    : isNullElement(element)
-    ? 'Null'
-    : isBooleanElement(element)
-    ? 'Boolean'
-    : isMemberElement(element)
-    ? 'Member'
-    : isStringElement(element)
-    ? 'String'
+  return isString(element?.element)
+    ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
     : undefined;
-  /* eslint-enable */
 };
 
 // isNode :: Node -> Boolean

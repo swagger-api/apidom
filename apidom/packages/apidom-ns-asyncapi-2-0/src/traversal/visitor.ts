@@ -1,81 +1,28 @@
 import { propOr } from 'ramda';
-import {
-  Element,
-  visit as astVisit,
-  keyMap as keyMapBase,
-  getNodeType as getNodeTypeBase,
-} from 'apidom';
-import {
-  isServerElement,
-  isSchemaElement,
-  isServerVariableElement,
-  isParameterElement,
-  isLicenseElement,
-  isInfoElement,
-  isContactElement,
-  isComponentsElement,
-  isAsyncApiVersionElement,
-  isReferenceElement,
-  isAsyncApi2_0Element,
-  isChannelItemElement,
-  isChannelsElement,
-  isIdentifierElement,
-  isServersElement,
-} from '../predicates';
+import { Element, visit as astVisit, keyMap as keyMapBase, getNodeType } from 'apidom';
 
-export { BREAK } from 'apidom';
-
-export const getNodeType = <T extends Element>(element: T): string | undefined => {
-  /* eslint-disable no-nested-ternary */
-  return isServerElement(element)
-    ? 'Server'
-    : isSchemaElement(element)
-    ? 'Schema'
-    : isServerVariableElement(element)
-    ? 'ServerVariable'
-    : isParameterElement(element)
-    ? 'Parameter'
-    : isLicenseElement(element)
-    ? 'License'
-    : isInfoElement(element)
-    ? 'Info'
-    : isContactElement(element)
-    ? 'Contact'
-    : isComponentsElement(element)
-    ? 'Components'
-    : isAsyncApi2_0Element(element)
-    ? 'AsyncApi2_0'
-    : isAsyncApiVersionElement(element)
-    ? 'AsyncApiVersion'
-    : isChannelItemElement(element)
-    ? 'ChannelItem'
-    : isChannelsElement(element)
-    ? 'Channels'
-    : isIdentifierElement(element)
-    ? 'Identifier'
-    : isServersElement(element)
-    ? 'Servers'
-    : isReferenceElement(element)
-    ? 'Reference'
-    : getNodeTypeBase(element);
-  /* eslint-enable */
-};
+export { BREAK, getNodeType } from 'apidom';
 
 export const keyMapDefault = {
-  ...keyMapBase,
-  Server: ['content'],
-  Schema: ['content'],
-  ServerVariable: ['content'],
-  Parameter: ['content'],
-  License: ['content'],
-  Info: ['content'],
-  Contact: ['content'],
-  Components: ['content'],
   AsyncApi2_0: ['content'],
+  ChannelBindings: ['content'],
   ChannelItem: ['content'],
   Channels: ['content'],
-  Servers: ['content'],
+  Components: ['content'],
+  Contact: ['content'],
+  Info: ['content'],
+  License: ['content'],
+  Operation: ['content'],
+  Parameter: ['content'],
+  Parameters: ['content'],
   Reference: ['content'],
+  Schema: ['content'],
+  SecurityRequirement: ['content'],
+  Server: ['content'],
+  ServerBinding: ['content'],
+  Servers: ['content'],
+  ServerVariable: ['content'],
+  ...keyMapBase,
 };
 
 export const visit = (

@@ -4,7 +4,7 @@ import { Namespace } from 'minim';
 import { ObjectElement, toValue } from 'apidom';
 
 import * as predicates from '../../src/predicates';
-import { AsyncApi2_0Element, isAsyncApiVersionElement } from '../../src';
+import { AsyncApi2_0Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';
 
 describe('refractor', function () {
   specify('should refract to openapi-3-1 namespace', function () {
@@ -27,7 +27,7 @@ describe('refractor', function () {
       plugin1Spec = {
         pre() {},
         visitor: {
-          AsyncApiVersion(element: AsyncApi2_0Element) {
+          AsyncApiVersion(element: AsyncApiVersionElement) {
             // @ts-ignore
             element.content = '2.0.1'; // eslint-disable-line no-param-reassign
           },
@@ -37,7 +37,7 @@ describe('refractor', function () {
       plugin2Spec = {
         pre() {},
         visitor: {
-          AsyncApiVersion(element: AsyncApi2_0Element) {
+          AsyncApiVersion(element: AsyncApiVersionElement) {
             // @ts-ignore
             element.meta.set('metaKey', 'metaValue');
           },

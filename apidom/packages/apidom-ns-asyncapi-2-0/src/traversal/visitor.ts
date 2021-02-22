@@ -1,6 +1,6 @@
 import { propOr } from 'ramda';
-import { Element, visit as astVisit, keyMap as keyMapBase, BREAK } from 'apidom';
 import { isString } from 'ramda-adjunct';
+import { Element, visit as astVisit, keyMap as keyMapBase, BREAK } from 'apidom';
 
 export { BREAK };
 

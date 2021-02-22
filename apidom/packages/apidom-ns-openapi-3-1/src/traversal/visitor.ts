@@ -1,83 +1,15 @@
 import { propOr } from 'ramda';
-import {
-  Element,
-  visit as astVisit,
-  keyMap as keyMapBase,
-  getNodeType as getNodeTypeBase,
-} from 'apidom';
-import {
-  isCallbackElement,
-  isComponentsElement,
-  isContactElement,
-  isExternalDocumentationElement,
-  isInfoElement,
-  isLicenseElement,
-  isOpenapiElement,
-  isOpenApi3_1Element,
-  isOperationElement,
-  isParameterElement,
-  isPathItemElement,
-  isPathsElement,
-  isReferenceElement,
-  isRequestBodyElement,
-  isResponseElement,
-  isResponsesElement,
-  isSchemaElement,
-  isSecurityRequirementElement,
-  isServerElement,
-  isServerVariableElement,
-} from '../predicates';
+import { isString } from 'ramda-adjunct';
+import { Element, visit as astVisit, keyMap as keyMapBase, BREAK } from 'apidom';
 
-export { BREAK } from 'apidom';
+export { BREAK };
 
-export const getNodeType = <T extends Element>(element: T): string | undefined => {
-  /* eslint-disable no-nested-ternary */
-  return isCallbackElement(element)
-    ? 'Callback'
-    : isComponentsElement(element)
-    ? 'Components'
-    : isContactElement(element)
-    ? 'Contact'
-    : isExternalDocumentationElement(element)
-    ? 'ExternalDocumentation'
-    : isInfoElement(element)
-    ? 'Info'
-    : isLicenseElement(element)
-    ? 'License'
-    : isOpenapiElement(element)
-    ? 'Openapi'
-    : isOpenApi3_1Element(element)
-    ? 'OpenApi3_1'
-    : isOperationElement(element)
-    ? 'Operation'
-    : isParameterElement(element)
-    ? 'Parameter'
-    : isPathItemElement(element)
-    ? 'PathItem'
-    : isPathsElement(element)
-    ? 'Paths'
-    : isReferenceElement(element)
-    ? 'Reference'
-    : isRequestBodyElement(element)
-    ? 'RequestBody'
-    : isResponseElement(element)
-    ? 'Response'
-    : isResponsesElement(element)
-    ? 'Responses'
-    : isSchemaElement(element)
-    ? 'Schema'
-    : isSecurityRequirementElement(element)
-    ? 'SecurityRequirement'
-    : isServerElement(element)
-    ? 'Server'
-    : isServerVariableElement(element)
-    ? 'ServerVariable'
-    : getNodeTypeBase(element);
-  /* eslint-enable */
-};
+export const getNodeType = <T extends Element>(element: Element) =>
+  isString(element.element)
+    ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
+    : undefined;
 
 export const keyMapDefault = {
-  ...keyMapBase,
   Callback: ['content'],
   Components: ['content'],
   Contact: ['content'],
@@ -97,6 +29,7 @@ export const keyMapDefault = {
   SecurityRequirement: ['content'],
   Server: ['content'],
   ServerVariable: ['content'],
+  ...keyMapBase,
 };
 
 export const visit = (

@@ -1,4 +1,4 @@
-export { default } from './namespace';
+import './refractor/registration';
 
 export {
   isRefElement,
@@ -12,6 +12,8 @@ export {
   isNumberElement,
   isStringElement,
 } from 'apidom';
+
+export { default } from './namespace';
 
 export {
   isCallbackElement,

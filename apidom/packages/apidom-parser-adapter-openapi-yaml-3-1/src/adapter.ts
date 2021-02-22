@@ -1,3 +1,4 @@
+import { propOr, omit } from 'ramda';
 import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
@@ -18,14 +19,16 @@ export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
 ): Promise<ParseResultElement> => {
-  const parseResultElement = await parseYaml(source, options);
+  const refractorOpts = propOr({}, 'refractorOpts');
+  const parserOpts = omit(['refractorOpts'], options);
+  const parseResultElement = await parseYaml(source, parserOpts);
   const results = parseResultElement.findElements(isOpenApi3_1LikeElement, {
     recursive: false,
   });
 
   if (results.length > 0) {
     const openApiLikeElement = results[0];
-    const openApiElement = OpenApi3_1Element.refract(openApiLikeElement);
+    const openApiElement = OpenApi3_1Element.refract(openApiLikeElement, refractorOpts);
     let index = 0;
 
     parseResultElement.forEach((element: Element, indexElement: NumberElement) => {

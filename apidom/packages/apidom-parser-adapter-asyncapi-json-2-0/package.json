@@ -20,6 +20,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.12.5",
+    "ramda": "=0.27.0",
+    "@types/ramda": "=0.27.6",
     "apidom": "file:../apidom",
     "apidom-ns-asyncapi-2-0": "file:../apidom-ns-asyncapi-2-0",
     "apidom-parser-adapter-json": "file:../apidom-parser-adapter-json"

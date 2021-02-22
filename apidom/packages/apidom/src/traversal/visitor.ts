@@ -2,9 +2,11 @@ import stampit from 'stampit';
 import { Element } from 'minim';
 import { curryN, F as stubFalse, pipe, propOr } from 'ramda';
 import { isString } from 'ramda-adjunct';
-import { visit as astVisit } from 'apidom-ast';
+import { visit as astVisit, BREAK, mergeAllVisitors } from 'apidom-ast';
 
-export { BREAK, mergeAllVisitors } from 'apidom-ast';
+import { isArrayElement, isMemberElement, isObjectElement } from '../predicates';
+
+export { BREAK, mergeAllVisitors };
 
 // getNodeType :: Node -> String
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
@@ -12,16 +14,23 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
    * We're translating every possible higher element type to primitive minim type here.
    * This allows us keep key mapping to minimum.
    */
-  return isString(element?.element)
+  /* eslint-disable no-nested-ternary */
+  return isObjectElement(element)
+    ? 'Object'
+    : isArrayElement(element)
+    ? 'Array'
+    : isMemberElement(element)
+    ? 'Member'
+    : isString(element?.element)
     ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
     : undefined;
+  /* eslint-disable no-nested-ternary */
 };
 
 // isNode :: Node -> Boolean
 const isNode = curryN(1, pipe(getNodeType, isString));
 
 export const keyMapDefault = {
-  ParseResult: ['content'],
   Object: ['content'],
   Array: ['content'],
   Member: ['key', 'value'],

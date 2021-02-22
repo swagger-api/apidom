@@ -1,7 +1,13 @@
 import { propOr } from 'ramda';
-import { Element, visit as astVisit, keyMap as keyMapBase, getNodeType } from 'apidom';
+import { Element, visit as astVisit, keyMap as keyMapBase, BREAK } from 'apidom';
+import { isString } from 'ramda-adjunct';
 
-export { BREAK, getNodeType } from 'apidom';
+export { BREAK };
+
+export const getNodeType = <T extends Element>(element: Element) =>
+  isString(element.element)
+    ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
+    : undefined;
 
 export const keyMapDefault = {
   AsyncApi2_0: ['content'],

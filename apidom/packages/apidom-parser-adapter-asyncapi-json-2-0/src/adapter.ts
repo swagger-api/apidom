@@ -1,3 +1,4 @@
+import { propOr, omit } from 'ramda';
 import { isObjectElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseJson } from 'apidom-parser-adapter-json';
@@ -15,11 +16,13 @@ export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
 ): Promise<ParseResultElement> => {
-  const parseResultElement = await parseJson(source, options);
+  const refractorOpts = propOr({}, 'refractorOpts');
+  const parserOpts = omit(['refractorOpts'], options);
+  const parseResultElement = await parseJson(source, parserOpts);
 
   // refract first element in parse result into OpenApi3_1 element
   if (isObjectElement(parseResultElement.get(0))) {
-    const asyncApiElement = AsyncApi2_0Element.refract(parseResultElement.get(0));
+    const asyncApiElement = AsyncApi2_0Element.refract(parseResultElement.get(0), refractorOpts);
     parseResultElement.set(0, asyncApiElement);
   }
 

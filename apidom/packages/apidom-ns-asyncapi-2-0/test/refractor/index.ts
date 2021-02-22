@@ -25,6 +25,7 @@ describe('refractor', function () {
 
     beforeEach(function () {
       plugin1Spec = {
+        name: 'plugin1',
         pre() {},
         visitor: {
           AsyncApiVersion(element: AsyncApiVersionElement) {
@@ -35,6 +36,7 @@ describe('refractor', function () {
         post() {},
       };
       plugin2Spec = {
+        name: 'plugin2',
         pre() {},
         visitor: {
           AsyncApiVersion(element: AsyncApiVersionElement) {

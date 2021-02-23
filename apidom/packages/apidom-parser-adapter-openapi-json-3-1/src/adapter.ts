@@ -16,7 +16,7 @@ export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
 ): Promise<ParseResultElement> => {
-  const refractorOpts = propOr({}, 'refractorOpts');
+  const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
   const parseResultElement = await parseJson(source, parserOpts);
 

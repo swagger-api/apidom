@@ -1,7 +1,6 @@
 import stampit from 'stampit';
-import { Element } from 'apidom';
+import { Element, BREAK } from 'apidom';
 
-import { BREAK } from '../../traversal/visitor';
 import Visitor from './Visitor';
 
 /**

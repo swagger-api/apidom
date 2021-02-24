@@ -15,9 +15,9 @@ const RequestBodyVisitor = stampit(AlternatingVisitor, {
     ],
   },
   methods: {
-    Object(objectElement: ObjectElement) {
+    ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = AlternatingVisitor.compose.methods.Object.call(this, objectElement);
+      const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       if (isReferenceElement(this.element)) {
         this.element.setMetaProperty('referenced-element', 'requestBody');

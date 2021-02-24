@@ -1,13 +1,12 @@
 import stampit from 'stampit';
-import { ArrayElement } from 'apidom';
+import { ArrayElement, BREAK } from 'apidom';
 
-import { BREAK } from '../../../../traversal/visitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { appendMetadata } from '../../../metadata';
 
 const TagsVisitor = stampit(FallbackVisitor, {
   methods: {
-    array(arrayElement: ArrayElement) {
+    ArrayElement(arrayElement: ArrayElement) {
       this.element = arrayElement.clone();
 
       appendMetadata(['tags'], this.element);

@@ -1,10 +1,9 @@
 import stampit from 'stampit';
-import { ArrayElement, Element } from 'apidom';
+import { ArrayElement, Element, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { appendMetadata } from '../../metadata';
-import { BREAK } from '../../../traversal/visitor';
 import { isServerLikeElement } from '../../predicates';
 
 const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
@@ -12,7 +11,7 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
     this.element = new ArrayElement();
   },
   methods: {
-    Array(arrayElement: ArrayElement) {
+    ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element) => {
         if (isServerLikeElement(item)) {
           const serverElement = this.toRefractedElement(['document', 'objects', 'Server'], item);

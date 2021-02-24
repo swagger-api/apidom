@@ -1,14 +1,13 @@
 import stampit from 'stampit';
-import { StringElement } from 'apidom';
+import { StringElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import IdentifierElement from '../../../elements/Identifier';
-import { BREAK } from '../../../traversal/visitor';
 
 const IdentifierVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    String(stringElement: StringElement) {
+    StringElement(stringElement: StringElement) {
       const identifierElement = new IdentifierElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, identifierElement);

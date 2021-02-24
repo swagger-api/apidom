@@ -1,14 +1,13 @@
 import stampit from 'stampit';
-import { StringElement } from 'apidom';
+import { StringElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import AsyncApiVersionElement from '../../../elements/AsyncApiVersion';
-import { BREAK } from '../../../traversal/visitor';
 
 const AsyncApiVersionVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    String(stringElement: StringElement) {
+    StringElement(stringElement: StringElement) {
       const asyncApiVersionElement = new AsyncApiVersionElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);

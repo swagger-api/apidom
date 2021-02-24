@@ -1,14 +1,13 @@
 import stampit from 'stampit';
-import { StringElement } from 'apidom';
+import { StringElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import OpenapiElement from '../../../elements/Openapi';
-import { BREAK } from '../../../traversal/visitor';
 
 const OpenapiVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
-    String(stringElement: StringElement) {
+    StringElement(stringElement: StringElement) {
       const openapiElement = new OpenapiElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, openapiElement);

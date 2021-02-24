@@ -1,12 +1,12 @@
 import { refract as baseRefract } from 'minim';
 import { propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
-import { Element, dereference, mergeAllVisitors, createNamespace } from 'apidom';
+import { visit, Element, dereference, mergeAllVisitors, createNamespace } from 'apidom';
 
-import { visit } from '../traversal/visitor';
 import specification from './specification';
 import * as predicates from '../predicates';
 import openApi3_1Namespace from '../namespace';
+import { keyMap, getNodeType } from '../traversal/visitor';
 
 const refract = <T extends Element>(
   value: any,
@@ -35,7 +35,11 @@ const refract = <T extends Element>(
     const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
     const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')));
     pluginsSpecs.forEach(invokeArgs(['pre'], []));
-    const newElement: any = visit(rootVisitor.element, pluginsVisitor);
+    const newElement: any = visit(rootVisitor.element, pluginsVisitor, {
+      keyMap,
+      // @ts-ignore
+      nodeTypeGetter: getNodeType,
+    });
     pluginsSpecs.forEach(invokeArgs(['post'], []));
     return newElement;
   }

@@ -1,9 +1,10 @@
 import stampit from 'stampit';
 import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
+import { visit } from 'apidom';
 
-import { visit } from '../../traversal/visitor';
 import Visitor from './Visitor';
+import { keyMap, getNodeType } from '../../traversal/visitor';
 
 /**
  * This is a base Type for every visitor that does
@@ -42,7 +43,7 @@ const SpecificationVisitor = stampit(Visitor, {
 
     toRefractedElement(specPath: string[], element, options = {}) {
       const visitor = this.retrieveVisitorInstance(specPath);
-      visit(element, visitor, options);
+      visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, ...options });
       return visitor.element;
     },
   },

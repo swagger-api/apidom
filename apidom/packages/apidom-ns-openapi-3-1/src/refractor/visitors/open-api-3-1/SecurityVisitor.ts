@@ -1,9 +1,8 @@
 import stampit from 'stampit';
-import { ArrayElement, isObjectElement } from 'apidom';
+import { ArrayElement, isObjectElement, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { BREAK } from '../../../traversal/visitor';
 import { appendMetadata } from '../../metadata';
 
 const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
@@ -11,7 +10,7 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
     this.element = new ArrayElement();
   },
   methods: {
-    Array(arrayElement: ArrayElement) {
+    ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item) => {
         if (isObjectElement(item)) {
           const element = this.toRefractedElement(

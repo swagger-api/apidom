@@ -48,7 +48,7 @@ export {
   isAsyncApiExtension,
 } from './refractor/predicates';
 
-export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor';
 
 export { default as AsyncApi2_0Element } from './elements/AsyncApi2-0';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';

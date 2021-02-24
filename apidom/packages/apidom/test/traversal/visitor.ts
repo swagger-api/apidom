@@ -15,7 +15,7 @@ describe('traversal', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const replacement = new ObjectElement({ prop: 'val' });
       const visitor = {
-        Object() {
+        ObjectElement() {
           return replacement;
         },
       };
@@ -27,7 +27,7 @@ describe('traversal', function () {
     specify('should replace MemberElement in ObjectElement', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const visitor = {
-        Member(memberElement: MemberElement) {
+        MemberElement(memberElement: MemberElement) {
           // @ts-ignore
           if (memberElement.key.toValue() === 'key1') {
             return new MemberElement('key3', 'value3');
@@ -43,7 +43,7 @@ describe('traversal', function () {
     specify('should remove MemberElement from ObjectElement', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const visitor = {
-        Member(memberElement: MemberElement) {
+        MemberElement(memberElement: MemberElement) {
           // @ts-ignore
           if (memberElement.key.toValue() === 'key1') {
             return null;
@@ -59,7 +59,7 @@ describe('traversal', function () {
     specify('should replace value in MemberElement', function () {
       const objectElement = new ObjectElement({ key: 'search' });
       const visitor = {
-        String(stringElement: StringElement) {
+        StringElement(stringElement: StringElement) {
           if (stringElement.toValue() === 'search') {
             return new StringElement('replace');
           }
@@ -74,7 +74,7 @@ describe('traversal', function () {
     specify('should replace item in ArrayElement', function () {
       const arrayElement = new ArrayElement([1, 'search']);
       const visitor = {
-        String() {
+        StringElement() {
           return new StringElement('replace');
         },
       };
@@ -86,7 +86,7 @@ describe('traversal', function () {
     specify('should remove item from ArrayElement', function () {
       const arrayElement = new ArrayElement([1, 'search']);
       const visitor = {
-        String() {
+        StringElement() {
           return null;
         },
       };

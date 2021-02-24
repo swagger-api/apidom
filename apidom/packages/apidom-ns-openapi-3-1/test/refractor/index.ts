@@ -7,7 +7,7 @@ import { OpenApi3_1Element, OpenapiElement, isOpenapiElement } from '../../src';
 import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
-  specify('should refract to openapi-3-1 namespace', function () {
+  specify('should refract to OpenApi 3.1 namespace', function () {
     const genericObject = new ObjectElement({
       openapi: '3.1.0',
     });
@@ -28,7 +28,7 @@ describe('refractor', function () {
         name: 'plugin1',
         pre() {},
         visitor: {
-          Openapi(element: OpenapiElement) {
+          OpenapiElement(element: OpenapiElement) {
             // @ts-ignore
             element.content = '3.1.1'; // eslint-disable-line no-param-reassign
           },
@@ -39,7 +39,7 @@ describe('refractor', function () {
         name: 'plugin2',
         pre() {},
         visitor: {
-          Openapi(element: OpenapiElement) {
+          OpenapiElement(element: OpenapiElement) {
             // @ts-ignore
             element.meta.set('metaKey', 'metaValue');
           },
@@ -51,11 +51,11 @@ describe('refractor', function () {
 
       sinon.spy(plugin1Spec, 'pre');
       sinon.spy(plugin1Spec, 'post');
-      sinon.spy(plugin1Spec.visitor, 'Openapi');
+      sinon.spy(plugin1Spec.visitor, 'OpenapiElement');
 
       sinon.spy(plugin2Spec, 'pre');
       sinon.spy(plugin2Spec, 'post');
-      sinon.spy(plugin2Spec.visitor, 'Openapi');
+      sinon.spy(plugin2Spec.visitor, 'OpenapiElement');
     });
 
     context('plugin', function () {
@@ -124,8 +124,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.Openapi));
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.Openapi));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.OpenapiElement));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.OpenapiElement));
       });
     });
 
@@ -160,8 +160,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.Openapi));
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.Openapi));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.OpenapiElement));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.OpenapiElement));
       });
     });
 
@@ -174,8 +174,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.visitor.Openapi.calledOnce);
-        assert.isTrue(plugin2Spec.visitor.Openapi.calledOnce);
+        assert.isTrue(plugin1Spec.visitor.OpenapiElement.calledOnce);
+        assert.isTrue(plugin2Spec.visitor.OpenapiElement.calledOnce);
       });
 
       specify('should be called in proper order', function () {
@@ -186,7 +186,9 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.visitor.Openapi.calledBefore(plugin2Spec.visitor.Openapi));
+        assert.isTrue(
+          plugin1Spec.visitor.OpenapiElement.calledBefore(plugin2Spec.visitor.OpenapiElement),
+        );
       });
 
       context('first plugin', function () {
@@ -198,7 +200,7 @@ describe('refractor', function () {
             plugins: [plugin1],
           });
 
-          assert.lengthOf(plugin1Spec.visitor.Openapi.firstCall.args, 5);
+          assert.lengthOf(plugin1Spec.visitor.OpenapiElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
@@ -209,7 +211,7 @@ describe('refractor', function () {
             plugins: [plugin1],
           });
 
-          assert.isTrue(isOpenapiElement(plugin1Spec.visitor.Openapi.firstCall.args[0]));
+          assert.isTrue(isOpenapiElement(plugin1Spec.visitor.OpenapiElement.firstCall.args[0]));
         });
 
         specify('should augment openapi version', function () {
@@ -233,7 +235,7 @@ describe('refractor', function () {
             plugins: [plugin1, plugin2],
           });
 
-          assert.lengthOf(plugin2Spec.visitor.Openapi.firstCall.args, 5);
+          assert.lengthOf(plugin2Spec.visitor.OpenapiElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
@@ -244,7 +246,7 @@ describe('refractor', function () {
             plugins: [plugin1, plugin2],
           });
 
-          assert.isTrue(isOpenapiElement(plugin2Spec.visitor.Openapi.firstCall.args[0]));
+          assert.isTrue(isOpenapiElement(plugin2Spec.visitor.OpenapiElement.firstCall.args[0]));
         });
 
         specify('should append metadata to openapi version', function () {

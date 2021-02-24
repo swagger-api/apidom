@@ -1,10 +1,20 @@
 import stampit from 'stampit';
 import { Element } from 'minim';
-import { curryN, F as stubFalse, pipe, propOr } from 'ramda';
-import { isString } from 'ramda-adjunct';
+import { curryN, F as stubFalse, pipe, either } from 'ramda';
+import { isString, isArray } from 'ramda-adjunct';
 import { visit as astVisit, BREAK, mergeAllVisitors } from 'apidom-ast';
 
-import { isArrayElement, isMemberElement, isObjectElement } from '../predicates';
+import {
+  isMemberElement,
+  isArrayElement,
+  isStringElement,
+  isBooleanElement,
+  isLinkElement,
+  isRefElement,
+  isObjectElement,
+  isNullElement,
+  isNumberElement,
+} from '../predicates';
 
 export { BREAK, mergeAllVisitors };
 
@@ -12,28 +22,47 @@ export { BREAK, mergeAllVisitors };
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   /*
    * We're translating every possible higher element type to primitive minim type here.
-   * This allows us keep key mapping to minimum.
+   * We're using polymorphism to recognize any higher element type as ObjectElement or ArrayElement.
+   * Using polymorphism allows us to assume any namespace.
+   *
+   * There is a problem with naming visitor methods described here: https://github.com/babel/babel/discussions/12874
    */
   /* eslint-disable no-nested-ternary */
   return isObjectElement(element)
-    ? 'Object'
+    ? 'ObjectElement'
     : isArrayElement(element)
-    ? 'Array'
+    ? 'ArrayElement'
     : isMemberElement(element)
-    ? 'Member'
-    : isString(element?.element)
-    ? element.element.charAt(0).toUpperCase() + element.element.slice(1)
+    ? 'MemberElement'
+    : isStringElement(element)
+    ? 'StringElement'
+    : isBooleanElement(element)
+    ? 'BooleanElement'
+    : isNumberElement(element)
+    ? 'NumberElement'
+    : isNullElement(element)
+    ? 'NullElement'
+    : isLinkElement(element)
+    ? 'LinkElement'
+    : isRefElement(element)
+    ? 'RefElement'
     : undefined;
-  /* eslint-disable no-nested-ternary */
+  /* eslint-enable */
 };
 
 // isNode :: Node -> Boolean
-const isNode = curryN(1, pipe(getNodeType, isString));
+const isNode = curryN(1, pipe(getNodeType, either(isString, isArray)));
 
 export const keyMapDefault = {
-  Object: ['content'],
-  Array: ['content'],
-  Member: ['key', 'value'],
+  ObjectElement: ['content'],
+  ArrayElement: ['content'],
+  MemberElement: ['key', 'value'],
+  StringElement: [],
+  BooleanElement: [],
+  NumberElement: [],
+  NullElement: [],
+  RefElement: [],
+  LinkElement: [],
 };
 
 export const PredicateVisitor = stampit({
@@ -74,13 +103,10 @@ export const visit = (
   visitor,
   { keyMap = keyMapDefault, ...rest } = {},
 ): Element => {
-  // if visitor is associated with the keymap, we prefer this visitor keymap
-  const effectiveKeyMap = propOr(keyMap, 'keyMap', visitor);
-
   // @ts-ignore
   return astVisit(root, visitor, {
     // @ts-ignore
-    keyMap: effectiveKeyMap,
+    keyMap,
     // @ts-ignore
     nodeTypeGetter: getNodeType,
     nodePredicate: isNode,
@@ -95,13 +121,10 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   visitor,
   { keyMap = keyMapDefault, ...rest } = {},
 ): Promise<Element> => {
-  // if visitor is associated with the keymap, we prefer this visitor keymap
-  const effectiveKeyMap = propOr(keyMap, 'keyMap', visitor);
-
   // @ts-ignore
   return astVisit[Symbol.for('nodejs.util.promisify.custom')](root, visitor, {
     // @ts-ignore
-    keyMap: effectiveKeyMap,
+    keyMap,
     // @ts-ignore
     nodeTypeGetter: getNodeType,
     nodePredicate: isNode,

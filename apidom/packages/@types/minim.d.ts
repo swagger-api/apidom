@@ -39,6 +39,8 @@ declare module 'minim' {
     freeze(): void;
 
     clone(): Element;
+
+    primitive(): string | undefined;
   }
 
   interface Type<T> extends Element {

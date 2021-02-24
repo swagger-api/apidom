@@ -48,7 +48,7 @@ export {
   isOpenApiExtension,
 } from './refractor/predicates';
 
-export { visit, getNodeType, keyMapDefault as keyMap, BREAK } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor';
 
 export { default as CallbackElement } from './elements/Callback';
 export { default as ComponentsElement } from './elements/Components';

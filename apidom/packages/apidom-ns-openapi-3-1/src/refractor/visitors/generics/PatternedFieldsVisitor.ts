@@ -1,11 +1,10 @@
 import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
-import { ObjectElement, Element, MemberElement } from 'apidom';
+import { ObjectElement, Element, MemberElement, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
-import { BREAK } from '../../../traversal/visitor';
 import { appendMetadata } from '../../metadata';
 
 const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
@@ -32,7 +31,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
     this.specificationExtensionPredicate = specificationExtensionPredicate;
   },
   methods: {
-    Object(objectElement: ObjectElement) {
+    ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
       objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
         if (

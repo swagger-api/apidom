@@ -2,10 +2,7 @@ import { propOr, omit } from 'ramda';
 import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import openApiNamespace, {
-  OpenApi3_1Element,
-  isOpenApi3_1LikeElement,
-} from 'apidom-ns-openapi-3-1';
+import openApiNamespace, { OpenApi3_1Element, isObjectElement } from 'apidom-ns-openapi-3-1';
 
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',
@@ -22,7 +19,7 @@ export const parse = async (
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
   const parseResultElement = await parseYaml(source, parserOpts);
-  const results = parseResultElement.findElements(isOpenApi3_1LikeElement, {
+  const results = parseResultElement.findElements(isObjectElement, {
     recursive: false,
   });
 

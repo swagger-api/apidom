@@ -2,8 +2,7 @@ import { prop, pipe, curryN, tail, forEachObjIndexed, defaultTo, identity, pathO
 import { isFunction, isString, isNotNil, isNotUndefined, isPlainObject } from 'ramda-adjunct';
 
 // getVisitFn :: (Visitor, String, Boolean) -> Function
-// @ts-ignore
-export const getVisitFn = (visitor, type: string, isLeaving: boolean) => {
+export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
   const typeVisitor = visitor[type];
 
   if (isNotNil(typeVisitor)) {
@@ -114,7 +113,12 @@ const normalize = (visitor: any) => {
   return normalized;
 };
 
-// merge all visitors provided in list
+/**
+ * Creates a new visitor instance which delegates to many visitors to run in
+ * parallel. Each visitor will be visited for each node before moving on.
+ *
+ * If a prior visitor edits a node, no following visitors will see that node.
+ */
 export const mergeAll = (visitors: any[]) => {
   return visitors.reduce((mergedVisitors, visitor) => {
     /* eslint-disable no-param-reassign */

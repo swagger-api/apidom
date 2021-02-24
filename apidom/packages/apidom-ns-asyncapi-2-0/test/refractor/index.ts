@@ -7,7 +7,7 @@ import * as predicates from '../../src/predicates';
 import { AsyncApi2_0Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';
 
 describe('refractor', function () {
-  specify('should refract to openapi-3-1 namespace', function () {
+  specify('should refract to AsyncApi 2.0 namespace', function () {
     const genericObject = new ObjectElement({
       asyncapi: '2.0.0',
     });
@@ -28,7 +28,7 @@ describe('refractor', function () {
         name: 'plugin1',
         pre() {},
         visitor: {
-          AsyncApiVersion(element: AsyncApiVersionElement) {
+          AsyncApiVersionElement(element: AsyncApiVersionElement) {
             // @ts-ignore
             element.content = '2.0.1'; // eslint-disable-line no-param-reassign
           },
@@ -39,7 +39,7 @@ describe('refractor', function () {
         name: 'plugin2',
         pre() {},
         visitor: {
-          AsyncApiVersion(element: AsyncApiVersionElement) {
+          AsyncApiVersionElement(element: AsyncApiVersionElement) {
             // @ts-ignore
             element.meta.set('metaKey', 'metaValue');
           },
@@ -51,11 +51,11 @@ describe('refractor', function () {
 
       sinon.spy(plugin1Spec, 'pre');
       sinon.spy(plugin1Spec, 'post');
-      sinon.spy(plugin1Spec.visitor, 'AsyncApiVersion');
+      sinon.spy(plugin1Spec.visitor, 'AsyncApiVersionElement');
 
       sinon.spy(plugin2Spec, 'pre');
       sinon.spy(plugin2Spec, 'post');
-      sinon.spy(plugin2Spec.visitor, 'AsyncApiVersion');
+      sinon.spy(plugin2Spec.visitor, 'AsyncApiVersionElement');
     });
 
     context('plugin', function () {
@@ -124,8 +124,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.AsyncApiVersion));
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.AsyncApiVersion));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.AsyncApiVersionElement));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.AsyncApiVersionElement));
       });
     });
 
@@ -160,8 +160,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.AsyncApiVersion));
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.AsyncApiVersion));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.AsyncApiVersionElement));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.AsyncApiVersionElement));
       });
     });
 
@@ -174,8 +174,8 @@ describe('refractor', function () {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.visitor.AsyncApiVersion.calledOnce);
-        assert.isTrue(plugin2Spec.visitor.AsyncApiVersion.calledOnce);
+        assert.isTrue(plugin1Spec.visitor.AsyncApiVersionElement.calledOnce);
+        assert.isTrue(plugin2Spec.visitor.AsyncApiVersionElement.calledOnce);
       });
 
       specify('should be called in proper order', function () {
@@ -187,7 +187,9 @@ describe('refractor', function () {
         });
 
         assert.isTrue(
-          plugin1Spec.visitor.AsyncApiVersion.calledBefore(plugin2Spec.visitor.AsyncApiVersion),
+          plugin1Spec.visitor.AsyncApiVersionElement.calledBefore(
+            plugin2Spec.visitor.AsyncApiVersionElement,
+          ),
         );
       });
 
@@ -200,7 +202,7 @@ describe('refractor', function () {
             plugins: [plugin1],
           });
 
-          assert.lengthOf(plugin1Spec.visitor.AsyncApiVersion.firstCall.args, 5);
+          assert.lengthOf(plugin1Spec.visitor.AsyncApiVersionElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
@@ -212,7 +214,7 @@ describe('refractor', function () {
           });
 
           assert.isTrue(
-            isAsyncApiVersionElement(plugin1Spec.visitor.AsyncApiVersion.firstCall.args[0]),
+            isAsyncApiVersionElement(plugin1Spec.visitor.AsyncApiVersionElement.firstCall.args[0]),
           );
         });
 
@@ -237,7 +239,7 @@ describe('refractor', function () {
             plugins: [plugin1, plugin2],
           });
 
-          assert.lengthOf(plugin2Spec.visitor.AsyncApiVersion.firstCall.args, 5);
+          assert.lengthOf(plugin2Spec.visitor.AsyncApiVersionElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
@@ -249,7 +251,7 @@ describe('refractor', function () {
           });
 
           assert.isTrue(
-            isAsyncApiVersionElement(plugin2Spec.visitor.AsyncApiVersion.firstCall.args[0]),
+            isAsyncApiVersionElement(plugin2Spec.visitor.AsyncApiVersionElement.firstCall.args[0]),
           );
         });
 

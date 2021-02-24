@@ -1,9 +1,8 @@
 import stampit from 'stampit';
 import { ifElse, always, Pred } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
-import { ObjectElement } from 'apidom';
+import { ObjectElement, BREAK } from 'apidom';
 
-import { BREAK } from '../../../traversal/visitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 
 const AlternatingVisitor = stampit(SpecificationVisitor, {
@@ -11,7 +10,7 @@ const AlternatingVisitor = stampit(SpecificationVisitor, {
     alternator: [],
   },
   methods: {
-    Object(objectElement: ObjectElement) {
+    ObjectElement(objectElement: ObjectElement) {
       const functions = this.alternator.map(
         ({ predicate, specPath }: { predicate: Pred; specPath: string[] }) =>
           ifElse(predicate, always(specPath), stubUndefined),

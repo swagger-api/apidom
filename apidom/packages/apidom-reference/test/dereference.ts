@@ -3,8 +3,8 @@ import path from 'path';
 import stampit from 'stampit';
 import { hasIn, pathSatisfies } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { transclude, toValue } from 'apidom';
-import { visit, ReferenceElement } from 'apidom-ns-openapi-3-1';
+import { transclude, toValue, visit } from 'apidom';
+import { keyMap, ReferenceElement } from 'apidom-ns-openapi-3-1';
 
 import { parse } from '../src';
 import * as url from '../src/util/url';
@@ -25,18 +25,18 @@ const DereferenceVisitor = stampit({
     this.indirections = indirections;
   },
   methods: {
-    async reference(referenceElement: ReferenceElement) {
+    async ReferenceElement(referenceElement: ReferenceElement) {
       const uri = referenceElement.$ref.toValue();
 
       // if only hash is provided, reference is considered to be internal
       if (url.getHash(uri) === uri) {
-        return this.referenceInternal(referenceElement);
+        return this.ReferenceElementInternal(referenceElement);
       }
       // everything else is treated as an external reference
-      return this.referenceExternal(referenceElement);
+      return this.ReferenceElementExternal(referenceElement);
     },
 
-    async referenceInternal(referenceElement: ReferenceElement) {
+    async ReferenceElementInternal(referenceElement: ReferenceElement) {
       this.indirections.push(referenceElement);
 
       const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
@@ -53,7 +53,7 @@ const DereferenceVisitor = stampit({
         element: this.element,
         indirections: [...this.indirections],
       });
-      await visitAsync(fragment, visitor);
+      await visitAsync(fragment, visitor, { keyMap });
 
       /**
        * Re-evaluate the JSON Pointer against the element as the fragment could
@@ -84,7 +84,7 @@ const DereferenceVisitor = stampit({
       this.indirections.pop();
     },
 
-    async referenceExternal(referenceElement: ReferenceElement) {
+    async ReferenceElementExternal(referenceElement: ReferenceElement) {
       this.indirections.push(referenceElement);
 
       const uri = referenceElement.$ref.toValue();
@@ -105,7 +105,7 @@ const DereferenceVisitor = stampit({
         element,
         indirections: [...this.indirections],
       });
-      await visitAsync(fragment, visitor);
+      await visitAsync(fragment, visitor, { keyMap });
 
       this.indirections.pop();
     },
@@ -120,7 +120,7 @@ describe('dereference', function () {
     });
     const { api } = parseResult;
     const visitor = DereferenceVisitor({ baseURI: fixturePath, element: api });
-    await visitAsync(api, visitor);
+    await visitAsync(api, visitor, { keyMap });
 
     // @ts-ignore
     console.log(util.inspect(toValue(api), true, null, true));

@@ -1,11 +1,10 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
-import { isStringElement, MemberElement, Element } from 'apidom';
+import { BREAK, isStringElement, MemberElement, Element } from 'apidom';
 
 import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isAsyncApiExtension } from '../../predicates';
-import { BREAK } from '../../../traversal/visitor';
 
 const FixedFieldsVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -30,7 +29,7 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
     this.specificationExtensionPredicate = specificationExtensionPredicate;
   },
   methods: {
-    Object(objectElement) {
+    ObjectElement(objectElement) {
       const specPath = this.specPath(objectElement);
       const fields = this.retrieveFixedFields(specPath);
 

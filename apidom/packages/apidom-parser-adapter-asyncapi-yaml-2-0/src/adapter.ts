@@ -2,10 +2,7 @@ import { omit, propOr } from 'ramda';
 import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import asyncApiNamespace, {
-  AsyncApi2_0Element,
-  isAsyncApi2_0LikeElement,
-} from 'apidom-ns-asyncapi-2-0';
+import asyncApiNamespace, { AsyncApi2_0Element, isObjectElement } from 'apidom-ns-asyncapi-2-0';
 
 export const mediaTypes = [
   'application/vnd.aai.asyncapi;version=2.0.0',
@@ -22,7 +19,7 @@ export const parse = async (
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
   const parseResultElement = await parseYaml(source, parserOpts);
-  const results = parseResultElement.findElements(isAsyncApi2_0LikeElement, {
+  const results = parseResultElement.findElements(isObjectElement, {
     recursive: false,
   });
 

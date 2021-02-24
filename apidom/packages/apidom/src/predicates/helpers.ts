@@ -16,7 +16,7 @@ const hasClass = curry((cls: string, obj: Record<string, unknown>): boolean =>
   invokeArgs(['classes', 'includes'], [cls], obj),
 );
 
-const isElementType = pathEq(['element']);
+export const isElementType = pathEq(['element']);
 
 interface PredicateHelpers {
   hasMethod: typeof hasMethod;

@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
-import { isNotUndefined } from 'ramda-adjunct';
+import { isNotUndefined, isString } from 'ramda-adjunct';
 
 import { Reference as IReference, ReferenceSet as IReferenceSet } from './types';
 
@@ -10,8 +10,9 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
     refs: [],
     circular: false,
   },
-  init() {
+  init({ refs = [] } = {}) {
     this.refs = [];
+    refs.forEach((ref: IReference) => this.refs.add(ref));
   },
   methods: {
     get size(): number {
@@ -23,6 +24,7 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       if (!this.has(reference)) {
         this.refs.push(reference);
         this.rootRef = this.rootRef === null ? reference : this.rootRef;
+        reference.refSet = this; // eslint-disable-line no-param-reassign
       }
       return this;
     },
@@ -34,7 +36,8 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       return this;
     },
 
-    has(uri: string): boolean {
+    has(thing: string | IReference): boolean {
+      const uri = isString(thing) ? thing : thing.uri;
       return isNotUndefined(this.find(propEq('uri', uri)));
     },
 

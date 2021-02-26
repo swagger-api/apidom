@@ -1,46 +1,79 @@
 import util from 'util';
 import path from 'path';
 import stampit from 'stampit';
-import { hasIn, pathSatisfies } from 'ramda';
+import { hasIn, pathSatisfies, propEq } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { transclude, toValue, visit } from 'apidom';
-import { keyMap, ReferenceElement } from 'apidom-ns-openapi-3-1';
+import { toValue, visit, createNamespace, isPrimitiveElement } from 'apidom';
+import openApi3_1Namespace, {
+  keyMap,
+  getNodeType,
+  ReferenceElement,
+  isReferenceLikeElement,
+} from 'apidom-ns-openapi-3-1';
 
 import { parse } from '../src';
+import ReferenceSet from '../src/ReferenceSet';
+import Reference from '../src/Reference';
 import * as url from '../src/util/url';
 import { evaluate, uriToPointer } from '../src/selectors/json-pointer';
+import { Reference as IReference } from '../src/types';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 const DereferenceVisitor = stampit({
   props: {
-    baseURI: '',
-    element: null,
     indirections: [],
+    namespace: null,
+    reference: null,
   },
-  init({ baseURI, element, indirections = [] }) {
-    this.baseURI = baseURI;
-    this.element = element;
+  init({ reference, namespace, indirections = [] }) {
     this.indirections = indirections;
+    this.namespace = namespace;
+    this.reference = reference;
   },
   methods: {
-    async ReferenceElement(referenceElement: ReferenceElement) {
-      const uri = referenceElement.$ref.toValue();
+    async toReference(uri: string): Promise<IReference> {
+      const uriWithoutHash = url.stripHash(uri);
+      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
+        ? url.fromFileSystemPath(uriWithoutHash)
+        : uriWithoutHash;
+      const baseURI = url.resolve(this.reference.uri, sanitizedURI);
+      const { refSet } = this.reference;
 
-      // if only hash is provided, reference is considered to be internal
-      if (url.getHash(uri) === uri) {
-        return this.ReferenceElementInternal(referenceElement);
+      // we've already processed this Reference in past
+      if (refSet.has(baseURI)) {
+        return refSet.find(propEq('uri', baseURI));
       }
-      // everything else is treated as an external reference
-      return this.ReferenceElementExternal(referenceElement);
+
+      // register new Reference with ReferenceSet
+      const parseResult = await parse(baseURI);
+
+      return Reference({ uri: baseURI, value: parseResult.first, refSet });
     },
 
-    async ReferenceElementInternal(referenceElement: ReferenceElement) {
+    async ReferenceElement(referenceElement: ReferenceElement) {
+      const reference = await this.toReference(referenceElement.$ref.toValue());
+
       this.indirections.push(referenceElement);
 
       const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
-      let fragment = evaluate(jsonPointer, this.element);
+
+      // possibly non-semantic fragment
+      let fragment = evaluate(jsonPointer, reference.value);
+
+      // applying semantics to a fragment
+      if (referenceElement.meta.hasKey('referenced-element') && isPrimitiveElement(fragment)) {
+        if (isReferenceLikeElement(fragment)) {
+          // handling indirect references
+          fragment = ReferenceElement.refract(fragment);
+        } else {
+          // handling direct references
+          const elementType = referenceElement.meta.get('referenced-element').toValue();
+          const ElementClass = this.namespace.getElementClass(elementType);
+          fragment = ElementClass.refract(fragment);
+        }
+      }
 
       // detect direct or circular reference
       if (this.indirections.includes(fragment)) {
@@ -49,18 +82,11 @@ const DereferenceVisitor = stampit({
 
       // dive deep into the fragment
       const visitor = DereferenceVisitor({
-        baseURI: this.baseURI,
-        element: this.element,
+        reference,
+        namespace: this.namespace,
         indirections: [...this.indirections],
       });
-      await visitAsync(fragment, visitor, { keyMap });
-
-      /**
-       * Re-evaluate the JSON Pointer against the element as the fragment could
-       * have been another reference and the previous deep dive into fragment
-       * dereferenced it.
-       */
-      fragment = evaluate(jsonPointer, this.element);
+      fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
       // override description and summary (outer has higher priority then inner)
       const hasDescription = pathSatisfies(isNotUndefined, ['description'], referenceElement);
@@ -78,36 +104,10 @@ const DereferenceVisitor = stampit({
         }
       }
 
+      this.indirections.pop();
+
       // transclude the element for a fragment
-      this.element = transclude(referenceElement, fragment, this.element);
-
-      this.indirections.pop();
-    },
-
-    async ReferenceElementExternal(referenceElement: ReferenceElement) {
-      this.indirections.push(referenceElement);
-
-      const uri = referenceElement.$ref.toValue();
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-      const baseURI = url.resolve(this.baseURI, sanitizedURI);
-      const parseResult = await parse(baseURI);
-      const { first: element } = parseResult;
-      const jsonPointer = uriToPointer(uri);
-      // @ts-ignore
-      const fragment = evaluate(jsonPointer, element);
-
-      // dive deep into the fragment
-      const visitor = DereferenceVisitor({
-        baseURI,
-        element,
-        indirections: [...this.indirections],
-      });
-      await visitAsync(fragment, visitor, { keyMap });
-
-      this.indirections.pop();
+      return fragment;
     },
   },
 });
@@ -115,14 +115,21 @@ const DereferenceVisitor = stampit({
 describe('dereference', function () {
   specify('should dereference', async function () {
     const fixturePath = path.join(__dirname, 'fixtures', 'dereference', 'reference-objects.json');
-    const parseResult = await parse(fixturePath, {
+    const { api } = await parse(fixturePath, {
       parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
     });
-    const { api } = parseResult;
-    const visitor = DereferenceVisitor({ baseURI: fixturePath, element: api });
-    await visitAsync(api, visitor, { keyMap });
+    const namespace = createNamespace(openApi3_1Namespace);
+    const reference = Reference({ uri: fixturePath, value: api });
+    const visitor = DereferenceVisitor({ reference, namespace });
+    const refSet = ReferenceSet();
+    refSet.add(reference);
+
+    const dereferenced = await visitAsync(refSet.rootRef.value, visitor, {
+      keyMap,
+      nodeTypeGetter: getNodeType,
+    });
 
     // @ts-ignore
-    console.log(util.inspect(toValue(api), true, null, true));
+    console.log(util.inspect(toValue(dereferenced), true, null, true));
   });
 });

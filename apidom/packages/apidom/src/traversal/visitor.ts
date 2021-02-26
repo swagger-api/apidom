@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { Element } from 'minim';
-import { curryN, F as stubFalse, pipe, either } from 'ramda';
-import { isString, isArray } from 'ramda-adjunct';
+import { curryN, F as stubFalse, pipe } from 'ramda';
+import { isString } from 'ramda-adjunct';
 import { visit as astVisit, BREAK, mergeAllVisitors } from 'apidom-ast';
 
 import {
@@ -51,7 +51,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 };
 
 // isNode :: Node -> Boolean
-const isNode = curryN(1, pipe(getNodeType, either(isString, isArray)));
+const isNode = curryN(1, pipe(getNodeType, isString));
 
 export const keyMapDefault = {
   ObjectElement: ['content'],
@@ -63,6 +63,10 @@ export const keyMapDefault = {
   NullElement: [],
   RefElement: [],
   LinkElement: [],
+  Annotation: [],
+  Comment: [],
+  ParseResultElement: ['content'],
+  SourceMap: ['content'],
 };
 
 export const PredicateVisitor = stampit({

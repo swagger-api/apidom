@@ -61,6 +61,8 @@ declare module 'minim' {
     register(name: string, elementClass: any): Namespace;
 
     use(plugin: NamespacePlugin): Namespace;
+
+    getElementClass(element: string): typeof Element;
   }
 
   export interface NamespacePluginOptions {

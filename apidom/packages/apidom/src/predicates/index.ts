@@ -10,14 +10,14 @@ import {
   LinkElement,
   RefElement,
 } from 'minim';
-import { all, isEmpty, either, curry, allPass, is, both } from 'ramda';
+import { all, isEmpty, either, curry, allPass, is, both, anyPass } from 'ramda';
 import { included } from 'ramda-adjunct';
 
 import AnnotationElement from '../elements/Annotation';
 import CommentElement from '../elements/Comment';
 import ParserResultElement from '../elements/ParseResult';
 import SourceMapElement from '../elements/SourceMap';
-import createPredicate from './helpers';
+import createPredicate, { isElementType as isElementTypeHelper } from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   const primitiveEqUndefined = primitiveEq(undefined);
@@ -202,6 +202,23 @@ export const isSourceMapElement = createPredicate(
     );
   },
 );
+
+export const isPrimitiveElement = anyPass([
+  // @ts-ignore
+  isElementTypeHelper('object'),
+  // @ts-ignore
+  isElementTypeHelper('array'),
+  // @ts-ignore
+  isElementTypeHelper('member'),
+  // @ts-ignore
+  isElementTypeHelper('boolean'),
+  // @ts-ignore
+  isElementTypeHelper('number'),
+  // @ts-ignore
+  isElementTypeHelper('string'),
+  // @ts-ignore
+  isElementTypeHelper('null'),
+]);
 
 export const hasElementSourceMap = createPredicate(() => {
   return (element) => isSourceMapElement(element.meta.get('sourceMap'));

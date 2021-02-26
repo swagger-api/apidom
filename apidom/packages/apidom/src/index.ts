@@ -39,6 +39,7 @@ export {
   isAnnotationElement,
   isParseResultElement,
   isSourceMapElement,
+  isPrimitiveElement,
   hasElementSourceMap,
   includesSymbols,
   includesClasses,

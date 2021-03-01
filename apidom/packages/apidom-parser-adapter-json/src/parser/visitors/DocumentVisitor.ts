@@ -14,6 +14,8 @@ const DocumentVisitor = stampit(SpecificationVisitor, {
 
     document(documentNode: JsonDocument) {
       const element = this.nodeToElement(['value'], documentNode);
+
+      element.classes.push('result');
       this.element.content.push(element);
     },
 

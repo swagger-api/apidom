@@ -10,6 +10,14 @@ class ParseResult extends ArrayElement {
     return this.children.filter((item) => item.classes.contains('api')).first;
   }
 
+  get results(): ArraySlice {
+    return this.children.filter((item) => item.classes.contains('result'));
+  }
+
+  get result(): Element | undefined {
+    return this.results.first;
+  }
+
   get annotations(): ArraySlice {
     return this.children.filter((item) => item.element === 'annotation');
   }

@@ -10,6 +10,8 @@ import AsyncApiYaml2_0Parser from '../parsers/apidom-reference-parser-asyncapi-y
 import JsonParser from '../parsers/apidom-reference-parser-json';
 import YamlParser from '../parsers/apidom-reference-parser-yaml';
 
+import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
+
 import { ReferenceOptions as IReferenceOptions } from '../types';
 
 const defaultOptions: IReferenceOptions = {
@@ -60,7 +62,7 @@ const defaultOptions: IReferenceOptions = {
      * Strategy is determined by media type.
      *
      * You can add additional resolver strategies of your own, replace an existing one with
-     * your own implementation, or remove any resolver by removing it from the list.
+     * your own implementation, or remove any resolve strategy by removing it from the list.
      */
     strategies: [OpenApi3_1ResolveStrategy()],
     /**
@@ -79,6 +81,21 @@ const defaultOptions: IReferenceOptions = {
      * is exceeded by this option.
      */
     maxDepth: +Infinity,
+  },
+  dereference: {
+    /**
+     * If set to a specific dereference strategy, loop for suitable resolve strategy will be skipped
+     * and this strategy will be used directly.
+     */
+    strategy: null,
+    /**
+     * Determines strategies how ApiDOM is dereferenced.
+     * Strategy is determined by media type or by inspecting ApiDOM to be dereferenced.
+     *
+     * You can add additional dereference strategies of your own, replace an existing one with
+     * your own implementation, or remove any dereference strategy by removing it from the list.
+     */
+    strategies: [OpenApi3_1DereferenceStrategy()],
   },
 };
 

@@ -7,7 +7,7 @@ import defaultOptions from './options';
 import { merge as mergeOptions } from './options/util';
 import parseFn, { readFile as readFileFn } from './parse';
 import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
-import { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
+import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
@@ -33,6 +33,11 @@ export const resolveApiDOM = async <T extends Element>(
 ): Promise<IReferenceSet> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return resolveApiDOMFn(element, mergedOptions);
+};
+
+export const dereference = async (uri: string, options = {}): Promise<ParseResultElement> => {
+  const mergedOptions = mergeOptions(defaultOptions, options);
+  return dereferenceFn(uri, mergedOptions);
 };
 
 export const dereferenceApiDOM = async <T extends Element>(

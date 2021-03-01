@@ -24,6 +24,7 @@ export const parse = async (
 
   if (isNotUndefined(firstResultElement)) {
     const asyncApiElement = AsyncApi2_0Element.refract(firstResultElement, refractorOpts);
+    asyncApiElement.classes.push('result');
     parseResultElement = transclude(firstResultElement, asyncApiElement, parseResultElement);
   }
 

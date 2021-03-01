@@ -1,36 +1,35 @@
-import util from 'util';
-import path from 'path';
 import stampit from 'stampit';
 import { hasIn, pathSatisfies, propEq } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { toValue, visit, createNamespace, isPrimitiveElement } from 'apidom';
-import openApi3_1Namespace, {
-  keyMap,
+import { isPrimitiveElement, visit } from 'apidom';
+import {
   getNodeType,
-  ReferenceElement,
   isReferenceLikeElement,
+  keyMap,
+  ReferenceElement,
 } from 'apidom-ns-openapi-3-1';
 
-import { parse } from '../src';
-import ReferenceSet from '../src/ReferenceSet';
-import Reference from '../src/Reference';
-import * as url from '../src/util/url';
-import { evaluate, uriToPointer } from '../src/selectors/json-pointer';
-import { Reference as IReference } from '../src/types';
+import { Reference as IReference } from '../../../types';
+import * as url from '../../../util/url';
+import parse from '../../../parse';
+import Reference from '../../../Reference';
+import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
-const DereferenceVisitor = stampit({
+const OpenApi3_1DereferenceVisitor = stampit({
   props: {
     indirections: [],
     namespace: null,
     reference: null,
+    options: null,
   },
-  init({ reference, namespace, indirections = [] }) {
+  init({ reference, namespace, indirections = [], options }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
+    this.options = options;
   },
   methods: {
     async toReference(uri: string): Promise<IReference> {
@@ -47,9 +46,9 @@ const DereferenceVisitor = stampit({
       }
 
       // register new Reference with ReferenceSet
-      const parseResult = await parse(baseURI);
+      const parseResult = await parse(baseURI, this.options);
 
-      return Reference({ uri: baseURI, value: parseResult.first, refSet });
+      return Reference({ uri: baseURI, value: parseResult, refSet });
     },
 
     async ReferenceElement(referenceElement: ReferenceElement) {
@@ -60,7 +59,7 @@ const DereferenceVisitor = stampit({
       const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
 
       // possibly non-semantic fragment
-      let fragment = evaluate(jsonPointer, reference.value);
+      let fragment = evaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
       if (referenceElement.meta.hasKey('referenced-element') && isPrimitiveElement(fragment)) {
@@ -81,10 +80,11 @@ const DereferenceVisitor = stampit({
       }
 
       // dive deep into the fragment
-      const visitor = DereferenceVisitor({
+      const visitor = OpenApi3_1DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
+        options: this.options,
       });
       fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
@@ -112,24 +112,4 @@ const DereferenceVisitor = stampit({
   },
 });
 
-describe('dereference', function () {
-  specify('should dereference', async function () {
-    const fixturePath = path.join(__dirname, 'fixtures', 'dereference', 'reference-objects.json');
-    const { api } = await parse(fixturePath, {
-      parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-    });
-    const namespace = createNamespace(openApi3_1Namespace);
-    const reference = Reference({ uri: fixturePath, value: api });
-    const visitor = DereferenceVisitor({ reference, namespace });
-    const refSet = ReferenceSet();
-    refSet.add(reference);
-
-    const dereferenced = await visitAsync(refSet.rootRef.value, visitor, {
-      keyMap,
-      nodeTypeGetter: getNodeType,
-    });
-
-    // @ts-ignore
-    console.log(util.inspect(toValue(dereferenced), true, null, true));
-  });
-});
+export default OpenApi3_1DereferenceVisitor;

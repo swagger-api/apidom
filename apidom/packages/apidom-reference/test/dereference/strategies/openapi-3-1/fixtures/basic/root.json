@@ -21,7 +21,7 @@
         "required": true
       },
       "externalRef": {
-        "$ref": "./external-reference-objects.json#/externalParameter",
+        "$ref": "./ex.json#/externalParameter",
         "description": "another ref"
       }
     }

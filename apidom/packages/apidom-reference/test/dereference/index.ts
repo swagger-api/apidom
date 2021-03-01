@@ -18,6 +18,7 @@ describe('dereference', function () {
     const expected = loadJsonFile(
       path.join(__dirname, 'strategies', 'openapi-3-1', 'fixtures', 'basic', 'dereferenced.json'),
     );
+
     const actual = await dereference(rootFilePath, {
       parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
     });

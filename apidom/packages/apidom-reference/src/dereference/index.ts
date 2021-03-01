@@ -37,7 +37,6 @@ export const dereferenceApiDOM = async <T extends Element>(
     const { result } = await plugins.run('dereference', [file, options], dereferenceStrategies);
     return result;
   } catch (error) {
-    console.dir(error);
     throw new DereferenceError(`Error while dereferencing file "${file.uri}"`, error);
   }
 };

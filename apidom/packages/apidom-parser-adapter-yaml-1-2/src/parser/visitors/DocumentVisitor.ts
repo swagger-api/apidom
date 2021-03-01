@@ -13,17 +13,23 @@ const DocumentVisitor = stampit(SpecificationVisitor, {
   methods: {
     scalar(scalarNode: YamlScalar) {
       const element = this.nodeToElement(['scalar'], scalarNode);
+
+      element.classes.push('result');
       this.element.content.push(element);
     },
 
     mapping(mappingNode: YamlMapping) {
       const element = this.nodeToElement(['mapping'], mappingNode);
+
+      element.classes.push('result');
       this.element.content.push(element);
     },
 
     sequence(sequenceNode: YamlSequence) {
-      const arrayElement = this.nodeToElement(['sequence'], sequenceNode);
-      this.element.content.push(arrayElement);
+      const element = this.nodeToElement(['sequence'], sequenceNode);
+
+      element.meta.classes.push('result');
+      this.element.content.push(element);
     },
 
     comment(commentNode: YamlComment) {

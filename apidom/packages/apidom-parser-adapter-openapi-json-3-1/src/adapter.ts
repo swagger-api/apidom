@@ -1,8 +1,9 @@
 import { propOr, omit } from 'ramda';
-import { ParseResultElement, createNamespace } from 'apidom';
+import { isNotUndefined } from 'ramda-adjunct';
+import { ParseResultElement, createNamespace, transclude } from 'apidom';
 // @ts-ignore
 import { parse as parseJson } from 'apidom-parser-adapter-json';
-import openApiNamespace, { OpenApi3_1Element, isObjectElement } from 'apidom-ns-openapi-3-1';
+import openApiNamespace, { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
 
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',
@@ -18,12 +19,12 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  const parseResultElement = await parseJson(source, parserOpts);
+  let parseResultElement = await parseJson(source, parserOpts);
+  const firstResultElement = parseResultElement.result;
 
-  // refract first element in parse result into OpenApi3_1 element
-  if (isObjectElement(parseResultElement.get(0))) {
-    const openApiElement = OpenApi3_1Element.refract(parseResultElement.get(0), refractorOpts);
-    parseResultElement.set(0, openApiElement);
+  if (isNotUndefined(firstResultElement)) {
+    const openApiElement = OpenApi3_1Element.refract(firstResultElement, refractorOpts);
+    parseResultElement = transclude(firstResultElement, openApiElement, parseResultElement);
   }
 
   return parseResultElement;

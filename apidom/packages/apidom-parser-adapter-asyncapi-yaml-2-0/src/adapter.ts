@@ -1,8 +1,9 @@
 import { omit, propOr } from 'ramda';
-import { Element, NumberElement, ParseResultElement, createNamespace } from 'apidom';
+import { isNotUndefined } from 'ramda-adjunct';
+import { ParseResultElement, createNamespace, transclude } from 'apidom';
 // @ts-ignore
 import { parse as parseYaml } from 'apidom-parser-adapter-yaml-1-2';
-import asyncApiNamespace, { AsyncApi2_0Element, isObjectElement } from 'apidom-ns-asyncapi-2-0';
+import asyncApiNamespace, { AsyncApi2_0Element } from 'apidom-ns-asyncapi-2-0';
 
 export const mediaTypes = [
   'application/vnd.aai.asyncapi;version=2.0.0',
@@ -18,23 +19,12 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  const parseResultElement = await parseYaml(source, parserOpts);
-  const results = parseResultElement.findElements(isObjectElement, {
-    recursive: false,
-  });
+  let parseResultElement = await parseYaml(source, parserOpts);
+  const firstResultElement = parseResultElement.result;
 
-  if (results.length > 0) {
-    const asyncApiLikeElement = results[0];
-    const asyncApiElement = AsyncApi2_0Element.refract(asyncApiLikeElement, refractorOpts);
-    let index = 0;
-
-    parseResultElement.forEach((element: Element, indexElement: NumberElement) => {
-      if (asyncApiElement === element) {
-        index = indexElement.toValue();
-      }
-    });
-
-    parseResultElement.set(index, asyncApiElement);
+  if (isNotUndefined(firstResultElement)) {
+    const asyncApiElement = AsyncApi2_0Element.refract(firstResultElement, refractorOpts);
+    parseResultElement = transclude(firstResultElement, asyncApiElement, parseResultElement);
   }
 
   return parseResultElement;

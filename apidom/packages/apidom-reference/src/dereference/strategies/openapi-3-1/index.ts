@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { isNonEmptyString } from 'ramda-adjunct';
 import { createNamespace, visit, Element } from 'apidom';
 import openApi3_1Namespace, {
   getNodeType,
@@ -26,7 +25,7 @@ const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
     methods: {
       canDereference(file: IFile): boolean {
         // assert by media type
-        if (isNonEmptyString(file.mediaType)) {
+        if (file.mediaType !== 'text/plain') {
           return [
             'application/vnd.oai.openapi;version=3.1.0',
             'application/vnd.oai.openapi+json;version=3.1.0',

@@ -48,6 +48,14 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
     *values() {
       yield* this.refs;
     },
+
+    clean() {
+      this.refs.forEach((ref: IReference) => {
+        // eslint-disable-next-line no-param-reassign
+        ref.refSet = null;
+      });
+      this.refs = [];
+    },
   },
 });
 

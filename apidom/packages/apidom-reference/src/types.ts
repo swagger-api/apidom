@@ -1,4 +1,4 @@
-import { ParseResultElement } from 'apidom';
+import { ParseResultElement, Element } from 'apidom';
 
 export interface File {
   uri: string;
@@ -36,6 +36,11 @@ export interface ResolveStrategy {
   resolve(file: File, options: ReferenceOptions): Promise<ReferenceSet>;
 }
 
+export interface DereferenceStrategy {
+  canDereference(file: File): boolean;
+  dereference(file: File, options: ReferenceOptions): Promise<Element>;
+}
+
 export interface ComposableResolveStrategy extends ResolveStrategy {
   readonly strategies: Array<ResolveStrategy>;
 }
@@ -61,6 +66,7 @@ export interface ReferenceSet {
   has(uri: string): boolean;
   find(callback: (reference: Reference) => boolean): undefined | Reference;
   values(): IterableIterator<Reference>;
+  clean(): void;
 }
 
 export interface ReferenceParserOptions {
@@ -77,7 +83,13 @@ export interface ReferenceResolveOptions {
   readonly maxDepth: number;
 }
 
+export interface ReferenceDereferenceOptions {
+  readonly strategy: null | DereferenceStrategy;
+  readonly strategies: Array<DereferenceStrategy>;
+}
+
 export interface ReferenceOptions {
   readonly parse: ReferenceParserOptions;
   readonly resolve: ReferenceResolveOptions;
+  readonly dereference: ReferenceDereferenceOptions;
 }

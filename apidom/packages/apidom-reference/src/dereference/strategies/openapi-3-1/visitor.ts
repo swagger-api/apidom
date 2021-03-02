@@ -62,14 +62,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
       let fragment = evaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
-      if (referenceElement.meta.hasKey('referenced-element') && isPrimitiveElement(fragment)) {
+      if (isPrimitiveElement(fragment)) {
+        const referencedElementType = referenceElement.meta.get('referenced-element').toValue();
+
         if (isReferenceLikeElement(fragment)) {
           // handling indirect references
           fragment = ReferenceElement.refract(fragment);
+          fragment.setMetaProperty('referenced-element', referencedElementType);
         } else {
           // handling direct references
-          const elementType = referenceElement.meta.get('referenced-element').toValue();
-          const ElementClass = this.namespace.getElementClass(elementType);
+          const ElementClass = this.namespace.getElementClass(referencedElementType);
           fragment = ElementClass.refract(fragment);
         }
       }

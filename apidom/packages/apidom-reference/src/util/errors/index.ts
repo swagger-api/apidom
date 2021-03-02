@@ -6,3 +6,4 @@ export { default as UnmatchedResolveStrategyError } from './UnmatchedResolveStra
 export { default as PluginError } from './PluginError';
 export { default as InvalidSelectorError } from './InvalidSelectorError';
 export { default as MaximumResolverDepthError } from './MaximumResolverDepthError';
+export { default as DereferenceError } from './DereferenceError';

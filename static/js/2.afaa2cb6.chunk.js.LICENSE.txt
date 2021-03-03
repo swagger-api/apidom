@@ -10,15 +10,6 @@ object-assign
   http://jedwatson.github.io/classnames
 */
 
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
 /**
  * @file **unraw - errors.ts** | Error messages used by `unraw`.
  * @author Ian Sanders
@@ -40,29 +31,6 @@ object-assign
  * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
  * @website https://github.com/cssinjs/jss
  * @license MIT
- */
-
-/**
- * Tests whether or not an object is similar to an array.
- *
- * @func isArrayLike
- * @memberOf RA
- * @since {@link https://char0n.github.io/ramda-adjunct/1.9.0|v1.9.0}
- * @licence https://github.com/ramda/ramda/blob/master/LICENSE.txt
- * @category List
- * @category Type
- * @sig * -> Boolean
- * @param {*} val The value to test
- * @returns {boolean} `true` if `val` has a numeric length property and extreme indices defined; `false` otherwise.
- * @see {@link RA.isNotArrayLike|isNotArrayLike}
-
- * @example
- *
- * RA.isArrayLike([]); //=> true
- * RA.isArrayLike(true); //=> false
- * RA.isArrayLike({}); //=> false
- * RA.isArrayLike({length: 10}); //=> false
- * RA.isArrayLike({0: 'zero', 9: 'nine', length: 10}); //=> true
  */
 
 /** @license React v0.20.1

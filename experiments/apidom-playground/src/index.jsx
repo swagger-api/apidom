@@ -6,7 +6,9 @@ import { CssBaseline } from '@material-ui/core';
 import './index.scss';
 import App from './features/app/components/App';
 import reportWebVitals from './reportWebVitals';
-import store from './store';
+import createStore from './store';
+
+const store = createStore();
 
 ReactDOM.render(
   <React.StrictMode>

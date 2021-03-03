@@ -170,7 +170,7 @@ export const getHash = (uri: string): string => {
 export const cwd = (): string => {
   // @ts-ignore
   if (process.browser) {
-    return window.location.href;
+    return globalThis.location.href;
   }
 
   const path = process.cwd();

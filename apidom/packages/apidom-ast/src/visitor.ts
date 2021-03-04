@@ -241,7 +241,6 @@ export const mergeAll = (visitors: any[]) => {
  *  @sig visit :: (Node, Visitor, Options)
  *  @sig      Options = { keyMap: Object, state: Object }
  */
-
 export const visit = (
   // @ts-ignore
   root,
@@ -264,9 +263,9 @@ export const visit = (
   let index = -1;
   let parent;
   let edits = [];
-  const path = [];
+  const path: any[] = [];
   // @ts-ignore
-  const ancestors = [];
+  const ancestors: any[] = [];
   let newRoot = root;
 
   do {
@@ -322,11 +321,21 @@ export const visit = (
       }
     }
 
+    if (ancestors.includes(node)) {
+      continue;
+    }
+
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
         throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
+      // cycle detected; skipping over a sub-tree to avoid recursion
+      if (ancestors.includes(node)) {
+        path.pop();
+        continue;
+      }
+      // call appropriate visitor function if available
       const visitFn = visitFnGetter(visitor, nodeTypeGetter(node), isLeaving);
       if (visitFn) {
         // assign state

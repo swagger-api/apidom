@@ -253,6 +253,7 @@ export const visit = (
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
+    detectCycles = true,
   } = {},
 ) => {
   const visitorKeys = keyMap || {};
@@ -331,7 +332,7 @@ export const visit = (
         throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
       // cycle detected; skipping over a sub-tree to avoid recursion
-      if (ancestors.includes(node)) {
+      if (detectCycles && ancestors.includes(node)) {
         path.pop();
         continue;
       }

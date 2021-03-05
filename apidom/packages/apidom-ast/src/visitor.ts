@@ -1,5 +1,5 @@
-import { prop, pipe, curryN, tail, forEachObjIndexed, defaultTo, identity, pathOr } from 'ramda';
-import { isFunction, isString, isNotNil, isNotUndefined, isPlainObject } from 'ramda-adjunct';
+import { prop, pipe, curryN } from 'ramda';
+import { isFunction, isString, isNotNil } from 'ramda-adjunct';
 
 // getVisitFn :: (Visitor, String, Boolean) -> Function
 export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
@@ -41,114 +41,56 @@ export const getNodeType = prop('type');
 // isNode :: Node -> Boolean
 export const isNode = curryN(1, pipe(getNodeType, isString));
 
-// wrap visitor functions to allow to run them in parallel
-const wrapVisitorFn = (previousVisitorFn: any, visitorFn: any) => {
-  function wrapper(...args: any[]) {
-    const result = previousVisitorFn(...args);
-
-    // don't run visitor function as previous one stopped the visiting
-    if ([false, null, BREAK].includes(result)) {
-      return result;
-    }
-
-    // node has been replaced
-    if (isNotUndefined(result)) {
-      return visitorFn(result, ...tail(args));
-    }
-
-    return visitorFn(...args);
-  }
-
-  Object.defineProperty(wrapper, 'name', {
-    value: visitorFn.name,
-  });
-
-  return wrapper;
-};
-
-// normalized all possible visitor shapes into standardized form.
-const normalize = (visitor: any) => {
-  const normalized: any = {};
-
-  forEachObjIndexed((value: any, key) => {
-    if (key === 'enter' && isFunction(value)) {
-      // { enter() {} }
-      normalized.enter = value.bind(normalized);
-    } else if (key === 'leave' && isFunction(value)) {
-      // { enter() {}, leave() {} }
-      normalized.leave = value.bind(normalized);
-    } else if (key === 'enter' && isPlainObject(value)) {
-      // { enter: { Type() {} } }
-      forEachObjIndexed((visitorFn: any, type) => {
-        normalized[type] = defaultTo({}, normalized[type]);
-        normalized[type].enter = visitorFn.bind(normalized);
-      }, value);
-    } else if (key === 'leave' && isPlainObject(value)) {
-      // { leave: { Type() {} } }
-      forEachObjIndexed((visitorFn: any, type) => {
-        normalized[type] = defaultTo({}, normalized[type]);
-        normalized[type].leave = visitorFn.bind(normalized);
-      }, value);
-    } else if (isFunction(value)) {
-      // { Type() {} }
-      normalized[key] = {
-        enter: value.bind(normalized),
-      };
-    } else if (isPlainObject(value)) {
-      // { Type: { enter() {}, leave() {} } }
-      normalized[key] = {};
-      // @ts-ignore
-      if (isFunction(value.enter)) {
-        // @ts-ignore
-        normalized[key].enter = value.enter.bind(normalized);
-      }
-      // @ts-ignore
-      if (isFunction(value.leave)) {
-        // @ts-ignore
-        normalized[key].leave = value.leave.bind(normalized);
-      }
-    }
-  }, visitor);
-
-  return normalized;
-};
-
 /**
  * Creates a new visitor instance which delegates to many visitors to run in
  * parallel. Each visitor will be visited for each node before moving on.
  *
  * If a prior visitor edits a node, no following visitors will see that node.
  */
-export const mergeAll = (visitors: any[]) => {
-  return visitors.reduce((mergedVisitors, visitor) => {
-    /* eslint-disable no-param-reassign */
-    const normalizedVisitor = normalize(visitor);
+export const mergeAll = (
+  visitors: any[],
+  { visitFnGetter = getVisitFn, nodeTypeGetter = getNodeType } = {},
+) => {
+  const skipping = new Array(visitors.length);
 
-    forEachObjIndexed((value, type: any) => {
-      if (type === 'enter') {
-        const previousEnterFn = defaultTo(identity, mergedVisitors.enter);
-        mergedVisitors.enter = wrapVisitorFn(previousEnterFn, value).bind(mergedVisitors);
-      } else if (type === 'leave') {
-        const previousLeaveFn = defaultTo(identity, mergedVisitors.leave);
-        mergedVisitors.leave = wrapVisitorFn(previousLeaveFn, value).bind(mergedVisitors);
-      } else if (isFunction(value.enter)) {
-        const previousTypeEnterFn = pathOr(identity, [type, 'enter'], mergedVisitors);
-        mergedVisitors[type] = defaultTo({}, mergedVisitors.type);
-        mergedVisitors[type].enter = wrapVisitorFn(previousTypeEnterFn, value.enter).bind(
-          mergedVisitors,
-        );
-      } else if (isFunction(value.leave)) {
-        const previousTypeLeaveFn = pathOr(identity, [type, 'leave'], mergedVisitors);
-        mergedVisitors[type] = defaultTo({}, mergedVisitors.type);
-        mergedVisitors[type].enter = wrapVisitorFn(previousTypeLeaveFn, value.leave).bind(
-          mergedVisitors,
-        );
+  return {
+    enter(node: any, ...rest: any[]) {
+      for (let i = 0; i < visitors.length; i += 1) {
+        if (skipping[i] == null) {
+          const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ false);
+          if (fn) {
+            const result = fn.call(visitors[i], node, ...rest);
+            if (result === false) {
+              skipping[i] = node;
+            } else if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined) {
+              return result;
+            }
+          }
+        }
       }
-    }, normalizedVisitor);
-
-    return mergedVisitors;
-  }, {});
-  /* eslint-enable */
+      return undefined;
+    },
+    leave(node: any, ...rest: any[]) {
+      for (let i = 0; i < visitors.length; i += 1) {
+        if (skipping[i] == null) {
+          const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ true);
+          if (fn) {
+            const result = fn.call(visitors[i], node, ...rest);
+            if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined && result !== false) {
+              return result;
+            }
+          }
+        } else if (skipping[i] === node) {
+          skipping[i] = null;
+        }
+      }
+      return undefined;
+    },
+  };
 };
 
 /* eslint-disable no-continue, no-nested-ternary, no-param-reassign */

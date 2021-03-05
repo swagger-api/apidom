@@ -110,23 +110,75 @@ const Visitor = stampit({
       return YamlAnchor({ name: previousSibling.text, position: toPosition(previousSibling) });
     };
 
+    /**
+     * If web-tree-sitter will support keyNode and valueNode this can be further simplified.
+     */
     const isKind = curry((ending, node) => propSatisfies(endsWith(ending), 'type', node));
     const isScalar = isKind('scalar');
     const isMapping = isKind('mapping');
     const isSequence = isKind('sequence');
 
-    const isValuelessKeyValuePair = (node: SyntaxNode) => {
+    const isKeyValuePairKeyless = (node: SyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
-      // key value was not explicitly provided; tag and anchor are missing too
+      // keyNode was not explicitly provided; tag and anchor are missing too
       // @ts-ignore
-      if (node.childCount === 2) {
+      if (node.firstChild.type === ':') {
         return true;
       }
-      // key value was not explicitly provided; tag or anchor are provided though
+      // keyNode was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !node.children[2].children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !node.firstChild.children.some(anyPass([isScalar, isSequence, isMapping]));
+    };
+
+    const isKeyValuePairValueless = (node: SyntaxNode) => {
+      if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
+        return false;
+      }
+      // valueNode was not explicitly provided; tag and anchor are missing too
+      // @ts-ignore
+      if (node.lastChild.type === ':') {
+        return true;
+      }
+      // valueNode was not explicitly provided; tag or anchor are provided though
+      // @ts-ignore
+      return !node.lastChild.children.some(anyPass([isScalar, isSequence, isMapping]));
+    };
+
+    const createKeyValuePairSurrogateKey = (node: SyntaxNode) => {
+      const surrogatePoint = Point({
+        row: node.startPosition.row,
+        column: node.startPosition.column,
+        char: node.startIndex,
+      });
+      // @ts-ignore
+      const keyNode = node.firstChild.type === ':' ? null : node.firstChild;
+      const children = pathOr([], ['children'], keyNode);
+      const tagNode: any | undefined = find(isKind('tag'), children);
+      const anchorNode: any | undefined = find(isKind('anchor'), children);
+      const tag = isNotUndefined(tagNode)
+        ? YamlTag({
+            explicitName: tagNode.text,
+            kind: YamlNodeKind.Scalar,
+            position: toPosition(tagNode),
+          })
+        : YamlTag({
+            explicitName: '?',
+            kind: YamlNodeKind.Scalar,
+          });
+      const anchor = isNotUndefined(anchorNode)
+        ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
+        : null;
+
+      return YamlScalar({
+        content: '',
+        position: Position({ start: surrogatePoint, end: surrogatePoint }),
+        tag,
+        anchor,
+        styleGroup: YamlStyleGroup.Flow,
+        style: YamlStyle.Plain,
+      });
     };
 
     const createKeyValuePairSurrogateValue = (node: SyntaxNode) => {
@@ -135,7 +187,9 @@ const Visitor = stampit({
         column: node.endPosition.column,
         char: node.endIndex,
       });
-      const children = pathOr([], [2, 'children'], node);
+      // @ts-ignore
+      const valueNode = node.lastChild.type === ':' ? null : node.lastChild;
+      const children = pathOr([], ['children'], valueNode);
       const tagNode: any | undefined = find(isKind('tag'), children);
       const anchorNode: any | undefined = find(isKind('anchor'), children);
       const tag = isNotUndefined(tagNode)
@@ -311,7 +365,11 @@ const Visitor = stampit({
         const position = toPosition(node);
         const children: Array<SyntaxNode | YamlScalar> = [...node.children];
 
-        if (isValuelessKeyValuePair(node)) {
+        if (isKeyValuePairKeyless(node)) {
+          const keyNode = createKeyValuePairSurrogateKey(node);
+          children.push(keyNode);
+        }
+        if (isKeyValuePairValueless(node)) {
           const valueNode = createKeyValuePairSurrogateValue(node);
           children.push(valueNode);
         }
@@ -349,7 +407,11 @@ const Visitor = stampit({
         const position = toPosition(node);
         const children: Array<SyntaxNode | YamlScalar> = [...node.children];
 
-        if (isValuelessKeyValuePair(node)) {
+        if (isKeyValuePairKeyless(node)) {
+          const keyNode = createKeyValuePairSurrogateKey(node);
+          children.push(keyNode);
+        }
+        if (isKeyValuePairValueless(node)) {
           const valueNode = createKeyValuePairSurrogateValue(node);
           children.push(valueNode);
         }

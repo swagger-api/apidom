@@ -33,7 +33,10 @@ const refract = <T extends Element>(
     const namespace = createNamespace(openApi3_1Namespace);
     const toolbox = { predicates: { ...predicates }, namespace };
     const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
-    const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')));
+    const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')), {
+      // @ts-ignore
+      nodeTypeGetter: getNodeType,
+    });
     pluginsSpecs.forEach(invokeArgs(['pre'], []));
     const newElement: any = visit(rootVisitor.element, pluginsVisitor, {
       keyMap,

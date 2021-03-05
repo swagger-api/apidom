@@ -81,7 +81,7 @@
     "rimraf": "=3.0.2",
     "sinon": "=9.2.1",
     "terser-webpack-plugin": "=3.0.2",
-    "tree-sitter-cli": "=0.18.0",
+    "tree-sitter-cli": "=0.19.1",
     "ts-node": "^9.0.0",
     "typescript": "=3.9.3",
     "webpack": "=4.43.0",

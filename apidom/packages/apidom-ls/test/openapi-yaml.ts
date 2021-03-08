@@ -7,6 +7,7 @@ import {
   CompletionList,
   Diagnostic,
   DiagnosticSeverity,
+  Hover,
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
@@ -18,11 +19,23 @@ import {
   LanguageServiceContext,
   ValidationContext,
 } from '../src/apidom-language-types';
+import { metadata } from './metadata';
+
+// eslint-disable-next-line import/prefer-default-export
+export function logj(e: unknown, label?: string): void {
+  // eslint-disable-next-line no-console
+  console.log((label ? `${label}: ` : '') + JSON.stringify(e));
+}
+export function log(e: unknown, label?: string): void {
+  // eslint-disable-next-line no-console
+  console.log((label ? `${label}: ` : '') + e);
+}
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion.yaml'))
   .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specCompletionNoEmpty = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-no-empty.yaml'))
   .toString();
@@ -31,10 +44,105 @@ const specError = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.yaml'))
   .toString();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specHighlight = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api.yaml'))
+  .toString();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specHighlightNoQuotes = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-noquotes.yaml'))
+  .toString();
+
+const completionTestInput = [
+  [
+    'empty line in openapi 3.1 object value',
+    2,
+    2,
+    {
+      items: [
+        {
+          documentation: 'Add `license` section',
+          insertText: 'license: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 10,
+          label: 'license',
+        },
+      ],
+      isIncomplete: false,
+    },
+  ],
+  [
+    'openapi key start',
+    0,
+    0,
+    {
+      items: [
+        {
+          documentation: 'Add `openapi` property',
+          insertText: 'openapi: $1\n',
+          insertTextFormat: 2,
+          kind: 10,
+          label: 'openapi',
+        },
+        {
+          documentation: 'Add `paths` section',
+          insertText: 'paths: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 10,
+          label: 'paths',
+        },
+      ],
+      isIncomplete: false,
+    },
+  ],
+  [
+    'info key start',
+    1,
+    0,
+    {
+      items: [
+        {
+          documentation: 'Add `info` section',
+          insertText: 'info: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 10,
+          label: 'info',
+        },
+        {
+          documentation: 'Add `paths` section',
+          insertText: 'paths: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 10,
+          label: 'paths',
+        },
+      ],
+      isIncomplete: false,
+    },
+  ],
+];
+
+const hoverTestInput = [
+  [
+    'operation key',
+    9,
+    5,
+    {
+      contents: {
+        kind: 'markdown',
+        value:
+          '**operation**\n\nPOST https://petstore3.swagger.io/api/v3/pet/a\n\ncurl -X POST https://petstore3.swagger.io/api/v3/pet/a\n\nhttps://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationObject\n\n#### Operation Object\n\nDescribes a single API operation on a path.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n[tags](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationTags) | [`string`] | A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.\n[summary](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationSummary) | `string` | A short summary of what the operation does.\n[description](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationDescription) | `string` | A verbose explanation of the operation behavior. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.\n[externalDocs](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationExternalDocs) | [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#externalDocumentationObject) | Additional external documentation for this operation.\n[operationId](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationId) | `string` | Unique string used to identify the operation. The id MUST be unique among all operations described in the API. The operationId value is **case-sensitive**. Tools and libraries MAY use the operationId to uniquely identify an operation, therefore, it is RECOMMENDED to follow common programming naming conventions.\n[parameters](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationParameters) | [[Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject)] | A list of parameters that are applicable for this operation. If a parameter is already defined at the [Path Item](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#pathItemParameters), the new definition will override it but can never remove it. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterName) and [location](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterIn). The list can use the [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject) to link to parameters that are defined at the [OpenAPI Object\'s components/parameters](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#componentsParameters).\n[requestBody](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationRequestBody) | [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#requestBodyObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md##referenceObject) | The request body applicable for this operation.  The `requestBody` is fully supported in HTTP methods where the HTTP 1.1 specification [RFC7231](https://tools.ietf.org/html/rfc7231#section-4.3.1) has explicitly defined semantics for request bodies.  In other cases where the HTTP spec is vague (such as [GET](https://tools.ietf.org/html/rfc7231#section-4.3.1), [HEAD](https://tools.ietf.org/html/rfc7231#section-4.3.2) and [DELETE](https://tools.ietf.org/html/rfc7231#section-4.3.5)), `requestBody` is permitted but does not have well-defined semantics and SHOULD be avoided if possible.\n[responses](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationResponses) | [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#responsesObject) | The list of possible responses as they are returned from executing this operation.\n[callbacks](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationCallbacks) | Map[`string`, [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#callbackObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject)] | A map of possible out-of band callbacks related to the parent operation. The key is a unique identifier for the Callback Object. Each value in the map is a [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#callbackObject) that describes a request that may be initiated by the API provider and the expected responses.\n[deprecated](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationDeprecated) | `boolean` | Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.\n[security](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationSecurity) | [[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#securityRequirementObject)] | A declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. To make security optional, an empty security requirement (`{}`) can be included in the array. This definition overrides any declared top-level [`security`](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oasSecurity). To remove a top-level security declaration, an empty array can be used.\n[servers](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationServers) | [[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#serverObject)] | An alternative `server` array to service this operation. If an alternative `server` object is specified at the Path Item Object or Root level, it will be overridden by this value.\n\nThis object MAY be extended with [Specification Extensions](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#specificationExtensions).\n\n##### Operation Object Example\n\n```json\n{\n  "tags": [\n    "pet"\n  ],\n  "summary": "Updates a pet in the store with form data",\n  "operationId": "updatePetWithForm",\n  "parameters": [\n    {\n      "name": "petId",\n      "in": "path",\n      "description": "ID of pet that needs to be updated",\n      "required": true,\n      "schema": {\n        "type": "string"\n      }\n    }\n  ],\n  "requestBody": {\n    "content": {\n      "application/x-www-form-urlencoded": {\n        "schema": {\n          "type": "object",\n          "properties": {\n            "name": { \n              "description": "Updated name of the pet",\n              "type": "string"\n            },\n            "status": {\n              "description": "Updated status of the pet",\n              "type": "string"\n            }\n          },\n          "required": ["status"] \n        }\n      }\n    }\n  },\n  "responses": {\n    "200": {\n      "description": "Pet updated.",\n      "content": {\n        "application/json": {},\n        "application/xml": {}\n      }\n    },\n    "405": {\n      "description": "Method Not Allowed",\n      "content": {\n        "application/json": {},\n        "application/xml": {}\n      }\n    }\n  },\n  "security": [\n    {\n      "petstore_auth": [\n        "write:pets",\n        "read:pets"\n      ]\n    }\n  ]\n}\n```\n\n```yaml\ntags:\n- pet\nsummary: Updates a pet in the store with form data\noperationId: updatePetWithForm\nparameters:\n- name: petId\n  in: path\n  description: ID of pet that needs to be updated\n  required: true\n  schema:\n    type: string\nrequestBody:\n  content:\n    \'application/x-www-form-urlencoded\':\n      schema:\n       properties:\n          name: \n            description: Updated name of the pet\n            type: string\n          status:\n            description: Updated status of the pet\n            type: string\n       required:\n         - status\nresponses:\n  \'200\':\n    description: Pet updated.\n    content: \n      \'application/json\': {}\n      \'application/xml\': {}\n  \'405\':\n    description: Method Not Allowed\n    content: \n      \'application/json\': {}\n      \'application/xml\': {}\nsecurity:\n- petstore_auth:\n  - write:pets\n  - read:pets\n```',
+      },
+      range: { start: { line: 9, character: 4 }, end: { line: 9, character: 8 } },
+    },
+  ],
+];
+
 describe('apidom-ls-yaml', function () {
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('test parse and syntax validation', async function () {
-    const context: LanguageServiceContext = {};
+  const context: LanguageServiceContext = {
+    metadata: metadata(),
+  };
+  it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -79,7 +187,19 @@ describe('apidom-ls-yaml', function () {
         code: 0,
       },
       {
-        range: { start: { line: 64, character: 0 }, end: { line: 64, character: 5 } },
+        range: { start: { line: 127, character: 4 }, end: { line: 127, character: 14 } },
+        message: 'should be array',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 78, character: 6 }, end: { line: 78, character: 16 } },
+        message: 'should be array',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 85, character: 6 }, end: { line: 85, character: 15 } },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
@@ -110,42 +230,6 @@ describe('apidom-ls-yaml', function () {
       },
       {
         range: { start: { line: 25, character: 4 }, end: { line: 25, character: 11 } },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 37, character: 8 }, end: { line: 37, character: 15 } },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 37, character: 8 }, end: { line: 37, character: 15 } },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 37, character: 8 }, end: { line: 37, character: 15 } },
-        message: "should have required property '$ref'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 37, character: 8 }, end: { line: 37, character: 15 } },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 30, character: 4 }, end: { line: 30, character: 8 } },
-        message: "should have required property '$ref'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 30, character: 4 }, end: { line: 30, character: 8 } },
         message: 'should match exactly one schema in oneOf',
         severity: 1,
         code: 0,
@@ -156,7 +240,6 @@ describe('apidom-ls-yaml', function () {
 
     doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
-    // console.log(JSON.stringify(result));
     // TODO yaml errors not recovered? no result?
     /*     assert.deepEqual(result, [
       {
@@ -168,43 +251,99 @@ describe('apidom-ls-yaml', function () {
     ]); */
   });
 
+  it('test parse and syntax validation simpler no quotes', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/file.yaml',
+      'yaml',
+      0,
+      specHighlightNoQuotes,
+    );
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
+        message: "should always have a 'description'",
+        severity: 1,
+        code: 2,
+        source: 'LINTER',
+        data: {
+          quickFix: {
+            message: "add 'description' field",
+            function: 'addDescription',
+            action: 'addChild',
+            snippetYaml: 'description: \n  ',
+            snippetJson: '"description": "",\n    ',
+          },
+        },
+      },
+      {
+        range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
+        message: "should have required property 'title'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 7, character: 4 }, end: { line: 7, character: 7 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 9, character: 4 }, end: { line: 9, character: 8 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 12, character: 4 }, end: { line: 12, character: 8 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 15, character: 4 }, end: { line: 15, character: 7 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+  });
+
   it('test completion', async function () {
-    const context: LanguageServiceContext = {};
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
-    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletionNoEmpty);
+    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
 
     const languageService: LanguageService = getLanguageService(context);
 
-    const pos = Position.create(2, 4);
-    const result = await languageService.doCompletion(
-      doc,
-      { textDocument: doc, position: pos },
-      completionContext,
-    );
-
-    const expected = {
-      items: [
-        {
-          label: 'license',
-          kind: 10,
-          insertText: 'license: {$1}',
-          insertTextFormat: 2,
-          documentation: 'TODO license docs in MD to retrieve from some submodule or whatever',
-          textEdit: {
-            range: { start: { line: 2, character: 2 }, end: { line: 2, character: 7 } },
-            newText: 'license: {$1}',
-          },
-        },
-      ],
-      isIncomplete: false,
-    };
-    assert.deepEqual(result, expected as CompletionList);
+    for (const input of completionTestInput) {
+      // eslint-disable-next-line no-console
+      console.log(`testing completion for ${input[0]}`);
+      const pos = Position.create(input[1] as number, input[2] as number);
+      // eslint-disable-next-line no-await-in-loop
+      const result = await languageService.doCompletion(
+        doc,
+        { textDocument: doc, position: pos },
+        completionContext,
+      );
+      assert.deepEqual(result, input[3] as CompletionList);
+    }
   });
 
   it('test symbols', async function () {
-    const context: LanguageServiceContext = {};
     // valid spec
     const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
 
@@ -212,7 +351,6 @@ describe('apidom-ls-yaml', function () {
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
-    // console.log(JSON.stringify(result));
     const expected: SymbolInformation[] = [
       {
         name: 'info',
@@ -227,7 +365,7 @@ describe('apidom-ls-yaml', function () {
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 4, character: 2 }, end: { line: 4, character: 9 } },
+          range: { start: { line: 5, character: 2 }, end: { line: 5, character: 9 } },
         },
       },
     ];
@@ -237,5 +375,146 @@ describe('apidom-ls-yaml', function () {
     assert.equal(result[1].name, expected[1].name);
     assert.equal(result[1].kind, expected[1].kind);
     assert.deepEqual(result[1].location.range, expected[1].location.range);
+  });
+
+  it('test semantic highlighting', async function () {
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/file.json',
+      'json',
+      0,
+      specHighlightNoQuotes,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const tokens = await languageService.computeSemanticTokens(doc);
+    if (tokens.data && tokens.data.length >= 5) {
+      const logBase = (n: number) => Math.log(n) / Math.log(2);
+      for (let i = 0; i < tokens.data.length; i += 5) {
+        // eslint-disable-next-line no-console
+        console.log(
+          `[${tokens.data[i]}, ${tokens.data[i + 1]}, ${tokens.data[i + 2]}, ${
+            tokens.data[i + 3]
+          }, ${tokens.data[i + 4]}] type: ${
+            languageService.getSemanticTokensLegend().tokenTypes[tokens.data[i + 3]]
+          }, mod: ${
+            languageService.getSemanticTokensLegend().tokenModifiers[logBase(tokens.data[i + 4])]
+          } / semTok: +line: ${tokens.data[i]}, off: ${tokens.data[i + 1]}, len: ${
+            tokens.data[i + 2]
+          }`,
+        );
+      }
+    }
+    assert.deepEqual(tokens, {
+      data: [
+        0,
+        9,
+        5,
+        16,
+        64,
+        1,
+        0,
+        4,
+        12,
+        0,
+        0,
+        0,
+        4,
+        12,
+        0,
+        1,
+        2,
+        7,
+        11,
+        0,
+        0,
+        9,
+        5,
+        16,
+        64,
+        2,
+        9,
+        39,
+        16,
+        64,
+        2,
+        2,
+        2,
+        14,
+        0,
+        1,
+        4,
+        3,
+        13,
+        16,
+        1,
+        19,
+        4,
+        16,
+        64,
+        1,
+        4,
+        4,
+        13,
+        32,
+        1,
+        19,
+        5,
+        16,
+        64,
+        1,
+        2,
+        2,
+        14,
+        0,
+        1,
+        4,
+        4,
+        13,
+        32,
+        1,
+        19,
+        5,
+        16,
+        64,
+        1,
+        2,
+        2,
+        14,
+        0,
+        1,
+        4,
+        3,
+        13,
+        16,
+        1,
+        19,
+        4,
+        16,
+        64,
+      ],
+    });
+  });
+
+  it('test hover', async function () {
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/file.json',
+      'json',
+      0,
+      specHighlightNoQuotes,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    for (const input of hoverTestInput) {
+      // eslint-disable-next-line no-console
+      console.log(`testing hover for ${input[0]}`);
+      const pos = Position.create(input[1] as number, input[2] as number);
+      // eslint-disable-next-line no-await-in-loop
+      const result = await languageService.doHover(doc, pos);
+      assert.deepEqual(result, input[3] as Hover);
+    }
   });
 });

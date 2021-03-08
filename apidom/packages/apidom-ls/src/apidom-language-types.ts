@@ -10,13 +10,18 @@ import {
   ColorPresentation,
   FormattingOptions,
   TextEdit,
+  Position,
+  CodeAction,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   ClientCapabilities,
   CompletionParams,
   SemanticTokens,
+  SemanticTokensLegend,
+  CodeActionParams,
 } from 'vscode-languageserver-protocol';
+import { Metadata } from './utils/utils';
 
 export enum SUPPORTED_LANGUAGES {
   OPENAPI_31,
@@ -26,11 +31,13 @@ export enum SUPPORTED_LANGUAGES {
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
+  metadata?: Metadata;
 }
 
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
+  metadata?: Metadata;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -64,7 +71,7 @@ export interface LanguageService {
   doValidation(document: TextDocument, context?: ValidationContext): PromiseLike<Diagnostic[]>;
   doCompletion(
     document: TextDocument,
-    completionParams: CompletionParams,
+    completionParamsOrPosition: CompletionParams | Position,
     context?: CompletionContext,
   ): PromiseLike<CompletionList | null>;
   doFindDocumentSymbols(
@@ -74,9 +81,16 @@ export interface LanguageService {
 
   doResolveCompletionItem(item: CompletionItem): PromiseLike<CompletionItem>;
 
-  computeSemanticTokens(content: string): PromiseLike<SemanticTokens>;
+  computeSemanticTokens(textDocument: TextDocument): PromiseLike<SemanticTokens>;
 
-  doHover(document: TextDocument, position: Position): PromiseLike<Hover | null>;
+  getSemanticTokensLegend(): SemanticTokensLegend;
+
+  doHover(document: TextDocument, position: Position): PromiseLike<Hover | undefined>;
+
+  doCodeActions(
+    textDocument: TextDocument,
+    parmsOrDiagnostics: CodeActionParams | Diagnostic[],
+  ): PromiseLike<CodeAction[]>;
 
   findDocumentColors(
     document: TextDocument,

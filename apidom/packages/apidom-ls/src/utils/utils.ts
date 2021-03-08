@@ -1,8 +1,10 @@
 // @ts-ignore
-import { isMemberElement, isObjectElement, traverse } from 'apidom';
-import { Element, ObjectElement, MemberElement } from 'minim';
-import { isOpenApi3_1Element } from 'apidom-ns-openapi-3-1';
-import { CompletionItem, CompletionItemKind, InsertTextFormat } from 'vscode-languageserver-types';
+import { isMemberElement, isObjectElement, isArrayElement } from 'apidom';
+import { Element, ObjectElement, MemberElement, ArrayElement } from 'minim';
+import { CompletionItem } from 'vscode-languageserver-types';
+
+// TODO remove, keep for remote debugging
+// import { appendFile } from 'fs';
 
 export class SourceMap {
   constructor(
@@ -69,74 +71,79 @@ export const isObject = (element: Element): element is ObjectElement => {
 export const isMember = (element: Element): element is MemberElement => {
   return isMemberElement(element);
 };
+export const isArray = (element: Element): element is ArrayElement => {
+  return isArrayElement(element);
+};
 
 export interface ElementMeta {
   completion?: CompletionItem[];
   validation?: string[];
 }
 
+export interface QuickFixData {
+  message: string;
+  function?: string;
+  action: string;
+  // TODO solve, validation meta also format based
+  snippetYaml?: string;
+  snippetJson?: string;
+}
+export interface LinterMetaData {
+  quickFix?: QuickFixData;
+}
+export interface LinterMeta {
+  code?: number;
+  message?: string;
+  source?: string;
+  severity?: 1 | 2 | 3 | 4 | undefined;
+  linterFunction?: string;
+  marker?: string;
+  data?: LinterMetaData;
+}
+
+export interface FormatMeta {
+  [index: string]: ElementMeta | string | LinterMeta[];
+}
+
 export interface MetadataMap {
-  [index: string]: ElementMeta;
+  [index: string]: FormatMeta;
 }
 
-export const metadataMap: MetadataMap = {
-  'openApi3-1': {
-    completion: [
-      {
-        label: 'info',
-        kind: CompletionItemKind.Property,
-        insertText: 'info: {$1}',
-        insertTextFormat: InsertTextFormat.Snippet,
-        documentation: 'TODO info docs in MD to retrieve from some submodule or whatever',
-      },
-      {
-        label: 'openapi',
-        kind: CompletionItemKind.Property,
-        insertText: 'openapi: "$1"',
-        insertTextFormat: InsertTextFormat.Snippet,
-        documentation: 'TODO openapi docs in MD to retrieve from some submodule or whatever',
-      },
-      {
-        label: 'paths',
-        kind: CompletionItemKind.Property,
-        insertText: '{$1:0}',
-        insertTextFormat: InsertTextFormat.Snippet,
-        documentation: 'TODO paths docs in MD to retrieve from some submodule or whatever',
-      },
-    ],
-  },
-  info: {
-    completion: [
-      {
-        label: 'license',
-        kind: CompletionItemKind.Property,
-        insertText: 'license: {$1}',
-        insertTextFormat: InsertTextFormat.Snippet,
-        documentation: 'TODO license docs in MD to retrieve from some submodule or whatever',
-      },
-      {
-        label: 'version',
-        kind: CompletionItemKind.Property,
-        insertText: 'version: "$1"',
-        insertTextFormat: InsertTextFormat.Snippet,
-        documentation: 'TODO version docs in MD to retrieve from some submodule or whatever',
-      },
-    ],
-  },
-};
+export interface MetadataMaps {
+  [index: string]: MetadataMap;
+}
 
-export function addMetadataMapping(root: Element): void {
-  // TODO retrieve from file, series of files with different metadata
+export interface Metadata {
+  metadataMaps: MetadataMaps;
+  linterFunctions: LinterFunctionsMap;
+}
+
+export interface LinterFunctionsMap {
+  [index: string]: LinterFunctions;
+}
+
+export interface LinterFunctions {
+  [index: string]: (element: Element) => boolean;
+}
+
+export function setMetadataMap(
+  root: Element,
+  language: string,
+  metadataMaps: MetadataMaps | undefined,
+): void {
   // TODO sanitize
-  root.setMetaProperty('metadataMap', metadataMap);
-}
-
-export function addMetadata(element: Element): void {
-  if (isOpenApi3_1Element(element)) {
-    element.attributes.set('completion', ['info', 'paths']);
+  if (metadataMaps && metadataMaps[language]) {
+    root.setMetaProperty('metadataMap', metadataMaps[language]);
   }
 }
 
-export function traverseAndAddMetadata(root: Element): void {
-  traverse(addMetadata, root);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function log(label: string, message: unknown, toFile = false): void {
+  // eslint-disable-next-line no-console
+  console.log(label, message);
+  /*  if (toFile) {
+    appendFile('/tmp/lsp.log', `${label} - ${JSON.stringify(message)}`, (err) => {
+      if (err) throw err;
+    });
+  } */
 }

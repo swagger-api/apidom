@@ -46,30 +46,30 @@ components:
           type: string
           x-nullable: true
 security:
-- {}
-- petstore_auth:
-  - write:pets
-  - read:pets
+  - {}
+  - petstore_auth:
+      - write:pets
+      - read:pets
 servers:
-- url: http://api.example.com/v1
-  description: Optional server description, e.g. Main (production) server
-- url: http:{port}//staging-api.example.com
-  description: Optional server description, e.g. Internal staging server for testing
-  variables:
-    port:
-      enum:
-      - '8443'
-      - '443'
-      default: '8443'
-      description: Port description
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http:{port}//staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+    variables:
+      port:
+        enum:
+          - '8443'
+          - '443'
+        default: '8443'
+        description: Port description
 paths:
   "/users":
     summary: path item summary
     description: path item description
     get:
       tags:
-      - tag1
-      - tag2
+        - tag1
+        - tag2
       summary: Returns a list of users.
       description: Optional extended description in CommonMark or HTML.
       externalDocs:
@@ -115,16 +115,16 @@ paths:
                   description: callback successfully processed
       deprecated: true
       security:
-      - {}
-      - petstore_auth:
-        - write:pets
-        - read:pets
+        - {}
+        - petstore_auth:
+            - write:pets
+            - read:pets
       servers:
-      - url: http://api.example.com/v3
-        description: Redundant server description, e.g. redundant server
+        - url: http://api.example.com/v3
+          description: Redundant server description, e.g. redundant server
     servers:
-    - url: http://api.example.com/v2
-      description: Redundant server description, e.g. redundant server
+      - url: http://api.example.com/v2
+        description: Redundant server description, e.g. redundant server
     parameters:
       name: userId
       in: query

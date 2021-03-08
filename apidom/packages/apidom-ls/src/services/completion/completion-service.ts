@@ -4,6 +4,7 @@ import {
   CompletionList,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   InsertTextFormat,
+  Position,
   Range,
   TextEdit,
 } from 'vscode-languageserver-types';
@@ -20,9 +21,11 @@ import {
   isObjectElement,
   isStringElement,
 } from 'apidom';
+import { MemberElement } from 'minim';
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
-import { addMetadataMapping, getSourceMap, isMember, isObject } from '../../utils/utils';
-import { getParser, isJsonDoc } from '../../parser-factory';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { setMetadataMap, getSourceMap, isMember, isObject } from '../../utils/utils';
+import { getParser, isJsonDoc, isAsyncDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -33,11 +36,33 @@ export interface CompletionsCollector {
 export interface CompletionService {
   doCompletion(
     textDocument: TextDocument,
-    completionParams: CompletionParams,
+    completionParamsOrPosition: CompletionParams | Position,
     completionContext?: CompletionContext,
   ): PromiseLike<CompletionList>;
 
   configure(settings?: LanguageSettings): void;
+}
+
+enum CaretContext {
+  UNDEFINED,
+  KEY_START,
+  KEY_END,
+  KEY_INNER,
+  PRIMITIVE_VALUE_START,
+  PRIMITIVE_VALUE_END,
+  PRIMITIVE_VALUE_INNER,
+  OBJECT_VALUE_START,
+  OBJECT_VALUE_INNER,
+  OBJECT_VALUE_END,
+  MEMBER,
+}
+
+enum CompletionNodeContext {
+  UNDEFINED,
+  OBJECT,
+  KEY,
+  VALUE_OBJECT,
+  VALUE_PRIMITIVE,
 }
 
 export class DefaultCompletionService implements CompletionService {
@@ -53,28 +78,122 @@ export class DefaultCompletionService implements CompletionService {
     this.settings = settings;
   }
 
-  private static getCurrentWord(document: TextDocument, offset: number) {
-    let i = offset - 1;
-    const text = document.getText();
-    while (i >= 0 && ' \t\n\r\v":{[,]}'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCompletionNode(node: Element, caretContext: CaretContext): Element {
+    switch (caretContext) {
+      case CaretContext.KEY_START:
+        return node.parent.parent;
+      case CaretContext.MEMBER:
+        return (node as MemberElement).value as Element;
+      default:
+        return node;
     }
-    return text.substring(i + 1, offset);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCaretContext(node: Element, offset: number): CaretContext {
+    let caretContext: CaretContext = CaretContext.UNDEFINED;
+    if (node) {
+      const sm = getSourceMap(node);
+      const { parent } = node;
+      if (parent && isMember(parent) && parent.key === node) {
+        // we are in a key node
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.KEY_INNER;
+        } else if (offset === sm.offset) {
+          caretContext = CaretContext.KEY_START;
+        } else {
+          caretContext = CaretContext.KEY_END;
+        }
+        return caretContext;
+      }
+      if (
+        isStringElement(node) ||
+        isNumberElement(node) ||
+        isBooleanElement(node) ||
+        isNullElement(node)
+      ) {
+        // we must be in a value primitive node
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.PRIMITIVE_VALUE_INNER;
+        } else if (offset === sm.offset) {
+          caretContext = CaretContext.PRIMITIVE_VALUE_START;
+        } else {
+          caretContext = CaretContext.PRIMITIVE_VALUE_END;
+        }
+        return caretContext;
+      }
+      if (isMemberElement(node)) {
+        // we are right after the separator (`:`)
+        caretContext = CaretContext.MEMBER;
+        return caretContext;
+      }
+      if (isObjectElement(node) || isArrayElement(node)) {
+        // we are within an object or array
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.OBJECT_VALUE_INNER;
+        } else if (offset === sm.offset) {
+          caretContext = CaretContext.OBJECT_VALUE_START;
+        } else {
+          caretContext = CaretContext.OBJECT_VALUE_END;
+        }
+        return caretContext;
+      }
+    }
+    return caretContext;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCompletionNodeContext(caretContext: CaretContext): CompletionNodeContext {
+    switch (caretContext) {
+      case CaretContext.KEY_START:
+      case CaretContext.OBJECT_VALUE_INNER:
+      case CaretContext.MEMBER:
+        return CompletionNodeContext.OBJECT;
+      default:
+        return CompletionNodeContext.UNDEFINED;
+    }
   }
 
   public doCompletion(
     textDocument: TextDocument,
-    completionParams: CompletionParams,
+    completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
   ): PromiseLike<CompletionList> {
+    const position =
+      'position' in completionParamsOrPosition
+        ? completionParamsOrPosition.position
+        : completionParamsOrPosition;
+
     // get right parser
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
     const schema = false;
 
+    // commit chars for yaml
+    let valueCommitCharacters = ['\n'];
+    let propertyCommitCharacters = [':'];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let endObjectNodeChar = '\n';
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let endArrayNodeChar = '\n';
+
+    // TODO handle also yaml and others, with specific logic for the format
+    if (isJsonDoc(textDocument)) {
+      // commit chars for json
+      valueCommitCharacters = [',', '}', ']'];
+      propertyCommitCharacters = [':'];
+      endObjectNodeChar = '}';
+      endArrayNodeChar = ']';
+    }
+
     // parse
+    // @ts-ignore
     return parser.parse(text, { sourceMap: true }).then((result) => {
       const { api } = result;
       // if we cannot parse nothing to do
@@ -82,7 +201,11 @@ export class DefaultCompletionService implements CompletionService {
         return CompletionList.create();
       }
       // use the type related metadata at root level
-      addMetadataMapping(api); // TODO move to parser/adapter, extending the one standard
+      setMetadataMap(
+        api,
+        isAsyncDoc(text) ? 'asyncapi' : 'openapi',
+        this.settings?.metadata?.metadataMaps,
+      ); // TODO move to parser/adapter, extending the one standard
       api.freeze(); // !! freeze and add parent !!
 
       const completionList: CompletionList = {
@@ -90,64 +213,21 @@ export class DefaultCompletionService implements CompletionService {
         isIncomplete: false,
       };
 
-      const offset = textDocument.offsetAt(completionParams.position);
+      const offset = textDocument.offsetAt(position);
       // find the current node
-      let node = findAtOffset({ offset, includeRightBound: true }, api);
+      const node = findAtOffset({ offset, includeRightBound: true }, api);
       // only if we have a node
       // TODO add jsonSchema completion, see experiments/apidom-monaco and vscode-json-languageservice
       if (node) {
-        let sm = getSourceMap(node);
+        // const sm = getSourceMap(node);
+        const caretContext = this.resolveCaretContext(node, offset);
+        const completionNode = this.resolveCompletionNode(node, caretContext);
+        // const completionNodeSm = getSourceMap(completionNode);
+        const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
+        // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
 
-        // commit chars for yaml
-        let valueCommitCharacters = ['\n'];
-        let propertyCommitCharacters = [':'];
-        let endObjectNodeChar = '\n';
-        let endArrayNodeChar = '\n';
-
-        // TODO handle also yaml and others, with specific logic for the format
-        if (isJsonDoc(textDocument)) {
-          // commit chars for json
-          valueCommitCharacters = [',', '}', ']'];
-          propertyCommitCharacters = [':'];
-          endObjectNodeChar = '}';
-          endArrayNodeChar = ']';
-        }
-        if (node && offset === sm.offset + sm.length && offset > 0) {
-          const ch = text[offset - 1];
-          if (
-            (isObjectElement(node) && ch === endObjectNodeChar) ||
-            (isArrayElement(node) && ch === endArrayNodeChar)
-          ) {
-            // after ] or }
-            node = node.parent;
-          }
-        }
-
-        sm = getSourceMap(node);
-        const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
         let overwriteRange: Range;
 
-        if (
-          node &&
-          (isStringElement(node) ||
-            isNumberElement(node) ||
-            isBooleanElement(node) ||
-            isNullElement(node))
-        ) {
-          overwriteRange = Range.create(
-            textDocument.positionAt(sm.offset),
-            textDocument.positionAt(sm.offset + sm.length),
-          );
-        } else {
-          let overwriteStart = offset - currentWord.length;
-          if (overwriteStart > 0 && text[overwriteStart - 1] === '"') {
-            overwriteStart -= 1;
-          }
-          overwriteRange = Range.create(
-            textDocument.positionAt(overwriteStart),
-            completionParams.position,
-          );
-        }
         const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
 
         const proposed: { [key: string]: CompletionItem } = {};
@@ -189,129 +269,54 @@ export class DefaultCompletionService implements CompletionService {
           },
         };
 
-        let addValue = true;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        let currentKey = '';
-
-        let currentProperty: Element | null = null;
-        if (node) {
-          if (isStringElement(node)) {
-            const { parent } = node;
-            // if (parent && isElementOfType(parent, isMemberElement) && parent.key === node) {
-            // TODO replace with above when fixed in ts compiler
-            if (parent && isMember(parent) && parent.key === node) {
-              addValue = !parent.value;
-              currentProperty = parent;
-              currentKey = text.substr(sm.offset + 1, sm.length - 2);
-
-              if (parent) {
-                node = parent.parent;
-              }
-            }
-          } else if (isMemberElement(node)) {
-            const { parent } = node;
-            if (parent) {
-              node = parent;
+        // don't suggest properties that are already present
+        if (
+          isObject(completionNode) && // TODO added to get type check on node
+          (CompletionNodeContext.OBJECT === completionNodeContext ||
+            CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
+          (caretContext === CaretContext.KEY_INNER ||
+            caretContext === CaretContext.KEY_START ||
+            caretContext === CaretContext.KEY_END ||
+            caretContext === CaretContext.MEMBER ||
+            caretContext === CaretContext.OBJECT_VALUE_INNER)
+        ) {
+          for (const p of completionNode) {
+            if (!node.parent || node.parent !== p) {
+              proposed[p.key.toValue()] = CompletionItem.create('__');
             }
           }
         }
-        if (node) {
-          sm = getSourceMap(node);
-        }
 
-        // proposals for properties
-        // don't suggest keys when the cursor is just before the opening curly brace
-        // TODO YAML
-
-        // if (node && isElementOfType(node, isObjectElement) && !(sm.offset === offset)) {
-        // TODO replace with above when fixed in ts compiler
-        if (node && isObject(node) && !(sm.offset === offset)) {
-          if (sm.offset !== offset) {
-            // don't suggest properties that are already present
-            for (const p of node) {
-              if (!currentProperty || currentProperty !== p) {
-                proposed[p.key.toValue()] = CompletionItem.create('__');
-              }
-            }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            let separatorAfter = '';
-            if (addValue) {
-              separatorAfter = DefaultCompletionService.evaluateSeparatorAfter(
-                textDocument,
-                textDocument.offsetAt(overwriteRange.end),
-              );
-            }
-
-            if (schema) {
-              // DefaultCompletionService.getPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
-            } else {
-              DefaultCompletionService.getSchemaLessPropertyCompletions(api, node, collector);
-            }
-
-            // TODO
-            /*             if (
-              !schema &&
-              currentWord.length > 0 &&
-              text.charAt(offset - currentWord.length - 1) !== '"'
-            ) {
-              collector.add({
-                kind: CompletionItemKind.Property,
-                label: currentWord,
-                insertText: DefaultCompletionService.getInsertTextForProperty(
-                  currentWord,
-                  false,
-                  separatorAfter,
-                ),
-                insertTextFormat: InsertTextFormat.Snippet,
-                documentation: '',
-              });
-              collector.setAsIncomplete();
-            }
- */
-          }
-        }
-
-        // proposals for values TODO
-        // const types: { [type: string]: boolean } = {};
         if (schema) {
-          // value proposals with schema
-          // this.getValueCompletions(schema, api, node, offset, document, collector, types);
+          // TODO complete schema based, see json language service and "lsp" branch
+          // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
         } else {
-          // value proposals without schema
-          // this.getSchemaLessValueCompletions(api, node, offset, document, collector);
-        }
-
-        if (node) {
-          sm = getSourceMap(node);
-        }
-        if (collector.getNumberOfProposals() === 0) {
-          let offsetForSeparator = offset;
-
-          if (
-            node &&
-            (isStringElement(node) ||
-              isNumberElement(node) ||
-              isBooleanElement(node) ||
-              isNullElement(node))
-          ) {
-            offsetForSeparator = sm.offset + sm.length;
-          }
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const separatorAfter = DefaultCompletionService.evaluateSeparatorAfter(
-            textDocument,
-            offsetForSeparator,
+          DefaultCompletionService.getMetadataPropertyCompletions(
+            api,
+            completionNode,
+            collector,
+            !isJsonDoc(textDocument),
           );
         }
       }
 
       this.jsonSchemaCompletionService
-        .doCompletion(textDocument, completionParams, completionContext)
+        .doCompletion(textDocument, completionParamsOrPosition, completionContext)
         .then((schemaList) => {
           completionList.items.push(...schemaList.items);
         });
 
       return completionList;
     });
+  }
+
+  private static getCurrentWord(document: TextDocument, offset: number) {
+    let i = offset - 1;
+    const text = document.getText();
+    while (i >= 0 && ' \t\n\r\v":{[,]}'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    return text.substring(i + 1, offset);
   }
 
   private static getInsertTextForPlainText(text: string): string {
@@ -355,14 +360,16 @@ export class DefaultCompletionService implements CompletionService {
     return '';
   }
 
-  private static getSchemaLessPropertyCompletions(
+  private static getMetadataPropertyCompletions(
     doc: Element,
     node: Element,
     collector: CompletionsCollector,
+    yaml: boolean,
   ): void {
     const apidomCompletions: CompletionItem[] = doc.meta
       .get('metadataMap')
       ?.get(node.element)
+      ?.get(yaml ? 'yaml' : 'json')
       ?.get('completion')
       ?.toValue();
     if (apidomCompletions) {

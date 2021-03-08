@@ -53,13 +53,13 @@ export function getLineNumberForPath(yaml: any, path: any) {
         const key = pair[0];
         const value = pair[1];
 
-        if (key.value === path[0]) {
+        if (key.value === path[0]?.replace(/~1/g, '/')) {
           return find(value, path.slice(1), current);
         }
 
-        if (key.value === path[0].replace(/\[.*/, '')) {
+        if (key.value === path[0].replace(/\[.*/, '').replace(/~1/g, '/')) {
           // access the array at the index in the path (example: grab the 2 in "tags[2]")
-          const index = parseInt(path[0].match(/\[(.*)\]/)[1]);
+          const index = parseInt(path[0]?.replace(/~1/g, '/').match(/\[(.*)\]/)[1]);
           if (value.value.length === 1 && index !== 0 && !!index) {
             var nextVal = rfind(propEq('value', String(index)), value.value[0]);
           } else {
@@ -72,7 +72,7 @@ export function getLineNumberForPath(yaml: any, path: any) {
     }
 
     if (path.length && current.tag === SEQ_TAG) {
-      const item = current.value[path[0]];
+      const item = current.value[path[0]?.replace(/~1/g, '/')];
 
       if (item && item.tag) {
         return find(item, path.slice(1), current.value);
@@ -123,8 +123,7 @@ export function positionRangeForPath(yaml: any, path: any) {
         const pair = astValue.value[i];
         const key = pair[0];
         const value = pair[1];
-
-        if (key.value === path[0]) {
+        if (key.value === path[0]?.replace(/~1/g, '/')) {
           path.shift();
           return find(value, key);
         }
@@ -132,8 +131,7 @@ export function positionRangeForPath(yaml: any, path: any) {
     }
 
     if (astValue.tag === SEQ_TAG) {
-      const item = astValue.value[path[0]];
-
+      const item = astValue.value[path[0]?.replace(/~1/g, '/')];
       if (item && item.tag) {
         path.shift();
         return find(item, astKeyValue);
@@ -142,6 +140,21 @@ export function positionRangeForPath(yaml: any, path: any) {
 
     // if path is still not empty we were not able to find the node
     if (path.length) {
+      // if path is "" return the whole doc
+      if (path.length === 1 && path[0].replace(/~1/g, '/') === '') {
+        return {
+          start: {
+            line: astValue.start_mark.line,
+            column: astValue.start_mark.column,
+            pointer: astValue.start_mark.pointer,
+          },
+          end: {
+            line: astValue.end_mark.line,
+            column: astValue.end_mark.column,
+            pointer: astValue.end_mark.pointer,
+          },
+        };
+      }
       return invalidRange;
     }
 
@@ -201,6 +214,7 @@ export function pathForPosition(yaml: any, position: any) {
   try {
     var ast = cachedCompose(yaml);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Error composing AST', e);
 
     const problemMark = e.problem_mark || {};
@@ -218,6 +232,7 @@ export function pathForPosition(yaml: any, position: any) {
         .join('\n'),
     ].join('\n');
 
+    // eslint-disable-next-line no-console
     console.error(errorTraceMessage);
     return null;
   }
@@ -319,6 +334,7 @@ export const positionRangeForPathAsync = promisifySyncFn(positionRangeForPath);
 export const getLineNumberForPathAsync = promisifySyncFn(getLineNumberForPath);
 
 function promisifySyncFn(fn: any) {
+  // eslint-disable-next-line func-names
   return function (...args: any) {
     return new Promise((resolve) => resolve(fn(...args)));
   };

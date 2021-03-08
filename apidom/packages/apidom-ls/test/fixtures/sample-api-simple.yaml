@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info:
+  title: Sample API
+  version: 0.1.9
+  license:
+    name: Apache License 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: Vladimir Gorej

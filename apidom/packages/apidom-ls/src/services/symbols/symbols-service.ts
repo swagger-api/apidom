@@ -3,8 +3,8 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from 'apidom';
 import { SymbolKind } from 'vscode-languageserver-types';
-import { getParser } from '../../parser-factory';
-import { addMetadataMapping, getSourceMap, isMember, SourceMap } from '../../utils/utils';
+import { getParser, isAsyncDoc } from '../../parser-factory';
+import { setMetadataMap, getSourceMap, isMember, SourceMap } from '../../utils/utils';
 import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
 
 export interface SymbolsService {
@@ -42,7 +42,11 @@ export class DefaultSymbolsService implements SymbolsService {
         return [];
       }
       // use the type related metadata at root level
-      addMetadataMapping(api); // TODO move to parser/adapter, extending the one standard
+      setMetadataMap(
+        api,
+        isAsyncDoc(text) ? 'asyncapi' : 'openapi',
+        this.settings?.metadata?.metadataMaps,
+      ); // TODO move to parser/adapter, extending the one standard
       api.freeze(); // !! freeze and add parent !!
 
       const symbols: SymbolInformation[] = [];
@@ -59,13 +63,20 @@ export class DefaultSymbolsService implements SymbolsService {
       ];
 
       const res: ArraySlice = filter((el: Element) => {
-        return el.classes.toValue().some((item: string) => allClasses.includes(item));
+        return (
+          el.classes.toValue().some((item: string) => allClasses.includes(item)) ||
+          allClasses.includes(el.element)
+        );
       }, api);
 
       // eslint-disable-next-line no-plusplus
       for (let index = 0; index < res.length; ++index) {
         const e = res.get(index);
         const set: string[] = Array.from(new Set(e.classes.toValue()));
+        // add element value to the set (e.g. 'pathItem', 'operation'
+        if (!set.includes(e.element)) {
+          set.unshift(e.element);
+        }
         set.forEach((s) => {
           if (allClasses.includes(s)) {
             let sm: SourceMap;

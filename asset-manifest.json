@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "./static/css/main.ac35c5f8.chunk.css",
-    "main.js": "./static/js/main.da323f52.chunk.js",
-    "main.js.map": "./static/js/main.da323f52.chunk.js.map",
+    "main.js": "./static/js/main.11a58d89.chunk.js",
+    "main.js.map": "./static/js/main.11a58d89.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.fd0512b9.js",
     "runtime-main.js.map": "./static/js/runtime-main.fd0512b9.js.map",
     "static/js/2.8e51ad2c.chunk.js": "./static/js/2.8e51ad2c.chunk.js",
@@ -15,14 +15,14 @@
     "index.html": "./index.html",
     "static/css/main.ac35c5f8.chunk.css.map": "./static/css/main.ac35c5f8.chunk.css.map",
     "static/js/2.8e51ad2c.chunk.js.LICENSE.txt": "./static/js/2.8e51ad2c.chunk.js.LICENSE.txt",
-    "static/js/apidom.worker.460028cd.worker.js": "./static/js/apidom.worker.460028cd.worker.js",
-    "static/js/apidom.worker.460028cd.worker.js.LICENSE.txt": "./static/js/apidom.worker.460028cd.worker.js.LICENSE.txt",
-    "static/js/apidom.worker.460028cd.worker.js.map": "./static/js/apidom.worker.460028cd.worker.js.map"
+    "static/js/apidom.worker.19016c68.worker.js": "./static/js/apidom.worker.19016c68.worker.js",
+    "static/js/apidom.worker.19016c68.worker.js.LICENSE.txt": "./static/js/apidom.worker.19016c68.worker.js.LICENSE.txt",
+    "static/js/apidom.worker.19016c68.worker.js.map": "./static/js/apidom.worker.19016c68.worker.js.map"
   },
   "entrypoints": [
     "static/js/runtime-main.fd0512b9.js",
     "static/js/2.8e51ad2c.chunk.js",
     "static/css/main.ac35c5f8.chunk.css",
-    "static/js/main.da323f52.chunk.js"
+    "static/js/main.11a58d89.chunk.js"
   ]
 }

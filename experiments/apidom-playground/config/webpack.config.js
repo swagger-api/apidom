@@ -212,7 +212,7 @@ module.exports = function (webpackEnv) {
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
       // this defaults to 'window', but by setting it to 'this' then
       // module chunks which are built will work in web workers as well.
-      globalObject: 'this',
+      globalObject: 'typeof self !== "object" ? self : this',
     },
     optimization: {
       minimize: isEnvProduction,
@@ -381,12 +381,19 @@ module.exports = function (webpackEnv) {
             // https://github.com/jshttp/mime-db
             {
               test: /\.wasm$/,
-              loader: 'file-loader',
+              use: {
+                loader: 'file-loader',
+                options: {
+                  name: 'static/wasm/[name].[contenthash:8].wasm',
+                },
+              },
               type: 'javascript/auto',
             },
             {
               test: /\.worker\.js$/,
-              use: { loader: 'worker-loader' },
+              use: {
+                loader: 'worker-loader',
+              },
             },
             {
               test: [/\.avif$/],

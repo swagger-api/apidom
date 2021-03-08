@@ -1,14 +1,13 @@
 import {
   CompletionItem,
-  Hover,
   ColorInformation,
   Color,
   ColorPresentation,
   FormattingOptions,
   TextEdit,
 } from 'vscode-languageserver-types';
-import { SemanticTokens } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
 import { DefaultJsonSchemaService } from './services/json-schema/json-schema-service';
 import {
   ColorsContext,
@@ -20,6 +19,8 @@ import {
 import { DefaultValidationService } from './services/validation/validation-service';
 import { DefaultCompletionService } from './services/completion/completion-service';
 import { DefaultSymbolsService } from './services/symbols/symbols-service';
+import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
+import { DefaultHoverService } from './services/hover/hover-service';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -27,12 +28,25 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService(jsonSchemaService);
   const validationService = new DefaultValidationService(jsonSchemaService);
+  const semanticTokensService = new DefaultSemanticTokensService();
+  const hoverService = new DefaultHoverService();
 
   function configureServices(languageSettings?: LanguageSettings) {
     jsonSchemaService.configure(languageSettings);
     symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
     completionService.configure(languageSettings);
+    semanticTokensService.configure(languageSettings);
+    hoverService.configure(languageSettings);
+  }
+
+  // TODO solve init and config
+  if (context.metadata) {
+    const languageSettings: LanguageSettings = {
+      metadata: context.metadata,
+      validate: true,
+    };
+    configureServices(languageSettings);
   }
 
   return {
@@ -41,17 +55,14 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     doValidation: validationService.doValidation.bind(validationService),
     doCompletion: completionService.doCompletion.bind(completionService),
     doFindDocumentSymbols: symbolsService.doFindDocumentSymbols.bind(symbolsService),
+    computeSemanticTokens: semanticTokensService.computeSemanticTokens.bind(semanticTokensService),
+    doHover: hoverService.computeHover.bind(hoverService),
+    doCodeActions: validationService.doCodeActions.bind(validationService),
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    computeSemanticTokens(content: string): PromiseLike<SemanticTokens> {
-      // @ts-ignore
-      return Promise.resolve(undefined);
+    getSemanticTokensLegend(): SemanticTokensLegend {
+      return semanticTokensService.getLegend();
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    doHover(document: TextDocument, position: Position): PromiseLike<Hover | null> {
-      // @ts-ignore
-      return Promise.resolve(undefined);
-    },
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     doResolveCompletionItem(item: CompletionItem): PromiseLike<CompletionItem> {
       // @ts-ignore

@@ -2,10 +2,12 @@ import fs from 'fs';
 import path from 'path';
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Diagnostic, Position } from 'vscode-languageserver-types';
 // @ts-ignore
 import {
   Element,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   findAtOffset,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isMemberElement,
@@ -17,28 +19,60 @@ import {
   traverse,
 } from 'apidom';
 import { getParser } from '../src/parser-factory';
-import { getSourceMap } from '../src/utils/utils';
+import { getSourceMap, SourceMap } from '../src/utils/utils';
 
 // const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion.yaml'))
   .toString();
-// const specCompletionJson = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion.json')).toString();
-// const specError = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.yaml')).toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specCompletionJson = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion.json'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specError = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.yaml'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specErrorJson = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.json'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specSimple = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-simple.yaml'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specErrorSimple = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error-simple.yaml'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specErrorSimpleJson = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error-simple.json'))
+  .toString();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specSyntaxYaml = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api.yaml'))
+  .toString();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specSyntaxYamlNoQuotes = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-noquotes-sort.yaml'))
+  .toString();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specSyntaxYamlNoQuotesAsync = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-async-noquotes.yaml'))
+  .toString();
 
 describe('apidom-parse-test', function () {
   it('test parse yaml', async function () {
-    // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
-
-    /*
     const doc: TextDocument = TextDocument.create(
       'foo://bar/file.yaml',
       'yaml',
       0,
-      specCompletionJson,
+      specSyntaxYamlNoQuotes,
     );
-*/
 
     const parser = getParser(doc);
     const text: string = doc.getText();
@@ -51,30 +85,47 @@ describe('apidom-parse-test', function () {
         return diagnostics;
       }
       api.freeze(); // !! freeze and add parent !!
-      const pos = Position.create(2, 2); // yaml after the indent blank line
-      // const pos = Position.create(3, 4); // json after the indent blank line
-      // const pos = Position.create(1, 5); // yaml right after the colon
-      // const pos = Position.create(2, 9); // json right after the colon
 
-      /*
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       function printSourceMap(node: Element): void {
         const sm: SourceMap = getSourceMap(node);
+        // eslint-disable-next-line no-console
         console.log(node.element, `${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}`);
       }
-      traverse(printSourceMap, api);
-*/
 
+      function printContent(node: Element): void {
+        const sm: SourceMap = getSourceMap(node);
+        // eslint-disable-next-line no-console
+        console.log(
+          node.element,
+          node.getMetaProperty('classes', []).toValue(),
+          node.getMetaProperty('httpMethod', []).toValue(),
+          `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
+          node.toValue(),
+        );
+      }
+
+      // traverse(printSourceMap, api);
+      traverse(printContent, api);
+
+      if (result.annotations) {
+        for (const annotation of result.annotations) {
+          // eslint-disable-next-line no-console
+          console.log(JSON.stringify(annotation));
+        }
+      }
+
+      // offset related
+      /*
+      const pos = Position.create(1, 6);
       const offset = doc.offsetAt(pos);
       // find the current node
       const node: Element = findAtOffset({ offset, includeRightBound: true }, api);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const sm = getSourceMap(node as Element);
+      printSourceMap(node);
 
-      /*      if (result.annotations) {
-        for (const annotation of result.annotations) {
-          console.log(annotation);
-        }
-      } */
+       */
     });
   });
 });

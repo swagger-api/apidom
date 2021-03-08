@@ -4,6 +4,7 @@ import IdentifierElement from './Identifier';
 import ComponentsElement from './Components';
 import InfoElement from './Info';
 import ChannelsElement from './Channels';
+import ServersElement from './Servers';
 
 class AsyncApi2_0 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -50,6 +51,14 @@ class AsyncApi2_0 extends ObjectElement {
 
   set components(components: ComponentsElement) {
     this.set('components', components);
+  }
+
+  get servers(): ServersElement {
+    return this.get('servers');
+  }
+
+  set servers(servers: ServersElement) {
+    this.set('servers', servers);
   }
 }
 

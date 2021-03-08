@@ -78,13 +78,13 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     if (!this.validationEnabled) {
       return;
     }
+
     const validateFunction = DefaultJsonSchemaService.compileAjv(this.ajv, jsonDocument);
 
     const jsonDoc = JSON.parse(jsonDocument);
-
     const valid = validateFunction(jsonDoc);
     if (!valid) {
-      const sourceMap = jsonSourceMap.stringify(jsonDoc, null, 2);
+      const sourceMap = jsonSourceMap.parse(jsonDocument, null, 2);
       if (validateFunction.errors) {
         validateFunction.errors.forEach((error) => {
           if (
@@ -96,13 +96,14 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
           }
           let range: Range;
           const errorOnValue = error.keyword === 'pattern' || error.keyword === 'format';
+          // TODO fix and solve with consistent YAML / JSON / Adapter
           if (isYaml) {
             // eslint-disable-next-line prefer-template
             const position = positionRangeForPath(
               originalDocument,
               error.dataPath.replace(/\/$/, '').replace(/^"/, '').replace(/^\//, '').split('/'),
             );
-            if (errorOnValue) {
+            if (errorOnValue || !position.key_start) {
               range = Range.create(
                 Position.create(position.start.line, position.start.column),
                 Position.create(position.end.line, position.end.column),
@@ -115,7 +116,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
             }
           } else {
             const errorPointer = sourceMap.pointers[error.dataPath];
-            if (errorOnValue) {
+            if (errorOnValue || !errorPointer.key) {
               range = Range.create(
                 Position.create(errorPointer.value.line, errorPointer.value.column),
                 Position.create(errorPointer.valueEnd.line, errorPointer.valueEnd.column),
@@ -127,23 +128,34 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
               );
             }
           }
-          diagnostics.push(
-            Diagnostic.create(range, error.message || '', DiagnosticSeverity.Error, 0),
+          const diagnostic = Diagnostic.create(
+            range,
+            error.message || '',
+            DiagnosticSeverity.Error,
+            0,
           );
+          diagnostics.push(diagnostic);
         });
       }
     }
   }
 
+  // TODO
   // eslint-disable-next-line class-methods-use-this
   public doCompletion(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     textDocument: TextDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    completionParams: CompletionParams,
+    completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
   ): PromiseLike<CompletionList> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const position =
+      'position' in completionParamsOrPosition
+        ? completionParamsOrPosition.position
+        : completionParamsOrPosition;
+
     // const item = CompletionItem.create("test");
     const item: CompletionItem = {
       kind: CompletionItemKind.Property,

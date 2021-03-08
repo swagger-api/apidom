@@ -92,6 +92,8 @@ declare module 'minim' {
 
     get(index: string | number): any;
 
+    set(index: string | number, element: Element): void;
+
     filter(predicate: Predicate): ArraySlice;
 
     contains(value: any): boolean;

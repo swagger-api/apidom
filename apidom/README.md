@@ -1,15 +1,14 @@
 # ApiDOM
 
-We assume that your `CWD` is now ApiDOM GitHub repository.
-Change directory to `./apidom` monorepo to run all the following commands.
+This is a monorepo for all ApiDOM packages.
 
 ## Prerequisites
 
 ```json
-  "engines": {
-    "node": ">=10.21.0",
-    "npm": ">=6.14.5"
-  },
+"engines": {
+  "node": ">=10.21.0",
+  "npm": ">=6.14.5"
+}
 ```
 
 ## Monorepo management
@@ -57,3 +56,10 @@ You must first **build the artifacts** before running tests.
 ```sh
  $ npm run typescript:declaration
 ```
+
+## Security audit
+
+```sh
+ $ npm run security-audit
+```
+

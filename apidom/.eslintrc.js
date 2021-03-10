@@ -18,6 +18,7 @@ module.exports = {
     'no-labels': 0,
     'no-restricted-syntax': 0,
     '@typescript-eslint/ban-ts-comment': 'off',
+    'no-nested-ternary': 0,
   },
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [

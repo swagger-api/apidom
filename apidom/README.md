@@ -5,6 +5,8 @@ To see all these monorepo packages working in browser check out our [ApiDOM Play
 
 ## Prerequisites
 
+We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fragments that require [Python 3.x](https://www.python.org/downloads/).
+
 ```json
 "engines": {
   "node": ">=10.21.0",

@@ -12,7 +12,7 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --root-mode 'upward'",
     "build:umd:browser": "npm run build:wasm && cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
-    "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-yaml/tree-sitter-yaml.wasm && exit 0 || cd ../../node_modules/tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm",
+    "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-yaml/tree-sitter-yaml.wasm && exit 0 || cd ../../node_modules/tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist",
@@ -28,11 +28,11 @@
     "@types/ramda": "=0.27.6",
     "ramda-adjunct": "=2.27.0",
     "stampit": "=4.3.1",
-    "tree-sitter": "=0.18.1",
+    "tree-sitter": "=0.19.0",
     "tree-sitter-yaml": "=0.3.1",
     "web-tree-sitter": "=0.19.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.19.1"
+    "tree-sitter-cli": "=0.19.3"
   }
 }

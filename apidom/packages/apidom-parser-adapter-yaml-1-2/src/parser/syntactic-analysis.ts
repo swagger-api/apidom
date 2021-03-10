@@ -3,6 +3,7 @@ import {
   either,
   unnest,
   flatten,
+  prop,
   propOr,
   pathOr,
   find,
@@ -10,8 +11,9 @@ import {
   curry,
   propSatisfies,
   endsWith,
+  hasIn,
 } from 'ramda';
-import { isArray, isFalse, isFunction, isNotUndefined } from 'ramda-adjunct';
+import { isArray, isFalse, isFunction, isNotUndefined, invokeArgs } from 'ramda-adjunct';
 import { SyntaxNode, Tree } from 'tree-sitter';
 import {
   YamlDirective,
@@ -118,32 +120,46 @@ const Visitor = stampit({
     const isMapping = isKind('mapping');
     const isSequence = isKind('sequence');
 
+    const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
+      return hasIn(`${fieldName}Node`, node)
+        ? // @ts-ignore
+          prop(`${fieldName}Node`, node)
+        : hasIn('childForFieldName', node)
+        ? invokeArgs(['childForFieldName'], [fieldName], node)
+        : null;
+    };
+
     const isKeyValuePairKeyless = (node: SyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
+      const keyNode = getFieldFromNode('key', node);
+
       // keyNode was not explicitly provided; tag and anchor are missing too
-      // @ts-ignore
-      if (node.firstChild.type === ':') {
+      if (keyNode === null) {
         return true;
       }
+
       // keyNode was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !node.firstChild.children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !keyNode.children.some(anyPass([isScalar, isSequence, isMapping]));
     };
 
     const isKeyValuePairValueless = (node: SyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
+
+      const valueNode = getFieldFromNode('value', node);
+
       // valueNode was not explicitly provided; tag and anchor are missing too
-      // @ts-ignore
-      if (node.lastChild.type === ':') {
+      if (valueNode === null) {
         return true;
       }
+
       // valueNode was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !node.lastChild.children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !valueNode.children.some(anyPass([isScalar, isSequence, isMapping]));
     };
 
     const createKeyValuePairSurrogateKey = (node: SyntaxNode) => {
@@ -152,8 +168,7 @@ const Visitor = stampit({
         column: node.startPosition.column,
         char: node.startIndex,
       });
-      // @ts-ignore
-      const keyNode = node.firstChild.type === ':' ? null : node.firstChild;
+      const keyNode = getFieldFromNode('key', node);
       const children = pathOr([], ['children'], keyNode);
       const tagNode: any | undefined = find(isKind('tag'), children);
       const anchorNode: any | undefined = find(isKind('anchor'), children);
@@ -187,8 +202,7 @@ const Visitor = stampit({
         column: node.endPosition.column,
         char: node.endIndex,
       });
-      // @ts-ignore
-      const valueNode = node.lastChild.type === ':' ? null : node.lastChild;
+      const valueNode = getFieldFromNode('value', node);
       const children = pathOr([], ['children'], valueNode);
       const tagNode: any | undefined = find(isKind('tag'), children);
       const anchorNode: any | undefined = find(isKind('anchor'), children);

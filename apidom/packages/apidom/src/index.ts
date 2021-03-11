@@ -84,14 +84,14 @@ export const from = (data: any, namespace: INamespace = defaultNamespaceInstance
 };
 
 /**
- * Reconstructs the ApiDOM into JavaScript POJO.
- * This POJO would be  the result of parsing the original
- * JSON string with JSON.parse function.
+ * Transforms the ApiDOM into JavaScript POJO.
+ * This POJO would be the result of interpreting the ApiDOM
+ * into JavaScript structure.
  */
 export const toValue = (element: Element): any => element.toValue();
 
 /**
- * Create a refract representation of Element.
+ * Creates a refract representation of an Element.
  * https://github.com/refractproject/refract-spec
  */
 export const dehydrate = (
@@ -102,7 +102,7 @@ export const dehydrate = (
 };
 
 /**
- * Create a string representation of Element.
+ * Create a refracted string representation of an Element.
  */
 export const toString = (
   element: Element,

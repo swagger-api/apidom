@@ -31,7 +31,7 @@ export const CallbackVisitor = stampit(PredicateVisitor, {
   },
 });
 
-// executes the callback on this object and all descendants
+// executes the callback on this element and all descendants
 // traverse :: Callback | { predicate: Pred, callback: Callback } -> Element -> Undefined
 const traverse = curry(
   <T extends Element>(options: Callback | TraverseOptions, element: T): void => {

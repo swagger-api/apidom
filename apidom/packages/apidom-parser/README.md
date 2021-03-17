@@ -10,7 +10,7 @@ containing following 4 properties (2 required, 2 optional):
 
 Property | Type | Default | Description
 --- | --- | --- | ---
-<a name="detect"></a>`detect` | `(source: String) => Boolean` | `undefined` | This method is called from a parser with a single argument of string that is going to be parsed. Returns a boolean value indicating if the source string was recognized by the parser adapter.
+<a name="detect"></a>`detect` | `(source: String) => Boolean` | `undefined` | This method is called from a parser with a single argument of string that is going to be parsed. Returns a boolean value indicating if the source string was recognized by the parser adapter. It can be defined either as [synchronous](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing#synchronous_javascript) or [asynchronous function](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing#asynchronous_javascript).
 <a name="mediaTypes"></a>`mediaTypes` | `String[]` | `undefined` | This is a property of parser adapter that contains list of supported [media types](https://www.iana.org/assignments/media-types/media-types.xhtml) by this parser adapter. Note that other media types that are not officially registered by [iana](https://www.iana.org/) can be used as well.
 <a name="namespace"></a>`namespace` | `Namespace` | | **REQUIRED** An ApiDOM namespace instance.
 <a name="parse"></a>`parse` | `(source: String, options = {}) => ParseResult` |  | **REQUIRED** This method should contain logic of actual parsing and should return instance of [ParseResult Element](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom/src/elements/ParseResult.ts).
@@ -65,7 +65,7 @@ const parseResult = await parser.parse('{"prop", "value"}', { mediaType: 'applic
 
 `parse` method consumes various options as a second argument. Here is a list of options recognized by all parser adapters:
 
-Property | Type | Default | Description
+Option | Type | Default | Description
 --- | --- | --- | ---
 <a name="mediaType"></a>`mediaType` | `String` | `undefined` | Indicate to parser that the source string should be understood and parsed as provided by this option.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate to parser whether to generate source maps.
@@ -104,3 +104,9 @@ Here is an example of YAML fragment:
 This is a valid YAML, but it's also a valid JSON. It's not possible for parser adapter to properly
 detect which format was intended by the author.
 
+#### Word on ordering
+
+If multiple parser adapters contain identical `mediaTypes` or `detect` logic then for the purposes
+of [parsing](#parsing) or [finding an appropriate namespace](#finding-an-appropriate-apidom-namespace)
+the order of [mounting the parser adapters](#mounting-parser-adapters) matter. The first parser adapter that matches its `mediaTypes`
+or returns `true` from a `detect` is used.

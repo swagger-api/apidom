@@ -76,6 +76,7 @@ You must first **build the artifacts** before running tests.
 
 All the packages have identical build system and expose build artifacts in identical way.
 After [building artifacts](#building-artifacts) every package will contain five (5) additional directories.
+All the build artifacts are polymorphic - they can run in different environments like [Web Browser](https://en.wikipedia.org/wiki/Web_browser), [Node.js](https://nodejs.org/) or [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 
 **cjs/**
 

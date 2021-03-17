@@ -123,3 +123,35 @@ and instead code is written specifically for the client or the server. In that c
 "unpkg": "dist/apidom-parser-apdater-json.browser.min.js",
 "types": "types/adapter-browser.d.ts",
 ```
+
+## License analysis
+
+This license analysis was done on 12th of March 2021.
+
+```
+Dependencies distributed directly to the user:
+- stampit - MIT, $, #
+- minim - MIT, $, <1>
+- ramda - MIT, $, #
+- ramda-adjunct, BSD 3-Clause License, $, #
+- unraw - MIT, $, #
+- @babel/runtime-corejs3 - MIT, $, <2>
+- tree-sitter - MIT, $, <1>
+- tree-sitter-json - MIT, $, <1>
+- tree-sitter-yaml - MIT, $, <1>
+- web-tree-sitter - MIT, #
+- axios - MIT, $, <1>
+Transitive depedencies directly distributed to the user:
+ lodash - MIT, CC0, #, required by minim
+ core-js-pure - MIT, $, #, required by @babel/runtime-corejs3
+ regenerator-runtime - MIT, $, #, required by @babel/runtime-corejs3
+ nan - MIT, $, #, required by tree-sitter-* packages
+ follow-redirects - MIT, $, #, required by axios
+Legend
+ - $: license present in distribution package
+ - #: has no depedencies
+ - <number>: number of transitive dependencies
+We have one case of copying the code directly from GitHub repository: https://github.com/graphql/graphql-js
+This code is concentrated in singe file in our codebase, is properly
+attributed and contains original license text as well.
+```

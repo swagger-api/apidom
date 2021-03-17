@@ -45,8 +45,8 @@ This parser adapter can be used directly or indirectly via [apidom-parser](https
 
 ### Direct usage
 
-During direct usage you don't need to provide `mediaType` and the `parse` function is already pre-bound
-with [supported media types](#mediaTypes).
+During direct usage you don't need to provide `mediaType` as the `parse` function is already pre-bound
+with [supported media types](#mediatypes).
 
 ```js
 import { parse, detect } from 'apidom-parser-adapter-json';

@@ -36,6 +36,7 @@ export {
   isSecurityRequirementElement,
   isServerElement,
   isServerVariableElement,
+  isMediaTypeElement,
 } from './predicates';
 
 export {
@@ -70,3 +71,4 @@ export { default as SchemaElement } from './elements/Schema';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
+export { default as MediaTypeElement } from './elements/MediaType';

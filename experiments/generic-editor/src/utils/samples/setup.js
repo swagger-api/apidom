@@ -87,7 +87,7 @@ export function setupLanguage() {
     // eslint-disable-next-line no-unused-vars
     const diagnostics = new DiagnosticsAdapter(worker);
     // register the provider(s)
-    const hover = new HoverAdapter(worker);
+    const hover = new HoverAdapter(worker, monaco);
     monaco.languages.registerHoverProvider(languageID, hover);
     const completionItems = new CompletionItemsAdapter(worker);
     monaco.languages.registerCompletionItemProvider(languageID, completionItems);

@@ -1,8 +1,11 @@
-import { fromPosition, toRange } from './utils-helpers';
+import { ProtocolToMonacoConverter } from 'monaco-languageclient/lib/monaco-converter';
+
+import { fromPosition } from './utils-helpers';
 
 export default class HoverAdapter {
-  constructor(worker) {
+  constructor(worker, monaco) {
     this.worker = worker;
+    this.monaco = monaco;
   }
 
   async provideHover(model, position) {
@@ -18,9 +21,7 @@ export default class HoverAdapter {
       // console.log('hoverAdapter, !info case');
       return Promise.resolve(null);
     }
-    return Promise.resolve({
-      range: toRange(info.range),
-      contents: info.contents, // do we need to support markdown, via utils func?
-    });
+    const p2m = new ProtocolToMonacoConverter(this.monaco);
+    return p2m.asHover(info);
   }
 }

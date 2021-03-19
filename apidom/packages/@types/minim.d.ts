@@ -112,6 +112,8 @@ declare module 'minim' {
   export class ObjectElement extends ArrayElement {
     constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes);
 
+    remove(name: string): Element;
+
     set(key: string | StringElement | number, value: any): ObjectElement;
 
     hasKey(value: string): boolean;
@@ -128,6 +130,8 @@ declare module 'minim' {
       callback: (value: Element, key: Element, member: MemberElement) => MemberElement,
       thisArg?: unknown,
     ): Array<MemberElement>;
+
+    keys(): unknown[];
   }
 
   export class MemberElement extends Element {

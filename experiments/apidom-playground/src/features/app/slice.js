@@ -142,7 +142,7 @@ export const dereferenceApiDOM = createAsyncThunk(
 
 export const humanizeDereferencedApiDOM = createAsyncThunk(
   'humanizeDereferencedApiDOMStatus',
-  ({ source, mediaType, dereferenced }, { extra: { apiDOMService } }) => {
+  async ({ source, mediaType, dereferenced }, { extra: { apiDOMService } }) => {
     return apiDOMService.humanizeDereferenced(dereferenced, { source, mediaType });
   }
 );

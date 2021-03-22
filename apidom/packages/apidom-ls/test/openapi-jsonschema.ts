@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
-// @ts-ignore
 import { Element, traverse } from 'apidom';
+
 import { getParser } from '../src/parser-factory';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

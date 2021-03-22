@@ -1,9 +1,9 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Hover } from 'vscode-languageserver-protocol';
-
 import { findAtOffset } from 'apidom';
 import { Element, ObjectElement, MemberElement } from 'minim';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
+
 import { LanguageSettings } from '../../apidom-language-types';
 import { getSourceMap, isMember, isObject, isArray, setMetadataMap } from '../../utils/utils';
 import { getParser, isAsyncDoc } from '../../parser-factory';

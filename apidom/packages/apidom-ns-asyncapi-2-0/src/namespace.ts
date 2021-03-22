@@ -1,4 +1,5 @@
 import { NamespacePluginOptions } from 'minim';
+
 import AsyncApi2_0Element from './elements/AsyncApi2-0';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
 import ChannelBindingsElement from './elements/ChannelBindings';

@@ -1,6 +1,5 @@
 import Ajv from 'ajv';
 import jsonSpecV4 from 'ajv/lib/refs/json-schema-draft-04.json';
-
 import {
   Diagnostic,
   DiagnosticSeverity,
@@ -15,6 +14,7 @@ import jsonSourceMap from 'json-source-map';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from 'apidom';
+
 import { positionRangeForPath } from '../../utils/ast';
 import { CompletionService } from '../completion/completion-service';
 import {

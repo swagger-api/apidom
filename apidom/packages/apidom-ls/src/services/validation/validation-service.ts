@@ -2,6 +2,7 @@ import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-langua
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, traverse } from 'apidom';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
+
 import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { LanguageSettings, ValidationContext } from '../../apidom-language-types';
 import {

@@ -1,4 +1,5 @@
 import { Attributes, Meta, ObjectElement } from 'minim';
+
 import AsyncApiVersionElement from './AsyncApiVersion';
 import IdentifierElement from './Identifier';
 import ComponentsElement from './Components';

@@ -1,4 +1,5 @@
 import { Element } from 'minim';
+
 import Transcluder from './Transcluder';
 
 /**

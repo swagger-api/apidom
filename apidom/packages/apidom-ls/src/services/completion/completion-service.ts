@@ -22,6 +22,7 @@ import {
   isStringElement,
 } from 'apidom';
 import { MemberElement } from 'minim';
+
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { setMetadataMap, getSourceMap, isMember, isObject } from '../../utils/utils';

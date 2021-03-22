@@ -14,6 +14,7 @@ import {
   JsonString,
   visit,
 } from 'apidom-ast';
+
 import { analyze, keyMap } from '../../src/parser/syntactic-analysis';
 
 context('parser', function () {

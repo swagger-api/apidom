@@ -1,17 +1,13 @@
 import FileResolver from '../resolvers/FileResolver';
 import HttpResolverAxios from '../resolvers/HttpResolverAxios';
-
 import OpenApi3_1ResolveStrategy from '../resolve-strategies/openapi-3-1';
-
 import OpenApiJson3_1Parser from '../parsers/apidom-reference-parser-openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parsers/apidom-reference-parser-openapi-yaml-3-1';
 import AsyncApiJson2_0Parser from '../parsers/apidom-reference-parser-asyncapi-json-2-0';
 import AsyncApiYaml2_0Parser from '../parsers/apidom-reference-parser-asyncapi-yaml-2-0';
 import JsonParser from '../parsers/apidom-reference-parser-json';
 import YamlParser from '../parsers/apidom-reference-parser-yaml';
-
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
-
 import { ReferenceOptions as IReferenceOptions } from '../types';
 
 const defaultOptions: IReferenceOptions = {

@@ -8,6 +8,7 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
+
 import { DefaultJsonSchemaService } from './services/json-schema/json-schema-service';
 import {
   ColorsContext,
@@ -15,7 +16,6 @@ import {
   LanguageServiceContext,
   LanguageSettings,
 } from './apidom-language-types';
-
 import { DefaultValidationService } from './services/validation/validation-service';
 import { DefaultCompletionService } from './services/completion/completion-service';
 import { DefaultSymbolsService } from './services/symbols/symbols-service';

@@ -15,6 +15,16 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error'],
     'import/no-extraneous-dependencies': 'off', // ['error', { devDependencies: true }],
     'import/no-mutable-exports': 0,
+    'import/order': [
+      'error',
+      {
+        groups: [
+          ['builtin', 'external', 'internal'],
+          ['parent', 'sibling', 'index'],
+        ],
+        'newlines-between': 'always',
+      },
+    ],
     'no-labels': 0,
     'no-restricted-syntax': 0,
     '@typescript-eslint/ban-ts-comment': 'off',

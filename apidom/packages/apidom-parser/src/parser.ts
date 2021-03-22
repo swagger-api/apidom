@@ -26,15 +26,20 @@ interface ApiDOMParser {
 const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(function ApiDOMParser() {
   const adapters: ApiDOMParserAdapter[] = [];
 
-  const detectAdapterCandidates = (source: string) => {
-    return adapters.filter((adapter) => {
-      if (!isFunction(adapter.detect)) return false;
+  const detectAdapterCandidates = async (source: string) => {
+    const candidates = [];
 
-      return adapter.detect(source);
-    });
+    for (const adapter of adapters) {
+      // eslint-disable-next-line no-await-in-loop
+      if (isFunction(adapter.detect) && (await adapter.detect(source))) {
+        candidates.push(adapter);
+      }
+    }
+
+    return candidates;
   };
 
-  const findAdapter = (source: string, mediaType: string | undefined) => {
+  const findAdapter = async (source: string, mediaType: string | undefined) => {
     if (isString(mediaType)) {
       return adapters.find((adapter) => {
         if (!isArray(adapter.mediaTypes)) return false;
@@ -43,7 +48,9 @@ const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(function ApiDOM
       });
     }
 
-    return head(detectAdapterCandidates(source));
+    const candidates = await detectAdapterCandidates(source);
+
+    return head(candidates);
   };
 
   this.use = function use(adapter: ApiDOMParserAdapter) {
@@ -51,17 +58,17 @@ const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(function ApiDOM
     return this;
   };
 
-  this.findNamespace = function findNamespace(source: string, options: ParserOptions = {}) {
-    const adapter = findAdapter(source, options.mediaType);
+  this.findNamespace = async function findNamespace(source: string, options: ParserOptions = {}) {
+    const adapter = await findAdapter(source, options.mediaType);
 
     return adapter?.namespace;
   };
 
   this.parse = async function parse(source: string, options: ParserOptions = {}) {
-    const adapter = findAdapter(source, options.mediaType);
+    const adapter = await findAdapter(source, options.mediaType);
 
     if (isUndefined(adapter)) {
-      return Promise.reject(new Error('Document did not match any registered parsers'));
+      throw new Error('Document did not match any registered parsers');
     }
 
     return adapter.parse(source, options);

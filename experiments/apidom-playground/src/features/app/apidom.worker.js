@@ -25,7 +25,7 @@ const parser = ApiDOMParser()
 /* eslint-disable */
 const service = {
   async parse(source, { mediaType }) {
-    const namespace = parser.findNamespace(source, { sourceMap: true, mediaType });
+    const namespace = await parser.findNamespace(source, { sourceMap: true, mediaType });
     const parseResult = await parser.parse(source, { sourceMap: true, mediaType });
     const refract = dehydrate(parseResult, namespace);
 
@@ -38,14 +38,14 @@ const service = {
   },
 
   async resolveApiDOM(apiDOM, { source, mediaType, baseURI }) {
-    const namespace = parser.findNamespace(source, { mediaType });
+    const namespace = await parser.findNamespace(source, { mediaType });
     const parseResult = from(apiDOM, namespace);
 
     return resolveApiDOMReferences(parseResult, { parse: { mediaType }, resolve: { baseURI } });
   },
 
   async dereferenceApiDOM(apiDOM, { source, mediaType, baseURI }) {
-    const namespace = parser.findNamespace(source, { mediaType });
+    const namespace = await parser.findNamespace(source, { mediaType });
     const parseResult = from(apiDOM, namespace);
     const dereferenced = await derefereceApiDOMReferences(parseResult.api, {
       parse: { mediaType },
@@ -56,8 +56,8 @@ const service = {
     return JSON.stringify(refract, undefined, 2);
   },
 
-  humanizeDereferenced(dereferenced, { source, mediaType }) {
-    const namespace = parser.findNamespace(source, { mediaType });
+  async humanizeDereferenced(dereferenced, { source, mediaType }) {
+    const namespace = await parser.findNamespace(source, { mediaType });
     const element = from(dereferenced, namespace);
     const pojo = toValue(element, namespace);
 

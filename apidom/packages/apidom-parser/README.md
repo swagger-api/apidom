@@ -43,7 +43,7 @@ const parser = ApiDOMParser();
 parser.use(jsonParserAdapter);
 parser.use(yamlParserAdapter);
 
-const namespace = parser.findNamespace('{"prop", "value"}', { mediaType: 'application/json' });
+const namespace = await parser.findNamespace('{"prop", "value"}', { mediaType: 'application/json' });
 ```
 
 ## Parsing

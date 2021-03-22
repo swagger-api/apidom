@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Diagnostic, Position } from 'vscode-languageserver-types';
@@ -18,6 +17,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   traverse,
 } from 'apidom';
+
 import { getParser } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 

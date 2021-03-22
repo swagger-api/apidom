@@ -5,8 +5,8 @@ import {
   SemanticTokenTypes,
   SemanticTokenModifiers,
 } from 'vscode-languageserver-protocol';
-
 import { Element, isNumberElement, isStringElement, traverse } from 'apidom';
+
 import { LanguageSettings } from '../../apidom-language-types';
 import { SourceMap, getSourceMap, isMember, setMetadataMap } from '../../utils/utils';
 import { getParser, isAsyncDoc } from '../../parser-factory';

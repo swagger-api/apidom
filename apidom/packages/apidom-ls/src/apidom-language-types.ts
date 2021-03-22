@@ -21,6 +21,7 @@ import {
   SemanticTokensLegend,
   CodeActionParams,
 } from 'vscode-languageserver-protocol';
+
 import { Metadata } from './utils/utils';
 
 export enum SUPPORTED_LANGUAGES {

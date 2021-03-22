@@ -1,4 +1,5 @@
 import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+
 import ServerVariable from './ServerVariable';
 
 class Server extends ObjectElement {

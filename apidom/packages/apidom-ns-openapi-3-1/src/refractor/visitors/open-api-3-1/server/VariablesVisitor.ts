@@ -3,7 +3,6 @@ import { always } from 'ramda';
 import { ObjectElement } from 'apidom';
 
 import { appendMetadata } from '../../../metadata';
-
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 

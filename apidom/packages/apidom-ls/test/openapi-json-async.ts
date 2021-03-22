@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   CompletionList,

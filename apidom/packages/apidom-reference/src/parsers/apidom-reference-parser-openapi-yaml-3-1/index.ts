@@ -1,6 +1,5 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
-
 // @ts-ignore
 import { parse, mediaTypes } from 'apidom-parser-adapter-openapi-yaml-3-1';
 

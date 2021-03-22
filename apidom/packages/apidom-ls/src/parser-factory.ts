@@ -4,12 +4,10 @@ import ApiDOMParser from 'apidom-parser';
 import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi-json-3-1';
 // @ts-ignore
 import * as asyncapi2_0Adapter from 'apidom-parser-adapter-asyncapi-json-2-0';
-
 // @ts-ignore
 import * as openapi3_1Adapter_Yaml from 'apidom-parser-adapter-openapi-yaml-3-1';
 // @ts-ignore
 import * as asyncapi2_0Adapter_Yaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 export interface ParserOptions {

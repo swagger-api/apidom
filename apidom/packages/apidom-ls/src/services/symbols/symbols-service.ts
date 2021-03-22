@@ -3,6 +3,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from 'apidom';
 import { SymbolKind } from 'vscode-languageserver-types';
+
 import { getParser, isAsyncDoc } from '../../parser-factory';
 import { setMetadataMap, getSourceMap, isMember, SourceMap } from '../../utils/utils';
 import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';

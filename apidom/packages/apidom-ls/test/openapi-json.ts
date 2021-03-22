@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   CompletionList,
@@ -11,6 +10,7 @@ import {
   Hover,
   SymbolInformation,
 } from 'vscode-languageserver-types';
+
 import getLanguageService from '../src/apidom-language-service';
 import {
   CompletionContext,

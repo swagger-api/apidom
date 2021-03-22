@@ -1,4 +1,5 @@
 import { Attributes, Meta, ObjectElement } from 'minim';
+
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';
 import ServerElement from './Server';

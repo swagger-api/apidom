@@ -1,4 +1,5 @@
 import { Attributes, BooleanElement, Meta, ObjectElement, StringElement } from 'minim';
+
 import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
 import ServerElement from './Server';

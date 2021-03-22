@@ -1,4 +1,5 @@
 import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+
 import ContactElement from './Contact';
 import LicenseElement from './License';
 

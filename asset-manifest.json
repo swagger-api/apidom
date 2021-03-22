@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/static/css/main.ac35c5f8.chunk.css",
-    "main.js": "/static/js/main.ade2f464.chunk.js",
-    "main.js.map": "/static/js/main.ade2f464.chunk.js.map",
+    "main.js": "/static/js/main.f9f6ae0e.chunk.js",
+    "main.js.map": "/static/js/main.f9f6ae0e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.dbf7a116.js",
     "runtime-main.js.map": "/static/js/runtime-main.dbf7a116.js.map",
-    "static/js/2.81a55ad7.chunk.js": "/static/js/2.81a55ad7.chunk.js",
-    "static/js/2.81a55ad7.chunk.js.map": "/static/js/2.81a55ad7.chunk.js.map",
+    "static/js/2.9c040ea4.chunk.js": "/static/js/2.9c040ea4.chunk.js",
+    "static/js/2.9c040ea4.chunk.js.map": "/static/js/2.9c040ea4.chunk.js.map",
     "static/js/3.96079edb.chunk.js": "/static/js/3.96079edb.chunk.js",
     "static/js/3.96079edb.chunk.js.map": "/static/js/3.96079edb.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.ac35c5f8.chunk.css.map": "/static/css/main.ac35c5f8.chunk.css.map",
-    "static/js/2.81a55ad7.chunk.js.LICENSE.txt": "/static/js/2.81a55ad7.chunk.js.LICENSE.txt",
-    "static/js/apidom.worker.8fdfcac4.worker.js": "/static/js/apidom.worker.8fdfcac4.worker.js",
-    "static/js/apidom.worker.8fdfcac4.worker.js.LICENSE.txt": "/static/js/apidom.worker.8fdfcac4.worker.js.LICENSE.txt",
-    "static/js/apidom.worker.8fdfcac4.worker.js.map": "/static/js/apidom.worker.8fdfcac4.worker.js.map",
+    "static/js/2.9c040ea4.chunk.js.LICENSE.txt": "/static/js/2.9c040ea4.chunk.js.LICENSE.txt",
+    "static/js/apidom.worker.6f8e2fe3.worker.js": "/static/js/apidom.worker.6f8e2fe3.worker.js",
+    "static/js/apidom.worker.6f8e2fe3.worker.js.LICENSE.txt": "/static/js/apidom.worker.6f8e2fe3.worker.js.LICENSE.txt",
+    "static/js/apidom.worker.6f8e2fe3.worker.js.map": "/static/js/apidom.worker.6f8e2fe3.worker.js.map",
     "static/wasm/tree-sitter-json.f6e4f103.wasm": "/static/wasm/tree-sitter-json.f6e4f103.wasm",
     "static/wasm/tree-sitter-yaml.805af326.wasm": "/static/wasm/tree-sitter-yaml.805af326.wasm",
     "static/wasm/tree-sitter.wasm": "/static/wasm/tree-sitter.7cfff5af.wasm"
   },
   "entrypoints": [
     "static/js/runtime-main.dbf7a116.js",
-    "static/js/2.81a55ad7.chunk.js",
+    "static/js/2.9c040ea4.chunk.js",
     "static/css/main.ac35c5f8.chunk.css",
-    "static/js/main.ade2f464.chunk.js"
+    "static/js/main.f9f6ae0e.chunk.js"
   ]
 }

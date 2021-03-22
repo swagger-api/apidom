@@ -20,6 +20,7 @@ import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
+import MediaTypeElement from './elements/MediaType';
 
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -45,6 +46,7 @@ const openApi3_1 = {
     base.register('securityRequirement', SecurityRequirementElement);
     base.register('server', ServerElement);
     base.register('serverVariable', ServerVariableElement);
+    base.register('mediaType', MediaTypeElement);
 
     return base;
   },

@@ -21,6 +21,7 @@ import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
+import MediaTypeElement from './elements/MediaType';
 
 export const isCallbackElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -259,6 +260,18 @@ export const isServerVariableElement = createPredicate(
     return either(
       is(ServerVariableElement),
       allPass([hasBasicElementProps, isElementTypeServerVariable, primitiveEqObject]),
+    );
+  },
+);
+
+export const isMediaTypeElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeMediaType = isElementType('mediaType');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(MediaTypeElement),
+      allPass([hasBasicElementProps, isElementTypeMediaType, primitiveEqObject]),
     );
   },
 );

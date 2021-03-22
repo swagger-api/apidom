@@ -55,6 +55,7 @@ import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
+import MediaTypeVisitor from './visitors/open-api-3-1/media-type';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
 import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import OperationVisitor from './visitors/open-api-3-1/operation';
@@ -246,6 +247,12 @@ const specification = {
           $visitor: RequestBodyVisitor,
           fixedFields: {},
         },
+        MediaType: {
+          $visitor: MediaTypeVisitor,
+          fixedFields: {
+            schema: SchemaVisitor,
+          },
+        },
         Responses: {
           $visitor: ResponsesVisitor,
           fixedFields: {
@@ -254,7 +261,9 @@ const specification = {
         },
         Response: {
           $visitor: ResponseVisitor,
-          fixedFields: {},
+          fixedFields: {
+            content: ContentVisitor,
+          },
         },
         Callback: {
           $visitor: CallbackVisitor,

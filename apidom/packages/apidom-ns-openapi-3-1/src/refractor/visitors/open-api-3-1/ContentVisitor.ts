@@ -1,9 +1,19 @@
 import stampit from 'stampit';
+import { always } from 'ramda';
+import { ObjectElement } from 'apidom';
 
+import { appendMetadata } from '../../metadata';
+import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 
-// TODO(vladimir.gorej@gmail.com): this needs to be implemented as specific editor
-// TODO(vladimir.gorej@gmail.com): currently it's only generically encoding any value to ApiDOM
-const ContentVisitor = stampit(FallbackVisitor);
+const ContentVisitor = stampit(MapVisitor, FallbackVisitor, {
+  props: {
+    specPath: always(['document', 'objects', 'MediaType']),
+  },
+  init() {
+    this.element = new ObjectElement();
+    appendMetadata(['content'], this.element);
+  },
+});
 
 export default ContentVisitor;

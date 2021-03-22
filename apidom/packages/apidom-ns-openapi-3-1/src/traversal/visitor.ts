@@ -28,5 +28,6 @@ export const keyMap = {
   SecurityRequirementElement: ['content'],
   ServerElement: ['content'],
   ServerVariableElement: ['content'],
+  MediaTypeElement: ['content'],
   ...keyMapBase,
 };

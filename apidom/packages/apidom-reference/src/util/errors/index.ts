@@ -7,3 +7,4 @@ export { default as PluginError } from './PluginError';
 export { default as InvalidSelectorError } from './InvalidSelectorError';
 export { default as MaximumResolverDepthError } from './MaximumResolverDepthError';
 export { default as DereferenceError } from './DereferenceError';
+export { default as MaximumDereferenceDepthError } from './MaximumDereferenceDepthError';

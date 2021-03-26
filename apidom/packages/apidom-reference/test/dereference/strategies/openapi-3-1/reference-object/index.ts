@@ -6,7 +6,11 @@ import { isParameterElement } from 'apidom-ns-openapi-3-1';
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
 import { evaluate } from '../../../../../src/selectors/json-pointer';
-import { DereferenceError } from '../../../../../src/util/errors';
+import {
+  DereferenceError,
+  MaximumDereferenceDepthError,
+  MaximumResolverDepthError,
+} from '../../../../../src/util/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
@@ -219,6 +223,46 @@ describe('dereference', function () {
         const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
         assert.deepEqual(toValue(actual), expected);
+      });
+    });
+
+    context('given Reference Objects and maxDepth of dereference', function () {
+      const fixturePath = path.join(rootFixturePath, 'max-depth');
+
+      specify('should throw error', async function () {
+        const rootFilePath = path.join(fixturePath, 'root.json');
+
+        try {
+          await dereference(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            dereference: { maxDepth: 2 },
+          });
+          assert.fail('should throw MaximumDereferenceDepthError');
+        } catch (error) {
+          assert.instanceOf(error, DereferenceError);
+          assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+          assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
+        }
+      });
+    });
+
+    context('given Reference Objects and maxDepth of resolution', function () {
+      const fixturePath = path.join(rootFixturePath, 'max-depth');
+
+      specify('should throw error', async function () {
+        const rootFilePath = path.join(fixturePath, 'root.json');
+
+        try {
+          await dereference(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            resolve: { maxDepth: 2 },
+          });
+          assert.fail('should throw MaximumResolverDepthError');
+        } catch (error) {
+          assert.instanceOf(error, DereferenceError);
+          assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
+          assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
+        }
       });
     });
   });

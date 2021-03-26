@@ -71,7 +71,9 @@ const defaultOptions: IReferenceOptions = {
      * Determines the maximum depth of resolve algorithms.
      * By default there is no limit.
      *
-     * It can be set to any positive integer number.
+     * This option tracks the depth of the file tree not the depth of the dereference path.
+     *
+     * It can be set to any positive integer number or zero (0).
      *
      * The resolver should throw MaximumResolverDepthError if resolution depth
      * is exceeded by this option.
@@ -92,6 +94,19 @@ const defaultOptions: IReferenceOptions = {
      * your own implementation, or remove any dereference strategy by removing it from the list.
      */
     strategies: [OpenApi3_1DereferenceStrategy()],
+    /**
+     * Determines the maximum depth of dereferencing.
+     * By default there is no limit.
+     *
+     * The maxDepth represents a number of references that needed to be followed
+     * before the eventual value was reached.
+     *
+     * It can be set to any positive integer number or zero (0).
+     *
+     * The dereferencing should throw MaximumDereferenceDepthError if dereferencing depth
+     * is exceeded by this option.
+     */
+    maxDepth: +Infinity,
   },
 };
 

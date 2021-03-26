@@ -14,6 +14,7 @@ import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
 import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
+import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -33,6 +34,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
   },
   methods: {
     async toReference(uri: string): Promise<IReference> {
+      // detect maximum depth of resolution
+      if (this.reference.depth >= this.options.resolve.maxDepth) {
+        throw new MaximumResolverDepthError(
+          `Maximum resolution depth of ${this.options.resolve.maxDepth} has been exceeded by file "${this.reference.uri}"`,
+        );
+      }
+
       const uriWithoutHash = url.stripHash(uri);
       const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
         ? url.fromFileSystemPath(uriWithoutHash)
@@ -48,7 +56,12 @@ const OpenApi3_1DereferenceVisitor = stampit({
       // register new Reference with ReferenceSet
       const parseResult = await parse(baseURI, this.options);
 
-      return Reference({ uri: baseURI, value: parseResult, refSet });
+      return Reference({
+        uri: baseURI,
+        value: parseResult,
+        refSet,
+        depth: this.reference.depth + 1,
+      });
     },
 
     async ReferenceElement(referenceElement: ReferenceElement) {
@@ -79,6 +92,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
       // detect direct or circular reference
       if (this.indirections.includes(fragment)) {
         throw new Error('Recursive JSON Pointer detected');
+      }
+
+      // detect maximum depth of dereferencing
+      if (this.indirections.length > this.options.dereference.maxDepth) {
+        throw new MaximumDereferenceDepthError(
+          `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+        );
       }
 
       // dive deep into the fragment

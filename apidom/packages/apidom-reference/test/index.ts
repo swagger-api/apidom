@@ -22,19 +22,13 @@ describe('apidom-reference', function () {
   context('resolve', function () {
     context('given URI with hash', function () {
       specify('should resolve the file', async function () {
-        const uri = path.join(
-          __dirname,
-          'fixtures',
-          'resolve',
-          'external-reference-depth-4',
-          'root.json',
-        );
+        const uri = path.join(__dirname, 'resolve', 'fixtures', 'sample-openapi-3-1-api.json');
         const options = {
           parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
         };
         const refSet = await resolve(uri, options);
 
-        assert.strictEqual(refSet.size, 4);
+        assert.strictEqual(refSet.size, 1);
       });
     });
   });
@@ -42,9 +36,10 @@ describe('apidom-reference', function () {
   context('resolveApiDOM', function () {
     context('given ApiDOM data', function () {
       specify('should resolve ApiDOM', async function () {
-        const uri = path.join(__dirname, 'fixtures', 'resolve', 'sample-openapi-3-1-api.json');
+        const uri = path.join(__dirname, 'resolve', 'fixtures', 'sample-openapi-3-1-api.json');
         const options = {
           parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          resolve: { baseURI: uri },
         };
         const parseResult = await parse(uri, options);
         const refSet = await resolveApiDOM(parseResult, options);

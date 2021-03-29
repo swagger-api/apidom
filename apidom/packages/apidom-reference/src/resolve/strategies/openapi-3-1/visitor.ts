@@ -1,38 +1,52 @@
 import stampit from 'stampit';
-import { hasIn, pathSatisfies, propEq } from 'ramda';
-import { isNotUndefined } from 'ramda-adjunct';
+import { propEq, values, has, pipe } from 'ramda';
+import { allP } from 'ramda-adjunct';
 import { isPrimitiveElement, visit } from 'apidom';
 import {
   getNodeType,
+  isReferenceElement,
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
-import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
+import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
-const OpenApi3_1DereferenceVisitor = stampit({
+const OpenApi3_1ResolveVisitor = stampit({
   props: {
     indirections: [],
     namespace: null,
     reference: null,
+    crawledElements: null,
+    crawlingMap: {},
     options: null,
   },
   init({ reference, namespace, indirections = [], options }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
+    this.crawledElements = [];
+    this.crawlingMap = {};
     this.options = options;
   },
   methods: {
+    toBaseURI(uri: string): string {
+      const uriWithoutHash = url.stripHash(uri);
+      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
+        ? url.fromFileSystemPath(uriWithoutHash)
+        : uriWithoutHash;
+
+      return url.resolve(this.reference.uri, sanitizedURI);
+    },
+
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -41,11 +55,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-      const baseURI = url.resolve(this.reference.uri, sanitizedURI);
+      const baseURI = this.toBaseURI(uri);
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -67,7 +77,17 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return reference;
     },
 
-    async ReferenceElement(referenceElement: ReferenceElement) {
+    ReferenceElement(referenceElement: ReferenceElement) {
+      const uri = referenceElement.$ref.toValue();
+      const baseURI = this.toBaseURI(uri);
+
+      if (!has(baseURI, this.crawlingMap)) {
+        this.crawlingMap[baseURI] = this.toReference(uri);
+      }
+      this.crawledElements.push(referenceElement);
+    },
+
+    async crawlReferenceElement(referenceElement: ReferenceElement) {
       // @ts-ignore
       const reference = await this.toReference(referenceElement.$ref.toValue());
 
@@ -106,36 +126,34 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // dive deep into the fragment
-      const visitor = OpenApi3_1DereferenceVisitor({
+      const visitor = OpenApi3_1ResolveVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
       });
-      fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
-
-      // override description and summary (outer has higher priority then inner)
-      const hasDescription = pathSatisfies(isNotUndefined, ['description'], referenceElement);
-      const hasSummary = pathSatisfies(isNotUndefined, ['summary'], referenceElement);
-      if (hasDescription || hasSummary) {
-        fragment = fragment.clone();
-
-        if (hasDescription && hasIn('description', fragment)) {
-          // @ts-ignore
-          fragment.description = referenceElement.description;
-        }
-        if (hasSummary && hasIn('summary', fragment)) {
-          // @ts-ignore
-          fragment.summary = referenceElement.summary;
-        }
-      }
+      await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
+      await visitor.crawl();
 
       this.indirections.pop();
+    },
 
-      // transclude the element for a fragment
-      return fragment;
+    async crawl() {
+      /**
+       * Synchronize all parallel resolutions in this place.
+       * After synchronization happened we can be sure that refSet
+       * contains resolved Reference objects.
+       */
+      await pipe(values, allP)(this.crawlingMap);
+      this.crawlingMap = null;
+
+      for (const element of this.crawledElements) {
+        if (isReferenceElement(element)) {
+          await this.crawlReferenceElement(element); // eslint-disable-line no-await-in-loop
+        }
+      }
     },
   },
 });
 
-export default OpenApi3_1DereferenceVisitor;
+export default OpenApi3_1ResolveVisitor;

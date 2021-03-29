@@ -1,12 +1,11 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
-// @ts-ignore
-import { parse } from 'apidom-parser-adapter-json';
+import { parse, mediaTypes } from 'apidom-parser-adapter-openapi-yaml-3-1';
 
-import { ParserError } from '../../util/errors';
-import { Parser as IParser, File as IFile } from '../../types';
+import { ParserError } from '../../../util/errors';
+import { File as IFile, Parser as IParser } from '../../../types';
 
-const JsonParser: stampit.Stamp<IParser> = stampit({
+const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit({
   props: {
     /**
      * Whether to allow "empty" files. This includes zero-byte files.
@@ -24,7 +23,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit({
   },
   methods: {
     canParse(file: IFile): boolean {
-      return file.mediaType === 'application/json' || file.extension === '.json';
+      return mediaTypes.includes(file.mediaType) && ['.yaml', '.yml'].includes(file.extension);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
@@ -38,4 +37,4 @@ const JsonParser: stampit.Stamp<IParser> = stampit({
   },
 });
 
-export default JsonParser;
+export default OpenApiYaml3_1Parser;

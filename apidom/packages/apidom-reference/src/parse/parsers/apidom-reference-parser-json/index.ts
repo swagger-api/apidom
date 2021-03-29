@@ -1,12 +1,11 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
-// @ts-ignore
-import { parse, mediaTypes } from 'apidom-parser-adapter-openapi-json-3-1';
+import { parse } from 'apidom-parser-adapter-json';
 
-import { ParserError } from '../../util/errors';
-import { File as IFile, Parser as IParser } from '../../types';
+import { ParserError } from '../../../util/errors';
+import { Parser as IParser, File as IFile } from '../../../types';
 
-const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit({
+const JsonParser: stampit.Stamp<IParser> = stampit({
   props: {
     /**
      * Whether to allow "empty" files. This includes zero-byte files.
@@ -24,7 +23,7 @@ const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit({
   },
   methods: {
     canParse(file: IFile): boolean {
-      return mediaTypes.includes(file.mediaType) && file.extension === '.json';
+      return file.mediaType === 'application/json' || file.extension === '.json';
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
@@ -38,4 +37,4 @@ const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit({
   },
 });
 
-export default OpenApiJson3_1Parser;
+export default JsonParser;

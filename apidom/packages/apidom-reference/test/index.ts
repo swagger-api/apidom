@@ -8,7 +8,7 @@ describe('apidom-reference', function () {
   context('parse', function () {
     context('given URI with hash', function () {
       specify('should read & parse the file', async function () {
-        const uri = path.join(__dirname, 'fixtures', 'parse', 'sample-openapi-3-1-api.json#hash');
+        const uri = path.join(__dirname, 'parse', 'fixtures', 'sample-openapi-3-1-api.json#hash');
         const options = {
           parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
         };

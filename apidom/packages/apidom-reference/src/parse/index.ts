@@ -1,11 +1,11 @@
 import { isEmpty } from 'ramda';
 import { ParseResultElement } from 'apidom';
 
-import * as url from './util/url';
-import File from './util/File';
-import * as plugins from './util/plugins';
-import { ReferenceOptions as IReferenceOptions, File as IFile } from './types';
-import { ParserError, ResolverError, UnmatchedResolverError } from './util/errors';
+import * as url from '../util/url';
+import File from '../util/File';
+import * as plugins from '../util/plugins';
+import { ReferenceOptions as IReferenceOptions, File as IFile } from '../types';
+import { ParserError, ResolverError, UnmatchedResolverError } from '../util/errors';
 
 /**
  * Reads the given file, using the configured resolver plugins.

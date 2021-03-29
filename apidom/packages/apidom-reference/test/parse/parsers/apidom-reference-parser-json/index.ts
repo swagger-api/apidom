@@ -1,26 +1,17 @@
 import { assert } from 'chai';
 import { ObjectElement, isParseResultElement, isSourceMapElement } from 'apidom';
 
-import File from '../../../src/util/File';
-import YamlParser from '../../../src/parsers/apidom-reference-parser-yaml';
-import { ParserError } from '../../../src/util/errors';
+import File from '../../../../src/util/File';
+import JsonParser from '../../../../src/parse/parsers/apidom-reference-parser-json';
+import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
-  context('YamlParser', function () {
+  context('JsonParser', function () {
     context('canParse', function () {
-      context('given file with .yaml extension', function () {
+      context('given file with .json extension', function () {
         specify('should return true', function () {
-          const file = File({ uri: '/path/to/file.yaml' });
-          const parser = YamlParser();
-
-          assert.isTrue(parser.canParse(file));
-        });
-      });
-
-      context('given file with .yml extension', function () {
-        specify('should return true', function () {
-          const file = File({ uri: '/path/to/file.yml' });
-          const parser = YamlParser();
+          const file = File({ uri: '/path/to/file.json' });
+          const parser = JsonParser();
 
           assert.isTrue(parser.canParse(file));
         });
@@ -28,8 +19,8 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', function () {
-          const file = File({ uri: '/path/to/file.txt' });
-          const parser = YamlParser();
+          const file = File({ uri: '/path/to/file.yaml' });
+          const parser = JsonParser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -38,7 +29,7 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', function () {
           const file = File({ uri: '/path/to/file' });
-          const parser = YamlParser();
+          const parser = JsonParser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -46,10 +37,10 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given generic YAML data', function () {
+      context('given generic JSON data', function () {
         specify('should return parse result', async function () {
-          const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
-          const parser = YamlParser();
+          const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
+          const parser = JsonParser();
           const result = await parser.parse(file);
           const objElement: ObjectElement = result.get(0);
 
@@ -58,10 +49,10 @@ describe('parsers', function () {
         });
       });
 
-      context('given generic YAML data as buffer', function () {
+      context('given generic JSON data as buffer', function () {
         specify('should return parse result', async function () {
-          const file = File({ uri: '/path/to/file.yaml', data: Buffer.from('prop: val') });
-          const parser = YamlParser();
+          const file = File({ uri: '/path/to/file.json', data: Buffer.from('{"prop": "val"}') });
+          const parser = JsonParser();
           const result = await parser.parse(file);
           const objElement: ObjectElement = result.get(0);
 
@@ -70,25 +61,25 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not a generic YAML data', function () {
+      context('given data that is not a generic JSON data', function () {
         specify('should throw ParserError', async function () {
           try {
-            const file = File({ uri: '/path/to/file.yaml', data: 1 });
-            const parser = YamlParser();
+            const file = File({ uri: '/path/to/file.json', data: 1 });
+            const parser = JsonParser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
           } catch (e) {
             assert.instanceOf(e.cause, TypeError);
             assert.instanceOf(e, ParserError);
-            assert.propertyVal(e, 'message', 'Error parsing "/path/to/file.yaml"');
+            assert.propertyVal(e, 'message', 'Error parsing "/path/to/file.json"');
           }
         });
       });
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({ uri: '/path/to/file.yaml', data: '' });
-          const parser = YamlParser();
+          const file = File({ uri: '/path/to/file.json', data: '' });
+          const parser = JsonParser();
           const result = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(result));
@@ -99,8 +90,8 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
-            const parser = YamlParser({ sourceMap: true });
+            const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
+            const parser = JsonParser({ sourceMap: true });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
 
@@ -110,8 +101,8 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const file = File({ uri: '/path/to/file.yaml', data: 'prop: val' });
-            const parser = YamlParser({ sourceMap: false });
+            const file = File({ uri: '/path/to/file.json', data: '{"prop": "val"}' });
+            const parser = JsonParser({ sourceMap: false });
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
 

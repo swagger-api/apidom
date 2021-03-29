@@ -51,8 +51,6 @@ export interface Reference {
   value: ParseResultElement;
   refSet: null | ReferenceSet;
   errors: Array<Error>;
-
-  resolve(): Promise<Reference>;
 }
 
 export interface ReferenceSet {

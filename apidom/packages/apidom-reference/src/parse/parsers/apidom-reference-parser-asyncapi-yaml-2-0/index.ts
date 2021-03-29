@@ -1,12 +1,11 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
-// @ts-ignore
-import { parse, mediaTypes } from 'apidom-parser-adapter-openapi-yaml-3-1';
+import { parse, mediaTypes } from 'apidom-parser-adapter-asyncapi-yaml-2-0';
 
-import { ParserError } from '../../util/errors';
-import { File as IFile, Parser as IParser } from '../../types';
+import { ParserError } from '../../../util/errors';
+import { File as IFile, Parser as IParser } from '../../../types';
 
-const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit({
+const AsyncApiYaml2_0Parser: stampit.Stamp<IParser> = stampit({
   props: {
     /**
      * Whether to allow "empty" files. This includes zero-byte files.
@@ -38,4 +37,4 @@ const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit({
   },
 });
 
-export default OpenApiYaml3_1Parser;
+export default AsyncApiYaml2_0Parser;

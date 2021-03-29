@@ -2,16 +2,16 @@ import { assert } from 'chai';
 import path from 'path';
 import { isParseResultElement } from 'apidom';
 
-import defaultOptions from '../src/options';
-import { merge as mergeOptions } from '../src/options/util';
-import parse from '../src/parse';
-import { ParserError, ResolverError, UnmatchedResolverError } from '../src/util/errors';
-import OpenApiJson3_1Parser from '../src/parsers/apidom-reference-parser-openapi-json-3-1';
+import defaultOptions from '../../src/options';
+import { merge as mergeOptions } from '../../src/options/util';
+import parse from '../../src/parse';
+import { ParserError, ResolverError, UnmatchedResolverError } from '../../src/util/errors';
+import OpenApiJson3_1Parser from '../../src/parse/parsers/apidom-reference-parser-openapi-json-3-1';
 
 describe('parse', function () {
   context('given URI with hash', function () {
     specify('should read & parse the file', async function () {
-      const uri = path.join(__dirname, 'fixtures', 'parse', 'sample-openapi-3-1-api.json#hash');
+      const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
       const options = mergeOptions(defaultOptions, {
         parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
       });
@@ -24,7 +24,7 @@ describe('parse', function () {
   context('given URI with unknown file extension', function () {
     context('and no matching parsers', function () {
       specify('should throw error', async function () {
-        const uri = path.join(__dirname, 'fixtures', 'parse', 'unknown-extension.ext');
+        const uri = path.join(__dirname, 'fixtures', 'unknown-extension.ext');
 
         try {
           await parse(uri, defaultOptions);
@@ -54,7 +54,7 @@ describe('parse', function () {
 
   context("given suitable parser doesn't allow empty files", function () {
     specify('should throw error', async function () {
-      const uri = path.join(__dirname, 'fixtures', 'parse', 'empty-openapi-3-1-api.json');
+      const uri = path.join(__dirname, 'fixtures', 'empty-openapi-3-1-api.json');
       const options = mergeOptions(defaultOptions, {
         parse: {
           mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
@@ -85,7 +85,7 @@ describe('parse', function () {
     };
 
     specify('should throw error', async function () {
-      const uri = path.join(__dirname, 'fixtures', 'parse', 'sample-openapi-3-1-api.json');
+      const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json');
       const options = mergeOptions(defaultOptions, {
         parse: {
           mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',

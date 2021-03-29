@@ -3,9 +3,9 @@ import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from 'apidom';
 
-import File from '../../../src/util/File';
-import AsyncApiJson2_0Parser from '../../../src/parsers/apidom-reference-parser-asyncapi-json-2-0';
-import { ParserError } from '../../../src/util/errors';
+import File from '../../../../src/util/File';
+import AsyncApiJson2_0Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
+import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
   context('AsyncApiJson2_0Parser', function () {

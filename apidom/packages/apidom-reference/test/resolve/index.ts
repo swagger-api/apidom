@@ -8,7 +8,7 @@ import {
   ResolverError,
   ParserError,
 } from '../../src/util/errors';
-import OpenApiJson3_1Parser from '../../src/parsers/apidom-reference-parser-openapi-json-3-1';
+import OpenApiJson3_1Parser from '../../src/parse/parsers/apidom-reference-parser-openapi-json-3-1';
 
 const fixturePath = path.join(
   __dirname,

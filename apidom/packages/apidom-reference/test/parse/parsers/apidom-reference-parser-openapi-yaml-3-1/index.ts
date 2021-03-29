@@ -3,25 +3,25 @@ import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from 'apidom';
 
-import File from '../../../src/util/File';
-import AsyncApiYaml2_0Parser from '../../../src/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
-import { ParserError } from '../../../src/util/errors';
+import File from '../../../../src/util/File';
+import OpenApiYaml3_1Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
+import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
-  context('AsyncApiYaml2_0Parser', function () {
+  context('OpenApiYaml3_1Parser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', function () {
             const file1 = File({
-              uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
             });
             const file2 = File({
-              uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.oai.openapi;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = OpenApiYaml3_1Parser();
 
             assert.isTrue(parser.canParse(file1));
             assert.isTrue(parser.canParse(file2));
@@ -31,10 +31,10 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', function () {
             const file = File({
-              uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = OpenApiYaml3_1Parser();
 
             assert.isFalse(parser.canParse(file));
           });
@@ -45,14 +45,14 @@ describe('parsers', function () {
         context('and with proper media type', function () {
           specify('should return true', function () {
             const file1 = File({
-              uri: '/path/to/asyncapi.yml',
-              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+              uri: '/path/to/openapi.yml',
+              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
             });
             const file2 = File({
-              uri: '/path/to/asyncapi.yml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+              uri: '/path/to/openapi.yml',
+              mediaType: 'application/vnd.oai.openapi;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = OpenApiYaml3_1Parser();
 
             assert.isTrue(parser.canParse(file1));
             assert.isTrue(parser.canParse(file2));
@@ -62,10 +62,10 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', function () {
             const file = File({
-              uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = OpenApiYaml3_1Parser();
 
             assert.isFalse(parser.canParse(file));
           });
@@ -75,10 +75,10 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', function () {
           const file = File({
-            uri: '/path/to/asyncapi.txt',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+            uri: '/path/to/openapi.txt',
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = OpenApiYaml3_1Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -87,10 +87,10 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', function () {
           const file = File({
-            uri: '/path/to/asyncapi',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+            uri: '/path/to/openapi',
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = OpenApiYaml3_1Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -98,39 +98,47 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.0.x YAML data', function () {
+      context('given OpenApi 3.1.x YAML data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
-          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.0.0' });
-          const parser = AsyncApiYaml2_0Parser();
+          const file = File({
+            url,
+            data,
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+          });
+          const parser = OpenApiYaml3_1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given AsyncApi 2.0.x YAML data as buffer', function () {
+      context('given OpenApi 3.1.x YAML data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
-          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.0.0' });
-          const parser = AsyncApiYaml2_0Parser();
+          const file = File({
+            url,
+            data,
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+          });
+          const parser = OpenApiYaml3_1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given data that is not an AsyncApi 2.0.x YAML data', function () {
+      context('given data that is not an OpenApi 3.1.x YAML data', function () {
         specify('should throw ParserError', async function () {
           try {
             const file = File({
               uri: '/path/to/file.yaml',
               data: 1,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = OpenApiYaml3_1Parser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
           } catch (e) {
@@ -146,13 +154,13 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.yaml',
             data: '',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
-          const parsceResult = await parser.parse(file);
+          const parser = OpenApiYaml3_1Parser();
+          const parseResult = await parser.parse(file);
 
-          assert.isTrue(isParseResultElement(parsceResult));
-          assert.isTrue(parsceResult.isEmpty);
+          assert.isTrue(isParseResultElement(parseResult));
+          assert.isTrue(parseResult.isEmpty);
         });
       });
 
@@ -164,9 +172,9 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
+              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser({ sourceMap: true });
+            const parser = OpenApiYaml3_1Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -177,12 +185,8 @@ describe('parsers', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(url).toString();
-            const file = File({
-              url,
-              data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
-            });
-            const parser = AsyncApiYaml2_0Parser({ sourceMap: false });
+            const file = File({ url, data });
+            const parser = OpenApiYaml3_1Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

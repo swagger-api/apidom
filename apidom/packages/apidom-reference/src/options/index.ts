@@ -49,11 +49,6 @@ const defaultOptions: IReferenceOptions = {
       HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
     ],
     /**
-     * If set to a specific resolve strategy, loop for suitable resolve strategy will be skipped
-     * and this strategy will be used directly.
-     */
-    strategy: null,
-    /**
      * Determines strategies how References are identified and processed by resolvers.
      * Strategy is determined by media type.
      *
@@ -81,11 +76,6 @@ const defaultOptions: IReferenceOptions = {
     maxDepth: +Infinity,
   },
   dereference: {
-    /**
-     * If set to a specific dereference strategy, loop for suitable resolve strategy will be skipped
-     * and this strategy will be used directly.
-     */
-    strategy: null,
     /**
      * Determines strategies how ApiDOM is dereferenced.
      * Strategy is determined by media type or by inspecting ApiDOM to be dereferenced.

@@ -29,6 +29,7 @@ export {
   isPathItemElement,
   isPathsElement,
   isReferenceElement,
+  isReferenceElementExternal,
   isRequestBodyElement,
   isResponseElement,
   isResponsesElement,

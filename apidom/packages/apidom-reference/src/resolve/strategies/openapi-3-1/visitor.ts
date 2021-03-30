@@ -8,6 +8,7 @@ import {
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  isReferenceElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
@@ -78,6 +79,11 @@ const OpenApi3_1ResolveVisitor = stampit({
     },
 
     ReferenceElement(referenceElement: ReferenceElement) {
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
+        return false;
+      }
+
       const uri = referenceElement.$ref.toValue();
       const baseURI = this.toBaseURI(uri);
 
@@ -85,6 +91,8 @@ const OpenApi3_1ResolveVisitor = stampit({
         this.crawlingMap[baseURI] = this.toReference(uri);
       }
       this.crawledElements.push(referenceElement);
+
+      return undefined;
     },
 
     async crawlReferenceElement(referenceElement: ReferenceElement) {

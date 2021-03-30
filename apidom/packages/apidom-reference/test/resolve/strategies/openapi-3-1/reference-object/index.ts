@@ -62,6 +62,20 @@ describe('resolve', function () {
           });
         });
 
+        context('given Reference Objects with external resolution disable', function () {
+          const fixturePath = path.join(rootFixturePath, 'ignore-external');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              resolve: { external: false },
+            });
+
+            assert.strictEqual(refSet.size, 1);
+          });
+        });
+
         context('given Reference Objects with direct circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
 

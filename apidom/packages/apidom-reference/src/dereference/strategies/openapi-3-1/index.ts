@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { defaultTo, propEq } from 'ramda';
 import { createNamespace, visit, Element } from 'apidom';
 import openApi3_1Namespace, {
   getNodeType,
@@ -39,18 +40,30 @@ const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
 
       async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi3_1Namespace);
-        const reference = Reference({ uri: file.uri, value: file.parseResult });
-        const visitor = OpenApi3_1DereferenceVisitor({ reference, namespace, options });
-        const refSet = ReferenceSet();
-        refSet.add(reference);
+        const refSet = defaultTo(ReferenceSet(), options.dereference.refSet);
+        let reference;
 
+        if (!refSet.has(file.uri)) {
+          reference = Reference({ uri: file.uri, value: file.parseResult });
+          refSet.add(reference);
+        } else {
+          // pre-computed refSet was provided as configuration option
+          reference = refSet.find(propEq('uri', file.uri));
+        }
+
+        const visitor = OpenApi3_1DereferenceVisitor({ reference, namespace, options });
         const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
         });
 
-        // release all memory
-        refSet.clean();
+        /**
+         * Release all memory if this refSet was not provided as an configuration option.
+         * If provided as configuration option, then provider is responsible for cleanup.
+         */
+        if (options.dereference.refSet === null) {
+          refSet.clean();
+        }
 
         return dereferencedElement;
       },

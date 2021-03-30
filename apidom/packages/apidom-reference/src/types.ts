@@ -82,6 +82,7 @@ export interface ReferenceResolveOptions {
 
 export interface ReferenceDereferenceOptions {
   readonly strategies: Array<DereferenceStrategy>;
+  readonly refSet: null | ReferenceSet;
   readonly maxDepth: number;
 }
 

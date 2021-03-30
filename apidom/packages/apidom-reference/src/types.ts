@@ -75,14 +75,12 @@ export interface ReferenceParserOptions {
 export interface ReferenceResolveOptions {
   baseURI: string;
   readonly resolvers: Array<Resolver>;
-  readonly strategy: null | ResolveStrategy;
   readonly strategies: Array<ResolveStrategy>;
   readonly external: boolean;
   readonly maxDepth: number;
 }
 
 export interface ReferenceDereferenceOptions {
-  readonly strategy: null | DereferenceStrategy;
   readonly strategies: Array<DereferenceStrategy>;
   readonly maxDepth: number;
 }

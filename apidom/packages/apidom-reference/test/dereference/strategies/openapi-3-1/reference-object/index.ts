@@ -123,6 +123,21 @@ describe('dereference', function () {
         });
       });
 
+      context('given Reference Objects with external resolution disabled', function () {
+        const fixturePath = path.join(rootFixturePath, 'ignore-external');
+
+        specify('should dereference', async function () {
+          const rootFilePath = path.join(fixturePath, 'root.json');
+          const actual = await dereference(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            resolve: { external: false },
+          });
+          const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+          assert.deepEqual(toValue(actual), expected);
+        });
+      });
+
       context('given Reference Objects with direct circular internal reference', function () {
         const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
 

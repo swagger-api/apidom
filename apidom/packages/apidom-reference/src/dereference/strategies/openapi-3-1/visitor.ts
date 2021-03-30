@@ -7,6 +7,7 @@ import {
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  isReferenceElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
@@ -68,6 +69,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
     },
 
     async ReferenceElement(referenceElement: ReferenceElement) {
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
+        return false;
+      }
+
       // @ts-ignore
       const reference = await this.toReference(referenceElement.$ref.toValue());
 

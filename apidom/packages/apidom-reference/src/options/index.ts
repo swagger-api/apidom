@@ -85,6 +85,12 @@ const defaultOptions: IReferenceOptions = {
      */
     strategies: [OpenApi3_1DereferenceStrategy()],
     /**
+     * This option accepts an instance of pre-computed ReferenceSet.
+     * If provided it will speed up the dereferencing significantly as the external
+     * resolution doesn't need to happen anymore.
+     */
+    refSet: null,
+    /**
      * Determines the maximum depth of dereferencing.
      * By default there is no limit.
      *

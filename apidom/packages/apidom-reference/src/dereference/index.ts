@@ -1,4 +1,4 @@
-import { isEmpty } from 'ramda';
+import { isEmpty, propEq } from 'ramda';
 import { Element, ParseResultElement } from 'apidom';
 
 import File from '../util/File';
@@ -48,7 +48,17 @@ const dereference = async (
   uri: string,
   options: IReferenceOptions,
 ): Promise<ParseResultElement> => {
-  const parseResult = await parse(uri, options);
+  const { refSet } = options.dereference;
+  let parseResult;
+
+  // if refSet was provided, use it to avoid unnecessary parsing
+  if (refSet !== null && refSet.has(uri)) {
+    // @ts-ignore
+    ({ value: parseResult } = refSet.find(propEq('uri', uri)));
+  } else {
+    parseResult = await parse(uri, options);
+  }
+
   const mergedOptions = mergeOptions(options, { resolve: { baseURI: uri } });
 
   return dereferenceApiDOM(parseResult, mergedOptions);

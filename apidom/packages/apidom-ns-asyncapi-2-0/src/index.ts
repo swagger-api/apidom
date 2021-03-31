@@ -30,6 +30,7 @@ export {
   isParameterElement,
   isParametersElement,
   isReferenceElement,
+  isReferenceElementExternal,
   isSchemaElement,
   isSecurityRequirementElement,
   isServerElement,

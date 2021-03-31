@@ -1,4 +1,5 @@
-import { allPass, either, is } from 'ramda';
+import { allPass, either, is, startsWith } from 'ramda';
+import { isNonEmptyString } from 'ramda-adjunct';
 import { createPredicate } from 'apidom';
 
 import AsyncApi2_0Element from './elements/AsyncApi2-0';
@@ -190,6 +191,16 @@ export const isReferenceElement = createPredicate(
     );
   },
 );
+
+export const isReferenceElementExternal = (element: any): element is ReferenceElement => {
+  if (!isReferenceElement(element)) {
+    return false;
+  }
+
+  const value = element.$ref.toValue();
+
+  return isNonEmptyString(value) && !startsWith('#', value);
+};
 
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

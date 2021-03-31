@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor-core';
 import { ProtocolToMonacoConverter } from 'monaco-languageclient/lib/monaco-converter';
 
-export default class HoverAdapter {
+export default class CodeActionsAdapter {
   constructor(worker) {
     this.worker = worker;
   }

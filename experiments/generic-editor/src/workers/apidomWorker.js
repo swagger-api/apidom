@@ -107,10 +107,8 @@ export class ApidomWorker {
     return Promise.resolve(semanticTokens);
   }
 
-  async getSemanticTokensLegend() {
-    const semanticTokensLegend = await this._languageService.getSemanticTokensLegend();
-    // console.log('worker:getSemanticTokensLegend... semanticTokensLegend:', semanticTokensLegend);
-    return Promise.resolve(semanticTokensLegend);
+  getSemanticTokensLegend() {
+    return this._languageService.getSemanticTokensLegend();
   }
 
   // intended as private method

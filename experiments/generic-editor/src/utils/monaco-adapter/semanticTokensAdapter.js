@@ -1,16 +1,17 @@
+import { getLanguageService } from 'apidom-ls';
+
 /* eslint-disable class-methods-use-this */
-export default class DocumentSymbolAdapter {
+export default class SemanticTokensAdapter {
   constructor(worker) {
     this.worker = worker;
   }
 
-  async getLegend() {
-    const worker = await this.worker();
+  getLegend() {
     try {
-      const semanticTokensLegend = await worker.getSemanticTokensLegend();
-      return Promise.resolve(semanticTokensLegend);
+      return getLanguageService({}).getSemanticTokensLegend();
     } catch (e) {
-      return Promise.resolve({ error: 'unable to getLegend' });
+      console.error(e, e.stack);
+      return { error: 'unable to getLegend' };
     }
   }
 

@@ -39,6 +39,7 @@ import ParameterDescriptionVisitor from './visitors/async-api-2-0/parameter/Desc
 import ParameterLocationVisitor from './visitors/async-api-2-0/parameter/LocationVisitor';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
+import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
 import OperationVisitor from './visitors/async-api-2-0/operation';
 import ChannelsVisitor from './visitors/async-api-2-0/channels';
 import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
@@ -174,6 +175,7 @@ const specification = {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
+            parameters: ComponentParametersVisitor,
           },
         },
         Reference: {

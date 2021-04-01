@@ -1,6 +1,7 @@
 import FileResolver from '../resolve/resolvers/FileResolver';
 import HttpResolverAxios from '../resolve/resolvers/HttpResolverAxios';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
+import AsyncApi2_0ResolveStrategy from '../resolve/strategies/asyncapi-2-0';
 import OpenApiJson3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
 import AsyncApiJson2_0Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
@@ -56,7 +57,7 @@ const defaultOptions: IReferenceOptions = {
      * You can add additional resolver strategies of your own, replace an existing one with
      * your own implementation, or remove any resolve strategy by removing it from the list.
      */
-    strategies: [OpenApi3_1ResolveStrategy()],
+    strategies: [OpenApi3_1ResolveStrategy(), AsyncApi2_0ResolveStrategy()],
     /**
      * Determines whether external references will be resolved.
      * If this option is disabled, then none of above resolvers will be called.

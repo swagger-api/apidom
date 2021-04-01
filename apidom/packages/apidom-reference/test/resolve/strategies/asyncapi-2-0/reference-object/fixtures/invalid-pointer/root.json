@@ -1,0 +1,16 @@
+{
+  "asyncapi": "2.0.0",
+  "components": {
+    "parameters": {
+      "userId": {
+        "$ref": "#/components/parameters/invalid-pointer"
+      },
+      "userIdRef": {
+        "description": "Id of the user.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

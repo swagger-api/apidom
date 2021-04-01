@@ -9,7 +9,7 @@ import {
   keyMap,
   ReferenceElement,
   isReferenceElementExternal,
-} from 'apidom-ns-openapi-3-1';
+} from 'apidom-ns-asyncapi-2-0';
 
 import { Reference as IReference } from '../../../types';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
@@ -21,7 +21,7 @@ import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
-const OpenApi3_1ResolveVisitor = stampit({
+const AsyncApi2_0ResolveVisitor = stampit({
   props: {
     indirections: [],
     namespace: null,
@@ -134,7 +134,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // dive deep into the fragment
-      const visitor = OpenApi3_1ResolveVisitor({
+      const visitor = AsyncApi2_0ResolveVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -164,4 +164,4 @@ const OpenApi3_1ResolveVisitor = stampit({
   },
 });
 
-export default OpenApi3_1ResolveVisitor;
+export default AsyncApi2_0ResolveVisitor;

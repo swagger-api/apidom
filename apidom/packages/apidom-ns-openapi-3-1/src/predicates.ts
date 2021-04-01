@@ -110,7 +110,7 @@ export const isOpenapiElement = createPredicate(
 
 export const isOpenApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    const isElementTypeOpenApi3_1 = isElementType('openApi3-1');
+    const isElementTypeOpenApi3_1 = isElementType('openApi3_1');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
 

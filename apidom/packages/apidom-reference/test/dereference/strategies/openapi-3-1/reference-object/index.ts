@@ -4,7 +4,7 @@ import { toValue } from 'apidom';
 import { isParameterElement } from 'apidom-ns-openapi-3-1';
 
 import { loadJsonFile } from '../../../../helpers';
-import { dereference } from '../../../../../src';
+import { dereference, resolve } from '../../../../../src';
 import { evaluate } from '../../../../../src/selectors/json-pointer';
 import {
   DereferenceError,
@@ -279,6 +279,20 @@ describe('dereference', function () {
             assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
             assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
           }
+        });
+      });
+
+      context('given refSet is provided as an option', function () {
+        specify('should dereference without external resolution', async function () {
+          const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
+          const uri = path.join(fixturePath, 'root.json');
+          const refSet = await resolve(uri, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+          const actual = await dereference(uri, { dereference: { refSet } });
+          const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+          assert.deepEqual(toValue(actual), expected);
         });
       });
     });

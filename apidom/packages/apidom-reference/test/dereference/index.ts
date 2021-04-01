@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import path from 'path';
 import { toValue } from 'apidom';
 
-import { dereference, dereferenceApiDOM, parse, resolve } from '../../src';
+import { dereference, dereferenceApiDOM, parse } from '../../src';
 import { loadJsonFile } from '../helpers';
 
 describe('dereference', function () {
@@ -37,20 +37,6 @@ describe('dereference', function () {
 
         assert.deepEqual(toValue(actual), expected);
       });
-    });
-  });
-
-  context('given refSet is provided as an option', function () {
-    specify('should dereference without external resolution', async function () {
-      const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
-      const uri = path.join(fixturePath, 'root.json');
-      const refSet = await resolve(uri, {
-        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-      });
-      const actual = await dereference(uri, { dereference: { refSet } });
-      const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-
-      assert.deepEqual(toValue(actual), expected);
     });
   });
 });

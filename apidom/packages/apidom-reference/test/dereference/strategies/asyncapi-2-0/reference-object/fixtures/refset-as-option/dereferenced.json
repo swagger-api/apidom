@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "2.0.0",
+    "components": {
+      "parameters": {
+        "externalRef": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

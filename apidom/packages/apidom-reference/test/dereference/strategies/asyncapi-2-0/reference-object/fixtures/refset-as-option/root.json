@@ -1,0 +1,10 @@
+{
+  "asyncapi": "2.0.0",
+  "components": {
+    "parameters": {
+       "externalRef": {
+        "$ref": "./ex1.json#/indirection"
+      }
+    }
+  }
+}

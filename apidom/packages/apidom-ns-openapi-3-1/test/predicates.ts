@@ -61,7 +61,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const openApi3_1ElementDuck = {
-        _storedElement: 'openApi3-1',
+        _storedElement: 'openApi3_1',
         classes: new ArrayElement(['api']),
         _content: [],
         primitive() {

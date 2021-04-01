@@ -65,7 +65,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const asyncApi2_0ElementDuck = {
-        _storedElement: 'asyncApi2-0',
+        _storedElement: 'asyncApi2_0',
         _content: [],
         classes: new ArrayElement(['api']),
         primitive() {

@@ -25,7 +25,7 @@ import ServerVariableElement from './elements/ServerVariable';
 
 export const isAsyncApi2_0Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    const isElementTypeAsyncApi2_0 = isElementType('asyncApi2-0');
+    const isElementTypeAsyncApi2_0 = isElementType('asyncApi2_0');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');
 

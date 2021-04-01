@@ -1,0 +1,39 @@
+[
+  {
+    "asyncapi": "2.0.0",
+    "components": {
+      "parameters": {
+        "userId": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "indirection1": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "indirection2": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "userIdRef": {
+          "description": "Id of the user.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "externalRef": {
+          "description": "external parameter",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

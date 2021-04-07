@@ -5,6 +5,7 @@ import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import InfoElement from './elements/Info';
+import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';
@@ -31,6 +32,7 @@ const openApi3_1 = {
     base.register('contact', ContactElement);
     base.register('externalDocumentation', ExternalDocumentationElement);
     base.register('info', InfoElement);
+    base.register('jsonSchemaDialect', JsonSchemaDialectElement);
     base.register('license', LicenseElement);
     base.register('openapi', OpenapiElement);
     base.register('openApi3_1', OpenApi3_1Element);

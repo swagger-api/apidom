@@ -15,6 +15,7 @@ import LicenseVisitor from './visitors/open-api-3-1/license';
 import LicenseNameVisitor from './visitors/open-api-3-1/license/NameVisitor';
 import LicenseIdentifierVisitor from './visitors/open-api-3-1/license/IdentifierVisitor';
 import LicenseUrlVisitor from './visitors/open-api-3-1/license/UrlVisitor';
+import JsonSchemaDialectVisitor from './visitors/open-api-3-1/JsonSchemaDialectVisitor';
 import ServerVisitor from './visitors/open-api-3-1/server';
 import ServerUrlVisitor from './visitors/open-api-3-1/server/UrlVisitor';
 import ServerDescriptionVisitor from './visitors/open-api-3-1/server/DescriptionVisitor';
@@ -92,6 +93,7 @@ const specification = {
             info: {
               $ref: '#/visitors/document/objects/Info',
             },
+            jsonSchemaDialect: JsonSchemaDialectVisitor,
             servers: ServersVisitor,
             paths: {
               $ref: '#/visitors/document/objects/Paths',

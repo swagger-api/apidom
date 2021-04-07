@@ -55,6 +55,7 @@ export { keyMap, getNodeType } from './traversal/visitor';
 export { default as CallbackElement } from './elements/Callback';
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
+export { default as DiscriminatorElement } from './elements/Discriminator';
 export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';

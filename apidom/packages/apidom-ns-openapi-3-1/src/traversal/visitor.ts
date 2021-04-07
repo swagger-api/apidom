@@ -12,6 +12,7 @@ export const keyMap = {
   CallbackElement: ['content'],
   ComponentsElement: ['content'],
   ContactElement: ['content'],
+  DiscriminatorElement: ['content'],
   ExternalDocumentationElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],

@@ -3,6 +3,7 @@ import { NamespacePluginOptions } from 'minim';
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
+import DiscriminatorElement from './elements/Discriminator';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
@@ -30,6 +31,7 @@ const openApi3_1 = {
     base.register('callback', CallbackElement);
     base.register('components', ComponentsElement);
     base.register('contact', ContactElement);
+    base.register('discriminator', DiscriminatorElement);
     base.register('externalDocumentation', ExternalDocumentationElement);
     base.register('info', InfoElement);
     base.register('jsonSchemaDialect', JsonSchemaDialectElement);

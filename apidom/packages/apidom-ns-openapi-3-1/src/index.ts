@@ -57,6 +57,7 @@ export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
 export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';
 export { default as InfoElement } from './elements/Info';
+export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';
 export { default as OpenapiElement } from './elements/Openapi';
 export { default as OpenApi3_1Element } from './elements/OpenApi3-1';

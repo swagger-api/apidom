@@ -15,6 +15,7 @@ export const keyMap = {
   ExternalDocumentationElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
+  MediaTypeElement: ['content'],
   OpenApi3_1Element: ['content'],
   OperationElement: ['content'],
   ParameterElement: ['content'],
@@ -28,6 +29,5 @@ export const keyMap = {
   SecurityRequirementElement: ['content'],
   ServerElement: ['content'],
   ServerVariableElement: ['content'],
-  MediaTypeElement: ['content'],
   ...keyMapBase,
 };

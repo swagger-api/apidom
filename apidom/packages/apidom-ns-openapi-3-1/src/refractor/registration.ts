@@ -3,6 +3,7 @@ import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import InfoElement from '../elements/Info';
+import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
 import LicenseElement from '../elements/License';
 import OpenapiElement from '../elements/Openapi';
 import OpenApi3_1Element from '../elements/OpenApi3-1';
@@ -50,6 +51,14 @@ ExternalDocumentationElement.refract = createRefractor([
   '$visitor',
 ]);
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
+JsonSchemaDialectElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OpenApi',
+  'fixedFields',
+  'jsonSchemaDialect',
+]);
 LicenseElement.refract = createRefractor([
   'visitors',
   'document',

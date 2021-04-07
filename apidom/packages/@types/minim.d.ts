@@ -77,7 +77,9 @@ declare module 'minim' {
     constructor(content?: string, meta?: Meta, attributes?: Attributes);
   }
 
-  export class NumberElement extends Element {}
+  export class NumberElement extends Element {
+    constructor(content?: number, meta?: Meta, attributes?: Attributes);
+  }
 
   export class NullElement extends Element {}
 

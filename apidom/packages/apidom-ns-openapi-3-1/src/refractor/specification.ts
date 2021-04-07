@@ -44,6 +44,9 @@ import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisito
 import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
 import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
+import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
+import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
+import DiscriminatorMappingVisitor from './visitors/open-api-3-1/distriminator/MappingVisitor';
 import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
 import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
@@ -281,6 +284,13 @@ const specification = {
         },
         Schema: {
           $visitor: SchemaVisitor,
+        },
+        Discriminator: {
+          $visitor: DiscriminatorVisitor,
+          fixedFields: {
+            propertyName: DiscriminatorPropertyNameVisitor,
+            mapping: DiscriminatorMappingVisitor,
+          },
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,

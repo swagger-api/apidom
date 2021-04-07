@@ -1,6 +1,7 @@
 import CallbackElement from '../elements/Callback';
 import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
+import DiscriminatorElement from '../elements/Discriminator';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import InfoElement from '../elements/Info';
 import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
@@ -41,6 +42,13 @@ ContactElement.refract = createRefractor([
   'document',
   'objects',
   'Contact',
+  '$visitor',
+]);
+DiscriminatorElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Discriminator',
   '$visitor',
 ]);
 ExternalDocumentationElement.refract = createRefractor([

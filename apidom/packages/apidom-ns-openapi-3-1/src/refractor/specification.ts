@@ -47,6 +47,12 @@ import SchemaVisitor from './visitors/open-api-3-1/schema';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
 import DiscriminatorMappingVisitor from './visitors/open-api-3-1/distriminator/MappingVisitor';
+import XmlVisitor from './visitors/open-api-3-1/xml';
+import XmlNameVisitor from './visitors/open-api-3-1/xml/NameVisitor';
+import XmlNamespaceVisitor from './visitors/open-api-3-1/xml/NamespaceVisitor';
+import XmlPrefixVisitor from './visitors/open-api-3-1/xml/PrefixVisitor';
+import XmlAttributeVisitor from './visitors/open-api-3-1/xml/AttributeVisitor';
+import XmlWrappedVisitor from './visitors/open-api-3-1/xml/WrappedVisitor';
 import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
 import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
@@ -290,6 +296,16 @@ const specification = {
           fixedFields: {
             propertyName: DiscriminatorPropertyNameVisitor,
             mapping: DiscriminatorMappingVisitor,
+          },
+        },
+        XML: {
+          $visitor: XmlVisitor,
+          fixedFields: {
+            name: XmlNameVisitor,
+            namespace: XmlNamespaceVisitor,
+            prefix: XmlPrefixVisitor,
+            attribute: XmlAttributeVisitor,
+            wrapped: XmlWrappedVisitor,
           },
         },
         SecurityRequirement: {

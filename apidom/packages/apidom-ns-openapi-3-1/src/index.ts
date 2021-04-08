@@ -60,6 +60,7 @@ export { default as ExternalDocumentationElement } from './elements/ExternalDocu
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';
+export { default as MediaTypeElement } from './elements/MediaType';
 export { default as OpenapiElement } from './elements/Openapi';
 export { default as OpenApi3_1Element } from './elements/OpenApi3-1';
 export { default as OperationElement } from './elements/Operation';
@@ -74,4 +75,4 @@ export { default as SchemaElement } from './elements/Schema';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
-export { default as MediaTypeElement } from './elements/MediaType';
+export { default as XmlElement } from './elements/Xml';

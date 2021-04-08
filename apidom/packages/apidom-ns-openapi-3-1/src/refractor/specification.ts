@@ -60,6 +60,26 @@ import SchemaDependantSchemasVisitor from './visitors/open-api-3-1/schema/Depend
 import SchemaPrefixItemsVisitor from './visitors/open-api-3-1/schema/PrefixItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-1/schema/PropertiesVisitor';
 import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternProperties';
+import SchemaTypeVisitor from './visitors/open-api-3-1/schema/TypeVisitor';
+import SchemaEnumVisitor from './visitors/open-api-3-1/schema/EnumVisitor';
+import SchemaConstVisitor from './visitors/open-api-3-1/schema/ConstVisitor';
+import SchemaMultipleOfVisitor from './visitors/open-api-3-1/schema/MultipleOfVisitor';
+import SchemaMaximumVisitor from './visitors/open-api-3-1/schema/MaximumVisitor';
+import SchemaExclusiveMaximumVisitor from './visitors/open-api-3-1/schema/ExclusiveMaximumVisitor';
+import SchemaMinimumVisitor from './visitors/open-api-3-1/schema/MinimumVisitor';
+import SchemaExclusiveMinimumVisitor from './visitors/open-api-3-1/schema/ExclusiveMinimumVisitor';
+import SchemaMaxLengthVisitor from './visitors/open-api-3-1/schema/MaxLengthVisitor';
+import SchemaMinLengthVisitor from './visitors/open-api-3-1/schema/MinLengthVisitor';
+import SchemaPatternVisitor from './visitors/open-api-3-1/schema/PatternVisitor';
+import SchemaMaxItemsVisitor from './visitors/open-api-3-1/schema/MaxItemsVisitor';
+import SchemaMinItemsVisitor from './visitors/open-api-3-1/schema/MinItemsVisitor';
+import SchemaUniqueItemsVisitor from './visitors/open-api-3-1/schema/UniqueItemsVisitor';
+import SchemaMaxContainsVisitor from './visitors/open-api-3-1/schema/MaxContainsVisitor';
+import SchemaMinContainsVisitor from './visitors/open-api-3-1/schema/MinContainsVisitor';
+import SchemaMaxPropertiesVisitor from './visitors/open-api-3-1/schema/MaxPropertiesVisitor';
+import SchemaMinPropertiesVisitor from './visitors/open-api-3-1/schema/MinPropertiesVisitor';
+import SchemaRequiredVisitor from './visitors/open-api-3-1/schema/RequiredVisitor';
+import SchemaDependentRequiredVisitor from './visitors/open-api-3-1/schema/DependentRequiredVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -361,6 +381,32 @@ const specification = {
             unevaluatedProperties: {
               $ref: '#/visitors/document/objects/Schema',
             },
+            // validation vocabulary
+            // validation Keywords for Any Instance Type
+            type: SchemaTypeVisitor,
+            enum: SchemaEnumVisitor,
+            const: SchemaConstVisitor,
+            // validation Keywords for Numeric Instances (number and integer)
+            multipleOf: SchemaMultipleOfVisitor,
+            maximum: SchemaMaximumVisitor,
+            exclusiveMaximum: SchemaExclusiveMaximumVisitor,
+            minimum: SchemaMinimumVisitor,
+            exclusiveMinimum: SchemaExclusiveMinimumVisitor,
+            // validation Keywords for Strings
+            maxLength: SchemaMaxLengthVisitor,
+            minLength: SchemaMinLengthVisitor,
+            pattern: SchemaPatternVisitor,
+            // validation Keywords for Arrays
+            maxItems: SchemaMaxItemsVisitor,
+            minItems: SchemaMinItemsVisitor,
+            uniqueItems: SchemaUniqueItemsVisitor,
+            maxContains: SchemaMaxContainsVisitor,
+            minContains: SchemaMinContainsVisitor,
+            // validation Keywords for Objects
+            maxProperties: SchemaMaxPropertiesVisitor,
+            minProperties: SchemaMinPropertiesVisitor,
+            required: SchemaRequiredVisitor,
+            dependentRequired: SchemaDependentRequiredVisitor,
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

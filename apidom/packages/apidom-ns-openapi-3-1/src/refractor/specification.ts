@@ -44,6 +44,15 @@ import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisito
 import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
 import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
+import Schema$schemaVisitor from './visitors/open-api-3-1/schema/$schemaVisitor';
+import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor';
+import Schema$idVisitor from './visitors/open-api-3-1/schema/$idVisitor';
+import Schema$anchorVisitor from './visitors/open-api-3-1/schema/$anchorVisitor';
+import Schema$dynamicAnchorVisitor from './visitors/open-api-3-1/schema/$dynamicAnchorVisitor';
+import Schema$dynamicRefVisitor from './visitors/open-api-3-1/schema/$dynamicRefVisitor';
+import Schema$refVisitor from './visitors/open-api-3-1/schema/$refVisitor';
+import Schema$defsVisitor from './visitors/open-api-3-1/schema/$defsVisitor';
+import Schema$commentVisitor from './visitors/open-api-3-1/schema/$commentVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -296,6 +305,16 @@ const specification = {
         Schema: {
           $visitor: SchemaVisitor,
           fixedFields: {
+            // core vocabulary
+            $schema: Schema$schemaVisitor,
+            $vocabulary: Schema$vocabularyVisitor,
+            $id: Schema$idVisitor,
+            $anchor: Schema$anchorVisitor,
+            $dynamicAnchor: Schema$dynamicAnchorVisitor,
+            $dynamicRef: Schema$dynamicRefVisitor,
+            $ref: Schema$refVisitor,
+            $defs: Schema$defsVisitor,
+            $comment: Schema$commentVisitor,
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

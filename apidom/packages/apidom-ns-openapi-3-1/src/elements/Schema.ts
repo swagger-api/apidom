@@ -9,6 +9,10 @@ import {
   BooleanElement,
 } from 'minim';
 
+import DiscriminatorElement from './Discriminator';
+import XmlElement from './Xml';
+import ExternalDocumentationElement from './ExternalDocumentation';
+
 class Schema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
@@ -329,6 +333,31 @@ class Schema extends ObjectElement {
 
   get contentSchema(): Schema | undefined {
     return this.get('contentSchema');
+  }
+
+  /**
+   * OAS base vocabulary
+   *
+   * URI: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#baseVocabulary
+   */
+
+  get discriminator(): DiscriminatorElement | undefined {
+    return this.get('discriminator');
+  }
+
+  get xml(): XmlElement | undefined {
+    return this.get('xml');
+  }
+
+  get externalDocs(): ExternalDocumentationElement | undefined {
+    return this.get('externalDocs');
+  }
+
+  /**
+   * @deprecated The example property has been deprecated in favor of the JSON Schema examples keyword. Use of example is discouraged, and later versions of this specification may remove it.
+   */
+  get example(): Element | undefined {
+    return this.get('example');
   }
 }
 

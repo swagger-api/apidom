@@ -53,6 +53,13 @@ import Schema$dynamicRefVisitor from './visitors/open-api-3-1/schema/$dynamicRef
 import Schema$refVisitor from './visitors/open-api-3-1/schema/$refVisitor';
 import Schema$defsVisitor from './visitors/open-api-3-1/schema/$defsVisitor';
 import Schema$commentVisitor from './visitors/open-api-3-1/schema/$commentVisitor';
+import SchemaAllOfVisitor from './visitors/open-api-3-1/schema/AllOfVisitor';
+import SchemaAnyOfVisitor from './visitors/open-api-3-1/schema/AnyOfVisitor';
+import SchemaOneOfVisitor from './visitors/open-api-3-1/schema/OneOfVisitor';
+import SchemaDependantSchemasVisitor from './visitors/open-api-3-1/schema/DependentSchemasVisitor';
+import SchemaPrefixItemsVisitor from './visitors/open-api-3-1/schema/PrefixItemsVisitor';
+import SchemaPropertiesVisitor from './visitors/open-api-3-1/schema/PropertiesVisitor';
+import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternProperties';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -315,6 +322,38 @@ const specification = {
             $ref: Schema$refVisitor,
             $defs: Schema$defsVisitor,
             $comment: Schema$commentVisitor,
+            // applicator vocabulary
+            allOf: SchemaAllOfVisitor,
+            anyOf: SchemaAnyOfVisitor,
+            oneOf: SchemaOneOfVisitor,
+            not: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            if: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            then: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            else: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            dependentSchemas: SchemaDependantSchemasVisitor,
+            prefixItems: SchemaPrefixItemsVisitor,
+            items: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            contains: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            properties: SchemaPropertiesVisitor,
+            patternProperties: SchemaPatternPropertiesVisitor,
+            additionalProperties: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            propertyNames: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

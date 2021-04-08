@@ -44,6 +44,7 @@ import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisito
 import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
 import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
+import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
 import DiscriminatorMappingVisitor from './visitors/open-api-3-1/distriminator/MappingVisitor';
@@ -248,7 +249,9 @@ const specification = {
             style: ParameterStyleVisitor,
             explode: ParameterExplodeVisitor,
             allowReserved: ParameterAllowReservedVisitor,
-            schema: SchemaVisitor,
+            schema: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
             example: ParameterExampleVisitor,
             examples: ExamplesVisitor,
             content: ContentVisitor,
@@ -261,7 +264,9 @@ const specification = {
         MediaType: {
           $visitor: MediaTypeVisitor,
           fixedFields: {
-            schema: SchemaVisitor,
+            schema: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
           },
         },
         Responses: {
@@ -290,6 +295,19 @@ const specification = {
         },
         Schema: {
           $visitor: SchemaVisitor,
+          fixedFields: {
+            // OAS base vocabulary
+            discriminator: {
+              $ref: '#/visitors/document/objects/Discriminator',
+            },
+            xml: {
+              $ref: '#/visitors/document/objects/XML',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            example: SchemaExampleVisitor,
+          },
         },
         Discriminator: {
           $visitor: DiscriminatorVisitor,

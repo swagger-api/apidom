@@ -20,6 +20,7 @@ import SchemaElement from '../elements/Schema';
 import SecurityRequirementElement from '../elements/SecurityRequirement';
 import ServerElement from '../elements/Server';
 import ServerVariableElement from '../elements/ServerVariable';
+import XmlElement from '../elements/Xml';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
@@ -155,3 +156,4 @@ ServerVariableElement.refract = createRefractor([
   'ServerVariable',
   '$visitor',
 ]);
+XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);

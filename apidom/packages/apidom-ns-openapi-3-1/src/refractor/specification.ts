@@ -354,6 +354,13 @@ const specification = {
             propertyNames: {
               $ref: '#/visitors/document/objects/Schema',
             },
+            // unevaluated Locations vocabulary
+            unevaluatedItems: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            unevaluatedProperties: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

@@ -29,7 +29,7 @@ class Schema extends ObjectElement {
     return this.get('$schema');
   }
 
-  get $vocabulary(): StringElement | undefined {
+  get $vocabulary(): ObjectElement | undefined {
     return this.get('$vocabulary');
   }
 

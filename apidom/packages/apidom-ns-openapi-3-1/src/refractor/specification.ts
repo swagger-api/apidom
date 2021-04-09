@@ -92,6 +92,8 @@ import SchemaUriTemplateVisitor from './visitors/open-api-3-1/schema/UriTemplate
 import SchemaJsonPointerVisitor from './visitors/open-api-3-1/schema/JsonPointerVisitor';
 import SchemaRelativeJsonPointerVisitor from './visitors/open-api-3-1/schema/RelativeJsonPointerVisitor';
 import SchemaRegexVisitor from './visitors/open-api-3-1/schema/RegexVisitor';
+import SchemaContentEncodingVisitor from './visitors/open-api-3-1/schema/ContentEncodingVisitor';
+import SchemaContentMediaTypeVisitor from './visitors/open-api-3-1/schema/ContentMediaTypeVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -433,6 +435,12 @@ const specification = {
             jsonPointer: SchemaJsonPointerVisitor,
             relativeJsonPointer: SchemaRelativeJsonPointerVisitor,
             regex: SchemaRegexVisitor,
+            // contents of String-Encoded Data vocabulary
+            contentEncoding: SchemaContentEncodingVisitor,
+            contentMediaType: SchemaContentMediaTypeVisitor,
+            contentSchema: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

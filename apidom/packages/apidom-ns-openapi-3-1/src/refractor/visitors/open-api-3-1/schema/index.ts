@@ -1,21 +1,17 @@
 import stampit from 'stampit';
-import { ObjectElement, BREAK } from 'apidom';
+import { always } from 'ramda';
 
 import SchemaElement from '../../../../elements/Schema';
 import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const SchemaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const schemaElement = new SchemaElement(objectElement.content);
-
-      this.copyMetaAndAttributes(objectElement, schemaElement);
-
-      this.element = schemaElement;
-      return BREAK;
-    },
+const SchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+  props: {
+    specPath: always(['document', 'objects', 'Schema']),
+    canSupportSpecificationExtensions: true,
+  },
+  init() {
+    this.element = new SchemaElement();
   },
 });
 

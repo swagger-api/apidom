@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement } from 'apidom';
+import { ArrayElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import { appendMetadata } from '../../../metadata';
@@ -10,6 +10,8 @@ const ExamplesVisitor = stampit(FallbackVisitor, {
       this.element = arrayElement.clone();
 
       appendMetadata(['json-schema-examples'], this.element);
+
+      return BREAK;
     },
   },
 });

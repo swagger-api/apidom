@@ -87,6 +87,11 @@ import SchemaDeprecatedVisitor from './visitors/open-api-3-1/schema/DeprecatedVi
 import SchemaReadOnlyVisitor from './visitors/open-api-3-1/schema/ReadOnlyVisitor';
 import SchemaWriteOnlyVisitor from './visitors/open-api-3-1/schema/WriteOnlyVisitor';
 import SchemaExamplesVisitor from './visitors/open-api-3-1/schema/ExamplesVisitor';
+import SchemaFormatVisitor from './visitors/open-api-3-1/schema/FormatVisitor';
+import SchemaUriTemplateVisitor from './visitors/open-api-3-1/schema/UriTemplateVisitor';
+import SchemaJsonPointerVisitor from './visitors/open-api-3-1/schema/JsonPointerVisitor';
+import SchemaRelativeJsonPointerVisitor from './visitors/open-api-3-1/schema/RelativeJsonPointerVisitor';
+import SchemaRegexVisitor from './visitors/open-api-3-1/schema/RegexVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -422,6 +427,12 @@ const specification = {
             readOnly: SchemaReadOnlyVisitor,
             writeOnly: SchemaWriteOnlyVisitor,
             examples: SchemaExamplesVisitor,
+            // semantic Content With "format" vocabulary
+            format: SchemaFormatVisitor,
+            uriTemplate: SchemaUriTemplateVisitor,
+            jsonPointer: SchemaJsonPointerVisitor,
+            relativeJsonPointer: SchemaRelativeJsonPointerVisitor,
+            regex: SchemaRegexVisitor,
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

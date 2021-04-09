@@ -80,6 +80,13 @@ import SchemaMaxPropertiesVisitor from './visitors/open-api-3-1/schema/MaxProper
 import SchemaMinPropertiesVisitor from './visitors/open-api-3-1/schema/MinPropertiesVisitor';
 import SchemaRequiredVisitor from './visitors/open-api-3-1/schema/RequiredVisitor';
 import SchemaDependentRequiredVisitor from './visitors/open-api-3-1/schema/DependentRequiredVisitor';
+import SchemaTitleVisitor from './visitors/open-api-3-1/schema/TitleVisitor';
+import SchemaDescriptionVisitor from './visitors/open-api-3-1/schema/DescriptionVisitor';
+import SchemaDefaultVisitor from './visitors/open-api-3-1/schema/DefaultVisitor';
+import SchemaDeprecatedVisitor from './visitors/open-api-3-1/schema/DeprecatedVisitor';
+import SchemaReadOnlyVisitor from './visitors/open-api-3-1/schema/ReadOnlyVisitor';
+import SchemaWriteOnlyVisitor from './visitors/open-api-3-1/schema/WriteOnlyVisitor';
+import SchemaExamplesVisitor from './visitors/open-api-3-1/schema/ExamplesVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
@@ -407,6 +414,14 @@ const specification = {
             minProperties: SchemaMinPropertiesVisitor,
             required: SchemaRequiredVisitor,
             dependentRequired: SchemaDependentRequiredVisitor,
+            // basic Meta-Data Annotations vocabulary
+            title: SchemaTitleVisitor,
+            description: SchemaDescriptionVisitor,
+            default: SchemaDefaultVisitor,
+            deprecated: SchemaDeprecatedVisitor,
+            readOnly: SchemaReadOnlyVisitor,
+            writeOnly: SchemaWriteOnlyVisitor,
+            examples: SchemaExamplesVisitor,
             // OAS base vocabulary
             discriminator: {
               $ref: '#/visitors/document/objects/Discriminator',

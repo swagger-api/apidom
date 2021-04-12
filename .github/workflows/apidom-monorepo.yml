@@ -28,15 +28,13 @@ jobs:
       id: cache-node-modules
       uses: actions/cache@v2
       with:
-        path: apidom/node_modules
+        path: |
+          /.cache/node_gyp
+          apidom/node_modules
         key: node-modules-${{ hashFiles('apidom/package-lock.json') }}
     - name: Install dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm ci
-      working-directory: ./apidom
-    - name: Postinstall
-      if: steps.cache-node-modules.outputs.cache-hit == 'true'
-      run: npm run postinstall
       working-directory: ./apidom
 #    - name: Security audit
 #      # filtering production deps only supported on >=npm@6.10.0

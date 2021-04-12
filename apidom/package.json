@@ -14,7 +14,7 @@
   },
   "scripts": {
     "postinstall": "npm run link-parent-bin",
-    "prebuild": "cd ./node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm && node ../.bin/node-gyp build && cd ../tree-sitter-yaml && cross-env BABEL_ENV=commonjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node ../.bin/node-gyp build",
+    "prebuild": "cd ./node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build && cd ../tree-sitter-yaml && cross-env BABEL_ENV=commonjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint",

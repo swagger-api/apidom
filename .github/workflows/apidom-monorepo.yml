@@ -37,6 +37,7 @@ jobs:
     - name: Postinstall
       if: steps.cache-node-modules.outputs.cache-hit == 'true'
       run: npm run postinstall
+      working-directory: ./apidom
     - name: Security audit
       # filtering production deps only supported on >=npm@6.10.0
       if: startsWith(matrix.node-version, '12') || startsWith(matrix.node-version, '14')

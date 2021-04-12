@@ -31,7 +31,6 @@ jobs:
         path: ~/.npm
         key: npm-cache-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('apidom/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache-npm-cache-files.outputs.cache-hit != 'true'
       run: npm ci
       working-directory: ./apidom
 #    - name: Security audit

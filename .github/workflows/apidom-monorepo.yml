@@ -24,16 +24,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Cache Node Modules
-      id: cache-node-modules
+    - name: Cache npm cache files
+      id: cache-npm-cache-files
       uses: actions/cache@v2
       with:
-        path: |
-          /.cache/node-gyp
-          apidom/node_modules
-        key: node-modules-${{ hashFiles('apidom/package-lock.json') }}
+        path: ~/.npm
+        key: npm-cache-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('apidom/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      if: steps.cache-npm-cache-files.outputs.cache-hit != 'true'
       run: npm ci
       working-directory: ./apidom
 #    - name: Security audit
@@ -52,9 +50,9 @@ jobs:
     - name: Build monorepo
       run: npm run build
       working-directory: ./apidom
-    - name: Check TypeScript types
-      run: npm run typescript:check-types
-      working-directory: ./apidom
-    - name: Execute tests in monorepo
-      run: npm run test
-      working-directory: ./apidom
+#    - name: Check TypeScript types
+#      run: npm run typescript:check-types
+#      working-directory: ./apidom
+#    - name: Execute tests in monorepo
+#      run: npm run test
+#      working-directory: ./apidom

@@ -5,7 +5,6 @@ import { ObjectElement, Element, MemberElement, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
-import { appendMetadata } from '../../metadata';
 
 const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   props: {
@@ -51,7 +50,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           const patternedFieldElement = this.toRefractedElement(specPath, value);
           const newMemberElement = new MemberElement(key.clone(), patternedFieldElement);
           this.copyMetaAndAttributes(memberElement, newMemberElement);
-          appendMetadata(['patterned-field'], memberElement);
+          newMemberElement.classes.push('patterned-field');
           this.element.content.push(newMemberElement);
         } else if (!this.ignoredFields.includes(key.toValue())) {
           this.element.content.push(memberElement.clone());

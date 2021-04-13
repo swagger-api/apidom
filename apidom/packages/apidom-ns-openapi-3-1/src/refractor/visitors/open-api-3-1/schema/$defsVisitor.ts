@@ -3,7 +3,6 @@ import { always } from 'ramda';
 import { ObjectElement } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
-import { appendMetadata } from '../../../metadata';
 import MapVisitor from '../../generics/MapVisitor';
 
 const $defsVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -12,7 +11,7 @@ const $defsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    appendMetadata(['json-schema-$defs'], this.element);
+    this.element.classes.push('json-schema-$defs');
   },
 });
 

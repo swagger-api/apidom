@@ -6,7 +6,6 @@ import { isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { appendMetadata } from '../../../metadata';
 
 const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
@@ -21,7 +20,7 @@ const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    appendMetadata(['callbacks'], this.element);
+    this.element.classes.push('callbacks');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

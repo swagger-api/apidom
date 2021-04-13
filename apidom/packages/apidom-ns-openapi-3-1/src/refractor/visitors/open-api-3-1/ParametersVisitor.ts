@@ -4,7 +4,6 @@ import { ArrayElement, Element, BREAK } from 'apidom';
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isReferenceLikeElement, isParameterLikeElement } from '../../predicates';
-import { appendMetadata } from '../../metadata';
 
 const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
@@ -33,7 +32,7 @@ const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      appendMetadata(['parameters'], this.element);
+      this.element.classes.push('parameters');
 
       return BREAK;
     },

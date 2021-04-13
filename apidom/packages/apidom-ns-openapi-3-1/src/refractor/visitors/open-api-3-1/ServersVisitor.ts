@@ -3,7 +3,6 @@ import { ArrayElement, Element, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { appendMetadata } from '../../metadata';
 import { isServerLikeElement } from '../../predicates';
 
 const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
@@ -22,7 +21,7 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      appendMetadata(['servers'], this.element);
+      this.element.classes.push('servers');
 
       return BREAK;
     },

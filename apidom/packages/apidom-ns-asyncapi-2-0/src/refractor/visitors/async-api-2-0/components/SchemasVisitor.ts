@@ -3,7 +3,6 @@ import { ObjectElement, Element } from 'apidom';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { appendMetadata } from '../../../metadata';
 import { isReferenceLikeElement, isSchemaLikeElement } from '../../../predicates';
 
 const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -19,7 +18,7 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    appendMetadata(['schemas'], this.element);
+    this.element.classes.push('schemas');
   },
 });
 

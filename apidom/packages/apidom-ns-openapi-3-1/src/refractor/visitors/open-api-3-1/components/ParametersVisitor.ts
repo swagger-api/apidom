@@ -4,7 +4,6 @@ import { ObjectElement, Element } from 'apidom';
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { appendMetadata } from '../../../metadata';
 import { isParameterLikeElement, isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
@@ -21,7 +20,7 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    appendMetadata(['parameters'], this.element);
+    this.element.classes.push('parameters');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

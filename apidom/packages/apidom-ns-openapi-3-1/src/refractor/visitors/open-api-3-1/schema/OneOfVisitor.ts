@@ -3,11 +3,11 @@ import { ArrayElement, Element, isObjectElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import SpecificationVisitor from '../../SpecificationVisitor';
-import { appendMetadata } from '../../../metadata';
 
 const OneOfVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
+    this.element.classes.push('json-schema-oneOf');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -22,7 +22,6 @@ const OneOfVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      appendMetadata(['json-schema-oneOf'], this.element);
 
       return BREAK;
     },

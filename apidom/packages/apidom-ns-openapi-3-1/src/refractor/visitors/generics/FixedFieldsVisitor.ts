@@ -2,7 +2,6 @@ import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
 import { isStringElement, MemberElement, Element, BREAK } from 'apidom';
 
-import { appendMetadata } from '../../metadata';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
 
@@ -45,7 +44,7 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
           );
           const newMemberElement = new MemberElement(key.clone(), fixedFieldElement);
           this.copyMetaAndAttributes(memberElement, newMemberElement);
-          appendMetadata(['fixed-field'], newMemberElement);
+          newMemberElement.classes.push('fixed-field');
           this.element.content.push(newMemberElement);
         } else if (
           this.canSupportSpecificationExtensions &&

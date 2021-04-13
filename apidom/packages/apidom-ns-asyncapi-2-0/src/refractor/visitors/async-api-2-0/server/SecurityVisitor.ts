@@ -3,7 +3,6 @@ import { ArrayElement, Element, BREAK } from 'apidom';
 
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { appendMetadata } from '../../../metadata';
 import { isSecurityRequirementLikeElement } from '../../../predicates';
 
 const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
@@ -25,7 +24,7 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      appendMetadata(['security'], this.element);
+      this.element.classes.push('security');
 
       return BREAK;
     },

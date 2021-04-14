@@ -131,3 +131,38 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
+
+## Implementation progress
+
+Only fully implemented specification objects should be checked here.
+
+- [ ] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oasObject) (partial)
+- [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#infoObject)
+- [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#contactObject)
+- [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#licenseObject)
+- [x] [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#serverObject)
+- [x] [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#serverVariableObject)
+- [ ] [Components](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#componentsObject) (partial)
+- [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#pathsObject)
+- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#pathItemObject)
+- [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationObject)
+- [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#externalDocumentationObject)
+- [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject)
+- [ ] [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#requestBodyObject) (partial)
+- [ ] [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#mediaTypeObject) (partial)
+- [ ] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#encodingObject)
+- [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#responsesObject)
+- [ ] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#callbackObject) (partial)
+- [ ] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#exampleObject)
+- [ ] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#linkObject)
+- [ ] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#headerObject)
+- [ ] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#tagObject)
+- [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject)
+- [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#schemaObject)
+- [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#discriminatorObject)
+- [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#xmlObject)
+- [ ] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#securitySchemeObject)
+- [ ] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oauthFlowsObject)
+- [ ] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oauthFlowObject)
+- [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#securityRequirementObject)
+- [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#specificationExtensions)

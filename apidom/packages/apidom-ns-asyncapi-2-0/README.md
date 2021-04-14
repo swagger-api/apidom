@@ -131,3 +131,42 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
+
+## Implementation progress
+
+Only fully implemented specification objects should be checked here.
+
+- [ ] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SObject) (partial)
+- [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SVersionString)
+- [x] [Identifier](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
+- [x] [Info Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
+- [x] [Contact Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#contactObject)
+- [x] [License Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#license-object)
+- [x] [Servers Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serversObject)
+- [x] [Server Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverObject)
+- [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverVariableObject)
+- [ ] [Default Content Type](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#defaultContentTypeString)
+- [x] [Channels Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelsObject)
+- [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelItemObject)
+- [ ] [Operation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationObject) (partial)
+- [ ] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
+- [ ] [Message Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageObject)
+- [ ] [Message Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageTraitObject)
+- [ ] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)
+- [ ] [Tag Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tag-object)
+- [ ] [External Documentation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#externalDocumentationObject)
+- [ ] [Components Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#componentsObject) (partial)
+- [x] [Reference Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#referenceObject)
+- [ ] [Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject) (partial)
+- [ ] [Security Scheme Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#securitySchemeObject) (partial)
+- [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#security-requirement-object) (partial)
+- [ ] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flows-object)
+- [ ] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flow-object)
+- [ ] [Server Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverBindingsObject) (partial)
+- [x] [Parameters Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parametersObject)
+- [x] [Parameter Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parameterObject)
+- [ ] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object) (partial)
+- [ ] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operation-bindings-object)
+- [ ] [Message Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageBindingsObject)
+- [ ] [Correlation ID Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#correlationIdObject)
+- [x] [Specification Extension](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#specificationExtensions)

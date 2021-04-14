@@ -75,11 +75,11 @@ const specification = {
             servers: {
               $ref: '#/visitors/document/objects/Servers',
             },
-            components: {
-              $ref: '#/visitors/document/objects/Components',
-            },
             channels: {
               $ref: '#/visitors/document/objects/Channels',
+            },
+            components: {
+              $ref: '#/visitors/document/objects/Components',
             },
           },
         },

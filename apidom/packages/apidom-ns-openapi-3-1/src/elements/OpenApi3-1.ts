@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, StringElement } from 'apidom';
 
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';
@@ -18,6 +19,10 @@ class OpenApi3_1 extends ObjectElement {
 
   get info(): InfoElement {
     return this.get('info');
+  }
+
+  get jsonSchemaDialect(): StringElement {
+    return this.get('jsonSchemaDialect');
   }
 
   get servers(): ServerElement[] {

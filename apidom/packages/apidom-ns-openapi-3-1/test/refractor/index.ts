@@ -8,13 +8,13 @@ import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
   specify('should refract to OpenApi 3.1 namespace', function () {
-    const genericObject = new ObjectElement({
+    const genericObjectElement = new ObjectElement({
       openapi: '3.1.0',
     });
-    const openApiObject = OpenApi3_1Element.refract(genericObject);
+    const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
 
-    // console.log(toString(openApiObject));
-    assert.deepEqual(toValue(openApiObject), { openapi: '3.1.0' });
+    // console.log(toString(openApiElement));
+    assert.deepEqual(toValue(openApiElement), { openapi: '3.1.0' });
   });
 
   context('supports plugins', function () {
@@ -78,7 +78,7 @@ describe('refractor', function () {
           plugins: [plugin1],
         });
 
-        assert.hasAllKeys(plugin1.firstCall.args[0].predicates, Object.keys(predicates));
+        assert.hasAnyKeys(plugin1.firstCall.args[0].predicates, Object.keys(predicates));
       });
 
       specify('should have namespace in toolbox object', function () {

@@ -21,6 +21,7 @@ export {
   isContactElement,
   isExternalDocumentationElement,
   isInfoElement,
+  isJsonSchemaDialectElement,
   isLicenseElement,
   isOpenapiElement,
   isOpenApi3_1Element,

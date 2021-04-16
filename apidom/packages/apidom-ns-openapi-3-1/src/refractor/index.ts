@@ -1,12 +1,12 @@
 import { refract as baseRefract } from 'minim';
-import { propOr } from 'ramda';
+import { propOr, concat } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
-import { visit, Element, dereference, mergeAllVisitors, createNamespace } from 'apidom';
+import { visit, Element, dereference, mergeAllVisitors } from 'apidom';
 
 import specification from './specification';
-import * as predicates from '../predicates';
-import openApi3_1Namespace from '../namespace';
 import { keyMap, getNodeType } from '../traversal/visitor';
+import createToolbox from './toolbox';
+import embeddedResoucesPlugin from './plugins/embedded-resources-$schema';
 
 const refract = <T extends Element>(
   value: any,
@@ -29,10 +29,12 @@ const refract = <T extends Element>(
    * Running plugins visitors means extra single traversal.
    * This can be optimized in future for performance.
    */
-  if (plugins.length > 0) {
-    const namespace = createNamespace(openApi3_1Namespace);
-    const toolbox = { predicates: { ...predicates }, namespace };
-    const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
+  const defaultPlugins = [embeddedResoucesPlugin];
+  const allPlugins = concat(defaultPlugins, plugins);
+
+  if (allPlugins.length > 0) {
+    const toolbox = createToolbox();
+    const pluginsSpecs = allPlugins.map((plugin: any) => plugin(toolbox));
     const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')), {
       // @ts-ignore
       nodeTypeGetter: getNodeType,

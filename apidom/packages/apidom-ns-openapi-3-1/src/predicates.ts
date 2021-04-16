@@ -7,6 +7,7 @@ import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import InfoElement from './elements/Info';
+import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';
@@ -80,6 +81,18 @@ export const isInfoElement = createPredicate(
     return either(
       is(InfoElement),
       allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
+    );
+  },
+);
+
+export const isJsonSchemaDialectElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeJsonSchemaDialect = isElementType('jsonSchemaDialect');
+    const primitiveEqString = primitiveEq('string');
+
+    return either(
+      is(JsonSchemaDialectElement),
+      allPass([hasBasicElementProps, isElementTypeJsonSchemaDialect, primitiveEqString]),
     );
   },
 );

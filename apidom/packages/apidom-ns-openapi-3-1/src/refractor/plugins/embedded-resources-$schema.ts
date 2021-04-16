@@ -1,4 +1,5 @@
 import { last, defaultTo } from 'ramda';
+import { isUndefined } from 'ramda-adjunct';
 
 // @ts-ignore
 const plugin = ({ predicates, namespace }) => {
@@ -10,7 +11,7 @@ const plugin = ({ predicates, namespace }) => {
   const { isStringElement, isSchemaElement, isJsonSchemaDialectElement } = predicates;
 
   let ancestors: Array<typeof SchemaElement>;
-  let jsonSchemaDialect: typeof JsonSchemaDialectElement;
+  let jsonSchemaDialect: typeof JsonSchemaDialectElement = JsonSchemaDialectElement.default;
 
   return {
     name: 'embedded-resources-$schema',
@@ -25,19 +26,18 @@ const plugin = ({ predicates, namespace }) => {
           jsonSchemaDialect = JsonSchemaDialectElement.default;
         }
       },
-
       SchemaElement: {
         enter(schemaElement: typeof SchemaElement) {
           const parentSchema = last(ancestors);
 
-          if (!isSchemaElement(parentSchema) && !isStringElement(schemaElement.$schema)) {
+          if (isUndefined(parentSchema) && !isStringElement(schemaElement.$schema)) {
             // no parent available and no $schema is defined, set default jsonSchemaDialect
             schemaElement.setMetaProperty('inherited$schema', jsonSchemaDialect.toValue());
           } else if (isSchemaElement(parentSchema) && !isStringElement(schemaElement.$schema)) {
             // parent is available and no $schema is defined, set parent $schema
             const inherited$schema = defaultTo(
-              parentSchema.meta.get('inherited$schema'),
-              parentSchema.$schema,
+              parentSchema.meta.get('inherited$schema')?.toValue(),
+              parentSchema.$schema?.toValue(),
             );
             schemaElement.setMetaProperty('inherited$schema', inherited$schema);
           }

@@ -86,7 +86,7 @@ export const mergeAll = (
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] == null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ false);
-          if (fn) {
+          if (isFunction(fn)) {
             const result = fn.call(visitors[i], node, ...rest);
             if (result === false) {
               skipping[i] = node;
@@ -104,7 +104,7 @@ export const mergeAll = (
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] == null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ true);
-          if (fn) {
+          if (isFunction(fn)) {
             const result = fn.call(visitors[i], node, ...rest);
             if (result === BREAK) {
               skipping[i] = BREAK;

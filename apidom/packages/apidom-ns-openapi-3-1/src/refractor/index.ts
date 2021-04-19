@@ -6,7 +6,8 @@ import { visit, Element, dereference, mergeAllVisitors } from 'apidom';
 import specification from './specification';
 import { keyMap, getNodeType } from '../traversal/visitor';
 import createToolbox from './toolbox';
-import embeddedResoucesPlugin from './plugins/embedded-resources-$schema';
+import embeddedResources$schemaPlugin from './plugins/embedded-resources-$schema';
+import embeddedResources$idPlugin from './plugins/embedded-resources-$id';
 
 const refract = <T extends Element>(
   value: any,
@@ -29,7 +30,7 @@ const refract = <T extends Element>(
    * Running plugins visitors means extra single traversal.
    * This can be optimized in future for performance.
    */
-  const defaultPlugins = [embeddedResoucesPlugin];
+  const defaultPlugins = [embeddedResources$schemaPlugin, embeddedResources$idPlugin];
   const allPlugins = concat(defaultPlugins, plugins);
 
   if (allPlugins.length > 0) {

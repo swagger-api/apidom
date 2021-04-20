@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate } from 'apidom';
+import { createPredicate, isStringElement } from 'apidom';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
@@ -198,6 +198,9 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
   if (!isReferenceElement(element)) {
     return false;
   }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
 
   const value = element.$ref.toValue();
 
@@ -251,6 +254,19 @@ export const isSchemaElement = createPredicate(
     );
   },
 );
+
+export const isSchemaElementExternal = (keyword: string, element: any) => {
+  if (!isSchemaElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.get(keyword))) {
+    return false;
+  }
+
+  const value = element.get(keyword).toValue();
+
+  return isNonEmptyString(value) && !startsWith('#', value);
+};
 
 export const isSecurityRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

@@ -35,6 +35,7 @@ export {
   isResponseElement,
   isResponsesElement,
   isSchemaElement,
+  isSchemaElementExternal,
   isSecurityRequirementElement,
   isServerElement,
   isServerVariableElement,

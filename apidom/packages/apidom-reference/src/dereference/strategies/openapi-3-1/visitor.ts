@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { hasIn, pathSatisfies, propEq } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit, MemberElement } from 'apidom';
+import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -22,15 +22,31 @@ import Reference from '../../../Reference';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
+/**
+ * Cached version of SchemaElement.refract.
+ */
+const refractToSchemaElement = <T extends Element>(element: T) => {
+  if (refractToSchemaElement.cache.has(element)) {
+    return refractToSchemaElement.cache.get(element);
+  }
+
+  const refracted = SchemaElement.refract(element);
+  refractToSchemaElement.cache.set(element, refracted);
+  return refracted;
+};
+refractToSchemaElement.cache = new WeakMap();
+
 const OpenApi3_1DereferenceVisitor = stampit({
   props: {
-    indirections: [],
+    indirections: null,
+    visited: null,
     namespace: null,
     reference: null,
     options: null,
   },
-  init({ reference, namespace, indirections = [], options }) {
+  init({ indirections = [], visited = new WeakSet(), reference, namespace, options }) {
     this.indirections = indirections;
+    this.visited = visited;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
@@ -104,7 +120,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         }
       }
 
-      // detect direct or circular reference
+      // detect direct or indirect reference
       if (this.indirections.includes(fragment)) {
         throw new Error('Recursive JSON Pointer detected');
       }
@@ -147,15 +163,26 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return fragment;
     },
 
-    async SchemaElement(referencingElement: SchemaElement, ...rest: any[]) {
-      const [, , , ancestors] = rest;
-
+    async SchemaElement(referencingElement: SchemaElement) {
+      /**
+       * Skip traversal for already visited schemas and all their child schemas.
+       * visit function detects cycles in path automatically.
+       */
+      if (this.visited.has(referencingElement)) {
+        return false;
+      }
       // skip current referencing schema as $ref keyword was not defined
       if (!isStringElement(referencingElement.$ref)) {
+        // mark current referencing schema as visited
+        this.visited.add(referencingElement);
+        // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && isSchemaElementExternal('$ref', referencingElement)) {
+        // mark current referencing schema as visited
+        this.visited.add(referencingElement);
+        // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
 
@@ -167,20 +194,21 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const jsonPointer = uriToPointer(referencingElement.$ref?.toValue());
 
       // possibly non-semantic fragment
-      let refractedReferenceResult;
       let referencedElement;
 
       if (isPrimitiveElement(reference.value.result)) {
-        // applying semantics to a fragment
-        refractedReferenceResult = SchemaElement.refract(reference.value.result);
+        // applying semantics to entire parsing result due to $schema and $id behavior of inheritance
         // @ts-ignore
-        referencedElement = evaluate(jsonPointer, refractedReferenceResult);
+        referencedElement = evaluate(jsonPointer, refractToSchemaElement(reference.value.result));
       } else {
         // here we're assuming that result reference.value.result is already Schema Element
         referencedElement = evaluate(jsonPointer, reference.value.result);
       }
 
-      // detect direct or circular reference
+      // mark current referencing schema as visited
+      this.visited.add(referencingElement);
+
+      // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
         throw new Error('Recursive JSON Pointer detected');
       }
@@ -192,50 +220,37 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      // skip deep diving if referenced schema is ancestor of referencing schema
-      if (!ancestors.includes(referencedElement)) {
-        const { result: originalReferenceResult } = reference.value;
-
-        // avoid repeated refracting by overriding reference value result
-        if (refractedReferenceResult !== undefined) {
-          refractedReferenceResult.classes.push('result');
-          const index = reference.value.content.indexOf(originalReferenceResult);
-          reference.value.set(index, refractedReferenceResult);
-        }
-
-        // dive deep into the fragment
-        const visitor: any = OpenApi3_1DereferenceVisitor({
-          reference,
-          namespace: this.namespace,
-          indirections: [...this.indirections],
-          options: this.options,
-        });
-        referencedElement = await visitAsync(referencedElement, visitor, {
-          keyMap,
-          nodeTypeGetter: getNodeType,
-        });
-
-        // return reference value result to it's original form
-        if (refractedReferenceResult !== undefined) {
-          const index = reference.value.content.indexOf(refractedReferenceResult);
-          reference.value.set(index, originalReferenceResult);
-        }
-      }
+      // dive deep into the fragment
+      const visitor: any = OpenApi3_1DereferenceVisitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.options,
+        visited: this.visited,
+      });
+      referencedElement = await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
+      });
 
       this.indirections.pop();
 
-      // remove $ref keyword from referenced schema to avoid recursion
-      referencingElement.remove('$ref');
-
-      // merge keywords from referenced schema into referencing schema
-      referencedElement.forEach((value: any, key: any, member: MemberElement) => {
-        // existing keywords in referencing schema are overridden from referenced schema
-        referencingElement.remove(key.toValue());
-        referencingElement.content.push(member);
+      // merge keywords from referenced schema with referencing schema
+      const mergedResult = new SchemaElement(
+        // @ts-ignore
+        [...referencedElement.content],
+        referencedElement.meta.clone(),
+        referencedElement.attributes.clone(),
+      );
+      // existing keywords from referencing schema overrides ones from referenced schema
+      referencingElement.forEach((value: Element, key: Element, item: Element) => {
+        mergedResult.remove(key.toValue());
+        mergedResult.content.push(item);
       });
+      mergedResult.remove('$ref');
 
-      // skip traversing all children of the referencing schema
-      return false;
+      // transclude referencing element with merged referenced element
+      return mergedResult;
     },
   },
 });

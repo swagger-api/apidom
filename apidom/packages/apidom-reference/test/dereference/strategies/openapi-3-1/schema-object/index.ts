@@ -311,6 +311,54 @@ describe('dereference', function () {
           });
         });
 
+        context(
+          'given Schema Objects with $id keyword defined directly in referencing Schema Object',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$id-uri-direct');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          },
+        );
+
+        context(
+          'given Schema Objects with $id keyword defined in enclosing Schema Object',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$id-uri-enclosing');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          },
+        );
+
+        context('given Schema Objects with $id keyword pointing to external files', function () {
+          const fixturePath = path.join(rootFixturePath, '$id-uri-external');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects and maxDepth of dereference', function () {
           const fixturePath = path.join(rootFixturePath, 'max-depth');
 

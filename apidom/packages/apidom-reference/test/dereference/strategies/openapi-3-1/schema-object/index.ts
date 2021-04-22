@@ -179,6 +179,138 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects with $schema keyword defined', function () {
+          const fixturePath = path.join(rootFixturePath, '$schema-defined');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context(
+          'given Schema Objects with $schema keyword defined in enclosing Schema Object',
+          function () {
+            let dereferenced: any;
+            let expected: any;
+
+            beforeEach(async function () {
+              const fixturePath = path.join(rootFixturePath, '$schema-enclosing');
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+            });
+
+            specify('should dereference', async function () {
+              assert.deepEqual(toValue(dereferenced), expected);
+            });
+
+            specify('should retain $schema before dereferencing', function () {
+              const profile = evaluate(
+                '/0/components/schemas/User/properties/profile',
+                dereferenced,
+              );
+
+              assert.strictEqual(
+                profile.meta.get('inherited$schema').toValue(),
+                'https://spec.openapis.org/oas/3.1/dialect/base',
+              );
+            });
+          },
+        );
+
+        context('given Schema Objects with mixed $schema keyword defined', function () {
+          const fixturePath = path.join(rootFixturePath, '$schema-mixed');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Schema Objects with undefined $schema keyword', function () {
+          let dereferenced: any;
+          let expected: any;
+
+          beforeEach(async function () {
+            const fixturePath = path.join(rootFixturePath, '$schema-undefined');
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+          });
+
+          specify('should dereference', async function () {
+            assert.deepEqual(toValue(dereferenced), expected);
+          });
+
+          specify('should inherit default $schema dialect for User', function () {
+            const user = evaluate('/0/components/schemas/User', dereferenced);
+
+            assert.strictEqual(
+              user.meta.get('inherited$schema').toValue(),
+              'https://spec.openapis.org/oas/3.1/dialect/base',
+            );
+          });
+
+          specify('should inherit default $schema dialect for User.login', function () {
+            const user = evaluate('/0/components/schemas/User/properties/login', dereferenced);
+
+            assert.strictEqual(
+              user.meta.get('inherited$schema').toValue(),
+              'https://spec.openapis.org/oas/3.1/dialect/base',
+            );
+          });
+
+          specify('should inherit default $schema dialect for UserProfile', function () {
+            const user = evaluate('/0/components/schemas/UserProfile', dereferenced);
+
+            assert.strictEqual(
+              user.meta.get('inherited$schema').toValue(),
+              'https://spec.openapis.org/oas/3.1/dialect/base',
+            );
+          });
+
+          specify('should inherit default $schema dialect for UserProfile.login', function () {
+            const user = evaluate(
+              '/0/components/schemas/UserProfile/properties/avatar',
+              dereferenced,
+            );
+
+            assert.strictEqual(
+              user.meta.get('inherited$schema').toValue(),
+              'https://spec.openapis.org/oas/3.1/dialect/base',
+            );
+          });
+        });
+
+        context('given Schema Objects with unrecognized $schema keyword defined', function () {
+          const fixturePath = path.join(rootFixturePath, '$schema-unrecognized');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects and maxDepth of dereference', function () {
           const fixturePath = path.join(rootFixturePath, 'max-depth');
 

@@ -12,8 +12,9 @@ import {
   isSchemaElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
+import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { Reference as IReference } from '../../../types';
-import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
+import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
@@ -121,7 +122,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
 
       // possibly non-semantic fragment
-      let fragment = evaluate(jsonPointer, reference.value.result);
+      let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
       if (isPrimitiveElement(fragment)) {
@@ -210,7 +211,19 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.push(referencingElement);
 
-      const jsonPointer = uriToPointer(referencingElement.$ref?.toValue());
+      // determining proper evaluation and selection mechanism
+      const $refValue = referencingElement.$ref?.toValue();
+      let evaluate: any;
+      let selector: string;
+      if (isAnchor(uriToAnchor($refValue))) {
+        // we're dealing with JSON Schema $anchor here
+        evaluate = $anchorEvaluate;
+        selector = uriToAnchor($refValue);
+      } else {
+        // we're assuming here that we're dealing with JSON Pointer here
+        evaluate = jsonPointerEvaluate;
+        selector = uriToPointer($refValue);
+      }
 
       // possibly non-semantic fragment
       let referencedElement;
@@ -218,10 +231,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
       if (isPrimitiveElement(reference.value.result)) {
         // applying semantics to entire parsing result due to $schema and $id behavior of inheritance
         // @ts-ignore
-        referencedElement = evaluate(jsonPointer, refractToSchemaElement(reference.value.result));
+        referencedElement = evaluate(selector, refractToSchemaElement(reference.value.result));
       } else {
         // here we're assuming that result reference.value.result is already Schema Element
-        referencedElement = evaluate(jsonPointer, reference.value.result);
+        referencedElement = evaluate(selector, reference.value.result);
       }
 
       // mark current referencing schema as visited

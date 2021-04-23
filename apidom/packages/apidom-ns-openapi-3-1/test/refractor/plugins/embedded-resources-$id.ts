@@ -7,7 +7,7 @@ describe('refractor', function () {
   context('plugins', function () {
     context('embedded-resources-$id', function () {
       context('given Schema Object without $id field', function () {
-        specify('should not inherited $id from parent schema', function () {
+        specify('should have empty inherited$id', function () {
           const genericObjectElement = new ObjectElement({
             openapi: '3.1.0',
             components: {
@@ -20,9 +20,9 @@ describe('refractor', function () {
           });
           const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
           const schemaElement = find((e) => isSchemaElement(e), openApiElement);
-          const actual = schemaElement?.meta.get('inherited$id');
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
 
-          assert.isUndefined(actual);
+          assert.deepEqual(actual, []);
         });
       });
 
@@ -35,7 +35,7 @@ describe('refractor', function () {
             openapi: '3.1.0',
             components: {
               schemas: {
-                user: {
+                User: {
                   $anchor: '1',
                   type: 'object',
                   oneOf: [
@@ -43,7 +43,7 @@ describe('refractor', function () {
                       $id: '$id1',
                       $anchor: '2',
                       type: 'number',
-                      contains: { $anchor: '3', type: 'object' },
+                      contains: { $id: '$id2', $anchor: '3', type: 'object' },
                     },
                   ],
                   contains: {
@@ -57,51 +57,45 @@ describe('refractor', function () {
           openApiElement = OpenApi3_1Element.refract(genericObjectElement);
         });
 
-        specify('should not annotate Schema Object($anchor=1) with inherited $id', function () {
+        specify('should annotate Schema Object($anchor=1) with inherited$id', function () {
           const schemaElement = find(
             (e) => isSchemaElement(e) && e.$anchor.equals('1'),
             openApiElement,
           );
-          const actual = schemaElement?.meta.get('inherited$id');
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
 
-          assert.isUndefined(actual);
+          assert.deepEqual(actual, []);
         });
 
-        specify('should have Schema Object($anchor=2) $id set for appropriate value', function () {
+        specify('should annotate Schema Object($anchor=2) with inherited$id', function () {
           const schemaElement = find(
             (e) => isSchemaElement(e) && e.$anchor.equals('2'),
             openApiElement,
           );
           // @ts-ignore
-          const actual = schemaElement?.$id.toValue();
-          const expected = '$id1';
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
 
-          assert.strictEqual(actual, expected);
-          assert.isFalse(schemaElement?.meta.hasKey('inherited$id'));
+          assert.deepEqual(actual, ['$id1']);
         });
 
-        specify(
-          'should annotate Schema Object($anchor=3) with appropriate inherited $id',
-          function () {
-            const schemaElement = find(
-              (e) => isSchemaElement(e) && e.$anchor.equals('3'),
-              openApiElement,
-            );
-            const actual = schemaElement?.meta.get('inherited$id').toValue();
-            const expected = '$id1';
+        specify('should annotate Schema Object($anchor=3) with inherited$id', function () {
+          const schemaElement = find(
+            (e) => isSchemaElement(e) && e.$anchor.equals('3'),
+            openApiElement,
+          );
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
 
-            assert.strictEqual(actual, expected);
-          },
-        );
+          assert.deepEqual(actual, ['$id1', '$id2']);
+        });
 
-        specify('should not annotate Schema Object($anchor=4) with inherited $id', function () {
+        specify('should not annotate Schema Object($anchor=4) with inherited$id', function () {
           const schemaElement = find(
             (e) => isSchemaElement(e) && e.$anchor.equals('4'),
             openApiElement,
           );
-          const actual = schemaElement?.meta.get('inherited$id');
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
 
-          assert.isUndefined(actual);
+          assert.deepEqual(actual, []);
         });
       });
     });

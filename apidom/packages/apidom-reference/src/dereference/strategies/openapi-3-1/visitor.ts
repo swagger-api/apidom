@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { hasIn, pathSatisfies, propEq } from 'ramda';
-import { isNotUndefined, isNonEmptyString } from 'ramda-adjunct';
+import { hasIn, pathSatisfies, propEq, reduceRight } from 'ramda';
+import { isNotUndefined } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
 import {
   getNodeType,
@@ -35,6 +35,24 @@ const refractToSchemaElement = <T extends Element>(element: T) => {
   return refracted;
 };
 refractToSchemaElement.cache = new WeakMap();
+
+/**
+ * Folding of inherited$id list from right to left using
+ * URL resolving mechanism.
+ */
+const resolveInherited$id = (schemaElement: SchemaElement) =>
+  reduceRight(
+    ($id: string, acc: string): string => {
+      const uriWithoutHash = url.stripHash($id);
+      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
+        ? url.fromFileSystemPath(uriWithoutHash)
+        : uriWithoutHash;
+
+      return url.resolve(sanitizedURI, acc);
+    },
+    schemaElement.$ref?.toValue(),
+    schemaElement.meta.get('inherited$id').toValue(),
+  );
 
 const OpenApi3_1DereferenceVisitor = stampit({
   props: {
@@ -187,21 +205,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // compute Reference object using rules around $id and $ref keywords
-      const $refValue = referencingElement.$ref?.toValue();
-      const $idValue = referencingElement.$id?.toValue();
-      const $inheritedIdValue = referencingElement.meta.get('inherited$id')?.toValue();
-      let uri;
-      if (isNonEmptyString($idValue)) {
-        uri = url.stripHash($idValue);
-        uri = url.isFileSystemPath(uri) ? url.fromFileSystemPath(uri) : uri;
-        uri = url.resolve($idValue, $refValue);
-      } else if (isNonEmptyString($inheritedIdValue)) {
-        uri = url.stripHash($inheritedIdValue);
-        uri = url.isFileSystemPath(uri) ? url.fromFileSystemPath(uri) : uri;
-        uri = url.resolve($inheritedIdValue, $refValue);
-      } else {
-        uri = $refValue;
-      }
+      const uri = resolveInherited$id(referencingElement);
       const reference = await this.toReference(uri);
 
       this.indirections.push(referencingElement);

@@ -4,7 +4,11 @@ import { toValue } from 'apidom';
 import { isSchemaElement } from 'apidom-ns-openapi-3-1';
 
 import { dereference } from '../../../../../src';
-import { DereferenceError, MaximumDereferenceDepthError } from '../../../../../src/util/errors';
+import {
+  DereferenceError,
+  MaximumDereferenceDepthError,
+  ResolverError,
+} from '../../../../../src/util/errors';
 import { loadJsonFile } from '../../../../helpers';
 import { evaluate } from '../../../../../src/selectors/json-pointer';
 
@@ -359,6 +363,24 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects with unresolvable $id values', function () {
+          const fixturePath = path.join(rootFixturePath, '$id-unresolvable');
+
+          specify('should throw error', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            try {
+              await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              assert.fail('should throw DereferenceError');
+            } catch (error) {
+              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error.cause.cause, ResolverError);
+              assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
+            }
+          });
+        });
+
         context('given Schema Objects and maxDepth of dereference', function () {
           const fixturePath = path.join(rootFixturePath, 'max-depth');
 
@@ -388,6 +410,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -403,6 +426,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -418,6 +442,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -433,6 +458,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -448,6 +474,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -463,6 +490,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
@@ -478,6 +506,7 @@ describe('dereference', function () {
               await dereference(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }

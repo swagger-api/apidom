@@ -132,6 +132,11 @@ import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import OAuthFlowVisitor from './visitors/open-api-3-1/oauth-flow';
+import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow/AuthorizationUrl';
+import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrl';
+import OAuthFlowRefreshUrlVisitor from './visitors/open-api-3-1/oauth-flow/RefreshUrl';
+import OAuthFlowScopesVisitor from './visitors/open-api-3-1/oauth-flow/Scopes';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -469,6 +474,15 @@ const specification = {
             prefix: XmlPrefixVisitor,
             attribute: XmlAttributeVisitor,
             wrapped: XmlWrappedVisitor,
+          },
+        },
+        OAuthFlow: {
+          $visitor: OAuthFlowVisitor,
+          fixedFields: {
+            authorizationUrl: OAuthFlowAuthorizationUrlVisitor,
+            tokenUrl: OAuthFlowTokenUrlVisitor,
+            refreshUrl: OAuthFlowRefreshUrlVisitor,
+            scopes: OAuthFlowScopesVisitor,
           },
         },
         SecurityRequirement: {

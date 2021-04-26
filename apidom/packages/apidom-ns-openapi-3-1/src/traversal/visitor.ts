@@ -17,6 +17,7 @@ export const keyMap = {
   InfoElement: ['content'],
   LicenseElement: ['content'],
   MediaTypeElement: ['content'],
+  OAuthFlowElement: ['content'],
   OpenApi3_1Element: ['content'],
   OperationElement: ['content'],
   ParameterElement: ['content'],

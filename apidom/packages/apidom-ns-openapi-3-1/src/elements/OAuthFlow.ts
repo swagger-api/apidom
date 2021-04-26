@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, StringElement } from 'apidom';
 
 class OAuthFlow extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

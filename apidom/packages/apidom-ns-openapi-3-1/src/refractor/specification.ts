@@ -132,6 +132,7 @@ import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import OAuthFlowsVisitor from './visitors/open-api-3-1/oauth-flows';
 import OAuthFlowVisitor from './visitors/open-api-3-1/oauth-flow';
 import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow/AuthorizationUrl';
 import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrl';
@@ -474,6 +475,23 @@ const specification = {
             prefix: XmlPrefixVisitor,
             attribute: XmlAttributeVisitor,
             wrapped: XmlWrappedVisitor,
+          },
+        },
+        OAuthFlows: {
+          $visitor: OAuthFlowsVisitor,
+          fixedFields: {
+            implicit: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            password: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            clientCredentials: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            authorizationCode: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
           },
         },
         OAuthFlow: {

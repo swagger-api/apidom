@@ -8,6 +8,7 @@ import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
 import LicenseElement from '../elements/License';
 import MediaTypeElement from '../elements/MediaType';
 import OAuthFlowElement from '../elements/OAuthFlow';
+import OAuthFlowsElement from '../elements/OAuthFlows';
 import OpenapiElement from '../elements/Openapi';
 import OpenApi3_1Element from '../elements/OpenApi3-1';
 import OperationElement from '../elements/Operation';
@@ -89,6 +90,13 @@ OAuthFlowElement.refract = createRefractor([
   'document',
   'objects',
   'OAuthFlow',
+  '$visitor',
+]);
+OAuthFlowsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OAuthFlows',
   '$visitor',
 ]);
 OpenapiElement.refract = createRefractor([

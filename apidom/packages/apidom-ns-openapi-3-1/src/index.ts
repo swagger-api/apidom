@@ -77,6 +77,7 @@ export { default as ResponseElement } from './elements/Response';
 export { default as ResponsesElement } from './elements/Responses';
 export { default as SchemaElement } from './elements/Schema';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
+export { default as SecurityScheme } from './elements/SecurityScheme';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as XmlElement } from './elements/Xml';

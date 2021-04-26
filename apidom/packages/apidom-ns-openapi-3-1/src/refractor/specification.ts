@@ -132,12 +132,20 @@ import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import SecuritySchemeVisitor from './visitors/open-api-3-1/security-scheme';
+import SecuritySchemeTypeVisitor from './visitors/open-api-3-1/security-scheme/TypeVisitor';
+import SecuritySchemeDescriptionVisitor from './visitors/open-api-3-1/security-scheme/DescriptionVisitor';
+import SecuritySchemeNameVisitor from './visitors/open-api-3-1/security-scheme/NameVisitor';
+import SecuritySchemeInVisitor from './visitors/open-api-3-1/security-scheme/InVisitor';
+import SecuritySchemeSchemeVisitor from './visitors/open-api-3-1/security-scheme/SchemeVisitor';
+import SecuritySchemeBearerFormatVisitor from './visitors/open-api-3-1/security-scheme/BearerFormatVisitor';
+import SecuritySchemeOpenIdConnectUrlVisitor from './visitors/open-api-3-1/security-scheme/OpenIdConnectUrlVisitor';
 import OAuthFlowsVisitor from './visitors/open-api-3-1/oauth-flows';
 import OAuthFlowVisitor from './visitors/open-api-3-1/oauth-flow';
-import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow/AuthorizationUrl';
-import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrl';
-import OAuthFlowRefreshUrlVisitor from './visitors/open-api-3-1/oauth-flow/RefreshUrl';
-import OAuthFlowScopesVisitor from './visitors/open-api-3-1/oauth-flow/Scopes';
+import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow/AuthorizationUrlVisitor';
+import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrlVisitor';
+import OAuthFlowRefreshUrlVisitor from './visitors/open-api-3-1/oauth-flow/RefreshUrlVisitor';
+import OAuthFlowScopesVisitor from './visitors/open-api-3-1/oauth-flow/ScopesVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -475,6 +483,21 @@ const specification = {
             prefix: XmlPrefixVisitor,
             attribute: XmlAttributeVisitor,
             wrapped: XmlWrappedVisitor,
+          },
+        },
+        SecurityScheme: {
+          $visitor: SecuritySchemeVisitor,
+          fixedFields: {
+            type: SecuritySchemeTypeVisitor,
+            description: SecuritySchemeDescriptionVisitor,
+            name: SecuritySchemeNameVisitor,
+            in: SecuritySchemeInVisitor,
+            scheme: SecuritySchemeSchemeVisitor,
+            bearerFormat: SecuritySchemeBearerFormatVisitor,
+            flows: {
+              $ref: '#/visitors/document/objects/OAuthFlows',
+            },
+            openIdConnectUrl: SecuritySchemeOpenIdConnectUrlVisitor,
           },
         },
         OAuthFlows: {

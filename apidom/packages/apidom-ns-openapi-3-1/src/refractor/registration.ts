@@ -21,6 +21,7 @@ import ResponseElement from '../elements/Response';
 import ResponsesElement from '../elements/Responses';
 import SchemaElement from '../elements/Schema';
 import SecurityRequirementElement from '../elements/SecurityRequirement';
+import SecuritySchemeElement from '../elements/SecurityScheme';
 import ServerElement from '../elements/Server';
 import ServerVariableElement from '../elements/ServerVariable';
 import XmlElement from '../elements/Xml';
@@ -170,6 +171,13 @@ SecurityRequirementElement.refract = createRefractor([
   'document',
   'objects',
   'SecurityRequirement',
+  '$visitor',
+]);
+SecuritySchemeElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SecurityScheme',
   '$visitor',
 ]);
 ServerElement.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);

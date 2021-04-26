@@ -8,6 +8,8 @@ import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
+import MediaTypeElement from './elements/MediaType';
+import OAuthFlowElement from './elements/OAuthFlow';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';
 import OperationElement from './elements/Operation';
@@ -22,7 +24,6 @@ import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
-import MediaTypeElement from './elements/MediaType';
 import XmlElement from './elements/Xml';
 
 const openApi3_1 = {
@@ -37,6 +38,8 @@ const openApi3_1 = {
     base.register('info', InfoElement);
     base.register('jsonSchemaDialect', JsonSchemaDialectElement);
     base.register('license', LicenseElement);
+    base.register('mediaType', MediaTypeElement);
+    base.register('oAuthFlow', OAuthFlowElement);
     base.register('openapi', OpenapiElement);
     base.register('openApi3_1', OpenApi3_1Element);
     base.register('operation', OperationElement);
@@ -51,7 +54,6 @@ const openApi3_1 = {
     base.register('securityRequirement', SecurityRequirementElement);
     base.register('server', ServerElement);
     base.register('serverVariable', ServerVariableElement);
-    base.register('mediaType', MediaTypeElement);
     base.register('xml', XmlElement);
 
     return base;

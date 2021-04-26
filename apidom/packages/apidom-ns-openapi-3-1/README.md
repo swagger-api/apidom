@@ -163,6 +163,6 @@ Only fully implemented specification objects should be checked here.
 - [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#xmlObject)
 - [ ] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#securitySchemeObject)
 - [ ] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oauthFlowsObject)
-- [ ] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oauthFlowObject)
+- [x] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oauthFlowObject)
 - [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#securityRequirementObject)
 - [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#specificationExtensions)

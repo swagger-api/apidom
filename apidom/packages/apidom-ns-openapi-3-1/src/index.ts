@@ -63,6 +63,7 @@ export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';
 export { default as MediaTypeElement } from './elements/MediaType';
+export { default as OAuthFlowElement } from './elements/OAuthFlow';
 export { default as OpenapiElement } from './elements/Openapi';
 export { default as OpenApi3_1Element } from './elements/OpenApi3-1';
 export { default as OperationElement } from './elements/Operation';

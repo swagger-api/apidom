@@ -29,6 +29,9 @@ import FallbackVisitor from './visitors/FallbackVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import ComponentsVisitor from './visitors/open-api-3-1/components';
+import TagVisitor from './visitors/open-api-3-1/tag';
+import TagNameVisitor from './visitors/open-api-3-1/tag/NameVisitor';
+import TagDescriptionVisitor from './visitors/open-api-3-1/tag/DescriptionVisitor';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
 import Reference$RefVisitor from './visitors/open-api-3-1/reference/$RefVisitor';
 import ReferenceSummaryVisitor from './visitors/open-api-3-1/reference/SummaryVisitor';
@@ -348,6 +351,16 @@ const specification = {
         Callback: {
           $visitor: CallbackVisitor,
           fixedFields: {},
+        },
+        Tag: {
+          $visitor: TagVisitor,
+          fixedFields: {
+            name: TagNameVisitor,
+            description: TagDescriptionVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+          },
         },
         Reference: {
           $visitor: ReferenceVisitor,

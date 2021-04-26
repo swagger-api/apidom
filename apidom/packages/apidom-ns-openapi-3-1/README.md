@@ -156,7 +156,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#exampleObject)
 - [ ] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#linkObject)
 - [ ] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#headerObject)
-- [ ] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#tagObject)
+- [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#tagObject)
 - [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject)
 - [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#schemaObject)
 - [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#discriminatorObject)

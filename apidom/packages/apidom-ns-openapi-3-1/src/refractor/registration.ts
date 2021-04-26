@@ -7,6 +7,7 @@ import HeaderElement from '../elements/Header';
 import InfoElement from '../elements/Info';
 import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
 import LicenseElement from '../elements/License';
+import LinkElement from '../elements/Link';
 import MediaTypeElement from '../elements/MediaType';
 import OAuthFlowElement from '../elements/OAuthFlow';
 import OAuthFlowsElement from '../elements/OAuthFlows';
@@ -82,6 +83,7 @@ LicenseElement.refract = createRefractor([
   'License',
   '$visitor',
 ]);
+LinkElement.refract = createRefractor(['visitors', 'document', 'objects', 'Link', '$visitor']);
 MediaTypeElement.refract = createRefractor([
   'visitors',
   'document',

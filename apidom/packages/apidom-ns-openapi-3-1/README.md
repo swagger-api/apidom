@@ -154,7 +154,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#responsesObject)
 - [ ] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#callbackObject) (partial)
 - [ ] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#exampleObject)
-- [ ] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#linkObject)
+- [x] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#linkObject)
 - [x] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#headerObject)
 - [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#tagObject)
 - [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#referenceObject)

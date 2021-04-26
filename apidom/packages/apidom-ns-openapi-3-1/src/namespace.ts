@@ -5,6 +5,7 @@ import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import DiscriminatorElement from './elements/Discriminator';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
+import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
@@ -38,6 +39,7 @@ const openApi3_1 = {
     base.register('contact', ContactElement);
     base.register('discriminator', DiscriminatorElement);
     base.register('externalDocumentation', ExternalDocumentationElement);
+    base.register('header', HeaderElement);
     base.register('info', InfoElement);
     base.register('jsonSchemaDialect', JsonSchemaDialectElement);
     base.register('license', LicenseElement);

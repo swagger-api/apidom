@@ -59,6 +59,7 @@ export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
 export { default as DiscriminatorElement } from './elements/Discriminator';
 export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';
+export { default as HeaderElement } from './elements/Header';
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';

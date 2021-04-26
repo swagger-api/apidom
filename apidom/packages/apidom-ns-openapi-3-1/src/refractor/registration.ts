@@ -3,6 +3,7 @@ import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
 import DiscriminatorElement from '../elements/Discriminator';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
+import HeaderElement from '../elements/Header';
 import InfoElement from '../elements/Info';
 import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
 import LicenseElement from '../elements/License';
@@ -64,6 +65,7 @@ ExternalDocumentationElement.refract = createRefractor([
   'ExternalDocumentation',
   '$visitor',
 ]);
+HeaderElement.refract = createRefractor(['visitors', 'document', 'objects', 'Header', '$visitor']);
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
 JsonSchemaDialectElement.refract = createRefractor([
   'visitors',

@@ -14,6 +14,7 @@ export const keyMap = {
   ContactElement: ['content'],
   DiscriminatorElement: ['content'],
   ExternalDocumentationElement: ['content'],
+  HeaderElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
   MediaTypeElement: ['content'],
@@ -30,7 +31,9 @@ export const keyMap = {
   ResponsesElement: ['content'],
   SchemaElement: ['content'],
   SecurityRequirementElement: ['content'],
+  SecuritySchemeElement: ['content'],
   ServerElement: ['content'],
   ServerVariableElement: ['content'],
+  TagElement: ['content'],
   ...keyMapBase,
 };

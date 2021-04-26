@@ -23,6 +23,7 @@ import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
+import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import XmlElement from './elements/Xml';
@@ -54,6 +55,7 @@ const openApi3_1 = {
     base.register('responses', ResponsesElement);
     base.register('schema', SchemaElement);
     base.register('securityRequirement', SecurityRequirementElement);
+    base.register('securityScheme', SecuritySchemeElement);
     base.register('server', ServerElement);
     base.register('serverVariable', ServerVariableElement);
     base.register('xml', XmlElement);

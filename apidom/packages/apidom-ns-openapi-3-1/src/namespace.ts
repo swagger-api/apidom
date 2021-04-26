@@ -9,6 +9,7 @@ import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
+import LinkElement from './elements/Link';
 import MediaTypeElement from './elements/MediaType';
 import OAuthFlowElement from './elements/OAuthFlow';
 import OAuthFlowsElement from './elements/OAuthFlows';
@@ -43,6 +44,7 @@ const openApi3_1 = {
     base.register('info', InfoElement);
     base.register('jsonSchemaDialect', JsonSchemaDialectElement);
     base.register('license', LicenseElement);
+    base.register('link', LinkElement);
     base.register('mediaType', MediaTypeElement);
     base.register('oAuthFlow', OAuthFlowElement);
     base.register('oAuthFlows', OAuthFlowsElement);

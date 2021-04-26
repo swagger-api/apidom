@@ -15,6 +15,12 @@ import LicenseVisitor from './visitors/open-api-3-1/license';
 import LicenseNameVisitor from './visitors/open-api-3-1/license/NameVisitor';
 import LicenseIdentifierVisitor from './visitors/open-api-3-1/license/IdentifierVisitor';
 import LicenseUrlVisitor from './visitors/open-api-3-1/license/UrlVisitor';
+import LinkVisitor from './visitors/open-api-3-1/link';
+import LinkOperationRefVisitor from './visitors/open-api-3-1/link/OperationRefVisitor';
+import LinkOperationIdVisitor from './visitors/open-api-3-1/link/OperationIdVisitor';
+import LinkParametersVisitor from './visitors/open-api-3-1/link/ParametersVisitor';
+import LinkRequestBodyVisitor from './visitors/open-api-3-1/link/RequestBodyVisitor';
+import LinkDescriptionVisitor from './visitors/open-api-3-1/link/DescriptionVisitor';
 import JsonSchemaDialectVisitor from './visitors/open-api-3-1/JsonSchemaDialectVisitor';
 import ServerVisitor from './visitors/open-api-3-1/server';
 import ServerUrlVisitor from './visitors/open-api-3-1/server/UrlVisitor';
@@ -359,6 +365,19 @@ const specification = {
         Callback: {
           $visitor: CallbackVisitor,
           fixedFields: {},
+        },
+        Link: {
+          $visitor: LinkVisitor,
+          fixedFields: {
+            operationRef: LinkOperationRefVisitor,
+            operationId: LinkOperationIdVisitor,
+            parameters: LinkParametersVisitor,
+            requestBody: LinkRequestBodyVisitor,
+            description: LinkDescriptionVisitor,
+            server: {
+              $ref: '#/visitors/document/objects/Server',
+            },
+          },
         },
         Header: {
           $visitor: HeaderVisitor,

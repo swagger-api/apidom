@@ -63,6 +63,7 @@ export { default as HeaderElement } from './elements/Header';
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectVisitor } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';
+export { default as LinkElement } from './elements/Link';
 export { default as MediaTypeElement } from './elements/MediaType';
 export { default as OAuthFlowElement } from './elements/OAuthFlow';
 export { default as OAuthFlowsElement } from './elements/OAuthFlows';

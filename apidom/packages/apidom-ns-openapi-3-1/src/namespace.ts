@@ -26,6 +26,7 @@ import SecurityRequirementElement from './elements/SecurityRequirement';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
+import TagElement from './elements/Tag';
 import XmlElement from './elements/Xml';
 
 const openApi3_1 = {
@@ -58,6 +59,7 @@ const openApi3_1 = {
     base.register('securityScheme', SecuritySchemeElement);
     base.register('server', ServerElement);
     base.register('serverVariable', ServerVariableElement);
+    base.register('tag', TagElement);
     base.register('xml', XmlElement);
 
     return base;

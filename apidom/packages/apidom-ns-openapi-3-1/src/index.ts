@@ -80,4 +80,5 @@ export { default as SecurityRequirementElement } from './elements/SecurityRequir
 export { default as SecurityScheme } from './elements/SecurityScheme';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
+export { default as TagElement } from './elements/Tag';
 export { default as XmlElement } from './elements/Xml';

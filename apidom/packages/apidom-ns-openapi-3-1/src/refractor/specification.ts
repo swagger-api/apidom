@@ -46,6 +46,14 @@ import ParameterAllowEmptyValueVisitor from './visitors/open-api-3-1/parameter/A
 import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisitor';
 import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
 import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
+import HeaderVisitor from './visitors/open-api-3-1/header';
+import HeaderDescriptionVisitor from './visitors/open-api-3-1/header/DescriptionVisitor';
+import HeaderRequiredVisitor from './visitors/open-api-3-1/header/RequiredVisitor';
+import HeaderDeprecatedVisitor from './visitors/open-api-3-1/header/DeprecatedVisitor';
+import HeaderAllowEmptyValueVisitor from './visitors/open-api-3-1/header/AllowEmptyValueVisitor';
+import HeaderStyleVisitor from './visitors/open-api-3-1/header/StyleVisitor';
+import HeaderExplodeVisitor from './visitors/open-api-3-1/header/ExplodeVisitor';
+import HeaderAllowReservedVisitor from './visitors/open-api-3-1/header/AllowReservedVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
 import Schema$schemaVisitor from './visitors/open-api-3-1/schema/$schemaVisitor';
 import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor';
@@ -351,6 +359,24 @@ const specification = {
         Callback: {
           $visitor: CallbackVisitor,
           fixedFields: {},
+        },
+        Header: {
+          $visitor: HeaderVisitor,
+          fixedFields: {
+            description: HeaderDescriptionVisitor,
+            required: HeaderRequiredVisitor,
+            deprecated: HeaderDeprecatedVisitor,
+            allowEmptyValue: HeaderAllowEmptyValueVisitor,
+            style: HeaderStyleVisitor,
+            explode: HeaderExplodeVisitor,
+            allowReserved: HeaderAllowReservedVisitor,
+            schema: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            example: ParameterExampleVisitor,
+            examples: ExamplesVisitor,
+            content: ContentVisitor,
+          },
         },
         Tag: {
           $visitor: TagVisitor,

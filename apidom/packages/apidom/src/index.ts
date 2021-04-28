@@ -46,7 +46,7 @@ export {
 } from './predicates';
 export { default as createPredicate } from './predicates/helpers';
 
-export { filter, reject, find, findAtOffset, some, traverse } from './traversal';
+export { filter, reject, find, findAtOffset, some, traverse, parents } from './traversal';
 export {
   visit,
   BREAK,

@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Element, ObjectElement, ArrayElement, MemberElement } from 'apidom';
+import { Element, ObjectElement, ArrayElement, MemberElement } from 'minim';
 
 import { visit } from './visitor';
 

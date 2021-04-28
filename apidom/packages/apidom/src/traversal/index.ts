@@ -4,3 +4,4 @@ export { default as findAtOffset } from './findAtOffset';
 export { default as reject } from './reject';
 export { default as some } from './some';
 export { default as traverse } from './traverse';
+export { default as parents } from './parents';

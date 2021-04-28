@@ -37,7 +37,7 @@ const Visitor = stampit({
 
 /* eslint-enable */
 
-// computes edges from all children to it's parent in mutating way by assigning parent to child prototype
+// computes upwards edges from every child to it's parent
 // find :: Element -> WeakMap<Element, Element>
 const parents = <T extends Element>(element: T): WeakMap<Element, Element> => {
   const visitor = Visitor();

@@ -40,6 +40,22 @@ describe('dereference', function () {
 
             assert.isTrue(isParameterElement(fragment));
           });
+
+          specify(
+            'should annotate transcluded element with additional metadata',
+            async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              const fragment = evaluate('/0/components/parameters/userId', dereferenced);
+
+              assert.strictEqual(
+                fragment.meta.get('ref-fields').get('$ref').toValue(),
+                '#/components/parameters/indirection1',
+              );
+            },
+          );
         });
 
         context('given Reference Objects pointing internally only', function () {

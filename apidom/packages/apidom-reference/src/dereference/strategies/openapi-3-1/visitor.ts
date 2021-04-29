@@ -160,20 +160,27 @@ const OpenApi3_1DereferenceVisitor = stampit({
       });
       fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
+      fragment = fragment.clone();
+
+      // annotate fragment with info about original Reference element
+      fragment.setMetaProperty('ref-fields', {
+        $ref: referenceElement.$ref.toValue(),
+        // @ts-ignore
+        description: referenceElement.description?.toValue(),
+        // @ts-ignore
+        summary: referenceElement.summary?.toValue(),
+      });
+
       // override description and summary (outer has higher priority then inner)
       const hasDescription = pathSatisfies(isNotUndefined, ['description'], referenceElement);
       const hasSummary = pathSatisfies(isNotUndefined, ['summary'], referenceElement);
-      if (hasDescription || hasSummary) {
-        fragment = fragment.clone();
-
-        if (hasDescription && hasIn('description', fragment)) {
-          // @ts-ignore
-          fragment.description = referenceElement.description;
-        }
-        if (hasSummary && hasIn('summary', fragment)) {
-          // @ts-ignore
-          fragment.summary = referenceElement.summary;
-        }
+      if (hasDescription && hasIn('description', fragment)) {
+        // @ts-ignore
+        fragment.description = referenceElement.description;
+      }
+      if (hasSummary && hasIn('summary', fragment)) {
+        // @ts-ignore
+        fragment.summary = referenceElement.summary;
       }
 
       this.indirections.pop();
@@ -280,6 +287,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
         mergedResult.content.push(item);
       });
       mergedResult.remove('$ref');
+
+      // annotate referencing element with info about original referenced element
+      mergedResult.setMetaProperty('ref-fields', {
+        $ref: referencingElement.$ref?.toValue(),
+      });
 
       // transclude referencing element with merged referenced element
       return mergedResult;

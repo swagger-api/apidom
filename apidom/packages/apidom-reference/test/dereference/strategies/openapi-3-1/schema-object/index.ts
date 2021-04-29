@@ -41,6 +41,25 @@ describe('dereference', function () {
 
             assert.isTrue(isSchemaElement(fragment));
           });
+
+          specify(
+            'should annotate transcluded element with additional metadata',
+            async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              const fragment = evaluate(
+                '/0/components/schemas/User/properties/profile',
+                dereferenced,
+              );
+
+              assert.strictEqual(
+                fragment.meta.get('ref-fields').get('$ref').toValue(),
+                '#/components/schemas/UserProfile',
+              );
+            },
+          );
         });
 
         context('given Schema Objects pointing internally only', function () {

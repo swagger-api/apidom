@@ -119,6 +119,12 @@ const AsyncApi2_0DereferenceVisitor = stampit({
       });
       fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
+      // annotate fragment with info about original Reference element
+      fragment = fragment.clone();
+      fragment.setMetaProperty('ref-fields', {
+        $ref: referenceElement.$ref.toValue(),
+      });
+
       this.indirections.pop();
 
       // transclude the element for a fragment

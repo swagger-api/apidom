@@ -211,6 +211,20 @@ const arrayElement = new ArrayElement([1, 'a']);
 traverse({ callback: console.dir, predicate: isNumberElement }, arrayElement); // => prints NumberElement<1>
 ```
 
+### parents
+
+Computes upwards edges from every child to its parent.
+
+```js
+import { ObjectElement, parents } from 'apidom';
+
+const objectElement = new ObjectElement({
+  a: [1, 2, { b: 'c', d: 'e' }],
+});
+
+const parentEdges = parents(objectElement); // => WeakMap<childElement, parentElement>
+```
+
 ## Transformers
 
 Following functions transforms ApiDOM between its various forms. All transformers (except `toValue`) can accept

@@ -1,14 +1,17 @@
 import stampit from 'stampit';
 import { propEq, values, has, pipe } from 'ramda';
 import { allP } from 'ramda-adjunct';
-import { isPrimitiveElement, visit } from 'apidom';
+import { isPrimitiveElement, isStringElement, visit } from 'apidom';
 import {
   getNodeType,
   isReferenceElement,
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  SchemaElement,
   isReferenceElementExternal,
+  isSchemaElementExternal,
+  isSchemaElement,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
@@ -16,7 +19,16 @@ import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../.
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
-import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
+import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
+import {
+  refractToSchemaElement,
+  resolveInherited$id,
+} from '../../../dereference/strategies/openapi-3-1/visitor';
+import {
+  evaluate as $anchorEvaluate,
+  isAnchor,
+  uriToAnchor,
+} from '../../../dereference/strategies/openapi-3-1/selectors/$anchor';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -28,14 +40,16 @@ const OpenApi3_1ResolveVisitor = stampit({
     reference: null,
     crawledElements: null,
     crawlingMap: null,
+    visited: null,
     options: null,
   },
-  init({ reference, namespace, indirections = [], options }) {
+  init({ reference, namespace, indirections = [], visited = new WeakSet(), options }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
     this.crawledElements = [];
     this.crawlingMap = {};
+    this.visited = visited;
     this.options = options;
   },
   methods: {
@@ -95,6 +109,41 @@ const OpenApi3_1ResolveVisitor = stampit({
       return undefined;
     },
 
+    SchemaElement(schemaElement: SchemaElement) {
+      /**
+       * Skip traversal for already visited schemas and all their child schemas.
+       * visit function detects cycles in path automatically.
+       */
+      if (this.visited.has(schemaElement)) {
+        return false;
+      }
+      // skip current referencing schema as $ref keyword was not defined
+      if (!isStringElement(schemaElement.$ref)) {
+        // mark current referencing schema as visited
+        this.visited.add(schemaElement);
+        // skip traversing this schema but traverse all it's child schemas
+        return undefined;
+      }
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && isSchemaElementExternal('$ref', schemaElement)) {
+        // mark current referencing schema as visited
+        this.visited.add(schemaElement);
+        // skip traversing this schema but traverse all it's child schemas
+        return undefined;
+      }
+
+      // compute Reference object using rules around $id and $ref keywords
+      const uri = resolveInherited$id(schemaElement);
+      const baseURI = this.toBaseURI(uri);
+
+      if (!has(baseURI, this.crawlingMap)) {
+        this.crawlingMap[baseURI] = this.toReference(uri);
+      }
+      this.crawledElements.push(schemaElement);
+
+      return undefined;
+    },
+
     async crawlReferenceElement(referenceElement: ReferenceElement) {
       // @ts-ignore
       const reference = await this.toReference(referenceElement.$ref.toValue());
@@ -104,7 +153,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
 
       // possibly non-semantic fragment
-      let fragment = evaluate(jsonPointer, reference.value.result);
+      let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
       if (isPrimitiveElement(fragment)) {
@@ -146,6 +195,71 @@ const OpenApi3_1ResolveVisitor = stampit({
       this.indirections.pop();
     },
 
+    async crawlSchemaElement(referencingElement: SchemaElement) {
+      // compute Reference object using rules around $id and $ref keywords
+      const uri = resolveInherited$id(referencingElement);
+      const reference = await this.toReference(uri);
+
+      this.indirections.push(referencingElement);
+
+      // determining proper evaluation and selection mechanism
+      const $refValue = referencingElement.$ref?.toValue();
+      let evaluate: any;
+      let selector: string;
+      if (isAnchor(uriToAnchor($refValue))) {
+        // we're dealing with JSON Schema $anchor here
+        evaluate = $anchorEvaluate;
+        selector = uriToAnchor($refValue);
+      } else {
+        // we're assuming here that we're dealing with JSON Pointer here
+        evaluate = jsonPointerEvaluate;
+        selector = uriToPointer($refValue);
+      }
+
+      // possibly non-semantic fragment
+      let referencedElement;
+
+      if (isPrimitiveElement(reference.value.result)) {
+        // applying semantics to entire parsing result due to $schema and $id behavior of inheritance
+        // @ts-ignore
+        referencedElement = evaluate(selector, refractToSchemaElement(reference.value.result));
+      } else {
+        // here we're assuming that result reference.value.result is already Schema Element
+        referencedElement = evaluate(selector, reference.value.result);
+      }
+
+      // mark current referencing schema as visited
+      this.visited.add(referencingElement);
+
+      // detect direct or indirect reference
+      if (this.indirections.includes(referencedElement)) {
+        throw new Error('Recursive JSON Pointer detected');
+      }
+
+      // detect maximum depth of dereferencing
+      if (this.indirections.length > this.options.dereference.maxDepth) {
+        throw new MaximumDereferenceDepthError(
+          `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+        );
+      }
+
+      // dive deep into the fragment
+      const visitor: any = OpenApi3_1ResolveVisitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.options,
+        visited: this.visited,
+      });
+      await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
+      });
+      await visitor.crawl();
+
+      this.indirections.pop();
+    },
+
     async crawl() {
       /**
        * Synchronize all parallel resolutions in this place.
@@ -155,11 +269,15 @@ const OpenApi3_1ResolveVisitor = stampit({
       await pipe(values, allP)(this.crawlingMap);
       this.crawlingMap = null;
 
+      /* eslint-disable no-await-in-loop */
       for (const element of this.crawledElements) {
         if (isReferenceElement(element)) {
-          await this.crawlReferenceElement(element); // eslint-disable-line no-await-in-loop
+          await this.crawlReferenceElement(element);
+        } else if (isSchemaElement(element)) {
+          await this.crawlSchemaElement(element);
         }
       }
+      /* eslint-enable */
     },
   },
 });

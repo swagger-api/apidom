@@ -65,7 +65,7 @@ describe('resolve', function () {
         context('given Reference Objects with external resolution disable', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 
-          specify('should resolve', async function () {
+          specify('should not resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },

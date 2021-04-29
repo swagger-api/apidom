@@ -26,7 +26,7 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 /**
  * Cached version of SchemaElement.refract.
  */
-const refractToSchemaElement = <T extends Element>(element: T) => {
+export const refractToSchemaElement = <T extends Element>(element: T) => {
   if (refractToSchemaElement.cache.has(element)) {
     return refractToSchemaElement.cache.get(element);
   }
@@ -41,7 +41,7 @@ refractToSchemaElement.cache = new WeakMap();
  * Folding of inherited$id list from right to left using
  * URL resolving mechanism.
  */
-const resolveInherited$id = (schemaElement: SchemaElement) =>
+export const resolveInherited$id = (schemaElement: SchemaElement) =>
   reduceRight(
     ($id: string, acc: string): string => {
       const uriWithoutHash = url.stripHash($id);

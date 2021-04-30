@@ -20,10 +20,7 @@ import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
-import {
-  refractToSchemaElement,
-  resolveInherited$id,
-} from '../../../dereference/strategies/openapi-3-1/visitor';
+import { refractToSchemaElement, resolveInherited$id } from './util';
 import {
   evaluate as $anchorEvaluate,
   isAnchor,
@@ -78,7 +75,10 @@ const OpenApi3_1ResolveVisitor = stampit({
         return refSet.find(propEq('uri', baseURI));
       }
 
-      const parseResult = await parse(baseURI, this.options);
+      const parseResult = await parse(baseURI, {
+        ...this.options,
+        parse: { ...this.options.parse, mediaType: 'text/plain' },
+      });
 
       // register new Reference with ReferenceSet
       const reference = Reference({

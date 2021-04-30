@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { hasIn, pathSatisfies, propEq, reduceRight } from 'ramda';
+import { hasIn, pathSatisfies, propEq } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
 import {
@@ -19,41 +19,13 @@ import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../.
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
+import {
+  resolveInherited$id,
+  refractToSchemaElement,
+} from '../../../resolve/strategies/openapi-3-1/util';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
-
-/**
- * Cached version of SchemaElement.refract.
- */
-export const refractToSchemaElement = <T extends Element>(element: T) => {
-  if (refractToSchemaElement.cache.has(element)) {
-    return refractToSchemaElement.cache.get(element);
-  }
-
-  const refracted = SchemaElement.refract(element);
-  refractToSchemaElement.cache.set(element, refracted);
-  return refracted;
-};
-refractToSchemaElement.cache = new WeakMap();
-
-/**
- * Folding of inherited$id list from right to left using
- * URL resolving mechanism.
- */
-export const resolveInherited$id = (schemaElement: SchemaElement) =>
-  reduceRight(
-    ($id: string, acc: string): string => {
-      const uriWithoutHash = url.stripHash($id);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-
-      return url.resolve(sanitizedURI, acc);
-    },
-    schemaElement.$ref?.toValue(),
-    schemaElement.meta.get('inherited$id').toValue(),
-  );
 
 const OpenApi3_1DereferenceVisitor = stampit({
   props: {

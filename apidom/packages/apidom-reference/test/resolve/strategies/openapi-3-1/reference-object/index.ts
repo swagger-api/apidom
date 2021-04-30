@@ -1,8 +1,13 @@
 import path from 'path';
 import { assert } from 'chai';
 
-import { resolve } from '../../../../../src';
-import { MaximumResolverDepthError, ResolverError } from '../../../../../src/util/errors';
+import { dereference, resolve } from '../../../../../src';
+import {
+  MaximumResolverDepthError,
+  MaximumDereferenceDepthError,
+  ResolverError,
+  DereferenceError,
+} from '../../../../../src/util/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
@@ -176,6 +181,26 @@ describe('resolve', function () {
             });
 
             assert.strictEqual(refSet.size, 2);
+          });
+        });
+
+        context('given Reference Objects and maxDepth of dereference', function () {
+          const fixturePath = path.join(rootFixturePath, 'max-depth');
+
+          specify('should throw error', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+
+            try {
+              await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                dereference: { maxDepth: 2 },
+              });
+              assert.fail('should throw MaximumDereferenceDepthError');
+            } catch (error) {
+              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+              assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
+            }
           });
         });
 

@@ -1,252 +1,149 @@
 import path from 'path';
 import { assert } from 'chai';
-import { toValue } from 'apidom';
-import { isSchemaElement } from 'apidom-ns-openapi-3-1';
 
-import { dereference } from '../../../../../src';
+import { resolve } from '../../../../../src';
 import {
-  DereferenceError,
   MaximumDereferenceDepthError,
   MaximumResolverDepthError,
   ResolverError,
 } from '../../../../../src/util/errors';
-import { loadJsonFile } from '../../../../helpers';
-import { evaluate } from '../../../../../src/selectors/json-pointer';
 import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
-describe('dereference', function () {
+describe('resolve', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
       context('Schema Object - $ref keyword from core vocabulary', function () {
         context('given Reference Objects pointing internally and externally', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-external');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 2);
           });
-
-          specify('should apply semantics to external fragment', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const dereferenced = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-            });
-            const fragment = evaluate('/0/components/schemas/Order', dereferenced);
-
-            assert.isTrue(isSchemaElement(fragment));
-          });
-
-          specify(
-            'should annotate transcluded element with additional metadata',
-            async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const dereferenced = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-              });
-              const fragment = evaluate(
-                '/0/components/schemas/User/properties/profile',
-                dereferenced,
-              );
-
-              assert.strictEqual(
-                fragment.meta.get('ref-fields').get('$ref').toValue(),
-                '#/components/schemas/UserProfile',
-              );
-            },
-          );
         });
 
         context('given Schema Objects pointing internally only', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-only');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context('given Schema Objects with internal cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-internal');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const dereferenced = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
-            const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/parent/properties/parent',
-              dereferenced,
-            );
 
-            assert.strictEqual(parent, cyclicParent);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context('given Schema Objects with external cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-external');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const dereferenced = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const parent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent',
-              dereferenced,
-            );
-            const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent',
-              dereferenced,
-            );
 
-            assert.strictEqual(parent, cyclicParent);
+            assert.strictEqual(refSet.size, 2);
           });
         });
 
         context('given Schema Objects with internal and external cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-internal-external');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const dereferenced = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const user = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user',
-              dereferenced,
-            );
-            const cyclicUserInProfile = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user/properties/profile/properties/user',
-              dereferenced,
-            );
 
-            assert.strictEqual(user, cyclicUserInProfile);
+            assert.strictEqual(refSet.size, 2);
           });
         });
 
         context('given Schema Objects with external resolution disabled', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               resolve: { external: false },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
-          });
-        });
-
-        context('given Schema Objects with overlapping keywords', function () {
-          const fixturePath = path.join(rootFixturePath, 'merging-keywords');
-
-          specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-            });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context('given Schema Objects pointing externally only', function () {
           const fixturePath = path.join(rootFixturePath, 'external-only');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 2);
           });
         });
 
         context('given Schema Objects pointing to external indirections', function () {
           const fixturePath = path.join(rootFixturePath, 'external-indirections');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
-          });
-
-          specify('should apply semantics to eventual external fragment', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const dereferenced = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-            });
-            const fragment = evaluate('/0/components/schemas/Indirection', dereferenced);
-
-            assert.isTrue(isSchemaElement(fragment));
+            assert.strictEqual(refSet.size, 4);
           });
         });
 
         context('given Schema Objects with $schema keyword defined', function () {
           const fixturePath = path.join(rootFixturePath, '$schema-defined');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context(
           'given Schema Objects with $schema keyword defined in enclosing Schema Object',
           function () {
-            let dereferenced: any;
-            let expected: any;
-
-            beforeEach(async function () {
+            specify('should resolve', async function () {
               const fixturePath = path.join(rootFixturePath, '$schema-enclosing');
               const rootFilePath = path.join(fixturePath, 'root.json');
-              dereferenced = await dereference(rootFilePath, {
+              const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-            });
 
-            specify('should dereference', async function () {
-              assert.deepEqual(toValue(dereferenced), expected);
-            });
-
-            specify('should retain $schema before dereferencing', function () {
-              const profile = evaluate(
-                '/0/components/schemas/User/properties/profile',
-                dereferenced,
-              );
-
-              assert.strictEqual(
-                profile.meta.get('inherited$schema').toValue(),
-                'https://spec.openapis.org/oas/3.1/dialect/base',
-              );
+              assert.strictEqual(refSet.size, 1);
             });
           },
         );
@@ -254,85 +151,38 @@ describe('dereference', function () {
         context('given Schema Objects with mixed $schema keyword defined', function () {
           const fixturePath = path.join(rootFixturePath, '$schema-mixed');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context('given Schema Objects with undefined $schema keyword', function () {
-          let dereferenced: any;
-          let expected: any;
-
-          beforeEach(async function () {
+          specify('should resolve', async function () {
             const fixturePath = path.join(rootFixturePath, '$schema-undefined');
             const rootFilePath = path.join(fixturePath, 'root.json');
-            dereferenced = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-          });
 
-          specify('should dereference', async function () {
-            assert.deepEqual(toValue(dereferenced), expected);
-          });
-
-          specify('should inherit default $schema dialect for User', function () {
-            const user = evaluate('/0/components/schemas/User', dereferenced);
-
-            assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
-              'https://spec.openapis.org/oas/3.1/dialect/base',
-            );
-          });
-
-          specify('should inherit default $schema dialect for User.login', function () {
-            const user = evaluate('/0/components/schemas/User/properties/login', dereferenced);
-
-            assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
-              'https://spec.openapis.org/oas/3.1/dialect/base',
-            );
-          });
-
-          specify('should inherit default $schema dialect for UserProfile', function () {
-            const user = evaluate('/0/components/schemas/UserProfile', dereferenced);
-
-            assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
-              'https://spec.openapis.org/oas/3.1/dialect/base',
-            );
-          });
-
-          specify('should inherit default $schema dialect for UserProfile.login', function () {
-            const user = evaluate(
-              '/0/components/schemas/UserProfile/properties/avatar',
-              dereferenced,
-            );
-
-            assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
-              'https://spec.openapis.org/oas/3.1/dialect/base',
-            );
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
         context('given Schema Objects with unrecognized $schema keyword defined', function () {
           const fixturePath = path.join(rootFixturePath, '$schema-unrecognized');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
@@ -341,14 +191,13 @@ describe('dereference', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$id-uri-direct');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              assert.deepEqual(toValue(actual), expected);
+              assert.strictEqual(refSet.size, 2);
             });
           },
         );
@@ -358,14 +207,13 @@ describe('dereference', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$id-uri-enclosing');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              assert.deepEqual(toValue(actual), expected);
+              assert.strictEqual(refSet.size, 2);
             });
           },
         );
@@ -373,14 +221,13 @@ describe('dereference', function () {
         context('given Schema Objects with $id keyword pointing to external files', function () {
           const fixturePath = path.join(rootFixturePath, '$id-uri-external');
 
-          specify('should dereference', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const refSet = await resolve(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-            assert.deepEqual(toValue(actual), expected);
+            assert.strictEqual(refSet.size, 3);
           });
         });
 
@@ -390,12 +237,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (error) {
-              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, ResolverError);
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
             }
@@ -407,14 +254,13 @@ describe('dereference', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$anchor-internal');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              assert.deepEqual(toValue(actual), expected);
+              assert.strictEqual(refSet.size, 1);
             });
           },
         );
@@ -426,12 +272,11 @@ describe('dereference', function () {
 
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              assert.deepEqual(toValue(actual), expected);
+              assert.strictEqual(refSet.size, 2);
             });
           },
         );
@@ -442,12 +287,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (error) {
-              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, EvaluationJsonSchema$anchorError);
             }
           });
@@ -460,13 +305,13 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
 
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error) {
-              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
@@ -480,13 +325,13 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
 
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 resolve: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumResolverDepthError');
             } catch (error) {
-              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
@@ -499,12 +344,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -515,12 +360,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -531,12 +376,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -547,12 +392,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -563,12 +408,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -579,12 +424,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });
@@ -595,12 +440,12 @@ describe('dereference', function () {
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
-              assert.fail('should throw DereferenceError');
+              assert.fail('should throw ResolverError');
             } catch (e) {
-              assert.instanceOf(e, DereferenceError);
+              assert.instanceOf(e, ResolverError);
             }
           });
         });

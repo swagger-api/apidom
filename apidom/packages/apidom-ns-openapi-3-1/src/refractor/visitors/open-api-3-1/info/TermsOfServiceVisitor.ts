@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const TermsOfServiceVisitor = stampit(FallbackVisitor);
+const TermsOfServiceVisitor = FallbackVisitor;
 
 export default TermsOfServiceVisitor;

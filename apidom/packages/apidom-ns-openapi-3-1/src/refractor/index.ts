@@ -11,7 +11,11 @@ import embeddedResources$idPlugin from './plugins/embedded-resources-$id';
 
 const refract = <T extends Element>(
   value: any,
-  { specPath = ['visitors', 'document', 'objects', 'OpenApi', '$visitor'], plugins = [] } = {},
+  {
+    specPath = ['visitors', 'document', 'objects', 'OpenApi', '$visitor'],
+    plugins = [],
+    defaultPlugins = [embeddedResources$schemaPlugin, embeddedResources$idPlugin],
+  } = {},
 ): T => {
   const element = baseRefract(value);
   const resolvedSpec = dereference(specification);
@@ -30,7 +34,6 @@ const refract = <T extends Element>(
    * Running plugins visitors means extra single traversal.
    * This can be optimized in future for performance.
    */
-  const defaultPlugins = [embeddedResources$schemaPlugin, embeddedResources$idPlugin];
   const allPlugins = concat(defaultPlugins, plugins);
 
   if (allPlugins.length > 0) {

@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const DeprecatedVisitor = stampit(FallbackVisitor);
+const DeprecatedVisitor = FallbackVisitor;
 
 export default DeprecatedVisitor;

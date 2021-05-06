@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const TokenUrlVisitor = stampit(FallbackVisitor);
+const TokenUrlVisitor = FallbackVisitor;
 
 export default TokenUrlVisitor;

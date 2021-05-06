@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const RegexVisitor = stampit(FallbackVisitor);
+const RegexVisitor = FallbackVisitor;
 
 export default RegexVisitor;

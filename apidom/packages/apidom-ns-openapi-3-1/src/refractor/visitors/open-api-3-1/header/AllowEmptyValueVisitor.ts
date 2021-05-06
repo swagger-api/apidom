@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const AllowEmptyValueVisitor = stampit(FallbackVisitor);
+const AllowEmptyValueVisitor = FallbackVisitor;
 
 export default AllowEmptyValueVisitor;

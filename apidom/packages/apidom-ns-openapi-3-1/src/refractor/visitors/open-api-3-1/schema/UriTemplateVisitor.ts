@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const UriTemplateVisitor = stampit(FallbackVisitor);
+const UriTemplateVisitor = FallbackVisitor;
 
 export default UriTemplateVisitor;

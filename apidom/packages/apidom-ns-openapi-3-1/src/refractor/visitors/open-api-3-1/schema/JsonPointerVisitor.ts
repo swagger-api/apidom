@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const JsonPointerVisitor = stampit(FallbackVisitor);
+const JsonPointerVisitor = FallbackVisitor;
 
 export default JsonPointerVisitor;

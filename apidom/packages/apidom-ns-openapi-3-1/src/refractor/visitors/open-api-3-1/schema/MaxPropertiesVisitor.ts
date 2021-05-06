@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const MaxPropertiesVisitor = stampit(FallbackVisitor);
+const MaxPropertiesVisitor = FallbackVisitor;
 
 export default MaxPropertiesVisitor;

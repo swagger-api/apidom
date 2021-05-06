@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
-import { isFunction } from 'ramda-adjunct';
+import { isFunction, isUndefined } from 'ramda-adjunct';
 import { visit } from 'apidom';
 
 import Visitor from './Visitor';
@@ -42,7 +42,27 @@ const SpecificationVisitor = stampit(Visitor, {
     },
 
     toRefractedElement(specPath: string[], element, options = {}) {
-      const visitor = this.retrieveVisitorInstance(specPath);
+      /**
+       * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+       * it by basic node cloning.
+       *
+       * Visiting the element is equivalent to cloning it  if the prototype of a visitor
+       * is the same as the prototype of FallbackVisitor. If that's the case, we can avoid
+       * bootstrapping the traversal cycle for fields that don't require any special visiting.
+       */
+      const visitor = this.retrieveVisitorInstance(specPath, options);
+      const visitorPrototype = Object.getPrototypeOf(visitor);
+
+      if (isUndefined(this.fallbackVisitorPrototype)) {
+        this.fallbackVisitorPrototype = Object.getPrototypeOf(
+          this.retrieveVisitorInstance(['value']),
+        );
+      }
+      if (this.fallbackVisitorPrototype === visitorPrototype) {
+        return element.clone();
+      }
+
+      // standard processing continues
       visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, ...options });
       return visitor.element;
     },

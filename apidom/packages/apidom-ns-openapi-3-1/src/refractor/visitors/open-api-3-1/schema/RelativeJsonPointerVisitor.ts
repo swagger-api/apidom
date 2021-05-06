@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const RelativeJsonPointerVisitor = stampit(FallbackVisitor);
+const RelativeJsonPointerVisitor = FallbackVisitor;
 
 export default RelativeJsonPointerVisitor;

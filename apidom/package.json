@@ -73,7 +73,7 @@
     "husky": "=4.2.5",
     "jsdom": "=16.4.0",
     "jsdom-global": "=3.0.2",
-    "lerna": "=3.20.2",
+    "lerna": "=4.0.0",
     "link-parent-bin": "=1.0.2",
     "lint-staged": "=10.2.7",
     "microtime": "=3.0.0",

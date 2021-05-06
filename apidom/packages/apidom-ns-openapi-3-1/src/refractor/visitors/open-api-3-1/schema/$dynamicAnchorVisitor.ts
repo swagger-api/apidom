@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const $dynamicAnchorVisitor = stampit(FallbackVisitor);
+const $dynamicAnchorVisitor = FallbackVisitor;
 
 export default $dynamicAnchorVisitor;

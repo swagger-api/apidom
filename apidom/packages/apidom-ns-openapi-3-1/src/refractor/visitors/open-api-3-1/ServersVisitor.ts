@@ -16,7 +16,7 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
           const serverElement = this.toRefractedElement(['document', 'objects', 'Server'], item);
           this.element.push(serverElement);
         } else {
-          this.element.push(item);
+          this.element.push(item.clone());
         }
       });
 

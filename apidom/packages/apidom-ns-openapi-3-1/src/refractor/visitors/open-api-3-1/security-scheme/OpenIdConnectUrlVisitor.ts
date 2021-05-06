@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const OpenIdConnectUrlVisitor = stampit(FallbackVisitor);
+const OpenIdConnectUrlVisitor = FallbackVisitor;
 
 export default OpenIdConnectUrlVisitor;

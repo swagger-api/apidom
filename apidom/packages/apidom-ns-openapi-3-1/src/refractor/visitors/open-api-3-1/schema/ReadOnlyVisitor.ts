@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ReadOnlyVisitor = stampit(FallbackVisitor);
+const ReadOnlyVisitor = FallbackVisitor;
 
 export default ReadOnlyVisitor;

@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const MinItemsVisitor = stampit(FallbackVisitor);
+const MinItemsVisitor = FallbackVisitor;
 
 export default MinItemsVisitor;

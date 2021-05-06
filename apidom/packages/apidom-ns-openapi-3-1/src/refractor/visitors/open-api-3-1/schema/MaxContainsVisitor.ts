@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const MaxContainsVisitor = stampit(FallbackVisitor);
+const MaxContainsVisitor = FallbackVisitor;
 
 export default MaxContainsVisitor;

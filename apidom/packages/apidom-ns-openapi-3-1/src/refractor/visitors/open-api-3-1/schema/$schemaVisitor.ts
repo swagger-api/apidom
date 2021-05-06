@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const $schemaVisitor = stampit(FallbackVisitor);
+const $schemaVisitor = FallbackVisitor;
 
 export default $schemaVisitor;

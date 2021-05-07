@@ -56,7 +56,7 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
           );
           this.element.content.push(extensionElement);
         } else if (!this.ignoredFields.includes(key.toValue())) {
-          this.element.content.push(memberElement);
+          this.element.content.push(memberElement.clone());
         }
       });
 

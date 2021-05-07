@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const LocationVisitor = stampit(FallbackVisitor);
+const LocationVisitor = FallbackVisitor;
 
 export default LocationVisitor;

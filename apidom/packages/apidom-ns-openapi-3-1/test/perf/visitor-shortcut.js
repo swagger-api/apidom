@@ -21,9 +21,7 @@ const options = {
   minSamples: 500,
   expected: '303 ops/sec ±1.93% (578 runs sampled)',
   fn() {
-    OpenApi3_1Element.refract(genericObjectElement, {
-      defaultPlugins: [],
-    });
+    OpenApi3_1Element.refract(genericObjectElement);
   },
 };
 

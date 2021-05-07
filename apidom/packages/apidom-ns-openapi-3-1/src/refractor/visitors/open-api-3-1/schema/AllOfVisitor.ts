@@ -3,8 +3,9 @@ import { ArrayElement, Element, isObjectElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import SpecificationVisitor from '../../SpecificationVisitor';
+import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
-const AllOfVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
+const AllOfVisitor = stampit(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
     this.element.classes.push('json-schema-allOf');

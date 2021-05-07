@@ -4,11 +4,13 @@ import { ObjectElement } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
+import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
-const PropertiesVisitor = stampit(MapVisitor, FallbackVisitor, {
+const PropertiesVisitor = stampit(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Schema']),
   },
+  // @ts-ignore
   init() {
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-properties');

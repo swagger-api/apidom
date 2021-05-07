@@ -1,12 +1,18 @@
 import { assert } from 'chai';
 import { ObjectElement, find } from 'apidom';
+import { parse } from 'apidom-parser-adapter-json';
 
-import { isSchemaElement, JsonSchemaDialectVisitor, OpenApi3_1Element } from '../../../src';
+import {
+  isSchemaElement,
+  JsonSchemaDialectVisitor,
+  OpenApi3_1Element,
+  SchemaElement,
+} from '../../../src';
 
 describe('refractor', function () {
-  context('plugins', function () {
-    context('embedded-resources-$schema', function () {
-      context('given Schema Object without $schema field', function () {
+  context('schema-element', function () {
+    context('$schema keyword in embedded resources', function () {
+      context('given Schema Object without $schema keyword', function () {
         specify('should annotate Schema Object with default dialect', function () {
           const genericObjectElement = new ObjectElement({
             openapi: '3.1.0',
@@ -26,6 +32,70 @@ describe('refractor', function () {
 
           assert.strictEqual(actual, expected);
         });
+      });
+
+      context('given direct refracting to Schema Element from generic Object Element', function () {
+        context('given no jsonSchemaDialect field', function () {
+          specify('should annotate Schema Object with default dialect', function () {
+            const genericObjectElement = { type: 'object' };
+
+            const schemaElement = SchemaElement.refract(genericObjectElement);
+            const actual = schemaElement.meta.get('inherited$schema').toValue();
+            const expected = JsonSchemaDialectVisitor.default.toValue();
+
+            assert.strictEqual(actual, expected);
+          });
+        });
+      });
+
+      context('given Schema Objects are defined after jsonSchemaDialect field', function () {
+        specify(
+          'should annotate Schema Object with jsonSchemaDialect field value',
+          async function () {
+            const genericObjectElement = await parse(`{
+              "openapi": "3.1",
+              "jsonSchemaDialect": "https://arbitrary-schema-url.com/",
+              "components": {
+                "schemas": {
+                  "user": {
+                    "type": "object"
+                  }
+                }
+              }
+            }`);
+            const openApiElement = OpenApi3_1Element.refract(genericObjectElement.result);
+            const schemaElement = find((e) => isSchemaElement(e), openApiElement);
+            const actual = schemaElement?.meta.get('inherited$schema').toValue();
+            const expected = 'https://arbitrary-schema-url.com/';
+
+            assert.strictEqual(actual, expected);
+          },
+        );
+      });
+
+      context('given Schema Objects are defined before jsonSchemaDialect field', function () {
+        specify(
+          'should annotate Schema Object with jsonSchemaDialect field value',
+          async function () {
+            const genericObjectElement = await parse(`{
+              "openapi": "3.1",
+              "components": {
+                "schemas": {
+                  "user": {
+                    "type": "object"
+                  }
+                }
+              },
+              "jsonSchemaDialect": "https://arbitrary-schema-url.com/"
+            }`);
+            const openApiElement = OpenApi3_1Element.refract(genericObjectElement.result);
+            const schemaElement = find((e) => isSchemaElement(e), openApiElement);
+            const actual = schemaElement?.meta.get('inherited$schema').toValue();
+            const expected = 'https://arbitrary-schema-url.com/';
+
+            assert.strictEqual(actual, expected);
+          },
+        );
       });
 
       context('given Schema Object with inner Schemas', function () {

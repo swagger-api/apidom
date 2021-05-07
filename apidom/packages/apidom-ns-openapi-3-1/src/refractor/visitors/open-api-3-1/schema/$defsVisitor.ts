@@ -4,8 +4,9 @@ import { ObjectElement } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
+import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
-const $defsVisitor = stampit(MapVisitor, FallbackVisitor, {
+const $defsVisitor = stampit(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Schema']),
   },

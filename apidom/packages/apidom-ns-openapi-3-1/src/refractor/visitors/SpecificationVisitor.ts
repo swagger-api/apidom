@@ -13,14 +13,25 @@ import { keyMap, getNodeType } from '../../traversal/visitor';
 const SpecificationVisitor = stampit(Visitor, {
   props: {
     specObj: null,
+    passingOptionsNames: ['specObj', 'unrefractedElement', 'openApi3_1Element'],
+    unrefractedElement: null,
+    openApi3_1Element: null,
   },
-  // @ts-ignore
-  init({ specObj = this.specObj }) {
+  init({
+    // @ts-ignore
+    specObj = this.specObj,
+    // @ts-ignore
+    unrefractedElement = this.unrefractedElement,
+    // @ts-ignore
+    openApi3_1Element = this.openApi3_1Element,
+  }) {
     this.specObj = specObj;
+    this.unrefractedElement = unrefractedElement;
+    this.openApi3_1Element = openApi3_1Element;
   },
   methods: {
     retrievePassingOptions() {
-      return pick(['namespace', 'specObj'], this);
+      return pick(this.passingOptionsNames, this);
     },
 
     retrieveFixedFields(specPath) {

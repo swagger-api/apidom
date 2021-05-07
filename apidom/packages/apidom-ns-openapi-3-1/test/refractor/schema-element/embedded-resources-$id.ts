@@ -5,8 +5,8 @@ import { isSchemaElement, OpenApi3_1Element } from '../../../src';
 
 describe('refractor', function () {
   context('plugins', function () {
-    context('embedded-resources-$id', function () {
-      context('given Schema Object without $id field', function () {
+    context('$id keyword in embedded resources', function () {
+      context('given Schema Object without $id keyword', function () {
         specify('should have empty inherited$id', function () {
           const genericObjectElement = new ObjectElement({
             openapi: '3.1.0',
@@ -23,6 +23,36 @@ describe('refractor', function () {
           const actual = schemaElement?.meta.get('inherited$id').toValue();
 
           assert.deepEqual(actual, []);
+        });
+      });
+
+      context('given Schema Object with arbitrary fields boundaries', function () {
+        specify('should annotate Schema($anchor=1) with inherited$id', function () {
+          const genericObjectElement = new ObjectElement({
+            openapi: '3.1.0',
+            components: {
+              schemas: {
+                User: {
+                  $id: './nested/',
+                  type: 'object',
+                  properties: {
+                    profile: {
+                      $anchor: '1',
+                      $ref: './ex.json',
+                    },
+                  },
+                },
+              },
+            },
+          });
+          const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
+          const schemaElement = find(
+            (e) => isSchemaElement(e) && e.$anchor && e.$anchor.equals('1'),
+            openApiElement,
+          );
+          const actual = schemaElement?.meta.get('inherited$id').toValue();
+
+          assert.deepEqual(actual, ['./nested/']);
         });
       });
 

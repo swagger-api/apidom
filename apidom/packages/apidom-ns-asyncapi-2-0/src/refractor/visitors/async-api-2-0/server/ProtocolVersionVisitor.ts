@@ -1,7 +1,5 @@
-import stampit from 'stampit';
-
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ProtocolVersionVisitor = stampit(FallbackVisitor);
+const ProtocolVersionVisitor = FallbackVisitor;
 
 export default ProtocolVersionVisitor;

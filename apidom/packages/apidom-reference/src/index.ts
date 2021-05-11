@@ -9,6 +9,9 @@ import parseFn, { readFile as readFileFn } from './parse';
 import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 
+export { default as options } from './options';
+export { merge as mergeOptions } from './options/util';
+
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   const sanitizedURI = url.isFileSystemPath(uri) ? url.fromFileSystemPath(uri) : uri;

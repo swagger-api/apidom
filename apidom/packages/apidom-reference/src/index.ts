@@ -9,6 +9,13 @@ import parseFn, { readFile as readFileFn } from './parse';
 import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 
+export { default as OpenApiJson3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-json-3-1';
+export { default as OpenApiYaml3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
+export { default as AsyncApiJson2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
+export { default as AsyncApiYaml2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
+export { default as JsonParser } from './parse/parsers/apidom-reference-parser-json';
+export { default as YamlParser } from './parse/parsers/apidom-reference-parser-yaml-1-2';
+
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';
 

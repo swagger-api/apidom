@@ -38,7 +38,11 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
   }
 
   try {
-    const { plugin, result } = await plugins.run('parse', [file], parsers);
+    const optsBoundParsers = parsers.map((parser) => {
+      const clonedParser = Object.create(parser);
+      return Object.assign(clonedParser, options.parse.parserOpts);
+    });
+    const { plugin, result } = await plugins.run('parse', [file], optsBoundParsers);
 
     // empty files handling
     if (!plugin.allowEmpty && result.isEmpty) {

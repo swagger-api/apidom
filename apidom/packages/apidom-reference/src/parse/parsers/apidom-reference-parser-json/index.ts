@@ -4,22 +4,11 @@ import { parse } from 'apidom-parser-adapter-json';
 
 import { ParserError } from '../../../util/errors';
 import { Parser as IParser, File as IFile } from '../../../types';
+import Parser from '../Parser';
 
-const JsonParser: stampit.Stamp<IParser> = stampit({
+const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
-    /**
-     * Whether to allow "empty" files. This includes zero-byte files.
-     */
-    allowEmpty: true,
-
-    /**
-     * Whether to generate source map during parsing.
-     */
-    sourceMap: false,
-  },
-  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
-    this.allowEmpty = allowEmpty;
-    this.sourceMap = sourceMap;
+    name: 'json',
   },
   methods: {
     canParse(file: IFile): boolean {

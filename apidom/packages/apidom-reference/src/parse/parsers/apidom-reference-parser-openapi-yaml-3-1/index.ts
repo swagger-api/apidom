@@ -4,22 +4,11 @@ import { parse, mediaTypes } from 'apidom-parser-adapter-openapi-yaml-3-1';
 
 import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';
+import Parser from '../Parser';
 
-const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit({
+const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
-    /**
-     * Whether to allow "empty" files. This includes zero-byte files.
-     */
-    allowEmpty: true,
-
-    /**
-     * Whether to generate source map during parsing.
-     */
-    sourceMap: false,
-  },
-  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
-    this.allowEmpty = allowEmpty;
-    this.sourceMap = sourceMap;
+    name: 'openapi-yaml-3-1',
   },
   methods: {
     canParse(file: IFile): boolean {

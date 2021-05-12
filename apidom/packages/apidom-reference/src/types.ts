@@ -70,6 +70,7 @@ export interface ReferenceSet {
 export interface ReferenceParserOptions {
   readonly mediaType: string;
   readonly parsers: Array<Parser>;
+  readonly parserOpts: Record<string, any>;
 }
 
 export interface ReferenceResolveOptions {

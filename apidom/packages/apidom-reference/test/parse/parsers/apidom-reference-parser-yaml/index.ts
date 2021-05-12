@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import { ObjectElement, isParseResultElement, isSourceMapElement } from 'apidom';
 
 import File from '../../../../src/util/File';
-import YamlParser from '../../../../src/parse/parsers/apidom-reference-parser-yaml';
+import YamlParser from '../../../../src/parse/parsers/apidom-reference-parser-yaml-1-2';
 import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {

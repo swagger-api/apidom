@@ -21,6 +21,36 @@ describe('parse', function () {
     });
   });
 
+  context('given parserOpts as provided', function () {
+    specify('should respect parserOpts during parsing; sourceMap = on', async function () {
+      const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
+      const options = mergeOptions(defaultOptions, {
+        parse: {
+          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          parserOpts: { sourceMap: true },
+        },
+      });
+      const parseResult = await parse(uri, options);
+      const { api } = parseResult;
+
+      assert.isTrue(api?.meta.hasKey('sourceMap'));
+    });
+
+    specify('should respect parserOpts during parsing; sourceMap = off', async function () {
+      const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
+      const options = mergeOptions(defaultOptions, {
+        parse: {
+          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          parserOpts: { sourceMap: false },
+        },
+      });
+      const parseResult = await parse(uri, options);
+      const { api } = parseResult;
+
+      assert.isFalse(api?.meta.hasKey('sourceMap'));
+    });
+  });
+
   context('given URI with unknown file extension', function () {
     context('and no matching parsers', function () {
       specify('should throw error', async function () {

@@ -7,7 +7,7 @@ import OpenApiYaml3_1Parser from '../parse/parsers/apidom-reference-parser-opena
 import AsyncApiJson2_0Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
 import AsyncApiYaml2_0Parser from '../parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
 import JsonParser from '../parse/parsers/apidom-reference-parser-json';
-import YamlParser from '../parse/parsers/apidom-reference-parser-yaml';
+import YamlParser from '../parse/parsers/apidom-reference-parser-yaml-1-2';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
 import AsyncApi2_0DereferenceStrategy from '../dereference/strategies/asyncapi-2-0';
 import { ReferenceOptions as IReferenceOptions } from '../types';
@@ -34,6 +34,11 @@ const defaultOptions: IReferenceOptions = {
       JsonParser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
     ],
+
+    /**
+     * These options are merged with parser plugin instance before the plugin is run.
+     */
+    parserOpts: {},
   },
   resolve: {
     /**

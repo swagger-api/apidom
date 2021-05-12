@@ -5,22 +5,11 @@ import { parse } from 'apidom-parser-adapter-yaml-1-2';
 
 import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';
+import Parser from '../Parser';
 
-const YamlParser: stampit.Stamp<IParser> = stampit({
+const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
-    /**
-     * Whether to allow "empty" files. This includes zero-byte files.
-     */
-    allowEmpty: true,
-
-    /**
-     * Whether to generate source map during parsing.
-     */
-    sourceMap: false,
-  },
-  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
-    this.allowEmpty = allowEmpty;
-    this.sourceMap = sourceMap;
+    name: 'yaml-1-2',
   },
   methods: {
     canParse(file: IFile): boolean {

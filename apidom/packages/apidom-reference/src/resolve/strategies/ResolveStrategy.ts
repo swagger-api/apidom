@@ -4,6 +4,9 @@ import { ResolveStrategy as IResolveStrategy } from '../../types';
 import { NotImplementedError } from '../../util/errors';
 
 const ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit({
+  props: {
+    name: null,
+  },
   methods: {
     canResolve() {
       return false;

@@ -603,6 +603,249 @@ Resolver plugins can be added, removed, replaced or reordered. We've already cov
 
 ### External resolution
 
+External resolution is a process of resolving all external dependencies of a particular
+document using a specific [external resolution strategy](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies). External resolution strategy is determined by
+asserting on `mediaType`. **File Resolution** (file content is read/fetched)
+and **Parser component** (file content is parsed) are used under the hood.
+
+**Externally resolving file localed on local filesystem:**
+
+```js
+import { resolve } from 'apidom-reference';
+
+await resolve('/home/user/oas.json', {
+  parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  resolve: { resolverOpts: { timeout: 10 } },
+}); // Promise<ReferenceSet>
+```
+
+**Externally resolving HTTP(S) URL located on internet:**
+
+```js
+import { resolve } from 'apidom-reference';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  resolve: { resolverOpts: { timeout: 10 } },
+}); // Promise<ReferenceSet>
+```
+
+**Externally resolving an ApiDOM fragment:**
+
+When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+resolve option needs to have a starting point for external dependency resolution.
+`mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
+
+```js
+import { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { resolveApiDOM } from 'apidom-reference';
+
+const apidom = OpenApi3_1Element.refract({
+  openapi: '3.1.0',
+  components: {
+    parameters: {
+      externalRef: {
+        $ref: './ex.json#/externalParameter', // file is located at /home/user/ex.json
+      }
+    }
+  }
+});
+
+const refSet = await resolveApiDOM(apidom, {
+  resolve: { baseURI: '/home/user/' },
+});
+
+for (const ref of refSet) {
+  console.log(ref.uri);
+}
+// /home/user
+// /home/user/ex.json
+```
+
+[ReferenceSet](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/ReferenceSet.ts) is a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+like structure containing [Reference](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/Reference.ts) objects.
+Every Reference object represents single external dependency.
+
+#### [External resolution strategies](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies)
+
+External resolution strategy determines how a document is externally resolved. Depending on document `mediaType`
+every strategy differs significantly. Resolve component comes with two (2) default external resolution strategies.
+
+##### [asyncapi-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies/asyncapi-2-0)
+
+External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.aai.asyncapi;version=2.0.0',
+  'application/vnd.aai.asyncapi+json;version=2.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0'
+]
+```
+
+##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies/openapi-3-1)
+
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.1.0',
+  'application/vnd.oai.openapi+json;version=3.1.0',
+  'application/vnd.oai.openapi+yaml;version=3.1.0'
+]
+```
+
+##### External resolution strategies execution order
+
+It's important to understand that default external resolution strategies are run in specific order. The order is determined
+by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L60) option.
+Every strategy is pulled from `options.resolve.strategies` option and it's `canResolve` method is called to determine
+whether the strategy can externally resolve the URI. If `canResolve` returns `true`, `resolve` method of plugin is called
+and result from external resolution is returned. No subsequent strategies  are processed. If `canResolve` returns
+`false`, next strategy is pulled and this process is repeated until one of the strategy's `canResolve` method
+returns `true` or until entire list of strategies is exhausted (throws error).
+
+```js
+[
+  OpenApi3_1ResolveStrategy(),
+  AsyncApi2_0ResolveStrategy()
+]
+```
+Most specific parser plugins and listed first, most generic are listed last.
+
+It's possible to **change** strategies **order globally** by mutating global resolve options:
+
+```js
+import { options, AsyncApi2_0ResolveStrategy, AsyncApi2_0ResolveStrategy } from 'apidom-reference';
+
+options.resolve.strategies = [
+  AsyncApi2_0ResolveStrategy(),
+  OpenApi3_1ResolveStrategy(),
+];
+```
+
+To **change** the strategies **order** on ad-hoc basis:
+
+```js
+import { resolve, AsyncApi2_0ResolveStrategy, AsyncApi2_0ResolveStrategy } from 'apidom-reference';
+
+await resolve('/home/user/oas.json', {
+  parse: {
+    mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+  },
+  resolve: {
+    strategies: [
+      AsyncApi2_0ResolveStrategy(),
+      OpenApi3_1ResolveStrategy(),
+    ]
+  }
+});
+```
+##### Creating new external resolution strategy
+
+Resolve component can be extended by additional strategies. Every strategy is an object that
+must conform to the following interface/shape:
+
+```typescript
+{
+  // uniquely identifies this plugin
+  name: string,
+
+  // this method is called to determine if the strategy can resolve the file
+  canResolve(file: IFile): boolean {
+    // ...implementation...
+  },
+
+  // this method actually externally resolves the file
+  async resolve(file: IFile): Promise<ReferenceSet> {
+    // ...implementation...
+  }
+}
+```
+
+New strategy is then provided as an option to a `resolve` function:
+
+```js
+import { resolve, options } from 'apidom-reference';
+
+const myCustomResolverStrategy = {
+  name: 'myCustomResolverStrategy',
+  canResolve(file) {
+    return true;
+  },
+  async resolve(file) {
+     // implementation of file resolution
+  }
+};
+
+await resolve('/home/user/oas.json', {
+  resolve: {
+    strategies: [...options.resolve.strategies, myCustomResolverStrategy],
+  }
+});
+```
+
+In this particular example we're adding our custom strategy as the last strategy
+to the available default external resolution strategy list, so there's a good chance that one of the
+default strategies detects that it can externally resolve the `/home/user/oas.json` file,
+resolves it and returns ReferenceSet object.
+
+If you want to force execution of your strategy, add it as a first onen:
+
+```js
+import { resolve, options } from 'apidom-reference';
+
+
+const myCustomResolverStrategy = {
+  name: 'myCustomResolverStrategy',
+  canResolve(file) {
+    return true;
+  },
+  async resolve(file) {
+    // implementation of file resolution
+  }
+};
+
+await resolve('/home/user/oas.json', {
+  resolve: {
+    strategies: [myCustomResolverStrategy, ...options.resolve.strategies],
+  }
+});
+```
+
+To override the default strategies entirely, set `myCustomResolverStrategy` strategy to be the only one available:
+
+```js
+import { resolve } from 'apidom-reference';
+
+const myCustomResolverStrategy = {
+  name: 'myCustomResolverStrategy',
+  canResolve(file) {
+    return true;
+  },
+  async resolve(file) {
+    // implementation of file resolution
+  }
+};
+
+await resolve('/home/user/oas.json', {
+  resolve: {
+    strategies: [myCustomResolverPlugin],
+  }
+});
+```
+New strategies can be based on a predefined stamp called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
+
+##### Manipulating external resolution strategies
+
+External resolution strategies can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
+
+
+
 ## Dereference component
 
 

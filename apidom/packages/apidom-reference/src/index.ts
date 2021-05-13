@@ -22,6 +22,9 @@ export { default as FileResolver } from './resolve/resolvers/FileResolver';
 export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 export { default as Resolver } from './resolve/resolvers/Resolver';
+export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';
+export { default as AsyncApi2_0ResolveStrategy } from './resolve/strategies/asyncapi-2-0';
+export { default as OpenApi3_1ResolveStrategy } from './resolve/strategies/openapi-3-1';
 
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';

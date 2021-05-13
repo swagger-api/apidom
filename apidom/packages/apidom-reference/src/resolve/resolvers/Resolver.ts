@@ -5,7 +5,7 @@ import { Resolver as IResolver } from '../../types';
 
 const Resolver: stampit.Stamp<IResolver> = stampit({
   props: {
-    type: null,
+    name: null,
   },
   methods: {
     canRead() {

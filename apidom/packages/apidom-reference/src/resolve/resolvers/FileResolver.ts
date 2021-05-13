@@ -9,7 +9,7 @@ import { ResolverError } from '../../util/errors';
 
 const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
   init() {
-    this.type = 'file';
+    this.name = 'file';
   },
   methods: {
     canRead(file: IFile): boolean {

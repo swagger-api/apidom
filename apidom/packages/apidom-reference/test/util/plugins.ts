@@ -16,7 +16,7 @@ describe('util', function () {
           const suitablePlugins = filter('canRead', file, resolvers);
 
           assert.lengthOf(suitablePlugins, 1);
-          assert.propertyVal(suitablePlugins[0], 'type', 'file');
+          assert.propertyVal(suitablePlugins[0], 'name', 'file');
         });
       });
 
@@ -27,7 +27,7 @@ describe('util', function () {
           const suitablePlugins = filter('canRead', file, resolvers);
 
           assert.lengthOf(suitablePlugins, 1);
-          assert.propertyVal(suitablePlugins[0], 'type', 'http');
+          assert.propertyVal(suitablePlugins[0], 'name', 'http-axios');
         });
       });
 
@@ -55,13 +55,13 @@ describe('util', function () {
       context('given existing file system path URI', function () {
         const fileSystemPath = path.join(__dirname, 'fixtures', 'file.json');
 
-        specify('should run file type plugin successfully', async function () {
+        specify('should run `file` plugin successfully', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
           const suitablePlugins = filter('canRead', file, resolvers);
           const { plugin } = await run('read', [file], suitablePlugins);
 
-          assert.propertyVal(plugin, 'type', 'file');
+          assert.propertyVal(plugin, 'name', 'file');
         });
 
         specify('should return file content', async function () {
@@ -98,7 +98,7 @@ describe('util', function () {
             assert.fail('Should throw object with Error here');
           } catch (error) {
             assert.instanceOf(error, PluginError);
-            assert.propertyVal(error.plugin, 'type', 'file');
+            assert.propertyVal(error.plugin, 'name', 'file');
             assert.instanceOf(error.cause, Error);
           }
         });

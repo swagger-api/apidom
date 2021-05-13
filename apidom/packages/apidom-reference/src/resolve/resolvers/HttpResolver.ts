@@ -25,7 +25,6 @@ const HttpResolver: stampit.Stamp<IHttpResolver> = stampit(Resolver, {
       withCredentials = this.withCredentials,
     }: HttpResolverConstructorParameters = {},
   ) {
-    this.type = 'http';
     this.timeout = timeout;
     this.redirects = redirects;
     this.withCredentials = withCredentials;

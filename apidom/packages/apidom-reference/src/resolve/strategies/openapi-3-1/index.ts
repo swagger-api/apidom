@@ -20,6 +20,9 @@ import OpenApi3_1ResolveVisitor from './visitor';
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
+  init() {
+    this.name = 'openapi-3-1';
+  },
   methods: {
     canResolve(file: IFile) {
       // assert by media type

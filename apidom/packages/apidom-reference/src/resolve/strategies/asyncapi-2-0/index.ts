@@ -20,6 +20,9 @@ import AsyncApi2_0ResolveVisitor from './visitor';
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 const AsyncApi2_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
+  init() {
+    this.name = 'asyncapi-2-0';
+  },
   methods: {
     canResolve(file: IFile) {
       // assert by media type

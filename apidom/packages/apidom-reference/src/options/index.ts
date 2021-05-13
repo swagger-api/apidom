@@ -56,6 +56,10 @@ const defaultOptions: IReferenceOptions = {
       HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
     ],
     /**
+     * These options are merged with resolver plugin instance before the plugin is run.
+     */
+    resolverOpts: {},
+    /**
      * Determines strategies how References are identified and processed by resolvers.
      * Strategy is determined by media type.
      *

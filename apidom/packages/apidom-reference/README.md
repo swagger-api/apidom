@@ -1,15 +1,7 @@
 # apidom-reference
 
 `apidom-reference` package contains advanced algorithms for semantic ApiDOM manipulations.
-These algorithms include:
-
-- **Advanced parsing**
-- **External resolution**
-- **Dereference**
-
-...and many more.
-
-`apidom-reference` package is divided into three (3) main components:
+This package is divided into three (3) main components:
 
 - **Parse component**
 - **Resole component**
@@ -167,7 +159,6 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   YamlParser({ allowEmpty: true, sourceMap: false }),
 ]
 ```
-
 Most specific parser plugins and listed first, most generic are listed last.
 
 It's possible to **change** the parser plugins **order globally** by mutating global parser options:
@@ -386,7 +377,231 @@ As we can see, these are all primitive JavaScript Array manipulation techniques.
 These techniques can be applied to replacing or reordering parser plugins as well.
 
 
-## Resole component
+## Resolve component
+
+Resolve component consists of two (2) sub-components: **File resolution** and **External Resolution**.
+Resolve component is used by Parser component under the hood. Resolve components provides a resolved
+file contents for a Parser component to parse.
+
+### File resolution
+
+Contains implementation of default [resolver plugins](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/resolvers).
+Defaults resolver plugin is an object which knows how to obtain contents of a file represented by URI or URL.
+
+#### Resolver plugins
+
+File resolution comes with two (2) default resolver plugins.
+
+##### [FileResolver](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/resolvers/FileResolver.ts)
+
+This resolver plugin is responsible for resolving a local file.
+It detects if the provided URI represents a filesystem path and if so,
+reads the file and provides its content.
+
+##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
+
+This resolver plugin is responsible for resolving a remove file represented by HTTP(s) URL.
+It detects if the provided URI represents a HTTP(s) URL and if so,
+fetches the file and provides its content.
+
+**File resolution on local filesystem path**:
+
+```js
+import { readFile } from 'apidom-reference';
+
+await readFile('/home/user/oas.json'); // Promise<Buffer>
+```
+
+**File resolution on HTTP(s) URL:**
+
+```js
+import { readFile } from 'apidom-reference';
+
+await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json'); // Promise<Buffer>
+```
+File resolution always returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) containing a [Buffer](https://nodejs.org/api/buffer.html).
+It is responsibility of the API consumer to transform Butter into string or any other type.
+
+```js
+import { readFile } from 'apidom-reference';
+
+const buffer = await readFile('/home/user/oas.json');
+const string = buffer.toString('utf-8');
+```
+
+##### Resolver plugins execution order
+
+It's important to understand that default resolver plugins are run in specific order. The order is determined
+by the [options.resolve.resolvers](https://github.com/swagger-api/apidom/blob/729a4aa604fb22bd737756ca49eccd6b011bf354/apidom/packages/apidom-reference/src/options/index.ts#L54) option.
+Every plugin is pulled from `options.resolve.resolvers` option and it's `canRead` method is called to determine
+whether the plugin can resolve the URI. If `canRead` returns `true`, `read` method of plugin is called
+and result from reading the file is returned. No subsequent resolver plugins are processed.
+If `canRead` returns `false`, next resolver plugin is pulled and this process is repeated until one
+of the resolver plugins `canRead` method returns `true` or until entire list of resolver plugins is exhausted (throws error).
+
+```js
+[
+  FileResolver(),
+  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+]
+```
+
+It's possible to **change** resolver plugins **order globally** by mutating global resolve options:
+
+```js
+import { options, FileResolver, HttpResolverAxios } from 'apidom-reference';
+
+options.resolve.resolvers = [
+  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  FileResolver(),
+]
+```
+
+To **change** resolver plugins **order** on ad-hoc basis:
+
+```js
+import { readFile, FileResolver, HttpResolverAxios } from 'apidom-reference';
+
+await readFile('/home/user/oas.json', {
+  resolve: {
+    resolvers: [
+      HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+      FileResolver(),
+    ],
+  },
+});
+```
+
+##### Resolver plugin options
+
+Some resolver plugins accept additional options. It's possible to **change** resolver plugin
+**options globally** by mutating global resolver options:
+
+```js
+import { options, readFile } from 'apidom-reference';
+
+options.resolve.resolverOpts = {
+  timeout: 10000,
+};
+
+await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
+```
+
+To **change** the resolver plugins **options** on ad-hoc basis:
+
+```js
+import { readFile } from 'apidom-reference';
+
+await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolverOpts: { timeout: 10000 },
+  },
+});
+```
+
+Both of above examples will be using [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts) plugin.
+(as we're trying to resolve HTTP(s) URL) and the `timeout` of resolution will increase from default 3 seconds
+to 10 seconds.
+
+##### Creating new resolver plugin
+
+Resolve component can be extended by additional resolver plugins. Every resolver plugin is an object that
+must conform to the following interface/shape:
+
+```typescript
+{
+  // uniquely identifies this plugin
+  name: string,
+
+  // this method is called to determine if the resolver plugin can resolve the file
+  canRead(file: IFile): boolean {
+    // ...implementation...
+  },
+
+  // this method actually resolves the file
+  async read(file: IFile): Promise<Buffer> {
+    // ...implementation...
+  }
+}
+```
+
+New resolver plugin is then provided as an option to a `readFile` function:
+
+```js
+import { readFile, options } from 'apidom-reference';
+
+const myCustomResolverPlugin = {
+  name: 'myCustomResolver',
+  canRead(file) {
+    return true;
+  },
+  async read(file) {
+     // implementation of file resolution
+  }
+};
+
+await readFile('/home/user/oas.json', {
+  resolve: {
+    resolvers: [...options.resolve.resolvers, myCustomResolverPlugin],
+  }
+});
+```
+
+In this particular example we're adding our custom resolver plugin as the last plugin
+to the available default resolver plugin list, so there's a good chance that one of the
+default resolver plugins detects that it can resolve the `/home/user/oas.json` file,
+resolves it and returns its content.
+
+If you want to force execution of your custom plugin, add it as a first resolver plugin:
+
+```js
+import { readFile, options } from 'apidom-reference';
+
+const myCustomResolverPlugin = {
+  name: 'myCustomResolver',
+  canRead(file) {
+    return true;
+  },
+  async read(file) {
+    // implementation of file resolution
+  }
+};
+
+await readFile('/home/user/oas.json', {
+  resolve: {
+    resolvers: [myCustomResolverPlugin, ...options.resolve.resolvers],
+  }
+});
+```
+
+To override the default resolver plugins entirely, set `myCustomResolver` plugin to be the only one available:
+
+```js
+import { readFile } from 'apidom-reference';
+
+const myCustomResolverPlugin = {
+  name: 'myCustomResolver',
+  canRead(file) {
+    return true;
+  },
+  async read(file) {
+    // implementation of file resolution
+  }
+};
+
+await readFile('/home/user/oas.json', {
+  resolve: {
+    resolvers: [myCustomResolverPlugin],
+  }
+});
+```
+New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HttpResolver](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
+
+##### Manipulating resolver plugins
+
+Resolver plugins can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
+
+### External resolution
 
 ## Dereference component
 

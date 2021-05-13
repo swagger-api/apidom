@@ -5,26 +5,8 @@ import * as url from '../util/url';
 import File from '../util/File';
 import * as plugins from '../util/plugins';
 import { ReferenceOptions as IReferenceOptions, File as IFile } from '../types';
-import { ParserError, ResolverError, UnmatchedResolverError } from '../util/errors';
-
-/**
- * Reads the given file, using the configured resolver plugins.
- */
-export const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer> => {
-  const resolvers = plugins.filter('canRead', file, options.resolve.resolvers);
-
-  // we couldn't find any resolver for this File
-  if (isEmpty(resolvers)) {
-    throw new UnmatchedResolverError(file.uri);
-  }
-
-  try {
-    const { result } = await plugins.run('read', [file], resolvers);
-    return result;
-  } catch (error) {
-    throw new ResolverError(`Error while reading file "${file.uri}"`, error);
-  }
-};
+import { ParserError, UnmatchedResolverError } from '../util/errors';
+import { readFile } from '../resolve/util';
 
 /**
  * Parses the given file's contents, using the configured parser plugins.

@@ -22,6 +22,8 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).in
      * Public Api.
      */
 
+    this.name = 'http-axios';
+
     this.getHttpClient = function getHttpClient() {
       return clone(axiosInstance);
     };

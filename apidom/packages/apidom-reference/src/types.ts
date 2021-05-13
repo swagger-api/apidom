@@ -76,6 +76,7 @@ export interface ReferenceParserOptions {
 export interface ReferenceResolveOptions {
   baseURI: string;
   readonly resolvers: Array<Resolver>;
+  readonly resolverOpts: Record<string, any>;
   readonly strategies: Array<ResolveStrategy>;
   readonly external: boolean;
   readonly maxDepth: number;

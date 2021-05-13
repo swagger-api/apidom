@@ -5,16 +5,23 @@ import * as url from './util/url';
 import { ReferenceSet as IReferenceSet } from './types';
 import defaultOptions from './options';
 import { merge as mergeOptions } from './options/util';
-import parseFn, { readFile as readFileFn } from './parse';
+import parseFn from './parse';
 import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
+import { readFile as readFileFn } from './resolve/util';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 
+export { default as Parser } from './parse/parsers/Parser';
 export { default as OpenApiJson3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-json-3-1';
 export { default as OpenApiYaml3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
 export { default as AsyncApiJson2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
 export { default as AsyncApiYaml2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
 export { default as JsonParser } from './parse/parsers/apidom-reference-parser-json';
 export { default as YamlParser } from './parse/parsers/apidom-reference-parser-yaml-1-2';
+
+export { default as FileResolver } from './resolve/resolvers/FileResolver';
+export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';
+export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
+export { default as Resolver } from './resolve/resolvers/Resolver';
 
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';

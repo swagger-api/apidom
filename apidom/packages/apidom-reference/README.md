@@ -633,7 +633,7 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 **Externally resolving an ApiDOM fragment:**
 
 When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
-resolve option needs to have a starting point for external dependency resolution.
+resolve option needs to be provided to have a starting point for external dependency resolution.
 `mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
 
 ```js
@@ -844,8 +844,264 @@ New strategies can be based on a predefined stamp called [ResolveStrategy](https
 
 External resolution strategies can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
 
-
-
 ## Dereference component
+
+Dereferencing is a process of transcluding referencing element (internal or external) with a referenced element
+using a specific [dereference strategy](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies).
+Dereferencing strategy is determined by asserting on `mediaType`. **File Resolution** (file content is read/fetched)
+and **Parser component** (file content is parsed) are used under the hood.
+
+**Dereferencing a file localed on local filesystem:**
+
+```js
+import { dereference } from 'apidom-reference';
+
+await dereference('/home/user/oas.json', {
+  parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  resolve: { resolverOpts: { timeout: 10 } },
+}); // Promise<Element>
+```
+
+**Dereferencing HTTP(S) URL located on internet:**
+
+```js
+import { dereference } from 'apidom-reference';
+
+await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  resolve: { resolverOpts: { timeout: 10 } },
+}); // Promise<ReferenceSet>
+```
+
+**Dereferencing an ApiDOM fragment:**
+
+When dereferencing an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+resolve option needs to be provided to have a starting point for external dependency resolution.
+`mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
+
+**ex.json**
+
+```json
+{
+  "externalParameter": {
+    "name": "param1",
+    "in": "query"
+  }
+}
+```
+
+```js
+import { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { dereferenceApiDOM } from 'apidom-reference';
+
+const apidom = OpenApi3_1Element.refract({
+  openapi: '3.1.0',
+  components: {
+    parameters: {
+      externalRef: {
+        $ref: './ex.json#/externalParameter', // file is located at /home/user/ex.json
+      }
+    }
+  }
+});
+
+const dereferenced = await dereferenceApiDOM(apidom, {
+  resolve: { baseURI: '/home/user/' },
+});
+/**
+ * OpenApi3_1Element {
+ *   openapi: '3.1.0',
+ *   components: {
+ *     parameters: {
+ *       externalRef: {
+ *         name: param1,
+ *         in: query
+ *       }
+ *     }
+ *   }
+ * }
+ */
+```
+
+#### [Dereference strategies](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies)
+
+Dereference strategy determines how a document is internally or externally dereferenced. Depending on document `mediaType`
+every strategy differs significantly. Dereference component comes with two (2) default dereference strategies.
+
+##### [asyncapi-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies/asyncapi-2-0)
+
+Dereference strategy for dereferencing [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.aai.asyncapi;version=2.0.0',
+  'application/vnd.aai.asyncapi+json;version=2.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0'
+]
+```
+
+##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies/openapi-3-1)
+
+Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.1.0',
+  'application/vnd.oai.openapi+json;version=3.1.0',
+  'application/vnd.oai.openapi+yaml;version=3.1.0'
+]
+```
+
+##### Dereference strategies execution order
+
+It's important to understand that default dereference strategies are run in specific order. The order is determined
+by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L88) option.
+Every strategy is pulled from `options.dereference.strategies` option and it's `canDereference` method is called to determine
+whether the strategy can dereference the URI. If `canDereference` returns `true`, `dereference` method of strategy is called
+and result from dereferencing is returned. No subsequent strategies  are processed. If `canDereference` returns
+`false`, next strategy is pulled and this process is repeated until one of the strategy's `canDereference` method
+returns `true` or until entire list of strategies is exhausted (throws error).
+
+```js
+[
+  OpenApi3_1DereferenceStrategy(),
+  AsyncApi2_0DereferenceStrategy()
+]
+```
+Most specific parser plugins and listed first, most generic are listed last.
+
+It's possible to **change** strategies **order globally** by mutating global dereference option:
+
+```js
+import { options, AsyncApi2_0DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
+
+options.dereference.strategies = [
+  OpenApi3_1DereferenceStrategy(),
+  AsyncApi2_0DereferenceStrategy(),
+];
+```
+
+To **change** the strategies **order** on ad-hoc basis:
+
+```js
+import { dereference, AsyncApi2_0DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
+
+await dereference('/home/user/oas.json', {
+  parse: {
+    mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+  },
+  dereference: {
+    strategies: [
+      AsyncApi2_0DereferenceStrategy(),
+      OpenApi3_1DereferenceStrategy(),
+    ]
+  }
+});
+```
+##### Creating new dereference strategy
+
+Dereference component can be extended by additional strategies. Every strategy is an object that
+must conform to the following interface/shape:
+
+```typescript
+{
+  // uniquely identifies this plugin
+  name: string,
+
+  // this method is called to determine if the strategy can dereference the file
+  canDereference(file: IFile): boolean {
+    // ...implementation...
+  },
+
+  // this method actually dereferences the file
+  async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
+    // ...implementation...
+  }
+}
+```
+
+New strategy is then provided as an option to a `dereference` function:
+
+```js
+import { dereference, options } from 'apidom-reference';
+
+const myCustomDereferenceStrategy = {
+  name: 'myCustomDereferenceStrategy',
+  canDereference(file) {
+    return true;
+  },
+  async dereference(file, options: IReferenceOptions) {
+     // implementation of dereferenceing
+  }
+};
+
+await dereference('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  dereference: {
+    strategies: [...options.dereference.strategies, myCustomDereferenceStrategy],
+  }
+});
+```
+
+In this particular example we're adding our custom strategy as the last strategy
+to the available default dereference strategy list, so there's a good chance that one of the
+default strategies detects that it can dereference the `/home/user/oas.json` file,
+dereferences it and returns a dereferenced element.
+
+If you want to force execution of your strategy, add it as a first one:
+
+```js
+import { dereference, options } from 'apidom-reference';
+
+const myCustomDereferenceStrategy = {
+  name: 'myCustomDereferenceStrategy',
+  canDereference(file) {
+    return true;
+  },
+  async dereference(file, options: IReferenceOptions) {
+    // implementation of dereferenceing
+  }
+};
+
+await dereference('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  dereference: {
+    strategies: [myCustomDereferenceStrategy, ...options.dereference.strategies],
+  }
+});
+```
+
+To override the default strategies entirely, set `myCustomDereferenceStrategy` strategy to be the only one available:
+
+```js
+import { dereference, options } from 'apidom-reference';
+
+const myCustomDereferenceStrategy = {
+  name: 'myCustomDereferenceStrategy',
+  canDereference(file) {
+    return true;
+  },
+  async dereference(file, options: IReferenceOptions) {
+    // implementation of dereferenceing
+  }
+};
+
+await dereference('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  dereference: {
+    strategies: [myCustomDereferenceStrategy],
+  }
+});
+```
+
+New strategies can be based on a predefined stamp called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
+
+##### Manipulating dereference strategies
+
+Dereference strategies can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
 
 

@@ -26,6 +26,9 @@ export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy
 export { default as AsyncApi2_0ResolveStrategy } from './resolve/strategies/asyncapi-2-0';
 export { default as OpenApi3_1ResolveStrategy } from './resolve/strategies/openapi-3-1';
 
+export { default as AsyncApi2_0DereferenceStrategy } from './dereference/strategies/asyncapi-2-0';
+export { default as OpenApi3_1DereferenceStrategy } from './dereference/strategies/openapi-3-1';
+
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';
 

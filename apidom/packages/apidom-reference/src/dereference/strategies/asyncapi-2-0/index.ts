@@ -23,6 +23,9 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 const AsyncApi2_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
   DereferenceStrategy,
   {
+    init() {
+      this.name = 'asyncapi-2-0';
+    },
     methods: {
       canDereference(file: IFile): boolean {
         // assert by media type

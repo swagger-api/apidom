@@ -23,6 +23,9 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
   DereferenceStrategy,
   {
+    init() {
+      this.name = 'openapi-3-1';
+    },
     methods: {
       canDereference(file: IFile): boolean {
         // assert by media type

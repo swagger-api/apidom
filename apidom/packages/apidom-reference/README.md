@@ -1111,4 +1111,26 @@ New strategies can be based on a predefined stamp called [DereferenceStrategy](h
 
 Dereference strategies can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
 
+##### Increasing speed of dereference
 
+Our two default dereference strategies are built on asynchronous sequential traversing of ApiDOM.
+The total time of dereferencing is the sum of `traversing` + sum of `external resolution per referencing element`.
+By having a huge number of external dependencies in your definition file, dereferencing can get quite slow.
+Fortunately there is solution for this by running an `external resolution` first,
+and passing its result to dereferencing via an option. External resolution is built on asynchronous parallel traversal (on single file),
+so it's theoretically always faster on huge amount of external dependencies than the dereference.
+
+```js
+import { resolve, dereference } from 'apidom-reference';
+
+const refSet = await resolve('/home/user/oas.json', {
+  parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+});
+
+const dereferenced = await dereference('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  dereference: { refSet },
+});
+```
+
+Total time of dereferencing is now the sum of `external resolution traversing` + `dereference traversing` + sum of `max external resolution per file`.

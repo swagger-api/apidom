@@ -4,6 +4,7 @@ import Node from './Node';
 
 interface Error extends Node {
   value: unknown;
+  isUnexpected: boolean;
 }
 
 const Error: stampit.Stamp<Error> = stampit(Node, {

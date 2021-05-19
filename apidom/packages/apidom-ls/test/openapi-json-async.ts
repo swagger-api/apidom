@@ -187,6 +187,7 @@ describe('apidom-ls-async', function () {
 
     assert.deepEqual(result, expected as Diagnostic[]);
     doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
+    console.dir(doc);
     result = await languageService.doValidation(doc, validationContext);
 
     assert.deepEqual(result, [

@@ -14,6 +14,7 @@ export { default as JsonTrue } from './json/nodes/JsonTrue';
 export { default as JsonFalse } from './json/nodes/JsonFalse';
 export { default as JsonNull } from './json/nodes/JsonNull';
 export {
+  isDocument as isJsonDocument,
   isFalse as isJsonFalse,
   isProperty as isJsonProperty,
   isStringContent as isJsonStringContent,
@@ -59,6 +60,7 @@ export { default as Literal } from './Literal';
 export { Point, default as Position } from './Position';
 export { default as Error } from './Error';
 export { default as ParseResult } from './ParseResult';
+export { isParseResult, isLiteral, isPoint, isPosition } from './predicates';
 // AST traversal related exports
 export {
   getVisitFn,

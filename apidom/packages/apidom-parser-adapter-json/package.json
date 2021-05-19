@@ -19,7 +19,10 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
-    "test": "cross-env BABEL_ENV=cjs mocha"
+    "test": "cross-env BABEL_ENV=cjs mocha",
+    "perf": "cross-env BABEL_ENV=cjs node ./test/perf/index.js",
+    "perf:parsing-syntactic-analysis-direct": "cross-env BABEL_ENV=cjs node ./test/perf/parsing-syntactic-analysis-direct.js",
+    "perf:parsing-syntactic-analysis-indirect": "cross-env BABEL_ENV=cjs node ./test/perf/parsing-syntactic-analysis-indirect.js"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

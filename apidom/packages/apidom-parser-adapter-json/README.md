@@ -1,11 +1,54 @@
 # apidom-parser-adapter-json
 
 `apidom-parser-adapter-json` is a parser adapter for the [JSON format](https://www.json.org/json-en.html).
-This parser adapter uses [tree-sitter](https://www.npmjs.com/package/tree-sitter) / [web-tree-sitter](https://www.npmjs.com/package/web-tree-sitter) as an underlying parser.
-Tree-sitter uses [tree-sitter-json grammar](https://www.npmjs.com/package/tree-sitter-json) to produce [CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) from a source string.
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by tree-sitter parser is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/parser/syntactic-analysis.ts) and [JSON AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#json-ast-nodes) is produced.
-JSON AST is then transformed into generic ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+[JSON AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#json-ast-nodes) is produced.
+
+
+## Parse phases
+
+The parse stage takes JSON string and producesApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
+
+### Lexical Analysis
+
+Lexical Analysis will take a string of code and turn it into a stream of tokens.
+[tree-sitter](https://www.npmjs.com/package/tree-sitter) / [web-tree-sitter](https://www.npmjs.com/package/web-tree-sitter) is used as an underlying lexical analyzer.
+
+### Syntactic Analysis
+
+Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+
+#### [Direct Syntactical analysis](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis/direct)
+
+This analysis directly turns tree-sitter CST into ApiDOM. Single traversal is required which makes
+it super performant, and it's the default analysis used.
+
+```js
+import { parse } from 'apidom-parser-adapter-json';
+
+const parseResult = await adapter.parse('{"prop": "value"}', {
+  syntacticAnalysis: 'direct',
+});
+```
+
+#### [Indirect Syntactic analysis]((https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis/indirect))
+
+This analysis turns trees-sitter CST into [JSON AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#json-ast-nodes) representation.
+Then JSON AST is turned into ApiDOM. Two traversals are required, which makes indirect analysis less performant than direct one.
+Thought less performant, having JSON AST representation allows us to do further complex analysis.
+
+```js
+import { parse } from 'apidom-parser-adapter-json';
+
+const parseResult = await adapter.parse('{"prop": "value"}', {
+  syntacticAnalysis: 'indirect',
+});
+```
 
 ## Parser adapter API
 
@@ -34,8 +77,8 @@ This adapter exposes an instance of [base ApiDOM namespace](https://github.com/s
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
+<a name="syntacticAnalysis"></a>`syntacticAnalysis` | `String` | `direct` | Indicate type of syntactic analysis
 
 All unrecognized arbitrary options will be ignored.
 

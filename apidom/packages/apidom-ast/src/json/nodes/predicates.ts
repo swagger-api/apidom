@@ -1,5 +1,7 @@
 import { isNodeType } from '../../predicates';
 
+export const isDocument = isNodeType('document');
+
 export const isString = isNodeType('string');
 
 export const isFalse = isNodeType('false');

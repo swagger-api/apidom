@@ -16,7 +16,10 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist",
-    "test": "cross-env BABEL_ENV=cjs mocha"
+    "test": "cross-env BABEL_ENV=cjs mocha",
+    "perf": "cross-env BABEL_ENV=cjs node ./test/perf/index.js",
+    "perf:parsing": "cross-env BABEL_ENV=cjs node ./test/perf/parsing.js",
+    "perf:lexical-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/lexical-analysis.js"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

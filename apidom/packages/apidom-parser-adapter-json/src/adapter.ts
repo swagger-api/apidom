@@ -1,3 +1,5 @@
+import { createNamespace } from 'apidom';
+
 export const mediaTypes = ['application/json'];
 
 export const detect = async (source: string): Promise<boolean> => {
@@ -8,3 +10,5 @@ export const detect = async (source: string): Promise<boolean> => {
   }
   return true;
 };
+
+export const namespace = createNamespace();

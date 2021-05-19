@@ -1,7 +1,8 @@
 import stampit from 'stampit';
 import { tail } from 'ramda';
 import { isFalse, isFunction } from 'ramda-adjunct';
-import { Tree, SyntaxNode } from 'tree-sitter';
+import { Tree as NodeTree, SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
+import { Tree as WebTree, SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
   JsonArray,
   JsonDocument,
@@ -20,7 +21,6 @@ import {
   Point,
   Literal,
   Error,
-  visit,
 } from 'apidom-ast';
 
 export const keyMap = {
@@ -33,7 +33,10 @@ export const keyMap = {
   error: ['children'],
 };
 
-const Visitor = stampit({
+type Tree = WebTree | NodeTree;
+type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
+
+const CstVisitor = stampit({
   init() {
     /**
      * Private API.
@@ -79,14 +82,19 @@ const Visitor = stampit({
       return undefined;
     };
 
-    this.document = function document(node: SyntaxNode) {
-      const position = toPosition(node);
+    this.document = {
+      enter(node: SyntaxNode) {
+        const position = toPosition(node);
 
-      return JsonDocument({
-        children: node.children,
-        position,
-        isMissing: node.isMissing(),
-      });
+        return JsonDocument({
+          children: node.children,
+          position,
+          isMissing: node.isMissing(),
+        });
+      },
+      leave(document: JsonDocument) {
+        return ParseResult({ children: [document] });
+      },
     };
 
     this.object = function object(node: SyntaxNode) {
@@ -165,24 +173,23 @@ const Visitor = stampit({
       return JsonFalse({ value, position, isMissing: node.isMissing() });
     };
 
-    this.ERROR = function ERROR(node: SyntaxNode) {
+    this.ERROR = function ERROR(node: SyntaxNode, key: any, parent: any, path: string[]) {
       const position = toPosition(node);
-
-      return Error({
+      const errorNode = Error({
         children: node.children,
         position,
         isUnexpected: !node.hasError(),
         isMissing: node.isMissing(),
         value: node.text,
       });
+
+      if (path.length === 0) {
+        return ParseResult({ children: [errorNode] });
+      }
+
+      return errorNode;
     };
   },
 });
 
-export const analyze = (cst: Tree): ParseResult => {
-  const visitor = Visitor();
-  // @ts-ignore
-  const rootNode = visit(cst.rootNode, visitor, { keyMap });
-
-  return ParseResult({ children: [rootNode] });
-};
+export default CstVisitor;

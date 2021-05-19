@@ -3,8 +3,7 @@
 `apidom-parser-adapter-json` is a parser adapter for the [JSON format](https://www.json.org/json-en.html).
 
 [CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
-and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
-[JSON AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#json-ast-nodes) is produced.
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
 
 
 ## Parse phases

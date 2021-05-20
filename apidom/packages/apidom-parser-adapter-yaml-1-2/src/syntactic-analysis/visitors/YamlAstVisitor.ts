@@ -1,85 +1,69 @@
 import stampit from 'stampit';
-import { either } from 'ramda';
 import {
-  JsonArray,
-  JsonDocument,
-  JsonObject,
-  JsonProperty,
-  JsonNode,
-  JsonString,
-  JsonNumber,
-  JsonNull,
-  JsonTrue,
-  JsonFalse,
-  JsonKey,
-  ParseResult,
-  Error,
+  YamlDocument,
+  YamlStream,
+  YamlComment,
+  YamlMapping,
+  YamlKeyValuePair,
+  YamlSequence,
   Literal,
-  isNode as isCSTNode,
+  Error,
   getNodeType as getCSTNodeType,
+  isNode as isCSTNode,
+  YamlScalar,
 } from 'apidom-ast';
 import {
-  Element,
   ParseResultElement,
-  ObjectElement,
-  SourceMapElement,
-  MemberElement,
-  ArrayElement,
-  BooleanElement,
-  NullElement,
-  NumberElement,
-  StringElement,
   AnnotationElement,
-  isParseResultElement,
+  CommentElement,
+  SourceMapElement,
+  Element,
+  MemberElement,
+  ObjectElement,
   isPrimitiveElement,
   isElement,
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
+  createNamespace,
 } from 'apidom';
+import { anyPass, unnest } from 'ramda';
+import { isArray } from 'ramda-adjunct';
+import { ArrayElement } from 'minim';
 
 export const keyMap = {
-  // @ts-ignore
-  [ParseResult.type]: ['children'],
-  // @ts-ignore
-  [JsonDocument.type]: ['children'],
-  // @ts-ignore
-  [JsonObject.type]: ['children'],
-  // @ts-ignore
-  [JsonProperty.type]: ['children'],
-  // @ts-ignore
-  [JsonArray.type]: ['children'],
-  // @ts-ignore
-  [Error.type]: ['children'],
+  stream: ['children'],
+  document: ['children'],
+  mapping: ['children'],
+  keyValuePair: ['children'],
+  sequence: ['children'],
+  error: ['children'],
   ...keyMapApiDOM,
 };
 
 export const getNodeType = (node: any) => {
-  if (isParseResultElement(node)) {
-    return 'ParseResultElement';
-  }
   if (isElement(node)) {
     return getNodeTypeApiDOM(node);
   }
   return getCSTNodeType(node);
 };
 
-export const isNode = either(isElement, isCSTNode);
+export const isNode = anyPass([isElement, isCSTNode, isArray]);
 
 /* eslint-disable no-underscore-dangle */
 
-const JsonAstVisitor = stampit({
+const YamlAstVisitor = stampit({
   props: {
     sourceMap: false,
+    processedDocumentCount: 0,
     annotations: [],
+    namespace: null,
   },
   init() {
     /**
      * Private API.
      */
 
-    this.annotation = [];
-
-    const maybeAddSourceMap = (node: JsonNode, element: Element): void => {
+    const maybeAddSourceMap = (node: any, element: Element): void => {
       if (!this.sourceMap) {
         return;
       }
@@ -96,15 +80,14 @@ const JsonAstVisitor = stampit({
      * Public API.
      */
 
-    this.document = function document(node: JsonDocument) {
-      const element = new ParseResultElement();
-      // @ts-ignore
-      element._content = node.children;
-      return element;
-    };
+    this.namespace = createNamespace();
 
-    this.ParseResultElement = {
-      leave(element: ParseResultElement) {
+    this.stream = {
+      leave(node: YamlStream) {
+        const element = new ParseResultElement();
+        // @ts-ignore
+        element._content = unnest(node.children);
+
         // mark first-non Annotation element as result
         // @ts-ignore
         const elements = element.findElements(isPrimitiveElement);
@@ -118,10 +101,48 @@ const JsonAstVisitor = stampit({
           element.push(annotationElement);
         });
         this.annotations = [];
+
+        return element;
       },
     };
 
-    this.object = function object(node: JsonObject) {
+    this.comment = function comment(node: YamlComment) {
+      const isStreamComment = this.processedDocumentCount === 0;
+
+      // we're only interested of stream comments before the first document
+      if (isStreamComment) {
+        // @ts-ignore
+        const element = new CommentElement(node.content);
+        maybeAddSourceMap(node, element);
+        return element;
+      }
+
+      return null;
+    };
+
+    this.document = function document(node: YamlDocument) {
+      const shouldWarnAboutMoreDocuments = this.processedDocumentCount === 1;
+      const shouldSkipVisitingMoreDocuments = this.processedDocumentCount >= 1;
+
+      if (shouldWarnAboutMoreDocuments) {
+        const message =
+          'Only first document within YAML stream will be used. Rest will be discarded.';
+        const element = new AnnotationElement(message);
+        element.classes.push('warning');
+        maybeAddSourceMap(node, element);
+        this.annotations.push(element);
+      }
+
+      if (shouldSkipVisitingMoreDocuments) {
+        return null;
+      }
+
+      this.processedDocumentCount += 1;
+
+      return node.children;
+    };
+
+    this.mapping = function mapping(node: YamlMapping) {
       const element = new ObjectElement();
       // @ts-ignore
       element._content = node.children;
@@ -129,7 +150,7 @@ const JsonAstVisitor = stampit({
       return element;
     };
 
-    this.property = function property(node: JsonProperty) {
+    this.keyValuePair = function keyValuePair(node: YamlKeyValuePair) {
       const element = new MemberElement();
 
       // @ts-ignore
@@ -148,13 +169,7 @@ const JsonAstVisitor = stampit({
       return element;
     };
 
-    this.key = function key(node: JsonKey) {
-      const element = new StringElement(node.value);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.array = function array(node: JsonArray) {
+    this.sequence = function sequence(node: YamlSequence) {
       const element = new ArrayElement();
       // @ts-ignore
       element._content = node.children;
@@ -162,32 +177,8 @@ const JsonAstVisitor = stampit({
       return element;
     };
 
-    this.string = function string(node: JsonString) {
-      const element = new StringElement(node.value);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.number = function number(node: JsonNumber) {
-      const element = new NumberElement(Number(node.value));
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.null = function _null(node: JsonNull) {
-      const element = new NullElement();
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.true = function _true(node: JsonTrue) {
-      const element = new BooleanElement(true);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.false = function _false(node: JsonFalse) {
-      const element = new BooleanElement(false);
+    this.scalar = function scalar(node: YamlScalar) {
+      const element = this.namespace.toElement(node.content);
       maybeAddSourceMap(node, element);
       return element;
     };
@@ -196,7 +187,6 @@ const JsonAstVisitor = stampit({
       if (node.isMissing) {
         const message = `(Missing ${node.value})`;
         const element = new AnnotationElement(message);
-
         element.classes.push('warning');
         maybeAddSourceMap(node, element);
         this.annotations.push(element);
@@ -226,4 +216,4 @@ const JsonAstVisitor = stampit({
   },
 });
 
-export default JsonAstVisitor;
+export default YamlAstVisitor;

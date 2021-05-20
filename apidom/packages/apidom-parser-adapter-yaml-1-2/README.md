@@ -1,11 +1,26 @@
 # apidom-parser-adapter-yaml-1-2
 
 `apidom-parser-adapter-yaml-1-2` is a parser adapter for the [YAML 1.2 format](https://yaml.org/spec/1.2/spec.html).
-This parser adapter uses [tree-sitter](https://www.npmjs.com/package/tree-sitter) / [web-tree-sitter](https://www.npmjs.com/package/web-tree-sitter) as an underlying parser.
-Tree-sitter uses [tree-sitter-yaml grammar](https://www.npmjs.com/package/tree-sitter-yaml) to produce [CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) from a source string.
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by tree-sitter parser is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-yaml-1-2/src/parser/syntactic-analysis.ts) and [YAML AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#yaml-ast-nodes) is produced.
-YAML AST is then transformed into generic ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis) and
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+
+
+## Parse phases
+
+The parse stage takes YAML string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
+There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
+
+### Lexical Analysis
+
+Lexical Analysis will take a YAML string and turn it into a stream of tokens.
+[tree-sitter](https://www.npmjs.com/package/tree-sitter) / [web-tree-sitter](https://www.npmjs.com/package/web-tree-sitter) is used as an underlying lexical analyzer.
+
+### Syntactic Analysis
+
+Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
 
 ## Parser adapter API
 
@@ -36,7 +51,6 @@ This adapter exposes an instance of [base ApiDOM namespace](https://github.com/s
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-yaml-1-2/src/parser/specification.ts) | This specification object drives the YAML AST transformation to base ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
 
 All unrecognized arbitrary options will be ignored.

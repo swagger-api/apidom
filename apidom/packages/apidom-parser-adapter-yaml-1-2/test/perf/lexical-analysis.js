@@ -1,8 +1,8 @@
 require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
-const Parser = require('tree-sitter');
-const YAMLLanguage = require('tree-sitter-yaml');
 const Benchmark = require('benchmark');
+
+const { default: analyze } = require('../../src/lexical-analysis/node');
 
 const yaml = `
 ---
@@ -329,16 +329,13 @@ components:
           type: string
 `;
 
-const parser = new Parser();
-parser.setLanguage(YAMLLanguage);
-
 const options = {
   name: 'lexical-analysis',
   defer: true,
   minSamples: 600,
-  expected: '653 ops/sec ±3.40% (670 runs sampled)',
+  expected: '955 ops/sec ±2.48% (670 runs sampled)',
   async fn(deferred) {
-    await parser.parse(yaml);
+    await analyze(yaml);
     deferred.resolve();
   },
 };

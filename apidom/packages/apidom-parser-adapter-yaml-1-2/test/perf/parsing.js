@@ -333,7 +333,7 @@ const options = {
   name: 'parsing',
   defer: true,
   minSamples: 600,
-  expected: '4.74 ops/sec ±0.72% (623 runs sampled)',
+  expected: ' 4.84 ops/sec ±0.74% (622 runs sampled)',
   async fn(deferred) {
     await parse(yaml);
     deferred.resolve();

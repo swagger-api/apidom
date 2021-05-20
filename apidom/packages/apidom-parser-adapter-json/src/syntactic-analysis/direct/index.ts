@@ -53,6 +53,7 @@ const isNode = either(isElement, isCSTNode);
 
 const Visitor = stampit({
   props: {
+    sourceMap: false,
     annotations: [],
   },
   init() {

@@ -1,2 +1,20 @@
-export { default as parse, namespace } from './parser/index-browser';
-export { detect, mediaTypes } from './adapter';
+import { ParseResultElement } from 'apidom';
+
+import lexicallyAnalyze from './lexical-analysis/browser';
+import syntacticallyAnalyze from './syntactic-analysis';
+
+export { detect, mediaTypes, namespace } from './adapter';
+
+interface ParseFunctionOptions {
+  sourceMap?: boolean;
+}
+
+type ParseFunction = (
+  source: string,
+  options?: ParseFunctionOptions,
+) => Promise<ParseResultElement>;
+
+export const parse: ParseFunction = async (source, { sourceMap = false } = {}) => {
+  const cst = await lexicallyAnalyze(source);
+  return syntacticallyAnalyze(cst, { sourceMap });
+};

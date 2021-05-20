@@ -14,7 +14,8 @@ import {
   hasIn,
 } from 'ramda';
 import { isArray, isFalse, isFunction, isNotUndefined, invokeArgs } from 'ramda-adjunct';
-import { SyntaxNode, Tree } from 'tree-sitter';
+import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
+import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
   YamlDirective,
   YamlStream,
@@ -29,14 +30,12 @@ import {
   YamlStyle,
   YamlStyleGroup,
   YamlNodeKind,
-  YamlJsonSchema as JsonSchema,
   ParseResult,
   Position,
   Point,
   Literal,
   Error,
-  visit,
-  isNode,
+  isNode as isCSTNode,
 } from 'apidom-ast';
 
 export const keyMap = {
@@ -48,9 +47,16 @@ export const keyMap = {
   error: ['children'],
 };
 
+export const isNode = either(isArray, isCSTNode);
+
 /* eslint-disable no-param-reassign */
 
-const Visitor = stampit({
+type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
+
+const CstVisitor = stampit({
+  props: {
+    schema: null,
+  },
   init() {
     /**
      * Private API.
@@ -260,6 +266,9 @@ const Visitor = stampit({
           position,
           isMissing: node.isMissing(),
         });
+      },
+      leave(stream: YamlStream) {
+        return ParseResult({ children: [stream] });
       },
     };
 
@@ -577,26 +586,23 @@ const Visitor = stampit({
       },
     };
 
-    this.ERROR = function ERROR(node: SyntaxNode) {
+    this.ERROR = function ERROR(node: SyntaxNode, key: any, parent: any, path: string[]) {
       const position = toPosition(node);
-
-      return Error({
+      const errorNode = Error({
         children: node.children,
         position,
         isUnexpected: !node.hasError(),
         isMissing: node.isMissing(),
         value: node.text,
       });
+
+      if (path.length === 0) {
+        return ParseResult({ children: [errorNode] });
+      }
+
+      return errorNode;
     };
   },
 });
 
-export const analyze = (cst: Tree): ParseResult => {
-  const visitor = Visitor();
-  const nodePredicate = either(isArray, isNode);
-  const schema = JsonSchema();
-  // @ts-ignore
-  const rootNode = visit(cst.rootNode, visitor, { keyMap, nodePredicate, state: { schema } });
-
-  return ParseResult({ children: [rootNode] });
-};
+export default CstVisitor;

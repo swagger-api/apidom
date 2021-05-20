@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { tail } from 'ramda';
 import { isFalse, isFunction } from 'ramda-adjunct';
-import { Tree as NodeTree, SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
-import { Tree as WebTree, SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
+import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
+import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
   JsonArray,
   JsonDocument,
@@ -33,7 +33,6 @@ export const keyMap = {
   error: ['children'],
 };
 
-type Tree = WebTree | NodeTree;
 type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
 
 const CstVisitor = stampit({

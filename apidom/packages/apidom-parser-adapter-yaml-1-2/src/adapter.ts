@@ -1,3 +1,5 @@
+import { createNamespace } from 'apidom';
+
 export const mediaTypes = ['text/yaml', 'application/yaml'];
 
 export const detect: (source?: string) => boolean = () => {
@@ -8,3 +10,5 @@ export const detect: (source?: string) => boolean = () => {
    */
   return false;
 };
+
+export const namespace = createNamespace();

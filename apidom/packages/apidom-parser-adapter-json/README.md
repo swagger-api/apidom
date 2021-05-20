@@ -8,12 +8,12 @@ ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/ap
 
 ## Parse phases
 
-The parse stage takes JSON string and producesApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+The parse stage takes JSON string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
 There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
 
 ### Lexical Analysis
 
-Lexical Analysis will take a string of code and turn it into a stream of tokens.
+Lexical Analysis will take a JSON string and turn it into a stream of tokens.
 [tree-sitter](https://www.npmjs.com/package/tree-sitter) / [web-tree-sitter](https://www.npmjs.com/package/web-tree-sitter) is used as an underlying lexical analyzer.
 
 ### Syntactic Analysis

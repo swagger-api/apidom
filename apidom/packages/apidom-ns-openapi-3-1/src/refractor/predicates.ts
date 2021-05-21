@@ -47,6 +47,8 @@ export const isHeaderLikeElement = isObjectElement;
 
 export const isPathItemLikeElement = isObjectElement;
 
+export const isExampleLikeElement = isObjectElement;
+
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());

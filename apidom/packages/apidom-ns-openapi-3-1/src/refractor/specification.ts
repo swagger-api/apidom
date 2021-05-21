@@ -32,6 +32,9 @@ import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variabl
 import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
 import ServerVariablesVisitor from './visitors/open-api-3-1/server/VariablesVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
+import MediaTypeVisitor from './visitors/open-api-3-1/media-type';
+import MediaTypeExampleVisitor from './visitors/open-api-3-1/media-type/ExampleVisitor';
+import MediaTypeEncodingVisitor from './visitors/open-api-3-1/media-type/EncodingVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import ComponentsVisitor from './visitors/open-api-3-1/components';
@@ -144,7 +147,6 @@ import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
-import MediaTypeVisitor from './visitors/open-api-3-1/media-type';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
 import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import OperationVisitor from './visitors/open-api-3-1/operation';
@@ -359,15 +361,20 @@ const specification = {
             schema: {
               $ref: '#/visitors/document/objects/Schema',
             },
+            example: MediaTypeExampleVisitor,
+            examples: ExamplesVisitor,
+            encoding: MediaTypeEncodingVisitor,
           },
         },
         Encoding: {
           $visitor: EncodingVisitor,
-          contentType: EncodingContentTypeVisitor,
-          headers: EncodingHeadersVisitor,
-          style: EncodingStyleVisitor,
-          explode: EncodingExplodeVisitor,
-          allowReserved: EncodingAllowReserved,
+          fixedFields: {
+            contentType: EncodingContentTypeVisitor,
+            headers: EncodingHeadersVisitor,
+            style: EncodingStyleVisitor,
+            explode: EncodingExplodeVisitor,
+            allowReserved: EncodingAllowReserved,
+          },
         },
         Responses: {
           $visitor: ResponsesVisitor,
@@ -383,14 +390,15 @@ const specification = {
         },
         Callback: {
           $visitor: CallbackVisitor,
-          fixedFields: {},
         },
         Example: {
           $visitor: ExampleVisitor,
-          summary: ExampleSummaryVisitor,
-          description: ExampleDescriptionVisitor,
-          value: ExampleValueVisitor,
-          externalValue: ExampleExternalValueVisitor,
+          fixedFields: {
+            summary: ExampleSummaryVisitor,
+            description: ExampleDescriptionVisitor,
+            value: ExampleValueVisitor,
+            externalValue: ExampleExternalValueVisitor,
+          },
         },
         Link: {
           $visitor: LinkVisitor,

@@ -4,6 +4,8 @@ import { Element, ObjectElement } from 'apidom';
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { isReferenceLikeElement, isExampleLikeElement } from '../../predicates';
+import { isReferenceElement } from '../../../predicates';
+import ReferenceElement from '../../../elements/Reference';
 
 const ExamplesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
@@ -20,6 +22,18 @@ const ExamplesVisitor = stampit(MapVisitor, FallbackVisitor, {
   init() {
     this.element = new ObjectElement();
     this.element.classes.push('examples');
+  },
+  methods: {
+    ObjectElement(objectElement: ObjectElement) {
+      // @ts-ignore
+      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'example');
+      });
+
+      return result;
+    },
   },
 });
 

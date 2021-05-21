@@ -49,6 +49,26 @@ export const isPathItemLikeElement = isObjectElement;
 
 export const isExampleLikeElement = isObjectElement;
 
+export const isLinkLikeElement = isObjectElement;
+
+export const isCallbackLikeElement = isObjectElement;
+
+export const isSecuritySchemeLikeElement = <T extends Element>(element: T): boolean => {
+  return (
+    isObjectElement(element) &&
+    // @ts-ignore
+    element.hasKey('type') &&
+    // @ts-ignore
+    element.hasKey('name') &&
+    // @ts-ignore
+    element.hasKey('in') &&
+    // @ts-ignore
+    element.hasKey('scheme') &&
+    // @ts-ignore
+    elememt.hasKey('flows')
+  );
+};
+
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());

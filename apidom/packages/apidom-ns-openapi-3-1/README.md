@@ -142,7 +142,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#licenseObject)
 - [x] [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#serverObject)
 - [x] [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#serverVariableObject)
-- [ ] [Components](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#componentsObject) (partial)
+- [x] [Components](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#componentsObject)
 - [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#pathsObject)
 - [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#pathItemObject)
 - [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#operationObject)

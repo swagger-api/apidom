@@ -4,23 +4,23 @@ import { ObjectElement, Element } from 'apidom';
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isParameterLikeElement, isReferenceLikeElement } from '../../../predicates';
+import { isPathItemLikeElement, isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
+const PathItemsVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
     specPath: (element: Element) => {
       // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isParameterLikeElement(element)
-        ? ['document', 'objects', 'Parameter']
+        : isPathItemLikeElement(element)
+        ? ['document', 'objects', 'PathItem']
         : ['value'];
     },
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('components-parameters');
+    this.element.classes.push('components-path-items');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {
@@ -28,7 +28,7 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
       const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'parameter');
+        referenceElement.setMetaProperty('referenced-element', 'pathItem');
       });
 
       return result;
@@ -36,4 +36,4 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
 });
 
-export default ParametersVisitor;
+export default PathItemsVisitor;

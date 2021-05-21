@@ -145,6 +145,8 @@ import EncodingExplodeVisitor from './visitors/open-api-3-1/encoding/ExplodeVisi
 import EncodingAllowReserved from './visitors/open-api-3-1/encoding/AllowReservedVisitor';
 import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
+import RequestBodyDescriptionVisitor from './visitors/open-api-3-1/request-body/DescriptionVisitor';
+import RequestBodyRequiredVisitor from './visitors/open-api-3-1/request-body/RequiredVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
@@ -353,7 +355,11 @@ const specification = {
         },
         RequestBody: {
           $visitor: RequestBodyVisitor,
-          fixedFields: {},
+          fixedFields: {
+            description: RequestBodyDescriptionVisitor,
+            content: ContentVisitor,
+            required: RequestBodyRequiredVisitor,
+          },
         },
         MediaType: {
           $visitor: MediaTypeVisitor,

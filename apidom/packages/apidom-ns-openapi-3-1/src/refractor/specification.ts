@@ -127,8 +127,15 @@ import XmlWrappedVisitor from './visitors/open-api-3-1/xml/WrappedVisitor';
 import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
 import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
-import ComponentSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
-import ComponentParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
+import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
+import ComponentsResponsesVisitor from './visitors/open-api-3-1/components/ResponsesVisitor';
+import ComponentsParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
+import ComponentsRequestBodiesVisitor from './visitors/open-api-3-1/components/RequestBodiesVisitor';
+import ComponentsHeadersVisitor from './visitors/open-api-3-1/components/HeadersVisitor';
+import ComponentsSecuritySchemesVisitor from './visitors/open-api-3-1/components/SecuritySchemesVisitor';
+import ComponentsLinksVisitor from './visitors/open-api-3-1/components/LinksVisitor';
+import ComponentsCallbacksVisitor from './visitors/open-api-3-1/components/CallbacksVisitor';
+import ComponentsPathItemsVisitor from './visitors/open-api-3-1/components/PathItemsVisitor';
 import ExampleVisitor from './visitors/open-api-3-1/example';
 import ExampleSummaryVisitor from './visitors/open-api-3-1/example/SummaryVisitor';
 import ExampleDescriptionVisitor from './visitors/open-api-3-1/example/DescriptionVisitor';
@@ -264,8 +271,16 @@ const specification = {
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
-            schemas: ComponentSchemasVisitor,
-            parameters: ComponentParametersVisitor,
+            schemas: ComponentsSchemasVisitor,
+            responses: ComponentsResponsesVisitor,
+            parameters: ComponentsParametersVisitor,
+            examples: ExamplesVisitor,
+            requestBodies: ComponentsRequestBodiesVisitor,
+            headers: ComponentsHeadersVisitor,
+            securitySchemes: ComponentsSecuritySchemesVisitor,
+            links: ComponentsLinksVisitor,
+            callbacks: ComponentsCallbacksVisitor,
+            pathItems: ComponentsPathItemsVisitor,
           },
         },
         Paths: {

@@ -4,7 +4,7 @@ import { ObjectElement, Element } from 'apidom';
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isParameterLikeElement, isReferenceLikeElement } from '../../../predicates';
+import { isSecuritySchemeLikeElement, isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
 const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -13,14 +13,14 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
       // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isParameterLikeElement(element)
-        ? ['document', 'objects', 'Parameter']
+        : isSecuritySchemeLikeElement(element)
+        ? ['document', 'objects', 'SecurityScheme']
         : ['value'];
     },
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('components-parameters');
+    this.element.classes.push('components-security-schemes');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {
@@ -28,7 +28,7 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
       const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'parameter');
+        referenceElement.setMetaProperty('referenced-element', 'securityScheme');
       });
 
       return result;

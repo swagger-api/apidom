@@ -411,7 +411,7 @@ const genericObjectElement = new ObjectElement({
 });
 
 const options = {
-  name: 'refracting',
+  name: 'refract',
   minSamples: 400,
   expected: '56.33 ops/sec ±0.68% (1453 runs sampled)',
   fn() {

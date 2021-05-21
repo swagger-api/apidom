@@ -3,19 +3,20 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
+const { lexicalAnalysis, syntacticAnalysis } = require('apidom-parser-adapter-json');
 
-const { default: analyze } = require('../../src/lexical-analysis/node');
-
-const fixturePath = path.join(__dirname, 'fixtures/data.yaml');
+const fixturePath = path.join(__dirname, 'fixtures/asyncapi.json');
 const source = fs.readFileSync(fixturePath).toString();
+const cstP = lexicalAnalysis(source);
 
 const options = {
-  name: 'lexical-analysis',
+  name: 'syntactic-analysis',
   defer: true,
   minSamples: 600,
-  expected: '662 ops/sec ±2.54% (670 runs sampled)',
+  expected: '21.51 ops/sec ±1.97% (642 runs sampled)',
   async fn(deferred) {
-    await analyze(source);
+    const cst = await cstP;
+    syntacticAnalysis(cst);
     deferred.resolve();
   },
 };

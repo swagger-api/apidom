@@ -3,20 +3,20 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
+const { ObjectElement } = require('apidom');
+const { OpenApi3_1Element } = require('apidom-ns-openapi-3-1');
 
-const { default: analyze } = require('../../src/lexical-analysis/node');
-
-const fixturePath = path.join(__dirname, 'fixtures/data.yaml');
+const fixturePath = path.join(__dirname, 'fixtures/openapi.json');
 const source = fs.readFileSync(fixturePath).toString();
+const pojo = JSON.parse(source);
+const genericObjectElement = new ObjectElement(pojo);
 
 const options = {
-  name: 'lexical-analysis',
-  defer: true,
+  name: 'refract',
   minSamples: 600,
-  expected: '662 ops/sec ±2.54% (670 runs sampled)',
-  async fn(deferred) {
-    await analyze(source);
-    deferred.resolve();
+  expected: '55.02 ops/sec ±1.39% (651 runs sampled)',
+  fn() {
+    OpenApi3_1Element.refract(genericObjectElement);
   },
 };
 

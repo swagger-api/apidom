@@ -17,7 +17,11 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
-    "test": "cross-env BABEL_ENV=cjs mocha"
+    "test": "cross-env BABEL_ENV=cjs mocha",
+    "perf:lexical-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/lexical-analysis.js",
+    "perf:syntactic-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/syntactic-analysis.js",
+    "perf:refract": "cross-env BABEL_ENV=cjs node ./test/perf/refract.js",
+    "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

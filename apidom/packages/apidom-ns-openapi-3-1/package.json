@@ -18,7 +18,7 @@
     "test": "cross-env BABEL_ENV=cjs mocha",
     "perf": "cross-env BABEL_ENV=cjs node ./test/perf/index.js",
     "perf:visitor-shortcut": "cross-env BABEL_ENV=cjs node ./test/perf/visitor-shortcut.js",
-    "perf:refracting": "cross-env BABEL_ENV=cjs node ./test/perf/refracting.js",
+    "perf:refract": "cross-env BABEL_ENV=cjs node ./test/perf/refract.js",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json"
   },

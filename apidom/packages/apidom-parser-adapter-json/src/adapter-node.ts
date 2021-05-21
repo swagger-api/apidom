@@ -1,10 +1,16 @@
 import { ParseResultElement } from 'apidom';
 
-import lexicallyAnalyze from './lexical-analysis/node';
-import syntacticallyAnalyzeDirectly from './syntactic-analysis/direct';
-import syntacticallyAnalyzeIndirectly from './syntactic-analysis/indirect';
+import lexicalAnalysis from './lexical-analysis/node';
+import syntacticAnalysisDirect from './syntactic-analysis/direct';
+import syntacticAnalysisIndirect from './syntactic-analysis/indirect';
 
 export { detect, mediaTypes, namespace } from './adapter';
+export {
+  lexicalAnalysis,
+  syntacticAnalysisDirect as syntacticAnalysis,
+  syntacticAnalysisDirect,
+  syntacticAnalysisIndirect,
+};
 
 interface ParseFunctionOptions {
   sourceMap?: boolean;
@@ -20,13 +26,13 @@ export const parse: ParseFunction = async (
   source,
   { sourceMap = false, syntacticAnalysis = 'direct' } = {},
 ) => {
-  const cst = await lexicallyAnalyze(source);
+  const cst = await lexicalAnalysis(source);
   let apiDOM;
 
   if (syntacticAnalysis === 'indirect') {
-    apiDOM = syntacticallyAnalyzeIndirectly(cst, { sourceMap });
+    apiDOM = syntacticAnalysisIndirect(cst, { sourceMap });
   } else {
-    apiDOM = syntacticallyAnalyzeDirectly(cst, { sourceMap });
+    apiDOM = syntacticAnalysisDirect(cst, { sourceMap });
   }
 
   return apiDOM;

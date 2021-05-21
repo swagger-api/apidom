@@ -1,6 +1,6 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { ParseResultElement, createNamespace, transclude } from 'apidom';
+import { ParseResultElement, createNamespace } from 'apidom';
 // @ts-ignore
 import { parse as parseJson } from 'apidom-parser-adapter-json';
 import openApiNamespace, { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
@@ -19,15 +19,13 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  let parseResultElement = await parseJson(source, parserOpts);
-  const firstResultElement = parseResultElement.result;
+  const parseResultElement = await parseJson(source, parserOpts);
+  const { result } = parseResultElement;
 
-  if (isNotUndefined(firstResultElement)) {
-    const openApiElement = OpenApi3_1Element.refract(firstResultElement, refractorOpts);
+  if (isNotUndefined(result)) {
+    const openApiElement = OpenApi3_1Element.refract(result, refractorOpts);
     openApiElement.classes.push('result');
-    parseResultElement = <
-      ParseResultElement // @ts-ignore
-    >transclude(firstResultElement, openApiElement, parseResultElement);
+    parseResultElement.replaceResult(openApiElement);
   }
 
   return parseResultElement;

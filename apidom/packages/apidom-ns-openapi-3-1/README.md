@@ -136,7 +136,7 @@ If multiple plugins with the same visitor method are defined, they run in parall
 
 Only fully implemented specification objects should be checked here.
 
-- [ ] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oasObject) (partial)
+- [x] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#oasObject)
 - [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#infoObject)
 - [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#contactObject)
 - [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#licenseObject)

@@ -69,6 +69,11 @@ export const isSecuritySchemeLikeElement = <T extends Element>(element: T): bool
   );
 };
 
+export const isTagLikeElement = <T extends Element>(element: T) => {
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('name');
+};
+
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());

@@ -1,4 +1,5 @@
 import { ArrayElement, ArraySlice, Attributes, Element, Meta } from 'minim';
+import { isUndefined } from 'ramda-adjunct';
 
 class ParseResult extends ArrayElement {
   constructor(content?: Array<any>, meta?: Meta, attributes?: Attributes) {
@@ -36,6 +37,24 @@ class ParseResult extends ArrayElement {
 
   get isEmpty(): boolean {
     return this.children.reject((item) => item.element === 'annotation').isEmpty;
+  }
+
+  replaceResult(replacement: Element): boolean {
+    const { result } = this;
+
+    if (isUndefined(result)) {
+      return false;
+    }
+
+    // @ts-ignore
+    const searchIndex = this.content.findIndex((e) => e === result);
+    if (searchIndex === -1) {
+      return false;
+    }
+
+    this.content[searchIndex] = replacement;
+
+    return true;
   }
 }
 

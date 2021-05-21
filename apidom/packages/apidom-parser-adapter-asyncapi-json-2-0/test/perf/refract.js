@@ -3,20 +3,20 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
+const { ObjectElement } = require('apidom');
+const { AsyncApi2_0Element } = require('apidom-ns-asyncapi-2-0');
 
-const { default: analyze } = require('../../src/lexical-analysis/node');
-
-const fixturePath = path.join(__dirname, 'fixtures/data.yaml');
+const fixturePath = path.join(__dirname, 'fixtures/asyncapi.json');
 const source = fs.readFileSync(fixturePath).toString();
+const pojo = JSON.parse(source);
+const genericObjectElement = new ObjectElement(pojo);
 
 const options = {
-  name: 'lexical-analysis',
-  defer: true,
+  name: 'refract',
   minSamples: 600,
-  expected: '662 ops/sec ±2.54% (670 runs sampled)',
-  async fn(deferred) {
-    await analyze(source);
-    deferred.resolve();
+  expected: '350 ops/sec ±1.29% (679 runs sampled)',
+  fn() {
+    AsyncApi2_0Element.refract(genericObjectElement);
   },
 };
 

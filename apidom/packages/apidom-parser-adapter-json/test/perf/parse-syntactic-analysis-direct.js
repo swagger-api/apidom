@@ -4,18 +4,18 @@ const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
 
-const { default: analyze } = require('../../src/lexical-analysis/node');
+const { parse } = require('../../src/adapter-node');
 
-const fixturePath = path.join(__dirname, 'fixtures/data.yaml');
+const fixturePath = path.join(__dirname, 'fixtures/data.json');
 const source = fs.readFileSync(fixturePath).toString();
 
 const options = {
-  name: 'lexical-analysis',
+  name: 'parse-syntactic-analysis-direct',
   defer: true,
   minSamples: 600,
-  expected: '662 ops/sec ±2.54% (670 runs sampled)',
+  expected: '12.69 ops/sec ±1.02% (657 runs sampled)',
   async fn(deferred) {
-    await analyze(source);
+    await parse(source, { syntacticAnalysis: 'direct' });
     deferred.resolve();
   },
 };

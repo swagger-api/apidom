@@ -134,6 +134,12 @@ import ExampleExternalValueVisitor from './visitors/open-api-3-1/example/Exatern
 import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
 import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
 import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
+import EncodingVisitor from './visitors/open-api-3-1/encoding';
+import EncodingContentTypeVisitor from './visitors/open-api-3-1/encoding/ContentTypeVisitor';
+import EncodingHeadersVisitor from './visitors/open-api-3-1/encoding/HeadersVisitor';
+import EncodingStyleVisitor from './visitors/open-api-3-1/encoding/StyleVisitor';
+import EncodingExplodeVisitor from './visitors/open-api-3-1/encoding/ExplodeVisitor';
+import EncodingAllowReserved from './visitors/open-api-3-1/encoding/AllowReservedVisitor';
 import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
@@ -354,6 +360,14 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
           },
+        },
+        Encoding: {
+          $visitor: EncodingVisitor,
+          contentType: EncodingContentTypeVisitor,
+          headers: EncodingHeadersVisitor,
+          style: EncodingStyleVisitor,
+          explode: EncodingExplodeVisitor,
+          allowReserved: EncodingAllowReserved,
         },
         Responses: {
           $visitor: ResponsesVisitor,

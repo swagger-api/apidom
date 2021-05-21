@@ -43,6 +43,8 @@ export const isServerLikeElement = <T extends Element>(element: T): boolean => {
   return isObjectElement(element) && element.hasKey('url');
 };
 
+export const isHeaderLikeElement = isObjectElement;
+
 export const isPathItemLikeElement = isObjectElement;
 
 export const isOpenApiExtension = (element: MemberElement): boolean => {

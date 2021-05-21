@@ -126,6 +126,11 @@ import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
 import ComponentSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import ComponentParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
+import ExampleVisitor from './visitors/open-api-3-1/example';
+import ExampleSummaryVisitor from './visitors/open-api-3-1/example/SummaryVisitor';
+import ExampleDescriptionVisitor from './visitors/open-api-3-1/example/DescriptionVisitor';
+import ExampleValueVisitor from './visitors/open-api-3-1/example/ValueVisitor';
+import ExampleExternalValueVisitor from './visitors/open-api-3-1/example/ExaternalValueVisitor';
 import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
 import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
 import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
@@ -365,6 +370,13 @@ const specification = {
         Callback: {
           $visitor: CallbackVisitor,
           fixedFields: {},
+        },
+        Example: {
+          $visitor: ExampleVisitor,
+          summary: ExampleSummaryVisitor,
+          description: ExampleDescriptionVisitor,
+          value: ExampleValueVisitor,
+          externalValue: ExampleExternalValueVisitor,
         },
         Link: {
           $visitor: LinkVisitor,

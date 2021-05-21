@@ -185,6 +185,8 @@ import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow
 import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrlVisitor';
 import OAuthFlowRefreshUrlVisitor from './visitors/open-api-3-1/oauth-flow/RefreshUrlVisitor';
 import OAuthFlowScopesVisitor from './visitors/open-api-3-1/oauth-flow/ScopesVisitor';
+import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor';
+import TagsVisitor from './visitors/open-api-3-1/TagsVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -211,10 +213,12 @@ const specification = {
             paths: {
               $ref: '#/visitors/document/objects/Paths',
             },
+            webhooks: WebhooksVisitor,
             components: {
               $ref: '#/visitors/document/objects/Components',
             },
             security: SecurityVisitor,
+            tags: TagsVisitor,
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },

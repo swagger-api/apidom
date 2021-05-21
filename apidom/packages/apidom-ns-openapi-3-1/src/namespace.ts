@@ -4,6 +4,7 @@ import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import DiscriminatorElement from './elements/Discriminator';
+import EncodingElement from './elements/Encoding';
 import ExampleElement from './elements/Example';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import HeaderElement from './elements/Header';
@@ -40,6 +41,7 @@ const openApi3_1 = {
     base.register('components', ComponentsElement);
     base.register('contact', ContactElement);
     base.register('discriminator', DiscriminatorElement);
+    base.register('encoding', EncodingElement);
     base.register('example', ExampleElement);
     base.register('externalDocumentation', ExternalDocumentationElement);
     base.register('header', HeaderElement);

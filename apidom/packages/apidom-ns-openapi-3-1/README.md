@@ -150,7 +150,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#parameterObject)
 - [ ] [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#requestBodyObject) (partial)
 - [ ] [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#mediaTypeObject) (partial)
-- [ ] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#encodingObject)
+- [x] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#encodingObject)
 - [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#responsesObject)
 - [x] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#callbackObject)
 - [x] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#exampleObject)

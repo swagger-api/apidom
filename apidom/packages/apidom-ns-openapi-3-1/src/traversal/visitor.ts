@@ -23,6 +23,7 @@ export const keyMap = {
   ComponentsElement: ['content'],
   ContactElement: ['content'],
   DiscriminatorElement: ['content'],
+  Encoding: ['content'],
   Example: ['content'],
   ExternalDocumentationElement: ['content'],
   HeaderElement: ['content'],

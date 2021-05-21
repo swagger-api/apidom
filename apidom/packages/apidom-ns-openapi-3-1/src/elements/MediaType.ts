@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta, ObjectElement, Element } from 'minim';
 
 import SchemaElement from './Schema';
 
@@ -14,6 +14,30 @@ class MediaType extends ObjectElement {
 
   set schema(schema: SchemaElement) {
     this.set('schema', schema);
+  }
+
+  get example(): Element {
+    return this.get('example');
+  }
+
+  set example(example: Element) {
+    this.set('example', example);
+  }
+
+  get examples(): ObjectElement {
+    return this.get('examples');
+  }
+
+  set examples(examples: ObjectElement) {
+    this.set('examples', examples);
+  }
+
+  get encoding(): ObjectElement {
+    return this.get('encoding');
+  }
+
+  set encoding(encoding: ObjectElement) {
+    this.set('encoding', encoding);
   }
 }
 

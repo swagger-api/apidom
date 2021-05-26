@@ -12,6 +12,9 @@ import ContactVisitor from './visitors/async-api-2-0/contact';
 import ContactNameVisitor from './visitors/async-api-2-0/contact/NameVisitor';
 import ContactUrlVisitor from './visitors/async-api-2-0/contact/UrlVisitor';
 import ContactEmailVisitor from './visitors/async-api-2-0/contact/EmailVisitor';
+import CorrelationIDVisitor from './visitors/async-api-2-0/correlation-id';
+import CorrelationIDDescriptionVisitor from './visitors/async-api-2-0/correlation-id/DescriptionVisitor';
+import CorrelationIDLocationVisitor from './visitors/async-api-2-0/correlation-id/LocationVisitor';
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
@@ -210,6 +213,13 @@ const specification = {
         ChannelBindings: {
           $visitor: ChannelBindingsVisitor,
           fixedFields: {},
+        },
+        CorrelationID: {
+          $visitor: CorrelationIDVisitor,
+          fixedFields: {
+            description: CorrelationIDDescriptionVisitor,
+            location: CorrelationIDLocationVisitor,
+          },
         },
       },
       extension: {

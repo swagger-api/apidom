@@ -145,7 +145,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Servers Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serversObject)
 - [x] [Server Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverObject)
 - [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverVariableObject)
-- [ ] [Default Content Type](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#defaultContentTypeString)
+- [x] [Default Content Type](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#defaultContentTypeString)
 - [x] [Channels Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelsObject)
 - [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelItemObject)
 - [ ] [Operation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationObject) (partial)

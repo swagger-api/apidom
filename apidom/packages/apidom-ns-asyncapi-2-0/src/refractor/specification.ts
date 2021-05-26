@@ -15,6 +15,7 @@ import ContactEmailVisitor from './visitors/async-api-2-0/contact/EmailVisitor';
 import CorrelationIDVisitor from './visitors/async-api-2-0/correlation-id';
 import CorrelationIDDescriptionVisitor from './visitors/async-api-2-0/correlation-id/DescriptionVisitor';
 import CorrelationIDLocationVisitor from './visitors/async-api-2-0/correlation-id/LocationVisitor';
+import DefaultContentTypeVisitor from './visitors/async-api-2-0/DefaultContentTypeVisitor';
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
@@ -77,6 +78,9 @@ const specification = {
             },
             servers: {
               $ref: '#/visitors/document/objects/Servers',
+            },
+            defaultContentType: {
+              $ref: '#/visitors/document/objects/DefaultContentType',
             },
             channels: {
               $ref: '#/visitors/document/objects/Channels',
@@ -147,6 +151,9 @@ const specification = {
             description: ServerVariableDescriptionVisitor,
             examples: ServerVariableExamplesVisitor,
           },
+        },
+        DefaultContentType: {
+          $visitor: DefaultContentTypeVisitor,
         },
         Channels: {
           $visitor: ChannelsVisitor,

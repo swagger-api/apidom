@@ -6,6 +6,7 @@ import ChannelsElement from '../elements/Channels';
 import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
 import CorrelationIDElement from '../elements/CorrelationID';
+import DefaultContentTypeElement from '../elements/DefaultContentType';
 import IdentifierElement from '../elements/Identifier';
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
@@ -76,6 +77,13 @@ CorrelationIDElement.refract = createRefractor([
   'document',
   'objects',
   'CorrelationID',
+  '$visitor',
+]);
+DefaultContentTypeElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'DefaultContentType',
   '$visitor',
 ]);
 IdentifierElement.refract = createRefractor([

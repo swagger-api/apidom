@@ -8,6 +8,7 @@ import ChannelsElement from './elements/Channels';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import CorrelationIDElement from './elements/CorrelationID';
+import DefaultContentTypeElement from './elements/DefaultContentType';
 import IdentifierElement from './elements/Identifier';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
@@ -34,6 +35,7 @@ const asyncApi2_0 = {
     base.register('components', ComponentsElement);
     base.register('contact', ContactElement);
     base.register('correlationID', CorrelationIDElement);
+    base.register('defaultContentType', DefaultContentTypeElement);
     base.register('identifier', IdentifierElement);
     base.register('info', InfoElement);
     base.register('license', LicenseElement);

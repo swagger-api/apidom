@@ -19,6 +19,11 @@ import DefaultContentTypeVisitor from './visitors/async-api-2-0/DefaultContentTy
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
+import OAuthFlowVisitor from './visitors/async-api-2-0/oauth-flow';
+import OAuthFlowAuthorizationUrlVisitor from './visitors/async-api-2-0/oauth-flow/AuthorizationUrlVisitor';
+import OAuthFlowTokenUrlVisitor from './visitors/async-api-2-0/oauth-flow/TokenUrlVisitor';
+import OAuthFlowRefreshUrlVisitor from './visitors/async-api-2-0/oauth-flow/RefreshUrlVisitor';
+import OAuthFlowScopesVisitor from './visitors/async-api-2-0/oauth-flow/ScopesVisitor';
 import ServersVisitor from './visitors/async-api-2-0/servers';
 import ServerVisitor from './visitors/async-api-2-0/server';
 import ServerUrlVisitor from './visitors/async-api-2-0/server/UrlVisitor';
@@ -199,6 +204,15 @@ const specification = {
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
+        },
+        OAuthFlow: {
+          $visitor: OAuthFlowVisitor,
+          fixedFields: {
+            authorizationUrl: OAuthFlowAuthorizationUrlVisitor,
+            tokenUrl: OAuthFlowTokenUrlVisitor,
+            refreshUrl: OAuthFlowRefreshUrlVisitor,
+            scopes: OAuthFlowScopesVisitor,
+          },
         },
         ServerBindings: {
           $visitor: ServerBindingsVisitor,

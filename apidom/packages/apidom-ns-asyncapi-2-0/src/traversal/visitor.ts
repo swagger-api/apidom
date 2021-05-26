@@ -19,6 +19,7 @@ export const keyMap = {
   DefaultContentType: [],
   InfoElement: ['content'],
   LicenseElement: ['content'],
+  OAuthFlowElement: ['content'],
   OperationElement: ['content'],
   ParameterElement: ['content'],
   ParametersElement: ['content'],

@@ -10,6 +10,7 @@ import DefaultContentTypeElement from '../elements/DefaultContentType';
 import IdentifierElement from '../elements/Identifier';
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
+import OAuthFlowElement from '../elements/OAuthFlow';
 import OperationElement from '../elements/Operation';
 import ParameterElement from '../elements/Parameter';
 import ParametersElement from '../elements/Parameters';
@@ -99,6 +100,13 @@ LicenseElement.refract = createRefractor([
   'document',
   'objects',
   'License',
+  '$visitor',
+]);
+OAuthFlowElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OAuthFlow',
   '$visitor',
 ]);
 OperationElement.refract = createRefractor([

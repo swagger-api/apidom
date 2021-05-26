@@ -64,6 +64,7 @@ export { default as IdentifierElement } from './elements/Identifier';
 export { default as InfoElement } from './elements/Info';
 export { default as LicenseElement } from './elements/License';
 export { default as OAuthFlowElement } from './elements/OAuthFlow';
+export { default as OAuthFlowsElement } from './elements/OAuthFlows';
 export { default as OperationElement } from './elements/Operation';
 export { default as ParameterElement } from './elements/Parameter';
 export { default as ParametersElement } from './elements/Parameters';

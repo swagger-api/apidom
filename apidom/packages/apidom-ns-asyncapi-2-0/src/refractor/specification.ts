@@ -19,6 +19,7 @@ import DefaultContentTypeVisitor from './visitors/async-api-2-0/DefaultContentTy
 import LicenseVisitor from './visitors/async-api-2-0/license';
 import LicenseNameVisitor from './visitors/async-api-2-0/license/NameVisitor';
 import LicenseUrlVisitor from './visitors/async-api-2-0/license/UrlVisitor';
+import OAuthFlowsVisitor from './visitors/async-api-2-0/oauth-flows';
 import OAuthFlowVisitor from './visitors/async-api-2-0/oauth-flow';
 import OAuthFlowAuthorizationUrlVisitor from './visitors/async-api-2-0/oauth-flow/AuthorizationUrlVisitor';
 import OAuthFlowTokenUrlVisitor from './visitors/async-api-2-0/oauth-flow/TokenUrlVisitor';
@@ -204,6 +205,23 @@ const specification = {
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
+        },
+        OAuthFlows: {
+          $visitor: OAuthFlowsVisitor,
+          fixedFields: {
+            implicit: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            password: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            clientCredentials: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            authorizationCode: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+          },
         },
         OAuthFlow: {
           $visitor: OAuthFlowVisitor,

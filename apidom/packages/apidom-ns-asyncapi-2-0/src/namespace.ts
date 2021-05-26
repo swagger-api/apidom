@@ -13,6 +13,7 @@ import IdentifierElement from './elements/Identifier';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import OAuthFlowElement from './elements/OAuthFlow';
+import OAuthFlowsElement from './elements/OAuthFlows';
 import OperationElement from './elements/Operation';
 import ParameterElement from './elements/Parameter';
 import ParametersElement from './elements/Parameters';
@@ -41,6 +42,7 @@ const asyncApi2_0 = {
     base.register('info', InfoElement);
     base.register('license', LicenseElement);
     base.register('oAuthFlow', OAuthFlowElement);
+    base.register('oAuthFlows', OAuthFlowsElement);
     base.register('operation', OperationElement);
     base.register('parameter', ParameterElement);
     base.register('parameters', ParametersElement);

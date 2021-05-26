@@ -11,6 +11,7 @@ import IdentifierElement from '../elements/Identifier';
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import OAuthFlowElement from '../elements/OAuthFlow';
+import OAuthFlowsElement from '../elements/OAuthFlows';
 import OperationElement from '../elements/Operation';
 import ParameterElement from '../elements/Parameter';
 import ParametersElement from '../elements/Parameters';
@@ -107,6 +108,13 @@ OAuthFlowElement.refract = createRefractor([
   'document',
   'objects',
   'OAuthFlow',
+  '$visitor',
+]);
+OAuthFlowsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OAuthFlows',
   '$visitor',
 ]);
 OperationElement.refract = createRefractor([

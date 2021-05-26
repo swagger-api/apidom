@@ -20,6 +20,7 @@ export const keyMap = {
   InfoElement: ['content'],
   LicenseElement: ['content'],
   OAuthFlowElement: ['content'],
+  OAuthFlowsElement: ['content'],
   OperationElement: ['content'],
   ParameterElement: ['content'],
   ParametersElement: ['content'],

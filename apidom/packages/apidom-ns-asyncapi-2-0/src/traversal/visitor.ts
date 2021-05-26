@@ -15,6 +15,7 @@ export const keyMap = {
   ChannelsElement: ['content'],
   ComponentsElement: ['content'],
   ContactElement: ['content'],
+  CorrelationIDElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
   OperationElement: ['content'],

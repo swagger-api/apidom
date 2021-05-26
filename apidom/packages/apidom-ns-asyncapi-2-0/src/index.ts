@@ -58,6 +58,7 @@ export { default as ChannelItemElement } from './elements/ChannelItem';
 export { default as ChannelsElement } from './elements/Channels';
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
+export { default as CorrelationIDElement } from './elements/CorrelationID';
 export { default as IdentifierElement } from './elements/Identifier';
 export { default as InfoElement } from './elements/Info';
 export { default as LicenseElement } from './elements/License';

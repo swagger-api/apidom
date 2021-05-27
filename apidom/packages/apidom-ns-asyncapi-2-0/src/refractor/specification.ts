@@ -76,6 +76,9 @@ import HttpOperationBindingVisitor from './visitors/async-api-2-0/bindings/http/
 import HttpOperationBindingTypeVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/TypeVisitor';
 import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/MethodVisitor';
 import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/BindingVersionVisitor';
+// Kafka
+import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding';
+import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding/BindingVersionVisitor';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
@@ -329,6 +332,16 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             bindingVersion: HttpMessageBindingBindingVersionVisitor,
+          },
+        },
+        // Kafka
+        KafkaMessageBinding: {
+          $visitor: KafkaMessageBindingVisitor,
+          fixedFields: {
+            key: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            bindingVersion: KafkaMessageBindingBindingVersionVisitor,
           },
         },
         // WebSocket

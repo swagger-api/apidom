@@ -1,5 +1,8 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
+/**
+ * AsyncApi 2.0.0 specification elements.
+ */
 import AsyncApi2_0Visitor from './visitors/async-api-2-0';
 import AsyncApiVersionVisitor from './visitors/async-api-2-0/AsyncApiVersionVisitor';
 import IdentifierVisitor from './visitors/async-api-2-0/IdentifierVisitor';
@@ -63,6 +66,14 @@ import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2-0/channel-item/$RefVisitor';
 import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item/DescriptionVisitor';
+/**
+ * Binding elements.
+ */
+// HTTP
+import HttpOperationBindingVisitor from './visitors/async-api-2-0/bindings/http/operation-binding';
+import HttpOperationBindingTypeVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/TypeVisitor';
+import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/MethodVisitor';
+import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/BindingVersionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -77,6 +88,9 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        /**
+         * AsyncApi 2.0.0 specification elements.
+         */
         AsyncApi: {
           $visitor: AsyncApi2_0Visitor,
           fixedFields: {
@@ -286,6 +300,19 @@ const specification = {
             description: CorrelationIDDescriptionVisitor,
             location: CorrelationIDLocationVisitor,
           },
+        },
+        /**
+         * Binding elements.
+         */
+        // HTTP
+        HttpOperationBinding: {
+          $visitor: HttpOperationBindingVisitor,
+          type: HttpOperationBindingTypeVisitor,
+          method: HttpOperationBindingMethodVisitor,
+          query: {
+            $ref: '#/visitors/document/objects/Schema',
+          },
+          bindingVersion: HttpOperationBindingBindingVersionVisitor,
         },
       },
       extension: {

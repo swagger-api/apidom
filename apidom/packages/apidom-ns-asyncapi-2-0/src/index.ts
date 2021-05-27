@@ -54,7 +54,6 @@ export { keyMap, getNodeType } from './traversal/visitor';
 /**
  * AsyncApi 2.0.0 specification elements.
  */
-
 export { default as AsyncApi2_0Element } from './elements/AsyncApi2-0';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
 export { default as ChannelBindingsElement } from './elements/ChannelBindings';
@@ -86,7 +85,6 @@ export { default as TagsElement } from './elements/Tags';
 /**
  * Binding elements.
  */
-
 // AMQP
 export { default as AmqpChannelBindingElement } from './elements/bindings/amqp/AmqpChannelBinding';
 export { default as AmqpMessageBindingElement } from './elements/bindings/amqp/AmqpMessageBinding';

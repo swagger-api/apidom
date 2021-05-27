@@ -1,3 +1,7 @@
+import { createRefractor } from './index';
+/**
+ * AsyncApi 2.0.0 specification elements.
+ */
 import AsyncApi2_0Element from '../elements/AsyncApi2-0';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
 import ChannelBindingsElement from '../elements/ChannelBindings';
@@ -25,9 +29,15 @@ import ServersElement from '../elements/Servers';
 import ServerVariableElement from '../elements/ServerVariable';
 import TagElement from '../elements/Tag';
 import TagsElement from '../elements/Tags';
-import { createRefractor } from './index';
+/**
+ * Binding elements.
+ */
+// HTTP
+import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 
-// register refractors specific to element types
+/**
+ * AsyncApi 2.0.0 specification elements.
+ */
 AsyncApi2_0Element.refract = createRefractor([
   'visitors',
   'document',
@@ -187,3 +197,15 @@ ServerVariableElement.refract = createRefractor([
 ]);
 TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
 TagsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tags', '$visitor']);
+
+/**
+ * Binding elements.
+ */
+// HTTP
+HttpOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'HttpOperationBindingElement',
+  '$visitor',
+]);

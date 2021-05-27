@@ -79,6 +79,8 @@ import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/
 // Kafka
 import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding';
 import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding/BindingVersionVisitor';
+import KafkaOperationBindingVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding';
+import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding/BindingVersionVisitor';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
@@ -342,6 +344,18 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             bindingVersion: KafkaMessageBindingBindingVersionVisitor,
+          },
+        },
+        KafkaOperationBinding: {
+          $visitor: KafkaOperationBindingVisitor,
+          fixedFields: {
+            groupId: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            clientId: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            bindingVersion: KafkaOperationBindingBindingVersionVisitor,
           },
         },
         // WebSocket

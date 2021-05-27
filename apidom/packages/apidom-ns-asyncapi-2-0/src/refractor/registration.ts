@@ -37,6 +37,7 @@ import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBind
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 // Kafka
 import KafkaMessageBindingElement from '../elements/bindings/kafka/KafkaMessageBinding';
+import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperationBinding';
 // WebSocket
 import WebSocketChannelBindingElement from '../elements/bindings/web-socket/WebSocketChannelBinding';
 
@@ -227,6 +228,13 @@ KafkaMessageBindingElement.refract = createRefractor([
   'document',
   'objects',
   'KafkaMessageBinding',
+  '$visitor',
+]);
+KafkaOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'KafkaOperationBinding',
   '$visitor',
 ]);
 // WebSocket

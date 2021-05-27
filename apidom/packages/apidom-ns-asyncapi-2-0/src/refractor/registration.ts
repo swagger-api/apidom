@@ -33,6 +33,7 @@ import TagsElement from '../elements/Tags';
  * Binding elements.
  */
 // HTTP
+import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 
 /**
@@ -202,10 +203,17 @@ TagsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tags'
  * Binding elements.
  */
 // HTTP
+HttpMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'HttpMessageBinding',
+  '$visitor',
+]);
 HttpOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'HttpOperationBindingElement',
+  'HttpOperationBinding',
   '$visitor',
 ]);

@@ -136,6 +136,8 @@ If multiple plugins with the same visitor method are defined, they run in parall
 
 Only fully implemented specification objects should be checked here.
 
+### Specification Objects
+
 - [ ] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SObject) (partial)
 - [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SVersionString)
 - [x] [Identifier](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
@@ -170,3 +172,41 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Message Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageBindingsObject)
 - [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#correlationIdObject)
 - [x] [Specification Extension](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#specificationExtensions)
+
+### Binding Objects
+
+#### HTTP Bindings
+
+- [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#server-binding-object) (reserved for future)
+- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#channel-binding-object) (reserved for future)
+- [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#operation-binding-object) (partial)
+- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#message-binding-object) (partial)
+
+#### WebSockets Bindings
+
+- [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#server-binding-object) (reserved for future)
+- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel-binding-object) (partial)
+- [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#operation-binding-object) (reserved for future)
+- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#message-binding-object) (reserved for future)
+
+#### Kafka Bindings
+
+- [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#server-binding-object) (reserved for future)
+- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel-binding-object) (reserved for future)
+- [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#operation-binding-object) (partial)
+- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#message-binding-object) (partial)
+
+#### AMQP 0-9-1 Bindings
+
+- [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#server-binding-object) (reserved for future)
+- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel-binding-object) (partial)
+- [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#operation-binding-object) (partial)
+- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#message-binding-object) (partial)
+
+#### MQTT Bindings
+
+- [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#server-binding-object) (partial)
+- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#channel-binding-object) (reserved for future)
+- [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#operation-binding-object) (partial)
+- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#message-binding-object) (partial)
+

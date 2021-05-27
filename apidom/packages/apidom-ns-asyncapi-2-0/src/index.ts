@@ -51,6 +51,10 @@ export {
 
 export { keyMap, getNodeType } from './traversal/visitor';
 
+/**
+ * AsyncApi 2.0.0 specification elements.
+ */
+
 export { default as AsyncApi2_0Element } from './elements/AsyncApi2-0';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
 export { default as ChannelBindingsElement } from './elements/ChannelBindings';
@@ -78,3 +82,24 @@ export { default as ServersElement } from './elements/Servers';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as TagElement } from './elements/Tag';
 export { default as TagsElement } from './elements/Tags';
+
+/**
+ * Binding elements.
+ */
+
+// AMQP
+export { default as AmqpChannelBindingElement } from './elements/bindings/amqp/AmqpChannelBinding';
+export { default as AmqpMessageBindingElement } from './elements/bindings/amqp/AmqpMessageBinding';
+export { default as AmqpOperationBindingElement } from './elements/bindings/amqp/AmqpOperationBinding';
+// HTTP
+export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';
+export { default as HttpOperationBindingElement } from './elements/bindings/http/HttpOperationBinding';
+// Kafka
+export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
+export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';
+// MQTT
+export { default as MqttChannelBindingElement } from './elements/bindings/mqtt/MqttChannelBinding';
+export { default as MqttMessageBindingElement } from './elements/bindings/mqtt/MqttMessageBinding';
+export { default as MqttServerBindingElement } from './elements/bindings/mqtt/MqttServerBinding';
+// WebSocket
+export { default as WebSocketChannelBindingElement } from './elements/bindings/web-socket/WebSocketChannelBinding';

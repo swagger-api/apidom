@@ -9,6 +9,9 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 };
 
 export const keyMap = {
+  /**
+   * AsyncApi 2.0.0 specification elements.
+   */
   AsyncApi2_0Element: ['content'],
   ChannelBindingsElement: ['content'],
   ChannelItemElement: ['content'],
@@ -34,5 +37,24 @@ export const keyMap = {
   ServerVariableElement: ['content'],
   TagElement: ['content'],
   TagsElement: ['content'],
+  /**
+   * Binding elements.
+   */
+  // AMQP
+  AmqpChannelBindingElement: ['content'],
+  AmqpMessageBindingElement: ['content'],
+  AmqpOperationBindingElement: ['content'],
+  // HTTP
+  HttpMessageBindingElement: ['content'],
+  HttpOperationBindingElement: ['content'],
+  // Kafka
+  KafkaMessageBindingElement: ['content'],
+  KafkaOperationBindingElement: ['content'],
+  // MQTT
+  MqttChannelBindingElement: ['content'],
+  MqttMessageBindingElement: ['content'],
+  MqttServerBindingElement: ['content'],
+  // WebSocket
+  WebSocketChannelBindingElement: ['content'],
   ...keyMapBase,
 };

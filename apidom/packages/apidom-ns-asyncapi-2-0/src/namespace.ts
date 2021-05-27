@@ -1,5 +1,8 @@
 import { NamespacePluginOptions } from 'minim';
 
+/**
+ * AsyncApi 2.0.0 specification elements.
+ */
 import AsyncApi2_0Element from './elements/AsyncApi2-0';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
 import ChannelBindingsElement from './elements/ChannelBindings';
@@ -27,11 +30,33 @@ import ServersElement from './elements/Servers';
 import ServerVariableElement from './elements/ServerVariable';
 import TagElement from './elements/Tag';
 import TagsElement from './elements/Tags';
+/**
+ * Binding elements.
+ */
+// AMQP
+import AmqpChannelBindingElement from './elements/bindings/amqp/AmqpChannelBinding';
+import AmqpMessageBindingElement from './elements/bindings/amqp/AmqpMessageBinding';
+import AmqpOperationBindingElement from './elements/bindings/amqp/AmqpOperationBinding';
+// HTTP
+import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
+import HttpOperationBindingElement from './elements/bindings/http/HttpOperationBinding';
+// Kafka
+import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
+import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
+// MQTT
+import MqttChannelBindingElement from './elements/bindings/mqtt/MqttChannelBinding';
+import MqttMessageBindingElement from './elements/bindings/mqtt/MqttMessageBinding';
+import MqttServerBindingElement from './elements/bindings/mqtt/MqttServerBinding';
+// WebSocket
+import WebSocketChannelBindingElement from './elements/bindings/web-socket/WebSocketChannelBinding';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
+    /**
+     * AsyncApi 2.0.0 specification elements.
+     */
     base.register('asyncApi2_0', AsyncApi2_0Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
     base.register('channelBindings', ChannelBindingsElement);
@@ -59,6 +84,26 @@ const asyncApi2_0 = {
     base.register('serverVariable', ServerVariableElement);
     base.register('tag', TagElement);
     base.register('tags', TagsElement);
+
+    /**
+     * Binding elements.
+     */
+    // AMQP
+    base.register('amqpChannelBindingElement', AmqpChannelBindingElement);
+    base.register('amqpMessageBindingElement', AmqpMessageBindingElement);
+    base.register('amqpOperationBindingElement', AmqpOperationBindingElement);
+    // HTTP
+    base.register('httpMessageBindingElement', HttpMessageBindingElement);
+    base.register('httpOperationBindingElement', HttpOperationBindingElement);
+    // Kafka
+    base.register('kafkaMessageBindingElement', KafkaMessageBindingElement);
+    base.register('kafkaOperationBindingElement', KafkaOperationBindingElement);
+    // MQTT
+    base.register('mqttChannelBindingElement', MqttChannelBindingElement);
+    base.register('mqttMessageBindingElement', MqttMessageBindingElement);
+    base.register('mqttServerBindingElement', MqttServerBindingElement);
+    // WebSocket
+    base.register('webSocketChannelBindingElement', WebSocketChannelBindingElement);
 
     return base;
   },

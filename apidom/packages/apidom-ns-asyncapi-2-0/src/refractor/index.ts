@@ -1,12 +1,11 @@
 import { refract as baseRefract } from 'minim';
-import { Element, visit, dereference, mergeAllVisitors, createNamespace } from 'apidom';
+import { Element, visit, dereference, mergeAllVisitors } from 'apidom';
 import { propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
 
-import { keyMap, getNodeType } from '../traversal/visitor';
 import specification from './specification';
-import * as predicates from '../predicates';
-import asyncApi2_0Namespace from '../namespace';
+import { keyMap, getNodeType } from '../traversal/visitor';
+import createToolbox from './toolbox';
 
 const refract = <T extends Element>(
   value: any,
@@ -26,12 +25,10 @@ const refract = <T extends Element>(
 
   /**
    * Run plugins only when necessary.
-   * Running plugins visitors means extra single traversal.
-   * This can be optimized in future for performance.
+   * Running plugins visitors means extra single traversal === peformance hit.
    */
   if (plugins.length > 0) {
-    const namespace = createNamespace(asyncApi2_0Namespace);
-    const toolbox = { predicates: { ...predicates }, namespace };
+    const toolbox = createToolbox();
     const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
     const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')), {
       // @ts-ignore

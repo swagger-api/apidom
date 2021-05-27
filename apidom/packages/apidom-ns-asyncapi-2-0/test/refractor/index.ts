@@ -78,7 +78,7 @@ describe('refractor', function () {
           plugins: [plugin1],
         });
 
-        assert.hasAllKeys(plugin1.firstCall.args[0].predicates, Object.keys(predicates));
+        assert.hasAnyKeys(plugin1.firstCall.args[0].predicates, Object.keys(predicates));
       });
 
       specify('should have namespace in toolbox object', function () {

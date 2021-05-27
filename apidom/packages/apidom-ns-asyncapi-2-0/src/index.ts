@@ -77,3 +77,4 @@ export { default as ServerBindingsElement } from './elements/ServerBindings';
 export { default as ServersElement } from './elements/Servers';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as TagElement } from './elements/Tag';
+export { default as TagsElement } from './elements/Tags';

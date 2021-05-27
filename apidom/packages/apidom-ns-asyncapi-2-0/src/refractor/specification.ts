@@ -54,6 +54,7 @@ import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
 import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
 import OperationVisitor from './visitors/async-api-2-0/operation';
+import TagsVisitor from './visitors/async-api-2-0/tags';
 import TagVisitor from './visitors/async-api-2-0/tag';
 import TagNameVisitor from './visitors/async-api-2-0/tag/NameVisitor';
 import TagDescriptionVisitor from './visitors/async-api-2-0/tag/DescriptionVisitor';
@@ -192,6 +193,9 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {},
+        },
+        Tags: {
+          $visitors: TagsVisitor,
         },
         Tag: {
           $visitor: TagVisitor,

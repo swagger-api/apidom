@@ -35,6 +35,8 @@ import TagsElement from '../elements/Tags';
 // HTTP
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
+// WebSocket
+import WebSocketChannelBindingElement from '../elements/bindings/web-socket/WebSocketChannelBinding';
 
 /**
  * AsyncApi 2.0.0 specification elements.
@@ -215,5 +217,13 @@ HttpOperationBindingElement.refract = createRefractor([
   'document',
   'objects',
   'HttpOperationBinding',
+  '$visitor',
+]);
+// WebSocket
+WebSocketChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'WebSocketChannelBinding',
   '$visitor',
 ]);

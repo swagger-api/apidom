@@ -152,7 +152,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
 - [ ] [Message Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageObject)
 - [ ] [Message Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageTraitObject)
-- [ ] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)
+- [x] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)
 - [x] [Tag Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tag-object)
 - [x] [External Documentation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#externalDocumentationObject)
 - [ ] [Components Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#componentsObject) (partial)

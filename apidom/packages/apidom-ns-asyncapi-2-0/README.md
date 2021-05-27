@@ -185,7 +185,7 @@ Only fully implemented specification objects should be checked here.
 #### WebSockets Bindings
 
 - [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#server-binding-object) (reserved for future)
-- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel-binding-object) (partial)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel-binding-object)
 - [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#operation-binding-object) (reserved for future)
 - [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#message-binding-object) (reserved for future)
 

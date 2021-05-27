@@ -76,6 +76,10 @@ import HttpOperationBindingVisitor from './visitors/async-api-2-0/bindings/http/
 import HttpOperationBindingTypeVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/TypeVisitor';
 import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/MethodVisitor';
 import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/BindingVersionVisitor';
+// WebSocket
+import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
+import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
+import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/BindingVersionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -309,19 +313,37 @@ const specification = {
         // HTTP
         HttpOperationBinding: {
           $visitor: HttpOperationBindingVisitor,
-          type: HttpOperationBindingTypeVisitor,
-          method: HttpOperationBindingMethodVisitor,
-          query: {
-            $ref: '#/visitors/document/objects/Schema',
+          fixedFields: {
+            type: HttpOperationBindingTypeVisitor,
+            method: HttpOperationBindingMethodVisitor,
+            query: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            bindingVersion: HttpOperationBindingBindingVersionVisitor,
           },
-          bindingVersion: HttpOperationBindingBindingVersionVisitor,
         },
         HttpMessageBinding: {
           $visitor: HttpMessageBindingVisitor,
+          fixedFields: {
+            headers: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            bindingVersion: HttpMessageBindingBindingVersionVisitor,
+          },
+        },
+        // WebSocket
+        WebSocketChannelBinding: {
+          $visitor: WebSocketChannelBindingVisitor,
+          fixedFields: {
+            method: WebSocketChannelBindingMethodVisitor,
+          },
+          query: {
+            $ref: '#/visitors/document/objects/Schema',
+          },
           headers: {
             $ref: '#/visitors/document/objects/Schema',
           },
-          bindingVersion: HttpMessageBindingBindingVersionVisitor,
+          bindingVersion: WebSocketChannelBindingBindingVersionVisitor,
         },
       },
       extension: {

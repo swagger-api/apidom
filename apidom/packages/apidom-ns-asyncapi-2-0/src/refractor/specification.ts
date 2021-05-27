@@ -47,6 +47,9 @@ import ParametersVisitor from './visitors/async-api-2-0/parameters';
 import ParameterVisitor from './visitors/async-api-2-0/parameter';
 import ParameterDescriptionVisitor from './visitors/async-api-2-0/parameter/DescriptionVisitor';
 import ParameterLocationVisitor from './visitors/async-api-2-0/parameter/LocationVisitor';
+import ExternalDocumentationVisitor from './visitors/async-api-2-0/external-documentation';
+import ExternalDocumentationDescriptionVisitor from './visitors/async-api-2-0/external-documentation/DescriptionVisitor';
+import ExternalDocumentationUrlVisitor from './visitors/async-api-2-0/external-documentation/UrlVisitor';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
 import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
@@ -186,6 +189,13 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {},
+        },
+        ExternalDocumentation: {
+          $visitor: ExternalDocumentationVisitor,
+          fixedFields: {
+            description: ExternalDocumentationDescriptionVisitor,
+            url: ExternalDocumentationUrlVisitor,
+          },
         },
         Components: {
           $visitor: ComponentsVisitor,

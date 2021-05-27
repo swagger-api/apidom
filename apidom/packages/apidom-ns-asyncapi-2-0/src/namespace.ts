@@ -9,6 +9,7 @@ import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import CorrelationIDElement from './elements/CorrelationID';
 import DefaultContentTypeElement from './elements/DefaultContentType';
+import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import IdentifierElement from './elements/Identifier';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
@@ -38,6 +39,7 @@ const asyncApi2_0 = {
     base.register('contact', ContactElement);
     base.register('correlationID', CorrelationIDElement);
     base.register('defaultContentType', DefaultContentTypeElement);
+    base.register('externalDocumentation', ExternalDocumentationElement);
     base.register('identifier', IdentifierElement);
     base.register('info', InfoElement);
     base.register('license', LicenseElement);

@@ -17,6 +17,7 @@ export const keyMap = {
   ContactElement: ['content'],
   CorrelationIDElement: ['content'],
   DefaultContentType: [],
+  ExternalDocumentationElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
   OAuthFlowElement: ['content'],

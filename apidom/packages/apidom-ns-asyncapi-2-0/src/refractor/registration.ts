@@ -7,6 +7,7 @@ import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
 import CorrelationIDElement from '../elements/CorrelationID';
 import DefaultContentTypeElement from '../elements/DefaultContentType';
+import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import IdentifierElement from '../elements/Identifier';
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
@@ -86,6 +87,13 @@ DefaultContentTypeElement.refract = createRefractor([
   'document',
   'objects',
   'DefaultContentType',
+  '$visitor',
+]);
+ExternalDocumentationElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ExternalDocumentation',
   '$visitor',
 ]);
 IdentifierElement.refract = createRefractor([

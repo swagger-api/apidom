@@ -54,6 +54,9 @@ import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
 import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
 import OperationVisitor from './visitors/async-api-2-0/operation';
+import TagVisitor from './visitors/async-api-2-0/tag';
+import TagNameVisitor from './visitors/async-api-2-0/tag/NameVisitor';
+import TagDescriptionVisitor from './visitors/async-api-2-0/tag/DescriptionVisitor';
 import ChannelsVisitor from './visitors/async-api-2-0/channels';
 import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
@@ -189,6 +192,16 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {},
+        },
+        Tag: {
+          $visitor: TagVisitor,
+          fixedFields: {
+            name: TagNameVisitor,
+            description: TagDescriptionVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+          },
         },
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,

@@ -1,0 +1,37 @@
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, StringElement } from 'apidom';
+
+import ExternalDocumentationElement from './ExternalDocumentation';
+
+class Tag extends ObjectElement {
+  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
+    super(content, meta, attributes);
+    this.element = 'tag';
+  }
+
+  get name(): StringElement {
+    return this.get('name');
+  }
+
+  set name(name: StringElement) {
+    this.set('name', name);
+  }
+
+  get description(): StringElement {
+    return this.get('description');
+  }
+
+  set description(description: StringElement) {
+    this.set('description', description);
+  }
+
+  get externalDocs(): ExternalDocumentationElement {
+    return this.get('externalDocs');
+  }
+
+  set externalDocs(externalDocs: ExternalDocumentationElement) {
+    this.set('externalDocs', externalDocs);
+  }
+}
+
+export default Tag;

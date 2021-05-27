@@ -23,6 +23,7 @@ import ServerElement from '../elements/Server';
 import ServerBindingsElement from '../elements/ServerBindings';
 import ServersElement from '../elements/Servers';
 import ServerVariableElement from '../elements/ServerVariable';
+import TagElement from '../elements/Tag';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
@@ -183,3 +184,4 @@ ServerVariableElement.refract = createRefractor([
   'ServerVariable',
   '$visitor',
 ]);
+TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);

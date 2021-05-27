@@ -25,6 +25,7 @@ import ServerElement from './elements/Server';
 import ServerBindingsElement from './elements/ServerBindings';
 import ServersElement from './elements/Servers';
 import ServerVariableElement from './elements/ServerVariable';
+import TagElement from './elements/Tag';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -55,6 +56,7 @@ const asyncApi2_0 = {
     base.register('serverBindings', ServerBindingsElement);
     base.register('servers', ServersElement);
     base.register('serverVariable', ServerVariableElement);
+    base.register('tag', TagElement);
 
     return base;
   },

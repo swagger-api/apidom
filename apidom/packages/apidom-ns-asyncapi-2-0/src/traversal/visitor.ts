@@ -32,5 +32,6 @@ export const keyMap = {
   ServerBindingElement: ['content'],
   ServersElement: ['content'],
   ServerVariableElement: ['content'],
+  TagElement: ['content'],
   ...keyMapBase,
 };

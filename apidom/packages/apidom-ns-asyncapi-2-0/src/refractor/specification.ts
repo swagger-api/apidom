@@ -70,6 +70,8 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
  * Binding elements.
  */
 // HTTP
+import HttpMessageBindingVisitor from './visitors/async-api-2-0/bindings/http/message-binding';
+import HttpMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/message-binding/BindingVersionVisitor';
 import HttpOperationBindingVisitor from './visitors/async-api-2-0/bindings/http/operation-binding';
 import HttpOperationBindingTypeVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/TypeVisitor';
 import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/MethodVisitor';
@@ -313,6 +315,13 @@ const specification = {
             $ref: '#/visitors/document/objects/Schema',
           },
           bindingVersion: HttpOperationBindingBindingVersionVisitor,
+        },
+        HttpMessageBinding: {
+          $visitor: HttpMessageBindingVisitor,
+          headers: {
+            $ref: '#/visitors/document/objects/Schema',
+          },
+          bindingVersion: HttpMessageBindingBindingVersionVisitor,
         },
       },
       extension: {

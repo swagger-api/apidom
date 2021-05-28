@@ -69,6 +69,12 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
 /**
  * Binding elements.
  */
+// AMQP
+import AmqpChannelBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding';
+import AmqpChannelBinding0_9IsVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/IsVisitor';
+import AmqpChannelBinding0_9ExchangeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/ExchangeVisitor';
+import AmqpChannelBinding0_9QueueVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/QueueVisitor';
+import AmqpChannelBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/BindingVersionVisitor';
 // HTTP
 import HttpMessageBindingVisitor from './visitors/async-api-2-0/bindings/http/message-binding';
 import HttpMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/message-binding/BindingVersionVisitor';
@@ -315,6 +321,16 @@ const specification = {
         /**
          * Binding elements.
          */
+        // AMQP
+        AmqpChannelBinding0_9: {
+          $visitor: AmqpChannelBinding0_9Visitor,
+          fixedFields: {
+            is: AmqpChannelBinding0_9IsVisitor,
+            exchange: AmqpChannelBinding0_9ExchangeVisitor,
+            queue: AmqpChannelBinding0_9QueueVisitor,
+            bindingVersion: AmqpChannelBinding0_9BindingVersionVisitor,
+          },
+        },
         // HTTP
         HttpOperationBinding: {
           $visitor: HttpOperationBindingVisitor,

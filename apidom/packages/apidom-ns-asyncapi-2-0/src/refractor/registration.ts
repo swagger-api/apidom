@@ -45,6 +45,7 @@ import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperat
 // Mqtt
 import MqttMessageBindingElement from '../elements/bindings/mqtt/MqttMessageBinding';
 import MqttOperationBindingElement from '../elements/bindings/mqtt/MqttOperationBinding';
+import MqttServerBindingElement from '../elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from '../elements/bindings/web-socket/WebSocketChannelBinding';
 
@@ -279,6 +280,13 @@ MqttOperationBindingElement.refract = createRefractor([
   'document',
   'objects',
   'MqttOperationBinding',
+  '$visitor',
+]);
+MqttServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'MqttServerBinding',
   '$visitor',
 ]);
 // WebSocket

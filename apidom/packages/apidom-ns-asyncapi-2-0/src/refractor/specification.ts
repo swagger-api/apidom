@@ -103,6 +103,9 @@ import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/
 import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding/BindingVersionVisitor';
 import KafkaOperationBindingVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding';
 import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding/BindingVersionVisitor';
+// Mqtt
+import MqttMessageBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding';
+import MqttMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding/BindingVersionVisitor';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
@@ -412,6 +415,13 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             bindingVersion: KafkaOperationBindingBindingVersionVisitor,
+          },
+        },
+        // Mqtt
+        MqttMessageBinding: {
+          $visitor: MqttMessageBindingVisitor,
+          fixedFields: {
+            bindingVersion: MqttMessageBindingBindingVersionVisitor,
           },
         },
         // WebSocket

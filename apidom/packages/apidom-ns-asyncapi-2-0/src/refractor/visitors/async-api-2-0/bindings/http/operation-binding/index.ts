@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const HttpOperationBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'HttpOperationBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'http', 'OperationBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

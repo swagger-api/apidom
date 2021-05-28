@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const KafkaMessageBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'KafkaMessageBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'kafka', 'MessageBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

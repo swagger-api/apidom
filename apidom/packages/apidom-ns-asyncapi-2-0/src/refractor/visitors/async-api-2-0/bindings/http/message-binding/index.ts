@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const HttpMessageBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'HttpMessageBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'http', 'MessageBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

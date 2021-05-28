@@ -107,6 +107,7 @@ import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/
 import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding/BindingVersionVisitor';
 import KafkaOperationBindingVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding';
 import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding/BindingVersionVisitor';
+import KafkaServerBindingVisitor from './visitors/async-api-2-0/bindings/kafka/server-binding';
 // Mqtt
 import MqttChannelBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/channel-binding';
 import MqttMessageBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding';
@@ -420,7 +421,9 @@ const specification = {
             },
           },
           kafka: {
-            ServerBinding: FallbackVisitor,
+            ServerBinding: {
+              $visitor: KafkaServerBindingVisitor,
+            },
             ChannelBinding: {
               $visitor: KafkaChannelBindingVisitor,
             },

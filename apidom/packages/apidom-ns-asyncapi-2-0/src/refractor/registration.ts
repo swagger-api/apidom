@@ -46,6 +46,7 @@ import HttpServerBindingElement from '../elements/bindings/http/HttpServerBindin
 import KafkaChannelBindingElement from '../elements/bindings/kafka/KafkaChannelBinding';
 import KafkaMessageBindingElement from '../elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperationBinding';
+import KafkaServerBindingElement from '../elements/bindings/kafka/KafkaServerBinding';
 // Mqtt
 import MqttChannelBindingElement from '../elements/bindings/mqtt/MqttChannelBinding';
 import MqttMessageBindingElement from '../elements/bindings/mqtt/MqttMessageBinding';
@@ -320,6 +321,15 @@ KafkaOperationBindingElement.refract = createRefractor([
   'bindings',
   'kafka',
   'OperationBinding',
+  '$visitor',
+]);
+KafkaServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'kafka',
+  'ServerBinding',
   '$visitor',
 ]);
 // Mqtt

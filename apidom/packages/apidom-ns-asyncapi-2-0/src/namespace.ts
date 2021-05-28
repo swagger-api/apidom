@@ -47,6 +47,7 @@ import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding
 import KafkaChannelBindingElement from './elements/bindings/kafka/KafkaChannelBinding';
 import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
+import KafkaServerBindingElement from './elements/bindings/kafka/KafkaServerBinding';
 // MQTT
 import MqttChannelBindingElement from './elements/bindings/mqtt/MqttChannelBinding';
 import MqttMessageBindingElement from './elements/bindings/mqtt/MqttMessageBinding';
@@ -107,6 +108,7 @@ const asyncApi2_0 = {
     base.register('kafkaChannelBinding', KafkaChannelBindingElement);
     base.register('kafkaMessageBinding', KafkaMessageBindingElement);
     base.register('kafkaOperationBinding', KafkaOperationBindingElement);
+    base.register('kafkaServerBinding', KafkaServerBindingElement);
     // MQTT
     base.register('mqttChannelBinding', MqttChannelBindingElement);
     base.register('mqttMessageBinding', MqttMessageBindingElement);

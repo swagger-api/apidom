@@ -54,6 +54,7 @@ import MqttOperationBindingElement from '../elements/bindings/mqtt/MqttOperation
 import MqttServerBindingElement from '../elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from '../elements/bindings/ws/WebSocketChannelBinding';
+import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
  * AsyncApi 2.0.0 specification elements.
@@ -377,5 +378,14 @@ WebSocketChannelBindingElement.refract = createRefractor([
   'bindings',
   'ws',
   'ChannelBinding',
+  '$visitor',
+]);
+WebSocketServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ws',
+  'ServerBinding',
   '$visitor',
 ]);

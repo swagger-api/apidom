@@ -62,5 +62,6 @@ export const keyMap = {
   MqttServerBindingElement: ['content'],
   // WebSocket
   WebSocketChannelBindingElement: ['content'],
+  WebSocketServerBindingElement: ['content'],
   ...keyMapBase,
 };

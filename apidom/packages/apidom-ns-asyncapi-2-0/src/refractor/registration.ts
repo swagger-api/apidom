@@ -54,6 +54,7 @@ import MqttOperationBindingElement from '../elements/bindings/mqtt/MqttOperation
 import MqttServerBindingElement from '../elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from '../elements/bindings/ws/WebSocketChannelBinding';
+import WebSocketMessageBindingElement from '../elements/bindings/ws/WebSocketMessageBinding';
 import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketOperationBinding';
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
@@ -379,6 +380,15 @@ WebSocketChannelBindingElement.refract = createRefractor([
   'bindings',
   'ws',
   'ChannelBinding',
+  '$visitor',
+]);
+WebSocketMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ws',
+  'MessageBinding',
   '$visitor',
 ]);
 WebSocketOperationBindingElement.refract = createRefractor([

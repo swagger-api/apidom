@@ -117,9 +117,9 @@ import MqttServerBindingLastWillVisitor from './visitors/async-api-2-0/bindings/
 import MqttServerBindingKeepAliveVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/KeepAliveVisitor';
 import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/BindingVersionVisitor';
 // WebSocket
-import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
-import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
-import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/BindingVersionVisitor';
+import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding';
+import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/MethodVisitor';
+import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/BindingVersionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -347,124 +347,137 @@ const specification = {
             location: CorrelationIDLocationVisitor,
           },
         },
-        /**
-         * Binding elements.
-         */
-        // AMQP
-        AmqpChannelBinding0_9: {
-          $visitor: AmqpChannelBinding0_9Visitor,
-          fixedFields: {
-            is: AmqpChannelBinding0_9IsVisitor,
-            exchange: AmqpChannelBinding0_9ExchangeVisitor,
-            queue: AmqpChannelBinding0_9QueueVisitor,
-            bindingVersion: AmqpChannelBinding0_9BindingVersionVisitor,
-          },
-        },
-        AmqpMessageBinding0_9: {
-          $visitor: AmqpMessageBinding0_9Visitor,
-          fixedFields: {
-            contentEncoding: AmqpMessageBinding0_9ContentEncodingVisitor,
-            messageType: AmqpMessageBinding0_9MessageTypeVisitor,
-            bindingVersion: AmqpMessageBinding0_9BindingVersionVisitor,
-          },
-        },
-        AmqpOperationBinding0_9: {
-          $visitor: AmqpOperationBinding0_9Visitor,
-          fixedFields: {
-            expiration: AmqpOperationBinding0_9ExpirationVisitor,
-            userId: AmqpOperationBinding0_9UserIdVisitor,
-            cc: AmqpOperationBinding0_9CcVisitor,
-            priority: AmqpOperationBinding0_9PriorityVisitor,
-            deliveryMode: AmqpOperationBinding0_9DeliveryModeVisitor,
-            mandatory: AmqpOperationBinding0_9MandatoryVisitor,
-            bcc: AmqpOperationBinding0_9BccVisitor,
-            replyTo: AmqpOperationBinding0_9ReplyToVisitor,
-            timestamp: AmqpOperationBinding0_9TimestampVisitor,
-            ack: AmqpOperationBinding0_9AckVisitor,
-            bindingVersion: AmqpOperationBinding0_9BindingVersionVisitor,
-          },
-        },
-        // HTTP
-        HttpOperationBinding: {
-          $visitor: HttpOperationBindingVisitor,
-          fixedFields: {
-            type: HttpOperationBindingTypeVisitor,
-            method: HttpOperationBindingMethodVisitor,
-            query: {
-              $ref: '#/visitors/document/objects/Schema',
+        bindings: {
+          amqp: {
+            ServerBinding: FallbackVisitor,
+            ChannelBinding: {
+              $visitor: AmqpChannelBinding0_9Visitor,
+              fixedFields: {
+                is: AmqpChannelBinding0_9IsVisitor,
+                exchange: AmqpChannelBinding0_9ExchangeVisitor,
+                queue: AmqpChannelBinding0_9QueueVisitor,
+                bindingVersion: AmqpChannelBinding0_9BindingVersionVisitor,
+              },
             },
-            bindingVersion: HttpOperationBindingBindingVersionVisitor,
-          },
-        },
-        HttpMessageBinding: {
-          $visitor: HttpMessageBindingVisitor,
-          fixedFields: {
-            headers: {
-              $ref: '#/visitors/document/objects/Schema',
+            OperationBinding: {
+              $visitor: AmqpOperationBinding0_9Visitor,
+              fixedFields: {
+                expiration: AmqpOperationBinding0_9ExpirationVisitor,
+                userId: AmqpOperationBinding0_9UserIdVisitor,
+                cc: AmqpOperationBinding0_9CcVisitor,
+                priority: AmqpOperationBinding0_9PriorityVisitor,
+                deliveryMode: AmqpOperationBinding0_9DeliveryModeVisitor,
+                mandatory: AmqpOperationBinding0_9MandatoryVisitor,
+                bcc: AmqpOperationBinding0_9BccVisitor,
+                replyTo: AmqpOperationBinding0_9ReplyToVisitor,
+                timestamp: AmqpOperationBinding0_9TimestampVisitor,
+                ack: AmqpOperationBinding0_9AckVisitor,
+                bindingVersion: AmqpOperationBinding0_9BindingVersionVisitor,
+              },
             },
-            bindingVersion: HttpMessageBindingBindingVersionVisitor,
-          },
-        },
-        // Kafka
-        KafkaMessageBinding: {
-          $visitor: KafkaMessageBindingVisitor,
-          fixedFields: {
-            key: {
-              $ref: '#/visitors/document/objects/Schema',
+            MessageBinding: {
+              $visitor: AmqpMessageBinding0_9Visitor,
+              fixedFields: {
+                contentEncoding: AmqpMessageBinding0_9ContentEncodingVisitor,
+                messageType: AmqpMessageBinding0_9MessageTypeVisitor,
+                bindingVersion: AmqpMessageBinding0_9BindingVersionVisitor,
+              },
             },
-            bindingVersion: KafkaMessageBindingBindingVersionVisitor,
           },
-        },
-        KafkaOperationBinding: {
-          $visitor: KafkaOperationBindingVisitor,
-          fixedFields: {
-            groupId: {
-              $ref: '#/visitors/document/objects/Schema',
+          http: {
+            ServerBinding: FallbackVisitor,
+            ChannelBinding: FallbackVisitor,
+            OperationBinding: {
+              $visitor: HttpOperationBindingVisitor,
+              fixedFields: {
+                type: HttpOperationBindingTypeVisitor,
+                method: HttpOperationBindingMethodVisitor,
+                query: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: HttpOperationBindingBindingVersionVisitor,
+              },
             },
-            clientId: {
-              $ref: '#/visitors/document/objects/Schema',
+            MessageBinding: {
+              $visitor: HttpMessageBindingVisitor,
+              fixedFields: {
+                headers: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: HttpMessageBindingBindingVersionVisitor,
+              },
             },
-            bindingVersion: KafkaOperationBindingBindingVersionVisitor,
           },
-        },
-        // Mqtt
-        MqttMessageBinding: {
-          $visitor: MqttMessageBindingVisitor,
-          fixedFields: {
-            bindingVersion: MqttMessageBindingBindingVersionVisitor,
+          kafka: {
+            ServerBinding: FallbackVisitor,
+            ChannelBinding: FallbackVisitor,
+            OperationBinding: {
+              $visitor: KafkaOperationBindingVisitor,
+              fixedFields: {
+                groupId: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                clientId: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: KafkaOperationBindingBindingVersionVisitor,
+              },
+            },
+            MessageBinding: {
+              $visitor: KafkaMessageBindingVisitor,
+              fixedFields: {
+                key: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: KafkaMessageBindingBindingVersionVisitor,
+              },
+            },
           },
-        },
-        MqttOperationBinding: {
-          $visitor: MqttOperationBindingVisitor,
-          fixedFields: {
-            qos: MqttOperationBindingQosVisitor,
-            retain: MqttOperationBindingRetainVisitor,
-            bindingVersion: MqttOperationBindingBindingVersionVisitor,
+          mqtt: {
+            ServerBinding: {
+              $visitor: MqttServerBindingVisitor,
+              fixedFields: {
+                clientId: MqttServerBindingClientIdVisitor,
+                cleanSession: MqttServerBindingCleanSessionVisitor,
+                lastWill: MqttServerBindingLastWillVisitor,
+                keepAlive: MqttServerBindingKeepAliveVisitor,
+                bindingVersion: MqttServerBindingBindingVersionVisitor,
+              },
+            },
+            ChannelBinding: FallbackVisitor,
+            OperationBinding: {
+              $visitor: MqttOperationBindingVisitor,
+              fixedFields: {
+                qos: MqttOperationBindingQosVisitor,
+                retain: MqttOperationBindingRetainVisitor,
+                bindingVersion: MqttOperationBindingBindingVersionVisitor,
+              },
+            },
+            MessageBinding: {
+              $visitor: MqttMessageBindingVisitor,
+              fixedFields: {
+                bindingVersion: MqttMessageBindingBindingVersionVisitor,
+              },
+            },
           },
-        },
-        MqttServerBinding: {
-          $visitor: MqttServerBindingVisitor,
-          fixedFields: {
-            clientId: MqttServerBindingClientIdVisitor,
-            cleanSession: MqttServerBindingCleanSessionVisitor,
-            lastWill: MqttServerBindingLastWillVisitor,
-            keepAlive: MqttServerBindingKeepAliveVisitor,
-            bindingVersion: MqttServerBindingBindingVersionVisitor,
+          ws: {
+            ServerBinding: FallbackVisitor,
+            ChannelBinding: {
+              $visitor: WebSocketChannelBindingVisitor,
+              fixedFields: {
+                method: WebSocketChannelBindingMethodVisitor,
+                query: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                headers: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: WebSocketChannelBindingBindingVersionVisitor,
+              },
+            },
+            OperationBinding: FallbackVisitor,
+            MessageBinding: FallbackVisitor,
           },
-        },
-        // WebSocket
-        WebSocketChannelBinding: {
-          $visitor: WebSocketChannelBindingVisitor,
-          fixedFields: {
-            method: WebSocketChannelBindingMethodVisitor,
-          },
-          query: {
-            $ref: '#/visitors/document/objects/Schema',
-          },
-          headers: {
-            $ref: '#/visitors/document/objects/Schema',
-          },
-          bindingVersion: WebSocketChannelBindingBindingVersionVisitor,
         },
       },
       extension: {

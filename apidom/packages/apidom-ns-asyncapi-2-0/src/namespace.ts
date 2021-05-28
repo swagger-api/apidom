@@ -48,7 +48,7 @@ import MqttMessageBindingElement from './elements/bindings/mqtt/MqttMessageBindi
 import MqttOperationBindingElement from './elements/bindings/mqtt/MqttOperationBinding';
 import MqttServerBindingElement from './elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
-import WebSocketChannelBindingElement from './elements/bindings/web-socket/WebSocketChannelBinding';
+import WebSocketChannelBindingElement from './elements/bindings/ws/WebSocketChannelBinding';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {

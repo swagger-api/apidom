@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import WebSocketChannelBindingElement from '../../../../../../elements/bindings/web-socket/WebSocketChannelBinding';
+import WebSocketChannelBindingElement from '../../../../../../elements/bindings/ws/WebSocketChannelBinding';
 import FallbackVisitor from '../../../../FallbackVisitor';
 import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 

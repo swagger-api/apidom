@@ -100,4 +100,4 @@ export { default as MqttMessageBindingElement } from './elements/bindings/mqtt/M
 export { default as MqttOperationBindingElement } from './elements/bindings/mqtt/MqttOperationBinding';
 export { default as MqttServerBindingElement } from './elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
-export { default as WebSocketChannelBindingElement } from './elements/bindings/web-socket/WebSocketChannelBinding';
+export { default as WebSocketChannelBindingElement } from './elements/bindings/ws/WebSocketChannelBinding';

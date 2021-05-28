@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const AmqpChannelBinding0_9Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'AmqpChannelBinding0_9']),
+    specPath: always(['document', 'objects', 'bindings', 'amqp', 'ChannelBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

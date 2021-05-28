@@ -47,7 +47,7 @@ import MqttMessageBindingElement from '../elements/bindings/mqtt/MqttMessageBind
 import MqttOperationBindingElement from '../elements/bindings/mqtt/MqttOperationBinding';
 import MqttServerBindingElement from '../elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
-import WebSocketChannelBindingElement from '../elements/bindings/web-socket/WebSocketChannelBinding';
+import WebSocketChannelBindingElement from '../elements/bindings/ws/WebSocketChannelBinding';
 
 /**
  * AsyncApi 2.0.0 specification elements.

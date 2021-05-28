@@ -99,6 +99,7 @@ export { default as HttpServerBindingElement } from './elements/bindings/http/Ht
 export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
 export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';
 // MQTT
+export { default as MqttChannelBindingElement } from './elements/bindings/mqtt/MqttChannelBinding';
 export { default as MqttMessageBindingElement } from './elements/bindings/mqtt/MqttMessageBinding';
 export { default as MqttOperationBindingElement } from './elements/bindings/mqtt/MqttOperationBinding';
 export { default as MqttServerBindingElement } from './elements/bindings/mqtt/MqttServerBinding';

@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const MqttServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'MqttServerBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'mqtt', 'ServerBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

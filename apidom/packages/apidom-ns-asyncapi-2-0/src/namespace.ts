@@ -38,6 +38,7 @@ import AmqpChannelBinding0_9Element from './elements/bindings/amqp-0-9/AmqpChann
 import AmqpMessageBinding0_9Element from './elements/bindings/amqp-0-9/AmqpMessageBinding0-9';
 import AmqpOperationBinding0_9Element from './elements/bindings/amqp-0-9/AmqpOperationBinding0-9';
 // HTTP
+import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from './elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding';
@@ -90,22 +91,23 @@ const asyncApi2_0 = {
      * Binding elements.
      */
     // AMQP
-    base.register('amqpChannelBindingElement', AmqpChannelBinding0_9Element);
-    base.register('amqpMessageBindingElement', AmqpMessageBinding0_9Element);
-    base.register('amqpOperationBindingElement', AmqpOperationBinding0_9Element);
+    base.register('amqpChannelBinding', AmqpChannelBinding0_9Element);
+    base.register('amqpMessageBinding', AmqpMessageBinding0_9Element);
+    base.register('amqpOperationBinding', AmqpOperationBinding0_9Element);
     // HTTP
-    base.register('httpMessageBindingElement', HttpMessageBindingElement);
-    base.register('httpOperationBindingElement', HttpOperationBindingElement);
-    base.register('httpServerBindingElement', HttpServerBindingElement);
+    base.register('httpChannelBinding', HttpChannelBindingElement);
+    base.register('httpMessageBinding', HttpMessageBindingElement);
+    base.register('httpOperationBinding', HttpOperationBindingElement);
+    base.register('httpServerBinding', HttpServerBindingElement);
     // Kafka
-    base.register('kafkaMessageBindingElement', KafkaMessageBindingElement);
-    base.register('kafkaOperationBindingElement', KafkaOperationBindingElement);
+    base.register('kafkaMessageBinding', KafkaMessageBindingElement);
+    base.register('kafkaOperationBinding', KafkaOperationBindingElement);
     // MQTT
-    base.register('mqttMessageBindingElement', MqttMessageBindingElement);
-    base.register('mqttOperationBindingElement', MqttOperationBindingElement);
-    base.register('mqttServerBindingElement', MqttServerBindingElement);
+    base.register('mqttMessageBinding', MqttMessageBindingElement);
+    base.register('mqttOperationBinding', MqttOperationBindingElement);
+    base.register('mqttServerBinding', MqttServerBindingElement);
     // WebSocket
-    base.register('webSocketChannelBindingElement', WebSocketChannelBindingElement);
+    base.register('webSocketChannelBinding', WebSocketChannelBindingElement);
 
     return base;
   },

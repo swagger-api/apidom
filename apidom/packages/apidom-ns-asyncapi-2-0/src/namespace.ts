@@ -55,6 +55,7 @@ import MqttOperationBindingElement from './elements/bindings/mqtt/MqttOperationB
 import MqttServerBindingElement from './elements/bindings/mqtt/MqttServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from './elements/bindings/ws/WebSocketChannelBinding';
+import WebSocketServerBindingElement from './elements/bindings/ws/WebSocketServerBinding';
 
 const asyncApi2_0 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -116,6 +117,7 @@ const asyncApi2_0 = {
     base.register('mqttServerBinding', MqttServerBindingElement);
     // WebSocket
     base.register('webSocketChannelBinding', WebSocketChannelBindingElement);
+    base.register('webSocketServerBinding', WebSocketServerBindingElement);
 
     return base;
   },

@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import WebSocketChannelBindingElement from '../../../../../../elements/bindings/ws/WebSocketChannelBinding';
+import WebSocketServerBindingElement from '../../../../../../elements/bindings/ws/WebSocketServerBinding';
 import FallbackVisitor from '../../../../FallbackVisitor';
 import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const WebSocketChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const WebSocketServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'bindings', 'ws', 'ChannelBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {
-    this.element = new WebSocketChannelBindingElement();
+    this.element = new WebSocketServerBindingElement();
   },
 });
 
-export default WebSocketChannelBindingVisitor;
+export default WebSocketServerBindingVisitor;

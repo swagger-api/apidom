@@ -126,6 +126,7 @@ import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2-0/bin
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/MethodVisitor';
 import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/BindingVersionVisitor';
+import WebSocketServerBindingVisitor from './visitors/async-api-2-0/bindings/ws/server-binding';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -479,7 +480,9 @@ const specification = {
             },
           },
           ws: {
-            ServerBinding: FallbackVisitor,
+            ServerBinding: {
+              $visitor: WebSocketServerBindingVisitor,
+            },
             ChannelBinding: {
               $visitor: WebSocketChannelBindingVisitor,
               fixedFields: {

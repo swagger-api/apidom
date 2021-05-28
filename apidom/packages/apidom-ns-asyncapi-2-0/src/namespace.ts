@@ -40,6 +40,7 @@ import AmqpOperationBinding0_9Element from './elements/bindings/amqp-0-9/AmqpOpe
 // HTTP
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from './elements/bindings/http/HttpOperationBinding';
+import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding';
 // Kafka
 import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
@@ -95,6 +96,7 @@ const asyncApi2_0 = {
     // HTTP
     base.register('httpMessageBindingElement', HttpMessageBindingElement);
     base.register('httpOperationBindingElement', HttpOperationBindingElement);
+    base.register('httpServerBindingElement', HttpServerBindingElement);
     // Kafka
     base.register('kafkaMessageBindingElement', KafkaMessageBindingElement);
     base.register('kafkaOperationBindingElement', KafkaOperationBindingElement);

@@ -92,6 +92,7 @@ export { default as AmqpOperationBinding0_9Element } from './elements/bindings/a
 // HTTP
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';
 export { default as HttpOperationBindingElement } from './elements/bindings/http/HttpOperationBinding';
+export { default as HttpServerBindingElement } from './elements/bindings/http/HttpServerBinding';
 // Kafka
 export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
 export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';

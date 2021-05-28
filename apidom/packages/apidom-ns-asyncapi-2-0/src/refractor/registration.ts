@@ -32,6 +32,8 @@ import TagsElement from '../elements/Tags';
 /**
  * Binding elements.
  */
+// AMQP
+import AmqpChannelBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpChannelBinding0-9';
 // HTTP
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
@@ -207,6 +209,14 @@ TagsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tags'
 /**
  * Binding elements.
  */
+// AMQP
+AmqpChannelBinding0_9Element.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'AmqpChannelBinding0_9',
+  '$visitor',
+]);
 // HTTP
 HttpMessageBindingElement.refract = createRefractor([
   'visitors',

@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const WebSocketServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'bindings', 'ws', 'OperationBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'ws', 'ServerBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

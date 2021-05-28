@@ -126,6 +126,7 @@ import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2-0/bin
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/MethodVisitor';
 import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/BindingVersionVisitor';
+import WebSocketMessageBindingVisitor from './visitors/async-api-2-0/bindings/ws/message-binding';
 import WebSocketOperationBindingVisitor from './visitors/async-api-2-0/bindings/ws/operation-binding';
 import WebSocketServerBindingVisitor from './visitors/async-api-2-0/bindings/ws/server-binding';
 
@@ -500,7 +501,9 @@ const specification = {
             OperationBinding: {
               $visitor: WebSocketOperationBindingVisitor,
             },
-            MessageBinding: FallbackVisitor,
+            MessageBinding: {
+              $visitor: WebSocketMessageBindingVisitor,
+            },
           },
         },
       },

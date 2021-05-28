@@ -8,7 +8,7 @@ import {
   BooleanElement,
 } from 'minim';
 
-class AmqpOperationBinding extends ObjectElement {
+class AmqpOperationBinding0_9 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'amqpOperationBinding';
@@ -103,4 +103,4 @@ class AmqpOperationBinding extends ObjectElement {
   }
 }
 
-export default AmqpOperationBinding;
+export default AmqpOperationBinding0_9;

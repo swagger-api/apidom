@@ -1,6 +1,6 @@
 import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
-class AmqpMessageBinding extends ObjectElement {
+class AmqpMessageBinding0_9 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'amqpMessageBinding';
@@ -31,4 +31,4 @@ class AmqpMessageBinding extends ObjectElement {
   }
 }
 
-export default AmqpMessageBinding;
+export default AmqpMessageBinding0_9;

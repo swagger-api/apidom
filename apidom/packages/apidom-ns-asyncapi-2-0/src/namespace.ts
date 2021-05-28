@@ -37,6 +37,7 @@ import TagsElement from './elements/Tags';
 import AmqpChannelBinding0_9Element from './elements/bindings/amqp-0-9/AmqpChannelBinding0-9';
 import AmqpMessageBinding0_9Element from './elements/bindings/amqp-0-9/AmqpMessageBinding0-9';
 import AmqpOperationBinding0_9Element from './elements/bindings/amqp-0-9/AmqpOperationBinding0-9';
+import AmqpServerBinding0_9Element from './elements/bindings/amqp-0-9/AmqpServerBinding0-9';
 // HTTP
 import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
@@ -91,9 +92,10 @@ const asyncApi2_0 = {
      * Binding elements.
      */
     // AMQP
-    base.register('amqpChannelBinding', AmqpChannelBinding0_9Element);
-    base.register('amqpMessageBinding', AmqpMessageBinding0_9Element);
-    base.register('amqpOperationBinding', AmqpOperationBinding0_9Element);
+    base.register('amqpChannelBinding0_9', AmqpChannelBinding0_9Element);
+    base.register('amqpMessageBinding0_9', AmqpMessageBinding0_9Element);
+    base.register('amqpOperationBinding0_9', AmqpOperationBinding0_9Element);
+    base.register('amqpServerBinding0_9', AmqpServerBinding0_9Element);
     // HTTP
     base.register('httpChannelBinding', HttpChannelBindingElement);
     base.register('httpMessageBinding', HttpMessageBindingElement);

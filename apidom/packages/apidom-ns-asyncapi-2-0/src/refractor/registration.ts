@@ -36,6 +36,7 @@ import TagsElement from '../elements/Tags';
 import AmqpChannelBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpChannelBinding0-9';
 import AmqpMessageBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpMessageBinding0-9';
 import AmqpOperationBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpOperationBinding0-9';
+import AmqpServerBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpServerBinding0-9';
 // HTTP
 import HttpChannelBindingElement from '../elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
@@ -222,21 +223,36 @@ AmqpChannelBinding0_9Element.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'AmqpChannelBinding0_9',
+  'bindings',
+  'amqp',
+  'ChannelBinding',
   '$visitor',
 ]);
 AmqpMessageBinding0_9Element.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'AmqpMessageBinding0_9',
+  'bindings',
+  'amqp',
+  'MessageBinding',
   '$visitor',
 ]);
 AmqpOperationBinding0_9Element.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'AmqpOperationBinding0_9',
+  'bindings',
+  'amqp',
+  'OperationBinding',
+  '$visitor',
+]);
+AmqpServerBinding0_9Element.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'amqp',
+  'ServerBinding',
   '$visitor',
 ]);
 // HTTP
@@ -244,28 +260,36 @@ HttpChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'HttpChannelBinding',
+  'bindings',
+  'http',
+  'ChannelBinding',
   '$visitor',
 ]);
 HttpMessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'HttpMessageBinding',
+  'bindings',
+  'http',
+  'MessageBinding',
   '$visitor',
 ]);
 HttpOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'HttpOperationBinding',
+  'bindings',
+  'http',
+  'OperationBinding',
   '$visitor',
 ]);
 HttpServerBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'HttpServerBinding',
+  'bindings',
+  'http',
+  'ServerBinding',
   '$visitor',
 ]);
 // Kafka
@@ -273,14 +297,18 @@ KafkaMessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'KafkaMessageBinding',
+  'bindings',
+  'kafka',
+  'MessageBinding',
   '$visitor',
 ]);
 KafkaOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'KafkaOperationBinding',
+  'bindings',
+  'kafka',
+  'OperationBinding',
   '$visitor',
 ]);
 // Mqtt
@@ -288,21 +316,27 @@ MqttMessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'MqttMessageBinding',
+  'bindings',
+  'mqtt',
+  'MessageBinding',
   '$visitor',
 ]);
 MqttOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'MqttOperationBinding',
+  'bindings',
+  'mqtt',
+  'OperationBinding',
   '$visitor',
 ]);
 MqttServerBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'MqttServerBinding',
+  'bindings',
+  'mqtt',
+  'ServerBinding',
   '$visitor',
 ]);
 // WebSocket
@@ -310,6 +344,8 @@ WebSocketChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'WebSocketChannelBinding',
+  'bindings',
+  'ws',
+  'ChannelBinding',
   '$visitor',
 ]);

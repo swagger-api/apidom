@@ -102,6 +102,7 @@ import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings
 import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/BindingVersionVisitor';
 import HttpServerBindingVisitor from './visitors/async-api-2-0/bindings/http/server-binding';
 // Kafka
+import KafkaChannelBindingVisitor from './visitors/async-api-2-0/bindings/kafka/channel-binding';
 import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding';
 import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding/BindingVersionVisitor';
 import KafkaOperationBindingVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding';
@@ -420,7 +421,9 @@ const specification = {
           },
           kafka: {
             ServerBinding: FallbackVisitor,
-            ChannelBinding: FallbackVisitor,
+            ChannelBinding: {
+              $visitor: KafkaChannelBindingVisitor,
+            },
             OperationBinding: {
               $visitor: KafkaOperationBindingVisitor,
               fixedFields: {

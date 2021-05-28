@@ -92,6 +92,7 @@ import AmqpOperationBinding0_9TimestampVisitor from './visitors/async-api-2-0/bi
 import AmqpOperationBinding0_9AckVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/AckVisitor';
 import AmqpOperationBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/BindingVersionVisitor';
 // HTTP
+import HttpChannelBindingVisitor from './visitors/async-api-2-0/bindings/http/channel-binding';
 import HttpMessageBindingVisitor from './visitors/async-api-2-0/bindings/http/message-binding';
 import HttpMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/message-binding/BindingVersionVisitor';
 import HttpOperationBindingVisitor from './visitors/async-api-2-0/bindings/http/operation-binding';
@@ -389,7 +390,9 @@ const specification = {
             ServerBinding: {
               $visitor: HttpServerBindingVisitor,
             },
-            ChannelBinding: FallbackVisitor,
+            ChannelBinding: {
+              $visitor: HttpChannelBindingVisitor,
+            },
             OperationBinding: {
               $visitor: HttpOperationBindingVisitor,
               fixedFields: {

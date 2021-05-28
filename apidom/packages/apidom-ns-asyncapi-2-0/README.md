@@ -199,9 +199,9 @@ Only fully implemented specification objects should be checked here.
 #### AMQP 0-9-1 Bindings
 
 - [ ] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#server-binding-object) (reserved for future)
-- [ ] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel-binding-object) (partial)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel-binding-object)
 - [ ] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#operation-binding-object) (partial)
-- [ ] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#message-binding-object) (partial)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#message-binding-object)
 
 #### MQTT Bindings
 

@@ -75,6 +75,10 @@ import AmqpChannelBinding0_9IsVisitor from './visitors/async-api-2-0/bindings/am
 import AmqpChannelBinding0_9ExchangeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/ExchangeVisitor';
 import AmqpChannelBinding0_9QueueVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/QueueVisitor';
 import AmqpChannelBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/BindingVersionVisitor';
+import AmqpMessageBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding';
+import AmqpMessageBinding0_9ContentEncodingVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/ContentEncodingVisitor';
+import AmqpMessageBinding0_9MessageTypeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/MessageTypeVisitor';
+import AmqpMessageBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/BindingVersionVisitor';
 // HTTP
 import HttpMessageBindingVisitor from './visitors/async-api-2-0/bindings/http/message-binding';
 import HttpMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/message-binding/BindingVersionVisitor';
@@ -329,6 +333,14 @@ const specification = {
             exchange: AmqpChannelBinding0_9ExchangeVisitor,
             queue: AmqpChannelBinding0_9QueueVisitor,
             bindingVersion: AmqpChannelBinding0_9BindingVersionVisitor,
+          },
+        },
+        AmqpMessageBinding0_9: {
+          $visitor: AmqpMessageBinding0_9Visitor,
+          fixedFields: {
+            contentEncoding: AmqpMessageBinding0_9ContentEncodingVisitor,
+            messageType: AmqpMessageBinding0_9MessageTypeVisitor,
+            bindingVersion: AmqpMessageBinding0_9BindingVersionVisitor,
           },
         },
         // HTTP

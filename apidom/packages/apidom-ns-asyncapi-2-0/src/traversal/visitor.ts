@@ -47,6 +47,7 @@ export const keyMap = {
   // HTTP
   HttpMessageBindingElement: ['content'],
   HttpOperationBindingElement: ['content'],
+  HttpServerBindingElement: ['content'],
   // Kafka
   KafkaMessageBindingElement: ['content'],
   KafkaOperationBindingElement: ['content'],

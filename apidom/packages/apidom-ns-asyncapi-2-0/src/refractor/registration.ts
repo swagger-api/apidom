@@ -39,6 +39,7 @@ import AmqpOperationBinding0_9Element from '../elements/bindings/amqp-0-9/AmqpOp
 // HTTP
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
+import HttpServerBindingElement from '../elements/bindings/http/HttpServerBinding';
 // Kafka
 import KafkaMessageBindingElement from '../elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperationBinding';
@@ -250,6 +251,13 @@ HttpOperationBindingElement.refract = createRefractor([
   'document',
   'objects',
   'HttpOperationBinding',
+  '$visitor',
+]);
+HttpServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'HttpServerBinding',
   '$visitor',
 ]);
 // Kafka

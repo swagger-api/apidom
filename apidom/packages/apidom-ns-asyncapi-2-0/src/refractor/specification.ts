@@ -106,6 +106,10 @@ import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2-0
 // Mqtt
 import MqttMessageBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding';
 import MqttMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding/BindingVersionVisitor';
+import MqttOperationBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding';
+import MqttOperationBindingQosVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/QosVisitor';
+import MqttOperationBindingRetainVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/RetainVisitor';
+import MqttOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/BindingVersionVisitor';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
@@ -422,6 +426,14 @@ const specification = {
           $visitor: MqttMessageBindingVisitor,
           fixedFields: {
             bindingVersion: MqttMessageBindingBindingVersionVisitor,
+          },
+        },
+        MqttOperationBinding: {
+          $visitor: MqttOperationBindingVisitor,
+          fixedFields: {
+            qos: MqttOperationBindingQosVisitor,
+            retain: MqttOperationBindingRetainVisitor,
+            bindingVersion: MqttOperationBindingBindingVersionVisitor,
           },
         },
         // WebSocket

@@ -7,10 +7,10 @@ import {
   NumberElement,
 } from 'minim';
 
-class MqttChannelBinding extends ObjectElement {
+class MqttOperationBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'mqttChannelBinding';
+    this.element = 'mqttOperationBinding';
   }
 
   get qos(): NumberElement {
@@ -38,4 +38,4 @@ class MqttChannelBinding extends ObjectElement {
   }
 }
 
-export default MqttChannelBinding;
+export default MqttOperationBinding;

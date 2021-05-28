@@ -54,6 +54,7 @@ export const keyMap = {
   KafkaChannelBindingElement: ['content'],
   KafkaMessageBindingElement: ['content'],
   KafkaOperationBindingElement: ['content'],
+  KafkaServerBindingElement: ['content'],
   // MQTT
   MqttChannelBindingElement: ['content'],
   MqttMessageBindingElement: ['content'],

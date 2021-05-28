@@ -110,6 +110,12 @@ import MqttOperationBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/
 import MqttOperationBindingQosVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/QosVisitor';
 import MqttOperationBindingRetainVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/RetainVisitor';
 import MqttOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/operation-binding/BindingVersionVisitor';
+import MqttServerBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding';
+import MqttServerBindingClientIdVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/ClientIdVisitor';
+import MqttServerBindingCleanSessionVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/CleanSessionVisitor';
+import MqttServerBindingLastWillVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/LastWillVisitor';
+import MqttServerBindingKeepAliveVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/KeepAliveVisitor';
+import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/BindingVersionVisitor';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/web-socket/channel-binding/MethodVisitor';
@@ -434,6 +440,16 @@ const specification = {
             qos: MqttOperationBindingQosVisitor,
             retain: MqttOperationBindingRetainVisitor,
             bindingVersion: MqttOperationBindingBindingVersionVisitor,
+          },
+        },
+        MqttServerBinding: {
+          $visitor: MqttServerBindingVisitor,
+          fixedFields: {
+            clientId: MqttServerBindingClientIdVisitor,
+            cleanSession: MqttServerBindingCleanSessionVisitor,
+            lastWill: MqttServerBindingLastWillVisitor,
+            keepAlive: MqttServerBindingKeepAliveVisitor,
+            bindingVersion: MqttServerBindingBindingVersionVisitor,
           },
         },
         // WebSocket

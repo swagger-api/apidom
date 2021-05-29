@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
 const Amqp1OperationBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'bindings', '', 'OperationBinding']),
+    specPath: always(['document', 'objects', 'bindings', 'amqp1', 'OperationBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {

@@ -48,11 +48,21 @@ import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBindi
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from './elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding';
+// JMS
+import JmsChannelBindingElement from './elements/bindings/jms/JmsChannelBinding';
+import JmsMessageBindingElement from './elements/bindings/jms/JmsMessageBinding';
+import JmsOperationBindingElement from './elements/bindings/jms/JmsOperationBinding';
+import JmsServerBindingElement from './elements/bindings/jms/JmsServerBinding';
 // Kafka
 import KafkaChannelBindingElement from './elements/bindings/kafka/KafkaChannelBinding';
 import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from './elements/bindings/kafka/KafkaServerBinding';
+// Mercure
+import MercureChannelBindingElement from './elements/bindings/mercure/MercureChannelBinding';
+import MercureMessageBindingElement from './elements/bindings/mercure/MercureMessageBinding';
+import MercureOperationBindingElement from './elements/bindings/mercure/MercureOperationBinding';
+import MercureServerBindingElement from './elements/bindings/mercure/MercureServerBinding';
 // MQTT
 import MqttChannelBindingElement from './elements/bindings/mqtt/MqttChannelBinding';
 import MqttMessageBindingElement from './elements/bindings/mqtt/MqttMessageBinding';
@@ -63,6 +73,31 @@ import Mqtt5ChannelBindingElement from './elements/bindings/mqtt5/Mqtt5ChannelBi
 import Mqtt5MessageBindingElement from './elements/bindings/mqtt5/Mqtt5MessageBinding';
 import Mqtt5OperationBindingElement from './elements/bindings/mqtt5/Mqtt5OperationBinding';
 import Mqtt5ServerBindingElement from './elements/bindings/mqtt5/Mqtt5ServerBinding';
+// NATS
+import NatsChannelBindingElement from './elements/bindings/nats/NatsChannelBinding';
+import NatsMessageBindingElement from './elements/bindings/nats/NatsMessageBinding';
+import NatsOperationBindingElement from './elements/bindings/nats/NatsOperationBinding';
+import NatsServerBindingElement from './elements/bindings/nats/NatsServerBinding';
+// Redis
+import RedisChannelBindingElement from './elements/bindings/redis/RedisChannelBinding';
+import RedisMessageBindingElement from './elements/bindings/redis/RedisMessageBinding';
+import RedisOperationBindingElement from './elements/bindings/redis/RedisOperationBinding';
+import RedisServerBindingElement from './elements/bindings/redis/RedisServerBinding';
+// SNS
+import SnsChannelBindingElement from './elements/bindings/sns/SnsChannelBinding';
+import SnsMessageBindingElement from './elements/bindings/sns/SnsMessageBinding';
+import SnsOperationBindingElement from './elements/bindings/sns/SnsOperationBinding';
+import SnsServerBindingElement from './elements/bindings/sns/SnsServerBinding';
+// SQS
+import SqsChannelBindingElement from './elements/bindings/sqs/SqsChannelBinding';
+import SqsMessageBindingElement from './elements/bindings/sqs/SqsMessageBinding';
+import SqsOperationBindingElement from './elements/bindings/sqs/SqsOperationBinding';
+import SqsServerBindingElement from './elements/bindings/sqs/SqsServerBinding';
+// STOMP
+import StompChannelBindingElement from './elements/bindings/stomp/StompChannelBinding';
+import StompMessageBindingElement from './elements/bindings/stomp/StompMessageBinding';
+import StompOperationBindingElement from './elements/bindings/stomp/StompOperationBinding';
+import StompServerBindingElement from './elements/bindings/stomp/StompServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from './elements/bindings/ws/WebSocketChannelBinding';
 import WebSocketMessageBindingElement from './elements/bindings/ws/WebSocketMessageBinding';
@@ -122,11 +157,21 @@ const asyncApi2_0 = {
     base.register('httpMessageBinding', HttpMessageBindingElement);
     base.register('httpOperationBinding', HttpOperationBindingElement);
     base.register('httpServerBinding', HttpServerBindingElement);
+    // JMS
+    base.register('jmsChannelBinding', JmsChannelBindingElement);
+    base.register('jmsMessageBinding', JmsMessageBindingElement);
+    base.register('jmsOperationBinding', JmsOperationBindingElement);
+    base.register('jmsServerBinding', JmsServerBindingElement);
     // Kafka
     base.register('kafkaChannelBinding', KafkaChannelBindingElement);
     base.register('kafkaMessageBinding', KafkaMessageBindingElement);
     base.register('kafkaOperationBinding', KafkaOperationBindingElement);
     base.register('kafkaServerBinding', KafkaServerBindingElement);
+    // Mercure
+    base.register('mercureChannelBinding', MercureChannelBindingElement);
+    base.register('mercureMessageBinding', MercureMessageBindingElement);
+    base.register('mercureOperationBinding', MercureOperationBindingElement);
+    base.register('mercureServerBinding', MercureServerBindingElement);
     // MQTT
     base.register('mqttChannelBinding', MqttChannelBindingElement);
     base.register('mqttMessageBinding', MqttMessageBindingElement);
@@ -137,6 +182,31 @@ const asyncApi2_0 = {
     base.register('mqtt5MessageBinding', Mqtt5MessageBindingElement);
     base.register('mqtt5OperationBinding', Mqtt5OperationBindingElement);
     base.register('mqtt5ServerBinding', Mqtt5ServerBindingElement);
+    // NATS
+    base.register('natsChannelBinding', NatsChannelBindingElement);
+    base.register('natsMessageBinding', NatsMessageBindingElement);
+    base.register('natsOperationBinding', NatsOperationBindingElement);
+    base.register('natsServerBinding', NatsServerBindingElement);
+    // Redis
+    base.register('redisChannelBinding', RedisChannelBindingElement);
+    base.register('redisMessageBinding', RedisMessageBindingElement);
+    base.register('redisOperationBinding', RedisOperationBindingElement);
+    base.register('redisServerBinding', RedisServerBindingElement);
+    // SNS
+    base.register('snsChannelBinding', SnsChannelBindingElement);
+    base.register('snsMessageBinding', SnsMessageBindingElement);
+    base.register('snsOperationBinding', SnsOperationBindingElement);
+    base.register('snsServerBinding', SnsServerBindingElement);
+    // SQS
+    base.register('sqsChannelBinding', SqsChannelBindingElement);
+    base.register('sqsMessageBinding', SqsMessageBindingElement);
+    base.register('sqsOperationBinding', SqsOperationBindingElement);
+    base.register('sqsServerBinding', SqsServerBindingElement);
+    // STOMP
+    base.register('stompChannelBinding', StompChannelBindingElement);
+    base.register('stompMessageBinding', StompMessageBindingElement);
+    base.register('stompOperationBinding', StompOperationBindingElement);
+    base.register('stompServerBinding', StompServerBindingElement);
     // WebSocket
     base.register('webSocketChannelBinding', WebSocketChannelBindingElement);
     base.register('webSocketMessageBinding', WebSocketMessageBindingElement);

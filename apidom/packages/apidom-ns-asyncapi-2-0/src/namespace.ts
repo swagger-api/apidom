@@ -58,6 +58,11 @@ import MqttChannelBindingElement from './elements/bindings/mqtt/MqttChannelBindi
 import MqttMessageBindingElement from './elements/bindings/mqtt/MqttMessageBinding';
 import MqttOperationBindingElement from './elements/bindings/mqtt/MqttOperationBinding';
 import MqttServerBindingElement from './elements/bindings/mqtt/MqttServerBinding';
+// MQTT 5
+import Mqtt5ChannelBindingElement from './elements/bindings/mqtt5/Mqtt5ChannelBinding';
+import Mqtt5MessageBindingElement from './elements/bindings/mqtt5/Mqtt5MessageBinding';
+import Mqtt5OperationBindingElement from './elements/bindings/mqtt5/Mqtt5OperationBinding';
+import Mqtt5ServerBindingElement from './elements/bindings/mqtt5/Mqtt5ServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from './elements/bindings/ws/WebSocketChannelBinding';
 import WebSocketMessageBindingElement from './elements/bindings/ws/WebSocketMessageBinding';
@@ -127,6 +132,11 @@ const asyncApi2_0 = {
     base.register('mqttMessageBinding', MqttMessageBindingElement);
     base.register('mqttOperationBinding', MqttOperationBindingElement);
     base.register('mqttServerBinding', MqttServerBindingElement);
+    // MQTT 5
+    base.register('mqtt5ChannelBinding', Mqtt5ChannelBindingElement);
+    base.register('mqtt5MessageBinding', Mqtt5MessageBindingElement);
+    base.register('mqtt5OperationBinding', Mqtt5OperationBindingElement);
+    base.register('mqtt5ServerBinding', Mqtt5ServerBindingElement);
     // WebSocket
     base.register('webSocketChannelBinding', WebSocketChannelBindingElement);
     base.register('webSocketMessageBinding', WebSocketMessageBindingElement);

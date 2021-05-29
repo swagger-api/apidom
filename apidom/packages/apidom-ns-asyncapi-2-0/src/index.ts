@@ -110,6 +110,11 @@ export { default as MqttChannelBindingElement } from './elements/bindings/mqtt/M
 export { default as MqttMessageBindingElement } from './elements/bindings/mqtt/MqttMessageBinding';
 export { default as MqttOperationBindingElement } from './elements/bindings/mqtt/MqttOperationBinding';
 export { default as MqttServerBindingElement } from './elements/bindings/mqtt/MqttServerBinding';
+// MQTT 5
+export { default as Mqtt5ChannelBindingElement } from './elements/bindings/mqtt5/Mqtt5ChannelBinding';
+export { default as Mqtt5MessageBindingElement } from './elements/bindings/mqtt5/Mqtt5MessageBinding';
+export { default as Mqtt5OperationBindingElement } from './elements/bindings/mqtt5/Mqtt5OperationBinding';
+export { default as Mqtt5ServerBindingElement } from './elements/bindings/mqtt5/Mqtt5ServerBinding';
 // WebSocket
 export { default as WebSocketChannelBindingElement } from './elements/bindings/ws/WebSocketChannelBinding';
 export { default as WebSocketMessageBindingElement } from './elements/bindings/ws/WebSocketMessageBinding';

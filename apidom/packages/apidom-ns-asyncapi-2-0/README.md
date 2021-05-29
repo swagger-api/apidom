@@ -217,3 +217,9 @@ Only fully implemented specification objects should be checked here.
 - [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#operation-binding-object)
 - [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#message-binding-object)
 
+#### MQTT 5 Bindings
+
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#message-binding-object)

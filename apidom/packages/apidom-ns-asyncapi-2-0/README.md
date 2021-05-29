@@ -203,6 +203,13 @@ Only fully implemented specification objects should be checked here.
 - [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#operation-binding-object)
 - [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#message-binding-object)
 
+#### AMQP 1.0 Bindings
+
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#message-binding-object)
+
 #### MQTT Bindings
 
 - [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#server-binding-object)

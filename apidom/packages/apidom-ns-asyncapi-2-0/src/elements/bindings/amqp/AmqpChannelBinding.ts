@@ -1,9 +1,9 @@
 import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
 
-class AmqpChannelBinding0_9_1 extends ObjectElement {
+class AmqpChannelBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'amqpChannelBinding0_9_1';
+    this.element = 'amqpChannelBinding';
   }
 
   get is(): StringElement {
@@ -39,4 +39,4 @@ class AmqpChannelBinding0_9_1 extends ObjectElement {
   }
 }
 
-export default AmqpChannelBinding0_9_1;
+export default AmqpChannelBinding;

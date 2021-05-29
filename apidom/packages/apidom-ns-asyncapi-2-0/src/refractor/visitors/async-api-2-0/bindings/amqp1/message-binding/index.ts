@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import AmqpMessageBinding1_0Element from '../../../../../../elements/bindings/amqp-1-0/AmqpMessageBinding1-0';
+import Amqp1MessageBindingElement from '../../../../../../elements/bindings/amqp1/Amqp1MessageBinding';
 import FallbackVisitor from '../../../../FallbackVisitor';
 import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const AmqpMessageBinding1_0Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const Amqp1MessageBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'bindings', 'amqp1', 'MessageBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {
-    this.element = new AmqpMessageBinding1_0Element();
+    this.element = new Amqp1MessageBindingElement();
   },
 });
 
-export default AmqpMessageBinding1_0Visitor;
+export default Amqp1MessageBindingVisitor;

@@ -70,11 +70,11 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
  * Binding elements.
  */
 // AMQP 0-9-1
-import AmqpChannelBindingVisitor from './visitors/async-api-2-0/bindings/amqp/channgel-binding';
-import AmqpChannelBindingIsVisitor from './visitors/async-api-2-0/bindings/amqp/channgel-binding/IsVisitor';
-import AmqpChannelBindingExchangeVisitor from './visitors/async-api-2-0/bindings/amqp/channgel-binding/ExchangeVisitor';
-import AmqpChannelBindingQueueVisitor from './visitors/async-api-2-0/bindings/amqp/channgel-binding/QueueVisitor';
-import AmqpChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp/channgel-binding/BindingVersionVisitor';
+import AmqpChannelBindingVisitor from './visitors/async-api-2-0/bindings/amqp/channel-binding';
+import AmqpChannelBindingIsVisitor from './visitors/async-api-2-0/bindings/amqp/channel-binding/IsVisitor';
+import AmqpChannelBindingExchangeVisitor from './visitors/async-api-2-0/bindings/amqp/channel-binding/ExchangeVisitor';
+import AmqpChannelBindingQueueVisitor from './visitors/async-api-2-0/bindings/amqp/channel-binding/QueueVisitor';
+import AmqpChannelBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp/channel-binding/BindingVersionVisitor';
 import AmqpMessageBindingVisitor from './visitors/async-api-2-0/bindings/amqp/message-binding';
 import AmqpMessageBindingContentEncodingVisitor from './visitors/async-api-2-0/bindings/amqp/message-binding/ContentEncodingVisitor';
 import AmqpMessageBindingMessageTypeVisitor from './visitors/async-api-2-0/bindings/amqp/message-binding/MessageTypeVisitor';
@@ -93,7 +93,7 @@ import AmqpOperationBindingAckVisitor from './visitors/async-api-2-0/bindings/am
 import AmqpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp/operation-binding/BindingVersionVisitor';
 import AmqpServerBindingVisitor from './visitors/async-api-2-0/bindings/amqp/server-binding';
 // AMQP 1.0
-import Amqp1ChannelBindingVisitor from './visitors/async-api-2-0/bindings/amqp1/channgel-binding';
+import Amqp1ChannelBindingVisitor from './visitors/async-api-2-0/bindings/amqp1/channel-binding';
 import Amqp1MessageBindingVisitor from './visitors/async-api-2-0/bindings/amqp1/message-binding';
 import Amqp1OperationBindingVisitor from './visitors/async-api-2-0/bindings/amqp1/operation-binding';
 import Amqp1ServerBindingVisitor from './visitors/async-api-2-0/bindings/amqp1/server-binding';
@@ -106,6 +106,11 @@ import HttpOperationBindingTypeVisitor from './visitors/async-api-2-0/bindings/h
 import HttpOperationBindingMethodVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/MethodVisitor';
 import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/http/operation-binding/BindingVersionVisitor';
 import HttpServerBindingVisitor from './visitors/async-api-2-0/bindings/http/server-binding';
+// JMS
+import JmsChannelBindingVisitor from './visitors/async-api-2-0/bindings/jms/channel-binding';
+import JmsMessageBindingVisitor from './visitors/async-api-2-0/bindings/jms/message-binding';
+import JmsOperationBindingVisitor from './visitors/async-api-2-0/bindings/jms/operation-binding';
+import JmsServerBindingVisitor from './visitors/async-api-2-0/bindings/jms/server-binding';
 // Kafka
 import KafkaChannelBindingVisitor from './visitors/async-api-2-0/bindings/kafka/channel-binding';
 import KafkaMessageBindingVisitor from './visitors/async-api-2-0/bindings/kafka/message-binding';
@@ -113,7 +118,12 @@ import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/b
 import KafkaOperationBindingVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding';
 import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/kafka/operation-binding/BindingVersionVisitor';
 import KafkaServerBindingVisitor from './visitors/async-api-2-0/bindings/kafka/server-binding';
-// Mqtt
+// Mercure
+import MercureChannelBindingVisitor from './visitors/async-api-2-0/bindings/mercure/channel-binding';
+import MercureMessageBindingVisitor from './visitors/async-api-2-0/bindings/mercure/message-binding';
+import MercureOperationBindingVisitor from './visitors/async-api-2-0/bindings/mercure/operation-binding';
+import MercureServerBindingVisitor from './visitors/async-api-2-0/bindings/mercure/server-binding';
+// MQTT
 import MqttChannelBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/channel-binding';
 import MqttMessageBindingVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding';
 import MqttMessageBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/message-binding/BindingVersionVisitor';
@@ -127,6 +137,36 @@ import MqttServerBindingCleanSessionVisitor from './visitors/async-api-2-0/bindi
 import MqttServerBindingLastWillVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/LastWillVisitor';
 import MqttServerBindingKeepAliveVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/KeepAliveVisitor';
 import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2-0/bindings/mqtt/server-binding/BindingVersionVisitor';
+// MQTT 5
+import Mqtt5ChannelBindingVisitor from './visitors/async-api-2-0/bindings/mqtt5/channel-binding';
+import Mqtt5MessageBindingVisitor from './visitors/async-api-2-0/bindings/mqtt5/message-binding';
+import Mqtt5OperationBindingVisitor from './visitors/async-api-2-0/bindings/mqtt5/operation-binding';
+import Mqtt5ServerBindingVisitor from './visitors/async-api-2-0/bindings/mqtt5/server-binding';
+// NATS
+import NatsChannelBindingVisitor from './visitors/async-api-2-0/bindings/nats/channel-binding';
+import NatsMessageBindingVisitor from './visitors/async-api-2-0/bindings/nats/message-binding';
+import NatsOperationBindingVisitor from './visitors/async-api-2-0/bindings/nats/operation-binding';
+import NatsServerBindingVisitor from './visitors/async-api-2-0/bindings/nats/server-binding';
+// Redis
+import RedisChannelBindingVisitor from './visitors/async-api-2-0/bindings/redis/channel-binding';
+import RedisMessageBindingVisitor from './visitors/async-api-2-0/bindings/redis/message-binding';
+import RedisOperationBindingVisitor from './visitors/async-api-2-0/bindings/redis/operation-binding';
+import RedisServerBindingVisitor from './visitors/async-api-2-0/bindings/redis/server-binding';
+// SNS
+import SnsChannelBindingVisitor from './visitors/async-api-2-0/bindings/sns/channel-binding';
+import SnsMessageBindingVisitor from './visitors/async-api-2-0/bindings/sns/message-binding';
+import SnsOperationBindingVisitor from './visitors/async-api-2-0/bindings/sns/operation-binding';
+import SnsServerBindingVisitor from './visitors/async-api-2-0/bindings/sns/server-binding';
+// SQS
+import SqsChannelBindingVisitor from './visitors/async-api-2-0/bindings/sqs/channel-binding';
+import SqsMessageBindingVisitor from './visitors/async-api-2-0/bindings/sqs/message-binding';
+import SqsOperationBindingVisitor from './visitors/async-api-2-0/bindings/sqs/operation-binding';
+import SqsServerBindingVisitor from './visitors/async-api-2-0/bindings/sqs/server-binding';
+// STOMP
+import StompChannelBindingVisitor from './visitors/async-api-2-0/bindings/stomp/channel-binding';
+import StompMessageBindingVisitor from './visitors/async-api-2-0/bindings/stomp/message-binding';
+import StompOperationBindingVisitor from './visitors/async-api-2-0/bindings/stomp/operation-binding';
+import StompServerBindingVisitor from './visitors/async-api-2-0/bindings/stomp/server-binding';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding';
 import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2-0/bindings/ws/channel-binding/MethodVisitor';
@@ -522,6 +562,118 @@ const specification = {
               fixedFields: {
                 bindingVersion: MqttMessageBindingBindingVersionVisitor,
               },
+            },
+          },
+          mqtt5: {
+            ServerBinding: {
+              $visitor: Mqtt5ServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: Mqtt5ChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: Mqtt5OperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: Mqtt5MessageBindingVisitor,
+            },
+          },
+          nats: {
+            ServerBinding: {
+              $visitor: NatsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: NatsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: NatsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: NatsMessageBindingVisitor,
+            },
+          },
+          jms: {
+            ServerBinding: {
+              $visitor: JmsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: JmsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: JmsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: JmsMessageBindingVisitor,
+            },
+          },
+          sns: {
+            ServerBinding: {
+              $visitor: SnsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: SnsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SnsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: SnsMessageBindingVisitor,
+            },
+          },
+          sqs: {
+            ServerBinding: {
+              $visitor: SqsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: SqsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SqsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: SqsMessageBindingVisitor,
+            },
+          },
+          stomp: {
+            ServerBinding: {
+              $visitor: StompServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: StompChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: StompOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: StompMessageBindingVisitor,
+            },
+          },
+          redis: {
+            ServerBinding: {
+              $visitor: RedisServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: RedisChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: RedisOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: RedisMessageBindingVisitor,
+            },
+          },
+          mercure: {
+            ServerBinding: {
+              $visitor: MercureServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: MercureChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: MercureOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: MercureMessageBindingVisitor,
             },
           },
         },

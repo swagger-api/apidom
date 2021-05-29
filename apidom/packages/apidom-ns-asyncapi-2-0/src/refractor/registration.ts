@@ -47,16 +47,56 @@ import HttpChannelBindingElement from '../elements/bindings/http/HttpChannelBind
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from '../elements/bindings/http/HttpServerBinding';
+// JMS
+import JmsChannelBindingElement from '../elements/bindings/jms/JmsChannelBinding';
+import JmsMessageBindingElement from '../elements/bindings/jms/JmsMessageBinding';
+import JmsOperationBindingElement from '../elements/bindings/jms/JmsOperationBinding';
+import JmsServerBindingElement from '../elements/bindings/jms/JmsServerBinding';
 // Kafka
 import KafkaChannelBindingElement from '../elements/bindings/kafka/KafkaChannelBinding';
 import KafkaMessageBindingElement from '../elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from '../elements/bindings/kafka/KafkaServerBinding';
-// Mqtt
+// Mercure
+import MercureChannelBindingElement from '../elements/bindings/mercure/MercureChannelBinding';
+import MercureMessageBindingElement from '../elements/bindings/mercure/MercureMessageBinding';
+import MercureOperationBindingElement from '../elements/bindings/mercure/MercureOperationBinding';
+import MercureServerBindingElement from '../elements/bindings/mercure/MercureServerBinding';
+// MQTT
 import MqttChannelBindingElement from '../elements/bindings/mqtt/MqttChannelBinding';
 import MqttMessageBindingElement from '../elements/bindings/mqtt/MqttMessageBinding';
 import MqttOperationBindingElement from '../elements/bindings/mqtt/MqttOperationBinding';
 import MqttServerBindingElement from '../elements/bindings/mqtt/MqttServerBinding';
+// MQTT 5
+import Mqtt5ChannelBindingElement from '../elements/bindings/mqtt5/Mqtt5ChannelBinding';
+import Mqtt5MessageBindingElement from '../elements/bindings/mqtt5/Mqtt5MessageBinding';
+import Mqtt5OperationBindingElement from '../elements/bindings/mqtt5/Mqtt5OperationBinding';
+import Mqtt5ServerBindingElement from '../elements/bindings/mqtt5/Mqtt5ServerBinding';
+// NATS
+import NatsChannelBindingElement from '../elements/bindings/nats/NatsChannelBinding';
+import NatsMessageBindingElement from '../elements/bindings/nats/NatsMessageBinding';
+import NatsOperationBindingElement from '../elements/bindings/nats/NatsOperationBinding';
+import NatsServerBindingElement from '../elements/bindings/nats/NatsServerBinding';
+// Redis
+import RedisChannelBindingElement from '../elements/bindings/redis/RedisChannelBinding';
+import RedisMessageBindingElement from '../elements/bindings/redis/RedisMessageBinding';
+import RedisOperationBindingElement from '../elements/bindings/redis/RedisOperationBinding';
+import RedisServerBindingElement from '../elements/bindings/redis/RedisServerBinding';
+// SNS
+import SnsChannelBindingElement from '../elements/bindings/sns/SnsChannelBinding';
+import SnsMessageBindingElement from '../elements/bindings/sns/SnsMessageBinding';
+import SnsOperationBindingElement from '../elements/bindings/sns/SnsOperationBinding';
+import SnsServerBindingElement from '../elements/bindings/sns/SnsServerBinding';
+// SQS
+import SqsChannelBindingElement from '../elements/bindings/sqs/SqsChannelBinding';
+import SqsMessageBindingElement from '../elements/bindings/sqs/SqsMessageBinding';
+import SqsOperationBindingElement from '../elements/bindings/sqs/SqsOperationBinding';
+import SqsServerBindingElement from '../elements/bindings/sqs/SqsServerBinding';
+// STOMP
+import StompChannelBindingElement from '../elements/bindings/stomp/StompChannelBinding';
+import StompMessageBindingElement from '../elements/bindings/stomp/StompMessageBinding';
+import StompOperationBindingElement from '../elements/bindings/stomp/StompOperationBinding';
+import StompServerBindingElement from '../elements/bindings/stomp/StompServerBinding';
 // WebSocket
 import WebSocketChannelBindingElement from '../elements/bindings/ws/WebSocketChannelBinding';
 import WebSocketMessageBindingElement from '../elements/bindings/ws/WebSocketMessageBinding';
@@ -340,6 +380,43 @@ HttpServerBindingElement.refract = createRefractor([
   'ServerBinding',
   '$visitor',
 ]);
+// JMS
+JmsChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'jsm',
+  'ChannelBinding',
+  '$visitor',
+]);
+JmsMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'jsm',
+  'MessageBinding',
+  '$visitor',
+]);
+JmsOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'jsm',
+  'OperationBinding',
+  '$visitor',
+]);
+JmsServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'jsm',
+  'ServerBinding',
+  '$visitor',
+]);
 // Kafka
 KafkaChannelBindingElement.refract = createRefractor([
   'visitors',
@@ -377,7 +454,44 @@ KafkaServerBindingElement.refract = createRefractor([
   'ServerBinding',
   '$visitor',
 ]);
-// Mqtt
+// Mercure
+MercureChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mercure',
+  'ChannelBinding',
+  '$visitor',
+]);
+MercureMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mercure',
+  'MessageBinding',
+  '$visitor',
+]);
+MercureOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mercure',
+  'OperationBinding',
+  '$visitor',
+]);
+MercureServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mercure',
+  'ServerBinding',
+  '$visitor',
+]);
+// MQTT
 MqttChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
@@ -411,6 +525,228 @@ MqttServerBindingElement.refract = createRefractor([
   'objects',
   'bindings',
   'mqtt',
+  'ServerBinding',
+  '$visitor',
+]);
+// MQTT 5
+Mqtt5ChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mqtt5',
+  'ChannelBinding',
+  '$visitor',
+]);
+Mqtt5MessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mqtt5',
+  'MessageBinding',
+  '$visitor',
+]);
+Mqtt5OperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mqtt5',
+  'OperationBinding',
+  '$visitor',
+]);
+Mqtt5ServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'mqtt5',
+  'ServerBinding',
+  '$visitor',
+]);
+// NATS
+NatsChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'nats',
+  'ChannelBinding',
+  '$visitor',
+]);
+NatsMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'nats',
+  'MessageBinding',
+  '$visitor',
+]);
+NatsOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'nats',
+  'OperationBinding',
+  '$visitor',
+]);
+NatsServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'nats',
+  'ServerBinding',
+  '$visitor',
+]);
+// Redis
+RedisChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'redis',
+  'ChannelBinding',
+  '$visitor',
+]);
+RedisMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'redis',
+  'MessageBinding',
+  '$visitor',
+]);
+RedisOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'redis',
+  'OperationBinding',
+  '$visitor',
+]);
+RedisServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'redis',
+  'ServerBinding',
+  '$visitor',
+]);
+// SNS
+SnsChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sns',
+  'ChannelBinding',
+  '$visitor',
+]);
+SnsMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sns',
+  'MessageBinding',
+  '$visitor',
+]);
+SnsOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sns',
+  'OperationBinding',
+  '$visitor',
+]);
+SnsServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sns',
+  'ServerBinding',
+  '$visitor',
+]);
+// SQS
+SqsChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sqs',
+  'ChannelBinding',
+  '$visitor',
+]);
+SqsMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sqs',
+  'MessageBinding',
+  '$visitor',
+]);
+SqsOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sqs',
+  'OperationBinding',
+  '$visitor',
+]);
+SqsServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'sqs',
+  'ServerBinding',
+  '$visitor',
+]);
+// STOMP
+StompChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'stomp',
+  'ChannelBinding',
+  '$visitor',
+]);
+StompMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'stomp',
+  'MessageBinding',
+  '$visitor',
+]);
+StompOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'stomp',
+  'OperationBinding',
+  '$visitor',
+]);
+StompServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'stomp',
   'ServerBinding',
   '$visitor',
 ]);

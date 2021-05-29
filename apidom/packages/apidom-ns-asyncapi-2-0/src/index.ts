@@ -100,11 +100,21 @@ export { default as HttpChannelBindingElement } from './elements/bindings/http/H
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';
 export { default as HttpOperationBindingElement } from './elements/bindings/http/HttpOperationBinding';
 export { default as HttpServerBindingElement } from './elements/bindings/http/HttpServerBinding';
+// JMS
+export { default as JmsChannelBindingElement } from './elements/bindings/jms/JmsChannelBinding';
+export { default as JmsMessageBindingElement } from './elements/bindings/jms/JmsMessageBinding';
+export { default as JmsOperationBindingElement } from './elements/bindings/jms/JmsOperationBinding';
+export { default as JmsServerBindingElement } from './elements/bindings/jms/JmsServerBinding';
 // Kafka
 export { default as KafkaChannelBindingElement } from './elements/bindings/kafka/KafkaChannelBinding';
 export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
 export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';
 export { default as KafkaServerBindingElement } from './elements/bindings/kafka/KafkaServerBinding';
+// Mercure
+export { default as MercureChannelBindingElement } from './elements/bindings/mercure/MercureChannelBinding';
+export { default as MercureMessageBindingElement } from './elements/bindings/mercure/MercureMessageBinding';
+export { default as MercureOperationBindingElement } from './elements/bindings/mercure/MercureOperationBinding';
+export { default as MercureServerBindingElement } from './elements/bindings/mercure/MercureServerBinding';
 // MQTT
 export { default as MqttChannelBindingElement } from './elements/bindings/mqtt/MqttChannelBinding';
 export { default as MqttMessageBindingElement } from './elements/bindings/mqtt/MqttMessageBinding';
@@ -115,6 +125,31 @@ export { default as Mqtt5ChannelBindingElement } from './elements/bindings/mqtt5
 export { default as Mqtt5MessageBindingElement } from './elements/bindings/mqtt5/Mqtt5MessageBinding';
 export { default as Mqtt5OperationBindingElement } from './elements/bindings/mqtt5/Mqtt5OperationBinding';
 export { default as Mqtt5ServerBindingElement } from './elements/bindings/mqtt5/Mqtt5ServerBinding';
+// NATS
+export { default as NatsChannelBindingElement } from './elements/bindings/nats/NatsChannelBinding';
+export { default as NatsMessageBindingElement } from './elements/bindings/nats/NatsMessageBinding';
+export { default as NatsOperationBindingElement } from './elements/bindings/nats/NatsOperationBinding';
+export { default as NatsServerBindingElement } from './elements/bindings/nats/NatsServerBinding';
+// Redis
+export { default as RedisChannelBindingElement } from './elements/bindings/redis/RedisChannelBinding';
+export { default as RedisMessageBindingElement } from './elements/bindings/redis/RedisMessageBinding';
+export { default as RedisOperationBindingElement } from './elements/bindings/redis/RedisOperationBinding';
+export { default as RedisServerBindingElement } from './elements/bindings/redis/RedisServerBinding';
+// SNS
+export { default as SnsChannelBindingElement } from './elements/bindings/sns/SnsChannelBinding';
+export { default as SnsMessageBindingElement } from './elements/bindings/sns/SnsMessageBinding';
+export { default as SnsOperationBindingElement } from './elements/bindings/sns/SnsOperationBinding';
+export { default as SnsServerBindingElement } from './elements/bindings/sns/SnsServerBinding';
+// SQS
+export { default as SqsChannelBindingElement } from './elements/bindings/sqs/SqsChannelBinding';
+export { default as SqsMessageBindingElement } from './elements/bindings/sqs/SqsMessageBinding';
+export { default as SqsOperationBindingElement } from './elements/bindings/sqs/SqsOperationBinding';
+export { default as SqsServerBindingElement } from './elements/bindings/sqs/SqsServerBinding';
+// STOMP
+export { default as StompChannelBindingElement } from './elements/bindings/stomp/StompChannelBinding';
+export { default as StompMessageBindingElement } from './elements/bindings/stomp/StompMessageBinding';
+export { default as StompOperationBindingElement } from './elements/bindings/stomp/StompOperationBinding';
+export { default as StompServerBindingElement } from './elements/bindings/stomp/StompServerBinding';
 // WebSocket
 export { default as WebSocketChannelBindingElement } from './elements/bindings/ws/WebSocketChannelBinding';
 export { default as WebSocketMessageBindingElement } from './elements/bindings/ws/WebSocketMessageBinding';

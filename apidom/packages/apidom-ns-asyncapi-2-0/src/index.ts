@@ -90,6 +90,11 @@ export { default as AmqpChannelBinding0_9_1Element } from './elements/bindings/a
 export { default as AmqpMessageBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpMessageBinding0-9-1';
 export { default as AmqpOperationBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpOperationBinding0-9-1';
 export { default as AmqpServerBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpServerBinding0-9-1';
+// AMQP 1.0
+export { default as AmqpChannelBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpChannelBinding1-0';
+export { default as AmqpMessageBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpMessageBinding1-0';
+export { default as AmqpOperationBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpOperationBinding1-0';
+export { default as AmqpServerBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpServerBinding1-0';
 // HTTP
 export { default as HttpChannelBindingElement } from './elements/bindings/http/HttpChannelBinding';
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';

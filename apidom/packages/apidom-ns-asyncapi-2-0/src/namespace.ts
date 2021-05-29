@@ -38,6 +38,11 @@ import AmqpChannelBinding0_9_1Element from './elements/bindings/amqp-0-9-1/AmqpC
 import AmqpMessageBinding0_9_1Element from './elements/bindings/amqp-0-9-1/AmqpMessageBinding0-9-1';
 import AmqpOperationBinding0_9_1Element from './elements/bindings/amqp-0-9-1/AmqpOperationBinding0-9-1';
 import AmqpServerBinding0_9_1Element from './elements/bindings/amqp-0-9-1/AmqpServerBinding0-9-1';
+// AMQP 1.0
+import AmqpChannelBinding1_0Element from './elements/bindings/amqp-1-0/AmqpChannelBinding1-0';
+import AmqpMessageBinding1_0Element from './elements/bindings/amqp-1-0/AmqpMessageBinding1-0';
+import AmqpOperationBinding1_0Element from './elements/bindings/amqp-1-0/AmqpOperationBinding1-0';
+import AmqpServerBinding1_0Element from './elements/bindings/amqp-1-0/AmqpServerBinding1-0';
 // HTTP
 import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
@@ -97,11 +102,16 @@ const asyncApi2_0 = {
     /**
      * Binding elements.
      */
-    // AMQP
-    base.register('amqpChannelBinding0_9', AmqpChannelBinding0_9_1Element);
-    base.register('amqpMessageBinding0_9', AmqpMessageBinding0_9_1Element);
-    base.register('amqpOperationBinding0_9', AmqpOperationBinding0_9_1Element);
-    base.register('amqpServerBinding0_9', AmqpServerBinding0_9_1Element);
+    // AMQP 0-9-1
+    base.register('amqpChannelBinding0_9_1', AmqpChannelBinding0_9_1Element);
+    base.register('amqpMessageBinding0_9_1', AmqpMessageBinding0_9_1Element);
+    base.register('amqpOperationBinding0_9_1', AmqpOperationBinding0_9_1Element);
+    base.register('amqpServerBinding0_9_1', AmqpServerBinding0_9_1Element);
+    // AMQP 1.0
+    base.register('amqpChannelBinding1_0', AmqpChannelBinding1_0Element);
+    base.register('amqpMessageBinding1_0', AmqpMessageBinding1_0Element);
+    base.register('amqpOperationBinding1_0', AmqpOperationBinding1_0Element);
+    base.register('amqpServerBinding1_0', AmqpServerBinding1_0Element);
     // HTTP
     base.register('httpChannelBinding', HttpChannelBindingElement);
     base.register('httpMessageBinding', HttpMessageBindingElement);

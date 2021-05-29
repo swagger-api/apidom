@@ -69,29 +69,29 @@ import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item
 /**
  * Binding elements.
  */
-// AMQP
-import AmqpChannelBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding';
-import AmqpChannelBinding0_9IsVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/IsVisitor';
-import AmqpChannelBinding0_9ExchangeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/ExchangeVisitor';
-import AmqpChannelBinding0_9QueueVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/QueueVisitor';
-import AmqpChannelBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/channgel-binding/BindingVersionVisitor';
-import AmqpMessageBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding';
-import AmqpMessageBinding0_9ContentEncodingVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/ContentEncodingVisitor';
-import AmqpMessageBinding0_9MessageTypeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/MessageTypeVisitor';
-import AmqpMessageBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/message-binding/BindingVersionVisitor';
-import AmqpOperationBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding';
-import AmqpOperationBinding0_9ExpirationVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/ExpirationVisitor';
-import AmqpOperationBinding0_9UserIdVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/UserIdVisitor';
-import AmqpOperationBinding0_9CcVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/CcVisitor';
-import AmqpOperationBinding0_9PriorityVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/PriorityVisitor';
-import AmqpOperationBinding0_9DeliveryModeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/DeliveryModeVisitor';
-import AmqpOperationBinding0_9MandatoryVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/MandatoryVisitor';
-import AmqpOperationBinding0_9BccVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/BccVisitor';
-import AmqpOperationBinding0_9ReplyToVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/ReplyToVisitor';
-import AmqpOperationBinding0_9TimestampVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/TimestampVisitor';
-import AmqpOperationBinding0_9AckVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/AckVisitor';
-import AmqpOperationBinding0_9BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9/operation-binding/BindingVersionVisitor';
-import AmqpServerBinding0_9Visitor from './visitors/async-api-2-0/bindings/amqp-0-9/server-binding';
+// AMQP 0-9-1
+import AmqpChannelBinding0_9_1Visitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/channgel-binding';
+import AmqpChannelBinding0_9_1IsVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/channgel-binding/IsVisitor';
+import AmqpChannelBinding0_9_1ExchangeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/channgel-binding/ExchangeVisitor';
+import AmqpChannelBinding0_9_1QueueVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/channgel-binding/QueueVisitor';
+import AmqpChannelBinding0_9_1BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/channgel-binding/BindingVersionVisitor';
+import AmqpMessageBinding0_9_1Visitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/message-binding';
+import AmqpMessageBinding0_9_1ContentEncodingVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/message-binding/ContentEncodingVisitor';
+import AmqpMessageBinding0_9_1MessageTypeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/message-binding/MessageTypeVisitor';
+import AmqpMessageBinding0_9_1BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/message-binding/BindingVersionVisitor';
+import AmqpOperationBinding0_9_1Visitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding';
+import AmqpOperationBinding0_9_1ExpirationVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/ExpirationVisitor';
+import AmqpOperationBinding0_9_1UserIdVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/UserIdVisitor';
+import AmqpOperationBinding0_9_1CcVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/CcVisitor';
+import AmqpOperationBinding0_9_1PriorityVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/PriorityVisitor';
+import AmqpOperationBinding0_9_1DeliveryModeVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/DeliveryModeVisitor';
+import AmqpOperationBinding0_9_1MandatoryVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/MandatoryVisitor';
+import AmqpOperationBinding0_9_1BccVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/BccVisitor';
+import AmqpOperationBinding0_9_1ReplyToVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/ReplyToVisitor';
+import AmqpOperationBinding0_9_1TimestampVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/TimestampVisitor';
+import AmqpOperationBinding0_9_1AckVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/AckVisitor';
+import AmqpOperationBinding0_9_1BindingVersionVisitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/operation-binding/BindingVersionVisitor';
+import AmqpServerBinding0_9_1Visitor from './visitors/async-api-2-0/bindings/amqp-0-9-1/server-binding';
 // HTTP
 import HttpChannelBindingVisitor from './visitors/async-api-2-0/bindings/http/channel-binding';
 import HttpMessageBindingVisitor from './visitors/async-api-2-0/bindings/http/message-binding';
@@ -359,39 +359,39 @@ const specification = {
         bindings: {
           amqp: {
             ServerBinding: {
-              $visitor: AmqpServerBinding0_9Visitor,
+              $visitor: AmqpServerBinding0_9_1Visitor,
             },
             ChannelBinding: {
-              $visitor: AmqpChannelBinding0_9Visitor,
+              $visitor: AmqpChannelBinding0_9_1Visitor,
               fixedFields: {
-                is: AmqpChannelBinding0_9IsVisitor,
-                exchange: AmqpChannelBinding0_9ExchangeVisitor,
-                queue: AmqpChannelBinding0_9QueueVisitor,
-                bindingVersion: AmqpChannelBinding0_9BindingVersionVisitor,
+                is: AmqpChannelBinding0_9_1IsVisitor,
+                exchange: AmqpChannelBinding0_9_1ExchangeVisitor,
+                queue: AmqpChannelBinding0_9_1QueueVisitor,
+                bindingVersion: AmqpChannelBinding0_9_1BindingVersionVisitor,
               },
             },
             OperationBinding: {
-              $visitor: AmqpOperationBinding0_9Visitor,
+              $visitor: AmqpOperationBinding0_9_1Visitor,
               fixedFields: {
-                expiration: AmqpOperationBinding0_9ExpirationVisitor,
-                userId: AmqpOperationBinding0_9UserIdVisitor,
-                cc: AmqpOperationBinding0_9CcVisitor,
-                priority: AmqpOperationBinding0_9PriorityVisitor,
-                deliveryMode: AmqpOperationBinding0_9DeliveryModeVisitor,
-                mandatory: AmqpOperationBinding0_9MandatoryVisitor,
-                bcc: AmqpOperationBinding0_9BccVisitor,
-                replyTo: AmqpOperationBinding0_9ReplyToVisitor,
-                timestamp: AmqpOperationBinding0_9TimestampVisitor,
-                ack: AmqpOperationBinding0_9AckVisitor,
-                bindingVersion: AmqpOperationBinding0_9BindingVersionVisitor,
+                expiration: AmqpOperationBinding0_9_1ExpirationVisitor,
+                userId: AmqpOperationBinding0_9_1UserIdVisitor,
+                cc: AmqpOperationBinding0_9_1CcVisitor,
+                priority: AmqpOperationBinding0_9_1PriorityVisitor,
+                deliveryMode: AmqpOperationBinding0_9_1DeliveryModeVisitor,
+                mandatory: AmqpOperationBinding0_9_1MandatoryVisitor,
+                bcc: AmqpOperationBinding0_9_1BccVisitor,
+                replyTo: AmqpOperationBinding0_9_1ReplyToVisitor,
+                timestamp: AmqpOperationBinding0_9_1TimestampVisitor,
+                ack: AmqpOperationBinding0_9_1AckVisitor,
+                bindingVersion: AmqpOperationBinding0_9_1BindingVersionVisitor,
               },
             },
             MessageBinding: {
-              $visitor: AmqpMessageBinding0_9Visitor,
+              $visitor: AmqpMessageBinding0_9_1Visitor,
               fixedFields: {
-                contentEncoding: AmqpMessageBinding0_9ContentEncodingVisitor,
-                messageType: AmqpMessageBinding0_9MessageTypeVisitor,
-                bindingVersion: AmqpMessageBinding0_9BindingVersionVisitor,
+                contentEncoding: AmqpMessageBinding0_9_1ContentEncodingVisitor,
+                messageType: AmqpMessageBinding0_9_1MessageTypeVisitor,
+                bindingVersion: AmqpMessageBinding0_9_1BindingVersionVisitor,
               },
             },
           },

@@ -85,11 +85,11 @@ export { default as TagsElement } from './elements/Tags';
 /**
  * Binding elements.
  */
-// AMQP
-export { default as AmqpChannelBinding0_9Element } from './elements/bindings/amqp-0-9/AmqpChannelBinding0-9';
-export { default as AmqpMessageBinding0_9Element } from './elements/bindings/amqp-0-9/AmqpMessageBinding0-9';
-export { default as AmqpOperationBinding0_9Element } from './elements/bindings/amqp-0-9/AmqpOperationBinding0-9';
-export { default as AmqpServerBinding0_9Element } from './elements/bindings/amqp-0-9/AmqpServerBinding0-9';
+// AMQP 0-9-1
+export { default as AmqpChannelBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpChannelBinding0-9-1';
+export { default as AmqpMessageBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpMessageBinding0-9-1';
+export { default as AmqpOperationBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpOperationBinding0-9-1';
+export { default as AmqpServerBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpServerBinding0-9-1';
 // HTTP
 export { default as HttpChannelBindingElement } from './elements/bindings/http/HttpChannelBinding';
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';

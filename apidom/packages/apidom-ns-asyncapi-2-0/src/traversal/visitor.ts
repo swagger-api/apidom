@@ -40,11 +40,11 @@ export const keyMap = {
   /**
    * Binding elements.
    */
-  // AMQP
-  AmqpChannelBinding0_9Element: ['content'],
-  AmqpMessageBinding0_9Element: ['content'],
-  AmqpOperationBinding0_9Element: ['content'],
-  AmqpServerBinding0_9Element: ['content'],
+  // AMQP 0-9-1
+  AmqpChannelBinding0_9_1Element: ['content'],
+  AmqpMessageBinding0_9_1Element: ['content'],
+  AmqpOperationBinding0_9_1Element: ['content'],
+  AmqpServerBinding0_9_1Element: ['content'],
   // HTTP
   HttpChannelBindingElement: ['content'],
   HttpMessageBindingElement: ['content'],

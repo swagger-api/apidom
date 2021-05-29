@@ -86,15 +86,15 @@ export { default as TagsElement } from './elements/Tags';
  * Binding elements.
  */
 // AMQP 0-9-1
-export { default as AmqpChannelBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpChannelBinding0-9-1';
-export { default as AmqpMessageBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpMessageBinding0-9-1';
-export { default as AmqpOperationBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpOperationBinding0-9-1';
-export { default as AmqpServerBinding0_9_1Element } from './elements/bindings/amqp-0-9-1/AmqpServerBinding0-9-1';
+export { default as AmqpChannelBindingElement } from './elements/bindings/amqp/AmqpChannelBinding';
+export { default as AmqpMessageBindingElement } from './elements/bindings/amqp/AmqpMessageBinding';
+export { default as AmqpOperationBindingElement } from './elements/bindings/amqp/AmqpOperationBinding';
+export { default as AmqpServerBindingElement } from './elements/bindings/amqp/AmqpServerBinding';
 // AMQP 1.0
-export { default as AmqpChannelBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpChannelBinding1-0';
-export { default as AmqpMessageBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpMessageBinding1-0';
-export { default as AmqpOperationBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpOperationBinding1-0';
-export { default as AmqpServerBinding1_0Element } from './elements/bindings/amqp-1-0/AmqpServerBinding1-0';
+export { default as Amqp1ChannelBindingElement } from './elements/bindings/amqp1/Amqp1ChannelBinding';
+export { default as Amqp1MessageBindingElement } from './elements/bindings/amqp1/Amqp1MessageBinding';
+export { default as Amqp1OperationBindingElement } from './elements/bindings/amqp1/Amqp1OperationBinding';
+export { default as Amqp1ServerBindingElement } from './elements/bindings/amqp1/Amqp1ServerBinding';
 // HTTP
 export { default as HttpChannelBindingElement } from './elements/bindings/http/HttpChannelBinding';
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';

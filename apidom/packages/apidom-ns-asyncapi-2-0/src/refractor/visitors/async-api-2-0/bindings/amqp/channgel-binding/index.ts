@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import AmqpChannelBinding0_9_1Element from '../../../../../../elements/bindings/amqp-0-9-1/AmqpChannelBinding0-9-1';
+import AmqpChannelBindingElement from '../../../../../../elements/bindings/amqp/AmqpChannelBinding';
 import FallbackVisitor from '../../../../FallbackVisitor';
 import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const AmqpChannelBinding0_9_1Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const AmqpChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'bindings', 'amqp', 'ChannelBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {
-    this.element = new AmqpChannelBinding0_9_1Element();
+    this.element = new AmqpChannelBindingElement();
   },
 });
 
-export default AmqpChannelBinding0_9_1Visitor;
+export default AmqpChannelBindingVisitor;

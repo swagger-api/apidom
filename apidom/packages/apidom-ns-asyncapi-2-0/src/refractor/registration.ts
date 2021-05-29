@@ -33,15 +33,15 @@ import TagsElement from '../elements/Tags';
  * Binding elements.
  */
 // AMQP 0-9-1
-import AmqpChannelBinding0_9_1Element from '../elements/bindings/amqp-0-9-1/AmqpChannelBinding0-9-1';
-import AmqpMessageBinding0_9_1Element from '../elements/bindings/amqp-0-9-1/AmqpMessageBinding0-9-1';
-import AmqpOperationBinding0_9_1Element from '../elements/bindings/amqp-0-9-1/AmqpOperationBinding0-9-1';
-import AmqpServerBinding0_9_1Element from '../elements/bindings/amqp-0-9-1/AmqpServerBinding0-9-1';
+import AmqpChannelBindingElement from '../elements/bindings/amqp/AmqpChannelBinding';
+import AmqpMessageBindingElement from '../elements/bindings/amqp/AmqpMessageBinding';
+import AmqpOperationBindingElement from '../elements/bindings/amqp/AmqpOperationBinding';
+import AmqpServerBindingElement from '../elements/bindings/amqp/AmqpServerBinding';
 // AMQP 1.0
-import AmqpChannelBinding1_0Element from '../elements/bindings/amqp-1-0/AmqpChannelBinding1-0';
-import AmqpMessageBinding1_0Element from '../elements/bindings/amqp-1-0/AmqpMessageBinding1-0';
-import AmqpOperationBinding1_0Element from '../elements/bindings/amqp-1-0/AmqpOperationBinding1-0';
-import AmqpServerBinding1_0Element from '../elements/bindings/amqp-1-0/AmqpServerBinding1-0';
+import Amqp1ChannelBindingElement from '../elements/bindings/amqp1/Amqp1ChannelBinding';
+import Amqp1MessageBindingElement from '../elements/bindings/amqp1/Amqp1MessageBinding';
+import Amqp1OperationBindingElement from '../elements/bindings/amqp1/Amqp1OperationBinding';
+import Amqp1ServerBindingElement from '../elements/bindings/amqp1/Amqp1ServerBinding';
 // HTTP
 import HttpChannelBindingElement from '../elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
@@ -230,7 +230,7 @@ TagsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tags'
  * Binding elements.
  */
 // AMQP 0-9-1
-AmqpChannelBinding0_9_1Element.refract = createRefractor([
+AmqpChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -239,7 +239,7 @@ AmqpChannelBinding0_9_1Element.refract = createRefractor([
   'ChannelBinding',
   '$visitor',
 ]);
-AmqpMessageBinding0_9_1Element.refract = createRefractor([
+AmqpMessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -248,7 +248,7 @@ AmqpMessageBinding0_9_1Element.refract = createRefractor([
   'MessageBinding',
   '$visitor',
 ]);
-AmqpOperationBinding0_9_1Element.refract = createRefractor([
+AmqpOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -257,7 +257,7 @@ AmqpOperationBinding0_9_1Element.refract = createRefractor([
   'OperationBinding',
   '$visitor',
 ]);
-AmqpServerBinding0_9_1Element.refract = createRefractor([
+AmqpServerBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -267,7 +267,7 @@ AmqpServerBinding0_9_1Element.refract = createRefractor([
   '$visitor',
 ]);
 // AMQP 1.0
-AmqpChannelBinding1_0Element.refract = createRefractor([
+Amqp1ChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -276,7 +276,7 @@ AmqpChannelBinding1_0Element.refract = createRefractor([
   'ChannelBinding',
   '$visitor',
 ]);
-AmqpMessageBinding1_0Element.refract = createRefractor([
+Amqp1MessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -285,7 +285,7 @@ AmqpMessageBinding1_0Element.refract = createRefractor([
   'MessageBinding',
   '$visitor',
 ]);
-AmqpOperationBinding1_0Element.refract = createRefractor([
+Amqp1OperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -294,7 +294,7 @@ AmqpOperationBinding1_0Element.refract = createRefractor([
   'OperationBinding',
   '$visitor',
 ]);
-AmqpServerBinding1_0Element.refract = createRefractor([
+Amqp1ServerBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',

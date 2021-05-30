@@ -15,6 +15,7 @@ import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import IdentifierElement from '../elements/Identifier';
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
+import MessageBindingsElement from '../elements/MessageBindings';
 import OAuthFlowElement from '../elements/OAuthFlow';
 import OAuthFlowsElement from '../elements/OAuthFlows';
 import OperationElement from '../elements/Operation';
@@ -189,6 +190,13 @@ LicenseElement.refract = createRefractor([
   'document',
   'objects',
   'License',
+  '$visitor',
+]);
+MessageBindingsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'MessageBindings',
   '$visitor',
 ]);
 OAuthFlowElement.refract = createRefractor([

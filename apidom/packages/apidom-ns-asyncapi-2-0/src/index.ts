@@ -67,6 +67,7 @@ export { default as ExternalDocumentationElement } from './elements/ExternalDocu
 export { default as IdentifierElement } from './elements/Identifier';
 export { default as InfoElement } from './elements/Info';
 export { default as LicenseElement } from './elements/License';
+export { default as MessageBindingsElement } from './elements/MessageBindings';
 export { default as OAuthFlowElement } from './elements/OAuthFlow';
 export { default as OAuthFlowsElement } from './elements/OAuthFlows';
 export { default as OperationElement } from './elements/Operation';

@@ -23,6 +23,7 @@ export const keyMap = {
   ExternalDocumentationElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
+  MessageBindingsElement: ['content'],
   OAuthFlowElement: ['content'],
   OAuthFlowsElement: ['content'],
   OperationElement: ['content'],

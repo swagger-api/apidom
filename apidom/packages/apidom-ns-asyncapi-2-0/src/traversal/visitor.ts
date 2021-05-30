@@ -13,6 +13,7 @@ export const keyMap = {
    * AsyncApi 2.0.0 specification elements.
    */
   AsyncApi2_0Element: ['content'],
+  AsyncApiVersionElement: [],
   ChannelBindingsElement: ['content'],
   ChannelItemElement: ['content'],
   ChannelsElement: ['content'],

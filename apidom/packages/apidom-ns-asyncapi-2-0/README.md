@@ -167,7 +167,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Server Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverBindingsObject) (partial)
 - [x] [Parameters Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parametersObject)
 - [x] [Parameter Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parameterObject)
-- [ ] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object) (partial)
+- [x] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object)
 - [x] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operation-bindings-object)
 - [x] [Message Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageBindingsObject)
 - [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#correlationIdObject)

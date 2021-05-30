@@ -8,6 +8,7 @@ import ChannelBindingsElement from '../../../../elements/ChannelBindings';
 const ChannelBindingsVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'ChannelBindings']),
+    canSupportSpecificationExtensions: true,
   },
   init() {
     this.element = new ChannelBindingsElement();

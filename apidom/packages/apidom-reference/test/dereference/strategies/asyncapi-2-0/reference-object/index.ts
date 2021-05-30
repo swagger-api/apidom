@@ -46,7 +46,7 @@ describe('dereference', function () {
             async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const dereferenced = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
               });
               const fragment = evaluate('/0/components/parameters/userId', dereferenced);
 
@@ -288,7 +288,7 @@ describe('dereference', function () {
             const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
             const uri = path.join(fixturePath, 'root.json');
             const refSet = await resolve(uri, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
             });
             const actual = await dereference(uri, { dereference: { refSet } });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));

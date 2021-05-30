@@ -4,6 +4,8 @@ import { ObjectElement, Element } from 'apidom';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement, isSchemaLikeElement } from '../../../predicates';
+import { isReferenceElement } from '../../../../predicates';
+import ReferenceElement from '../../../../elements/Reference';
 
 const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
@@ -19,6 +21,18 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   init() {
     this.element = new ObjectElement();
     this.element.classes.push('schemas');
+  },
+  methods: {
+    ObjectElement(objectElement: ObjectElement) {
+      // @ts-ignore
+      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'schema');
+      });
+
+      return result;
+    },
   },
 });
 

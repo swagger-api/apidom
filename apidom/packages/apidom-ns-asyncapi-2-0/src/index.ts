@@ -77,6 +77,7 @@ export { default as ParametersElement } from './elements/Parameters';
 export { default as ReferenceElement } from './elements/Reference';
 export { default as SchemaElement } from './elements/Schema';
 export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
+export { default as SecuritySchemeElement } from './elements/SecurityScheme';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerBindingsElement } from './elements/ServerBindings';
 export { default as ServersElement } from './elements/Servers';

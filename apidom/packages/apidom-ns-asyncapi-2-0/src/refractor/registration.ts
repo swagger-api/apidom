@@ -25,6 +25,7 @@ import ParametersElement from '../elements/Parameters';
 import ReferenceElement from '../elements/Reference';
 import SchemaElement from '../elements/Schema';
 import SecurityRequirementElement from '../elements/SecurityRequirement';
+import SecuritySchemeElement from '../elements/SecurityScheme';
 import ServerElement from '../elements/Server';
 import ServerBindingsElement from '../elements/ServerBindings';
 import ServersElement from '../elements/Servers';
@@ -255,6 +256,13 @@ SecurityRequirementElement.refract = createRefractor([
   'document',
   'objects',
   'SecurityRequirement',
+  '$visitor',
+]);
+SecuritySchemeElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SecurityScheme',
   '$visitor',
 ]);
 ServerElement.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);

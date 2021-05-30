@@ -26,6 +26,7 @@ import ParametersElement from './elements/Parameters';
 import ReferenceElement from './elements/Reference';
 import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
+import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerBindingsElement from './elements/ServerBindings';
 import ServersElement from './elements/Servers';
@@ -136,6 +137,7 @@ const asyncApi2_0 = {
     base.register('reference', ReferenceElement);
     base.register('schema', SchemaElement);
     base.register('securityRequirement', SecurityRequirementElement);
+    base.register('securityScheme', SecuritySchemeElement);
     base.register('server', ServerElement);
     base.register('serverBindings', ServerBindingsElement);
     base.register('servers', ServersElement);

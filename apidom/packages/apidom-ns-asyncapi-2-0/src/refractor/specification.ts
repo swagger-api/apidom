@@ -42,6 +42,14 @@ import ServerVariableDefaultVisitor from './visitors/async-api-2-0/server-variab
 import ServerVariableDescriptionVisitor from './visitors/async-api-2-0/server-variable/DescriptionVisitor';
 import ServerVariableExamplesVisitor from './visitors/async-api-2-0/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2-0/server-bindings';
+import SecuritySchemeVisitor from './visitors/async-api-2-0/security-scheme';
+import SecuritySchemeTypeVisitor from './visitors/async-api-2-0/security-scheme/TypeVisitor';
+import SecuritySchemeDescriptionVisitor from './visitors/async-api-2-0/security-scheme/DescriptionVisitor';
+import SecuritySchemeNameVisitor from './visitors/async-api-2-0/security-scheme/NameVisitor';
+import SecuritySchemeInVisitor from './visitors/async-api-2-0/security-scheme/InVisitor';
+import SecuritySchemeSchemeVisitor from './visitors/async-api-2-0/security-scheme/SchemeVisitor';
+import SecuritySchemeBearerFormatVisitor from './visitors/async-api-2-0/security-scheme/BearerFormatVisitor';
+import SecuritySchemeOpenIdConnectUrlVisitor from './visitors/async-api-2-0/security-scheme/OpenIdConnectUrlVisitor';
 import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requirement';
 import ReferenceVisitor from './visitors/async-api-2-0/reference';
 import Reference$RefVisitor from './visitors/async-api-2-0/reference/$RefVisitor';
@@ -345,6 +353,21 @@ const specification = {
         },
         Schema: {
           $visitor: SchemaVisitor,
+        },
+        SecurityScheme: {
+          $visitor: SecuritySchemeVisitor,
+          fixedFields: {
+            type: SecuritySchemeTypeVisitor,
+            description: SecuritySchemeDescriptionVisitor,
+            name: SecuritySchemeNameVisitor,
+            in: SecuritySchemeInVisitor,
+            scheme: SecuritySchemeSchemeVisitor,
+            bearerFormat: SecuritySchemeBearerFormatVisitor,
+            flows: {
+              $ref: '#/visitors/document/objects/OAuthFlows',
+            },
+            openIdConnectUrl: SecuritySchemeOpenIdConnectUrlVisitor,
+          },
         },
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,

@@ -25,6 +25,7 @@ export const keyMap = {
   InfoElement: ['content'],
   LicenseElement: ['content'],
   MessageBindingsElement: ['content'],
+  MessageTraitElement: ['content'],
   OAuthFlowElement: ['content'],
   OAuthFlowsElement: ['content'],
   OperationElement: ['content'],

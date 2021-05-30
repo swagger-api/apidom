@@ -75,6 +75,17 @@ import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2-0/channel-item/$RefVisitor';
 import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item/DescriptionVisitor';
 import MessageBindingsVisitor from './visitors/async-api-2-0/message-bindings';
+import MessageTraitVisitor from './visitors/async-api-2-0/message-trait';
+import MessageTraitHeadersVisitor from './visitors/async-api-2-0/message-trait/HeadersVisitor';
+import MessageTraitCorrelationIdVisitor from './visitors/async-api-2-0/message-trait/CorrelationIdVisitor';
+import MessageTraitSchemaFormatVisitor from './visitors/async-api-2-0/message-trait/SchemaFormatVisitor';
+import MessageTraitContentTypeVisitor from './visitors/async-api-2-0/message-trait/ContentTypeVisitor';
+import MessageTraitNameVisitor from './visitors/async-api-2-0/message-trait/NameVisitor';
+import MessageTraitTitleVisitor from './visitors/async-api-2-0/message-trait/TitleVisitor';
+import MessageTraitSummaryVisitor from './visitors/async-api-2-0/message-trait/SummaryVisitor';
+import MessageTraitDescriptionVisitor from './visitors/async-api-2-0/message-trait/DescriptionVisitor';
+import MessageTraitBindingsVisitor from './visitors/async-api-2-0/message-trait/BindingsVisitor';
+import MessageTraitExamplesVisitor from './visitors/async-api-2-0/message-trait/ExamplesVisitor';
 /**
  * Binding elements.
  */
@@ -317,6 +328,27 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {},
+        },
+        MessageTrait: {
+          $visitor: MessageTraitVisitor,
+          fixedFields: {
+            headers: MessageTraitHeadersVisitor,
+            correlationId: MessageTraitCorrelationIdVisitor,
+            schemaFormat: MessageTraitSchemaFormatVisitor,
+            contentType: MessageTraitContentTypeVisitor,
+            name: MessageTraitNameVisitor,
+            title: MessageTraitTitleVisitor,
+            summary: MessageTraitSummaryVisitor,
+            description: MessageTraitDescriptionVisitor,
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            bindings: MessageTraitBindingsVisitor,
+            examples: MessageTraitExamplesVisitor,
+          },
         },
         Tags: {
           $visitors: TagsVisitor,

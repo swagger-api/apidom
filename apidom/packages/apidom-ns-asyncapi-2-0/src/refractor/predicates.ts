@@ -20,7 +20,7 @@ export const isParameterLikeElement = <T extends Element>(element: T): boolean =
 
 export const isReferenceLikeElement = <T extends Element>(element: T): boolean => {
   // @ts-ignore
-  return isObjectElement(element) && element.hasKey('$ref');
+  return isObjectElement(element) && element.hasKey('$ref') && element.length === 1;
 };
 
 export const isSchemaLikeElement = <T extends Element>(element: T): boolean => {

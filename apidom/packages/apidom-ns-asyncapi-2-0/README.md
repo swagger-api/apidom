@@ -160,7 +160,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Components Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#componentsObject) (partial)
 - [x] [Reference Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#referenceObject)
 - [ ] [Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject) (partial)
-- [ ] [Security Scheme Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#securitySchemeObject) (partial)
+- [x] [Security Scheme Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#securitySchemeObject)
 - [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#security-requirement-object) (partial)
 - [x] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flows-object)
 - [x] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flow-object)

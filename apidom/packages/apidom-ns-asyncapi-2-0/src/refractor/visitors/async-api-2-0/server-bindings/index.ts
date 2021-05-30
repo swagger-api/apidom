@@ -8,6 +8,7 @@ import ServerBindingsElement from '../../../../elements/ServerBindings';
 const ServerBindingsVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'ServerBindings']),
+    canSupportSpecificationExtensions: true,
   },
   init() {
     this.element = new ServerBindingsElement();

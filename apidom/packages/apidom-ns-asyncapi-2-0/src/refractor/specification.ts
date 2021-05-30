@@ -377,7 +377,50 @@ const specification = {
         },
         ServerBindings: {
           $visitor: ServerBindingsVisitor,
-          fixedFields: {},
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/ServerBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/ServerBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/ServerBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/ServerBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/ServerBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/ServerBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/ServerBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/ServerBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/ServerBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/ServerBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/ServerBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/ServerBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/ServerBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/ServerBinding',
+            },
+          },
         },
         Parameters: {
           $visitor: ParametersVisitor,

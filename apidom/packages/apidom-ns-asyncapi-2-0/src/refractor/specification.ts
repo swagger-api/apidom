@@ -66,6 +66,7 @@ import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2-0/channel-item/$RefVisitor';
 import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item/DescriptionVisitor';
+import MessageBindingsVisitor from './visitors/async-api-2-0/message-bindings';
 /**
  * Binding elements.
  */
@@ -393,6 +394,53 @@ const specification = {
         ChannelBindings: {
           $visitor: ChannelBindingsVisitor,
           fixedFields: {},
+        },
+        MessageBindings: {
+          $visitor: MessageBindingsVisitor,
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/MessageBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/MessageBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/MessageBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/MessageBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/MessageBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/MessageBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/MessageBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/MessageBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/MessageBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/MessageBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/MessageBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/MessageBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/MessageBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/MessageBinding',
+            },
+          },
         },
         CorrelationID: {
           $visitor: CorrelationIDVisitor,

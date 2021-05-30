@@ -16,6 +16,7 @@ import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import IdentifierElement from './elements/Identifier';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
+import MessageElement from './elements/Message';
 import MessageBindingsElement from './elements/MessageBindings';
 import MessageTraitElement from './elements/MessageTrait';
 import OAuthFlowElement from './elements/OAuthFlow';
@@ -128,6 +129,7 @@ const asyncApi2_0 = {
     base.register('identifier', IdentifierElement);
     base.register('info', InfoElement);
     base.register('license', LicenseElement);
+    base.register('message', MessageElement);
     base.register('messageBindings', MessageBindingsElement);
     base.register('messageTrait', MessageTraitElement);
     base.register('oAuthFlow', OAuthFlowElement);

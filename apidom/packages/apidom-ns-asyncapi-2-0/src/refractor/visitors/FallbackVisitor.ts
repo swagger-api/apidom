@@ -5,7 +5,7 @@ import Visitor from './Visitor';
 
 /**
  * This visitor is responsible for falling back to current traversed element
- * Given OpenApi3_1Visitor expects ObjectElement to be traversed. If
+ * Given AsyncApi2_0Visitor expects ObjectElement to be traversed. If
  * different Element is provided FallBackVisitor is responsible to assigning
  * this Element as current element.
  */

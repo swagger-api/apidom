@@ -192,7 +192,7 @@ describe('resolve', function () {
 
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');

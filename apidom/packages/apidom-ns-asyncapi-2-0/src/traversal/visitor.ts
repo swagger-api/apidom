@@ -27,6 +27,7 @@ export const keyMap = {
   OAuthFlowElement: ['content'],
   OAuthFlowsElement: ['content'],
   OperationElement: ['content'],
+  OperationBindingsElement: ['content'],
   ParameterElement: ['content'],
   ParametersElement: ['content'],
   ReferenceElement: ['content'],

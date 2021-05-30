@@ -20,6 +20,7 @@ import MessageBindingsElement from './elements/MessageBindings';
 import OAuthFlowElement from './elements/OAuthFlow';
 import OAuthFlowsElement from './elements/OAuthFlows';
 import OperationElement from './elements/Operation';
+import OperationBindingsElement from './elements/OperationBindings';
 import ParameterElement from './elements/Parameter';
 import ParametersElement from './elements/Parameters';
 import ReferenceElement from './elements/Reference';
@@ -129,6 +130,7 @@ const asyncApi2_0 = {
     base.register('oAuthFlow', OAuthFlowElement);
     base.register('oAuthFlows', OAuthFlowsElement);
     base.register('operation', OperationElement);
+    base.register('operationBindings', OperationBindingsElement);
     base.register('parameter', ParameterElement);
     base.register('parameters', ParametersElement);
     base.register('reference', ReferenceElement);

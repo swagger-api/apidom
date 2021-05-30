@@ -175,6 +175,7 @@ import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2
 import WebSocketMessageBindingVisitor from './visitors/async-api-2-0/bindings/ws/message-binding';
 import WebSocketOperationBindingVisitor from './visitors/async-api-2-0/bindings/ws/operation-binding';
 import WebSocketServerBindingVisitor from './visitors/async-api-2-0/bindings/ws/server-binding';
+import OperationBindingsVisitor from './visitors/async-api-2-0/operation-bindings';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -394,6 +395,53 @@ const specification = {
         ChannelBindings: {
           $visitor: ChannelBindingsVisitor,
           fixedFields: {},
+        },
+        OperationBindings: {
+          $visitor: OperationBindingsVisitor,
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/OperationBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/OperationBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/OperationBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/OperationBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/OperationBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/OperationBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/OperationBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/OperationBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/OperationBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/OperationBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/OperationBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/OperationBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/OperationBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/OperationBinding',
+            },
+          },
         },
         MessageBindings: {
           $visitor: MessageBindingsVisitor,

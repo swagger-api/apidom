@@ -394,7 +394,50 @@ const specification = {
         },
         ChannelBindings: {
           $visitor: ChannelBindingsVisitor,
-          fixedFields: {},
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/ChannelBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/ChannelBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/ChannelBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/ChannelBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/ChannelBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/ChannelBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/ChannelBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/ChannelBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/ChannelBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/ChannelBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/ChannelBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/ChannelBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/ChannelBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/ChannelBinding',
+            },
+          },
         },
         OperationBindings: {
           $visitor: OperationBindingsVisitor,

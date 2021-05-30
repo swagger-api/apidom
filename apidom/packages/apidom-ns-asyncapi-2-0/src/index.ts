@@ -71,6 +71,7 @@ export { default as MessageBindingsElement } from './elements/MessageBindings';
 export { default as OAuthFlowElement } from './elements/OAuthFlow';
 export { default as OAuthFlowsElement } from './elements/OAuthFlows';
 export { default as OperationElement } from './elements/Operation';
+export { default as OperationBindingsElement } from './elements/OperationBindings';
 export { default as ParameterElement } from './elements/Parameter';
 export { default as ParametersElement } from './elements/Parameters';
 export { default as ReferenceElement } from './elements/Reference';

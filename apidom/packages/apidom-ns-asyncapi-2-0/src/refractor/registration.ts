@@ -19,6 +19,7 @@ import MessageBindingsElement from '../elements/MessageBindings';
 import OAuthFlowElement from '../elements/OAuthFlow';
 import OAuthFlowsElement from '../elements/OAuthFlows';
 import OperationElement from '../elements/Operation';
+import OperationBindingsElement from '../elements/OperationBindings';
 import ParameterElement from '../elements/Parameter';
 import ParametersElement from '../elements/Parameters';
 import ReferenceElement from '../elements/Reference';
@@ -218,6 +219,13 @@ OperationElement.refract = createRefractor([
   'document',
   'objects',
   'Operation',
+  '$visitor',
+]);
+OperationBindingsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'OperationBindings',
   '$visitor',
 ]);
 ParameterElement.refract = createRefractor([

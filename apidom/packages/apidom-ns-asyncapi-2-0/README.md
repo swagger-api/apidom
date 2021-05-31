@@ -151,7 +151,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Channels Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelsObject)
 - [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelItemObject)
 - [ ] [Operation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationObject) (partial)
-- [ ] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
+- [x] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
 - [x] [Message Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageObject)
 - [x] [Message Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageTraitObject)
 - [x] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)

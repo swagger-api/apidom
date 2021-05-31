@@ -37,7 +37,7 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
         'application/vnd.aai.asyncapi;version=2.0.0',
         objectElement.get('schemaFormat')?.toValue(),
       );
-      const payload = objectElement.get('payload');
+      const payload = this.element.get('payload');
       this.refractPayload(schemaFormat, payload);
 
       return result;

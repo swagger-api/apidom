@@ -63,7 +63,16 @@ import ExternalDocumentationDescriptionVisitor from './visitors/async-api-2-0/ex
 import ExternalDocumentationUrlVisitor from './visitors/async-api-2-0/external-documentation/UrlVisitor';
 import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
-import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
+import ComponentsMessagesVisitor from './visitors/async-api-2-0/components/MessagesVisitor';
+import ComponentsSecuritySchemesVisitor from './visitors/async-api-2-0/components/SecuritySchemesVisitor';
+import ComponentsParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
+import ComponentsCorrelationIdsVisitor from './visitors/async-api-2-0/components/CorrelationIdsVisitor';
+import ComponentsOperationTraitsVisitor from './visitors/async-api-2-0/components/OperationTraitsVisitor';
+import ComponentsMessageTraitsVisitor from './visitors/async-api-2-0/components/MessageTraitsVisitor';
+import ComponentsServerBindingsVisitor from './visitors/async-api-2-0/components/ServerBindingsVisitor';
+import ComponentsChannelBindingsVisitor from './visitors/async-api-2-0/components/ChannelBindingsVisitor';
+import ComponentsOperationBindingsVisitor from './visitors/async-api-2-0/components/OperationBindingsVisitor';
+import ComponentsMessageBindingsVisitor from './visitors/async-api-2-0/components/MessageBindingsVisitor';
 import OperationVisitor from './visitors/async-api-2-0/operation';
 import OperationOperationIdVisitor from './visitors/async-api-2-0/operation/OperationIdVisitor';
 import OperationSummaryVisitor from './visitors/async-api-2-0/operation/SummaryVisitor';
@@ -449,7 +458,16 @@ const specification = {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
-            parameters: ComponentParametersVisitor,
+            messages: ComponentsMessagesVisitor,
+            securitySchemes: ComponentsSecuritySchemesVisitor,
+            parameters: ComponentsParametersVisitor,
+            correlationIds: ComponentsCorrelationIdsVisitor,
+            operationTraits: ComponentsOperationTraitsVisitor,
+            messageTraits: ComponentsMessageTraitsVisitor,
+            serverBindings: ComponentsServerBindingsVisitor,
+            channelBindings: ComponentsChannelBindingsVisitor,
+            operationBindings: ComponentsOperationBindingsVisitor,
+            messageBindings: ComponentsMessageBindingsVisitor,
           },
         },
         Reference: {

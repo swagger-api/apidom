@@ -65,6 +65,12 @@ import ComponentsVisitor from './visitors/async-api-2-0/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2-0/components/SchemasVisitor';
 import ComponentParametersVisitor from './visitors/async-api-2-0/components/ParametersVisitor';
 import OperationVisitor from './visitors/async-api-2-0/operation';
+import OperationOperationIdVisitor from './visitors/async-api-2-0/operation/OperationIdVisitor';
+import OperationSummaryVisitor from './visitors/async-api-2-0/operation/SummaryVisitor';
+import OperationDescriptionVisitor from './visitors/async-api-2-0/operation/DescriptionVisitor';
+import OperationBindingsVisitor_ from './visitors/async-api-2-0/operation/BindingsVisitor';
+import OperationTraitsVisitor from './visitors/async-api-2-0/operation/TraitsVisitor';
+import OperationMessageVisitor from './visitors/async-api-2-0/operation/MessageVisitor';
 import TagsVisitor from './visitors/async-api-2-0/tags';
 import TagVisitor from './visitors/async-api-2-0/tag';
 import TagNameVisitor from './visitors/async-api-2-0/tag/NameVisitor';
@@ -345,7 +351,20 @@ const specification = {
         },
         Operation: {
           $visitor: OperationVisitor,
-          fixedFields: {},
+          fixedFields: {
+            operationId: OperationOperationIdVisitor,
+            summary: OperationSummaryVisitor,
+            description: OperationDescriptionVisitor,
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            bindings: OperationBindingsVisitor_,
+            traits: OperationTraitsVisitor,
+            message: OperationMessageVisitor,
+          },
         },
         OperationTrait: {
           $visitor: OperationTraitVisitor,

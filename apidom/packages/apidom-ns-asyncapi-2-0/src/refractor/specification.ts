@@ -99,6 +99,12 @@ import MessageDescriptionVisitor from './visitors/async-api-2-0/message/Descript
 import MessageBindingsVisitor_ from './visitors/async-api-2-0/message/BindingsVisitor';
 import MessageExamplesVisitor from './visitors/async-api-2-0/message/ExamplesVisitor';
 import MessageTraitsVisitor from './visitors/async-api-2-0/message/TraitsVisitor';
+import OperationBindingsVisitor from './visitors/async-api-2-0/operation-bindings';
+import OperationTraitVisitor from './visitors/async-api-2-0/operation-trait';
+import OperationTraitOperationIdVisitor from './visitors/async-api-2-0/operation-trait/OperationIdVisitor';
+import OperationTraitSummaryVisitor from './visitors/async-api-2-0/operation-trait/SummaryVisitor';
+import OperationTraitDescriptionVisitor from './visitors/async-api-2-0/operation-trait/DescriptionVisitor';
+import OperationTraitBindingsVisitor from './visitors/async-api-2-0/operation-trait/BindingsVisitor';
 /**
  * Binding elements.
  */
@@ -207,7 +213,6 @@ import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2
 import WebSocketMessageBindingVisitor from './visitors/async-api-2-0/bindings/ws/message-binding';
 import WebSocketOperationBindingVisitor from './visitors/async-api-2-0/bindings/ws/operation-binding';
 import WebSocketServerBindingVisitor from './visitors/async-api-2-0/bindings/ws/server-binding';
-import OperationBindingsVisitor from './visitors/async-api-2-0/operation-bindings';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -341,6 +346,21 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {},
+        },
+        OperationTrait: {
+          $visitor: OperationTraitVisitor,
+          fixedFields: {
+            operationId: OperationTraitOperationIdVisitor,
+            summary: OperationTraitSummaryVisitor,
+            description: OperationTraitDescriptionVisitor,
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            bindings: OperationTraitBindingsVisitor,
+          },
         },
         Message: {
           $visitor: MessageVisitor,

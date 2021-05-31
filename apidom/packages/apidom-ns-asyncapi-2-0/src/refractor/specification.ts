@@ -435,7 +435,7 @@ const specification = {
           },
         },
         Tags: {
-          $visitors: TagsVisitor,
+          $visitor: TagsVisitor,
         },
         Tag: {
           $visitor: TagVisitor,

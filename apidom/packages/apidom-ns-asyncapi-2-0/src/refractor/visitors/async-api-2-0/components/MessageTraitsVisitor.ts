@@ -1,24 +1,24 @@
 import stampit from 'stampit';
 import { ObjectElement, Element } from 'apidom';
 
+import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
-import ReferenceElement from '../../../../elements/Reference';
 
-const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
+const MessageTraitsVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
     specPath: (element: Element) => {
       // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : ['document', 'objects', 'Schema'];
+        : ['document', 'objects', 'MessageTrait'];
     },
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('schemas');
+    this.element.classes.push('message-traits');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {
@@ -26,7 +26,7 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
       const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'schema');
+        referenceElement.setMetaProperty('referenced-element', 'messageTrait');
       });
 
       return result;
@@ -34,4 +34,4 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
 });
 
-export default SchemasVisitor;
+export default MessageTraitsVisitor;

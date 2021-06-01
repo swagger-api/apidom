@@ -22,6 +22,7 @@ export const keyMap = {
   CorrelationIDElement: ['content'],
   DefaultContentType: [],
   ExternalDocumentationElement: ['content'],
+  IdentifierElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],
   MessageElement: ['content'],

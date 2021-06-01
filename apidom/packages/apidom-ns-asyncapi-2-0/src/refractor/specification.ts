@@ -269,6 +269,12 @@ const specification = {
             components: {
               $ref: '#/visitors/document/objects/Components',
             },
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
           },
         },
         AsyncApiVersion: {

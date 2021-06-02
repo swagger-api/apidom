@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always, defaultTo } from 'ramda';
 import { isNonEmptyString, isNull } from 'ramda-adjunct';
-import { ObjectElement, isStringElement, ArrayElement } from 'apidom';
+import { ObjectElement, ArrayElement, BooleanElement, isStringElement, BREAK } from 'apidom';
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
 import SchemaElement from '../../../../elements/Schema';
@@ -17,8 +17,6 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
   },
   // @ts-ignore
   init() {
-    this.element = new SchemaElement();
-
     /**
      * Private Api.
      */
@@ -85,6 +83,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
      * Public Api.
      */
     this.ObjectElement = function _ObjectElement(objectElement: ObjectElement) {
+      this.element = new SchemaElement();
       handle$schema(objectElement);
       handle$id(objectElement);
 
@@ -92,6 +91,13 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       this.parent = this.element;
       // @ts-ignore
       return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+
+    this.BooleanElement = function _BooleanElement(booleanElement: BooleanElement) {
+      this.element = booleanElement.clone();
+      this.element.classes.push('boolean-json-schema');
+
+      return BREAK;
     };
   },
 });

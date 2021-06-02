@@ -10,6 +10,13 @@ describe('refractor', function () {
   specify('should refract to OpenApi 3.1 namespace', function () {
     const genericObjectElement = new ObjectElement({
       openapi: '3.1.0',
+      components: {
+        schemas: {
+          user: {
+            if: true,
+          },
+        },
+      },
     });
     const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
 

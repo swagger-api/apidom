@@ -111,3 +111,5 @@ export const toString = (
   const refract = dehydrate(element, namespace);
   return JSON.stringify(refract);
 };
+
+export { default as sexprs } from './sexprs';

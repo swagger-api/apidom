@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refract to AsyncApi 2.0 Element 1`] = `
+{
+  "element": "asyncApi2_0",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "asyncapi"
+        },
+        "value": {
+          "element": "asyncApiVersion",
+          "content": "2.0.0"
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refract to semantic ApiDOM tree 1`] = `
+(AsyncApi2_0Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement)))
+`;

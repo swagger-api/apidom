@@ -1,20 +1,25 @@
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { Namespace } from 'minim';
-import { ObjectElement, toValue } from 'apidom';
+import { ObjectElement, toValue, sexprs } from 'apidom';
 
 import * as predicates from '../../src/predicates';
 import { AsyncApi2_0Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';
 
 describe('refractor', function () {
-  specify('should refract to AsyncApi 2.0 namespace', function () {
+  context('given generic ApiDOM object in AsyncApi 2.0 shape', function () {
     const genericObject = new ObjectElement({
       asyncapi: '2.0.0',
     });
     const asyncApiElement = AsyncApi2_0Element.refract(genericObject);
 
-    // console.log(toString(asyncApiElement));
-    assert.deepEqual(toValue(asyncApiElement), { asyncapi: '2.0.0' });
+    specify('should refract to semantic ApiDOM tree', function () {
+      expect(sexprs(asyncApiElement)).toMatchSnapshot();
+    });
+
+    specify('should refract to AsyncApi 2.0 Element', function () {
+      expect(asyncApiElement).toMatchSnapshot();
+    });
   });
 
   context('supports plugins', function () {

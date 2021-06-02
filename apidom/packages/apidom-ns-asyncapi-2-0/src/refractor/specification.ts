@@ -34,6 +34,7 @@ import ServerUrlVisitor from './visitors/async-api-2-0/server/UrlVisitor';
 import ServerProtocolVisitor from './visitors/async-api-2-0/server/ProtocolVisitor';
 import ServerProtocolVersionVisitor from './visitors/async-api-2-0/server/ProtocolVersionVisitor';
 import ServerDescriptionVisitor from './visitors/async-api-2-0/server/DescriptionVisitor';
+import ServerBindingsVisitor_ from './visitors/async-api-2-0/server/BindingsVisitor';
 import ServerVariablesVisitor from './visitors/async-api-2-0/server/VariablesVisitor';
 import ServerSecurityVisitor from './visitors/async-api-2-0/server/SecurityVisitor';
 import ServerVariableVisitor from './visitors/async-api-2-0/server-variable';
@@ -89,6 +90,7 @@ import ChannelBindingsVisitor from './visitors/async-api-2-0/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2-0/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2-0/channel-item/$RefVisitor';
 import ChannelItemDescriptionVisitor from './visitors/async-api-2-0/channel-item/DescriptionVisitor';
+import ChannelItemBindingsVisitor from './visitors/async-api-2-0/channel-item/BindingsVisitor';
 import MessageBindingsVisitor from './visitors/async-api-2-0/message-bindings';
 import MessageTraitVisitor from './visitors/async-api-2-0/message-trait';
 import MessageTraitHeadersVisitor from './visitors/async-api-2-0/message-trait/HeadersVisitor';
@@ -325,9 +327,7 @@ const specification = {
             description: ServerDescriptionVisitor,
             variables: ServerVariablesVisitor,
             security: ServerSecurityVisitor,
-            bindings: {
-              $ref: '#/visitors/document/objects/ServerBindings',
-            },
+            bindings: ServerBindingsVisitor_,
           },
         },
         ServerVariable: {
@@ -359,9 +359,7 @@ const specification = {
             parameters: {
               $ref: '#/visitors/document/objects/Parameters',
             },
-            bindings: {
-              $ref: '#/visitors/document/objects/ChannelBindings',
-            },
+            bindings: ChannelItemBindingsVisitor,
           },
         },
         Operation: {

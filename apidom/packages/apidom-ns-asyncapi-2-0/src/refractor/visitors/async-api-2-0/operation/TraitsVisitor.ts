@@ -8,6 +8,7 @@ import { isReferenceLikeElement } from '../../../predicates';
 const TraitsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
+    this.element.classes.push('operation-traits');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

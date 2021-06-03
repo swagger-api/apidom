@@ -18,7 +18,7 @@ const SecuritySchemesVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('security-schemes');
+    this.element.classes.push('components-security-schemes');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

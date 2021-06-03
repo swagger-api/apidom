@@ -11,7 +11,7 @@ const VariablesVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('variables');
+    this.element.classes.push('server-variables');
   },
 });
 

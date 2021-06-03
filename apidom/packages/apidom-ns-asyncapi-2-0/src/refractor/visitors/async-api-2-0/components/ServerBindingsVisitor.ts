@@ -18,7 +18,7 @@ const ServerBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('server-bindings');
+    this.element.classes.push('components-server-bindings');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

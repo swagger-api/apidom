@@ -18,7 +18,7 @@ const CorrelationIdsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('correlation-ids');
+    this.element.classes.push('components-correlation-ids');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

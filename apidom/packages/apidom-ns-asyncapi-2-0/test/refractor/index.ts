@@ -1,23 +1,23 @@
+import fs from 'fs';
+import path from 'path';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { Namespace } from 'minim';
-import { ObjectElement, toValue, sexprs } from 'apidom';
+import { ObjectElement, toValue } from 'apidom';
 
 import * as predicates from '../../src/predicates';
 import { AsyncApi2_0Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';
 
 describe('refractor', function () {
   context('given generic ApiDOM object in AsyncApi 2.0 shape', function () {
-    const genericObject = new ObjectElement({
-      asyncapi: '2.0.0',
-    });
-    const asyncApiElement = AsyncApi2_0Element.refract(genericObject);
-
-    specify('should refract to semantic ApiDOM tree', function () {
-      expect(sexprs(asyncApiElement)).toMatchSnapshot();
-    });
-
     specify('should refract to AsyncApi 2.0 Element', function () {
+      const asyncApiString = fs
+        .readFileSync(path.join(__dirname, 'fixtures', 'asyncapi.json'))
+        .toString();
+      const asyncApiPojo = JSON.parse(asyncApiString);
+      const genericObjectElement = new ObjectElement(asyncApiPojo);
+      const asyncApiElement = AsyncApi2_0Element.refract(genericObjectElement);
+
       expect(asyncApiElement).toMatchSnapshot();
     });
   });

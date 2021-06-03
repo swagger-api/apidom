@@ -18,7 +18,7 @@ const ParametersVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('parameters');
+    this.element.classes.push('components-parameters');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

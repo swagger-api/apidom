@@ -50,7 +50,7 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           const patternedFieldElement = this.toRefractedElement(specPath, value);
           const newMemberElement = new MemberElement(key.clone(), patternedFieldElement);
           this.copyMetaAndAttributes(memberElement, newMemberElement);
-          memberElement.classes.push('patterned-field');
+          newMemberElement.classes.push('patterned-field');
           this.element.content.push(newMemberElement);
         } else if (!this.ignoredFields.includes(key.toValue())) {
           this.element.content.push(memberElement.clone());

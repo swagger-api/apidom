@@ -18,7 +18,7 @@ const OperationBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('operation-bindings');
+    this.element.classes.push('components-operation-bindings');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

@@ -43,7 +43,7 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
             value,
           );
           const newMemberElement = new MemberElement(key.clone(), fixedFieldElement);
-          memberElement.classes.push('fixed-field');
+          newMemberElement.classes.push('fixed-field');
           this.copyMetaAndAttributes(memberElement, newMemberElement);
           this.element.content.push(newMemberElement);
         } else if (

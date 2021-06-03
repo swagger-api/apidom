@@ -18,7 +18,7 @@ const MessageBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('message-bindings');
+    this.element.classes.push('components-message-bindings');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

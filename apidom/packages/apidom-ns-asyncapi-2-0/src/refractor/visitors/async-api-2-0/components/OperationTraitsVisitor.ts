@@ -18,7 +18,7 @@ const OperationTraitsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('operation-traits');
+    this.element.classes.push('components-operation-traits');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

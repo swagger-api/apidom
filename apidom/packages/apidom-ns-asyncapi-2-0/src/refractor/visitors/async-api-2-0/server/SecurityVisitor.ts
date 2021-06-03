@@ -24,7 +24,7 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('security');
+      this.element.classes.push('server-security');
 
       return BREAK;
     },

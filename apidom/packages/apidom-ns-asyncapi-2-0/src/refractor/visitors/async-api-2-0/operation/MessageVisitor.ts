@@ -8,6 +8,7 @@ import { isReferenceLikeElement } from '../../../predicates';
 const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
+    this.element.classes.push('operation-message');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

@@ -18,7 +18,7 @@ const ChannelBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('channel-bindings');
+    this.element.classes.push('components-channel-bindings');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

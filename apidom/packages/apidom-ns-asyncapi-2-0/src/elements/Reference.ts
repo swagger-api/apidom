@@ -5,6 +5,7 @@ class Reference extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'reference';
     this.classes.push('json-reference');
+    this.classes.push('asyncapi-reference');
   }
 
   get $ref(): StringElement {

@@ -6,7 +6,6 @@ import AlternatingVisitor from '../../generics/AlternatingVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
-import ReferenceElement from '../../../../elements/Reference';
 
 const BindingsVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   props: {
@@ -20,9 +19,9 @@ const BindingsVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'messageBindings');
-      });
+      if (isReferenceElement(this.element)) {
+        this.element.setMetaProperty('referenced-element', 'messageBindings');
+      }
 
       return result;
     },

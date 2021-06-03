@@ -18,7 +18,7 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('schemas');
+    this.element.classes.push('components-schemas');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

@@ -434,7 +434,7 @@ JmsChannelBindingElement.refract = createRefractor([
   'document',
   'objects',
   'bindings',
-  'jsm',
+  'jms',
   'ChannelBinding',
   '$visitor',
 ]);
@@ -443,7 +443,7 @@ JmsMessageBindingElement.refract = createRefractor([
   'document',
   'objects',
   'bindings',
-  'jsm',
+  'jms',
   'MessageBinding',
   '$visitor',
 ]);
@@ -452,7 +452,7 @@ JmsOperationBindingElement.refract = createRefractor([
   'document',
   'objects',
   'bindings',
-  'jsm',
+  'jms',
   'OperationBinding',
   '$visitor',
 ]);
@@ -461,7 +461,7 @@ JmsServerBindingElement.refract = createRefractor([
   'document',
   'objects',
   'bindings',
-  'jsm',
+  'jms',
   'ServerBinding',
   '$visitor',
 ]);

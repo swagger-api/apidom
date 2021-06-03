@@ -59,6 +59,7 @@ import ParametersVisitor from './visitors/async-api-2-0/parameters';
 import ParameterVisitor from './visitors/async-api-2-0/parameter';
 import ParameterDescriptionVisitor from './visitors/async-api-2-0/parameter/DescriptionVisitor';
 import ParameterLocationVisitor from './visitors/async-api-2-0/parameter/LocationVisitor';
+import ParameterSchemaVisitor from './visitors/async-api-2-0/parameter/SchemaVisitor';
 import ExternalDocumentationVisitor from './visitors/async-api-2-0/external-documentation';
 import ExternalDocumentationDescriptionVisitor from './visitors/async-api-2-0/external-documentation/DescriptionVisitor';
 import ExternalDocumentationUrlVisitor from './visitors/async-api-2-0/external-documentation/UrlVisitor';
@@ -581,9 +582,7 @@ const specification = {
           $visitor: ParameterVisitor,
           fixedFields: {
             description: ParameterDescriptionVisitor,
-            schema: {
-              $ref: '#/visitors/document/objects/Schema',
-            },
+            schema: ParameterSchemaVisitor,
             location: ParameterLocationVisitor,
           },
         },

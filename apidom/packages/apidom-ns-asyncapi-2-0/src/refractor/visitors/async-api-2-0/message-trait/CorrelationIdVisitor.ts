@@ -12,7 +12,7 @@ const CorrelationIdVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   props: {
     alternator: [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: stubTrue, specPath: ['document', 'objects', 'CorrelationId'] },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'CorrelationID'] },
     ],
   },
   methods: {
@@ -21,7 +21,7 @@ const CorrelationIdVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
       const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'correlationId');
+        referenceElement.setMetaProperty('referenced-element', 'correlationID');
       });
 
       return result;

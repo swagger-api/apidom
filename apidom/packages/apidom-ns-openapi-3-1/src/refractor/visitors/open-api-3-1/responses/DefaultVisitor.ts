@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from 'apidom';
 
-import { isReferenceLikeElement, isResponseLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
@@ -11,8 +11,7 @@ const DefaultVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   props: {
     alternator: [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: isResponseLikeElement, specPath: ['document', 'objects', 'Response'] },
-      { predicate: stubTrue, specPath: ['value'] },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'Response'] },
     ],
   },
   methods: {

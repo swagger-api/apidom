@@ -38,10 +38,7 @@ export const isResponseLikeElement = <T extends Element>(element: T): boolean =>
   return isObjectElement(element) && element.hasKey('description');
 };
 
-export const isServerLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('url');
-};
+export const isServerLikeElement = isObjectElement;
 
 export const isHeaderLikeElement = isObjectElement;
 
@@ -69,10 +66,7 @@ export const isSecuritySchemeLikeElement = <T extends Element>(element: T): bool
   );
 };
 
-export const isTagLikeElement = <T extends Element>(element: T) => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('name');
-};
+export const isTagLikeElement = isObjectElement;
 
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore

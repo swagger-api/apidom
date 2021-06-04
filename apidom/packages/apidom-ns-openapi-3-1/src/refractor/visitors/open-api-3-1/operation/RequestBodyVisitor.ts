@@ -3,15 +3,14 @@ import { T as stubTrue } from 'ramda';
 import { ObjectElement } from 'apidom';
 
 import { isReferenceElement } from '../../../../predicates';
-import { isRequestBodyLikeElement, isReferenceLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 
 const RequestBodyVisitor = stampit(AlternatingVisitor, {
   props: {
     alternator: [
-      { predicate: isRequestBodyLikeElement, specPath: ['document', 'objects', 'RequestBody'] },
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: stubTrue, specPath: ['value'] },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'RequestBody'] },
     ],
   },
   methods: {

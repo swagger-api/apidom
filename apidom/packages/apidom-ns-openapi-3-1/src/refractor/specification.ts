@@ -156,6 +156,9 @@ import RequestBodyDescriptionVisitor from './visitors/open-api-3-1/request-body/
 import RequestBodyRequiredVisitor from './visitors/open-api-3-1/request-body/RequiredVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
+import ResponseDescriptionVisitor from './visitors/open-api-3-1/response/DescriptionVisitor';
+import ResponseHeadersVisitor from './visitors/open-api-3-1/response/HeadersVisitor';
+import ResponseLinksVisitor from './visitors/open-api-3-1/response/LinksVisitor';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
 import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import OperationVisitor from './visitors/open-api-3-1/operation';
@@ -410,7 +413,10 @@ const specification = {
         Response: {
           $visitor: ResponseVisitor,
           fixedFields: {
+            description: ResponseDescriptionVisitor,
+            headers: ResponseHeadersVisitor,
             content: ContentVisitor,
+            links: ResponseLinksVisitor,
           },
         },
         Callback: {

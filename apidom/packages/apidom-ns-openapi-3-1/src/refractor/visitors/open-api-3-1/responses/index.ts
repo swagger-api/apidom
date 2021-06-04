@@ -6,7 +6,7 @@ import ReferenceElement from '../../../../elements/Reference';
 import ResponsesElement from '../../../../elements/Responses';
 import MixedFieldsVisitor from '../../generics/MixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isReferenceLikeElement, isResponseLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
 const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
@@ -16,9 +16,7 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
       /* eslint-disable no-nested-ternary */
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isResponseLikeElement(element)
-        ? ['document', 'objects', 'Response']
-        : ['value'];
+        : ['document', 'objects', 'Response'];
       /* eslint-enable */
     },
     fieldPatternPredicate: test(/^\d{3}$/),

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements ServerVariableElement should refract to semantic ApiDOM tree 1`] = `
+(ServerVariableElement
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (StringElement)
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

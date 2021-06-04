@@ -12,12 +12,10 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element) => {
-        if (isServerLikeElement(item)) {
-          const serverElement = this.toRefractedElement(['document', 'objects', 'Server'], item);
-          this.element.push(serverElement);
-        } else {
-          this.element.push(item.clone());
-        }
+        const specPath = isServerLikeElement(item) ? ['document', 'objects', 'Server'] : ['value'];
+        const element = this.toRefractedElement(specPath, item);
+
+        this.element.push(element);
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);

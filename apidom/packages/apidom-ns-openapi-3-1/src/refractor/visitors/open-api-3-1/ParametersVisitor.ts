@@ -3,7 +3,7 @@ import { ArrayElement, Element, BREAK } from 'apidom';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
-import { isReferenceLikeElement, isParameterLikeElement } from '../../predicates';
+import { isReferenceLikeElement } from '../../predicates';
 
 const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
@@ -12,23 +12,12 @@ const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element): void => {
-        if (isReferenceLikeElement(item)) {
-          const referenceElement = this.toRefractedElement(
-            ['document', 'objects', 'Reference'],
-            item,
-          );
-          referenceElement.setMetaProperty('referenced-element', 'parameter');
-          this.element.push(referenceElement);
-        } else if (isParameterLikeElement(item)) {
-          const parameterElement = this.toRefractedElement(
-            ['document', 'objects', 'Parameter'],
-            item,
-          );
-          this.element.push(parameterElement);
-        } else {
-          const element = item.clone();
-          this.element.push(element);
-        }
+        const specPath = isReferenceLikeElement(item)
+          ? ['document', 'objects', 'Reference']
+          : ['document', 'objects', 'Parameter'];
+        const element = this.toRefractedElement(specPath, item);
+
+        this.element.push(element);
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);

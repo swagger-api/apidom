@@ -127,7 +127,7 @@ OpenapiElement.refract = createRefractor([
   'objects',
   'OpenApi',
   'fixedFields',
-  'Openapi',
+  'openapi',
 ]);
 OpenApi3_1Element.refract = createRefractor([
   'visitors',

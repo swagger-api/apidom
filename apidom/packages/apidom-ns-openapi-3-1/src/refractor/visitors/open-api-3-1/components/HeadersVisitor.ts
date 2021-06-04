@@ -4,7 +4,7 @@ import { ObjectElement, Element } from 'apidom';
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isHeaderLikeElement, isReferenceLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
 const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -13,9 +13,7 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
       // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isHeaderLikeElement(element)
-        ? ['document', 'objects', 'Header']
-        : ['value'];
+        : ['document', 'objects', 'Header'];
     },
   },
   init() {

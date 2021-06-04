@@ -24,7 +24,7 @@ const MixedFieldsVisitor = stampit(FixedFieldsVisitor, PatternedFieldsVisitor, {
         FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
         this.specPath = this.specPathPatternedFields;
-        this.ignoredFields = ignoredFields;
+        this.ignoredFields = fixedFields;
         // @ts-ignore
         PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
       } catch (e) {

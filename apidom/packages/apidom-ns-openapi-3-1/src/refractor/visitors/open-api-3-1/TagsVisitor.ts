@@ -13,7 +13,7 @@ const TagsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element) => {
         const specPath = isTagLikeElement(item) ? ['document', 'objects', 'Tag'] : ['value'];
-        const element = this.toRefractedElement(specPath);
+        const element = this.toRefractedElement(specPath, item);
 
         this.element.push(element);
       });

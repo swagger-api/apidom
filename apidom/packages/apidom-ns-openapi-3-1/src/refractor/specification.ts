@@ -108,10 +108,6 @@ import SchemaReadOnlyVisitor from './visitors/open-api-3-1/schema/ReadOnlyVisito
 import SchemaWriteOnlyVisitor from './visitors/open-api-3-1/schema/WriteOnlyVisitor';
 import SchemaExamplesVisitor from './visitors/open-api-3-1/schema/ExamplesVisitor';
 import SchemaFormatVisitor from './visitors/open-api-3-1/schema/FormatVisitor';
-import SchemaUriTemplateVisitor from './visitors/open-api-3-1/schema/UriTemplateVisitor';
-import SchemaJsonPointerVisitor from './visitors/open-api-3-1/schema/JsonPointerVisitor';
-import SchemaRelativeJsonPointerVisitor from './visitors/open-api-3-1/schema/RelativeJsonPointerVisitor';
-import SchemaRegexVisitor from './visitors/open-api-3-1/schema/RegexVisitor';
 import SchemaContentEncodingVisitor from './visitors/open-api-3-1/schema/ContentEncodingVisitor';
 import SchemaContentMediaTypeVisitor from './visitors/open-api-3-1/schema/ContentMediaTypeVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
@@ -568,10 +564,6 @@ const specification = {
             examples: SchemaExamplesVisitor,
             // semantic Content With "format" vocabulary
             format: SchemaFormatVisitor,
-            uriTemplate: SchemaUriTemplateVisitor,
-            jsonPointer: SchemaJsonPointerVisitor,
-            relativeJsonPointer: SchemaRelativeJsonPointerVisitor,
-            regex: SchemaRegexVisitor,
             // contents of String-Encoded Data vocabulary
             contentEncoding: SchemaContentEncodingVisitor,
             contentMediaType: SchemaContentMediaTypeVisitor,

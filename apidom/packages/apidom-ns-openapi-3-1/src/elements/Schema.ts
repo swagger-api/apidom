@@ -301,22 +301,6 @@ class Schema extends ObjectElement {
     return this.get('format');
   }
 
-  get uriTemplate(): StringElement | undefined {
-    return this.get('uri-template');
-  }
-
-  get jsonPointer(): StringElement | undefined {
-    return this.get('json-pointer');
-  }
-
-  get relativeJsonPointer(): StringElement | undefined {
-    return this.get('relative-json-pointer');
-  }
-
-  get regex(): StringElement | undefined {
-    return this.get('regex');
-  }
-
   /**
    * Vocabulary for the Contents of String-Encoded Data
    *

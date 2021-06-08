@@ -1,13 +1,12 @@
+import { Attributes, Meta } from 'minim';
 import {
   Element,
   ArrayElement,
   NumberElement,
-  Attributes,
-  Meta,
   ObjectElement,
   StringElement,
   BooleanElement,
-} from 'minim';
+} from 'apidom';
 
 import ExternalDocumentationElement from './ExternalDocumentation';
 
@@ -145,7 +144,7 @@ class Schema extends ObjectElement {
    * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.4
    */
 
-  get items(): Schema | undefined {
+  get items(): Schema | ArrayElement | undefined {
     return this.get('items');
   }
 
@@ -272,7 +271,7 @@ class Schema extends ObjectElement {
   }
 
   /**
-   * AsyncAPI vocabulary vocabulary
+   * AsyncAPI vocabulary
    *
    * URI: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#baseVocabulary
    */

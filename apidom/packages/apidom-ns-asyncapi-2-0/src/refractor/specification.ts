@@ -55,6 +55,45 @@ import SecurityRequirementVisitor from './visitors/async-api-2-0/security-requir
 import ReferenceVisitor from './visitors/async-api-2-0/reference';
 import Reference$RefVisitor from './visitors/async-api-2-0/reference/$RefVisitor';
 import SchemaVisitor from './visitors/async-api-2-0/schema';
+import SchemaOrReferenceVisitor from './visitors/async-api-2-0/schema/SchemaOrReferenceVisitor';
+import Schema$idVisitor from './visitors/async-api-2-0/schema/$idVisitor';
+import Schema$commentVisitor from './visitors/async-api-2-0/schema/$commentVisitor';
+import SchemaAllOfVisitor from './visitors/async-api-2-0/schema/AllOfVisitor';
+import SchemaAnyOfVisitor from './visitors/async-api-2-0/schema/AnyOfVisitor';
+import SchemaOneOfVisitor from './visitors/async-api-2-0/schema/OneOfVisitor';
+import SchemaPropertiesVisitor from './visitors/async-api-2-0/schema/PropertiesVisitor';
+import SchemaPatternPropertiesVisitor from './visitors/async-api-2-0/schema/PatternProperties';
+import SchemaDependenciesVisitor from './visitors/async-api-2-0/schema/DependenciesVisitor';
+import SchemaTypeVisitor from './visitors/async-api-2-0/schema/TypeVisitor';
+import SchemaEnumVisitor from './visitors/async-api-2-0/schema/EnumVisitor';
+import SchemaConstVisitor from './visitors/async-api-2-0/schema/ConstVisitor';
+import SchemaMultipleOfVisitor from './visitors/async-api-2-0/schema/MultipleOfVisitor';
+import SchemaMaximumVisitor from './visitors/async-api-2-0/schema/MaximumVisitor';
+import SchemaExclusiveMaximumVisitor from './visitors/async-api-2-0/schema/ExclusiveMaximumVisitor';
+import SchemaMinimumVisitor from './visitors/async-api-2-0/schema/MinimumVisitor';
+import SchemaExclusiveMinimumVisitor from './visitors/async-api-2-0/schema/ExclusiveMinimumVisitor';
+import SchemaMaxLengthVisitor from './visitors/async-api-2-0/schema/MaxLengthVisitor';
+import SchemaMinLengthVisitor from './visitors/async-api-2-0/schema/MinLengthVisitor';
+import SchemaPatternVisitor from './visitors/async-api-2-0/schema/PatternVisitor';
+import SchemaItemsVisitor from './visitors/async-api-2-0/schema/ItemsVisitor';
+import SchemaMaxItemsVisitor from './visitors/async-api-2-0/schema/MaxItemsVisitor';
+import SchemaMinItemsVisitor from './visitors/async-api-2-0/schema/MinItemsVisitor';
+import SchemaUniqueItemsVisitor from './visitors/async-api-2-0/schema/UniqueItemsVisitor';
+import SchemaMaxPropertiesVisitor from './visitors/async-api-2-0/schema/MaxPropertiesVisitor';
+import SchemaMinPropertiesVisitor from './visitors/async-api-2-0/schema/MinPropertiesVisitor';
+import SchemaRequiredVisitor from './visitors/async-api-2-0/schema/RequiredVisitor';
+import SchemaTitleVisitor from './visitors/async-api-2-0/schema/TitleVisitor';
+import SchemaDescriptionVisitor from './visitors/async-api-2-0/schema/DescriptionVisitor';
+import SchemaDefaultVisitor from './visitors/async-api-2-0/schema/DefaultVisitor';
+import SchemaDeprecatedVisitor from './visitors/async-api-2-0/schema/DeprecatedVisitor';
+import SchemaReadOnlyVisitor from './visitors/async-api-2-0/schema/ReadOnlyVisitor';
+import SchemaWriteOnlyVisitor from './visitors/async-api-2-0/schema/WriteOnlyVisitor';
+import SchemaExamplesVisitor from './visitors/async-api-2-0/schema/ExamplesVisitor';
+import SchemaFormatVisitor from './visitors/async-api-2-0/schema/FormatVisitor';
+import SchemaContentEncodingVisitor from './visitors/async-api-2-0/schema/ContentEncodingVisitor';
+import SchemaContentMediaTypeVisitor from './visitors/async-api-2-0/schema/ContentMediaTypeVisitor';
+import SchemaDefinitionsVisitor from './visitors/async-api-2-0/schema/DefinitionsVisitor';
+import SchemaDiscriminatorVisitor from './visitors/async-api-2-0/schema/DiscriminatorVisitor';
 import ParametersVisitor from './visitors/async-api-2-0/parameters';
 import ParameterVisitor from './visitors/async-api-2-0/parameter';
 import ParameterDescriptionVisitor from './visitors/async-api-2-0/parameter/DescriptionVisitor';
@@ -483,6 +522,71 @@ const specification = {
         },
         Schema: {
           $visitor: SchemaVisitor,
+          fixedFields: {
+            // core vocabulary
+            $id: Schema$idVisitor,
+            $comment: Schema$commentVisitor,
+            // validation vocabulary
+            // validation keywords for Applying Subschemas With Boolean Logic
+            allOf: SchemaAllOfVisitor,
+            anyOf: SchemaAnyOfVisitor,
+            oneOf: SchemaOneOfVisitor,
+            not: SchemaOrReferenceVisitor,
+            // validation Keywords for Applying Subschemas Conditionally
+            if: SchemaOrReferenceVisitor,
+            then: SchemaOrReferenceVisitor,
+            else: SchemaOrReferenceVisitor,
+            // validation Keywords for Any Instance Type
+            type: SchemaTypeVisitor,
+            enum: SchemaEnumVisitor,
+            const: SchemaConstVisitor,
+            // validation Keywords for Numeric Instances (number and integer)
+            multipleOf: SchemaMultipleOfVisitor,
+            maximum: SchemaMaximumVisitor,
+            exclusiveMaximum: SchemaExclusiveMaximumVisitor,
+            minimum: SchemaMinimumVisitor,
+            exclusiveMinimum: SchemaExclusiveMinimumVisitor,
+            // validation Keywords for Strings
+            maxLength: SchemaMaxLengthVisitor,
+            minLength: SchemaMinLengthVisitor,
+            pattern: SchemaPatternVisitor,
+            // validation Keywords for Arrays
+            items: SchemaItemsVisitor,
+            additionalItems: SchemaOrReferenceVisitor,
+            maxItems: SchemaMaxItemsVisitor,
+            minItems: SchemaMinItemsVisitor,
+            uniqueItems: SchemaUniqueItemsVisitor,
+            contains: SchemaOrReferenceVisitor,
+            // validation Keywords for Objects
+            maxProperties: SchemaMaxPropertiesVisitor,
+            minProperties: SchemaMinPropertiesVisitor,
+            required: SchemaRequiredVisitor,
+            properties: SchemaPropertiesVisitor,
+            patternProperties: SchemaPatternPropertiesVisitor,
+            additionalProperties: SchemaOrReferenceVisitor,
+            dependencies: SchemaDependenciesVisitor,
+            propertyNames: SchemaOrReferenceVisitor,
+            // validation vocabulary for Schema Annotations
+            title: SchemaTitleVisitor,
+            description: SchemaDescriptionVisitor,
+            default: SchemaDefaultVisitor,
+            readOnly: SchemaReadOnlyVisitor,
+            writeOnly: SchemaWriteOnlyVisitor,
+            examples: SchemaExamplesVisitor,
+            // validation Vocabularies for Semantic Validation With "format"
+            format: SchemaFormatVisitor,
+            // validation Vocabulary for String-Encoding Non-JSON Data
+            contentEncoding: SchemaContentEncodingVisitor,
+            contentMediaType: SchemaContentMediaTypeVisitor,
+            // validation Vocabulary for Schema Re-Use With "definitions"
+            definitions: SchemaDefinitionsVisitor,
+            // AsyncAPI vocabulary
+            discriminator: SchemaDiscriminatorVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            deprecated: SchemaDeprecatedVisitor,
+          },
         },
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,

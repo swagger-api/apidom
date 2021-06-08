@@ -1771,6 +1771,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                               "content": [
                                                                 {
                                                                   "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": {
                                                                     "key": {
                                                                       "element": "string",
@@ -1809,6 +1820,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                               "content": [
                                                                 {
                                                                   "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": {
                                                                     "key": {
                                                                       "element": "string",
@@ -1920,6 +1942,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                               "content": [
                                                 {
                                                   "element": "member",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "fixed-field"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": {
                                                     "key": {
                                                       "element": "string",
@@ -1958,6 +1991,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                               "content": [
                                                 {
                                                   "element": "member",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "fixed-field"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": {
                                                     "key": {
                                                       "element": "string",
@@ -1971,6 +2015,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                 },
                                                 {
                                                   "element": "member",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "fixed-field"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": {
                                                     "key": {
                                                       "element": "string",
@@ -1978,19 +2033,71 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                     },
                                                     "value": {
                                                       "element": "object",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-properties"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "patterned-field"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": {
                                                             "key": {
                                                               "element": "string",
                                                               "content": "user"
                                                             },
                                                             "value": {
-                                                              "element": "object",
+                                                              "element": "reference",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-reference"
+                                                                    },
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "asyncapi-reference"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "referenced-element": {
+                                                                  "element": "string",
+                                                                  "content": "schema"
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": {
                                                                     "key": {
                                                                       "element": "string",
@@ -2008,16 +2115,57 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                         },
                                                         {
                                                           "element": "member",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "patterned-field"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": {
                                                             "key": {
                                                               "element": "string",
                                                               "content": "signup"
                                                             },
                                                             "value": {
-                                                              "element": "object",
+                                                              "element": "reference",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-reference"
+                                                                    },
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "asyncapi-reference"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "referenced-element": {
+                                                                  "element": "string",
+                                                                  "content": "schema"
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": {
                                                                     "key": {
                                                                       "element": "string",
@@ -2547,6 +2695,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                               "content": [
                                                                 {
                                                                   "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": {
                                                                     "key": {
                                                                       "element": "string",
@@ -2684,6 +2843,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                           "content": [
                                                             {
                                                               "element": "member",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "fixed-field"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": {
                                                                 "key": {
                                                                   "element": "string",
@@ -3205,6 +3375,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                                           "content": [
                                                                             {
                                                                               "element": "member",
+                                                                              "meta": {
+                                                                                "classes": {
+                                                                                  "element": "array",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "element": "string",
+                                                                                      "content": "fixed-field"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
                                                                               "content": {
                                                                                 "key": {
                                                                                   "element": "string",
@@ -3372,6 +3553,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                   "content": [
                                                     {
                                                       "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "fixed-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": {
                                                         "key": {
                                                           "element": "string",
@@ -3410,6 +3602,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                   "content": [
                                                     {
                                                       "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "fixed-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": {
                                                         "key": {
                                                           "element": "string",
@@ -3573,6 +3776,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                           "content": [
                                             {
                                               "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": {
                                                 "key": {
                                                   "element": "string",
@@ -4478,6 +4692,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                           "content": [
                                             {
                                               "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": {
                                                 "key": {
                                                   "element": "string",
@@ -4745,6 +4970,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                           "content": [
                             {
                               "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
                               "content": {
                                 "key": {
                                   "element": "string",
@@ -5186,6 +5422,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                   "content": [
                                     {
                                       "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": {
                                         "key": {
                                           "element": "string",

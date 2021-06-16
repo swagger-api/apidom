@@ -3,20 +3,16 @@ import { Element, ObjectElement } from 'apidom';
 
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { isReferenceLikeElement, isExampleLikeElement } from '../../predicates';
+import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 import ReferenceElement from '../../../elements/Reference';
 
 const ExamplesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
-    specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
-      return isReferenceLikeElement(element)
+    specPath: (element: Element) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isExampleLikeElement(element)
-        ? ['document', 'objects', 'Example']
-        : ['value'];
-    },
+        : ['document', 'objects', 'Example'],
     canSupportSpecificationExtensions: true,
   },
   init() {

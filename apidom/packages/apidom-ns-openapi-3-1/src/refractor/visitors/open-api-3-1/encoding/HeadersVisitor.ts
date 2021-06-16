@@ -3,22 +3,32 @@ import { Element, ObjectElement } from 'apidom';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isHeaderLikeElement, isReferenceLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
+import { isReferenceElement } from '../../../../predicates';
+import ReferenceElement from '../../../../elements/Reference';
 
 const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
-    specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
-      return isReferenceLikeElement(element)
+    specPath: (element: Element) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isHeaderLikeElement(element)
-        ? ['document', 'objects', 'Header']
-        : ['value'];
-    },
+        : ['document', 'objects', 'Header'],
   },
   init() {
     this.element = new ObjectElement();
     this.element.classes.push('encoding-headers');
+  },
+  methods: {
+    ObjectElement(objectElement: ObjectElement) {
+      // @ts-ignore
+      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'header');
+      });
+
+      return result;
+    },
   },
 });
 

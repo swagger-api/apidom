@@ -4,6 +4,7 @@ import { ArrayElement, Element, BREAK } from 'apidom';
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isReferenceLikeElement } from '../../predicates';
+import { isReferenceElement } from '../../../predicates';
 
 const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
@@ -16,6 +17,10 @@ const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
           ? ['document', 'objects', 'Reference']
           : ['document', 'objects', 'Parameter'];
         const element = this.toRefractedElement(specPath, item);
+
+        if (isReferenceElement(element)) {
+          element.setMetaProperty('referenced-element', 'parameter');
+        }
 
         this.element.push(element);
       });

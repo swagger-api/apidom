@@ -1,4 +1,6 @@
-import { assert } from 'chai';
+import fs from 'fs';
+import path from 'path';
+import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { Namespace } from 'minim';
 import { ObjectElement, toValue } from 'apidom';
@@ -7,14 +9,17 @@ import { OpenApi3_1Element, OpenapiElement, isOpenapiElement } from '../../src';
 import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
-  specify('should refract to OpenApi 3.1 namespace', function () {
-    const genericObjectElement = new ObjectElement({
-      openapi: '3.1.0',
-    });
-    const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
+  context('given generic ApiDOM object in OpenApi 3.1 shape', function () {
+    specify('should refract to OpenApi 3.1 Element', function () {
+      const openApiString = fs
+        .readFileSync(path.join(__dirname, 'fixtures', 'openapi.json'))
+        .toString();
+      const openApiPojo = JSON.parse(openApiString);
+      const genericObjectElement = new ObjectElement(openApiPojo);
+      const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
 
-    // console.log(toString(openApiElement));
-    assert.deepEqual(toValue(openApiElement), { openapi: '3.1.0' });
+      expect(openApiElement).toMatchSnapshot();
+    });
   });
 
   context('supports plugins', function () {

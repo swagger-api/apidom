@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Element, isObjectElement, ObjectElement } from 'apidom';
+import { Element, ObjectElement } from 'apidom';
 
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
@@ -9,18 +9,14 @@ import FallbackVisitor from '../../FallbackVisitor';
 
 const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
-    specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
-      return isReferenceLikeElement(element)
+    specPath: (element: Element) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isObjectElement(element)
-        ? ['document', 'objects', 'Callback']
-        : ['value'];
-    },
+        : ['document', 'objects', 'Callback'],
   },
   init() {
     this.element = new ObjectElement();
-    this.element.classes.push('callbacks');
+    this.element.classes.push('operation-callbacks');
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

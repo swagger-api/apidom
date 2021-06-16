@@ -7,7 +7,7 @@ const TagsVisitor = stampit(FallbackVisitor, {
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       this.element = arrayElement.clone();
-      this.element.classes.push('tags');
+      this.element.classes.push('operation-tags');
 
       return BREAK;
     },

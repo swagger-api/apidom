@@ -2,6 +2,7 @@ import { has } from 'ramda';
 import { isPlainObject, isString } from 'ramda-adjunct';
 import { NamespacePlugin, Element, Namespace as INamespace } from 'minim';
 
+import './refractor/registration';
 import defaultNamespaceInstance, { Namespace as ApiDOMNamespace } from './namespace';
 
 export {

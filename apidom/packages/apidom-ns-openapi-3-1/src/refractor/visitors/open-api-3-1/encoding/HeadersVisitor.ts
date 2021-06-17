@@ -1,10 +1,10 @@
 import stampit from 'stampit';
-import { Element, ObjectElement } from 'apidom';
+import { Element, ObjectElement, StringElement } from 'apidom';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
+import { isHeaderElement, isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
 
 const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -23,8 +23,18 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
+      // decorate every ReferenceElement with metadata about their referencing type
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'header');
+      });
+
+      // decorate every HeaderElement with metadata about their name
+      this.element.forEach((value: Element, key: StringElement): void => {
+        if (!isHeaderElement(value)) return;
+
+        const headerName = key.toValue();
+
+        value.setMetaProperty('headerName', headerName);
       });
 
       return result;

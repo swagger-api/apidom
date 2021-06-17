@@ -6,6 +6,7 @@ import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
+import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
@@ -69,6 +70,18 @@ export const isExternalDocumentationElement = createPredicate(
     return either(
       is(ExternalDocumentationElement),
       allPass([hasBasicElementProps, isElementTypeExternalDocumentation, primitiveEqObject]),
+    );
+  },
+);
+
+export const isHeaderElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeHeader = isElementType('header');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(HeaderElement),
+      allPass([hasBasicElementProps, isElementTypeHeader, primitiveEqObject]),
     );
   },
 );

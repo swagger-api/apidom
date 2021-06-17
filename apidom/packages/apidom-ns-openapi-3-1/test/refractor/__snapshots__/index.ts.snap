@@ -1767,6 +1767,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                 },
                                                                                 "value": {
                                                                                   "element": "header",
+                                                                                  "meta": {
+                                                                                    "headerName": {
+                                                                                      "element": "string",
+                                                                                      "content": "X-Rate-Limit-Limit"
+                                                                                    }
+                                                                                  },
                                                                                   "content": [
                                                                                     {
                                                                                       "element": "member",
@@ -4700,6 +4706,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                         },
                                         "value": {
                                           "element": "header",
+                                          "meta": {
+                                            "headerName": {
+                                              "element": "string",
+                                              "content": "Content-Type"
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -5578,6 +5590,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         },
                         "value": {
                           "element": "header",
+                          "meta": {
+                            "headerName": {
+                              "element": "string",
+                              "content": "Content-Type"
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",

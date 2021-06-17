@@ -30,7 +30,7 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = MixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
-      // decorate every ResponseElement with metadata about their status code
+      // decorate every ReferenceElement with metadata about their referencing type
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'response');
       });

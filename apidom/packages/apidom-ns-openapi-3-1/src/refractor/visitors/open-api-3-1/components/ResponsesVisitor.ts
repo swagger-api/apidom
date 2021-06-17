@@ -1,11 +1,11 @@
 import stampit from 'stampit';
-import { ObjectElement, Element } from 'apidom';
+import { ObjectElement, Element, StringElement } from 'apidom';
 
 import ReferenceElement from '../../../../elements/Reference';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
+import { isReferenceElement, isResponseElement } from '../../../../predicates';
 
 const ResponsesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
@@ -25,8 +25,18 @@ const ResponsesVisitor = stampit(MapVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
+      // decorate every ResponseElement with metadata about their status code
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'response');
+      });
+
+      // decorate every ResponseElement with metadata about their status code
+      this.element.forEach((value: Element, key: StringElement): void => {
+        if (!isResponseElement(value)) return;
+
+        const httpStatusCode = key.toValue();
+
+        value.setMetaProperty('httpStatusCode', httpStatusCode);
       });
 
       return result;

@@ -2790,6 +2790,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                         },
                                                                         "value": {
                                                                           "element": "response",
+                                                                          "meta": {
+                                                                            "httpStatusCode": {
+                                                                              "element": "string",
+                                                                              "content": "200"
+                                                                            }
+                                                                          },
                                                                           "content": [
                                                                             {
                                                                               "element": "member",
@@ -4611,6 +4617,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         },
                         "value": {
                           "element": "response",
+                          "meta": {
+                            "httpStatusCode": {
+                              "element": "string",
+                              "content": "201"
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -6499,6 +6511,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                         },
                                                         "value": {
                                                           "element": "response",
+                                                          "meta": {
+                                                            "httpStatusCode": {
+                                                              "element": "string",
+                                                              "content": "200"
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",

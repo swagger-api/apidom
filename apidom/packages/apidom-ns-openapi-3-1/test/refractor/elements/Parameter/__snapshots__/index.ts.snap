@@ -46,5 +46,11 @@ exports[`refractor elements ParameterElement should refract to semantic ApiDOM t
         (ReferenceElement
           (MemberElement
             (StringElement)
-            (StringElement)))))))
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (MediaTypeElement)))))
 `;

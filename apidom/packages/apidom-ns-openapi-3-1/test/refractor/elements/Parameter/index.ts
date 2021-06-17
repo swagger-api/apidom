@@ -23,6 +23,9 @@ describe('refractor', function () {
             example1: {},
             example2: { $ref: '#/components/examples/Example1' },
           },
+          content: {
+            'application/json': {},
+          },
         });
 
         expect(sexprs(parameterElement)).toMatchSnapshot();

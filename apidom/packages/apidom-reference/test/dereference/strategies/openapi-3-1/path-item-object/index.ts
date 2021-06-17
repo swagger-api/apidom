@@ -10,9 +10,9 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
-      context('Response Object', function () {
-        context('given components/responses', function () {
-          const fixturePath = path.join(rootFixturePath, 'components-responses');
+      context('Path Item Object', function () {
+        context('given webhooks field', function () {
+          const fixturePath = path.join(rootFixturePath, 'webhooks');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
@@ -25,8 +25,22 @@ describe('dereference', function () {
           });
         });
 
-        context('given Response Object in Responses Object', function () {
-          const fixturePath = path.join(rootFixturePath, 'responses-object');
+        context('given Path Item Object in components/pathItems', function () {
+          const fixturePath = path.join(rootFixturePath, 'components-path-items');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Path Item Object in Callback Object', function () {
+          const fixturePath = path.join(rootFixturePath, 'callback-object');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

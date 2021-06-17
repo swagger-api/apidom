@@ -11,7 +11,7 @@ describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
       context('Path Item Object', function () {
-        context('given webhooks field', function () {
+        context('given in webhooks field', function () {
           const fixturePath = path.join(rootFixturePath, 'webhooks');
 
           specify('should dereference', async function () {
@@ -25,7 +25,7 @@ describe('dereference', function () {
           });
         });
 
-        context('given Path Item Object in components/pathItems', function () {
+        context('given in components/pathItems field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-path-items');
 
           specify('should dereference', async function () {
@@ -39,7 +39,7 @@ describe('dereference', function () {
           });
         });
 
-        context('given Path Item Object in Callback Object', function () {
+        context('given in Callback Object', function () {
           const fixturePath = path.join(rootFixturePath, 'callback-object');
 
           specify('should dereference', async function () {

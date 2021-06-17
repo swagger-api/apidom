@@ -1,13 +1,13 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
-import { Element, ObjectElement } from 'apidom';
+import { Element, ObjectElement, StringElement } from 'apidom';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ResponsesElement from '../../../../elements/Responses';
 import MixedFieldsVisitor from '../../generics/MixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
+import { isReferenceElement, isResponseElement } from '../../../../predicates';
 
 const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
   props: {
@@ -30,8 +30,20 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = MixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
+      // decorate every ResponseElement with metadata about their status code
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'response');
+      });
+
+      // decorate every ResponseElement with metadata about their status code
+      this.element.forEach((value: Element, key: StringElement): void => {
+        if (!isResponseElement(value)) return;
+
+        const httpStatusCode = key.toValue();
+
+        if (!this.fieldPatternPredicate(httpStatusCode)) return;
+
+        value.setMetaProperty('httpStatusCode', httpStatusCode);
       });
 
       return result;

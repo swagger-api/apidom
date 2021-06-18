@@ -9,9 +9,11 @@ import treeSitterJson from 'tree-sitter-json/tree-sitter-json.wasm';
  */
 const parserP = (async () => {
   await Parser.init();
-  await Parser.Language.load(treeSitterJson);
+  const jsonLanguage = await Parser.Language.load(treeSitterJson);
+  const parser = new Parser();
 
-  return new Parser();
+  parser.setLanguage(jsonLanguage);
+  return parser;
 })();
 
 /**

@@ -9,9 +9,11 @@ import treeSitterYaml from 'tree-sitter-yaml/tree-sitter-yaml.wasm';
  */
 const parserP = (async () => {
   await Parser.init();
-  await Parser.Language.load(treeSitterYaml);
+  const yamlLanguage = await Parser.Language.load(treeSitterYaml);
+  const parser = new Parser();
 
-  return new Parser();
+  parser.setLanguage(yamlLanguage);
+  return parser;
 })();
 
 /**

@@ -11,7 +11,7 @@ describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
       context('Response Object', function () {
-        context('given components/responses', function () {
+        context('given in components/responses field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-responses');
 
           specify('should dereference', async function () {

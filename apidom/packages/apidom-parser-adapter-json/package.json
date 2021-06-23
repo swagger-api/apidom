@@ -39,6 +39,6 @@
     "web-tree-sitter": "=0.19.4"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.19.5"
+    "tree-sitter-cli": "=0.19.4"
   }
 }

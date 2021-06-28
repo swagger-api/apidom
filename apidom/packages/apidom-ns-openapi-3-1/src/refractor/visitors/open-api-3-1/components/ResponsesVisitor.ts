@@ -31,12 +31,8 @@ const ResponsesVisitor = stampit(MapVisitor, FallbackVisitor, {
       });
 
       // decorate every ResponseElement with metadata about their status code
-      this.element.forEach((value: Element, key: StringElement): void => {
-        if (!isResponseElement(value)) return;
-
-        const httpStatusCode = key.toValue();
-
-        value.setMetaProperty('httpStatusCode', httpStatusCode);
+      this.element.filter(isResponseElement).forEach((value: Element, key: StringElement) => {
+        value.setMetaProperty('http-status-code', key.toValue());
       });
 
       return result;

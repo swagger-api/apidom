@@ -105,6 +105,9 @@
         "responses": {
           "default": {
             "description": "default response",
+            "content": {
+              "application/json": {}
+            },
             "links": {
               "link1": {
                 "operationRef": "https://example.com/external-link",
@@ -266,7 +269,10 @@
         "description": "parameter2 description",
         "required": false,
         "deprecated": false,
-        "allowEmptyValue": true
+        "allowEmptyValue": true,
+        "content": {
+          "application/json": {}
+        }
       },
       "parameter3": {
         "$ref": "#/components/parameters/parameter2"

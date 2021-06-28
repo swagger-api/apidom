@@ -1,9 +1,12 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
+import { ObjectElement, StringElement } from 'apidom';
 
 import PathsElement from '../../../../elements/Paths';
+import PathItemElement from '../../../../elements/PathItem';
 import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
+import { isPathItemElement } from '../../../../predicates';
 
 const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   props: {
@@ -13,6 +16,21 @@ const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new PathsElement();
+  },
+  methods: {
+    ObjectElement(objectElement: ObjectElement) {
+      // @ts-ignore
+      const result = PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+
+      // decorate every PathItemElement with path metadata
+      this.element
+        .filter(isPathItemElement)
+        .forEach((pathItemElement: PathItemElement, key: StringElement) => {
+          pathItemElement.setMetaProperty('path', key.toValue());
+        });
+
+      return result;
+    },
   },
 });
 

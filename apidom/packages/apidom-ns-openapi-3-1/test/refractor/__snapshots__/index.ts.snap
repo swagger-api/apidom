@@ -700,6 +700,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                 },
                 "value": {
                   "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/path1"
+                    }
+                  },
                   "content": [
                     {
                       "element": "member",
@@ -1320,6 +1326,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 },
                                                 "value": {
                                                   "element": "mediaType",
+                                                  "meta": {
+                                                    "media-type": {
+                                                      "element": "string",
+                                                      "content": "application/json"
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -1771,6 +1783,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                     "headerName": {
                                                                                       "element": "string",
                                                                                       "content": "X-Rate-Limit-Limit"
+                                                                                    },
+                                                                                    "header-name": {
+                                                                                      "element": "string",
+                                                                                      "content": "X-Rate-Limit-Limit"
                                                                                     }
                                                                                   },
                                                                                   "content": [
@@ -2085,6 +2101,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                         },
                                         "value": {
                                           "element": "response",
+                                          "meta": {
+                                            "http-status-code": {
+                                              "element": "string",
+                                              "content": "default"
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -2107,6 +2129,71 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 "value": {
                                                   "element": "string",
                                                   "content": "default response"
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "content"
+                                                },
+                                                "value": {
+                                                  "element": "object",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "content"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "patterned-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "application/json"
+                                                        },
+                                                        "value": {
+                                                          "element": "mediaType",
+                                                          "meta": {
+                                                            "media-type": {
+                                                              "element": "string",
+                                                              "content": "application/json"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
                                                 }
                                               }
                                             },
@@ -2559,6 +2646,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 },
                                                 "value": {
                                                   "element": "pathItem",
+                                                  "meta": {
+                                                    "runtime-expression": {
+                                                      "element": "string",
+                                                      "content": "{$request.query.queryUrl}"
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -2684,6 +2777,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                 },
                                                                                 "value": {
                                                                                   "element": "mediaType",
+                                                                                  "meta": {
+                                                                                    "media-type": {
+                                                                                      "element": "string",
+                                                                                      "content": "application/json"
+                                                                                    }
+                                                                                  },
                                                                                   "content": [
                                                                                     {
                                                                                       "element": "member",
@@ -2797,7 +2896,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                         "value": {
                                                                           "element": "response",
                                                                           "meta": {
-                                                                            "httpStatusCode": {
+                                                                            "http-status-code": {
                                                                               "element": "string",
                                                                               "content": "200"
                                                                             }
@@ -4069,6 +4168,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                 },
                 "value": {
                   "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/path2"
+                    }
+                  },
                   "content": [
                     {
                       "element": "member",
@@ -4202,6 +4307,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                 },
                 "value": {
                   "element": "pathItem",
+                  "meta": {
+                    "webhook-name": {
+                      "element": "string",
+                      "content": "webhook1"
+                    }
+                  },
                   "content": [
                     {
                       "element": "member",
@@ -4624,7 +4735,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "response",
                           "meta": {
-                            "httpStatusCode": {
+                            "http-status-code": {
                               "element": "string",
                               "content": "201"
                             }
@@ -4708,6 +4819,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                           "element": "header",
                                           "meta": {
                                             "headerName": {
+                                              "element": "string",
+                                              "content": "Content-Type"
+                                            },
+                                            "header-name": {
                                               "element": "string",
                                               "content": "Content-Type"
                                             }
@@ -5069,6 +5184,71 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 "value": {
                                   "element": "boolean",
                                   "content": true
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "content"
+                                },
+                                "value": {
+                                  "element": "object",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "content"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "patterned-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "application/json"
+                                        },
+                                        "value": {
+                                          "element": "mediaType",
+                                          "meta": {
+                                            "media-type": {
+                                              "element": "string",
+                                              "content": "application/json"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
                                 }
                               }
                             }
@@ -5591,7 +5771,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "header",
                           "meta": {
-                            "headerName": {
+                            "header-name": {
                               "element": "string",
                               "content": "Content-Type"
                             }
@@ -6292,6 +6472,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "pathItem",
+                                  "meta": {
+                                    "runtime-expression": {
+                                      "element": "string",
+                                      "content": "{$request.query.queryUrl}"
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -6417,6 +6603,12 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                 },
                                                                 "value": {
                                                                   "element": "mediaType",
+                                                                  "meta": {
+                                                                    "media-type": {
+                                                                      "element": "string",
+                                                                      "content": "application/json"
+                                                                    }
+                                                                  },
                                                                   "content": [
                                                                     {
                                                                       "element": "member",
@@ -6530,7 +6722,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                         "value": {
                                                           "element": "response",
                                                           "meta": {
-                                                            "httpStatusCode": {
+                                                            "http-status-code": {
                                                               "element": "string",
                                                               "content": "200"
                                                             }

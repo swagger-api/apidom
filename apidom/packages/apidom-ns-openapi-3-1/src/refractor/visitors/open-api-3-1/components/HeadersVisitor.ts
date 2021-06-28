@@ -31,12 +31,8 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
       });
 
       // decorate every HeaderElement with metadata about their name
-      this.element.forEach((value: Element, key: StringElement): void => {
-        if (!isHeaderElement(value)) return;
-
-        const headerName = key.toValue();
-
-        value.setMetaProperty('headerName', headerName);
+      this.element.filter(isHeaderElement).forEach((value: Element, key: StringElement) => {
+        value.setMetaProperty('header-name', key.toValue());
       });
 
       return result;

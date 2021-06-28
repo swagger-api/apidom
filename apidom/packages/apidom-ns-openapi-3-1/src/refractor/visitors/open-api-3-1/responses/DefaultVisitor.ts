@@ -3,7 +3,7 @@ import { T as stubTrue } from 'ramda';
 import { ObjectElement } from 'apidom';
 
 import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
+import { isReferenceElement, isResponseElement } from '../../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
@@ -22,6 +22,8 @@ const DefaultVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
       // decorate ReferenceElement with type of referencing element
       if (isReferenceElement(this.element)) {
         this.element.setMetaProperty('referenced-element', 'response');
+      } else if (isResponseElement(this.element)) {
+        this.element.setMetaProperty('http-status-code', 'default');
       }
 
       return result;

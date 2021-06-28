@@ -1,6 +1,5 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
-
-import MediaType from './MediaType';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, StringElement } from 'apidom';
 
 class Response extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -8,12 +7,36 @@ class Response extends ObjectElement {
     this.element = 'response';
   }
 
-  get contentProp(): Record<string, MediaType> {
+  get description(): StringElement {
+    return this.get('description');
+  }
+
+  set description(description: StringElement) {
+    this.set('description', description);
+  }
+
+  get headers(): ObjectElement | undefined {
+    return this.get('headers');
+  }
+
+  set headers(headers: ObjectElement | undefined) {
+    this.set('headers', headers);
+  }
+
+  get contentProp(): ObjectElement | undefined {
     return this.get('content');
   }
 
-  set contentProp(contentProp: Record<string, MediaType>) {
+  set contentProp(contentProp: ObjectElement | undefined) {
     this.set('content', contentProp);
+  }
+
+  get links(): ObjectElement | undefined {
+    return this.get('links');
+  }
+
+  set links(links: ObjectElement | undefined) {
+    this.set('links', links);
   }
 }
 

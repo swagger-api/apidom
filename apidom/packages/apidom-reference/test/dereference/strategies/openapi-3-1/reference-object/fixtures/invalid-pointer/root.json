@@ -3,7 +3,7 @@
   "components": {
     "parameters": {
       "userId": {
-        "$ref": "#/components/parameters/invalid-pointer",
+        "$ref": "invalid-pointer",
         "description": "override"
       },
       "userIdRef": {

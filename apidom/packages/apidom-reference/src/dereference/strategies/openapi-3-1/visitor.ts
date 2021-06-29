@@ -7,8 +7,10 @@ import {
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  PathItemElement,
   SchemaElement,
   isReferenceElementExternal,
+  isPathItemElementExternal,
   isSchemaElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
@@ -159,6 +161,81 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // transclude the element for a fragment
       return fragment;
+    },
+
+    async PathItemElement(pathItemElement: PathItemElement) {
+      // ignore PathItemElement without $ref field
+      if (!isStringElement(pathItemElement.$ref)) {
+        return undefined;
+      }
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
+        return undefined;
+      }
+
+      // @ts-ignore
+      const reference = await this.toReference(pathItemElement.$ref.toValue());
+
+      this.indirections.push(pathItemElement);
+
+      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+
+      // possibly non-semantic fragment
+      let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
+
+      // applying semantics to a fragment
+      if (isPrimitiveElement(referencedElement)) {
+        referencedElement = PathItemElement.refract(referencedElement);
+      }
+
+      // detect direct or indirect reference
+      if (this.indirections.includes(referencedElement)) {
+        throw new Error('Recursive JSON Pointer detected');
+      }
+
+      // detect maximum depth of dereferencing
+      if (this.indirections.length > this.options.dereference.maxDepth) {
+        throw new MaximumDereferenceDepthError(
+          `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+        );
+      }
+
+      // dive deep into the fragment
+      const visitor: any = OpenApi3_1DereferenceVisitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.options,
+      });
+      referencedElement = await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
+      });
+
+      this.indirections.pop();
+
+      // merge fields from referenced Path Item with referencing one
+      const mergedResult = new PathItemElement(
+        // @ts-ignore
+        [...referencedElement.content],
+        referencedElement.meta.clone(),
+        referencedElement.attributes.clone(),
+      );
+      // existing keywords from referencing PathItemElement overrides ones from referenced schema
+      pathItemElement.forEach((value: Element, key: Element, item: Element) => {
+        mergedResult.remove(key.toValue());
+        mergedResult.content.push(item);
+      });
+      mergedResult.remove('$ref');
+
+      // annotate referencing element with info about original referenced element
+      mergedResult.setMetaProperty('ref-fields', {
+        $ref: pathItemElement.$ref?.toValue(),
+      });
+
+      // transclude referencing element with merged referenced element
+      return mergedResult;
     },
 
     async SchemaElement(referencingElement: SchemaElement) {

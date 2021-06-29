@@ -1,5 +1,5 @@
 import { MemberElement, isStringElement, isObjectElement, Element } from 'apidom';
-import { startsWith, all } from 'ramda';
+import { startsWith } from 'ramda';
 
 export const isOpenApi3_1LikeElement = <T extends Element>(element: T): boolean => {
   // @ts-ignore
@@ -12,20 +12,8 @@ export const isParameterLikeElement = <T extends Element>(element: T): boolean =
 };
 
 export const isReferenceLikeElement = <T extends Element>(element: T): boolean => {
-  const isAllowedProperty = (property: string): boolean => {
-    // @ts-ignore
-    return ['$ref', 'description', 'summary'].includes(property);
-  };
-
-  return (
-    isObjectElement(element) &&
-    // @ts-ignore
-    element.hasKey('$ref') &&
-    // @ts-ignore
-    element.keys.length <= 3 &&
-    // @ts-ignore
-    all(isAllowedProperty)(element.keys)
-  );
+  // @ts-ignore
+  return isObjectElement(element) && element.hasKey('$ref');
 };
 
 export const isRequestBodyLikeElement = <T extends Element>(element: T): boolean => {

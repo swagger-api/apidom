@@ -28,6 +28,7 @@ export {
   isOperationElement,
   isParameterElement,
   isPathItemElement,
+  isPathItemElementExternal,
   isPathsElement,
   isReferenceElement,
   isReferenceElementExternal,

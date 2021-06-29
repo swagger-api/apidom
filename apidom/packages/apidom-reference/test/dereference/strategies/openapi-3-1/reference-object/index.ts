@@ -115,8 +115,8 @@ describe('dereference', function () {
         });
       });
 
-      context('given Reference Objects with additional props', function () {
-        const fixturePath = path.join(rootFixturePath, 'additional-props');
+      context('given Reference Objects with additional fields', function () {
+        const fixturePath = path.join(rootFixturePath, 'additional-fields');
 
         specify('should dereference', async function () {
           const rootFilePath = path.join(fixturePath, 'root.json');
@@ -129,8 +129,8 @@ describe('dereference', function () {
         });
       });
 
-      context('given Reference Objects with additional ignored props', function () {
-        const fixturePath = path.join(rootFixturePath, 'additional-ignored-props');
+      context('given Reference Objects with additional ignored fields', function () {
+        const fixturePath = path.join(rootFixturePath, 'additional-ignored-fields');
 
         specify('should dereference', async function () {
           const rootFilePath = path.join(fixturePath, 'root.json');
@@ -167,6 +167,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }
@@ -182,6 +183,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }
@@ -197,6 +199,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }
@@ -212,6 +215,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }
@@ -227,6 +231,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }
@@ -242,6 +247,7 @@ describe('dereference', function () {
             await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             });
+            assert.fail('should throw DereferenceError');
           } catch (e) {
             assert.instanceOf(e, DereferenceError);
           }

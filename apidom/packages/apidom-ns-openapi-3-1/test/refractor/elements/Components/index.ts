@@ -46,6 +46,10 @@ describe('refractor', function () {
           pathItems: {
             PathItem1: {},
             PathItem2: { $ref: '#/components/pathsItems/PathItem1' },
+            PathItem3: {
+              $ref: '#/components/pathsItems/PathItem1',
+              get: {},
+            },
           },
         });
 

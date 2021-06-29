@@ -183,6 +183,19 @@ export const isPathItemElement = createPredicate(
   },
 );
 
+export const isPathItemElementExternal = (element: any): element is PathItemElement => {
+  if (!isPathItemElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
+
+  const value = element.$ref.toValue();
+
+  return isNonEmptyString(value) && !startsWith('#', value);
+};
+
 export const isPathsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     const isElementTypePaths = isElementType('paths');

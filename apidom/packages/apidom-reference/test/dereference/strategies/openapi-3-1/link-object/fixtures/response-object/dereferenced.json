@@ -7,14 +7,27 @@
           "description": "201 description",
           "links": {
             "link": {
-              "operationId": "op1"
+              "operationId": "op1",
+              "operation": {
+                "operationId": "op1"
+              }
             }
           }
         }
       },
       "links": {
         "link1": {
-          "operationId": "op1"
+          "operationId": "op1",
+          "operation": {
+            "operationId": "op1"
+          }
+        }
+      },
+      "pathItems": {
+        "pathItem1": {
+          "get": {
+            "operationId": "op1"
+          }
         }
       }
     }

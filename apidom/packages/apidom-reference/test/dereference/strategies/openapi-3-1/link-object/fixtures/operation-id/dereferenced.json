@@ -6,20 +6,16 @@
         "link1": {
           "operationId": "op1",
           "operation": {
-            "operationId": "op1"
-          }
-        },
-        "link2": {
-          "operationId": "op1",
-          "operation": {
-            "operationId": "op1"
+            "operationId": "op1",
+            "description": "description of operation"
           }
         }
       },
       "pathItems": {
         "pathItem1": {
           "get": {
-            "operationId": "op1"
+            "operationId": "op1",
+            "description": "description of operation"
           }
         }
       }

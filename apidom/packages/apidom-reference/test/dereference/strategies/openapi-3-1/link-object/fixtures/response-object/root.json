@@ -15,6 +15,13 @@
       "link1": {
         "operationId": "op1"
       }
+    },
+    "pathItems": {
+      "pathItem1": {
+        "get": {
+          "operationId": "op1"
+        }
+      }
     }
   }
 }

@@ -2,7 +2,7 @@ import './refractor/registration';
 
 export {
   isRefElement,
-  isLinkElement,
+  isLinkElement as isLinkPrimitiveElement,
   isMemberElement,
   isObjectElement,
   isArrayElement,
@@ -23,6 +23,8 @@ export {
   isInfoElement,
   isJsonSchemaDialectElement,
   isLicenseElement,
+  isLinkElement,
+  isLinkElementExternal,
   isOpenapiElement,
   isOpenApi3_1Element,
   isOperationElement,

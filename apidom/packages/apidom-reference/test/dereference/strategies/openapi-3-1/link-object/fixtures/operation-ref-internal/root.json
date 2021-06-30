@@ -3,16 +3,13 @@
   "components": {
     "links": {
       "link1": {
-        "operationId": "op1"
-      },
-      "link2": {
-        "$ref": "#/components/links/link1"
+        "operationRef": "#/components/pathItems/pathItem1/get"
       }
     },
     "pathItems": {
       "pathItem1": {
         "get": {
-          "operationId": "op1"
+          "description": "description of operation"
         }
       }
     }

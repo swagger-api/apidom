@@ -2,6 +2,7 @@ import { Attributes, Meta } from 'minim';
 import { ObjectElement, StringElement, Element } from 'apidom';
 
 import ServerElement from './Server';
+import OperationElement from './Operation';
 
 class Link extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -23,6 +24,14 @@ class Link extends ObjectElement {
 
   set operationId(operationId: StringElement) {
     this.set('operationId', operationId);
+  }
+
+  get operation(): OperationElement | undefined {
+    return this.get('operation');
+  }
+
+  set operation(operation: OperationElement | undefined) {
+    this.set('operation', operation);
   }
 
   get parameters(): ObjectElement {

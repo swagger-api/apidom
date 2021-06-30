@@ -1,16 +1,20 @@
 import stampit from 'stampit';
 import { hasIn, pathSatisfies, propEq } from 'ramda';
-import { isNotUndefined } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
+import { isUndefined, isNotUndefined } from 'ramda-adjunct';
+import { isPrimitiveElement, isStringElement, visit, Element, find } from 'apidom';
 import {
   getNodeType,
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
   PathItemElement,
+  LinkElement,
+  OperationElement,
   SchemaElement,
   isReferenceElementExternal,
   isPathItemElementExternal,
+  isLinkElementExternal,
+  isOperationElement,
   isSchemaElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
@@ -169,7 +173,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Reference Objects
+      // ignore resolving external Path Item Elements
       if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
         return undefined;
       }
@@ -236,6 +240,52 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // transclude referencing element with merged referenced element
       return mergedResult;
+    },
+
+    async LinkElement(linkElement: LinkElement) {
+      // ignore LinkElement without operationRef or operationId field
+      if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
+        return undefined;
+      }
+
+      // ignore resolving external Path Item Elements
+      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
+        return undefined;
+      }
+
+      // operationRef and operationId are mutually exclusive
+      if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
+        throw new Error('LinkElement operationRef and operationId are mutually exclusive.');
+      }
+
+      // @ts-ignore
+      let operationElement;
+
+      if (isStringElement(linkElement.operationRef)) {
+        // possibly non-semantic referenced element
+        const jsonPointer = uriToPointer(linkElement.operationRef.toValue());
+        const reference = await this.toReference(linkElement.operationRef.toValue());
+        operationElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
+        // applying semantics to a referenced element
+        if (isPrimitiveElement(operationElement)) {
+          operationElement = OperationElement.refract(operationElement);
+        }
+      } else if (isStringElement(linkElement.operationId)) {
+        const operationId = linkElement.operationId.toValue();
+        operationElement = find(
+          (e) => isOperationElement(e) && e.operationId.equals(operationId),
+          this.reference.value.result,
+        );
+        // OperationElement not found by it's operationId
+        if (isUndefined(operationElement)) {
+          throw new Error(`OperationElement(operationId=${operationId}) not found.`);
+        }
+      }
+
+      // @ts-ignore
+      linkElement.operation = operationElement; // eslint-disable-line no-param-reassign
+
+      return undefined;
     },
 
     async SchemaElement(referencingElement: SchemaElement) {

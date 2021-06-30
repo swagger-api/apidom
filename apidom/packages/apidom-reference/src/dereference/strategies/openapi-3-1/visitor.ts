@@ -181,10 +181,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
 
-      // possibly non-semantic fragment
+      // possibly non-semantic referenced element
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
 
-      // applying semantics to a fragment
+      // applying semantics to a referenced element
       if (isPrimitiveElement(referencedElement)) {
         referencedElement = PathItemElement.refract(referencedElement);
       }
@@ -201,7 +201,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      // dive deep into the fragment
+      // dive deep into the referenced element
       const visitor: any = OpenApi3_1DereferenceVisitor({
         reference,
         namespace: this.namespace,

@@ -8,10 +8,13 @@ import {
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  PathItemElement,
   SchemaElement,
   isReferenceElementExternal,
   isSchemaElementExternal,
   isSchemaElement,
+  isPathItemElement,
+  isPathItemElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
@@ -109,6 +112,28 @@ const OpenApi3_1ResolveVisitor = stampit({
       return undefined;
     },
 
+    PathItemElement(pathItemElement: PathItemElement) {
+      // ignore PathItemElement without $ref field
+      if (!isStringElement(pathItemElement.$ref)) {
+        return undefined;
+      }
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
+        return undefined;
+      }
+
+      const uri = pathItemElement.$ref.toValue();
+      const baseURI = this.toBaseURI(uri);
+
+      if (!has(baseURI, this.crawlingMap)) {
+        this.crawlingMap[baseURI] = this.toReference(uri);
+      }
+      this.crawledElements.push(pathItemElement);
+
+      return undefined;
+    },
+
     SchemaElement(schemaElement: SchemaElement) {
       /**
        * Skip traversal for already visited schemas and all their child schemas.
@@ -195,6 +220,47 @@ const OpenApi3_1ResolveVisitor = stampit({
       this.indirections.pop();
     },
 
+    async crawlPathItemElement(pathItemElement: PathItemElement) {
+      // @ts-ignore
+      const reference = await this.toReference(pathItemElement.$ref.toValue());
+
+      this.indirections.push(pathItemElement);
+
+      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+
+      // possibly non-semantic fragment
+      let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
+
+      // applying semantics to a fragment
+      if (isPrimitiveElement(referencedElement)) {
+        referencedElement = PathItemElement.refract(referencedElement);
+      }
+
+      // detect direct or indirect reference
+      if (this.indirections.includes(referencedElement)) {
+        throw new Error('Recursive JSON Pointer detected');
+      }
+
+      // detect maximum depth of dereferencing
+      if (this.indirections.length > this.options.dereference.maxDepth) {
+        throw new MaximumDereferenceDepthError(
+          `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+        );
+      }
+
+      // dive deep into the fragment
+      const visitor: any = OpenApi3_1ResolveVisitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.options,
+      });
+      await visitAsync(referencedElement, visitor, { keyMap, nodeTypeGetter: getNodeType });
+      await visitor.crawl();
+
+      this.indirections.pop();
+    },
+
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute Reference object using rules around $id and $ref keywords
       const uri = resolveInherited$id(referencingElement);
@@ -275,6 +341,8 @@ const OpenApi3_1ResolveVisitor = stampit({
           await this.crawlReferenceElement(element);
         } else if (isSchemaElement(element)) {
           await this.crawlSchemaElement(element);
+        } else if (isPathItemElement(element)) {
+          await this.crawlPathItemElement(element);
         }
       }
       /* eslint-enable */

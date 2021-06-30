@@ -140,7 +140,7 @@ describe('dereference', function () {
         context('given Schema Objects with external resolution disabled', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 
-          specify('should dereference', async function () {
+          specify('should not dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },

@@ -4,22 +4,16 @@
     "components": {
       "links": {
         "link1": {
-          "operationId": "op1",
+          "operationRef": "#/components/pathItems/pathItem1/get",
           "operation": {
-            "operationId": "op1"
-          }
-        },
-        "link2": {
-          "operationId": "op1",
-          "operation": {
-            "operationId": "op1"
+            "description": "description of operation"
           }
         }
       },
       "pathItems": {
         "pathItem1": {
           "get": {
-            "operationId": "op1"
+            "description": "description of operation"
           }
         }
       }

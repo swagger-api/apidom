@@ -10,6 +10,7 @@ import {
   ReferenceElement,
   PathItemElement,
   LinkElement,
+  ExampleElement,
   SchemaElement,
   isReferenceElementExternal,
   isSchemaElementExternal,
@@ -159,6 +160,32 @@ const OpenApi3_1ResolveVisitor = stampit({
         if (!has(baseURI, this.crawlingMap)) {
           this.crawlingMap[baseURI] = this.toReference(uri);
         }
+      }
+
+      return undefined;
+    },
+
+    ExampleElement(exampleElement: ExampleElement) {
+      // ignore ExampleElement without externalValue field
+      if (!isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // ignore resolving ExampleElement externalValue
+      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // value and externalValue fields are mutually exclusive
+      if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
+        throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
+      }
+
+      const uri = exampleElement.externalValue.toValue();
+      const baseURI = this.toBaseURI(uri);
+
+      if (!has(baseURI, this.crawlingMap)) {
+        this.crawlingMap[baseURI] = this.toReference(uri);
       }
 
       return undefined;

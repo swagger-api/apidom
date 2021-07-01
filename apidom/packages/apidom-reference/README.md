@@ -138,6 +138,14 @@ Supported media types are:
 ['text/yaml', 'application/yaml']
 ```
 
+#### [binary](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-binary)
+
+Can parse any binary or non-binary file and return it's content as `base64` encoded string.
+This parser is uniquely identified by `binary` name.
+
+
+**All** media types are supported.
+
 #### Parser plugins execution order
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
@@ -156,6 +164,7 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
+  BinaryParser({ allowEmpty: true }),
 ]
 ```
 Most specific parser plugins are listed first, most generic are listed last.
@@ -170,7 +179,8 @@ import {
   AsyncApiJson2_0Parser,
   AsyncApiYaml2_0Parser,
   JsonParser,
-  YamlParser
+  YamlParser,
+  BinaryParser,
 } from 'apidom-reference';
 
 options.parse.parsers = [
@@ -180,6 +190,7 @@ options.parse.parsers = [
   AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
+  BinaryParser({ allowEmpty: true }),
 ]
 ```
 
@@ -193,7 +204,8 @@ import {
   AsyncApiJson2_0Parser,
   AsyncApiYaml2_0Parser,
   JsonParser,
-  YamlParser
+  YamlParser,
+  BinaryParser,
 } from 'apidom-reference';
 
 await parse('/home/user/oas.json', {
@@ -206,6 +218,7 @@ await parse('/home/user/oas.json', {
       AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
+      BinaryParser({ allowEmpty: true }),
     ],
   },
 });

@@ -2,12 +2,7 @@ import path from 'path';
 import { assert } from 'chai';
 
 import { resolve, resolveApiDOM, parse } from '../../src';
-import {
-  UnmatchedResolverError,
-  UnmatchedResolveStrategyError,
-  ResolverError,
-  ParserError,
-} from '../../src/util/errors';
+import { UnmatchedResolveStrategyError, ResolverError, ParserError } from '../../src/util/errors';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/apidom-reference-parser-openapi-json-3-1';
 
 const fixturePath = path.join(
@@ -67,15 +62,15 @@ describe('resolve', function () {
   });
 
   context('given URI with unknown file extension', function () {
-    context('and no matching parsers', function () {
+    context('and matching binary parser', function () {
       specify('should throw error', async function () {
         const uri = path.join(__dirname, 'fixtures', 'unknown-extension.ext');
 
         try {
           await resolve(uri);
-          assert.fail('Should throw UnmatchedResolverError');
+          assert.fail('Should throw UnmatchedResolveStrategyError');
         } catch (error) {
-          assert.instanceOf(error, UnmatchedResolverError);
+          assert.instanceOf(error, UnmatchedResolveStrategyError);
         }
       });
     });

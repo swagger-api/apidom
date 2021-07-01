@@ -10,6 +10,7 @@ import {
   PathItemElement,
   LinkElement,
   OperationElement,
+  ExampleElement,
   SchemaElement,
   isReferenceElementExternal,
   isPathItemElementExternal,
@@ -253,9 +254,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // operationRef and operationId are mutually exclusive
+      // operationRef and operationId fields are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
-        throw new Error('LinkElement operationRef and operationId are mutually exclusive.');
+        throw new Error('LinkElement operationRef and operationId fields are mutually exclusive.');
       }
 
       // @ts-ignore
@@ -284,6 +285,30 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // @ts-ignore
       linkElement.operation = operationElement; // eslint-disable-line no-param-reassign
+
+      return undefined;
+    },
+
+    async ExampleElement(exampleElement: ExampleElement) {
+      // ignore ExampleElement without externalValue field
+      if (!isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // ignore resolving ExampleElement externalValue
+      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // value and externalValue fields are mutually exclusive
+      if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
+        throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
+      }
+
+      const reference = await this.toReference(exampleElement.externalValue.toValue());
+
+      // eslint-disable-next-line no-param-reassign
+      exampleElement.value = reference.value.result;
 
       return undefined;
     },

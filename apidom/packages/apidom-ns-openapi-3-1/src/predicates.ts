@@ -5,6 +5,7 @@ import { createPredicate, isStringElement } from 'apidom';
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
+import ExampleElement from './elements/Example';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
@@ -59,6 +60,18 @@ export const isContactElement = createPredicate(
     return either(
       is(ContactElement),
       allPass([hasBasicElementProps, isElementTypeContact, primitiveEqObject]),
+    );
+  },
+);
+
+export const isExampleElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    const isElementTypeExample = isElementType('example');
+    const primitiveEqObject = primitiveEq('object');
+
+    return either(
+      is(ExampleElement),
+      allPass([hasBasicElementProps, isElementTypeExample, primitiveEqObject]),
     );
   },
 );

@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, Meta, Element } from 'minim';
+import { ObjectElement, StringElement } from 'apidom';
 
 class Example extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -22,11 +23,11 @@ class Example extends ObjectElement {
     this.set('description', description);
   }
 
-  get value(): StringElement {
+  get value(): Element {
     return this.get('value');
   }
 
-  set value(value: StringElement) {
+  set value(value: Element) {
     this.set('value', value);
   }
 

@@ -52,17 +52,33 @@ describe('parse', function () {
   });
 
   context('given URI with unknown file extension', function () {
-    context('and no matching parsers', function () {
-      specify('should throw error', async function () {
+    context('and matching binary parser', function () {
+      specify('should read & parse the file', async function () {
         const uri = path.join(__dirname, 'fixtures', 'unknown-extension.ext');
+        const parseResult = await parse(uri, defaultOptions);
+        const { result } = parseResult;
+        const actual = Buffer.from(result?.toValue(), 'base64').toString('utf8');
 
-        try {
-          await parse(uri, defaultOptions);
-          assert.fail('Should throw UnmatchedResolverError');
-        } catch (error) {
-          assert.instanceOf(error, UnmatchedResolverError);
-        }
+        assert.strictEqual(actual, 'possibly binary content\n');
       });
+    });
+  });
+
+  context('given URI with no matching parser', function () {
+    specify('should throw error', async function () {
+      const uri = path.join(__dirname, 'fixtures', 'unknown-extension.ext');
+      const options = mergeOptions(defaultOptions, {
+        parse: {
+          parsers: [],
+        },
+      });
+
+      try {
+        await parse(uri, options);
+        assert.fail('Should throw UnmatchedResolverError');
+      } catch (error) {
+        assert.instanceOf(error, UnmatchedResolverError);
+      }
     });
   });
 

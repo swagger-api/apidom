@@ -27,7 +27,7 @@ describe('resolve', function () {
           context('given $ref field pointing internally and externally', function () {
             const fixturePath = path.join(rootFixturePath, 'internal-external');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
@@ -40,7 +40,7 @@ describe('resolve', function () {
           context('given external resolution disabled', function () {
             const fixturePath = path.join(rootFixturePath, 'ignore-external');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
@@ -54,7 +54,7 @@ describe('resolve', function () {
           context('given $ref field pointing to external indirections', function () {
             const fixturePath = path.join(rootFixturePath, 'external-indirections');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },

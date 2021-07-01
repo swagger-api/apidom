@@ -19,6 +19,7 @@ export {
   isCallbackElement,
   isComponentsElement,
   isContactElement,
+  isExampleElement,
   isExternalDocumentationElement,
   isInfoElement,
   isJsonSchemaDialectElement,

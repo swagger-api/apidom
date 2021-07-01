@@ -178,7 +178,7 @@ describe('dereference', function () {
             } catch (e) {
               assert.strictEqual(
                 e.cause.cause.message,
-                'LinkElement operationRef and operationId are mutually exclusive.',
+                'LinkElement operationRef and operationId fields are mutually exclusive.',
               );
               assert.instanceOf(e, DereferenceError);
             }

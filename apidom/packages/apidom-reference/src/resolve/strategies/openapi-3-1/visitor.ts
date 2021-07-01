@@ -9,12 +9,14 @@ import {
   keyMap,
   ReferenceElement,
   PathItemElement,
+  LinkElement,
   SchemaElement,
   isReferenceElementExternal,
   isSchemaElementExternal,
   isSchemaElement,
   isPathItemElement,
   isPathItemElementExternal,
+  isLinkElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
 import { Reference as IReference } from '../../../types';
@@ -130,6 +132,34 @@ const OpenApi3_1ResolveVisitor = stampit({
         this.crawlingMap[baseURI] = this.toReference(uri);
       }
       this.crawledElements.push(pathItemElement);
+
+      return undefined;
+    },
+
+    LinkElement(linkElement: LinkElement) {
+      // ignore LinkElement without operationRef or operationId field
+      if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
+        return undefined;
+      }
+
+      // ignore resolving external Path Item Elements
+      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
+        return undefined;
+      }
+
+      // operationRef and operationId are mutually exclusive
+      if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
+        throw new Error('LinkElement operationRef and operationId are mutually exclusive.');
+      }
+
+      if (isLinkElementExternal(linkElement)) {
+        const uri = linkElement.operationRef.toValue();
+        const baseURI = this.toBaseURI(uri);
+
+        if (!has(baseURI, this.crawlingMap)) {
+          this.crawlingMap[baseURI] = this.toReference(uri);
+        }
+      }
 
       return undefined;
     },

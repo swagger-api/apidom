@@ -270,7 +270,7 @@ describe('resolve', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$anchor-external');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },

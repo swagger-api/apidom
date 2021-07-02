@@ -17,6 +17,7 @@ import {
   isLinkElementExternal,
   isOperationElement,
   isSchemaElementExternal,
+  isBooleanJsonSchemaElement,
 } from 'apidom-ns-openapi-3-1';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
@@ -360,7 +361,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       let referencedElement;
 
       if (isPrimitiveElement(reference.value.result)) {
-        // applying semantics to entire parsing result due to $schema and $id behavior of inheritance
+        // applying semantics to entire parsing result due to $schema and $id inheritance properties
         // @ts-ignore
         referencedElement = evaluate(selector, refractToSchemaElement(reference.value.result));
       } else {
@@ -398,7 +399,12 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      // merge keywords from referenced schema with referencing schema
+      // Boolean JSON Schemas
+      if (isBooleanJsonSchemaElement(referencedElement)) {
+        return referencedElement.clone();
+      }
+
+      // Schema Object - merge keywords from referenced schema with referencing schema
       const mergedResult = new SchemaElement(
         // @ts-ignore
         [...referencedElement.content],

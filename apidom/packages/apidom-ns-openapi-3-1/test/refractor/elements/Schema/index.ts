@@ -115,6 +115,22 @@ describe('refractor', function () {
           expect(sexprs(schemaElement)).toMatchSnapshot();
         });
       });
+
+      context('given Boolean JSON Schemas', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const schemaElement = SchemaElement.refract({
+            $defs: {
+              enabledToggle: { not: true },
+            },
+            allOf: [true, false],
+            dependentSchemas: {
+              key: { not: false },
+            },
+          });
+
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate, isStringElement } from 'apidom';
+import { createPredicate, isBooleanElement, isStringElement } from 'apidom';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
@@ -331,6 +331,10 @@ export const isSchemaElementExternal = (keyword: string, element: any) => {
   const value = element.get(keyword).toValue();
 
   return isNonEmptyString(value) && !startsWith('#', value);
+};
+
+export const isBooleanJsonSchemaElement = (element: any) => {
+  return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
 };
 
 export const isSecurityRequirementElement = createPredicate(

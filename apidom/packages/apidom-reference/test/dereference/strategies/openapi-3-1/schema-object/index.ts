@@ -20,7 +20,7 @@ describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
       context('Schema Object - $ref keyword from core vocabulary', function () {
-        context('given Reference Objects pointing internally and externally', function () {
+        context('given Schema Objects pointing internally and externally', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-external');
 
           specify('should dereference', async function () {
@@ -453,6 +453,20 @@ describe('dereference', function () {
           });
         });
 
+        context('given Boolean JSON Schemas', function () {
+          const fixturePath = path.join(rootFixturePath, 'boolean-json-schema');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects and maxDepth of dereference', function () {
           const fixturePath = path.join(rootFixturePath, 'max-depth');
 
@@ -473,7 +487,7 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects and maxDepth of resolution', function () {
+        context('given Schema Objects and maxDepth of resolution', function () {
           const fixturePath = path.join(rootFixturePath, 'max-depth');
 
           specify('should throw error', async function () {
@@ -573,7 +587,7 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects with indirect circular external reference', function () {
+        context('given Schema Objects with indirect circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 
           specify('should throw error', async function () {
@@ -589,7 +603,7 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects with indirect circular internal reference', function () {
+        context('given Schema Objects with indirect circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 
           specify('should throw error', async function () {

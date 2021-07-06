@@ -320,19 +320,6 @@ export const isSchemaElement = createPredicate(
   },
 );
 
-export const isSchemaElementExternal = (keyword: string, element: any) => {
-  if (!isSchemaElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.get(keyword))) {
-    return false;
-  }
-
-  const value = element.get(keyword).toValue();
-
-  return isNonEmptyString(value) && !startsWith('#', value);
-};
-
 export const isBooleanJsonSchemaElement = (element: any) => {
   return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
 };

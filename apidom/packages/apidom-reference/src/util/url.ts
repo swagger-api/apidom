@@ -1,5 +1,9 @@
 import { pathSatisfies, propOr, pipe, test, last } from 'ramda';
-import { isUndefined, isArray, replaceAll, isNotUndefined } from 'ramda-adjunct';
+import { isUndefined, replaceAll, isNotUndefined, trimCharsEnd } from 'ramda-adjunct';
+
+/**
+ * This file was highly influenced by: https://github.com/APIDevTools/json-schema-ref-parser
+ */
 
 type WindowsPredicate = () => boolean;
 
@@ -9,12 +13,12 @@ const isWindows: WindowsPredicate = () => pathSatisfies(test(/^win/), ['platform
  * Returns the protocol of the given URL, or `undefined` if it has no protocol.
  */
 export const getProtocol = (url: string): string | undefined => {
-  const protocolPattern = /^(\w{2,}):\/\//i;
-  const match = protocolPattern.exec(url);
-  if (isArray(match)) {
-    return match[1].toLowerCase();
+  try {
+    const parsedUrl = new URL(url);
+    return trimCharsEnd(':', parsedUrl.protocol);
+  } catch {
+    return undefined;
   }
-  return undefined;
 };
 
 /**
@@ -39,16 +43,37 @@ export const getExtension = (url: string): string => {
  * This includes "file://" URLs.
  */
 export const isFileSystemPath = (uri: string): boolean => {
+  // @ts-ignore
+  if (process.browser) {
+    /**
+     * We're running in a browser, so assume that all paths are URLs.
+     * This way, even relative paths will be treated as URLs rather than as filesystem paths.
+     */
+    return false;
+  }
+
   const protocol = getProtocol(uri);
-  return isUndefined(protocol) || protocol === 'file';
+  return isUndefined(protocol) || protocol === 'file' || /^[a-zA-Z]$/.test(protocol);
 };
 
 /**
- * Determines whether the given path is an HTTP(S) URL.
+ * Determines whether the given URI is an HTTP(S) URL.
  */
 export const isHttpUrl = (url: string): boolean => {
   const protocol = getProtocol(url);
   return protocol === 'http' || protocol === 'https';
+};
+
+/**
+ * Determines whether the given URI
+ * @param uri
+ */
+export const isURI = (uri: string): boolean => {
+  try {
+    return new URL(uri) && true;
+  } catch {
+    return false;
+  }
 };
 
 interface ToFileSystemPathOptions {

@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { hasIn, pathSatisfies, propEq } from 'ramda';
+import { hasIn, pathSatisfies, propEq, none } from 'ramda';
 import { isUndefined, isNotUndefined } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit, Element, find } from 'apidom';
 import {
@@ -16,17 +16,18 @@ import {
   isPathItemElementExternal,
   isLinkElementExternal,
   isOperationElement,
-  isSchemaElementExternal,
   isBooleanJsonSchemaElement,
 } from 'apidom-ns-openapi-3-1';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
-import { Reference as IReference } from '../../../types';
+import { evaluate as uriEvaluate } from './selectors/uri';
+import { Reference as IReference, Resolver as IResolver } from '../../../types';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
+import File from '../../../util/File';
 import {
   resolveInherited$id,
   refractToSchemaElement,
@@ -51,6 +52,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
     this.options = options;
   },
   methods: {
+    toBaseURI(uri: string): string {
+      const uriWithoutHash = url.stripHash(uri);
+      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
+        ? url.fromFileSystemPath(uriWithoutHash)
+        : uriWithoutHash;
+
+      return url.resolve(this.reference.uri, sanitizedURI);
+    },
+
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -59,11 +69,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-      const baseURI = url.resolve(this.reference.uri, sanitizedURI);
+      const baseURI = this.toBaseURI(uri);
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -329,17 +335,24 @@ const OpenApi3_1DereferenceVisitor = stampit({
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isSchemaElementExternal('$ref', referencingElement)) {
+
+      // compute baseURI using rules around $id and $ref keywords
+      const base$idURI = resolveInherited$id(referencingElement);
+      const baseURI = this.toBaseURI(base$idURI);
+      const file = File({ uri: baseURI });
+      const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
+      const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
+
+      // ignore resolving external Schema Objects
+      if (!this.options.resolve.external && isExternal) {
         // mark current referencing schema as visited
         this.visited.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
 
-      // compute Reference object using rules around $id and $ref keywords
-      const uri = resolveInherited$id(referencingElement);
-      const reference = await this.toReference(uri);
+      // compute Reference object
+      const reference = isUnknownURI ? this.reference : await this.toReference(base$idURI);
 
       this.indirections.push(referencingElement);
 
@@ -347,7 +360,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const $refValue = referencingElement.$ref?.toValue();
       let evaluate: any;
       let selector: string;
-      if (isAnchor(uriToAnchor($refValue))) {
+      if (isUnknownURI) {
+        // we're dealing with canonical URI with possible fragment
+        evaluate = uriEvaluate;
+        selector = url.resolve(reference.uri, $refValue);
+      } else if (isAnchor(uriToAnchor($refValue))) {
         // we're dealing with JSON Schema $anchor here
         evaluate = $anchorEvaluate;
         selector = uriToAnchor($refValue);
@@ -401,7 +418,12 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // Boolean JSON Schemas
       if (isBooleanJsonSchemaElement(referencedElement)) {
-        return referencedElement.clone();
+        const referencedElementClone = referencedElement.clone();
+        // annotate referenced element with info about original referencing element
+        referencedElementClone.setMetaProperty('ref-fields', {
+          $ref: referencingElement.$ref?.toValue(),
+        });
+        return referencedElementClone;
       }
 
       // Schema Object - merge keywords from referenced schema with referencing schema
@@ -418,7 +440,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       });
       mergedResult.remove('$ref');
 
-      // annotate referencing element with info about original referenced element
+      // annotate referenced element with info about original referencing element
       mergedResult.setMetaProperty('ref-fields', {
         $ref: referencingElement.$ref?.toValue(),
       });

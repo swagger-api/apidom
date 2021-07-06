@@ -250,6 +250,54 @@ describe('resolve', function () {
         });
 
         context(
+          'given Schema Objects with $ref keyword containing Uniform Resource Name',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$ref-urn');
+
+            specify('should resolve', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+
+              assert.strictEqual(refSet.size, 1);
+            });
+          },
+        );
+
+        context(
+          'given Schema Objects with $ref keyword containing Uniform Resource Name and JSON Pointer fragment',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$ref-urn-pointer');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+
+              assert.strictEqual(refSet.size, 1);
+            });
+          },
+        );
+
+        context(
+          'given Schema Objects with $ref keyword containing Uniform Resource Name and $anchor',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$ref-urn-$anchor');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+
+              assert.strictEqual(refSet.size, 1);
+            });
+          },
+        );
+
+        context(
           'given Schema Objects with $anchor keyword pointing to internal schema',
           function () {
             const fixturePath = path.join(rootFixturePath, '$anchor-internal');

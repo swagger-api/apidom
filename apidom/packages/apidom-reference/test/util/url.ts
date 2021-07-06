@@ -200,6 +200,10 @@ describe('util', function () {
       context('given from and to parameters', function () {
         specify('should resolve URI', function () {
           assert.strictEqual(resolve('/one/two/three', 'four'), '/one/two/four');
+          assert.strictEqual(resolve('file:///one/two/three', 'four'), 'file:///one/two/four');
+          assert.strictEqual(resolve('file:///one/two/three', './four'), 'file:///one/two/four');
+          assert.strictEqual(resolve('file:///one/two/three', '../four'), 'file:///one/four');
+          assert.strictEqual(resolve('file:///one/two/three', 'file:four'), 'file:///one/two/four');
           assert.strictEqual(resolve('http://example.com/', ''), 'http://example.com/');
           assert.strictEqual(resolve('http://example.com/', '/one'), 'http://example.com/one');
           assert.strictEqual(resolve('http://example.com/one', '/two'), 'http://example.com/two');

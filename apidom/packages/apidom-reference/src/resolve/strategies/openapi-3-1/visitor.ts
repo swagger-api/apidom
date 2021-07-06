@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { propEq, values, has, pipe } from 'ramda';
+import { propEq, values, has, pipe, none } from 'ramda';
 import { allP } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit } from 'apidom';
 import {
@@ -13,19 +13,20 @@ import {
   ExampleElement,
   SchemaElement,
   isReferenceElementExternal,
-  isSchemaElementExternal,
   isSchemaElement,
   isPathItemElement,
   isPathItemElementExternal,
   isLinkElementExternal,
 } from 'apidom-ns-openapi-3-1';
 
-import { Reference as IReference } from '../../../types';
+import { Reference as IReference, Resolver as IResolver } from '../../../types';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
+import File from '../../../util/File';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
+import { evaluate as uriEvaluate } from '../../../dereference/strategies/openapi-3-1/selectors/uri';
 import { refractToSchemaElement, resolveInherited$id } from './util';
 import {
   evaluate as $anchorEvaluate,
@@ -206,20 +207,24 @@ const OpenApi3_1ResolveVisitor = stampit({
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
+
+      // compute Reference object using rules around $id and $ref keywords
+      const base$idURI = resolveInherited$id(schemaElement);
+      const baseURI = this.toBaseURI(base$idURI);
+      const file = File({ uri: baseURI });
+      const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
+      const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
+
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isSchemaElementExternal('$ref', schemaElement)) {
+      if (!this.options.resolve.external && isExternal) {
         // mark current referencing schema as visited
         this.visited.add(schemaElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
 
-      // compute Reference object using rules around $id and $ref keywords
-      const uri = resolveInherited$id(schemaElement);
-      const baseURI = this.toBaseURI(uri);
-
       if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+        this.crawlingMap[baseURI] = isUnknownURI ? this.reference : this.toReference(base$idURI);
       }
       this.crawledElements.push(schemaElement);
 
@@ -320,8 +325,11 @@ const OpenApi3_1ResolveVisitor = stampit({
 
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute Reference object using rules around $id and $ref keywords
-      const uri = resolveInherited$id(referencingElement);
-      const reference = await this.toReference(uri);
+      const base$idURI = resolveInherited$id(referencingElement);
+      const baseURI = this.toBaseURI(base$idURI);
+      const file = File({ uri: baseURI });
+      const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
+      const reference = isUnknownURI ? this.reference : await this.toReference(base$idURI);
 
       this.indirections.push(referencingElement);
 
@@ -329,7 +337,11 @@ const OpenApi3_1ResolveVisitor = stampit({
       const $refValue = referencingElement.$ref?.toValue();
       let evaluate: any;
       let selector: string;
-      if (isAnchor(uriToAnchor($refValue))) {
+      if (isUnknownURI) {
+        // we're dealing with canonical URI with possible fragment
+        evaluate = uriEvaluate;
+        selector = url.resolve(reference.uri, $refValue);
+      } else if (isAnchor(uriToAnchor($refValue))) {
         // we're dealing with JSON Schema $anchor here
         evaluate = $anchorEvaluate;
         selector = uriToAnchor($refValue);

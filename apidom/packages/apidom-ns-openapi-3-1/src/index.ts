@@ -39,7 +39,6 @@ export {
   isResponseElement,
   isResponsesElement,
   isSchemaElement,
-  isSchemaElementExternal,
   isBooleanJsonSchemaElement,
   isSecurityRequirementElement,
   isServerElement,

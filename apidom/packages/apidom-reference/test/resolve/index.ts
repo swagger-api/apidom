@@ -29,15 +29,31 @@ describe('resolve', function () {
     });
 
     context('resolveApiDOM', function () {
-      specify('should resolve an ApiDOM fragment', async function () {
-        const fragment = await parse(rootFilePath, {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-        });
-        const refSet = await resolveApiDOM(fragment, {
-          resolve: { baseURI: rootFilePath },
-        });
+      context('given fragment is instance of ParseResultElement', function () {
+        specify('should resolve an ApiDOM fragment', async function () {
+          const fragment = await parse(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+          const refSet = await resolveApiDOM(fragment, {
+            resolve: { baseURI: rootFilePath },
+          });
 
-        assert.strictEqual(refSet.size, 2);
+          assert.strictEqual(refSet.size, 2);
+        });
+      });
+
+      context("given fragment isn't instance of ParseResultElement", function () {
+        specify('should resolve an ApiDOM fragment', async function () {
+          const { api } = await parse(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+          // @ts-ignore
+          const refSet = await resolveApiDOM(api, {
+            resolve: { baseURI: rootFilePath },
+          });
+
+          assert.strictEqual(refSet.size, 2);
+        });
       });
     });
   });

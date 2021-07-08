@@ -48,7 +48,6 @@ describe('dereference', function () {
 
           // @ts-ignore
           const actual = await dereferenceApiDOM(api, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             resolve: { baseURI: rootFilePath },
           });
 

@@ -35,7 +35,7 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
       }
 
       // assert by inspecting ApiDOM
-      return isOpenApi3_1Element(file.parseResult?.api);
+      return isOpenApi3_1Element(file.parseResult?.result);
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {

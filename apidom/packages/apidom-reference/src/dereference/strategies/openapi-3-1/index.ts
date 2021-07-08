@@ -38,7 +38,7 @@ const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
         }
 
         // assert by inspecting ApiDOM
-        return isOpenApi3_1Element(file.parseResult.result);
+        return isOpenApi3_1Element(file.parseResult?.result);
       },
 
       async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {

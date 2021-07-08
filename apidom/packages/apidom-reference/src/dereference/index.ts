@@ -16,15 +16,20 @@ export const dereferenceApiDOM = async <T extends Element>(
   element: T,
   options: IReferenceOptions,
 ): Promise<T> => {
-  let parseResult: ParseResultElement;
+  // @ts-ignore
+  let parseResult: ParseResultElement = element;
 
-  // wrap element into parse result and temporary mutate it with `result` metadata
+  // wrap element into parse result
   if (!isParseResultElement(element)) {
-    element.classes.push('result');
-    parseResult = new ParseResultElement([element]);
-  } else {
+    // shallow clone of the element
     // @ts-ignore
-    parseResult = element;
+    const elementClone = new element.constructor(
+      element.content,
+      element.meta.clone(),
+      element.attributes,
+    );
+    elementClone.classes.push('result');
+    parseResult = new ParseResultElement([elementClone]);
   }
 
   const file = File({
@@ -41,7 +46,6 @@ export const dereferenceApiDOM = async <T extends Element>(
 
   // we couldn't find any dereference for this File
   if (isEmpty(dereferenceStrategies)) {
-    element.classes.content.pop();
     throw new UnmatchedDereferenceStrategyError(file.uri);
   }
 
@@ -50,8 +54,6 @@ export const dereferenceApiDOM = async <T extends Element>(
     return result;
   } catch (error) {
     throw new DereferenceError(`Error while dereferencing file "${file.uri}"`, error);
-  } finally {
-    element.classes.content.pop();
   }
 };
 

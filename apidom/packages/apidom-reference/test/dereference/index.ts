@@ -29,13 +29,31 @@ describe('dereference', function () {
     });
 
     context('dereferenceApiDOM', function () {
-      specify('should dereference an ApiDOM fragment', async function () {
-        const fragment = await parse(rootFilePath, {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-        });
-        const actual = await dereferenceApiDOM(fragment, { resolve: { baseURI: rootFilePath } });
+      context('given fragment is instance of ParseResultElement', function () {
+        specify('should dereference an ApiDOM fragment', async function () {
+          const fragment = await parse(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+          const actual = await dereferenceApiDOM(fragment, { resolve: { baseURI: rootFilePath } });
 
-        assert.deepEqual(toValue(actual), expected);
+          assert.deepEqual(toValue(actual), expected);
+        });
+      });
+
+      context("given fragment isn't instance of ParseResultElement", function () {
+        specify('should dereference an ApiDOM fragment', async function () {
+          const { api } = await parse(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+
+          // @ts-ignore
+          const actual = await dereferenceApiDOM(api, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            resolve: { baseURI: rootFilePath },
+          });
+
+          assert.deepEqual(toValue(actual), expected);
+        });
       });
     });
   });

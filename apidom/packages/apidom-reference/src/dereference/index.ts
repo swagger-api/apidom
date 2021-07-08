@@ -1,9 +1,9 @@
 import { isEmpty, propEq } from 'ramda';
-import { Element, ParseResultElement } from 'apidom';
+import { Element, isParseResultElement, ParseResultElement } from 'apidom';
 
 import File from '../util/File';
 import * as plugins from '../util/plugins';
-import { UnmatchedResolveStrategyError } from '../util/errors';
+import { UnmatchedDereferenceStrategyError } from '../util/errors';
 import DereferenceError from '../util/errors/DereferenceError';
 import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
@@ -16,9 +16,20 @@ export const dereferenceApiDOM = async <T extends Element>(
   element: T,
   options: IReferenceOptions,
 ): Promise<T> => {
+  let parseResult: ParseResultElement;
+
+  // wrap element into parse result and temporary mutate it with `result` metadata
+  if (!isParseResultElement(element)) {
+    element.classes.push('result');
+    parseResult = new ParseResultElement([element]);
+  } else {
+    // @ts-ignore
+    parseResult = element;
+  }
+
   const file = File({
     uri: options.resolve.baseURI,
-    parseResult: element,
+    parseResult,
     mediaType: options.parse.mediaType,
   });
 
@@ -30,7 +41,8 @@ export const dereferenceApiDOM = async <T extends Element>(
 
   // we couldn't find any dereference for this File
   if (isEmpty(dereferenceStrategies)) {
-    throw new UnmatchedResolveStrategyError(file.uri);
+    element.classes.content.pop();
+    throw new UnmatchedDereferenceStrategyError(file.uri);
   }
 
   try {
@@ -38,6 +50,8 @@ export const dereferenceApiDOM = async <T extends Element>(
     return result;
   } catch (error) {
     throw new DereferenceError(`Error while dereferencing file "${file.uri}"`, error);
+  } finally {
+    element.classes.content.pop();
   }
 };
 

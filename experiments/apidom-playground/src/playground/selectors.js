@@ -20,6 +20,8 @@ export const selectInterpreter = (state) => state.interpreter;
 
 export const selectDereferenced = (state) => state.dereferenced;
 
+export const selectDereferencedInterpreter = (state) => state.dereferencedInterpreter;
+
 export const selectIsLoading = (state) => state.isLoading;
 
 export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType) => {

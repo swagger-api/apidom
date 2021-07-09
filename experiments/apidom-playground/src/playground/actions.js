@@ -44,14 +44,7 @@ export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (
 
 export const dereferenceApiDOM = createAsyncThunk(
   'playground/dereferenceApiDOMStatus',
-  async ({ source, apiDOM, mediaType, baseURI }, { extra: { apiDOMService } }) => {
-    return apiDOMService.dereferenceApiDOM(apiDOM, { source, mediaType, baseURI });
-  }
-);
-
-export const humanizeDereferencedApiDOM = createAsyncThunk(
-  'playground/humanizeDereferencedApiDOMStatus',
-  async ({ source, mediaType, dereferenced }, { extra: { apiDOMService } }) => {
-    return apiDOMService.humanizeDereferenced(dereferenced, { source, mediaType });
+  async ({ source, apiDOM, mediaType, baseURI, interpreter }, { extra: { apiDOMService } }) => {
+    return apiDOMService.dereferenceApiDOM(apiDOM, { source, mediaType, baseURI, interpreter });
   }
 );

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import * as Comlink from 'comlink';
-import { dehydrate, from, toValue } from 'apidom';
+import { dehydrate, from, sexprs, toValue } from 'apidom';
 import ApiDOMParser from 'apidom-parser';
 import * as jsonAdapter from 'apidom-parser-adapter-json';
 import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
@@ -44,24 +44,24 @@ const service = {
     return resolveApiDOMReferences(parseResult, { parse: { mediaType }, resolve: { baseURI } });
   },
 
-  async dereferenceApiDOM(apiDOM, { source, mediaType, baseURI }) {
+  async dereferenceApiDOM(apiDOM, { source, mediaType, baseURI, interpreter }) {
     const namespace = await parser.findNamespace(source, { mediaType });
     const parseResult = from(apiDOM, namespace);
     const dereferenced = await derefereceApiDOMReferences(parseResult.api, {
       parse: { mediaType },
       resolve: { baseURI },
     });
+
+    if (interpreter === 's-expression') {
+      return { dereferenced: sexprs(dereferenced), interpreter };
+    }
+    if (interpreter === 'to-value') {
+      const value = toValue(dereferenced);
+      return { dereferenced: JSON.stringify(value, undefined, 2), interpreter };
+    }
+    // dehydrate
     const refract = dehydrate(dereferenced, namespace);
-
-    return JSON.stringify(refract, undefined, 2);
-  },
-
-  async humanizeDereferenced(dereferenced, { source, mediaType }) {
-    const namespace = await parser.findNamespace(source, { mediaType });
-    const element = from(dereferenced, namespace);
-    const pojo = toValue(element, namespace);
-
-    return JSON.stringify(pojo, undefined, 2);
+    return { dereferenced: JSON.stringify(refract, undefined, 2), interpreter };
   },
 };
 

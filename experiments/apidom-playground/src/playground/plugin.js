@@ -11,7 +11,6 @@ import {
   resolveApiDOM,
   interpretApiDOM,
   dereferenceApiDOM,
-  humanizeDereferencedApiDOM,
 } from './actions';
 import {
   selectSource,
@@ -21,6 +20,7 @@ import {
   selectConsole,
   selectInterpreter,
   selectDereferenced,
+  selectDereferencedInterpreter,
   selectIsLoading,
   selectApiDOMNamespace,
   selectApiDOMInstance,
@@ -79,7 +79,6 @@ const ApiDOMPlaygroundPlugin = () => ({
         resolveApiDOM,
         interpretApiDOM,
         dereferenceApiDOM,
-        humanizeDereferencedApiDOM,
       },
       reducers,
       selectors: {
@@ -90,6 +89,7 @@ const ApiDOMPlaygroundPlugin = () => ({
         selectConsole,
         selectInterpreter,
         selectDereferenced,
+        selectDereferencedInterpreter,
         selectIsLoading,
         selectApiDOMNamespace,
         selectApiDOMInstance,

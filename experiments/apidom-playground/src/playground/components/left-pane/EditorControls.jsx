@@ -68,7 +68,7 @@ const EditorControls = () => {
   };
   const handleApiDOMDereference = () => {
     handleApiDOMDereferenceDialogOpen();
-    dereferenceApiDOM({ source, apiDOM, mediaType, baseURI });
+    dereferenceApiDOM({ source, apiDOM, mediaType, baseURI, interpreter: 'dehydrate' });
   };
 
   return (

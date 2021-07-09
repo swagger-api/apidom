@@ -10,7 +10,6 @@ import {
   resolveApiDOM,
   interpretApiDOM,
   dereferenceApiDOM,
-  humanizeDereferencedApiDOM,
 } from './actions';
 
 export const initialState = {
@@ -21,6 +20,7 @@ export const initialState = {
   console: '',
   interpreter: '',
   dereferenced: '',
+  dereferencedInterpreter: 'dehydrate',
   isLoading: false,
 };
 
@@ -98,15 +98,14 @@ const reducers = {
     return { ...state, isLoading: true };
   },
   [dereferenceApiDOM.fulfilled]: (state, action) => {
-    return { ...state, dereferenced: action.payload, isLoading: false };
+    const { dereferenced, interpreter } = action.payload;
+
+    return { ...state, dereferenced, dereferencedInterpreter: interpreter, isLoading: false };
   },
   [dereferenceApiDOM.rejected]: (state, action) => {
     const consoleLines = `${state.console}> ${action.error.message}\n   ${action.error.stack}\n`;
 
     return { ...state, console: consoleLines, isLoading: false };
-  },
-  [humanizeDereferencedApiDOM.fulfilled]: (state, action) => {
-    return { ...state, dereferenced: action.payload };
   },
 };
 

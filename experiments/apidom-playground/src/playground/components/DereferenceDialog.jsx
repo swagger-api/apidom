@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSystemSelector, useSystemActionCreatorBound } from 'swagger-adjust';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -31,7 +32,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const ApiDOMInterpreterDialog = ({ open, onClose }) => {
-  const [isHumanized, setHumanized] = useState(false);
   const classes = useStyles();
   const inputRef = useRef();
   const source = useSystemSelector('playground', 'selectSource');
@@ -39,23 +39,21 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
   const baseURI = useSystemSelector('playground', 'selectBaseURI');
   const mediaType = useSystemSelector('playground', 'selectMediaType');
   const dereferenced = useSystemSelector('playground', 'selectDereferenced');
-  const humanizeDereferencedApiDOM = useSystemActionCreatorBound(
-    'playground',
-    'humanizeDereferencedApiDOM'
-  );
+  const interpreter = useSystemSelector('playground', 'selectDereferencedInterpreter');
   const dereferenceApiDOM = useSystemActionCreatorBound('playground', 'dereferenceApiDOM');
 
-  const handleHumanization = () => {
-    humanizeDereferencedApiDOM({ source, mediaType, dereferenced });
-    setHumanized(true);
+  const handleDehydrate = () => {
+    dereferenceApiDOM({ source, mediaType, apiDOM, baseURI, interpreter: 'dehydrate' });
   };
-  const handleDehumanization = () => {
-    dereferenceApiDOM({ source, mediaType, apiDOM, baseURI });
-    setHumanized(false);
+  const handleSExpression = () => {
+    dereferenceApiDOM({ source, mediaType, apiDOM, baseURI, interpreter: 's-expression' });
   };
+  const handleToValue = () => {
+    dereferenceApiDOM({ source, mediaType, apiDOM, baseURI, interpreter: 'to-value' });
+  };
+
   const handleClose = () => {
-    dereferenceApiDOM({ source, mediaType, apiDOM, baseURI });
-    setHumanized(false);
+    handleDehydrate();
     onClose();
   };
 
@@ -92,15 +90,21 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
         </FormControl>
         <Box mt={2}>
           <Grid container item justify="center">
-            {isHumanized ? (
-              <Button variant="contained" color="primary" onClick={handleDehumanization}>
-                Dehumanize
+            <ButtonGroup
+              variant="contained"
+              color="primary"
+              aria-label="contained primary button group"
+            >
+              <Button disabled={interpreter === 'dehydrate'} onClick={handleDehydrate}>
+                Dehydrate
               </Button>
-            ) : (
-              <Button variant="contained" color="primary" onClick={handleHumanization}>
-                Humanize
+              <Button disabled={interpreter === 's-expression'} onClick={handleSExpression}>
+                S-expression
               </Button>
-            )}
+              <Button disabled={interpreter === 'to-value'} onClick={handleToValue}>
+                Value
+              </Button>
+            </ButtonGroup>
           </Grid>
         </Box>
       </DialogContent>

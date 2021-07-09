@@ -73,17 +73,19 @@ export const selectCanParse = createSelector(selectSource, selectMediaType, (sou
 });
 
 export const selectCanResolve = createSelector(
+  selectBaseURI,
   selectApiDOM,
   selectMediaType,
-  (apiDOM, mediaType) => {
-    return isNonEmptyString(apiDOM) && isNonEmptyString(mediaType);
+  (baseURI, apiDOM, mediaType) => {
+    return isNonEmptyString(baseURI) && isNonEmptyString(apiDOM) && isNonEmptyString(mediaType);
   }
 );
 
 export const selectCanDereference = createSelector(
+  selectBaseURI,
   selectApiDOM,
   selectMediaType,
-  (apiDOM, mediaType) => {
-    return isNonEmptyString(apiDOM) && isNonEmptyString(mediaType);
+  (baseURI, apiDOM, mediaType) => {
+    return isNonEmptyString(baseURI) && isNonEmptyString(apiDOM) && isNonEmptyString(mediaType);
   }
 );

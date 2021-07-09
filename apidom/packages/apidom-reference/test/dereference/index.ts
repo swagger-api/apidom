@@ -51,7 +51,7 @@ describe('dereference', function () {
             resolve: { baseURI: rootFilePath },
           });
 
-          assert.deepEqual(toValue(actual), expected);
+          assert.deepEqual(toValue(actual), expected[0]);
         });
       });
     });

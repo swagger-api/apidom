@@ -76,6 +76,10 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
           Interpreter function is a pure function that receives an Element instance and returns
           string representation of an Element.
         </Typography>
+        <Typography variant="caption" display="block" color="textSecondary" gutterBottom>
+          There are also couple of pre-defined handy interpreters: <strong>s-expression</strong>,{' '}
+          <strong>to-value</strong>
+        </Typography>
       </DialogContent>
     </Dialog>
   );

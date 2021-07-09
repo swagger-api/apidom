@@ -1,6 +1,6 @@
 import { createSelector } from 'swagger-adjust';
 import { isEmptyString, isNonEmptyString, isNull } from 'ramda-adjunct';
-import { from, traverse, createNamespace } from 'apidom';
+import { from, traverse, createNamespace, sexprs, toValue } from 'apidom';
 /* eslint-disable camelcase */
 import openApi3_1NsPlugin from 'apidom-ns-openapi-3-1';
 import asyncApi2_0NsPlugin from 'apidom-ns-asyncapi-2-0';
@@ -56,6 +56,14 @@ export const selectApiDOMInterpretation = createSelector(
   (element, apiDOM, interpreter) => {
     if (element === null || isEmptyString(interpreter)) {
       return apiDOM;
+    }
+
+    // pre-defined interpreters
+    if (interpreter.toLowerCase() === 's-expression') {
+      return sexprs(element);
+    }
+    if (interpreter.toLowerCase() === 'to-value') {
+      return JSON.stringify(toValue(element), null, 2);
     }
 
     const callback = eval(interpreter); // eslint-disable-line no-eval

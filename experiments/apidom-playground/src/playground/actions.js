@@ -34,6 +34,10 @@ export const resolveApiDOM = createAsyncThunk(
 );
 
 export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (interpreter) => {
+  // pre-defined interpreters
+  if (['to-value', 's-expression'].includes(interpreter.toLowerCase())) {
+    return interpreter;
+  }
   eval(interpreter); // eslint-disable-line no-eval
   return interpreter;
 });

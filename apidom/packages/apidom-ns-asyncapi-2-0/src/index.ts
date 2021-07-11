@@ -32,6 +32,7 @@ export {
   isReferenceElement,
   isReferenceElementExternal,
   isSchemaElement,
+  isBooleanJsonSchemaElement,
   isSecurityRequirementElement,
   isServerElement,
   isServerBindingsElement,

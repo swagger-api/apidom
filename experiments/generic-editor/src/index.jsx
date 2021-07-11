@@ -26,6 +26,21 @@ import './index.scss';
 // import App from './AppAsFunc';
 import App from './App';
 
+if (window.addEventListener) {
+  window.addEventListener('unhandledrejection', function (event) {
+    if (event.reason && event.reason.name === 'Canceled') {
+      // monaco editor promise cancelation
+      event.preventDefault();
+    }
+  });
+} else {
+  window.attachEvent('unhandledrejection', function (event) {
+    if (event.reason && event.reason.name === 'Canceled') {
+      // monaco editor promise cancelation
+      event.preventDefault();
+    }
+  });
+}
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function

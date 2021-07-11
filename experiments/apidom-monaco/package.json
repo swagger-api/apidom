@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "monaco-editor-core": "^0.20.0",
-    "monaco-languageclient": "^0.13.0",
-    "vscode-json-languageservice": "^3.8.1"
+    "monaco-languageclient": "^0.13.1-next.4",
+    "vscode-languageserver": "^7.0.0",
+    "vscode-languageserver-textdocument": "^1.0.1"
   }
 }

@@ -12,7 +12,7 @@ Change directory to `./apidom/` monorepo and run following commands:
  $ npm run build
 ```
 
-Now change directory to `./experiment/sapidom-monaco` and run following commands:
+Now change directory to `./experiments/apidom-monaco` and run following commands:
 
 ```sh
  $ npm i
@@ -21,4 +21,3 @@ Now change directory to `./experiment/sapidom-monaco` and run following commands
 
 Edit files in `./src` directory for experimenting with ApiDOM and Monca integration.
 
- 

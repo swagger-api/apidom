@@ -6,6 +6,7 @@ import {
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  SchemaElement,
   isReferenceElementExternal,
 } from 'apidom-ns-asyncapi-2-0';
 
@@ -22,12 +23,20 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 const AsyncApi2_0DereferenceVisitor = stampit({
   props: {
     indirections: [],
+    visited: null,
     namespace: null,
     reference: null,
     options: null,
   },
-  init({ reference, namespace, indirections = [], options }) {
+  init({
+    indirections = [],
+    visited = { SchemaElement: new WeakSet(), ReferenceElement: new WeakSet() },
+    reference,
+    namespace,
+    options,
+  }) {
     this.indirections = indirections;
+    this.visited = visited;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
@@ -53,7 +62,10 @@ const AsyncApi2_0DereferenceVisitor = stampit({
         return refSet.find(propEq('uri', baseURI));
       }
 
-      const parseResult = await parse(baseURI, this.options);
+      const parseResult = await parse(baseURI, {
+        ...this.options,
+        parse: { ...this.options.parse, mediaType: 'text/plain' },
+      });
 
       // register new Reference with ReferenceSet
       const reference = Reference({
@@ -67,39 +79,53 @@ const AsyncApi2_0DereferenceVisitor = stampit({
       return reference;
     },
 
-    async ReferenceElement(referenceElement: ReferenceElement) {
+    async ReferenceElement(referencingElement: ReferenceElement) {
+      /**
+       * Skip traversal for already visited ReferenceElement.
+       * visit function detects cycles in path automatically.
+       */
+      if (this.visited.ReferenceElement.has(referencingElement)) {
+        return undefined;
+      }
+
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
-        return false;
+      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
+        // mark current referencing schema as visited
+        this.visited.ReferenceElement.add(referencingElement);
+        // skip traversing this schema but traverse all it's child schemas
+        return undefined;
       }
 
       // @ts-ignore
-      const reference = await this.toReference(referenceElement.$ref.toValue());
+      const reference = await this.toReference(referencingElement.$ref.toValue());
 
-      this.indirections.push(referenceElement);
+      this.indirections.push(referencingElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referencingElement.$ref.toValue());
 
       // possibly non-semantic fragment
-      let fragment = evaluate(jsonPointer, reference.value.result);
+      let referencedElement = evaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
-      if (isPrimitiveElement(fragment)) {
-        const referencedElementType = referenceElement.meta.get('referenced-element').toValue();
+      if (isPrimitiveElement(referencedElement)) {
+        const referencedElementType = referencingElement.meta.get('referenced-element').toValue();
 
-        if (isReferenceLikeElement(fragment)) {
+        if (isReferenceLikeElement(referencedElement)) {
           // handling indirect references
-          fragment = ReferenceElement.refract(fragment);
-          fragment.setMetaProperty('referenced-element', referencedElementType);
+          referencedElement = ReferenceElement.refract(referencedElement);
+          referencedElement.setMetaProperty('referenced-element', referencedElementType);
         } else {
           // handling direct references
           const ElementClass = this.namespace.getElementClass(referencedElementType);
-          fragment = ElementClass.refract(fragment);
+          referencedElement = ElementClass.refract(referencedElement);
         }
       }
 
+      // mark current ReferenceElement as visited
+      this.visited.ReferenceElement.add(referencingElement);
+
       // detect direct or circular reference
-      if (this.indirections.includes(fragment)) {
+      if (this.indirections.includes(referencedElement)) {
         throw new Error('Recursive JSON Pointer detected');
       }
 
@@ -116,19 +142,44 @@ const AsyncApi2_0DereferenceVisitor = stampit({
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        // ReferenceElement must be reset for deep dive, as we want to dereference all indirections
+        visited: { SchemaElement: this.visited.SchemaElement, ReferenceElement: new WeakSet() },
       });
-      fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
-
-      // annotate fragment with info about original Reference element
-      fragment = fragment.clone();
-      fragment.setMetaProperty('ref-fields', {
-        $ref: referenceElement.$ref.toValue(),
+      referencedElement = await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
       });
 
       this.indirections.pop();
 
-      // transclude the element for a fragment
-      return fragment;
+      // @ts-ignore
+      referencedElement = new referencedElement.constructor( // shallow clone of the referenced element
+        referencedElement.content,
+        referencedElement.meta.clone(),
+        referencedElement.attributes.clone(),
+      );
+
+      // annotate referenced element with info about original referencing element
+      referencedElement.setMetaProperty('ref-fields', {
+        $ref: referencingElement.$ref.toValue(),
+      });
+
+      // transclude referencing element with merged referenced element
+      return referencedElement;
+    },
+
+    async SchemaElement(schemaElement: SchemaElement) {
+      /**
+       * Skip traversal for already visited schemas and all their child schemas.
+       * visit function detects cycles in path automatically.
+       */
+      if (this.visited.SchemaElement.has(schemaElement)) {
+        return false;
+      }
+
+      this.visited.SchemaElement.add(schemaElement);
+
+      return undefined;
     },
   },
 });

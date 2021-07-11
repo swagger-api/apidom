@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate } from 'apidom';
+import { createPredicate, isBooleanElement } from 'apidom';
 
 import AsyncApi2_0Element from './elements/AsyncApi2-0';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -213,6 +213,10 @@ export const isSchemaElement = createPredicate(
     );
   },
 );
+
+export const isBooleanJsonSchemaElement = (element: any) => {
+  return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
+};
 
 export const isSecurityRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

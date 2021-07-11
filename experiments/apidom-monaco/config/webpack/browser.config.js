@@ -68,11 +68,12 @@ const browser = {
     alias: {
       ...apidomPackage("apidom"),
       ...apidomPackage("apidom-ast"),
-      ...apidomPackage("apidom-ns-asyncapi2-0"),
-      ...apidomPackage("apidom-ns-openapi3-1"),
+      ...apidomPackage("apidom-ns-asyncapi-2-0"),
+      ...apidomPackage("apidom-ns-openapi-3-1"),
       ...apidomPackage("apidom-parser"),
-      ...apidomPackage("apidom-parser-adapter-asyncapi2-0-json"),
-      ...apidomPackage("apidom-parser-adapter-openapi3-1-json"),
+      ...apidomPackage("apidom-parser-adapter-asyncapi-json-2-0"),
+      ...apidomPackage("apidom-parser-adapter-openapi-json-3-1"),
+      ...apidomPackage("apidom-ls"),
     },
   },
   module: {
@@ -125,7 +126,7 @@ const browser = {
     hot: true,
     open: true,
     host,
-    port: 3000,
+    port: 3001,
     // public path is root of content base
     publicPath: "/",
   },

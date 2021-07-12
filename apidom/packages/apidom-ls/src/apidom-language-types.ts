@@ -29,6 +29,11 @@ export enum SUPPORTED_LANGUAGES {
   ASYNCAPI_20,
 }
 
+export enum FORMAT {
+  JSON,
+  YAML,
+}
+
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
@@ -51,6 +56,11 @@ export interface ValidationContext {
 
 export interface CompletionContext {
   maxNumberOfItems?: number;
+}
+
+export interface DerefContext {
+  format?: FORMAT;
+  baseURI?: string;
 }
 
 export interface SymbolsContext {
@@ -87,6 +97,8 @@ export interface LanguageService {
   getSemanticTokensLegend(): SemanticTokensLegend;
 
   doHover(document: TextDocument, position: Position): PromiseLike<Hover | undefined>;
+
+  doDeref(document: TextDocument, context?: DerefContext): PromiseLike<string>;
 
   doCodeActions(
     textDocument: TextDocument,

@@ -44,7 +44,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     textDocument: TextDocument,
     api: Element,
     validationContext?: ValidationContext,
-  ): PromiseLike<Diagnostic[]> {
+  ): Promise<Diagnostic[]> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return new Promise<Diagnostic[]>((resolve, reject) => {
       const diagnostics: Diagnostic[] = [];
@@ -149,7 +149,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
-  ): PromiseLike<CompletionList> {
+  ): Promise<CompletionList> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const position =
       'position' in completionParamsOrPosition

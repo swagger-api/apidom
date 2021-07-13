@@ -18,9 +18,9 @@ export interface ValidationService {
   doValidation(
     textDocument: TextDocument,
     validationContext?: ValidationContext,
-  ): PromiseLike<Diagnostic[]>;
+  ): Promise<Diagnostic[]>;
 
-  doCodeActions(textDocument: TextDocument, parms: CodeActionParams): PromiseLike<CodeAction[]>;
+  doCodeActions(textDocument: TextDocument, parms: CodeActionParams): Promise<CodeAction[]>;
 
   configure(settings: LanguageSettings): void;
 }
@@ -31,7 +31,7 @@ export interface ValidationProvider {
     textDocument: TextDocument,
     api: Element,
     validationContext?: ValidationContext,
-  ): PromiseLike<Diagnostic[]>;
+  ): Promise<Diagnostic[]>;
 
   configure(settings: LanguageSettings): void;
 }
@@ -69,146 +69,147 @@ export class DefaultValidationService implements ValidationService {
     return meta;
   }
 
-  public doValidation(
+  public async doValidation(
     textDocument: TextDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationContext?: ValidationContext,
-  ): PromiseLike<Diagnostic[]> {
+  ): Promise<Diagnostic[]> {
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
 
-    return parser.parse(text, { sourceMap: true }).then((result) => {
-      const { api } = result;
-      if (!api) {
-        return diagnostics;
-      }
-      // TODO use the type related metadata at root level defining the tokenTypes and modifiers
-      setMetadataMap(
-        api,
-        isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-        this.settings?.metadata?.metadataMaps,
-      ); // TODO move to parser/adapter, extending the one standard
-      api.freeze(); // !! freeze and add parent !!
-      if (result.annotations) {
-        for (const annotation of result.annotations) {
-          if (
-            validationContext &&
-            validationContext.maxNumberOfProblems &&
-            diagnostics.length > validationContext.maxNumberOfProblems
-          ) {
-            return diagnostics;
-          }
-          const nodeSourceMap = getSourceMap(annotation);
-          const location = { offset: nodeSourceMap.offset, length: 1 };
-          const range = Range.create(
-            textDocument.positionAt(location.offset),
-            textDocument.positionAt(location.offset + location.length),
-          );
-          const diagnostic = Diagnostic.create(
-            range,
-            annotation.toValue(),
-            DiagnosticSeverity.Error,
-            0,
-          );
-          if (validationContext && validationContext.relatedInformation) {
-            diagnostic.relatedInformation = [
-              {
-                location: {
-                  uri: textDocument.uri,
-                  range: { ...diagnostic.range },
-                },
-                message: 'Syntax error while parsing',
-              },
-              {
-                location: {
-                  uri: textDocument.uri,
-                  range: { ...diagnostic.range },
-                },
-                message: 'more things',
-              },
-            ];
-          }
+    // parse
+    const result = await parser.parse(text, { sourceMap: true });
+    const { api } = result;
 
-          diagnostics.push(diagnostic);
+    // no API document has been parsed
+    if (api === undefined) return diagnostics;
+
+    // TODO use the type related metadata at root level defining the tokenTypes and modifiers
+    setMetadataMap(
+      api,
+      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
+      this.settings?.metadata?.metadataMaps,
+    ); // TODO move to parser/adapter, extending the one standard
+    api.freeze(); // !! freeze and add parent !!
+    if (result.annotations) {
+      for (const annotation of result.annotations) {
+        if (
+          validationContext &&
+          validationContext.maxNumberOfProblems &&
+          diagnostics.length > validationContext.maxNumberOfProblems
+        ) {
+          return diagnostics;
         }
+        const nodeSourceMap = getSourceMap(annotation);
+        const location = { offset: nodeSourceMap.offset, length: 1 };
+        const range = Range.create(
+          textDocument.positionAt(location.offset),
+          textDocument.positionAt(location.offset + location.length),
+        );
+        const diagnostic = Diagnostic.create(
+          range,
+          annotation.toValue(),
+          DiagnosticSeverity.Error,
+          0,
+        );
+        if (validationContext && validationContext.relatedInformation) {
+          diagnostic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: { ...diagnostic.range },
+              },
+              message: 'Syntax error while parsing',
+            },
+            {
+              location: {
+                uri: textDocument.uri,
+                range: { ...diagnostic.range },
+              },
+              message: 'more things',
+            },
+          ];
+        }
+
+        diagnostics.push(diagnostic);
       }
-      const hasSyntaxErrors = !!diagnostics.length;
-      if (!hasSyntaxErrors) {
-        // TODO try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-        this.jsonSchemaValidationService
-          .doValidation(textDocument, api, validationContext)
-          .then((jsonSchemaDiagnostics) => {
-            diagnostics.push(...jsonSchemaDiagnostics);
-          });
-      }
+    }
+    const hasSyntaxErrors = !!diagnostics.length;
+    if (!hasSyntaxErrors) {
+      // TODO try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      this.jsonSchemaValidationService
+        .doValidation(textDocument, api, validationContext)
+        .then((jsonSchemaDiagnostics) => {
+          diagnostics.push(...jsonSchemaDiagnostics);
+        });
+    }
 
-      const lint = (element: Element) => {
-        const sm = getSourceMap(element);
-        if (element.classes) {
-          const set: string[] = Array.from(new Set(element.classes.toValue()));
-          // add element value to the set (e.g. 'pathItem', 'operation'
-          if (!set.includes(element.element)) {
-            set.unshift(element.element);
-          }
-          set.unshift('*');
-          set.forEach((s) => {
-            // get linter meta from meta
-            const linterMeta = DefaultValidationService.getMetadataPropertyLint(api, s);
-            if (linterMeta && linterMeta.length > 0) {
-              for (const meta of linterMeta) {
-                const linterFuncName = meta.linterFunction;
-                if (linterFuncName) {
-                  // call linter function
+    const lint = (element: Element) => {
+      const sm = getSourceMap(element);
+      if (element.classes) {
+        const set: string[] = Array.from(new Set(element.classes.toValue()));
+        // add element value to the set (e.g. 'pathItem', 'operation'
+        if (!set.includes(element.element)) {
+          set.unshift(element.element);
+        }
+        set.unshift('*');
+        set.forEach((s) => {
+          // get linter meta from meta
+          const linterMeta = DefaultValidationService.getMetadataPropertyLint(api, s);
+          if (linterMeta && linterMeta.length > 0) {
+            for (const meta of linterMeta) {
+              const linterFuncName = meta.linterFunction;
+              if (linterFuncName) {
+                // call linter function
 
-                  const lintFunc = this.settings?.metadata?.linterFunctions[
-                    isAsyncDoc(text) ? 'asyncapi' : 'openapi'
-                  ][linterFuncName];
-                  if (lintFunc) {
-                    try {
-                      const lintRes = lintFunc(element);
-                      if (!lintRes) {
-                        // add to diagnostics
-                        let lintSm = sm;
-                        if (meta.marker === 'key') {
-                          const { parent } = element;
-                          if (parent && isMember(parent) && parent.key !== element) {
-                            lintSm = getSourceMap(parent.key as Element);
-                          }
+                const lintFunc = this.settings?.metadata?.linterFunctions[
+                  isAsyncDoc(text) ? 'asyncapi' : 'openapi'
+                ][linterFuncName];
+                if (lintFunc) {
+                  try {
+                    const lintRes = lintFunc(element);
+                    if (!lintRes) {
+                      // add to diagnostics
+                      let lintSm = sm;
+                      if (meta.marker === 'key') {
+                        const { parent } = element;
+                        if (parent && isMember(parent) && parent.key !== element) {
+                          lintSm = getSourceMap(parent.key as Element);
                         }
-                        const location = { offset: lintSm.offset, length: lintSm.length };
-                        const range = Range.create(
-                          textDocument.positionAt(location.offset),
-                          textDocument.positionAt(location.offset + location.length),
-                        );
-
-                        const diagnostic = Diagnostic.create(
-                          range,
-                          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                          meta.message!,
-                          meta.severity,
-                          meta.code,
-                        );
-                        diagnostic.source = meta.source;
-                        if (meta.data) {
-                          diagnostic.data = meta.data;
-                        }
-                        diagnostics.push(diagnostic);
                       }
-                    } catch (e) {
-                      // eslint-disable-next-line no-console
-                      console.log('validation lint error', JSON.stringify(e));
+                      const location = { offset: lintSm.offset, length: lintSm.length };
+                      const range = Range.create(
+                        textDocument.positionAt(location.offset),
+                        textDocument.positionAt(location.offset + location.length),
+                      );
+
+                      const diagnostic = Diagnostic.create(
+                        range,
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        meta.message!,
+                        meta.severity,
+                        meta.code,
+                      );
+                      diagnostic.source = meta.source;
+                      if (meta.data) {
+                        diagnostic.data = meta.data;
+                      }
+                      diagnostics.push(diagnostic);
                     }
+                  } catch (e) {
+                    // eslint-disable-next-line no-console
+                    console.log('validation lint error', JSON.stringify(e));
                   }
                 }
               }
             }
-          });
-        }
-      };
-      traverse(lint, api);
-      return diagnostics;
-    });
+          }
+        });
+      }
+    };
+    traverse(lint, api);
+    return diagnostics;
   }
 
   // try to retrieve data from diagnostic from client, if not present use metadata
@@ -249,7 +250,7 @@ export class DefaultValidationService implements ValidationService {
   public doCodeActions(
     textDocument: TextDocument,
     parmsOrDiagnostics: CodeActionParams | Diagnostic[],
-  ): PromiseLike<CodeAction[]> {
+  ): Promise<CodeAction[]> {
     const diagnostics =
       'context' in parmsOrDiagnostics ? parmsOrDiagnostics.context.diagnostics : parmsOrDiagnostics;
     const documentUri =

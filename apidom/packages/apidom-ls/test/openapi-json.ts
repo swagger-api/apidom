@@ -6,14 +6,15 @@ import {
   CompletionList,
   Diagnostic,
   DiagnosticSeverity,
-  Position,
   Hover,
+  Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
   CompletionContext,
+  FORMAT,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
@@ -34,6 +35,12 @@ const specHighlight = fs
 
 const specLinterUpper = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-upper.json'))
+  .toString();
+
+const specDeref = fs.readFileSync(path.join(__dirname, 'fixtures', 'deref/root.json')).toString();
+const derefBaseURI = path.join(__dirname, 'fixtures', 'deref/').toString();
+const specDereferenced = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/dereferenced.json'))
   .toString();
 
 const completionTestInput = [
@@ -518,5 +525,16 @@ describe('apidom-ls', function () {
       const result = await languageService.doHover(doc, pos);
       assert.deepEqual(result, input[3] as Hover);
     }
+  });
+
+  it('test deref', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
+
+    const languageService: LanguageService = getLanguageService(context);
+    const result = await languageService.doDeref(doc, {
+      format: FORMAT.JSON,
+      baseURI: derefBaseURI,
+    });
+    assert.equal(result, specDereferenced.substr(0, specDereferenced.length - 1));
   });
 });

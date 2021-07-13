@@ -12,7 +12,7 @@ import { SourceMap, getSourceMap, isMember, setMetadataMap } from '../../utils/u
 import { getParser, isAsyncDoc } from '../../parser-factory';
 
 export interface SemanticTokensService {
-  computeSemanticTokens(textDocument: TextDocument): PromiseLike<SemanticTokens>;
+  computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
 
   configure(settings?: LanguageSettings): void;
 
@@ -94,123 +94,123 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  computeSemanticTokens(textDocument: TextDocument): PromiseLike<SemanticTokens> {
+  public async computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens> {
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
     const tokens: number[][] = [];
 
-    return parser.parse(text, { sourceMap: true }).then((result) => {
-      const { api } = result;
-      // if we cannot parse nothing to do
-      if (!api) {
-        return {
-          data: tokens.flat(),
-        } as SemanticTokens;
-      }
-      // TODO use the type related metadata at root level defining the tokenTypes and modifiers
-      setMetadataMap(
-        api,
-        isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-        this.settings?.metadata?.metadataMaps,
-      ); // TODO move to parser/adapter, extending the one standard
-      api.freeze(); // !! freeze and add parent !!
+    // parse
+    const { api } = await parser.parse(text, { sourceMap: true });
 
-      let lastLine = 0;
-      let lastColumn = 0;
-
-      const processed: Element[] = [];
-
-      const buildTokens = (element: Element) => {
-        let foundClasses = false;
-        let parentNode = false;
-
-        if (element.classes) {
-          const set: string[] = Array.from(new Set(element.classes.toValue()));
-          // add element value to the set (e.g. 'pathItem', 'operation'
-          set.unshift(element.element);
-          set.unshift('*');
-          set.forEach((s) => {
-            if (DefaultSemanticTokensService.allClasses().includes(s)) {
-              foundClasses = true;
-              let sm: SourceMap;
-              if (element.parent && isMember(element.parent)) {
-                sm = getSourceMap(element.parent.key as Element);
-                parentNode = true;
-                processed.push(element.parent.key as Element);
-              } else {
-                sm = getSourceMap(element);
-                processed.push(element);
-              }
-              let modifier = 0;
-              if (s === 'operation') {
-                // check for httpMethod
-                modifier = DefaultSemanticTokensService.getTokenModifiers([
-                  `httpMethod-${element.getMetaProperty('httpMethod', 'GET').toValue()}`,
-                ]);
-              }
-              const token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType(s),
-                modifier,
-              ];
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-            }
-          });
-        }
-        if (!processed.includes(element) && (!foundClasses || parentNode)) {
-          if (isStringElement(element) || isNumberElement(element)) {
-            const sm: SourceMap = getSourceMap(element);
-            let token;
-            if (element.parent && isMember(element.parent) && element.parent.value === element) {
-              // this is a value
-              token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType('value'),
-                DefaultSemanticTokensService.getTokenModifiers(
-                  isStringElement(element) ? ['string'] : ['number'],
-                ),
-              ];
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-
-              // } else {
-            } else if (
-              !(element.parent && isMember(element.parent) && element.parent.key === element)
-            ) {
-              // just a string or number
-              token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType(
-                  isStringElement(element) ? 'string' : 'number',
-                ),
-                0,
-              ];
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-            }
-          }
-        }
-      };
-
-      traverse(buildTokens, api);
-
+    // if we cannot parse nothing to do
+    if (api === undefined)
       return {
         data: tokens.flat(),
       } as SemanticTokens;
-    });
+
+    // TODO use the type related metadata at root level defining the tokenTypes and modifiers
+    setMetadataMap(
+      api,
+      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
+      this.settings?.metadata?.metadataMaps,
+    ); // TODO move to parser/adapter, extending the one standard
+    api.freeze(); // !! freeze and add parent !!
+
+    let lastLine = 0;
+    let lastColumn = 0;
+
+    const processed: Element[] = [];
+
+    const buildTokens = (element: Element) => {
+      let foundClasses = false;
+      let parentNode = false;
+
+      if (element.classes) {
+        const set: string[] = Array.from(new Set(element.classes.toValue()));
+        // add element value to the set (e.g. 'pathItem', 'operation'
+        set.unshift(element.element);
+        set.unshift('*');
+        set.forEach((s) => {
+          if (DefaultSemanticTokensService.allClasses().includes(s)) {
+            foundClasses = true;
+            let sm: SourceMap;
+            if (element.parent && isMember(element.parent)) {
+              sm = getSourceMap(element.parent.key as Element);
+              parentNode = true;
+              processed.push(element.parent.key as Element);
+            } else {
+              sm = getSourceMap(element);
+              processed.push(element);
+            }
+            let modifier = 0;
+            if (s === 'operation') {
+              // check for httpMethod
+              modifier = DefaultSemanticTokensService.getTokenModifiers([
+                `httpMethod-${element.getMetaProperty('httpMethod', 'GET').toValue()}`,
+              ]);
+            }
+            const token = [
+              sm.line - lastLine,
+              sm.line === lastLine ? sm.column - lastColumn : sm.column,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              sm.endOffset! - sm.offset,
+              DefaultSemanticTokensService.getTokenType(s),
+              modifier,
+            ];
+            tokens.push(token);
+            lastLine = sm.line;
+            lastColumn = sm.column;
+          }
+        });
+      }
+      if (!processed.includes(element) && (!foundClasses || parentNode)) {
+        if (isStringElement(element) || isNumberElement(element)) {
+          const sm: SourceMap = getSourceMap(element);
+          let token;
+          if (element.parent && isMember(element.parent) && element.parent.value === element) {
+            // this is a value
+            token = [
+              sm.line - lastLine,
+              sm.line === lastLine ? sm.column - lastColumn : sm.column,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              sm.endOffset! - sm.offset,
+              DefaultSemanticTokensService.getTokenType('value'),
+              DefaultSemanticTokensService.getTokenModifiers(
+                isStringElement(element) ? ['string'] : ['number'],
+              ),
+            ];
+            tokens.push(token);
+            lastLine = sm.line;
+            lastColumn = sm.column;
+
+            // } else {
+          } else if (
+            !(element.parent && isMember(element.parent) && element.parent.key === element)
+          ) {
+            // just a string or number
+            token = [
+              sm.line - lastLine,
+              sm.line === lastLine ? sm.column - lastColumn : sm.column,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              sm.endOffset! - sm.offset,
+              DefaultSemanticTokensService.getTokenType(
+                isStringElement(element) ? 'string' : 'number',
+              ),
+              0,
+            ];
+            tokens.push(token);
+            lastLine = sm.line;
+            lastColumn = sm.column;
+          }
+        }
+      }
+    };
+
+    traverse(buildTokens, api);
+
+    return {
+      data: tokens.flat(),
+    } as SemanticTokens;
   }
 }

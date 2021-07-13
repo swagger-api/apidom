@@ -29,6 +29,11 @@ export enum SUPPORTED_LANGUAGES {
   ASYNCAPI_20,
 }
 
+export enum FORMAT {
+  JSON,
+  YAML,
+}
+
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
@@ -53,6 +58,11 @@ export interface CompletionContext {
   maxNumberOfItems?: number;
 }
 
+export interface DerefContext {
+  format?: FORMAT;
+  baseURI?: string;
+}
+
 export interface SymbolsContext {
   resultLimit?: number;
   onResultLimitExceeded?: (uri: string) => void;
@@ -69,34 +79,36 @@ export interface WorkspaceContextService {
 
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
-  doValidation(document: TextDocument, context?: ValidationContext): PromiseLike<Diagnostic[]>;
+  doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
   doCompletion(
     document: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
     context?: CompletionContext,
-  ): PromiseLike<CompletionList | null>;
+  ): Promise<CompletionList | null>;
   doFindDocumentSymbols(
     textDocument: TextDocument,
     context?: SymbolsContext,
-  ): PromiseLike<SymbolInformation[]>;
+  ): Promise<SymbolInformation[]>;
 
-  doResolveCompletionItem(item: CompletionItem): PromiseLike<CompletionItem>;
+  doResolveCompletionItem(item: CompletionItem): Promise<CompletionItem>;
 
-  computeSemanticTokens(textDocument: TextDocument): PromiseLike<SemanticTokens>;
+  computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
 
   getSemanticTokensLegend(): SemanticTokensLegend;
 
-  doHover(document: TextDocument, position: Position): PromiseLike<Hover | undefined>;
+  doHover(document: TextDocument, position: Position): Promise<Hover | undefined>;
+
+  doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
 
   doCodeActions(
     textDocument: TextDocument,
     parmsOrDiagnostics: CodeActionParams | Diagnostic[],
-  ): PromiseLike<CodeAction[]>;
+  ): Promise<CodeAction[]>;
 
   findDocumentColors(
     document: TextDocument,
     colorsContext?: ColorsContext,
-  ): PromiseLike<ColorInformation[]>;
+  ): Promise<ColorInformation[]>;
 
   getColorPresentations(document: TextDocument, color: Color, range: Range): ColorPresentation[];
 

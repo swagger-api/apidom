@@ -30,6 +30,7 @@
     "apidom-parser-adapter-asyncapi-yaml-2-0": "file:../apidom-parser-adapter-asyncapi-yaml-2-0",
     "apidom-parser-adapter-openapi-json-3-1": "file:../apidom-parser-adapter-openapi-json-3-1",
     "apidom-parser-adapter-openapi-yaml-3-1": "file:../apidom-parser-adapter-openapi-yaml-3-1",
+    "apidom-reference": "file:../apidom-reference",
     "vscode-languageserver-textdocument": "^1.0.1",
     "vscode-languageserver-types": "^3.16.0",
     "vscode-languageserver-protocol": "^3.16.0",

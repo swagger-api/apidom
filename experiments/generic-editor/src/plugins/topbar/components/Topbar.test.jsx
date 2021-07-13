@@ -10,6 +10,7 @@ import FileMenuDropdown from './FileMenuDropdown';
 import EditMenuDropdown from './EditMenuDropdown';
 import ImportFileDropdownItem from './ImportFileDropdownItem';
 import GeneratorMenuDropdown from './GeneratorMenuDropdown';
+import SaveAsJsonOrYaml from './SaveAsJsonOrYaml';
 import * as topbarActions from '../actions';
 
 // mock es6 re-exports
@@ -31,6 +32,19 @@ test('renders Topbar with required components', async () => {
       return false;
     });
 
+  // These two spies are needed to render the FileMenuDropdown component
+  const spyLanguageFormat = jest
+    .spyOn(topbarActions, 'getDefinitionLanguageFormat')
+    .mockImplementation(() => ({
+      languageFormat: 'yaml',
+    }));
+  const spyShouldUpdateLanguageFormat = jest
+    .spyOn(topbarActions, 'shouldUpdateDefinitionLanguageFormat')
+    .mockImplementation(() => ({
+      languageFormat: 'yaml',
+      shouldUpdate: false,
+    }));
+
   const components = {
     LinkHome,
     DropdownMenu,
@@ -39,6 +53,7 @@ test('renders Topbar with required components', async () => {
     EditMenuDropdown,
     ImportFileDropdownItem,
     GeneratorMenuDropdown,
+    SaveAsJsonOrYaml,
   };
 
   render(
@@ -69,4 +84,7 @@ test('renders Topbar with required components', async () => {
   expect(linkElement4).toBeInTheDocument();
   // GeneratorMenuDropdown:2: action method call
   expect(spyShouldReInstantiate).toBeCalled();
+  // FileMenuDropdown: action methods call
+  expect(spyLanguageFormat).toBeCalled();
+  expect(spyShouldUpdateLanguageFormat).toBeCalled();
 });

@@ -68,7 +68,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    doResolveCompletionItem(item: CompletionItem): PromiseLike<CompletionItem> {
+    doResolveCompletionItem(item: CompletionItem): Promise<CompletionItem> {
       // @ts-ignore
       return Promise.resolve(undefined);
     },
@@ -77,7 +77,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
       document: TextDocument,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       colorsContext?: ColorsContext,
-    ): PromiseLike<ColorInformation[]> {
+    ): Promise<ColorInformation[]> {
       // @ts-ignore
       return undefined;
     },

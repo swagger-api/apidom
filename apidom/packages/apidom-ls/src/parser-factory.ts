@@ -27,10 +27,7 @@ export function getText(document: TextDocument | string, trim = false): string {
   return text;
 }
 export function isAsyncDoc(document: TextDocument | string): boolean {
-  if (getText(document).indexOf('asyncapi') > -1) {
-    return true;
-  }
-  return false;
+  return getText(document).indexOf('asyncapi') > -1;
 }
 
 export interface RegexMap {

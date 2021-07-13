@@ -39,7 +39,7 @@ export interface CompletionService {
     textDocument: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
     completionContext?: CompletionContext,
-  ): PromiseLike<CompletionList>;
+  ): Promise<CompletionList>;
 
   configure(settings?: LanguageSettings): void;
 }
@@ -159,12 +159,12 @@ export class DefaultCompletionService implements CompletionService {
     }
   }
 
-  public doCompletion(
+  public async doCompletion(
     textDocument: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
-  ): PromiseLike<CompletionList> {
+  ): Promise<CompletionList> {
     const position =
       'position' in completionParamsOrPosition
         ? completionParamsOrPosition.position
@@ -194,121 +194,118 @@ export class DefaultCompletionService implements CompletionService {
     }
 
     // parse
-    // @ts-ignore
-    return parser.parse(text, { sourceMap: true }).then((result) => {
-      const { api } = result;
-      // if we cannot parse nothing to do
-      if (!api) {
-        return CompletionList.create();
-      }
-      // use the type related metadata at root level
-      setMetadataMap(
-        api,
-        isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-        this.settings?.metadata?.metadataMaps,
-      ); // TODO move to parser/adapter, extending the one standard
-      api.freeze(); // !! freeze and add parent !!
+    const { api } = await parser.parse(text, { sourceMap: true });
 
-      const completionList: CompletionList = {
-        items: [],
-        isIncomplete: false,
+    // if we cannot parse nothing to do
+    if (api === undefined) return CompletionList.create();
+
+    // use the type related metadata at root level
+    setMetadataMap(
+      api,
+      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
+      this.settings?.metadata?.metadataMaps,
+    ); // TODO move to parser/adapter, extending the one standard
+    api.freeze(); // !! freeze and add parent !!
+
+    const completionList: CompletionList = {
+      items: [],
+      isIncomplete: false,
+    };
+
+    const offset = textDocument.offsetAt(position);
+    // find the current node
+    const node = findAtOffset({ offset, includeRightBound: true }, api);
+    // only if we have a node
+    // TODO add jsonSchema completion, see experiments/apidom-monaco and vscode-json-languageservice
+    if (node) {
+      // const sm = getSourceMap(node);
+      const caretContext = this.resolveCaretContext(node, offset);
+      const completionNode = this.resolveCompletionNode(node, caretContext);
+      // const completionNodeSm = getSourceMap(completionNode);
+      const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
+      // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
+
+      let overwriteRange: Range;
+
+      const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
+
+      const proposed: { [key: string]: CompletionItem } = {};
+
+      const collector: CompletionsCollector = {
+        add: (suggestion: CompletionItem) => {
+          const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
+          let { label } = item;
+          const existing = proposed[label];
+          if (!existing) {
+            label = label.replace(/[\n]/g, '↵');
+            if (label.length > 60) {
+              const shortenedLabel = `${label.substr(0, 57).trim()}...`;
+              if (!proposed[shortenedLabel]) {
+                label = shortenedLabel;
+              }
+            }
+            if (overwriteRange) {
+              item.textEdit = TextEdit.replace(overwriteRange, item.insertText || '');
+            }
+            if (supportsCommitCharacters) {
+              item.commitCharacters =
+                item.kind === CompletionItemKind.Property
+                  ? propertyCommitCharacters
+                  : valueCommitCharacters;
+            }
+            item.label = label;
+            proposed[label] = item;
+            completionList.items.push(item);
+          } else if (!existing.documentation) {
+            existing.documentation = item.documentation;
+          }
+        },
+        setAsIncomplete: () => {
+          completionList.isIncomplete = true;
+        },
+        getNumberOfProposals: () => {
+          return completionList.items.length;
+        },
       };
 
-      const offset = textDocument.offsetAt(position);
-      // find the current node
-      const node = findAtOffset({ offset, includeRightBound: true }, api);
-      // only if we have a node
-      // TODO add jsonSchema completion, see experiments/apidom-monaco and vscode-json-languageservice
-      if (node) {
-        // const sm = getSourceMap(node);
-        const caretContext = this.resolveCaretContext(node, offset);
-        const completionNode = this.resolveCompletionNode(node, caretContext);
-        // const completionNodeSm = getSourceMap(completionNode);
-        const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
-        // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
-
-        let overwriteRange: Range;
-
-        const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
-
-        const proposed: { [key: string]: CompletionItem } = {};
-
-        const collector: CompletionsCollector = {
-          add: (suggestion: CompletionItem) => {
-            const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
-            let { label } = item;
-            const existing = proposed[label];
-            if (!existing) {
-              label = label.replace(/[\n]/g, '↵');
-              if (label.length > 60) {
-                const shortenedLabel = `${label.substr(0, 57).trim()}...`;
-                if (!proposed[shortenedLabel]) {
-                  label = shortenedLabel;
-                }
-              }
-              if (overwriteRange) {
-                item.textEdit = TextEdit.replace(overwriteRange, item.insertText || '');
-              }
-              if (supportsCommitCharacters) {
-                item.commitCharacters =
-                  item.kind === CompletionItemKind.Property
-                    ? propertyCommitCharacters
-                    : valueCommitCharacters;
-              }
-              item.label = label;
-              proposed[label] = item;
-              completionList.items.push(item);
-            } else if (!existing.documentation) {
-              existing.documentation = item.documentation;
-            }
-          },
-          setAsIncomplete: () => {
-            completionList.isIncomplete = true;
-          },
-          getNumberOfProposals: () => {
-            return completionList.items.length;
-          },
-        };
-
-        // don't suggest properties that are already present
-        if (
-          isObject(completionNode) && // TODO added to get type check on node
-          (CompletionNodeContext.OBJECT === completionNodeContext ||
-            CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
-          (caretContext === CaretContext.KEY_INNER ||
-            caretContext === CaretContext.KEY_START ||
-            caretContext === CaretContext.KEY_END ||
-            caretContext === CaretContext.MEMBER ||
-            caretContext === CaretContext.OBJECT_VALUE_INNER)
-        ) {
-          for (const p of completionNode) {
-            if (!node.parent || node.parent !== p) {
-              proposed[p.key.toValue()] = CompletionItem.create('__');
-            }
+      // don't suggest properties that are already present
+      if (
+        isObject(completionNode) && // TODO added to get type check on node
+        (CompletionNodeContext.OBJECT === completionNodeContext ||
+          CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
+        (caretContext === CaretContext.KEY_INNER ||
+          caretContext === CaretContext.KEY_START ||
+          caretContext === CaretContext.KEY_END ||
+          caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.OBJECT_VALUE_INNER)
+      ) {
+        for (const p of completionNode) {
+          if (!node.parent || node.parent !== p) {
+            proposed[p.key.toValue()] = CompletionItem.create('__');
           }
-        }
-
-        if (schema) {
-          // TODO complete schema based, see json language service and "lsp" branch
-          // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
-        } else {
-          DefaultCompletionService.getMetadataPropertyCompletions(
-            api,
-            completionNode,
-            collector,
-            !isJsonDoc(textDocument),
-          );
         }
       }
 
-      this.jsonSchemaCompletionService
-        .doCompletion(textDocument, completionParamsOrPosition, completionContext)
-        .then((schemaList) => {
-          completionList.items.push(...schemaList.items);
-        });
+      if (schema) {
+        // TODO complete schema based, see json language service and "lsp" branch
+        // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
+      } else {
+        DefaultCompletionService.getMetadataPropertyCompletions(
+          api,
+          completionNode,
+          collector,
+          !isJsonDoc(textDocument),
+        );
+      }
+    }
 
-      return completionList;
-    });
+    this.jsonSchemaCompletionService
+      .doCompletion(textDocument, completionParamsOrPosition, completionContext)
+      .then((schemaList) => {
+        completionList.items.push(...schemaList.items);
+      });
+
+    return completionList;
   }
 
   private static getCurrentWord(document: TextDocument, offset: number) {

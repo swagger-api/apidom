@@ -479,6 +479,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                     },
                     "value": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "server-url"
+                            }
+                          ]
+                        }
+                      },
                       "content": "{username}.gigantic-server.com"
                     }
                   }
@@ -3167,6 +3178,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                             },
                                             "value": {
                                               "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "server-url"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": "{username}.gigantic-server.com"
                                             }
                                           }
@@ -3735,6 +3757,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                     },
                                     "value": {
                                       "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "server-url"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": "{username}.gigantic-server.com"
                                     }
                                   }

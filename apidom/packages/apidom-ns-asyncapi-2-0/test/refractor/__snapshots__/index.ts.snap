@@ -438,6 +438,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                         },
                         "value": {
                           "element": "string",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "server-url"
+                                }
+                              ]
+                            }
+                          },
                           "content": "{username}.gigantic-server.com"
                         }
                       }
@@ -864,6 +875,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                         },
                         "value": {
                           "element": "string",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "server-url"
+                                }
+                              ]
+                            }
+                          },
                           "content": "gigantic-server.com"
                         }
                       }

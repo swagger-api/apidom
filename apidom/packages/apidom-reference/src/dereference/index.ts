@@ -18,6 +18,7 @@ export const dereferenceApiDOM = async <T extends Element>(
 ): Promise<T> => {
   // @ts-ignore
   let parseResult: ParseResultElement = element;
+  let surrogateWrapping = false;
 
   // wrap element into parse result
   if (!isParseResultElement(element)) {
@@ -30,6 +31,7 @@ export const dereferenceApiDOM = async <T extends Element>(
     );
     elementClone.classes.push('result');
     parseResult = new ParseResultElement([elementClone]);
+    surrogateWrapping = true;
   }
 
   const file = File({
@@ -51,8 +53,8 @@ export const dereferenceApiDOM = async <T extends Element>(
 
   try {
     const { result } = await plugins.run('dereference', [file, options], dereferenceStrategies);
-    // @ts-ignore
-    return parseResult === element ? result : result.result; // unwrap the element from ParseResult
+    // unwrap the element from ParseResult assuming first element is the actual result
+    return surrogateWrapping ? result.get(0) : result;
   } catch (error) {
     throw new DereferenceError(`Error while dereferencing file "${file.uri}"`, error);
   }

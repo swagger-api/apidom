@@ -12,7 +12,7 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
   },
   init({ refs = [] } = {}) {
     this.refs = [];
-    refs.forEach((ref: IReference) => this.refs.add(ref));
+    refs.forEach((ref: IReference) => this.add(ref));
   },
   methods: {
     get size(): number {

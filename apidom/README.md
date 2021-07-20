@@ -9,8 +9,8 @@ We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fra
 
 ```json
 "engines": {
-  "node": ">=10.21.0",
-  "npm": ">=6.14.5"
+  "node": "~14",
+  "npm": ">=6.14.5 <7"
 }
 ```
 

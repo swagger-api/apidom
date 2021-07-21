@@ -337,7 +337,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(referencingElement);
+      const base$idURI = resolveInherited$id(this.reference.uri, referencingElement);
       const baseURI = this.toBaseURI(base$idURI);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);

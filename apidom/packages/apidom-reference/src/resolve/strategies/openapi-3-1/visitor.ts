@@ -209,7 +209,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // compute Reference object using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(schemaElement);
+      const base$idURI = resolveInherited$id(this.reference.uri, schemaElement);
       const baseURI = this.toBaseURI(base$idURI);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
@@ -325,7 +325,7 @@ const OpenApi3_1ResolveVisitor = stampit({
 
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute Reference object using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(referencingElement);
+      const base$idURI = resolveInherited$id(this.reference.uri, referencingElement);
       const baseURI = this.toBaseURI(base$idURI);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);

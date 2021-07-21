@@ -209,8 +209,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // compute Reference object using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(this.reference.uri, schemaElement);
-      const baseURI = this.toBaseURI(base$idURI);
+      const baseURI = resolveInherited$id(this.reference.uri, schemaElement);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
@@ -224,7 +223,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = isUnknownURI ? this.reference : this.toReference(base$idURI);
+        this.crawlingMap[baseURI] = isUnknownURI ? this.reference : this.toReference(baseURI);
       }
       this.crawledElements.push(schemaElement);
 

@@ -337,8 +337,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(this.reference.uri, referencingElement);
-      const baseURI = this.toBaseURI(base$idURI);
+      const baseURI = resolveInherited$id(this.reference.uri, referencingElement);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
@@ -352,7 +351,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // compute Reference object
-      const reference = isUnknownURI ? this.reference : await this.toReference(base$idURI);
+      const reference = isUnknownURI ? this.reference : await this.toReference(baseURI);
 
       this.indirections.push(referencingElement);
 

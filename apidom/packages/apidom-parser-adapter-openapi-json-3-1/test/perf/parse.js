@@ -26,6 +26,8 @@ const options = {
  * Parse stage: 112,61 ms
  *   Lexical Analysis phase: 1,42 ms
  *   Syntactic Analysis phase: 85,91 ms
+ *     Traversing time: 0,27 ms
+ *     Building time: 85,64 ms
  * Refract stage: 18,18 ms
  */
 

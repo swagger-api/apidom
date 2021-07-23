@@ -25,7 +25,10 @@ on your operating system. We strongly recommend to go with a docker option.
 
 ```sh
  $ npm i
+ $ npm run build
 ```
+
+> Note: monorepo needs to be build in order for monorepo package topology for work correctly.
 
 ## Building artifacts
 

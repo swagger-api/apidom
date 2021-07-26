@@ -1,6 +1,6 @@
 import path from 'path';
 import { assert } from 'chai';
-import { toValue } from 'apidom';
+import { toValue, sexprs } from 'apidom';
 import { isParameterElement } from 'apidom-ns-asyncapi-2-0';
 
 import { loadJsonFile } from '../../../../helpers';
@@ -255,6 +255,21 @@ describe('dereference', function () {
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
             });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Reference Objects referencing Schema Object', function () {
+          const fixturePath = path.join(rootFixturePath, 'referencing-schema-object');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+            });
+            console.dir(sexprs(actual));
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);

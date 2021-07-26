@@ -1,7 +1,158 @@
 # ApiDOM
 
+The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across all
+API description formats and serialization formats. There currently exists several formats one can choose
+when defining an API, from API Blueprint to Swagger—which is now known as the OpenAPI Format.
+There are also many serialization formats such as XML or JSON. Without a way to parse these formats
+to the same structure, developers are required to handle each format one-by-one, each in a different
+way and each translating to their internal domain model. This is tedious, time-consuming,
+and requires each maintainer to stay in step with every format they support.
+
+ApiDOM solves this complex problem in a simple way. It allows parsers to parse to a single structure
+and allows tool builders to consume one structure for all formats.
+
+If there is one thing API description formats have taught us, it is that a single contract provides
+the best and fastest way to design and iterate on an API. Developers building the API can move independently
+as they progress towards the defined contract found in the API Blueprint or Swagger document.
+Conversely, API consumers can build tools for consuming the API based on the API definition document.
+
+This same pattern has proven to be just as valuable for building API description formats and tooling.
+ApiDOM is the contract for producing and consuming the many description and serialization formats
+and allows everyone to move quickly and independently.
+
+### What is an Element ?
+
+ApiDOM is made up of many small elements that have a rich semantic meaning given their value and context.
+An element is an individual piece that makes up an API, and can range from defining a resource to providing
+an example of an HTTP request.
+
+The ApiDOM defines elements used for:
+
+Describing an API
+Describing data structures used within that API
+Describing parse results when parsing API-related documents
+These elements also seek to provide a way to decouple APIs and their semantics from the implementation details.
+
+The structure of an ApiDOM is recursive by nature. When looking for specific elements,
+it is best to traverse the ApiDOM tree to look for a match. Querying the ApiDOM tree will
+decouple your code from specific API description syntax. Also, it decouples your code from the
+specific structure of these documents as long as they are semantically equivalent.
+
+### As a way to annotate JSON
+
+ApiDOM provides the ability to take a normal JSON structure and add a layer on top of it for the purpose
+of annotating and adding semantic data. Instead of creating an entirely different structure to describe the data,
+ApiDOM's approach is to expand the existing structure (we call it "refracting" a structure).
+Here is an example to show our point.
+
+Take the following simple JSON object.
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+Using ApiDOM, we can expand this out and add some human-readable titles and descriptions.
+
+```json
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "title": "Name",
+        "description": "Name of a person"
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "name"
+        },
+        "value": {
+          "element": "string",
+          "content": "John Doe"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "title": "Email",
+        "description": "Email address for the person"
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "email"
+        },
+        "value": {
+          "element": "string",
+          "content": "john@example.com"
+        }
+      }
+    }
+  ]
+}
+```
+
+We added some semantic data to the existing data, but we did so while retaining the semantic structure of the data
+with the object and string elements. **This means there is no semantic difference in the ApiDOM structure and
+the original JSON structure**. It also means we can add extra semantics on top of these structural ones.
+
+### As a unifying structure
+
+If you have a keen eye, you may have noticed the similarities between the JSON example above and XML.
+XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML,
+you'd be asking a fair question.
+
+ApiDOM is actually meant to provide these cross-format similarities. It means that a JSON structure
+may be refracted and converted to XML. It also means an XML document may be converted into ApiDOM.
+This also goes for YAML, HTML, CSV, and many other formats. ApiDOM is a way to unify these structures.
+
+Since we said we'd include examples, let's look at moving XML over into Refract.
+
+```xml
+<person name="John Doe" email="john@example.com">
+```
+
+This example in refracted form would look like this. Notice that we're using attributes
+instead of meta because attributes are free to be used.
+
+```json
+{
+  "element": "person",
+  "attributes": {
+    "name": {
+      "element": "string",
+      "content": "John Doe"
+    },
+    "email": {
+      "element": "string",
+      "content": "john@example.com"
+    }
+  }
+}
+```
+
+Because we can go back and forth between JSON, YAML, XML, and other formats, we are now free to use toolsets across formats.
+That means we could use XSLT to transform JSON documents.
+
+### As a queryable structure
+
+ApiDOM is meant to free you from the structure of your documents, similar to how XML does with things
+like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM,
+which decouples our SDK from our structure and our structure from our data.
+
+
+
+## Technical info
+
 This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
 To see all these monorepo packages working in browser check out our [ApiDOM Playground](https://reimagined-dollop-c7e3930f.pages.github.io/).
+
 
 ## Prerequisites
 
@@ -159,3 +310,10 @@ We have one case of copying the code directly from GitHub repository: https://gi
 This code is concentrated in singe file in our codebase, is properly
 attributed and contains original license text as well.
 ```
+
+Some texts in this document were taken from [Refract specification](https://github.com/refractproject/refract-spec)
+and [Api Elements](https://apielements.org/).
+Here are links to files:
+
+- [LICENSE](https://github.com/refractproject/refract-spec/blob/master/LICENSE)
+- [LICENSE](https://github.com/apiaryio/api-elements/blob/master/LICENSE)

@@ -5,6 +5,7 @@ import { ObjectElement, isObjectElement, Element } from 'apidom';
 import MessageElement from '../../../../elements/Message';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import { isReferenceLikeElement } from '../../../predicates';
 
 const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
@@ -31,14 +32,22 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
     ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
       const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-
-      // refract payload according to `schemaFormat`
-      const schemaFormat = defaultTo(
-        'application/vnd.aai.asyncapi;version=2.0.0',
-        objectElement.get('schemaFormat')?.toValue(),
-      );
       const payload = this.element.get('payload');
-      this.refractPayload(schemaFormat, payload);
+
+      if (isReferenceLikeElement(payload)) {
+        // refract to ReferenceElement
+        this.element.payload = this.toRefractedElement(
+          ['document', 'objects', 'Reference'],
+          payload,
+        );
+      } else {
+        // refract payload according to `schemaFormat`
+        const schemaFormat = defaultTo(
+          'application/vnd.aai.asyncapi;version=2.0.0',
+          objectElement.get('schemaFormat')?.toValue(),
+        );
+        this.refractPayload(schemaFormat, payload);
+      }
 
       return result;
     },

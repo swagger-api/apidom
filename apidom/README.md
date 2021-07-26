@@ -1,7 +1,125 @@
 # ApiDOM
 
+ApiDOM is a recursive data structure for expressing complex structures, relationships, and metadata.
+It handles all sorts and kinds of data across all sorts and kinds of formats.
+That's a very general-purpose description for a general-purpose structure.
+To get an idea of what ApiDOM does, we'll walk through some of its uses with some examples along the way.
+
+### As a way to annotate JSON
+
+ApiDOM provides the ability to take a normal JSON structure and add a layer on top of it for the purpose
+of annotating and adding semantic data. Instead of creating an entirely different structure to describe the data,
+ApiDOM's approach is to expand the existing structure (we call it "refracting" a structure).
+Here is an example to show our point.
+
+Take the following simple JSON object.
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+Using ApiDOM, we can expand this out and add some human-readable titles and descriptions.
+
+```json
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "title": "Name",
+        "description": "Name of a person"
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "name"
+        },
+        "value": {
+          "element": "string",
+          "content": "John Doe"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "title": "Email",
+        "description": "Email address for the person"
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "email"
+        },
+        "value": {
+          "element": "string",
+          "content": "john@example.com"
+        }
+      }
+    }
+  ]
+}
+```
+
+We added some semantic data to the existing data, but we did so while retaining the semantic structure of the data
+with the object and string elements. **This means there is no semantic difference in the ApiDOM structure and
+the original JSON structure**. It also means we can add extra semantics on top of these structural ones.
+
+### As a unifying structure
+
+If you have a keen eye, you may have noticed the similarities between the JSON example above and XML.
+XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML,
+you'd be asking a fair question.
+
+ApiDOM is actually meant to provide these cross-format similarities. It means that a JSON structure
+may be refracted and converted to XML. It also means an XML document may be converted into ApiDOM.
+This also goes for YAML, HTML, CSV, and many other formats. ApiDOM is a way to unify these structures.
+
+Since we said we'd include examples, let's look at moving XML over into Refract.
+
+```xml
+<person name="John Doe" email="john@example.com">
+```
+
+This example in refracted form would look like this. Notice that we're using attributes
+instead of meta because attributes are free to be used.
+
+```json
+{
+  "element": "person",
+  "attributes": {
+    "name": {
+      "element": "string",
+      "content": "John Doe"
+    },
+    "email": {
+      "element": "string",
+      "content": "john@example.com"
+    }
+  }
+}
+```
+
+Because we can go back and forth between JSON, YAML, XML, and other formats, we are now free to use toolsets across formats.
+That means we could use XSLT to transform JSON documents.
+
+### As a queryable structure
+
+ApiDOM is meant to free you from the structure of your documents, similar to how XML does with things
+like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM,
+which decouples our SDK from our structure and our structure from our data.
+
+
+
+## Technical info
+
 This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
 To see all these monorepo packages working in browser check out our [ApiDOM Playground](https://reimagined-dollop-c7e3930f.pages.github.io/).
+
 
 ## Prerequisites
 
@@ -159,3 +277,6 @@ We have one case of copying the code directly from GitHub repository: https://gi
 This code is concentrated in singe file in our codebase, is properly
 attributed and contains original license text as well.
 ```
+
+Some texts in this document were taken from [Refract specification](https://github.com/refractproject/refract-spec).
+Here is a link to the [LICENSE](https://github.com/refractproject/refract-spec/blob/master/LICENSE) file.

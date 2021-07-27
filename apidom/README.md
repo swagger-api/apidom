@@ -141,7 +141,7 @@ That means we could use XSLT to transform JSON documents.
 
 ### As a queryable structure
 
-ApiDOM is meant to free you from the structure of your documents, similar to how XML does with things
+ApiDOM is meant to free us from the structure of our documents, similar to how XML does with things
 like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM,
 which decouples our SDK from our structure and our structure from our data.
 

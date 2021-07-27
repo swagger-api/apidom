@@ -105,8 +105,7 @@ the original JSON structure**. It also means we can add extra semantics on top o
 ### As a unifying structure
 
 You may have noticed the similarities between the JSON example above and XML.
-XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML,
-you'd be asking a fair question.
+XML has elements, attributes, and content. It would be a good question to ask if we simply turned JSON into XML.
 
 ApiDOM is actually meant to provide these cross-format similarities. It means that a JSON structure
 may be refracted and converted to XML. It also means an XML document may be converted into ApiDOM.

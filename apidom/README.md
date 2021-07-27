@@ -1,6 +1,6 @@
 # ApiDOM
 
-The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across all
+The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across 
 API description formats and serialization formats. There currently exists several formats one can choose
 when defining an API, from API Blueprint to Swagger—which is now known as the OpenAPI Format.
 There are also many serialization formats such as XML or JSON. Without a way to parse these formats

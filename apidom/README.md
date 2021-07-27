@@ -26,7 +26,7 @@ ApiDOM is made up of many small elements that have a rich semantic meaning given
 An element is an individual piece that makes up an API, and can range from defining a resource to providing
 an example of an HTTP request.
 
-The ApiDOM defines elements used for:
+The ApiDOM defines elements to be used for:  
 
 Describing an API
 Describing data structures used within that API

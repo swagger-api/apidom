@@ -109,7 +109,7 @@ XML has elements, attributes, and content. It would be a good question to ask if
 
 ApiDOM is actually meant to provide these cross-format similarities. It means that a JSON structure
 may be refracted and converted to XML. It also means an XML document may be converted into ApiDOM.
-This also goes for YAML, HTML, CSV, and many other formats. ApiDOM is a way to unify these structures.
+This also goes for YAML, HTML, CSV, and many other formats. ApiDOM is a way to use refracting to unify these structures.
 
 Since we said we'd include examples, let's look at moving XML over into Refract.
 

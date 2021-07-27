@@ -104,7 +104,7 @@ the original JSON structure**. It also means we can add extra semantics on top o
 
 ### As a unifying structure
 
-If you have a keen eye, you may have noticed the similarities between the JSON example above and XML.
+You may have noticed the similarities between the JSON example above and XML.
 XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML,
 you'd be asking a fair question.
 

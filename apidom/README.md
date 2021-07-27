@@ -30,7 +30,7 @@ The ApiDOM defines elements to be used for:
 
 Describing an API  
 Describing data structures used within that API  
-Describing parse results when parsing API-related documents
+Describing parse results when parsing API-related documents  
 These elements also seek to provide a way to decouple APIs and their semantics from the implementation details.
 
 The structure of an ApiDOM is recursive by nature. When looking for specific elements,

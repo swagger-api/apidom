@@ -11,7 +11,7 @@ and requires each maintainer to stay in step with every format they support.
 ApiDOM solves this complex problem in a simple way. It allows parsers to parse to a single structure
 and allows tool builders to consume one structure for all formats.
 
-If there is one thing API description formats have taught us, it is that a single contract provides
+If there is one thing API description languages have taught us, it is that a single contract provides
 the best and fastest way to design and iterate on an API. Developers building the API can move independently
 as they progress towards the defined contract found in the OpenAPI or RAML document.
 Conversely, API consumers can build tools for consuming the API based on the API definition document.

@@ -2,7 +2,7 @@
 
 The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across 
 API description formats and serialization formats. There currently exists several formats one can choose
-when defining an API, from API Blueprint to Swagger—which is now known as the OpenAPI Format.
+when defining an API, from OpenAPI, RAML or API Blueprint.
 There are also many serialization formats such as XML, YAML or JSON. Without a way to parse these formats
 to the same structure, developers are required to handle each format one-by-one, each in a different
 way and each translating to their internal domain model. This is tedious, time-consuming,

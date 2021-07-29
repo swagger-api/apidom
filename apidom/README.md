@@ -135,7 +135,7 @@ This example in refracted form would look like the following snippet. Notice tha
 }
 ```
 
-Because we can go back and forth between JSON, YAML, XML, and other formats, we are now free to use toolsets across formats.
+Since we can go back and forth between JSON, YAML, XML, and other formats, we are now able to use same toolset across the different formats.
 That means we could use XSLT to transform JSON documents.
 
 ### As a queryable structure

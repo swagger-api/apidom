@@ -16,7 +16,7 @@ the best and fastest way to design and iterate on an API. Developers building th
 as they progress towards the defined contract found in the OpenAPI or RAML document.
 Conversely, API consumers can build tools for consuming the API based on the API definition document.
 
-This same pattern has proven to be just as valuable for building API description formats and tooling.
+This same pattern has proven to be just as valuable for building API description languages and tooling.
 ApiDOM is the contract for producing and consuming the many description and serialization formats
 and allows everyone to move quickly and independently.
 

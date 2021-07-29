@@ -17,7 +17,7 @@ as they progress towards the defined contract found in the OpenAPI or RAML docum
 Conversely, API consumers can build tools for consuming the API based on the API definition document.
 
 This same pattern has proven to be just as valuable for building API description languages and tooling.
-ApiDOM is the contract for producing and consuming the many description and serialization formats
+ApiDOM is the contract for producing and consuming the many API description languages and serialization formats
 and allows everyone to move quickly and independently.
 
 ### What is an Element ?

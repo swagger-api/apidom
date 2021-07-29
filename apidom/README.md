@@ -117,7 +117,7 @@ Let's look at another example, this time refacting XML with ApiDOM.
 <person name="John Doe" email="john@example.com">
 ```
 
-This example in refracted form would look like the following snippet. Notice that we're using attributes
+This example in refracted form would look like the following snippet. Notice that we're using attributes in resulting ApiDOM structure.
 instead of meta because attributes are free to be used.
 
 ```json

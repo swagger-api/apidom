@@ -35,7 +35,7 @@ These elements also seek to provide a way to decouple APIs and their semantics f
 
 The structure of an ApiDOM is recursive by nature. When looking for specific elements,
 it is best to traverse the ApiDOM tree to look for a match. Querying the ApiDOM tree will
-decouple our code from specific API description syntax. Also, it decouples our code from the
+decouple our code from specific API description language. Also, it decouples our code from the
 specific structure of these documents as long as they are semantically equivalent.
 
 ### As a way to annotate JSON

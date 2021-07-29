@@ -13,7 +13,7 @@ and allows tool builders to consume one structure for all formats.
 
 If there is one thing API description formats have taught us, it is that a single contract provides
 the best and fastest way to design and iterate on an API. Developers building the API can move independently
-as they progress towards the defined contract found in the API Blueprint or Swagger document.
+as they progress towards the defined contract found in the OpenAPI or RAM document.
 Conversely, API consumers can build tools for consuming the API based on the API definition document.
 
 This same pattern has proven to be just as valuable for building API description formats and tooling.

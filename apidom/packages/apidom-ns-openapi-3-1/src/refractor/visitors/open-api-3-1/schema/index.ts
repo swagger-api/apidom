@@ -79,6 +79,14 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       this.element.setMetaProperty('inherited$id', inherited$id);
     };
 
+    const appendReferenceMetadata = (objectElement: ObjectElement) => {
+      const $ref = objectElement.get('$ref')?.toValue();
+
+      if (isNonEmptyString($ref)) {
+        this.element.classes.push('reference-element');
+      }
+    };
+
     /**
      * Public Api.
      */
@@ -86,6 +94,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       this.element = new SchemaElement();
       handle$schema(objectElement);
       handle$id(objectElement);
+      appendReferenceMetadata(objectElement);
 
       // for further processing consider this Schema Element as parent for all embedded Schema Elements
       this.parent = this.element;

@@ -13,6 +13,7 @@ const ServersVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new ServersElement();
+    this.element.classes.push('servers');
   },
 });
 

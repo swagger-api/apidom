@@ -396,6 +396,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
         },
         "value": {
           "element": "servers",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "servers"
+                }
+              ]
+            }
+          },
           "content": [
             {
               "element": "member",
@@ -974,6 +985,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/serverBindings/ServerBinding1"
                                 }
                               }
@@ -2127,6 +2149,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "reference-value"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "#/components/schemas/user"
                                                                     }
                                                                   }
@@ -2195,6 +2228,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "reference-value"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "#/components/schemas/signup"
                                                                     }
                                                                   }
@@ -3912,6 +3956,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "#/components/parameters/userId"
                                         }
                                       }
@@ -4017,6 +4072,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                         },
                         "value": {
                           "element": "string",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "reference-value"
+                                }
+                              ]
+                            }
+                          },
                           "content": "https://outside.com/#/path/to/channelItem"
                         }
                       }
@@ -4459,6 +4525,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                             },
                                             "value": {
                                               "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-value"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": "#/components/operationTraits/OperationTrait1"
                                             }
                                           }
@@ -4543,6 +4620,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                             },
                                             "value": {
                                               "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-value"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": "#/components/messages/Message1"
                                             }
                                           }
@@ -4613,6 +4701,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "#/components/operationBindings/OperationBinding1"
                                         }
                                       }
@@ -4828,6 +4927,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "#/components/parameters/userId"
                                         }
                                       }
@@ -4900,6 +5010,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/channelBindings/ChannelBinding1"
                                 }
                               }
@@ -5078,6 +5199,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/schemas/Schema1"
                                 }
                               }
@@ -5205,6 +5337,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/messages/Message1"
                                 }
                               }
@@ -5332,6 +5475,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/securitySchemes/SecurityScheme1"
                                 }
                               }
@@ -5558,6 +5712,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/parameters/Parameter1"
                                 }
                               }
@@ -5685,6 +5850,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/correlationIds/CorrelationID1"
                                 }
                               }
@@ -5812,6 +5988,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/operationTraits/OperationTrait1"
                                 }
                               }
@@ -5939,6 +6126,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/messageTraits/MessageTrait1"
                                 }
                               }
@@ -6091,6 +6289,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/serverBindings/ServerBinding1"
                                 }
                               }
@@ -6243,6 +6452,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/channelBindings/ChannelBinding1"
                                 }
                               }
@@ -6395,6 +6615,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/operationBindings/OperationBinding1"
                                 }
                               }
@@ -6547,6 +6778,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/messageBindings/MessageBinding1"
                                 }
                               }

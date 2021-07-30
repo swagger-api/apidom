@@ -3,7 +3,7 @@ import { StringElement, BREAK } from 'apidom';
 
 import FallbackVisitor from '../../FallbackVisitor';
 
-const $refVisitor = stampit(FallbackVisitor, {
+const ExternalValueVisitor = stampit(FallbackVisitor, {
   methods: {
     StringElement(stringElement: StringElement) {
       this.element = stringElement.clone();
@@ -14,4 +14,4 @@ const $refVisitor = stampit(FallbackVisitor, {
   },
 });
 
-export default $refVisitor;
+export default ExternalValueVisitor;

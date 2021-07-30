@@ -1230,6 +1230,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                             },
                                             "value": {
                                               "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-value"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": "#/components/parameters/parameter2"
                                             }
                                           }
@@ -1585,6 +1596,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                         },
                                                                         "value": {
                                                                           "element": "string",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "reference-value"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
                                                                           "content": "https://example1.com/"
                                                                         }
                                                                       }
@@ -1649,6 +1671,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                         },
                                                                         "value": {
                                                                           "element": "string",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "reference-value"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
                                                                           "content": "#/components/examples/example3"
                                                                         }
                                                                       }
@@ -1943,6 +1976,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                         },
                                                                                         "value": {
                                                                                           "element": "string",
+                                                                                          "meta": {
+                                                                                            "classes": {
+                                                                                              "element": "array",
+                                                                                              "content": [
+                                                                                                {
+                                                                                                  "element": "string",
+                                                                                                  "content": "reference-value"
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          },
                                                                                           "content": "#/components/headers/Content-Type"
                                                                                         }
                                                                                       }
@@ -2281,6 +2325,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "reference-value"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "https://example.com/external-link"
                                                                 }
                                                               }
@@ -2500,6 +2555,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "reference-value"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "#/components/links/link3"
                                                                 }
                                                               }
@@ -2572,6 +2638,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "reference-value"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "#/components/responses/201"
                                                 }
                                               }
@@ -3013,6 +3090,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "reference-value"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "#/components/callbacks/callback1"
                                                 }
                                               }
@@ -3456,6 +3544,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "#/components/requestBodies/requestBody1"
                                         }
                                       }
@@ -3541,6 +3640,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "reference-value"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "#/components/responses/201"
                                                 }
                                               }
@@ -4167,6 +4277,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                     },
                                     "value": {
                                       "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": "#/components/parameters/parameter2"
                                     }
                                   }
@@ -4276,6 +4397,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         },
                         "value": {
                           "element": "string",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "reference-value"
+                                }
+                              ]
+                            }
+                          },
                           "content": "#/components/pathItems/path2"
                         }
                       }
@@ -4530,6 +4662,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         },
                         "value": {
                           "element": "string",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "reference-value"
+                                }
+                              ]
+                            }
+                          },
                           "content": "#/components/pathItems/path2"
                         }
                       }
@@ -4680,6 +4823,15 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                             },
                             "inherited$id": {
                               "element": "array"
+                            },
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
+                                }
+                              ]
                             }
                           },
                           "content": [
@@ -4703,6 +4855,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/schemas/schema1"
                                 }
                               }
@@ -5011,6 +5174,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/responses/201"
                                 }
                               }
@@ -5345,6 +5519,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/parameters/parameter2"
                                 }
                               }
@@ -5502,6 +5687,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "https://example3.com/"
                                 }
                               }
@@ -5566,6 +5762,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/examples/example3"
                                 }
                               }
@@ -5739,6 +5946,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/requestBodies/requestBody1"
                                 }
                               }
@@ -5952,6 +6170,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/headers/Content-Type"
                                 }
                               }
@@ -6271,6 +6500,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/securitySchemes/securityScheme1"
                                 }
                               }
@@ -6420,6 +6660,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/links/link4"
                                 }
                               }
@@ -6861,6 +7112,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/callbacks/callback1"
                                 }
                               }
@@ -7109,6 +7371,17 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/components/pathItems/path2"
                                 }
                               }

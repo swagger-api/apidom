@@ -136,7 +136,7 @@ import ExampleVisitor from './visitors/open-api-3-1/example';
 import ExampleSummaryVisitor from './visitors/open-api-3-1/example/SummaryVisitor';
 import ExampleDescriptionVisitor from './visitors/open-api-3-1/example/DescriptionVisitor';
 import ExampleValueVisitor from './visitors/open-api-3-1/example/ValueVisitor';
-import ExampleExternalValueVisitor from './visitors/open-api-3-1/example/ExaternalValueVisitor';
+import ExampleExternalValueVisitor from './visitors/open-api-3-1/example/ExternalValueVisitor';
 import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
 import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
 import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';

@@ -3,11 +3,11 @@ import ApiDOMParser from 'apidom-parser';
 // @ts-ignore
 import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi-json-3-1';
 // @ts-ignore
-import * as asyncapi2_0Adapter from 'apidom-parser-adapter-asyncapi-json-2-0';
+import * as asyncapi2Adapter from 'apidom-parser-adapter-asyncapi-json-2';
 // @ts-ignore
 import * as openapi3_1Adapter_Yaml from 'apidom-parser-adapter-openapi-yaml-3-1';
 // @ts-ignore
-import * as asyncapi2_0Adapter_Yaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
+import * as asyncapi2Adapter_Yaml from 'apidom-parser-adapter-asyncapi-yaml-2';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 export interface ParserOptions {
@@ -50,10 +50,10 @@ export function getParser(document: TextDocument): ApiDOMParser {
   const async = isAsyncDoc(document);
   const json = isJsonDoc(document);
   if (async && json) {
-    return ApiDOMParser().use(asyncapi2_0Adapter);
+    return ApiDOMParser().use(asyncapi2Adapter);
   }
   if (async && !json) {
-    return ApiDOMParser().use(asyncapi2_0Adapter_Yaml);
+    return ApiDOMParser().use(asyncapi2Adapter_Yaml);
   }
   if (!async && json) {
     return ApiDOMParser().use(openapi3_1Adapter);

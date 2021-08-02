@@ -13,8 +13,8 @@ import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './deref
 export { default as Parser } from './parse/parsers/Parser';
 export { default as OpenApiJson3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-json-3-1';
 export { default as OpenApiYaml3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
-export { default as AsyncApiJson2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
-export { default as AsyncApiYaml2_0Parser } from './parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
+export { default as AsyncApiJson2Parser } from './parse/parsers/apidom-reference-parser-asyncapi-json-2';
+export { default as AsyncApiYaml2Parser } from './parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
 export { default as JsonParser } from './parse/parsers/apidom-reference-parser-json';
 export { default as YamlParser } from './parse/parsers/apidom-reference-parser-yaml-1-2';
 export { default as BinaryParser } from './parse/parsers/apidom-reference-parser-binary';
@@ -24,10 +24,10 @@ export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAx
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 export { default as Resolver } from './resolve/resolvers/Resolver';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';
-export { default as AsyncApi2_0ResolveStrategy } from './resolve/strategies/asyncapi-2-0';
+export { default as AsyncApi2ResolveStrategy } from './resolve/strategies/asyncapi-2';
 export { default as OpenApi3_1ResolveStrategy } from './resolve/strategies/openapi-3-1';
 
-export { default as AsyncApi2_0DereferenceStrategy } from './dereference/strategies/asyncapi-2-0';
+export { default as AsyncApi2DereferenceStrategy } from './dereference/strategies/asyncapi-2';
 export { default as OpenApi3_1DereferenceStrategy } from './dereference/strategies/openapi-3-1';
 
 export { default as options } from './options';

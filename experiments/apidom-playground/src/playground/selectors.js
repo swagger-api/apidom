@@ -3,8 +3,8 @@ import { isEmptyString, isNonEmptyString, isNull } from 'ramda-adjunct';
 import { from, traverse, createNamespace, sexprs, toValue } from 'apidom';
 /* eslint-disable camelcase */
 import openApi3_1NsPlugin from 'apidom-ns-openapi-3-1';
-import asyncApi2_0NsPlugin from 'apidom-ns-asyncapi-2-0';
 /* eslint-enable */
+import asyncApi2NsPlugin from 'apidom-ns-asyncapi-2';
 
 export const selectSource = (state) => state.source;
 
@@ -32,7 +32,7 @@ export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType)
     return createNamespace(openApi3_1NsPlugin);
   }
   if (mediaType.includes('vnd.aai.asyncapi')) {
-    return createNamespace(asyncApi2_0NsPlugin);
+    return createNamespace(asyncApi2NsPlugin);
   }
   return createNamespace();
 });

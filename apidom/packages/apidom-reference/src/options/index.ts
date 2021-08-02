@@ -1,16 +1,16 @@
 import FileResolver from '../resolve/resolvers/FileResolver';
 import HttpResolverAxios from '../resolve/resolvers/HttpResolverAxios';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
-import AsyncApi2_0ResolveStrategy from '../resolve/strategies/asyncapi-2-0';
+import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
 import OpenApiJson3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
-import AsyncApiJson2_0Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
-import AsyncApiYaml2_0Parser from '../parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
+import AsyncApiJson2Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2';
+import AsyncApiYaml2Parser from '../parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
 import JsonParser from '../parse/parsers/apidom-reference-parser-json';
 import YamlParser from '../parse/parsers/apidom-reference-parser-yaml-1-2';
 import BinaryParser from '../parse/parsers/apidom-reference-parser-binary';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
-import AsyncApi2_0DereferenceStrategy from '../dereference/strategies/asyncapi-2-0';
+import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
 import { ReferenceOptions as IReferenceOptions } from '../types';
 
 const defaultOptions: IReferenceOptions = {
@@ -30,8 +30,8 @@ const defaultOptions: IReferenceOptions = {
     parsers: [
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiJson2_0Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),
@@ -68,7 +68,7 @@ const defaultOptions: IReferenceOptions = {
      * You can add additional resolver strategies of your own, replace an existing one with
      * your own implementation, or remove any resolve strategy by removing it from the list.
      */
-    strategies: [OpenApi3_1ResolveStrategy(), AsyncApi2_0ResolveStrategy()],
+    strategies: [OpenApi3_1ResolveStrategy(), AsyncApi2ResolveStrategy()],
     /**
      * Determines whether external references will be resolved.
      * If this option is disabled, then none of above resolvers will be called.
@@ -96,7 +96,7 @@ const defaultOptions: IReferenceOptions = {
      * You can add additional dereference strategies of your own, replace an existing one with
      * your own implementation, or remove any dereference strategy by removing it from the list.
      */
-    strategies: [OpenApi3_1DereferenceStrategy(), AsyncApi2_0DereferenceStrategy()],
+    strategies: [OpenApi3_1DereferenceStrategy(), AsyncApi2DereferenceStrategy()],
     /**
      * This option accepts an instance of pre-computed ReferenceSet.
      * If provided it will speed up the dereferencing significantly as the external

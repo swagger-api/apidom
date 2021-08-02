@@ -9,7 +9,7 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
-    context('asyncapi-2-0', function () {
+    context('asyncapi-2', function () {
       context('Message Object', function () {
         context('given in Operation Object', function () {
           const fixturePath = path.join(rootFixturePath, 'operation-object');

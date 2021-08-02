@@ -7,13 +7,13 @@ const apiDOMResolverPlugin = [
     alias: {
       apidom: '../../apidom/packages/apidom',
       'apidom-ast': '../../apidom/packages/apidom-ast',
-      'apidom-ns-asyncapi-2-0': '../../apidom/packages/apidom-ns-asyncapi-2-0',
+      'apidom-ns-asyncapi-2': '../../apidom/packages/apidom-ns-asyncapi-2',
       'apidom-ns-openapi-3-1': '../../apidom/packages/apidom-ns-openapi-3-1',
       'apidom-parser': '../../apidom/packages/apidom-parser',
-      'apidom-parser-adapter-asyncapi-json-2-0':
-        '../../apidom/packages/apidom-parser-adapter-asyncapi-json-2-0',
-      'apidom-parser-adapter-asyncapi-yaml-2-0':
-        '../../apidom/packages/apidom-parser-adapter-asyncapi-yaml-2-0',
+      'apidom-parser-adapter-asyncapi-json-2':
+        '../../apidom/packages/apidom-parser-adapter-asyncapi-json-2',
+      'apidom-parser-adapter-asyncapi-yaml-2':
+        '../../apidom/packages/apidom-parser-adapter-asyncapi-yaml-2',
       'apidom-parser-adapter-json': '../../apidom/packages/apidom-parser-adapter-json',
       'apidom-parser-adapter-openapi-json-3-1':
         '../../apidom/packages/apidom-parser-adapter-openapi-json-3-1',

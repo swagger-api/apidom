@@ -6,8 +6,8 @@ import * as jsonAdapter from 'apidom-parser-adapter-json';
 import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
 import * as openapi3_1AdapterJson from 'apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from 'apidom-parser-adapter-openapi-yaml-3-1';
-import * as asyncapi2_0AdapterJson from 'apidom-parser-adapter-asyncapi-json-2-0';
-import * as asyncapi2_0AdapterYaml from 'apidom-parser-adapter-asyncapi-yaml-2-0';
+import * as asyncapi2AdapterJson from 'apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi2AdapterYaml from 'apidom-parser-adapter-asyncapi-yaml-2';
 import {
   readFile,
   resolveApiDOM as resolveApiDOMReferences,
@@ -19,8 +19,8 @@ const parser = ApiDOMParser()
   .use(yamlAdapter)
   .use(openapi3_1AdapterJson)
   .use(openapi3_1AdapterYaml)
-  .use(asyncapi2_0AdapterJson)
-  .use(asyncapi2_0AdapterYaml);
+  .use(asyncapi2AdapterJson)
+  .use(asyncapi2AdapterYaml);
 
 /* eslint-disable */
 const service = {

@@ -85,10 +85,10 @@ Supported media types are:
 ]
 ```
 
-#### [asyncapi-json-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-json-2-0)
+#### [asyncapi-json-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-json-2)
 
-Wraps [apidom-parser-adapter-asyncapi-json-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-asyncapi-json-2-0) package
-and is uniquely identified by `asyncapi-json-2-0` name.
+Wraps [apidom-parser-adapter-asyncapi-json-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-asyncapi-json-2) package
+and is uniquely identified by `asyncapi-json-2` name.
 
 Supported media types are:
 
@@ -99,10 +99,10 @@ Supported media types are:
 ]
 ```
 
-#### [asyncapi-yaml-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0)
+#### [asyncapi-yaml-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2)
 
-Wraps [apidom-parser-adapter-asyncapi-yaml-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-asyncapi-yaml-2-0) package
-and is uniquely  identified by `asyncapi-yaml-2-0` name.
+Wraps [apidom-parser-adapter-asyncapi-yaml-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-asyncapi-yaml-2) package
+and is uniquely  identified by `asyncapi-yaml-2` name.
 
 
 Supported media types are:
@@ -160,8 +160,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
 [
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiJson2_0Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -176,8 +176,8 @@ import {
   options,
   OpenApiJson3_1Parser,
   OpenApiYaml3_1Parser,
-  AsyncApiJson2_0Parser,
-  AsyncApiYaml2_0Parser,
+  AsyncApiJson2Parser,
+  AsyncApiYaml2Parser,
   JsonParser,
   YamlParser,
   BinaryParser,
@@ -186,8 +186,8 @@ import {
 options.parse.parsers = [
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiJson2_0Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -201,8 +201,8 @@ import {
   parse,
   OpenApiJson3_1Parser,
   OpenApiYaml3_1Parser,
-  AsyncApiJson2_0Parser,
-  AsyncApiYaml2_0Parser,
+  AsyncApiJson2Parser,
+  AsyncApiYaml2Parser,
   JsonParser,
   YamlParser,
   BinaryParser,
@@ -214,8 +214,8 @@ await parse('/home/user/oas.json', {
     parsers: [
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiJson2_0Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiYaml2_0Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),
@@ -355,7 +355,7 @@ await parse('/home/user/oas.json', {
 
 Parser plugins can be added, removed, replaced or reordered.
 
-Here are two examples of removing one of the parser plugins called `asyncapi-json-2-0`.
+Here are two examples of removing one of the parser plugins called `asyncapi-json-2`.
 We're using the fact that every parser plugin is uniquely identifiable by its name.
 
 **Removing** parser plugin **globally** for all subsequence `parse` calls is achieved by mutating global options:
@@ -363,9 +363,9 @@ We're using the fact that every parser plugin is uniquely identifiable by its na
 ```js
 import { parse, options, mergeOptions } from 'apidom-reference';
 
-options.parse.parsers = options.parse.parsers.filter(parserPlugin => parserPlugin !== 'asyncapi-json-2-0')
+options.parse.parsers = options.parse.parsers.filter(parserPlugin => parserPlugin !== 'asyncapi-json-2')
 
-// here you can be sure `asyncapi-json-2-0` plugin was disabled
+// here you can be sure `asyncapi-json-2` plugin was disabled
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
@@ -381,7 +381,7 @@ import { parse, options } from 'apidom-reference';
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: options.parse.parsers.filter(parserPlugin => parserPlugin !== 'asyncapi-json-2-0'),
+    parsers: options.parse.parsers.filter(parserPlugin => parserPlugin !== 'asyncapi-json-2'),
   }
 });
 ```
@@ -682,7 +682,7 @@ Every Reference object represents single external dependency.
 External resolution strategy determines how a document is externally resolved. Depending on document `mediaType`
 every strategy differs significantly. Resolve component comes with two (2) default external resolution strategies.
 
-##### [asyncapi-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies/asyncapi-2-0)
+##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
 External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
 
@@ -723,7 +723,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 ```js
 [
   OpenApi3_1ResolveStrategy(),
-  AsyncApi2_0ResolveStrategy()
+  AsyncApi2ResolveStrategy()
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -731,10 +731,10 @@ Most specific strategies are listed first, most generic are listed last.
 It's possible to **change** strategies **order globally** by mutating global `resolve` option:
 
 ```js
-import { options, AsyncApi2_0ResolveStrategy, OpenApi3_1ResolveStrategy } from 'apidom-reference';
+import { options, AsyncApi2ResolveStrategy, OpenApi3_1ResolveStrategy } from 'apidom-reference';
 
 options.resolve.strategies = [
-  AsyncApi2_0ResolveStrategy(),
+  AsyncApi2ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
 ];
 ```
@@ -742,7 +742,7 @@ options.resolve.strategies = [
 To **change** the strategies **order** on ad-hoc basis:
 
 ```js
-import { resolve, AsyncApi2_0ResolveStrategy, OpenApi3_1ResolveStrategy } from 'apidom-reference';
+import { resolve, AsyncApi2ResolveStrategy, OpenApi3_1ResolveStrategy } from 'apidom-reference';
 
 await resolve('/home/user/oas.json', {
   parse: {
@@ -750,7 +750,7 @@ await resolve('/home/user/oas.json', {
   },
   resolve: {
     strategies: [
-      AsyncApi2_0ResolveStrategy(),
+      AsyncApi2ResolveStrategy(),
       OpenApi3_1ResolveStrategy(),
     ]
   }
@@ -948,7 +948,7 @@ const dereferenced = await dereferenceApiDOM(apidom, {
 Dereference strategy determines how a document is internally or externally dereferenced. Depending on document `mediaType` option,
 every strategy differs significantly. `Dereference component` comes with two (2) default dereference strategies.
 
-##### [asyncapi-2-0](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies/asyncapi-2-0)
+##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies/asyncapi-2)
 
 Dereference strategy for dereferencing [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
 
@@ -989,7 +989,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 ```js
 [
   OpenApi3_1DereferenceStrategy(),
-  AsyncApi2_0DereferenceStrategy()
+  AsyncApi2DereferenceStrategy()
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -997,18 +997,18 @@ Most specific strategies are listed first, most generic are listed last.
 It's possible to **change** strategies **order globally** by mutating global `dereference` option:
 
 ```js
-import { options, AsyncApi2_0DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
+import { options, AsyncApi2DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
 
 options.dereference.strategies = [
   OpenApi3_1DereferenceStrategy(),
-  AsyncApi2_0DereferenceStrategy(),
+  AsyncApi2DereferenceStrategy(),
 ];
 ```
 
 To **change** the strategies **order** on ad-hoc basis:
 
 ```js
-import { dereference, AsyncApi2_0DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
+import { dereference, AsyncApi2DereferenceStrategy, OpenApi3_1DereferenceStrategy } from 'apidom-reference';
 
 await dereference('/home/user/oas.json', {
   parse: {
@@ -1016,7 +1016,7 @@ await dereference('/home/user/oas.json', {
   },
   dereference: {
     strategies: [
-      AsyncApi2_0DereferenceStrategy(),
+      AsyncApi2DereferenceStrategy(),
       OpenApi3_1DereferenceStrategy(),
     ]
   }

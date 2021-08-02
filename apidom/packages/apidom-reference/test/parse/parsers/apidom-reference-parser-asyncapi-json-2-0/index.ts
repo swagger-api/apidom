@@ -4,11 +4,11 @@ import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from 'apidom';
 
 import File from '../../../../src/util/File';
-import AsyncApiJson2_0Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-json-2-0';
+import AsyncApiJson2Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-json-2';
 import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
-  context('AsyncApiJson2_0Parser', function () {
+  context('AsyncApiJson2Parser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.json',
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiJson2_0Parser();
+            const parser = AsyncApiJson2Parser();
 
             assert.isTrue(parser.canParse(file1));
             assert.isTrue(parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.json',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = AsyncApiJson2_0Parser();
+            const parser = AsyncApiJson2Parser();
 
             assert.isFalse(parser.canParse(file));
           });
@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi.yaml',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiJson2_0Parser();
+          const parser = AsyncApiJson2Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -59,7 +59,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiJson2_0Parser();
+          const parser = AsyncApiJson2Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -76,7 +76,7 @@ describe('parsers', function () {
             data,
             mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0',
           });
-          const parser = AsyncApiJson2_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -92,7 +92,7 @@ describe('parsers', function () {
             data,
             mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0',
           });
-          const parser = AsyncApiJson2_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -107,7 +107,7 @@ describe('parsers', function () {
               data: 1,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiJson2_0Parser();
+            const parser = AsyncApiJson2Parser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
           } catch (e) {
@@ -125,7 +125,7 @@ describe('parsers', function () {
             data: '',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiJson2_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -143,7 +143,7 @@ describe('parsers', function () {
               data,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiJson2_0Parser({ sourceMap: true });
+            const parser = AsyncApiJson2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -159,7 +159,7 @@ describe('parsers', function () {
               data,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiJson2_0Parser({ sourceMap: false });
+            const parser = AsyncApiJson2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.meta.get('sourceMap'));

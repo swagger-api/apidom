@@ -13,7 +13,7 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('resolve', function () {
   context('strategies', function () {
-    context('asyncapi-2-0', function () {
+    context('asyncapi-2', function () {
       context('Reference Object', function () {
         context('given Reference Objects pointing internally and externally', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-external');

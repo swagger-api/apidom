@@ -4,11 +4,11 @@ import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from 'apidom';
 
 import File from '../../../../src/util/File';
-import AsyncApiYaml2_0Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2-0';
+import AsyncApiYaml2Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
 import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
-  context('AsyncApiYaml2_0Parser', function () {
+  context('AsyncApiYaml2Parser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = AsyncApiYaml2Parser();
 
             assert.isTrue(parser.canParse(file1));
             assert.isTrue(parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = AsyncApiYaml2Parser();
 
             assert.isFalse(parser.canParse(file));
           });
@@ -52,7 +52,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.yml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = AsyncApiYaml2Parser();
 
             assert.isTrue(parser.canParse(file1));
             assert.isTrue(parser.canParse(file2));
@@ -65,7 +65,7 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = AsyncApiYaml2Parser();
 
             assert.isFalse(parser.canParse(file));
           });
@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi.txt',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = AsyncApiYaml2Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = AsyncApiYaml2Parser();
 
           assert.isFalse(parser.canParse(file));
         });
@@ -103,7 +103,7 @@ describe('parsers', function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
           const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.0.0' });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -115,7 +115,7 @@ describe('parsers', function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
           const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.0.0' });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -130,7 +130,7 @@ describe('parsers', function () {
               data: 1,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser();
+            const parser = AsyncApiYaml2Parser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
           } catch (e) {
@@ -148,7 +148,7 @@ describe('parsers', function () {
             data: '',
             mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
           });
-          const parser = AsyncApiYaml2_0Parser();
+          const parser = AsyncApiYaml2Parser();
           const parsceResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parsceResult));
@@ -166,7 +166,7 @@ describe('parsers', function () {
               data,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser({ sourceMap: true });
+            const parser = AsyncApiYaml2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -182,7 +182,7 @@ describe('parsers', function () {
               data,
               mediaType: 'application/vnd.aai.asyncapi;version=2.0.0',
             });
-            const parser = AsyncApiYaml2_0Parser({ sourceMap: false });
+            const parser = AsyncApiYaml2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

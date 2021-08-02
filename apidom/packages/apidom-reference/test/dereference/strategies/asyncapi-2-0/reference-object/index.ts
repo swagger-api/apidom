@@ -1,7 +1,7 @@
 import path from 'path';
 import { assert } from 'chai';
 import { toValue, sexprs } from 'apidom';
-import { isParameterElement } from 'apidom-ns-asyncapi-2-0';
+import { isParameterElement } from 'apidom-ns-asyncapi-2';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, resolve } from '../../../../../src';
@@ -16,7 +16,7 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
-    context('asyncapi-2-0', function () {
+    context('asyncapi-2', function () {
       context('Reference Object', function () {
         context('given Reference Objects pointing internally and externally', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-external');

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements AsyncApi2Element should refract to semantic ApiDOM tree 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (IdentifierElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement))
+  (MemberElement
+    (StringElement)
+    (ServersElement))
+  (MemberElement
+    (StringElement)
+    (DefaultContentTypeElement))
+  (MemberElement
+    (StringElement)
+    (ChannelsElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement))
+  (MemberElement
+    (StringElement)
+    (TagsElement))
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;

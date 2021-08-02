@@ -956,6 +956,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -2120,6 +2124,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                                     {
                                                                       "element": "string",
                                                                       "content": "asyncapi-reference"
+                                                                    },
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "reference-element"
                                                                     }
                                                                   ]
                                                                 },
@@ -2199,6 +2207,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                                                     {
                                                                       "element": "string",
                                                                       "content": "asyncapi-reference"
+                                                                    },
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "reference-element"
                                                                     }
                                                                   ]
                                                                 },
@@ -3927,6 +3939,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         {
                                           "element": "string",
                                           "content": "asyncapi-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "reference-element"
                                         }
                                       ]
                                     },
@@ -4051,6 +4067,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                 },
                 "value": {
                   "element": "channelItem",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "reference-element"
+                        }
+                      ]
+                    }
+                  },
                   "content": [
                     {
                       "element": "member",
@@ -4496,6 +4523,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                             {
                                               "element": "string",
                                               "content": "asyncapi-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "reference-element"
                                             }
                                           ]
                                         },
@@ -4591,6 +4622,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                             {
                                               "element": "string",
                                               "content": "asyncapi-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "reference-element"
                                             }
                                           ]
                                         },
@@ -4672,6 +4707,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         {
                                           "element": "string",
                                           "content": "asyncapi-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "reference-element"
                                         }
                                       ]
                                     },
@@ -4898,6 +4937,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                         {
                                           "element": "string",
                                           "content": "asyncapi-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "reference-element"
                                         }
                                       ]
                                     },
@@ -4981,6 +5024,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5170,6 +5217,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5308,6 +5359,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5446,6 +5501,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5683,6 +5742,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5821,6 +5884,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -5959,6 +6026,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -6097,6 +6168,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -6260,6 +6335,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -6423,6 +6502,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -6586,6 +6669,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },
@@ -6749,6 +6836,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0 shape should refr
                                 {
                                   "element": "string",
                                   "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
                                 }
                               ]
                             },

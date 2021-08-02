@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { StringElement, ObjectElement } from 'apidom';
+import { StringElement, ObjectElement, isStringElement } from 'apidom';
 
 import PathItemElement from '../../../../elements/PathItem';
 import OperationElement from '../../../../elements/Operation';
@@ -28,6 +28,11 @@ const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
           const httpMethodElementCS = new StringElement(httpMethod);
           operationElement.setMetaProperty('httpMethod', httpMethodElementCS);
         });
+
+      // mark this PathItemElement with reference metadata
+      if (isStringElement(this.element.$ref)) {
+        this.element.classes.push('reference-element');
+      }
 
       return result;
     },

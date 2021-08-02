@@ -1,5 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { isStringElement, ObjectElement } from 'apidom';
 
 import LinkElement from '../../../../elements/Link';
 import FallbackVisitor from '../../FallbackVisitor';
@@ -12,6 +13,19 @@ const LinkVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new LinkElement();
+  },
+  methods: {
+    ObjectElement(objectElement: ObjectElement) {
+      // @ts-ignore
+      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+
+      // mark this LinkElement with reference metadata
+      if (isStringElement(this.element.operationId) || isStringElement(this.element.operationRef)) {
+        this.element.classes.push('reference-element');
+      }
+
+      return result;
+    },
   },
 });
 

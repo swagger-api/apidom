@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from 'minim';
 
 /**
- * AsyncApi 2.0.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -54,6 +54,10 @@ import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBindi
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from './elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding';
+// IBM MQ
+import IbmmqChannelBindingElement from './elements/bindings/ibmmq/IbmmqChannelBinding';
+import IbmmqMessageBindingElement from './elements/bindings/ibmmq/IbmmqMessageBinding';
+import IbmmqServerBindingElement from './elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 import JmsChannelBindingElement from './elements/bindings/jms/JmsChannelBinding';
 import JmsMessageBindingElement from './elements/bindings/jms/JmsMessageBinding';
@@ -115,7 +119,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi 2.0.0 specification elements.
+     * AsyncApi 2.0.0 | 2.1.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
@@ -169,6 +173,10 @@ const asyncApi2 = {
     base.register('httpMessageBinding', HttpMessageBindingElement);
     base.register('httpOperationBinding', HttpOperationBindingElement);
     base.register('httpServerBinding', HttpServerBindingElement);
+    // IBM MQ
+    base.register('ibmmqChannelBinding', IbmmqChannelBindingElement);
+    base.register('ibmmqMessageBinding', IbmmqMessageBindingElement);
+    base.register('ibmmqServerBinding', IbmmqServerBindingElement);
     // JMS
     base.register('jmsChannelBinding', JmsChannelBindingElement);
     base.register('jmsMessageBinding', JmsMessageBindingElement);

@@ -14,6 +14,7 @@ import SqsMessageBindingElement from './bindings/sqs/SqsMessageBinding';
 import StompMessageBindingElement from './bindings/stomp/StompMessageBinding';
 import RedisMessageBindingElement from './bindings/redis/RedisMessageBinding';
 import MercureMessageBindingElement from './bindings/mercure/MercureMessageBinding';
+import IbmmqMessageBindingElement from './bindings/ibmmq/IbmmqMessageBinding';
 
 class MessageBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -131,6 +132,14 @@ class MessageBindings extends ObjectElement {
 
   set mercure(mercure: MercureMessageBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get ibmmq(): IbmmqMessageBindingElement | undefined {
+    return this.get('ibmmq');
+  }
+
+  set ibmmq(ibmmq: IbmmqMessageBindingElement | undefined) {
+    this.set('ibmmq', ibmmq);
   }
 }
 

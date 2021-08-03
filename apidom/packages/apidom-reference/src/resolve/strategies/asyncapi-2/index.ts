@@ -27,6 +27,9 @@ const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resolv
           'application/vnd.aai.asyncapi;version=2.0.0',
           'application/vnd.aai.asyncapi+json;version=2.0.0',
           'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+          'application/vnd.aai.asyncapi;version=2.1.0',
+          'application/vnd.aai.asyncapi+json;version=2.1.0',
+          'application/vnd.aai.asyncapi+yaml;version=2.1.0',
         ].includes(file.mediaType);
       }
 

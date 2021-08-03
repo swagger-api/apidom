@@ -10,7 +10,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 
 export const keyMap = {
   /**
-   * AsyncApi 2.0.0 specification elements.
+   * AsyncApi 2.0.0 | 2.1.0 specification elements.
    */
   AsyncApi2Element: ['content'],
   AsyncApiVersionElement: [],

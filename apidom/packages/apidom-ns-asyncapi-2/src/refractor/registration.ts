@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi 2.0.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -53,6 +53,10 @@ import HttpChannelBindingElement from '../elements/bindings/http/HttpChannelBind
 import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBinding';
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from '../elements/bindings/http/HttpServerBinding';
+// IBM MQ
+import IbmmqChannelBindingElement from '../elements/bindings/ibmmq/IbmmqChannelBinding';
+import IbmmqMessageBindingElement from '../elements/bindings/ibmmq/IbmmqMessageBinding';
+import IbmmqServerBindingElement from '../elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 import JmsChannelBindingElement from '../elements/bindings/jms/JmsChannelBinding';
 import JmsMessageBindingElement from '../elements/bindings/jms/JmsMessageBinding';
@@ -110,7 +114,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi 2.0.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',
@@ -425,6 +429,34 @@ HttpServerBindingElement.refract = createRefractor([
   'objects',
   'bindings',
   'http',
+  'ServerBinding',
+  '$visitor',
+]);
+// IBM MQ
+IbmmqChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ibmmq',
+  'ChannelBinding',
+  '$visitor',
+]);
+IbmmqMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ibmmq',
+  'MessageBinding',
+  '$visitor',
+]);
+IbmmqServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ibmmq',
   'ServerBinding',
   '$visitor',
 ]);

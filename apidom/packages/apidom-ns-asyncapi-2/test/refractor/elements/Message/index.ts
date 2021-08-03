@@ -16,7 +16,14 @@ describe('refractor', function () {
           description: 'message-description',
           tags: [],
           externalDocs: {},
-          examples: [{ a: 1 }],
+          examples: [
+            {
+              payload: {},
+              headers: {},
+              name: 'example name',
+              summary: 'example summary',
+            },
+          ],
         });
 
         expect(sexprs(messageElement)).toMatchSnapshot();

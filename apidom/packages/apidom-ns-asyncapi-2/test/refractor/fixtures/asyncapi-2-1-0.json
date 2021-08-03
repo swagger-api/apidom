@@ -1,5 +1,5 @@
 {
-  "asyncapi": "2.0.0",
+  "asyncapi": "2.1.0",
   "id": "urn:com:smartylighting:streetlights:server",
   "info": {
     "title": "AsyncAPI Sample App",
@@ -39,7 +39,11 @@
         }
       ],
       "bindings": {
-        "kafka": {}
+        "kafka": {},
+        "ibmmq": {
+          "groupId": "PRODCLSTR1",
+          "bindingVersion": "0.1.0"
+        }
       }
     },
     "development": {
@@ -150,9 +154,18 @@
                   "type": "integer"
                 },
                 "bindingVersion": "0.1.0"
+              },
+              "ibmmq": {
+                "type": "jms",
+                "bindingVersion": "0.1.0"
               }
             },
-            "examples": [{"key": "value"}],
+            "examples": [{
+              "headers": {},
+              "payload": {},
+              "name": "example name",
+              "summary": "example summary"
+            }],
             "traits": [
               {
                 "headers": {
@@ -191,6 +204,11 @@
                   }
                 },
                 "examples": [{"a": "b"}]
+              },
+              {
+                "bindings": {
+                  "$ref": "#/components/messageBindings/MessageBinding1"
+                }
               }
             ]
           }
@@ -221,13 +239,28 @@
         }
       },
       "bindings": {
-        "kafka": {}
+        "kafka": {},
+        "ibmmq": {
+          "destinationType": "topic",
+          "bindingVersion": "0.1.0"
+        }
       }
     },
     "user/loggedout": {
       "$ref": "https://outside.com/#/path/to/channelItem",
       "description": "This channel is used to exchange messages about users logging out",
-      "subscribe": {},
+      "subscribe": {
+        "message": [
+          {
+            "bindings": {
+              "$ref": "#/components/messageBindings/MessageBinding1"
+            },
+            "traits": [
+              { "$ref": "#/components/messageTraits/MessageTrait1" }
+            ]
+          }
+        ]
+      },
       "publish": {
         "operationId": "operation2",
         "summary": "A user signed up.",

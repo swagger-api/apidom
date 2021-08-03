@@ -6,7 +6,7 @@ const { ObjectElement } = require('apidom');
 const { AsyncApi2Element } = require('../../src');
 
 const genericObjectElement = new ObjectElement({
-  asyncapi: '2.0.0',
+  asyncapi: '2.1.0',
   info: {
     title: 'Webhook Example',
     version: '1.0.0',

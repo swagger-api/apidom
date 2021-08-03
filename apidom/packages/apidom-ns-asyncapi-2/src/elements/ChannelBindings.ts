@@ -14,6 +14,7 @@ import SqsChannelBindingElement from './bindings/sqs/SqsChannelBinding';
 import StompChannelBindingElement from './bindings/stomp/StompChannelBinding';
 import RedisChannelBindingElement from './bindings/redis/RedisChannelBinding';
 import MercureChannelBindingElement from './bindings/mercure/MercureChannelBinding';
+import IbmmqChannelBindingElement from './bindings/ibmmq/IbmmqChannelBinding';
 
 class ChannelBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -131,6 +132,14 @@ class ChannelBindings extends ObjectElement {
 
   set mercure(mercure: MercureChannelBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get ibmmq(): IbmmqChannelBindingElement | undefined {
+    return this.get('ibmmq');
+  }
+
+  set ibmmq(ibmmq: IbmmqChannelBindingElement | undefined) {
+    this.set('ibmmq', ibmmq);
   }
 }
 

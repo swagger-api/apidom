@@ -32,7 +32,16 @@ exports[`refractor elements MessageElement should refract to semantic ApiDOM tre
       (ObjectElement
         (MemberElement
           (StringElement)
-          (NumberElement))))))
+          (ObjectElement))
+        (MemberElement
+          (StringElement)
+          (ObjectElement))
+        (MemberElement
+          (StringElement)
+          (StringElement))
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor elements given bindings field of type MessageBindingsElement should refract to semantic ApiDOM tree 1`] = `

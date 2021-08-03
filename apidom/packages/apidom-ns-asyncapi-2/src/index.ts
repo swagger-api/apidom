@@ -53,7 +53,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi 2.0.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
@@ -107,6 +107,10 @@ export { default as HttpChannelBindingElement } from './elements/bindings/http/H
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';
 export { default as HttpOperationBindingElement } from './elements/bindings/http/HttpOperationBinding';
 export { default as HttpServerBindingElement } from './elements/bindings/http/HttpServerBinding';
+// IBM MQ
+export { default as IbmmqChannelBindingElement } from './elements/bindings/ibmmq/IbmmqChannelBinding';
+export { default as IbmmqMessageBindingElement } from './elements/bindings/ibmmq/IbmmqMessageBinding';
+export { default as IbmmqServerBindingElement } from './elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 export { default as JmsChannelBindingElement } from './elements/bindings/jms/JmsChannelBinding';
 export { default as JmsMessageBindingElement } from './elements/bindings/jms/JmsMessageBinding';

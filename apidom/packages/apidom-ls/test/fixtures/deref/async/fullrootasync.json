@@ -1,0 +1,74 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "async",
+    "version": "0.1.9"
+  },
+  "servers": {
+    "prod": {
+      "url": "http://localhost:8082/",
+      "protocol": "http"
+    }
+  },
+  "channels": {
+    "user/signedup": {
+      "subscribe": {
+        "summary": "A user signed up.",
+        "operationId": "emitUserSignUpEvent",
+        "message":
+          [
+            {
+              "$ref": "#/components/messages/UserSignedUp"
+            }
+          ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "userId": {
+        "$ref": "#/components/parameters/indirection1"
+      },
+      "indirection1": {
+        "$ref": "#/components/parameters/indirection2"
+      },
+      "indirection2": {
+        "$ref": "#/components/parameters/userIdRef"
+      },
+      "userIdRef": {
+        "description": "Id of the user.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "externalRef": {
+        "$ref": "./asyncex.json#/externalParameter"
+      }
+    },
+    "messages": {
+      "UserSignedUp": {
+        "name": "userSignedUp",
+        "title": "User signed up event",
+        "summary": "Inform about a new user",
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/userSignedUpPayload"
+        }
+      }
+    },
+    "schemas": {
+      "userSignedUpPayload": {
+        "type": "object",
+        "title": "User signed up event",
+        "summary": "Inform about a new user",
+        "contentType": "application/json",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "foo"
+          }
+        }
+      }
+    }
+  }
+}

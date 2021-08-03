@@ -290,11 +290,13 @@ export class DefaultCompletionService implements CompletionService {
         // TODO complete schema based, see json language service and "lsp" branch
         // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
       } else {
+        const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
         DefaultCompletionService.getMetadataPropertyCompletions(
           api,
           completionNode,
           collector,
           !isJsonDoc(textDocument),
+          inNewLine,
         );
       }
     }
@@ -363,6 +365,7 @@ export class DefaultCompletionService implements CompletionService {
     node: Element,
     collector: CompletionsCollector,
     yaml: boolean,
+    inNewLine: boolean,
   ): void {
     const apidomCompletions: CompletionItem[] = doc.meta
       .get('metadataMap')
@@ -372,6 +375,9 @@ export class DefaultCompletionService implements CompletionService {
       ?.toValue();
     if (apidomCompletions) {
       for (const item of apidomCompletions) {
+        if (inNewLine) {
+          item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
+        }
         collector.add(item);
       }
     }

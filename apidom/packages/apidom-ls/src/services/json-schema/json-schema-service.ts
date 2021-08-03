@@ -22,7 +22,9 @@ import {
   LanguageSettings,
   ValidationContext,
 } from '../../apidom-language-types';
-import openapiSchemaJson from './openapi-schema.json';
+// import openapiSchemaJson from './openapi-schema.json';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import openapiSchemaJsonIdea from './openapi-schema-idea.json';
 import asyncapiSchemaJson from './asyncapi-schema.json';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { ValidationProvider } from '../validation/validation-service';
@@ -96,8 +98,13 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
           }
           let range: Range;
           const errorOnValue = error.keyword === 'pattern' || error.keyword === 'format';
+          // if errors are related to root, mark only the first char
+          if (!error.dataPath || error.dataPath.length === 0) {
+            const endChar = !originalDocument || originalDocument.length === 0 ? 0 : 1;
+            range = Range.create(Position.create(0, 0), Position.create(0, endChar));
+          }
           // TODO fix and solve with consistent YAML / JSON / Adapter
-          if (isYaml) {
+          else if (isYaml) {
             // eslint-disable-next-line prefer-template
             const position = positionRangeForPath(
               originalDocument,
@@ -166,7 +173,6 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
       documentation: 'documentation',
     };
     const completionItems: CompletionItem[] = [];
-    // TODO
     completionItems.push(item);
     // return CompletionList.create(completionItems, false);
     CompletionList.create(completionItems, false);
@@ -197,6 +203,8 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     if (isAsyncDoc(text)) {
       return ajv.compile(asyncapiSchemaJson);
     }
-    return ajv.compile(openapiSchemaJson);
+    // return ajv.compile(openapiSchemaJson);
+    // TODO (francesco@tumanischvili@smartbear.com) allow to pass schema to use with metadata
+    return ajv.compile(openapiSchemaJsonIdea);
   }
 }

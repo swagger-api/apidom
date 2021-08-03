@@ -1,7 +1,7 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { dereferenceApiDOM } from 'apidom-reference';
 import { isString } from 'ramda-adjunct';
-import { toValue } from 'apidom';
+import { ArraySlice, Element, filter, ObjectElement, toValue } from 'apidom';
 
 import { DerefContext, FORMAT, LanguageSettings } from '../../apidom-language-types';
 import { getParser } from '../../parser-factory';
@@ -26,17 +26,39 @@ export class DefaultDerefService implements DerefService {
     derefContext?: DerefContext,
   ): Promise<string> {
     // get right parser
-
-    const baseURI = isString(derefContext?.baseURI) ? derefContext?.baseURI : '/';
-    const format = isString(derefContext?.format) ? derefContext?.format : FORMAT.JSON;
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
     // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
+    const result = await parser.parse(text, { sourceMap: true });
+
+    const api: ObjectElement = <ObjectElement>result.api;
 
     // no API document has been parsed
     if (api === undefined) return '';
+
+    let baseURI: string | undefined = '/';
+
+    const servers: ArraySlice = filter((el: Element) => {
+      return el.classes.toValue().includes('servers');
+    }, api);
+    // TODO (francesco.tumanischvili@smartbear.com): this needs to be replaced by good metadata ('serverURL' to URLS and/or adapter/plugin
+    if (servers) {
+      const serversValue = servers.first.toValue();
+      // OAS
+      if (Array.isArray(serversValue)) {
+        if (!servers.isEmpty) {
+          const firstServer = serversValue[0];
+          baseURI = firstServer.url;
+        }
+        // ASYNC
+      } else if (Object.keys(serversValue).length > 0) {
+        const firstServer = serversValue[Object.keys(serversValue)[0]];
+        baseURI = firstServer.url;
+      }
+    }
+    baseURI = isString(derefContext?.baseURI) ? derefContext?.baseURI : baseURI;
+    const format = isString(derefContext?.format) ? derefContext?.format : FORMAT.JSON;
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {
@@ -44,7 +66,7 @@ export class DefaultDerefService implements DerefService {
     });
     const dereferencedValue = toValue(dereferenced);
 
-    // TODO(francesco.tumanischvili@smartbear.com): transform/serialize to YAML if format `YAML` is passed
+    // TODO (francesco.tumanischvili@smartbear.com): transform/serialize to YAML if format `YAML` is passed
     // @ts-ignore
     return format === FORMAT.YAML
       ? JSON.stringify(dereferencedValue, null, 2) // serialize to YAML

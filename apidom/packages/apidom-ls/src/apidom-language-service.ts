@@ -22,6 +22,7 @@ import { DefaultSymbolsService } from './services/symbols/symbols-service';
 import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
 import { DefaultHoverService } from './services/hover/hover-service';
 import { DefaultDerefService } from './services/deref/deref-service';
+import { DefaultDefinitionService } from './services/definition/definition-service';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -32,6 +33,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   const semanticTokensService = new DefaultSemanticTokensService();
   const hoverService = new DefaultHoverService();
   const derefService = new DefaultDerefService();
+  const definitionService = new DefaultDefinitionService();
 
   function configureServices(languageSettings?: LanguageSettings) {
     jsonSchemaService.configure(languageSettings);
@@ -41,6 +43,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     semanticTokensService.configure(languageSettings);
     hoverService.configure(languageSettings);
     derefService.configure(languageSettings);
+    definitionService.configure(languageSettings);
   }
 
   // TODO solve init and config
@@ -62,6 +65,9 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     doHover: hoverService.computeHover.bind(hoverService),
     doCodeActions: validationService.doCodeActions.bind(validationService),
     doDeref: derefService.doDeref.bind(derefService),
+
+    doProvideDefinition: definitionService.doProvideDefinition.bind(definitionService),
+    doProvideReferences: definitionService.doProvideReferences.bind(definitionService),
 
     getSemanticTokensLegend(): SemanticTokensLegend {
       return semanticTokensService.getLegend();

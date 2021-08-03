@@ -10,6 +10,7 @@ import {
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
+import { Element, traverse } from 'apidom';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -17,8 +18,11 @@ import {
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
+  FORMAT,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { getParser } from '../src/parser-factory';
+import { getSourceMap, SourceMap } from '../src/utils/utils';
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.json'))
@@ -33,6 +37,20 @@ const specError = fs
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specHighlightAsync = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-async.json'))
+  .toString();
+
+const specDeref = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/async/asyncrootwithserver.json'))
+  .toString();
+const derefBaseURI = path
+  .join(__dirname, 'fixtures', 'deref/async/asyncrootwithserver.json')
+  .toString();
+const specDereferenced = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/async/dereferenced.json'))
+  .toString();
+
+const specFull = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/async/fullrootasync.json'))
   .toString();
 
 const completionTestInput = [
@@ -310,52 +328,83 @@ describe('apidom-ls-async', function () {
         );
       }
     }
+
     assert.deepEqual(tokens, {
       data: [
         1,
-        14,
-        7,
-        16,
-        64,
+        2,
+        10,
+        26,
+        0,
         1,
         2,
         6,
-        12,
-        0,
-        0,
-        0,
-        6,
-        12,
+        3,
         0,
         1,
         4,
         9,
-        11,
+        2,
         0,
+        2,
+        2,
+        9,
+        24,
         0,
-        11,
-        7,
-        16,
-        64,
-        3,
-        20,
-        41,
-        16,
-        64,
+        1,
         4,
         6,
+        23,
+        0,
+        0,
+        9,
+        5,
+        10,
+        0,
+        2,
+        2,
+        10,
+        28,
+        0,
+        1,
+        4,
+        3,
+        27,
+        0,
+        1,
+        6,
         11,
-        13,
+        4,
         16,
         1,
-        19,
-        19,
-        16,
-        64,
-        3,
-        20,
         8,
-        16,
+        9,
+        35,
+        64,
+        0,
+        11,
+        19,
+        32,
+        64,
+        1,
+        8,
+        9,
+        35,
+        64,
+        1,
+        10,
+        9,
+        35,
+        64,
+        1,
+        12,
+        6,
+        35,
+        64,
+        0,
+        8,
+        8,
+        32,
         64,
       ],
     });
@@ -379,6 +428,68 @@ describe('apidom-ls-async', function () {
       // eslint-disable-next-line no-await-in-loop
       const result = await languageService.doHover(doc, pos);
       assert.deepEqual(result, input[3] as Hover);
+    }
+  });
+
+  it('test deref async', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doDeref(doc, {
+      format: FORMAT.JSON,
+      baseURI: derefBaseURI,
+    });
+
+    // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
+    // const result = await languageService.doDeref(doc);
+    assert.equal(result, specDereferenced.substr(0, specDereferenced.length - 1));
+  });
+
+  // eslint-disable-next-line consistent-return
+  it('test parse json', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
+
+    const parser = getParser(doc);
+    const text: string = doc.getText();
+    const diagnostics: Diagnostic[] = [];
+
+    // eslint-disable-next-line consistent-return
+    const result = await parser.parse(text, { sourceMap: true });
+
+    const { api } = result;
+    if (!api) {
+      return diagnostics;
+    }
+    api.freeze(); // !! freeze and add parent !!
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function printSourceMap(node: Element): void {
+      const sm: SourceMap = getSourceMap(node);
+      // eslint-disable-next-line no-console
+      console.log(node.element, `${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}`);
+    }
+
+    function printContent(node: Element): void {
+      const sm: SourceMap = getSourceMap(node);
+      // eslint-disable-next-line no-console
+      console.log(
+        node.element,
+        node.getMetaProperty('classes', []).toValue(),
+        node.getMetaProperty('httpMethod', []).toValue(),
+        `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
+        node.toValue(),
+      );
+    }
+
+    // traverse(printSourceMap, api);
+    traverse(printContent, api);
+
+    if (result.annotations) {
+      for (const annotation of result.annotations) {
+        // eslint-disable-next-line no-console
+        console.log(JSON.stringify(annotation));
+      }
     }
   });
 });

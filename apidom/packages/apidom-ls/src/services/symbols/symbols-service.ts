@@ -60,6 +60,13 @@ export class DefaultSymbolsService implements SymbolsService {
       'operation',
       'pathItem',
       'httpMethod',
+      'components',
+      'components-schemas',
+      'components-parameters',
+      'paths',
+      'channels',
+      'servers',
+      'components-messages',
     ];
 
     const res: ArraySlice = filter((el: Element) => {
@@ -90,7 +97,7 @@ export class DefaultSymbolsService implements SymbolsService {
             { line: sm.endLine || sm.line, character: sm.endColumn || sm.column },
           );
 
-          // cheat now here for demo
+          //  TODO (francesco@tumanischvili@smartbear.com) replace with ns plugin/adapter
           if (s === 'operation') {
             const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
             // TODO solve this
@@ -102,12 +109,11 @@ export class DefaultSymbolsService implements SymbolsService {
             const keyValue = key.toValue() as string;
             si.containerName = `${keyValueSuper} -> ${keyValue}`;
             symbols.push(si);
-          } else if (s === 'pathItem') {
+          } else if (s === 'pathItem' || s === 'channelItem') {
             const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
             const parent: MemberElement = e.parent as MemberElement;
             const key = parent.key as Element;
-            const keyValue = key.toValue() as string;
-            si.containerName = keyValue;
+            si.containerName = key.toValue() as string;
             symbols.push(si);
           } else {
             symbols.push(SymbolInformation.create(s, SymbolKind.Property, r));

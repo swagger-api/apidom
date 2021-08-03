@@ -12,6 +12,7 @@ import {
   TextEdit,
   Position,
   CodeAction,
+  Location,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
@@ -20,6 +21,8 @@ import {
   SemanticTokens,
   SemanticTokensLegend,
   CodeActionParams,
+  DefinitionParams,
+  ReferenceParams,
 } from 'vscode-languageserver-protocol';
 
 import { Metadata } from './utils/utils';
@@ -99,6 +102,16 @@ export interface LanguageService {
   doHover(document: TextDocument, position: Position): Promise<Hover | undefined>;
 
   doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
+
+  doProvideDefinition(
+    document: TextDocument,
+    definitionParams: DefinitionParams,
+  ): Promise<Location | null>;
+
+  doProvideReferences(
+    textDocument: TextDocument,
+    referenceParams: ReferenceParams,
+  ): Promise<Location[] | null>;
 
   doCodeActions(
     textDocument: TextDocument,

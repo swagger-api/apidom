@@ -2,24 +2,29 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
 import {
   CompletionList,
   Diagnostic,
   DiagnosticSeverity,
   Hover,
   Position,
+  Location,
   SymbolInformation,
 } from 'vscode-languageserver-types';
+import { Element, traverse } from 'apidom';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
   CompletionContext,
-  FORMAT,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
+  FORMAT,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { getParser } from '../src/parser-factory';
+import { getSourceMap, SourceMap } from '../src/utils/utils';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 const specCompletion = fs
@@ -28,7 +33,6 @@ const specCompletion = fs
 const specError = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.json'))
   .toString();
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specHighlight = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api.json'))
   .toString();
@@ -37,10 +41,21 @@ const specLinterUpper = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-upper.json'))
   .toString();
 
-const specDeref = fs.readFileSync(path.join(__dirname, 'fixtures', 'deref/root.json')).toString();
-const derefBaseURI = path.join(__dirname, 'fixtures', 'deref/').toString();
+const derefBaseURI = path.join(__dirname, 'fixtures', 'deref/rootwithserver.json').toString();
+
+const specDeref = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/rootwithserver.json'))
+  .toString();
 const specDereferenced = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'deref/dereferenced.json'))
+  .toString();
+
+const specFull = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/fullroot.json'))
+  .toString();
+
+const specFullResponses = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref/fullrootresponses.json'))
   .toString();
 
 const completionTestInput = [
@@ -140,6 +155,50 @@ const hoverTestInput = [
   ],
 ];
 
+const defTestInput = [
+  [
+    'ref value',
+    42,
+    33,
+    {
+      range: {
+        end: {
+          character: 7,
+          line: 54,
+        },
+        start: {
+          character: 13,
+          line: 52,
+        },
+      },
+      uri: 'foo://bar/file.json',
+    },
+  ],
+];
+
+const refTestInput = [
+  [
+    'def value',
+    42,
+    33,
+    [
+      {
+        range: {
+          end: {
+            character: 7,
+            line: 54,
+          },
+          start: {
+            character: 13,
+            line: 52,
+          },
+        },
+        uri: 'foo://bar/file.json',
+      },
+    ],
+  ],
+];
+
 describe('apidom-ls', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -161,85 +220,351 @@ describe('apidom-ls', function () {
 
     const expected = [
       {
-        range: { start: { line: 1, character: 13 }, end: { line: 1, character: 20 } },
-        message: 'should match pattern "^3\\.0\\.\\d(-.+)?$"',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 3, character: 2 }, end: { line: 3, character: 8 } },
+        range: {
+          start: {
+            line: 3,
+            character: 2,
+          },
+          end: {
+            line: 3,
+            character: 8,
+          },
+        },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 3, character: 2 }, end: { line: 3, character: 8 } },
+        range: {
+          start: {
+            line: 3,
+            character: 2,
+          },
+          end: {
+            line: 3,
+            character: 8,
+          },
+        },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 8, character: 22 }, end: { line: 8, character: 40 } },
-        message: 'should match format "uri-reference"',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 13 } },
+        range: {
+          start: {
+            line: 11,
+            character: 4,
+          },
+          end: {
+            line: 11,
+            character: 13,
+          },
+        },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 185, character: 6 }, end: { line: 185, character: 18 } },
+        range: {
+          start: {
+            line: 104,
+            character: 8,
+          },
+          end: {
+            line: 104,
+            character: 20,
+          },
+        },
         message: 'should be array',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 104, character: 8 }, end: { line: 104, character: 20 } },
+        range: {
+          start: {
+            line: 113,
+            character: 8,
+          },
+          end: {
+            line: 113,
+            character: 19,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 185,
+            character: 6,
+          },
+          end: {
+            line: 185,
+            character: 18,
+          },
+        },
         message: 'should be array',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 113, character: 8 }, end: { line: 113, character: 19 } },
+        range: {
+          start: {
+            line: 30,
+            character: 10,
+          },
+          end: {
+            line: 30,
+            character: 14,
+          },
+        },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 30, character: 10 }, end: { line: 30, character: 14 } },
+        range: {
+          start: {
+            line: 30,
+            character: 10,
+          },
+          end: {
+            line: 30,
+            character: 14,
+          },
+        },
         message: 'should NOT have additional properties',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 30, character: 10 }, end: { line: 30, character: 14 } },
+        range: {
+          start: {
+            line: 30,
+            character: 10,
+          },
+          end: {
+            line: 30,
+            character: 14,
+          },
+        },
         message: "should have required property '$ref'",
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 30, character: 10 }, end: { line: 30, character: 14 } },
+        range: {
+          start: {
+            line: 30,
+            character: 10,
+          },
+          end: {
+            line: 30,
+            character: 14,
+          },
+        },
         message: 'should match exactly one schema in oneOf',
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 27, character: 6 }, end: { line: 27, character: 15 } },
+        range: {
+          start: {
+            line: 27,
+            character: 6,
+          },
+          end: {
+            line: 27,
+            character: 15,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 27,
+            character: 6,
+          },
+          end: {
+            line: 27,
+            character: 15,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 27,
+            character: 6,
+          },
+          end: {
+            line: 27,
+            character: 15,
+          },
+        },
         message: "should have required property '$ref'",
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 27, character: 6 }, end: { line: 27, character: 15 } },
+        range: {
+          start: {
+            line: 27,
+            character: 6,
+          },
+          end: {
+            line: 27,
+            character: 15,
+          },
+        },
+        message: 'should match exactly one schema in oneOf',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 44,
+            character: 10,
+          },
+          end: {
+            line: 44,
+            character: 19,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 44,
+            character: 10,
+          },
+          end: {
+            line: 44,
+            character: 19,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 44,
+            character: 10,
+          },
+          end: {
+            line: 44,
+            character: 19,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 44,
+            character: 10,
+          },
+          end: {
+            line: 44,
+            character: 19,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 44,
+            character: 10,
+          },
+          end: {
+            line: 44,
+            character: 19,
+          },
+        },
+        message: 'should match exactly one schema in oneOf',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 35,
+            character: 6,
+          },
+          end: {
+            line: 35,
+            character: 12,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 35,
+            character: 6,
+          },
+          end: {
+            line: 35,
+            character: 12,
+          },
+        },
+        message: 'should NOT have additional properties',
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 35,
+            character: 6,
+          },
+          end: {
+            line: 35,
+            character: 12,
+          },
+        },
+        message: "should have required property '$ref'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 35,
+            character: 6,
+          },
+          end: {
+            line: 35,
+            character: 12,
+          },
+        },
         message: 'should match exactly one schema in oneOf',
         severity: 1,
         code: 0,
       },
     ];
-
     assert.deepEqual(result, expected as Diagnostic[]);
     doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
@@ -423,89 +748,109 @@ describe('apidom-ls', function () {
     assert.deepEqual(tokens, {
       data: [
         1,
-        13,
-        7,
-        16,
-        64,
+        2,
+        9,
+        15,
+        0,
         1,
         2,
         6,
-        12,
-        0,
-        0,
-        0,
-        6,
-        12,
+        3,
         0,
         1,
         4,
         9,
-        11,
+        2,
         0,
+        2,
+        2,
+        9,
+        24,
         0,
-        11,
+        1,
+        5,
+        5,
+        10,
+        0,
+        2,
+        2,
         7,
-        16,
-        64,
-        3,
-        12,
-        41,
-        16,
-        64,
-        3,
+        17,
+        0,
+        1,
         4,
         4,
-        14,
+        5,
         0,
         1,
         6,
         5,
-        13,
+        4,
         16,
         1,
-        23,
+        8,
+        13,
+        35,
+        64,
+        0,
+        15,
         6,
-        16,
+        32,
         64,
         2,
         6,
         6,
-        13,
+        4,
         32,
         1,
-        23,
+        8,
+        13,
+        35,
+        64,
+        0,
+        15,
         7,
-        16,
+        32,
         64,
         3,
         4,
         4,
-        14,
+        5,
         0,
         1,
         6,
         6,
-        13,
+        4,
         32,
         1,
-        23,
+        8,
+        13,
+        35,
+        64,
+        0,
+        15,
         7,
-        16,
+        32,
         64,
         3,
         4,
         4,
-        14,
+        5,
         0,
         1,
         6,
         5,
-        13,
+        4,
         16,
         1,
-        23,
+        8,
+        13,
+        35,
+        64,
+        0,
+        15,
         6,
-        16,
+        32,
         64,
       ],
     });
@@ -531,10 +876,107 @@ describe('apidom-ls', function () {
     const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
 
     const languageService: LanguageService = getLanguageService(context);
+
     const result = await languageService.doDeref(doc, {
       format: FORMAT.JSON,
       baseURI: derefBaseURI,
     });
+
+    // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
+    // const result = await languageService.doDeref(doc);
     assert.equal(result, specDereferenced.substr(0, specDereferenced.length - 1));
+  });
+
+  it('test definition', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    for (const input of defTestInput) {
+      // eslint-disable-next-line no-console
+      console.log(`testing def for ${input[0]}`);
+      const pos = Position.create(input[1] as number, input[2] as number);
+      // eslint-disable-next-line no-await-in-loop
+      const definitionParams: DefinitionParams = {
+        position: pos,
+        textDocument: doc,
+      };
+      // eslint-disable-next-line no-await-in-loop
+      const result = await languageService.doProvideDefinition(doc, definitionParams);
+      assert.deepEqual(result, input[3] as Location);
+    }
+  });
+
+  it('test references', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    for (const input of refTestInput) {
+      // eslint-disable-next-line no-console
+      console.log(`testing refs for ${input[0]}`);
+      const pos = Position.create(input[1] as number, input[2] as number);
+      // eslint-disable-next-line no-await-in-loop
+      const referenceParams: ReferenceParams = {
+        position: pos,
+        textDocument: doc,
+        context: { includeDeclaration: false },
+      };
+      // eslint-disable-next-line no-await-in-loop
+      const result = await languageService.doProvideReferences(doc, referenceParams);
+      assert.deepEqual(result, input[3] as Location[]);
+    }
+  });
+
+  // eslint-disable-next-line consistent-return
+  it('test parse json', async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/file.json',
+      'json',
+      0,
+      specFullResponses,
+    );
+
+    const parser = getParser(doc);
+    const text: string = doc.getText();
+    const diagnostics: Diagnostic[] = [];
+
+    // eslint-disable-next-line consistent-return
+    const result = await parser.parse(text, { sourceMap: true });
+
+    const { api } = result;
+    if (!api) {
+      return diagnostics;
+    }
+    api.freeze(); // !! freeze and add parent !!
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function printSourceMap(node: Element): void {
+      const sm: SourceMap = getSourceMap(node);
+      // eslint-disable-next-line no-console
+      console.log(node.element, `${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}`);
+    }
+
+    function printContent(node: Element): void {
+      const sm: SourceMap = getSourceMap(node);
+      // eslint-disable-next-line no-console
+      console.log(
+        node.element,
+        node.getMetaProperty('classes', []).toValue(),
+        node.getMetaProperty('httpMethod', []).toValue(),
+        `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
+        node.toValue(),
+      );
+    }
+
+    // traverse(printSourceMap, api);
+    traverse(printContent, api);
+
+    if (result.annotations) {
+      for (const annotation of result.annotations) {
+        // eslint-disable-next-line no-console
+        console.log(JSON.stringify(annotation));
+      }
+    }
   });
 });

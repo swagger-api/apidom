@@ -25,7 +25,7 @@ export interface ValidationService {
   configure(settings: LanguageSettings): void;
 }
 
-/* represent any validation provider - TODO */
+/* represent any validation provider  */
 export interface ValidationProvider {
   doValidation(
     textDocument: TextDocument,
@@ -78,19 +78,18 @@ export class DefaultValidationService implements ValidationService {
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
 
-    // parse
     const result = await parser.parse(text, { sourceMap: true });
     const { api } = result;
 
     // no API document has been parsed
     if (api === undefined) return diagnostics;
 
-    // TODO use the type related metadata at root level defining the tokenTypes and modifiers
+    // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
     setMetadataMap(
       api,
       isAsyncDoc(text) ? 'asyncapi' : 'openapi',
       this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
+    ); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
     api.freeze(); // !! freeze and add parent !!
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -137,7 +136,7 @@ export class DefaultValidationService implements ValidationService {
     }
     const hasSyntaxErrors = !!diagnostics.length;
     if (!hasSyntaxErrors) {
-      // TODO try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
       this.jsonSchemaValidationService
         .doValidation(textDocument, api, validationContext)
         .then((jsonSchemaDiagnostics) => {
@@ -224,7 +223,7 @@ export class DefaultValidationService implements ValidationService {
       // @ts-ignore
       return diagnostic.data?.quickFix;
     }
-    // TODO
+
     if (diagnostic.source === 'LINTER') {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -234,7 +233,7 @@ export class DefaultValidationService implements ValidationService {
         if (symbolValue.lint) {
           const linters: LinterMeta[] = symbolValue.lint as LinterMeta[];
           for (const linterMeta of linters) {
-            // TODO solve LinterMeta number/string
+            // TODO (francesco@tumanischvili@smartbear.com)  solve LinterMeta number/string
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             if (String(linterMeta.code!) === code) {
               return linterMeta.data?.quickFix;
@@ -277,7 +276,7 @@ export class DefaultValidationService implements ValidationService {
         const quickFix = this.findQuickFix(diag, lang, String(diag.code));
         if (quickFix)
           if (quickFix.action === 'transformValue') {
-            // TODO functions as linter from client, defined elsewhere
+            // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
             if (quickFix.function === 'tranformToLowercase') {
               codeActions.push({
                 // @ts-ignore
@@ -297,61 +296,35 @@ export class DefaultValidationService implements ValidationService {
               });
             }
           } else if (quickFix.action === 'addChild') {
-            // TODO functions as linter from client, defined elsewhere
-            if (quickFix.function === 'addDescription') {
-              // TODO use apidom node to add a child maybe when / if we have roundtrip serialization
-              const newText = isJsonDoc(text) ? quickFix.snippetJson : quickFix.snippetYaml;
+            // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
+            // if (quickFix.function === 'addDescription') {
+            // TODO (francesco@tumanischvili@smartbear.com)  use apidom node to add a child  whenroundtrip serialization gets supported
+            const newText = isJsonDoc(text) ? quickFix.snippetJson : quickFix.snippetYaml;
 
-              // get the range of 0 length for the same line + 1
-              const line = diag.range.start.line + 1;
-              // get the char with indent TODO!! 2 more from the start
-              const character = diag.range.start.character + 2;
-              const range = Range.create({ line, character }, { line, character });
-              // TODO caret is not moved to $1 like in completion, use a command or something
-              codeActions.push({
-                // @ts-ignore
-                title: quickFix.message,
-                kind: CodeActionKind.QuickFix,
-                diagnostics: [diag],
-                edit: {
-                  changes: {
-                    [documentUri]: [
-                      {
-                        range,
-                        newText: newText || '',
-                      },
-                    ],
-                  },
+            // get the range of 0 length for the same line + 1
+            const line = diag.range.start.line + 1;
+            // get the char with indent
+            // TODO (francesco@tumanischvili@smartbear.com)  better indent handling
+            const character = diag.range.start.character + 2;
+            const range = Range.create({ line, character }, { line, character });
+            // TODO (francesco@tumanischvili@smartbear.com)  caret is not moved to $1 like in completion, use a command or something
+            codeActions.push({
+              // @ts-ignore
+              title: quickFix.message,
+              kind: CodeActionKind.QuickFix,
+              diagnostics: [diag],
+              edit: {
+                changes: {
+                  [documentUri]: [
+                    {
+                      range,
+                      newText: newText || '',
+                    },
+                  ],
                 },
-              });
-            }
-          }
-
-        /*        if (
-          diag.severity === DiagnosticSeverity.Error &&
-          diag.relatedInformation &&
-          diag?.relatedInformation[0].message.includes('Possible valid values: ')
-        ) {
-          // @ts-ignore
-          const actions = diag.relatedInformation[0].message
-            .substring('Possible valid values: '.length)
-            .split(',');
-          codeActions.push({
-            title: `Change to a possible valid value: ${actions[0].trim()}`,
-            kind: CodeActionKind.QuickFix,
-            diagnostics: [diag],
-            edit: {
-              changes: {
-                [documentUri]: [
-                  {
-                    range: diag.range,
-                    newText: actions[0].trim(),
-                  },
-                ],
               },
-            },
-          });
-        } */
+            });
+          }
       });
 
       return codeActions;

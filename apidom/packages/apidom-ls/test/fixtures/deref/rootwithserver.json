@@ -15,22 +15,16 @@
   "components": {
     "parameters": {
       "userId": {
-        "name": "userId",
-        "in": "query",
-        "description": "override",
-        "required": true
+        "$ref": "#/components/parameters/indirection1",
+        "description": "override"
       },
       "indirection1": {
-        "name": "userId",
-        "in": "query",
-        "description": "ID of the user",
-        "required": true
+        "$ref": "#/components/parameters/indirection2",
+        "summary": "indirect summary"
       },
       "indirection2": {
-        "name": "userId",
-        "in": "query",
-        "description": "ID of the user",
-        "required": true
+        "$ref": "#/components/parameters/userIdRef",
+        "summary": "indirect summary"
       },
       "userIdRef": {
         "name": "userId",
@@ -39,10 +33,8 @@
         "required": true
       },
       "externalRef": {
-        "name": "externalParameter",
-        "in": "query",
-        "description": "another ref",
-        "required": true
+        "$ref": "./ex.json#/externalParameter",
+        "description": "another ref"
       }
     }
   }

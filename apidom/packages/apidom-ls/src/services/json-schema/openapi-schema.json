@@ -11,7 +11,7 @@
   "properties": {
     "openapi": {
       "type": "string",
-      "pattern": "^3\\.0\\.\\d(-.+)?$"
+      "pattern": "^3\\.[01]\\.\\d(-.+)?$"
     },
     "info": {
       "$ref": "#/definitions/Info"

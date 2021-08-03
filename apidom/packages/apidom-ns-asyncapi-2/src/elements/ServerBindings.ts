@@ -14,6 +14,7 @@ import SqsServerBindingElement from './bindings/sqs/SqsServerBinding';
 import StompServerBindingElement from './bindings/stomp/StompServerBinding';
 import RedisServerBindingElement from './bindings/redis/RedisServerBinding';
 import MercureServerBindingElement from './bindings/mercure/MercureServerBinding';
+import IbmmqServerBindingElement from './bindings/ibmmq/IbmmqServerBinding';
 
 class ServerBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -131,6 +132,14 @@ class ServerBindings extends ObjectElement {
 
   set mercure(mercure: MercureServerBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get ibmmq(): IbmmqServerBindingElement | undefined {
+    return this.get('ibmmq');
+  }
+
+  set ibmmq(ibmmq: IbmmqServerBindingElement | undefined) {
+    this.set('ibmmq', ibmmq);
   }
 }
 

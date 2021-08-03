@@ -1,7 +1,7 @@
 {
   "name": "apidom-ns-asyncapi-2",
   "version": "0.1.0",
-  "description": "AsyncAPI 2.0.x namespace for ApiDOM",
+  "description": "AsyncAPI 2.x.y namespace for ApiDOM",
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

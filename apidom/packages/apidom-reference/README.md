@@ -96,6 +96,8 @@ Supported media types are:
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
 ]
 ```
 
@@ -111,6 +113,8 @@ Supported media types are:
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
 ]
 ```
 
@@ -684,7 +688,7 @@ every strategy differs significantly. Resolve component comes with two (2) defau
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
-External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
 
 Supported media types:
 
@@ -692,7 +696,10 @@ Supported media types:
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.0.0'
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0'
 ]
 ```
 
@@ -950,7 +957,7 @@ every strategy differs significantly. `Dereference component` comes with two (2)
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-reference/src/dereference/strategies/asyncapi-2)
 
-Dereference strategy for dereferencing [AsyncApi 2.0.0](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+Dereference strategy for dereferencing [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
 
 Supported media types:
 
@@ -958,7 +965,10 @@ Supported media types:
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.0.0'
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0'
 ]
 ```
 

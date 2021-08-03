@@ -43,5 +43,8 @@ exports[`refractor elements MessageBindingsElement should refract to semantic Ap
     (RedisMessageBindingElement))
   (MemberElement
     (StringElement)
-    (MercureMessageBindingElement)))
+    (MercureMessageBindingElement))
+  (MemberElement
+    (StringElement)
+    (IbmmqMessageBindingElement)))
 `;

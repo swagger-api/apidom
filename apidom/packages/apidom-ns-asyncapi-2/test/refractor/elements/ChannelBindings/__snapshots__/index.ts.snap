@@ -43,5 +43,8 @@ exports[`refractor elements ChannelBindingsElement should refract to semantic Ap
     (RedisChannelBindingElement))
   (MemberElement
     (StringElement)
-    (MercureChannelBindingElement)))
+    (MercureChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (IbmmqChannelBindingElement)))
 `;

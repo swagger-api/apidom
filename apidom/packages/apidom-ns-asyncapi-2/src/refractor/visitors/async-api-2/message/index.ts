@@ -22,6 +22,9 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
           'application/vnd.aai.asyncapi;version=2.0.0',
           'application/vnd.aai.asyncapi+json;version=2.0.0',
           'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+          'application/vnd.aai.asyncapi;version=2.1.0',
+          'application/vnd.aai.asyncapi+json;version=2.1.0',
+          'application/vnd.aai.asyncapi+yaml;version=2.1.0',
         ].includes(schemaFormat) &&
         isObjectElement(payload)
       ) {

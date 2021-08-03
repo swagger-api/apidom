@@ -1,9 +1,13 @@
 # apidom-parser-adapter-asyncapi-yaml-2
 
-`apidom-parser-adapter-asyncapi-yaml-2` is a parser adapter for the [AsyncApi 2.0.0 specification](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
+`apidom-parser-adapter-asyncapi-yaml-2` is a parser adapter for following AsyncAPI specification versions defined in [YAML format](https://yaml.org/spec/1.2/spec.html):
+
+- [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
+- [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
+
 Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace)
-which is then refracted with [AsyncApi 2.0.0 Refractors](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#refractors).
+which is then refracted with [AsyncApi 2.x.y Refractors](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#refractors).
 
 ## Parser adapter API
 
@@ -18,16 +22,18 @@ Defines list of media types that this parser adapter recognizes.
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-asyncapi-yaml-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.0.0 specification symbols in YAML format.
+[Detection](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-asyncapi-yaml-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.x.y specification symbols in YAML format.
 
 ### namespace
 
-This adapter exposes an instance of [AsyncApi 2.0.0 ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#asyncapi-200-namespace).
+This adapter exposes an instance of [AsyncApi 2.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
 
 ### parse
 
@@ -55,10 +61,11 @@ import { parse, detect } from 'apidom-parser-adapter-asyncapi-yaml-2';
 
 // detecting
 await detect('asyncapi: 2.0.0'); // => true
+await detect('asyncapi: 2.1.0'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('asyncapi: 2.0.0', { sourceMap: true });
+const parseResult = await parse('asyncapi: 2.1.0', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -73,5 +80,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiYamlAdapter);
 
-const parseResult = await parser.parse('asyncapi: 2.0.0', { mediaType: asyncApiYamlAdapter.mediaTypes[0] });
+const parseResult = await parser.parse('asyncapi: 2.1.0', { mediaType: asyncApiYamlAdapter.mediaTypes[2] });
 ```

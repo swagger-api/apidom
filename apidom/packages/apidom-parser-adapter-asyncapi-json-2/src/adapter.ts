@@ -8,6 +8,8 @@ import asyncApiNamespace, { AsyncApi2Element } from 'apidom-ns-asyncapi-2';
 export const mediaTypes = [
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
 ];
 
 export const detect = (source: string): boolean =>

@@ -1,6 +1,6 @@
 import path from 'path';
 import { assert } from 'chai';
-import { toValue, sexprs } from 'apidom';
+import { toValue } from 'apidom';
 import { isParameterElement } from 'apidom-ns-asyncapi-2';
 
 import { loadJsonFile } from '../../../../helpers';
@@ -24,7 +24,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -34,7 +34,7 @@ describe('dereference', function () {
           specify('should apply semantics to external fragment', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const dereferenced = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const fragment = evaluate('/0/components/parameters/externalRef', dereferenced);
 
@@ -46,7 +46,7 @@ describe('dereference', function () {
             async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const dereferenced = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
               const fragment = evaluate('/0/components/parameters/userId', dereferenced);
 
@@ -64,7 +64,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -78,7 +78,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -92,7 +92,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -102,7 +102,7 @@ describe('dereference', function () {
           specify('should apply semantics to eventual external fragment', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const dereferenced = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const fragment = evaluate('/0/components/parameters/externalRef', dereferenced);
 
@@ -116,7 +116,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -130,7 +130,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const dereferenced = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
             const cyclicParent = evaluate(
@@ -148,7 +148,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               resolve: { external: false },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -164,7 +164,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -179,7 +179,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -194,7 +194,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -209,7 +209,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -224,7 +224,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -239,7 +239,7 @@ describe('dereference', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
@@ -253,7 +253,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -267,9 +267,8 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
-            console.dir(sexprs(actual));
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
@@ -284,7 +283,7 @@ describe('dereference', function () {
 
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
@@ -304,7 +303,7 @@ describe('dereference', function () {
 
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
                 resolve: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumResolverDepthError');
@@ -321,7 +320,7 @@ describe('dereference', function () {
             const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
             const uri = path.join(fixturePath, 'root.json');
             const refSet = await resolve(uri, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
             const actual = await dereference(uri, { dereference: { refSet } });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));

@@ -8,7 +8,7 @@ describe('refractor', function () {
     context('AsyncApi2Element', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const asyncApiElement = AsyncApi2Element.refract({
-          asyncapi: '2.0.0',
+          asyncapi: '2.`.0',
           id: 'urn:com:smartylighting:streetlights:server',
           info: {},
           servers: {},

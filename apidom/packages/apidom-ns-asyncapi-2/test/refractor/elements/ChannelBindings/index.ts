@@ -22,6 +22,7 @@ describe('refractor', function () {
           stomp: {},
           redis: {},
           mercure: {},
+          ibmmq: {},
         });
 
         expect(sexprs(channelBindingsElement)).toMatchSnapshot();

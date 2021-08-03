@@ -21,7 +21,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
 
             assert.strictEqual(refSet.size, 2);
@@ -34,7 +34,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
 
             assert.strictEqual(refSet.size, 1);
@@ -47,7 +47,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
 
             assert.strictEqual(refSet.size, 2);
@@ -60,7 +60,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
 
             assert.strictEqual(refSet.size, 4);
@@ -73,7 +73,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               resolve: { external: false },
             });
 
@@ -88,7 +88,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -103,7 +103,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -118,7 +118,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -133,7 +133,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -148,7 +148,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -163,7 +163,7 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
               });
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -177,7 +177,7 @@ describe('resolve', function () {
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
             });
 
             assert.strictEqual(refSet.size, 2);
@@ -192,7 +192,7 @@ describe('resolve', function () {
 
             try {
               await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
@@ -212,7 +212,7 @@ describe('resolve', function () {
 
             try {
               await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.0.0' },
+                parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
                 resolve: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumResolverDepthError');

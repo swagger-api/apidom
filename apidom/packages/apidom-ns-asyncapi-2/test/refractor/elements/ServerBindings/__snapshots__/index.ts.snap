@@ -43,5 +43,8 @@ exports[`refractor elements ServerBindingsElement should refract to semantic Api
     (RedisServerBindingElement))
   (MemberElement
     (StringElement)
-    (MercureServerBindingElement)))
+    (MercureServerBindingElement))
+  (MemberElement
+    (StringElement)
+    (IbmmqServerBindingElement)))
 `;

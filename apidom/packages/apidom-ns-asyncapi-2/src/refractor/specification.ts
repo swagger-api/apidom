@@ -1,7 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi 2.0.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -202,6 +202,26 @@ import HttpOperationBindingTypeVisitor from './visitors/async-api-2/bindings/htt
 import HttpOperationBindingMethodVisitor from './visitors/async-api-2/bindings/http/operation-binding/MethodVisitor';
 import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/http/operation-binding/BindingVersionVisitor';
 import HttpServerBindingVisitor from './visitors/async-api-2/bindings/http/server-binding';
+// IBM MQ
+import IbmmqChannelBindingVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding';
+import IbmmqChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/BindingVersionVisitor';
+import IbmmqChannelBindingDestinationTypeVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/DestinationTypeVisitor';
+import IbmmqChannelBindingMaxMsgLengthVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/MaxMsgLengthVisitor';
+import IbmmqChannelBindingQueueVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/QueueVisitor';
+import IbmmqChannelBindingTopicVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/TopicVisitor';
+import IbmmqMessageBindingVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding';
+import IbmmqMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/BindingVersionVisitor';
+import IbmmqMessageBindingDescriptionVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/DescriptionVisitor';
+import IbmmqMessageBindingExpiryVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/ExpiryVisitor';
+import IbmmqMessageBindingHeadersVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/HeadersVisitor';
+import IbmmqMessageBindingTypeVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/TypeVisitor';
+import IbmmqServerBindingVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding';
+import IbmmqServerBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/BindingVersionVisitor';
+import IbmmqServerBindingCcdtQueueManagerNameVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/CcdtQueueManagerNameVisitor';
+import IbmmqServerBindingCipherSpecVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/CipherSpecVisitor';
+import IbmmqServerBindingGroupIdVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/GroupIdVisitor';
+import IbmmqServerBindingHeartBeatIntervalVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/HeartBeatIntervalVisitor';
+import IbmmqServerBindingMultiEndpointServerVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/MultiEndpointServerVisitor';
 // JMS
 import JmsChannelBindingVisitor from './visitors/async-api-2/bindings/jms/channel-binding';
 import JmsMessageBindingVisitor from './visitors/async-api-2/bindings/jms/message-binding';
@@ -285,7 +305,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi 2.0.0 specification elements.
+         * AsyncApi 2.0.0 | 2.1.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -677,6 +697,9 @@ const specification = {
             mercure: {
               $ref: '#/visitors/document/objects/bindings/mercure/ServerBinding',
             },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/ServerBinding',
+            },
           },
         },
         Parameters: {
@@ -734,6 +757,9 @@ const specification = {
             },
             mercure: {
               $ref: '#/visitors/document/objects/bindings/mercure/ChannelBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/ChannelBinding',
             },
           },
         },
@@ -828,6 +854,9 @@ const specification = {
             },
             mercure: {
               $ref: '#/visitors/document/objects/bindings/mercure/MessageBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/MessageBinding',
             },
           },
         },
@@ -1111,6 +1140,39 @@ const specification = {
             },
             MessageBinding: {
               $visitor: MercureMessageBindingVisitor,
+            },
+          },
+          ibmmq: {
+            ServerBinding: {
+              $visitor: IbmmqServerBindingVisitor,
+              fixedFields: {
+                groupId: IbmmqServerBindingGroupIdVisitor,
+                ccdtQueueManagerName: IbmmqServerBindingCcdtQueueManagerNameVisitor,
+                cipherSpec: IbmmqServerBindingCipherSpecVisitor,
+                multiEndpointServer: IbmmqServerBindingMultiEndpointServerVisitor,
+                heartBeatInterval: IbmmqServerBindingHeartBeatIntervalVisitor,
+                bindingVersion: IbmmqServerBindingBindingVersionVisitor,
+              },
+            },
+            ChannelBinding: {
+              $visitor: IbmmqChannelBindingVisitor,
+              fixedFields: {
+                destinationType: IbmmqChannelBindingDestinationTypeVisitor,
+                queue: IbmmqChannelBindingQueueVisitor,
+                topic: IbmmqChannelBindingTopicVisitor,
+                maxMsgLength: IbmmqChannelBindingMaxMsgLengthVisitor,
+                bindingVersion: IbmmqChannelBindingBindingVersionVisitor,
+              },
+            },
+            MessageBinding: {
+              $visitor: IbmmqMessageBindingVisitor,
+              fixedFields: {
+                type: IbmmqMessageBindingTypeVisitor,
+                headers: IbmmqMessageBindingHeadersVisitor,
+                description: IbmmqMessageBindingDescriptionVisitor,
+                expiry: IbmmqMessageBindingExpiryVisitor,
+                bindingVersion: IbmmqMessageBindingBindingVersionVisitor,
+              },
             },
           },
         },

@@ -4,7 +4,7 @@ import { isString } from 'ramda-adjunct';
 import { ArraySlice, Element, filter, ObjectElement, toValue } from 'apidom';
 
 import { DerefContext, FORMAT, LanguageSettings } from '../../apidom-language-types';
-import { getParser } from '../../parser-factory';
+import { getParser, isJsonDoc } from '../../parser-factory';
 
 export interface DerefService {
   doDeref(textDocument: TextDocument, derefContext: DerefContext): Promise<string>;
@@ -29,7 +29,8 @@ export class DefaultDerefService implements DerefService {
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
-    // parse
+    const textFormat = isJsonDoc(text) ? FORMAT.JSON : FORMAT.YAML;
+
     const result = await parser.parse(text, { sourceMap: true });
 
     const api: ObjectElement = <ObjectElement>result.api;
@@ -37,13 +38,14 @@ export class DefaultDerefService implements DerefService {
     // no API document has been parsed
     if (api === undefined) return '';
 
-    let baseURI: string | undefined = '/';
+    let baseURI: string | undefined = '/foo';
 
     const servers: ArraySlice = filter((el: Element) => {
       return el.classes.toValue().includes('servers');
     }, api);
+
     // TODO (francesco.tumanischvili@smartbear.com): this needs to be replaced by good metadata ('serverURL' to URLS and/or adapter/plugin
-    if (servers) {
+    if (servers && !servers.isEmpty) {
       const serversValue = servers.first.toValue();
       // OAS
       if (Array.isArray(serversValue)) {
@@ -58,7 +60,7 @@ export class DefaultDerefService implements DerefService {
       }
     }
     baseURI = isString(derefContext?.baseURI) ? derefContext?.baseURI : baseURI;
-    const format = isString(derefContext?.format) ? derefContext?.format : FORMAT.JSON;
+    const format = isString(derefContext?.format) ? derefContext?.format : textFormat;
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {

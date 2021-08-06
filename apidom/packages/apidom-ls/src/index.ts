@@ -13,6 +13,8 @@ export {
 
 export { default as getLanguageService } from './apidom-language-service';
 
+export { isJsonDoc, isAsyncDoc, getText } from './parser-factory';
+
 export type {
   LanguageService,
   LanguageSettings,
@@ -22,8 +24,9 @@ export type {
   WorkspaceContextService,
   ColorsContext,
   LanguageServiceContext,
-  SUPPORTED_LANGUAGES,
 } from './apidom-language-types';
+
+export { SUPPORTED_LANGUAGES, FORMAT } from './apidom-language-types';
 
 export type {
   MetadataMap,

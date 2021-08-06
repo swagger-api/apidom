@@ -7,7 +7,7 @@ import { loadJsonFile } from '../helpers';
 
 describe('dereference', function () {
   context('should export functions', function () {
-    const fixturePath = path.join(
+    let fixturePath = path.join(
       __dirname,
       'strategies',
       'openapi-3-1',
@@ -15,8 +15,8 @@ describe('dereference', function () {
       'fixtures',
       'internal-external',
     );
-    const rootFilePath = path.join(fixturePath, 'root.json');
-    const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+    let rootFilePath = path.join(fixturePath, 'root.json');
+    let expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
     context('dereference', function () {
       specify('should dereference a file', async function () {
@@ -29,6 +29,28 @@ describe('dereference', function () {
     });
 
     context('dereferenceApiDOM', function () {
+      context('given no baseURI is provided', function () {
+        fixturePath = path.join(
+          __dirname,
+          'strategies',
+          'openapi-3-1',
+          'reference-object',
+          'fixtures',
+          'internal-only',
+        );
+        rootFilePath = path.join(fixturePath, 'root.json');
+        expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+        specify('should dereference an ApiDOM fragment using CWD as baseURI', async function () {
+          const fragment = await parse(rootFilePath, {
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          });
+          const actual = await dereferenceApiDOM(fragment);
+
+          assert.deepEqual(toValue(actual), expected);
+        });
+      });
+
       context('given fragment is instance of ParseResultElement', function () {
         specify('should dereference an ApiDOM fragment', async function () {
           const fragment = await parse(rootFilePath, {

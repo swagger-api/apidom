@@ -190,12 +190,24 @@ export const getHash = (uri: string): string => {
 };
 
 /**
+ * Removes the hash (URL fragment), if any, from the given path.
+ */
+export const stripHash = (uri: string): string => {
+  const hashIndex = uri.indexOf('#');
+  let hashStrippedUri = uri;
+  if (hashIndex >= 0) {
+    hashStrippedUri = uri.substr(0, hashIndex);
+  }
+  return hashStrippedUri;
+};
+
+/**
  * Returns the current working directory (in Node) or the current page URL (in browsers).
  */
 export const cwd = (): string => {
   // @ts-ignore
   if (process.browser) {
-    return globalThis.location.href;
+    return stripHash(globalThis.location.href);
   }
 
   const path = process.cwd();
@@ -220,16 +232,4 @@ export const resolve = (from: string, to: string): string => {
   }
 
   return new URL(to, from).toString();
-};
-
-/**
- * Removes the hash (URL fragment), if any, from the given path.
- */
-export const stripHash = (uri: string): string => {
-  const hashIndex = uri.indexOf('#');
-  let hashStrippedUri = uri;
-  if (hashIndex >= 0) {
-    hashStrippedUri = uri.substr(0, hashIndex);
-  }
-  return hashStrippedUri;
 };

@@ -1,0 +1,117 @@
+{
+	"name": "apidom-lsp",
+	"description": "ApiDOM LSP VsCode extension, client, server, language service library",
+	"author": "frantuma@yahoo.com",
+	"license": "Apache-2.0",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/swagger-api/apidom"
+	},
+	"publisher": "SmartBear",
+	"categories": [],
+	"engines": {
+		"vscode": "^1.52.1"
+	},
+	"activationEvents": [
+		"onLanguage:apidom",
+		"onStartupFinished"
+	],
+	"main": "./client/out/extension",
+	"enableProposedApi": true,
+	"contributes": {
+		"languages": [
+			{
+				"id": "apidom",
+				"aliases": [
+					"ApiDOM",
+					"OpenAPI",
+					"AsyncAPI",
+					"openapi",
+					"asyncapi"
+				],
+				"extensions": [
+					".yaml",
+					".yml",
+					".json"
+				],
+				"filenames": [
+					"openapi.*",
+					"swagger.*"
+				],
+				"firstLine": "^.*(openapi|asyncapi).*$",
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "ApiDOM configuration",
+			"properties": {
+				"apidom.maxNumberOfProblems": {
+					"scope": "resource",
+					"type": "number",
+					"default": 100,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"apidom.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "message",
+					"description": "Traces the communication between VS Code and the language server."
+				},
+				"apidom.OpenApi.metadataFile": {
+					"scope": "resource",
+					"type": "string",
+					"default": "",
+					"description": "OpenAPI intellisense configuration file"
+				},
+				"apidom.OpenApi.linterFunctionDir": {
+					"scope": "resource",
+					"type": "string",
+					"default": "",
+					"description": "OpenAPI linter functions directory"
+				},
+				"apidom.AsyncApi.metadataFile": {
+					"scope": "resource",
+					"type": "string",
+					"default": "",
+					"description": "AsyncAPI intellisense configuration file"
+				},
+				"apidom.AsyncApi.linterFunctionDir": {
+					"scope": "resource",
+					"type": "string",
+					"default": "",
+					"description": "AsyncAPI linter functions directory"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh"
+	},
+	"devDependencies": {
+		"@types/mocha": "^8.0.3",
+		"@types/node": "^12.12.0",
+		"@typescript-eslint/eslint-plugin": "^4.12.0",
+		"@typescript-eslint/parser": "^4.12.0",
+		"eslint": "^7.17.0",
+		"eslint-config-airbnb-typescript": "^12.0.0",
+		"eslint-config-prettier": "^7.1.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-mocha": "^8.0.0",
+		"eslint-plugin-prettier": "^3.3.1",
+		"prettier": "=2.0.5",
+		"mocha": "^8.1.1",
+		"ts-node": "^9.0.0",
+		"typescript": "^4.0.2"
+	}
+}

@@ -63,6 +63,10 @@ export const keyMap = {
   HttpMessageBindingElement: ['content'],
   HttpOperationBindingElement: ['content'],
   HttpServerBindingElement: ['content'],
+  // IBM MQ
+  IbmmqChannelBindingElement: ['content'],
+  IbmmqMessageBindingElement: ['content'],
+  IbmmqServerBindingElement: ['content'],
   // JMS
   JmsChannelBindingElement: ['content'],
   JmsMessageBindingElement: ['content'],

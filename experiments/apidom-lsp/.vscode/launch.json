@@ -3,13 +3,6 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "MonacoCLient Chrome",
-			"request": "launch",
-			"type": "pwa-chrome",
-			"file": "${workspaceFolder}/monacoclient/lib/index.html",
-			"webRoot": "${workspaceFolder}"
-		},
-		{
 			"type": "extensionHost",
 			"request": "launch",
 			"name": "Launch Client",

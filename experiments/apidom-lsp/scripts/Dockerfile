@@ -1,2 +1,0 @@
-# escape=`
-FROM baseImage

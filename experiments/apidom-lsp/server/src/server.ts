@@ -1,23 +1,20 @@
 #!/usr/bin/env node
 
-// TODO remove, keep temporarily for remote debugging
-// eslint-disable-next-line import/no-duplicates
-// import { appendFile } from 'fs';
-
 import {
-  TextDocuments,
-  DiagnosticSeverity,
-  ProposedFeatures,
-  InitializeParams,
-  DidChangeConfigurationNotification,
-  CompletionItem,
-  TextDocumentSyncKind,
-  InitializeResult,
-  CompletionParams,
-  CodeActionKind,
   CodeAction,
+  CodeActionKind,
   CodeActionParams,
+  CompletionItem,
+  CompletionParams,
+  Connection,
+  DiagnosticSeverity,
+  DidChangeConfigurationNotification,
+  InitializeParams,
+  InitializeResult,
+  ProposedFeatures,
   SymbolInformation,
+  TextDocuments,
+  TextDocumentSyncKind,
 } from 'vscode-languageserver';
 import {
   createConnection,
@@ -25,30 +22,31 @@ import {
   SemanticTokensRegistrationType,
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import {
-  SemanticTokens,
-  SemanticTokensParams,
-  Hover,
-  DocumentSymbol,
-} from 'vscode-languageserver-protocol';
+import { Hover, SemanticTokens, SemanticTokensParams } from 'vscode-languageserver-protocol';
 import { Location } from 'vscode-languageserver-types';
-// eslint-disable-next-line import/no-duplicates
-// import fs from 'fs';
 
 import {
-  getLanguageService,
-  LanguageServiceContext,
-  ValidationContext,
   CompletionContext,
+  getLanguageService,
   LanguageService,
+  LanguageServiceContext,
   LanguageSettings,
+  ValidationContext,
 } from '../../../../apidom/packages/apidom-ls';
 import { ApidomSettings } from './server-types';
 import { configuration } from './configuration';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
-const connection = createConnection(ProposedFeatures.all);
+let connection: Connection;
+if (process.argv.indexOf('--stdio') === -1) {
+  connection = createConnection(ProposedFeatures.all);
+} else {
+  connection = createConnection();
+}
+
+// console.log = connection.console.log.bind(connection.console);
+// console.error = connection.console.error.bind(connection.console);
 
 // Create a simple text document manager.
 const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
@@ -57,20 +55,6 @@ let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
 let hasDiagnosticRelatedInformationCapability = false;
 let languageService: LanguageService;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function log(label: string, message: unknown, toFile = false): void {
-  // eslint-disable-next-line no-console
-  console.log(label, JSON.stringify(message));
-  /*  appendFile('/tmp/lsp.log', `${label} - ${JSON.stringify(message)}`, (err) => {
-    if (err) throw err;
-  }); */
-  /*  if (toFile) {
-    appendFile('/tmp/lsp.log', `${label} - ${JSON.stringify(message)}`, (err) => {
-      if (err) throw err;
-    });
-  } */
-}
 
 const defaultSettings: ApidomSettings = { maxNumberOfProblems: 1000 };
 let globalSettings: ApidomSettings = defaultSettings;
@@ -89,14 +73,12 @@ function getGlobalSettings(): Thenable<ApidomSettings> {
 }
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
-  console.log('validateTextDocument settings', JSON.stringify(globalSettings, null, 2));
-
   const validationContext: ValidationContext = {
     comments: DiagnosticSeverity.Error,
     // relatedInformation: hasDiagnosticRelatedInformationCapability,
     maxNumberOfProblems: globalSettings.maxNumberOfProblems,
   };
-
+  console.log('validateTextDocument', textDocument.getText());
   const diagnostics = await languageService.doValidation(textDocument, validationContext);
   // Send the computed diagnostics to VSCode.
   connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
@@ -114,29 +96,22 @@ function reloadFromConfiguration() {
 }
 
 connection.onDidChangeConfiguration((change) => {
-  console.log('change settings', JSON.stringify(change, null, 2));
   if (hasConfigurationCapability) {
     getGlobalSettings().then((s) => {
       globalSettings = s;
-      console.log('changed settings', JSON.stringify(globalSettings, null, 2));
-      reloadFromConfiguration();
-      // Revalidate all open text documents
-      documents.all().forEach(validateTextDocument);
     });
   } else {
     globalSettings = <ApidomSettings>(change.settings.apidom || defaultSettings);
-    reloadFromConfiguration();
-    // Revalidate all open text documents
-    documents.all().forEach(validateTextDocument);
   }
+  reloadFromConfiguration();
+  // Revalidate all open text documents
+  documents.all().forEach(validateTextDocument);
 });
 
 connection.onInitialize((params: InitializeParams) => {
   const { capabilities } = params;
-  // log('capabilities', capabilities);
   getGlobalSettings().then((s) => {
     globalSettings = s;
-    console.log('init settings', JSON.stringify(globalSettings, null, 2));
   });
 
   const context: LanguageServiceContext = {
@@ -186,7 +161,7 @@ connection.onInitialize((params: InitializeParams) => {
   result.capabilities.codeActionProvider = {
     codeActionKinds: [CodeActionKind.QuickFix],
   };
-  // TODO remove, keep temporarily for remote debugging
+
   // const notification = new NotificationType<string>('testNotification');
   // connection.sendNotification(notification, 'aaa');
   return result;
@@ -207,11 +182,6 @@ connection.onInitialized(() => {
   };
   connection.client.register(SemanticTokensRegistrationType.type, registrationOptions);
 });
-
-// Only keep settings for open documents
-/* documents.onDidClose((e) => {
-  documentSettings.delete(e.document.uri);
-}); */
 
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
@@ -263,32 +233,13 @@ connection.onCompletionResolve(
 
 connection.languages.semanticTokens.on(
   async (params: SemanticTokensParams): Promise<SemanticTokens> => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const doc = documents.get(params.textDocument.uri)!;
     if (doc === undefined) {
       return { data: [] };
     }
     // eslint-disable-next-line no-return-await
-    const tokens = await languageService.computeSemanticTokens(doc);
-    // TODO remove logging below
-    if (tokens.data && tokens.data.length >= 5) {
-      const logBase = (n: number) => Math.log(n) / Math.log(2);
-      for (let i = 0; i < tokens.data.length; i += 5) {
-        // eslint-disable-next-line no-console
-        console.log(
-          `[${tokens.data[i]}, ${tokens.data[i + 1]}, ${tokens.data[i + 2]}, ${
-            tokens.data[i + 3]
-          }, ${tokens.data[i + 4]}] type: ${
-            languageService.getSemanticTokensLegend().tokenTypes[tokens.data[i + 3]]
-          }, mod: ${
-            languageService.getSemanticTokensLegend().tokenModifiers[logBase(tokens.data[i + 4])]
-          } / semTok: +line: ${tokens.data[i]}, off: ${tokens.data[i + 1]}, len: ${
-            tokens.data[i + 2]
-          }`,
-        );
-      }
-    }
-
-    return tokens;
+    return await languageService.computeSemanticTokens(doc);
   },
 );
 
@@ -322,6 +273,7 @@ connection.languages.semanticTokens.onRange((params) => {
 
 connection.onHover(
   async ({ textDocument, position }): Promise<Hover | undefined> => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const doc = documents.get(textDocument.uri)!;
     if (doc === undefined) {
       return undefined;
@@ -338,6 +290,7 @@ connection.onHover(
 
 connection.onDefinition(
   async (params): Promise<Location | undefined> => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const doc = documents.get(params.textDocument.uri)!;
     if (doc === undefined) {
       return undefined;
@@ -392,8 +345,7 @@ async function provideCodeActions(parms: CodeActionParams): Promise<CodeAction[]
   if (!document) {
     return [];
   }
-  const actions = await languageService.doCodeActions(document, parms);
-  return actions;
+  return languageService.doCodeActions(document, parms);
 }
 
 connection.onCodeAction(provideCodeActions);
@@ -402,89 +354,4 @@ connection.onCodeAction(provideCodeActions);
 // for open, change and close text document events
 documents.listen(connection);
 
-// Listen on the connection
 connection.listen();
-
-/*
-// TODO remove, just for test
-function sleepFor(sleepDuration: number) {
-  const now = new Date().getTime();
-  while (new Date().getTime() < now + sleepDuration) {
-    /!* do nothing *!/
-  }
-}
-*/
-
-/*
-function reload() {
-  if (languageService) {
-    const settings: LanguageSettings = {
-      validate: true,
-      metadata: metadata(),
-    };
-    // TODO remove, just for test
-    sleepFor(500);
-    languageService.configure(settings);
-    // TODO remove, just for test
-    sleepFor(500);
-
-    documents.all().forEach(validateTextDocument);
-  }
-}
-*/
-
-/*
-const metadataOpenapiFile =
-  '/dati/dev/progetti/swagger/projects/apidom/git-lsp-new/apidom/experiments/apidom-lsp/server/src/metadata/metadataMapOpenapi.json';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const metadataAsyncapiFile =
-  '/dati/dev/progetti/swagger/projects/apidom/git-lsp-new/apidom/experiments/apidom-lsp/server/src/metadata/metadataMapAsyncapi.json';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const metadataFunctions =
-  '/dati/dev/progetti/swagger/projects/apidom/git-lsp-new/apidom/experiments/apidom-lsp/server/functions/server';
-
-// const fsWaitOpenapi: boolean | NodeJS.Timeout = false;
-// const fsWaitAsyncapi: boolean | NodeJS.Timeout = false;
-// const fsWaitFunctions: boolean | NodeJS.Timeout = false;
-
-fs.watchFile(metadataOpenapiFile, { interval: 1000 }, (curr, prev) => {
-  // eslint-disable-next-line no-console
-  console.log('OAS file Changed');
-  log('watchFILE', 'OAS file Changed');
-  reload();
-});
-
-*/
-/* fs.watch(metadataOpenapiFile, (event, filename) => {
-  if (filename) {
-    if (fsWaitOpenapi) return;
-    fsWaitOpenapi = setTimeout(() => {
-      fsWaitOpenapi = false;
-    }, 100);
-    log('watch', `${filename} file Changed`);
-    reload();
-  }
-});
-
-fs.watch(metadataAsyncapiFile, (event, filename) => {
-  if (filename) {
-    if (fsWaitAsyncapi) return;
-    fsWaitAsyncapi = setTimeout(() => {
-      fsWaitAsyncapi = false;
-    }, 100);
-    log('watch', `${filename} file Changed`);
-    reload();
-  }
-});
-
-fs.watch(metadataFunctions, (event, filename) => {
-  if (filename) {
-    if (fsWaitFunctions) return;
-    fsWaitFunctions = setTimeout(() => {
-      fsWaitFunctions = false;
-    }, 100);
-    log('watch', `${filename} file Changed`);
-    reload();
-  }
-}); */

@@ -1,4 +1,3 @@
-// import fs, {appendFile} from 'fs';
 import fs from 'fs';
 import path from 'path';
 
@@ -27,9 +26,29 @@ export const exampleLinter = (element: Element): boolean => {
   return true;
 };
 
+function loadLinterFunctions(dir: string): LinterFunctions {
+  const linterFunctions: LinterFunctions = {};
+  // TODO (francesco.tumanischvili@smartbear.com)  Use async version
+  const dirContent = fs.readdirSync(dir);
+
+  dirContent.forEach((file) => {
+    const funcName = file.split('.')[0];
+    if (!file.endsWith('~')) {
+      try {
+        // TODO (francesco.tumanischvili@smartbear.com) sanitize
+        // eslint-disable-next-line no-eval,no-param-reassign
+        linterFunctions[funcName] = eval(fs.readFileSync(path.join(dir, String(file))).toString());
+      } catch (e) {
+        console.log('error eval', e);
+      }
+    }
+  });
+
+  return linterFunctions;
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export function configuration(settings: ApidomSettings): Metadata {
-  console.log('conf settings', JSON.stringify(settings, null, 2));
   let configurationAsyncApi: MetadataMap = configurationAsyncApiDefault as MetadataMap;
   let configurationOpenApi: MetadataMap = configurationOpenApiDefault as MetadataMap;
   let linterFunctionsDirOpenApi = path.join(
@@ -45,10 +64,6 @@ export function configuration(settings: ApidomSettings): Metadata {
     'linter-functions-async-api',
   );
 
-  console.log('settings.OpenAPI?.metadataFile', settings.OpenApi?.metadataFile);
-  console.log('settings.AsyncApi?.metadataFile', settings.AsyncApi?.metadataFile);
-  console.log('settings.AsyncApi?.linterFunctionDir', settings.AsyncApi?.linterFunctionDir);
-  console.log('settings.OpenApi?.linterFunctionDir', settings.OpenApi?.linterFunctionDir);
   if (settings.OpenApi?.metadataFile && settings.OpenApi?.metadataFile.length !== 0) {
     configurationOpenApi = JSON.parse(
       fs.readFileSync(path.join(settings.OpenApi?.metadataFile)).toString(),
@@ -68,58 +83,18 @@ export function configuration(settings: ApidomSettings): Metadata {
     linterFunctionsDirAsyncApi = path.join(settings.AsyncApi?.linterFunctionDir);
   }
 
-  console.log('linterFunctionsDirOpenApi', linterFunctionsDirOpenApi);
-  const linterFunctionsOpenApi: LinterFunctions = {};
-  const linterFunctionsAsyncApi: LinterFunctions = {};
-
   const metadata: Metadata = {
     linterFunctions: {},
     metadataMaps: {},
   };
-
-  // TODO (francesco.tumanischvili@smartbear.com)  Use async version
-  const dirOpenApi = fs.readdirSync(linterFunctionsDirOpenApi);
-  dirOpenApi.forEach((file) => {
-    const funcName = file.split('.')[0];
-    console.log(String(file));
-    if (!file.endsWith('~')) {
-      try {
-        // TODO (francesco.tumanischvili@smartbear.com) sanitize
-        // eslint-disable-next-line no-eval
-        linterFunctionsOpenApi[funcName] = eval(
-          fs.readFileSync(path.join(linterFunctionsDirOpenApi, String(file))).toString(),
-        );
-      } catch (e) {
-        console.log('error eval', e);
-      }
-    }
-  });
-
-  // TODO (francesco.tumanischvili@smartbear.com)  Use async version
-  const dirAsyncApi = fs.readdirSync(linterFunctionsDirAsyncApi);
-  dirAsyncApi.forEach((file) => {
-    const funcName = file.split('.')[0];
-    console.log(String(file));
-    if (!file.endsWith('~')) {
-      try {
-        // TODO (francesco.tumanischvili@smartbear.com) sanitize
-        // eslint-disable-next-line no-eval
-        linterFunctionsAsyncApi[funcName] = eval(
-          fs.readFileSync(path.join(linterFunctionsDirAsyncApi, String(file))).toString(),
-        );
-      } catch (e) {
-        console.log('error eval', e);
-      }
-    }
-  });
 
   metadata.metadataMaps = {
     openapi: configurationOpenApi,
     asyncapi: configurationAsyncApi,
   };
   metadata.linterFunctions = {
-    openapi: linterFunctionsOpenApi,
-    asyncapi: linterFunctionsAsyncApi,
+    openapi: loadLinterFunctions(linterFunctionsDirOpenApi),
+    asyncapi: loadLinterFunctions(linterFunctionsDirAsyncApi),
   };
 
   return metadata;

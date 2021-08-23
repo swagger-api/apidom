@@ -93,22 +93,6 @@ cp -a ${GIT_ROOT}/apidom/apidom/packages/apidom-ls/src/services/validation/jsonS
 
 - if something change, rebuild the package and relaunch
 
-
-## Build and run monacoclient (at commit e752b87)
-
-```
-yarn
-yarn run build
-```
-Debug Launch Configuration: MonacoClient Chrome
-
-## Build and run monacoclient
-
-```
-cd <ROOT>/
-
-```
-
 ## Configure OLD KEEP FOR REF
 
 From root:

@@ -96,7 +96,8 @@
 		"compile": "tsc -b",
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-		"test": "sh ./scripts/e2e.sh"
+		"build": "cd server && npm run build && cd ../client && tsc -b && cd ..",
+		"test": "cd server && npm run test && cd .. && sh ./scripts/e2e.sh"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.0.3",

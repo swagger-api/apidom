@@ -5,11 +5,9 @@
       "subscribe": {
         "summary": "A user signed up.",
         "operationId": "emitUserSignUpEvent",
-        "message": [
-          {
-            "$ref": "#/components/messages/UserSignedUp"
-          }
-        ]
+        "message": {
+          "$ref": "#/components/messages/UserSignedUp"
+        }
       }
     }
   },

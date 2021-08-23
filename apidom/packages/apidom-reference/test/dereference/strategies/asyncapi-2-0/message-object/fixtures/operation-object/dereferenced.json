@@ -6,15 +6,13 @@
         "subscribe": {
           "summary": "A user signed up.",
           "operationId": "emitUserSignUpEvent",
-          "message": [
-            {
-              "name": "userSignedUp",
-              "title": "User signed up event",
-              "summary": "Inform about a new user",
-              "contentType": "application/json",
-              "payload": {}
-            }
-          ]
+          "message": {
+            "name": "userSignedUp",
+            "title": "User signed up event",
+            "summary": "Inform about a new user",
+            "contentType": "application/json",
+            "payload": {}
+          }
         }
       }
     },

@@ -182,7 +182,6 @@ export class DefaultValidationService implements ValidationService {
                         textDocument.positionAt(location.offset),
                         textDocument.positionAt(location.offset + location.length),
                       );
-
                       const diagnostic = Diagnostic.create(
                         range,
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -198,7 +197,7 @@ export class DefaultValidationService implements ValidationService {
                     }
                   } catch (e) {
                     // eslint-disable-next-line no-console
-                    console.log('validation lint error', JSON.stringify(e));
+                    console.log('validation lint error', JSON.stringify(e), e);
                   }
                 }
               }

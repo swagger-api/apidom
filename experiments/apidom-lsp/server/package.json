@@ -1,0 +1,68 @@
+{
+	"name": "apidom-language-server",
+	"description": "ApiDOM language server",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/swagger-api/apidom"
+	},
+	"keywords": [
+		"ApiDOM",
+		"OpenAPI",
+		"AsyncAPI",
+		"LSP"
+	],
+	"publisher": "SmartBear",
+	"author": "Francesco Tumanischvili (SmeartBear)",
+	"license": "Apache-2.0",
+	"contributors": [
+		{
+			"name": "Francesco Tumanischvili",
+			"email": "francesco.tumanischvili@smartbear.com"
+		}
+	],
+	"engines": {
+		"node": "*"
+	},
+	"main": "out/server.js",
+	"bin": {
+		"apidom-language-server": "out/server.js"
+	},
+	"dependencies": {
+		"vscode-languageserver": "^7.0.0",
+		"vscode-jsonrpc": "^6.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1"
+	},
+	"scripts": {
+		"type-check": "tsc --noEmit",
+		"type-check:watch": "npm run type-check -- --watch",
+		"build": "npm run build:types && npm run build:js && npm run build:prepare-config && npm run build:config",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build:js": "babel src --out-dir out --extensions \".ts,.tsx\" --source-maps inline",
+		"build:prepare-config": "shx mkdir -p out/configuration/default/linter-functions-async-api && shx mkdir -p out/configuration/default/linter-functions-open-api",
+		"build:config": "shx cp -R src/configuration/default/linter-functions-async-api/*.js out/configuration/default/linter-functions-async-api/ && shx cp -R src/configuration/default/linter-functions-open-api/*.js out/configuration/default/linter-functions-open-api/",
+		"test": "mocha out/test"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.12.1",
+		"@babel/core": "^7.12.3",
+		"@babel/plugin-proposal-class-properties": "^7.12.1",
+		"@babel/preset-env": "^7.12.1",
+		"@babel/preset-typescript": "^7.12.1",
+		"babel-plugin-module-resolver": "^4.0.0",
+		"typescript": "^4.1.2",
+		"@typescript-eslint/eslint-plugin": "^4.12.0",
+		"@typescript-eslint/parser": "^4.12.0",
+		"eslint": "=7.1.0",
+		"eslint-config-airbnb-typescript": "=7.2.1",
+		"eslint-config-prettier": "=6.11.0",
+		"eslint-plugin-import": "=2.20.2",
+		"eslint-plugin-mocha": "=7.0.0",
+		"eslint-plugin-prettier": "=3.1.3",
+		"lint-staged": "=10.2.7",
+		"prettier": "=2.0.5",
+		"shx": "^0.3.3",
+		"@types/mocha": "^7.0.2",
+		"mocha": "^7.0.2"
+	}
+}

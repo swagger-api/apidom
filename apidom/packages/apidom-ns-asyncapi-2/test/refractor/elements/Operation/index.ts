@@ -64,24 +64,32 @@ describe('refractor', function () {
         });
       });
 
-      context('given message field contains list of type MessageElement', function () {
+      context('given message field of type MessageElement', function () {
         specify('should refract to semantic ApiDOM tree', function () {
           const operationElement = OperationElement.refract({
-            message: [{}],
+            message: {},
           });
 
           expect(sexprs(operationElement)).toMatchSnapshot();
         });
       });
 
-      context('given message field contains list of type ReferenceElement', function () {
+      context('given message field of type ReferenceElement', function () {
         specify('should refract to semantic ApiDOM tree', function () {
           const operationElement = OperationElement.refract({
-            message: [
-              {
-                $ref: '#/path/to/message',
-              },
-            ],
+            message: { $ref: '#/path/to/message' },
+          });
+
+          expect(sexprs(operationElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given message field of `oneOf` shape', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const operationElement = OperationElement.refract({
+            message: {
+              oneOf: [{}, { $ref: '#/path/to/message' }],
+            },
           });
 
           expect(sexprs(operationElement)).toMatchSnapshot();

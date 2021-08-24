@@ -234,7 +234,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         referencedElement.meta.clone(),
         referencedElement.attributes.clone(),
       );
-      // existing keywords from referencing PathItemElement overrides ones from referenced schema
+      // existing keywords from referencing PathItemElement overrides ones from referenced element
       pathItemElement.forEach((value: Element, key: Element, item: Element) => {
         mergedResult.remove(key.toValue());
         mergedResult.content.push(item);

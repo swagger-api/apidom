@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate, isBooleanElement } from 'apidom';
+import { createPredicate, isBooleanElement, isStringElement } from 'apidom';
 
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -71,6 +71,19 @@ export const isChannelItemElement = createPredicate(
     );
   },
 );
+
+export const isChannelItemElementExternal = (element: any): element is ChannelItemElement => {
+  if (!isChannelItemElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
+
+  const value = element.$ref.toValue();
+
+  return isNonEmptyString(value) && !startsWith('#', value);
+};
 
 export const isChannelsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

@@ -1,0 +1,11 @@
+{
+  "asyncapi": "2.1.0",
+  "channels": {
+    "channelItem1": {
+      "$ref": "invalid-pointer"
+    },
+    "channelItem2": {
+      "description": "channel item 2 description"
+    }
+  }
+}

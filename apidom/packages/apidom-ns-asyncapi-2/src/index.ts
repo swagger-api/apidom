@@ -20,6 +20,7 @@ export {
   isAsyncApiVersionElement,
   isChannelBindingsElement,
   isChannelItemElement,
+  isChannelItemElementExternal,
   isChannelsElement,
   isComponentsElement,
   isContactElement,

@@ -1,13 +1,15 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
-import { isPrimitiveElement, visit } from 'apidom';
+import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
 import {
   getNodeType,
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
+  ChannelItemElement,
   SchemaElement,
   isReferenceElementExternal,
+  isChannelItemElementExternal,
 } from 'apidom-ns-asyncapi-2';
 
 import { Reference as IReference } from '../../../types';
@@ -166,6 +168,81 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       // transclude referencing element with merged referenced element
       return referencedElement;
+    },
+
+    async ChannelItemElement(channelItemElement: ChannelItemElement) {
+      // ignore ChannelItemElement without $ref field
+      if (!isStringElement(channelItemElement.$ref)) {
+        return undefined;
+      }
+
+      // ignore resolving external ChannelItem Elements
+      if (!this.options.resolve.external && isChannelItemElementExternal(channelItemElement)) {
+        return undefined;
+      }
+
+      // @ts-ignore
+      const reference = await this.toReference(channelItemElement.$ref.toValue());
+
+      this.indirections.push(channelItemElement);
+
+      const jsonPointer = uriToPointer(channelItemElement.$ref.toValue());
+
+      // possibly non-semantic referenced element
+      let referencedElement = evaluate(jsonPointer, reference.value.result);
+
+      // applying semantics to a referenced element
+      if (isPrimitiveElement(referencedElement)) {
+        referencedElement = ChannelItemElement.refract(referencedElement);
+      }
+
+      // detect direct or indirect reference
+      if (this.indirections.includes(referencedElement)) {
+        throw new Error('Recursive JSON Pointer detected');
+      }
+
+      // detect maximum depth of dereferencing
+      if (this.indirections.length > this.options.dereference.maxDepth) {
+        throw new MaximumDereferenceDepthError(
+          `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+        );
+      }
+
+      // dive deep into the referenced element
+      const visitor: any = AsyncApi2DereferenceVisitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.options,
+      });
+      referencedElement = await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
+      });
+
+      this.indirections.pop();
+
+      // merge fields from referenced Channel Item with referencing one
+      const mergedResult = new ChannelItemElement(
+        // @ts-ignore
+        [...referencedElement.content],
+        referencedElement.meta.clone(),
+        referencedElement.attributes.clone(),
+      );
+      // existing keywords from referencing ChannelItemElement overrides ones from referenced schema
+      channelItemElement.forEach((value: Element, key: Element, item: Element) => {
+        mergedResult.remove(key.toValue());
+        mergedResult.content.push(item);
+      });
+      mergedResult.remove('$ref');
+
+      // annotate referencing element with info about original referenced element
+      mergedResult.setMetaProperty('ref-fields', {
+        $ref: channelItemElement.$ref?.toValue(),
+      });
+
+      // transclude referencing element with merged referenced element
+      return mergedResult;
     },
 
     async SchemaElement(schemaElement: SchemaElement) {

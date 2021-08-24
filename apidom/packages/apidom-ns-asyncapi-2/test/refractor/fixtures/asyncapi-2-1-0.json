@@ -108,111 +108,115 @@
             }
           }
         ],
-        "message": [
-          {
-            "headers": {
-              "type": "object"
-            },
-            "payload": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "$ref": "#/components/schemas/user"
-                },
-                "signup": {
-                  "$ref": "#/components/schemas/signup"
-                }
-              }
-            },
-            "correlationId": {
-              "description": "correlation id description",
-              "location": "http://asyncapi.com/"
-            },
-            "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-            "contentType": "application/json",
-            "name": "name of the message",
-            "title": "title of the message",
-            "summary": "summary of the message",
-            "description": "A longer description of the message",
-            "tags": [
-              {
-                "name": "tag3",
-                "description": "description of tag3",
-                "externalDocs": {
-                  "description": "description of tag 3 external docs",
-                  "url": "https://example.com/tag3"
-                }
-              }
-            ],
-            "externalDocs": {
-              "description": "description of message 1 external docs",
-              "url": "https://example.com/message-1-external-docs"
-            },
-            "bindings": {
-              "kafka": {
-                "key": {
-                  "type": "integer"
-                },
-                "bindingVersion": "0.1.0"
+        "message": {
+          "headers": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/user"
               },
-              "ibmmq": {
-                "type": "jms",
-                "bindingVersion": "0.1.0"
+              "signup": {
+                "$ref": "#/components/schemas/signup"
               }
+            }
+          },
+          "correlationId": {
+            "description": "correlation id description",
+            "location": "http://asyncapi.com/"
+          },
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+          "contentType": "application/json",
+          "name": "name of the message",
+          "title": "title of the message",
+          "summary": "summary of the message",
+          "description": "A longer description of the message",
+          "tags": [
+            {
+              "name": "tag3",
+              "description": "description of tag3",
+              "externalDocs": {
+                "description": "description of tag 3 external docs",
+                "url": "https://example.com/tag3"
+              }
+            }
+          ],
+          "externalDocs": {
+            "description": "description of message 1 external docs",
+            "url": "https://example.com/message-1-external-docs"
+          },
+          "bindings": {
+            "kafka": {
+              "key": {
+                "type": "integer"
+              },
+              "bindingVersion": "0.1.0"
             },
-            "examples": [{
+            "ibmmq": {
+              "type": "jms",
+              "bindingVersion": "0.1.0"
+            }
+          },
+          "examples": [
+            {
               "headers": {},
               "payload": {},
               "name": "example name",
               "summary": "example summary"
-            }],
-            "traits": [
-              {
-                "headers": {
-                  "type": "object"
-                },
-                "correlationId": {
-                  "description": "correlation id description",
-                  "location": "http://asyncapi.com/"
-                },
-                "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-                "contentType": "application/json",
-                "name": "name of the message trait",
-                "title": "title of the message trait",
-                "summary": "summary of the message trait",
-                "description": "A longer description of the message trait",
-                "tags": [
-                  {
-                    "name": "tag4",
-                    "description": "description of tag4",
-                    "externalDocs": {
-                      "description": "description of tag 4 external docs",
-                      "url": "https://example.com/tag4"
-                    }
-                  }
-                ],
-                "externalDocs": {
-                  "description": "description of message 1 trait external docs",
-                  "url": "https://example.com/message-1-trait-external-docs"
-                },
-                "bindings": {
-                  "kafka": {
-                    "key": {
-                      "type": "integer"
-                    },
-                    "bindingVersion": "0.1.0"
-                  }
-                },
-                "examples": [{"a": "b"}]
+            }
+          ],
+          "traits": [
+            {
+              "headers": {
+                "type": "object"
               },
-              {
-                "bindings": {
-                  "$ref": "#/components/messageBindings/MessageBinding1"
+              "correlationId": {
+                "description": "correlation id description",
+                "location": "http://asyncapi.com/"
+              },
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+              "contentType": "application/json",
+              "name": "name of the message trait",
+              "title": "title of the message trait",
+              "summary": "summary of the message trait",
+              "description": "A longer description of the message trait",
+              "tags": [
+                {
+                  "name": "tag4",
+                  "description": "description of tag4",
+                  "externalDocs": {
+                    "description": "description of tag 4 external docs",
+                    "url": "https://example.com/tag4"
+                  }
                 }
+              ],
+              "externalDocs": {
+                "description": "description of message 1 trait external docs",
+                "url": "https://example.com/message-1-trait-external-docs"
+              },
+              "bindings": {
+                "kafka": {
+                  "key": {
+                    "type": "integer"
+                  },
+                  "bindingVersion": "0.1.0"
+                }
+              },
+              "examples": [
+                {
+                  "a": "b"
+                }
+              ]
+            },
+            {
+              "bindings": {
+                "$ref": "#/components/messageBindings/MessageBinding1"
               }
-            ]
-          }
-        ],
+            }
+          ]
+        },
         "bindings": {
           "kafka": {
             "clientId": {
@@ -250,16 +254,14 @@
       "$ref": "https://outside.com/#/path/to/channelItem",
       "description": "This channel is used to exchange messages about users logging out",
       "subscribe": {
-        "message": [
-          {
-            "bindings": {
-              "$ref": "#/components/messageBindings/MessageBinding1"
-            },
-            "traits": [
-              { "$ref": "#/components/messageTraits/MessageTrait1" }
-            ]
-          }
-        ]
+        "message": {
+          "bindings": {
+            "$ref": "#/components/messageBindings/MessageBinding1"
+          },
+          "traits": [
+            { "$ref": "#/components/messageTraits/MessageTrait1" }
+          ]
+        }
       },
       "publish": {
         "operationId": "operation2",
@@ -282,9 +284,7 @@
         "traits": [
           {"$ref": "#/components/operationTraits/OperationTrait1"}
         ],
-        "message": [
-          {"$ref": "#/components/messages/Message1"}
-        ],
+        "message": { "$ref": "#/components/messages/Message1" },
         "bindings": {
           "$ref": "#/components/operationBindings/OperationBinding1"
         }

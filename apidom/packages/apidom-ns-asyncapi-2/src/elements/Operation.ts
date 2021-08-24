@@ -4,6 +4,7 @@ import { ObjectElement, StringElement, ArrayElement } from 'apidom';
 import TagsElement from './Tags';
 import ExternalDocumentationElement from './ExternalDocumentation';
 import OperationBindingsElement from './OperationBindings';
+import MessageElement from './Message';
 import ReferenceElement from './Reference';
 
 class Operation extends ObjectElement {
@@ -68,11 +69,11 @@ class Operation extends ObjectElement {
     this.set('traits', traits);
   }
 
-  get message(): ArrayElement | undefined {
+  get message(): MessageElement | ReferenceElement | ObjectElement | undefined {
     return this.get('message');
   }
 
-  set message(message: ArrayElement | undefined) {
+  set message(message: MessageElement | ReferenceElement | ObjectElement | undefined) {
     this.set('message', message);
   }
 }

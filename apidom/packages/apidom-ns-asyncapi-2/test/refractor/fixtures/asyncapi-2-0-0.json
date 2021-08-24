@@ -104,97 +104,95 @@
             }
           }
         ],
-        "message": [
-          {
-            "headers": {
-              "type": "object"
-            },
-            "payload": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "$ref": "#/components/schemas/user"
-                },
-                "signup": {
-                  "$ref": "#/components/schemas/signup"
-                }
+        "message": {
+          "headers": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/user"
+              },
+              "signup": {
+                "$ref": "#/components/schemas/signup"
               }
-            },
-            "correlationId": {
-              "description": "correlation id description",
-              "location": "http://asyncapi.com/"
-            },
-            "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-            "contentType": "application/json",
-            "name": "name of the message",
-            "title": "title of the message",
-            "summary": "summary of the message",
-            "description": "A longer description of the message",
-            "tags": [
-              {
-                "name": "tag3",
-                "description": "description of tag3",
-                "externalDocs": {
-                  "description": "description of tag 3 external docs",
-                  "url": "https://example.com/tag3"
-                }
+            }
+          },
+          "correlationId": {
+            "description": "correlation id description",
+            "location": "http://asyncapi.com/"
+          },
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+          "contentType": "application/json",
+          "name": "name of the message",
+          "title": "title of the message",
+          "summary": "summary of the message",
+          "description": "A longer description of the message",
+          "tags": [
+            {
+              "name": "tag3",
+              "description": "description of tag3",
+              "externalDocs": {
+                "description": "description of tag 3 external docs",
+                "url": "https://example.com/tag3"
               }
-            ],
-            "externalDocs": {
-              "description": "description of message 1 external docs",
-              "url": "https://example.com/message-1-external-docs"
-            },
-            "bindings": {
-              "kafka": {
-                "key": {
-                  "type": "integer"
-                },
-                "bindingVersion": "0.1.0"
-              }
-            },
-            "examples": [{"key": "value"}],
-            "traits": [
-              {
-                "headers": {
-                  "type": "object"
-                },
-                "correlationId": {
-                  "description": "correlation id description",
-                  "location": "http://asyncapi.com/"
-                },
-                "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-                "contentType": "application/json",
-                "name": "name of the message trait",
-                "title": "title of the message trait",
-                "summary": "summary of the message trait",
-                "description": "A longer description of the message trait",
-                "tags": [
-                  {
-                    "name": "tag4",
-                    "description": "description of tag4",
-                    "externalDocs": {
-                      "description": "description of tag 4 external docs",
-                      "url": "https://example.com/tag4"
-                    }
+            }
+          ],
+          "externalDocs": {
+            "description": "description of message 1 external docs",
+            "url": "https://example.com/message-1-external-docs"
+          },
+          "bindings": {
+            "kafka": {
+              "key": {
+                "type": "integer"
+              },
+              "bindingVersion": "0.1.0"
+            }
+          },
+          "examples": [{"key": "value"}],
+          "traits": [
+            {
+              "headers": {
+                "type": "object"
+              },
+              "correlationId": {
+                "description": "correlation id description",
+                "location": "http://asyncapi.com/"
+              },
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+              "contentType": "application/json",
+              "name": "name of the message trait",
+              "title": "title of the message trait",
+              "summary": "summary of the message trait",
+              "description": "A longer description of the message trait",
+              "tags": [
+                {
+                  "name": "tag4",
+                  "description": "description of tag4",
+                  "externalDocs": {
+                    "description": "description of tag 4 external docs",
+                    "url": "https://example.com/tag4"
                   }
-                ],
-                "externalDocs": {
-                  "description": "description of message 1 trait external docs",
-                  "url": "https://example.com/message-1-trait-external-docs"
-                },
-                "bindings": {
-                  "kafka": {
-                    "key": {
-                      "type": "integer"
-                    },
-                    "bindingVersion": "0.1.0"
-                  }
-                },
-                "examples": [{"a": "b"}]
-              }
-            ]
-          }
-        ],
+                }
+              ],
+              "externalDocs": {
+                "description": "description of message 1 trait external docs",
+                "url": "https://example.com/message-1-trait-external-docs"
+              },
+              "bindings": {
+                "kafka": {
+                  "key": {
+                    "type": "integer"
+                  },
+                  "bindingVersion": "0.1.0"
+                }
+              },
+              "examples": [{"a": "b"}]
+            }
+          ]
+        },
         "bindings": {
           "kafka": {
             "clientId": {
@@ -278,97 +276,95 @@
             }
           }
         ],
-        "message": [
-          {
-            "headers": {
-              "type": "object"
-            },
-            "payload": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "$ref": "#/components/schemas/user"
-                },
-                "signup": {
-                  "$ref": "#/components/schemas/signup"
-                }
+        "message": {
+          "headers": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/user"
+              },
+              "signup": {
+                "$ref": "#/components/schemas/signup"
               }
-            },
-            "correlationId": {
-              "description": "correlation id description",
-              "location": "http://asyncapi.com/"
-            },
-            "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-            "contentType": "application/json",
-            "name": "name of the message",
-            "title": "title of the message",
-            "summary": "summary of the message",
-            "description": "A longer description of the message",
-            "tags": [
-              {
-                "name": "tag3",
-                "description": "description of tag3",
-                "externalDocs": {
-                  "description": "description of tag 3 external docs",
-                  "url": "https://example.com/tag3"
-                }
+            }
+          },
+          "correlationId": {
+            "description": "correlation id description",
+            "location": "http://asyncapi.com/"
+          },
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+          "contentType": "application/json",
+          "name": "name of the message",
+          "title": "title of the message",
+          "summary": "summary of the message",
+          "description": "A longer description of the message",
+          "tags": [
+            {
+              "name": "tag3",
+              "description": "description of tag3",
+              "externalDocs": {
+                "description": "description of tag 3 external docs",
+                "url": "https://example.com/tag3"
               }
-            ],
-            "externalDocs": {
-              "description": "description of message 1 external docs",
-              "url": "https://example.com/message-1-external-docs"
-            },
-            "bindings": {
-              "kafka": {
-                "key": {
-                  "type": "integer"
-                },
-                "bindingVersion": "0.1.0"
-              }
-            },
-            "examples": [{"key": "value"}],
-            "traits": [
-              {
-                "headers": {
-                  "type": "object"
-                },
-                "correlationId": {
-                  "description": "correlation id description",
-                  "location": "http://asyncapi.com/"
-                },
-                "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
-                "contentType": "application/json",
-                "name": "name of the message trait",
-                "title": "title of the message trait",
-                "summary": "summary of the message trait",
-                "description": "A longer description of the message trait",
-                "tags": [
-                  {
-                    "name": "tag4",
-                    "description": "description of tag4",
-                    "externalDocs": {
-                      "description": "description of tag 4 external docs",
-                      "url": "https://example.com/tag4"
-                    }
+            }
+          ],
+          "externalDocs": {
+            "description": "description of message 1 external docs",
+            "url": "https://example.com/message-1-external-docs"
+          },
+          "bindings": {
+            "kafka": {
+              "key": {
+                "type": "integer"
+              },
+              "bindingVersion": "0.1.0"
+            }
+          },
+          "examples": [{"key": "value"}],
+          "traits": [
+            {
+              "headers": {
+                "type": "object"
+              },
+              "correlationId": {
+                "description": "correlation id description",
+                "location": "http://asyncapi.com/"
+              },
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+              "contentType": "application/json",
+              "name": "name of the message trait",
+              "title": "title of the message trait",
+              "summary": "summary of the message trait",
+              "description": "A longer description of the message trait",
+              "tags": [
+                {
+                  "name": "tag4",
+                  "description": "description of tag4",
+                  "externalDocs": {
+                    "description": "description of tag 4 external docs",
+                    "url": "https://example.com/tag4"
                   }
-                ],
-                "externalDocs": {
-                  "description": "description of message 1 trait external docs",
-                  "url": "https://example.com/message-1-trait-external-docs"
-                },
-                "bindings": {
-                  "kafka": {
-                    "key": {
-                      "type": "integer"
-                    },
-                    "bindingVersion": "0.1.0"
-                  }
-                },
-                "examples": [{"a": "b"}]
-              }
-            ]
-          }
-        ],
+                }
+              ],
+              "externalDocs": {
+                "description": "description of message 1 trait external docs",
+                "url": "https://example.com/message-1-trait-external-docs"
+              },
+              "bindings": {
+                "kafka": {
+                  "key": {
+                    "type": "integer"
+                  },
+                  "bindingVersion": "0.1.0"
+                }
+              },
+              "examples": [{"a": "b"}]
+            }
+          ]
+          },
         "bindings": {
           "kafka": {
             "clientId": {

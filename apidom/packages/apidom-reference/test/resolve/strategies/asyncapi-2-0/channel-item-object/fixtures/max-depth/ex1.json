@@ -1,0 +1,5 @@
+{
+  "channelItem2": {
+    "$ref": "./ex2.json#/channelItem3"
+  }
+}

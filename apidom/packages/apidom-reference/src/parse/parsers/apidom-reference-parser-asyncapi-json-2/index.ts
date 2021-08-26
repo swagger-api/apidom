@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { pick } from 'ramda';
 import { ParseResultElement } from 'apidom';
 import { parse, mediaTypes } from 'apidom-parser-adapter-asyncapi-json-2';
 
@@ -18,7 +19,8 @@ const AsyncApiJson2Parser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
 
       try {
-        return await parse(source, { sourceMap: this.sourceMap });
+        const parserOpts = pick(['sourceMap', 'syntacticAnalysis', 'refractorOpts'], this);
+        return await parse(source, parserOpts);
       } catch (e) {
         throw new ParserError(`Error parsing "${file.uri}"`, e);
       }

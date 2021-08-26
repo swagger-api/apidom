@@ -92,6 +92,141 @@ const transcluder = Transcluder({ element });
 transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 ```
 
+## Refractors
+
+Refractor is a special layer inside the base namespace that can transform JavaScript structures
+into generic ApiDOM structures built from elements of this base namespace.
+
+**Refracting JavaScript structures**:
+
+```js
+import { ObjectElement } from 'apidom';
+
+const object = {
+    title: 'my title',
+    description: 'my description',
+    version: '0.1.0',
+};
+
+ObjectElement.refract(object); // => ObjectElement({ title, description, version })
+```
+
+```js
+import { CommentElement } from 'apidom';
+
+const comment = 'this is comment';
+
+CommentElement.refract(comment); // => CommentElement('this is comment')
+```
+
+### Refractor plugins
+
+Refractors can accept plugins as a second argument of refract static method.
+
+```js
+import { ObjectElement, StringElement } from 'apidom';
+
+const object = { a: 'b' };
+
+const plugin = ({ predicates, namespace }) => ({
+  name: 'plugin',
+  pre() {
+      console.dir('runs before traversal');
+  },
+  visitor: {
+    ObjectElement(objectElement) {
+      objectElement.getMember('a').value = new StringElement('c');
+    },
+  },
+  post() {
+      console.dir('runs after traversal');
+  },
+});
+
+ObjectElement.refract(object, { plugins: [plugin] }); // => ObjectElement({ a = 'c' })
+```
+You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
+If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
+
+#### Element identity plugin
+
+`apidom` package comes with `elementIdentityRefractorPlugin`. When used, this plugin will
+assign unique ID to all elements in ApiDOM tree.
+
+```js
+import { elementIdentityRefractorPlugin, ObjectElement } from 'apidom';
+
+const objectElement = ObjectElement.refract({ a: 'b' }, {
+  plugins: [
+    elementIdentityRefractorPlugin(),
+  ]
+});
+
+objectElement.id; // 8RaWF9
+objectElement.getMember('a').key.id; // NdHHV7
+objectElement.getMember('a').value.id; // rFGVFP
+```
+
+You can configure the plugin to generate unique IDs in the specific length:
+
+```js
+import { elementIdentityRefractorPlugin, ObjectElement } from 'apidom';
+
+const objectElement = ObjectElement.refract({ a: 'b' }, {
+  plugins: [
+    elementIdentityRefractorPlugin({ length: 36}),
+  ]
+});
+
+objectElement.id; // OnReGGrO7fMd9ztacvGfwGbOdGKuOFLiQQ1W
+objectElement.getMember('a').key.id; // BN6rHsmqI56SMQ1elshtbgRVECtEWNYS9lmd
+objectElement.getMember('a').value.id; // Ki4tWmf9xw9Lwb8MxkXJq1uONmJrmhXifmsI
+```
+
+#### Semantic element identity plugin
+
+`apidom` package comes with `semanticElementIdentityRefractorPlugin`. When used, this plugin will
+assign unique ID to all non-primitive elements in ApiDOM tree. Primitive elements include
+`ObjectElement`, `ArrayElement`, `StringElement`, `BooleanElement`, `NullElement` and `NumberElement`.
+
+```js
+import { semanticElementIdentityRefractorPlugin, ObjectElement } from 'apidom';
+import { InfoElement } from 'apidom-ns-openapi-3-1';
+
+const infoElement = InfoElement.refract({ title: 'title' });
+const objectElement = ObjectElement.refract({ a: 'b', info: infoElement }, {
+  plugins: [
+    semanticElementIdentityRefractorPlugin(),
+  ]
+});
+
+objectElement.id; // ''
+objectElement.getMember('a').key.id; // ''
+objectElement.getMember('a').value.id; // ''
+objectElement.getMember('info').key.id; // ''
+objectElement.getMember('info').value.id; // '8RaWF9'
+```
+
+You can configure the plugin to generate unique IDs in the specific length:
+
+```js
+import { semanticElementIdentityRefractorPlugin, ObjectElement } from 'apidom';
+import { InfoElement } from 'apidom-ns-openapi-3-1';
+
+const infoElement = InfoElement.refract({ title: 'title' });
+const objectElement = ObjectElement.refract({ a: 'b', info: infoElement }, {
+  plugins: [
+    semanticElementIdentityRefractorPlugin({ length: 36 }),
+  ]
+});
+
+objectElement.id; // ''
+objectElement.getMember('a').key.id; // ''
+objectElement.getMember('a').value.id; // ''
+objectElement.getMember('info').key.id; // ''
+objectElement.getMember('info').value.id; // 'OnReGGrO7fMd9ztacvGfwGbOdGKuOFLiQQ1W'
+```
+
 ## Traversal
 
 `apidom` comes with its own traversal algorithm along with couple of convenient abstractions on top of it.

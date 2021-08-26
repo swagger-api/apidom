@@ -5,9 +5,9 @@ import {
   getGeneratorsList,
   getGenerator2Definition,
   postGenerator3WithSpec,
-} from '../../../utils/utils-http';
-import { getFileDownload } from '../../../utils/utils-file-download';
-import { getSpecVersion } from '../../../utils/utils-getSpecVersion';
+} from '../../../utils/topbar-http';
+import { getFileDownload } from '../../../utils/common-file-download';
+import { getSpecVersion } from '../../../utils/editor-get-spec-version';
 import { defaultFixtures } from './fixtures.actions';
 
 // Redux

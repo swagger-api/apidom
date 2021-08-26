@@ -1,6 +1,6 @@
 import { defaultFixtures } from './fixtures.actions';
-import { postPerformOasConversion } from '../../../utils/utils-http';
-import { getSpecVersion } from '../../../utils/utils-getSpecVersion';
+import { postPerformOasConversion } from '../../../utils/topbar-http';
+import { getSpecVersion } from '../../../utils/editor-get-spec-version';
 
 // currently re-used
 const getConfigsWithDefaultFallback = (system) => {

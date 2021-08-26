@@ -1,7 +1,7 @@
 import YAML from 'js-yaml';
 import fileDialog from 'file-dialog';
 
-import { isValidJson } from '../../../utils/utils-valid-json-yaml';
+import { isValidJson } from '../../../utils/editor-valid-json-yaml';
 
 // Wrap the browser FileReader into a Promise
 const readFileAsTextAsync = (file) => {

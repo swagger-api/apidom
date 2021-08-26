@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useLanguageFormat } from './sharedHooks';
-import noop from '../../../utils/utils-noop';
+import noop from '../../../utils/common-noop';
 import ImportUrl from './ImportUrl';
 import ModalInputWrapper from './ModalInputWrapper';
 import ModalConfirmWrapper from './ModalConfirmWrapper';

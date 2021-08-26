@@ -7,7 +7,7 @@ import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // eslint-disable-next-line no-unused-vars
-import noop from '../../../utils/utils-noop';
+import noop from '../../../utils/common-noop';
 import ModalInputWrapper from './ModalInputWrapper';
 import ImportUrl from './ImportUrl';
 import ModalConfirmWrapper from './ModalConfirmWrapper';

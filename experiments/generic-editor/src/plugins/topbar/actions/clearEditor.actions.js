@@ -1,7 +1,7 @@
 import YAML from 'js-yaml';
 
-import { getDefinitionLanguage } from '../../../utils/utils-converter';
-import { getSpecVersion } from '../../../utils/utils-getSpecVersion';
+import { getDefinitionLanguage } from '../../../utils/editor-converter';
+import { getSpecVersion } from '../../../utils/editor-get-spec-version';
 // eslint-disable-next-line camelcase
 import { mockOas3Spec, mockAsyncapi2Spec, mockOas2Spec, mockOas3_1Spec } from './fixtures.actions';
 

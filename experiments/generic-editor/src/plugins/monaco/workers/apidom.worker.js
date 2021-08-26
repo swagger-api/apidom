@@ -1,8 +1,6 @@
 import * as editorworker from 'monaco-editor-core/esm/vs/editor/editor.worker';
 
-// import * as editorworker from './editor.worker';
-// import { ApidomWorker } from './apidomWorker';
-import { ApidomWorker } from './apidomWorker';
+import { ApidomWorker } from './ApidomWorker';
 
 /**
  * webpack entry: worker script to create a new object instance

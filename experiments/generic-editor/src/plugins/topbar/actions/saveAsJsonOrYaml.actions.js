@@ -11,7 +11,7 @@ import {
 import { getFileDownload } from '../../../utils/utils-file-download';
 import { getSpecVersion } from '../../../utils/utils-getSpecVersion';
 import { mockOas3Spec } from './fixtures.actions';
-import metadata from '../../../workers/metadataJs';
+import metadata from '../../monaco/workers/metadataJs';
 
 export const saveAsJson = () => async (system) => {
   const { specSelectors, errSelectors } = system;

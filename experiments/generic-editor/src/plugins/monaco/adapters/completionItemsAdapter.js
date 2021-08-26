@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor-core';
 import { ProtocolToMonacoConverter } from 'monaco-languageclient/lib/monaco-converter';
 
-import { fromPosition } from './utils-helpers';
+import { fromPosition } from './monaco-helpers';
 
 export default class CompletionItemsAdapter {
   constructor(worker) {

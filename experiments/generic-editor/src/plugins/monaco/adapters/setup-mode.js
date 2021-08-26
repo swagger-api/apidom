@@ -1,14 +1,14 @@
 /* eslint-disable import/prefer-default-export */
 import * as monaco from 'monaco-editor-core';
 
-import { WorkerManager } from './workerManager';
-import DiagnosticsAdapter from './diagnosticsAdapter';
-import HoverAdapter from './hoverAdapter';
-import CompletionItemsAdapter from './completionItemsAdapter';
-import SemanticTokensAdapter from './semanticTokensAdapter';
-import CodeActionsAdapter from './codeActionsAdapter';
-import DocumentSymbolsAdapter from './documentSymbolsAdapter';
-import DefinitionAdapter from './definitionAdapter';
+import { WorkerManager } from './WorkerManager';
+import DiagnosticsAdapter from './DiagnosticsAdapter';
+import HoverAdapter from './HoverAdapter';
+import CompletionItemsAdapter from './CompletionItemsAdapter';
+import SemanticTokensAdapter from './SemanticTokensAdapter';
+import CodeActionsAdapter from './CodeActionsAdapter';
+import DocumentSymbolsAdapter from './DocumentSymbolsAdapter';
+import DefinitionAdapter from './DefinitionAdapter';
 
 const disposeAll = (disposables) => {
   while (disposables.length) {

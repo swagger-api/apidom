@@ -6,7 +6,7 @@ import { getLanguageService, isJsonDoc, FORMAT } from 'apidom-ls';
 import YAML from 'js-yaml';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import metadata from '../../../workers/metadataJs';
+import metadata from '../workers/metadataJs';
 import noop from '../../../utils/utils-noop';
 // eslint-disable-next-line no-unused-vars
 import getStyleMetadataLight, {
@@ -14,8 +14,8 @@ import getStyleMetadataLight, {
 } from '../../../utils/utils-monaco-theme-light';
 // eslint-disable-next-line no-unused-vars
 import getStyleMetadataDark, { themes as themesDark } from '../../../utils/utils-monaco-theme-dark';
-import { languageID } from '../../../utils/monaco-adapter/config';
-import { setupLanguage, initializeWorkers } from '../../../utils/monaco-adapter/setup';
+import { languageID } from '../adapters/config';
+import { setupLanguage, initializeWorkers } from '../adapters/setup';
 
 export default class MonacoEditor extends Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import {
   // LanguageServiceContext,
 } from 'apidom-ls';
 
-import { languageID } from '../utils/monaco-adapter/config';
+import { languageID } from '../adapters/config';
 import metadata from './metadataJs';
 
 export class ApidomWorker {

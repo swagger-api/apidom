@@ -4,7 +4,7 @@ import * as monaco from 'monaco-editor-core';
 import { ProtocolToMonacoConverter } from 'monaco-languageclient/lib/monaco-converter';
 
 // eslint-disable-next-line no-unused-vars
-import { fromPosition, toRange } from './utils-helpers';
+import { fromPosition, toRange } from './monaco-helpers';
 
 export default class HoverAdapter {
   constructor(worker) {

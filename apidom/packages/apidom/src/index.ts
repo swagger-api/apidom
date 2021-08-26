@@ -1,9 +1,12 @@
 import { has } from 'ramda';
 import { isPlainObject, isString } from 'ramda-adjunct';
-import { NamespacePlugin, Element, Namespace as INamespace } from 'minim';
+import { Element, Namespace as INamespace } from 'minim';
 
 import './refractor/registration';
-import defaultNamespaceInstance, { Namespace as ApiDOMNamespace } from './namespace';
+import defaultNamespaceInstance from './namespace';
+
+export { default as elementIdentityRefractorPlugin } from './refractor/plugins/element-identity';
+export { default as semanticElementIdentityRefractorPlugin } from './refractor/plugins/semantic-element-identity';
 
 export {
   Element,
@@ -20,7 +23,7 @@ export {
   ObjectSlice,
   ArraySlice,
 } from 'minim';
-export { default as namespace, Namespace } from './namespace';
+export { default as namespace, Namespace, createNamespace } from './namespace';
 export { default as AnnotationElement } from './elements/Annotation';
 export { default as CommentElement } from './elements/Comment';
 export { default as ParseResultElement } from './elements/ParseResult';
@@ -57,16 +60,6 @@ export {
 } from './traversal/visitor';
 export { transclude, default as Transcluder } from './transcluder';
 export { dereference } from './util';
-
-export const createNamespace = (namespacePlugin?: NamespacePlugin): ApiDOMNamespace => {
-  const namespace = new ApiDOMNamespace();
-
-  if (isPlainObject(namespacePlugin)) {
-    namespace.use(namespacePlugin);
-  }
-
-  return namespace;
-};
 
 /**
  * Transforms data to an Element from a particular namespace.

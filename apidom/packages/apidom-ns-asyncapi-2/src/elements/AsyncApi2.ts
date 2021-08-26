@@ -25,11 +25,11 @@ class AsyncApi2 extends ObjectElement {
     this.set('asyncapi', asyncapi);
   }
 
-  get id(): IdentifierElement | undefined {
+  get idProp(): IdentifierElement | undefined {
     return this.get('id');
   }
 
-  set id(id: IdentifierElement | undefined) {
+  set idProp(id: IdentifierElement | undefined) {
     this.set('id', id);
   }
 

@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
 import { parse, mediaTypes } from 'apidom-parser-adapter-asyncapi-yaml-2';
+import { pick } from 'ramda';
 
 import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';
@@ -18,7 +19,8 @@ const AsyncApiYaml2Parser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
 
       try {
-        return await parse(source, { sourceMap: this.sourceMap });
+        const parserOpts = pick(['sourceMap', 'refractorOpts'], this);
+        return await parse(source, parserOpts);
       } catch (e) {
         throw new ParserError(`Error parsing "${file.uri}"`, e);
       }

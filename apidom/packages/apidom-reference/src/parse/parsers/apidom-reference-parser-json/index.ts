@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { ParseResultElement } from 'apidom';
 import { parse } from 'apidom-parser-adapter-json';
+import { pick } from 'ramda';
 
 import { ParserError } from '../../../util/errors';
 import { Parser as IParser, File as IFile } from '../../../types';
@@ -18,7 +19,8 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
 
       try {
-        return await parse(source, { sourceMap: this.sourceMap });
+        const parserOpts = pick(['sourceMap', 'syntacticAnalysis'], this);
+        return await parse(source, parserOpts);
       } catch (e) {
         throw new ParserError(`Error parsing "${file.uri}"`, e);
       }

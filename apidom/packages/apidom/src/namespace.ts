@@ -1,4 +1,5 @@
-import { Namespace as MinimNamespace } from 'minim';
+import { Namespace as MinimNamespace, NamespacePlugin } from 'minim';
+import { isPlainObject } from 'ramda-adjunct';
 
 import AnnotationElement from './elements/Annotation';
 import CommentElement from './elements/Comment';
@@ -17,5 +18,15 @@ export class Namespace extends MinimNamespace {
 }
 
 const namespace = new Namespace();
+
+export const createNamespace = (namespacePlugin?: NamespacePlugin): Namespace => {
+  const namespaceInstance = new Namespace();
+
+  if (isPlainObject(namespacePlugin)) {
+    namespaceInstance.use(namespacePlugin);
+  }
+
+  return namespaceInstance;
+};
 
 export default namespace;

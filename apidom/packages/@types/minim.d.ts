@@ -28,6 +28,10 @@ declare module 'minim' {
 
     constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
 
+    set id(element: Element);
+
+    get id(): Element;
+
     equals(value: any): boolean;
 
     toValue(): any;

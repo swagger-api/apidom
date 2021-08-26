@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements Annotation should refract to generic ApiDOM tree 1`] = `
+(SourceMapElement
+  (ArrayElement
+    (NumberElement)
+    (NumberElement)
+    (NumberElement))
+  (ArrayElement
+    (NumberElement)
+    (NumberElement)
+    (NumberElement)))
+`;

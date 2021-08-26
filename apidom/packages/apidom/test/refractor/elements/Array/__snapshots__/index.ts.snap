@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements Array should refract to generic ApiDOM tree 1`] = `
+(ArrayElement
+  (StringElement)
+  (StringElement))
+`;

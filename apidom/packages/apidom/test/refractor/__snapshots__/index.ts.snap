@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor given POJO in object literal shape should refract to Object Element 1`] = `
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "a"
+        },
+        "value": {
+          "element": "string",
+          "content": "b"
+        }
+      }
+    }
+  ]
+}
+`;

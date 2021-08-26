@@ -17,17 +17,19 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
-    "test": "cross-env BABEL_ENV=cjs mocha"
+    "test": "cross-env BABEL_ENV=cjs mocha",
+    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha"
   },
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.12.5",
     "apidom-ast": "file:../apidom-ast",
-    "stampit": "=4.3.1",
     "minim": "=0.23.8",
     "ramda": "=0.27.0",
     "@types/ramda": "=0.27.6",
-    "ramda-adjunct": "=2.27.0"
+    "ramda-adjunct": "=2.27.0",
+    "short-unique-id": "=4.3.4",
+    "stampit": "=4.3.1"
   }
 }

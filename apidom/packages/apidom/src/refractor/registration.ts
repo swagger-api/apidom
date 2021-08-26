@@ -9,11 +9,22 @@ import {
   RefElement,
 } from 'minim';
 
-ObjectElement.refract = (val: any) => new ObjectElement(val);
-ArrayElement.refract = (val: any) => new ArrayElement(val);
-StringElement.refract = (val: any) => new StringElement(val);
-BooleanElement.refract = (val: any) => new BooleanElement(val);
-NullElement.refract = (val: any) => new NullElement(val);
-NumberElement.refract = (val: any) => new NumberElement(val);
-LinkElement.refract = (val: any) => new LinkElement(val);
-RefElement.refract = (val: any) => new RefElement(val);
+import AnnotationElement from '../elements/Annotation';
+import CommentElement from '../elements/Comment';
+import ParseResultElement from '../elements/ParseResult';
+import SourceMapElement from '../elements/SourceMap';
+import { createRefractor } from './index';
+
+ObjectElement.refract = createRefractor(ObjectElement);
+ArrayElement.refract = createRefractor(ArrayElement);
+StringElement.refract = createRefractor(StringElement);
+BooleanElement.refract = createRefractor(BooleanElement);
+NullElement.refract = createRefractor(NullElement);
+NumberElement.refract = createRefractor(NumberElement);
+LinkElement.refract = createRefractor(LinkElement);
+RefElement.refract = createRefractor(RefElement);
+
+AnnotationElement.refract = createRefractor(AnnotationElement);
+CommentElement.refract = createRefractor(CommentElement);
+ParseResultElement.refract = createRefractor(ParseResultElement);
+SourceMapElement.refract = createRefractor(SourceMapElement);

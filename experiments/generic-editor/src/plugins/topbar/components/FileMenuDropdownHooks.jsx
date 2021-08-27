@@ -75,6 +75,45 @@ export default function FileMenuDropdownHooks(props) {
     saveAsYaml();
   };
 
+  const handleSaveAsJsonResolvedClick = () => {
+    // Todo: add a test? or is this dev-only?
+    async function saveAsJson() {
+      const saveResult = await topbarActions.saveAsJsonResolved();
+      // const saveResult = await topbarActions.saveAsJson();
+      if (saveResult && saveResult.error) {
+        // set & display the error message
+        setErrorMessage(saveResult.error); // original non-resolved
+        setShowErrorModal(true);
+      }
+    }
+    // call the async/await function
+    saveAsJson();
+  };
+
+  const handleSaveAsYamlResolvedClick = () => {
+    // Todo: add a test? or is this dev-only?
+    async function saveAsYaml() {
+      const saveResult = await topbarActions.saveAsYamlResolved({ overrideWarning: false });
+      // const saveResult = await topbarActions.saveAsYaml({ overrideWarning: false });
+      if (saveResult && saveResult.warning) {
+        setShowConfirmModal(true);
+        setConfirmMessage(saveResult.warning);
+      }
+      if (saveResult && saveResult.error) {
+        // set & display the error message
+        if (saveResult.payload.message) {
+          // we can get this error message if we forgot the 'overrideWarning" option above
+          setErrorMessage(saveResult.payload.message);
+        } else if (saveResult.error) {
+          setErrorMessage(saveResult.error);
+        }
+        setShowErrorModal(true);
+      }
+    }
+    // call the async/await function
+    saveAsYaml();
+  };
+
   const [showImportUrlModal, setShowImportUrlModal] = useState(false);
   const [importUrlString, setImportUrlString] = useState('');
 
@@ -165,6 +204,15 @@ export default function FileMenuDropdownHooks(props) {
           languageFormat={languageFormat}
           onSaveAsJsonClick={handleSaveAsJsonClick}
           onSaveAsYamlClick={handleSaveAsYamlClick}
+        />
+        <li role="separator" />
+        <DropdownItem
+          onClick={() => handleSaveAsJsonResolvedClick()}
+          name="Download Resolved JSON"
+        />
+        <DropdownItem
+          onClick={() => handleSaveAsYamlResolvedClick()}
+          name="Download Resolved YAML"
         />
       </DropdownMenu>
     </div>

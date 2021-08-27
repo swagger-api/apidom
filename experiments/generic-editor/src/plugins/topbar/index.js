@@ -14,7 +14,7 @@ import {
   getDefinitionLanguageFormat,
   shouldUpdateDefinitionLanguageFormat,
   loadDefaultDefinition,
-  handleImportFile,
+  importFile,
 } from './actions';
 import Topbar from './components/Topbar';
 
@@ -38,7 +38,7 @@ export default function topbarPlugin() {
           getDefinitionLanguageFormat,
           shouldUpdateDefinitionLanguageFormat,
           loadDefaultDefinition,
-          handleImportFile,
+          importFile,
         },
       },
     },

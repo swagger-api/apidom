@@ -5,7 +5,7 @@ export default function ImportFileDropdownItem(props) {
   const onImportFileClick = async () => {
     // ref inline old method: onDocumentLoad
     const { topbarActions } = props;
-    const importResult = await topbarActions.handleImportFile();
+    const importResult = await topbarActions.importFile();
     if (importResult && importResult.error) {
       // display the error message
     }

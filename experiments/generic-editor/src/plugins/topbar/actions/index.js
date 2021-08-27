@@ -5,7 +5,7 @@ export {
   convertDefinitionToOas3,
   allowConvertDefinitionToOas3,
 } from './action-convert-oas2-to-oas3';
-export { importFile as handleImportFile } from './action-import-file';
+export { importFile } from './action-import-file';
 export { importFromURL } from './action-import-url';
 export {
   instantiateGeneratorClient,

@@ -1,8 +1,3 @@
-// import * as monaco from 'monaco-editor-core';
-
-// import IRichLanguageConfiguration = monaco.languages.LanguageConfiguration;
-// import ILanguage = monaco.languages.IMonarchLanguage;
-
 export const richLanguageConfiguration = {
   // If we want to support code folding, brackets ... ( [], (), {}....), we can override some properties here
   // check the doc

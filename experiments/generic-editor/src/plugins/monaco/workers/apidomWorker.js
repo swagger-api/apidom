@@ -29,15 +29,6 @@ export class ApidomWorker {
     if (!document) {
       return Promise.resolve([]);
     }
-    // console.log('inside worker. document:', document); // ok
-    // note: in cssWorker example, doValidation(document, parsedStylesheet)
-    // Case: json
-    // const jsonDocument = this._languageService.parseJSONDocument(document);
-    // console.log('doValidation... jsonDocument', jsonDocument);
-    // the jsonService version expects (textDocument, jsonDocument)
-    // const diagnostics = await this._languageService.doValidation(document, jsonDocument);
-    // console.log('doValidation... diagnostics:', diagnostics); // pending Promise
-    // Case: apidom
     const diagnostics = await this._languageService.doValidation(document);
     return Promise.resolve(diagnostics);
   }
@@ -47,10 +38,6 @@ export class ApidomWorker {
     if (!document) {
       return Promise.resolve([]);
     }
-    // Case: json
-    // const jsonDocument = this._languageService.parseJSONDocument(document);
-    // const completions = await this._languageService.doComplete(document, position, jsonDocument);
-    // Case: apidom
     const completions = await this._languageService.doCompletion(document, position);
     // console.log('worker:doComplete... completions:', completions);
     return Promise.resolve(completions);
@@ -61,10 +48,6 @@ export class ApidomWorker {
     if (!document) {
       return Promise.resolve([]);
     }
-    // Case: json
-    // const jsonDocument = this._languageService.parseJSONDocument(document);
-    // const hover = await this._languageService.doHover(document, position, jsonDocument);
-    // Case: apidom
     const hover = await this._languageService.doHover(document, position);
     // console.log('worker:doHover... hover:', hover);
     return Promise.resolve(hover);
@@ -75,10 +58,6 @@ export class ApidomWorker {
     if (!document) {
       return Promise.resolve([]);
     }
-    // Case: json
-    // const jsonDocument = this._languageService.parseJSONDocument(document);
-    // const symbols = await this._languageService.findDocumentSymbols(document, jsonDocument);
-    // Case: apidom
     const symbols = await this._languageService.doFindDocumentSymbols(document);
     // console.log('worker:findDocumentSymbols... symbols:', symbols);
     return Promise.resolve(symbols);

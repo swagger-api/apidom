@@ -11,17 +11,14 @@ export function setupLanguage() {
   self.MonacoEnvironment = {
     getWorkerUrl: (moduleId, label) => {
       if (label === languageID) {
-        // console.log('should return apidomWorker');
         return './apidom.worker.js';
       }
-      // console.log('should return default editorWorker');
       return './editor.worker.js';
     },
   };
 
   monaco.languages.register(languageExtensionPoint);
   monaco.languages.onLanguage(languageID, () => {
-    // console.log('language.onLanguage callback for languageID:', languageID);
     // setMonarchTokensProvider enables syntax highlighting
     monaco.languages.setMonarchTokensProvider(languageID, monarchLanguage);
 

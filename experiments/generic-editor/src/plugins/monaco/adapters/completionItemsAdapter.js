@@ -25,7 +25,6 @@ export default class CompletionItemsAdapter {
         return Promise.resolve(null);
       }
     } catch (e) {
-      // console.log('completion info error:', e);
       return Promise.resolve(null);
     }
     const wordInfo = model.getWordUntilPosition(position);

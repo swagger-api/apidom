@@ -35,7 +35,6 @@ export default class CodeActionsAdapter {
         error: 'unable to doCodeActions',
       });
     }
-    // console.log('codeActionsAdapter... actions:', actions);
     const monacoActions = [];
     const p2m = new ProtocolToMonacoConverter(monaco);
     actions.forEach((action) => {

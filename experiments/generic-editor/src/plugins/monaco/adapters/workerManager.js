@@ -3,7 +3,6 @@
 import * as monaco from 'monaco-editor-core';
 
 import { languageID } from './config';
-// import ApidomWorker from '../../workers/apidom.worker';
 
 const STOP_WHEN_IDLE_FOR = 2 * 60 * 1000; // 2min
 
@@ -21,7 +20,6 @@ export class WorkerManager {
   // intent, private
   getClientproxy() {
     if (!this.workerClientProxy) {
-      // console.log('should createWebWorker');
       this.worker = monaco.editor.createWebWorker({
         // module that exports the create() method and returns a `ApidomWorker` instance
         moduleId: 'ApidomWorker',
@@ -31,25 +29,16 @@ export class WorkerManager {
           languageId: languageID,
         },
       });
-      // console.log('this.worker created:', this.worker); // ok, exists
-      // assuming getProxy comes via createWebWorker output?
-      // console.log('this.worker.getProxy:', this.worker.getProxy); // ok, exists
-      // console.log('lookahead, this.worker.withSyncedResources:', this.worker.withSyncedResources); // ok, exists
       this.workerClientProxy = this.worker.getProxy(); // Promise pending
     }
-    // console.log('returning proxy');
-    // console.log('this.workerClientProxy:', this.workerClientProxy);
     return this.workerClientProxy;
   }
 
   // resources: Uri[]
   async getLanguageServiceWorker(...resources) {
-    // console.log('resources:', resources);
-    const _client = await this.getClientproxy();
-    // console.log('_client done:', _client);
+    const client = await this.getClientproxy();
     await this.worker.withSyncedResources(resources);
-    // console.log('withSyncedResources done');
-    return _client;
+    return client;
   }
 
   // intended private
@@ -67,7 +56,7 @@ export class WorkerManager {
     }
     const timePassedSinceLastUsed = Date.now() - this.lastUsedTime;
     if (timePassedSinceLastUsed > STOP_WHEN_IDLE_FOR) {
-      console.log('testing stopWorker after idle');
+      // console.log('testing stopWorker after idle');
       this.stopWorker();
     }
   }

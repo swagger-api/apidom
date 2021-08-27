@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useLanguageFormat } from './sharedHooks';
+import { useLanguageFormat } from './shared-hooks';
 import noop from '../../../utils/common-noop';
 import ImportUrl from './ImportUrl';
 import ModalInputWrapper from './ModalInputWrapper';

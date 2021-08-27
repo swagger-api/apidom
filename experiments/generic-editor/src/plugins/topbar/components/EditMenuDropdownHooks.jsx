@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useLanguageFormat } from './sharedHooks';
+import { useLanguageFormat } from './shared-hooks';
 
 export default function EditMenuDropdownHooks(props) {
   const { getComponent, topbarActions } = props;

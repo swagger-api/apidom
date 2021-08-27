@@ -1,6 +1,6 @@
 import YAML from 'js-yaml';
 
-import { mockOas3Spec } from '../fixtures.actions';
+import { mockOas3Spec } from '../topbar-actions-fixtures';
 
 export const convertToYaml = () => async (system) => {
   const { specSelectors, specActions } = system;

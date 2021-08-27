@@ -1,5 +1,10 @@
-// eslint-disable-next-line camelcase
-import { mockOas3Spec, mockAsyncapi2Spec, mockOas2Spec, mockOas3_1Spec } from '../fixtures.actions';
+/* eslint-disable camelcase */
+import {
+  mockOas3Spec,
+  mockAsyncapi2Spec,
+  mockOas2Spec,
+  mockOas3_1Spec,
+} from '../topbar-actions-fixtures';
 
 // eslint-disable-next-line camelcase
 export const getInitialDefinitionObj = ({ isOAS3, isSwagger2, isOAS3_1, isAsyncApi2 }) => {

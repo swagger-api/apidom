@@ -19,6 +19,8 @@ jobs:
         node-version: [14.x]
 
     steps:
+    - name: Host key verification
+      run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1

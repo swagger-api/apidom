@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class GeneratorMenuDropdown extends Component {
@@ -30,7 +29,6 @@ export default class GeneratorMenuDropdown extends Component {
       return;
     }
     if (instantiate) {
-      // intended as temporary setState, prefer set a redux state instead
       this.setState({
         clients: instantiate.clients,
         servers: instantiate.servers,
@@ -51,14 +49,13 @@ export default class GeneratorMenuDropdown extends Component {
   };
 
   handleDownloadGeneratedFileClick = async ({ type, name }) => {
-    // ref legacy methods: downloadGeneratedFile -> handleResponse -> downloadFile -> reactFileDownload (lib)
     const { topbarActions } = this.props;
     const downloadData = await topbarActions.downloadGeneratedFile({
       type,
       name,
     });
     if (downloadData.error) {
-      // display the error message
+      // may display the error message
     }
   };
 

@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 export default function ImportFileDropdownItem(props) {
   const handleImportFileClick = async () => {
-    // ref inline old method: onDocumentLoad
     const { topbarActions } = props;
     const importResult = await topbarActions.importFile();
     if (importResult && importResult.error) {
-      // display the error message
+      // may display the error message
     }
   };
   const { getComponent } = props;

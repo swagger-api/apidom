@@ -3,7 +3,6 @@ import YAML from 'js-yaml';
 import { getDefinitionLanguage } from '../../../../utils/editor-converter';
 import { getSpecVersion } from '../../../../utils/editor-get-spec-version';
 import { getInitialDefinitionObj } from './clear-editor';
-// eslint-disable-next-line camelcase
 import { mockOas3Spec } from '../topbar-actions-fixtures';
 
 export const clearEditor = () => async (system) => {

@@ -1,24 +1,20 @@
-// If we need to later, we can migrate this file as a separate file,
-// and define this index as a plugin wrapper
 import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function EditMenuDropdown(props) {
   const handleConvertToOas3Click = async () => {
-    // ref legacy method: topbarActions.showModal("convert")
     const { topbarActions } = props;
     const convertedResult = await topbarActions.convertDefinitionToOas3();
     if (convertedResult && convertedResult.error) {
-      // display the error message
+      // may display the error message
     }
   };
 
   const handleConvertToYamlClick = async () => {
-    // ref legacy method: convertToYaml
     const { topbarActions } = props;
     const convertedResult = await topbarActions.convertToYaml();
     if (convertedResult && convertedResult.error) {
-      // display the error message
+      // may display the error message
     }
   };
 
@@ -26,9 +22,7 @@ export default function EditMenuDropdown(props) {
   const DropdownMenu = getComponent('DropdownMenu');
   const DropdownItem = getComponent('DropdownItem');
   // Todo: render convert to OAS3 only if currently 'isSwagger2`, which we can get from specSelectors.isSwagger2()
-  // note: convert method still works on an OAS3 definition, so this is strictly a UX/UI issue
-  // Todo: implement Modal progress/status? Imo, a "success" message not needed b/c user
-  // will see UI update, but consult UX
+  // Note, the "hooks" version has this implemented
   return (
     <DropdownMenu displayName="Edit">
       <DropdownItem onClick={() => handleConvertToYamlClick()} name="Convert To YAML" />

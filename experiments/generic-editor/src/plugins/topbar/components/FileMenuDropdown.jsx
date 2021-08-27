@@ -1,12 +1,6 @@
-// This is a React.Component container of dropdownItems
-// no special list handling; all "clicks" pass props in same format
-// If we need to later, we can migrate this file as a separate file,
-// and define this index as a plugin wrapper
-// eslint-disable-next-line no-unused-vars
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line no-unused-vars
 import noop from '../../../utils/common-noop';
 import ModalInputWrapper from './ModalInputWrapper';
 import ImportUrl from './ImportUrl';
@@ -65,7 +59,6 @@ export default class FileMenuDropdown extends Component {
   };
 
   handleImportUrlClick = async () => {
-    // ref legacy method: importFromURL
     this.setState({
       showImportUrlModal: true,
       importUrlString: '',
@@ -95,7 +88,7 @@ export default class FileMenuDropdown extends Component {
     // another url: https://petstore3.swagger.io/api/v3/openapi.json
     const importedData = await topbarActions.importFromURL({ url });
     if (importedData && importedData.error) {
-      // show error message
+      // display the error message
       this.setState({
         showErrorModal: true,
         errorMessage: importedData.error,
@@ -141,7 +134,6 @@ export default class FileMenuDropdown extends Component {
   };
 
   handleSaveAsYamlClick = async () => {
-    // ref legacy method: saveAsYaml
     const { topbarActions } = this.props;
     const saveResult = await topbarActions.saveAsYaml({ overrideWarning: false });
     if (saveResult && saveResult.warning) {

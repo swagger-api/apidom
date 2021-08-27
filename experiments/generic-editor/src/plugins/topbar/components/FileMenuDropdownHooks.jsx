@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useLanguageFormat } from './shared-hooks';
@@ -20,7 +19,6 @@ export default function FileMenuDropdownHooks(props) {
 
   const handleSaveAsJsonClick = () => {
     async function saveAsJson() {
-      // todo: see note from handleSaveAsYamlClick on error of following method
       // const saveResult = await topbarActions.saveAsJsonResolved();
       const saveResult = await topbarActions.saveAsJson();
       if (saveResult && saveResult.error) {
@@ -35,10 +33,6 @@ export default function FileMenuDropdownHooks(props) {
 
   const handleSaveAsYamlClick = () => {
     async function saveAsYaml() {
-      // to reproduce, just use the oas3.0.2 default loaded definition
-      // this error crashes react-dev. refer to screenshot on dereference. note the "new throw"
-      // todo: the `saveAsYamlResolved` probably needs a try/catch, to fix the following error:
-      // Uncaught(in promise) DereferenceError: Error while dereferencing file "/api/v3"
       // const saveResult = await topbarActions.saveAsYamlResolved({ overrideWarning: false });
       const saveResult = await topbarActions.saveAsYaml({ overrideWarning: false });
       if (saveResult && saveResult.warning) {
@@ -62,11 +56,9 @@ export default function FileMenuDropdownHooks(props) {
 
   const handleSaveAsYamlWithOverride = () => {
     async function saveAsYaml() {
-      // todo: see note from handleSaveAsYamlClick on error of following method
       // const saveResult = await topbarActions.saveAsYamlResolved({ overrideWarning: false });
       const saveResult = await topbarActions.saveAsYaml({ overrideWarning: true });
       if (saveResult && saveResult.error) {
-        // console.log('saveResult', saveResult);
         // set & display the error message
         if (saveResult.payload.message) {
           // we can get this error message if we forgot the 'overrideWarning" option above
@@ -87,7 +79,6 @@ export default function FileMenuDropdownHooks(props) {
   const [importUrlString, setImportUrlString] = useState('');
 
   const handleImportUrlClick = () => {
-    // ref legacy method: importFromURL
     setImportUrlString('');
     setShowImportUrlModal(true);
   };

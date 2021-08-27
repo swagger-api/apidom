@@ -22,7 +22,7 @@ export default function EditMenuDropdownHooks(props) {
     async function convertToYaml() {
       const convertedResult = await topbarActions.convertToYaml();
       if (convertedResult && convertedResult.error) {
-        // display the error message
+        // may display the error message
       }
     }
     // call the async/await function
@@ -33,7 +33,7 @@ export default function EditMenuDropdownHooks(props) {
     async function convertDefinitionToOas3() {
       const convertedResult = await topbarActions.convertDefinitionToOas3();
       if (convertedResult && convertedResult.error) {
-        // display the error message
+        // may display the error message
       }
     }
     // call the async/await function
@@ -41,13 +41,12 @@ export default function EditMenuDropdownHooks(props) {
   };
 
   const handleClearEditorClick = () => {
-    // ref legacy method: clearEditor
     async function clearEditor() {
       // note: in actions, we detect the spec language in order to "clear" with a minimal supported spec
       const clearResult = await topbarActions.clearEditor();
       if (clearResult && clearResult.error) {
         // should not occur
-        // display the error message
+        // may display the error message
       }
     }
     clearEditor();
@@ -57,7 +56,7 @@ export default function EditMenuDropdownHooks(props) {
     async function loadDefaultDefinition() {
       const loadResult = await topbarActions.loadDefaultDefinition(language);
       if (loadResult && loadResult.error) {
-        // display the error message
+        // may display the error message
       }
     }
     // call the async/await function

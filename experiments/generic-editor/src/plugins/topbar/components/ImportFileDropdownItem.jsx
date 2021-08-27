@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function ImportFileDropdownItem(props) {
-  const onImportFileClick = async () => {
+  const handleImportFileClick = async () => {
     // ref inline old method: onDocumentLoad
     const { topbarActions } = props;
     const importResult = await topbarActions.importFile();
@@ -13,7 +13,7 @@ export default function ImportFileDropdownItem(props) {
   const { getComponent } = props;
   const DropdownItem = getComponent('DropdownItem');
 
-  return <DropdownItem onClick={() => onImportFileClick()} name="Import File" />;
+  return <DropdownItem onClick={() => handleImportFileClick()} name="Import File" />;
 }
 
 ImportFileDropdownItem.propTypes = {

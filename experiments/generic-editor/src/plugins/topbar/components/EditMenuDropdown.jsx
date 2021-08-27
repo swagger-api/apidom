@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function EditMenuDropdown(props) {
-  const onConvertToOas3Click = async () => {
+  const handleConvertToOas3Click = async () => {
     // ref legacy method: topbarActions.showModal("convert")
     const { topbarActions } = props;
     const convertedResult = await topbarActions.convertDefinitionToOas3();
@@ -13,7 +13,7 @@ export default function EditMenuDropdown(props) {
     }
   };
 
-  const onConvertToYamlClick = async () => {
+  const handleConvertToYamlClick = async () => {
     // ref legacy method: convertToYaml
     const { topbarActions } = props;
     const convertedResult = await topbarActions.convertToYaml();
@@ -31,8 +31,8 @@ export default function EditMenuDropdown(props) {
   // will see UI update, but consult UX
   return (
     <DropdownMenu displayName="Edit">
-      <DropdownItem onClick={() => onConvertToYamlClick()} name="Convert To YAML" />
-      <DropdownItem onClick={() => onConvertToOas3Click()} name="Convert To OpenAPI 3" />
+      <DropdownItem onClick={() => handleConvertToYamlClick()} name="Convert To YAML" />
+      <DropdownItem onClick={() => handleConvertToOas3Click()} name="Convert To OpenAPI 3" />
     </DropdownMenu>
   );
 }

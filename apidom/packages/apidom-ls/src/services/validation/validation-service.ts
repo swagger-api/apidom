@@ -4,7 +4,7 @@ import { Element, traverse } from 'apidom';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
 import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';
-import { LanguageSettings, ValidationContext } from '../../apidom-language-types';
+import { APIDOM_LINTER, LanguageSettings, ValidationContext } from '../../apidom-language-types';
 import {
   setMetadataMap,
   getSourceMap,
@@ -13,6 +13,7 @@ import {
   QuickFixData,
   MetadataMap,
 } from '../../utils/utils';
+import { standardLinterfunctions } from './linter-functions';
 
 export interface ValidationService {
   doValidation(
@@ -160,14 +161,26 @@ export class DefaultValidationService implements ValidationService {
             for (const meta of linterMeta) {
               const linterFuncName = meta.linterFunction;
               if (linterFuncName) {
-                // call linter function
-
-                const lintFunc = this.settings?.metadata?.linterFunctions[
-                  isAsyncDoc(text) ? 'asyncapi' : 'openapi'
-                ][linterFuncName];
+                // first check if it is a standard function and exists.
+                let lintFunc:
+                  | ((...args: any[]) => boolean)
+                  | undefined = standardLinterfunctions.find(
+                  (e) => e.functionName === linterFuncName,
+                )?.function;
+                // else get it from configuration
+                if (!lintFunc) {
+                  lintFunc = this.settings?.metadata?.linterFunctions[
+                    isAsyncDoc(text) ? 'asyncapi' : 'openapi'
+                  ][linterFuncName];
+                }
                 if (lintFunc) {
                   try {
-                    const lintRes = lintFunc(element);
+                    let lintRes = true;
+                    if (meta.linterParams && meta.linterParams.length > 0) {
+                      lintRes = lintFunc(...[element].concat(meta.linterParams));
+                    } else {
+                      lintRes = lintFunc(element);
+                    }
                     if (!lintRes) {
                       // add to diagnostics
                       let lintSm = sm;
@@ -223,7 +236,7 @@ export class DefaultValidationService implements ValidationService {
       return diagnostic.data?.quickFix;
     }
 
-    if (diagnostic.source === 'LINTER') {
+    if (diagnostic.source === APIDOM_LINTER) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       const map: MetadataMap = this.settings?.metadata?.metadataMaps[lang]!;

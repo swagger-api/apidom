@@ -1,5 +1,24 @@
 {
   "openApi3_1": {
+    "lint": [
+      {
+        "code": 1,
+        "source": "apilint",
+        "message": "should always have a 'description'",
+        "severity": 1,
+        "linterFunction": "hasRequiredField",
+        "linterParams": ["openapi"],
+        "marker": "key",
+        "data": {
+          "quickFix": {
+            "message": "add 'openapi' field",
+            "action": "addChild",
+            "snippetYaml": "openapi: \n  ",
+            "snippetJson": "\"openapi\": \"\",\n    "
+          }
+        }
+      }
+    ],
     "yaml": {
       "completion": [
         {
@@ -54,8 +73,8 @@
   "*": {
     "lint": [
       {
-        "code": 0,
-        "source": "LINTER",
+        "code": 2,
+        "source": "apilint",
         "message": "UPPERCASE Not allowed!",
         "severity": 1,
         "linterFunction": "noUpperCaseLinter",
@@ -73,8 +92,8 @@
   "info": {
     "lint": [
       {
-        "code": 2,
-        "source": "LINTER",
+        "code": 3,
+        "source": "apilint",
         "message": "should always have a 'description'",
         "severity": 1,
         "linterFunction": "infoLinter",
@@ -82,10 +101,26 @@
         "data": {
           "quickFix": {
             "message": "add 'description' field",
-            "function": "addDescription",
             "action": "addChild",
             "snippetYaml": "description: \n  ",
             "snippetJson": "\"description\": \"\",\n    "
+          }
+        }
+      },
+      {
+        "code": 4,
+        "source": "apilint",
+        "message": "should always have a 'version'",
+        "severity": 1,
+        "linterFunction": "hasRequiredField",
+        "linterParams": ["version"],
+        "marker": "key",
+        "data": {
+          "quickFix": {
+            "message": "add 'version' field",
+            "action": "addChild",
+            "snippetYaml": "version: \n  ",
+            "snippetJson": "\"version\": \"\",\n    "
           }
         }
       }

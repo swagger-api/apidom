@@ -83,6 +83,7 @@ export interface ElementMeta {
 export interface QuickFixData {
   message: string;
   function?: string;
+  functionParams?: [any];
   action: string;
   // TODO solve, validation meta also format based
   snippetYaml?: string;
@@ -97,6 +98,7 @@ export interface LinterMeta {
   source?: string;
   severity?: 1 | 2 | 3 | 4 | undefined;
   linterFunction?: string;
+  linterParams?: [any];
   marker?: string;
   data?: LinterMetaData;
 }

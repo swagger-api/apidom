@@ -4,8 +4,8 @@
   "description": "ApiDOM",
   "private": true,
   "engines": {
-    "node": ">=10.21.0",
-    "npm": ">=6.14.5"
+    "node": ">=16.8.0",
+    "npm": ">=7.21.0"
   },
   "comments": {
     "scripts": {
@@ -13,16 +13,14 @@
     }
   },
   "scripts": {
-    "postinstall": "npm run link-parent-bin",
     "prebuild": "cd ./node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build && cd ../tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build",
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "lint:fix": "lerna run lint",
-    "typescript:check-types": "lerna run typescript:check-types",
-    "typescript:declaration": "lerna run typescript:declaration",
-    "clean": "lerna run clean",
-    "test": "lerna run test",
-    "link-parent-bin": "link-parent-bin",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "typescript:check-types": "npm run typescript:check-types --workspaces",
+    "typescript:declaration": "npm run typescript:declaration --workspaces",
+    "clean": "npm run clean --workspaces",
+    "test": "npm run test --workspaces",
     "security-audit": "run-s -sc security-audit:prod security-audit:dev",
     "security-audit:prod": "npm-audit --production --only=prod --audit-level=low",
     "security-audit:dev": "npm-audit --only=dev --audit-level=moderate"
@@ -37,6 +35,9 @@
     "url": "https://github.com/swagger-api/apidom/issues"
   },
   "homepage": "https://github.com/swagger-api/apidom#readme",
+  "workspaces": [
+    "./packages/*"
+  ],
   "devDependencies": {
     "@babel/cli": "=7.13.0",
     "@babel/core": "=7.13.1",
@@ -75,7 +76,6 @@
     "jsdom": "=16.4.0",
     "jsdom-global": "=3.0.2",
     "lerna": "=4.0.0",
-    "link-parent-bin": "=1.0.2",
     "lint-staged": "=10.2.7",
     "microtime": "=3.0.0",
     "mocha": "=8.4.0",
@@ -91,20 +91,5 @@
     "typescript": "=3.9.3",
     "webpack": "=4.43.0",
     "webpack-cli": "=3.3.11"
-  },
-  "dependencies": {
-    "apidom": "file:packages/apidom",
-    "apidom-ast": "file:packages/apidom-ast",
-    "apidom-ls": "file:packages/apidom-ls",
-    "apidom-ns-asyncapi-2": "file:packages/apidom-ns-asyncapi-2",
-    "apidom-ns-openapi-3-1": "file:packages/apidom-ns-openapi-3-1",
-    "apidom-parser": "file:packages/apidom-parser",
-    "apidom-parser-adapter-asyncapi-json-2": "file:packages/apidom-parser-adapter-asyncapi-json-2",
-    "apidom-parser-adapter-asyncapi-yaml-2": "file:packages/apidom-parser-adapter-asyncapi-yaml-2",
-    "apidom-parser-adapter-json": "file:packages/apidom-parser-adapter-json",
-    "apidom-parser-adapter-openapi-json-3-1": "file:packages/apidom-parser-adapter-openapi-json-3-1",
-    "apidom-parser-adapter-openapi-yaml-3-1": "file:packages/apidom-parser-adapter-openapi-yaml-3-1",
-    "apidom-parser-adapter-yaml-1-2": "file:packages/apidom-parser-adapter-yaml-1-2",
-    "apidom-reference": "file:packages/apidom-reference"
   }
 }

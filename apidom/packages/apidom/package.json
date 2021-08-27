@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.12.5",
-    "apidom-ast": "file:../apidom-ast",
+    "apidom-ast": "*",
     "minim": "=0.23.8",
     "ramda": "=0.27.0",
     "@types/ramda": "=0.27.6",

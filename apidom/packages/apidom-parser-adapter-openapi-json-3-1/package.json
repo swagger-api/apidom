@@ -31,8 +31,8 @@
     "ramda": "=0.27.0",
     "ramda-adjunct": "=2.27.0",
     "@types/ramda": "=0.27.6",
-    "apidom": "file:../apidom",
-    "apidom-ns-openapi-3-1": "file:../apidom-ns-openapi-3-1",
-    "apidom-parser-adapter-json": "file:../apidom-parser-adapter-json"
+    "apidom": "*",
+    "apidom-ns-openapi-3-1": "*",
+    "apidom-parser-adapter-json": "*"
   }
 }

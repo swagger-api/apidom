@@ -41,6 +41,10 @@ const specLinterUpper = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-upper.json'))
   .toString();
 
+const specLinterNoVersion = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-no-version.json'))
+  .toString();
+
 const derefBaseURI = path.join(__dirname, 'fixtures', 'deref/rootwithserver.json').toString();
 
 const specDeref = fs
@@ -603,12 +607,11 @@ describe('apidom-ls', function () {
         range: { start: { line: 2, character: 2 }, end: { line: 2, character: 8 } },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
-        source: 'LINTER',
+        code: 3,
+        source: 'apilint',
         data: {
           quickFix: {
             message: "add 'description' field",
-            function: 'addDescription',
             action: 'addChild',
             snippetYaml: 'description: \n  ',
             snippetJson: '"description": "",\n    ',
@@ -619,8 +622,8 @@ describe('apidom-ls', function () {
         range: { start: { line: 11, character: 23 }, end: { line: 11, character: 29 } },
         message: 'UPPERCASE Not allowed!',
         severity: 1,
-        code: 0,
-        source: 'LINTER',
+        code: 2,
+        source: 'apilint',
         data: {
           quickFix: {
             message: 'transform to lowercase',
@@ -632,6 +635,90 @@ describe('apidom-ls', function () {
       {
         range: { start: { line: 2, character: 2 }, end: { line: 2, character: 8 } },
         message: "should have required property 'title'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 10, character: 6 }, end: { line: 10, character: 11 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 13, character: 6 }, end: { line: 13, character: 12 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 18, character: 6 }, end: { line: 18, character: 12 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: { start: { line: 23, character: 6 }, end: { line: 23, character: 11 } },
+        message: "should have required property 'responses'",
+        severity: 1,
+        code: 0,
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+  });
+
+  it('test linter no version', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/file.json',
+      'json',
+      0,
+      specLinterNoVersion,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    const expected = [
+      {
+        range: { start: { line: 2, character: 2 }, end: { line: 2, character: 8 } },
+        message: "should always have a 'description'",
+        severity: 1,
+        code: 3,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "add 'description' field",
+            action: 'addChild',
+            snippetYaml: 'description: \n  ',
+            snippetJson: '"description": "",\n    ',
+          },
+        },
+      },
+      {
+        range: { start: { line: 2, character: 2 }, end: { line: 2, character: 8 } },
+        message: "should always have a 'version'",
+        severity: 1,
+        code: 4,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "add 'version' field",
+            action: 'addChild',
+            snippetYaml: 'version: \n  ',
+            snippetJson: '"version": "",\n    ',
+          },
+        },
+      },
+      {
+        range: { start: { line: 2, character: 2 }, end: { line: 2, character: 8 } },
+        message: "should have required property 'version'",
         severity: 1,
         code: 0,
       },

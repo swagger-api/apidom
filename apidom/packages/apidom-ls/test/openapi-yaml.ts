@@ -541,12 +541,11 @@ describe('apidom-ls-yaml', function () {
         range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
-        source: 'LINTER',
+        code: 3,
+        source: 'apilint',
         data: {
           quickFix: {
             message: "add 'description' field",
-            function: 'addDescription',
             action: 'addChild',
             snippetYaml: 'description: \n  ',
             snippetJson: '"description": "",\n    ',

@@ -3,7 +3,7 @@
     "lint": [
       {
         "code": 0,
-        "source": "LINTER",
+        "source": "apilint",
         "message": "UPPERCASE Not allowed!",
         "severity": 1,
         "linterFunction": "noUpperCaseLinter",
@@ -22,7 +22,7 @@
     "lint": [
       {
         "code": 2,
-        "source": "LINTER",
+        "source": "apilint",
         "message": "should always have a 'description'",
         "severity": 1,
         "linterFunction": "infoLinter",
@@ -30,7 +30,6 @@
         "data": {
           "quickFix": {
             "message": "add 'description' field",
-            "function": "addDescription",
             "action": "addChild",
             "snippetYaml": "description: \n  ",
             "snippetJson": "\"description\": \"\",\n    "

@@ -2,8 +2,16 @@
   "name": "apidom-ls",
   "description": "ApiDOM based language service library",
   "version": "0.1.0",
-  "author": "frantuma@yahoo.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
+  },
+  "author": "Francesco Tumanischvili",
   "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/swagger-api/apidom/issues"
+  },
+  "homepage": "https://github.com/swagger-api/apidom#readme",
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

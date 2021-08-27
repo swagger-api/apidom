@@ -1,0 +1,29 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "no version"
+  },
+  "servers" : [
+    {"url": "https://petstore3.swagger.io/api/v3/pet"}
+  ],
+  "paths" : {
+    "/a" : {
+      "get": {
+        "operationId": "aget"
+      },
+      "post": {
+        "operationId": "apost"
+      }
+    },
+    "/b" : {
+      "post": {
+        "operationId": "bpost"
+      }
+    },
+    "/2" : {
+      "get": {
+        "operationId": "2get"
+      }
+    }
+  }
+}

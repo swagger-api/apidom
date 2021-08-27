@@ -37,6 +37,8 @@ export enum FORMAT {
   YAML,
 }
 
+export const APIDOM_LINTER = 'apilint';
+
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;

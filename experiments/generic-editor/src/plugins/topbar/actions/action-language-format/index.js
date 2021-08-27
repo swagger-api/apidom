@@ -1,4 +1,4 @@
-import { getDefinitionLanguage } from '../../../utils/editor-converter';
+import { getDefinitionLanguage } from '../../../../utils/editor-converter';
 
 export const getDefinitionLanguageFormat = () => async (system) => {
   const { specSelectors } = system;
@@ -25,3 +25,5 @@ export const shouldUpdateDefinitionLanguageFormat = ({ languageFormat }) => asyn
   }
   return Promise.resolve({ shouldUpdate: false, languageFormat });
 };
+
+export default { getDefinitionLanguageFormat, shouldUpdateDefinitionLanguageFormat };

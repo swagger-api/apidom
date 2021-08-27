@@ -7,11 +7,11 @@ import {
   getDefinitionLanguage,
   getFileName,
   hasParserErrors,
-} from '../../../utils/editor-converter';
-import { getFileDownload } from '../../../utils/common-file-download';
-import { getSpecVersion } from '../../../utils/editor-get-spec-version';
-import { mockOas3Spec } from './fixtures.actions';
-import metadata from '../../monaco/workers/metadataJs';
+} from '../../../../utils/editor-converter';
+import { getFileDownload } from '../../../../utils/common-file-download';
+import { getSpecVersion } from '../../../../utils/editor-get-spec-version';
+import { mockOas3Spec } from '../fixtures.actions';
+import metadata from '../../../monaco/workers/metadataJs';
 
 export const saveAsJson = () => async (system) => {
   const { specSelectors, errSelectors } = system;
@@ -33,7 +33,7 @@ export const saveAsJson = () => async (system) => {
   const fileName = getFileName({ options });
   const parserErrorExists = hasParserErrors({ errors: errSelectors.allErrors() });
   if (parserErrorExists) {
-    // legacy alert window, which we should use a generic modal instead
+    // message for modal to display
     return {
       error:
         'Save as JSON is not currently possible because Swagger-Editor was not able to parse your API definiton.',
@@ -67,7 +67,7 @@ export const saveAsJsonResolved = () => async (system) => {
   const fileName = getFileName({ options });
   const parserErrorExists = hasParserErrors({ errors: errSelectors.allErrors() });
   if (parserErrorExists) {
-    // legacy alert window, which we should use a generic modal instead
+    // message for modal to display
     return {
       error:
         'Save as JSON is not currently possible because Swagger-Editor was not able to parse your API definiton.',
@@ -92,7 +92,6 @@ export const saveAsJsonResolved = () => async (system) => {
     getFileDownload({ blob: result, filename: `${fileName}.json` });
     return { data: 'ok' };
   } catch (e) {
-    console.log('saveAsJsonResolved catch error:', e);
     return { error: e.message };
   }
 };
@@ -117,7 +116,6 @@ export const saveAsYamlResolved = () => async (system) => {
   const fileName = getFileName({ options });
   const parserErrorExists = hasParserErrors({ errors: errSelectors.allErrors() });
   if (parserErrorExists) {
-    // legacy alert window, which we should use a generic modal instead
     return {
       error:
         'Save as JSON is not currently possible because Swagger-Editor was not able to parse your API definiton.',
@@ -144,13 +142,11 @@ export const saveAsYamlResolved = () => async (system) => {
     getFileDownload({ blob: yamlResult, filename: `${fileName}.yaml` });
     return { data: 'ok' };
   } catch (e) {
-    console.log('saveAsYamlResolved catch error:', e);
     return { error: e.message };
   }
 };
 
 export const saveAsYaml = ({ overrideWarning }) => async (system) => {
-  // console.log('actions.saveAsYaml');
   const { specSelectors, errSelectors } = system;
   const editorContent = specSelectors.specStr();
   // eslint-disable-next-line camelcase
@@ -179,7 +175,7 @@ export const saveAsYaml = ({ overrideWarning }) => async (system) => {
           'Swagger Editor is not able to parse your API definition. Are you sure you want to save the editor content as YAML?',
       };
     }
-    // legacy alert window, which we should use a generic modal instead
+    // message for modal to display
     return {
       error:
         'Save as YAML is not currently possible because Swagger-Editor was not able to parse your API definiton.',
@@ -187,12 +183,10 @@ export const saveAsYaml = ({ overrideWarning }) => async (system) => {
   }
 
   if (languageFormat === 'yaml') {
-    // console.log('download yaml as-is');
     // content is already yaml, so download as-is
     getFileDownload({ blob: contentToConvert, filename: `${fileName}.yaml` });
     return { data: 'ok' };
   }
-  // console.log('download yaml from json');
   // JSON String -> JS object
   const jsContent = YAML.safeLoad(contentToConvert);
   // JS Object -> YAML string

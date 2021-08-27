@@ -1,7 +1,9 @@
+// TODO: decide if we want to load json or yaml by default
+// We also could accept an optional parameter allowing user to choose
 // import YAML from 'js-yaml';
 
 // eslint-disable-next-line camelcase
-import { mockOas2Spec, mockOas3Spec, mockAsyncapi2Spec, mockOas3_1Spec } from './fixtures.actions';
+import { mockOas2Spec, mockOas3Spec, mockAsyncapi2Spec, mockOas3_1Spec } from '../fixtures.actions';
 
 export const loadDefaultDefinition = (language) => async (system) => {
   const { specActions } = system;

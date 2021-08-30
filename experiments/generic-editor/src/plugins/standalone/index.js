@@ -1,7 +1,7 @@
 // This is where we import the topbar component
 // and wrap state plugins, component
 import TopbarPlugin from '../topbar';
-import StandaloneLayout from './StandaloneLayout';
+import StandaloneLayout from './components/StandaloneLayout';
 
 const StandalonePlugin = () => {
   return {

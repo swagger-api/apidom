@@ -1,7 +1,7 @@
 import TopbarPlugin from '../topbar';
 import SplitPaneModePlugin from '../split-pane-mode';
 import EditorAreaLayoutPlugin from '../editorAreaLayout';
-import EditorWorkspacePlugin from '../monaco';
+import MonacoEditorWorkspacePlugin from '../monaco';
 import IdeLayout from './components/IdeLayout';
 // import SplitPaneMode from './components/SplitPaneMode'; // todo: use component directly, w/o plugin
 // import TopbarPlugin from './components/Topbar'; // todo: proposal to use component directly, w/o plugin
@@ -27,6 +27,6 @@ export default function ideLayoutPreset() {
     TopbarPlugin,
     SplitPaneModePlugin,
     EditorAreaLayoutPlugin,
-    EditorWorkspacePlugin,
+    MonacoEditorWorkspacePlugin,
   ];
 }

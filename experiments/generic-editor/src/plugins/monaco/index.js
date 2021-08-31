@@ -1,7 +1,7 @@
 // import MonacoEditorContainer from './components/MonacoEditorContainer';
 import EditorWorkspace from './components/EditorWorkspace';
 
-export default function EditorWorkspacePlugin() {
+export default function MonacoEditorWorkspacePlugin() {
   return [
     {
       components: { EditorWorkspace }, // formerly 'MonacoEditorContainer'

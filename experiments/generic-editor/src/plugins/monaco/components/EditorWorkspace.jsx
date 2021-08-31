@@ -1,5 +1,3 @@
-// overwrite default 'EditorWorkspace' with a monaco-based version
-// deprecates 'MonacoEditorContainer', but not 'MonacoEditor'
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ReactResizeDetector from 'react-resize-detector';
@@ -34,12 +32,6 @@ export default class EditorWorkspace extends PureComponent {
     specActions.updateSpec(val);
   };
 
-  // handleChange = (e) => {
-  //   e.preventDefault();
-  //   // bug: should catch and translate keycode for keyboard input 'return'
-  //   this.handleChangeEditorValue(JSON.parse(e.target.value));
-  // };
-
   handleChangeThemeValue = async (val) => {
     const defaultThemeList = ['vs', 'vs-light', 'vs-dark', 'my-vs-light', 'my-vs-dark'];
     if (!defaultThemeList.includes(val)) {
@@ -59,7 +51,6 @@ export default class EditorWorkspace extends PureComponent {
   };
 
   render() {
-    // const { initialValue, onChange, getValueFromSpec } = this.props;
     const { initialValue, language, theme, height, width } = this.state;
 
     const valueForEditor = this.getSelectorSpecStr();

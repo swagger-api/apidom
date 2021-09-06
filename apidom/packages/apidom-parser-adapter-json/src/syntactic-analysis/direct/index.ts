@@ -209,18 +209,21 @@ const Visitor = stampit({
       return element;
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.null = function _null(node: SyntaxNode) {
       const element = new NullElement();
       maybeAddSourceMap(node, element);
       return element;
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.true = function _true(node: SyntaxNode) {
       const element = new BooleanElement(true);
       maybeAddSourceMap(node, element);
       return element;
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.false = function _false(node: SyntaxNode) {
       const element = new BooleanElement(false);
       maybeAddSourceMap(node, element);

@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.8.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -34,8 +34,6 @@ jobs:
       run: npm ci
       working-directory: ./apidom
     - name: Security audit
-      # filtering production deps only supported on >=npm@6.10.0
-      if: startsWith(matrix.node-version, '12') || startsWith(matrix.node-version, '14')
       run: npm run security-audit
       env:
         CI: true

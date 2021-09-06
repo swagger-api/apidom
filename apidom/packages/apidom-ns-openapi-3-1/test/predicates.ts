@@ -42,6 +42,7 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         class OpenApi3_1SubElement extends OpenApi3_1Element {}
 
         assert.isTrue(isOpenApi3_1Element(new OpenApi3_1SubElement()));
@@ -60,6 +61,7 @@ describe('predicates', function () {
     });
 
     specify('should support duck-typing', function () {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const openApi3_1ElementDuck = {
         _storedElement: 'openApi3_1',
         classes: new ArrayElement(['api']),
@@ -72,6 +74,7 @@ describe('predicates', function () {
         },
       };
 
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const openApi3_1ElementSwan = {
         _storedElement: undefined,
         _content: undefined,

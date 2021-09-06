@@ -6,6 +6,7 @@ import InfoElement from './Info';
 import ServerElement from './Server';
 import ComponentsElement from './Components';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 class OpenApi3_1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

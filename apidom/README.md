@@ -1,6 +1,6 @@
 # ApiDOM
 
-The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across 
+The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across
 API description language and serialization formats. There currently exists several API description languages one can choose
 when defining an API, from OpenAPI, RAML or API Blueprint.
 There are also many serialization formats such as XML, YAML or JSON. Without a way to parse these formats
@@ -26,11 +26,11 @@ ApiDOM is made up of many small elements that have a rich semantic meaning given
 An element is an individual piece that makes up an API, and can range from defining a resource to providing
 an example of an HTTP request.
 
-The ApiDOM defines elements to be used for:  
+The ApiDOM defines elements to be used for:
 
-Describing an API  
-Describing data structures used within that API  
-Describing parse results when parsing API-related documents  
+Describing an API
+Describing data structures used within that API
+Describing parse results when parsing API-related documents
 These elements also seek to provide a way to decouple APIs and their semantics from the implementation details.
 
 The structure of an ApiDOM is recursive by nature. When looking for specific elements,
@@ -158,8 +158,8 @@ We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fra
 
 ```json
 "engines": {
-  "node": "~14",
-  "npm": ">=6.14.5 <7"
+  "node": "~16.8",
+  "npm": ">=7.21.0"
 }
 ```
 

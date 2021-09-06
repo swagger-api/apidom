@@ -27,6 +27,7 @@ import {
 
 import { Metadata } from './utils/utils';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export enum SUPPORTED_LANGUAGES {
   OPENAPI_31,
   ASYNCAPI_20,

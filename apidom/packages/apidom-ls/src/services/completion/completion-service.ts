@@ -189,8 +189,8 @@ export class DefaultCompletionService implements CompletionService {
       // commit chars for json
       valueCommitCharacters = [',', '}', ']'];
       propertyCommitCharacters = [':'];
-      endObjectNodeChar = '}';
-      endArrayNodeChar = ']';
+      endObjectNodeChar = '}'; // eslint-disable-line @typescript-eslint/no-unused-vars
+      endArrayNodeChar = ']'; // eslint-disable-line @typescript-eslint/no-unused-vars
     }
 
     // parse

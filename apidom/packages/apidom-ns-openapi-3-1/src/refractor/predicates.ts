@@ -1,6 +1,7 @@
 import { MemberElement, isStringElement, isObjectElement, Element } from 'apidom';
 import { startsWith } from 'ramda';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const isOpenApi3_1LikeElement = <T extends Element>(element: T): boolean => {
   // @ts-ignore
   return isObjectElement(element) && element.hasKey('openapi') && element.hasKey('info');

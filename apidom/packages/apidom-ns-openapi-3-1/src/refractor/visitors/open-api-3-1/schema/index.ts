@@ -82,6 +82,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
     /**
      * Public Api.
      */
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.ObjectElement = function _ObjectElement(objectElement: ObjectElement) {
       this.element = new SchemaElement();
       handle$schema(objectElement);
@@ -100,6 +101,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       return result;
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.BooleanElement = function _BooleanElement(booleanElement: BooleanElement) {
       this.element = booleanElement.clone();
       this.element.classes.push('boolean-json-schema');

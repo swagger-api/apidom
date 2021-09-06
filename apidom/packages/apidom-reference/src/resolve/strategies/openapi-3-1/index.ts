@@ -19,6 +19,7 @@ import OpenApi3_1ResolveVisitor from './visitor';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
   init() {
     this.name = 'openapi-3-1';

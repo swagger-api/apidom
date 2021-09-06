@@ -132,12 +132,14 @@ const CstVisitor = stampit({
       return JsonString({ children: node.children, position, isMissing: node.isMissing() });
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.string_content = function string_content(node: SyntaxNode) {
       const position = toPosition(node);
 
       return JsonStringContent({ value: node.text, position, isMissing: node.isMissing() });
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.escape_sequence = function escape_sequence(node: SyntaxNode) {
       const position = toPosition(node);
 
@@ -151,6 +153,7 @@ const CstVisitor = stampit({
       return JsonNumber({ value, position, isMissing: node.isMissing() });
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.null = function _null(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
@@ -158,6 +161,7 @@ const CstVisitor = stampit({
       return JsonNull({ value, position, isMissing: node.isMissing() });
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.true = function _true(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
@@ -165,6 +169,7 @@ const CstVisitor = stampit({
       return JsonTrue({ value, position, isMissing: node.isMissing() });
     };
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.false = function _false(node: SyntaxNode) {
       const position = toPosition(node);
       const value = node.text;

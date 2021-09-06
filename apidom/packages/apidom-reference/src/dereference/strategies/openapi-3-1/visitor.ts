@@ -36,6 +36,7 @@ import {
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1DereferenceVisitor = stampit({
   props: {
     indirections: null,

@@ -33,6 +33,7 @@ import ServerVariableElement from './elements/ServerVariable';
 import TagElement from './elements/Tag';
 import XmlElement from './elements/Xml';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const openApi3_1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

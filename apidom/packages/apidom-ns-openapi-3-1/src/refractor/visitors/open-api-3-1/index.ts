@@ -6,6 +6,7 @@ import FixedFieldsVisitor from '../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import OpenApi3_1Element from '../../../elements/OpenApi3-1';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'OpenApi']),

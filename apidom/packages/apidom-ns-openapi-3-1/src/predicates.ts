@@ -173,8 +173,10 @@ export const isOpenapiElement = createPredicate(
   },
 );
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const isOpenApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const isElementTypeOpenApi3_1 = isElementType('openApi3_1');
     const primitiveEqObject = primitiveEq('object');
     const hasClassApi = hasClass('api');

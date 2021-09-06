@@ -7,6 +7,7 @@ import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';
 import Parser from '../Parser';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
     name: 'openapi-yaml-3-1',

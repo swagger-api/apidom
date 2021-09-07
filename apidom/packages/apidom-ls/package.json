@@ -45,7 +45,7 @@
     "ajv": "^6.12.2",
     "json-source-map": "^0.6.1",
     "ramda": "=0.27.0",
-    "yaml-js": "^0.1.4",
+    "yaml-js": "^0.3.0",
     "@types/ramda": "=0.27.6",
     "ramda-adjunct": "=2.27.0",
     "stampit": "=4.3.1"

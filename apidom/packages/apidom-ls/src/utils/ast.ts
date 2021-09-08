@@ -214,7 +214,7 @@ export function pathForPosition(yaml: any, position: any) {
 
   try {
     var ast = cachedCompose(yaml);
-  } catch (e) {
+  } catch (e: any) {
     // eslint-disable-next-line no-console
     console.error('Error composing AST', e);
 

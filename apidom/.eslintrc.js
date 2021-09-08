@@ -10,11 +10,6 @@ module.exports = {
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-return-await': 'off',
-    '@typescript-eslint/return-await': ['error', 'in-try-catch'],
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reported issues
-    '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/ban-ts-comment': 'off',
     'no-unused-vars': 'off',
     'import/no-extraneous-dependencies': 'off', // ['error', { devDependencies: true }],
     'import/no-mutable-exports': 'off',
@@ -31,6 +26,11 @@ module.exports = {
     'no-labels': 'off',
     'no-restricted-syntax': 'off',
     'no-nested-ternary': 'off',
+    '@typescript-eslint/return-await': ['error', 'in-try-catch'],
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reported issues
+    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   plugins: ['@typescript-eslint', 'import'],
   extends: [

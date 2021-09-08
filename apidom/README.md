@@ -165,7 +165,7 @@ We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fra
 
 ## Monorepo management
 
-All the information necessary for working with monorepo can be found in this [article](https://www.linkedin.com/pulse/things-i-wish-had-known-when-started-javascript-monorepo-gorej/).
+All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
 
 [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) need to be installed
 on your operating system. We strongly recommend to go with a docker option.

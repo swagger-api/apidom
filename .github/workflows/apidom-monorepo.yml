@@ -39,7 +39,7 @@ jobs:
 #      working-directory: ./apidom
     - name: Lint code
       run: npm run lint
-      working-directory: ./apidom
+      working-directory: ./apidom/packages/apidom-reference
 #    - name: Build monorepo
 #      run: npm run build
 #      working-directory: ./apidom

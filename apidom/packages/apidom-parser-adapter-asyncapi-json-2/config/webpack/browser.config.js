@@ -7,9 +7,6 @@ const browser = {
   mode: 'production',
   entry: ['./src/adapter.ts'],
   target: 'web',
-  node: {
-    fs: 'empty',
-  },
   performance: {
     maxEntrypointSize: 712000,
     maxAssetSize: 712000,
@@ -22,6 +19,10 @@ const browser = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+    },
   },
   module: {
     rules: [
@@ -50,9 +51,6 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/adapter.ts'],
   target: 'web',
-  node: {
-    fs: 'empty',
-  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-asyncapi-json-2.browser.min.js',
@@ -61,6 +59,10 @@ const browserMin = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+    },
   },
   module: {
     rules: [

@@ -26,7 +26,7 @@ module.exports = {
     'no-labels': 'off',
     'no-restricted-syntax': 'off',
     'no-nested-ternary': 'off',
-    '@typescript-eslint/return-await': ['error', 'in-try-catch'],
+    '@typescript-eslint/return-await': 'off', // we want ['error', 'in-try-catch'] but if we enable it we get false positives
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reported issues
     '@typescript-eslint/no-unused-vars': ['error'],

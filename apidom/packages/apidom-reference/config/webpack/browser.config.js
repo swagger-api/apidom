@@ -7,10 +7,6 @@ const browser = {
   mode: 'production',
   entry: ['./src/index.ts'],
   target: 'web',
-  node: {
-    fs: 'empty',
-    util: 'empty',
-  },
   performance: {
     maxEntrypointSize: 712000,
     maxAssetSize: 712000,
@@ -23,6 +19,11 @@ const browser = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+      util: false,
+    },
   },
   module: {
     rules: [
@@ -51,10 +52,6 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/index.ts'],
   target: 'web',
-  node: {
-    fs: 'empty',
-    util: 'empty',
-  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-reference.browser.min.js',
@@ -63,6 +60,11 @@ const browserMin = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+      util: false,
+    },
   },
   module: {
     rules: [

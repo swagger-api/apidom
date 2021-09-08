@@ -34,6 +34,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'import'],
   extends: [
+    'airbnb-base',
     'airbnb-typescript/base', // uses rules from AirBnb codestyle
     'plugin:prettier/recommended', // enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin

@@ -23,14 +23,14 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.12.5",
-    "@types/ramda": "=0.27.6",
+    "@babel/runtime-corejs3": "=7.15.4",
+    "@types/ramda": "=0.27.44",
     "apidom-ast": "*",
     "minim": "=0.23.8",
-    "ramda": "=0.27.0",
-    "ramda-adjunct": "=2.27.0",
-    "short-unique-id": "=4.3.4",
-    "stampit": "=4.3.1"
+    "ramda": "=0.27.1",
+    "ramda-adjunct": "=2.33.0",
+    "short-unique-id": "=4.4.0",
+    "stampit": "=4.3.2"
   },
   "devDependencies": {
     "dedent": "=0.7.0"

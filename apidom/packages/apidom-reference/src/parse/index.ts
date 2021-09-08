@@ -28,7 +28,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
 
     // empty files handling
     if (!plugin.allowEmpty && result.isEmpty) {
-      return await Promise.reject(
+      return Promise.reject(
         new ParserError(`Error while parsing file "${file.uri}". File is empty.`),
       );
     }

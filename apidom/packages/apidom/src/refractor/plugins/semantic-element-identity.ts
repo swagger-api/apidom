@@ -10,25 +10,27 @@ type Predicates = {
   isPrimitiveElement: (element: Element) => boolean;
 };
 
-const plugin = ({ length = 6 } = {}) => ({ predicates }: { predicates: Predicates }) => {
-  let uuid: any;
+const plugin =
+  ({ length = 6 } = {}) =>
+  ({ predicates }: { predicates: Predicates }) => {
+    let uuid: any;
 
-  return {
-    pre() {
-      uuid = new ShortUniqueId({ length });
-    },
-    visitor: {
-      enter<T extends Element>(element: T) {
-        if (!predicates.isPrimitiveElement(element)) {
-          // eslint-disable-next-line no-param-reassign
-          element.id = new StringElement(uuid());
-        }
+    return {
+      pre() {
+        uuid = new ShortUniqueId({ length });
       },
-    },
-    post() {
-      uuid = null;
-    },
+      visitor: {
+        enter<T extends Element>(element: T) {
+          if (!predicates.isPrimitiveElement(element)) {
+            // eslint-disable-next-line no-param-reassign
+            element.id = new StringElement(uuid());
+          }
+        },
+      },
+      post() {
+        uuid = null;
+      },
+    };
   };
-};
 
 export default plugin;

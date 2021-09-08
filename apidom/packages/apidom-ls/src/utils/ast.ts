@@ -39,6 +39,7 @@ export function getLineNumberForPath(yaml: any, path: any) {
 
   return find(ast, path);
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   function find(current: any, path: any, last?: any): any {
     if (!current) {
       // something has gone quite wrong

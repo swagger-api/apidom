@@ -47,7 +47,9 @@ const refract = <T extends Element>(
   return rootVisitor.element;
 };
 
-export const createRefractor = (specPath: string[]) => (value: any, options = {}) =>
-  refract(value, { specPath, ...options });
+export const createRefractor =
+  (specPath: string[]) =>
+  (value: any, options = {}) =>
+    refract(value, { specPath, ...options });
 
 export default refract;

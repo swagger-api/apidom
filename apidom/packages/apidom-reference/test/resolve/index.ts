@@ -149,7 +149,7 @@ describe('resolve', function () {
       try {
         await resolve(uri, options);
         assert.fail('Should throw ParserError');
-      } catch (error) {
+      } catch (error: any) {
         assert.instanceOf(error, ParserError);
         assert.match(error.message, /File is empty\.$/);
       }

@@ -287,7 +287,7 @@ describe('dereference', function () {
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
@@ -307,7 +307,7 @@ describe('dereference', function () {
                 resolve: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumResolverDepthError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
               assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);

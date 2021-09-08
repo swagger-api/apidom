@@ -38,7 +38,9 @@ const refract = (value: any, { Type, plugins = [] }: RefractOptions): Element =>
   return element;
 };
 
-export const createRefractor = (Type: any) => (value: any, options = {}) =>
-  refract(value, { ...options, Type });
+export const createRefractor =
+  (Type: any) =>
+  (value: any, options = {}) =>
+    refract(value, { ...options, Type });
 
 export default refract;

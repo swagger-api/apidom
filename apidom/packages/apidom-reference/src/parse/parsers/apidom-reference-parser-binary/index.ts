@@ -33,8 +33,8 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
         }
 
         return parseResultElement;
-      } catch (e) {
-        throw new ParserError(`Error parsing "${file.uri}"`, e);
+      } catch (error: any) {
+        throw new ParserError(`Error parsing "${file.uri}"`, error);
       }
     },
   },

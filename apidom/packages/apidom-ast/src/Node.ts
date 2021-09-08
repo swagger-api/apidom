@@ -1,5 +1,7 @@
 import stampit from 'stampit';
 
+import Position from './Position';
+
 interface Node {
   type: string | null;
   isMissing: boolean;

@@ -241,7 +241,7 @@ describe('resolve', function () {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
               assert.fail('should throw ResolverError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, ResolverError);
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
@@ -339,7 +339,7 @@ describe('resolve', function () {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
               });
               assert.fail('should throw ResolverError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, EvaluationJsonSchema$anchorError);
             }
@@ -358,7 +358,7 @@ describe('resolve', function () {
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
@@ -378,7 +378,7 @@ describe('resolve', function () {
                 resolve: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumResolverDepthError');
-            } catch (error) {
+            } catch (error: any) {
               assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);

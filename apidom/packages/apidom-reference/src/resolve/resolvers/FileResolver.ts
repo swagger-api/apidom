@@ -20,8 +20,8 @@ const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
 
       try {
         return await promisify(readFile)(fileSystemPath);
-      } catch (e) {
-        throw new ResolverError(`Error opening file "${file.uri}"`, e);
+      } catch (error: any) {
+        throw new ResolverError(`Error opening file "${file.uri}"`, error);
       }
     },
   },

@@ -23,7 +23,7 @@ export const readFile = async (file: IFile, options: IReferenceOptions): Promise
     });
     const { result } = await plugins.run('read', [file], optsBoundResolvers);
     return result;
-  } catch (error) {
+  } catch (error: any) {
     throw new ResolverError(`Error while reading file "${file.uri}"`, error);
   }
 };

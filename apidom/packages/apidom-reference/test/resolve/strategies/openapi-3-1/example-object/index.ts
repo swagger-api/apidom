@@ -118,12 +118,12 @@ describe('resolve', function () {
                   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 });
                 assert.fail('should throw ResolverError');
-              } catch (e) {
+              } catch (error: any) {
                 assert.strictEqual(
-                  e.cause.cause.message,
+                  error.cause.cause.message,
                   'ExampleElement value and externalValue fields are mutually exclusive.',
                 );
-                assert.instanceOf(e, ResolverError);
+                assert.instanceOf(error, ResolverError);
               }
             });
           });

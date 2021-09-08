@@ -93,7 +93,7 @@ describe('resolve', function () {
                   dereference: { maxDepth: 1 },
                 });
                 assert.fail('should throw MaximumDereferenceDepthError');
-              } catch (error) {
+              } catch (error: any) {
                 assert.instanceOf(error, ResolverError);
                 assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
                 assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex1.json"$/);

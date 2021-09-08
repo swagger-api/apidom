@@ -96,7 +96,7 @@ describe('util', function () {
           try {
             await run('read', [file], suitablePlugins);
             assert.fail('Should throw object with Error here');
-          } catch (error) {
+          } catch (error: any) {
             assert.instanceOf(error, PluginError);
             assert.propertyVal(error.plugin, 'name', 'file');
             assert.instanceOf(error.cause, Error);

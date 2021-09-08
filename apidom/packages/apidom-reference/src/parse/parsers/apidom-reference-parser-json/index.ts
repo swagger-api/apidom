@@ -21,8 +21,8 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       try {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis'], this);
         return await parse(source, parserOpts);
-      } catch (e) {
-        throw new ParserError(`Error parsing "${file.uri}"`, e);
+      } catch (error: any) {
+        throw new ParserError(`Error parsing "${file.uri}"`, error);
       }
     },
   },

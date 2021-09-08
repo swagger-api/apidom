@@ -88,10 +88,14 @@ describe('resolve', function () {
             try {
               await resolver.read(File({ uri: url }));
               assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.strictEqual(e.cause.message, 'timeout of 1ms exceeded');
-              assert.instanceOf(e, ResolverError);
-              assert.propertyVal(e, 'message', 'Error downloading "https://httpbin.org/anything"');
+            } catch (error: any) {
+              assert.strictEqual(error.cause.message, 'timeout of 1ms exceeded');
+              assert.instanceOf(error, ResolverError);
+              assert.propertyVal(
+                error,
+                'message',
+                'Error downloading "https://httpbin.org/anything"',
+              );
             }
           });
 
@@ -103,10 +107,14 @@ describe('resolve', function () {
             try {
               await resolver.read(File({ uri: url }));
               assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.strictEqual(e.cause.message, 'Network Error');
-              assert.instanceOf(e, ResolverError);
-              assert.propertyVal(e, 'message', 'Error downloading "https://httpbin.org/anything"');
+            } catch (error: any) {
+              assert.strictEqual(error.cause.message, 'Network Error');
+              assert.instanceOf(error, ResolverError);
+              assert.propertyVal(
+                error,
+                'message',
+                'Error downloading "https://httpbin.org/anything"',
+              );
             }
           });
 

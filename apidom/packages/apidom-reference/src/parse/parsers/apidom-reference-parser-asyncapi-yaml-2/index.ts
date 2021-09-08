@@ -21,8 +21,8 @@ const AsyncApiYaml2Parser: stampit.Stamp<IParser> = stampit(Parser, {
       try {
         const parserOpts = pick(['sourceMap', 'refractorOpts'], this);
         return await parse(source, parserOpts);
-      } catch (e) {
-        throw new ParserError(`Error parsing "${file.uri}"`, e);
+      } catch (error: any) {
+        throw new ParserError(`Error parsing "${file.uri}"`, error);
       }
     },
   },

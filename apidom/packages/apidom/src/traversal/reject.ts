@@ -5,10 +5,8 @@ import filter from './filter';
 
 // complement of filter
 // reject :: Pred -> Element -> ArraySlice
-const reject = curry(
-  <T extends Element>(predicate: Pred, element: T): ArraySlice => {
-    return filter(complement(predicate))(element);
-  },
-);
+const reject = curry(<T extends Element>(predicate: Pred, element: T): ArraySlice => {
+  return filter(complement(predicate))(element);
+});
 
 export default reject;

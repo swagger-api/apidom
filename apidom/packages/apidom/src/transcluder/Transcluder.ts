@@ -86,23 +86,24 @@ const transcludeChildOfArrayElement = (
     return;
   }
 
-  arrayElement.content = arrayElement.map(
-    (element: Element): Element => {
-      if (element === search) {
-        edges.delete(search);
-        edges.set(replace, arrayElement);
-        return replace;
-      }
-      return element;
-    },
-  );
+  arrayElement.content = arrayElement.map((element: Element): Element => {
+    if (element === search) {
+      edges.delete(search);
+      edges.set(replace, arrayElement);
+      return replace;
+    }
+    return element;
+  });
 };
 
 /**
  * This is a mutating stamp. If you don't want your Element to be mutated,
  * clone in before passing it to initializer of this stamp.
  */
-const Transcluder: stampit.Stamp<Transcluder> = stampit.init(function Transcluder({ element }) {
+
+const Transcluder: stampit.Stamp<Transcluder> = stampit.init(function TranscluderConstructor({
+  element,
+}) {
   const edges = computeEdges(element);
 
   this.transclude = function transclude(search: Element, replace: Element): Element | undefined {

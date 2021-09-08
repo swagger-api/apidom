@@ -77,10 +77,10 @@ describe('parsers', function () {
             const parser = YamlParser();
             await parser.parse(file);
             assert.fail('should throw ParserError');
-          } catch (e) {
-            assert.instanceOf(e.cause, TypeError);
-            assert.instanceOf(e, ParserError);
-            assert.propertyVal(e, 'message', 'Error parsing "/path/to/file.yaml"');
+          } catch (error: any) {
+            assert.instanceOf(error.cause, TypeError);
+            assert.instanceOf(error, ParserError);
+            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.yaml"');
           }
         });
       });

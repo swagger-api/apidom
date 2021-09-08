@@ -168,12 +168,12 @@ describe('dereference', function () {
                   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 });
                 assert.fail('should throw DereferenceError');
-              } catch (e) {
+              } catch (error: any) {
                 assert.strictEqual(
-                  e.cause.cause.message,
+                  error.cause.cause.message,
                   'ExampleElement value and externalValue fields are mutually exclusive.',
                 );
-                assert.instanceOf(e, DereferenceError);
+                assert.instanceOf(error, DereferenceError);
               }
             });
           });

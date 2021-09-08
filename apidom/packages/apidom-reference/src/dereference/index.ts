@@ -55,7 +55,7 @@ export const dereferenceApiDOM = async <T extends Element>(
     const { result } = await plugins.run('dereference', [file, options], dereferenceStrategies);
     // unwrap the element from ParseResult assuming first element is the actual result
     return surrogateWrapping ? result.get(0) : result;
-  } catch (error) {
+  } catch (error: any) {
     throw new DereferenceError(`Error while dereferencing file "${file.uri}"`, error);
   }
 };

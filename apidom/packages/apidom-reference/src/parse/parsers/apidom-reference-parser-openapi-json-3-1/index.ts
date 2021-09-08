@@ -22,8 +22,8 @@ const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
       try {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis', 'refractorOpts'], this);
         return await parse(source, parserOpts);
-      } catch (e) {
-        throw new ParserError(`Error parsing "${file.uri}"`, e);
+      } catch (error: any) {
+        throw new ParserError(`Error parsing "${file.uri}"`, error);
       }
     },
   },

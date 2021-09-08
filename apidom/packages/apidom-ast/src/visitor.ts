@@ -390,9 +390,9 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   let index = -1;
   let parent;
   let edits = [];
-  const path = [];
+  const path: any[] = [];
   // @ts-ignore
-  const ancestors = [];
+  const ancestors: any[] = [];
   let newRoot = root;
 
   do {

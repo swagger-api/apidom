@@ -47,7 +47,7 @@ export const resolveApiDOM = async <T extends Element>(
   try {
     const { result } = await plugins.run('resolve', [file, options], resolveStrategies);
     return result;
-  } catch (error) {
+  } catch (error: any) {
     throw new ResolverError(`Error while resolving file "${file.uri}"`, error);
   }
 };

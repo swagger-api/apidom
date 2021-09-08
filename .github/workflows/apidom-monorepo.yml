@@ -20,32 +20,32 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16.8.0
-#    - name: Cache npm cache files
-#      id: cache-npm-cache-files
-#      uses: actions/cache@v2
-#      with:
-#        path: ~/.npm
-#        key: npm-cache-${{ runner.os }}-${{ hashFiles('apidom/package-lock.json') }}
+    - name: Cache npm cache files
+      id: cache-npm-cache-files
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-cache-${{ runner.os }}-${{ hashFiles('apidom/package-lock.json') }}
     - name: Install dependencies
       run: npm ci
       working-directory: ./apidom
-#    - name: Security audit
-#      run: npm run security-audit
-#      env:
-#        CI: true
-#      working-directory: ./apidom
-#    - name: Lint commit message
-#      run: git log -1 --pretty=format:"%s" | npx commitlint
-#      working-directory: ./apidom
+    - name: Security audit
+      run: npm run security-audit
+      env:
+        CI: true
+      working-directory: ./apidom
+    - name: Lint commit message
+      run: git log -1 --pretty=format:"%s" | npx commitlint
+      working-directory: ./apidom
     - name: Lint code
       run: npm run lint
-      working-directory: ./apidom/packages/apidom-reference
-#    - name: Build monorepo
-#      run: npm run build
-#      working-directory: ./apidom
-#    - name: Check TypeScript types
-#      run: npm run typescript:check-types
-#      working-directory: ./apidom
-#    - name: Execute tests in monorepo
-#      run: npm run test
-#      working-directory: ./apidom
+      working-directory: ./apidom
+    - name: Build monorepo
+      run: npm run build
+      working-directory: ./apidom
+    - name: Check TypeScript types
+      run: npm run typescript:check-types
+      working-directory: ./apidom
+    - name: Execute tests in monorepo
+      run: npm run test
+      working-directory: ./apidom

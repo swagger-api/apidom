@@ -155,6 +155,8 @@ To see all these monorepo packages working in browser check out our [ApiDOM Play
 ## Prerequisites
 
 We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fragments that require [Python 3.x](https://www.python.org/downloads/).
+[emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) need to be installed
+on your operating system. We strongly recommend going with a docker option.
 
 ```json
 "engines": {
@@ -166,9 +168,6 @@ We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fra
 ## Monorepo management
 
 All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
-
-[emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) need to be installed
-on your operating system. We strongly recommend to go with a docker option.
 
 ## Installation
 

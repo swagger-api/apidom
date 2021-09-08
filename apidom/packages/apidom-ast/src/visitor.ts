@@ -67,6 +67,7 @@ export const BREAK = {};
 export const getNodeType = prop('type');
 
 // isNode :: Node -> Boolean
+// @ts-ignore
 export const isNode = curryN(1, pipe(getNodeType, isString));
 
 /**

@@ -10,7 +10,7 @@ module.exports = {
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-return-await': 'off',
-    '@typescript-eslint/return-await': 'error',
+    '@typescript-eslint/return-await': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reporter issues
     '@typescript-eslint/no-unused-vars': ['error'],

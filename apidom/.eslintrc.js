@@ -14,6 +14,7 @@ module.exports = {
     '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reporter issues
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/return-await': 'error',
     'no-unused-vars': 'off',
     'import/no-extraneous-dependencies': 'off', // ['error', { devDependencies: true }],
     'import/no-mutable-exports': 0,
@@ -30,6 +31,7 @@ module.exports = {
     'no-labels': 0,
     'no-restricted-syntax': 0,
     'no-nested-ternary': 0,
+    'no-return-await': 'off',
   },
   plugins: ['@typescript-eslint', 'prettier', 'import'],
   extends: [

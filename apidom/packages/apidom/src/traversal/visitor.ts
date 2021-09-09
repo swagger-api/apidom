@@ -51,6 +51,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 };
 
 // isNode :: Node -> Boolean
+// @ts-ignore
 const isNode = curryN(1, pipe(getNodeType, isString));
 
 export const keyMapDefault = {

@@ -63,6 +63,7 @@ export const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
+// @ts-ignore
 export const isNode = either(isElement, isCSTNode);
 
 /* eslint-disable no-underscore-dangle */

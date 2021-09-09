@@ -47,6 +47,7 @@ export const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
+// @ts-ignore
 export const isNode = anyPass([isElement, isCSTNode, isArray]);
 
 /* eslint-disable no-underscore-dangle */

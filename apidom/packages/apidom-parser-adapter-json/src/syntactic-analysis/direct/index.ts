@@ -49,6 +49,7 @@ const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
+// @ts-ignore
 const isNode = either(isElement, isCSTNode);
 
 const Visitor = stampit({

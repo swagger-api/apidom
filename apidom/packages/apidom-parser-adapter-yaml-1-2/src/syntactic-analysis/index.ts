@@ -37,6 +37,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
     keyMap: astKeyMap,
     // @ts-ignore
     nodeTypeGetter: getAstNodeType,
+    // @ts-ignore
     nodePredicate: isAstNode,
     state: {
       sourceMap,

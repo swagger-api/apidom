@@ -47,6 +47,7 @@ export const keyMap = {
   error: ['children'],
 };
 
+// @ts-ignore
 export const isNode = either(isArray, isCSTNode);
 
 /* eslint-disable no-param-reassign */

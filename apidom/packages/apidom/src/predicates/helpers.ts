@@ -29,6 +29,7 @@ interface PredicateHelpers {
 type PredicateCreator = (helpers: PredicateHelpers) => Pred;
 
 const createPredicate = (predicateCreator: PredicateCreator): Pred => {
+  // @ts-ignore
   return curryN(
     1,
     predicateCreator({

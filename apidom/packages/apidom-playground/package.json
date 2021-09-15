@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --config config/jest/jest.config.js",
+    "test": "echo 'no tests defined for ApiDOM Playground'; #  node scripts/test.js --config config/jest/jest.config.js",
     "lint": "eslint ./ --ext .jsx",
     "lint:fix": "eslint ./ --ext .jsx --fix",
     "clean": "rimraf ./build"

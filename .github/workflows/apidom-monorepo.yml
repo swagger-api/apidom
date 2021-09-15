@@ -49,3 +49,28 @@ jobs:
     - name: Execute tests in monorepo
       run: npm run test
       working-directory: ./apidom
+    - name: Upload build artifacts from ApiDOM Playground
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: ./apidom/packages/apidom-playground/build
+
+  deploy:
+
+    name: Deploy ApiDOM Playground
+    if: github.ref == 'refs/heads/master'
+
+    needs: [ build ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v2
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch

@@ -1,19 +1,22 @@
 import fs from 'fs';
 import path from 'path';
-import * as apiDOM from 'apidom';
+import { assert } from 'chai';
+import { isParseResultElement } from 'apidom';
+import { isAsyncApi2Element } from 'apidom-ns-asyncapi-2';
 
 import * as adapter from '../src/adapter';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
-// const namespace = apiDOM.createNamespace(openapi3);
 
 describe('apidom-parser-adapter-asyncapi-json-2', function () {
-  it('test', async function () {
-    console.log(adapter.detect(spec));
-    console.log(adapter.mediaTypes);
+  it('should detect proper media type', function () {
+    assert.isTrue(adapter.detect(spec));
+  });
 
+  it('should parse', async function () {
     const parseResult = await adapter.parse(spec, { sourceMap: true });
-    console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
-    // console.log  (JSON.stringify(apiDOM.dehydrate(parseResult, namespace), null, null));
+
+    assert.isTrue(isParseResultElement(parseResult));
+    assert.isTrue(isAsyncApi2Element(parseResult.api));
   });
 });

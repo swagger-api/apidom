@@ -1,18 +1,22 @@
 import fs from 'fs';
 import path from 'path';
-import * as apiDOM from 'apidom';
+import { assert } from 'chai';
+import { isParseResultElement } from 'apidom';
+import { isOpenApi3_1Element } from 'apidom-ns-openapi-3-1';
 
 import * as adapter from '../src/adapter';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 
 describe('apidom-parser-adapter-openapi-yaml-3-1', function () {
-  it('test', async function () {
-    console.log(adapter.detect(spec));
-    console.log(adapter.mediaTypes);
+  it('should detect proper media type', function () {
+    assert.isTrue(adapter.detect(spec));
+  });
 
+  it('should parse', async function () {
     const parseResult = await adapter.parse(spec, { sourceMap: true });
-    console.log(JSON.stringify(apiDOM.toValue(parseResult), null, 2));
-    // console.log(JSON.stringify(apiDOM.toJSON(parseResult, adapter.namespace), null, null));
+
+    assert.isTrue(isParseResultElement(parseResult));
+    assert.isTrue(isOpenApi3_1Element(parseResult.api));
   });
 });

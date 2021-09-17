@@ -25,36 +25,29 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.npm
-        key: npm-cache-${{ runner.os }}-${{ hashFiles('apidom/package-lock.json') }}
+        key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm ci
-      working-directory: ./apidom
     - name: Security audit
       run: npm run security-audit
       env:
         CI: true
-      working-directory: ./apidom
     - name: Lint commit message
       run: git log -1 --pretty=format:"%s" | npx commitlint
-      working-directory: ./apidom
     - name: Lint code
       run: npm run lint
-      working-directory: ./apidom
     - name: Build monorepo
       run: npm run build
-      working-directory: ./apidom
     - name: Check TypeScript types
       run: npm run typescript:check-types
-      working-directory: ./apidom
     - name: Execute tests in monorepo
       run: npm run test
-      working-directory: ./apidom
     - name: Upload build artifacts from ApiDOM Playground
       if: github.ref == 'refs/heads/master'
       uses: actions/upload-artifact@v2
       with:
         name: build
-        path: ./apidom/packages/apidom-playground/build
+        path: ./packages/apidom-playground/build
 
   deploy:
 

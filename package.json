@@ -23,7 +23,8 @@
     "test": "lerna run test",
     "security-audit": "npm run security-audit:prod  && npm run security-audit:dev",
     "security-audit:prod": "npm-audit --production --only=prod --audit-level=low",
-    "security-audit:dev": "npm-audit --only=dev --audit-level=moderate"
+    "security-audit:dev": "npm-audit --only=dev --audit-level=moderate",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -68,7 +69,7 @@
     "eslint-plugin-mocha": "=9.0.0",
     "eslint-plugin-prettier": "=4.0.0",
     "file-loader": "=6.2.0",
-    "husky": "=4.2.5",
+    "husky": "=7.0.2",
     "jsdom": "=17.0.0",
     "jsdom-global": "=3.0.2",
     "lerna": "=4.0.0",

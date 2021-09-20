@@ -106,7 +106,7 @@
     "web-vitals": "^0.2.4",
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.0",
-    "webpack-manifest-plugin": "2.2.0",
+    "webpack-manifest-plugin": "4.0.2",
     "workbox-webpack-plugin": "6.3.0",
     "worker-loader": "^3.0.8"
   }

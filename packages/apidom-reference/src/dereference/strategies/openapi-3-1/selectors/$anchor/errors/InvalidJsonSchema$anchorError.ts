@@ -1,4 +1,4 @@
-import InvalidSelectorError from '../../../../../util/errors/InvalidSelectorError';
+import InvalidSelectorError from '../../../../../../util/errors/InvalidSelectorError';
 
 export default class InvalidJsonSchema$anchorError extends InvalidSelectorError {
   constructor(anchor: string) {

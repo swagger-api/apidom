@@ -2,10 +2,13 @@ import { isUndefined } from 'ramda-adjunct';
 import { Element, find, isStringElement } from 'apidom';
 import { isSchemaElement } from 'apidom-ns-openapi-3-1';
 
-import * as url from '../../../../util/url';
+import * as url from '../../../../../util/url';
 import { EvaluationJsonSchemaUriError } from './errors';
-import { uriToPointer, evaluate as jsonPointerEvaluate } from '../../../../selectors/json-pointer';
-import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './$anchor';
+import {
+  uriToPointer,
+  evaluate as jsonPointerEvaluate,
+} from '../../../../../selectors/json-pointer';
+import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from '../$anchor';
 
 // evaluates JSON Schema $ref containing unknown URI against ApiDOM fragment
 // eslint-disable-next-line import/prefer-default-export

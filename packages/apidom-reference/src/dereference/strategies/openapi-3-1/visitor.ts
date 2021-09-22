@@ -341,7 +341,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const baseURI = resolveInherited$id(this.reference.uri, referencingElement);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
-      const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
+      const isURL = !isUnknownURI;
+      const isExternal = this.reference.uri !== baseURI && isURL;
 
       // ignore resolving external Schema Objects
       if (!this.options.resolve.external && isExternal) {

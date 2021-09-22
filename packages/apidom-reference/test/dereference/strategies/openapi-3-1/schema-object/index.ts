@@ -12,10 +12,8 @@ import {
 } from '../../../../../src/util/errors';
 import { loadJsonFile } from '../../../../helpers';
 import { evaluate } from '../../../../../src/selectors/json-pointer';
-import {
-  EvaluationJsonSchema$anchorError,
-  EvaluationJsonSchemaUriError,
-} from '../../../../../src/dereference/strategies/openapi-3-1/selectors/errors';
+import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
+import { EvaluationJsonSchemaUriError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/uri/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

@@ -7,7 +7,7 @@ import {
   MaximumResolverDepthError,
   ResolverError,
 } from '../../../../../src/util/errors';
-import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/errors';
+import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

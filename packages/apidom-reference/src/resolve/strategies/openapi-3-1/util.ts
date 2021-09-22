@@ -5,7 +5,7 @@ import { SchemaElement } from 'apidom-ns-openapi-3-1';
 import * as url from '../../../util/url';
 
 /**
- * Folding of inherited$id list from right to left using
+ * Folding of inherited$id list from left to right using
  * URL resolving mechanism.
  */
 export const resolveInherited$id = (baseURI: string, schemaElement: SchemaElement) => {

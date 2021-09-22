@@ -55,7 +55,7 @@
     "@types/mocha": "=9.0.0",
     "@types/sinon": "=10.0.2",
     "babel-loader": "=8.2.2",
-    "babel-plugin-native-error-extend": "=2.0.1",
+    "babel-plugin-native-error-extend": "=2.0.2",
     "benchmark": "=2.1.4",
     "chai": "=4.3.4",
     "copyfiles": "=2.4.1",

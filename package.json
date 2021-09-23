@@ -51,7 +51,7 @@
     "@babel/register": "=7.15.3",
     "@commitlint/cli": "=13.1.0",
     "@commitlint/config-conventional": "=13.1.0",
-    "@types/chai": "=4.2.21",
+    "@types/chai": "=4.2.22",
     "@types/mocha": "=9.0.0",
     "@types/sinon": "=10.0.2",
     "babel-loader": "=8.2.2",

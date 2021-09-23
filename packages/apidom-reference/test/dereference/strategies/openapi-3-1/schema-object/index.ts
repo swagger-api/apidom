@@ -403,6 +403,82 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects with $ref keyword containing URL', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context(
+          'given Schema Objects with $ref keyword containing URL and JSON Pointer fragment',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$ref-url-pointer');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          },
+        );
+
+        context('given Schema Objects with $ref keyword containing URL and $anchor', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url-$anchor');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Schema Objects with $ref keyword containing resolvable URL', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url-resolvable');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Schema Objects with $ref keyword containing unresolvable URL', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url-unresolvable');
+
+          specify('should throw error', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            try {
+              await dereference(rootFilePath, {
+                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              });
+              assert.fail('should throw DereferenceError');
+            } catch (error: any) {
+              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error.cause.cause, ResolverError);
+            }
+          });
+        });
+
         context(
           'given Schema Objects with $ref keyword containing Uniform Resource Name',
           function () {

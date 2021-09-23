@@ -1,5 +1,5 @@
 import { reduce } from 'ramda';
-import { Element } from 'apidom';
+import { Element, isPrimitiveElement } from 'apidom';
 import { SchemaElement } from 'apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
@@ -38,3 +38,15 @@ export const refractToSchemaElement = <T extends Element>(element: T) => {
   return refracted;
 };
 refractToSchemaElement.cache = new WeakMap();
+
+export const maybeRefractToSchemaElement = <T extends Element>(element: T) => {
+  /**
+   * Conditional version of refractToSchemaElement, that acts as an identity
+   * function for all non-primitive Element instances.
+   */
+  if (isPrimitiveElement(element)) {
+    return refractToSchemaElement(element);
+  }
+
+  return element;
+};

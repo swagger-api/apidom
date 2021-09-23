@@ -11,7 +11,8 @@
       "hoist": true
     },
     "version": {
-      "allowBranch": ["master", "release"]
+      "allowBranch": ["master", "release"],
+      "message": "chore(release): cut the %s release [skip ci]"
     },
     "publish": {
       "ignoreChanges": []

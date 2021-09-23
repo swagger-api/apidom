@@ -30,8 +30,9 @@ import Reference from '../../../Reference';
 import File from '../../../util/File';
 import {
   resolveInherited$id,
-  refractToSchemaElement,
+  maybeRefractToSchemaElement,
 } from '../../../resolve/strategies/openapi-3-1/util';
+import EvaluationJsonSchemaUriError from './selectors/uri/errors/EvaluationJsonSchemaUriError';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -352,39 +353,61 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // compute Reference object
-      const reference = isUnknownURI ? this.reference : await this.toReference(baseURI);
-
       this.indirections.push(referencingElement);
 
-      // determining proper evaluation and selection mechanism
+      // determining reference, proper evaluation and selection mechanism
       const $refValue = referencingElement.$ref?.toValue();
       let evaluate: any;
       let selector: string;
-      if (isUnknownURI) {
-        // we're dealing with canonical URI with possible fragment
+      let reference: IReference;
+      if (isUnknownURI || isURL) {
+        // we're dealing with canonical URI or URL with possible fragment
+        reference = this.reference;
         evaluate = uriEvaluate;
         selector = url.resolve(reference.uri, $refValue);
       } else if (isAnchor(uriToAnchor($refValue))) {
         // we're dealing with JSON Schema $anchor here
+        reference = await this.toReference(baseURI);
         evaluate = $anchorEvaluate;
         selector = uriToAnchor($refValue);
       } else {
         // we're assuming here that we're dealing with JSON Pointer here
+        reference = await this.toReference(baseURI);
         evaluate = jsonPointerEvaluate;
         selector = uriToPointer($refValue);
       }
 
-      // possibly non-semantic fragment
       let referencedElement;
 
-      if (isPrimitiveElement(reference.value.result)) {
-        // applying semantics to entire parsing result due to $schema and $id inheritance properties
+      try {
         // @ts-ignore
-        referencedElement = evaluate(selector, refractToSchemaElement(reference.value.result));
-      } else {
-        // here we're assuming that result reference.value.result is already Schema Element
-        referencedElement = evaluate(selector, reference.value.result);
+        referencedElement = evaluate(selector, maybeRefractToSchemaElement(reference.value.result));
+      } catch (error) {
+        /**
+         * No SchemaElement($id=URL) was not found, so we're going to try to resolve
+         * the URL and assume the returned response is a JSON Schema.
+         */
+        if (isURL && error instanceof EvaluationJsonSchemaUriError) {
+          if (isAnchor(uriToAnchor($refValue))) {
+            // we're dealing with JSON Schema $anchor here
+            reference = await this.toReference(baseURI);
+            evaluate = $anchorEvaluate;
+            selector = uriToAnchor($refValue);
+          } else {
+            // we're assuming here that we're dealing with JSON Pointer here
+            reference = await this.toReference(baseURI);
+            evaluate = jsonPointerEvaluate;
+            selector = uriToPointer($refValue);
+          }
+
+          referencedElement = evaluate(
+            selector,
+            // @ts-ignore
+            maybeRefractToSchemaElement(reference.value.result),
+          );
+        } else {
+          throw error;
+        }
       }
 
       // mark current referencing schema as visited

@@ -5,9 +5,13 @@
   "npmClient": "npm",
   "useWorkspaces": true,
   "version": "0.1.0",
+  "changelogPreset": "angular",
   "command": {
     "bootstrap": {
       "hoist": true
+    },
+    "version": {
+      "allowBranch": ["master", "release"]
     },
     "publish": {
       "ignoreChanges": []

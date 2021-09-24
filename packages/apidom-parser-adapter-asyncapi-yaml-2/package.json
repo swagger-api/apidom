@@ -2,6 +2,9 @@
   "name": "apidom-parser-adapter-asyncapi-yaml-2",
   "version": "0.1.0",
   "description": "AsyncApi 2.x.y YAML adapter for ApiDOM parser",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/adapter.js",
   "module": "es/adapter.js",
   "jsnext:main": "es/adapter.js",

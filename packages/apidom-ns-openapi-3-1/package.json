@@ -2,6 +2,9 @@
   "name": "apidom-ns-openapi-3-1",
   "version": "0.1.0",
   "description": "OpenAPI 3.1.x profile for ApiDOM",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

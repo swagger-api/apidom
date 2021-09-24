@@ -2,6 +2,9 @@
   "name": "apidom-reference",
   "version": "0.1.0",
   "description": "ApiDOM Reference resolution library",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

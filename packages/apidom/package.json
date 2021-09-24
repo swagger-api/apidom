@@ -2,6 +2,9 @@
   "name": "apidom",
   "version": "0.1.0",
   "description": "Prototype of ApiDOM ",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

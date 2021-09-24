@@ -37,5 +37,13 @@
     "apidom-parser-adapter-json": "*",
     "ramda": "=0.27.1",
     "ramda-adjunct": "=2.33.0"
-  }
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }

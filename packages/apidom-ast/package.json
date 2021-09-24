@@ -39,5 +39,13 @@
     "ramda-adjunct": "=2.33.0",
     "stampit": "=4.3.2",
     "unraw": "=2.0.1"
-  }
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }

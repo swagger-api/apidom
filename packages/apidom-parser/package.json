@@ -2,6 +2,9 @@
   "name": "apidom-parser",
   "version": "0.1.0",
   "description": "Parser tools for ApiDOM",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/parser.js",
   "module": "es/parser.js",
   "jsnext:main": "es/parser.js",

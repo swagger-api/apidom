@@ -2,6 +2,9 @@
   "name": "apidom-parser-adapter-openapi-json-3-1",
   "version": "0.1.0",
   "description": "OpenAPI 3.1.x JSON adapter for ApiDOM parser",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/adapter.js",
   "module": "es/adapter.js",
   "jsnext:main": "es/adapter.js",

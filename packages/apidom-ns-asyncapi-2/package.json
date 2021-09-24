@@ -2,6 +2,9 @@
   "name": "apidom-ns-asyncapi-2",
   "version": "0.1.0",
   "description": "AsyncAPI 2.x.y namespace for ApiDOM",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",

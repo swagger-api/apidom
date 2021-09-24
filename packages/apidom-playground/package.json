@@ -1,6 +1,9 @@
 {
   "name": "apidom-playground",
   "description": "ApiDOM playground demonstrating various features visually",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
   "version": "0.1.0",
   "private": true,
   "homepage": "https://reimagined-dollop-c7e3930f.pages.github.io/",

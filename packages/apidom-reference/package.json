@@ -49,5 +49,13 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "=1.20.0"
-  }
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }

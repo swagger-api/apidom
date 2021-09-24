@@ -37,5 +37,13 @@
   },
   "devDependencies": {
     "dedent": "=0.7.0"
-  }
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }

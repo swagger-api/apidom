@@ -43,5 +43,13 @@
   },
   "devDependencies": {
     "tree-sitter-cli": "=0.20.0"
-  }
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }

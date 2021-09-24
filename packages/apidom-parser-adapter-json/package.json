@@ -1,7 +1,7 @@
 {
   "name": "apidom-parser-adapter-json",
   "version": "0.1.0",
-  "description": "Generic JSON adapter for ApiDOM parser",
+  "description": "Parser adapter for parsing JSON documents into base namespace.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

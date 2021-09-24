@@ -1,7 +1,7 @@
 {
   "name": "apidom-ast",
   "version": "0.1.0",
-  "description": "AST for ApiDOM parser adapters",
+  "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

@@ -1,7 +1,7 @@
 {
   "name": "apidom",
   "version": "0.1.0",
-  "description": "Prototype of ApiDOM ",
+  "description": "Tools for manipulating ApiDOM structures.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

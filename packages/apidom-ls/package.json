@@ -1,6 +1,6 @@
 {
   "name": "apidom-ls",
-  "description": "ApiDOM based language service library",
+  "description": "ApiDOM based language service library.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

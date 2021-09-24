@@ -16,14 +16,6 @@
       "createRelease": "github",
       "message": "chore(release): cut the %s release [skip ci]",
       "ignoreChanges": ["**/test/**"]
-    },
-    "publish": {
-      "registry": "http://localhost:4873/",
-      "allowBranch": ["master", "release"],
-      "conventionalCommits": true,
-      "createRelease": "github",
-      "message": "chore(release): cut the %s release [skip ci]",
-      "ignoreChanges": ["**/test/**"]
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "apidom-playground",
-  "description": "ApiDOM playground demonstrating various features visually",
+  "description": "ApiDOM Playground demonstrates various features of ApiDOM visually.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

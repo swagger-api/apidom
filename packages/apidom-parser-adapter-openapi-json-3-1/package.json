@@ -1,7 +1,7 @@
 {
   "name": "apidom-parser-adapter-openapi-json-3-1",
   "version": "0.1.0",
-  "description": "OpenAPI 3.1.x JSON adapter for ApiDOM parser",
+  "description": "Parser adapter for parsing JSON documents into OpenAPI 3.1.x namespace.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

@@ -1,7 +1,7 @@
 {
   "name": "apidom-reference",
   "version": "0.1.0",
-  "description": "ApiDOM Reference resolution library",
+  "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

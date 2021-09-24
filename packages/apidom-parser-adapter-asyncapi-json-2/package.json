@@ -1,7 +1,7 @@
 {
   "name": "apidom-parser-adapter-asyncapi-json-2",
   "version": "0.1.0",
-  "description": "AsyncAPI 2.x.y adapter for ApiDOM parser",
+  "description": "Parser adapter for parsing JSON documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

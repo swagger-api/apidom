@@ -1,7 +1,7 @@
 {
   "name": "apidom-monorepo",
   "version": "0.0.0-ignore",
-  "description": "ApiDOM",
+  "description": "ApiDOM Monorepo",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

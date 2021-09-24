@@ -1,7 +1,7 @@
 {
   "name": "apidom-parser-adapter-asyncapi-yaml-2",
   "version": "0.1.0",
-  "description": "AsyncApi 2.x.y YAML adapter for ApiDOM parser",
+  "description": "Parser adapter for parsing YAML documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "registry": "http://localhost:4873/"
   },

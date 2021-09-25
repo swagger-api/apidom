@@ -16,7 +16,6 @@
     }
   },
   "scripts": {
-    "version": "npm i && git add package-lock.json",
     "prebuild": "cd ./node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build && cd ../tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build",
     "build": "lerna run build",
     "lint": "lerna run lint",

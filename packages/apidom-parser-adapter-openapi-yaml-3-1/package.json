@@ -25,7 +25,8 @@
     "perf:syntactic-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/syntactic-analysis.js",
     "perf:refract": "cross-env BABEL_ENV=cjs node ./test/perf/refract.js",
     "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js",
-    "prepack": "copyfiles -u 2 ../../NOTICE ."
+    "prepack": "copyfiles -u 2 ../../NOTICE .",
+    "postpack": "rimraf NOTICE"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

@@ -21,7 +21,8 @@
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json",
     "test": "cross-env BABEL_ENV=cjs mocha",
-    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha"
+    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
+    "prepack": "copyfiles -u 2 ../../NOTICE ."
   },
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
@@ -43,6 +44,8 @@
     "dist/",
     "es/",
     "types/",
+    "LICENSE",
+    "NOTICE",
     "README.md",
     "CHANGELOG.md"
   ]

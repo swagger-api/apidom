@@ -24,7 +24,8 @@
     "perf:lexical-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/lexical-analysis.js",
     "perf:syntactic-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/syntactic-analysis.js",
     "perf:refract": "cross-env BABEL_ENV=cjs node ./test/perf/refract.js",
-    "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js"
+    "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js",
+    "prepack": "copyfiles -u 2 ../../NOTICE ."
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
@@ -42,6 +43,8 @@
     "dist/",
     "es/",
     "types/",
+    "LICENSE",
+    "NOTICE",
     "README.md",
     "CHANGELOG.md"
   ]

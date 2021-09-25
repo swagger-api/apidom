@@ -25,7 +25,7 @@
     "clean": "rimraf ./es ./cjs ./dist",
     "test": "cross-env BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types",
     "prepack": "copyfiles -u 2 ../../NOTICE ."
   },
   "author": "Vladimir Gorej",

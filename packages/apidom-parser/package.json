@@ -21,7 +21,8 @@
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types",
     "test": "cross-env BABEL_ENV=cjs mocha",
-    "prepack": "copyfiles -u 2 ../../NOTICE ."
+    "prepack": "copyfiles -u 2 ../../NOTICE .",
+    "postpack": "rimraf NOTICE"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

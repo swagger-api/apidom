@@ -30,7 +30,7 @@ it super performant, and it's the default analysis used.
 ```js
 import { parse } from 'apidom-parser-adapter-json';
 
-const parseResult = await adapter.parse('{"prop": "value"}', {
+const parseResult = await parse('{"prop": "value"}', {
   syntacticAnalysis: 'direct',
 });
 ```
@@ -44,7 +44,7 @@ Thought less performant, having JSON AST representation allows us to do further 
 ```js
 import { parse } from 'apidom-parser-adapter-json';
 
-const parseResult = await adapter.parse('{"prop": "value"}', {
+const parseResult = await parse('{"prop": "value"}', {
   syntacticAnalysis: 'indirect',
 });
 ```

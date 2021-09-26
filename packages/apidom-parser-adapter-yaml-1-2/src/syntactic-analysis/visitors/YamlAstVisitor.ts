@@ -20,6 +20,7 @@ import {
   Element,
   MemberElement,
   ObjectElement,
+  ArrayElement,
   isPrimitiveElement,
   isElement,
   keyMap as keyMapApiDOM,
@@ -28,7 +29,6 @@ import {
 } from 'apidom';
 import { anyPass, unnest } from 'ramda';
 import { isArray } from 'ramda-adjunct';
-import { ArrayElement } from 'minim';
 
 export const keyMap = {
   stream: ['children'],

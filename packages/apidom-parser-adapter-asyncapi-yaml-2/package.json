@@ -19,7 +19,7 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json",
     "test": "cross-env BABEL_ENV=cjs mocha",
     "perf": "cross-env BABEL_ENV=cjs node ./test/perf/index.js",
     "perf:lexical-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/lexical-analysis.js",

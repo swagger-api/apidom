@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement } from 'apidom';
 
 import AsyncApiVersionElement from './AsyncApiVersion';
 import DefaultContentTypeElement from './DefaultContentType';

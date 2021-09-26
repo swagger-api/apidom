@@ -8,7 +8,7 @@
   "main": "cjs/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
-  "types": "types/index.d.ts",
+  "types": "types/dist.d.ts",
   "browser": {
     "cjs/index.js": "es/index.js",
     "fs": false,
@@ -25,7 +25,7 @@
     "clean": "rimraf ./es ./cjs ./dist",
     "test": "cross-env BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE"
   },
@@ -56,7 +56,7 @@
     "cjs/",
     "dist/",
     "es/",
-    "types/",
+    "types/dist.d.ts",
     "LICENSE",
     "NOTICE",
     "README.md",

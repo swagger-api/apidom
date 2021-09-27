@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, isParseResultElement, isSourceMapElement } from 'apidom';
+import { ObjectElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import JsonParser from '../../../../src/parse/parsers/apidom-reference-parser-json';

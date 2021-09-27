@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Element, BREAK } from 'apidom';
+import { Element, BREAK } from '@swagger-api/apidom-core';
 
 import Visitor from './Visitor';
 

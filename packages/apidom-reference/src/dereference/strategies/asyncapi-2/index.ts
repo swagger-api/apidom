@@ -1,7 +1,11 @@
 import stampit from 'stampit';
 import { defaultTo, propEq } from 'ramda';
-import { createNamespace, visit, Element } from 'apidom';
-import asyncApi2Namespace, { getNodeType, isAsyncApi2Element, keyMap } from 'apidom-ns-asyncapi-2';
+import { createNamespace, visit, Element } from '@swagger-api/apidom-core';
+import asyncApi2Namespace, {
+  getNodeType,
+  isAsyncApi2Element,
+  keyMap,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
 import DereferenceStrategy from '../DereferenceStrategy';
 import {

@@ -1,6 +1,6 @@
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, traverse } from 'apidom';
+import { Element, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
 import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';

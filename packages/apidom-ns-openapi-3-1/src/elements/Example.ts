@@ -1,5 +1,5 @@
 import { Attributes, Meta, Element } from 'minim';
-import { ObjectElement, StringElement } from 'apidom';
+import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 class Example extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

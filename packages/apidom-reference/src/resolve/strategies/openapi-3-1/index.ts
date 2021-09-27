@@ -1,10 +1,10 @@
 import stampit from 'stampit';
-import { createNamespace, visit } from 'apidom';
+import { createNamespace, visit } from '@swagger-api/apidom-core';
 import openApi3_1Namespace, {
   getNodeType,
   isOpenApi3_1Element,
   keyMap,
-} from 'apidom-ns-openapi-3-1';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {

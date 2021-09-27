@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { propEq, values, has, pipe, none } from 'ramda';
 import { allP } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit } from 'apidom';
+import { isPrimitiveElement, isStringElement, visit } from '@swagger-api/apidom-core';
 import {
   getNodeType,
   isReferenceElement,
@@ -17,7 +17,7 @@ import {
   isPathItemElement,
   isPathItemElementExternal,
   isLinkElementExternal,
-} from 'apidom-ns-openapi-3-1';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { Reference as IReference, Resolver as IResolver } from '../../../types';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';

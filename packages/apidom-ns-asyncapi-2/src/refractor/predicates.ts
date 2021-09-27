@@ -1,4 +1,4 @@
-import { MemberElement, isStringElement, isObjectElement, Element } from 'apidom';
+import { MemberElement, isStringElement, isObjectElement, Element } from '@swagger-api/apidom-core';
 import { startsWith } from 'ramda';
 
 export const isAsyncApi2LikeElement = <T extends Element>(element: T): boolean => {

@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { test } from 'ramda';
-import { Element, ObjectElement } from 'apidom';
+import { Element, ObjectElement } from '@swagger-api/apidom-core';
 
 import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';

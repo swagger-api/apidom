@@ -1,7 +1,7 @@
 import stampit from 'stampit';
-import { ParseResultElement } from 'apidom';
-import { parse, mediaTypes } from 'apidom-parser-adapter-asyncapi-yaml-2';
 import { pick } from 'ramda';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { parse, mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 
 import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';

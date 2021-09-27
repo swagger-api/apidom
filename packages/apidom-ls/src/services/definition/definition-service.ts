@@ -1,9 +1,9 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, findAtOffset, ObjectElement, MemberElement } from 'apidom';
+import { Element, findAtOffset, ObjectElement, MemberElement } from '@swagger-api/apidom-core';
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
 // @ts-ignore
-import { jsonPointerEvaluate } from 'apidom-reference';
+import { jsonPointerEvaluate } from '@swagger-api/apidom-reference';
 
 import { LanguageSettings } from '../../apidom-language-types';
 import { getParser, isAsyncDoc } from '../../parser-factory';

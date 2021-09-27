@@ -1,18 +1,18 @@
 /* eslint-disable camelcase */
 import * as Comlink from 'comlink';
-import { dehydrate, from, sexprs, toValue } from 'apidom';
-import ApiDOMParser from 'apidom-parser';
-import * as jsonAdapter from 'apidom-parser-adapter-json';
-import * as yamlAdapter from 'apidom-parser-adapter-yaml-1-2';
-import * as openapi3_1AdapterJson from 'apidom-parser-adapter-openapi-json-3-1';
-import * as openapi3_1AdapterYaml from 'apidom-parser-adapter-openapi-yaml-3-1';
-import * as asyncapi2AdapterJson from 'apidom-parser-adapter-asyncapi-json-2';
-import * as asyncapi2AdapterYaml from 'apidom-parser-adapter-asyncapi-yaml-2';
+import { dehydrate, from, sexprs, toValue } from '@swagger-api/apidom-core';
+import ApiDOMParser from '@swagger-api/apidom-parser';
+import * as jsonAdapter from '@swagger-api/apidom-parser-adapter-json';
+import * as yamlAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
+import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import {
   readFile,
   resolveApiDOM as resolveApiDOMReferences,
   dereferenceApiDOM as derefereceApiDOMReferences,
-} from 'apidom-reference';
+} from '@swagger-api/apidom-reference';
 
 const parser = ApiDOMParser()
   .use(jsonAdapter)

@@ -3,7 +3,7 @@ import { either, hasIn, prop } from 'ramda';
 import { invokeArgs, isFalse, isFunction } from 'ramda-adjunct';
 import { Tree as NodeTree, SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
 import { Tree as WebTree, SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
-import { visit, getNodeType as getCSTNodeType, isNode as isCSTNode } from 'apidom-ast';
+import { visit, getNodeType as getCSTNodeType, isNode as isCSTNode } from '@swagger-api/apidom-ast';
 import {
   BooleanElement,
   NullElement,
@@ -21,7 +21,7 @@ import {
   isPrimitiveElement,
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 
 /* eslint-disable no-underscore-dangle */
 

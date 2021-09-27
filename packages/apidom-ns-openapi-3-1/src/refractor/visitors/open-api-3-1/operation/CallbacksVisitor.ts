@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Element, ObjectElement } from 'apidom';
+import { Element, ObjectElement } from '@swagger-api/apidom-core';
 
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';

@@ -1,6 +1,6 @@
 import { trimCharsStart, isUndefined } from 'ramda-adjunct';
-import { Element, find } from 'apidom';
-import { isSchemaElement } from 'apidom-ns-openapi-3-1';
+import { Element, find } from '@swagger-api/apidom-core';
+import { isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { getHash } from '../../../../../util/url';
 import { EvaluationJsonSchema$anchorError, InvalidJsonSchema$anchorError } from './errors';

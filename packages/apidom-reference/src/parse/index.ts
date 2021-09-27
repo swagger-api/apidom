@@ -1,5 +1,5 @@
 import { isEmpty } from 'ramda';
-import { ParseResultElement } from 'apidom';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import * as url from '../util/url';
 import File from '../util/File';

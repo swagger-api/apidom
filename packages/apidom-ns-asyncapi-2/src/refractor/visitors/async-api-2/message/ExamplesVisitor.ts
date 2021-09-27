@@ -1,5 +1,11 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, MemberElement, isObjectElement, BREAK } from 'apidom';
+import {
+  ArrayElement,
+  Element,
+  MemberElement,
+  isObjectElement,
+  BREAK,
+} from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 

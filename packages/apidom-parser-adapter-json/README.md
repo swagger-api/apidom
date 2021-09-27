@@ -1,14 +1,14 @@
-# apidom-parser-adapter-json
+# @swagger-api/apidom-parser-adapter-json
 
-`apidom-parser-adapter-json` is a parser adapter for the [JSON format](https://www.json.org/json-en.html).
+`@swagger-api/apidom-parser-adapter-json` is a parser adapter for the [JSON format](https://www.json.org/json-en.html).
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
-ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace) is produced.
 
 
 ## Parse phases
 
-The parse stage takes JSON string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
+The parse stage takes JSON string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace).
 There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
 
 ### Lexical Analysis
@@ -19,30 +19,30 @@ Lexical Analysis will take a JSON string and turn it into a stream of tokens.
 ### Syntactic Analysis
 
 Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis)
-and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace) is produced.
 
-#### [Direct Syntactical analysis](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis/direct)
+#### [Direct Syntactical analysis](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/syntactic-analysis/direct)
 
 This analysis directly turns tree-sitter CST into ApiDOM. Single traversal is required which makes
 it super performant, and it's the default analysis used.
 
 ```js
-import { parse } from 'apidom-parser-adapter-json';
+import { parse } from '@swagger-api/apidom-parser-adapter-json';
 
 const parseResult = await parse('{"prop": "value"}', {
   syntacticAnalysis: 'direct',
 });
 ```
 
-#### [Indirect Syntactic analysis]((https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/syntactic-analysis/indirect))
+#### [Indirect Syntactic analysis]((https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/syntactic-analysis/indirect))
 
-This analysis turns trees-sitter CST into [JSON AST](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ast#json-ast-nodes) representation.
+This analysis turns trees-sitter CST into [JSON AST](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ast#json-ast-nodes) representation.
 Then JSON AST is turned into ApiDOM. Two traversals are required, which makes indirect analysis less performant than direct one.
 Thought less performant, having JSON AST representation allows us to do further complex analysis.
 
 ```js
-import { parse } from 'apidom-parser-adapter-json';
+import { parse } from '@swagger-api/apidom-parser-adapter-json';
 
 const parseResult = await parse('{"prop": "value"}', {
   syntacticAnalysis: 'indirect',
@@ -51,7 +51,7 @@ const parseResult = await parse('{"prop": "value"}', {
 
 ## Parser adapter API
 
-This parser adapter is fully compatible with parser adapter interface required by [apidom-parser](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser#mounting-parser-adapters)
+This parser adapter is fully compatible with parser adapter interface required by [apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#mounting-parser-adapters)
 and implements all required properties.
 
 ### mediaTypes
@@ -64,11 +64,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/adapter.ts#L3) is based on using [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) to indicate whether the provided source string is or isn't JSON string.
+[Detection](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/adapter.ts#L3) is based on using [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) to indicate whether the provided source string is or isn't JSON string.
 
 ### namespace
 
-This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace).
+This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace).
 
 ### parse
 
@@ -83,7 +83,7 @@ All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-This parser adapter can be used directly or indirectly via [apidom-parser](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser).
+This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser).
 
 ### Direct usage
 
@@ -91,7 +91,7 @@ During direct usage you don't need to provide `mediaType` as the `parse` functio
 with [supported media types](#mediatypes).
 
 ```js
-import { parse, detect } from 'apidom-parser-adapter-json';
+import { parse, detect } from '@swagger-api/apidom-parser-adapter-json';
 
 // detecting
 await detect('{"prop": "value"}'); // => true
@@ -103,11 +103,11 @@ const parseResult = await parse('{"prop": "value"}', { sourceMap: true });
 
 ### Indirect usage
 
-You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
+You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
 
 ```js
-import ApiDOMParser from 'apidom-parser';
-import * as jsonParserAdapter from 'apidom-parser-adapter-json';
+import ApiDOMParser from '@swagger-api/apidom-parser';
+import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
 
 const parser = ApiDOMParser();
 

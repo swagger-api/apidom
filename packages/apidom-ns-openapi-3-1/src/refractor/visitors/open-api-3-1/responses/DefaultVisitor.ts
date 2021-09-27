@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
-import { ObjectElement } from 'apidom';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isResponseElement } from '../../../../predicates';

@@ -1,6 +1,6 @@
-# apidom-ns-asyncapi-2
+# @swagger-api/apidom-ns-asyncapi-2
 
-`apidom-ns-asyncapi-2` contains ApiDOM namespace supports following AsyncAPI specification versions:
+`@swagger-api/apidom-ns-asyncapi-2` contains ApiDOM namespace supports following AsyncAPI specification versions:
 
 - [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
 - [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
@@ -8,12 +8,12 @@
 
 ## AsyncApi 2.x.y namespace
 
-AsyncApi 2.x.y namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2/src/elements) implemented on top
+AsyncApi 2.x.y namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-asyncapi-2/src/elements) implemented on top
 of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
-import { createNamespace } from 'apidom';
-import asyncApi2Namespace from 'apidom-ns-asyncapi-2';
+import { createNamespace } from '@swagger-api/apidom-core';
+import asyncApi2Namespace from '@swagger-api/apidom-ns-asyncapi-2';
 
 const namespace = createNamespace(asyncApi2Namespace);
 
@@ -27,7 +27,7 @@ with the namespace provided as an argument.
 Elements from the namespace can also be used directly by importing them.
 
 ```js
-import { AsyncApi2Element, InfoElement } from 'apidom-ns-asyncapi-2';
+import { AsyncApi2Element, InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const infoElement = new InfoElement();
 const asyncApiElement = new AsyncApi2Element();
@@ -35,11 +35,11 @@ const asyncApiElement = new AsyncApi2Element();
 
 ## Predicates
 
-This package exposes [predicates](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-ns-asyncapi-2/src/predicates.ts)
+This package exposes [predicates](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/predicates.ts)
 for all higher order elements that are part of this namespace.
 
 ```js
-import { isAsyncApi2Element, AsyncApi2Element } from 'apidom-ns-asyncapi-2';
+import { isAsyncApi2Element, AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const asyncApiElement = new AsyncApi2Element();
 
@@ -49,12 +49,12 @@ isAsyncApi2Element(asyncApiElement); // => true
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L4).
-To learn more about these `visit` configuration options please refer to [apidom-ast documentation](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-ast/README.md#visit).
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L4).
+To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ast/README.md#visit).
 
 ```js
-import { visit } from 'apidom';
-import { AsyncApi2Element, keyMap, getNodeType } from 'apidom-ns-asyncapi-2';
+import { visit } from '@swagger-api/apidom-core';
+import { AsyncApi2Element, keyMap, getNodeType } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const element = new AsyncApi2Element();
 
@@ -75,7 +75,7 @@ or generic ApiDOM structures into structures built from elements of this namespa
 **Refracting JavaScript structures**:
 
 ```js
-import { InfoElement } from 'apidom-ns-asyncapi-2';
+import { InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const object = {
     title: 'my title',
@@ -89,8 +89,8 @@ InfoElement.refract(object); // => InfoElement({ title, description, version })
 **Refracting generic ApiDOM structures**:
 
 ```js
-import { ObjectElement } from 'apidom';
-import { InfoElement } from 'apidom-ns-asyncapi-2';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const objectElement = new ObjectElement({
     title: 'my title',
@@ -106,8 +106,8 @@ InfoElement.refract(objectElement); // => InfoElement({ title = 'my title', desc
 Refractors can accept plugins as a second argument of refract static method.
 
 ```js
-import { ObjectElement } from 'apidom';
-import { InfoElement } from 'apidom-ns-asyncapi-2';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const objectElement = new ObjectElement({
     title: 'my title',

@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
 import { isFunction, isUndefined } from 'ramda-adjunct';
-import { visit } from 'apidom';
+import { visit } from '@swagger-api/apidom-core';
 
 import { keyMap, getNodeType } from '../../traversal/visitor';
 import Visitor from './Visitor';

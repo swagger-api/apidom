@@ -1,5 +1,5 @@
 import { refract as baseRefract } from 'minim';
-import { Element, visit, dereference, mergeAllVisitors } from 'apidom';
+import { Element, visit, dereference, mergeAllVisitors } from '@swagger-api/apidom-core';
 import { propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
 

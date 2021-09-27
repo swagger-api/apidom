@@ -21,7 +21,7 @@ import {
   Point,
   Literal,
   Error,
-} from 'apidom-ast';
+} from '@swagger-api/apidom-ast';
 
 export const keyMap = {
   document: ['children'],

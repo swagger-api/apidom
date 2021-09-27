@@ -1,5 +1,5 @@
 {
-  "name": "apidom-parser",
+  "name": "@swagger-api/apidom-parser",
   "version": "0.1.0",
   "description": "Parser consumes parser adapters and provides unified API for parsing.",
   "publishConfig": {
@@ -29,7 +29,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "=7.15.4",
     "@types/ramda": "=0.27.45",
-    "apidom": "*",
+    "@swagger-api/apidom-core": "*",
     "ramda": "=0.27.1",
     "ramda-adjunct": "=2.33.0",
     "stampit": "=4.3.2"

@@ -3,7 +3,7 @@ import path from 'path';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { Namespace } from 'minim';
-import { ObjectElement, toValue } from 'apidom';
+import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import { OpenApi3_1Element, OpenapiElement, isOpenapiElement } from '../../src';
 import * as predicates from '../../src/predicates';

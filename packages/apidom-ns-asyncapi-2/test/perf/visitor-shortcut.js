@@ -1,7 +1,7 @@
 require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
 const Benchmark = require('benchmark');
-const { ObjectElement } = require('apidom');
+const { ObjectElement } = require('@swagger-api/apidom-core');
 
 const { AsyncApi2Element } = require('../../src');
 

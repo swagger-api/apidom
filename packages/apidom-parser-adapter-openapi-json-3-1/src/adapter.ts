@@ -1,9 +1,8 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { ParseResultElement, createNamespace } from 'apidom';
-// @ts-ignore
-import { parse as parseJson } from 'apidom-parser-adapter-json';
-import openApiNamespace, { OpenApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
+import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
+import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 export const mediaTypes = [
   'application/vnd.oai.openapi;version=3.1.0',

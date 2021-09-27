@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement, BooleanElement } from 'apidom';
+import { ObjectElement, StringElement, BooleanElement } from '@swagger-api/apidom-core';
 
 import SchemaElement from './Schema';
 

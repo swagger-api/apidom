@@ -20,7 +20,7 @@ import {
   isNumberElement,
   isObjectElement,
   isStringElement,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 import { MemberElement } from 'minim';
 
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';

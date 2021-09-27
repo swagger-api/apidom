@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, find } from 'apidom';
+import { ObjectElement, find } from '@swagger-api/apidom-core';
 
 import { isSchemaElement, OpenApi3_1Element } from '../../../../src';
 

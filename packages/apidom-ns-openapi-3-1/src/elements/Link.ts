@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement, Element } from 'apidom';
+import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core';
 
 import ServerElement from './Server';
 import OperationElement from './Operation';

@@ -3,7 +3,7 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
-const { lexicalAnalysis, syntacticAnalysis } = require('apidom-parser-adapter-yaml-1-2');
+const { lexicalAnalysis, syntacticAnalysis } = require('@swagger-api/apidom-parser-adapter-yaml-1-2');
 
 const fixturePath = path.join(__dirname, 'fixtures/openapi.yaml');
 const source = fs.readFileSync(fixturePath).toString();

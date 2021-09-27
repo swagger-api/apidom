@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-import { isParseResultElement } from 'apidom';
-import { isAsyncApi2Element } from 'apidom-ns-asyncapi-2';
+import { isParseResultElement } from '@swagger-api/apidom-core';
+import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import * as adapter from '../src/adapter';
 

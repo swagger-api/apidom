@@ -3,7 +3,7 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
-const { ObjectElement } = require('apidom');
+const { ObjectElement } = require('apidom-core');
 const { AsyncApi2Element } = require('apidom-ns-asyncapi-2');
 
 const fixturePath = path.join(__dirname, 'fixtures/asyncapi.yaml');

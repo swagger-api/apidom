@@ -1,5 +1,5 @@
 import { isEmpty, propEq } from 'ramda';
-import { Element, isParseResultElement, ParseResultElement } from 'apidom';
+import { Element, isParseResultElement, ParseResultElement } from '@swagger-api/apidom-core';
 
 import File from '../util/File';
 import * as plugins from '../util/plugins';

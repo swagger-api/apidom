@@ -1,4 +1,4 @@
-import { createNamespace } from 'apidom';
+import { createNamespace } from '@swagger-api/apidom-core';
 
 export const mediaTypes = ['text/yaml', 'application/yaml'];
 

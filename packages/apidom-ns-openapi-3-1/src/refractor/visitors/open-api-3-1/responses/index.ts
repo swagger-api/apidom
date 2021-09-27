@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
-import { Element, ObjectElement, StringElement } from 'apidom';
+import { Element, ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ResponsesElement from '../../../../elements/Responses';

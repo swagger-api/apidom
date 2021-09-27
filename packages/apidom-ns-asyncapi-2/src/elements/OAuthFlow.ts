@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement } from 'apidom';
+import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 class OAuthFlow extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

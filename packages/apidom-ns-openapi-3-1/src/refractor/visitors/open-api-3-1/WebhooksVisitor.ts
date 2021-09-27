@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, StringElement, Element } from 'apidom';
+import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../elements/Reference';
 import PathItemElement from '../../../elements/PathItem';

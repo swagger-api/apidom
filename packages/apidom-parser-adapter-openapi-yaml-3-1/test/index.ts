@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-import { isParseResultElement } from 'apidom';
-import { isOpenApi3_1Element } from 'apidom-ns-openapi-3-1';
+import { isParseResultElement } from '@swagger-api/apidom-core';
+import { isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as adapter from '../src/adapter';
 

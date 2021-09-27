@@ -1,10 +1,10 @@
 import { createSelector } from 'swagger-adjust';
 import { isEmptyString, isNonEmptyString, isNull } from 'ramda-adjunct';
-import { from, traverse, createNamespace, sexprs, toValue } from 'apidom';
+import { from, traverse, createNamespace, sexprs, toValue } from '@swagger-api/apidom-core';
 /* eslint-disable camelcase */
-import openApi3_1NsPlugin from 'apidom-ns-openapi-3-1';
+import openApi3_1NsPlugin from '@swagger-api/apidom-ns-openapi-3-1';
 /* eslint-enable */
-import asyncApi2NsPlugin from 'apidom-ns-asyncapi-2';
+import asyncApi2NsPlugin from '@swagger-api/apidom-ns-asyncapi-2';
 
 export const selectSource = (state) => state.source;
 

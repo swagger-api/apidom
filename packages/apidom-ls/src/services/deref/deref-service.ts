@@ -1,7 +1,7 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { dereferenceApiDOM } from 'apidom-reference';
+import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { isString } from 'ramda-adjunct';
-import { ArraySlice, Element, filter, ObjectElement, toValue } from 'apidom';
+import { ArraySlice, Element, filter, ObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import { DerefContext, FORMAT, LanguageSettings } from '../../apidom-language-types';
 import { getParser, isJsonDoc } from '../../parser-factory';

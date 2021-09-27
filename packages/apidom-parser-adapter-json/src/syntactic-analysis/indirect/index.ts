@@ -1,7 +1,7 @@
 import { Tree as NodeTree } from 'tree-sitter';
 import { Tree as WebTree } from 'web-tree-sitter';
-import { ParseResultElement } from 'apidom';
-import { visit } from 'apidom-ast';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { visit } from '@swagger-api/apidom-ast';
 
 import CstVisitor, { keyMap as cstKeyMap } from './visitors/CstVisitor';
 import JsonAstVisitor, {

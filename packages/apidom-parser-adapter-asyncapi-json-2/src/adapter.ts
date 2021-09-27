@@ -1,9 +1,8 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
-import { ParseResultElement, createNamespace } from 'apidom';
-// @ts-ignore
-import { parse as parseJson } from 'apidom-parser-adapter-json';
-import asyncApiNamespace, { AsyncApi2Element } from 'apidom-ns-asyncapi-2';
+import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
+import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
+import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 export const mediaTypes = [
   'application/vnd.aai.asyncapi;version=2.0.0',

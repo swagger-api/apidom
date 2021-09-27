@@ -1,7 +1,6 @@
 import stampit from 'stampit';
-import { ParseResultElement } from 'apidom';
-// @ts-ignore
-import { parse } from 'apidom-parser-adapter-yaml-1-2';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 import { ParserError } from '../../../util/errors';
 import { File as IFile, Parser as IParser } from '../../../types';

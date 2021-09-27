@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-import { isParseResultElement, isSourceMapElement } from 'apidom';
+import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import OpenApiYaml3_1Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1';

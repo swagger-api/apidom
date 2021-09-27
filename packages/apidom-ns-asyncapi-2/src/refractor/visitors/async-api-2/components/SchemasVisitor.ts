@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, Element } from 'apidom';
+import { ObjectElement, Element } from '@swagger-api/apidom-core';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';

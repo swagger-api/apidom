@@ -1,5 +1,5 @@
 import { isEmpty } from 'ramda';
-import { Element, isParseResultElement, ParseResultElement } from 'apidom';
+import { Element, isParseResultElement, ParseResultElement } from '@swagger-api/apidom-core';
 
 import { merge as mergeOptions } from '../options/util';
 import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } from '../types';

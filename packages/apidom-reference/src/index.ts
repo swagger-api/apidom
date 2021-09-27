@@ -1,4 +1,4 @@
-import { ParseResultElement, Element } from 'apidom';
+import { ParseResultElement, Element } from '@swagger-api/apidom-core';
 
 import File from './util/File';
 import * as url from './util/url';

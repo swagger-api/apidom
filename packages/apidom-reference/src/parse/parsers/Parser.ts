@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ParseResultElement } from 'apidom';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import { Parser as IParser } from '../../types';
 import { NotImplementedError } from '../../util/errors';

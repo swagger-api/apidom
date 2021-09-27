@@ -10,7 +10,7 @@ import {
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
-import { Element, traverse } from 'apidom';
+import { Element, traverse } from '@swagger-api/apidom-core';
 
 import getLanguageService from '../src/apidom-language-service';
 import {

@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, isObjectElement, BREAK } from 'apidom';
+import { ArrayElement, isObjectElement, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';

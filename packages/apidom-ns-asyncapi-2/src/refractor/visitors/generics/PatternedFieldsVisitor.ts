@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
-import { ObjectElement, Element, MemberElement, BREAK } from 'apidom';
+import { ObjectElement, Element, MemberElement, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isAsyncApiExtension } from '../../predicates';

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sexprs } from 'apidom';
+import { sexprs } from '@swagger-api/apidom-core';
 
 import { OpenApi3_1Element } from '../../../../src';
 

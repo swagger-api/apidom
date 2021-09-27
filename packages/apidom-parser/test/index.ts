@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import * as apiDOM from 'apidom';
-import { isOpenApi3_1Element } from 'apidom-ns-openapi-3-1';
-import * as openapi3_1Adapter from 'apidom-parser-adapter-openapi-json-3-1';
+import * as apiDOM from '@swagger-api/apidom-core';
+import { isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 
 import ApiDOMParser from '../src/parser';
 

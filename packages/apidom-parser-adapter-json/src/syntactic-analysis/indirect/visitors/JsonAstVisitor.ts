@@ -17,7 +17,7 @@ import {
   Literal,
   isNode as isCSTNode,
   getNodeType as getCSTNodeType,
-} from 'apidom-ast';
+} from '@swagger-api/apidom-ast';
 import {
   Element,
   ParseResultElement,
@@ -35,7 +35,7 @@ import {
   isElement,
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 
 export const keyMap = {
   // @ts-ignore

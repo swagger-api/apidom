@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate, isBooleanElement, isStringElement } from 'apidom';
+import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api/apidom-core';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';

@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ArrayElement } from 'apidom';
+import { ArrayElement } from '@swagger-api/apidom-core';
 
 class Tags extends ArrayElement {
   constructor(content?: unknown[], meta?: Meta, attributes?: Attributes) {

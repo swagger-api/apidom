@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
-import { BREAK, isStringElement, MemberElement, Element } from 'apidom';
+import { BREAK, isStringElement, MemberElement, Element } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isAsyncApiExtension } from '../../predicates';

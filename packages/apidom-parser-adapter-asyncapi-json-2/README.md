@@ -1,17 +1,17 @@
-# apidom-parser-adapter-asyncapi-json-2
+# @swagger-api/apidom-parser-adapter-asyncapi-json-2
 
-`apidom-parser-adapter-asyncapi-json-2` is a parser adapter for following AsyncAPI specification versions defined in [JSON format](https://www.json.org/json-en.html):
+`@swagger-api/apidom-parser-adapter-asyncapi-json-2` is a parser adapter for following AsyncAPI specification versions defined in [JSON format](https://www.json.org/json-en.html):
 
 - [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
 - [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
 
-Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom#base-namespace)
-which is then refracted with [AsyncApi 2.x.y Refractors](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#refractors).
+Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser-adapter-json)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace)
+which is then refracted with [AsyncApi 2.x.y Refractors](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-asyncapi-2#refractors).
 
 ## Parser adapter API
 
-This parser adapter is fully compatible with parser adapter interface required by [apidom-parser](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser#mounting-parser-adapters)
+This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#mounting-parser-adapters)
 and implements all required properties.
 
 ### mediaTypes
@@ -29,11 +29,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.0.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.0.0 specification symbols in JSON format.
 
 ### namespace
 
-This adapter exposes an instance of [AsyncApi 2.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
+This adapter exposes an instance of [AsyncApi 2.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
 
 ### parse
 
@@ -41,15 +41,15 @@ This adapter exposes an instance of [AsyncApi 2.x.y ApiDOM namespace](https://gi
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/master/apidom/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
-<a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-ns-asyncapi-2#refractor-plugins) during refracting phase.
+<a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-asyncapi-2#refractor-plugins) during refracting phase.
 
 All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-This parser adapter can be used directly or indirectly via [apidom-parser](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser).
+This parser adapter can be used directly or indirectly via [apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser).
 
 ### Direct usage
 
@@ -57,7 +57,7 @@ During direct usage you don't need to provide `mediaType` as the `parse` functio
 with [supported media types](#mediatypes).
 
 ```js
-import { parse, detect } from 'apidom-parser-adapter-asyncapi-json-2';
+import { parse, detect } from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 
 // detecting
 await detect('{"asyncapi": "2.0.0"}'); // => true
@@ -70,11 +70,11 @@ const parseResult = await parse('{"asyncapi": "2.1.0"}', { sourceMap: true });
 
 ### Indirect usage
 
-You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/apidom/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
+You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
 
 ```js
-import ApiDOMParser from 'apidom-parser';
-import * as asyncApiJsonAdapter from 'apidom-parser-adapter-asyncapi-json-2';
+import ApiDOMParser from '@swagger-api/apidom-parser';
+import * as asyncApiJsonAdapter from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 
 const parser = ApiDOMParser();
 

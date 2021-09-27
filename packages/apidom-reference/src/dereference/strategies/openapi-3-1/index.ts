@@ -1,11 +1,11 @@
 import stampit from 'stampit';
 import { defaultTo, propEq } from 'ramda';
-import { createNamespace, visit, Element } from 'apidom';
+import { createNamespace, visit, Element } from '@swagger-api/apidom-core';
 import openApi3_1Namespace, {
   getNodeType,
   isOpenApi3_1Element,
   keyMap,
-} from 'apidom-ns-openapi-3-1';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import DereferenceStrategy from '../DereferenceStrategy';
 import {

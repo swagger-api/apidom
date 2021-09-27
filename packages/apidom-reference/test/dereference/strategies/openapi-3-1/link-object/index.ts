@@ -1,7 +1,7 @@
 import path from 'path';
 import { assert } from 'chai';
-import { toValue } from 'apidom';
-import { isOperationElement } from 'apidom-ns-openapi-3-1';
+import { toValue } from '@swagger-api/apidom-core';
+import { isOperationElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';

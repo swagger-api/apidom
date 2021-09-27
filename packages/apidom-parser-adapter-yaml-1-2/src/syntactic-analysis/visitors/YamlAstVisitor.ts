@@ -11,7 +11,7 @@ import {
   getNodeType as getCSTNodeType,
   isNode as isCSTNode,
   YamlScalar,
-} from 'apidom-ast';
+} from '@swagger-api/apidom-ast';
 import {
   ParseResultElement,
   AnnotationElement,
@@ -26,7 +26,7 @@ import {
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
   createNamespace,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 import { anyPass, unnest } from 'ramda';
 import { isArray } from 'ramda-adjunct';
 

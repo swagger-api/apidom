@@ -3,7 +3,7 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
-const { lexicalAnalysis } = require('apidom-parser-adapter-json');
+const { lexicalAnalysis } = require('@swagger-api/apidom-parser-adapter-json');
 
 const fixturePath = path.join(__dirname, 'fixtures/openapi.json');
 const source = fs.readFileSync(fixturePath).toString();

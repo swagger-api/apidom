@@ -3,8 +3,8 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 const fs = require('fs');
 const path = require('path');
 const Benchmark = require('benchmark');
-const { ObjectElement } = require('apidom');
-const { OpenApi3_1Element } = require('apidom-ns-openapi-3-1');
+const { ObjectElement } = require('@swagger-api/apidom-core');
+const { OpenApi3_1Element } = require('@swagger-api/apidom-ns-openapi-3-1');
 
 const fixturePath = path.join(__dirname, 'fixtures/openapi.json');
 const source = fs.readFileSync(fixturePath).toString();

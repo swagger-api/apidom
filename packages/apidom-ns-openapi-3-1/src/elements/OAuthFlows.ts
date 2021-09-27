@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement } from 'apidom';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import OAuthFlowElement from './OAuthFlow';
 

@@ -11,7 +11,7 @@ export {
   isElement,
   isNumberElement,
   isStringElement,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 
 export { default } from './namespace';
 

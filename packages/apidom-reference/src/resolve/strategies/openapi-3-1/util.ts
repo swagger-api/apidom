@@ -1,6 +1,6 @@
 import { reduce } from 'ramda';
-import { Element, isPrimitiveElement } from 'apidom';
-import { SchemaElement } from 'apidom-ns-openapi-3-1';
+import { Element, isPrimitiveElement } from '@swagger-api/apidom-core';
+import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
 

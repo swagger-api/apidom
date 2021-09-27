@@ -1,5 +1,5 @@
 {
-  "name": "apidom-parser-adapter-yaml-1-2",
+  "name": "@swagger-api/apidom-parser-adapter-yaml-1-2",
   "version": "0.1.0",
   "description": "Parser adapter for parsing YAML documents into base namespace.",
   "publishConfig": {
@@ -12,14 +12,14 @@
   "unpkg": "dist/apidom-parser-apdater-yaml-1-2.browser.min.js",
   "types": "types/dist.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run build:es && npm run build:cjs && npm run build:umd:browser",
+    "build": "npm run clean && npm run typescript:declaration && npm run build:es && npm run build:cjs && npm run build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --root-mode 'upward'",
     "build:umd:browser": "npm run build:wasm && cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
     "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-yaml/tree-sitter-yaml.wasm && exit 0 || cd ../../node_modules/tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate ./grammar.js && tree-sitter build-wasm && node-gyp build",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf ./es ./cjs ./dist",
+    "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "test": "cross-env BABEL_ENV=cjs mocha",
@@ -34,8 +34,8 @@
   "dependencies": {
     "@babel/runtime-corejs3": "=7.15.4",
     "@types/ramda": "=0.27.45",
-    "apidom": "*",
-    "apidom-ast": "*",
+    "@swagger-api/apidom-core": "*",
+    "@swagger-api/apidom-ast": "*",
     "ramda": "=0.27.1",
     "ramda-adjunct": "=2.33.0",
     "stampit": "=4.3.2",

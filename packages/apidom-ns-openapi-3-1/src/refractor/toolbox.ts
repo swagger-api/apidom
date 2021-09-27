@@ -1,4 +1,4 @@
-import { createNamespace, isStringElement } from 'apidom';
+import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
 
 import * as openApi3_1Predicates from '../predicates';
 import openApi3_1Namespace from '../namespace';

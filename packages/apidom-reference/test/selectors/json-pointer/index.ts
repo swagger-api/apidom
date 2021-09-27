@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, ArrayElement, StringElement } from 'apidom';
+import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
 import { evaluate } from '../../../src/selectors/json-pointer';
 import {

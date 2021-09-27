@@ -5,7 +5,13 @@ import {
   SemanticTokensLegend,
   SemanticTokenModifiers,
 } from 'vscode-languageserver-protocol';
-import { Element, isBooleanElement, isNumberElement, isStringElement, traverse } from 'apidom';
+import {
+  Element,
+  isBooleanElement,
+  isNumberElement,
+  isStringElement,
+  traverse,
+} from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
 import { SourceMap, getSourceMap, isMember, setMetadataMap } from '../../utils/utils';

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
-import { ArraySlice, Element, filter, MemberElement } from 'apidom';
+import { ArraySlice, Element, filter, MemberElement } from '@swagger-api/apidom-core';
 import { SymbolKind } from 'vscode-languageserver-types';
 
 import { getParser, isAsyncDoc } from '../../parser-factory';

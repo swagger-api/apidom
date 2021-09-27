@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
-import { isObjectElement, isParseResultElement } from 'apidom';
+import { isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
 
 import * as adapter from '../src/adapter-node';
 

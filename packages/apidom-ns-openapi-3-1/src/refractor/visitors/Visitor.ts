@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { hasElementSourceMap } from 'apidom';
+import { hasElementSourceMap } from '@swagger-api/apidom-core';
 
 const Visitor = stampit({
   props: {

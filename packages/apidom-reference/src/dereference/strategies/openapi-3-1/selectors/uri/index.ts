@@ -1,6 +1,6 @@
 import { isUndefined } from 'ramda-adjunct';
-import { Element, find, isStringElement } from 'apidom';
-import { isSchemaElement } from 'apidom-ns-openapi-3-1';
+import { Element, find, isStringElement } from '@swagger-api/apidom-core';
+import { isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../../../util/url';
 import { EvaluationJsonSchemaUriError } from './errors';

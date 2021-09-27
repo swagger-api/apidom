@@ -1,6 +1,6 @@
 import { allPass, either, is, startsWith } from 'ramda';
 import { isNonEmptyString } from 'ramda-adjunct';
-import { createPredicate, isBooleanElement, isStringElement } from 'apidom';
+import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';

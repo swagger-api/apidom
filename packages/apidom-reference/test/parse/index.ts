@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import path from 'path';
-import { isParseResultElement } from 'apidom';
+import { isParseResultElement } from '@swagger-api/apidom-core';
 
 import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';

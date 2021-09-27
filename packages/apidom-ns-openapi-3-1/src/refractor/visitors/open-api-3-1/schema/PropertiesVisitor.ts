@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { ObjectElement } from 'apidom';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';

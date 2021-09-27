@@ -1,7 +1,7 @@
 import stampit from 'stampit';
-import { ParseResultElement } from 'apidom';
-import { parse } from 'apidom-parser-adapter-json';
 import { pick } from 'ramda';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-json';
 
 import { ParserError } from '../../../util/errors';
 import { Parser as IParser, File as IFile } from '../../../types';

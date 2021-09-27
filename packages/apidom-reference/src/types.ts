@@ -1,4 +1,4 @@
-import { ParseResultElement, Element } from 'apidom';
+import { ParseResultElement, Element } from '@swagger-api/apidom-core';
 
 export interface File {
   uri: string;

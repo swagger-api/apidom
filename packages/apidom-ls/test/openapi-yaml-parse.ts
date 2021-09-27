@@ -16,7 +16,7 @@ import {
   isStringElement,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   traverse,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 
 import { getParser } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';

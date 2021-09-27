@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
-import { isPrimitiveElement, isStringElement, visit, Element } from 'apidom';
+import { isPrimitiveElement, isStringElement, visit, Element } from '@swagger-api/apidom-core';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -10,7 +10,7 @@ import {
   SchemaElement,
   isReferenceElementExternal,
   isChannelItemElementExternal,
-} from 'apidom-ns-asyncapi-2';
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { Reference as IReference } from '../../../types';
 import { evaluate, uriToPointer } from '../../../selectors/json-pointer';

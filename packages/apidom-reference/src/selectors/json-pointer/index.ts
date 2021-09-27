@@ -1,6 +1,12 @@
 import { split, replace, tail, startsWith, map, pipe, includes } from 'ramda';
 import { isEmptyString, trimCharsStart, isInteger } from 'ramda-adjunct';
-import { Element, isObjectElement, isArrayElement, ObjectElement, ArrayElement } from 'apidom';
+import {
+  Element,
+  isObjectElement,
+  isArrayElement,
+  ObjectElement,
+  ArrayElement,
+} from '@swagger-api/apidom-core';
 
 import { getHash } from '../../util/url';
 import { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';

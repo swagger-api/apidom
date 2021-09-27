@@ -1,4 +1,4 @@
-import { Element } from 'apidom';
+import { Element } from '@swagger-api/apidom-core';
 
 import { isObject } from '../../utils/utils';
 

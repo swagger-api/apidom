@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { difference } from 'ramda';
 import { noop } from 'ramda-adjunct';
-import { ObjectElement, BREAK } from 'apidom';
+import { ObjectElement, BREAK } from '@swagger-api/apidom-core';
 
 import FixedFieldsVisitor from './FixedFieldsVisitor';
 import PatternedFieldsVisitor from './PatternedFieldsVisitor';

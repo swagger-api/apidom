@@ -1,0 +1,54 @@
+{
+  "name": "@swagger-api/apidom-core",
+  "version": "0.1.0",
+  "description": "Tools for manipulating ApiDOM structures.",
+  "publishConfig": {
+    "registry": "http://localhost:4873/"
+  },
+  "main": "cjs/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "unpkg": "dist/apidom.browser.min.js",
+  "types": "types/dist.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run typescript:declaration && npm run build:es && npm run build:cjs && npm run build:umd:browser",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --root-mode 'upward'",
+    "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix",
+    "clean": "rimraf ./es ./cjs ./dist ./types",
+    "typescript:check-types": "tsc --noEmit",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
+    "test": "cross-env BABEL_ENV=cjs mocha",
+    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
+    "prepack": "copyfiles -u 2 ../../NOTICE .",
+    "postpack": "rimraf NOTICE"
+  },
+  "author": "Vladimír Gorej",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babel/runtime-corejs3": "=7.15.4",
+    "@types/ramda": "=0.27.45",
+    "@swagger-api/apidom-ast": "*",
+    "minim": "=0.23.8",
+    "ramda": "=0.27.1",
+    "ramda-adjunct": "=2.33.0",
+    "short-unique-id": "=4.4.4",
+    "stampit": "=4.3.2"
+  },
+  "devDependencies": {
+    "dedent": "=0.7.0"
+  },
+  "files": [
+    "cjs/",
+    "dist/",
+    "es/",
+    "types/dist.d.ts",
+    "types/minim.d.ts",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "CHANGELOG.md"
+  ]
+}

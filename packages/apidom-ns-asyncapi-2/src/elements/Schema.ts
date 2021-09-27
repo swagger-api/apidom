@@ -6,7 +6,7 @@ import {
   ObjectElement,
   StringElement,
   BooleanElement,
-} from 'apidom';
+} from '@swagger-api/apidom-core';
 
 import ExternalDocumentationElement from './ExternalDocumentation';
 

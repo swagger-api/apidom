@@ -1,7 +1,13 @@
 import stampit from 'stampit';
 import { hasIn, pathSatisfies, propEq, none } from 'ramda';
 import { isUndefined, isNotUndefined } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit, Element, find } from 'apidom';
+import {
+  isPrimitiveElement,
+  isStringElement,
+  visit,
+  Element,
+  find,
+} from '@swagger-api/apidom-core';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -17,7 +23,7 @@ import {
   isLinkElementExternal,
   isOperationElement,
   isBooleanJsonSchemaElement,
-} from 'apidom-ns-openapi-3-1';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { evaluate as uriEvaluate } from './selectors/uri';

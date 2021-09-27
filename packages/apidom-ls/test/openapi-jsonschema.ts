@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
-import { Element, traverse } from 'apidom';
+import { Element, traverse } from '@swagger-api/apidom-core';
 
 import { getParser } from '../src/parser-factory';
 

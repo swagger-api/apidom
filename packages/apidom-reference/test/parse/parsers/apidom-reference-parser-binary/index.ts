@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { isParseResultElement, isStringElement } from 'apidom';
+import { isParseResultElement, isStringElement } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import BinaryParser from '../../../../src/parse/parsers/apidom-reference-parser-binary';

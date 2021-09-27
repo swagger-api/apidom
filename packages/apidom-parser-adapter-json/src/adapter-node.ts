@@ -1,4 +1,4 @@
-import { ParseResultElement } from 'apidom';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import lexicalAnalysis from './lexical-analysis/node';
 import syntacticAnalysisDirect from './syntactic-analysis/direct';

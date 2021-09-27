@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { test } from 'ramda';
-import { Element, ObjectElement, StringElement } from 'apidom';
+import { Element, ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 import CallbackElement from '../../../../elements/Callback';
 import PathItemElement from '../../../../elements/PathItem';

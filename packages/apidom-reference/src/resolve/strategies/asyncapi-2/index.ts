@@ -1,6 +1,10 @@
 import stampit from 'stampit';
-import { createNamespace, visit } from 'apidom';
-import asyncApi2Namespace, { getNodeType, isAsyncApi2Element, keyMap } from 'apidom-ns-asyncapi-2';
+import { createNamespace, visit } from '@swagger-api/apidom-core';
+import asyncApi2Namespace, {
+  getNodeType,
+  isAsyncApi2Element,
+  keyMap,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {

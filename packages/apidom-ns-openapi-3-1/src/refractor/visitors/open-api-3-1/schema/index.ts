@@ -1,7 +1,13 @@
 import stampit from 'stampit';
 import { always, defaultTo } from 'ramda';
 import { isNonEmptyString, isNull } from 'ramda-adjunct';
-import { ObjectElement, ArrayElement, BooleanElement, isStringElement, BREAK } from 'apidom';
+import {
+  ObjectElement,
+  ArrayElement,
+  BooleanElement,
+  isStringElement,
+  BREAK,
+} from '@swagger-api/apidom-core';
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
 import SchemaElement from '../../../../elements/Schema';

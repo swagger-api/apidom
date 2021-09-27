@@ -1,7 +1,7 @@
 import path from 'path';
 import { assert } from 'chai';
-import { toValue } from 'apidom';
-import { isParameterElement } from 'apidom-ns-asyncapi-2';
+import { toValue } from '@swagger-api/apidom-core';
+import { isParameterElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, resolve } from '../../../../../src';

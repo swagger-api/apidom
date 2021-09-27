@@ -13,7 +13,7 @@ import {
 import jsonSourceMap from 'json-source-map';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element } from 'apidom';
+import { Element } from '@swagger-api/apidom-core';
 
 import { positionRangeForPath } from '../../utils/ast';
 import { CompletionService } from '../completion/completion-service';

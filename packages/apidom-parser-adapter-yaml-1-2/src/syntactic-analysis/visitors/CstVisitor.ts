@@ -36,7 +36,7 @@ import {
   Literal,
   Error,
   isNode as isCSTNode,
-} from 'apidom-ast';
+} from '@swagger-api/apidom-ast';
 
 export const keyMap = {
   stream: ['children'],

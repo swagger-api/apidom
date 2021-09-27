@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { ifElse, always, Pred } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
-import { ObjectElement, BREAK } from 'apidom';
+import { ObjectElement, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 

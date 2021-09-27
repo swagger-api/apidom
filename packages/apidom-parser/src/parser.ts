@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { head } from 'ramda';
 import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
-import { ParseResultElement, Namespace } from 'apidom';
+import { ParseResultElement, Namespace } from '@swagger-api/apidom-core';
 
 interface ParserOptions extends Record<string, any> {
   mediaType?: string;

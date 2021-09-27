@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import path from 'path';
-import { toValue } from 'apidom';
+import { toValue } from '@swagger-api/apidom-core';
 
 import { dereference, dereferenceApiDOM, parse } from '../../src';
 import { loadJsonFile } from '../helpers';

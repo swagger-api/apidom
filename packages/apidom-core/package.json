@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Tools for manipulating ApiDOM structures.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
   },
   "main": "cjs/index.js",
   "module": "es/index.js",
@@ -24,6 +24,10 @@
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "prepack": "copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",

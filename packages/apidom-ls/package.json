@@ -2,7 +2,7 @@
   "name": "@swagger-api/apidom-ls",
   "description": "ApiDOM based language service library.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
   },
   "version": "0.1.0",
   "repository": {

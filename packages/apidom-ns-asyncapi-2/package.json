@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "AsyncAPI 2.x.y namespace for ApiDOM.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
   },
   "main": "cjs/index.js",
   "module": "es/index.js",
@@ -26,6 +26,10 @@
     "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

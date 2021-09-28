@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Parser adapter for parsing YAML documents into OpenAPI 3.1.x namespace.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
   },
   "main": "cjs/adapter.js",
   "module": "es/adapter.js",
@@ -27,6 +27,10 @@
     "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js",
     "prepack": "copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

@@ -171,6 +171,10 @@ All the information necessary for working with monorepo can be found in this [ar
 
 ## Installation
 
+This repository is using [scopes GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) for installation and publishing.
+In order to use GitHub Packages you have be authenticated with a personal access token.
+Please read following document to [Authenticate with a personal access token](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token) against GitHub Packages.
+
 ```sh
  $ npm i
  $ npm run build

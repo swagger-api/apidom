@@ -2,7 +2,11 @@
   "name": "@swagger-api/apidom-playground",
   "description": "ApiDOM Playground demonstrates various features of ApiDOM visually.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "version": "0.1.0",
   "private": true,

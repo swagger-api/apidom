@@ -18,7 +18,7 @@
       "ignoreChanges": ["**/test/**"]
     },
     "publish": {
-      "registry": "http://localhost:4873/"
+      "registry": "https://npm.pkg.github.com"
     }
   }
 }

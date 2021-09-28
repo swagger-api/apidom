@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Parser consumes parser adapters and provides unified API for parsing.",
   "publishConfig": {
-    "registry": "http://localhost:4873/"
+    "registry": "https://npm.pkg.github.com"
   },
   "main": "cjs/parser.js",
   "module": "es/parser.js",
@@ -23,6 +23,10 @@
     "test": "cross-env BABEL_ENV=cjs mocha",
     "prepack": "copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",

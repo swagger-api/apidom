@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "main": "cjs/index.js",
   "module": "es/index.js",

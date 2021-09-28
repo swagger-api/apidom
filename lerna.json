@@ -11,11 +11,16 @@
       "hoist": true
     },
     "version": {
-      "allowBranch": ["master", "release"],
+      "allowBranch": [
+        "master",
+        "release"
+      ],
       "conventionalCommits": true,
       "createRelease": "github",
       "message": "chore(release): cut the %s release [skip ci]",
-      "ignoreChanges": ["**/test/**"]
+      "ignoreChanges": [
+        "**/test/**"
+      ]
     },
     "publish": {
       "registry": "https://npm.pkg.github.com"

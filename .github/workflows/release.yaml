@@ -30,7 +30,10 @@ jobs:
       - name: Execute tests in monorepo
         run: npm run test
       - name: Version bump & GitHub release
-        run: npx lerna version --no-private --yes
+        run: |
+          git config user.email "info@SmartBear.com"
+          git config user.name "Swagger-Bot"
+          npx lerna version --no-private --yes
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Publish monorepo npm packages

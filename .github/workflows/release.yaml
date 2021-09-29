@@ -32,7 +32,7 @@ jobs:
       - name: Version bump & GitHub release
         run: |
           git config user.email "info@SmartBear.com"
-          git config user.name "Swagger-Bot"
+          git config user.name "swagger-bot"
           npx lerna version --no-private --yes
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}

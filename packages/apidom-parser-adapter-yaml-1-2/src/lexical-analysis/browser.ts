@@ -1,8 +1,9 @@
 import './browser-patch';
 
 import Parser, { Tree } from 'web-tree-sitter';
+
 // @ts-ignore
-import treeSitterYaml from 'tree-sitter-yaml/tree-sitter-yaml.wasm';
+import treeSitterYaml from '../../wasm/tree-sitter-yaml.wasm';
 
 /**
  * We initialize the WebTreeSitter as soon as we can.

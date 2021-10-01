@@ -1,0 +1,141 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: ApiDOM Monorepo Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.8.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.8
+          registry-url: https://npm.pkg.github.com/
+          scope: "@swagger-api"
+      - name: Cache npm cache files
+        id: cache-npm-cache-files
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+      - name: Lint commit message
+        run: git log -1 --pretty=format:"%s" | npx commitlint
+      - name: Lint code
+        run: npm run lint
+
+  check-typescript-types:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.8.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.8
+          registry-url: https://npm.pkg.github.com/
+          scope: "@swagger-api"
+      - name: Cache npm cache files
+        id: cache-npm-cache-files
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+      - name: Generate typescript declarations
+        run: npm run typescript:declaration
+      - name: Check TypeScript types
+        run: npm run typescript:check-types
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.8.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.8
+          registry-url: https://npm.pkg.github.com/
+          scope: "@swagger-api"
+      - name: Cache npm cache files
+        id: cache-npm-cache-files
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+      - name: Build monorepo for testing
+        run: npm run build:cjs
+      - name: Execute tests in monorepo
+        run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.8.0
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.8
+        registry-url: https://npm.pkg.github.com/
+        scope: "@swagger-api"
+    - name: Cache npm cache files
+      id: cache-npm-cache-files
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+    - name: Install dependencies
+      run: npm ci
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+    - name: Build monorepo
+      run: npm run build:es
+    - name: Build ApiDOM Playground
+      run: npm run build
+      working-directory: ./packages/apidom-playground
+    - name: Upload build artifacts from ApiDOM Playground
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: ./packages/apidom-playground/build
+
+  deploy:
+
+    name: Deploy ApiDOM Playground
+    if: github.ref == 'refs/heads/master'
+
+    needs: [ lint, test, check-typescript-types, build ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v2
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch

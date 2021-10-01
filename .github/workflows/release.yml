@@ -31,7 +31,7 @@ jobs:
         run: npm run test
       - name: Version bump & GitHub release
         run: |
-          git config user.email "info@SmartBear.com"
+          git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
           npx lerna version --no-private --yes
         env:

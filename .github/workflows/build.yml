@@ -110,7 +110,10 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
     - name: Build monorepo
+      run: npm run build:es
+    - name: Build ApiDOM Playground
       run: npm run build
+      working-directory: ./packages/apidom-playground
     - name: Upload build artifacts from ApiDOM Playground
       if: github.ref == 'refs/heads/master'
       uses: actions/upload-artifact@v2

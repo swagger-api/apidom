@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import HttpChannelBindingElement from './bindings/http/HttpChannelBinding';
 import WebSocketChannelBindingElement from './bindings/ws/WebSocketChannelBinding';

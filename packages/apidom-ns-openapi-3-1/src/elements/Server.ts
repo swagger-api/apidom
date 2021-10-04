@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 import ServerVariable from './ServerVariable';
 

@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { StringElement, ObjectElement } from '@swagger-api/apidom-core';
 
 class MqttMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

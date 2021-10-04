@@ -1,6 +1,12 @@
-// @ts-ignore
-import { isMemberElement, isObjectElement, isArrayElement } from '@swagger-api/apidom-core';
-import { Element, ObjectElement, MemberElement, ArrayElement } from 'minim';
+import {
+  Element,
+  ObjectElement,
+  MemberElement,
+  ArrayElement,
+  isMemberElement,
+  isObjectElement,
+  isArrayElement,
+} from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 
 // TODO remove, keep for remote debugging

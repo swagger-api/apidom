@@ -1,7 +1,12 @@
-import { refract as baseRefract } from 'minim';
 import { propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
-import { visit, Element, dereference, mergeAllVisitors } from '@swagger-api/apidom-core';
+import {
+  visit,
+  Element,
+  dereference,
+  mergeAllVisitors,
+  refract as baseRefract,
+} from '@swagger-api/apidom-core';
 
 import specification from './specification';
 import { keyMap, getNodeType } from '../traversal/visitor';

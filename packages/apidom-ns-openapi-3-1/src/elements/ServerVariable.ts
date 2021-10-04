@@ -1,4 +1,5 @@
-import { Attributes, Meta, ObjectElement, ArrayElement, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
 class ServerVariable extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

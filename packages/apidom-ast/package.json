@@ -21,15 +21,15 @@
     "test": "cross-env BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
-    "prepack": "copyfiles -u 2 ../../NOTICE .",
-    "postpack": "rimraf NOTICE"
+    "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
+    "postpack": "rimraf NOTICE LICENSES"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
-  "license": "Apache-2.0",
+  "license": "Apache-2.0 AND MIT",
   "bugs": {
     "url": "https://github.com/swagger-api/apidom/issues"
   },
@@ -47,7 +47,7 @@
     "dist/",
     "es/",
     "types/dist.d.ts",
-    "LICENSE",
+    "LICENSES",
     "NOTICE",
     "README.md",
     "CHANGELOG.md"

@@ -33,7 +33,7 @@
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
-  "license": "Apache-2.0",
+  "license": "Apache-2.0 AND MIT",
   "bugs": {
     "url": "https://github.com/swagger-api/apidom/issues"
   },

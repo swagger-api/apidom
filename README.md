@@ -1,3 +1,12 @@
+[comment]: <> (SPDX-FileCopyrightText: 2019 Jane Doe <jane@example.com>)
+[comment]: <> (SPDX-License-Identifier: MIT)
+
+[comment]: <> (SPDX-FileCopyrightText: Copyright &#40;c&#41; 2015 refractproject)
+[comment]: <> (SPDX-License-Identifier: MIT)
+
+[comment]: <> (SPDX-FileCopyrightText: Copyright &#40;c&#41; 2015 Apiary Inc.)
+[comment]: <> (SPDX-License-Identifier: MIT)
+
 # ApiDOM
 
 The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across
@@ -307,14 +316,6 @@ Legend
  - $: license present in distribution package
  - #: has no depedencies
  - <number>: number of transitive dependencies
-We have one case of copying the code directly from GitHub repository: https://github.com/graphql/graphql-js
-This code is concentrated in singe file in our codebase, is properly
-attributed and contains original license text as well.
+
+Updated at: 4 Oct, 2021
 ```
-
-Some texts in this document were taken from [Refract specification](https://github.com/refractproject/refract-spec)
-and [Api Elements](https://apielements.org/).
-Here are links to files:
-
-- [LICENSE](https://github.com/refractproject/refract-spec/blob/master/LICENSE)
-- [LICENSE](https://github.com/apiaryio/api-elements/blob/master/LICENSE)

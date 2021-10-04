@@ -25,15 +25,15 @@
     "perf:syntactic-analysis": "cross-env BABEL_ENV=cjs node ./test/perf/syntactic-analysis.js",
     "perf:refract": "cross-env BABEL_ENV=cjs node ./test/perf/refract.js",
     "perf:parse": "cross-env BABEL_ENV=cjs node ./test/perf/parse.js",
-    "prepack": "copyfiles -u 2 ../../NOTICE .",
-    "postpack": "rimraf NOTICE"
+    "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
+    "postpack": "rimraf NOTICE LICENSES"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
-  "license": "Apache-2.0",
+  "license": "Apache-2.0 AND MIT",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.15.4",
     "@swagger-api/apidom-core": "^0.2.1",
@@ -48,7 +48,7 @@
     "dist/",
     "es/",
     "types/",
-    "LICENSE",
+    "LICENSES",
     "NOTICE",
     "README.md",
     "CHANGELOG.md"

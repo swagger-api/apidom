@@ -9,6 +9,7 @@
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "version": "0.1.0",
+  "license": "Apache-2.0 AND MIT",
   "private": true,
   "homepage": "https://reimagined-dollop-c7e3930f.pages.github.io/",
   "scripts": {

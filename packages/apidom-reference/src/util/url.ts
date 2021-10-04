@@ -2,7 +2,9 @@ import { pathSatisfies, propOr, pipe, test, last } from 'ramda';
 import { isUndefined, replaceAll, isNotUndefined, trimCharsEnd } from 'ramda-adjunct';
 
 /**
- * This file was highly influenced by: https://github.com/APIDevTools/json-schema-ref-parser
+ * SPDX-FileCopyrightText: Copyright (c) 2015 James Messinger
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 type WindowsPredicate = () => boolean;

@@ -9,7 +9,7 @@ describe('refractor', function () {
         const objectElement = ObjectElement.refract(
           { a: 'b' },
           { plugins: [elementIdentityRefractorPlugin()] },
-        );
+        ) as any;
         const defaultLength = 6;
 
         assert.lengthOf(objectElement.id, defaultLength);
@@ -24,7 +24,7 @@ describe('refractor', function () {
           const objectElement = ObjectElement.refract(
             { a: 'b' },
             { plugins: [elementIdentityRefractorPlugin({ length })] },
-          );
+          ) as any;
 
           assert.lengthOf(objectElement.id, length);
           assert.lengthOf(objectElement.getMember('a').key.id, length);

@@ -42,6 +42,7 @@
     "stampit": "=4.3.2"
   },
   "devDependencies": {
+    "@types/dedent": "=0.7.0",
     "dedent": "=0.7.0"
   },
   "files": [

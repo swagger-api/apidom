@@ -1,10 +1,9 @@
 import { assert } from 'chai';
-import { ObjectElement } from 'minim';
 import dedent from 'dedent';
 import { trim } from 'ramda';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import sexprs from '../src/sexprs';
+import { sexprs, ObjectElement } from '../src';
 
 describe('sexprs', function () {
   context('given generic ApiDOM', function () {
@@ -34,6 +33,7 @@ describe('sexprs', function () {
 
   context('given semantic ApiDOM', function () {
     specify('should transform into S-expressions', function () {
+      // @ts-ignore
       const semanticObj = InfoElement.refract({
         title: 'title',
         summary: 'summary',

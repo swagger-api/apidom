@@ -1,15 +1,15 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { traverse, createNamespace, isStringElement } from '../../src';
+import { ArrayElement, ObjectElement, traverse, createNamespace, isStringElement } from '../../src';
 
 const namespace = createNamespace();
 
 describe('traversal', function () {
   context('traverse', function () {
     context('given ObjectElement', function () {
-      let objElement;
-      let callback;
+      let objElement: ObjectElement;
+      let callback: any;
 
       beforeEach(function () {
         // @ts-ignore
@@ -76,7 +76,7 @@ describe('traversal', function () {
       });
 
       context('given predicate', function () {
-        const predicate = (element) => isStringElement(element) && element.equals('a');
+        const predicate = (element: any) => isStringElement(element) && element.equals('a');
         specify('should execute callback once', function () {
           traverse({ callback, predicate }, objElement);
           assert.strictEqual(callback.callCount, 1);
@@ -92,8 +92,8 @@ describe('traversal', function () {
     });
 
     context('given ArrayElement', function () {
-      let arrayElement;
-      let callback;
+      let arrayElement: ArrayElement;
+      let callback: any;
 
       beforeEach(function () {
         // @ts-ignore
@@ -129,7 +129,7 @@ describe('traversal', function () {
       });
 
       context('given predicate', function () {
-        const predicate = (element) => isStringElement(element) && element.equals('a');
+        const predicate = (element: any) => isStringElement(element) && element.equals('a');
 
         specify('should execute callback once', function () {
           traverse({ callback, predicate }, arrayElement);

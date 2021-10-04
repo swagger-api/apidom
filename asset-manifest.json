@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.54896f95.chunk.css",
-    "main.js": "/static/js/main.ca48be45.chunk.js",
-    "main.js.map": "/static/js/main.ca48be45.chunk.js.map",
+    "main.js": "/static/js/main.c0db2813.chunk.js",
+    "main.js.map": "/static/js/main.c0db2813.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.092512d9.js",
     "runtime-main.js.map": "/static/js/runtime-main.092512d9.js.map",
     "static/js/2.939b05d8.chunk.js": "/static/js/2.939b05d8.chunk.js",
@@ -12,9 +12,9 @@
     "index.html": "/index.html",
     "static/css/main.54896f95.chunk.css.map": "/static/css/main.54896f95.chunk.css.map",
     "static/js/2.939b05d8.chunk.js.LICENSE.txt": "/static/js/2.939b05d8.chunk.js.LICENSE.txt",
-    "static/js/apidom.worker.453f1a5c.worker.js": "/static/js/apidom.worker.453f1a5c.worker.js",
-    "static/js/apidom.worker.453f1a5c.worker.js.LICENSE.txt": "/static/js/apidom.worker.453f1a5c.worker.js.LICENSE.txt",
-    "static/js/apidom.worker.453f1a5c.worker.js.map": "/static/js/apidom.worker.453f1a5c.worker.js.map",
+    "static/js/apidom.worker.1b5d6277.worker.js": "/static/js/apidom.worker.1b5d6277.worker.js",
+    "static/js/apidom.worker.1b5d6277.worker.js.LICENSE.txt": "/static/js/apidom.worker.1b5d6277.worker.js.LICENSE.txt",
+    "static/js/apidom.worker.1b5d6277.worker.js.map": "/static/js/apidom.worker.1b5d6277.worker.js.map",
     "static/wasm/tree-sitter-json.68037188.wasm": "/static/wasm/tree-sitter-json.68037188.wasm",
     "static/wasm/tree-sitter-yaml.d396281e.wasm": "/static/wasm/tree-sitter-yaml.d396281e.wasm",
     "static/wasm/tree-sitter.wasm": "/static/wasm/tree-sitter.25ae64ad.wasm"
@@ -23,6 +23,6 @@
     "static/js/runtime-main.092512d9.js",
     "static/js/2.939b05d8.chunk.js",
     "static/css/main.54896f95.chunk.css",
-    "static/js/main.ca48be45.chunk.js"
+    "static/js/main.c0db2813.chunk.js"
   ]
 }

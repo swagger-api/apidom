@@ -1,13 +1,12 @@
+import { Attributes, Meta } from 'minim';
 import {
-  Element,
-  ArrayElement,
-  NumberElement,
-  Attributes,
-  Meta,
-  ObjectElement,
   StringElement,
+  ObjectElement,
+  NumberElement,
+  ArrayElement,
   BooleanElement,
-} from 'minim';
+  Element,
+} from '@swagger-api/apidom-core';
 
 import DiscriminatorElement from './Discriminator';
 import XmlElement from './Xml';

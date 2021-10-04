@@ -1,7 +1,6 @@
 import { omit, propOr } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
-// @ts-ignore
 import { parse as parseYaml } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 

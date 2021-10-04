@@ -22,6 +22,7 @@ export {
   KeyValuePair,
   ObjectSlice,
   ArraySlice,
+  refract,
 } from 'minim';
 export { default as namespace, Namespace, createNamespace } from './namespace';
 export { default as AnnotationElement } from './elements/Annotation';
@@ -102,8 +103,8 @@ export const toString = (
   element: Element,
   namespace: INamespace = defaultNamespaceInstance,
 ): string => {
-  const refract = dehydrate(element, namespace);
-  return JSON.stringify(refract);
+  const refractStructure = dehydrate(element, namespace);
+  return JSON.stringify(refractStructure);
 };
 
 export { default as sexprs } from './sexprs';

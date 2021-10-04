@@ -1,7 +1,6 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Hover } from 'vscode-languageserver-protocol';
-import { findAtOffset } from '@swagger-api/apidom-core';
-import { Element, ObjectElement, MemberElement } from 'minim';
+import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 
 import { LanguageSettings } from '../../apidom-language-types';

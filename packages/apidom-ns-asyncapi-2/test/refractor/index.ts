@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
-import { Namespace } from 'minim';
-import { ObjectElement, toValue } from '@swagger-api/apidom-core';
+import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
 
 import * as predicates from '../../src/predicates';
 import { AsyncApi2Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';

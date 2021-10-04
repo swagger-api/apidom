@@ -12,6 +12,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import {
   Element,
+  MemberElement,
   findAtOffset,
   isArrayElement,
   isBooleanElement,
@@ -21,7 +22,6 @@ import {
   isObjectElement,
   isStringElement,
 } from '@swagger-api/apidom-core';
-import { MemberElement } from 'minim';
 
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

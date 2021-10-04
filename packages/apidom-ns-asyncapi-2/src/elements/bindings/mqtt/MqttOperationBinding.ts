@@ -1,11 +1,10 @@
+import { Attributes, Meta } from 'minim';
 import {
-  Attributes,
-  Meta,
-  ObjectElement,
   StringElement,
+  ObjectElement,
   BooleanElement,
   NumberElement,
-} from 'minim';
+} from '@swagger-api/apidom-core';
 
 class MqttOperationBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

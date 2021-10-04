@@ -1,4 +1,5 @@
-import { Attributes, Meta, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { StringElement } from '@swagger-api/apidom-core';
 
 class Identifier extends StringElement {
   constructor(content?: string, meta?: Meta, attributes?: Attributes) {

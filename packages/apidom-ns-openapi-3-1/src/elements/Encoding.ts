@@ -1,4 +1,5 @@
-import { Attributes, BooleanElement, Meta, ObjectElement, StringElement } from 'minim';
+import { Attributes, Meta } from 'minim';
+import { StringElement, ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
 
 class Encoding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

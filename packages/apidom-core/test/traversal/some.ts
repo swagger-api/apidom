@@ -8,6 +8,7 @@ const namespace = createNamespace();
 describe('traversal', function () {
   context('some', function () {
     context('given ObjectElement', function () {
+      // @ts-ignore
       const objElement = new namespace.elements.Object({ a: 'b', c: 'd' });
 
       context('given match', function () {

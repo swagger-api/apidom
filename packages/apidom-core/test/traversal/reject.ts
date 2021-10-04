@@ -1,13 +1,20 @@
 import { assert } from 'chai';
-import { StringElement } from 'minim';
 
-import { reject, createNamespace, isNumberElement, isStringElement, ArraySlice } from '../../src';
+import {
+  reject,
+  createNamespace,
+  isNumberElement,
+  isStringElement,
+  StringElement,
+  ArraySlice,
+} from '../../src';
 
 const namespace = createNamespace();
 
 describe('traversal', function () {
   context('reject', function () {
     context('given ArrayElement', function () {
+      // @ts-ignore
       const arrayElement = new namespace.elements.Array([1, 2, 3, 'a']);
 
       specify('should return ArraySlice instance', function () {

@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import {
   Element,
   StringElement,
@@ -10,9 +11,9 @@ import {
   MemberElement,
   LinkElement,
   RefElement,
-} from 'minim';
-
-import {
+  ParseResultElement,
+  AnnotationElement,
+  SourceMapElement,
   isElement,
   isStringElement,
   isNumberElement,
@@ -29,9 +30,6 @@ import {
   hasElementSourceMap,
   includesSymbols,
   includesClasses,
-  ParseResultElement,
-  AnnotationElement,
-  SourceMapElement,
 } from '../../src';
 
 describe('predicates', function () {
@@ -795,7 +793,7 @@ describe('predicates', function () {
     });
 
     context('given no symbols key in attributes', function () {
-      let element;
+      let element: ObjectElement;
 
       beforeEach(function () {
         element = new ObjectElement();
@@ -815,7 +813,7 @@ describe('predicates', function () {
     });
 
     context('given empty symbols list in attributes', function () {
-      let element;
+      let element: ObjectElement;
 
       beforeEach(function () {
         element = new ObjectElement();
@@ -858,7 +856,7 @@ describe('predicates', function () {
     });
 
     context('given empty classes list in attributes', function () {
-      let element;
+      let element: ObjectElement;
 
       beforeEach(function () {
         element = new ObjectElement();

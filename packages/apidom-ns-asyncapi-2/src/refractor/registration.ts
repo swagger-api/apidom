@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi 2.0.0 | 2.1.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -17,6 +17,7 @@ import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import MessageElement from '../elements/Message';
 import MessageBindingsElement from '../elements/MessageBindings';
+import MessageExampleElement from '../elements/MessageExample';
 import MessageTraitElement from '../elements/MessageTrait';
 import OAuthFlowElement from '../elements/OAuthFlow';
 import OAuthFlowsElement from '../elements/OAuthFlows';
@@ -67,6 +68,11 @@ import KafkaChannelBindingElement from '../elements/bindings/kafka/KafkaChannelB
 import KafkaMessageBindingElement from '../elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from '../elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from '../elements/bindings/kafka/KafkaServerBinding';
+// Anypoint MQ
+import AnypointmqChannelBindingElement from '../elements/bindings/anypointmq/AnypointmqChannelBinding';
+import AnypointmqMessageBindingElement from '../elements/bindings/anypointmq/AnypointmqMessageBinding';
+import AnypointmqOperationBindingElement from '../elements/bindings/anypointmq/AnypointmqOperationBinding';
+import AnypointmqServerBindingElement from '../elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 import MercureChannelBindingElement from '../elements/bindings/mercure/MercureChannelBinding';
 import MercureMessageBindingElement from '../elements/bindings/mercure/MercureMessageBinding';
@@ -114,7 +120,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',
@@ -213,6 +219,13 @@ MessageBindingsElement.refract = createRefractor([
   'document',
   'objects',
   'MessageBindings',
+  '$visitor',
+]);
+MessageExampleElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'MessageExample',
   '$visitor',
 ]);
 MessageTraitElement.refract = createRefractor([
@@ -531,6 +544,43 @@ KafkaServerBindingElement.refract = createRefractor([
   'objects',
   'bindings',
   'kafka',
+  'ServerBinding',
+  '$visitor',
+]);
+// Anypoint MQ
+AnypointmqChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'anypointmq',
+  'ChannelBinding',
+  '$visitor',
+]);
+AnypointmqMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'anypointmq',
+  'MessageBinding',
+  '$visitor',
+]);
+AnypointmqOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'anypointmq',
+  'OperationBinding',
+  '$visitor',
+]);
+AnypointmqServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'anypointmq',
   'ServerBinding',
   '$visitor',
 ]);

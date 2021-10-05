@@ -4,6 +4,7 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import HttpServerBindingElement from './bindings/http/HttpServerBinding';
 import WebSocketServerBindingElement from './bindings/ws/WebSocketServerBinding';
 import KafkaServerBindingElement from './bindings/kafka/KafkaServerBinding';
+import AnypointmqServerBindingElement from './bindings/anypointmq/AnypointmqServerBinding';
 import AmqpServerBindingElement from './bindings/amqp/AmqpServerBinding';
 import Amqp1ServerBindingElement from './bindings/amqp1/Amqp1ServerBinding';
 import MqttServerBindingElement from './bindings/mqtt/MqttServerBinding';
@@ -45,6 +46,14 @@ class ServerBindings extends ObjectElement {
 
   set kafka(kafka: KafkaServerBindingElement | undefined) {
     this.set('kafka', kafka);
+  }
+
+  get anypointmq(): AnypointmqServerBindingElement | undefined {
+    return this.get('anypointmq');
+  }
+
+  set anypointmq(anypointmq: AnypointmqServerBindingElement | undefined) {
+    this.set('anypointmq', anypointmq);
   }
 
   get amqp(): AmqpServerBindingElement | undefined {

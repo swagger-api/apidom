@@ -9,7 +9,7 @@ import { AsyncApi2Element, AsyncApiVersionElement, isAsyncApiVersionElement } fr
 
 describe('refractor', function () {
   context('given generic ApiDOM object in AsyncApi 2.0.0 shape', function () {
-    specify('should refract to AsyncApi 2.0.0 Element', function () {
+    specify('should refract to AsyncApi2Element', function () {
       const asyncApiString = fs
         .readFileSync(path.join(__dirname, 'fixtures', 'asyncapi-2-0-0.json'))
         .toString();
@@ -22,9 +22,22 @@ describe('refractor', function () {
   });
 
   context('given generic ApiDOM object in AsyncApi 2.1.0 shape', function () {
-    specify('should refract to AsyncApi 2.1.0 Element', function () {
+    specify('should refract to AsyncApi2Element', function () {
       const asyncApiString = fs
         .readFileSync(path.join(__dirname, 'fixtures', 'asyncapi-2-1-0.json'))
+        .toString();
+      const asyncApiPojo = JSON.parse(asyncApiString);
+      const genericObjectElement = new ObjectElement(asyncApiPojo);
+      const asyncApiElement = AsyncApi2Element.refract(genericObjectElement);
+
+      expect(asyncApiElement).toMatchSnapshot();
+    });
+  });
+
+  context('given generic ApiDOM object in AsyncApi 2.2.0 shape', function () {
+    specify('should refract to AsyncApi2Element', function () {
+      const asyncApiString = fs
+        .readFileSync(path.join(__dirname, 'fixtures', 'asyncapi-2-2-0.json'))
         .toString();
       const asyncApiPojo = JSON.parse(asyncApiString);
       const genericObjectElement = new ObjectElement(asyncApiPojo);
@@ -78,7 +91,7 @@ describe('refractor', function () {
     context('plugin', function () {
       specify('should be called with toolbox object', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1],
@@ -89,7 +102,7 @@ describe('refractor', function () {
 
       specify('should have predicates in toolbox object', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1],
@@ -100,7 +113,7 @@ describe('refractor', function () {
 
       specify('should have namespace in toolbox object', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1],
@@ -113,7 +126,7 @@ describe('refractor', function () {
     context('pre hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1],
@@ -124,7 +137,7 @@ describe('refractor', function () {
 
       specify('should call it before other plugin pre hook', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -135,7 +148,7 @@ describe('refractor', function () {
 
       specify('should call it before visiting', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -149,7 +162,7 @@ describe('refractor', function () {
     context('post hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1],
@@ -160,7 +173,7 @@ describe('refractor', function () {
 
       specify('should call it before other plugin post hook', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -171,7 +184,7 @@ describe('refractor', function () {
 
       specify('should call it after visiting', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -185,7 +198,7 @@ describe('refractor', function () {
     context('visitor', function () {
       specify('should be called once', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -197,7 +210,7 @@ describe('refractor', function () {
 
       specify('should be called in proper order', function () {
         const genericObject = new ObjectElement({
-          asyncapi: '2.1.0',
+          asyncapi: '2.2.0',
         });
         AsyncApi2Element.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -213,7 +226,7 @@ describe('refractor', function () {
       context('first plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1],
@@ -224,7 +237,7 @@ describe('refractor', function () {
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1],
@@ -237,7 +250,7 @@ describe('refractor', function () {
 
         specify('should augment asyncapi version', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           const asyncApiElement = AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1],
@@ -250,7 +263,7 @@ describe('refractor', function () {
       context('second plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1, plugin2],
@@ -261,7 +274,7 @@ describe('refractor', function () {
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1, plugin2],
@@ -274,7 +287,7 @@ describe('refractor', function () {
 
         specify('should append metadata to asyncapi version', function () {
           const genericObject = new ObjectElement({
-            asyncapi: '2.1.0',
+            asyncapi: '2.2.0',
           });
           const asyncApiElement = AsyncApi2Element.refract(genericObject, {
             plugins: [plugin1, plugin2],

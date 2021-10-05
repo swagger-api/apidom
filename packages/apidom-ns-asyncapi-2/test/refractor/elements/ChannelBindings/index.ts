@@ -11,6 +11,7 @@ describe('refractor', function () {
           http: {},
           ws: {},
           kafka: {},
+          anypointmq: {},
           amqp: {},
           amqp1: {},
           mqtt: {},

@@ -13,6 +13,9 @@ exports[`refractor elements ServerBindingsElement should refract to semantic Api
     (KafkaServerBindingElement))
   (MemberElement
     (StringElement)
+    (AnypointmqServerBindingElement))
+  (MemberElement
+    (StringElement)
     (AmqpServerBindingElement))
   (MemberElement
     (StringElement)

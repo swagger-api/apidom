@@ -77,6 +77,11 @@ export const keyMap = {
   KafkaMessageBindingElement: ['content'],
   KafkaOperationBindingElement: ['content'],
   KafkaServerBindingElement: ['content'],
+  // Anypoint MQ
+  AnypointmqChannelBindingElement: ['content'],
+  AnypointmqMessageBindingElement: ['content'],
+  AnypointmqOperationBindingElement: ['content'],
+  AnypointmqServerBindingElement: ['content'],
   // Mercure
   MercureChannelBindingElement: ['content'],
   MercureMessageBindingElement: ['content'],

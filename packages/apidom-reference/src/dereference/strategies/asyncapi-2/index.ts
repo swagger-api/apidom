@@ -37,6 +37,9 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
             'application/vnd.aai.asyncapi;version=2.1.0',
             'application/vnd.aai.asyncapi+json;version=2.1.0',
             'application/vnd.aai.asyncapi+yaml;version=2.1.0',
+            'application/vnd.aai.asyncapi;version=2.2.0',
+            'application/vnd.aai.asyncapi+json;version=2.2.0',
+            'application/vnd.aai.asyncapi+yaml;version=2.2.0',
           ].includes(file.mediaType);
         }
 

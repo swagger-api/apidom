@@ -13,6 +13,9 @@ exports[`refractor elements OperationBindingsElement should refract to semantic 
     (KafkaOperationBindingElement))
   (MemberElement
     (StringElement)
+    (AnypointmqOperationBindingElement))
+  (MemberElement
+    (StringElement)
     (AmqpOperationBindingElement))
   (MemberElement
     (StringElement)

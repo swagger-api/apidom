@@ -4,6 +4,7 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import HttpOperationBindingElement from './bindings/http/HttpOperationBinding';
 import WebSocketOperationBindingElement from './bindings/ws/WebSocketOperationBinding';
 import KafkaOperationBindingElement from './bindings/kafka/KafkaOperationBinding';
+import AnypointmqOperationBindingElement from './bindings/anypointmq/AnypointmqOperationBinding';
 import AmqpOperationBindingElement from './bindings/amqp/AmqpOperationBinding';
 import Amqp1OperationBindingElement from './bindings/amqp1/Amqp1OperationBinding';
 import MqttOperationBindingElement from './bindings/mqtt/MqttOperationBinding';
@@ -44,6 +45,14 @@ class OperationBindings extends ObjectElement {
 
   set kafka(kafka: KafkaOperationBindingElement | undefined) {
     this.set('kafka', kafka);
+  }
+
+  get anypointmq(): AnypointmqOperationBindingElement | undefined {
+    return this.get('anypointmq');
+  }
+
+  set anypointmq(anypointmq: AnypointmqOperationBindingElement | undefined) {
+    this.set('anypointmq', anypointmq);
   }
 
   get amqp(): AmqpOperationBindingElement | undefined {

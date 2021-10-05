@@ -4,6 +4,7 @@
 
 - [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
 - [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
+- [AsyncAPI 2.2.0 specification](https://github.com/asyncapi/spec/blob/v2.2.0/spec/asyncapi.md)
 
 
 ## AsyncApi 2.x.y namespace
@@ -122,7 +123,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
   visitor: {
     InfoElement(infoElement) {
-      infoElement.version = '2.1.0';
+      infoElement.version = '2.2.0';
     },
   },
   post() {
@@ -130,7 +131,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
 });
 
-InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ title = 'my title', description = 'my description', version = '2.1.0' })
+InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ title = 'my title', description = 'my description', version = '2.2.0' })
 ```
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
@@ -199,6 +200,13 @@ Only fully implemented specification objects should be checked here.
 - [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel-binding-object)
 - [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#operation-binding-object)
 - [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#message-binding-object)
+
+#### Anypoint MQ Bindings
+
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#message-binding-object)
 
 #### AMQP 0-9-1 Bindings
 

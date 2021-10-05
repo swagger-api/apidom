@@ -1,34 +1,22 @@
 import stampit from 'stampit';
-import {
-  ArrayElement,
-  Element,
-  MemberElement,
-  isObjectElement,
-  BREAK,
-} from '@swagger-api/apidom-core';
+import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apidom-core';
 
+import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ExamplesVisitor = stampit(FallbackVisitor, {
+const ExamplesVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
-    this.element.classes.push('examples');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
-      const fixedFields = ['payload', 'header', 'name', 'summary'];
-
       arrayElement.forEach((item: Element) => {
-        const element = item.clone();
+        let element;
 
-        // this object has no formal name/type so we're processing it in dynamic way here
         if (isObjectElement(item)) {
-          // @ts-ignore
-          element.forEach((value: Element, key: Element, member: MemberElement) => {
-            if (fixedFields.includes(key.toValue())) {
-              member.classes.push('fixed-field');
-            }
-          });
+          element = this.toRefractedElement(['document', 'objects', 'MessageExample'], item);
+        } else {
+          element = item.clone();
         }
 
         this.element.push(element);

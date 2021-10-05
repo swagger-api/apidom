@@ -10,6 +10,7 @@ describe('refractor', function () {
         const channelItemElement = ChannelItemElement.refract({
           $ref: '#/path/to/channel-item',
           description: 'channel-item-description',
+          servers: ['server1', 'server2'],
           subscribe: {},
           publish: {},
           parameters: {},

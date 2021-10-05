@@ -54,7 +54,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
@@ -71,6 +71,7 @@ export { default as InfoElement } from './elements/Info';
 export { default as LicenseElement } from './elements/License';
 export { default as MessageElement } from './elements/Message';
 export { default as MessageBindingsElement } from './elements/MessageBindings';
+export { default as MessageExampleElement } from './elements/MessageExample';
 export { default as MessageTraitElement } from './elements/MessageTrait';
 export { default as OAuthFlowElement } from './elements/OAuthFlow';
 export { default as OAuthFlowsElement } from './elements/OAuthFlows';
@@ -122,6 +123,11 @@ export { default as KafkaChannelBindingElement } from './elements/bindings/kafka
 export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
 export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';
 export { default as KafkaServerBindingElement } from './elements/bindings/kafka/KafkaServerBinding';
+// Anypoint MQ
+export { default as AnypointmqChannelBindingElement } from './elements/bindings/anypointmq/AnypointmqChannelBinding';
+export { default as AnypointmqMessageBindingElement } from './elements/bindings/anypointmq/AnypointmqMessageBinding';
+export { default as AnypointmqOperationBindingElement } from './elements/bindings/anypointmq/AnypointmqOperationBinding';
+export { default as AnypointmqServerBindingElement } from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 export { default as MercureChannelBindingElement } from './elements/bindings/mercure/MercureChannelBinding';
 export { default as MercureMessageBindingElement } from './elements/bindings/mercure/MercureMessageBinding';

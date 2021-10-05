@@ -17,7 +17,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.1.0' },
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0' },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 

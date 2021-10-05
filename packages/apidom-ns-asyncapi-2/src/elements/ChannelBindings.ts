@@ -4,6 +4,7 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import HttpChannelBindingElement from './bindings/http/HttpChannelBinding';
 import WebSocketChannelBindingElement from './bindings/ws/WebSocketChannelBinding';
 import KafkaChannelBindingElement from './bindings/kafka/KafkaChannelBinding';
+import AnypointmqChannelBindingElement from './bindings/anypointmq/AnypointmqChannelBinding';
 import AmqpChannelBindingElement from './bindings/amqp/AmqpChannelBinding';
 import Amqp1ChannelBindingElement from './bindings/amqp1/Amqp1ChannelBinding';
 import MqttChannelBindingElement from './bindings/mqtt/MqttChannelBinding';
@@ -45,6 +46,14 @@ class ChannelBindings extends ObjectElement {
 
   set kafka(kafka: KafkaChannelBindingElement | undefined) {
     this.set('kafka', kafka);
+  }
+
+  get anypointmq(): AnypointmqChannelBindingElement | undefined {
+    return this.get('anypointmq');
+  }
+
+  set anypointmq(anypointmq: AnypointmqChannelBindingElement | undefined) {
+    this.set('anypointmq', anypointmq);
   }
 
   get amqp(): AmqpChannelBindingElement | undefined {

@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { StringElement, ObjectElement } from '@swagger-api/apidom-core';
+import { StringElement, ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
 
 import OperationElement from './Operation';
 import ParametersElement from './Parameters';
@@ -25,6 +25,14 @@ class ChannelItem extends ObjectElement {
 
   set description(description: StringElement) {
     this.set('description', description);
+  }
+
+  get servers(): ArrayElement {
+    return this.get('servers');
+  }
+
+  set servers(servers: ArrayElement) {
+    this.set('servers', servers);
   }
 
   get subscribe(): OperationElement {

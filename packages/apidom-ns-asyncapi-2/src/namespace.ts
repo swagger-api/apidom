@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from 'minim';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -18,6 +18,7 @@ import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import MessageElement from './elements/Message';
 import MessageBindingsElement from './elements/MessageBindings';
+import MessageExampleElement from './elements/MessageExample';
 import MessageTraitElement from './elements/MessageTrait';
 import OAuthFlowElement from './elements/OAuthFlow';
 import OAuthFlowsElement from './elements/OAuthFlows';
@@ -68,6 +69,11 @@ import KafkaChannelBindingElement from './elements/bindings/kafka/KafkaChannelBi
 import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from './elements/bindings/kafka/KafkaServerBinding';
+// Anypoint MQ
+import AnypointmqChannelBindingElement from './elements/bindings/anypointmq/AnypointmqChannelBinding';
+import AnypointmqMessageBindingElement from './elements/bindings/anypointmq/AnypointmqMessageBinding';
+import AnypointmqOperationBindingElement from './elements/bindings/anypointmq/AnypointmqOperationBinding';
+import AnypointmqServerBindingElement from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 import MercureChannelBindingElement from './elements/bindings/mercure/MercureChannelBinding';
 import MercureMessageBindingElement from './elements/bindings/mercure/MercureMessageBinding';
@@ -119,7 +125,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi 2.0.0 | 2.1.0 specification elements.
+     * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
@@ -136,6 +142,7 @@ const asyncApi2 = {
     base.register('license', LicenseElement);
     base.register('message', MessageElement);
     base.register('messageBindings', MessageBindingsElement);
+    base.register('messageExample', MessageExampleElement);
     base.register('messageTrait', MessageTraitElement);
     base.register('oAuthFlow', OAuthFlowElement);
     base.register('oAuthFlows', OAuthFlowsElement);
@@ -187,6 +194,11 @@ const asyncApi2 = {
     base.register('kafkaMessageBinding', KafkaMessageBindingElement);
     base.register('kafkaOperationBinding', KafkaOperationBindingElement);
     base.register('kafkaServerBinding', KafkaServerBindingElement);
+    // Anypoint MQ
+    base.register('anypointmqChannelBinding', AnypointmqChannelBindingElement);
+    base.register('anypointmqMessageBinding', AnypointmqMessageBindingElement);
+    base.register('anypointmqOperationBinding', AnypointmqOperationBindingElement);
+    base.register('anypointmqServerBinding', AnypointmqServerBindingElement);
     // Mercure
     base.register('mercureChannelBinding', MercureChannelBindingElement);
     base.register('mercureMessageBinding', MercureMessageBindingElement);

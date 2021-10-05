@@ -1,6 +1,6 @@
 [
   {
-    "asyncapi": "2.1.0",
+    "asyncapi": "2.2.0",
     "components": {
       "parameters": {
         "externalRef": {

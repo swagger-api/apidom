@@ -9,6 +9,8 @@ export const mediaTypes = [
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
   'application/vnd.aai.asyncapi;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.1.0',
+  'application/vnd.aai.asyncapi;version=2.2.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.2.0',
 ];
 
 export const detect = (source: string): boolean =>

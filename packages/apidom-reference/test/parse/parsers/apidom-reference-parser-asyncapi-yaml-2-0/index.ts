@@ -15,11 +15,11 @@ describe('parsers', function () {
           specify('should return true', function () {
             const file1 = File({
               uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.2.0',
             });
             const file2 = File({
               uri: '/path/to/asyncapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
             });
             const parser = AsyncApiYaml2Parser();
 
@@ -46,11 +46,11 @@ describe('parsers', function () {
           specify('should return true', function () {
             const file1 = File({
               uri: '/path/to/asyncapi.yml',
-              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.2.0',
             });
             const file2 = File({
               uri: '/path/to/asyncapi.yml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
             });
             const parser = AsyncApiYaml2Parser();
 
@@ -76,7 +76,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/asyncapi.txt',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
           });
           const parser = AsyncApiYaml2Parser();
 
@@ -88,7 +88,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/asyncapi',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
           });
           const parser = AsyncApiYaml2Parser();
 
@@ -98,11 +98,11 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.1.0 YAML data', function () {
+      context('given AsyncApi 2.2.0 YAML data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
-          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.1.0' });
+          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.2.0' });
           const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
@@ -110,11 +110,11 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 2.1.0 YAML data as buffer', function () {
+      context('given AsyncApi 2.2.0 YAML data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
-          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.1.0' });
+          const file = File({ url, data, mediaType: 'application/vnd.aai.asyncapi;version=2.2.0' });
           const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
@@ -122,13 +122,13 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 2.1.0 YAML data', function () {
+      context('given data that is not an AsyncApi 2.2.0 YAML data', function () {
         specify('should throw ParserError', async function () {
           try {
             const file = File({
               uri: '/path/to/file.yaml',
               data: 1,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
             });
             const parser = AsyncApiYaml2Parser();
             await parser.parse(file);
@@ -146,7 +146,7 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.yaml',
             data: '',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
           });
           const parser = AsyncApiYaml2Parser();
           const parsceResult = await parser.parse(file);
@@ -164,7 +164,7 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
             });
             const parser = AsyncApiYaml2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
@@ -180,7 +180,7 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.1.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
             });
             const parser = AsyncApiYaml2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);

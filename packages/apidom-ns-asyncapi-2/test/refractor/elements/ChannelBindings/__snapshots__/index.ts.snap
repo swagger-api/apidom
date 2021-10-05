@@ -13,6 +13,9 @@ exports[`refractor elements ChannelBindingsElement should refract to semantic Ap
     (KafkaChannelBindingElement))
   (MemberElement
     (StringElement)
+    (AnypointmqChannelBindingElement))
+  (MemberElement
+    (StringElement)
     (AmqpChannelBindingElement))
   (MemberElement
     (StringElement)

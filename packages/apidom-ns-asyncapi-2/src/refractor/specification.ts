@@ -1,7 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi 2.0.0 | 2.1.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -130,8 +130,14 @@ import ChannelBindingsVisitor from './visitors/async-api-2/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2/channel-item/$RefVisitor';
 import ChannelItemDescriptionVisitor from './visitors/async-api-2/channel-item/DescriptionVisitor';
+import ChannelItemServersVisitor from './visitors/async-api-2/channel-item/ServersVisitor';
 import ChannelItemBindingsVisitor from './visitors/async-api-2/channel-item/BindingsVisitor';
 import MessageBindingsVisitor from './visitors/async-api-2/message-bindings';
+import MessageExampleVisitor from './visitors/async-api-2/message-example';
+import MessageExampleHeadersVisitor from './visitors/async-api-2/message-example/HeadersVisitor';
+import MessageExamplePayloadVisitor from './visitors/async-api-2/message-example/PayloadVisitor';
+import MessageExampleNameVisitor from './visitors/async-api-2/message-example/NameVisitor';
+import MessageExampleSummaryVisitor from './visitors/async-api-2/message-example/SummaryVisitor';
 import MessageTraitVisitor from './visitors/async-api-2/message-trait';
 import MessageTraitHeadersVisitor from './visitors/async-api-2/message-trait/HeadersVisitor';
 import MessageTraitCorrelationIdVisitor from './visitors/async-api-2/message-trait/CorrelationIdVisitor';
@@ -234,6 +240,15 @@ import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2/bin
 import KafkaOperationBindingVisitor from './visitors/async-api-2/bindings/kafka/operation-binding';
 import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/kafka/operation-binding/BindingVersionVisitor';
 import KafkaServerBindingVisitor from './visitors/async-api-2/bindings/kafka/server-binding';
+// Anypoint MQ
+import AnypointmqChannelBindingVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding';
+import AnypointmqChannelBindingDestinationVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/DestinationVisitor';
+import AnypointmqChannelBindingDestinationTypeVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/DestinationTypeVisitor';
+import AnypointmqChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/BindingVersionVisitor';
+import AnypointmqMessageBindingVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding';
+import AnypointmqMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding/BindingVersionVisitor';
+import AnypointmqOperationBindingVisitor from './visitors/async-api-2/bindings/anypointmq/operation-binding';
+import AnypointmqServerBindingVisitor from './visitors/async-api-2/bindings/anypointmq/server-binding';
 // Mercure
 import MercureChannelBindingVisitor from './visitors/async-api-2/bindings/mercure/channel-binding';
 import MercureMessageBindingVisitor from './visitors/async-api-2/bindings/mercure/message-binding';
@@ -305,7 +320,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi 2.0.0 | 2.1.0 specification elements.
+         * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -410,6 +425,7 @@ const specification = {
           fixedFields: {
             $ref: ChannelItem$RefVisitor,
             description: ChannelItemDescriptionVisitor,
+            servers: ChannelItemServersVisitor,
             subscribe: {
               $ref: '#/visitors/document/objects/Operation',
             },
@@ -496,6 +512,15 @@ const specification = {
             },
             bindings: MessageTraitBindingsVisitor,
             examples: MessageTraitExamplesVisitor,
+          },
+        },
+        MessageExample: {
+          $visitor: MessageExampleVisitor,
+          fixedFields: {
+            headers: MessageExampleHeadersVisitor,
+            payload: MessageExamplePayloadVisitor,
+            name: MessageExampleNameVisitor,
+            summary: MessageExampleSummaryVisitor,
           },
         },
         Tags: {
@@ -664,6 +689,9 @@ const specification = {
             kafka: {
               $ref: '#/visitors/document/objects/bindings/kafka/ServerBinding',
             },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/ServerBinding',
+            },
             amqp: {
               $ref: '#/visitors/document/objects/bindings/amqp/ServerBinding',
             },
@@ -725,6 +753,9 @@ const specification = {
             kafka: {
               $ref: '#/visitors/document/objects/bindings/kafka/ChannelBinding',
             },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/ChannelBinding',
+            },
             amqp: {
               $ref: '#/visitors/document/objects/bindings/amqp/ChannelBinding',
             },
@@ -775,6 +806,9 @@ const specification = {
             kafka: {
               $ref: '#/visitors/document/objects/bindings/kafka/OperationBinding',
             },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/OperationBinding',
+            },
             amqp: {
               $ref: '#/visitors/document/objects/bindings/amqp/OperationBinding',
             },
@@ -821,6 +855,9 @@ const specification = {
             },
             kafka: {
               $ref: '#/visitors/document/objects/bindings/kafka/MessageBinding',
+            },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/MessageBinding',
             },
             amqp: {
               $ref: '#/visitors/document/objects/bindings/amqp/MessageBinding',
@@ -946,6 +983,31 @@ const specification = {
                   $ref: '#/visitors/document/objects/Schema',
                 },
                 bindingVersion: KafkaMessageBindingBindingVersionVisitor,
+              },
+            },
+          },
+          anypointmq: {
+            ServerBinding: {
+              $visitor: AnypointmqServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: AnypointmqChannelBindingVisitor,
+              fixedFields: {
+                destination: AnypointmqChannelBindingDestinationVisitor,
+                destinationType: AnypointmqChannelBindingDestinationTypeVisitor,
+                bindingVersion: AnypointmqChannelBindingBindingVersionVisitor,
+              },
+            },
+            OperationBinding: {
+              $visitor: AnypointmqOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: AnypointmqMessageBindingVisitor,
+              fixedFields: {
+                headers: {
+                  $ref: '#/visitors/document/objects/Schema',
+                },
+                bindingVersion: AnypointmqMessageBindingBindingVersionVisitor,
               },
             },
           },

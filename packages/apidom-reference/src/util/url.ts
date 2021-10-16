@@ -226,12 +226,11 @@ export const cwd = (): string => {
  *  Resolves a target URI relative to a base URI in a manner similar to that of a Web browser resolving an anchor tag HREF.
  */
 export const resolve = (from: string, to: string): string => {
-  if (isFileSystemPath(from)) {
-    const hasFileProtocol = getProtocol(from) === 'file';
-    const protocol = !hasFileProtocol ? 'file://' : '';
-    const url = String(new URL(to, `${protocol}${from}`));
-    return !hasFileProtocol ? url.replace(/^file:\/\//, '') : url;
+  const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+  if (resolvedUrl.protocol === 'resolve:') {
+    // `from` is a relative URL.
+    const { pathname, search, hash } = resolvedUrl;
+    return pathname + search + hash;
   }
-
-  return new URL(to, from).toString();
+  return resolvedUrl.toString();
 };

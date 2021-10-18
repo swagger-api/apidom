@@ -4,7 +4,7 @@
 This package is divided into three (3) main components:
 
 - **Parse component**
-- **Resole component**
+- **Resovle component**
 - **Dereference component**
 
 ## Parse component

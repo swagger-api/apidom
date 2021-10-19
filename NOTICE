@@ -30,6 +30,6 @@ Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
 If the SPDX-FileCopyrightText and SPDX-License-Identifier tags are not present in the file,
 it is assumed that these tags have following implicit value:
 
-SPDX-FileCopyrightText: Copyright 2020 SmartBear Software Inc.
+SPDX-FileCopyrightText: Copyright 2020-2021 SmartBear Software Inc.
 SPDX-License-Identifier: Apache-2.0
 

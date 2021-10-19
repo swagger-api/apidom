@@ -1,6 +1,3 @@
-[comment]: <> (SPDX-FileCopyrightText: 2019 Jane Doe <jane@example.com>)
-[comment]: <> (SPDX-License-Identifier: MIT)
-
 [comment]: <> (SPDX-FileCopyrightText: Copyright &#40;c&#41; 2015 refractproject)
 [comment]: <> (SPDX-License-Identifier: MIT)
 

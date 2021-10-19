@@ -10,7 +10,7 @@
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Francesco Tumanischvili",
-  "license": "Apache-2.0 AND MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/swagger-api/apidom/issues"
   },

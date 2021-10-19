@@ -33,7 +33,7 @@
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
   "author": "Vladimir Gorej",
-  "license": "Apache-2.0 AND MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.15.4",
     "@swagger-api/apidom-core": "^0.3.0",

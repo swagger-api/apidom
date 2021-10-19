@@ -6,7 +6,8 @@
     "test/**/*"
   ],
   "compilerOptions": {
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "isolatedModules": false
   },
   "ts-node": {
     "files": true

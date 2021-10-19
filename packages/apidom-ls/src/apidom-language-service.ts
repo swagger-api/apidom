@@ -9,7 +9,6 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
 
-import { DefaultJsonSchemaService } from './services/json-schema/json-schema-service';
 import {
   ColorsContext,
   LanguageService,
@@ -26,17 +25,15 @@ import { DefaultDefinitionService } from './services/definition/definition-servi
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
-  const jsonSchemaService = new DefaultJsonSchemaService();
   const symbolsService = new DefaultSymbolsService();
-  const completionService = new DefaultCompletionService(jsonSchemaService);
-  const validationService = new DefaultValidationService(jsonSchemaService);
+  const completionService = new DefaultCompletionService();
+  const validationService = new DefaultValidationService();
   const semanticTokensService = new DefaultSemanticTokensService();
   const hoverService = new DefaultHoverService();
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
 
   function configureServices(languageSettings?: LanguageSettings) {
-    jsonSchemaService.configure(languageSettings);
     symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
     completionService.configure(languageSettings);
@@ -51,6 +48,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     const languageSettings: LanguageSettings = {
       metadata: context.metadata,
       validate: true,
+      validatorProviders: context.validatorProviders,
     };
     configureServices(languageSettings);
   }

@@ -21,6 +21,7 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.yaml'))
@@ -127,8 +128,11 @@ const hoverTestInput = [
 ];
 
 describe('apidom-ls-async-yaml', function () {
+  const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
+
   const context: LanguageServiceContext = {
     metadata: metadata(),
+    validatorProviders: [asyncJsonSchemavalidationProvider],
   };
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
@@ -146,14 +150,14 @@ describe('apidom-ls-async-yaml', function () {
 
     const expected = [
       {
-        range: { start: { line: 2, character: 0 }, end: { line: 2, character: 4 } },
-        message: "should have required property 'version'",
+        range: { start: { line: 0, character: 0 }, end: { line: 0, character: 8 } },
+        message: "'asyncapi' value must be 2.0.0",
         severity: 1,
         code: 0,
       },
       {
-        range: { start: { line: 56, character: 0 }, end: { line: 56, character: 10 } },
-        message: 'should NOT have additional properties',
+        range: { start: { line: 2, character: 0 }, end: { line: 2, character: 4 } },
+        message: "must have required property 'version'",
         severity: 1,
         code: 0,
       },

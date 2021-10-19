@@ -24,6 +24,7 @@ import {
   DefinitionParams,
   ReferenceParams,
 } from 'vscode-languageserver-protocol';
+import { Element } from 'minim';
 
 import { Metadata } from './utils/utils';
 
@@ -44,11 +45,28 @@ export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
   metadata?: Metadata;
+  validatorProviders?: ValidationProvider[];
+}
+
+/* represent any validation provider  */
+export interface ValidationProvider {
+  namespaces(): string[];
+
+  break(): boolean;
+
+  doValidation(
+    textDocument: TextDocument,
+    api: Element,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]>;
+
+  configure(settings: LanguageSettings): void;
 }
 
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
+  validatorProviders?: ValidationProvider[];
   metadata?: Metadata;
 }
 

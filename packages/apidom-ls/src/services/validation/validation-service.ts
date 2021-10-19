@@ -4,7 +4,12 @@ import { Element, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
 import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';
-import { APIDOM_LINTER, LanguageSettings, ValidationContext } from '../../apidom-language-types';
+import {
+  APIDOM_LINTER,
+  LanguageSettings,
+  ValidationContext,
+  ValidationProvider,
+} from '../../apidom-language-types';
 import {
   setMetadataMap,
   getSourceMap,
@@ -24,17 +29,8 @@ export interface ValidationService {
   doCodeActions(textDocument: TextDocument, parms: CodeActionParams): Promise<CodeAction[]>;
 
   configure(settings: LanguageSettings): void;
-}
 
-/* represent any validation provider  */
-export interface ValidationProvider {
-  doValidation(
-    textDocument: TextDocument,
-    api: Element,
-    validationContext?: ValidationContext,
-  ): Promise<Diagnostic[]>;
-
-  configure(settings: LanguageSettings): void;
+  registerProvider(provider: ValidationProvider): void;
 }
 
 export class DefaultValidationService implements ValidationService {
@@ -44,18 +40,29 @@ export class DefaultValidationService implements ValidationService {
 
   private settings: LanguageSettings | undefined;
 
-  private jsonSchemaValidationService: ValidationProvider;
+  private validationProviders: ValidationProvider[] = [];
 
-  public constructor(jsonSchemaValidationService: ValidationProvider) {
+  public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
-    this.jsonSchemaValidationService = jsonSchemaValidationService;
+  }
+
+  public registerProvider(provider: ValidationProvider): void {
+    this.validationProviders.push(provider);
+    if (this.settings) {
+      provider.configure(this.settings);
+    }
   }
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings) {
-      this.jsonSchemaValidationService.configure(settings);
+      if (settings.validatorProviders) {
+        this.validationProviders = settings.validatorProviders;
+      }
+      for (const provider of this.validationProviders) {
+        provider.configure(settings);
+      }
       this.validationEnabled = settings.validate;
       this.commentSeverity = settings.allowComments ? undefined : DiagnosticSeverity.Error;
     }
@@ -82,15 +89,12 @@ export class DefaultValidationService implements ValidationService {
     const result = await parser.parse(text, { sourceMap: true });
     const { api } = result;
 
+    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (api === undefined) return diagnostics;
 
     // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
+    setMetadataMap(api, docNs, this.settings?.metadata?.metadataMaps); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
     api.freeze(); // !! freeze and add parent !!
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -138,11 +142,21 @@ export class DefaultValidationService implements ValidationService {
     const hasSyntaxErrors = !!diagnostics.length;
     if (!hasSyntaxErrors) {
       // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-      this.jsonSchemaValidationService
-        .doValidation(textDocument, api, validationContext)
-        .then((jsonSchemaDiagnostics) => {
-          diagnostics.push(...jsonSchemaDiagnostics);
-        });
+
+      const allProvidersDiagnostics: Diagnostic[] = [];
+      for (const provider of this.validationProviders) {
+        if (provider.namespaces().includes(docNs)) {
+          allProvidersDiagnostics.push(
+            ...// eslint-disable-next-line no-await-in-loop
+            (await provider.doValidation(textDocument, api, validationContext)),
+          );
+          if (provider.break()) {
+            break;
+          }
+        }
+      }
+
+      diagnostics.push(...allProvidersDiagnostics);
     }
 
     const lint = (element: Element) => {
@@ -166,10 +180,7 @@ export class DefaultValidationService implements ValidationService {
                   standardLinterfunctions.find((e) => e.functionName === linterFuncName)?.function;
                 // else get it from configuration
                 if (!lintFunc) {
-                  lintFunc =
-                    this.settings?.metadata?.linterFunctions[
-                      isAsyncDoc(text) ? 'asyncapi' : 'openapi'
-                    ][linterFuncName];
+                  lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];
                 }
                 if (lintFunc) {
                   try {

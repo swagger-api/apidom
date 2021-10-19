@@ -69,9 +69,9 @@ enum CompletionNodeContext {
 export class DefaultCompletionService implements CompletionService {
   private settings: LanguageSettings | undefined;
 
-  private jsonSchemaCompletionService: CompletionService;
+  private jsonSchemaCompletionService: CompletionService | undefined;
 
-  public constructor(jsonSchemaCompletionService: CompletionService) {
+  public constructor(jsonSchemaCompletionService?: CompletionService) {
     this.jsonSchemaCompletionService = jsonSchemaCompletionService;
   }
 
@@ -301,12 +301,13 @@ export class DefaultCompletionService implements CompletionService {
       }
     }
 
-    this.jsonSchemaCompletionService
-      .doCompletion(textDocument, completionParamsOrPosition, completionContext)
-      .then((schemaList) => {
-        completionList.items.push(...schemaList.items);
-      });
-
+    if (this.jsonSchemaCompletionService) {
+      this.jsonSchemaCompletionService
+        .doCompletion(textDocument, completionParamsOrPosition, completionContext)
+        .then((schemaList) => {
+          completionList.items.push(...schemaList.items);
+        });
+    }
     return completionList;
   }
 

@@ -1,7 +1,5 @@
-import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020';
-import Ajv, * as AjvNs from 'ajv';
-import AjvErrors from 'ajv-errors';
-import addFormats from 'ajv-formats';
+import Ajv2020 from 'ajv/dist/2020';
+import Ajv from 'ajv';
 import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode-languageserver-types';
 import jsonSourceMap from 'json-source-map';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -14,6 +12,7 @@ import {
   ValidationProvider,
 } from '../../../apidom-language-types';
 import { isJsonDoc } from '../../../parser-factory';
+import * as AjvUtils from './ajv-utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export abstract class JsonSchemaValidationProvider implements ValidationProvider {
@@ -23,14 +22,13 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
 
   private jsonSchema: Record<string, unknown>;
 
-  protected constructor(
-    ajv2020: boolean,
-    ajvOpts: Ajv2020Ns.Options | AjvNs.Options,
-    jsonSchema: Record<string, unknown>,
-  ) {
+  protected ajv2020: boolean;
+
+  protected constructor(ajv2020: boolean, jsonSchema: Record<string, unknown>) {
     this.validationEnabled = true;
-    this.ajv = JsonSchemaValidationProvider.setupAjv(ajvOpts, ajv2020);
     this.jsonSchema = jsonSchema;
+    this.ajv2020 = ajv2020;
+    this.ajv = AjvUtils.ajv(ajv2020);
   }
 
   public doValidation(
@@ -71,7 +69,7 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
     if (!this.validationEnabled) {
       return;
     }
-    const validateFunction = JsonSchemaValidationProvider.compileAjv(this.ajv, this.jsonSchema);
+    const validateFunction = AjvUtils.compileAjv(this.jsonSchema, this.ajv2020);
     const jsonDoc = JSON.parse(jsonDocument);
     const valid = validateFunction(jsonDoc);
     if (!valid) {
@@ -134,29 +132,6 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
         });
       }
     }
-  }
-
-  protected static setupAjv(
-    ajvOpts: Ajv2020Ns.Options | AjvNs.Options,
-    ajv2020: boolean,
-  ): Ajv2020 | Ajv {
-    let ajv: Ajv2020 | Ajv;
-    if (ajv2020) {
-      ajv = new Ajv2020(ajvOpts);
-      addFormats(ajv);
-      ajv.addFormat('media-range', true);
-    } else {
-      ajv = new Ajv(ajvOpts);
-    }
-    AjvErrors(ajv);
-    return ajv;
-  }
-
-  protected static compileAjv(
-    ajv: Ajv2020 | Ajv,
-    jsonSchema: Record<string, unknown>,
-  ): Ajv2020Ns.ValidateFunction | AjvNs.ValidateFunction {
-    return ajv.compile(jsonSchema);
   }
 
   abstract break(): boolean;

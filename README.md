@@ -286,9 +286,66 @@ and instead code is written specifically for the client or the server. In that c
 "types": "types/adapter-browser.d.ts",
 ```
 
+## Using this monorepo as a local dev dependency
+
+For usig this monorepo as a local dev dependency for `dependent project`,
+following commands needs to be issued inside the monorepo directory after
+it has been cloned to a local filesystem:
+
+```sh
+ $ npm i
+ $ npm build
+ $ npm link --workspaces
+```
+This will install the dependencies, built the monorepo and link all it's packages to
+global `node_modules`.
+
+#### Usage in `dependent project`
+
+Now that we have monorepo packages globally linked we can use them in `dependent project`.
+Let's say `dependent project` needs to directly use following packages:
+
+- @swagger-api/apidom-ast
+- @swagger-api/apidom-core
+
+Issuing following command from inside the `dependent project` will link these packages:
+
+```sh
+ $ npm link @swagger-api/apidom-ast @swagger-api/apidom-core
+```
+
+If more packages (or all of them) need to be used in `dependent project`, they need to be explicitly
+enumerated using above command and separated by single empty space.
+
+Notice that we link packages using single `npm link` command. This is necessary
+because of how `npm link` works internally. Always use single `npm link` command with
+multiple package names as argument.
+
+**Don't ever do this!**
+
+```sh
+ $ npm link @swagger-api/apidom-ast
+ $ npm link @swagger-api/apidom-core
+```
+
+> Setting up an npm script in `depedent project` can help keep things DRY.
+
+#### Cleaning up
+
+It is not necessary to unlink monorepo packages from global `node_modules`. But if you
+want to keep your global `node_modules` tidy you can issue the following command:
+
+```shell
+ $ npm unlink --global @swagger-api/apidom-ast @swagger-api/apidom-core
+```
+
+You have to enumerate all the monorepo packages that should be unlinked explicitly.
+
+> Setting up an npm script in `dependent project` can help keep things DRY.
+
 ## License analysis
 
-This license analysis was done on 12th of March 2021.
+This license analysis was done on 4th of October 2021.
 
 ```
 Dependencies distributed directly to the user:
@@ -313,6 +370,4 @@ Legend
  - $: license present in distribution package
  - #: has no depedencies
  - <number>: number of transitive dependencies
-
-Updated at: 4 Oct, 2021
 ```

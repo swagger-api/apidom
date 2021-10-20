@@ -210,14 +210,19 @@ Having said that, this is how JSON OpenAPI 3.1 document gets transformed into Ap
 
 
 **with direct syntactic analysis (requires 2 traversals)**
+```
 JSON string -> tree-sitter CST ->  generic ApiDOM -> OpenAPI 3.1 ApiDOM
+```
 
 **with indirect syntactic analysis (requires 2 traversals)**
+```
 JSON string -> tree-sitter CST -> JSON AST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM
+```
 
 **with direct syntactic analysis and additional plugins (requires 3 traversal)**
+```
 JSON string -> tree-sitter CST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM -> plugins -> OpenAPI 3.1 ApiDOM
-
+```
 ---
 
 This very closely reflects how [Babel](https://github.com/babel/babel) works.

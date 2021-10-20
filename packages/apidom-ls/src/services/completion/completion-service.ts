@@ -2,8 +2,6 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionList,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  InsertTextFormat,
   Position,
   Range,
   TextEdit,
@@ -24,9 +22,8 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { setMetadataMap, getSourceMap, isMember, isObject } from '../../utils/utils';
-import { getParser, isJsonDoc, isAsyncDoc } from '../../parser-factory';
+import { getSourceMap, isMember, isObject } from '../../utils/utils';
+import { isJsonDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -171,7 +168,6 @@ export class DefaultCompletionService implements CompletionService {
         : completionParamsOrPosition;
 
     // get right parser
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
     const schema = false;
@@ -194,18 +190,11 @@ export class DefaultCompletionService implements CompletionService {
     }
 
     // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return CompletionList.create();
+    const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return CompletionList.create();
-
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     const completionList: CompletionList = {
       items: [],

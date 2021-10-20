@@ -54,20 +54,20 @@ describe('apidom-ls-validate', function () {
 
     // valid spec
     const docOpenapi: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
-      'json',
+      'foo://bar/openapi.json',
+      'specOpenapiSimple',
       0,
       specOpenapiSimple,
     );
     const docAsyncapi: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specAsync.json',
       'json',
       0,
       specAsync,
     );
 
     const docAsyncapiYaml: TextDocument = TextDocument.create(
-      'foo://bar/file.yaml',
+      'foo://bar/specAsyncYaml.yaml',
       'yaml',
       0,
       specAsyncYaml,
@@ -292,6 +292,58 @@ describe('apidom-ls-validate', function () {
         code: 0,
       },
     ] as Diagnostic[]);
+
+    console.log(`version ${docAsyncapi.version}`);
+    result = await languageService.doValidation(docAsyncapi, validationContext);
+    assert.deepEqual(result, [
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 2,
+          },
+          end: {
+            line: 1,
+            character: 12,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 2,
+          },
+          end: {
+            line: 3,
+            character: 8,
+          },
+        },
+        message: "must have required property 'version'",
+        severity: 1,
+        code: 0,
+      },
+      {
+        range: {
+          start: {
+            line: 54,
+            character: 10,
+          },
+          end: {
+            line: 54,
+            character: 18,
+          },
+        },
+        message:
+          'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
+        severity: 1,
+        code: 0,
+      },
+    ]);
+    languageService.terminate();
   });
 
   it('test validation for openapi with modified 3.0 schema', async function () {
@@ -303,7 +355,7 @@ describe('apidom-ls-validate', function () {
 
     // valid spec
     const docOpenapi: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specOpenapiSimple.json',
       'json',
       0,
       specOpenapiSimple,
@@ -534,5 +586,6 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
+    languageService.terminate();
   });
 });

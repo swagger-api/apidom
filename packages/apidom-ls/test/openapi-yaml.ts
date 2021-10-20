@@ -146,6 +146,12 @@ describe('apidom-ls-yaml', function () {
     validatorProviders: [oasJsonSchemavalidationProvider],
   };
 
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -154,8 +160,7 @@ describe('apidom-ls-yaml', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, spec);
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.yaml', 'yaml', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
@@ -344,7 +349,7 @@ describe('apidom-ls-yaml', function () {
 
     assert.deepEqual(result, expected as Diagnostic[]);
 
-    doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specError);
+    doc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
     // TODO yaml errors not recovered? no result?
     /*     assert.deepEqual(result, [
@@ -366,12 +371,11 @@ describe('apidom-ls-yaml', function () {
 
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.yaml',
+      'foo://bar/specHighlightNoQuotes.yaml',
       'yaml',
       0,
       specHighlightNoQuotes,
     );
-    const languageService: LanguageService = getLanguageService(context);
 
     const result = await languageService.doValidation(doc, validationContext);
 
@@ -439,9 +443,7 @@ describe('apidom-ls-yaml', function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
-    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc = TextDocument.create('foo://bar/specCompletion.yaml', 'yaml', 0, specCompletion);
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -459,9 +461,12 @@ describe('apidom-ls-yaml', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc = TextDocument.create(
+      'foo://bar/specCompletionSymbols.yaml',
+      'yaml',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -494,13 +499,11 @@ describe('apidom-ls-yaml', function () {
   it('test semantic highlighting', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotes.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -533,13 +536,11 @@ describe('apidom-ls-yaml', function () {
   it('test hover', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotesHover.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console

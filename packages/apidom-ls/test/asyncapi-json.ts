@@ -146,6 +146,12 @@ describe('apidom-ls-async', function () {
     validatorProviders: [asyncJsonSchemavalidationProvider],
   };
 
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -154,9 +160,7 @@ describe('apidom-ls-async', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
-
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.json', 'json', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
@@ -210,7 +214,7 @@ describe('apidom-ls-async', function () {
     ];
 
     assert.deepEqual(result, expected as Diagnostic[]);
-    doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
+    doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
 
     assert.deepEqual(result, [
@@ -252,9 +256,12 @@ describe('apidom-ls-async', function () {
       maxNumberOfItems: 100,
     };
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -272,9 +279,12 @@ describe('apidom-ls-async', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSymbols.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -307,13 +317,11 @@ describe('apidom-ls-async', function () {
   it('test semantic highlighting async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightAsync.json',
       'json',
       0,
       specHighlightAsync,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -346,13 +354,11 @@ describe('apidom-ls-async', function () {
   it('test hover async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightAsyncHover.json',
       'json',
       0,
       specHighlightAsync,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console
@@ -365,9 +371,7 @@ describe('apidom-ls-async', function () {
   });
 
   it('test deref async', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create('foo://bar/specDeref.json', 'json', 0, specDeref);
 
     const result = await languageService.doDeref(doc, {
       format: FORMAT.JSON,
@@ -381,7 +385,7 @@ describe('apidom-ls-async', function () {
 
   // eslint-disable-next-line consistent-return
   it('test parse json', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
+    const doc: TextDocument = TextDocument.create('foo://bar/specFull.json', 'json', 0, specFull);
 
     const parser = getParser(doc);
     const text: string = doc.getText();

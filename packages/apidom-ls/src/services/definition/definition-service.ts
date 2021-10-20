@@ -6,8 +6,7 @@ import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protoco
 import { jsonPointerEvaluate } from '@swagger-api/apidom-reference';
 
 import { LanguageSettings } from '../../apidom-language-types';
-import { getParser, isAsyncDoc } from '../../parser-factory';
-import { getSourceMap, isArray, isMember, isObject, setMetadataMap } from '../../utils/utils';
+import { getSourceMap, isArray, isMember, isObject } from '../../utils/utils';
 
 export interface DefinitionService {
   doProvideDefinition(
@@ -35,25 +34,14 @@ export class DefaultDefinitionService implements DefinitionService {
     textDocument: TextDocument,
     definitionParams: DefinitionParams,
   ): Promise<Location | null> {
-    const parser = getParser(textDocument);
-    const text: string = textDocument.getText();
-
     const offset = textDocument.offsetAt(definitionParams.position);
 
-    const result = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return null;
     const api: ObjectElement = <ObjectElement>result.api;
 
     // no API document has been parsed
     if (api === undefined) return null;
-
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO (francesco.tumanischvili@smartbear.com) move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     // TODO (francesco.tumanischvili@smartbear.com): handle by predicates and adapters, look for
     // refElements and/or metadata, replace current shaky handling by `$ref` key lookup
@@ -94,26 +82,15 @@ export class DefaultDefinitionService implements DefinitionService {
     textDocument: TextDocument,
     referenceParams: ReferenceParams,
   ): Promise<Location[] | null> {
-    const parser = getParser(textDocument);
-    const text: string = textDocument.getText();
-
     // const asyncapi: boolean = isAsyncDoc(textDocument);
     const offset = textDocument.offsetAt(referenceParams.position);
 
-    const result = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return null;
     const api: ObjectElement = <ObjectElement>result.api;
 
     // no API document has been parsed
     if (api === undefined) return null;
-
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO (francesco.tumanischvili@smartbear.com) move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     // TODO(francesco.tumanischvili@smartbear.com): handle by predicates and adapters, look for
     // refElements and/or metadata, replace current shaky handling by `$ref` key lookup

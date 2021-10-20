@@ -3,21 +3,14 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
-import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';
+import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import {
   APIDOM_LINTER,
   LanguageSettings,
   ValidationContext,
   ValidationProvider,
 } from '../../apidom-language-types';
-import {
-  setMetadataMap,
-  getSourceMap,
-  LinterMeta,
-  isMember,
-  QuickFixData,
-  MetadataMap,
-} from '../../utils/utils';
+import { getSourceMap, LinterMeta, isMember, QuickFixData, MetadataMap } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
 export interface ValidationService {
@@ -82,20 +75,16 @@ export class DefaultValidationService implements ValidationService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
 
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return diagnostics;
     const { api } = result;
 
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (api === undefined) return diagnostics;
-
-    // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
-    setMetadataMap(api, docNs, this.settings?.metadata?.metadataMaps); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
     if (result.annotations) {
       for (const annotation of result.annotations) {
         if (
@@ -282,15 +271,16 @@ export class DefaultValidationService implements ValidationService {
       return Promise.resolve([]);
     }
 
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
-    return parser.parse(text, { sourceMap: true }).then((result) => {
+    return this.settings!.documentCache!.get(textDocument).then((result) => {
+      if (!result) {
+        return [];
+      }
       const { api } = result;
       if (!api) {
         return [];
       }
-      api.freeze(); // !! freeze and add parent !!
       const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
       const codeActions: CodeAction[] = [];
       diagnostics.forEach((diag) => {

@@ -179,7 +179,7 @@ const defTestInput = [
           line: 52,
         },
       },
-      uri: 'foo://bar/file.json',
+      uri: 'foo://bar/specFull.json',
     },
   ],
 ];
@@ -201,7 +201,7 @@ const refTestInput = [
             line: 52,
           },
         },
-        uri: 'foo://bar/file.json',
+        uri: 'foo://bar/specFullRefs.json',
       },
     ],
   ],
@@ -214,6 +214,12 @@ describe('apidom-ls', function () {
     validatorProviders: [oasJsonSchemavalidationProvider],
   };
 
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -222,9 +228,7 @@ describe('apidom-ls', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
-
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.json', 'json', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
@@ -411,7 +415,7 @@ describe('apidom-ls', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
-    doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
+    doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
 
     assert.deepEqual(result, [
@@ -433,13 +437,11 @@ describe('apidom-ls', function () {
 
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specLinterUpper.json',
       'json',
       0,
       specLinterUpper,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const result = await languageService.doValidation(doc, validationContext);
 
@@ -534,13 +536,11 @@ describe('apidom-ls', function () {
 
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specLinterNoVersion.json',
       'json',
       0,
       specLinterNoVersion,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const result = await languageService.doValidation(doc, validationContext);
 
@@ -632,9 +632,12 @@ describe('apidom-ls', function () {
       maxNumberOfItems: 100,
     };
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -652,9 +655,12 @@ describe('apidom-ls', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSymbols.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -687,9 +693,12 @@ describe('apidom-ls', function () {
 
   it('test semantic highlighting', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specHighlight);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specHighlight.json',
+      'json',
+      0,
+      specHighlight,
+    );
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -721,9 +730,12 @@ describe('apidom-ls', function () {
 
   it('test hover', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specHighlight);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specHighlightHover.json',
+      'json',
+      0,
+      specHighlight,
+    );
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console
@@ -736,9 +748,7 @@ describe('apidom-ls', function () {
   });
 
   it('test deref', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create('foo://bar/specDeref.json', 'json', 0, specDeref);
 
     const result = await languageService.doDeref(doc, {
       format: FORMAT.JSON,
@@ -751,9 +761,7 @@ describe('apidom-ls', function () {
   });
 
   it('test definition', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create('foo://bar/specFull.json', 'json', 0, specFull);
 
     for (const input of defTestInput) {
       // eslint-disable-next-line no-console
@@ -771,9 +779,12 @@ describe('apidom-ls', function () {
   });
 
   it('test references', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specFullRefs.json',
+      'json',
+      0,
+      specFull,
+    );
 
     for (const input of refTestInput) {
       // eslint-disable-next-line no-console

@@ -14,8 +14,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
-import { SourceMap, getSourceMap, isMember, setMetadataMap } from '../../utils/utils';
-import { getParser, isAsyncDoc } from '../../parser-factory';
+import { SourceMap, getSourceMap, isMember } from '../../utils/utils';
 
 export interface SemanticTokensService {
   computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
@@ -124,27 +123,20 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
 
   // eslint-disable-next-line class-methods-use-this
   public async computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens> {
-    const parser = getParser(textDocument);
-    const text: string = textDocument.getText();
-
     const tokens: number[][] = [];
 
-    // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) {
+      return {
+        data: tokens.flat(),
+      } as SemanticTokens;
+    }
+    const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined)
       return {
         data: tokens.flat(),
       } as SemanticTokens;
-
-    // TODO use the type related metadata at root level defining the tokenTypes and modifiers
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     let lastLine = 0;
     let lastColumn = 0;

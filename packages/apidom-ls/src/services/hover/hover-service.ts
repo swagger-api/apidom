@@ -5,7 +5,7 @@ import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 
 import { LanguageSettings } from '../../apidom-language-types';
 import { getSourceMap, isMember, isObject, isArray, setMetadataMap } from '../../utils/utils';
-import { getParser, isAsyncDoc } from '../../parser-factory';
+import { isAsyncDoc } from '../../parser-factory';
 
 export interface HoverService {
   computeHover(textDocument: TextDocument, position: Position): Promise<Hover | undefined>;
@@ -27,7 +27,6 @@ export class DefaultHoverService implements HoverService {
     textDocument: TextDocument,
     position: Position,
   ): Promise<Hover | undefined> {
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
     const asyncapi: boolean = isAsyncDoc(textDocument);
     const offset = textDocument.offsetAt(position);
@@ -36,9 +35,9 @@ export class DefaultHoverService implements HoverService {
       contents: { kind: 'markdown', value: '' },
     };
 
-    // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return undefined;
+    const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
 

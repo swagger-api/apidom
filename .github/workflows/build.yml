@@ -115,7 +115,7 @@ jobs:
       run: npm run build
       working-directory: ./packages/apidom-playground
     - name: Upload build artifacts from ApiDOM Playground
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v2
       with:
         name: build
@@ -124,7 +124,7 @@ jobs:
   deploy:
 
     name: Deploy ApiDOM Playground
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
 
     needs: [ lint, test, check-typescript-types, build ]
     runs-on: ubuntu-latest

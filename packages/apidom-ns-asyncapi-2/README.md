@@ -9,8 +9,8 @@
 
 ## AsyncApi 2.x.y namespace
 
-AsyncApi 2.x.y namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-asyncapi-2/src/elements) implemented on top
-of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
+AsyncApi 2.x.y namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2/src/elements) implemented on top
+of [primitive ones](https://github.com/refractproject/minim/tree/main/lib/primitives).
 
 ```js
 import { createNamespace } from '@swagger-api/apidom-core';
@@ -36,7 +36,7 @@ const asyncApiElement = new AsyncApi2Element();
 
 ## Predicates
 
-This package exposes [predicates](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/predicates.ts)
+This package exposes [predicates](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/predicates.ts)
 for all higher order elements that are part of this namespace.
 
 ```js
@@ -50,8 +50,8 @@ isAsyncApi2Element(asyncApiElement); // => true
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L4).
-To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/master/packages/apidom-ast/README.md#visit).
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L4).
+To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 
 ```js
 import { visit } from '@swagger-api/apidom-core';
@@ -143,150 +143,150 @@ Only fully implemented specification objects should be checked here.
 
 ### Specification Objects
 
-- [x] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SObject)
-- [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SVersionString)
-- [x] [Identifier](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
-- [x] [Info Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
-- [x] [Contact Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#contactObject)
-- [x] [License Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#license-object)
-- [x] [Servers Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serversObject)
-- [x] [Server Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverObject)
-- [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverVariableObject)
-- [x] [Default Content Type](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#defaultContentTypeString)
-- [x] [Channels Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelsObject)
-- [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelItemObject)
-- [x] [Operation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationObject)
-- [x] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
-- [x] [Message Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageObject)
-- [x] [Message Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageTraitObject)
-- [x] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)
-- [x] [Tag Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tag-object)
-- [x] [External Documentation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#externalDocumentationObject)
-- [x] [Components Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#componentsObject)
-- [x] [Reference Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#referenceObject)
-- [x] [Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject)
-- [x] [Security Scheme Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#securitySchemeObject)
-- [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#security-requirement-object)
-- [x] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flows-object)
-- [x] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flow-object)
-- [x] [Server Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverBindingsObject)
-- [x] [Parameters Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parametersObject)
-- [x] [Parameter Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parameterObject)
-- [x] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object)
-- [x] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operation-bindings-object)
-- [x] [Message Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageBindingsObject)
-- [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#correlationIdObject)
-- [x] [Specification Extension](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#specificationExtensions)
+- [x] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#A2SObject)
+- [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#A2SVersionString)
+- [x] [Identifier](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#A2SIdString)
+- [x] [Info Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#A2SIdString)
+- [x] [Contact Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#contactObject)
+- [x] [License Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#license-object)
+- [x] [Servers Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#serversObject)
+- [x] [Server Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#serverObject)
+- [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#serverVariableObject)
+- [x] [Default Content Type](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#defaultContentTypeString)
+- [x] [Channels Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#channelsObject)
+- [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#channelItemObject)
+- [x] [Operation Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#operationObject)
+- [x] [Operation Trait Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#operationTraitObject)
+- [x] [Message Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#messageObject)
+- [x] [Message Trait Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#messageTraitObject)
+- [x] [Tags Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#tagsObject)
+- [x] [Tag Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#tag-object)
+- [x] [External Documentation Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#externalDocumentationObject)
+- [x] [Components Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#componentsObject)
+- [x] [Reference Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#referenceObject)
+- [x] [Schema Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#schemaObject)
+- [x] [Security Scheme Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#securitySchemeObject)
+- [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#security-requirement-object)
+- [x] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#oauth-flows-object)
+- [x] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#oauth-flow-object)
+- [x] [Server Bindings Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#serverBindingsObject)
+- [x] [Parameters Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#parametersObject)
+- [x] [Parameter Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#parameterObject)
+- [x] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#channel-bindings-object)
+- [x] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#operation-bindings-object)
+- [x] [Message Bindings Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#messageBindingsObject)
+- [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#correlationIdObject)
+- [x] [Specification Extension](https://github.com/asyncapi/spec/blob/main/spec/asyncapi.md#specificationExtensions)
 
 ### Binding Objects
 
 #### HTTP Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/http/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/http/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/http/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/http/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/http/README.md#message-binding-object)
 
 #### WebSockets Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/websockets/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/websockets/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/websockets/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/websockets/README.md#message-binding-object)
 
 #### Kafka Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/kafka/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/kafka/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/kafka/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/kafka/README.md#message-binding-object)
 
 #### Anypoint MQ Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/master/anypointmq#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/main/anypointmq#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/main/anypointmq#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/main/anypointmq#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/main/anypointmq#message-binding-object)
 
 #### AMQP 0-9-1 Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp/README.md#message-binding-object)
 
 #### AMQP 1.0 Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp1/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp1/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp1/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/amqp1/README.md#message-binding-object)
 
 #### MQTT Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt/README.md#message-binding-object)
 
 #### MQTT 5 Bindings
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt5/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt5/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt5/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/mqtt5/README.md#message-binding-object)
 
 #### NATS
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/nats/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/nats/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/nats/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/nats/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/nats/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/nats/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/nats/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/nats/README.md#message-binding-object)
 
 #### JMS
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/jms/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/jms/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/jms/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/jms/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/jms/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/jms/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/jms/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/jms/README.md#message-binding-object)
 
 #### SNS
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#message-binding-object)
 
 #### SQS
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/sqs/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/sqs/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/sqs/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/sqs/README.md#message-binding-object)
 
 #### STOMP
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/stomp/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/stomp/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/stomp/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/stomp/README.md#message-binding-object)
 
 #### Redis
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/master/redis#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/redis#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/master/redis#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/master/redis#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/main/redis#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/main/redis#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/main/redis#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/main/redis#message-binding-object)
 
 #### Mercure
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/master/mercure#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/mercure#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/master/mercure#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/master/mercure#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/main/mercure#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/main/mercure#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/tree/main/mercure#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/main/mercure#message-binding-object)
 
 #### IBM MQ
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/master/ibmmq#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/master/ibmmq#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/tree/main/ibmmq#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/tree/main/ibmmq#channel-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/tree/main/ibmmq#message-binding-object)

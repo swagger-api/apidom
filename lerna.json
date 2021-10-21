@@ -12,7 +12,7 @@
     },
     "version": {
       "allowBranch": [
-        "master"
+        "main"
       ],
       "conventionalCommits": true,
       "createRelease": "github",

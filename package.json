@@ -56,7 +56,7 @@
     "@types/chai": "=4.2.22",
     "@types/mocha": "=9.0.0",
     "@types/sinon": "=10.0.4",
-    "babel-loader": "=8.2.2",
+    "babel-loader": "=8.2.3",
     "babel-plugin-native-error-extend": "=2.0.2",
     "benchmark": "=2.1.4",
     "chai": "=4.3.4",

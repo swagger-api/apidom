@@ -67,7 +67,20 @@ describe('resolve', function () {
           });
         });
 
-        context('given Reference Objects with external resolution disable', function () {
+        context('given Reference Objects with external circular dependency', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+
+            assert.strictEqual(refSet.size, 2);
+          });
+        });
+
+        context('given Reference Objects with external resolution disabled', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 
           specify('should not resolve', async function () {
@@ -171,8 +184,8 @@ describe('resolve', function () {
           });
         });
 
-        context('given Reference Objects with resolvable circular references', function () {
-          const fixturePath = path.join(rootFixturePath, 'circular');
+        context('given Reference Objects with arbitrary circular references', function () {
+          const fixturePath = path.join(rootFixturePath, 'ignore-arbitrary-$refs');
 
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

@@ -1,12 +1,11 @@
 import path from 'path';
 import { assert } from 'chai';
 
-import { dereference, resolve } from '../../../../../src';
+import { resolve } from '../../../../../src';
 import {
   MaximumResolverDepthError,
   MaximumDereferenceDepthError,
   ResolverError,
-  DereferenceError,
 } from '../../../../../src/util/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
@@ -204,13 +203,13 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
 
             try {
-              await dereference(rootFilePath, {
+              await resolve(rootFilePath, {
                 parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
                 dereference: { maxDepth: 2 },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
-              assert.instanceOf(error, DereferenceError);
+              assert.instanceOf(error, ResolverError);
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }

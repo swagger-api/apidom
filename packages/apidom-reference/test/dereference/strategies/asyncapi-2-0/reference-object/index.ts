@@ -247,8 +247,22 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects with resolvable circular references', function () {
-          const fixturePath = path.join(rootFixturePath, 'circular');
+        context('given Reference Objects with arbitrary circular references', function () {
+          const fixturePath = path.join(rootFixturePath, 'ignore-arbitrary-$refs');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0' },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Reference Objects with external circular dependency', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

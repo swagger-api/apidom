@@ -1,13 +1,13 @@
 # @swagger-api/apidom-parser-adapter-openapi-json-3-1
 
-`@swagger-api/apidom-parser-adapter-openapi-json-3-1` is a parser adapter for the [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md) in [JSON format](https://www.json.org/json-en.html).
-Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace)
-which is then refracted with [OpenApi 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-openapi-3-1#refractors).
+`@swagger-api/apidom-parser-adapter-openapi-json-3-1` is a parser adapter for the [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) in [JSON format](https://www.json.org/json-en.html).
+Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+which is then refracted with [OpenApi 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).
 
 ## Parser adapter API
 
-This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#mounting-parser-adapters)
+This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#mounting-parser-adapters)
 and implements all required properties.
 
 ### mediaTypes
@@ -23,11 +23,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-openapi-json-3-1/src/adapter.ts#L13) is based on a regular expression matching required OpenApi 3.1.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-json-3-1/src/adapter.ts#L13) is based on a regular expression matching required OpenApi 3.1.0 specification symbols in JSON format.
 
 ### namespace
 
-This adapter exposes an instance of [OpenApi 3.1.0 ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-openapi-3-1#openapi-310-namespace).
+This adapter exposes an instance of [OpenApi 3.1.0 ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace).
 
 ### parse
 
@@ -35,15 +35,15 @@ This adapter exposes an instance of [OpenApi 3.1.0 ApiDOM namespace](https://git
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
-<a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/master/packages/apidom-ns-openapi-3-1#refractor-plugins) during refracting phase.
+<a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractor-plugins) during refracting phase.
 
 All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser).
+This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser).
 
 ### Direct usage
 
@@ -63,7 +63,7 @@ const parseResult = await parse('{"openapi": "3.1.0"}', { sourceMap: true });
 
 ### Indirect usage
 
-You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
+You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';

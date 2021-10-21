@@ -2,13 +2,13 @@
 
 `@swagger-api/apidom-parser-adapter-yaml-1-2` is a parser adapter for the [YAML 1.2 format](https://yaml.org/spec/1.2/spec.html).
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis) and
-ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis) and
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
 
 
 ## Parse phases
 
-The parse stage takes YAML string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace).
+The parse stage takes YAML string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
 There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
 
 ### Lexical Analysis
@@ -19,12 +19,12 @@ Lexical Analysis will take a YAML string and turn it into a stream of tokens.
 ### Syntactic Analysis
 
 Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis)
-and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
 
 ## Parser adapter API
 
-This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#mounting-parser-adapters)
+This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#mounting-parser-adapters)
 and implements all required properties.
 
 ### mediaTypes
@@ -37,13 +37,13 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/master/packages/apidom-parser-adapter-yaml-1-2/src/adapter.ts#L3) of this parser adapter
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/adapter.ts#L3) of this parser adapter
 always returns `false`. The reason is that it's almost impossible to detect if a source string is YAML without actually parsing it.
-Don't rely on this function, rather use `mediaType` instead and please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser#word-on-detect-vs-mediatypes).
+Don't rely on this function, rather use `mediaType` instead and please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#word-on-detect-vs-mediatypes).
 
 ### namespace
 
-This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/master/packages/apidom#base-namespace).
+This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
 
 ### parse
 
@@ -57,7 +57,7 @@ All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/master/packages/apidom-parser).
+This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser).
 
 ### Direct usage
 

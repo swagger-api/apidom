@@ -88,3 +88,17 @@ export const dereferenceApiDOM = async <T extends Element>(
   const mergedOptions = mergeOptions(defaultOptions, options);
   return dereferenceApiDOMFn(element, mergedOptions);
 };
+
+export {
+  DereferenceError,
+  InvalidSelectorError,
+  MaximumDereferenceDepthError,
+  MaximumResolverDepthError,
+  NotImplementedError,
+  ParserError,
+  PluginError,
+  ResolverError,
+  UnmatchedDereferenceStrategyError,
+  UnmatchedResolveStrategyError,
+  UnmatchedResolverError,
+} from './util/errors';

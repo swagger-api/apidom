@@ -214,7 +214,7 @@ Having said that, this is how JSON OpenAPI 3.1 document gets transformed into Ap
 JSON string -> tree-sitter CST ->  generic ApiDOM -> OpenAPI 3.1 ApiDOM
 ```
 
-**with indirect syntactic analysis (requires 2 traversals)**
+**with indirect syntactic analysis (requires 3 traversals)**
 ```
 JSON string -> tree-sitter CST -> JSON AST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM
 ```

@@ -373,7 +373,7 @@ it has been cloned to a local filesystem:
 
 ```sh
  $ npm i
- $ npm build
+ $ npm run build
  $ npm link --workspaces
 ```
 This will install the dependencies, built the monorepo and link all it's packages to

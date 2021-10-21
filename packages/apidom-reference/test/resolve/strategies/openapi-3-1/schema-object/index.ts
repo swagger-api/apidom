@@ -80,6 +80,19 @@ describe('resolve', function () {
           });
         });
 
+        context('given Schema Objects with external circular dependency', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            });
+
+            assert.strictEqual(refSet.size, 2);
+          });
+        });
+
         context('given Schema Objects with external resolution disabled', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 

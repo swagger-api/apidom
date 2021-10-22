@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/swagger-api/apidom/compare/v0.3.0...v0.4.0) (2021-10-22)
+
+
+### Features
+
+* **core:** add polymorphic support for structural predicates ([67874f6](https://github.com/swagger-api/apidom/commit/67874f631159e45afdd3e918689e200ef8ac8e07)), closes [#803](https://github.com/swagger-api/apidom/issues/803)
+
+
+
+
+
 # [0.3.0](https://github.com/swagger-api/apidom/compare/v0.2.1...v0.3.0) (2021-10-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

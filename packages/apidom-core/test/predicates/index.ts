@@ -119,6 +119,17 @@ describe('predicates', function () {
         },
       };
 
+      const stringElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: undefined,
+        primitive() {
+          return 'string';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const stringElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -128,6 +139,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isStringElement(stringElementDuck));
+      assert.isTrue(isStringElement(stringElementPolymorphicDuck));
       assert.isFalse(isStringElement(stringElementSwan));
     });
   });
@@ -175,6 +187,17 @@ describe('predicates', function () {
         },
       };
 
+      const numberElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: undefined,
+        primitive() {
+          return 'number';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const numberElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -184,6 +207,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isNumberElement(numberElementDuck));
+      assert.isTrue(isNumberElement(numberElementPolymorphicDuck));
       assert.isFalse(isNumberElement(numberElementSwan));
     });
   });
@@ -231,6 +255,17 @@ describe('predicates', function () {
         },
       };
 
+      const nullElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: undefined,
+        primitive() {
+          return 'null';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const nullElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -240,6 +275,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isNullElement(nullElementDuck));
+      assert.isTrue(isNullElement(nullElementPolymorphicDuck));
       assert.isFalse(isNullElement(nullElementSwan));
     });
   });
@@ -287,6 +323,17 @@ describe('predicates', function () {
         },
       };
 
+      const booleanElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: undefined,
+        primitive() {
+          return 'boolean';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const booleanElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -296,6 +343,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isBooleanElement(booleanElementDuck));
+      assert.isTrue(isBooleanElement(booleanElementPolymorphicDuck));
       assert.isFalse(isBooleanElement(booleanElementSwan));
     });
   });
@@ -345,6 +393,21 @@ describe('predicates', function () {
         },
       };
 
+      const arrayElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: [],
+        primitive() {
+          return 'array';
+        },
+        push() {},
+        unshift() {},
+        map() {},
+        reduce() {},
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const arrayElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -354,6 +417,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isArrayElement(arrayElementDuck));
+      assert.isTrue(isArrayElement(arrayElementPolymorphicDuck));
       assert.isFalse(isArrayElement(arrayElementSwan));
     });
   });
@@ -404,6 +468,20 @@ describe('predicates', function () {
         },
       };
 
+      const objectElementPolymorphicDuck = {
+        _storedElement: 'custom',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        keys() {},
+        values() {},
+        items() {},
+        get element() {
+          return this._storedElement;
+        },
+      };
+
       const objectElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -413,6 +491,7 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isObjectElement(objectElementDuck));
+      assert.isTrue(isObjectElement(objectElementPolymorphicDuck));
       assert.isFalse(isObjectElement(objectElementSwan));
     });
   });

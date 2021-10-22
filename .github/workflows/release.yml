@@ -2,7 +2,6 @@ name: Release monorepo packages
 on:
   workflow_dispatch:
     branches:
-      - master
       - main
 
 jobs:

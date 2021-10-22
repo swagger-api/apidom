@@ -25,57 +25,32 @@ export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq })
   return either(is(Element), both(hasBasicElementProps, primitiveEqUndefined));
 });
 
-export const isStringElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeString = isElementType('string');
-    const primitiveEqString = primitiveEq('string');
+export const isStringElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
+  const primitiveEqString = primitiveEq('string');
 
-    return either(
-      is(StringElement),
-      allPass([hasBasicElementProps, isElementTypeString, primitiveEqString]),
-    );
-  },
-);
+  return either(is(StringElement), allPass([hasBasicElementProps, primitiveEqString]));
+});
 
-export const isNumberElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeNumber = isElementType('number');
-    const primitiveEqNumber = primitiveEq('number');
+export const isNumberElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
+  const primitiveEqNumber = primitiveEq('number');
 
-    return either(
-      is(NumberElement),
-      allPass([hasBasicElementProps, isElementTypeNumber, primitiveEqNumber]),
-    );
-  },
-);
+  return either(is(NumberElement), allPass([hasBasicElementProps, primitiveEqNumber]));
+});
 
-export const isNullElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeNull = isElementType('null');
-    const primitiveEqNull = primitiveEq('null');
+export const isNullElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
+  const primitiveEqNull = primitiveEq('null');
 
-    return either(
-      is(NullElement),
-      allPass([hasBasicElementProps, isElementTypeNull, primitiveEqNull]),
-    );
-  },
-);
+  return either(is(NullElement), allPass([hasBasicElementProps, primitiveEqNull]));
+});
 
-export const isBooleanElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeBoolean = isElementType('boolean');
-    const primitiveEqBoolean = primitiveEq('boolean');
+export const isBooleanElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
+  const primitiveEqBoolean = primitiveEq('boolean');
 
-    return either(
-      is(BooleanElement),
-      allPass([hasBasicElementProps, isElementTypeBoolean, primitiveEqBoolean]),
-    );
-  },
-);
+  return either(is(BooleanElement), allPass([hasBasicElementProps, primitiveEqBoolean]));
+});
 
 export const isArrayElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasMethod }) => {
-    const isElementTypeArray = isElementType('array');
+  ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
     const primitiveEqArray = primitiveEq('array');
     const hasMethodPush = hasMethod('push');
     const hasMethodUnshift = hasMethod('unshift');
@@ -86,7 +61,6 @@ export const isArrayElement = createPredicate(
       is(ArrayElement),
       allPass([
         hasBasicElementProps,
-        isElementTypeArray,
         primitiveEqArray,
         hasMethodPush,
         hasMethodUnshift,
@@ -98,8 +72,7 @@ export const isArrayElement = createPredicate(
 );
 
 export const isObjectElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasMethod }) => {
-    const isElementTypeObject = isElementType('object');
+  ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
     const primitiveEqObject = primitiveEq('object');
     const hasMethodKeys = hasMethod('keys');
     const hasMethodValues = hasMethod('values');
@@ -109,7 +82,6 @@ export const isObjectElement = createPredicate(
       is(ObjectElement),
       allPass([
         hasBasicElementProps,
-        isElementTypeObject,
         primitiveEqObject,
         hasMethodKeys,
         hasMethodValues,

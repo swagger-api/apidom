@@ -12,7 +12,7 @@ const options = {
   name: 'lexical-analysis',
   defer: true,
   minSamples: 1400,
-  expected: '700 ops/sec ±2.15% (1476 runs sampled)',
+  expected: '780 ops/sec ±1.18% (1474 runs sampled)',
   async fn(deferred) {
     await lexicalAnalysis(source);
     deferred.resolve();

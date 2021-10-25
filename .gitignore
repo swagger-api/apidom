@@ -3,3 +3,4 @@ node_modules/
 .idea/
 *.iml
 .vscode/settings.json
+isolate-*.log

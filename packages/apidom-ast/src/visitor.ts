@@ -1,6 +1,3 @@
-import { prop, pipe, curryN } from 'ramda';
-import { isFunction, isString, isNotNil } from 'ramda-adjunct';
-
 /**
  * SPDX-FileCopyrightText: Copyright (c) GraphQL Contributors
  *
@@ -11,25 +8,25 @@ import { isFunction, isString, isNotNil } from 'ramda-adjunct';
 export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
   const typeVisitor = visitor[type];
 
-  if (isNotNil(typeVisitor)) {
-    if (!isLeaving && isFunction(typeVisitor)) {
+  if (typeVisitor != null) {
+    if (!isLeaving && typeof typeVisitor === 'function') {
       // { Type() {} }
       return typeVisitor;
     }
     const typeSpecificVisitor = isLeaving ? typeVisitor.leave : typeVisitor.enter;
-    if (isFunction(typeSpecificVisitor)) {
+    if (typeof typeSpecificVisitor === 'function') {
       // { Type: { enter() {}, leave() {} } }
       return typeSpecificVisitor;
     }
   } else {
     const specificVisitor = isLeaving ? visitor.leave : visitor.enter;
-    if (isNotNil(specificVisitor)) {
-      if (isFunction(specificVisitor)) {
+    if (specificVisitor != null) {
+      if (typeof specificVisitor === 'function') {
         // { enter() {}, leave() {} }
         return specificVisitor;
       }
       const specificTypeVisitor = specificVisitor[type];
-      if (isFunction(specificTypeVisitor)) {
+      if (typeof specificTypeVisitor === 'function') {
         // { enter: { Type() {} }, leave: { Type() {} } }
         return specificTypeVisitor;
       }
@@ -42,11 +39,10 @@ export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
 export const BREAK = {};
 
 // getNodeType :: Node -> String
-export const getNodeType = prop('type');
+export const getNodeType = (node: any) => node?.type;
 
 // isNode :: Node -> Boolean
-// @ts-ignore
-export const isNode = curryN(1, pipe(getNodeType, isString));
+export const isNode = (node: any) => typeof getNodeType(node) === 'string';
 
 /**
  * Creates a new visitor instance which delegates to many visitors to run in
@@ -65,7 +61,7 @@ export const mergeAll = (
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] == null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ false);
-          if (isFunction(fn)) {
+          if (typeof fn === 'function') {
             const result = fn.call(visitors[i], node, ...rest);
             if (result === false) {
               skipping[i] = node;
@@ -83,7 +79,7 @@ export const mergeAll = (
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] == null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ true);
-          if (isFunction(fn)) {
+          if (typeof fn === 'function') {
             const result = fn.call(visitors[i], node, ...rest);
             if (result === BREAK) {
               skipping[i] = BREAK;

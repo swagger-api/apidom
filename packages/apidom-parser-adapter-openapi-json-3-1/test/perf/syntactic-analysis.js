@@ -13,7 +13,7 @@ const options = {
   name: 'syntactic-analysis',
   defer: true,
   minSamples: 600,
-  expected: '11.64 ops/sec ±1.38% (654 runs sampled)',
+  expected: '66.69 ops/sec ±1.30% (671 runs sampled)',
   async fn(deferred) {
     const cst = await cstP;
     syntacticAnalysis(cst);

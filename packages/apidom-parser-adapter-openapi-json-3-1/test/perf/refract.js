@@ -14,7 +14,7 @@ const genericObjectElement = new ObjectElement(pojo);
 const options = {
   name: 'refract',
   minSamples: 600,
-  expected: '55.02 ops/sec ±1.39% (651 runs sampled)',
+  expected: '63.49 ops/sec ±1.08% (660 runs sampled)',
   fn() {
     OpenApi3_1Element.refract(genericObjectElement);
   },

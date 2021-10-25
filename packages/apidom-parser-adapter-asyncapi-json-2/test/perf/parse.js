@@ -13,7 +13,7 @@ const options = {
   name: 'parse',
   defer: true,
   minSamples: 600,
-  expected: '17.21 ops/sec ±2.09% (646 runs sampled)',
+  expected: '41.22 ops/sec ±1.71% (658 runs sampled)',
   async fn(deferred) {
     await parse(source);
     deferred.resolve();
@@ -23,10 +23,10 @@ const options = {
 /**
  * # Analysis of ApiDOM stages
  *
- * Parse stage: 58,1 ms
+ * Parse stage: 14,56 ms
  *   Lexical Analysis phase: 0,77 ms
- *   Syntactic Analysis phase: 46,49 ms
- * Refract stage: 2,85 ms
+ *   Syntactic Analysis phase: 8,13 ms
+ * Refract stage: 9,7 ms
  */
 
 module.exports = options;

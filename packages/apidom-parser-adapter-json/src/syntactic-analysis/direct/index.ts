@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { either, hasIn, prop } from 'ramda';
-import { invokeArgs, isFalse, isFunction } from 'ramda-adjunct';
 import { Tree as NodeTree, SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
 import { Tree as WebTree, SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import { visit, getNodeType as getCSTNodeType, isNode as isCSTNode } from '@swagger-api/apidom-ast';
@@ -50,7 +48,7 @@ const getNodeType = (node: any) => {
 };
 
 // @ts-ignore
-const isNode = either(isElement, isCSTNode);
+const isNode = (element: any) => isElement(element) || isCSTNode(element);
 
 const Visitor = stampit({
   props: {
@@ -101,11 +99,11 @@ const Visitor = stampit({
     };
 
     const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
-      return hasIn(`${fieldName}Node`, node)
+      return `${fieldName}Node` in node
         ? // @ts-ignore
-          prop(`${fieldName}Node`, node)
-        : hasIn('childForFieldName', node)
-        ? invokeArgs(['childForFieldName'], [fieldName], node)
+          node[`${fieldName}Node`]
+        : 'childForFieldName' in node
+        ? node.childForFieldName?.(fieldName)
         : null;
     };
 
@@ -119,7 +117,7 @@ const Visitor = stampit({
       // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
       // whether tree-sitter node binding has it defined as a boolean property.
       if (
-        ((isFunction(node.isNamed) && !node.isNamed()) || isFalse(node.isNamed)) &&
+        ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) &&
         node.isMissing()
       ) {
         // collect annotations from missing literals
@@ -185,21 +183,24 @@ const Visitor = stampit({
       element.content.value = getFieldFromNode('value', node);
       maybeAddSourceMap(node, element);
 
-      // process possible errors here that may be present in pair node children as we're using direct field access
-      node.children
-        // @ts-ignore
-        .filter((child: SyntaxNode) => child.type === 'ERROR')
-        .forEach((errorNode: SyntaxNode) => {
-          this.ERROR(errorNode, node, [], [node]);
-        });
+      /**
+       * Process possible errors here that may be present in pair node children as we're using direct field access.
+       * There are usually 3 children here found: "key", ":", "value".
+       */
+      if (node.children.length > 3) {
+        node.children
+          // @ts-ignore
+          .filter((child: SyntaxNode) => child.type === 'ERROR')
+          .forEach((errorNode: SyntaxNode) => {
+            this.ERROR(errorNode, node, [], [node]);
+          });
+      }
 
       return element;
     };
 
     this.string = function string(node: SyntaxNode) {
-      // @ts-ignore
-      const content = node.namedChildren.reduce((acc, child) => `${acc}${child.text}`, '');
-      const element = new StringElement(content);
+      const element = new StringElement(node.text.slice(1, -1));
       maybeAddSourceMap(node, element);
       return element;
     };
@@ -268,6 +269,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
     keyMap,
     // @ts-ignore
     nodeTypeGetter: getNodeType,
+    // @ts-ignore
     nodePredicate: isNode,
     state: {
       sourceMap,

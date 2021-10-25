@@ -1,5 +1,3 @@
-import { allPass, either, is, startsWith } from 'ramda';
-import { isNonEmptyString } from 'ramda-adjunct';
 import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api/apidom-core';
 
 import CallbackElement from './elements/Callback';
@@ -30,121 +28,101 @@ import MediaTypeElement from './elements/MediaType';
 
 export const isCallbackElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeCallback = isElementType('callback');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(CallbackElement),
-      allPass([hasBasicElementProps, isElementTypeCallback, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof CallbackElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('callback', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isComponentsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeComponents = isElementType('components');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ComponentsElement),
-      allPass([hasBasicElementProps, isElementTypeComponents, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ComponentsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('components', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isContactElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeContact = isElementType('contact');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ContactElement),
-      allPass([hasBasicElementProps, isElementTypeContact, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ContactElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('contact', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isExampleElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeExample = isElementType('example');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ExampleElement),
-      allPass([hasBasicElementProps, isElementTypeExample, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ExampleElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('example', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isExternalDocumentationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeExternalDocumentation = isElementType('externalDocumentation');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ExternalDocumentationElement),
-      allPass([hasBasicElementProps, isElementTypeExternalDocumentation, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ExternalDocumentationElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('externalDocumentation', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isHeaderElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeHeader = isElementType('header');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(HeaderElement),
-      allPass([hasBasicElementProps, isElementTypeHeader, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof HeaderElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('header', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeInfo = isElementType('info');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(InfoElement),
-      allPass([hasBasicElementProps, isElementTypeInfo, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof InfoElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('info', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isJsonSchemaDialectElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeJsonSchemaDialect = isElementType('jsonSchemaDialect');
-    const primitiveEqString = primitiveEq('string');
-
-    return either(
-      is(JsonSchemaDialectElement),
-      allPass([hasBasicElementProps, isElementTypeJsonSchemaDialect, primitiveEqString]),
-    );
+    return (element: any) =>
+      element instanceof JsonSchemaDialectElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('jsonSchemaDialect', element) &&
+        primitiveEq('string', element));
   },
 );
 
 export const isLicenseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeLicense = isElementType('license');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(LicenseElement),
-      allPass([hasBasicElementProps, isElementTypeLicense, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof LicenseElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('license', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isLinkElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeLink = isElementType('link');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(LinkElement),
-      allPass([hasBasicElementProps, isElementTypeLink, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof LinkElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('link', element) &&
+        primitiveEq('object', element));
   },
 );
 
@@ -158,69 +136,58 @@ export const isLinkElementExternal = (element: any): element is LinkElement => {
 
   const value = element.operationRef.toValue();
 
-  return isNonEmptyString(value) && !startsWith('#', value);
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
 
 export const isOpenapiElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeOpenapi = isElementType('openapi');
-    const primitiveEqString = primitiveEq('string');
-
-    return either(
-      is(OpenapiElement),
-      allPass([hasBasicElementProps, isElementTypeOpenapi, primitiveEqString]),
-    );
+    return (element: any) =>
+      element instanceof OpenapiElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('openapi', element) &&
+        primitiveEq('string', element));
   },
 );
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const isOpenApi3_1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const isElementTypeOpenApi3_1 = isElementType('openApi3_1');
-    const primitiveEqObject = primitiveEq('object');
-    const hasClassApi = hasClass('api');
-
-    return either(
-      is(OpenApi3_1Element),
-      allPass([hasBasicElementProps, isElementTypeOpenApi3_1, primitiveEqObject, hasClassApi]),
-    );
+    return (element: any) =>
+      element instanceof OpenApi3_1Element ||
+      (hasBasicElementProps(element) &&
+        isElementType('openApi3_1', element) &&
+        primitiveEq('object', element) &&
+        hasClass('api', element));
   },
 );
 
 export const isOperationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeOperation = isElementType('operation');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(OperationElement),
-      allPass([hasBasicElementProps, isElementTypeOperation, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof OperationElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('operation', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isParameterElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeParameter = isElementType('parameter');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ParameterElement),
-      allPass([hasBasicElementProps, isElementTypeParameter, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ParameterElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('parameter', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isPathItemElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypePathItem = isElementType('pathItem');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(PathItemElement),
-      allPass([hasBasicElementProps, isElementTypePathItem, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof PathItemElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('pathItem', element) &&
+        primitiveEq('object', element));
   },
 );
 
@@ -234,30 +201,26 @@ export const isPathItemElementExternal = (element: any): element is PathItemElem
 
   const value = element.$ref.toValue();
 
-  return isNonEmptyString(value) && !startsWith('#', value);
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
 
 export const isPathsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypePaths = isElementType('paths');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(PathsElement),
-      allPass([hasBasicElementProps, isElementTypePaths, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof PathsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('paths', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeReference = isElementType('reference');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ReferenceElement),
-      allPass([hasBasicElementProps, isElementTypeReference, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ReferenceElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('reference', element) &&
+        primitiveEq('object', element));
   },
 );
 
@@ -271,54 +234,46 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
 
   const value = element.$ref.toValue();
 
-  return isNonEmptyString(value) && !startsWith('#', value);
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
 
 export const isRequestBodyElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeRequestBody = isElementType('requestBody');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(RequestBodyElement),
-      allPass([hasBasicElementProps, isElementTypeRequestBody, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof RequestBodyElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('requestBody', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isResponseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeResponse = isElementType('response');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ResponseElement),
-      allPass([hasBasicElementProps, isElementTypeResponse, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ResponseElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('response', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isResponsesElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeResponses = isElementType('responses');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ResponsesElement),
-      allPass([hasBasicElementProps, isElementTypeResponses, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ResponsesElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('responses', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeSchema = isElementType('schema');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(SchemaElement),
-      allPass([hasBasicElementProps, isElementTypeSchema, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof SchemaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('schema', element) &&
+        primitiveEq('object', element));
   },
 );
 
@@ -328,48 +283,40 @@ export const isBooleanJsonSchemaElement = (element: any) => {
 
 export const isSecurityRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeSecurityRequirement = isElementType('securityRequirement');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(SecurityRequirementElement),
-      allPass([hasBasicElementProps, isElementTypeSecurityRequirement, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof SecurityRequirementElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('securityRequirement', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isServerElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeServer = isElementType('server');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ServerElement),
-      allPass([hasBasicElementProps, isElementTypeServer, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ServerElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('server', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isServerVariableElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeServerVariable = isElementType('serverVariable');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(ServerVariableElement),
-      allPass([hasBasicElementProps, isElementTypeServerVariable, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof ServerVariableElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('serverVariable', element) &&
+        primitiveEq('object', element));
   },
 );
 
 export const isMediaTypeElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeMediaType = isElementType('mediaType');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(MediaTypeElement),
-      allPass([hasBasicElementProps, isElementTypeMediaType, primitiveEqObject]),
-    );
+    return (element: any) =>
+      element instanceof MediaTypeElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('mediaType', element) &&
+        primitiveEq('object', element));
   },
 );

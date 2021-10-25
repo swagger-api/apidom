@@ -1,3 +1,4 @@
+---
 asyncapi: 2.1.0
 id: urn:com:smartylighting:streetlights:server
 info:
@@ -36,8 +37,13 @@ servers:
       - user_pass: []
     bindings: {}
 channels:
-  user/signup:
+  user/{userId}/signup:
     description: This channel is used to exchange messages about users signing up
+    parameters:
+      userId:
+        description: Id of the user.
+        schema:
+          type: stringa
     subscribe:
       summary: A user signed up.
       message:
@@ -46,9 +52,9 @@ channels:
           type: object
           properties:
             user:
-              $ref: "#/components/schemas/user"
+              "$ref": "#/components/schemas/user"
             signup:
-              $ref: "#/components/schemas/signup"
+              "$ref": "#/components/schemas/signup"
     bindings:
       amqp:
         is: queue
@@ -93,6 +99,6 @@ components:
         type: object
         properties:
           user:
-            $ref: "#/components/schemas/userCreate"
+            "$ref": "#/components/schemas/userCreate"
           signup:
-            $ref: "#/components/schemas/signup"
+            "$ref": "#/components/schemas/signup"

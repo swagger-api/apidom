@@ -106,6 +106,7 @@ export interface LinterMeta {
   linterFunction?: string;
   linterParams?: [any];
   marker?: string;
+  target?: string;
   data?: LinterMetaData;
 }
 

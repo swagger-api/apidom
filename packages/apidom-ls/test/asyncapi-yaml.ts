@@ -10,7 +10,6 @@ import {
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
-// @ts-ignore
 
 // @ts-ignore
 import getLanguageService from '../src/apidom-language-service';
@@ -21,6 +20,7 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.yaml'))
@@ -127,9 +127,19 @@ const hoverTestInput = [
 ];
 
 describe('apidom-ls-async-yaml', function () {
+  const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
+
   const context: LanguageServiceContext = {
     metadata: metadata(),
+    validatorProviders: [asyncJsonSchemavalidationProvider],
   };
+
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -138,28 +148,92 @@ describe('apidom-ls-async-yaml', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
-
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.json', 'json', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
     const expected = [
       {
-        range: { start: { line: 2, character: 0 }, end: { line: 2, character: 4 } },
-        message: "should have required property 'version'",
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
       },
       {
-        range: { start: { line: 56, character: 0 }, end: { line: 56, character: 10 } },
-        message: 'should NOT have additional properties',
+        range: {
+          start: {
+            line: 2,
+            character: 0,
+          },
+          end: {
+            line: 2,
+            character: 4,
+          },
+        },
+        message: "must have required property 'version'",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
-    doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
+    doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
 
     // TODO yaml errors not recovered? no result?
@@ -203,9 +277,12 @@ describe('apidom-ls-async-yaml', function () {
       maxNumberOfItems: 100,
     };
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -223,9 +300,12 @@ describe('apidom-ls-async-yaml', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSymbols.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -259,13 +339,11 @@ describe('apidom-ls-async-yaml', function () {
   it('test semantic highlighting async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotes.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -297,13 +375,11 @@ describe('apidom-ls-async-yaml', function () {
   it('test hover async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotes.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console

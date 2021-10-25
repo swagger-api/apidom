@@ -23,6 +23,7 @@ import {
 import { metadata } from './metadata';
 import { getParser } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
+import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.json'))
@@ -138,9 +139,19 @@ const hoverTestInput = [
 ];
 
 describe('apidom-ls-async', function () {
+  const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
+
   const context: LanguageServiceContext = {
     metadata: metadata(),
+    validatorProviders: [asyncJsonSchemavalidationProvider],
   };
+
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -149,63 +160,111 @@ describe('apidom-ls-async', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
-
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.json', 'json', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
     const expected = [
       {
-        code: 0,
-        message: 'should be equal to one of the allowed values',
         range: {
-          end: {
-            character: 12,
-            line: 1,
-          },
           start: {
-            character: 2,
             line: 1,
-          },
-        },
-        severity: 1,
-      },
-      {
-        code: 0,
-        message: "should have required property 'version'",
-        range: {
-          end: {
-            character: 8,
-            line: 3,
-          },
-          start: {
-            character: 2,
-            line: 3,
-          },
-        },
-        severity: 1,
-      },
-      {
-        code: 0,
-        message: 'should NOT have additional properties',
-        range: {
-          end: {
             character: 14,
-            line: 86,
           },
-          start: {
-            character: 2,
-            line: 86,
+          end: {
+            line: 1,
+            character: 21,
           },
         },
+        message: "'asyncapi' value must be 2.0.0",
         severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 2,
+          },
+          end: {
+            line: 3,
+            character: 8,
+          },
+        },
+        message: "must have required property 'version'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 54,
+            character: 20,
+          },
+          end: {
+            line: 56,
+            character: 11,
+          },
+        },
+        message:
+          'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 14,
+          },
+          end: {
+            line: 1,
+            character: 21,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 14,
+          },
+          end: {
+            line: 1,
+            character: 21,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
       },
     ];
 
     assert.deepEqual(result, expected as Diagnostic[]);
-    doc = TextDocument.create('foo://bar/file.json', 'json', 0, specError);
-    console.dir(doc);
+
+    doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
 
     assert.deepEqual(result, [
@@ -223,6 +282,7 @@ describe('apidom-ls-async', function () {
           },
         },
         severity: 1,
+        source: 'syntax',
       },
       {
         code: 0,
@@ -238,6 +298,7 @@ describe('apidom-ls-async', function () {
           },
         },
         severity: 1,
+        source: 'syntax',
       },
     ]);
   });
@@ -247,9 +308,12 @@ describe('apidom-ls-async', function () {
       maxNumberOfItems: 100,
     };
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -267,9 +331,12 @@ describe('apidom-ls-async', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSymbols.json',
+      'json',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -302,13 +369,11 @@ describe('apidom-ls-async', function () {
   it('test semantic highlighting async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightAsync.json',
       'json',
       0,
       specHighlightAsync,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -341,13 +406,11 @@ describe('apidom-ls-async', function () {
   it('test hover async', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightAsyncHover.json',
       'json',
       0,
       specHighlightAsync,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console
@@ -360,9 +423,7 @@ describe('apidom-ls-async', function () {
   });
 
   it('test deref async', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specDeref);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc: TextDocument = TextDocument.create('foo://bar/specDeref.json', 'json', 0, specDeref);
 
     const result = await languageService.doDeref(doc, {
       format: FORMAT.JSON,
@@ -376,7 +437,7 @@ describe('apidom-ls-async', function () {
 
   // eslint-disable-next-line consistent-return
   it('test parse json', async function () {
-    const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, specFull);
+    const doc: TextDocument = TextDocument.create('foo://bar/specFull.json', 'json', 0, specFull);
 
     const parser = getParser(doc);
     const text: string = doc.getText();

@@ -1,15 +1,20 @@
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, traverse } from '@swagger-api/apidom-core';
+import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
-import { getParser, isAsyncDoc, isJsonDoc } from '../../parser-factory';
-import { APIDOM_LINTER, LanguageSettings, ValidationContext } from '../../apidom-language-types';
+import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import {
-  setMetadataMap,
+  APIDOM_LINTER,
+  LanguageSettings,
+  ValidationContext,
+  ValidationProvider,
+} from '../../apidom-language-types';
+import {
   getSourceMap,
   LinterMeta,
   isMember,
+  isObject,
   QuickFixData,
   MetadataMap,
 } from '../../utils/utils';
@@ -24,17 +29,8 @@ export interface ValidationService {
   doCodeActions(textDocument: TextDocument, parms: CodeActionParams): Promise<CodeAction[]>;
 
   configure(settings: LanguageSettings): void;
-}
 
-/* represent any validation provider  */
-export interface ValidationProvider {
-  doValidation(
-    textDocument: TextDocument,
-    api: Element,
-    validationContext?: ValidationContext,
-  ): Promise<Diagnostic[]>;
-
-  configure(settings: LanguageSettings): void;
+  registerProvider(provider: ValidationProvider): void;
 }
 
 export class DefaultValidationService implements ValidationService {
@@ -44,18 +40,29 @@ export class DefaultValidationService implements ValidationService {
 
   private settings: LanguageSettings | undefined;
 
-  private jsonSchemaValidationService: ValidationProvider;
+  private validationProviders: ValidationProvider[] = [];
 
-  public constructor(jsonSchemaValidationService: ValidationProvider) {
+  public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
-    this.jsonSchemaValidationService = jsonSchemaValidationService;
+  }
+
+  public registerProvider(provider: ValidationProvider): void {
+    this.validationProviders.push(provider);
+    if (this.settings) {
+      provider.configure(this.settings);
+    }
   }
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings) {
-      this.jsonSchemaValidationService.configure(settings);
+      if (settings.validatorProviders) {
+        this.validationProviders = settings.validatorProviders;
+      }
+      for (const provider of this.validationProviders) {
+        provider.configure(settings);
+      }
       this.validationEnabled = settings.validate;
       this.commentSeverity = settings.allowComments ? undefined : DiagnosticSeverity.Error;
     }
@@ -75,23 +82,16 @@ export class DefaultValidationService implements ValidationService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
 
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return diagnostics;
     const { api } = result;
 
+    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (api === undefined) return diagnostics;
-
-    // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
     if (result.annotations) {
       for (const annotation of result.annotations) {
         if (
@@ -112,6 +112,7 @@ export class DefaultValidationService implements ValidationService {
           annotation.toValue(),
           DiagnosticSeverity.Error,
           0,
+          'syntax',
         );
         if (validationContext && validationContext.relatedInformation) {
           diagnostic.relatedInformation = [
@@ -138,11 +139,21 @@ export class DefaultValidationService implements ValidationService {
     const hasSyntaxErrors = !!diagnostics.length;
     if (!hasSyntaxErrors) {
       // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-      this.jsonSchemaValidationService
-        .doValidation(textDocument, api, validationContext)
-        .then((jsonSchemaDiagnostics) => {
-          diagnostics.push(...jsonSchemaDiagnostics);
-        });
+
+      const allProvidersDiagnostics: Diagnostic[] = [];
+      for (const provider of this.validationProviders) {
+        if (provider.namespaces().includes(docNs)) {
+          allProvidersDiagnostics.push(
+            ...// eslint-disable-next-line no-await-in-loop
+            (await provider.doValidation(textDocument, api, validationContext)),
+          );
+          if (provider.break()) {
+            break;
+          }
+        }
+      }
+
+      diagnostics.push(...allProvidersDiagnostics);
     }
 
     const lint = (element: Element) => {
@@ -166,10 +177,7 @@ export class DefaultValidationService implements ValidationService {
                   standardLinterfunctions.find((e) => e.functionName === linterFuncName)?.function;
                 // else get it from configuration
                 if (!lintFunc) {
-                  lintFunc =
-                    this.settings?.metadata?.linterFunctions[
-                      isAsyncDoc(text) ? 'asyncapi' : 'openapi'
-                    ][linterFuncName];
+                  lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];
                 }
                 if (lintFunc) {
                   try {
@@ -182,6 +190,15 @@ export class DefaultValidationService implements ValidationService {
                     if (!lintRes) {
                       // add to diagnostics
                       let lintSm = sm;
+                      if (meta.target) {
+                        if (isObject(element) && element.hasKey(meta.target)) {
+                          if (meta.marker === 'key') {
+                            lintSm = getSourceMap(element.getMember(meta.target).key as Element);
+                          } else if (meta.marker === 'value') {
+                            lintSm = getSourceMap(element.get(meta.target) as Element);
+                          }
+                        }
+                      }
                       if (meta.marker === 'key') {
                         const { parent } = element;
                         if (parent && isMember(parent) && parent.key !== element) {
@@ -271,23 +288,41 @@ export class DefaultValidationService implements ValidationService {
       return Promise.resolve([]);
     }
 
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
-    return parser.parse(text, { sourceMap: true }).then((result) => {
+    return this.settings!.documentCache!.get(textDocument).then((result) => {
+      if (!result) {
+        return [];
+      }
       const { api } = result;
       if (!api) {
         return [];
       }
-      api.freeze(); // !! freeze and add parent !!
       const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
       const codeActions: CodeAction[] = [];
+      // TODO deduplicate, action maps elsewhere
       diagnostics.forEach((diag) => {
         const quickFix = this.findQuickFix(diag, lang, String(diag.code));
         if (quickFix)
-          if (quickFix.action === 'transformValue') {
-            // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
-            if (quickFix.function === 'tranformToLowercase') {
+          if (quickFix.action === 'updateValue') {
+            let newText: string | undefined;
+            if (quickFix.function === 'transformToLowercase') {
+              newText = textDocument.getText(diag.range).toLowerCase();
+            } else if (!quickFix.function) {
+              if (quickFix.functionParams && quickFix.functionParams.length > 0) {
+                [newText] = quickFix.functionParams;
+              }
+            }
+            const oldText = textDocument.getText(diag.range);
+            const oldTextquotes =
+              oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
+                ? oldText.charAt(0)
+                : undefined;
+            const quotedInsertText = newText && oldTextquotes && newText.startsWith(oldTextquotes);
+            if (oldTextquotes && !quotedInsertText) {
+              newText = oldTextquotes + newText + oldTextquotes;
+            }
+            if (newText) {
               codeActions.push({
                 // @ts-ignore
                 title: quickFix.message,
@@ -298,12 +333,66 @@ export class DefaultValidationService implements ValidationService {
                     [documentUri]: [
                       {
                         range: diag.range,
-                        newText: textDocument.getText(diag.range).toLowerCase(),
+                        newText,
                       },
                     ],
                   },
                 },
               });
+            }
+          } else if (quickFix.action === 'updateFieldValue') {
+            let newText: string | undefined;
+            // assume params exist
+            // @ts-ignore
+            const [target, value] = quickFix.functionParams;
+            // get element from range
+            const offset = textDocument.offsetAt(diag.range.start);
+            // find the current node
+            const node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
+            // only if we have a node
+            if (node && isObject(node) && node.hasKey(target)) {
+              // range of child value
+              const targetSm = node.get(target);
+              const location = { offset: targetSm.offset, length: targetSm.length };
+              const targetRange = Range.create(
+                textDocument.positionAt(location.offset),
+                textDocument.positionAt(location.offset + location.length),
+              );
+              if (quickFix.function === 'transformToLowercase') {
+                newText = textDocument.getText(diag.range).toLowerCase();
+              } else if (!quickFix.function) {
+                if (quickFix.functionParams && quickFix.functionParams.length > 0) {
+                  [newText] = value;
+                }
+              }
+              const oldText = textDocument.getText(diag.range);
+              const oldTextquotes =
+                oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
+                  ? oldText.charAt(0)
+                  : undefined;
+              const quotedInsertText =
+                newText && oldTextquotes && newText.startsWith(oldTextquotes);
+              if (oldTextquotes && !quotedInsertText) {
+                newText = oldTextquotes + newText + oldTextquotes;
+              }
+              if (newText) {
+                codeActions.push({
+                  // @ts-ignore
+                  title: quickFix.message,
+                  kind: CodeActionKind.QuickFix,
+                  diagnostics: [diag],
+                  edit: {
+                    changes: {
+                      [documentUri]: [
+                        {
+                          range: targetRange,
+                          newText,
+                        },
+                      ],
+                    },
+                  },
+                });
+              }
             }
           } else if (quickFix.action === 'addChild') {
             // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere

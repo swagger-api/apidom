@@ -2,8 +2,6 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionList,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  InsertTextFormat,
   Position,
   Range,
   TextEdit,
@@ -24,9 +22,8 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { setMetadataMap, getSourceMap, isMember, isObject } from '../../utils/utils';
-import { getParser, isJsonDoc, isAsyncDoc } from '../../parser-factory';
+import { getSourceMap, isMember, isObject } from '../../utils/utils';
+import { isJsonDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -69,9 +66,9 @@ enum CompletionNodeContext {
 export class DefaultCompletionService implements CompletionService {
   private settings: LanguageSettings | undefined;
 
-  private jsonSchemaCompletionService: CompletionService;
+  private jsonSchemaCompletionService: CompletionService | undefined;
 
-  public constructor(jsonSchemaCompletionService: CompletionService) {
+  public constructor(jsonSchemaCompletionService?: CompletionService) {
     this.jsonSchemaCompletionService = jsonSchemaCompletionService;
   }
 
@@ -171,7 +168,6 @@ export class DefaultCompletionService implements CompletionService {
         : completionParamsOrPosition;
 
     // get right parser
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
     const schema = false;
@@ -194,18 +190,11 @@ export class DefaultCompletionService implements CompletionService {
     }
 
     // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return CompletionList.create();
+    const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return CompletionList.create();
-
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     const completionList: CompletionList = {
       items: [],
@@ -216,16 +205,14 @@ export class DefaultCompletionService implements CompletionService {
     // find the current node
     const node = findAtOffset({ offset, includeRightBound: true }, api);
     // only if we have a node
-    // TODO add jsonSchema completion, see experiments/apidom-monaco and vscode-json-languageservice
     if (node) {
-      // const sm = getSourceMap(node);
       const caretContext = this.resolveCaretContext(node, offset);
       const completionNode = this.resolveCompletionNode(node, caretContext);
-      // const completionNodeSm = getSourceMap(completionNode);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
       // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
 
-      let overwriteRange: Range;
+      let overwriteRange: Range | undefined;
+      let quotes: string | undefined;
 
       const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
 
@@ -236,6 +223,7 @@ export class DefaultCompletionService implements CompletionService {
           const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
           let { label } = item;
           const existing = proposed[label];
+          // don't suggest properties that are already present
           if (!existing) {
             label = label.replace(/[\n]/g, '↵');
             if (label.length > 60) {
@@ -268,9 +256,8 @@ export class DefaultCompletionService implements CompletionService {
         },
       };
 
-      // don't suggest properties that are already present
       if (
-        isObject(completionNode) && // TODO added to get type check on node
+        isObject(completionNode) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
           CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
         (caretContext === CaretContext.KEY_INNER ||
@@ -284,12 +271,6 @@ export class DefaultCompletionService implements CompletionService {
             proposed[p.key.toValue()] = CompletionItem.create('__');
           }
         }
-      }
-
-      if (schema) {
-        // TODO complete schema based, see json language service and "lsp" branch
-        // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
-      } else {
         const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
         DefaultCompletionService.getMetadataPropertyCompletions(
           api,
@@ -298,15 +279,126 @@ export class DefaultCompletionService implements CompletionService {
           !isJsonDoc(textDocument),
           inNewLine,
         );
+      } else if (
+        // in a primitive value node
+        !isObject(completionNode) &&
+        (caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_INNER ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_END ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_START)
+      ) {
+        const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
+        const nodeSourceMap = getSourceMap(completionNode);
+        // TODO Apidom doesn't hold quotes in its content currently, therefore we must use text + offset
+        const nodeValueFromText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
+        quotes =
+          nodeValueFromText.charAt(0) === '"' || nodeValueFromText.charAt(0) === "'"
+            ? nodeValueFromText.charAt(0)
+            : undefined;
+        const word = DefaultCompletionService.getCurrentWord(textDocument, offset);
+        proposed[completionNode.toValue()] = CompletionItem.create('__');
+        proposed[nodeValueFromText] = CompletionItem.create('__');
+        let withQuotes = false;
+        // if node is not empty we must replace text
+        if (nodeValueFromText.length > 0) {
+          /*
+          cases:
+
+          - quoted string, offset inside quotes
+          - quoted string, offset before quotes
+          - quoted empty string, offset before quotes
+          - quoted empty string, offset before quoted
+          - non quoted string
+           */
+
+          enum CompletionOffsetContextEnum {
+            NON_QUOTED,
+            QUOTED_INSIDE,
+            QUOTED_BEFORE,
+            EMPTY_QUOTED_INSIDE,
+            EMPTY_QUOTED_BEFORE,
+          }
+
+          let completionOffsetContext = CompletionOffsetContextEnum.NON_QUOTED;
+
+          if (quotes && offset > nodeSourceMap.offset && completionNode.toValue().length > 0) {
+            completionOffsetContext = CompletionOffsetContextEnum.QUOTED_INSIDE;
+          } else if (
+            quotes &&
+            offset <= nodeSourceMap.offset &&
+            completionNode.toValue().length > 0
+          ) {
+            completionOffsetContext = CompletionOffsetContextEnum.QUOTED_BEFORE;
+          } else if (
+            quotes &&
+            offset <= nodeSourceMap.offset &&
+            completionNode.toValue().length === 0
+          ) {
+            completionOffsetContext = CompletionOffsetContextEnum.EMPTY_QUOTED_BEFORE;
+          } else if (
+            quotes &&
+            offset > nodeSourceMap.offset &&
+            completionNode.toValue().length === 0
+          ) {
+            completionOffsetContext = CompletionOffsetContextEnum.EMPTY_QUOTED_INSIDE;
+          }
+          const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+          let targetRangeStart = location.offset;
+          let targetRangeEnd = location.offset + location.length;
+
+          if (completionOffsetContext === CompletionOffsetContextEnum.QUOTED_INSIDE) {
+            withQuotes = false;
+            targetRangeStart = location.offset + 1;
+            targetRangeEnd = location.offset - 1 + location.length;
+          } else if (completionOffsetContext === CompletionOffsetContextEnum.QUOTED_BEFORE) {
+            withQuotes = true;
+            targetRangeStart = location.offset;
+            targetRangeEnd = location.offset + location.length;
+          } else if (completionOffsetContext === CompletionOffsetContextEnum.EMPTY_QUOTED_INSIDE) {
+            withQuotes = false;
+            targetRangeStart = location.offset + 1;
+            targetRangeEnd = location.offset - 1 + location.length;
+          } else if (completionOffsetContext === CompletionOffsetContextEnum.EMPTY_QUOTED_BEFORE) {
+            withQuotes = true;
+            targetRangeStart = location.offset;
+            targetRangeEnd = location.offset + location.length;
+          }
+
+          overwriteRange = Range.create(
+            textDocument.positionAt(targetRangeStart),
+            textDocument.positionAt(targetRangeEnd),
+          );
+        } else {
+          // node is empty
+          overwriteRange = undefined;
+        }
+        DefaultCompletionService.getMetadataPropertyCompletions(
+          api,
+          completionNode,
+          collector,
+          !isJsonDoc(textDocument),
+          inNewLine,
+          word,
+          quotes,
+          withQuotes,
+        );
+      }
+
+      if (schema) {
+        // TODO complete schema based, see json language service and "lsp" branch
+        // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
+      } else {
+        //
       }
     }
 
-    this.jsonSchemaCompletionService
-      .doCompletion(textDocument, completionParamsOrPosition, completionContext)
-      .then((schemaList) => {
-        completionList.items.push(...schemaList.items);
-      });
-
+    if (this.jsonSchemaCompletionService) {
+      this.jsonSchemaCompletionService
+        .doCompletion(textDocument, completionParamsOrPosition, completionContext)
+        .then((schemaList) => {
+          completionList.items.push(...schemaList.items);
+        });
+    }
     return completionList;
   }
 
@@ -366,19 +458,48 @@ export class DefaultCompletionService implements CompletionService {
     collector: CompletionsCollector,
     yaml: boolean,
     inNewLine: boolean,
+    word?: string,
+    quotes?: string,
+    withQuotes?: boolean,
   ): void {
-    const apidomCompletions: CompletionItem[] = doc.meta
-      .get('metadataMap')
-      ?.get(node.element)
-      ?.get(yaml ? 'yaml' : 'json')
-      ?.get('completion')
-      ?.toValue();
+    const apidomCompletions: CompletionItem[] = [];
+    if (node.classes) {
+      const set: string[] = Array.from(new Set(node.classes.toValue()));
+      set.unshift(node.element);
+      set.forEach((s) => {
+        const classCompletions: CompletionItem[] = doc.meta
+          .get('metadataMap')
+          ?.get(s)
+          ?.get(yaml ? 'yaml' : 'json')
+          ?.get('completion')
+          ?.toValue();
+        if (classCompletions) {
+          apidomCompletions.push(...classCompletions);
+        }
+      });
+    }
+
     if (apidomCompletions) {
       for (const item of apidomCompletions) {
+        if (withQuotes) {
+          const completionTextQuotes =
+            item.insertText?.charAt(0) === '"' || item.insertText?.charAt(0) === "'"
+              ? item.insertText?.charAt(0)
+              : undefined;
+          if (!completionTextQuotes && quotes) {
+            item.insertText = quotes + item.insertText + quotes;
+          }
+        }
         if (inNewLine) {
           item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
         }
-        collector.add(item);
+
+        const strippedQuotesWord = quotes && word ? word.substring(1, word.length) : word!;
+        if (word && word.length > 0 && item.insertText?.startsWith(strippedQuotesWord)) {
+          collector.add(item);
+        } else if (!word) {
+          collector.add(item);
+        }
       }
     }
   }

@@ -1802,6 +1802,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -1851,6 +1862,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -1959,6 +1981,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -2008,6 +2041,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -2742,6 +2786,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "json-schema-type"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "integer"
                                                                 }
                                                               }
@@ -2890,6 +2945,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "string",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-type"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": "object"
                                                             }
                                                           }
@@ -3422,6 +3488,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                             },
                                                                             "value": {
                                                                               "element": "string",
+                                                                              "meta": {
+                                                                                "classes": {
+                                                                                  "element": "array",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "element": "string",
+                                                                                      "content": "json-schema-type"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
                                                                               "content": "integer"
                                                                             }
                                                                           }
@@ -3598,6 +3675,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -3647,6 +3735,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -3821,6 +3920,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -4841,6 +4951,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -4890,6 +5011,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -4998,6 +5130,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -5047,6 +5190,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -5781,6 +5935,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "json-schema-type"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "integer"
                                                                 }
                                                               }
@@ -5929,6 +6094,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "string",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-type"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": "object"
                                                             }
                                                           }
@@ -6461,6 +6637,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                             },
                                                                             "value": {
                                                                               "element": "string",
+                                                                              "meta": {
+                                                                                "classes": {
+                                                                                  "element": "array",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "element": "string",
+                                                                                      "content": "json-schema-type"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
                                                                               "content": "integer"
                                                                             }
                                                                           }
@@ -6637,6 +6824,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -6686,6 +6884,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -6837,6 +7046,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -7110,6 +7330,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-type"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "object"
                                 }
                               }
@@ -7607,6 +7838,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-type"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "integer"
                                         }
                                       }
@@ -10385,6 +10627,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -10434,6 +10687,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -10542,6 +10806,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -10591,6 +10866,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -11325,6 +11611,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "json-schema-type"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "integer"
                                                                 }
                                                               }
@@ -11627,6 +11924,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "string",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-type"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": "object"
                                                             }
                                                           }
@@ -12159,6 +12467,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                                             },
                                                                             "value": {
                                                                               "element": "string",
+                                                                              "meta": {
+                                                                                "classes": {
+                                                                                  "element": "array",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "element": "string",
+                                                                                      "content": "json-schema-type"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
                                                                               "content": "integer"
                                                                             }
                                                                           }
@@ -12423,6 +12742,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -12472,6 +12802,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -12646,6 +12987,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -13895,6 +14247,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -14203,6 +14566,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-type"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "object"
                                 }
                               }
@@ -14700,6 +15074,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-type"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "integer"
                                         }
                                       }
@@ -18133,6 +18518,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -18182,6 +18578,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "string",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-type"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": "integer"
                                                                     }
                                                                   }
@@ -18313,6 +18720,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -18362,6 +18780,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "object"
                                                 }
                                               }
@@ -19096,6 +19525,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                 },
                                                                 "value": {
                                                                   "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "json-schema-type"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
                                                                   "content": "integer"
                                                                 }
                                                               }
@@ -19470,6 +19910,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "string",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-type"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": "object"
                                                             }
                                                           }
@@ -20002,6 +20453,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                             },
                                                                             "value": {
                                                                               "element": "string",
+                                                                              "meta": {
+                                                                                "classes": {
+                                                                                  "element": "array",
+                                                                                  "content": [
+                                                                                    {
+                                                                                      "element": "string",
+                                                                                      "content": "json-schema-type"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
                                                                               "content": "integer"
                                                                             }
                                                                           }
@@ -20338,6 +20800,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -20387,6 +20860,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "string",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-type"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": "integer"
                                                         }
                                                       }
@@ -20584,6 +21068,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -21882,6 +22377,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-type"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "integer"
                                                 }
                                               }
@@ -22190,6 +22696,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-type"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "object"
                                 }
                               }
@@ -22687,6 +23204,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-type"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "integer"
                                         }
                                       }

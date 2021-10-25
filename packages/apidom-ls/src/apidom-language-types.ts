@@ -24,8 +24,10 @@ import {
   DefinitionParams,
   ReferenceParams,
 } from 'vscode-languageserver-protocol';
+import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
 import { Metadata } from './utils/utils';
+import { DocumentCache } from './document-cache';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export enum SUPPORTED_LANGUAGES {
@@ -44,12 +46,32 @@ export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
   metadata?: Metadata;
+  validatorProviders?: ValidationProvider[];
+}
+
+/* represent any validation provider  */
+export interface ValidationProvider {
+  namespaces(): string[];
+
+  break(): boolean;
+
+  doValidation(
+    textDocument: TextDocument,
+    api: Element,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]>;
+
+  configure(settings: LanguageSettings): void;
+
+  name(): string;
 }
 
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
+  validatorProviders?: ValidationProvider[];
   metadata?: Metadata;
+  documentCache?: DocumentCache<ParseResultElement>;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -129,4 +151,5 @@ export interface LanguageService {
   getColorPresentations(document: TextDocument, color: Color, range: Range): ColorPresentation[];
 
   format(document: TextDocument, range: Range, options: FormattingOptions): TextEdit[];
+  terminate(): void;
 }

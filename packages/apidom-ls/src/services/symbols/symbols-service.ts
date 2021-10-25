@@ -4,8 +4,7 @@ import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from '@swagger-api/apidom-core';
 import { SymbolKind } from 'vscode-languageserver-types';
 
-import { getParser, isAsyncDoc } from '../../parser-factory';
-import { setMetadataMap, getSourceMap, isMember, SourceMap } from '../../utils/utils';
+import { getSourceMap, isMember, SourceMap } from '../../utils/utils';
 import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
 
 export interface SymbolsService {
@@ -32,22 +31,11 @@ export class DefaultSymbolsService implements SymbolsService {
   ): Promise<SymbolInformation[]> {
     // TODO use added metadata instead of classes and stuff
 
-    const parser = getParser(textDocument);
-    const text: string = textDocument.getText();
-
-    // parse
-    const { api } = await parser.parse(text, { sourceMap: true });
-
+    const result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return [];
+    const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return [];
-
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
-    api.freeze(); // !! freeze and add parent !!
 
     const symbols: SymbolInformation[] = [];
 

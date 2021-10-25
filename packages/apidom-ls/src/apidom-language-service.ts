@@ -8,8 +8,8 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { DefaultJsonSchemaService } from './services/json-schema/json-schema-service';
 import {
   ColorsContext,
   LanguageService,
@@ -23,20 +23,20 @@ import { DefaultSemanticTokensService } from './services/semantic-tokens/semanti
 import { DefaultHoverService } from './services/hover/hover-service';
 import { DefaultDerefService } from './services/deref/deref-service';
 import { DefaultDefinitionService } from './services/definition/definition-service';
+import { getDocumentCache } from './document-cache';
+import { parse } from './parser-factory';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
-  const jsonSchemaService = new DefaultJsonSchemaService();
   const symbolsService = new DefaultSymbolsService();
-  const completionService = new DefaultCompletionService(jsonSchemaService);
-  const validationService = new DefaultValidationService(jsonSchemaService);
+  const completionService = new DefaultCompletionService();
+  const validationService = new DefaultValidationService();
   const semanticTokensService = new DefaultSemanticTokensService();
   const hoverService = new DefaultHoverService();
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
 
   function configureServices(languageSettings?: LanguageSettings) {
-    jsonSchemaService.configure(languageSettings);
     symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
     completionService.configure(languageSettings);
@@ -46,11 +46,17 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     definitionService.configure(languageSettings);
   }
 
+  const documentCache = getDocumentCache<ParseResultElement>(10, 60, (document) =>
+    parse(document, context?.metadata?.metadataMaps),
+  );
+
   // TODO solve init and config
   if (context.metadata) {
     const languageSettings: LanguageSettings = {
       metadata: context.metadata,
       validate: true,
+      validatorProviders: context.validatorProviders,
+      documentCache,
     };
     configureServices(languageSettings);
   }
@@ -94,6 +100,9 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getColorPresentations(document: TextDocument, color: Color, range: Range): ColorPresentation[] {
       return [];
+    },
+    terminate(): void {
+      documentCache.dispose();
     },
   };
 }

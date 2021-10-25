@@ -15,4 +15,30 @@ export const standardLinterfunctions = [
       return true;
     },
   },
+  {
+    functionName: 'apilintFieldValueRegex',
+    function: (element: Element, key: string, regexString: string): boolean => {
+      if (element && isObject(element)) {
+        if (element.get(key)) {
+          const regex = new RegExp(regexString);
+          if (!regex.test(element.get(key).toValue())) {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintValueRegex',
+    function: (element: Element, regexString: string): boolean => {
+      if (element) {
+        const regex = new RegExp(regexString);
+        if (!regex.test(element.toValue())) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
 ];

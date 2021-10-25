@@ -20,6 +20,7 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 
 // eslint-disable-next-line import/prefer-default-export
 export function logj(e: unknown, label?: string): void {
@@ -139,9 +140,18 @@ const hoverTestInput = [
 ];
 
 describe('apidom-ls-yaml', function () {
+  const oasJsonSchemavalidationProvider = new OpenAPi31JsonSchemaValidationProvider();
   const context: LanguageServiceContext = {
     metadata: metadata(),
+    validatorProviders: [oasJsonSchemavalidationProvider],
   };
+
+  const languageService: LanguageService = getLanguageService(context);
+
+  after(function () {
+    languageService.terminate();
+  });
+
   it('test parse and syntax validation', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -150,42 +160,11 @@ describe('apidom-ls-yaml', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, spec);
-    const languageService: LanguageService = getLanguageService(context);
+    let doc: TextDocument = TextDocument.create('foo://bar/spec.yaml', 'yaml', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
 
     const expected = [
-      {
-        range: {
-          start: {
-            line: 3,
-            character: 0,
-          },
-          end: {
-            line: 3,
-            character: 4,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 3,
-            character: 0,
-          },
-          end: {
-            line: 3,
-            character: 4,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
       {
         range: {
           start: {
@@ -197,39 +176,42 @@ describe('apidom-ls-yaml', function () {
             character: 9,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must match exactly one schema in oneOf',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 78,
-            character: 6,
+            line: 3,
+            character: 0,
           },
           end: {
-            line: 78,
-            character: 16,
+            line: 3,
+            character: 4,
           },
         },
-        message: 'should be array',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 85,
-            character: 6,
+            line: 55,
+            character: 9,
           },
           end: {
-            line: 85,
-            character: 15,
+            line: 55,
+            character: 45,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must match format "uri-reference"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -242,69 +224,42 @@ describe('apidom-ls-yaml', function () {
             character: 14,
           },
         },
-        message: 'should be array',
+        message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 28,
-            character: 8,
+            line: 78,
+            character: 6,
           },
           end: {
-            line: 28,
-            character: 10,
+            line: 78,
+            character: 16,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 28,
-            character: 8,
+            line: 85,
+            character: 6,
           },
           end: {
-            line: 28,
-            character: 10,
+            line: 85,
+            character: 15,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 28,
-            character: 8,
-          },
-          end: {
-            line: 28,
-            character: 10,
-          },
-        },
-        message: "should have required property '$ref'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 28,
-            character: 8,
-          },
-          end: {
-            line: 28,
-            character: 10,
-          },
-        },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -317,9 +272,10 @@ describe('apidom-ls-yaml', function () {
             character: 11,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -332,180 +288,79 @@ describe('apidom-ls-yaml', function () {
             character: 11,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 25,
+            line: 30,
             character: 4,
           },
           end: {
-            line: 25,
-            character: 11,
-          },
-        },
-        message: "should have required property '$ref'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 25,
-            character: 4,
-          },
-          end: {
-            line: 25,
-            character: 11,
-          },
-        },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 37,
+            line: 30,
             character: 8,
           },
+        },
+        message: 'must NOT have unevaluated properties',
+        severity: 1,
+        code: 0,
+        source: 'openapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 30,
+            character: 4,
+          },
           end: {
-            line: 37,
+            line: 30,
+            character: 8,
+          },
+        },
+        message: 'must NOT have unevaluated properties',
+        severity: 1,
+        code: 0,
+        source: 'openapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 41,
+            character: 4,
+          },
+          end: {
+            line: 41,
             character: 15,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
           start: {
-            line: 37,
-            character: 8,
-          },
-          end: {
-            line: 37,
-            character: 15,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 37,
-            character: 8,
-          },
-          end: {
-            line: 37,
-            character: 15,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 37,
-            character: 8,
-          },
-          end: {
-            line: 37,
-            character: 15,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 37,
-            character: 8,
-          },
-          end: {
-            line: 37,
-            character: 15,
-          },
-        },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 30,
+            line: 41,
             character: 4,
           },
           end: {
-            line: 30,
-            character: 8,
+            line: 41,
+            character: 15,
           },
         },
-        message: 'should NOT have additional properties',
+        message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 30,
-            character: 4,
-          },
-          end: {
-            line: 30,
-            character: 8,
-          },
-        },
-        message: 'should NOT have additional properties',
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 30,
-            character: 4,
-          },
-          end: {
-            line: 30,
-            character: 8,
-          },
-        },
-        message: "should have required property '$ref'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: {
-          start: {
-            line: 30,
-            character: 4,
-          },
-          end: {
-            line: 30,
-            character: 8,
-          },
-        },
-        message: 'should match exactly one schema in oneOf',
-        severity: 1,
-        code: 0,
+        source: 'openapi schema',
       },
     ];
-
     assert.deepEqual(result, expected as Diagnostic[]);
 
-    doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specError);
+    doc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
     // TODO yaml errors not recovered? no result?
     /*     assert.deepEqual(result, [
@@ -527,18 +382,58 @@ describe('apidom-ls-yaml', function () {
 
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.yaml',
+      'foo://bar/specHighlightNoQuotes.yaml',
       'yaml',
       0,
       specHighlightNoQuotes,
     );
-    const languageService: LanguageService = getLanguageService(context);
 
     const result = await languageService.doValidation(doc, validationContext);
 
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
+        range: {
+          start: {
+            line: 0,
+            character: 9,
+          },
+          end: {
+            line: 0,
+            character: 14,
+          },
+        },
+        message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
+        severity: 1,
+        code: 0,
+        source: 'openapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "must have required property 'title'",
+        severity: 1,
+        code: 0,
+        source: 'openapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
         message: "should always have a 'description'",
         severity: 1,
         code: 3,
@@ -552,38 +447,7 @@ describe('apidom-ls-yaml', function () {
           },
         },
       },
-      {
-        range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
-        message: "should have required property 'title'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 7, character: 4 }, end: { line: 7, character: 7 } },
-        message: "should have required property 'responses'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 9, character: 4 }, end: { line: 9, character: 8 } },
-        message: "should have required property 'responses'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 12, character: 4 }, end: { line: 12, character: 8 } },
-        message: "should have required property 'responses'",
-        severity: 1,
-        code: 0,
-      },
-      {
-        range: { start: { line: 15, character: 4 }, end: { line: 15, character: 7 } },
-        message: "should have required property 'responses'",
-        severity: 1,
-        code: 0,
-      },
     ];
-
     assert.deepEqual(result, expected);
   });
 
@@ -591,9 +455,7 @@ describe('apidom-ls-yaml', function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
-    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc = TextDocument.create('foo://bar/specCompletion.yaml', 'yaml', 0, specCompletion);
 
     for (const input of completionTestInput) {
       // eslint-disable-next-line no-console
@@ -611,9 +473,12 @@ describe('apidom-ls-yaml', function () {
 
   it('test symbols', async function () {
     // valid spec
-    const doc = TextDocument.create('foo://bar/file.yaml', 'yaml', 0, specCompletion);
-
-    const languageService: LanguageService = getLanguageService(context);
+    const doc = TextDocument.create(
+      'foo://bar/specCompletionSymbols.yaml',
+      'yaml',
+      0,
+      specCompletion,
+    );
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
@@ -646,13 +511,11 @@ describe('apidom-ls-yaml', function () {
   it('test semantic highlighting', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotes.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     const tokens = await languageService.computeSemanticTokens(doc);
     if (tokens.data && tokens.data.length >= 5) {
@@ -685,13 +548,11 @@ describe('apidom-ls-yaml', function () {
   it('test hover', async function () {
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/file.json',
+      'foo://bar/specHighlightNoQuotesHover.json',
       'json',
       0,
       specHighlightNoQuotes,
     );
-
-    const languageService: LanguageService = getLanguageService(context);
 
     for (const input of hoverTestInput) {
       // eslint-disable-next-line no-console

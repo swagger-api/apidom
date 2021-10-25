@@ -1,45 +1,34 @@
+import Ajv2020 from 'ajv/dist/2020';
 import Ajv from 'ajv';
-import jsonSpecV4 from 'ajv/lib/refs/json-schema-draft-04.json';
-import {
-  Diagnostic,
-  DiagnosticSeverity,
-  Range,
-  Position,
-  CompletionList,
-  CompletionItem,
-  CompletionItemKind,
-  InsertTextFormat,
-} from 'vscode-languageserver-types';
+import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode-languageserver-types';
 import jsonSourceMap from 'json-source-map';
-import { CompletionParams } from 'vscode-languageserver-protocol';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from '@swagger-api/apidom-core';
 
-import { positionRangeForPath } from '../../utils/ast';
-import { CompletionService } from '../completion/completion-service';
+import { positionRangeForPath } from '../../../utils/ast';
 import {
-  CompletionContext,
   LanguageSettings,
   ValidationContext,
-} from '../../apidom-language-types';
-// import openapiSchemaJson from './openapi-schema.json';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import openapiSchemaJsonIdea from './openapi-schema-idea.json';
-import asyncapiSchemaJson from './asyncapi-schema.json';
-import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
-import { ValidationProvider } from '../validation/validation-service';
+  ValidationProvider,
+} from '../../../apidom-language-types';
+import { isJsonDoc } from '../../../parser-factory';
+import * as AjvUtils from './ajv-utils';
 
 // eslint-disable-next-line import/prefer-default-export
-export class DefaultJsonSchemaService implements CompletionService, ValidationProvider {
+export abstract class JsonSchemaValidationProvider implements ValidationProvider {
   private validationEnabled: boolean | undefined;
 
-  private commentSeverity: DiagnosticSeverity | undefined;
+  protected ajv: Ajv2020 | Ajv;
 
-  private ajv: Ajv.Ajv;
+  private jsonSchema: Record<string, unknown>;
 
-  public constructor() {
+  protected ajv2020: boolean;
+
+  protected constructor(ajv2020: boolean, jsonSchema: Record<string, unknown>) {
     this.validationEnabled = true;
-    this.ajv = DefaultJsonSchemaService.setupAjv();
+    this.jsonSchema = jsonSchema;
+    this.ajv2020 = ajv2020;
+    this.ajv = AjvUtils.ajv(ajv2020);
   }
 
   public doValidation(
@@ -80,9 +69,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     if (!this.validationEnabled) {
       return;
     }
-
-    const validateFunction = DefaultJsonSchemaService.compileAjv(this.ajv, jsonDocument);
-
+    const validateFunction = AjvUtils.compileAjv(this.jsonSchema, this.ajv2020);
     const jsonDoc = JSON.parse(jsonDocument);
     const valid = validateFunction(jsonDoc);
     if (!valid) {
@@ -97,9 +84,12 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
             return;
           }
           let range: Range;
-          const errorOnValue = error.keyword === 'pattern' || error.keyword === 'format';
+          const errorOnValue =
+            error.keyword === 'pattern' ||
+            error.keyword === 'format' ||
+            error.keyword === 'errorMessage';
           // if errors are related to root, mark only the first char
-          if (!error.dataPath || error.dataPath.length === 0) {
+          if (!error.instancePath || error.instancePath.length === 0) {
             const endChar = !originalDocument || originalDocument.length === 0 ? 0 : 1;
             range = Range.create(Position.create(0, 0), Position.create(0, endChar));
           }
@@ -108,7 +98,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
             // eslint-disable-next-line prefer-template
             const position = positionRangeForPath(
               originalDocument,
-              error.dataPath.replace(/\/$/, '').replace(/^"/, '').replace(/^\//, '').split('/'),
+              error.instancePath.replace(/\/$/, '').replace(/^"/, '').replace(/^\//, '').split('/'),
             );
             if (errorOnValue || !position.key_start) {
               range = Range.create(
@@ -122,7 +112,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
               );
             }
           } else {
-            const errorPointer = sourceMap.pointers[error.dataPath];
+            const errorPointer = sourceMap.pointers[error.instancePath];
             if (errorOnValue || !errorPointer.key) {
               range = Range.create(
                 Position.create(errorPointer.value.line, errorPointer.value.column),
@@ -140,6 +130,7 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
             error.message || '',
             DiagnosticSeverity.Error,
             0,
+            this.name(),
           );
           diagnostics.push(diagnostic);
         });
@@ -147,64 +138,9 @@ export class DefaultJsonSchemaService implements CompletionService, ValidationPr
     }
   }
 
-  // TODO
-  // eslint-disable-next-line class-methods-use-this
-  public doCompletion(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    textDocument: TextDocument,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    completionParamsOrPosition: CompletionParams | Position,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    completionContext?: CompletionContext,
-  ): Promise<CompletionList> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const position =
-      'position' in completionParamsOrPosition
-        ? completionParamsOrPosition.position
-        : completionParamsOrPosition;
+  public abstract break(): boolean;
 
-    // const item = CompletionItem.create("test");
-    const item: CompletionItem = {
-      kind: CompletionItemKind.Property,
-      label: 'test',
-      insertText: 'getInsertTextForProperty',
-      insertTextFormat: InsertTextFormat.Snippet,
-      filterText: 'getFilterTextForValue',
-      documentation: 'documentation',
-    };
-    const completionItems: CompletionItem[] = [];
-    completionItems.push(item);
-    // return CompletionList.create(completionItems, false);
-    CompletionList.create(completionItems, false);
-    // return Promise.resolve(CompletionList.create([], false));
-    return Promise.resolve(CompletionList.create([], false));
-  }
+  public abstract namespaces(): string[];
 
-  private static setupAjv(): Ajv.Ajv {
-    const ajvOpts: Ajv.Options = {
-      meta: true,
-      schemaId: 'auto',
-      allErrors: true,
-      jsonPointers: true,
-      unknownFormats: 'ignore',
-    };
-    const ajv = new Ajv(ajvOpts);
-    ajv.addMetaSchema(jsonSpecV4);
-    // @ts-ignore
-    // eslint-disable-next-line no-underscore-dangle
-    ajv._opts.defaultMeta = jsonSpecV4.id;
-    // @ts-ignore
-    // eslint-disable-next-line no-underscore-dangle
-    ajv._refs['http://json-schema.org/schema'] = 'http://json-schema.org/draft-04/schema';
-    return ajv;
-  }
-
-  private static compileAjv(ajv: Ajv.Ajv, text: string): Ajv.ValidateFunction {
-    if (isAsyncDoc(text)) {
-      return ajv.compile(asyncapiSchemaJson);
-    }
-    // return ajv.compile(openapiSchemaJson);
-    // TODO (francesco@tumanischvili@smartbear.com) allow to pass schema to use with metadata
-    return ajv.compile(openapiSchemaJsonIdea);
-  }
+  public abstract name(): string;
 }

@@ -52,13 +52,9 @@ import { createPredicate } from '@swagger-api/apidom-core';
 
 const isMyElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeMyElement = isElementType('myElement');
-    const primitiveEqObject = primitiveEq('object');
-
-    return either(
-      is(MyElement),
-      allPass([hasBasicElementProps, isElementTypeMyElement, primitiveEqObject]),
-    );
+    return (element) =>
+      element instanceof MyElement ||
+      (hasBasicElementProps(element) && isElementType('myElement', element) && primitiveEq('object', element));
   },
 );
 ```

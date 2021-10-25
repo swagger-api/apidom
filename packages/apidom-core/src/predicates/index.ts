@@ -10,7 +10,7 @@ import {
   LinkElement,
   RefElement,
 } from 'minim';
-import { all, isEmpty, either, curry, allPass, is, both, anyPass } from 'ramda';
+import { all } from 'ramda';
 import { included } from 'ramda-adjunct';
 
 import AnnotationElement from '../elements/Annotation';
@@ -20,204 +20,164 @@ import SourceMapElement from '../elements/SourceMap';
 import createPredicate, { isElementType as isElementTypeHelper } from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  const primitiveEqUndefined = primitiveEq(undefined);
-
-  return either(is(Element), both(hasBasicElementProps, primitiveEqUndefined));
+  return (element: any) =>
+    element instanceof Element ||
+    (hasBasicElementProps(element) && primitiveEq(undefined, element));
 });
 
 export const isStringElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  const primitiveEqString = primitiveEq('string');
-
-  return either(is(StringElement), allPass([hasBasicElementProps, primitiveEqString]));
+  return (element: any) =>
+    element instanceof StringElement ||
+    (hasBasicElementProps(element) && primitiveEq('string', element));
 });
 
 export const isNumberElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  const primitiveEqNumber = primitiveEq('number');
-
-  return either(is(NumberElement), allPass([hasBasicElementProps, primitiveEqNumber]));
+  return (element: any) =>
+    element instanceof NumberElement ||
+    (hasBasicElementProps(element) && primitiveEq('number', element));
 });
 
 export const isNullElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  const primitiveEqNull = primitiveEq('null');
-
-  return either(is(NullElement), allPass([hasBasicElementProps, primitiveEqNull]));
+  return (element: any) =>
+    element instanceof NullElement ||
+    (hasBasicElementProps(element) && primitiveEq('null', element));
 });
 
 export const isBooleanElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  const primitiveEqBoolean = primitiveEq('boolean');
-
-  return either(is(BooleanElement), allPass([hasBasicElementProps, primitiveEqBoolean]));
+  return (element: any) =>
+    element instanceof BooleanElement ||
+    (hasBasicElementProps(element) && primitiveEq('boolean', element));
 });
 
 export const isArrayElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
-    const primitiveEqArray = primitiveEq('array');
-    const hasMethodPush = hasMethod('push');
-    const hasMethodUnshift = hasMethod('unshift');
-    const hasMethodMap = hasMethod('map');
-    const hasMethodReduce = hasMethod('reduce');
-
-    return either(
-      is(ArrayElement),
-      allPass([
-        hasBasicElementProps,
-        primitiveEqArray,
-        hasMethodPush,
-        hasMethodUnshift,
-        hasMethodMap,
-        hasMethodReduce,
-      ]),
-    );
+    return (element: any) =>
+      element instanceof ArrayElement ||
+      (hasBasicElementProps(element) &&
+        primitiveEq('array', element) &&
+        hasMethod('push', element) &&
+        hasMethod('unshift', element) &&
+        hasMethod('map', element) &&
+        hasMethod('reduce', element));
   },
 );
 
 export const isObjectElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
-    const primitiveEqObject = primitiveEq('object');
-    const hasMethodKeys = hasMethod('keys');
-    const hasMethodValues = hasMethod('values');
-    const hasMethodItems = hasMethod('items');
-
-    return either(
-      is(ObjectElement),
-      allPass([
-        hasBasicElementProps,
-        primitiveEqObject,
-        hasMethodKeys,
-        hasMethodValues,
-        hasMethodItems,
-      ]),
-    );
+    return (element: any) =>
+      element instanceof ObjectElement ||
+      (hasBasicElementProps(element) &&
+        primitiveEq('object', element) &&
+        hasMethod('keys', element) &&
+        hasMethod('values', element) &&
+        hasMethod('items', element));
   },
 );
 
 export const isMemberElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeMember = isElementType('member');
-    const primitiveEqUndefined = primitiveEq(undefined);
-
-    return either(
-      is(MemberElement),
-      allPass([hasBasicElementProps, isElementTypeMember, primitiveEqUndefined]),
-    );
+    return (element: any) =>
+      element instanceof MemberElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('member', element) &&
+        primitiveEq(undefined, element));
   },
 );
 
 export const isLinkElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeLink = isElementType('link');
-    const primitiveEqUndefined = primitiveEq(undefined);
-
-    return either(
-      is(LinkElement),
-      allPass([hasBasicElementProps, isElementTypeLink, primitiveEqUndefined]),
-    );
+    return (element: any) =>
+      element instanceof LinkElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('link', element) &&
+        primitiveEq(undefined, element));
   },
 );
 
 export const isRefElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeRef = isElementType('ref');
-    const primitiveEqUndefined = primitiveEq(undefined);
-
-    return either(
-      is(RefElement),
-      allPass([hasBasicElementProps, isElementTypeRef, primitiveEqUndefined]),
-    );
+    return (element: any) =>
+      element instanceof RefElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('ref', element) &&
+        primitiveEq(undefined, element));
   },
 );
 
 export const isAnnotationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeAnnotation = isElementType('annotation');
-    const primitiveEqString = primitiveEq('array');
-
-    return either(
-      is(AnnotationElement),
-      allPass([hasBasicElementProps, isElementTypeAnnotation, primitiveEqString]),
-    );
+    return (element: any) =>
+      element instanceof AnnotationElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('annotation', element) &&
+        primitiveEq('array', element));
   },
 );
 
 export const isCommentElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeComment = isElementType('comment');
-    const primitiveEqString = primitiveEq('string');
-
-    return either(
-      is(CommentElement),
-      allPass([hasBasicElementProps, isElementTypeComment, primitiveEqString]),
-    );
+    return (element: any) =>
+      element instanceof CommentElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('comment', element) &&
+        primitiveEq('string', element));
   },
 );
 
 export const isParseResultElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeParseResult = isElementType('parseResult');
-    const primitiveEqString = primitiveEq('array');
-
-    return either(
-      is(ParserResultElement),
-      allPass([hasBasicElementProps, isElementTypeParseResult, primitiveEqString]),
-    );
+    return (element: any) =>
+      element instanceof ParserResultElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('parseResult', element) &&
+        primitiveEq('array', element));
   },
 );
 
 export const isSourceMapElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    const isElementTypeSourceMap = isElementType('sourceMap');
-    const primitiveEqArray = primitiveEq('array');
-
-    return either(
-      is(SourceMapElement),
-      allPass([hasBasicElementProps, isElementTypeSourceMap, primitiveEqArray]),
-    );
+    return (element: any) =>
+      element instanceof SourceMapElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('sourceMap', element) &&
+        primitiveEq('array', element));
   },
 );
 
-export const isPrimitiveElement = anyPass([
-  // @ts-ignore
-  isElementTypeHelper('object'),
-  // @ts-ignore
-  isElementTypeHelper('array'),
-  // @ts-ignore
-  isElementTypeHelper('member'),
-  // @ts-ignore
-  isElementTypeHelper('boolean'),
-  // @ts-ignore
-  isElementTypeHelper('number'),
-  // @ts-ignore
-  isElementTypeHelper('string'),
-  // @ts-ignore
-  isElementTypeHelper('null'),
-]);
+export const isPrimitiveElement = (element: any): boolean => {
+  return (
+    isElementTypeHelper('object', element) ||
+    isElementTypeHelper('array', element) ||
+    isElementTypeHelper('boolean', element) ||
+    isElementTypeHelper('number', element) ||
+    isElementTypeHelper('string', element) ||
+    isElementTypeHelper('null', element) ||
+    isElementTypeHelper('member', element)
+  );
+};
 
-export const hasElementSourceMap = createPredicate(() => {
-  return (element) => isSourceMapElement(element.meta.get('sourceMap'));
-});
+export const hasElementSourceMap = (element: any): boolean => {
+  return isSourceMapElement(element?.meta?.get?.('sourceMap'));
+};
 
-export const includesSymbols = curry(
-  <T extends Element>(symbols: string[], element: T): boolean => {
-    if (isEmpty(symbols)) {
-      return true;
-    }
+export const includesSymbols = <T extends Element>(symbols: string[], element: T): boolean => {
+  if (symbols.length === 0) {
+    return true;
+  }
 
-    const elementSymbols = element.attributes.get('symbols');
+  const elementSymbols = element.attributes.get('symbols');
 
-    if (!isArrayElement(elementSymbols)) {
-      return false;
-    }
+  if (!isArrayElement(elementSymbols)) {
+    return false;
+  }
 
-    return all(included(elementSymbols.toValue()), symbols);
-  },
-);
+  return all(included(elementSymbols.toValue()), symbols);
+};
 
-export const includesClasses = curry(
-  <T extends Element>(classes: string[], element: T): boolean => {
-    if (isEmpty(classes)) {
-      return true;
-    }
+export const includesClasses = <T extends Element>(classes: string[], element: T): boolean => {
+  if (classes.length === 0) {
+    return true;
+  }
 
-    return all(included(element.classes.toValue()), classes);
-  },
-);
+  return all(included(element.classes.toValue()), classes);
+};

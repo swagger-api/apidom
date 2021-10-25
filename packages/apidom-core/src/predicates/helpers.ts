@@ -1,22 +1,16 @@
-import { both, curry, has, pathSatisfies, curryN, pathEq, Pred } from 'ramda';
-import { isFunction, invokeArgs } from 'ramda-adjunct';
+const hasMethod = (name: string, obj: Record<string, unknown>): boolean =>
+  typeof obj?.[name] === 'function';
 
-const hasMethod = curry((name: string, obj: Record<string, unknown>): boolean =>
-  pathSatisfies(isFunction, [name], obj),
-);
+const hasBasicElementProps = (element: any) =>
+  element != null &&
+  Object.prototype.hasOwnProperty.call(element, '_storedElement') &&
+  Object.prototype.hasOwnProperty.call(element, '_content');
 
-const hasBasicElementProps = both(has('_storedElement'), has('_content'));
+const primitiveEq = (val: unknown, obj: any): boolean => obj?.primitive?.() === val;
 
-const primitiveEq = curry(
-  (val: unknown, obj: Record<string, unknown>): boolean =>
-    invokeArgs(['primitive'], [], obj) === val,
-);
+const hasClass = (cls: string, obj: any): boolean => obj?.classes?.includes?.(cls) || false;
 
-const hasClass = curry((cls: string, obj: Record<string, unknown>): boolean =>
-  invokeArgs(['classes', 'includes'], [cls], obj),
-);
-
-export const isElementType = pathEq(['element']);
+export const isElementType = (name: string, element: any): boolean => element?.element === name;
 
 interface PredicateHelpers {
   hasMethod: typeof hasMethod;
@@ -26,20 +20,17 @@ interface PredicateHelpers {
   hasClass: typeof hasClass;
 }
 
-type PredicateCreator = (helpers: PredicateHelpers) => Pred;
+type PredicateCreator = (helpers: PredicateHelpers) => (element: any) => boolean;
 
-const createPredicate = (predicateCreator: PredicateCreator): Pred => {
+const createPredicate = (predicateCreator: PredicateCreator) => {
   // @ts-ignore
-  return curryN(
-    1,
-    predicateCreator({
-      hasMethod,
-      hasBasicElementProps,
-      primitiveEq,
-      isElementType,
-      hasClass,
-    }),
-  );
+  return predicateCreator({
+    hasMethod,
+    hasBasicElementProps,
+    primitiveEq,
+    isElementType,
+    hasClass,
+  });
 };
 
 export default createPredicate;

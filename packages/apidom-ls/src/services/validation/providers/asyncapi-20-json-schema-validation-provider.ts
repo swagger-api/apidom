@@ -16,4 +16,9 @@ export class Asyncapi20JsonSchemaValidationProvider extends JsonSchemaValidation
   namespaces(): string[] {
     return ['asyncapi'];
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  name(): string {
+    return 'asyncapi schema';
+  }
 }

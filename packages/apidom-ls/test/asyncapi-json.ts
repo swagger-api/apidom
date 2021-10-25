@@ -169,16 +169,17 @@ describe('apidom-ls-async', function () {
         range: {
           start: {
             line: 1,
-            character: 2,
+            character: 14,
           },
           end: {
             line: 1,
-            character: 12,
+            character: 21,
           },
         },
         message: "'asyncapi' value must be 2.0.0",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
       },
       {
         range: {
@@ -194,26 +195,75 @@ describe('apidom-ls-async', function () {
         message: "must have required property 'version'",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
       },
       {
         range: {
           start: {
             line: 54,
-            character: 10,
+            character: 20,
           },
           end: {
-            line: 54,
-            character: 18,
+            line: 56,
+            character: 11,
           },
         },
         message:
           'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 14,
+          },
+          end: {
+            line: 1,
+            character: 21,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 14,
+          },
+          end: {
+            line: 1,
+            character: 21,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
       },
     ];
 
     assert.deepEqual(result, expected as Diagnostic[]);
+
     doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
 
@@ -232,6 +282,7 @@ describe('apidom-ls-async', function () {
           },
         },
         severity: 1,
+        source: 'syntax',
       },
       {
         code: 0,
@@ -247,6 +298,7 @@ describe('apidom-ls-async', function () {
           },
         },
         severity: 1,
+        source: 'syntax',
       },
     ]);
   });

@@ -1,6 +1,6 @@
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, traverse } from '@swagger-api/apidom-core';
+import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
@@ -10,7 +10,14 @@ import {
   ValidationContext,
   ValidationProvider,
 } from '../../apidom-language-types';
-import { getSourceMap, LinterMeta, isMember, QuickFixData, MetadataMap } from '../../utils/utils';
+import {
+  getSourceMap,
+  LinterMeta,
+  isMember,
+  isObject,
+  QuickFixData,
+  MetadataMap,
+} from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
 export interface ValidationService {
@@ -105,6 +112,7 @@ export class DefaultValidationService implements ValidationService {
           annotation.toValue(),
           DiagnosticSeverity.Error,
           0,
+          'syntax',
         );
         if (validationContext && validationContext.relatedInformation) {
           diagnostic.relatedInformation = [
@@ -182,6 +190,15 @@ export class DefaultValidationService implements ValidationService {
                     if (!lintRes) {
                       // add to diagnostics
                       let lintSm = sm;
+                      if (meta.target) {
+                        if (isObject(element) && element.hasKey(meta.target)) {
+                          if (meta.marker === 'key') {
+                            lintSm = getSourceMap(element.getMember(meta.target).key as Element);
+                          } else if (meta.marker === 'value') {
+                            lintSm = getSourceMap(element.get(meta.target) as Element);
+                          }
+                        }
+                      }
                       if (meta.marker === 'key') {
                         const { parent } = element;
                         if (parent && isMember(parent) && parent.key !== element) {
@@ -283,12 +300,29 @@ export class DefaultValidationService implements ValidationService {
       }
       const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
       const codeActions: CodeAction[] = [];
+      // TODO deduplicate, action maps elsewhere
       diagnostics.forEach((diag) => {
         const quickFix = this.findQuickFix(diag, lang, String(diag.code));
         if (quickFix)
-          if (quickFix.action === 'transformValue') {
-            // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
-            if (quickFix.function === 'tranformToLowercase') {
+          if (quickFix.action === 'updateValue') {
+            let newText: string | undefined;
+            if (quickFix.function === 'transformToLowercase') {
+              newText = textDocument.getText(diag.range).toLowerCase();
+            } else if (!quickFix.function) {
+              if (quickFix.functionParams && quickFix.functionParams.length > 0) {
+                [newText] = quickFix.functionParams;
+              }
+            }
+            const oldText = textDocument.getText(diag.range);
+            const oldTextquotes =
+              oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
+                ? oldText.charAt(0)
+                : undefined;
+            const quotedInsertText = newText && oldTextquotes && newText.startsWith(oldTextquotes);
+            if (oldTextquotes && !quotedInsertText) {
+              newText = oldTextquotes + newText + oldTextquotes;
+            }
+            if (newText) {
               codeActions.push({
                 // @ts-ignore
                 title: quickFix.message,
@@ -299,12 +333,66 @@ export class DefaultValidationService implements ValidationService {
                     [documentUri]: [
                       {
                         range: diag.range,
-                        newText: textDocument.getText(diag.range).toLowerCase(),
+                        newText,
                       },
                     ],
                   },
                 },
               });
+            }
+          } else if (quickFix.action === 'updateFieldValue') {
+            let newText: string | undefined;
+            // assume params exist
+            // @ts-ignore
+            const [target, value] = quickFix.functionParams;
+            // get element from range
+            const offset = textDocument.offsetAt(diag.range.start);
+            // find the current node
+            const node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
+            // only if we have a node
+            if (node && isObject(node) && node.hasKey(target)) {
+              // range of child value
+              const targetSm = node.get(target);
+              const location = { offset: targetSm.offset, length: targetSm.length };
+              const targetRange = Range.create(
+                textDocument.positionAt(location.offset),
+                textDocument.positionAt(location.offset + location.length),
+              );
+              if (quickFix.function === 'transformToLowercase') {
+                newText = textDocument.getText(diag.range).toLowerCase();
+              } else if (!quickFix.function) {
+                if (quickFix.functionParams && quickFix.functionParams.length > 0) {
+                  [newText] = value;
+                }
+              }
+              const oldText = textDocument.getText(diag.range);
+              const oldTextquotes =
+                oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
+                  ? oldText.charAt(0)
+                  : undefined;
+              const quotedInsertText =
+                newText && oldTextquotes && newText.startsWith(oldTextquotes);
+              if (oldTextquotes && !quotedInsertText) {
+                newText = oldTextquotes + newText + oldTextquotes;
+              }
+              if (newText) {
+                codeActions.push({
+                  // @ts-ignore
+                  title: quickFix.message,
+                  kind: CodeActionKind.QuickFix,
+                  diagnostics: [diag],
+                  edit: {
+                    changes: {
+                      [documentUri]: [
+                        {
+                          range: targetRange,
+                          newText,
+                        },
+                      ],
+                    },
+                  },
+                });
+              }
             }
           } else if (quickFix.action === 'addChild') {
             // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere

@@ -179,6 +179,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must match exactly one schema in oneOf',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -194,6 +195,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -209,6 +211,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must match format "uri-reference"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -224,6 +227,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -239,6 +243,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -254,6 +259,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -269,6 +275,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -284,6 +291,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -299,6 +307,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -314,6 +323,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -329,6 +339,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -344,9 +355,9 @@ describe('apidom-ls-yaml', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
     ];
-
     assert.deepEqual(result, expected as Diagnostic[]);
 
     doc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
@@ -394,6 +405,7 @@ describe('apidom-ls-yaml', function () {
         message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -409,6 +421,7 @@ describe('apidom-ls-yaml', function () {
         message: "must have required property 'title'",
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -435,7 +448,6 @@ describe('apidom-ls-yaml', function () {
         },
       },
     ];
-
     assert.deepEqual(result, expected);
   });
 

@@ -247,6 +247,7 @@ describe('apidom-ls', function () {
         message: 'must match exactly one schema in oneOf',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -262,6 +263,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -277,6 +279,7 @@ describe('apidom-ls', function () {
         message: 'must match format "uri-reference"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -292,6 +295,7 @@ describe('apidom-ls', function () {
         message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -307,6 +311,7 @@ describe('apidom-ls', function () {
         message: 'must be array',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -322,6 +327,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -337,6 +343,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -352,6 +359,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -367,6 +375,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -382,6 +391,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -397,6 +407,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -412,6 +423,7 @@ describe('apidom-ls', function () {
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -424,6 +436,7 @@ describe('apidom-ls', function () {
         message: '(Error ,)',
         severity: 1,
         code: 0,
+        source: 'syntax',
       },
     ]);
   });
@@ -460,6 +473,7 @@ describe('apidom-ls', function () {
         message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -475,6 +489,7 @@ describe('apidom-ls', function () {
         message: "must have required property 'title'",
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -559,6 +574,7 @@ describe('apidom-ls', function () {
         message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {
@@ -574,6 +590,7 @@ describe('apidom-ls', function () {
         message: "must have required property 'version'",
         severity: 1,
         code: 0,
+        source: 'openapi schema',
       },
       {
         range: {

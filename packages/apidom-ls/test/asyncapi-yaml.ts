@@ -10,7 +10,6 @@ import {
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
-// @ts-ignore
 
 // @ts-ignore
 import getLanguageService from '../src/apidom-language-service';
@@ -155,16 +154,82 @@ describe('apidom-ls-async-yaml', function () {
 
     const expected = [
       {
-        range: { start: { line: 0, character: 0 }, end: { line: 0, character: 8 } },
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
         message: "'asyncapi' value must be 2.0.0",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
       },
       {
-        range: { start: { line: 2, character: 0 }, end: { line: 2, character: 4 } },
+        range: {
+          start: {
+            line: 2,
+            character: 0,
+          },
+          end: {
+            line: 2,
+            character: 4,
+          },
+        },
         message: "must have required property 'version'",
         severity: 1,
         code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

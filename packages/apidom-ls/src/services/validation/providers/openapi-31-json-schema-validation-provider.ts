@@ -21,4 +21,9 @@ export class OpenAPi31JsonSchemaValidationProvider extends JsonSchemaValidationP
   namespaces(): string[] {
     return ['openapi'];
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  name(): string {
+    return 'openapi schema';
+  }
 }

@@ -84,7 +84,10 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
             return;
           }
           let range: Range;
-          const errorOnValue = error.keyword === 'pattern' || error.keyword === 'format';
+          const errorOnValue =
+            error.keyword === 'pattern' ||
+            error.keyword === 'format' ||
+            error.keyword === 'errorMessage';
           // if errors are related to root, mark only the first char
           if (!error.instancePath || error.instancePath.length === 0) {
             const endChar = !originalDocument || originalDocument.length === 0 ? 0 : 1;
@@ -127,6 +130,7 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
             error.message || '',
             DiagnosticSeverity.Error,
             0,
+            this.name(),
           );
           diagnostics.push(diagnostic);
         });
@@ -134,7 +138,9 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
     }
   }
 
-  abstract break(): boolean;
+  public abstract break(): boolean;
 
-  abstract namespaces(): string[];
+  public abstract namespaces(): string[];
+
+  public abstract name(): string;
 }

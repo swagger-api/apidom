@@ -125,6 +125,25 @@
     }
   },
   "asyncApi2": {
+    "lint": [
+      {
+        "code": 48,
+        "source": "apilint",
+        "message": "'asyncapi' value must be 2.0.0",
+        "severity": 1,
+        "linterFunction": "apilintFieldValueRegex",
+        "linterParams": ["asyncapi", "2\\.0\\.0"],
+        "marker": "value",
+        "target": "asyncapi",
+        "data": {
+          "quickFix": {
+            "message": "update to '2.0.0'",
+            "action": "updateValue",
+            "functionParams": ["2.0.0"]
+          }
+        }
+      }
+    ],
     "yaml": {
       "completion": [
         {
@@ -172,6 +191,116 @@
           "insertText": "\"channels\": {\n  $1\n},",
           "insertTextFormat": 2,
           "documentation": "Add `channels` section"
+        }
+      ]
+    }
+  },
+  "asyncApiVersion": {
+    "lint": [
+      {
+        "code": 23,
+        "source": "apilint",
+        "message": "'asyncapi' value must be 2.0.0",
+        "severity": 1,
+        "linterFunction": "apilintValueRegex",
+        "linterParams": ["2\\.0\\.0"],
+        "marker": "value",
+        "data": {
+          "quickFix": {
+            "message": "update to '2.0.0'",
+            "action": "updateValue",
+            "functionParams": ["2.0.0"]
+          }
+        }
+      }
+    ],
+    "yaml": {
+      "completion": [
+        {
+          "label": "2.0.0",
+          "kind": 10,
+          "insertText": "2.0.0$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "2.1.0",
+          "kind": 10,
+          "insertText": "2.1.0$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "2.2.0",
+          "kind": 10,
+          "insertText": "2.2.0$1",
+          "insertTextFormat": 2
+        }
+      ]
+    },
+    "json": {
+      "completion": [
+        {
+          "label": "2.0.0",
+          "kind": 10,
+          "insertText": "2.0.0$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "2.1.0",
+          "kind": 10,
+          "insertText": "2.1.0$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "2.2.0",
+          "kind": 10,
+          "insertText": "2.2.0$1",
+          "insertTextFormat": 2
+        }
+      ]
+    }
+  },
+  "json-schema-type": {
+    "yaml": {
+      "completion": [
+        {
+          "label": "object",
+          "kind": 10,
+          "insertText": "object$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "string",
+          "kind": 10,
+          "insertText": "string$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "number",
+          "kind": 10,
+          "insertText": "number$1",
+          "insertTextFormat": 2
+        }
+      ]
+    },
+    "json": {
+      "completion": [
+        {
+          "label": "object",
+          "kind": 10,
+          "insertText": "object$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "string",
+          "kind": 10,
+          "insertText": "string$1",
+          "insertTextFormat": 2
+        },
+        {
+          "label": "number",
+          "kind": 10,
+          "insertText": "number$1",
+          "insertTextFormat": 2
         }
       ]
     }

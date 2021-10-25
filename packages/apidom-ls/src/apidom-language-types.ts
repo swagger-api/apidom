@@ -62,6 +62,8 @@ export interface ValidationProvider {
   ): Promise<Diagnostic[]>;
 
   configure(settings: LanguageSettings): void;
+
+  name(): string;
 }
 
 export interface LanguageSettings {

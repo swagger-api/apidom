@@ -71,9 +71,23 @@ export async function parse(
   textDocument: TextDocument,
   metadataMaps: MetadataMaps | undefined,
 ): Promise<ParseResultElement> {
-  const parser = getParser(textDocument);
+  // TODO improve detection mechanism
   const text: string = textDocument.getText();
-  const result = await parser.parse(text, { sourceMap: true });
+  const async = isAsyncDoc(textDocument);
+  const json = isJsonDoc(textDocument);
+  let result;
+  if (async && json) {
+    result = await asyncapi2Adapter.parse(text, { sourceMap: true });
+  } else if (async && !json) {
+    result = await asyncapi2Adapter_Yaml.parse(text, { sourceMap: true });
+  } else if (!async && json) {
+    result = await openapi3_1Adapter.parse(text, { sourceMap: true });
+  } else if (!async && !json) {
+    result = await openapi3_1Adapter_Yaml.parse(text, { sourceMap: true });
+  } else {
+    // fallback
+    result = await openapi3_1Adapter.parse(text, { sourceMap: true });
+  }
   const { api } = result;
   if (api === undefined) return result;
   const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';

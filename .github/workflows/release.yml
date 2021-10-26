@@ -36,7 +36,6 @@ jobs:
           npx lerna version --no-private --yes
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
-          HUSKY_DEBUG: "1"
       - name: Publish monorepo npm packages
         run: npx lerna publish from-package --no-private --yes
         env:

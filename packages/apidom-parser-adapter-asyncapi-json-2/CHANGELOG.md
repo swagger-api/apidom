@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/swagger-api/apidom/compare/v0.4.0...v0.5.0) (2021-10-26)
+
+
+### Performance Improvements
+
+* optimize JSON direct syntactic analysis ([5b5887e](https://github.com/swagger-api/apidom/commit/5b5887ec1d38a0cb3b4c542997818f39cda84108)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.4.0](https://github.com/swagger-api/apidom/compare/v0.3.0...v0.4.0) (2021-10-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-json-2

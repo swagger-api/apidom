@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/swagger-api/apidom/compare/v0.4.0...v0.5.0) (2021-10-26)
+
+
+### Performance Improvements
+
+* optimize predicates for base namespace ([e23b670](https://github.com/swagger-api/apidom/commit/e23b670c232d3d94bb0e889faaca616d03d01b6e)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.4.0](https://github.com/swagger-api/apidom/compare/v0.3.0...v0.4.0) (2021-10-22)
 
 

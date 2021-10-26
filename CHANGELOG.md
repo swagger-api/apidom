@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/swagger-api/apidom/compare/v0.4.0...v0.5.0) (2021-10-26)
+
+
+### Features
+
+* add schema type related metadata to namespaces ([433a2c2](https://github.com/swagger-api/apidom/commit/433a2c29aaccad4bf63e27fc4b79ea5f47f6c050))
+* **apidom-ls:** completion and validation fixes ([2ded62c](https://github.com/swagger-api/apidom/commit/2ded62c6a7fd2c407fbf9d48322a60872dbad81a))
+* **apidom-ls:** document cache ([aefaa44](https://github.com/swagger-api/apidom/commit/aefaa441af833e031c32f2bccdc9e953179dd1c6))
+* **apidom-ls:** single ajv instance ([a93d428](https://github.com/swagger-api/apidom/commit/a93d428ddf83576540c71dbdee5cdc7e7eee8567))
+* **apidom-ls:** update validation providers and json schemas ([a49154b](https://github.com/swagger-api/apidom/commit/a49154b0f6d435da3375035222d769e3a1c04c35))
+
+
+### Performance Improvements
+
+* optimize JSON direct syntactic analysis ([5b5887e](https://github.com/swagger-api/apidom/commit/5b5887ec1d38a0cb3b4c542997818f39cda84108)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+* optimize predicates for AsyncAPI namesapce ([7c7817f](https://github.com/swagger-api/apidom/commit/7c7817faa93b827a3d3827f929e2671cd9b90d8c)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+* optimize predicates for base namespace ([e23b670](https://github.com/swagger-api/apidom/commit/e23b670c232d3d94bb0e889faaca616d03d01b6e)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+* optimize predicates for OpenAPI namespace ([5e106c2](https://github.com/swagger-api/apidom/commit/5e106c27ff329ebd29bc383b72f6a095f3e452e1)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.4.0](https://github.com/swagger-api/apidom/compare/v0.3.0...v0.4.0) (2021-10-22)
 
 

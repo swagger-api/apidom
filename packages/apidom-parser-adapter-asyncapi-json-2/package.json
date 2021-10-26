@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-asyncapi-json-2",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Parser adapter for parsing JSON documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -37,9 +37,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.15.4",
-    "@swagger-api/apidom-core": "^0.4.0",
-    "@swagger-api/apidom-ns-asyncapi-2": "^0.4.0",
-    "@swagger-api/apidom-parser-adapter-json": "^0.4.0",
+    "@swagger-api/apidom-core": "^0.5.0",
+    "@swagger-api/apidom-ns-asyncapi-2": "^0.5.0",
+    "@swagger-api/apidom-parser-adapter-json": "^0.5.0",
     "@types/ramda": "=0.27.45",
     "ramda": "=0.27.1",
     "ramda-adjunct": "=2.34.0"

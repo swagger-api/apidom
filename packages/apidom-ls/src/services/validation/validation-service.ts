@@ -322,7 +322,7 @@ export class DefaultValidationService implements ValidationService {
             if (oldTextquotes && !quotedInsertText) {
               newText = oldTextquotes + newText + oldTextquotes;
             }
-            if (newText) {
+            if (newText || newText === '') {
               codeActions.push({
                 // @ts-ignore
                 title: quickFix.message,

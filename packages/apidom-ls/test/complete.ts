@@ -56,6 +56,7 @@ describe('apidom-ls-complete', function () {
             label: '2.1.0',
             kind: 10,
             insertText: '"2.1.0$1"',
+            filterText: '"2.0.0"',
             insertTextFormat: 2,
             textEdit: {
               range: {
@@ -75,6 +76,7 @@ describe('apidom-ls-complete', function () {
             label: '2.2.0',
             kind: 10,
             insertText: '"2.2.0$1"',
+            filterText: '"2.0.0"',
             insertTextFormat: 2,
             textEdit: {
               range: {

@@ -156,6 +156,11 @@ export class DefaultCompletionService implements CompletionService {
     }
   }
 
+  /*
+    see also:
+      https://github.com/microsoft/monaco-editor/issues/1889
+      https://github.com/microsoft/monaco-editor/issues/2070
+   */
   public async doCompletion(
     textDocument: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
@@ -218,6 +223,9 @@ export class DefaultCompletionService implements CompletionService {
 
       const proposed: { [key: string]: CompletionItem } = {};
 
+      const nodeSourceMap = getSourceMap(completionNode);
+      const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+
       const collector: CompletionsCollector = {
         add: (suggestion: CompletionItem) => {
           const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
@@ -272,13 +280,17 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
         const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
-        DefaultCompletionService.getMetadataPropertyCompletions(
+        const apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
           api,
           completionNode,
-          collector,
           !isJsonDoc(textDocument),
-          inNewLine,
         );
+        for (const item of apidomCompletions) {
+          if (inNewLine) {
+            item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
+          }
+          collector.add(item);
+        }
       } else if (
         // in a primitive value node
         !isObject(completionNode) &&
@@ -287,8 +299,6 @@ export class DefaultCompletionService implements CompletionService {
           caretContext === CaretContext.PRIMITIVE_VALUE_END ||
           caretContext === CaretContext.PRIMITIVE_VALUE_START)
       ) {
-        const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
-        const nodeSourceMap = getSourceMap(completionNode);
         // TODO Apidom doesn't hold quotes in its content currently, therefore we must use text + offset
         const nodeValueFromText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
         quotes =
@@ -298,90 +308,47 @@ export class DefaultCompletionService implements CompletionService {
         const word = DefaultCompletionService.getCurrentWord(textDocument, offset);
         proposed[completionNode.toValue()] = CompletionItem.create('__');
         proposed[nodeValueFromText] = CompletionItem.create('__');
-        let withQuotes = false;
         // if node is not empty we must replace text
         if (nodeValueFromText.length > 0) {
-          /*
-          cases:
-
-          - quoted string, offset inside quotes
-          - quoted string, offset before quotes
-          - quoted empty string, offset before quotes
-          - quoted empty string, offset before quoted
-          - non quoted string
-           */
-
-          enum CompletionOffsetContextEnum {
-            NON_QUOTED,
-            QUOTED_INSIDE,
-            QUOTED_BEFORE,
-            EMPTY_QUOTED_INSIDE,
-            EMPTY_QUOTED_BEFORE,
-          }
-
-          let completionOffsetContext = CompletionOffsetContextEnum.NON_QUOTED;
-
-          if (quotes && offset > nodeSourceMap.offset && completionNode.toValue().length > 0) {
-            completionOffsetContext = CompletionOffsetContextEnum.QUOTED_INSIDE;
-          } else if (
-            quotes &&
-            offset <= nodeSourceMap.offset &&
-            completionNode.toValue().length > 0
-          ) {
-            completionOffsetContext = CompletionOffsetContextEnum.QUOTED_BEFORE;
-          } else if (
-            quotes &&
-            offset <= nodeSourceMap.offset &&
-            completionNode.toValue().length === 0
-          ) {
-            completionOffsetContext = CompletionOffsetContextEnum.EMPTY_QUOTED_BEFORE;
-          } else if (
-            quotes &&
-            offset > nodeSourceMap.offset &&
-            completionNode.toValue().length === 0
-          ) {
-            completionOffsetContext = CompletionOffsetContextEnum.EMPTY_QUOTED_INSIDE;
-          }
-          const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
-          let targetRangeStart = location.offset;
-          let targetRangeEnd = location.offset + location.length;
-
-          if (completionOffsetContext === CompletionOffsetContextEnum.QUOTED_INSIDE) {
-            withQuotes = false;
-            targetRangeStart = location.offset + 1;
-            targetRangeEnd = location.offset - 1 + location.length;
-          } else if (completionOffsetContext === CompletionOffsetContextEnum.QUOTED_BEFORE) {
-            withQuotes = true;
-            targetRangeStart = location.offset;
-            targetRangeEnd = location.offset + location.length;
-          } else if (completionOffsetContext === CompletionOffsetContextEnum.EMPTY_QUOTED_INSIDE) {
-            withQuotes = false;
-            targetRangeStart = location.offset + 1;
-            targetRangeEnd = location.offset - 1 + location.length;
-          } else if (completionOffsetContext === CompletionOffsetContextEnum.EMPTY_QUOTED_BEFORE) {
-            withQuotes = true;
-            targetRangeStart = location.offset;
-            targetRangeEnd = location.offset + location.length;
-          }
-
           overwriteRange = Range.create(
-            textDocument.positionAt(targetRangeStart),
-            textDocument.positionAt(targetRangeEnd),
+            textDocument.positionAt(location.offset),
+            textDocument.positionAt(location.offset + location.length),
           );
         } else {
           // node is empty
           overwriteRange = undefined;
         }
-        DefaultCompletionService.getMetadataPropertyCompletions(
+        const apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
           api,
           completionNode,
-          collector,
           !isJsonDoc(textDocument),
-          inNewLine,
-          word,
-          quotes,
-          withQuotes,
         );
+
+        if (apidomCompletions) {
+          for (const item of apidomCompletions) {
+            const completionTextQuotes =
+              item.insertText?.charAt(0) === '"' || item.insertText?.charAt(0) === "'"
+                ? item.insertText?.charAt(0)
+                : undefined;
+
+            if (!completionTextQuotes && quotes) {
+              item.insertText = quotes + item.insertText + quotes;
+            }
+            /*
+              see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
+              contrary to docs, range must start with the request offset. Workaround is providing
+              a filterText with the content of the target range
+            */
+            item.filterText = text.substring(location.offset, location.offset + location.length);
+
+            const strippedQuotesWord = quotes && word ? word.substring(1, word.length) : word!;
+            if (word && word.length > 0 && item.insertText?.startsWith(strippedQuotesWord)) {
+              collector.add(item);
+            } else if (!word) {
+              collector.add(item);
+            }
+          }
+        }
       }
 
       if (schema) {
@@ -411,57 +378,11 @@ export class DefaultCompletionService implements CompletionService {
     return text.substring(i + 1, offset);
   }
 
-  private static getInsertTextForPlainText(text: string): string {
-    // eslint-disable-next-line no-useless-escape
-    return text.replace(/[\\\$\}]/g, '\\$&'); // escape $, \ and }
-  }
-
-  private static getInsertTextForValue(value: unknown, separatorAfter: string): string {
-    const text = JSON.stringify(value, null, '\t');
-    if (text === '{}') {
-      return `{$1}${separatorAfter}`;
-    }
-    if (text === '[]') {
-      return `[$1]${separatorAfter}`;
-    }
-    return this.getInsertTextForPlainText(text + separatorAfter);
-  }
-
-  private static getInsertTextForProperty(
-    key: string,
-    addValue: boolean,
-    separatorAfter: string,
-  ): string {
-    const propertyText = this.getInsertTextForValue(key, '');
-    if (!addValue) {
-      return propertyText;
-    }
-    const resultText = `${propertyText}: `;
-
-    let value;
-    const nValueProposals = 0;
-    if (!value || nValueProposals > 1) {
-      value = '$1';
-    }
-    return resultText + value + separatorAfter;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private static evaluateSeparatorAfter(document: TextDocument, offset: number) {
-    // TODO
-    return '';
-  }
-
   private static getMetadataPropertyCompletions(
     doc: Element,
     node: Element,
-    collector: CompletionsCollector,
     yaml: boolean,
-    inNewLine: boolean,
-    word?: string,
-    quotes?: string,
-    withQuotes?: boolean,
-  ): void {
+  ): CompletionItem[] {
     const apidomCompletions: CompletionItem[] = [];
     if (node.classes) {
       const set: string[] = Array.from(new Set(node.classes.toValue()));
@@ -478,29 +399,6 @@ export class DefaultCompletionService implements CompletionService {
         }
       });
     }
-
-    if (apidomCompletions) {
-      for (const item of apidomCompletions) {
-        if (withQuotes) {
-          const completionTextQuotes =
-            item.insertText?.charAt(0) === '"' || item.insertText?.charAt(0) === "'"
-              ? item.insertText?.charAt(0)
-              : undefined;
-          if (!completionTextQuotes && quotes) {
-            item.insertText = quotes + item.insertText + quotes;
-          }
-        }
-        if (inNewLine) {
-          item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
-        }
-
-        const strippedQuotesWord = quotes && word ? word.substring(1, word.length) : word!;
-        if (word && word.length > 0 && item.insertText?.startsWith(strippedQuotesWord)) {
-          collector.add(item);
-        } else if (!word) {
-          collector.add(item);
-        }
-      }
-    }
+    return apidomCompletions;
   }
 }

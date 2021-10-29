@@ -1,0 +1,6 @@
+/**
+ * @file **unraw - errors.ts** | Error messages used by `unraw`.
+ * @author Ian Sanders
+ * @copyright 2019 Ian Sanders
+ * @license MIT
+ */

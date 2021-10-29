@@ -4,8 +4,7 @@
     "react-app/jest",
     "airbnb",
     "plugin:jsx-a11y/recommended",
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {

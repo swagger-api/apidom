@@ -14,23 +14,19 @@ export const clearConsole = createAction('playground/clearConsole');
 
 export const importURL = createAsyncThunk(
   'playground/importURLStatus',
-  async (url, { extra: { apiDOMService } }) => {
-    return apiDOMService.readFile(url);
-  }
+  async (url, { extra: { apiDOMService } }) => apiDOMService.readFile(url)
 );
 
 export const parseSource = createAsyncThunk(
   'playground/parseSourceStatus',
-  async ({ source, mediaType }, { extra: { apiDOMService } }) => {
-    return apiDOMService.parse(source, { mediaType });
-  }
+  async ({ source, mediaType }, { extra: { apiDOMService } }) =>
+    apiDOMService.parse(source, { mediaType })
 );
 
 export const resolveApiDOM = createAsyncThunk(
   'playground/resolveApiDOMStatus',
-  async ({ source, apiDOM, mediaType, baseURI }, { extra: { apiDOMService } }) => {
-    return apiDOMService.resolveApiDOM(apiDOM, { source, mediaType, baseURI });
-  }
+  async ({ source, apiDOM, mediaType, baseURI }, { extra: { apiDOMService } }) =>
+    apiDOMService.resolveApiDOM(apiDOM, { source, mediaType, baseURI })
 );
 
 export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (interpreter) => {
@@ -44,7 +40,6 @@ export const interpretApiDOM = createAsyncThunk('interpretApiDOMStatus', async (
 
 export const dereferenceApiDOM = createAsyncThunk(
   'playground/dereferenceApiDOMStatus',
-  async ({ source, apiDOM, mediaType, baseURI, interpreter }, { extra: { apiDOMService } }) => {
-    return apiDOMService.dereferenceApiDOM(apiDOM, { source, mediaType, baseURI, interpreter });
-  }
+  async ({ source, apiDOM, mediaType, baseURI, interpreter }, { extra: { apiDOMService } }) =>
+    apiDOMService.dereferenceApiDOM(apiDOM, { source, mediaType, baseURI, interpreter })
 );

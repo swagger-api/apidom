@@ -49,9 +49,13 @@ export interface LanguageServiceContext {
   validatorProviders?: ValidationProvider[];
 }
 
+export interface NamespaceVersion {
+  namespace: string;
+  version: string;
+}
 /* represent any validation provider  */
 export interface ValidationProvider {
-  namespaces(): string[];
+  namespaces(): NamespaceVersion[];
 
   break(): boolean;
 

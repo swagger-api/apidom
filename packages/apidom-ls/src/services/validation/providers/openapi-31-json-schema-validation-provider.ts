@@ -1,6 +1,8 @@
 import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json';
 import { JsonSchemaValidationProvider } from './json-schema-validation-provider';
+import { NamespaceVersion } from '../../../apidom-language-types';
 
+// TODO separate providers for OAS 3.1 and 3.0
 // eslint-disable-next-line import/prefer-default-export
 export class OpenAPi31JsonSchemaValidationProvider extends JsonSchemaValidationProvider {
   public constructor(jsonSchema?: Record<string, unknown>, ajv2020 = false) {
@@ -18,8 +20,11 @@ export class OpenAPi31JsonSchemaValidationProvider extends JsonSchemaValidationP
   }
 
   // eslint-disable-next-line class-methods-use-this
-  namespaces(): string[] {
-    return ['openapi'];
+  namespaces(): NamespaceVersion[] {
+    return [
+      { namespace: 'openapi', version: '3.1.0' },
+      { namespace: 'openapi', version: '3.0.0' },
+    ];
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -23,7 +23,7 @@ import { metadata } from './metadata';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 
 const spec = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.yaml'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-2.0.0.yaml'))
   .toString();
 const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async.yaml'))
@@ -156,22 +156,6 @@ describe('apidom-ls-async-yaml', function () {
       {
         range: {
           start: {
-            line: 0,
-            character: 10,
-          },
-          end: {
-            line: 0,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 0,
-        source: 'asyncapi schema',
-      },
-      {
-        range: {
-          start: {
             line: 2,
             character: 0,
           },
@@ -184,52 +168,6 @@ describe('apidom-ls-async-yaml', function () {
         severity: 1,
         code: 0,
         source: 'asyncapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 0,
-            character: 10,
-          },
-          end: {
-            line: 0,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 48,
-        source: 'apilint',
-        data: {
-          quickFix: {
-            message: "update to '2.0.0'",
-            action: 'updateValue',
-            functionParams: ['2.0.0'],
-          },
-        },
-      },
-      {
-        range: {
-          start: {
-            line: 0,
-            character: 10,
-          },
-          end: {
-            line: 0,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 23,
-        source: 'apilint',
-        data: {
-          quickFix: {
-            message: "update to '2.0.0'",
-            action: 'updateValue',
-            functionParams: ['2.0.0'],
-          },
-        },
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

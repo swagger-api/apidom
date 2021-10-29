@@ -13,6 +13,7 @@ const OpenapiVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       this.copyMetaAndAttributes(stringElement, openapiElement);
 
       this.element = openapiElement;
+      this.element.classes.push('spec-version');
       return BREAK;
     },
   },

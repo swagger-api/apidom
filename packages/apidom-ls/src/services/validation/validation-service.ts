@@ -17,6 +17,7 @@ import {
   isObject,
   QuickFixData,
   MetadataMap,
+  getSpecVersion,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -92,6 +93,7 @@ export class DefaultValidationService implements ValidationService {
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (api === undefined) return diagnostics;
+    const specVersion = getSpecVersion(api);
     if (result.annotations) {
       for (const annotation of result.annotations) {
         if (
@@ -142,7 +144,9 @@ export class DefaultValidationService implements ValidationService {
 
       const allProvidersDiagnostics: Diagnostic[] = [];
       for (const provider of this.validationProviders) {
-        if (provider.namespaces().includes(docNs)) {
+        if (
+          provider.namespaces().some((ns) => ns.namespace === docNs && ns.version === specVersion)
+        ) {
           allProvidersDiagnostics.push(
             ...// eslint-disable-next-line no-await-in-loop
             (await provider.doValidation(textDocument, api, validationContext)),

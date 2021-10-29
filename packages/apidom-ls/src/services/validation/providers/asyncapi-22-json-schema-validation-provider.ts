@@ -1,10 +1,9 @@
-import asyncapiSchemaJson from '../json-schema/async-api-20/asyncapi-schema.json';
+import asyncapiSchemaJson from '../json-schema/async-api-22/asyncapi-schema.json';
 import { JsonSchemaValidationProvider } from './json-schema-validation-provider';
 import { NamespaceVersion } from '../../../apidom-language-types';
 
-// TODO separate providers for OAS 3.1 and 3.0
 // eslint-disable-next-line import/prefer-default-export
-export class Asyncapi20JsonSchemaValidationProvider extends JsonSchemaValidationProvider {
+export class Asyncapi22JsonSchemaValidationProvider extends JsonSchemaValidationProvider {
   public constructor() {
     super(false, asyncapiSchemaJson);
   }
@@ -16,7 +15,7 @@ export class Asyncapi20JsonSchemaValidationProvider extends JsonSchemaValidation
 
   // eslint-disable-next-line class-methods-use-this
   namespaces(): NamespaceVersion[] {
-    return [{ namespace: 'asyncapi', version: '2.0.0' }];
+    return [{ namespace: 'asyncapi', version: '2.2.0' }];
   }
 
   // eslint-disable-next-line class-methods-use-this

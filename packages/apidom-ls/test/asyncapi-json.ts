@@ -26,7 +26,7 @@ import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 
 const spec = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation.json'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-2.0.0.json'))
   .toString();
 const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async.json'))
@@ -168,22 +168,6 @@ describe('apidom-ls-async', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 14,
-          },
-          end: {
-            line: 1,
-            character: 21,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 0,
-        source: 'asyncapi schema',
-      },
-      {
-        range: {
-          start: {
             line: 3,
             character: 2,
           },
@@ -213,52 +197,6 @@ describe('apidom-ls-async', function () {
         severity: 1,
         code: 0,
         source: 'asyncapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 14,
-          },
-          end: {
-            line: 1,
-            character: 21,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 48,
-        source: 'apilint',
-        data: {
-          quickFix: {
-            message: "update to '2.0.0'",
-            action: 'updateValue',
-            functionParams: ['2.0.0'],
-          },
-        },
-      },
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 14,
-          },
-          end: {
-            line: 1,
-            character: 21,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 23,
-        source: 'apilint',
-        data: {
-          quickFix: {
-            message: "update to '2.0.0'",
-            action: 'updateValue',
-            functionParams: ['2.0.0'],
-          },
-        },
       },
     ];
 

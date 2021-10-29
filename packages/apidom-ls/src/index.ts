@@ -14,6 +14,8 @@ export {
 export { default as getLanguageService } from './apidom-language-service';
 export { JsonSchemaValidationProvider } from './services/validation/providers/json-schema-validation-provider';
 export { Asyncapi20JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-20-json-schema-validation-provider';
+export { Asyncapi21JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-21-json-schema-validation-provider';
+export { Asyncapi22JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-22-json-schema-validation-provider';
 export { OpenAPi31JsonSchemaValidationProvider } from './services/validation/providers/openapi-31-json-schema-validation-provider';
 
 export { isJsonDoc, isAsyncDoc, getText } from './parser-factory';

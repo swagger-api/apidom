@@ -35,6 +35,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
         },
         "value": {
           "element": "asyncApiVersion",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                }
+              ]
+            }
+          },
           "content": "2.0.0"
         }
       }
@@ -8752,6 +8763,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
         },
         "value": {
           "element": "asyncApiVersion",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                }
+              ]
+            }
+          },
           "content": "2.1.0"
         }
       }
@@ -16569,6 +16591,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
         },
         "value": {
           "element": "asyncApiVersion",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                }
+              ]
+            }
+          },
           "content": "2.2.0"
         }
       }

@@ -8,6 +8,7 @@ import { Element } from '@swagger-api/apidom-core';
 import { positionRangeForPath } from '../../../utils/ast';
 import {
   LanguageSettings,
+  NamespaceVersion,
   ValidationContext,
   ValidationProvider,
 } from '../../../apidom-language-types';
@@ -140,7 +141,7 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
 
   public abstract break(): boolean;
 
-  public abstract namespaces(): string[];
+  public abstract namespaces(): NamespaceVersion[];
 
   public abstract name(): string;
 }

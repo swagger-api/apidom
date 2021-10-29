@@ -6,6 +6,7 @@ import {
   isMemberElement,
   isObjectElement,
   isArrayElement,
+  find,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 
@@ -146,6 +147,11 @@ export function setMetadataMap(
   }
 }
 
+export function getSpecVersion(root: Element): string {
+  const el = find((e) => e.getMetaProperty('classes', []).toValue().includes('spec-version'), root);
+  return el ? el.toValue() : '';
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function log(label: string, message: unknown, toFile = false): void {
   // eslint-disable-next-line no-console
@@ -155,4 +161,9 @@ export function log(label: string, message: unknown, toFile = false): void {
       if (err) throw err;
     });
   } */
+}
+
+export function logJson(label: string, message: unknown): void {
+  // eslint-disable-next-line no-console
+  console.log(label, JSON.stringify(message, null, 2));
 }

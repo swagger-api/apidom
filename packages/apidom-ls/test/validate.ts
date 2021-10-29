@@ -13,6 +13,8 @@ import {
 import { metadata } from './metadata';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
+import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider';
+import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
 import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
 
 const specOpenapiSimple = fs
@@ -27,6 +29,14 @@ const specAsyncYaml = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-yaml.yaml'))
   .toString();
 
+const specAsyncYaml21 = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-yaml-2.1.0.yaml'))
+  .toString();
+
+const specAsyncYaml22 = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-yaml-2.2.0.yaml'))
+  .toString();
+
 const specAsyncYamlNoDesc = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-nodesc.yaml'))
   .toString();
@@ -34,6 +44,8 @@ const specAsyncYamlNoDesc = fs
 describe('apidom-ls-validate', function () {
   const oasJsonSchemavalidationProvider = new OpenAPi31JsonSchemaValidationProvider();
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
+  const async21JsonSchemavalidationProvider = new Asyncapi21JsonSchemaValidationProvider();
+  const async22JsonSchemavalidationProvider = new Asyncapi22JsonSchemaValidationProvider();
   const oasJsonSchemavalidationProvider30 = new OpenAPi31JsonSchemaValidationProvider(
     openapiSchemaJson30,
     false,
@@ -41,12 +53,22 @@ describe('apidom-ls-validate', function () {
 
   const context: LanguageServiceContext = {
     metadata: metadata(),
-    validatorProviders: [oasJsonSchemavalidationProvider, asyncJsonSchemavalidationProvider],
+    validatorProviders: [
+      oasJsonSchemavalidationProvider,
+      asyncJsonSchemavalidationProvider,
+      async21JsonSchemavalidationProvider,
+      async22JsonSchemavalidationProvider,
+    ],
   };
 
   const context30: LanguageServiceContext = {
     metadata: metadata(),
-    validatorProviders: [oasJsonSchemavalidationProvider30, asyncJsonSchemavalidationProvider],
+    validatorProviders: [
+      oasJsonSchemavalidationProvider30,
+      asyncJsonSchemavalidationProvider,
+      async21JsonSchemavalidationProvider,
+      async22JsonSchemavalidationProvider,
+    ],
   };
 
   it('test validation for asyncapi and openapi', async function () {
@@ -209,22 +231,6 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 14,
-          },
-          end: {
-            line: 1,
-            character: 21,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 0,
-        source: 'asyncapi schema',
-      },
-      {
-        range: {
-          start: {
             line: 3,
             character: 2,
           },
@@ -305,22 +311,6 @@ describe('apidom-ls-validate', function () {
     assert.deepEqual(result, expectedAsync as Diagnostic[]);
     result = await languageService.doValidation(docAsyncapiYaml, validationContext);
     assert.deepEqual(result, [
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 10,
-          },
-          end: {
-            line: 1,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 0,
-        source: 'asyncapi schema',
-      },
       {
         range: {
           start: {
@@ -728,6 +718,210 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('test asyncapi 2.2 validation', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const docAsyncapi22: TextDocument = TextDocument.create(
+      'foo://bar/specAsyncYaml22.json',
+      'json',
+      0,
+      specAsyncYaml22,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(docAsyncapi22, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 0,
+          },
+          end: {
+            line: 3,
+            character: 4,
+          },
+        },
+        message: "must have required property 'version'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 45,
+            character: 10,
+          },
+          end: {
+            line: 46,
+            character: 4,
+          },
+        },
+        message:
+          'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 10,
+          },
+          end: {
+            line: 1,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 10,
+          },
+          end: {
+            line: 1,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+    languageService.terminate();
+  });
+
+  it('test asyncapi 2.1 validation', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const docAsyncapi21: TextDocument = TextDocument.create(
+      'foo://bar/specAsyncYaml21.json',
+      'json',
+      0,
+      specAsyncYaml21,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(docAsyncapi21, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 0,
+          },
+          end: {
+            line: 3,
+            character: 4,
+          },
+        },
+        message: "must have required property 'version'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 45,
+            character: 10,
+          },
+          end: {
+            line: 46,
+            character: 4,
+          },
+        },
+        message:
+          'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 10,
+          },
+          end: {
+            line: 1,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 48,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 10,
+          },
+          end: {
+            line: 1,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: {
+            message: "update to '2.0.0'",
+            action: 'updateValue',
+            functionParams: ['2.0.0'],
+          },
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+    languageService.terminate();
+  });
+
   it('asyncapi / yaml - test lint and quickfix ', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -752,22 +946,6 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
-      {
-        range: {
-          start: {
-            line: 0,
-            character: 10,
-          },
-          end: {
-            line: 0,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 0,
-        source: 'asyncapi schema',
-      },
       {
         range: {
           start: {

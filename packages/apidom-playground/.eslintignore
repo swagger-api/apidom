@@ -1,6 +1,5 @@
-/build
-/config
-/scripts
-/node_modules
-/babel.config.js
-/src/reportWebVitals.js
+build
+scripts
+node_modules
+src/reportWebVitals.js
+src/setupTests.js

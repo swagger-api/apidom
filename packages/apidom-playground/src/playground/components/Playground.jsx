@@ -10,31 +10,29 @@ import {
 
 const themeInstance = unstable_createMuiStrictModeTheme();
 
-const useStyles = makeStyles((theme) => {
-  return {
-    root: {
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    paper: {
-      maxHeight: 'calc(100vh - 64px)',
-      display: 'flex',
-      flexDirection: 'row',
-      flexGrow: 1,
-    },
-    leftPane: ({ drawerWidth }) => ({
-      flexGrow: 1,
-      flexBasis: '50%',
-      marginLeft: drawerWidth + theme.spacing(2),
-      maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
-    }),
-    rightPane: ({ drawerWidth }) => ({
-      flexBasis: '50%',
-      maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
-    }),
-  };
-});
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  paper: {
+    maxHeight: 'calc(100vh - 64px)',
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+  },
+  leftPane: ({ drawerWidth }) => ({
+    flexGrow: 1,
+    flexBasis: '50%',
+    marginLeft: drawerWidth + theme.spacing(2),
+    maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
+  }),
+  rightPane: ({ drawerWidth }) => ({
+    flexBasis: '50%',
+    maxWidth: `calc(50% - ${drawerWidth / 2}px)`,
+  }),
+}));
 
 const Playground = () => {
   const { drawerWidth } = useSystem();

@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />; // eslint-disable-line react/jsx-props-no-spreading
-});
+const Transition = React.forwardRef(
+  (props, ref) => <Slide direction="up" ref={ref} {...props} /> // eslint-disable-line react/jsx-props-no-spreading
+);
 
 const ApiDOMInterpreterDialog = ({ open, onClose }) => {
   const classes = useStyles();
@@ -89,7 +89,7 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
           />
         </FormControl>
         <Box mt={2}>
-          <Grid container item justify="center">
+          <Grid container item justifyContent="center">
             <ButtonGroup
               variant="contained"
               color="primary"

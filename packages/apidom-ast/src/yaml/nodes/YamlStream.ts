@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { either } from 'ramda';
-import { isArray } from 'ramda-adjunct';
 
 import Node from '../../Node';
 import YamlDocument from './YamlDocument';
@@ -21,7 +19,10 @@ const YamlStream: stampit.Stamp<YamlStream> = stampit(Node, {
     content: {
       get(): Array<YamlDocument | YamlComment> {
         // @ts-ignore
-        return isArray(this.children) ? this.children.filter(either(isDocument, isComment)) : [];
+        return Array.isArray(this.children)
+          ? // @ts-ignore
+            this.children.filter((node: any) => isDocument(node) || isComment(node))
+          : [];
       },
       enumerable: true,
     },

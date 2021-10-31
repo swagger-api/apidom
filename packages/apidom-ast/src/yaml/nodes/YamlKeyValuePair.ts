@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { filter, anyPass, pipe, nth, identical, complement, both } from 'ramda';
 
 import Node from '../../Node';
 import YamlStyleModel from './YamlStyle';
@@ -20,7 +19,9 @@ const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyl
     key: {
       get() {
         // @ts-ignore
-        return pipe(filter(anyPass([isScalar, isMapping, isSequence])), nth(0))(this.children);
+        return this.children.filter(
+          (node: any) => isScalar(node) || isMapping(node) || isSequence(node),
+        )[0];
       },
       enumerable: true,
     },
@@ -28,10 +29,12 @@ const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyl
       get() {
         // @ts-ignore
         const { key, children } = this;
-        const excludeKeyPredicate = complement(identical(key));
-        const valuePredicate = anyPass([isScalar, isMapping, isSequence, isAlias]);
+        const excludeKeyPredicate = (node: any) => node !== key;
+        const valuePredicate = (node: any) =>
+          isScalar(node) || isMapping(node) || isSequence(node) || isAlias(node);
+
         // @ts-ignore
-        return pipe(filter(both(excludeKeyPredicate, valuePredicate)), nth(0))(children);
+        return children.filter((node: any) => excludeKeyPredicate(node) && valuePredicate(node))[0];
       },
       enumerable: true,
     },

@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { isArray } from 'ramda-adjunct';
 
 import YamlCollection from './YamlCollection';
 import { isKeyValuePair } from './predicates';
@@ -18,7 +17,7 @@ const YamlMapping: stampit.Stamp<YamlMapping> = stampit(YamlCollection, {
     content: {
       get(): Array<YamlKeyValuePair> {
         // @ts-ignore
-        return isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
+        return Array.isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
       },
       enumerable: true,
     },

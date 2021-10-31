@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { anyPass } from 'ramda';
-import { isArray } from 'ramda-adjunct';
 
 import YamlCollection from './YamlCollection';
 import YamlMapping from './YamlMapping';
@@ -23,8 +21,10 @@ const YamlSequence: stampit.Stamp<YamlSequence> = stampit(YamlCollection, {
         // @ts-ignore
         const { children } = this;
 
-        return isArray(children)
-          ? children.filter(anyPass([isSequence, isMapping, isScalar, isAlias]))
+        return Array.isArray(children)
+          ? children.filter(
+              (node: any) => isSequence(node) || isMapping(node) || isScalar(node) || isAlias(node),
+            )
           : [];
       },
       enumerable: true,

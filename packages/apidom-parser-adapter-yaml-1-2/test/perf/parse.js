@@ -13,7 +13,7 @@ const options = {
   name: 'parse',
   defer: true,
   minSamples: 600,
-  expected: '4.77 ops/sec ±0.82% (623 runs sampled)',
+  expected: '9.93 ops/sec ±1.11% (642 runs sampled)',
   async fn(deferred) {
     await parse(source);
     deferred.resolve();

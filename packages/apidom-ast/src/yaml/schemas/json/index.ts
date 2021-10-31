@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { pathOr } from 'ramda';
 
 import FailsafeSchema from '../failsafe';
 import Boolean from './Boolean';
@@ -35,7 +34,7 @@ const JsonSchema = stampit(FailsafeSchema, {
         } else if (node.tag.kind === YamlNodeKind.Scalar) {
           // @ts-ignore
           const foundTag = this.tags.find((tag) => tag.test(node));
-          specificTagName = pathOr('?', ['tag'], foundTag);
+          specificTagName = foundTag?.tag || '?';
         }
       }
 

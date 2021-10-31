@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { anyPass } from 'ramda';
 
 import JsonNode from './JsonNode';
 import { isFalse, isTrue, isNull, isNumber, isString, isArray, isObject } from './predicates';
@@ -14,7 +13,14 @@ const JsonArray: stampit.Stamp<JsonArray> = stampit(JsonNode, {
     get items(): unknown[] {
       // @ts-ignore
       return this.children.filter(
-        anyPass([isFalse, isTrue, isNull, isNumber, isString, isArray, isObject]),
+        (node: any) =>
+          isFalse(node) ||
+          isTrue(node) ||
+          isNull(node) ||
+          isNumber(node) ||
+          isString(node) ||
+          isArray(node) ||
+          isObject,
       );
     },
   },

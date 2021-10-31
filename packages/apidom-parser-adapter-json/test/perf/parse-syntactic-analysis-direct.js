@@ -12,7 +12,7 @@ const source = fs.readFileSync(fixturePath).toString();
 const options = {
   name: 'parse-syntactic-analysis-direct',
   defer: true,
-  minSamples: 200,
+  minSamples: 600,
   expected: '45.50 ops/sec ±1.23% (669 runs sampled)',
   async fn(deferred) {
     await parse(source, { syntacticAnalysis: 'direct' });

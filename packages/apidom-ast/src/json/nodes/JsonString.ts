@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { either } from 'ramda';
 
 import JsonNode from './JsonNode';
 import JsonStringContent from './JsonStringContent';
@@ -16,10 +15,16 @@ const JsonString: stampit.Stamp<JsonString> = stampit(JsonNode, {
   },
   methods: {
     get value(): string {
+      // @ts-ignore
+      if (this.children.length === 1) {
+        // @ts-ignore
+        return this.children[0].value;
+      }
+
       return (
         this.children
           // @ts-ignore
-          .filter(either(isStringContent, isEscapeSequence))
+          .filter((node: any) => isStringContent(node) || isEscapeSequence(node))
           .reduce(
             (acc: string, cur: JsonStringContent | JsonEscapeSequence): string => acc + cur.value,
             '',

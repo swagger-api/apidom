@@ -1,25 +1,25 @@
 import { isNodeType } from '../../predicates';
 
-export const isDocument = isNodeType('document');
+export const isDocument = isNodeType.bind(undefined, 'document');
 
-export const isString = isNodeType('string');
+export const isString = isNodeType.bind(undefined, 'string');
 
-export const isFalse = isNodeType('false');
+export const isFalse = isNodeType.bind(undefined, 'false');
 
-export const isTrue = isNodeType('true');
+export const isTrue = isNodeType.bind(undefined, 'true');
 
-export const isNull = isNodeType('null');
+export const isNull = isNodeType.bind(undefined, 'null');
 
-export const isNumber = isNodeType('number');
+export const isNumber = isNodeType.bind(undefined, 'number');
 
-export const isArray = isNodeType('array');
+export const isArray = isNodeType.bind(undefined, 'array');
 
-export const isObject = isNodeType('object');
+export const isObject = isNodeType.bind(undefined, 'object');
 
-export const isStringContent = isNodeType('stringContent');
+export const isStringContent = isNodeType.bind(undefined, 'stringContent');
 
-export const isEscapeSequence = isNodeType('escapeSequence');
+export const isEscapeSequence = isNodeType.bind(undefined, 'escapeSequence');
 
-export const isProperty = isNodeType('property');
+export const isProperty = isNodeType.bind(undefined, 'property');
 
-export const isKey = isNodeType('key');
+export const isKey = isNodeType.bind(undefined, 'key');

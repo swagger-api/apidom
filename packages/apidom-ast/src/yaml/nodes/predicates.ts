@@ -1,21 +1,21 @@
 import { isNodeType } from '../../predicates';
 
-export const isStream = isNodeType('stream');
+export const isStream = isNodeType.bind(undefined, 'stream');
 
-export const isDocument = isNodeType('document');
+export const isDocument = isNodeType.bind(undefined, 'document');
 
-export const isMapping = isNodeType('mapping');
+export const isMapping = isNodeType.bind(undefined, 'mapping');
 
-export const isSequence = isNodeType('sequence');
+export const isSequence = isNodeType.bind(undefined, 'sequence');
 
-export const isKeyValuePair = isNodeType('keyValuePair');
+export const isKeyValuePair = isNodeType.bind(undefined, 'keyValuePair');
 
-export const isTag = isNodeType('tag');
+export const isTag = isNodeType.bind(undefined, 'tag');
 
-export const isScalar = isNodeType('scalar');
+export const isScalar = isNodeType.bind(undefined, 'scalar');
 
-export const isAlias = isNodeType('alias');
+export const isAlias = isNodeType.bind(undefined, 'alias');
 
-export const isDirective = isNodeType('directive');
+export const isDirective = isNodeType.bind(undefined, 'directive');
 
-export const isComment = isNodeType('comment');
+export const isComment = isNodeType.bind(undefined, 'comment');

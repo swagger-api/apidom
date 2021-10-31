@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { either } from 'ramda';
 import {
   JsonArray,
   JsonDocument,
@@ -63,8 +62,7 @@ export const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
-// @ts-ignore
-export const isNode = either(isElement, isCSTNode);
+export const isNode = (element: any) => isElement(element) || isCSTNode(element);
 
 /* eslint-disable no-underscore-dangle */
 
@@ -139,12 +137,17 @@ const JsonAstVisitor = stampit({
       element.content.value = node.value;
       maybeAddSourceMap(node, element);
 
-      // process possible errors here that may be present in property node children as we're using direct field access
-      node.children
-        .filter((child: any) => child.type === 'error')
-        .forEach((errorNode: any) => {
-          this.error(errorNode, node, [], [node]);
-        });
+      /**
+       * Process possible errors here that may be present in pair node children as we're using direct field access.
+       * There are usually 3 children here found: "key", ":", "value".
+       */
+      if (node.children.length > 3) {
+        node.children
+          .filter((child: any) => child.type === 'error')
+          .forEach((errorNode: any) => {
+            this.error(errorNode, node, [], [node]);
+          });
+      }
 
       return element;
     };

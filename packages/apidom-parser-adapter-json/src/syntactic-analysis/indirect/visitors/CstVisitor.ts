@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { tail } from 'ramda';
-import { isFalse, isFunction } from 'ramda-adjunct';
 import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
 import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
@@ -14,7 +12,6 @@ import {
   JsonProperty,
   JsonString,
   JsonStringContent,
-  JsonEscapeSequence,
   JsonTrue,
   ParseResult,
   Position,
@@ -60,6 +57,15 @@ const CstVisitor = stampit({
       return Position({ start, end });
     };
 
+    const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
+      return `${fieldName}Node` in node
+        ? // @ts-ignore
+          node[`${fieldName}Node`]
+        : 'childForFieldName' in node
+        ? node.childForFieldName?.(fieldName)
+        : null;
+    };
+
     /**
      * Public API.
      */
@@ -70,7 +76,7 @@ const CstVisitor = stampit({
       // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
       // whether tree-sitter node binding has it defined as a boolean property.
       // @ts-ignore
-      if ((isFunction(node.isNamed) && !node.isNamed()) || isFalse(node.isNamed)) {
+      if ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) {
         const position = toPosition(node);
         const value = node.type || node.text;
         const isMissing = node.isMissing();
@@ -104,20 +110,15 @@ const CstVisitor = stampit({
 
     this.pair = function pair(node: SyntaxNode) {
       const position = toPosition(node);
-      const children = tail<SyntaxNode | JsonKey>(node.children);
-      const keyValuePairNodeCount = 3;
+      const children = node.children.slice(1);
+      const keyNode = getFieldFromNode('key', node);
+      const key = JsonKey({
+        children: keyNode?.children || [],
+        position: toPosition(keyNode),
+        isMissing: keyNode?.isMissing() || false,
+      });
 
-      if (node.childCount >= keyValuePairNodeCount && node.firstChild !== null) {
-        const key = JsonKey({
-          children: node.firstChild.children,
-          position: toPosition(node.firstChild),
-          isMissing: node.firstChild.isMissing(),
-        });
-
-        children.unshift(key);
-      }
-
-      return JsonProperty({ children, position, isMissing: node.isMissing() });
+      return JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing() });
     };
 
     this.array = function array(node: SyntaxNode) {
@@ -128,22 +129,9 @@ const CstVisitor = stampit({
 
     this.string = function string(node: SyntaxNode) {
       const position = toPosition(node);
+      const content = JsonStringContent({ value: node.text.slice(1, -1) });
 
-      return JsonString({ children: node.children, position, isMissing: node.isMissing() });
-    };
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.string_content = function string_content(node: SyntaxNode) {
-      const position = toPosition(node);
-
-      return JsonStringContent({ value: node.text, position, isMissing: node.isMissing() });
-    };
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.escape_sequence = function escape_sequence(node: SyntaxNode) {
-      const position = toPosition(node);
-
-      return JsonEscapeSequence({ value: node.text, position, isMissing: node.isMissing() });
+      return JsonString({ children: [content], position, isMissing: node.isMissing() });
     };
 
     this.number = function number(node: SyntaxNode) {

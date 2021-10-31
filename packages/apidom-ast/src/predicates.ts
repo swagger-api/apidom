@@ -1,11 +1,9 @@
-import { pathEq } from 'ramda';
+export const isNodeType = (type: string, node: any): boolean => node?.type === type;
 
-export const isNodeType = pathEq(['type']);
+export const isLiteral = isNodeType.bind(undefined, 'literal');
 
-export const isLiteral = isNodeType('literal');
+export const isPosition = isNodeType.bind(undefined, 'position');
 
-export const isPosition = isNodeType('position');
+export const isPoint = isNodeType.bind(undefined, 'point');
 
-export const isPoint = isNodeType('point');
-
-export const isParseResult = isNodeType('parseResult');
+export const isParseResult = isNodeType.bind(undefined, 'parseResult');

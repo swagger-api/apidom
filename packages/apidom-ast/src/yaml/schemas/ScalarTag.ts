@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { isString } from 'ramda-adjunct';
 
 import {
   formatFlowPlain,
@@ -14,7 +13,7 @@ import { YamlNodeKind } from '../nodes/YamlTag';
 const ScalarTag = stampit({
   methods: {
     test(node) {
-      return node.tag.kind === YamlNodeKind.Scalar && isString(node.content);
+      return node.tag.kind === YamlNodeKind.Scalar && typeof node.content === 'string';
     },
 
     canonicalFormat(node) {

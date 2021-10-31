@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { propEq, reject } from 'ramda';
-import { isUndefined } from 'ramda-adjunct';
 
 import YamlDirective from '../../nodes/YamlDirective';
 import { YamlNodeKind } from '../../nodes/YamlTag';
@@ -66,7 +64,7 @@ const FailsafeSchema = stampit({
     },
 
     overrideTag(tag) {
-      this.tags = reject(propEq('tag', tag.tag), this.tags);
+      this.tags = this.tags.filter((itag: any) => itag.tag === tag.tag);
       this.tags.push(tag);
       return this;
     },
@@ -85,10 +83,10 @@ const FailsafeSchema = stampit({
         canonicalNode = ScalarTag().canonicalFormat(node);
       }
 
-      const tag = this.tags.find(propEq('tag', specificTagName));
+      const tag = this.tags.find((itag: any) => itag?.tag === specificTagName);
 
       // mechanism for resolving node (tag implementation) not found
-      if (isUndefined(tag)) {
+      if (typeof tag === 'undefined') {
         throw new Error(`Tag "${specificTagName}" couldn't be resolved`);
       }
 

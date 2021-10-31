@@ -1,19 +1,4 @@
 import stampit from 'stampit';
-import {
-  either,
-  unnest,
-  flatten,
-  prop,
-  propOr,
-  pathOr,
-  find,
-  anyPass,
-  curry,
-  propSatisfies,
-  endsWith,
-  hasIn,
-} from 'ramda';
-import { isArray, isFalse, isFunction, isNotUndefined, invokeArgs } from 'ramda-adjunct';
 import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
 import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
@@ -48,7 +33,7 @@ export const keyMap = {
 };
 
 // @ts-ignore
-export const isNode = either(isArray, isCSTNode);
+export const isNode = (node: any) => Array.isArray(node) || isCSTNode(node);
 
 /* eslint-disable no-param-reassign */
 
@@ -89,11 +74,8 @@ const CstVisitor = stampit({
         ({ previousSibling } = previousSibling);
       }
 
-      const explicitName = pathOr(
-        node.type === 'plain_scalar' ? '?' : '!',
-        ['text'],
-        previousSibling,
-      );
+      const explicitName = previousSibling?.text || node.type === 'plain_scalar' ? '?' : '!';
+
       // eslint-disable-next-line no-nested-ternary
       const kind = node.type.endsWith('mapping')
         ? YamlNodeKind.Mapping
@@ -122,17 +104,18 @@ const CstVisitor = stampit({
     /**
      * If web-tree-sitter will support keyNode and valueNode this can be further simplified.
      */
-    const isKind = curry((ending, node) => propSatisfies(endsWith(ending), 'type', node));
+    const isKind = (ending: string) => (node: any) =>
+      typeof node?.type === 'string' && node.type.endsWith(ending);
     const isScalar = isKind('scalar');
     const isMapping = isKind('mapping');
     const isSequence = isKind('sequence');
 
     const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
-      return hasIn(`${fieldName}Node`, node)
+      return `${fieldName}Node` in node
         ? // @ts-ignore
-          prop(`${fieldName}Node`, node)
-        : hasIn('childForFieldName', node)
-        ? invokeArgs(['childForFieldName'], [fieldName], node)
+          node[`${fieldName}Node`]
+        : 'childForFieldName' in node
+        ? node.childForFieldName?.(fieldName)
         : null;
     };
 
@@ -149,7 +132,9 @@ const CstVisitor = stampit({
 
       // keyNode was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !keyNode.children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !keyNode.children.some(
+        (n: SyntaxNode) => isScalar(n) || isSequence(n) || isMapping(n),
+      );
     };
 
     const isKeyValuePairValueless = (node: SyntaxNode) => {
@@ -166,7 +151,9 @@ const CstVisitor = stampit({
 
       // valueNode was not explicitly provided; tag or anchor are provided though
       // @ts-ignore
-      return !valueNode.children.some(anyPass([isScalar, isSequence, isMapping]));
+      return !valueNode.children.some(
+        (n: SyntaxNode) => isScalar(n) || isSequence(n) || isMapping(n),
+      );
     };
 
     const createKeyValuePairSurrogateKey = (node: SyntaxNode) => {
@@ -176,22 +163,26 @@ const CstVisitor = stampit({
         char: node.startIndex,
       });
       const keyNode = getFieldFromNode('key', node);
-      const children = pathOr([], ['children'], keyNode);
-      const tagNode: any | undefined = find(isKind('tag'), children);
-      const anchorNode: any | undefined = find(isKind('anchor'), children);
-      const tag = isNotUndefined(tagNode)
-        ? YamlTag({
-            explicitName: tagNode.text,
-            kind: YamlNodeKind.Scalar,
-            position: toPosition(tagNode),
-          })
-        : YamlTag({
-            explicitName: '?',
-            kind: YamlNodeKind.Scalar,
-          });
-      const anchor = isNotUndefined(anchorNode)
-        ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
-        : null;
+      const children = keyNode?.children || [];
+      // @ts-ignore
+      const tagNode: any | undefined = children.find(isKind('tag'));
+      // @ts-ignore
+      const anchorNode: any | undefined = children.find(isKind('anchor'));
+      const tag =
+        typeof tagNode !== 'undefined'
+          ? YamlTag({
+              explicitName: tagNode.text,
+              kind: YamlNodeKind.Scalar,
+              position: toPosition(tagNode),
+            })
+          : YamlTag({
+              explicitName: '?',
+              kind: YamlNodeKind.Scalar,
+            });
+      const anchor =
+        typeof anchorNode !== 'undefined'
+          ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
+          : null;
 
       return YamlScalar({
         content: '',
@@ -210,22 +201,26 @@ const CstVisitor = stampit({
         char: node.endIndex,
       });
       const valueNode = getFieldFromNode('value', node);
-      const children = pathOr([], ['children'], valueNode);
-      const tagNode: any | undefined = find(isKind('tag'), children);
-      const anchorNode: any | undefined = find(isKind('anchor'), children);
-      const tag = isNotUndefined(tagNode)
-        ? YamlTag({
-            explicitName: tagNode.text,
-            kind: YamlNodeKind.Scalar,
-            position: toPosition(tagNode),
-          })
-        : YamlTag({
-            explicitName: '?',
-            kind: YamlNodeKind.Scalar,
-          });
-      const anchor = isNotUndefined(anchorNode)
-        ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
-        : null;
+      const children = valueNode?.children || [];
+      // @ts-ignore
+      const tagNode: any | undefined = children.find(isKind('tag'));
+      // @ts-ignore
+      const anchorNode: any | undefined = children.find(isKind('anchor'));
+      const tag =
+        typeof tagNode !== 'undefined'
+          ? YamlTag({
+              explicitName: tagNode.text,
+              kind: YamlNodeKind.Scalar,
+              position: toPosition(tagNode),
+            })
+          : YamlTag({
+              explicitName: '?',
+              kind: YamlNodeKind.Scalar,
+            });
+      const anchor =
+        typeof anchorNode !== 'undefined'
+          ? YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) })
+          : null;
 
       return YamlScalar({
         content: '',
@@ -247,7 +242,7 @@ const CstVisitor = stampit({
       // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
       // whether tree-sitter node binding has it defined as a boolean property.
       // @ts-ignore
-      if ((isFunction(node.isNamed) && !node.isNamed()) || isFalse(node.isNamed)) {
+      if ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) {
         const position = toPosition(node);
         const value = node.type || node.text;
         const isMissing = node.isMissing();
@@ -276,7 +271,7 @@ const CstVisitor = stampit({
     this.yaml_directive = {
       enter(node: SyntaxNode) {
         const position = toPosition(node);
-        const version = pathOr(null, ['firstNamedChild', 'text'], node);
+        const version = node?.firstNamedChild?.text || null;
 
         return YamlDirective({
           position,
@@ -297,8 +292,8 @@ const CstVisitor = stampit({
           position,
           name: '%TAG',
           parameters: {
-            handle: propOr(null, 'text', tagHandleNode),
-            prefix: propOr(null, 'text', tagPrefixNode),
+            handle: tagHandleNode?.text || null,
+            prefix: tagPrefixNode?.text || null,
           },
         });
 
@@ -317,10 +312,10 @@ const CstVisitor = stampit({
 
         return YamlDirective({
           position,
-          name: propOr(null, 'text', directiveNameNode),
+          name: directiveNameNode?.text || null,
           parameters: {
-            handle: propOr(null, 'text', directiveParameter1Node),
-            prefix: propOr(null, 'text', directiveParameter2Node),
+            handle: directiveParameter1Node?.text || null,
+            prefix: directiveParameter2Node?.text || null,
           },
         });
       },
@@ -337,7 +332,7 @@ const CstVisitor = stampit({
         });
       },
       leave(node: YamlDocument) {
-        node.children = unnest(node.children);
+        node.children = node.children.flat();
       },
     };
 
@@ -451,7 +446,7 @@ const CstVisitor = stampit({
 
     this.keyValuePair = {
       leave(node: YamlKeyValuePair) {
-        node.children = unnest(node.children);
+        node.children = node.children.flat();
       },
     };
 
@@ -485,7 +480,7 @@ const CstVisitor = stampit({
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
         const sequenceNode = YamlSequence({
-          children: unnest(node.children),
+          children: node.children.flat(),
           position,
           anchor,
           tag,
@@ -499,7 +494,7 @@ const CstVisitor = stampit({
 
     this.sequence = {
       leave(node: YamlSequence) {
-        node.children = flatten(node.children);
+        node.children = node.children.flat(+Infinity);
       },
     };
 

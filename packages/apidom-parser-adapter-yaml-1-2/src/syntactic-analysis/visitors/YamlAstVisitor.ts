@@ -27,8 +27,6 @@ import {
   getNodeType as getNodeTypeApiDOM,
   createNamespace,
 } from '@swagger-api/apidom-core';
-import { anyPass, unnest } from 'ramda';
-import { isArray } from 'ramda-adjunct';
 
 export const keyMap = {
   stream: ['children'],
@@ -47,8 +45,7 @@ export const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
-// @ts-ignore
-export const isNode = anyPass([isElement, isCSTNode, isArray]);
+export const isNode = (node: any) => isElement(node) || isCSTNode(node) || Array.isArray(node);
 
 /* eslint-disable no-underscore-dangle */
 
@@ -87,7 +84,7 @@ const YamlAstVisitor = stampit({
       leave(node: YamlStream) {
         const element = new ParseResultElement();
         // @ts-ignore
-        element._content = unnest(node.children);
+        element._content = node.children.flat(1);
 
         // mark first-non Annotation element as result
         // @ts-ignore

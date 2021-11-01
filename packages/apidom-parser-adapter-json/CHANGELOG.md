@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/swagger-api/apidom/compare/v0.5.0...v0.5.1) (2021-11-01)
+
+
+### Performance Improvements
+
+* **adapter-json:** optimize indirect syntactic analysis ([731d1f5](https://github.com/swagger-api/apidom/commit/731d1f5d635f469003949fc52a6717dd1e5d35a6)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.5.0](https://github.com/swagger-api/apidom/compare/v0.4.0...v0.5.0) (2021-10-26)
 
 

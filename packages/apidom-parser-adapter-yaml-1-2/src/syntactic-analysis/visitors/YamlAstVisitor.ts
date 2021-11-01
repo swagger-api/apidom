@@ -79,6 +79,7 @@ const YamlAstVisitor = stampit({
      */
 
     this.namespace = createNamespace();
+    this.annotations = [];
 
     this.stream = {
       leave(node: YamlStream) {

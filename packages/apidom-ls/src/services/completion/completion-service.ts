@@ -19,6 +19,7 @@ import {
   isNumberElement,
   isObjectElement,
   isStringElement,
+  traverse,
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
@@ -89,6 +90,18 @@ export class DefaultCompletionService implements CompletionService {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  private isReferenceValue(node: Element): boolean {
+    // TODO move to NS adapter plugin
+    // TODO replace this with checking metadata refObject in parent
+    // assume it's a value node within a member
+    if (isMember(node) && (node.key as Element).toValue() === '$ref') {
+      return true;
+    }
+    const { parent } = node;
+    return parent && isMember(parent) && (parent.key as Element).toValue() === '$ref';
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   private resolveCaretContext(node: Element, offset: number): CaretContext {
     let caretContext: CaretContext = CaretContext.UNDEFINED;
     if (node) {
@@ -156,6 +169,10 @@ export class DefaultCompletionService implements CompletionService {
     }
   }
 
+  private static buildJsonPointer(path: string[]): string {
+    return `#/${path.join('/')}`;
+  }
+
   /*
     see also:
       https://github.com/microsoft/monaco-editor/issues/1889
@@ -172,7 +189,6 @@ export class DefaultCompletionService implements CompletionService {
         ? completionParamsOrPosition.position
         : completionParamsOrPosition;
 
-    // get right parser
     const text: string = textDocument.getText();
 
     const schema = false;
@@ -194,8 +210,7 @@ export class DefaultCompletionService implements CompletionService {
       endArrayNodeChar = ']'; // eslint-disable-line @typescript-eslint/no-unused-vars
     }
 
-    // parse
-    const result = await this.settings!.documentCache?.get(textDocument);
+    const result = await this.settings?.documentCache?.get(textDocument);
     if (!result) return CompletionList.create();
     const { api } = result;
     // if we cannot parse nothing to do
@@ -318,11 +333,22 @@ export class DefaultCompletionService implements CompletionService {
           // node is empty
           overwriteRange = undefined;
         }
-        const apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
-          api,
-          completionNode,
-          !isJsonDoc(textDocument),
-        );
+        let apidomCompletions: CompletionItem[] | undefined;
+        // check if we are in a ref value, in this case build ref pointers
+        if (this.isReferenceValue(completionNode)) {
+          apidomCompletions = DefaultCompletionService.findReferencePointers(
+            textDocument,
+            api,
+            completionNode,
+            !isJsonDoc(textDocument),
+          );
+        } else {
+          apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
+            api,
+            completionNode,
+            !isJsonDoc(textDocument),
+          );
+        }
 
         if (apidomCompletions) {
           for (const item of apidomCompletions) {
@@ -330,6 +356,10 @@ export class DefaultCompletionService implements CompletionService {
               item.insertText?.charAt(0) === '"' || item.insertText?.charAt(0) === "'"
                 ? item.insertText?.charAt(0)
                 : undefined;
+
+            const unquotedOriginalInsertText = !completionTextQuotes
+              ? item.insertText
+              : item.insertText?.substring(1, item.insertText.length);
 
             if (!completionTextQuotes && quotes) {
               item.insertText = quotes + item.insertText + quotes;
@@ -341,8 +371,7 @@ export class DefaultCompletionService implements CompletionService {
             */
             item.filterText = text.substring(location.offset, location.offset + location.length);
 
-            const strippedQuotesWord = quotes && word ? word.substring(1, word.length) : word!;
-            if (word && word.length > 0 && item.insertText?.startsWith(strippedQuotesWord)) {
+            if (word && word.length > 0 && unquotedOriginalInsertText?.startsWith(word)) {
               collector.add(item);
             } else if (!word) {
               collector.add(item);
@@ -372,10 +401,82 @@ export class DefaultCompletionService implements CompletionService {
   private static getCurrentWord(document: TextDocument, offset: number) {
     let i = offset - 1;
     const text = document.getText();
-    while (i >= 0 && ' \t\n\r\v":{[,]}'.indexOf(text.charAt(i)) === -1) {
+    while (i >= 0 && ' \t\n\r\v"\':{[,]}'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
     }
     return text.substring(i + 1, offset);
+  }
+
+  public static findReferencePointers(
+    textDocument: TextDocument,
+    doc: Element,
+    node: Element,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    yaml: boolean,
+  ): CompletionItem[] {
+    type Pointer = {
+      node: Element;
+      ref: string;
+    };
+
+    const result: CompletionItem[] = [];
+    // get type of node (element)
+    const nodeElement =
+      node.parent?.parent?.getMetaProperty('referenced-element')?.toValue() ||
+      node.parent?.parent?.element;
+    if (!nodeElement) return result;
+    // traverse all doc to find nodes of the same type which are not a ref
+    const foundNodes: Element[] = [];
+    let nodePath: string[] = [];
+    function buildPointer(traverseNode: Element): void {
+      if (!traverseNode) return;
+      if (traverseNode.parent && isMember(traverseNode.parent)) {
+        nodePath.unshift((traverseNode.parent.key as Element).toValue());
+        buildPointer(traverseNode.parent?.parent);
+      }
+    }
+    function findNodesOfType(traversedNode: Element): void {
+      if (traversedNode.element === nodeElement) {
+        if (
+          !(
+            isObject(traversedNode) &&
+            traversedNode.get('$ref') &&
+            traversedNode.get('$ref').toValue().length > 0
+          )
+        ) {
+          foundNodes.push(traversedNode);
+        }
+      }
+    }
+    traverse(findNodesOfType, doc);
+    // for each found node build its json pointer
+    const pointers: Pointer[] = [];
+    for (const foundNode of foundNodes) {
+      nodePath = [];
+      buildPointer(foundNode);
+      pointers.push({ node: foundNode, ref: DefaultCompletionService.buildJsonPointer(nodePath) });
+    }
+    // TODO better sorting, NS plugin..
+    pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));
+
+    // build completion item
+    let i = 97;
+    for (const p of pointers) {
+      const sm = getSourceMap(p.node);
+      const item: CompletionItem = {
+        label: p.ref,
+        insertText: `${p.ref}$1`,
+        kind: 10,
+        documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
+        // detail: 'replace with',
+        insertTextFormat: 2,
+        sortText: `${String.fromCharCode(i)}`,
+      };
+      result.push(item);
+      i += 1;
+    }
+    // TODO also add to completion description target fragment so user can preview
+    return result;
   }
 
   private static getMetadataPropertyCompletions(

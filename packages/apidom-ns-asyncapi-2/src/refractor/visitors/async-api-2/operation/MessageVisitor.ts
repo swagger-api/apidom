@@ -10,6 +10,7 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
     ObjectElement(objectElement: ObjectElement) {
       if (isReferenceLikeElement(objectElement)) {
         this.element = this.toRefractedElement(['document', 'objects', 'Reference'], objectElement);
+        this.element.setMetaProperty('referenced-element', 'message');
       } else if (isArrayElement(objectElement.get('oneOf'))) {
         this.element = new ArrayElement();
         this.element.classes.push('operation-message');

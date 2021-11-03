@@ -18,6 +18,10 @@ const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async.yaml'))
   .toString();
 
+const specCompletionRef = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-ref.yaml'))
+  .toString();
+
 describe('apidom-ls-complete', function () {
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
 
@@ -107,5 +111,235 @@ describe('apidom-ls-complete', function () {
       completionContext,
     );
     assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+  });
+
+  it('asyncapi / yaml - test ref completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionRef.json',
+      'json',
+      0,
+      specCompletionRef,
+    );
+
+    const pos = Position.create(12, 21);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result, {
+      items: [
+        {
+          label: '#/components/schemas/Tag',
+          insertText: '"#/components/schemas/Tag$1"',
+          kind: 10,
+          documentation:
+            'type: object\n      properties:\n        id:\n          type: integer\n          format: int64\n        name:\n          type: string',
+          insertTextFormat: 2,
+          sortText: 'a',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/schemas/Tag$1"',
+          },
+        },
+        {
+          label: '#/components/messages/userSignUp/payload',
+          insertText: '"#/components/messages/userSignUp/payload$1"',
+          kind: 10,
+          documentation:
+            'type: object\n        properties:\n          user:\n            $ref: "#/components/schemas/Category"\n          signup:\n            $ref: "#/components/schemas/Tag"\n',
+          insertTextFormat: 2,
+          sortText: 'c',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/messages/userSignUp/payload$1"',
+          },
+        },
+        {
+          label: '#/components/messages/userSignUp/headers',
+          insertText: '"#/components/messages/userSignUp/headers$1"',
+          kind: 10,
+          documentation:
+            'type: object\n        properties:\n          applicationInstanceId:\n            description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
+          insertTextFormat: 2,
+          sortText: 'd',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/messages/userSignUp/headers$1"',
+          },
+        },
+        {
+          label: '#/components/schemas/Tag/properties/name',
+          insertText: '"#/components/schemas/Tag/properties/name$1"',
+          kind: 10,
+          documentation: 'type: string',
+          insertTextFormat: 2,
+          sortText: 'e',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/schemas/Tag/properties/name$1"',
+          },
+        },
+        {
+          label: '#/components/schemas/Tag/properties/id',
+          insertText: '"#/components/schemas/Tag/properties/id$1"',
+          kind: 10,
+          documentation: 'type: integer\n          format: int64',
+          insertTextFormat: 2,
+          sortText: 'f',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/schemas/Tag/properties/id$1"',
+          },
+        },
+        {
+          label: '#/components/schemas/Category/properties/name',
+          insertText: '"#/components/schemas/Category/properties/name$1"',
+          kind: 10,
+          documentation: 'type: string',
+          insertTextFormat: 2,
+          sortText: 'g',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/schemas/Category/properties/name$1"',
+          },
+        },
+        {
+          label: '#/components/schemas/Category/properties/id',
+          insertText: '"#/components/schemas/Category/properties/id$1"',
+          kind: 10,
+          documentation: 'type: integer\n          format: int64',
+          insertTextFormat: 2,
+          sortText: 'h',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/components/schemas/Category/properties/id$1"',
+          },
+        },
+        {
+          label: '#/components/messages/userSignUp/headers/properties/appli...',
+          insertText:
+            '"#/components/messages/userSignUp/headers/properties/applicationInstanceId$1"',
+          kind: 10,
+          documentation:
+            'description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
+          insertTextFormat: 2,
+          sortText: 'i',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText:
+              '"#/components/messages/userSignUp/headers/properties/applicationInstanceId$1"',
+          },
+        },
+        {
+          label: '#/channels/user/signin/subscribe/message/payload',
+          insertText: '"#/channels/user/signin/subscribe/message/payload$1"',
+          kind: 10,
+          documentation:
+            'type: object\n          properties:\n            user:\n              $ref: "#/components/schemas/Category"',
+          insertTextFormat: 2,
+          sortText: 'j',
+          filterText: '"#/components/schemas/Category"',
+          textEdit: {
+            range: {
+              start: {
+                line: 12,
+                character: 20,
+              },
+              end: {
+                line: 12,
+                character: 51,
+              },
+            },
+            newText: '"#/channels/user/signin/subscribe/message/payload$1"',
+          },
+        },
+      ],
+      isIncomplete: false,
+    } as CompletionList);
   });
 });

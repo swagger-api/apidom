@@ -14033,6 +14033,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                           "content": "reference-element"
                                         }
                                       ]
+                                    },
+                                    "referenced-element": {
+                                      "element": "string",
+                                      "content": "message"
                                     }
                                   },
                                   "content": [
@@ -22174,6 +22178,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                           "content": "reference-element"
                                         }
                                       ]
+                                    },
+                                    "referenced-element": {
+                                      "element": "string",
+                                      "content": "message"
                                     }
                                   },
                                   "content": [

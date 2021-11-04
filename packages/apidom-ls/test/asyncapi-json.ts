@@ -280,19 +280,54 @@ describe('apidom-ls-async', function () {
 
     const expected: SymbolInformation[] = [
       {
+        name: 'spec-version',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 12,
+            },
+          },
+        },
+      },
+      {
         name: 'info',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 4, character: 2 }, end: { line: 4, character: 8 } },
+          range: {
+            start: {
+              line: 4,
+              character: 2,
+            },
+            end: {
+              line: 4,
+              character: 8,
+            },
+          },
         },
       },
       {
-        name: 'version',
+        name: 'api-version',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 8, character: 4 }, end: { line: 8, character: 13 } },
+          range: {
+            start: {
+              line: 8,
+              character: 4,
+            },
+            end: {
+              line: 8,
+              character: 13,
+            },
+          },
         },
       },
     ];
@@ -331,12 +366,11 @@ describe('apidom-ls-async', function () {
         );
       }
     }
-
     assert.deepEqual(tokens, {
       data: [
-        1, 2, 10, 26, 0, 1, 2, 6, 3, 0, 1, 4, 9, 2, 0, 2, 2, 9, 24, 0, 1, 4, 6, 23, 0, 0, 9, 5, 10,
-        0, 2, 2, 10, 28, 0, 1, 4, 3, 27, 0, 1, 6, 11, 4, 16, 1, 8, 9, 35, 64, 0, 11, 19, 32, 64, 1,
-        8, 9, 35, 64, 1, 10, 9, 22, 0, 1, 12, 6, 35, 64, 0, 8, 8, 32, 64,
+        1, 2, 10, 2, 0, 1, 2, 6, 4, 0, 1, 4, 9, 1, 0, 2, 2, 9, 25, 0, 1, 4, 6, 24, 0, 0, 9, 5, 11,
+        0, 2, 2, 10, 28, 0, 1, 4, 3, 27, 0, 1, 6, 11, 5, 16, 1, 8, 9, 35, 64, 0, 11, 19, 32, 64, 1,
+        8, 9, 35, 64, 1, 10, 9, 23, 0, 1, 12, 6, 35, 64, 0, 8, 8, 32, 64,
       ],
     });
   });

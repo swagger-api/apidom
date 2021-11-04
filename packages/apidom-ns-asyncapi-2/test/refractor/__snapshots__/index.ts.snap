@@ -42,6 +42,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                 {
                   "element": "string",
                   "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
                 }
               ]
             }
@@ -154,6 +158,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                     "classes": {
                       "element": "array",
                       "content": [
+                        {
+                          "element": "string",
+                          "content": "api-version"
+                        },
                         {
                           "element": "string",
                           "content": "version"
@@ -8770,6 +8778,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                 {
                   "element": "string",
                   "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
                 }
               ]
             }
@@ -8882,6 +8894,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                     "classes": {
                       "element": "array",
                       "content": [
+                        {
+                          "element": "string",
+                          "content": "api-version"
+                        },
                         {
                           "element": "string",
                           "content": "version"
@@ -16602,6 +16618,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                 {
                   "element": "string",
                   "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
                 }
               ]
             }
@@ -16714,6 +16734,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                     "classes": {
                       "element": "array",
                       "content": [
+                        {
+                          "element": "string",
+                          "content": "api-version"
+                        },
                         {
                           "element": "string",
                           "content": "version"

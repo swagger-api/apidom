@@ -484,19 +484,54 @@ describe('apidom-ls-yaml', function () {
 
     const expected: SymbolInformation[] = [
       {
+        name: 'spec-version',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 0,
+              character: 0,
+            },
+            end: {
+              line: 0,
+              character: 7,
+            },
+          },
+        },
+      },
+      {
         name: 'info',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
+          range: {
+            start: {
+              line: 1,
+              character: 0,
+            },
+            end: {
+              line: 1,
+              character: 4,
+            },
+          },
         },
       },
       {
-        name: 'version',
+        name: 'api-version',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 5, character: 2 }, end: { line: 5, character: 9 } },
+          range: {
+            start: {
+              line: 5,
+              character: 2,
+            },
+            end: {
+              line: 5,
+              character: 9,
+            },
+          },
         },
       },
     ];
@@ -537,10 +572,10 @@ describe('apidom-ls-yaml', function () {
     }
     assert.deepEqual(tokens, {
       data: [
-        0, 0, 7, 15, 0, 1, 0, 4, 3, 0, 1, 2, 7, 2, 0, 1, 0, 7, 24, 0, 1, 4, 3, 10, 0, 1, 0, 5, 17,
-        0, 1, 2, 2, 5, 0, 1, 4, 3, 4, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64, 1, 4, 4, 4, 32, 1, 6,
-        11, 35, 64, 0, 13, 5, 32, 64, 1, 2, 2, 5, 0, 1, 4, 4, 4, 32, 1, 6, 11, 35, 64, 0, 13, 5, 32,
-        64, 1, 2, 2, 5, 0, 1, 4, 3, 4, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64,
+        0, 0, 7, 16, 0, 0, 0, 7, 2, 0, 1, 0, 4, 4, 0, 1, 2, 7, 1, 0, 1, 0, 7, 25, 0, 1, 4, 3, 11, 0,
+        1, 0, 5, 18, 0, 1, 2, 2, 6, 0, 1, 4, 3, 5, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64, 1, 4, 4,
+        5, 32, 1, 6, 11, 35, 64, 0, 13, 5, 32, 64, 1, 2, 2, 6, 0, 1, 4, 4, 5, 32, 1, 6, 11, 35, 64,
+        0, 13, 5, 32, 64, 1, 2, 2, 6, 0, 1, 4, 3, 5, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64,
       ],
     });
   });

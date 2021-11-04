@@ -42,6 +42,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                 {
                   "element": "string",
                   "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
                 }
               ]
             }
@@ -396,6 +400,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                     "classes": {
                       "element": "array",
                       "content": [
+                        {
+                          "element": "string",
+                          "content": "api-version"
+                        },
                         {
                           "element": "string",
                           "content": "version"

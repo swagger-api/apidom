@@ -684,19 +684,54 @@ describe('apidom-ls', function () {
     // console.log(JSON.stringify(result));
     const expected: SymbolInformation[] = [
       {
+        name: 'spec-version',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 11,
+            },
+          },
+        },
+      },
+      {
         name: 'info',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 4, character: 2 }, end: { line: 4, character: 8 } },
+          range: {
+            start: {
+              line: 4,
+              character: 2,
+            },
+            end: {
+              line: 4,
+              character: 8,
+            },
+          },
         },
       },
       {
-        name: 'version',
+        name: 'api-version',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 8, character: 4 }, end: { line: 8, character: 13 } },
+          range: {
+            start: {
+              line: 8,
+              character: 4,
+            },
+            end: {
+              line: 8,
+              character: 13,
+            },
+          },
         },
       },
     ];
@@ -737,10 +772,10 @@ describe('apidom-ls', function () {
     }
     assert.deepEqual(tokens, {
       data: [
-        1, 2, 9, 15, 0, 1, 2, 6, 3, 0, 1, 4, 9, 2, 0, 2, 2, 9, 24, 0, 1, 5, 5, 10, 0, 2, 2, 7, 17,
-        0, 1, 4, 4, 5, 0, 1, 6, 5, 4, 16, 1, 8, 13, 35, 64, 0, 15, 6, 32, 64, 2, 6, 6, 4, 32, 1, 8,
-        13, 35, 64, 0, 15, 7, 32, 64, 3, 4, 4, 5, 0, 1, 6, 6, 4, 32, 1, 8, 13, 35, 64, 0, 15, 7, 32,
-        64, 3, 4, 4, 5, 0, 1, 6, 5, 4, 16, 1, 8, 13, 35, 64, 0, 15, 6, 32, 64,
+        1, 2, 9, 16, 0, 0, 0, 9, 2, 0, 1, 2, 6, 4, 0, 1, 4, 9, 1, 0, 2, 2, 9, 25, 0, 1, 5, 5, 11, 0,
+        2, 2, 7, 18, 0, 1, 4, 4, 6, 0, 1, 6, 5, 5, 16, 1, 8, 13, 35, 64, 0, 15, 6, 32, 64, 2, 6, 6,
+        5, 32, 1, 8, 13, 35, 64, 0, 15, 7, 32, 64, 3, 4, 4, 6, 0, 1, 6, 6, 5, 32, 1, 8, 13, 35, 64,
+        0, 15, 7, 32, 64, 3, 4, 4, 6, 0, 1, 6, 5, 5, 16, 1, 8, 13, 35, 64, 0, 15, 6, 32, 64,
       ],
     });
   });

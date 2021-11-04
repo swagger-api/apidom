@@ -250,19 +250,88 @@ describe('apidom-ls-async-yaml', function () {
     // console.log(JSON.stringify(result));
     const expected: SymbolInformation[] = [
       {
+        name: 'spec-version',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 0,
+              character: 0,
+            },
+            end: {
+              line: 0,
+              character: 8,
+            },
+          },
+        },
+      },
+      {
         name: 'info',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 1, character: 0 }, end: { line: 1, character: 4 } },
+          range: {
+            start: {
+              line: 1,
+              character: 0,
+            },
+            end: {
+              line: 1,
+              character: 4,
+            },
+          },
         },
       },
       {
-        name: 'version',
+        name: 'api-version',
         kind: 7,
         location: {
           uri: '',
-          range: { start: { line: 5, character: 2 }, end: { line: 5, character: 9 } },
+          range: {
+            start: {
+              line: 5,
+              character: 2,
+            },
+            end: {
+              line: 5,
+              character: 9,
+            },
+          },
+        },
+      },
+      {
+        name: 'components',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 6,
+              character: 0,
+            },
+            end: {
+              line: 6,
+              character: 10,
+            },
+          },
+        },
+      },
+      {
+        name: 'components-schemas',
+        kind: 7,
+        location: {
+          uri: '',
+          range: {
+            start: {
+              line: 7,
+              character: 2,
+            },
+            end: {
+              line: 7,
+              character: 9,
+            },
+          },
         },
       },
     ];
@@ -303,9 +372,9 @@ describe('apidom-ls-async-yaml', function () {
     }
     assert.deepEqual(tokens, {
       data: [
-        0, 0, 8, 26, 0, 1, 0, 4, 3, 0, 1, 2, 7, 2, 0, 1, 0, 7, 24, 0, 1, 2, 4, 23, 0, 1, 4, 3, 10,
-        0, 1, 0, 8, 28, 0, 1, 2, 3, 27, 0, 1, 4, 9, 4, 16, 1, 6, 7, 35, 64, 0, 9, 17, 32, 64, 1, 6,
-        7, 35, 64, 1, 8, 7, 22, 0, 1, 10, 4, 35, 64, 0, 6, 6, 32, 64,
+        0, 0, 8, 2, 0, 1, 0, 4, 4, 0, 1, 2, 7, 1, 0, 1, 0, 7, 25, 0, 1, 2, 4, 24, 0, 1, 4, 3, 11, 0,
+        1, 0, 8, 28, 0, 1, 2, 3, 27, 0, 1, 4, 9, 5, 16, 1, 6, 7, 35, 64, 0, 9, 17, 32, 64, 1, 6, 7,
+        35, 64, 1, 8, 7, 23, 0, 1, 10, 4, 35, 64, 0, 6, 6, 32, 64,
       ],
     });
   });

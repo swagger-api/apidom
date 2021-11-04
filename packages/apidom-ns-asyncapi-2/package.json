@@ -38,7 +38,7 @@
     "@swagger-api/apidom-core": "^0.5.1",
     "@types/ramda": "=0.27.46",
     "ramda": "=0.27.1",
-    "ramda-adjunct": "=2.34.0",
+    "ramda-adjunct": "=2.35.0",
     "stampit": "=4.3.2"
   },
   "files": [

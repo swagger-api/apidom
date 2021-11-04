@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/swagger-api/apidom/compare/v0.5.1...v0.6.0) (2021-11-04)
+
+
+### Bug Fixes
+
+* update version, spec-version, api-version meta ([ddee593](https://github.com/swagger-api/apidom/commit/ddee593c0aa1f94e2d1eed1cb8a93f28b8e46db4))
+
+
+### Features
+
+* **apidom-ls:** support all AsyncAPI 2.x in json schema validation ([4cd47b3](https://github.com/swagger-api/apidom/commit/4cd47b3f0cae1d6563689104ef550181b0b337b1))
+
+
+
+
+
 ## [0.5.1](https://github.com/swagger-api/apidom/compare/v0.5.0...v0.5.1) (2021-11-01)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

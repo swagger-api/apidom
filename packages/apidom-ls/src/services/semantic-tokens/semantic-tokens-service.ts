@@ -37,8 +37,9 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
   private static allClasses(): string[] {
     return [
       'parameter',
+      'api-version',
+      'spec-version',
       'specVersion',
-      'version',
       'info',
       'operation',
       'pathItem',
@@ -62,7 +63,6 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
       'server',
       'servers',
       'title',
-      'asyncApiVersion',
       'channelItem',
       'channels',
       'reference-element',

@@ -13,7 +13,6 @@ const AsyncApiVersionVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);
 
       this.element = asyncApiVersionElement;
-      this.element.classes.push('spec-version');
       return BREAK;
     },
   },

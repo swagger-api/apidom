@@ -42,7 +42,8 @@ export class DefaultSymbolsService implements SymbolsService {
     // TODO remove
     const allClasses = [
       'info',
-      'version',
+      'api-version',
+      'spec-version',
       'specVersion',
       'license',
       'operation',

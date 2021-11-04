@@ -9,6 +9,7 @@ const VersionVisitor = stampit(FallbackVisitor, {
       this.element = new StringElement(stringElement.toValue());
 
       this.copyMetaAndAttributes(stringElement, this.element);
+      this.element.classes.push('api-version');
       this.element.classes.push('version');
 
       return BREAK;

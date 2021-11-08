@@ -22,9 +22,13 @@ import {
   traverse,
 } from '@swagger-api/apidom-core';
 
-import { LanguageSettings, CompletionContext } from '../../apidom-language-types';
-import { getSourceMap, isMember, isObject } from '../../utils/utils';
-import { isJsonDoc } from '../../parser-factory';
+import {
+  LanguageSettings,
+  CompletionContext,
+  ApidomCompletionItem,
+} from '../../apidom-language-types';
+import { getSourceMap, getSpecVersion, isMember, isObject } from '../../utils/utils';
+import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -215,7 +219,8 @@ export class DefaultCompletionService implements CompletionService {
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return CompletionList.create();
-
+    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const specVersion = getSpecVersion(api);
     const completionList: CompletionList = {
       items: [],
       isIncomplete: false,
@@ -299,6 +304,8 @@ export class DefaultCompletionService implements CompletionService {
           api,
           completionNode,
           !isJsonDoc(textDocument),
+          docNs,
+          specVersion,
         );
         for (const item of apidomCompletions) {
           if (inNewLine) {
@@ -347,6 +354,8 @@ export class DefaultCompletionService implements CompletionService {
             api,
             completionNode,
             !isJsonDoc(textDocument),
+            docNs,
+            specVersion,
           );
         }
 
@@ -483,13 +492,15 @@ export class DefaultCompletionService implements CompletionService {
     doc: Element,
     node: Element,
     yaml: boolean,
+    docNs: string,
+    specVersion: string,
   ): CompletionItem[] {
-    const apidomCompletions: CompletionItem[] = [];
+    const apidomCompletions: ApidomCompletionItem[] = [];
     if (node.classes) {
       const set: string[] = Array.from(new Set(node.classes.toValue()));
       set.unshift(node.element);
       set.forEach((s) => {
-        const classCompletions: CompletionItem[] = doc.meta
+        const classCompletions: ApidomCompletionItem[] = doc.meta
           .get('metadataMap')
           ?.get(s)
           ?.get(yaml ? 'yaml' : 'json')
@@ -498,8 +509,36 @@ export class DefaultCompletionService implements CompletionService {
         if (classCompletions) {
           apidomCompletions.push(...classCompletions);
         }
+        // check also parent for completions with `target` property
+        // get parent
+        if (node.parent && isMember(node.parent)) {
+          const containerNode = node.parent.parent;
+          const key = (node.parent.key as Element).toValue();
+          // get metadata of parent with target
+          const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+          containerNodeSet.unshift(containerNode.element);
+          containerNodeSet.forEach((containerNodeSymbol) => {
+            const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
+              .get('metadataMap')
+              ?.get(containerNodeSymbol)
+              ?.get(yaml ? 'yaml' : 'json')
+              ?.get('completion')
+              ?.toValue();
+            if (containerNodeClassCompletions) {
+              apidomCompletions.push(
+                ...containerNodeClassCompletions.filter((ci) => ci.target === key),
+              );
+            }
+          });
+        }
       });
     }
-    return apidomCompletions;
+    // only keep relevant to ns/version
+    return apidomCompletions.filter(
+      (ci) =>
+        !ci.targetSpecs ||
+        (ci.targetSpecs &&
+          ci.targetSpecs.some((nsv) => nsv.namespace === docNs && nsv.version === specVersion)),
+    ) as CompletionItem[];
   }
 }

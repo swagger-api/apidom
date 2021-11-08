@@ -198,8 +198,37 @@ describe('apidom-ls-async', function () {
         code: 0,
         source: 'asyncapi schema',
       },
+      {
+        range: {
+          start: {
+            line: 55,
+            character: 20,
+          },
+          end: {
+            line: 55,
+            character: 29,
+          },
+        },
+        message: 'type must be one of allowed values',
+        severity: 1,
+        code: 131,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to 'null'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'object'",
+              action: 'updateValue',
+              functionParams: ['object'],
+            },
+          ],
+        },
+      },
     ];
-
     assert.deepEqual(result, expected as Diagnostic[]);
 
     doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);

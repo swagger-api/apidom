@@ -10,6 +10,7 @@ import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
+  ApidomCompletionItem,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
@@ -20,6 +21,10 @@ const specCompletion = fs
 
 const specCompletionRef = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-ref.yaml'))
+  .toString();
+
+const specCompletionSecurity = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-security.yaml'))
   .toString();
 
 describe('apidom-ls-complete', function () {
@@ -341,5 +346,48 @@ describe('apidom-ls-complete', function () {
       ],
       isIncomplete: false,
     } as CompletionList);
+  });
+
+  it('asyncapi / yaml - test security completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSecurity.json',
+      'json',
+      0,
+      specCompletionSecurity,
+    );
+
+    const pos = Position.create(60, 12);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        target: 'type',
+        label: 'userPassword',
+        kind: 10,
+        insertText: 'userPassword$1',
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'userPassword$1',
+        },
+      },
+    ] as ApidomCompletionItem[]);
   });
 });

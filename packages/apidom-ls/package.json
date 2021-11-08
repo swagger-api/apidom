@@ -4,7 +4,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "version": "0.6.0",
+  "version": "0.7.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"
@@ -36,14 +36,14 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "=7.16.0",
-    "@swagger-api/apidom-core": "^0.6.0",
-    "@swagger-api/apidom-ns-openapi-3-1": "^0.6.0",
-    "@swagger-api/apidom-parser": "^0.6.0",
-    "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.6.0",
-    "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.6.0",
-    "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.6.0",
-    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.6.0",
-    "@swagger-api/apidom-reference": "^0.6.0",
+    "@swagger-api/apidom-core": "^0.7.0",
+    "@swagger-api/apidom-ns-openapi-3-1": "^0.7.0",
+    "@swagger-api/apidom-parser": "^0.7.0",
+    "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.7.0",
+    "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.7.0",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.7.0",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.7.0",
+    "@swagger-api/apidom-reference": "^0.7.0",
     "@types/ramda": "=0.27.46",
     "ajv": "^8.6.3",
     "ajv-errors": "^3.0.0",

@@ -29,11 +29,6 @@ export type {
   WorkspaceContextService,
   ColorsContext,
   LanguageServiceContext,
-} from './apidom-language-types';
-
-export { SUPPORTED_LANGUAGES, FORMAT } from './apidom-language-types';
-
-export type {
   MetadataMap,
   Metadata,
   LinterMeta,
@@ -41,4 +36,7 @@ export type {
   LinterFunctionsMap,
   LinterFunctions,
   MetadataMaps,
-} from './utils/utils';
+  ApidomCompletionItem,
+} from './apidom-language-types';
+
+export { SUPPORTED_LANGUAGES, FORMAT } from './apidom-language-types';

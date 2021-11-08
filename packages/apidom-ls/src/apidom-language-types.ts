@@ -26,7 +26,6 @@ import {
 } from 'vscode-languageserver-protocol';
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
-import { Metadata } from './utils/utils';
 import { DocumentCache } from './document-cache';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -107,6 +106,66 @@ export interface ColorsContext {
 
 export interface WorkspaceContextService {
   resolveRelativePath(relativePath: string, resource: string): string;
+}
+
+export interface ApidomCompletionItem extends CompletionItem {
+  targetSpecs?: NamespaceVersion[];
+  target?: string;
+}
+
+export interface ElementMeta {
+  completion?: ApidomCompletionItem[];
+  validation?: string[];
+}
+
+export interface QuickFixData {
+  message: string;
+  function?: string;
+  functionParams?: [any];
+  action: string;
+  // TODO solve, validation meta also format based
+  snippetYaml?: string;
+  snippetJson?: string;
+}
+export interface LinterMetaData {
+  quickFix?: QuickFixData[];
+}
+export interface LinterMeta {
+  code?: number;
+  message?: string;
+  source?: string;
+  severity?: 1 | 2 | 3 | 4 | undefined;
+  linterFunction?: string;
+  linterParams?: [any];
+  marker?: string;
+  target?: string;
+  data?: LinterMetaData;
+  targetSpecs?: NamespaceVersion[];
+}
+
+export interface FormatMeta {
+  [index: string]: ElementMeta | string | LinterMeta[];
+}
+
+export interface MetadataMap {
+  [index: string]: FormatMeta;
+}
+
+export interface MetadataMaps {
+  [index: string]: MetadataMap;
+}
+
+export interface Metadata {
+  metadataMaps: MetadataMaps;
+  linterFunctions: LinterFunctionsMap;
+}
+
+export interface LinterFunctionsMap {
+  [index: string]: LinterFunctions;
+}
+
+export interface LinterFunctions {
+  [index: string]: (element: Element) => boolean;
 }
 
 export interface LanguageService {

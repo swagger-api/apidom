@@ -3,7 +3,7 @@ import { Element, ObjectElement } from 'minim';
 import fs from 'fs';
 import path from 'path';
 
-import { MetadataMap, Metadata, LinterFunctions } from '../src/utils/utils';
+import { MetadataMap, Metadata, LinterFunctions } from '../src/apidom-language-types';
 
 /* METADATA */
 

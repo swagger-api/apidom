@@ -3,12 +3,19 @@ import {
   ObjectElement,
   MemberElement,
   ArrayElement,
+  StringElement,
+  NumberElement,
+  BooleanElement,
   isMemberElement,
   isObjectElement,
   isArrayElement,
+  isStringElement,
+  isNumberElement,
+  isBooleanElement,
   find,
 } from '@swagger-api/apidom-core';
-import { CompletionItem } from 'vscode-languageserver-types';
+
+import { MetadataMaps } from '../apidom-language-types';
 
 // TODO remove, keep for remote debugging
 // import { appendFile } from 'fs';
@@ -82,59 +89,17 @@ export const isArray = (element: Element): element is ArrayElement => {
   return isArrayElement(element);
 };
 
-export interface ElementMeta {
-  completion?: CompletionItem[];
-  validation?: string[];
-}
+export const isString = (element: Element): element is StringElement => {
+  return isStringElement(element);
+};
 
-export interface QuickFixData {
-  message: string;
-  function?: string;
-  functionParams?: [any];
-  action: string;
-  // TODO solve, validation meta also format based
-  snippetYaml?: string;
-  snippetJson?: string;
-}
-export interface LinterMetaData {
-  quickFix?: QuickFixData;
-}
-export interface LinterMeta {
-  code?: number;
-  message?: string;
-  source?: string;
-  severity?: 1 | 2 | 3 | 4 | undefined;
-  linterFunction?: string;
-  linterParams?: [any];
-  marker?: string;
-  target?: string;
-  data?: LinterMetaData;
-}
+export const isNumber = (element: Element): element is NumberElement => {
+  return isNumberElement(element);
+};
 
-export interface FormatMeta {
-  [index: string]: ElementMeta | string | LinterMeta[];
-}
-
-export interface MetadataMap {
-  [index: string]: FormatMeta;
-}
-
-export interface MetadataMaps {
-  [index: string]: MetadataMap;
-}
-
-export interface Metadata {
-  metadataMaps: MetadataMaps;
-  linterFunctions: LinterFunctionsMap;
-}
-
-export interface LinterFunctionsMap {
-  [index: string]: LinterFunctions;
-}
-
-export interface LinterFunctions {
-  [index: string]: (element: Element) => boolean;
-}
+export const isBoolean = (element: Element): element is BooleanElement => {
+  return isBooleanElement(element);
+};
 
 export function setMetadataMap(
   root: Element,

@@ -11,7 +11,8 @@ import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-async
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { setMetadataMap, MetadataMaps } from './utils/utils';
+import { setMetadataMap } from './utils/utils';
+import { MetadataMaps } from './apidom-language-types';
 
 export interface ParserOptions {
   sourceMap?: boolean;

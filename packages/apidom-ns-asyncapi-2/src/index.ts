@@ -16,6 +16,8 @@ export {
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace';
 
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+
 export {
   isAsyncApi2Element,
   isAsyncApiVersionElement,

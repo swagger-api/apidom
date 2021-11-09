@@ -51,5 +51,8 @@
     "NOTICE",
     "README.md",
     "CHANGELOG.md"
-  ]
+  ],
+  "devDependencies": {
+    "dedent": "=0.7.0"
+  }
 }

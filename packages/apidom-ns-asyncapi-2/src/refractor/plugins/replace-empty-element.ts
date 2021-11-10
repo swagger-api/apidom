@@ -1,4 +1,4 @@
-import { ObjectElement, isStringElement, includesClasses } from '@swagger-api/apidom-core';
+import { Element, ObjectElement, isStringElement, includesClasses } from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from '../../elements/AsyncApi2';
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
@@ -13,11 +13,12 @@ import ExternalDocumentationElement from '../../elements/ExternalDocumentation';
 import ContactElement from '../../elements/Contact';
 import LicenseElement from '../../elements/License';
 import ServerElement from '../../elements/Server';
+import ChannelItemElement from '../../elements/ChannelItem';
 
 /**
- * This plugin is specific to YAML 1.2 format which allows to define key value pairs,
- * with empty key, empty value or both. If value is not provided in YAML format, this plugin
- * compensates for this missing value with the most appropriate semantic element type.
+ * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs
+ * with empty key, empty value, or both. If the value is not provided in YAML format,
+ * this plugin compensates for this missing value with the most appropriate semantic element type.
  *
  * https://yaml.org/spec/1.2.2/#72-empty-nodes
  *
@@ -53,22 +54,38 @@ const isEmptyElement = (element: any) =>
 
 const schema = {
   AsyncApi2Element: {
-    asyncapi: AsyncApiVersionElement,
-    identifier: IdentifierElement,
-    info: InfoElement,
-    servers: ServersElement,
-    defaultContentType: DefaultContentTypeElement,
-    channels: ChannelsElement,
-    components: ComponentsElement,
-    tags: TagsElement,
-    externalDocs: ExternalDocumentationElement,
+    asyncapi: () => new AsyncApiVersionElement(),
+    identifier: () => new IdentifierElement(),
+    info: () => new InfoElement(),
+    servers: () => new ServersElement(),
+    defaultContentType: () => new DefaultContentTypeElement(),
+    channels: () => new ChannelsElement(),
+    components: () => new ComponentsElement(),
+    tags: () => new TagsElement(),
+    externalDocs: () => new ExternalDocumentationElement(),
   },
   InfoElement: {
-    contact: ContactElement,
-    license: LicenseElement,
+    contact: () => new ContactElement(),
+    license: () => new LicenseElement(),
   },
   ServersElement: {
-    '*': ServerElement,
+    '*': () => new ServerElement(),
+  },
+  ChannelsElement: {
+    '*': () => new ChannelItemElement(),
+  },
+  ComponentsElement: {
+    schemas: () => new ObjectElement({}, { classes: ['components-schemas'] }),
+    messages: () => new ObjectElement({}, { classes: ['components-messages'] }),
+    securitySchemes: () => new ObjectElement({}, { classes: ['components-security-schemes'] }),
+    parameters: () => new ObjectElement({}, { classes: ['components-parameters'] }),
+    correlationIds: () => new ObjectElement({}, { classes: ['components-correlation-ids'] }),
+    operationTraits: () => new ObjectElement({}, { classes: ['components-operation-traits'] }),
+    messageTraits: () => new ObjectElement({}, { classes: ['components-message-traits'] }),
+    serverBindings: () => new ObjectElement({}, { classes: ['components-server-bindings'] }),
+    channelBindings: () => new ObjectElement({}, { classes: ['components-channel-bindings'] }),
+    operationBindings: () => new ObjectElement({}, { classes: ['components-operation-bindings'] }),
+    messageBindings: () => new ObjectElement({}, { classes: ['components-message-bindings'] }),
   },
 };
 
@@ -77,15 +94,27 @@ const replaceEmptyValues = <T extends ObjectElement>(type: string, element: T) =
     if (!isEmptyElement(value)) return;
 
     // @ts-ignore
-    const ElementClass = Object.prototype.hasOwnProperty.call(schema[type], '*')
+    const elementFactory = Object.prototype.hasOwnProperty.call(schema[type], '*')
       ? // @ts-ignore
         schema[type]['*']
       : // @ts-ignore
         schema[type][key.toValue()];
-    if (typeof ElementClass === 'function') {
+    if (typeof elementFactory === 'function') {
       // @ts-ignore
-      item.value = new ElementClass(); // eslint-disable-line no-param-reassign
+      item.value = elementFactory(); // eslint-disable-line no-param-reassign
     }
+  });
+};
+
+const replaceEmptyValuesWith = <T extends Element>(
+  elementFactory: () => T,
+  element: ObjectElement,
+) => {
+  element.forEach((value, key, item) => {
+    if (!isEmptyElement(value)) return;
+
+    // @ts-ignore
+    item.value = elementFactory(); // eslint-disable-line no-param-reassign
   });
 };
 
@@ -100,6 +129,37 @@ const plugin = () => () => {
       },
       ServersElement(element: ServersElement) {
         replaceEmptyValues('ServersElement', element);
+      },
+      ChannelsElement(element: ChannelsElement) {
+        replaceEmptyValues('ChannelsElement', element);
+      },
+      ComponentsElement(element: ComponentsElement) {
+        replaceEmptyValues('ComponentsElement', element);
+      },
+      ObjectElement(element: ObjectElement) {
+        if (element.classes.includes('components-schemas')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.schemas, element);
+        } else if (element.classes.includes('components-messages')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.messages, element);
+        } else if (element.classes.includes('components-security-schemes')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.securitySchemes, element);
+        } else if (element.classes.includes('components-parameters')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.parameters, element);
+        } else if (element.classes.includes('components-correlation-ids')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.correlationIds, element);
+        } else if (element.classes.includes('components-operation-traits')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.operationTraits, element);
+        } else if (element.classes.includes('components-message-traits')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.messageTraits, element);
+        } else if (element.classes.includes('components-server-bindings')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.serverBindings, element);
+        } else if (element.classes.includes('components-channel-bindings')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.channelBindings, element);
+        } else if (element.classes.includes('components-operation-bindings')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.operationBindings, element);
+        } else if (element.classes.includes('components-message-bindings')) {
+          replaceEmptyValuesWith(schema.ComponentsElement.messageBindings, element);
+        }
       },
     },
   };

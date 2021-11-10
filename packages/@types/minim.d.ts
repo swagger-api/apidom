@@ -104,6 +104,8 @@ declare module 'minim' {
 
     contains(value: any): boolean;
 
+    includes(value: any): boolean;
+
     push(value: any): ArrayElement;
 
     forEach(callback: (item: Element, index: number) => void, thisArg?: unknown): void;

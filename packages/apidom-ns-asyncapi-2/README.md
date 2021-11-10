@@ -165,7 +165,7 @@ const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
 //     (StringElement)
 //     (InfoElement)))
 
-// => without the plugin the result would be
+// => without the plugin the result would be as follows:
 // (AsyncApi2Element
 //   (MemberElement
 //     (StringElement)

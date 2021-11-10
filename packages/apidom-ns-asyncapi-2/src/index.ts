@@ -13,6 +13,7 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
+// eslint-disable-next-line no-restricted-exports
 export { default } from './namespace';
 
 export {

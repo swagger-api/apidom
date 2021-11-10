@@ -49,6 +49,7 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
         jsonText = JSON.stringify(api.toValue());
       }
       this.validate(jsonText, text, isYaml, diagnostics, validationContext);
+      // eslint-disable-next-line no-promise-executor-return
       return resolve(diagnostics);
     });
   }

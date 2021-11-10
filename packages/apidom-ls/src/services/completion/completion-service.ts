@@ -309,6 +309,7 @@ export class DefaultCompletionService implements CompletionService {
         );
         for (const item of apidomCompletions) {
           if (inNewLine) {
+            // eslint-disable-next-line
             item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
           }
           collector.add(item);

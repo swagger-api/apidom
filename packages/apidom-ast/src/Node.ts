@@ -15,6 +15,7 @@ const Node: stampit.Stamp<Node> = stampit({
     position: null,
     children: [],
   },
+  // eslint-disable-next-line default-param-last
   init({ children = [], position = null, isMissing = false } = {}, { stamp }) {
     this.type = stamp.type;
     this.isMissing = isMissing;

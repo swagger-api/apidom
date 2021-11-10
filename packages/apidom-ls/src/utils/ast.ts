@@ -337,6 +337,7 @@ export const getLineNumberForPathAsync = promisifySyncFn(getLineNumberForPath);
 function promisifySyncFn(fn: any) {
   // eslint-disable-next-line func-names
   return function (...args: any) {
+    // eslint-disable-next-line no-promise-executor-return
     return new Promise((resolve) => resolve(fn(...args)));
   };
 }

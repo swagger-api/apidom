@@ -119,7 +119,7 @@ const CstVisitor = stampit({
         : null;
     };
 
-    const isKeyValuePairKeyless = (node: SyntaxNode) => {
+    const hasKeyValuePairEmptyKey = (node: SyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
@@ -137,7 +137,7 @@ const CstVisitor = stampit({
       );
     };
 
-    const isKeyValuePairValueless = (node: SyntaxNode) => {
+    const hasKeyValuePairEmptyValue = (node: SyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
@@ -156,8 +156,8 @@ const CstVisitor = stampit({
       );
     };
 
-    const createKeyValuePairSurrogateKey = (node: SyntaxNode) => {
-      const surrogatePoint = Point({
+    const createKeyValuePairEmptyKey = (node: SyntaxNode) => {
+      const emptyPoint = Point({
         row: node.startPosition.row,
         column: node.startPosition.column,
         char: node.startIndex,
@@ -186,7 +186,7 @@ const CstVisitor = stampit({
 
       return YamlScalar({
         content: '',
-        position: Position({ start: surrogatePoint, end: surrogatePoint }),
+        position: Position({ start: emptyPoint, end: emptyPoint }),
         tag,
         anchor,
         styleGroup: YamlStyleGroup.Flow,
@@ -194,8 +194,8 @@ const CstVisitor = stampit({
       });
     };
 
-    const createKeyValuePairSurrogateValue = (node: SyntaxNode) => {
-      const surrogatePoint = Point({
+    const createKeyValuePairEmptyValue = (node: SyntaxNode) => {
+      const emptyPoint = Point({
         row: node.endPosition.row,
         column: node.endPosition.column,
         char: node.endIndex,
@@ -224,7 +224,7 @@ const CstVisitor = stampit({
 
       return YamlScalar({
         content: '',
-        position: Position({ start: surrogatePoint, end: surrogatePoint }),
+        position: Position({ start: emptyPoint, end: emptyPoint }),
         tag,
         anchor,
         styleGroup: YamlStyleGroup.Flow,
@@ -384,12 +384,12 @@ const CstVisitor = stampit({
         const position = toPosition(node);
         const children: Array<SyntaxNode | YamlScalar> = [...node.children];
 
-        if (isKeyValuePairKeyless(node)) {
-          const keyNode = createKeyValuePairSurrogateKey(node);
+        if (hasKeyValuePairEmptyKey(node)) {
+          const keyNode = createKeyValuePairEmptyKey(node);
           children.push(keyNode);
         }
-        if (isKeyValuePairValueless(node)) {
-          const valueNode = createKeyValuePairSurrogateValue(node);
+        if (hasKeyValuePairEmptyValue(node)) {
+          const valueNode = createKeyValuePairEmptyValue(node);
           children.push(valueNode);
         }
 
@@ -426,12 +426,12 @@ const CstVisitor = stampit({
         const position = toPosition(node);
         const children: Array<SyntaxNode | YamlScalar> = [...node.children];
 
-        if (isKeyValuePairKeyless(node)) {
-          const keyNode = createKeyValuePairSurrogateKey(node);
+        if (hasKeyValuePairEmptyKey(node)) {
+          const keyNode = createKeyValuePairEmptyKey(node);
           children.push(keyNode);
         }
-        if (isKeyValuePairValueless(node)) {
-          const valueNode = createKeyValuePairSurrogateValue(node);
+        if (hasKeyValuePairEmptyValue(node)) {
+          const valueNode = createKeyValuePairEmptyValue(node);
           children.push(valueNode);
         }
 

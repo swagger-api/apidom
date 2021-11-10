@@ -11,6 +11,7 @@ import {
   getNodeType as getCSTNodeType,
   isNode as isCSTNode,
   YamlScalar,
+  YamlStyle,
 } from '@swagger-api/apidom-ast';
 import {
   ParseResultElement,
@@ -178,7 +179,14 @@ const YamlAstVisitor = stampit({
 
     this.scalar = function scalar(node: YamlScalar) {
       const element = this.namespace.toElement(node.content);
+
+      // translate style information about empty nodes
+      if (node.content === '' && node.style === YamlStyle.Plain) {
+        element.classes.push('yaml-e-node');
+        element.classes.push('yaml-e-scalar');
+      }
       maybeAddSourceMap(node, element);
+
       return element;
     };
 

@@ -164,6 +164,15 @@ const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
 //   (MemberElement
 //     (StringElement)
 //     (InfoElement)))
+
+// => without the plugin the result would be
+// (AsyncApi2Element
+//   (MemberElement
+//     (StringElement)
+//     (AsyncApiVersionElement))
+//   (MemberElement
+//     (StringElement)
+//     (StringElement)))
 ```
 
 ## Implementation progress

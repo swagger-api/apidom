@@ -8,7 +8,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 
-import UrlImportDialog from './UrlImportDialog';
+import UrlImportDialog from './UrlImportDialog.jsx';
 
 const useStyles = makeStyles((theme) => ({
   speedDial: {

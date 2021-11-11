@@ -39,7 +39,7 @@ describe('refractor', function () {
         });
       });
 
-      context('given empty value instead of AsyncAPI.components.schemas', function () {
+      context('given empty value instead for AsyncAPI.components.schemas', function () {
         specify('should replace empty value with semantic element', async function () {
           const yamlDefinition = dedent`
           asyncapi: 2.2.0
@@ -57,6 +57,23 @@ describe('refractor', function () {
 
           expect(sexprs(asyncApiElement)).toMatchSnapshot();
           expect(isComponentsSchemas).to.be.true;
+        });
+      });
+
+      context('given empty value instead for AsyncAPI.components.schemas.*', function () {
+        specify('should replace empty value with semantic element', async function () {
+          const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          components:
+            schemas:
+              Schema1:
+        `;
+          const apiDOM = await parse(yamlDefinition);
+          const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+            plugins: [refractorPluginReplaceEmptyElement()],
+          }) as AsyncApi2Element;
+
+          expect(sexprs(asyncApiElement)).toMatchSnapshot();
         });
       });
     });

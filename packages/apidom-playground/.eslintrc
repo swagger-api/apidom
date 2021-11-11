@@ -1,11 +1,14 @@
 {
   "extends": [
-    "react-app",
-    "react-app/jest",
-    "airbnb",
+//    "react-app",
+//    "react-app/jest",
+//    "airbnb",
     "plugin:jsx-a11y/recommended",
     "prettier"
   ],
+  "globals": {
+    "window": "writable"
+  },
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -25,6 +28,9 @@
       "newlines-between": "always"
     }],
     "prettier/prettier": "error",
-    "import/no-unresolved": 0
+    "import/no-unresolved": 0,
+    "jsx-a11y/no-autofocus": [ 2, {
+      "ignoreNonDOM": true
+    }]
   }
 }

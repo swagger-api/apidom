@@ -29,20 +29,20 @@ import {
   selectCanResolve,
   selectCanDereference,
 } from './selectors';
-import AppBar from './components/AppBar';
-import Backdrop from './components/Backdrop';
-import Drawer, { drawerWidth } from './components/Drawer';
-import DereferenceDialog from './components/DereferenceDialog';
-import FileImporter from './components/importer/FileImporter';
-import UrlImportDialog from './components/importer/UrlImportDialog';
-import LeftPane from './components/left-pane/LeftPane';
-import Editor from './components/left-pane/Editor';
-import EditorControls from './components/left-pane/EditorControls';
-import ApiDOM from './components/right-pane/ApiDOM';
-import ApiDOMInterpreterDialog from './components/right-pane/ApiDOMInterpreterDialog';
-import Console from './components/right-pane/Console';
-import RightPane from './components/right-pane/RightPane';
-import Playground from './components/Playground';
+import AppBar from './components/AppBar.jsx';
+import Backdrop from './components/Backdrop.jsx';
+import Drawer, { drawerWidth } from './components/Drawer.jsx';
+import DereferenceDialog from './components/DereferenceDialog.jsx';
+import FileImporter from './components/importer/FileImporter.jsx';
+import UrlImportDialog from './components/importer/UrlImportDialog.jsx';
+import LeftPane from './components/left-pane/LeftPane.jsx';
+import Editor from './components/left-pane/Editor.jsx';
+import EditorControls from './components/left-pane/EditorControls.jsx';
+import ApiDOM from './components/right-pane/ApiDOM.jsx';
+import ApiDOMInterpreterDialog from './components/right-pane/ApiDOMInterpreterDialog.jsx';
+import Console from './components/right-pane/Console.jsx';
+import RightPane from './components/right-pane/RightPane.jsx';
+import Playground from './components/Playground.jsx';
 
 const ApiDOMPlaygroundPlugin = () => ({
   rootInjects: {

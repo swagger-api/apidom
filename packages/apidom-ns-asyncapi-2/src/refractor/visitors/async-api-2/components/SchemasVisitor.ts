@@ -1,11 +1,12 @@
 import stampit from 'stampit';
 import { ObjectElement, Element } from '@swagger-api/apidom-core';
 
+import ReferenceElement from '../../../../elements/Reference';
+import ComponentsSchemasElement from '../../../../elements/nces/ComponentsSchemas';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
-import ReferenceElement from '../../../../elements/Reference';
 
 const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
@@ -17,8 +18,7 @@ const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
     },
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('components-schemas');
+    this.element = new ComponentsSchemasElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

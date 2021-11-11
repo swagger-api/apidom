@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { ObjectElement, Element } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
+import ComponentsMessageBindingsElement from '../../../../elements/nces/ComponentsMessageBindings';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
@@ -17,8 +18,7 @@ const MessageBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
     },
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('components-message-bindings');
+    this.element = new ComponentsMessageBindingsElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

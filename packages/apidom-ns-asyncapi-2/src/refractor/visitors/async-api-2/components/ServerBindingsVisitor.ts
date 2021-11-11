@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { ObjectElement, Element } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
+import ComponentsServerBindingsElement from '../../../../elements/nces/ComponentsServerBindings';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
@@ -17,8 +18,7 @@ const ServerBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
     },
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('components-server-bindings');
+    this.element = new ComponentsServerBindingsElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

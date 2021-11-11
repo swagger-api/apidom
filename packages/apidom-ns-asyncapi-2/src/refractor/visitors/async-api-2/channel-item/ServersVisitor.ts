@@ -1,13 +1,13 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, isStringElement, BREAK } from '@swagger-api/apidom-core';
 
+import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsServers';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
-    this.element.classes.push('channel-item-server-names-list');
+    this.element = new ChannelItemServersElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

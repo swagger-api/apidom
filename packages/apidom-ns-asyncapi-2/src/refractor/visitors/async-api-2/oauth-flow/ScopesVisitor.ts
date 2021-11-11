@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { ObjectElement } from '@swagger-api/apidom-core';
 
+import OAuthFlowScopesElement from '../../../../elements/nces/OAuthFlowScopes';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
@@ -10,8 +10,7 @@ const ScopesVisitor = stampit(MapVisitor, FallbackVisitor, {
     specPath: always(['value']),
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('oauth-flow-scopes');
+    this.element = new OAuthFlowScopesElement();
   },
 });
 

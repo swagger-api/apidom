@@ -2,7 +2,7 @@
   "extends": [
 //    "react-app",
 //    "react-app/jest",
-    "airbnb",
+//    "airbnb",
     "plugin:jsx-a11y/recommended",
     "prettier"
   ],

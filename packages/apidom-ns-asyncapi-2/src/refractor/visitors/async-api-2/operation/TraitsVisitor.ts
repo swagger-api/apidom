@@ -1,14 +1,14 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
+import OperationTraitsElement from '../../../../elements/nces/OperationTraits';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 
 const TraitsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
-    this.element.classes.push('operation-traits');
+    this.element = new OperationTraitsElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

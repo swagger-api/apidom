@@ -1,4 +1,9 @@
-import { Element, ObjectElement, isStringElement, includesClasses } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  MemberElement,
+  isStringElement,
+  includesClasses,
+} from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from '../../elements/AsyncApi2';
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
@@ -14,6 +19,17 @@ import ContactElement from '../../elements/Contact';
 import LicenseElement from '../../elements/License';
 import ServerElement from '../../elements/Server';
 import ChannelItemElement from '../../elements/ChannelItem';
+import SchemaElement from '../../elements/Schema';
+import MessageElement from '../../elements/Message';
+import SecuritySchemeElement from '../../elements/SecurityScheme';
+import ParameterElement from '../../elements/Parameter';
+import CorrelationIDElement from '../../elements/CorrelationID';
+import OperationTraitElement from '../../elements/OperationTrait';
+import MessageTraitElement from '../../elements/MessageTrait';
+import ServerBindingsElement from '../../elements/ServerBindings';
+import ChannelBindingsElement from '../../elements/ChannelBindings';
+import OperationBindingsElement from '../../elements/OperationBindings';
+import MessageBindingsElement from '../../elements/MessageBindings';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs
@@ -53,6 +69,7 @@ const isEmptyElement = (element: any) =>
   isStringElement(element) && includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
 const schema = {
+  // concrete types handling
   AsyncApi2Element: {
     asyncapi: () => new AsyncApiVersionElement(),
     identifier: () => new IdentifierElement(),
@@ -87,79 +104,146 @@ const schema = {
     operationBindings: () => new ObjectElement({}, { classes: ['components-operation-bindings'] }),
     messageBindings: () => new ObjectElement({}, { classes: ['components-message-bindings'] }),
   },
-};
-
-const replaceEmptyValues = <T extends ObjectElement>(type: string, element: T) => {
-  element.forEach((value, key, item) => {
-    if (!isEmptyElement(value)) return;
-
-    // @ts-ignore
-    const elementFactory = Object.prototype.hasOwnProperty.call(schema[type], '*')
-      ? // @ts-ignore
-        schema[type]['*']
-      : // @ts-ignore
-        schema[type][key.toValue()];
-    if (typeof elementFactory === 'function') {
-      // @ts-ignore
-      item.value = elementFactory(); // eslint-disable-line no-param-reassign
-    }
-  });
-};
-
-const replaceEmptyValuesWith = <T extends Element>(
-  elementFactory: () => T,
-  element: ObjectElement,
-) => {
-  element.forEach((value, key, item) => {
-    if (!isEmptyElement(value)) return;
-
-    // @ts-ignore
-    item.value = elementFactory(); // eslint-disable-line no-param-reassign
-  });
+  // non concrete types handling - NCT
+  'components-schemas': {
+    '*': () => new SchemaElement(),
+  },
+  'components-messages': {
+    '*': () => new MessageElement(),
+  },
+  'components-security-schemes': {
+    '*': () => new SecuritySchemeElement(),
+  },
+  'components-parameters': {
+    '*': () => new ParameterElement(),
+  },
+  'components-correlation-ids': {
+    '*': () => new CorrelationIDElement(),
+  },
+  'components-operation-traits': {
+    '*': () => new OperationTraitElement(),
+  },
+  'components-message-traits': {
+    '*': () => new MessageTraitElement(),
+  },
+  'components-server-bindings': {
+    '*': () => new ServerBindingsElement(),
+  },
+  'components-channel-bindings': {
+    '*': () => new ChannelBindingsElement(),
+  },
+  'components-operation-bindings': {
+    '*': () => new OperationBindingsElement(),
+  },
+  'components-message-bindings': {
+    '*': () => new MessageBindingsElement(),
+  },
 };
 
 const plugin = () => () => {
+  const replaceEmptyValues = <T extends ObjectElement>(type: string, element: T) => {
+    const members: MemberElement[] = [];
+    let hasEmptyElement = false;
+
+    element.forEach((value, key, member) => {
+      if (!isEmptyElement(value)) {
+        // @ts-ignore
+        members.push(member);
+        return;
+      }
+
+      // @ts-ignore
+      const elementFactory = Object.prototype.hasOwnProperty.call(schema[type], '*')
+        ? // @ts-ignore
+          schema[type]['*']
+        : // @ts-ignore
+          schema[type][key.toValue()];
+
+      if (typeof elementFactory !== 'function') {
+        // @ts-ignore
+        members.push(member);
+        return;
+      }
+
+      const newMember = new MemberElement(
+        // @ts-ignore
+        member.key,
+        elementFactory(),
+        member.meta.clone(),
+        member.attributes.clone(),
+      );
+
+      hasEmptyElement = true;
+      members.push(newMember);
+    });
+
+    if (hasEmptyElement) {
+      // shallow clone of the element
+      // @ts-ignore
+      return new element.constructor(members, element.meta.clone(), element.attributes.clone());
+    }
+
+    return undefined;
+  };
+
   return {
     visitor: {
       AsyncApi2Element(element: AsyncApi2Element) {
-        replaceEmptyValues('AsyncApi2Element', element);
+        return replaceEmptyValues('AsyncApi2Element', element);
       },
       InfoElement(element: InfoElement) {
-        replaceEmptyValues('InfoElement', element);
+        return replaceEmptyValues('InfoElement', element);
       },
       ServersElement(element: ServersElement) {
-        replaceEmptyValues('ServersElement', element);
+        return replaceEmptyValues('ServersElement', element);
       },
       ChannelsElement(element: ChannelsElement) {
-        replaceEmptyValues('ChannelsElement', element);
+        return replaceEmptyValues('ChannelsElement', element);
       },
       ComponentsElement(element: ComponentsElement) {
-        replaceEmptyValues('ComponentsElement', element);
+        return replaceEmptyValues('ComponentsElement', element);
       },
       ObjectElement(element: ObjectElement) {
-        if (element.classes.includes('components-schemas')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.schemas, element);
-        } else if (element.classes.includes('components-messages')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.messages, element);
-        } else if (element.classes.includes('components-security-schemes')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.securitySchemes, element);
-        } else if (element.classes.includes('components-parameters')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.parameters, element);
-        } else if (element.classes.includes('components-correlation-ids')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.correlationIds, element);
-        } else if (element.classes.includes('components-operation-traits')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.operationTraits, element);
-        } else if (element.classes.includes('components-message-traits')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.messageTraits, element);
-        } else if (element.classes.includes('components-server-bindings')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.serverBindings, element);
-        } else if (element.classes.includes('components-channel-bindings')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.channelBindings, element);
-        } else if (element.classes.includes('components-operation-bindings')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.operationBindings, element);
-        } else if (element.classes.includes('components-message-bindings')) {
-          replaceEmptyValuesWith(schema.ComponentsElement.messageBindings, element);
+        // skip the chain of following checks
+        if (element.classes.length === 0) {
+          return undefined;
         }
+
+        if (element.classes.includes('components-schemas')) {
+          return replaceEmptyValues('components-schemas', element);
+        }
+        if (element.classes.includes('components-messages')) {
+          return replaceEmptyValues('components-messages', element);
+        }
+        if (element.classes.includes('components-security-schemes')) {
+          return replaceEmptyValues('components-security-schemes', element);
+        }
+        if (element.classes.includes('components-parameters')) {
+          return replaceEmptyValues('components-parameters', element);
+        }
+        if (element.classes.includes('components-correlation-ids')) {
+          return replaceEmptyValues('components-correlation-ids', element);
+        }
+        if (element.classes.includes('components-operation-traits')) {
+          return replaceEmptyValues('components-messages', element);
+        }
+        if (element.classes.includes('components-message-traits')) {
+          return replaceEmptyValues('components-message-traits', element);
+        }
+        if (element.classes.includes('components-server-bindings')) {
+          return replaceEmptyValues('components-server-bindings', element);
+        }
+        if (element.classes.includes('components-channel-bindings')) {
+          return replaceEmptyValues('components-channel-bindings', element);
+        }
+        if (element.classes.includes('components-operation-bindings')) {
+          return replaceEmptyValues('components-operation-bindings', element);
+        }
+        if (element.classes.includes('components-message-bindings')) {
+          return replaceEmptyValues('components-message-bindings', element);
+        }
+
+        return undefined;
       },
     },
   };

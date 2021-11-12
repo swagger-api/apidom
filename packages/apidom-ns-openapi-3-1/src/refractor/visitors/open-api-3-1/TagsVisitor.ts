@@ -1,13 +1,14 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
+import TagsElement from '../../../elements/nces/Tags';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { isTagLikeElement } from '../../predicates';
 
 const TagsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
+    this.element = new TagsElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -19,7 +20,6 @@ const TagsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('tags');
 
       return BREAK;
     },

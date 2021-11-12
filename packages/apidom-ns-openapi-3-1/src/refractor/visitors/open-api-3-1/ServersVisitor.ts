@@ -1,13 +1,14 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
+import ServersElement from '../../../elements/nces/Servers';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { isServerLikeElement } from '../../predicates';
 
 const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
+    this.element = new ServersElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -19,7 +20,6 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('servers');
 
       return BREAK;
     },

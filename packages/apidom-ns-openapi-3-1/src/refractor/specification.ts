@@ -34,6 +34,7 @@ import ServerVariablesVisitor from './visitors/open-api-3-1/server/VariablesVisi
 import FallbackVisitor from './visitors/FallbackVisitor';
 import MediaTypeVisitor from './visitors/open-api-3-1/media-type';
 import MediaTypeExampleVisitor from './visitors/open-api-3-1/media-type/ExampleVisitor';
+import MediaTypeExamplesVisitor from './visitors/open-api-3-1/media-type/ExamplesVisitor';
 import MediaTypeEncodingVisitor from './visitors/open-api-3-1/media-type/EncodingVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
 import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
@@ -121,11 +122,14 @@ import XmlPrefixVisitor from './visitors/open-api-3-1/xml/PrefixVisitor';
 import XmlAttributeVisitor from './visitors/open-api-3-1/xml/AttributeVisitor';
 import XmlWrappedVisitor from './visitors/open-api-3-1/xml/WrappedVisitor';
 import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
+import ParameterExamplesVisitor from './visitors/open-api-3-1/parameter/ExamplesVisitor';
+import ParameterContentVisitor from './visitors/open-api-3-1/parameter/ContentVisitor';
 import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
 import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
 import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import ComponentsResponsesVisitor from './visitors/open-api-3-1/components/ResponsesVisitor';
 import ComponentsParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
+import ComponentsExamplesVisitor from './visitors/open-api-3-1/components/ExamplesVisitor';
 import ComponentsRequestBodiesVisitor from './visitors/open-api-3-1/components/RequestBodiesVisitor';
 import ComponentsHeadersVisitor from './visitors/open-api-3-1/components/HeadersVisitor';
 import ComponentsSecuritySchemesVisitor from './visitors/open-api-3-1/components/SecuritySchemesVisitor';
@@ -149,11 +153,13 @@ import EncodingAllowReserved from './visitors/open-api-3-1/encoding/AllowReserve
 import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
 import RequestBodyDescriptionVisitor from './visitors/open-api-3-1/request-body/DescriptionVisitor';
+import RequestBodyContentVisitor from './visitors/open-api-3-1/request-body/ContentVisitor';
 import RequestBodyRequiredVisitor from './visitors/open-api-3-1/request-body/RequiredVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
 import ResponseDescriptionVisitor from './visitors/open-api-3-1/response/DescriptionVisitor';
 import ResponseHeadersVisitor from './visitors/open-api-3-1/response/HeadersVisitor';
+import ResponseContentVisitor from './visitors/open-api-3-1/response/ContentVisitor';
 import ResponseLinksVisitor from './visitors/open-api-3-1/response/LinksVisitor';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
 import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
@@ -162,14 +168,18 @@ import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor'
 import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
 import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
 import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
+import OperationParametersVisitor from './visitors/open-api-3-1/operation/ParametersVisitor';
 import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
 import OperationCallbacksVisitor from './visitors/open-api-3-1/operation/CallbacksVisitor';
 import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
-import ParametersVisitor from './visitors/open-api-3-1/ParametersVisitor';
+import OperationSecurityVisitor from './visitors/open-api-3-1/operation/SecurityVisitor';
+import OperationServersVisitor from './visitors/open-api-3-1/operation/ServersVisitor';
 import PathItemVisitor from './visitors/open-api-3-1/path-item';
 import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
 import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
 import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
+import PathItemServersVisitor from './visitors/open-api-3-1/path-item/ServersVisitor';
+import PathItemParametersVisitor from './visitors/open-api-3-1/path-item/ParametersVisitor';
 import SecuritySchemeVisitor from './visitors/open-api-3-1/security-scheme';
 import SecuritySchemeTypeVisitor from './visitors/open-api-3-1/security-scheme/TypeVisitor';
 import SecuritySchemeDescriptionVisitor from './visitors/open-api-3-1/security-scheme/DescriptionVisitor';
@@ -277,7 +287,7 @@ const specification = {
             schemas: ComponentsSchemasVisitor,
             responses: ComponentsResponsesVisitor,
             parameters: ComponentsParametersVisitor,
-            examples: ExamplesVisitor,
+            examples: ComponentsExamplesVisitor,
             requestBodies: ComponentsRequestBodiesVisitor,
             headers: ComponentsHeadersVisitor,
             securitySchemes: ComponentsSecuritySchemesVisitor,
@@ -319,8 +329,8 @@ const specification = {
             trace: {
               $ref: '#/visitors/document/objects/Operation',
             },
-            servers: ServersVisitor,
-            parameters: ParametersVisitor,
+            servers: PathItemServersVisitor,
+            parameters: PathItemParametersVisitor,
           },
         },
         Operation: {
@@ -333,15 +343,15 @@ const specification = {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
             operationId: OperationOperationIdVisitor,
-            parameters: ParametersVisitor,
+            parameters: OperationParametersVisitor,
             requestBody: OperationRequestBodyVisitor,
             responses: {
               $ref: '#/visitors/document/objects/Responses',
             },
             callbacks: OperationCallbacksVisitor,
             deprecated: OperationDeprecatedVisitor,
-            security: SecurityVisitor,
-            servers: ServersVisitor,
+            security: OperationSecurityVisitor,
+            servers: OperationServersVisitor,
           },
         },
         ExternalDocumentation: {
@@ -367,15 +377,15 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             example: ParameterExampleVisitor,
-            examples: ExamplesVisitor,
-            content: ContentVisitor,
+            examples: ParameterExamplesVisitor,
+            content: ParameterContentVisitor,
           },
         },
         RequestBody: {
           $visitor: RequestBodyVisitor,
           fixedFields: {
             description: RequestBodyDescriptionVisitor,
-            content: ContentVisitor,
+            content: RequestBodyContentVisitor,
             required: RequestBodyRequiredVisitor,
           },
         },
@@ -386,7 +396,7 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             example: MediaTypeExampleVisitor,
-            examples: ExamplesVisitor,
+            examples: MediaTypeExamplesVisitor,
             encoding: MediaTypeEncodingVisitor,
           },
         },
@@ -411,7 +421,7 @@ const specification = {
           fixedFields: {
             description: ResponseDescriptionVisitor,
             headers: ResponseHeadersVisitor,
-            content: ContentVisitor,
+            content: ResponseContentVisitor,
             links: ResponseLinksVisitor,
           },
         },

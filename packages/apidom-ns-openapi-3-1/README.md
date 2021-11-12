@@ -132,6 +132,44 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
 
+#### Replace Empty Element plugin
+
+This plugin is specific to YAML 1.2 format, which allows defining key-value pairs with empty key,
+empty value, or both. If the value is not provided in YAML format, this plugin compensates for
+this missing value with the most appropriate semantic element type.
+
+```js
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginReplaceEmptyElement, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+info:
+`;
+const apiDOM = await parse(yamlDefinition);
+const apenApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginReplaceEmptyElement()],
+});
+
+// =>
+// (OpenApi3_1Element
+//   (MemberElement
+//     (StringElement)
+//     (OpenapiElement))
+//   (MemberElement
+//     (StringElement)
+//     (InfoElement)))
+
+// => without the plugin the result would be as follows:
+// (OpenApi3_1Element
+//   (MemberElement
+//     (StringElement)
+//     (OpenapiElement))
+//   (MemberElement
+//     (StringElement)
+//     (StringElement)))
+```
+
 ## Implementation progress
 
 Only fully implemented specification objects should be checked here.

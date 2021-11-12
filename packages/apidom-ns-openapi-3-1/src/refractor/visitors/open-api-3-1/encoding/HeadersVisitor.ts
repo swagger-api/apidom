@@ -5,6 +5,7 @@ import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isHeaderElement, isReferenceElement } from '../../../../predicates';
+import EncodingHeadersElement from '../../../../elements/nces/EncodingHeaders';
 import ReferenceElement from '../../../../elements/Reference';
 
 const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
@@ -15,8 +16,7 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
         : ['document', 'objects', 'Header'],
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('encoding-headers');
+    this.element = new EncodingHeadersElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

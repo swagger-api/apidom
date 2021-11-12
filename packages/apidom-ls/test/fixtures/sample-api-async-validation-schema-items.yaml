@@ -1,0 +1,9 @@
+asyncapi: 2.2.0
+info:
+  version: '1.0.0'
+components:
+  schemas:
+    userSignedUpPayload:
+      type: object
+      items:
+      - type: string

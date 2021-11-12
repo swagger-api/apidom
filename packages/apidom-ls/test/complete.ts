@@ -27,6 +27,12 @@ const specCompletionSecurity = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-security.yaml'))
   .toString();
 
+const specCompletionSchemaTypeArray = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'sample-api-async-validation-schema-type-array.yaml'),
+  )
+  .toString();
+
 describe('apidom-ls-complete', function () {
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
 
@@ -141,7 +147,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/schemas/Tag',
           insertText: '"#/components/schemas/Tag$1"',
-          kind: 10,
+          kind: 18,
           documentation:
             'type: object\n      properties:\n        id:\n          type: integer\n          format: int64\n        name:\n          type: string',
           insertTextFormat: 2,
@@ -164,7 +170,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/messages/userSignUp/payload',
           insertText: '"#/components/messages/userSignUp/payload$1"',
-          kind: 10,
+          kind: 18,
           documentation:
             'type: object\n        properties:\n          user:\n            $ref: "#/components/schemas/Category"\n          signup:\n            $ref: "#/components/schemas/Tag"\n',
           insertTextFormat: 2,
@@ -187,7 +193,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/messages/userSignUp/headers',
           insertText: '"#/components/messages/userSignUp/headers$1"',
-          kind: 10,
+          kind: 18,
           documentation:
             'type: object\n        properties:\n          applicationInstanceId:\n            description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
           insertTextFormat: 2,
@@ -210,7 +216,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/schemas/Tag/properties/name',
           insertText: '"#/components/schemas/Tag/properties/name$1"',
-          kind: 10,
+          kind: 18,
           documentation: 'type: string',
           insertTextFormat: 2,
           sortText: 'e',
@@ -232,7 +238,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/schemas/Tag/properties/id',
           insertText: '"#/components/schemas/Tag/properties/id$1"',
-          kind: 10,
+          kind: 18,
           documentation: 'type: integer\n          format: int64',
           insertTextFormat: 2,
           sortText: 'f',
@@ -254,7 +260,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/schemas/Category/properties/name',
           insertText: '"#/components/schemas/Category/properties/name$1"',
-          kind: 10,
+          kind: 18,
           documentation: 'type: string',
           insertTextFormat: 2,
           sortText: 'g',
@@ -276,7 +282,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/components/schemas/Category/properties/id',
           insertText: '"#/components/schemas/Category/properties/id$1"',
-          kind: 10,
+          kind: 18,
           documentation: 'type: integer\n          format: int64',
           insertTextFormat: 2,
           sortText: 'h',
@@ -299,7 +305,7 @@ describe('apidom-ls-complete', function () {
           label: '#/components/messages/userSignUp/headers/properties/appli...',
           insertText:
             '"#/components/messages/userSignUp/headers/properties/applicationInstanceId$1"',
-          kind: 10,
+          kind: 18,
           documentation:
             'description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
           insertTextFormat: 2,
@@ -323,7 +329,7 @@ describe('apidom-ls-complete', function () {
         {
           label: '#/channels/user/signin/subscribe/message/payload',
           insertText: '"#/channels/user/signin/subscribe/message/payload$1"',
-          kind: 10,
+          kind: 18,
           documentation:
             'type: object\n          properties:\n            user:\n              $ref: "#/components/schemas/Category"',
           insertTextFormat: 2,
@@ -389,5 +395,102 @@ describe('apidom-ls-complete', function () {
         },
       },
     ] as ApidomCompletionItem[]);
+  });
+
+  it('asyncapi / yaml - test schema type array completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionSchemaTypeArray.json',
+      'json',
+      0,
+      specCompletionSchemaTypeArray,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const completionTestInputValue = [
+      'before schema type defined as array',
+      9,
+      16,
+      {
+        items: [
+          {
+            label: 'object',
+            kind: 10,
+            insertText: 'object$1',
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'object$1',
+            },
+          },
+          {
+            label: 'string',
+            kind: 10,
+            insertText: 'string$1',
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'string$1',
+            },
+          },
+          {
+            label: 'number',
+            kind: 10,
+            insertText: 'number$1',
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'number$1',
+            },
+          },
+        ],
+        isIncomplete: false,
+      },
+    ];
+
+    const pos = Position.create(
+      completionTestInputValue[1] as number,
+      completionTestInputValue[2] as number,
+    );
+
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 });

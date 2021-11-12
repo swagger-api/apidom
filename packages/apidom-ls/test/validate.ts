@@ -41,6 +41,12 @@ const specAsyncYamlNoDesc = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-nodesc.yaml'))
   .toString();
 
+const specAsyncYamlAdditionalItems = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'sample-api-async-validation-schema-additionalitems.yaml'),
+  )
+  .toString();
+
 describe('apidom-ls-validate', function () {
   const oasJsonSchemavalidationProvider = new OpenAPi31JsonSchemaValidationProvider();
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
@@ -1409,6 +1415,550 @@ describe('apidom-ls-validate', function () {
         },
       },
     ] as CodeAction[]);
+    languageService.terminate();
+  });
+  it('asyncapi / yaml - test schema maxLength lint and quickfix ', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const asyncapiErrorSpec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-maxLength.yaml'))
+      .toString();
+
+    const asyncapiErrorDoc: TextDocument = TextDocument.create(
+      'foo://bar/asyncapiErrorSpecSchemaMaxLength.json',
+      'yaml',
+      0,
+      asyncapiErrorSpec,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 1,
+          },
+        },
+        message: "must have required property 'channels'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "must have required property 'title'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to '2.0.0'",
+              action: 'updateValue',
+              functionParams: ['2.0.0'],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "should always have a 'description'",
+        severity: 1,
+        code: 2,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 13,
+            character: 10,
+          },
+          end: {
+            line: 13,
+            character: 19,
+          },
+        },
+        message: 'maxLength has no effect on non strings',
+        severity: 3,
+        code: 141,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              target: 'parent',
+              message: 'remove maxLength',
+              action: 'removeChild',
+              functionParams: ['maxLength'],
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    const quickFixresult = await languageService.doCodeActions(asyncapiErrorDoc, result);
+    assert.deepEqual(quickFixresult, [
+      {
+        title: "update to '2.0.0'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 0,
+                character: 10,
+              },
+              end: {
+                line: 0,
+                character: 15,
+              },
+            },
+            message: "'asyncapi' value must be 2.0.0",
+            severity: 1,
+            code: 23,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to '2.0.0'",
+                  action: 'updateValue',
+                  functionParams: ['2.0.0'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchemaMaxLength.json': [
+              {
+                range: {
+                  start: {
+                    line: 0,
+                    character: 10,
+                  },
+                  end: {
+                    line: 0,
+                    character: 15,
+                  },
+                },
+                newText: '2.0.0',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "add 'description' field",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 1,
+                character: 0,
+              },
+              end: {
+                line: 1,
+                character: 4,
+              },
+            },
+            message: "should always have a 'description'",
+            severity: 1,
+            code: 2,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "add 'description' field",
+                  action: 'addChild',
+                  snippetYaml: 'description: \n  ',
+                  snippetJson: '"description": "",\n    ',
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchemaMaxLength.json': [
+              {
+                range: {
+                  start: {
+                    line: 2,
+                    character: 2,
+                  },
+                  end: {
+                    line: 2,
+                    character: 2,
+                  },
+                },
+                newText: 'description: \n  ',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: 'remove maxLength',
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 13,
+                character: 10,
+              },
+              end: {
+                line: 13,
+                character: 19,
+              },
+            },
+            message: 'maxLength has no effect on non strings',
+            severity: 3,
+            code: 141,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: 'remove maxLength',
+                  action: 'removeChild',
+                  functionParams: ['maxLength'],
+                  target: 'parent',
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchemaMaxLength.json': [
+              {
+                range: {
+                  start: {
+                    line: 13,
+                    character: 10,
+                  },
+                  end: {
+                    line: 13,
+                    character: 22,
+                  },
+                },
+                newText: '',
+              },
+            ],
+          },
+        },
+      },
+    ] as CodeAction[]);
+    languageService.terminate();
+  });
+  it('asyncapi / yaml - test schema additional items element ', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const asyncapiErrorDoc: TextDocument = TextDocument.create(
+      'foo://bar/specAsyncYamlAdditionalItems.json',
+      'yaml',
+      0,
+      specAsyncYamlAdditionalItems,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 1,
+          },
+        },
+        message: "must have required property 'channels'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "must have required property 'title'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 6,
+            character: 6,
+          },
+          end: {
+            line: 8,
+            character: 0,
+          },
+        },
+        message:
+          'should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string',
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to '2.0.0'",
+              action: 'updateValue',
+              functionParams: ['2.0.0'],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "should always have a 'description'",
+        severity: 1,
+        code: 2,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 7,
+            character: 23,
+          },
+          end: {
+            line: 7,
+            character: 24,
+          },
+        },
+        message: 'additionalItems must be a schema',
+        severity: 1,
+        code: 99330,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi / yaml - test schema items element ', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const specAsyncYamlItems = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'sample-api-async-validation-schema-items.yaml'),
+      )
+      .toString();
+
+    const asyncapiErrorDoc: TextDocument = TextDocument.create(
+      'foo://bar/specAsyncYamlItems.json',
+      'yaml',
+      0,
+      specAsyncYamlItems,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 1,
+          },
+        },
+        message: "must have required property 'channels'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "must have required property 'title'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 10,
+          },
+          end: {
+            line: 0,
+            character: 15,
+          },
+        },
+        message: "'asyncapi' value must be 2.0.0",
+        severity: 1,
+        code: 23,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to '2.0.0'",
+              action: 'updateValue',
+              functionParams: ['2.0.0'],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "should always have a 'description'",
+        severity: 1,
+        code: 2,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
     languageService.terminate();
   });
 });

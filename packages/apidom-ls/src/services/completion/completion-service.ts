@@ -19,7 +19,6 @@ import {
   isNumberElement,
   isObjectElement,
   isStringElement,
-  traverse,
 } from '@swagger-api/apidom-core';
 
 import {
@@ -27,7 +26,13 @@ import {
   CompletionContext,
   ApidomCompletionItem,
 } from '../../apidom-language-types';
-import { getSourceMap, getSpecVersion, isMember, isObject } from '../../utils/utils';
+import {
+  getSourceMap,
+  getSpecVersion,
+  isMember,
+  isObject,
+  localReferencePointers,
+} from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 
 export interface CompletionsCollector {
@@ -173,10 +178,6 @@ export class DefaultCompletionService implements CompletionService {
     }
   }
 
-  private static buildJsonPointer(path: string[]): string {
-    return `#/${path.join('/')}`;
-  }
-
   /*
     see also:
       https://github.com/microsoft/monaco-editor/issues/1889
@@ -320,7 +321,8 @@ export class DefaultCompletionService implements CompletionService {
         (caretContext === CaretContext.MEMBER ||
           caretContext === CaretContext.PRIMITIVE_VALUE_INNER ||
           caretContext === CaretContext.PRIMITIVE_VALUE_END ||
-          caretContext === CaretContext.PRIMITIVE_VALUE_START)
+          caretContext === CaretContext.PRIMITIVE_VALUE_START ||
+          caretContext === CaretContext.OBJECT_VALUE_START)
       ) {
         // TODO Apidom doesn't hold quotes in its content currently, therefore we must use text + offset
         const nodeValueFromText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
@@ -424,51 +426,14 @@ export class DefaultCompletionService implements CompletionService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     yaml: boolean,
   ): CompletionItem[] {
-    type Pointer = {
-      node: Element;
-      ref: string;
-    };
-
     const result: CompletionItem[] = [];
     // get type of node (element)
     const nodeElement =
       node.parent?.parent?.getMetaProperty('referenced-element')?.toValue() ||
       node.parent?.parent?.element;
     if (!nodeElement) return result;
-    // traverse all doc to find nodes of the same type which are not a ref
-    const foundNodes: Element[] = [];
-    let nodePath: string[] = [];
-    function buildPointer(traverseNode: Element): void {
-      if (!traverseNode) return;
-      if (traverseNode.parent && isMember(traverseNode.parent)) {
-        nodePath.unshift((traverseNode.parent.key as Element).toValue());
-        buildPointer(traverseNode.parent?.parent);
-      }
-    }
-    function findNodesOfType(traversedNode: Element): void {
-      if (traversedNode.element === nodeElement) {
-        if (
-          !(
-            isObject(traversedNode) &&
-            traversedNode.get('$ref') &&
-            traversedNode.get('$ref').toValue().length > 0
-          )
-        ) {
-          foundNodes.push(traversedNode);
-        }
-      }
-    }
-    traverse(findNodesOfType, doc);
-    // for each found node build its json pointer
-    const pointers: Pointer[] = [];
-    for (const foundNode of foundNodes) {
-      nodePath = [];
-      buildPointer(foundNode);
-      pointers.push({ node: foundNode, ref: DefaultCompletionService.buildJsonPointer(nodePath) });
-    }
-    // TODO better sorting, NS plugin..
-    pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));
 
+    const pointers = localReferencePointers(doc, nodeElement);
     // build completion item
     let i = 97;
     for (const p of pointers) {
@@ -476,7 +441,7 @@ export class DefaultCompletionService implements CompletionService {
       const item: CompletionItem = {
         label: p.ref,
         insertText: `${p.ref}$1`,
-        kind: 10,
+        kind: 18,
         documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
         // detail: 'replace with',
         insertTextFormat: 2,
@@ -499,6 +464,11 @@ export class DefaultCompletionService implements CompletionService {
     const apidomCompletions: ApidomCompletionItem[] = [];
     if (node.classes) {
       const set: string[] = Array.from(new Set(node.classes.toValue()));
+      const referencedElement = node.getMetaProperty('referenced-element', '').toValue();
+      // TODO maybe move to adapter
+      if (referencedElement.length > 0 && referencedElement === 'schema') {
+        set.unshift('schema');
+      }
       set.unshift(node.element);
       set.forEach((s) => {
         const classCompletions: ApidomCompletionItem[] = doc.meta

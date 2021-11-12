@@ -8,6 +8,8 @@ import * as asyncapi2Adapter from '@swagger-api/apidom-parser-adapter-asyncapi-j
 import * as openapi3_1Adapter_Yaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 // @ts-ignore
 import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+// @ts-ignore
+import { refractorPluginReplaceEmptyElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
@@ -80,7 +82,10 @@ export async function parse(
   if (async && json) {
     result = await asyncapi2Adapter.parse(text, { sourceMap: true });
   } else if (async && !json) {
-    result = await asyncapi2Adapter_Yaml.parse(text, { sourceMap: true });
+    result = await asyncapi2Adapter_Yaml.parse(text, {
+      sourceMap: true,
+      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
+    });
   } else if (!async && json) {
     result = await openapi3_1Adapter.parse(text, { sourceMap: true });
   } else if (!async && !json) {

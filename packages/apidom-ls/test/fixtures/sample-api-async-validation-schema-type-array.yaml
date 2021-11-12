@@ -1,0 +1,13 @@
+asyncapi: 2.2.0
+info:
+  description: This is a sample server.
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: [integer, string]
+          format: int64
+        name:
+          type: string

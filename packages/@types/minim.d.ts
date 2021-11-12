@@ -100,6 +100,10 @@ declare module 'minim' {
 
     set(index: string | number, element: Element): void;
 
+    find(predicate: Predicate): ArraySlice;
+
+    findElements(condition: Predicate, givenOptions: any): Array<Element>;
+
     filter(predicate: Predicate): ArraySlice;
 
     contains(value: any): boolean;

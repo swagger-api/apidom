@@ -1,0 +1,14 @@
+asyncapi: 2.2.0
+info:
+  version: '1.0.0'
+components:
+  schemas:
+    userSignedUpPayload:
+      type: object
+      properties:
+        firstName:
+          type: string
+          maxLength: 4
+        lastName:
+          type: number
+          maxLength: 4

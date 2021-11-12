@@ -46,9 +46,9 @@ channels:
           type: object
           properties:
             user:
-              $ref: "#/components/schemas/user"
+              $ref: "#/components/schemas/Category"
             signup:
-              $ref: "#/components/schemas/signup"
+              $ref: "#/components/schemas/Tag"
     bindings:
       amqp:
         is: queue
@@ -93,6 +93,6 @@ components:
         type: object
         properties:
           user:
-            $ref: "#/components/schemas/userCreate"
+            $ref: "#/components/schemas/Category"
           signup:
-            $ref: "#/components/schemas/signup"
+            $ref: "#/components/schemas/Tag"

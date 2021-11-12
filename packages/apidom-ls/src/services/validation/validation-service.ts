@@ -12,8 +12,16 @@ import {
   LinterMeta,
   QuickFixData,
   MetadataMap,
+  Pointer,
+  LinterMetaData,
 } from '../../apidom-language-types';
-import { getSourceMap, isMember, isObject, getSpecVersion } from '../../utils/utils';
+import {
+  getSourceMap,
+  isMember,
+  isObject,
+  getSpecVersion,
+  localReferencePointers,
+} from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
 export interface ValidationService {
@@ -38,6 +46,8 @@ export class DefaultValidationService implements ValidationService {
 
   private validationProviders: ValidationProvider[] = [];
 
+  private quickFixesMap: Record<string, QuickFixData[]> = {};
+
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
@@ -61,6 +71,7 @@ export class DefaultValidationService implements ValidationService {
       }
       this.validationEnabled = settings.validate;
       this.commentSeverity = settings.allowComments ? undefined : DiagnosticSeverity.Error;
+      this.quickFixesMap = {};
     }
   }
 
@@ -80,7 +91,7 @@ export class DefaultValidationService implements ValidationService {
   ): Promise<Diagnostic[]> {
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
-
+    this.quickFixesMap = {};
     const result = await this.settings!.documentCache?.get(textDocument);
     if (!result) return diagnostics;
     const { api } = result;
@@ -155,6 +166,59 @@ export class DefaultValidationService implements ValidationService {
       diagnostics.push(...allProvidersDiagnostics);
     }
 
+    const pointersMap: Record<string, Pointer[]> = {};
+    const lintLocalReference = (
+      doc: Element,
+      referencedElement: string,
+      refValueElement: Element,
+    ): Diagnostic[] => {
+      const localRefDiagnostics: Diagnostic[] = [];
+      if (!refValueElement.toValue().startsWith('#')) {
+        return localRefDiagnostics;
+      }
+      let pointers = pointersMap[referencedElement];
+      if (!pointers) {
+        pointers = localReferencePointers(doc, referencedElement);
+        pointersMap[referencedElement] = pointers;
+      }
+      if (!pointers.some((p) => p.ref === refValueElement.toValue())) {
+        // local ref not found
+        const lintSm = getSourceMap(refValueElement);
+        const location = { offset: lintSm.offset, length: lintSm.length };
+        const range = Range.create(
+          textDocument.positionAt(location.offset),
+          textDocument.positionAt(location.offset + location.length),
+        );
+        const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+        const diagnostic = Diagnostic.create(
+          range,
+          'local reference not found',
+          DiagnosticSeverity.Error,
+          code,
+          'apilint',
+        );
+
+        diagnostic.source = 'apilint';
+        diagnostic.data = {
+          quickFix: [],
+        } as LinterMetaData;
+        for (const p of pointers) {
+          // @ts-ignore
+          diagnostic.data.quickFix.push({
+            message: `update to ${p.ref}`,
+            action: 'updateValue',
+            functionParams: [p.ref],
+          });
+        }
+        // @ts-ignore
+        this.quickFixesMap[code] = diagnostic.data.quickFix;
+
+        localRefDiagnostics.push(diagnostic);
+      }
+
+      return localRefDiagnostics;
+    };
+
     const lint = (element: Element) => {
       const sm = getSourceMap(element);
       if (element.classes) {
@@ -163,7 +227,20 @@ export class DefaultValidationService implements ValidationService {
         if (!set.includes(element.element)) {
           set.unshift(element.element);
         }
+        const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
+        // TODO maybe move to adapter
+        if (referencedElement.length > 0 && referencedElement === 'schema') {
+          set.unshift('schema');
+        }
+        if (referencedElement.length > 0) {
+          // lint local references
+          if (isObject(element) && element.hasKey('$ref')) {
+            // TODO get ref value from metadata or in adapter
+            diagnostics.push(...lintLocalReference(api, referencedElement, element.get('$ref')));
+          }
+        }
         set.unshift('*');
+
         set.forEach((s) => {
           // get linter meta from meta
           const linterMeta = DefaultValidationService.getMetadataPropertyLint(api, s);
@@ -205,47 +282,151 @@ export class DefaultValidationService implements ValidationService {
                           ? element.get(meta.target)
                           : element
                         : element;
-                    if (meta.linterParams && meta.linterParams.length > 0) {
-                      const params = [targetElement].concat(meta.linterParams);
-                      lintRes = lintFunc(...params);
-                    } else {
-                      lintRes = lintFunc(targetElement);
-                    }
-                    if (!lintRes) {
-                      // add to diagnostics
-                      let lintSm = sm;
-                      if (meta.target) {
-                        if (isObject(element) && element.hasKey(meta.target)) {
-                          if (meta.marker === 'key') {
-                            lintSm = getSourceMap(element.getMember(meta.target).key as Element);
-                          } else if (meta.marker === 'value') {
-                            lintSm = getSourceMap(element.get(meta.target) as Element);
+
+                    // check conditions and run them, proceed only when conditions are met
+                    let conditionsSuccess = true;
+                    if (meta.conditions && meta.conditions.length > 0) {
+                      for (const condition of meta.conditions) {
+                        if (!conditionsSuccess) {
+                          break;
+                        }
+                        const conditionFuncName = condition.function;
+                        // first check if it is a standard function and exists.
+                        let conditionFunc: ((...args: any[]) => boolean) | undefined =
+                          standardLinterfunctions.find(
+                            (e) => e.functionName === conditionFuncName,
+                          )?.function;
+                        // else get it from configuration
+                        if (!conditionFunc) {
+                          conditionFunc =
+                            this.settings?.metadata?.linterFunctions[docNs][conditionFuncName];
+                        }
+                        if (conditionFunc) {
+                          let conditionTargetEl = element;
+                          if (condition.targets && condition.targets.length > 0) {
+                            for (const target of condition.targets) {
+                              conditionTargetEl = element;
+                              if (target.path) {
+                                // parse path
+                                const pathAr = target.path.split('.');
+                                for (const pathSegment of pathAr) {
+                                  if (pathSegment === 'parent') {
+                                    if (!conditionTargetEl.parent.parent) {
+                                      conditionsSuccess = false;
+                                      break;
+                                    }
+                                    conditionTargetEl = conditionTargetEl.parent.parent;
+                                  } else if (pathSegment === 'root') {
+                                    conditionTargetEl = api;
+                                  } else {
+                                    // key
+                                    if (
+                                      !isObject(conditionTargetEl) ||
+                                      !conditionTargetEl.hasKey(pathSegment)
+                                    ) {
+                                      conditionsSuccess = false;
+                                      break;
+                                    }
+                                    conditionTargetEl = conditionTargetEl.get(pathSegment);
+                                  }
+                                }
+                                if (!conditionsSuccess) {
+                                  break;
+                                }
+                                let conditionRes = true;
+                                if (condition.params && condition.params.length > 0) {
+                                  const params = [conditionTargetEl].concat(condition.params);
+                                  conditionRes = conditionFunc(...params);
+                                } else {
+                                  conditionRes = conditionFunc(conditionTargetEl);
+                                }
+                                if (condition.negate) conditionRes = !conditionRes;
+                                if (!conditionRes) {
+                                  conditionsSuccess = false;
+                                  break;
+                                }
+                              }
+                            }
+                          } else {
+                            let conditionRes = true;
+                            if (condition.params && condition.params.length > 0) {
+                              const params = [conditionTargetEl].concat(condition.params);
+                              conditionRes = conditionFunc(...params);
+                            } else {
+                              conditionRes = conditionFunc(conditionTargetEl);
+                            }
+                            if (condition.negate) conditionRes = !conditionRes;
+                            if (!conditionRes) {
+                              conditionsSuccess = false;
+                              break;
+                            }
                           }
                         }
                       }
-                      if (meta.marker === 'key') {
-                        const { parent } = element;
-                        if (parent && isMember(parent) && parent.key !== element) {
-                          lintSm = getSourceMap(parent.key as Element);
+                    }
+                    if (conditionsSuccess) {
+                      if (meta.linterParams && meta.linterParams.length > 0) {
+                        const params = [targetElement].concat(meta.linterParams);
+                        lintRes = lintFunc(...params);
+                      } else {
+                        lintRes = lintFunc(targetElement);
+                      }
+                      if (meta.negate) lintRes = !lintRes;
+                      if (!lintRes) {
+                        // add to diagnostics
+                        let lintSm = sm;
+                        // check if root
+                        if (!element.parent || element.parent.element === 'parseResult') {
+                          // TODO use create
+                          lintSm = {
+                            offset: 0,
+                            endOffset: 0,
+                            length: 0,
+                            column: 0,
+                            endColumn: 0,
+                            endLine: 0,
+                            line: 0,
+                          };
                         }
+                        if (meta.target) {
+                          if (isObject(element) && element.hasKey(meta.target)) {
+                            if (meta.marker === 'key') {
+                              lintSm = getSourceMap(element.getMember(meta.target).key as Element);
+                            } else if (meta.marker === 'value') {
+                              lintSm = getSourceMap(element.get(meta.target) as Element);
+                            }
+                          }
+                        }
+                        let markerElement = element;
+                        if (meta.markerTarget && meta.markerTarget.length > 0) {
+                          if (isObject(element) && element.hasKey(meta.markerTarget)) {
+                            markerElement = element.get(meta.markerTarget);
+                          }
+                        }
+                        if (meta.marker === 'key') {
+                          const { parent } = markerElement;
+                          if (parent && isMember(parent) && parent.key !== markerElement) {
+                            lintSm = getSourceMap(parent.key as Element);
+                          }
+                        }
+                        const location = { offset: lintSm.offset, length: lintSm.length };
+                        const range = Range.create(
+                          textDocument.positionAt(location.offset),
+                          textDocument.positionAt(location.offset + location.length),
+                        );
+                        const diagnostic = Diagnostic.create(
+                          range,
+                          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                          meta.message!,
+                          meta.severity,
+                          meta.code,
+                        );
+                        diagnostic.source = meta.source;
+                        if (meta.data) {
+                          diagnostic.data = meta.data;
+                        }
+                        diagnostics.push(diagnostic);
                       }
-                      const location = { offset: lintSm.offset, length: lintSm.length };
-                      const range = Range.create(
-                        textDocument.positionAt(location.offset),
-                        textDocument.positionAt(location.offset + location.length),
-                      );
-                      const diagnostic = Diagnostic.create(
-                        range,
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        meta.message!,
-                        meta.severity,
-                        meta.code,
-                      );
-                      diagnostic.source = meta.source;
-                      if (meta.data) {
-                        diagnostic.data = meta.data;
-                      }
-                      diagnostics.push(diagnostic);
                     }
                   } catch (e) {
                     // eslint-disable-next-line no-console
@@ -273,6 +454,11 @@ export class DefaultValidationService implements ValidationService {
     if (diagnostic.data?.quickFix) {
       // @ts-ignore
       return diagnostic.data?.quickFix;
+    }
+    const quicks = this.quickFixesMap[code];
+    if (quicks) {
+      // delete this.quickFixesMap[code];
+      return quicks;
     }
 
     if (diagnostic.source === APIDOM_LINTER) {
@@ -366,60 +552,6 @@ export class DefaultValidationService implements ValidationService {
                   },
                 });
               }
-            } else if (quickFix.action === 'updateFieldValue') {
-              let newText: string | undefined;
-              // assume params exist
-              // @ts-ignore
-              const [target, value] = quickFix.functionParams;
-              // get element from range
-              const offset = textDocument.offsetAt(diag.range.start);
-              // find the current node
-              const node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
-              // only if we have a node
-              if (node && isObject(node) && node.hasKey(target)) {
-                // range of child value
-                const targetSm = node.get(target);
-                const location = { offset: targetSm.offset, length: targetSm.length };
-                const targetRange = Range.create(
-                  textDocument.positionAt(location.offset),
-                  textDocument.positionAt(location.offset + location.length),
-                );
-                if (quickFix.function === 'transformToLowercase') {
-                  newText = textDocument.getText(diag.range).toLowerCase();
-                } else if (!quickFix.function) {
-                  if (quickFix.functionParams && quickFix.functionParams.length > 0) {
-                    [newText] = value;
-                  }
-                }
-                const oldText = textDocument.getText(diag.range);
-                const oldTextquotes =
-                  oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
-                    ? oldText.charAt(0)
-                    : undefined;
-                const quotedInsertText =
-                  newText && oldTextquotes && newText.startsWith(oldTextquotes);
-                if (oldTextquotes && !quotedInsertText) {
-                  newText = oldTextquotes + newText + oldTextquotes;
-                }
-                if (newText) {
-                  codeActions.push({
-                    // @ts-ignore
-                    title: quickFix.message,
-                    kind: CodeActionKind.QuickFix,
-                    diagnostics: [diag],
-                    edit: {
-                      changes: {
-                        [documentUri]: [
-                          {
-                            range: targetRange,
-                            newText,
-                          },
-                        ],
-                      },
-                    },
-                  });
-                }
-              }
             } else if (quickFix.action === 'addChild') {
               // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
               // if (quickFix.function === 'addDescription') {
@@ -449,6 +581,58 @@ export class DefaultValidationService implements ValidationService {
                   },
                 },
               });
+            } else if (quickFix.action === 'removeChild') {
+              // @ts-ignore
+              const [target] = quickFix.functionParams;
+              // get element from range
+              const offset = textDocument.offsetAt(diag.range.start);
+              // find the current node
+              let node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
+              if (quickFix.target && node) {
+                const pathAr = quickFix.target.split('.');
+                // TODO deduplicate
+                for (const pathSegment of pathAr) {
+                  if (pathSegment === 'parent') {
+                    if (!node?.parent?.parent) {
+                      break;
+                    }
+                    node = node.parent.parent;
+                  } else if (pathSegment === 'root') {
+                    node = api;
+                  } else {
+                    // key
+                    if (node && (!isObject(node) || !node.hasKey(pathSegment))) {
+                      break;
+                    }
+                    node = node!.get(pathSegment);
+                  }
+                }
+              }
+              if (node && isObject(node) && node.hasKey(target)) {
+                // range of child value
+                const targetSm = getSourceMap(node.getMember(target));
+                const location = { offset: targetSm.offset, length: targetSm.length };
+                const targetRange = Range.create(
+                  textDocument.positionAt(location.offset),
+                  textDocument.positionAt(location.offset + location.length),
+                );
+                codeActions.push({
+                  // @ts-ignore
+                  title: quickFix.message,
+                  kind: CodeActionKind.QuickFix,
+                  diagnostics: [diag],
+                  edit: {
+                    changes: {
+                      [documentUri]: [
+                        {
+                          range: targetRange,
+                          newText: '',
+                        },
+                      ],
+                    },
+                  },
+                });
+              }
             }
           }
         }

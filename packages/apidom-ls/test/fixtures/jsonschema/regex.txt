@@ -1,0 +1,54 @@
+^<section title="(.+)">(.*)$
+
+    {
+      label: '$1',
+      kind: 14,
+      insertText: '$1: \$1\\n',
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: '$2',
+      },
+    },
+
+
+^<sectionv title="(.+)">(.*)$
+
+    {
+      label: '$1',
+      kind: 14,
+      insertText: '$1: \$1\\n',
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: '$2',
+      },
+    },
+
+^<sectiona title="(.+)">(.*)$
+
+    {
+      label: '$1',
+      kind: 14,
+      insertText: '$1: \\n- \$1\\n',
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: '$2',
+      },
+    },
+
+^<sectiono title="(.+)">(.*)$
+
+    {
+      label: '$1',
+      kind: 14,
+      insertText: '$1: \\n  \$1\\n',
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: '$2',
+      },
+    },
+
+insertText: 'properties: \n  $1\n',

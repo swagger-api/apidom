@@ -3,8 +3,8 @@ import { Hover } from 'vscode-languageserver-protocol';
 import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 
-import { LanguageSettings } from '../../apidom-language-types';
-import { getSourceMap, isMember, isObject, isArray, setMetadataMap } from '../../utils/utils';
+import { DocumentationMeta, LanguageSettings, MetadataMap } from '../../apidom-language-types';
+import { getSourceMap, isMember, isObject, isArray } from '../../utils/utils';
 import { isAsyncDoc } from '../../parser-factory';
 
 export interface HoverService {
@@ -28,7 +28,6 @@ export class DefaultHoverService implements HoverService {
     position: Position,
   ): Promise<Hover | undefined> {
     const text: string = textDocument.getText();
-    const asyncapi: boolean = isAsyncDoc(textDocument);
     const offset = textDocument.offsetAt(position);
 
     const hover: Hover = {
@@ -40,13 +39,9 @@ export class DefaultHoverService implements HoverService {
     const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
+    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    // const specVersion = getSpecVersion(api);
 
-    // use the type related metadata at root level
-    setMetadataMap(
-      api,
-      isAsyncDoc(text) ? 'asyncapi' : 'openapi',
-      this.settings?.metadata?.metadataMaps,
-    ); // TODO move to parser/adapter, extending the one standard
     api.freeze(); // !! freeze and add parent !!
 
     const node = findAtOffset({ offset, includeRightBound: true }, api);
@@ -59,37 +54,27 @@ export class DefaultHoverService implements HoverService {
       } else {
         el = (<MemberElement>node.parent).value as ObjectElement;
       }
+      let elementValue = el.element;
 
-      contents.push(`**${el.element}**\n`);
-      const sm = getSourceMap(node);
-      if (el.element === 'operation' || el.element === 'channel') {
-        const httpMethod = el.getMetaProperty('httpMethod', 'GET').toValue();
-        const memberParent: MemberElement = node.parent.parent.parent as MemberElement;
-        const memberParentKey: Element = memberParent.key as Element;
-        // memberParent.key;
-        const path: string = memberParentKey.toValue();
-        // TODO cheat now use specific ns traversion, change to use class/meta providing server url
-        // const basePath = 'http://localhost:8082';
-        let basePath = '';
-        if (asyncapi) {
-          // @ts-ignore
-          basePath = api.servers.toValue().prod.url;
-        } else {
-          // @ts-ignore
-          basePath = api.servers.toValue()[0].url;
-        }
-        const url = basePath + path;
-        const hoverText = `curl -X ${httpMethod} ${url}\n`;
-
-        contents.push(`${httpMethod} ${url}\n`);
-        contents.push(hoverText);
+      const referencedElement = el.getMetaProperty('referenced-element', '').toValue();
+      if (referencedElement.length > 0) {
+        elementValue = referencedElement;
       }
+
+      contents.push(`**${elementValue}**\n`);
+      const sm = getSourceMap(node);
       // check if we have some docs
-      let docs = DefaultHoverService.getMetadataPropertyDocs(api, el.element);
+      let docs: string | undefined = '';
+      if (referencedElement.length > 0) {
+        docs = this.getMetadataPropertyDocs(el, docNs, referencedElement);
+      }
+      if (!docs) {
+        docs = this.getMetadataPropertyDocs(el, docNs, el.element);
+      }
       if (!docs) {
         const classes = el.classes.toValue();
         for (const c of classes) {
-          docs = DefaultHoverService.getMetadataPropertyDocs(api, c);
+          docs = this.getMetadataPropertyDocs(el, docNs, c);
           if (docs) {
             break;
           }
@@ -108,7 +93,32 @@ export class DefaultHoverService implements HoverService {
     return hover;
   }
 
-  private static getMetadataPropertyDocs(doc: Element, key: string): string {
-    return doc.meta.get('metadataMap')?.get(key)?.get('documentation')?.toValue();
+  private getMetadataPropertyDocs(node: Element, ns: string, key: string): string | undefined {
+    const map: MetadataMap = this.settings?.metadata?.metadataMaps[ns] || {};
+
+    if (node.parent && isMember(node.parent)) {
+      const containerNode = node.parent.parent;
+      const nodeKey = (node.parent.key as Element).toValue();
+      const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+      containerNodeSet.unshift(containerNode.element);
+
+      for (const containerNodeSymbol of containerNodeSet) {
+        const containerNodeDocs: DocumentationMeta[] = map[containerNodeSymbol]
+          ?.documentation as DocumentationMeta[];
+        if (containerNodeDocs) {
+          const targetDoc = containerNodeDocs.find((ci) => ci.target === nodeKey);
+          if (targetDoc) return targetDoc.docs;
+        }
+      }
+    }
+    if (map[key]?.documentation) {
+      const keyDocsMeta: DocumentationMeta[] = map[key]?.documentation as DocumentationMeta[];
+      if (keyDocsMeta) {
+        const rootDoc = keyDocsMeta.find((e) => !e.target);
+        if (rootDoc) return rootDoc.docs;
+      }
+    }
+
+    return undefined;
   }
 }

@@ -13,9 +13,10 @@ import {
   isNumberElement,
   isBooleanElement,
   find,
+  traverse,
 } from '@swagger-api/apidom-core';
 
-import { MetadataMaps } from '../apidom-language-types';
+import { MetadataMaps, Pointer } from '../apidom-language-types';
 
 // TODO remove, keep for remote debugging
 // import { appendFile } from 'fs';
@@ -131,4 +132,46 @@ export function log(label: string, message: unknown, toFile = false): void {
 export function logJson(label: string, message: unknown): void {
   // eslint-disable-next-line no-console
   console.log(label, JSON.stringify(message, null, 2));
+}
+
+export function buildJsonPointer(path: string[]): string {
+  return `#/${path.join('/')}`;
+}
+
+export function localReferencePointers(doc: Element, nodeElement: string): Pointer[] {
+  const pointers: Pointer[] = [];
+  // traverse all doc to find nodes of the same type which are not a ref
+  const foundNodes: Element[] = [];
+  let nodePath: string[] = [];
+  function buildPointer(traverseNode: Element): void {
+    if (!traverseNode) return;
+    if (traverseNode.parent && isMember(traverseNode.parent)) {
+      nodePath.unshift((traverseNode.parent.key as Element).toValue());
+      buildPointer(traverseNode.parent?.parent);
+    }
+  }
+
+  // TODO check for reference-element class or type instead
+  function findRefNodes(traversedNode: Element): void {
+    if (traversedNode.element === nodeElement) {
+      if (
+        !(
+          isObject(traversedNode) &&
+          traversedNode.get('$ref') &&
+          traversedNode.get('$ref').toValue().length > 0
+        )
+      ) {
+        foundNodes.push(traversedNode);
+      }
+    }
+  }
+  traverse(findRefNodes, doc);
+  for (const foundNode of foundNodes) {
+    nodePath = [];
+    buildPointer(foundNode);
+    pointers.push({ node: foundNode, ref: buildJsonPointer(nodePath) });
+  }
+  // TODO better sorting, NS plugin..
+  pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));
+  return pointers;
 }

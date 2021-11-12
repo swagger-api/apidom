@@ -39,6 +39,11 @@ export enum FORMAT {
   YAML,
 }
 
+export type Pointer = {
+  node: Element;
+  ref: string;
+};
+
 export const APIDOM_LINTER = 'apilint';
 
 export interface LanguageServiceContext {
@@ -103,7 +108,6 @@ export interface ColorsContext {
   resultLimit?: number;
   onResultLimitExceeded?: (uri: string) => void;
 }
-
 export interface WorkspaceContextService {
   resolveRelativePath(relativePath: string, resource: string): string;
 }
@@ -111,6 +115,14 @@ export interface WorkspaceContextService {
 export interface ApidomCompletionItem extends CompletionItem {
   targetSpecs?: NamespaceVersion[];
   target?: string;
+}
+
+export interface DocumentationMeta {
+  target?: string;
+  docs: string;
+  summary?: string;
+  targetSpecs?: NamespaceVersion[];
+  conditions?: LinterCondition[];
 }
 
 export interface ElementMeta {
@@ -126,6 +138,7 @@ export interface QuickFixData {
   // TODO solve, validation meta also format based
   snippetYaml?: string;
   snippetJson?: string;
+  target?: string;
 }
 export interface LinterMetaData {
   quickFix?: QuickFixData[];
@@ -138,13 +151,28 @@ export interface LinterMeta {
   linterFunction?: string;
   linterParams?: [any];
   marker?: string;
+  markerTarget?: string;
   target?: string;
   data?: LinterMetaData;
   targetSpecs?: NamespaceVersion[];
+  conditions?: LinterCondition[];
+  negate?: boolean;
+}
+
+export interface LinterCondition {
+  targets: LinterConditionTarget[];
+  function: string;
+  negate?: boolean;
+  params: [any];
+}
+
+export interface LinterConditionTarget {
+  path?: string;
+  clazz?: string;
 }
 
 export interface FormatMeta {
-  [index: string]: ElementMeta | string | LinterMeta[];
+  [index: string]: ElementMeta | LinterMeta[] | DocumentationMeta[];
 }
 
 export interface MetadataMap {

@@ -8,6 +8,7 @@ import { isServerLikeElement } from '../../predicates';
 const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
+    this.element.classes.push('servers');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -19,7 +20,6 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('servers');
 
       return BREAK;
     },

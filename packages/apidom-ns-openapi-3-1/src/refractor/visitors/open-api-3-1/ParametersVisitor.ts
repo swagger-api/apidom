@@ -9,6 +9,7 @@ import { isReferenceElement } from '../../../predicates';
 const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
     this.element = new ArrayElement();
+    this.element.classes.push('parameters');
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -26,7 +27,6 @@ const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('parameters');
 
       return BREAK;
     },

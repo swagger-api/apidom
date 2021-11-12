@@ -3955,6 +3955,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                               "content": [
                                 {
                                   "element": "string",
+                                  "content": "path-item-servers"
+                                },
+                                {
+                                  "element": "string",
                                   "content": "servers"
                                 }
                               ]
@@ -4199,6 +4203,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                             "classes": {
                               "element": "array",
                               "content": [
+                                {
+                                  "element": "string",
+                                  "content": "path-item-parameters"
+                                },
                                 {
                                   "element": "string",
                                   "content": "parameters"
@@ -5730,6 +5738,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                     "classes": {
                       "element": "array",
                       "content": [
+                        {
+                          "element": "string",
+                          "content": "components-examples"
+                        },
                         {
                           "element": "string",
                           "content": "examples"

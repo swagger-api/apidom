@@ -3,6 +3,7 @@ import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core'
 
 import ReferenceElement from '../../../elements/Reference';
 import PathItemElement from '../../../elements/PathItem';
+import WebhooksElement from '../../../elements/nces/Webhooks';
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { isReferenceLikeElement } from '../../predicates';
@@ -18,8 +19,7 @@ const WebhooksVisitor = stampit(MapVisitor, FallbackVisitor, {
     },
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('webhooks');
+    this.element = new WebhooksElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

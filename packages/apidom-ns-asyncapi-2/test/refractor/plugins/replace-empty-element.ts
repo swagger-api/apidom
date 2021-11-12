@@ -76,6 +76,21 @@ describe('refractor', function () {
           expect(sexprs(asyncApiElement)).toMatchSnapshot();
         });
       });
+
+      context('given AsyncAPI definition with no empty values', function () {
+        specify('should do nothing', async function () {
+          const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          id: urn:com:smartylighting:streetlights:server
+        `;
+          const apiDOM = await parse(yamlDefinition);
+          const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+            plugins: [refractorPluginReplaceEmptyElement()],
+          }) as AsyncApi2Element;
+
+          expect(sexprs(asyncApiElement)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor plugins replace-empty-element given AsyncAPI definition with no empty values should do nothing 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (IdentifierElement)))
+`;
+
 exports[`refractor plugins replace-empty-element given empty value instead for AsyncAPI.components.schemas should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement

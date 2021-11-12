@@ -1,13 +1,13 @@
 import stampit from 'stampit';
 import { ArrayElement, isObjectElement, BREAK } from '@swagger-api/apidom-core';
 
-import SecurityElement from '../../../elements/nces/Security';
-import SpecificationVisitor from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import OperationSecurityElement from '../../../../elements/nces/OperationSecurity';
+import SpecificationVisitor from '../../SpecificationVisitor';
+import FallbackVisitor from '../../FallbackVisitor';
 
 const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new SecurityElement();
+    this.element = new OperationSecurityElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

@@ -4,6 +4,7 @@ import { Element, ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
+import OperationCallbacksElement from '../../../../elements/nces/OperationCallbacks';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
@@ -15,8 +16,7 @@ const CallbacksVisitor = stampit(MapVisitor, FallbackVisitor, {
         : ['document', 'objects', 'Callback'],
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('operation-callbacks');
+    this.element = new OperationCallbacksElement();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

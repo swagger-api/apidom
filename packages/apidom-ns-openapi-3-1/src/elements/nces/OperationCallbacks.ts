@@ -1,14 +1,13 @@
 import { Attributes, Meta } from 'minim';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-class ComponentsParameters extends ObjectElement {
-  static primaryClass = 'components-parameters';
+class OperationCallbacks extends ObjectElement {
+  static primaryClass = 'operation-callbacks';
 
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.classes.push(ComponentsParameters.primaryClass);
-    this.classes.push('parameters');
+    this.classes.push(OperationCallbacks.primaryClass);
   }
 }
 
-export default ComponentsParameters;
+export default OperationCallbacks;

@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { ObjectElement } from '@swagger-api/apidom-core';
 
+import MediaTypeEncodingElement from '../../../../elements/nces/MediaTypeEncoding';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
@@ -10,8 +10,7 @@ const EncodingVisitor = stampit(MapVisitor, FallbackVisitor, {
     specPath: always(['document', 'objects', 'Encoding']),
   },
   init() {
-    this.element = new ObjectElement();
-    this.element.classes.push('encoding');
+    this.element = new MediaTypeEncodingElement();
   },
 });
 

@@ -375,6 +375,38 @@ const schema = {
     definitions: () => new ObjectElement({}, { classes: ['json-schema-definitions'] }),
     externalDocs: () => new ExternalDocumentationElement(),
   },
+  HttpOperationBindingElement: {
+    query: () => new SchemaElement(),
+  },
+  HttpMessageBindingElement: {
+    headers: () => new SchemaElement(),
+  },
+  WebSocketChannelBindingElement: {
+    query: () => new SchemaElement(),
+    headers: () => new SchemaElement(),
+  },
+  KafkaOperationBindingElement: {
+    groupId: () => new SchemaElement(),
+    clientId: () => new SchemaElement(),
+  },
+  KafkaMessageBindingElement: {
+    key: () => new SchemaElement(),
+  },
+  AnypointmqMessageBindingElement: {
+    headers: () => new SchemaElement(),
+  },
+  AmqpChannelBindingElement: {
+    exchange: () => new ObjectElement(),
+    queue: () => new ObjectElement(),
+  },
+  AmqpOperationBindingElement: {
+    cc: () => new ArrayElement(),
+    bcc: () => new ArrayElement(),
+  },
+  IbmmqChannelBindingElement: {
+    queue: () => new ObjectElement(),
+    topic: () => new ObjectElement(),
+  },
   // non-concrete types handling (NCEs)
   [ComponentsSchemasElement.primaryClass]: {
     '*': () => new SchemaElement(),

@@ -26,7 +26,8 @@
     "mocha/no-identical-title": 2,
     "mocha/no-nested-tests": 2,
     "mocha/no-exclusive-tests": 2,
-    "max-classes-per-file": 0
+    "max-classes-per-file": 0,
+    "@typescript-eslint/no-unused-expressions": 0
   },
   "overrides": [{
     "files": ["mocha-bootstrap.js"],

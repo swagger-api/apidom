@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/swagger-api/apidom/compare/v0.7.0...v0.8.0) (2021-11-15)
+
+
+### Features
+
+* add plugin for replacing empty elements ([#879](https://github.com/swagger-api/apidom/issues/879)) ([c073f58](https://github.com/swagger-api/apidom/commit/c073f5853bc1e37c540b0bebec74efa82e7b359f)), closes [#883](https://github.com/swagger-api/apidom/issues/883)
+
+
+
+
+
 # [0.7.0](https://github.com/swagger-api/apidom/compare/v0.6.0...v0.7.0) (2021-11-08)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

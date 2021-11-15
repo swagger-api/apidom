@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/swagger-api/apidom/compare/v0.7.0...v0.8.0) (2021-11-15)
+
+
+### Bug Fixes
+
+* **ns-asynapi-2:** fix traversal key map ([8ef14b4](https://github.com/swagger-api/apidom/commit/8ef14b47cc0cf2e42e6356273851f2a5168c9024))
+* **ns-openapi-3-1:** fix bug in replace empty el. plugin ([f3413d0](https://github.com/swagger-api/apidom/commit/f3413d082cef010146468cb1444092a2d20d0c9b)), closes [#812](https://github.com/swagger-api/apidom/issues/812)
+* **ns-openapi-3-1:** fix bug in replace empty el. plugin ([221bac3](https://github.com/swagger-api/apidom/commit/221bac3f84ea2388ead0c3b4c29a540d989f9704)), closes [#812](https://github.com/swagger-api/apidom/issues/812)
+
+
+### Features
+
+* add plugin for replacing empty elements ([#879](https://github.com/swagger-api/apidom/issues/879)) ([c073f58](https://github.com/swagger-api/apidom/commit/c073f5853bc1e37c540b0bebec74efa82e7b359f)), closes [#883](https://github.com/swagger-api/apidom/issues/883)
+* **ns-asyncapi-2:** add support for bindinds empty elements mapping ([#890](https://github.com/swagger-api/apidom/issues/890)) ([9743bc5](https://github.com/swagger-api/apidom/commit/9743bc59d2834f7951565abb5076debf3c929473)), closes [#812](https://github.com/swagger-api/apidom/issues/812)
+* **ns-asyncapi-2:** add support for full empty elements mapping ([b5c8134](https://github.com/swagger-api/apidom/commit/b5c8134bb9f9b3aaa69e123657d8a95bb8f48c39)), closes [#833](https://github.com/swagger-api/apidom/issues/833)
+* **ns-asyncapi-2:** introduce non-concrete Elements ([5f3d87d](https://github.com/swagger-api/apidom/commit/5f3d87d54f8a2c3940c9e9ccd816ccfdd24ddbcd)), closes [#833](https://github.com/swagger-api/apidom/issues/833)
+* **ns-openapi-3-1:** add support for full empty elements mapping ([#894](https://github.com/swagger-api/apidom/issues/894)) ([cc1dbdc](https://github.com/swagger-api/apidom/commit/cc1dbdc8026674b88b1176a821d258445d5d6747)), closes [#891](https://github.com/swagger-api/apidom/issues/891)
+
+
+
+
+
 # [0.7.0](https://github.com/swagger-api/apidom/compare/v0.6.0...v0.7.0) (2021-11-08)
 
 

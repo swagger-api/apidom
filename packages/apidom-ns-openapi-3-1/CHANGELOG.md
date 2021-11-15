@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/swagger-api/apidom/compare/v0.7.0...v0.8.0) (2021-11-15)
+
+
+### Bug Fixes
+
+* **ns-openapi-3-1:** fix bug in replace empty el. plugin ([f3413d0](https://github.com/swagger-api/apidom/commit/f3413d082cef010146468cb1444092a2d20d0c9b)), closes [#812](https://github.com/swagger-api/apidom/issues/812)
+
+
+### Features
+
+* **ns-openapi-3-1:** add support for full empty elements mapping ([#894](https://github.com/swagger-api/apidom/issues/894)) ([cc1dbdc](https://github.com/swagger-api/apidom/commit/cc1dbdc8026674b88b1176a821d258445d5d6747)), closes [#891](https://github.com/swagger-api/apidom/issues/891)
+
+
+
+
+
 # [0.7.0](https://github.com/swagger-api/apidom/compare/v0.6.0...v0.7.0) (2021-11-08)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

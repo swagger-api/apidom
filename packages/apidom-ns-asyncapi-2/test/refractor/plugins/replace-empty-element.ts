@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import dedent from 'dedent';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '../../../src';
@@ -89,6 +89,27 @@ describe('refractor', function () {
           }) as AsyncApi2Element;
 
           expect(sexprs(asyncApiElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given AsyncAPI definition with empty values', function () {
+        specify('should generate proper source maps', async function () {
+          const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          info:
+        `;
+          const apiDOM = await parse(yamlDefinition, { sourceMap: true });
+          const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+            plugins: [refractorPluginReplaceEmptyElement()],
+          }) as AsyncApi2Element;
+          const { info: infoValue } = asyncApiElement;
+          const sourceMap = infoValue?.meta.get('sourceMap');
+          const { positionStart, positionEnd } = sourceMap;
+          const expectedPosition = [1, 5, 21];
+
+          expect(infoValue?.meta.get('sourceMap')).to.be.an.instanceof(SourceMapElement);
+          assert.isTrue(positionStart.equals(expectedPosition));
+          assert.isTrue(positionEnd.equals(expectedPosition));
         });
       });
     });

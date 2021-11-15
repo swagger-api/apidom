@@ -1,4 +1,4 @@
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import dedent from 'dedent';
 import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
@@ -108,8 +108,8 @@ describe('refractor', function () {
           const expectedPosition = [1, 5, 21];
 
           expect(infoValue?.meta.get('sourceMap')).to.be.an.instanceof(SourceMapElement);
-          assert.isTrue(positionStart.equals(expectedPosition));
-          assert.isTrue(positionEnd.equals(expectedPosition));
+          expect(positionStart.equals(expectedPosition)).to.be.true;
+          expect(positionEnd.equals(expectedPosition)).to.be.true;
         });
       });
     });

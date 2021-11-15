@@ -2,6 +2,7 @@ import {
   MemberElement,
   ArrayElement,
   ObjectElement,
+  StringElement,
   isStringElement,
   includesClasses,
 } from '@swagger-api/apidom-core';
@@ -111,214 +112,271 @@ const isEmptyElement = (element: any) =>
 const schema = {
   // concrete types handling (CTs)
   OpenApi3_1Element: {
-    info: () => new InfoElement(),
-    servers: () => new ServersElement(),
-    paths: () => new PathsElement(),
-    webhooks: () => new WebhooksElement(),
-    components: () => new ComponentsElement(),
-    security: () => new SecurityElement(),
-    tags: () => new TagsElement(),
-    externalDocs: () => new ExternalDocumentationElement(),
+    info: (...args: any[]) => new InfoElement(...args),
+    servers: (...args: any[]) => new ServersElement(...args),
+    paths: (...args: any[]) => new PathsElement(...args),
+    webhooks: (...args: any[]) => new WebhooksElement(...args),
+    components: (...args: any[]) => new ComponentsElement(...args),
+    security: (...args: any[]) => new SecurityElement(...args),
+    tags: (...args: any[]) => new TagsElement(...args),
+    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
   },
   InfoElement: {
-    contact: () => new ContactElement(),
-    license: () => new LicenseElement(),
+    contact: (...args: any[]) => new ContactElement(...args),
+    license: (...args: any[]) => new LicenseElement(...args),
   },
   ServerElement: {
-    variables: () => new ServerVariablesElement(),
+    variables: (...args: any[]) => new ServerVariablesElement(...args),
   },
   ServerVariableElement: {
-    enum: () => new ArrayElement(),
+    enum: (...args: any[]) => new ArrayElement(...args),
   },
   PathsElement: {
-    '*': () => new PathItemElement(),
+    '*': (...args: any[]) => new PathItemElement(...args),
   },
   PathItemElement: {
-    get: () => new OperationElement(),
-    put: () => new OperationElement(),
-    post: () => new OperationElement(),
-    delete: () => new OperationElement(),
-    options: () => new OperationElement(),
-    head: () => new OperationElement(),
-    patch: () => new OperationElement(),
-    trace: () => new OperationElement(),
-    servers: () => new PathItemServersElement(),
-    parameters: () => new PathItemParametersElement(),
+    get: (...args: any[]) => new OperationElement(...args),
+    put: (...args: any[]) => new OperationElement(...args),
+    post: (...args: any[]) => new OperationElement(...args),
+    delete: (...args: any[]) => new OperationElement(...args),
+    options: (...args: any[]) => new OperationElement(...args),
+    head: (...args: any[]) => new OperationElement(...args),
+    patch: (...args: any[]) => new OperationElement(...args),
+    trace: (...args: any[]) => new OperationElement(...args),
+    servers: (...args: any[]) => new PathItemServersElement(...args),
+    parameters: (...args: any[]) => new PathItemParametersElement(...args),
   },
   OperationElement: {
-    tags: () => new OperationTagsElement(),
-    externalDocs: () => new ExternalDocumentationElement(),
-    parameters: () => new OperationParametersElement(),
-    requestBody: () => new RequestBodyElement(),
-    responses: () => new ResponsesElement(),
-    callbacks: () => new OperationCallbacksElement(),
-    security: () => new OperationSecurityElement(),
-    servers: () => new OperationServersElement(),
+    tags: (...args: any[]) => new OperationTagsElement(...args),
+    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
+    parameters: (...args: any[]) => new OperationParametersElement(...args),
+    requestBody: (...args: any[]) => new RequestBodyElement(...args),
+    responses: (...args: any[]) => new ResponsesElement(...args),
+    callbacks: (...args: any[]) => new OperationCallbacksElement(...args),
+    security: (...args: any[]) => new OperationSecurityElement(...args),
+    servers: (...args: any[]) => new OperationServersElement(...args),
   },
   ParameterElement: {
-    schema: () => new SchemaElement(),
-    examples: () => new ParameterExamplesElement(),
-    content: () => new ParameterContentElement(),
+    schema: (...args: any[]) => new SchemaElement(...args),
+    examples: (...args: any[]) => new ParameterExamplesElement(...args),
+    content: (...args: any[]) => new ParameterContentElement(...args),
   },
   RequestBodyElement: {
-    content: () => new RequestBodyContentElement(),
+    content: (...args: any[]) => new RequestBodyContentElement(...args),
   },
   MediaTypeElement: {
-    schema: () => new SchemaElement(),
-    examples: () => new MediaTypeExamplesElement(),
-    encoding: () => new MediaTypeEncodingElement(),
+    schema: (...args: any[]) => new SchemaElement(...args),
+    examples: (...args: any[]) => new MediaTypeExamplesElement(...args),
+    encoding: (...args: any[]) => new MediaTypeEncodingElement(...args),
   },
   EncodingElement: {
-    headers: () => new EncodingHeadersElement(),
+    headers: (...args: any[]) => new EncodingHeadersElement(...args),
   },
   ResponsesElement: {
-    '*': () => new ResponseElement(),
+    '*': (...args: any[]) => new ResponseElement(...args),
   },
   ResponseElement: {
-    headers: () => new ResponseHeadersElement(),
-    content: () => new ResponseContentElement(),
-    links: () => new ResponseLinksElement(),
+    headers: (...args: any[]) => new ResponseHeadersElement(...args),
+    content: (...args: any[]) => new ResponseContentElement(...args),
+    links: (...args: any[]) => new ResponseLinksElement(...args),
   },
   CallbackElement: {
-    '*': () => new PathItemElement(),
+    '*': (...args: any[]) => new PathItemElement(...args),
   },
   LinkElement: {
-    server: () => new ServerElement(),
+    server: (...args: any[]) => new ServerElement(...args),
   },
   HeaderElement: {
-    schema: () => new SchemaElement(),
-    examples: () => new ParameterExamplesElement(),
-    content: () => new ParameterContentElement(),
+    schema: (...args: any[]) => new SchemaElement(...args),
+    examples: (...args: any[]) => new ParameterExamplesElement(...args),
+    content: (...args: any[]) => new ParameterContentElement(...args),
   },
   ComponentsElement: {
-    schemas: () => new ComponentsSchemasElement(),
-    responses: () => new ComponentsResponsesElement(),
-    parameters: () => new ComponentsParametersElement(),
-    examples: () => new ComponentsExamplesElement(),
-    requestBodies: () => new ComponentsRequestBodiesElement(),
-    headers: () => new ComponentsHeadersElement(),
-    securitySchemes: () => new ComponentsSecuritySchemesElement(),
-    links: () => new ComponentsLinksElement(),
-    callbacks: () => new ComponentsCallbacksElement(),
-    pathItems: () => new ComponentsPathItemsElement(),
+    schemas: (...args: any[]) => new ComponentsSchemasElement(...args),
+    responses: (...args: any[]) => new ComponentsResponsesElement(...args),
+    parameters: (...args: any[]) => new ComponentsParametersElement(...args),
+    examples: (...args: any[]) => new ComponentsExamplesElement(...args),
+    requestBodies: (...args: any[]) => new ComponentsRequestBodiesElement(...args),
+    headers: (...args: any[]) => new ComponentsHeadersElement(...args),
+    securitySchemes: (...args: any[]) => new ComponentsSecuritySchemesElement(...args),
+    links: (...args: any[]) => new ComponentsLinksElement(...args),
+    callbacks: (...args: any[]) => new ComponentsCallbacksElement(...args),
+    pathItems: (...args: any[]) => new ComponentsPathItemsElement(...args),
   },
   SecurityRequirementElement: {
-    '*': () => new ArrayElement(),
+    '*': (...args: any[]) => new ArrayElement(...args),
   },
   TagElement: {
-    externalDocs: () => new ExternalDocumentationElement(),
+    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
   },
   SchemaElement: {
-    $vocabulary: () => new ObjectElement({}, { classes: ['json-schema-$vocabulary'] }),
-    $defs: () => new ObjectElement({ classes: ['json-schema-$defs'] }),
-    allOf: () => new ArrayElement([], { classes: ['json-schema-allOf'] }),
-    anyOf: () => new ArrayElement([], { classes: ['json-schema-anyOf'] }),
-    oneOf: () => new ArrayElement([], { classes: ['json-schema-oneOf'] }),
-    not: () => new SchemaElement(),
-    if: () => new SchemaElement(),
-    then: () => new SchemaElement(),
-    else: () => new SchemaElement(),
-    dependentSchemas: () => new ObjectElement({}, { classes: ['json-schema-dependentSchemas'] }),
-    prefixItems: () => new ArrayElement([], { classes: ['json-schema-prefixItems'] }),
-    items: () => new SchemaElement(),
-    contains: () => new SchemaElement(),
-    properties: () => new ObjectElement({}, { classes: ['json-schema-properties'] }),
-    patternProperties: () => new ObjectElement({}, { classes: ['json-schema-patternProperties'] }),
-    additionalProperties: () => new SchemaElement(),
-    propertyNames: () => new SchemaElement(),
-    unevaluatedItems: () => new SchemaElement(),
-    unevaluatedProperties: () => new SchemaElement(),
-    type: () => new ArrayElement([], { classes: ['json-schema-type'] }),
-    enum: () => new ArrayElement([], { classes: ['json-schema-enum'] }),
-    required: () => new ArrayElement([], { classes: ['json-schema-required'] }),
-    dependentRequired: () => new ObjectElement({}, { classes: ['json-schema-dependentRequired'] }),
-    examples: () => new ArrayElement([], { classes: ['json-schema-examples'] }),
-    contentSchema: () => new SchemaElement(),
-    discriminator: () => new DiscriminatorElement(),
-    xml: () => new XmlElement(),
-    externalDocs: () => new ExternalDocumentationElement(),
+    $vocabulary: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-$vocabulary');
+      return element;
+    },
+
+    $defs: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-$defs');
+      return element;
+    },
+    allOf: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-allOf');
+      return element;
+    },
+    anyOf: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-anyOf');
+      return element;
+    },
+    oneOf: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-oneOf');
+      return element;
+    },
+    not: (...args: any[]) => new SchemaElement(...args),
+    if: (...args: any[]) => new SchemaElement(...args),
+    then: (...args: any[]) => new SchemaElement(...args),
+    else: (...args: any[]) => new SchemaElement(...args),
+    dependentSchemas: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-dependentSchemas');
+      return element;
+    },
+    prefixItems: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-prefixItems');
+      return element;
+    },
+    items: (...args: any[]) => new SchemaElement(...args),
+    contains: (...args: any[]) => new SchemaElement(...args),
+    properties: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-properties');
+      return element;
+    },
+    patternProperties: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-patternProperties');
+      return element;
+    },
+    additionalProperties: (...args: any[]) => new SchemaElement(...args),
+    propertyNames: (...args: any[]) => new SchemaElement(...args),
+    unevaluatedItems: (...args: any[]) => new SchemaElement(...args),
+    unevaluatedProperties: (...args: any[]) => new SchemaElement(...args),
+    type: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-type');
+      return element;
+    },
+    enum: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-enum');
+      return element;
+    },
+    required: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-required');
+      return element;
+    },
+    dependentRequired: (...args: any[]) => {
+      const element = new ObjectElement(...args);
+      element.classes.push('json-schema-dependentRequired');
+      return element;
+    },
+    examples: (...args: any[]) => {
+      const element = new ArrayElement(...args);
+      element.classes.push('json-schema-examples');
+      return element;
+    },
+    contentSchema: (...args: any[]) => new SchemaElement(...args),
+    discriminator: (...args: any[]) => new DiscriminatorElement(...args),
+    xml: (...args: any[]) => new XmlElement(...args),
+    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
   },
   DiscriminatorElement: {
-    mapping: () => new DiscriminatorMappingElement(),
+    mapping: (...args: any[]) => new DiscriminatorMappingElement(...args),
   },
   SecuritySchemeElement: {
-    flows: () => new OAuthFlowsElement(),
+    flows: (...args: any[]) => new OAuthFlowsElement(...args),
   },
   OAuthFlowsElement: {
-    implicit: () => new OAuthFlowElement(),
-    password: () => new OAuthFlowElement(),
-    clientCredentials: () => new OAuthFlowElement(),
-    authorizationCode: () => new OAuthFlowElement(),
+    implicit: (...args: any[]) => new OAuthFlowElement(...args),
+    password: (...args: any[]) => new OAuthFlowElement(...args),
+    clientCredentials: (...args: any[]) => new OAuthFlowElement(...args),
+    authorizationCode: (...args: any[]) => new OAuthFlowElement(...args),
   },
   OAuthFlowElement: {
-    scopes: () => new OAuthFlowScopesElement(),
+    scopes: (...args: any[]) => new OAuthFlowScopesElement(...args),
   },
   // non-concrete types handling (NCEs)
   [WebhooksElement.primaryClass]: {
-    '*': () => new PathItemElement(),
+    '*': (...args: any[]) => new PathItemElement(...args),
   },
   [ServerVariablesElement.primaryClass]: {
-    '*': () => new ServerVariableElement(),
+    '*': (...args: any[]) => new ServerVariableElement(...args),
   },
   [ComponentsSchemasElement.primaryClass]: {
-    '*': () => new SchemaElement(),
+    '*': (...args: any[]) => new SchemaElement(...args),
   },
   [ComponentsResponsesElement.primaryClass]: {
-    '*': () => new ResponseElement(),
+    '*': (...args: any[]) => new ResponseElement(...args),
   },
   [ComponentsParametersElement.primaryClass]: {
-    '*': () => new ParameterElement(),
+    '*': (...args: any[]) => new ParameterElement(...args),
   },
   [ComponentsExamplesElement.primaryClass]: {
-    '*': () => new ExampleElement(),
+    '*': (...args: any[]) => new ExampleElement(...args),
   },
   [ComponentsRequestBodiesElement.primaryClass]: {
-    '*': () => new RequestBodyElement(),
+    '*': (...args: any[]) => new RequestBodyElement(...args),
   },
   [ComponentsHeadersElement.primaryClass]: {
-    '*': () => new HeaderElement(),
+    '*': (...args: any[]) => new HeaderElement(...args),
   },
   [ComponentsSecuritySchemesElement.primaryClass]: {
-    '*': () => new SecuritySchemeElement(),
+    '*': (...args: any[]) => new SecuritySchemeElement(...args),
   },
   [ComponentsLinksElement.primaryClass]: {
-    '*': () => new LinkElement(),
+    '*': (...args: any[]) => new LinkElement(...args),
   },
   [ComponentsCallbacksElement.primaryClass]: {
-    '*': () => new CallbackElement(),
+    '*': (...args: any[]) => new CallbackElement(...args),
   },
   [ComponentsPathItemsElement.primaryClass]: {
-    '*': () => new PathItemElement(),
+    '*': (...args: any[]) => new PathItemElement(...args),
   },
   [OperationCallbacksElement.primaryClass]: {
-    '*': () => new CallbackElement(),
+    '*': (...args: any[]) => new CallbackElement(...args),
   },
   [ParameterExamplesElement.primaryClass]: {
-    '*': () => new ExampleElement(),
+    '*': (...args: any[]) => new ExampleElement(...args),
   },
   [ParameterContentElement.primaryClass]: {
-    '*': () => new MediaTypeElement(),
+    '*': (...args: any[]) => new MediaTypeElement(...args),
   },
   [RequestBodyContentElement.primaryClass]: {
-    '*': () => new MediaTypeElement(),
+    '*': (...args: any[]) => new MediaTypeElement(...args),
   },
   [MediaTypeExamplesElement.primaryClass]: {
-    '*': () => new ExampleElement(),
+    '*': (...args: any[]) => new ExampleElement(...args),
   },
   [MediaTypeEncodingElement.primaryClass]: {
-    '*': () => new EncodingElement(),
+    '*': (...args: any[]) => new EncodingElement(...args),
   },
   [EncodingHeadersElement.primaryClass]: {
-    '*': () => new HeaderElement(),
+    '*': (...args: any[]) => new HeaderElement(...args),
   },
   [ResponseHeadersElement.primaryClass]: {
-    '*': () => new HeaderElement(),
+    '*': (...args: any[]) => new HeaderElement(...args),
   },
   [ResponseContentElement.primaryClass]: {
-    '*': () => new MediaTypeElement(),
+    '*': (...args: any[]) => new MediaTypeElement(...args),
   },
   [ResponseLinksElement.primaryClass]: {
-    '*': () => new LinkElement(),
+    '*': (...args: any[]) => new LinkElement(...args),
   },
 };
 
@@ -348,9 +406,11 @@ const plugin = () => () => {
         // no element factory found
         if (typeof elementFactory === 'undefined') return undefined;
 
+        const originalValue = element.value as StringElement;
+
         return new MemberElement(
           element.key,
-          elementFactory(),
+          elementFactory(undefined, originalValue.meta.clone(), originalValue.attributes.clone()),
           element.meta.clone(),
           element.attributes.clone(),
         );

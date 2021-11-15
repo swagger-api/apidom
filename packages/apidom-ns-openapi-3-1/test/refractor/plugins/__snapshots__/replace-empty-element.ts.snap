@@ -10,6 +10,16 @@ exports[`refractor plugins replace-empty-element given AsyncAPI definition with 
     (JsonSchemaDialectElement)))
 `;
 
+exports[`refractor plugins replace-empty-element given OpenAPI definition with no empty values should do nothing 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (JsonSchemaDialectElement)))
+`;
+
 exports[`refractor plugins replace-empty-element given empty value instead for OpenAPI.components.schemas should replace empty value with semantic element 1`] = `
 (OpenApi3_1Element
   (MemberElement

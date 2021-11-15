@@ -146,15 +146,15 @@ If multiple plugins with the same visitor method are defined, they run in parall
 
 #### Element identity plugin
 
-`apidom` package comes with `elementIdentityRefractorPlugin`. When used, this plugin will
+`apidom` package comes with `refractorPluginElementIdentity`. When used, this plugin will
 assign unique ID to all elements in ApiDOM tree.
 
 ```js
-import { elementIdentityRefractorPlugin, ObjectElement } from '@swagger-api/apidom-core';
+import { refractorPluginElementIdentity, ObjectElement } from '@swagger-api/apidom-core';
 
 const objectElement = ObjectElement.refract({ a: 'b' }, {
   plugins: [
-    elementIdentityRefractorPlugin(),
+    refractorPluginElementIdentity(),
   ]
 });
 
@@ -166,11 +166,11 @@ objectElement.getMember('a').value.id; // rFGVFP
 You can configure the plugin to generate unique IDs in the specific length:
 
 ```js
-import { elementIdentityRefractorPlugin, ObjectElement } from '@swagger-api/apidom-core';
+import { refractorPluginElementIdentity, ObjectElement } from '@swagger-api/apidom-core';
 
 const objectElement = ObjectElement.refract({ a: 'b' }, {
   plugins: [
-    elementIdentityRefractorPlugin({ length: 36}),
+    refractorPluginElementIdentity({ length: 36}),
   ]
 });
 
@@ -181,18 +181,18 @@ objectElement.getMember('a').value.id; // Ki4tWmf9xw9Lwb8MxkXJq1uONmJrmhXifmsI
 
 #### Semantic element identity plugin
 
-`apidom` package comes with `semanticElementIdentityRefractorPlugin`. When used, this plugin will
+`apidom` package comes with `refractorPluginSemanticElementIdentity`. When used, this plugin will
 assign unique ID to all non-primitive elements in ApiDOM tree. Primitive elements include
 `ObjectElement`, `ArrayElement`, `StringElement`, `BooleanElement`, `NullElement` and `NumberElement`.
 
 ```js
-import { semanticElementIdentityRefractorPlugin, ObjectElement } from '@swagger-api/apidom-core';
+import { refractorPluginSemanticElementIdentity, ObjectElement } from '@swagger-api/apidom-core';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const infoElement = InfoElement.refract({ title: 'title' });
 const objectElement = ObjectElement.refract({ a: 'b', info: infoElement }, {
   plugins: [
-    semanticElementIdentityRefractorPlugin(),
+    refractorPluginSemanticElementIdentity(),
   ]
 });
 
@@ -206,13 +206,13 @@ objectElement.getMember('info').value.id; // '8RaWF9'
 You can configure the plugin to generate unique IDs in the specific length:
 
 ```js
-import { semanticElementIdentityRefractorPlugin, ObjectElement } from '@swagger-api/apidom-core';
+import { refractorPluginSemanticElementIdentity, ObjectElement } from '@swagger-api/apidom-core';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const infoElement = InfoElement.refract({ title: 'title' });
 const objectElement = ObjectElement.refract({ a: 'b', info: infoElement }, {
   plugins: [
-    semanticElementIdentityRefractorPlugin({ length: 36 }),
+    refractorPluginSemanticElementIdentity({ length: 36 }),
   ]
 });
 

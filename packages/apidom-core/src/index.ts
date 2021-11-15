@@ -5,8 +5,8 @@ import { Element, Namespace as INamespace } from 'minim';
 import './refractor/registration';
 import defaultNamespaceInstance from './namespace';
 
-export { default as elementIdentityRefractorPlugin } from './refractor/plugins/element-identity';
-export { default as semanticElementIdentityRefractorPlugin } from './refractor/plugins/semantic-element-identity';
+export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
+export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
 
 export {
   Element,

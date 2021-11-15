@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { ObjectElement, semanticElementIdentityRefractorPlugin } from '../../../src';
+import { ObjectElement, refractorPluginSemanticElementIdentity } from '../../../src';
 
 describe('refractor', function () {
   context('plugins', function () {
@@ -14,7 +14,7 @@ describe('refractor', function () {
         });
         const objectElement: any = ObjectElement.refract(
           { a: 'b', info: infoElement },
-          { plugins: [semanticElementIdentityRefractorPlugin()] },
+          { plugins: [refractorPluginSemanticElementIdentity()] },
         );
 
         assert.lengthOf(objectElement.id, 0);
@@ -31,7 +31,7 @@ describe('refractor', function () {
         });
         const objectElement: any = ObjectElement.refract(
           { a: 'b', info: infoElement },
-          { plugins: [semanticElementIdentityRefractorPlugin()] },
+          { plugins: [refractorPluginSemanticElementIdentity()] },
         );
         const defaultLength = 6;
 
@@ -50,7 +50,7 @@ describe('refractor', function () {
           });
           const objectElement: any = ObjectElement.refract(
             { a: 'b', info: infoElement },
-            { plugins: [semanticElementIdentityRefractorPlugin({ length })] },
+            { plugins: [refractorPluginSemanticElementIdentity({ length })] },
           );
 
           assert.lengthOf(objectElement.getMember('info').value.id, length);

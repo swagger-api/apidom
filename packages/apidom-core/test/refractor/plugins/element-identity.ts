@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { ObjectElement, elementIdentityRefractorPlugin } from '../../../src';
+import { ObjectElement, refractorPluginElementIdentity } from '../../../src';
 
 describe('refractor', function () {
   context('plugins', function () {
@@ -8,7 +8,7 @@ describe('refractor', function () {
       specify('should add unique ID to all elements in ApiDOM tree', function () {
         const objectElement = ObjectElement.refract(
           { a: 'b' },
-          { plugins: [elementIdentityRefractorPlugin()] },
+          { plugins: [refractorPluginElementIdentity()] },
         ) as any;
         const defaultLength = 6;
 
@@ -23,7 +23,7 @@ describe('refractor', function () {
           const length = 3;
           const objectElement = ObjectElement.refract(
             { a: 'b' },
-            { plugins: [elementIdentityRefractorPlugin({ length })] },
+            { plugins: [refractorPluginElementIdentity({ length })] },
           ) as any;
 
           assert.lengthOf(objectElement.id, length);

@@ -478,7 +478,7 @@ export class DefaultCompletionService implements CompletionService {
           ?.get('completion')
           ?.toValue();
         if (classCompletions) {
-          apidomCompletions.push(...classCompletions);
+          apidomCompletions.push(...classCompletions.filter((ci) => !ci.target));
         }
         // check also parent for completions with `target` property
         // get parent

@@ -250,7 +250,7 @@ export const standardLinterfunctions = [
   },
   {
     functionName: 'apilintArrayOfElementsOrClasess',
-    function: (element: Element, elementsOrClasses: string[]): boolean => {
+    function: (element: Element, elementsOrClasses: string[], nonEmpty?: boolean): boolean => {
       if (element) {
         const elValue = element.toValue();
         const isArrayVal = Array.isArray(elValue);
@@ -265,6 +265,9 @@ export const standardLinterfunctions = [
             },
           ).length > 0
         ) {
+          return false;
+        }
+        if (nonEmpty && elValue.length === 0) {
           return false;
         }
       }
@@ -290,8 +293,21 @@ export const standardLinterfunctions = [
     },
   },
   {
+    functionName: 'apilintArray',
+    function: (element: Element): boolean => {
+      if (element) {
+        const elValue = element.toValue();
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintArrayOfType',
-    function: (element: Element, type: string): boolean => {
+    function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
       if (element) {
         const elValue = element.toValue();
         const isArrayVal = Array.isArray(elValue);
@@ -303,6 +319,9 @@ export const standardLinterfunctions = [
             recursive: false,
           }).length > 0
         ) {
+          return false;
+        }
+        if (nonEmpty && elValue.length === 0) {
           return false;
         }
       }

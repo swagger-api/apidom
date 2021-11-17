@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/swagger-api/apidom/compare/v0.8.0...v0.9.0) (2021-11-17)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix ls completion ([e91d547](https://github.com/swagger-api/apidom/commit/e91d5479047afc1dc35f87eda638775385ada477))
+* **apidom-ls:** fix yaml empty lines completion ([a81b48d](https://github.com/swagger-api/apidom/commit/a81b48db7b1fad308160cdc47cabac3f16910b83))
+
+
+### Features
+
+* **apidom-ls:** apply refractorPluginReplaceEmptyElement to parser ([4d30a59](https://github.com/swagger-api/apidom/commit/4d30a596f78412494a8b0bc8cf9edf75c1db83bb))
+* **apidom-ls:** enhance ls features ([249dba6](https://github.com/swagger-api/apidom/commit/249dba64d582e52800bf0ea3df2c863294bb3122))
+
+
+
+
+
 # [0.8.0](https://github.com/swagger-api/apidom/compare/v0.7.0...v0.8.0) (2021-11-15)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

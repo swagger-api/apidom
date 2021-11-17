@@ -171,6 +171,7 @@ export class DefaultCompletionService implements CompletionService {
     switch (caretContext) {
       case CaretContext.KEY_START:
       case CaretContext.OBJECT_VALUE_INNER:
+      case CaretContext.OBJECT_VALUE_START:
       case CaretContext.MEMBER:
         return CompletionNodeContext.OBJECT;
       default:
@@ -195,6 +196,7 @@ export class DefaultCompletionService implements CompletionService {
         : completionParamsOrPosition;
 
     const text: string = textDocument.getText();
+    const isJson = isJsonDoc(textDocument);
 
     const schema = false;
 
@@ -207,7 +209,7 @@ export class DefaultCompletionService implements CompletionService {
     let endArrayNodeChar = '\n';
 
     // TODO handle also yaml and others, with specific logic for the format
-    if (isJsonDoc(textDocument)) {
+    if (isJson) {
       // commit chars for json
       valueCommitCharacters = [',', '}', ']'];
       propertyCommitCharacters = [':'];
@@ -228,11 +230,86 @@ export class DefaultCompletionService implements CompletionService {
     };
 
     const offset = textDocument.offsetAt(position);
+    let targetOffset = offset;
+    let emptyLine = false;
+
+    if (!isJson && position.character > 0) {
+      /*
+      This is a hack to handle empty nodes in YAML, e.g in a situation like:
+
+      contact:
+        name: test
+        <caret here>
+
+      in this case the parser doesn't set the sourceMap of the parent to contain the empty line(s)
+      Therefore we look for the  offset right after the colon of the parent.
+
+      This happens only if :
+      - the line is empty
+      - the caret is at the same indent position as the first non blank line above
+      - the indent position is not 0 (root)
+      */
+
+      let handledTarget = false;
+      if (DefaultCompletionService.isEmptyLine(textDocument, offset)) {
+        let prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+        while (
+          prevLineOffset !== -1 &&
+          DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset)
+        ) {
+          prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+        }
+        if (prevLineOffset !== -1) {
+          // get indent of that line and compare with the position.character
+          if (
+            DefaultCompletionService.getIndentation(
+              DefaultCompletionService.getLine(textDocument, prevLineOffset),
+            ) === position.character
+          ) {
+            // set the target offset as that line
+            const pos = textDocument.positionAt(prevLineOffset);
+            targetOffset = textDocument.offsetAt(Position.create(pos.line, position.character));
+            emptyLine = true;
+            handledTarget = true;
+          }
+        }
+      }
+
+      /*
+      This is a hack to handle empty nodes in YAML, e.g in a situation like:
+
+      type: <caret here>
+
+      in this case the parser doesn't set the sourceMap of the empty value to be one space after the colon,
+      but it sets it right after the colon
+      TODO: check why this happens while e.g. for explicit empty strings `''` this doesn't happen.
+
+      Therefore we look for the offset right after the colon where we found and empty value
+       */
+      if (!handledTarget) {
+        const rightAfterColonOffset = DefaultCompletionService.getRightAfterColonOffset(
+          textDocument,
+          offset,
+        );
+        if (rightAfterColonOffset !== -1) {
+          if (
+            position.character >
+            DefaultCompletionService.getIndentation(
+              DefaultCompletionService.getLine(textDocument, rightAfterColonOffset),
+            )
+          ) {
+            emptyLine = true;
+            targetOffset = rightAfterColonOffset;
+          }
+        }
+      }
+    }
+
     // find the current node
-    const node = findAtOffset({ offset, includeRightBound: true }, api);
+    const node = findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
     // only if we have a node
     if (node) {
-      const caretContext = this.resolveCaretContext(node, offset);
+      const caretContext = this.resolveCaretContext(node, targetOffset);
       const completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
       // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
@@ -293,10 +370,11 @@ export class DefaultCompletionService implements CompletionService {
           caretContext === CaretContext.KEY_START ||
           caretContext === CaretContext.KEY_END ||
           caretContext === CaretContext.MEMBER ||
-          caretContext === CaretContext.OBJECT_VALUE_INNER)
+          caretContext === CaretContext.OBJECT_VALUE_INNER ||
+          caretContext === CaretContext.OBJECT_VALUE_START)
       ) {
         for (const p of completionNode) {
-          if (!node.parent || node.parent !== p) {
+          if (!node.parent || node.parent !== p || emptyLine) {
             proposed[p.key.toValue()] = CompletionItem.create('__');
           }
         }
@@ -417,6 +495,78 @@ export class DefaultCompletionService implements CompletionService {
       i -= 1;
     }
     return text.substring(i + 1, offset);
+  }
+
+  private static getRightAfterColonOffset(document: TextDocument, offset: number): number {
+    const text = document.getText();
+    let i = offset - 1;
+    while (i >= 0 && ':'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    const rightAfterColon = i + 1;
+    if (text.substring(i + 1, offset).trim().length > 0) {
+      return -1;
+    }
+    i = offset;
+    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    if (text.substring(offset, i + 1).trim().length > 0) {
+      return -1;
+    }
+    return rightAfterColon;
+  }
+
+  private static getLine(document: TextDocument, offset: number): string {
+    const text = document.getText();
+    let i = offset - 1;
+    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    const start = i;
+    i = offset;
+    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    const end = i;
+    return text.substring(start + 1, end);
+  }
+
+  private static getPreviousLineOffset(document: TextDocument, offset: number): number {
+    const text = document.getText();
+    let i = offset - 1;
+    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    if (i === 0) {
+      return -1;
+    }
+    return i;
+  }
+
+  private static isEmptyLine(document: TextDocument, offset: number): boolean {
+    return DefaultCompletionService.getLine(document, offset).trim().length === 0;
+  }
+
+  public static getIndentation(lineContent: string, position?: number): number {
+    if (position && lineContent.length < position) {
+      return 0;
+    }
+
+    if (!position) {
+      // eslint-disable-next-line no-param-reassign
+      position = lineContent.length;
+    }
+
+    for (let i = 0; i < position; i += 1) {
+      const char = lineContent.charCodeAt(i);
+      if (char !== 32 && char !== 9) {
+        return i;
+      }
+    }
+
+    // assuming that current position is indentation
+    return position;
   }
 
   public static findReferencePointers(

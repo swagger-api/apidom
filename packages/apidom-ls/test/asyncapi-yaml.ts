@@ -50,11 +50,18 @@ const completionTestInput = [
     {
       items: [
         {
-          documentation: 'Add `license` section',
+          label: 'license',
+          kind: 10,
           insertText: 'license: \n  $1\n',
           insertTextFormat: 2,
+          documentation: 'Add `license` section',
+        },
+        {
+          label: 'summary',
           kind: 10,
-          label: 'license',
+          insertText: 'summary: $1\n',
+          insertTextFormat: 2,
+          documentation: 'Add `summary` property',
         },
       ],
       isIncomplete: false,

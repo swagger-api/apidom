@@ -52,6 +52,13 @@
           "insertText": "version: $1\n",
           "insertTextFormat": 2,
           "documentation": "Add `version` property"
+        },
+        {
+          "label": "summary",
+          "kind": 10,
+          "insertText": "summary: $1\n",
+          "insertTextFormat": 2,
+          "documentation": "Add `summary` property"
         }
       ]
     },

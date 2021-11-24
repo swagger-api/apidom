@@ -49,7 +49,7 @@
     "web-tree-sitter": "=0.19.4"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.20.0"
+    "tree-sitter-cli": "=0.20.1"
   },
   "files": [
     "cjs/",

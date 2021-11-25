@@ -28,13 +28,12 @@ import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
 import { DocumentCache } from './document-cache';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export enum SUPPORTED_LANGUAGES {
+export enum SupportedLanguages {
   OPENAPI_31,
   ASYNCAPI_20,
 }
 
-export enum FORMAT {
+export enum Format {
   JSON,
   YAML,
 }
@@ -95,7 +94,7 @@ export interface CompletionContext {
 }
 
 export interface DerefContext {
-  format?: FORMAT;
+  format?: Format;
   baseURI?: string;
 }
 
@@ -112,9 +111,32 @@ export interface WorkspaceContextService {
   resolveRelativePath(relativePath: string, resource: string): string;
 }
 
+export enum CompletionType {
+  PROPERTY,
+  VALUE,
+  UNDEFINED,
+}
+
+export enum CompletionFormat {
+  UNQUOTED,
+  QUOTED,
+  QUOTED_FORCED,
+  OBJECT,
+  ARRAY,
+  UNDEFINED,
+}
+
 export interface ApidomCompletionItem extends CompletionItem {
   targetSpecs?: NamespaceVersion[];
   target?: string;
+  arrayMember?: boolean;
+  type?: CompletionType;
+  format?: CompletionFormat;
+  insertTextJson?: string;
+  insertTextYaml?: string;
+  conditions?: LinterCondition[];
+  function?: string;
+  functionParams?: [unknown] | undefined | unknown;
 }
 
 export interface DocumentationMeta {
@@ -123,11 +145,6 @@ export interface DocumentationMeta {
   summary?: string;
   targetSpecs?: NamespaceVersion[];
   conditions?: LinterCondition[];
-}
-
-export interface ElementMeta {
-  completion?: ApidomCompletionItem[];
-  validation?: string[];
 }
 
 export interface QuickFixData {
@@ -149,7 +166,7 @@ export interface LinterMeta {
   source?: string;
   severity?: 1 | 2 | 3 | 4 | undefined;
   linterFunction?: string;
-  linterParams?: [any];
+  linterParams?: [unknown] | undefined | unknown;
   marker?: string;
   markerTarget?: string;
   target?: string;
@@ -160,10 +177,10 @@ export interface LinterMeta {
 }
 
 export interface LinterCondition {
-  targets: LinterConditionTarget[];
+  targets?: LinterConditionTarget[];
   function: string;
   negate?: boolean;
-  params: [any];
+  params?: [unknown] | undefined | unknown;
 }
 
 export interface LinterConditionTarget {
@@ -172,7 +189,9 @@ export interface LinterConditionTarget {
 }
 
 export interface FormatMeta {
-  [index: string]: ElementMeta | LinterMeta[] | DocumentationMeta[];
+  documentation?: DocumentationMeta[];
+  lint?: LinterMeta[];
+  completion?: ApidomCompletionItem[];
 }
 
 export interface MetadataMap {
@@ -192,8 +211,17 @@ export interface LinterFunctionsMap {
   [index: string]: LinterFunctions;
 }
 
+export type LinterFunction = ((...args: any[]) => boolean) | undefined;
+export type CompletionFunction = ((...args: any[]) => CompletionItem[]) | undefined;
+export type ConditionFunction = ((...args: any[]) => boolean) | undefined;
+
+export interface FunctionItem {
+  functionName: string;
+  function: LinterFunction | CompletionFunction | ConditionFunction;
+}
+
 export interface LinterFunctions {
-  [index: string]: (element: Element) => boolean;
+  [index: string]: LinterFunction;
 }
 
 export interface LanguageService {

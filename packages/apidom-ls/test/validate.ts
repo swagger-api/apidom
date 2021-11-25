@@ -218,16 +218,90 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 3,
+        code: 10076,
         source: 'apilint',
         data: {
-          quickFix: {
-            message: "add 'description' field",
-            action: 'addChild',
-            snippetYaml: 'description: \n  ',
-            snippetJson: '"description": "",\n    ',
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 18,
+            character: 26,
+          },
+          end: {
+            line: 18,
+            character: 35,
           },
         },
+        message: 'type must be one of allowed values',
+        severity: 1,
+        code: 10001,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to 'null'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
+              message: "update to 'object'",
+              action: 'updateValue',
+              functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "exclusiveMaximum' value must be a number",
+        severity: 1,
+        code: 10016,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -270,24 +344,25 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 14,
+            line: 3,
+            character: 2,
           },
           end: {
-            line: 1,
-            character: 21,
+            line: 3,
+            character: 8,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'version'",
         severity: 1,
-        code: 23,
+        code: 10077,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
             },
           ],
         },
@@ -305,7 +380,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'type must be one of allowed values',
         severity: 1,
-        code: 131,
+        code: 10001,
         source: 'apilint',
         data: {
           quickFix: [
@@ -315,9 +390,34 @@ describe('apidom-ls-validate', function () {
               functionParams: ['null'],
             },
             {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
               message: "update to 'object'",
               action: 'updateValue',
               functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
             },
           ],
         },
@@ -362,24 +462,25 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 10,
+            line: 3,
+            character: 0,
           },
           end: {
-            line: 1,
-            character: 15,
+            line: 3,
+            character: 4,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'version'",
         severity: 1,
-        code: 23,
+        code: 10077,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
             },
           ],
         },
@@ -397,7 +498,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'type must be one of allowed values',
         severity: 1,
-        code: 131,
+        code: 10001,
         source: 'apilint',
         data: {
           quickFix: [
@@ -407,9 +508,34 @@ describe('apidom-ls-validate', function () {
               functionParams: ['null'],
             },
             {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
               message: "update to 'object'",
               action: 'updateValue',
               functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
             },
           ],
         },
@@ -661,16 +787,90 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 3,
+        code: 10076,
         source: 'apilint',
         data: {
-          quickFix: {
-            message: "add 'description' field",
-            action: 'addChild',
-            snippetYaml: 'description: \n  ',
-            snippetJson: '"description": "",\n    ',
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 18,
+            character: 26,
+          },
+          end: {
+            line: 18,
+            character: 35,
           },
         },
+        message: 'type must be one of allowed values',
+        severity: 1,
+        code: 10001,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to 'null'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
+              message: "update to 'object'",
+              action: 'updateValue',
+              functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "exclusiveMaximum' value must be a number",
+        severity: 1,
+        code: 10016,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -723,7 +923,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [
@@ -798,24 +998,25 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 10,
+            line: 3,
+            character: 0,
           },
           end: {
-            line: 1,
-            character: 15,
+            line: 3,
+            character: 4,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'version'",
         severity: 1,
-        code: 23,
+        code: 10077,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
             },
           ],
         },
@@ -833,7 +1034,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'type must be one of allowed values',
         severity: 1,
-        code: 131,
+        code: 10001,
         source: 'apilint',
         data: {
           quickFix: [
@@ -843,9 +1044,34 @@ describe('apidom-ls-validate', function () {
               functionParams: ['null'],
             },
             {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
               message: "update to 'object'",
               action: 'updateValue',
               functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
             },
           ],
         },
@@ -909,24 +1135,25 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 10,
+            line: 3,
+            character: 0,
           },
           end: {
-            line: 1,
-            character: 15,
+            line: 3,
+            character: 4,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'version'",
         severity: 1,
-        code: 23,
+        code: 10077,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
             },
           ],
         },
@@ -944,7 +1171,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'type must be one of allowed values',
         severity: 1,
-        code: 131,
+        code: 10001,
         source: 'apilint',
         data: {
           quickFix: [
@@ -954,9 +1181,34 @@ describe('apidom-ls-validate', function () {
               functionParams: ['null'],
             },
             {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
               message: "update to 'object'",
               action: 'updateValue',
               functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
             },
           ],
         },
@@ -1006,87 +1258,11 @@ describe('apidom-ls-validate', function () {
         code: 0,
         source: 'asyncapi schema',
       },
-      {
-        range: {
-          start: {
-            line: 0,
-            character: 10,
-          },
-          end: {
-            line: 0,
-            character: 15,
-          },
-        },
-        message: "'asyncapi' value must be 2.0.0",
-        severity: 1,
-        code: 23,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
-            },
-          ],
-        },
-      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 
     const quickFixresult = await languageService.doCodeActions(asyncapiErrorDoc, result);
-    assert.deepEqual(quickFixresult, [
-      {
-        title: "update to '2.0.0'",
-        kind: 'quickfix',
-        diagnostics: [
-          {
-            range: {
-              start: {
-                line: 0,
-                character: 10,
-              },
-              end: {
-                line: 0,
-                character: 15,
-              },
-            },
-            message: "'asyncapi' value must be 2.0.0",
-            severity: 1,
-            code: 23,
-            source: 'apilint',
-            data: {
-              quickFix: [
-                {
-                  message: "update to '2.0.0'",
-                  action: 'updateValue',
-                  functionParams: ['2.0.0'],
-                },
-              ],
-            },
-          },
-        ],
-        edit: {
-          changes: {
-            'foo://bar/asyncapiErrorSpec.json': [
-              {
-                range: {
-                  start: {
-                    line: 0,
-                    character: 10,
-                  },
-                  end: {
-                    line: 0,
-                    character: 15,
-                  },
-                },
-                newText: '2.0.0',
-              },
-            ],
-          },
-        },
-      },
-    ] as CodeAction[]);
+    assert.deepEqual(quickFixresult, [] as CodeAction[]);
     languageService.terminate();
   });
 
@@ -1198,23 +1374,50 @@ describe('apidom-ls-validate', function () {
         range: {
           start: {
             line: 0,
-            character: 10,
+            character: 0,
           },
           end: {
             line: 0,
-            character: 15,
+            character: 0,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'channels' section",
         severity: 1,
-        code: 23,
+        code: 10070,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  $1\n',
+              snippetJson: '"channels": {\n  $1\n},\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "should always have a 'version'",
+        severity: 1,
+        code: 10077,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
             },
           ],
         },
@@ -1232,7 +1435,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'type must be one of allowed values',
         severity: 1,
-        code: 131,
+        code: 10001,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1242,9 +1445,34 @@ describe('apidom-ls-validate', function () {
               functionParams: ['null'],
             },
             {
+              message: "update to 'boolean'",
+              action: 'updateValue',
+              functionParams: ['boolean'],
+            },
+            {
               message: "update to 'object'",
               action: 'updateValue',
               functionParams: ['object'],
+            },
+            {
+              message: "update to 'array'",
+              action: 'updateValue',
+              functionParams: ['array'],
+            },
+            {
+              message: "update to 'number'",
+              action: 'updateValue',
+              functionParams: ['null'],
+            },
+            {
+              message: "update to 'string'",
+              action: 'updateValue',
+              functionParams: ['string'],
+            },
+            {
+              message: "update to 'integer'",
+              action: 'updateValue',
+              functionParams: ['integer'],
             },
           ],
         },
@@ -1255,30 +1483,31 @@ describe('apidom-ls-validate', function () {
     const quickFixresult = await languageService.doCodeActions(asyncapiErrorDoc, result);
     assert.deepEqual(quickFixresult, [
       {
-        title: "update to '2.0.0'",
+        title: "add 'channels' section",
         kind: 'quickfix',
         diagnostics: [
           {
             range: {
               start: {
                 line: 0,
-                character: 10,
+                character: 0,
               },
               end: {
                 line: 0,
-                character: 15,
+                character: 0,
               },
             },
-            message: "'asyncapi' value must be 2.0.0",
+            message: "should always have a 'channels' section",
             severity: 1,
-            code: 23,
+            code: 10070,
             source: 'apilint',
             data: {
               quickFix: [
                 {
-                  message: "update to '2.0.0'",
-                  action: 'updateValue',
-                  functionParams: ['2.0.0'],
+                  message: "add 'channels' section",
+                  action: 'addChild',
+                  snippetYaml: 'channels: \n  $1\n',
+                  snippetJson: '"channels": {\n  $1\n},\n',
                 },
               ],
             },
@@ -1290,15 +1519,66 @@ describe('apidom-ls-validate', function () {
               {
                 range: {
                   start: {
-                    line: 0,
-                    character: 10,
+                    line: 1,
+                    character: 2,
                   },
                   end: {
-                    line: 0,
-                    character: 15,
+                    line: 1,
+                    character: 2,
                   },
                 },
-                newText: '2.0.0',
+                newText: 'channels: \n  $1\n',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "add 'version' field",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 1,
+                character: 0,
+              },
+              end: {
+                line: 1,
+                character: 4,
+              },
+            },
+            message: "should always have a 'version'",
+            severity: 1,
+            code: 10077,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "add 'version' field",
+                  action: 'addChild',
+                  snippetYaml: 'version: \n  ',
+                  snippetJson: '"version": "",\n    ',
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 2,
+                    character: 2,
+                  },
+                  end: {
+                    line: 2,
+                    character: 2,
+                  },
+                },
+                newText: 'version: \n  ',
               },
             ],
           },
@@ -1321,7 +1601,7 @@ describe('apidom-ls-validate', function () {
             },
             message: 'type must be one of allowed values',
             severity: 1,
-            code: 131,
+            code: 10001,
             source: 'apilint',
             data: {
               quickFix: [
@@ -1331,9 +1611,34 @@ describe('apidom-ls-validate', function () {
                   functionParams: ['null'],
                 },
                 {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
                   message: "update to 'object'",
                   action: 'updateValue',
                   functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
                 },
               ],
             },
@@ -1360,6 +1665,86 @@ describe('apidom-ls-validate', function () {
         },
       },
       {
+        title: "update to 'boolean'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 12,
+                character: 16,
+              },
+              end: {
+                line: 12,
+                character: 23,
+              },
+            },
+            message: 'type must be one of allowed values',
+            severity: 1,
+            code: 10001,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to 'null'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
+                  message: "update to 'object'",
+                  action: 'updateValue',
+                  functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 12,
+                    character: 16,
+                  },
+                  end: {
+                    line: 12,
+                    character: 23,
+                  },
+                },
+                newText: 'boolean',
+              },
+            ],
+          },
+        },
+      },
+      {
         title: "update to 'object'",
         kind: 'quickfix',
         diagnostics: [
@@ -1376,7 +1761,7 @@ describe('apidom-ls-validate', function () {
             },
             message: 'type must be one of allowed values',
             severity: 1,
-            code: 131,
+            code: 10001,
             source: 'apilint',
             data: {
               quickFix: [
@@ -1386,9 +1771,34 @@ describe('apidom-ls-validate', function () {
                   functionParams: ['null'],
                 },
                 {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
                   message: "update to 'object'",
                   action: 'updateValue',
                   functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
                 },
               ],
             },
@@ -1409,6 +1819,326 @@ describe('apidom-ls-validate', function () {
                   },
                 },
                 newText: 'object',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "update to 'array'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 12,
+                character: 16,
+              },
+              end: {
+                line: 12,
+                character: 23,
+              },
+            },
+            message: 'type must be one of allowed values',
+            severity: 1,
+            code: 10001,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to 'null'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
+                  message: "update to 'object'",
+                  action: 'updateValue',
+                  functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 12,
+                    character: 16,
+                  },
+                  end: {
+                    line: 12,
+                    character: 23,
+                  },
+                },
+                newText: 'array',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "update to 'number'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 12,
+                character: 16,
+              },
+              end: {
+                line: 12,
+                character: 23,
+              },
+            },
+            message: 'type must be one of allowed values',
+            severity: 1,
+            code: 10001,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to 'null'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
+                  message: "update to 'object'",
+                  action: 'updateValue',
+                  functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 12,
+                    character: 16,
+                  },
+                  end: {
+                    line: 12,
+                    character: 23,
+                  },
+                },
+                newText: 'null',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "update to 'string'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 12,
+                character: 16,
+              },
+              end: {
+                line: 12,
+                character: 23,
+              },
+            },
+            message: 'type must be one of allowed values',
+            severity: 1,
+            code: 10001,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to 'null'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
+                  message: "update to 'object'",
+                  action: 'updateValue',
+                  functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 12,
+                    character: 16,
+                  },
+                  end: {
+                    line: 12,
+                    character: 23,
+                  },
+                },
+                newText: 'string',
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "update to 'integer'",
+        kind: 'quickfix',
+        diagnostics: [
+          {
+            range: {
+              start: {
+                line: 12,
+                character: 16,
+              },
+              end: {
+                line: 12,
+                character: 23,
+              },
+            },
+            message: 'type must be one of allowed values',
+            severity: 1,
+            code: 10001,
+            source: 'apilint',
+            data: {
+              quickFix: [
+                {
+                  message: "update to 'null'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'boolean'",
+                  action: 'updateValue',
+                  functionParams: ['boolean'],
+                },
+                {
+                  message: "update to 'object'",
+                  action: 'updateValue',
+                  functionParams: ['object'],
+                },
+                {
+                  message: "update to 'array'",
+                  action: 'updateValue',
+                  functionParams: ['array'],
+                },
+                {
+                  message: "update to 'number'",
+                  action: 'updateValue',
+                  functionParams: ['null'],
+                },
+                {
+                  message: "update to 'string'",
+                  action: 'updateValue',
+                  functionParams: ['string'],
+                },
+                {
+                  message: "update to 'integer'",
+                  action: 'updateValue',
+                  functionParams: ['integer'],
+                },
+              ],
+            },
+          },
+        ],
+        edit: {
+          changes: {
+            'foo://bar/asyncapiErrorSpecSchema.json': [
+              {
+                range: {
+                  start: {
+                    line: 12,
+                    character: 16,
+                  },
+                  end: {
+                    line: 12,
+                    character: 23,
+                  },
+                },
+                newText: 'integer',
               },
             ],
           },
@@ -1475,23 +2205,24 @@ describe('apidom-ls-validate', function () {
         range: {
           start: {
             line: 0,
-            character: 10,
+            character: 0,
           },
           end: {
             line: 0,
-            character: 15,
+            character: 0,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'channels' section",
         severity: 1,
-        code: 23,
+        code: 10070,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  $1\n',
+              snippetJson: '"channels": {\n  $1\n},\n',
             },
           ],
         },
@@ -1509,7 +2240,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1534,16 +2265,16 @@ describe('apidom-ls-validate', function () {
           },
         },
         message: 'maxLength has no effect on non strings',
-        severity: 3,
-        code: 141,
+        severity: 2,
+        code: 10003,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              target: 'parent',
               message: 'remove maxLength',
               action: 'removeChild',
               functionParams: ['maxLength'],
+              target: 'parent',
             },
           ],
         },
@@ -1554,30 +2285,31 @@ describe('apidom-ls-validate', function () {
     const quickFixresult = await languageService.doCodeActions(asyncapiErrorDoc, result);
     assert.deepEqual(quickFixresult, [
       {
-        title: "update to '2.0.0'",
+        title: "add 'channels' section",
         kind: 'quickfix',
         diagnostics: [
           {
             range: {
               start: {
                 line: 0,
-                character: 10,
+                character: 0,
               },
               end: {
                 line: 0,
-                character: 15,
+                character: 0,
               },
             },
-            message: "'asyncapi' value must be 2.0.0",
+            message: "should always have a 'channels' section",
             severity: 1,
-            code: 23,
+            code: 10070,
             source: 'apilint',
             data: {
               quickFix: [
                 {
-                  message: "update to '2.0.0'",
-                  action: 'updateValue',
-                  functionParams: ['2.0.0'],
+                  message: "add 'channels' section",
+                  action: 'addChild',
+                  snippetYaml: 'channels: \n  $1\n',
+                  snippetJson: '"channels": {\n  $1\n},\n',
                 },
               ],
             },
@@ -1589,15 +2321,15 @@ describe('apidom-ls-validate', function () {
               {
                 range: {
                   start: {
-                    line: 0,
-                    character: 10,
+                    line: 1,
+                    character: 2,
                   },
                   end: {
-                    line: 0,
-                    character: 15,
+                    line: 1,
+                    character: 2,
                   },
                 },
-                newText: '2.0.0',
+                newText: 'channels: \n  $1\n',
               },
             ],
           },
@@ -1620,7 +2352,7 @@ describe('apidom-ls-validate', function () {
             },
             message: "should always have a 'description'",
             severity: 1,
-            code: 2,
+            code: 10076,
             source: 'apilint',
             data: {
               quickFix: [
@@ -1670,8 +2402,8 @@ describe('apidom-ls-validate', function () {
               },
             },
             message: 'maxLength has no effect on non strings',
-            severity: 3,
-            code: 141,
+            severity: 2,
+            code: 10003,
             source: 'apilint',
             data: {
               quickFix: [
@@ -1779,23 +2511,24 @@ describe('apidom-ls-validate', function () {
         range: {
           start: {
             line: 0,
-            character: 10,
+            character: 0,
           },
           end: {
             line: 0,
-            character: 15,
+            character: 0,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'channels' section",
         severity: 1,
-        code: 23,
+        code: 10070,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  $1\n',
+              snippetJson: '"channels": {\n  $1\n},\n',
             },
           ],
         },
@@ -1813,7 +2546,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1839,9 +2572,35 @@ describe('apidom-ls-validate', function () {
         },
         message: 'additionalItems must be a schema',
         severity: 1,
-        code: 99330,
+        code: 10020,
         source: 'apilint',
         data: {},
+      },
+      {
+        range: {
+          start: {
+            line: 7,
+            character: 6,
+          },
+          end: {
+            line: 7,
+            character: 21,
+          },
+        },
+        message: 'additionalItems has no effect on non arrays',
+        severity: 2,
+        code: 10021,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove additionalItems',
+              action: 'removeChild',
+              functionParams: ['additionalItems'],
+              target: 'parent',
+            },
+          ],
+        },
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -1909,23 +2668,24 @@ describe('apidom-ls-validate', function () {
         range: {
           start: {
             line: 0,
-            character: 10,
+            character: 0,
           },
           end: {
             line: 0,
-            character: 15,
+            character: 0,
           },
         },
-        message: "'asyncapi' value must be 2.0.0",
+        message: "should always have a 'channels' section",
         severity: 1,
-        code: 23,
+        code: 10070,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to '2.0.0'",
-              action: 'updateValue',
-              functionParams: ['2.0.0'],
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  $1\n',
+              snippetJson: '"channels": {\n  $1\n},\n',
             },
           ],
         },
@@ -1943,7 +2703,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 2,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1952,6 +2712,32 @@ describe('apidom-ls-validate', function () {
               action: 'addChild',
               snippetYaml: 'description: \n  ',
               snippetJson: '"description": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 7,
+            character: 6,
+          },
+          end: {
+            line: 7,
+            character: 11,
+          },
+        },
+        message: 'items has no effect on non arrays',
+        severity: 2,
+        code: 10019,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove items',
+              action: 'removeChild',
+              functionParams: ['items'],
+              target: 'parent',
             },
           ],
         },

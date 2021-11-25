@@ -68,11 +68,12 @@ describe('apidom-ls-complete', function () {
       {
         items: [
           {
+            target: 'asyncapi',
             label: '2.1.0',
-            kind: 10,
             insertText: '"2.1.0$1"',
-            filterText: '"2.0.0"',
+            kind: 12,
             insertTextFormat: 2,
+            filterText: '"2.0.0"',
             textEdit: {
               range: {
                 start: {
@@ -88,11 +89,12 @@ describe('apidom-ls-complete', function () {
             },
           },
           {
+            target: 'asyncapi',
             label: '2.2.0',
-            kind: 10,
             insertText: '"2.2.0$1"',
-            filterText: '"2.0.0"',
+            kind: 12,
             insertTextFormat: 2,
+            filterText: '"2.0.0"',
             textEdit: {
               range: {
                 start: {
@@ -146,7 +148,7 @@ describe('apidom-ls-complete', function () {
       items: [
         {
           label: '#/components/schemas/Tag',
-          insertText: '"#/components/schemas/Tag$1"',
+          insertText: "'#/components/schemas/Tag$1'",
           kind: 18,
           documentation:
             'type: object\n      properties:\n        id:\n          type: integer\n          format: int64\n        name:\n          type: string',
@@ -164,12 +166,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/schemas/Tag$1"',
+            newText: "'#/components/schemas/Tag$1'",
           },
         },
         {
           label: '#/components/messages/userSignUp/payload',
-          insertText: '"#/components/messages/userSignUp/payload$1"',
+          insertText: "'#/components/messages/userSignUp/payload$1'",
           kind: 18,
           documentation:
             'type: object\n        properties:\n          user:\n            $ref: "#/components/schemas/Category"\n          signup:\n            $ref: "#/components/schemas/Tag"\n',
@@ -187,12 +189,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/messages/userSignUp/payload$1"',
+            newText: "'#/components/messages/userSignUp/payload$1'",
           },
         },
         {
           label: '#/components/messages/userSignUp/headers',
-          insertText: '"#/components/messages/userSignUp/headers$1"',
+          insertText: "'#/components/messages/userSignUp/headers$1'",
           kind: 18,
           documentation:
             'type: object\n        properties:\n          applicationInstanceId:\n            description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
@@ -210,12 +212,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/messages/userSignUp/headers$1"',
+            newText: "'#/components/messages/userSignUp/headers$1'",
           },
         },
         {
           label: '#/components/schemas/Tag/properties/name',
-          insertText: '"#/components/schemas/Tag/properties/name$1"',
+          insertText: "'#/components/schemas/Tag/properties/name$1'",
           kind: 18,
           documentation: 'type: string',
           insertTextFormat: 2,
@@ -232,12 +234,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/schemas/Tag/properties/name$1"',
+            newText: "'#/components/schemas/Tag/properties/name$1'",
           },
         },
         {
           label: '#/components/schemas/Tag/properties/id',
-          insertText: '"#/components/schemas/Tag/properties/id$1"',
+          insertText: "'#/components/schemas/Tag/properties/id$1'",
           kind: 18,
           documentation: 'type: integer\n          format: int64',
           insertTextFormat: 2,
@@ -254,12 +256,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/schemas/Tag/properties/id$1"',
+            newText: "'#/components/schemas/Tag/properties/id$1'",
           },
         },
         {
           label: '#/components/schemas/Category/properties/name',
-          insertText: '"#/components/schemas/Category/properties/name$1"',
+          insertText: "'#/components/schemas/Category/properties/name$1'",
           kind: 18,
           documentation: 'type: string',
           insertTextFormat: 2,
@@ -276,12 +278,12 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/schemas/Category/properties/name$1"',
+            newText: "'#/components/schemas/Category/properties/name$1'",
           },
         },
         {
           label: '#/components/schemas/Category/properties/id',
-          insertText: '"#/components/schemas/Category/properties/id$1"',
+          insertText: "'#/components/schemas/Category/properties/id$1'",
           kind: 18,
           documentation: 'type: integer\n          format: int64',
           insertTextFormat: 2,
@@ -298,13 +300,13 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/components/schemas/Category/properties/id$1"',
+            newText: "'#/components/schemas/Category/properties/id$1'",
           },
         },
         {
           label: '#/components/messages/userSignUp/headers/properties/appli...',
           insertText:
-            '"#/components/messages/userSignUp/headers/properties/applicationInstanceId$1"',
+            "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
           kind: 18,
           documentation:
             'description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
@@ -323,12 +325,12 @@ describe('apidom-ls-complete', function () {
               },
             },
             newText:
-              '"#/components/messages/userSignUp/headers/properties/applicationInstanceId$1"',
+              "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
           },
         },
         {
           label: '#/channels/user/signin/subscribe/message/payload',
-          insertText: '"#/channels/user/signin/subscribe/message/payload$1"',
+          insertText: "'#/channels/user/signin/subscribe/message/payload$1'",
           kind: 18,
           documentation:
             'type: object\n          properties:\n            user:\n              $ref: "#/components/schemas/Category"',
@@ -346,7 +348,7 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: '"#/channels/user/signin/subscribe/message/payload$1"',
+            newText: "'#/channels/user/signin/subscribe/message/payload$1'",
           },
         },
       ],
@@ -376,8 +378,8 @@ describe('apidom-ls-complete', function () {
       {
         target: 'type',
         label: 'userPassword',
-        kind: 10,
         insertText: 'userPassword$1',
+        kind: 12,
         insertTextFormat: 2,
         filterText: 'scramSha256',
         textEdit: {
@@ -392,6 +394,174 @@ describe('apidom-ls-complete', function () {
             },
           },
           newText: 'userPassword$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'apiKey',
+        insertText: 'apiKey$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'apiKey$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'X509',
+        insertText: 'X509$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'X509$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'symmetricEncryption',
+        insertText: 'symmetricEncryption$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'symmetricEncryption$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'asymmetricEncryption',
+        insertText: 'asymmetricEncryption$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'asymmetricEncryption$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'httpApiKey',
+        insertText: 'httpApiKey$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'httpApiKey$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'http',
+        insertText: 'http$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'http$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'oauth2',
+        insertText: 'oauth2$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'oauth2$1',
+        },
+      },
+      {
+        target: 'type',
+        label: 'openIdConnect',
+        insertText: 'openIdConnect$1',
+        kind: 12,
+        insertTextFormat: 2,
+        filterText: 'scramSha256',
+        textEdit: {
+          range: {
+            start: {
+              line: 60,
+              character: 12,
+            },
+            end: {
+              line: 60,
+              character: 23,
+            },
+          },
+          newText: 'openIdConnect$1',
         },
       },
     ] as ApidomCompletionItem[]);
@@ -417,9 +587,52 @@ describe('apidom-ls-complete', function () {
       {
         items: [
           {
+            target: 'type',
+            label: 'null',
+            insertText: 'null$1',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'null$1',
+            },
+          },
+          {
+            target: 'type',
+            label: 'boolean',
+            insertText: 'boolean$1',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'boolean$1',
+            },
+          },
+          {
+            target: 'type',
             label: 'object',
-            kind: 10,
             insertText: 'object$1',
+            kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
             textEdit: {
@@ -437,9 +650,52 @@ describe('apidom-ls-complete', function () {
             },
           },
           {
+            target: 'type',
+            label: 'array',
+            insertText: 'array$1',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'array$1',
+            },
+          },
+          {
+            target: 'type',
+            label: 'number',
+            insertText: 'number$1',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '[integer, string]',
+            textEdit: {
+              range: {
+                start: {
+                  line: 9,
+                  character: 16,
+                },
+                end: {
+                  line: 9,
+                  character: 33,
+                },
+              },
+              newText: 'number$1',
+            },
+          },
+          {
+            target: 'type',
             label: 'string',
-            kind: 10,
             insertText: 'string$1',
+            kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
             textEdit: {
@@ -457,9 +713,10 @@ describe('apidom-ls-complete', function () {
             },
           },
           {
-            label: 'number',
-            kind: 10,
-            insertText: 'number$1',
+            target: 'type',
+            label: 'integer',
+            insertText: 'integer$1',
+            kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
             textEdit: {
@@ -473,7 +730,7 @@ describe('apidom-ls-complete', function () {
                   character: 33,
                 },
               },
-              newText: 'number$1',
+              newText: 'integer$1',
             },
           },
         ],

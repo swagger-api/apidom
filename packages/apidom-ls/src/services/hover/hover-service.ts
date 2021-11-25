@@ -4,7 +4,7 @@ import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-ap
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 
 import { DocumentationMeta, LanguageSettings, MetadataMap } from '../../apidom-language-types';
-import { getSourceMap, isMember, isObject, isArray } from '../../utils/utils';
+import { getSourceMap, isMember, isObject, isArray, getSpecVersion } from '../../utils/utils';
 import { isAsyncDoc } from '../../parser-factory';
 
 export interface HoverService {
@@ -40,7 +40,7 @@ export class DefaultHoverService implements HoverService {
     // no API document has been parsed
     if (api === undefined) return undefined;
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
-    // const specVersion = getSpecVersion(api);
+    const specVersion = getSpecVersion(api);
 
     api.freeze(); // !! freeze and add parent !!
 
@@ -61,27 +61,37 @@ export class DefaultHoverService implements HoverService {
         elementValue = referencedElement;
       }
 
-      contents.push(`**${elementValue}**\n`);
+      let hoverLine = '';
+      if (el.parent && isMember(el.parent)) {
+        hoverLine = `***${(node.parent.key as Element).toValue()}***: `;
+      }
+      hoverLine = `${hoverLine}**${elementValue}**\n`;
+
+      contents.push(hoverLine);
+
       const sm = getSourceMap(node);
-      // check if we have some docs
-      let docs: string | undefined = '';
-      if (referencedElement.length > 0) {
-        docs = this.getMetadataPropertyDocs(el, docNs, referencedElement);
-      }
-      if (!docs) {
-        docs = this.getMetadataPropertyDocs(el, docNs, el.element);
-      }
-      if (!docs) {
-        const classes = el.classes.toValue();
-        for (const c of classes) {
-          docs = this.getMetadataPropertyDocs(el, docNs, c);
-          if (docs) {
-            break;
+
+      if (node.parent.value !== node) {
+        // check if we have some docs
+        let docs: string | undefined = '';
+        if (referencedElement.length > 0) {
+          docs = this.getMetadataPropertyDocs(el, docNs, referencedElement, specVersion);
+        }
+        if (!docs) {
+          docs = this.getMetadataPropertyDocs(el, docNs, el.element, specVersion);
+        }
+        if (!docs) {
+          const classes = el.classes.toValue();
+          for (const c of classes) {
+            docs = this.getMetadataPropertyDocs(el, docNs, c, specVersion);
+            if (docs) {
+              break;
+            }
           }
         }
-      }
-      if (docs) {
-        contents.push(docs);
+        if (docs) {
+          contents.push(docs);
+        }
       }
       (<MarkupContent>hover.contents).value = contents.join('\n');
       hover.range = Range.create(
@@ -93,20 +103,38 @@ export class DefaultHoverService implements HoverService {
     return hover;
   }
 
-  private getMetadataPropertyDocs(node: Element, ns: string, key: string): string | undefined {
+  private getMetadataPropertyDocs(
+    node: Element,
+    ns: string,
+    key: string,
+    specVersion: string,
+  ): string | undefined {
     const map: MetadataMap = this.settings?.metadata?.metadataMaps[ns] || {};
-
     if (node.parent && isMember(node.parent)) {
       const containerNode = node.parent.parent;
       const nodeKey = (node.parent.key as Element).toValue();
       const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
       containerNodeSet.unshift(containerNode.element);
+      const referencedElement = containerNode.getMetaProperty('referenced-element', '').toValue();
+      if (referencedElement.length > 0) {
+        containerNodeSet.unshift(referencedElement);
+      }
 
       for (const containerNodeSymbol of containerNodeSet) {
         const containerNodeDocs: DocumentationMeta[] = map[containerNodeSymbol]
           ?.documentation as DocumentationMeta[];
         if (containerNodeDocs) {
-          const targetDoc = containerNodeDocs.find((ci) => ci.target === nodeKey);
+          const targetDoc = containerNodeDocs.find((ci) => {
+            return (
+              ci.target === nodeKey &&
+              (!ci.targetSpecs ||
+                (ci.targetSpecs &&
+                  ci.targetSpecs.some(
+                    (nsv) => nsv.namespace === ns && nsv.version === specVersion,
+                  )))
+            );
+          });
+
           if (targetDoc) return targetDoc.docs;
         }
       }

@@ -28,3 +28,9 @@ trim_trailing_whitespace = true
 # Denotes whether file should end with a newline
 # Possible values - true, false
 insert_final_newline = true
+
+[packages/apidom-ls/test/fixtures/**/*.json]
+trim_trailing_whitespace = false
+
+[packages/apidom-ls/test/fixtures/**/*.yaml]
+trim_trailing_whitespace = false

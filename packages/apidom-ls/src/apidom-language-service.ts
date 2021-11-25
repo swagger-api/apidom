@@ -25,6 +25,7 @@ import { DefaultDerefService } from './services/deref/deref-service';
 import { DefaultDefinitionService } from './services/definition/definition-service';
 import { getDocumentCache } from './document-cache';
 import { parse } from './parser-factory';
+import { config } from './config/config';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -46,20 +47,21 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     definitionService.configure(languageSettings);
   }
 
+  let metadata = config();
+  if (context?.metadata) {
+    metadata = context.metadata;
+  }
   const documentCache = getDocumentCache<ParseResultElement>(10, 60, (document) =>
-    parse(document, context?.metadata?.metadataMaps),
+    parse(document, metadata.metadataMaps),
   );
 
-  // TODO solve init and config
-  if (context.metadata) {
-    const languageSettings: LanguageSettings = {
-      metadata: context.metadata,
-      validate: true,
-      validatorProviders: context.validatorProviders,
-      documentCache,
-    };
-    configureServices(languageSettings);
-  }
+  const languageSettings: LanguageSettings = {
+    metadata,
+    validate: true,
+    validatorProviders: context?.validatorProviders,
+    documentCache,
+  };
+  configureServices(languageSettings);
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

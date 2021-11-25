@@ -21,6 +21,7 @@ import {
   isObject,
   getSpecVersion,
   localReferencePointers,
+  checkConditions,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -258,8 +259,9 @@ export class DefaultValidationService implements ValidationService {
               const linterFuncName = meta.linterFunction;
               if (linterFuncName) {
                 // first check if it is a standard function and exists.
-                let lintFunc: ((...args: any[]) => boolean) | undefined =
-                  standardLinterfunctions.find((e) => e.functionName === linterFuncName)?.function;
+                let lintFunc = standardLinterfunctions.find(
+                  (e) => e.functionName === linterFuncName,
+                )?.function;
                 // else get it from configuration
                 if (!lintFunc) {
                   lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];
@@ -283,93 +285,23 @@ export class DefaultValidationService implements ValidationService {
                           : element
                         : element;
 
-                    // check conditions and run them, proceed only when conditions are met
-                    let conditionsSuccess = true;
-                    if (meta.conditions && meta.conditions.length > 0) {
-                      for (const condition of meta.conditions) {
-                        if (!conditionsSuccess) {
-                          break;
-                        }
-                        const conditionFuncName = condition.function;
-                        // first check if it is a standard function and exists.
-                        let conditionFunc: ((...args: any[]) => boolean) | undefined =
-                          standardLinterfunctions.find(
-                            (e) => e.functionName === conditionFuncName,
-                          )?.function;
-                        // else get it from configuration
-                        if (!conditionFunc) {
-                          conditionFunc =
-                            this.settings?.metadata?.linterFunctions[docNs][conditionFuncName];
-                        }
-                        if (conditionFunc) {
-                          let conditionTargetEl = element;
-                          if (condition.targets && condition.targets.length > 0) {
-                            for (const target of condition.targets) {
-                              conditionTargetEl = element;
-                              if (target.path) {
-                                // parse path
-                                const pathAr = target.path.split('.');
-                                for (const pathSegment of pathAr) {
-                                  if (pathSegment === 'parent') {
-                                    if (!conditionTargetEl.parent.parent) {
-                                      conditionsSuccess = false;
-                                      break;
-                                    }
-                                    conditionTargetEl = conditionTargetEl.parent.parent;
-                                  } else if (pathSegment === 'root') {
-                                    conditionTargetEl = api;
-                                  } else {
-                                    // key
-                                    if (
-                                      !isObject(conditionTargetEl) ||
-                                      !conditionTargetEl.hasKey(pathSegment)
-                                    ) {
-                                      conditionsSuccess = false;
-                                      break;
-                                    }
-                                    conditionTargetEl = conditionTargetEl.get(pathSegment);
-                                  }
-                                }
-                                if (!conditionsSuccess) {
-                                  break;
-                                }
-                                let conditionRes = true;
-                                if (condition.params && condition.params.length > 0) {
-                                  const params = [conditionTargetEl].concat(condition.params);
-                                  conditionRes = conditionFunc(...params);
-                                } else {
-                                  conditionRes = conditionFunc(conditionTargetEl);
-                                }
-                                if (condition.negate) conditionRes = !conditionRes;
-                                if (!conditionRes) {
-                                  conditionsSuccess = false;
-                                  break;
-                                }
-                              }
-                            }
-                          } else {
-                            let conditionRes = true;
-                            if (condition.params && condition.params.length > 0) {
-                              const params = [conditionTargetEl].concat(condition.params);
-                              conditionRes = conditionFunc(...params);
-                            } else {
-                              conditionRes = conditionFunc(conditionTargetEl);
-                            }
-                            if (condition.negate) conditionRes = !conditionRes;
-                            if (!conditionRes) {
-                              conditionsSuccess = false;
-                              break;
-                            }
-                          }
-                        }
-                      }
-                    }
+                    const conditionsSuccess = checkConditions(
+                      meta,
+                      docNs,
+                      element,
+                      api,
+                      this.settings,
+                    );
                     if (conditionsSuccess) {
-                      if (meta.linterParams && meta.linterParams.length > 0) {
+                      if (
+                        meta.linterParams &&
+                        Array.isArray(meta.linterParams) &&
+                        meta.linterParams.length > 0
+                      ) {
                         const params = [targetElement].concat(meta.linterParams);
-                        lintRes = lintFunc(...params);
+                        lintRes = lintFunc(...params) as boolean;
                       } else {
-                        lintRes = lintFunc(targetElement);
+                        lintRes = lintFunc(targetElement) as boolean;
                       }
                       if (meta.negate) lintRes = !lintRes;
                       if (!lintRes) {

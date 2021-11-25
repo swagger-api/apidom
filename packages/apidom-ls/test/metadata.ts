@@ -1,68 +1,30 @@
-import { isObjectElement, isStringElement } from '@swagger-api/apidom-core';
-import { Element, ObjectElement } from 'minim';
-import fs from 'fs';
-import path from 'path';
+import { config } from '../src/config/config';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Metadata, MetadataMap } from '../src/apidom-language-types';
 
-import { MetadataMap, Metadata, LinterFunctions } from '../src/apidom-language-types';
-
-/* METADATA */
-
-const metadataMapOpenapi: MetadataMap = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'fixtures', 'metadata/metadataMapOpenapi.json')).toString(),
-);
-
-const metadataMapAsyncapi: MetadataMap = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'fixtures', 'metadata/metadataMapAsyncapi.json')).toString(),
-);
-
-/* LINT FUNCTIONS */
-
-export const infoLinter = (element: Element): boolean => {
-  if (element && isObjectElement(element) && element.element === 'info') {
-    if (!(element as ObjectElement).get('description')) {
-      return false;
-    }
-  }
-  return true;
-};
-
-export const noUpperCaseLinter = (element: Element): boolean => {
-  if (element && isStringElement(element)) {
-    const re = /"/gi;
-    if (
-      String(element.toValue())
-        .replace(re, '')
-        .match(/^[A-Z]*$/)
-    ) {
-      return false;
-    }
-  }
-  return true;
-};
-
-/* LINT FUNCTIONS META */
-
-export const linterFunctionsOpenapi: LinterFunctions = {
-  infoLinter,
-  noUpperCaseLinter,
-};
-
-export const linterFunctionsAsyncapi: LinterFunctions = {
-  infoLinter,
-  noUpperCaseLinter,
-};
-
-/* METADATA */
-
+// eslint-disable-next-line import/prefer-default-export
 export function metadata(): Metadata {
+  const defaultConfig = config() as Metadata;
+  return defaultConfig;
+
+  // example of  setting up own metadata for testing purposes.
+  /* const oasDefaultConfig = defaultConfig.metadataMaps.openapi as MetadataMap;
+  const oasTestConfig = {
+    operation: oasDefaultConfig.operation,
+    info: oasDefaultConfig.info,
+  };
+
+  const asyncapiDefaultConfig = defaultConfig.metadataMaps.asyncapi as MetadataMap;
+  const asyncapiTestConfig = {
+    operation: asyncapiDefaultConfig.operation,
+    info: asyncapiDefaultConfig.info,
+    asyncApiVersion: asyncapiDefaultConfig.asyncApiVersion,
+  };
   return {
     metadataMaps: {
-      openapi: metadataMapOpenapi,
-      asyncapi: metadataMapAsyncapi,
+      openapi: oasTestConfig,
+      asyncapi: asyncapiTestConfig,
     },
-    linterFunctions: {
-      openapi: linterFunctionsOpenapi,
-      asyncapi: linterFunctionsAsyncapi,
-    },
-  };
+    linterFunctions: defaultConfig.linterFunctions,
+  }; */
 }

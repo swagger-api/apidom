@@ -16,7 +16,15 @@ import {
   traverse,
 } from '@swagger-api/apidom-core';
 
-import { MetadataMaps, Pointer } from '../apidom-language-types';
+import {
+  ApidomCompletionItem,
+  LanguageSettings,
+  LinterMeta,
+  MetadataMaps,
+  Pointer,
+} from '../apidom-language-types';
+// eslint-disable-next-line import/no-cycle
+import { standardLinterfunctions } from '../services/validation/linter-functions';
 
 // TODO remove, keep for remote debugging
 // import { appendFile } from 'fs';
@@ -174,4 +182,94 @@ export function localReferencePointers(doc: Element, nodeElement: string): Point
   // TODO better sorting, NS plugin..
   pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));
   return pointers;
+}
+
+export function checkConditions(
+  meta: ApidomCompletionItem | LinterMeta,
+  docNs: string,
+  element: Element,
+  api: Element,
+  settings: LanguageSettings | undefined,
+): boolean {
+  // check conditions and run them, proceed only when conditions are met
+  let conditionsSuccess = true;
+  if (meta.conditions && meta.conditions.length > 0) {
+    for (const condition of meta.conditions) {
+      if (!conditionsSuccess) {
+        break;
+      }
+      const conditionFuncName = condition.function;
+      // first check if it is a standard function and exists.
+      let conditionFunc = standardLinterfunctions.find(
+        (e) => e.functionName === conditionFuncName,
+      )?.function;
+      // else get it from configuration
+      if (!conditionFunc) {
+        conditionFunc = settings?.metadata?.linterFunctions[docNs][conditionFuncName];
+      }
+      if (conditionFunc) {
+        let conditionTargetEl = element;
+        if (condition.targets && condition.targets.length > 0) {
+          for (const target of condition.targets) {
+            conditionTargetEl = element;
+            if (target.path) {
+              // parse path
+              const pathAr = target.path.split('.');
+              for (const pathSegment of pathAr) {
+                if (pathSegment === 'parent') {
+                  if (!conditionTargetEl.parent.parent) {
+                    conditionsSuccess = false;
+                    break;
+                  }
+                  conditionTargetEl = conditionTargetEl.parent.parent;
+                } else if (pathSegment === 'root') {
+                  conditionTargetEl = api;
+                } else {
+                  // key
+                  if (!isObject(conditionTargetEl) || !conditionTargetEl.hasKey(pathSegment)) {
+                    conditionsSuccess = false;
+                    break;
+                  }
+                  conditionTargetEl = conditionTargetEl.get(pathSegment);
+                }
+              }
+              if (!conditionsSuccess) {
+                break;
+              }
+              let conditionRes = true;
+              if (
+                condition.params &&
+                Array.isArray(condition.params) &&
+                condition.params.length > 0
+              ) {
+                const params = [conditionTargetEl].concat(condition.params);
+                conditionRes = conditionFunc(...params) as boolean;
+              } else {
+                conditionRes = conditionFunc(conditionTargetEl) as boolean;
+              }
+              if (condition.negate) conditionRes = !conditionRes;
+              if (!conditionRes) {
+                conditionsSuccess = false;
+                break;
+              }
+            }
+          }
+        } else {
+          let conditionRes = true;
+          if (condition.params && Array.isArray(condition.params) && condition.params.length > 0) {
+            const params = [conditionTargetEl].concat(condition.params);
+            conditionRes = conditionFunc(...params) as boolean;
+          } else {
+            conditionRes = conditionFunc(conditionTargetEl) as boolean;
+          }
+          if (condition.negate) conditionRes = !conditionRes;
+          if (!conditionRes) {
+            conditionsSuccess = false;
+            break;
+          }
+        }
+      }
+    }
+  }
+  return conditionsSuccess;
 }

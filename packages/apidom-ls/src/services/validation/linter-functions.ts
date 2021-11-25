@@ -1,6 +1,9 @@
 import { Element, ArrayElement, MemberElement } from '@swagger-api/apidom-core';
+import { CompletionItem } from 'vscode-languageserver-types';
 
+// eslint-disable-next-line import/no-cycle
 import { isObject, isString, isArray, isNumber, isBoolean, isMember } from '../../utils/utils';
+import { FunctionItem } from '../../apidom-language-types';
 
 const apilintElementOrClass = (element: Element, elementsOrClasses: string[]): boolean => {
   if (element) {
@@ -39,7 +42,7 @@ const isType = (element: Element, elementType: string): boolean => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const standardLinterfunctions = [
+export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'hasRequiredField',
     function: (element: Element, key: string): boolean => {
@@ -356,6 +359,77 @@ export const standardLinterfunctions = [
         } catch (e) {
           return false;
         }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apicompleteDiscriminator',
+    function: (element: Element): CompletionItem[] => {
+      const result: CompletionItem[] = [];
+      if (element?.parent?.parent && isObject(element.parent.parent)) {
+        const elParent = element.parent.parent;
+        const elRequired: string[] = elParent.get('required')
+          ? elParent.get('required').toValue()
+          : [];
+        for (const key of elRequired) {
+          const item: CompletionItem = {
+            label: key,
+            insertText: key,
+            kind: 12,
+            documentation: '',
+            // detail: 'replace with',
+            insertTextFormat: 2,
+          };
+          result.push(item);
+        }
+      }
+      return result;
+    },
+  },
+  {
+    functionName: 'apicompleteRequired',
+    function: (element: Element): CompletionItem[] => {
+      const result: CompletionItem[] = [];
+      const existing: string[] = [];
+      if (element?.parent && Array.isArray(element.parent.toValue())) {
+        existing.push(...element.parent.toValue());
+      }
+      if (element?.parent?.parent?.parent && isObject(element.parent.parent.parent)) {
+        const elParent = element.parent.parent.parent;
+        if (elParent.get('properties')) {
+          for (const key of elParent.get('properties').keys()) {
+            if (!existing.includes(key)) {
+              const item: CompletionItem = {
+                label: key,
+                insertText: key,
+                kind: 12,
+                documentation: '',
+                // detail: 'replace with',
+                insertTextFormat: 2,
+              };
+              result.push(item);
+            }
+          }
+        }
+      }
+      return result;
+    },
+  },
+  {
+    functionName: 'apilintDiscriminator',
+    function: (element: Element): boolean => {
+      if (element) {
+        if (!isString(element)) {
+          return false;
+        }
+      }
+      if (element?.parent?.parent && isObject(element.parent.parent)) {
+        const elParent = element.parent.parent;
+        const elRequired: string[] = elParent.get('required')
+          ? elParent.get('required').toValue()
+          : [];
+        return elRequired.includes(element.toValue());
       }
       return true;
     },

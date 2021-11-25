@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/swagger-api/apidom/compare/v0.9.0...v0.10.0) (2021-11-25)
+
+
+### Features
+
+* **apidom-ls:** - improve logic and update config ([c8f33b2](https://github.com/swagger-api/apidom/commit/c8f33b28dab990aa777e94b71d80c743c327e43b))
+
+
+
+
+
 # [0.9.0](https://github.com/swagger-api/apidom/compare/v0.8.0...v0.9.0) (2021-11-17)
 
 

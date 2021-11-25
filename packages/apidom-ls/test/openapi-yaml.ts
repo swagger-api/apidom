@@ -6,7 +6,6 @@ import {
   CompletionList,
   Diagnostic,
   DiagnosticSeverity,
-  Hover,
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
@@ -63,11 +62,39 @@ const completionTestInput = [
     {
       items: [
         {
-          documentation: 'Add `license` section',
-          insertText: 'license: \n  $1\n',
-          insertTextFormat: 2,
-          kind: 10,
           label: 'license',
+          insertText: 'license: \n  $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: 'Add `license` section',
+        },
+        {
+          label: 'summary',
+          insertText: 'summary: $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: 'Add `summary` property',
+        },
+        {
+          label: 'description',
+          insertText: 'description: $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: 'Add `description` property',
+        },
+        {
+          label: 'termsOfService',
+          insertText: 'termsOfService: $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: 'Add `termsOfService` property',
+        },
+        {
+          label: 'contact',
+          insertText: 'contact: \n  $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: 'Add `contact` section',
         },
       ],
       isIncomplete: false,
@@ -78,22 +105,7 @@ const completionTestInput = [
     0,
     0,
     {
-      items: [
-        {
-          documentation: 'Add `openapi` property',
-          insertText: 'openapi: $1\n',
-          insertTextFormat: 2,
-          kind: 10,
-          label: 'openapi',
-        },
-        {
-          documentation: 'Add `paths` section',
-          insertText: 'paths: \n  $1\n',
-          insertTextFormat: 2,
-          kind: 10,
-          label: 'paths',
-        },
-      ],
+      items: [],
       isIncomplete: false,
     },
   ],
@@ -102,22 +114,7 @@ const completionTestInput = [
     1,
     0,
     {
-      items: [
-        {
-          documentation: 'Add `info` section',
-          insertText: 'info: \n  $1\n',
-          insertTextFormat: 2,
-          kind: 10,
-          label: 'info',
-        },
-        {
-          documentation: 'Add `paths` section',
-          insertText: 'paths: \n  $1\n',
-          insertTextFormat: 2,
-          kind: 10,
-          label: 'paths',
-        },
-      ],
+      items: [],
       isIncomplete: false,
     },
   ],
@@ -436,15 +433,17 @@ describe('apidom-ls-yaml', function () {
         },
         message: "should always have a 'description'",
         severity: 1,
-        code: 3,
+        code: 10076,
         source: 'apilint',
         data: {
-          quickFix: {
-            message: "add 'description' field",
-            action: 'addChild',
-            snippetYaml: 'description: \n  ',
-            snippetJson: '"description": "",\n    ',
-          },
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: 'description: \n  ',
+              snippetJson: '"description": "",\n    ',
+            },
+          ],
         },
       },
     ];
@@ -595,7 +594,8 @@ describe('apidom-ls-yaml', function () {
       const pos = Position.create(input[1] as number, input[2] as number);
       // eslint-disable-next-line no-await-in-loop
       const result = await languageService.doHover(doc, pos);
-      assert.deepEqual(result, input[3] as Hover);
+      // @ts-ignore
+      assert(result?.contents.value.startsWith('***post***: **operation**'));
     }
   });
 });

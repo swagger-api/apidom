@@ -1,0 +1,129 @@
+[
+  {
+    "range": {
+      "start": {
+        "line": 3,
+        "character": 2
+      },
+      "end": {
+        "line": 3,
+        "character": 8
+      }
+    },
+    "message": "must have required property 'version'",
+    "severity": 1,
+    "code": 0,
+    "source": "asyncapi schema"
+  },
+  {
+    "range": {
+      "start": {
+        "line": 54,
+        "character": 20
+      },
+      "end": {
+        "line": 56,
+        "character": 11
+      }
+    },
+    "message": "should be equal to one or more of the allowed values: array, null, boolean, integer, number, object, string",
+    "severity": 1,
+    "code": 0,
+    "source": "asyncapi schema"
+  },
+  {
+    "range": {
+      "start": {
+        "line": 3,
+        "character": 2
+      },
+      "end": {
+        "line": 3,
+        "character": 8
+      }
+    },
+    "message": "should always have a 'version'",
+    "severity": 1,
+    "code": 10077,
+    "source": "apilint",
+    "data": {
+      "quickFix": [
+        {
+          "message": "add 'version' field",
+          "action": "addChild",
+          "snippetYaml": "version: \n  ",
+          "snippetJson": "\"version\": \"\",\n    "
+        }
+      ]
+    }
+  },
+  {
+    "range": {
+      "start": {
+        "line": 55,
+        "character": 20
+      },
+      "end": {
+        "line": 55,
+        "character": 29
+      }
+    },
+    "message": "type must be one of allowed values",
+    "severity": 1,
+    "code": 10001,
+    "source": "apilint",
+    "data": {
+      "quickFix": [
+        {
+          "message": "update to 'null'",
+          "action": "updateValue",
+          "functionParams": [
+            "null"
+          ]
+        },
+        {
+          "message": "update to 'boolean'",
+          "action": "updateValue",
+          "functionParams": [
+            "boolean"
+          ]
+        },
+        {
+          "message": "update to 'object'",
+          "action": "updateValue",
+          "functionParams": [
+            "object"
+          ]
+        },
+        {
+          "message": "update to 'array'",
+          "action": "updateValue",
+          "functionParams": [
+            "array"
+          ]
+        },
+        {
+          "message": "update to 'number'",
+          "action": "updateValue",
+          "functionParams": [
+            "null"
+          ]
+        },
+        {
+          "message": "update to 'string'",
+          "action": "updateValue",
+          "functionParams": [
+            "string"
+          ]
+        },
+        {
+          "message": "update to 'integer'",
+          "action": "updateValue",
+          "functionParams": [
+            "integer"
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -18,7 +18,7 @@ import {
   traverse,
 } from '@swagger-api/apidom-core';
 
-import { getParser } from '../src/parser-factory';
+import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 
 // const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
@@ -71,15 +71,13 @@ describe('apidom-parse-test', function () {
       'foo://bar/file.yaml',
       'yaml',
       0,
-      specSyntaxYamlNoQuotes,
+      specSyntaxYamlNoQuotesAsync,
     );
 
-    const parser = getParser(doc);
-    const text: string = doc.getText();
     const diagnostics: Diagnostic[] = [];
 
     // eslint-disable-next-line consistent-return
-    parser.parse(text, { sourceMap: true }).then((result) => {
+    parse(doc, undefined).then((result) => {
       const { api } = result;
       if (!api) {
         return diagnostics;
@@ -93,6 +91,7 @@ describe('apidom-parse-test', function () {
         console.log(node.element, `${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}`);
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       function printContent(node: Element): void {
         const sm: SourceMap = getSourceMap(node);
         // eslint-disable-next-line no-console
@@ -106,7 +105,7 @@ describe('apidom-parse-test', function () {
       }
 
       // traverse(printSourceMap, api);
-      traverse(printContent, api);
+      traverse(printSourceMap, api);
 
       if (result.annotations) {
         for (const annotation of result.annotations) {

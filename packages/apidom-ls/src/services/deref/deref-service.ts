@@ -3,7 +3,7 @@ import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { isString } from 'ramda-adjunct';
 import { ArraySlice, Element, filter, ObjectElement, toValue } from '@swagger-api/apidom-core';
 
-import { DerefContext, FORMAT, LanguageSettings } from '../../apidom-language-types';
+import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
 import { getParser, isJsonDoc } from '../../parser-factory';
 
 export interface DerefService {
@@ -29,7 +29,7 @@ export class DefaultDerefService implements DerefService {
     const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
-    const textFormat = isJsonDoc(text) ? FORMAT.JSON : FORMAT.YAML;
+    const textFormat = isJsonDoc(text) ? Format.JSON : Format.YAML;
 
     const result = await parser.parse(text, { sourceMap: true });
 
@@ -70,7 +70,7 @@ export class DefaultDerefService implements DerefService {
 
     // TODO (francesco.tumanischvili@smartbear.com): transform/serialize to YAML if format `YAML` is passed
     // @ts-ignore
-    return format === FORMAT.YAML
+    return format === Format.YAML
       ? JSON.stringify(dereferencedValue, null, 2) // serialize to YAML
       : JSON.stringify(dereferencedValue, null, 2); // default to JSON
   }

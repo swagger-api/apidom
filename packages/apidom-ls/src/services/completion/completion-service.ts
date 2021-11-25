@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   CompletionItem,
   CompletionItemKind,
@@ -10,7 +11,6 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import {
   Element,
-  MemberElement,
   findAtOffset,
   isArrayElement,
   isBooleanElement,
@@ -19,21 +19,27 @@ import {
   isNumberElement,
   isObjectElement,
   isStringElement,
+  MemberElement,
 } from '@swagger-api/apidom-core';
 
 import {
-  LanguageSettings,
-  CompletionContext,
   ApidomCompletionItem,
+  CompletionContext,
+  CompletionFormat,
+  CompletionType,
+  LanguageSettings,
 } from '../../apidom-language-types';
 import {
+  checkConditions,
   getSourceMap,
   getSpecVersion,
   isMember,
   isObject,
+  isArray,
   localReferencePointers,
 } from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
+import { standardLinterfunctions } from '../validation/linter-functions';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -74,6 +80,8 @@ enum CompletionNodeContext {
 }
 
 export class DefaultCompletionService implements CompletionService {
+  private static DELETEME = 'deleteme';
+
   private settings: LanguageSettings | undefined;
 
   private jsonSchemaCompletionService: CompletionService | undefined;
@@ -89,6 +97,8 @@ export class DefaultCompletionService implements CompletionService {
   // eslint-disable-next-line class-methods-use-this
   private resolveCompletionNode(node: Element, caretContext: CaretContext): Element {
     switch (caretContext) {
+      case CaretContext.KEY_INNER:
+      case CaretContext.KEY_END:
       case CaretContext.KEY_START:
         return node.parent.parent;
       case CaretContext.MEMBER:
@@ -170,6 +180,7 @@ export class DefaultCompletionService implements CompletionService {
   private resolveCompletionNodeContext(caretContext: CaretContext): CompletionNodeContext {
     switch (caretContext) {
       case CaretContext.KEY_START:
+      case CaretContext.KEY_INNER:
       case CaretContext.OBJECT_VALUE_INNER:
       case CaretContext.OBJECT_VALUE_START:
       case CaretContext.MEMBER:
@@ -290,6 +301,7 @@ export class DefaultCompletionService implements CompletionService {
         const rightAfterColonOffset = DefaultCompletionService.getRightAfterColonOffset(
           textDocument,
           offset,
+          true,
         );
         if (rightAfterColonOffset !== -1) {
           if (
@@ -303,16 +315,39 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
       }
+    } else {
+      /*
+        This is a hack to handle empty nodes in JSON, e.g in a situation like:
+
+        "type": <caret here>
+
+        in this case the parser doesn't set the sourceMap of the empty value to be one space after the colon,
+        but it sets it right after the colon
+        TODO: check why this happens while e.g. for explicit empty strings `''` this doesn't happen.
+
+        Therefore we look for the offset right after the colon where we found and empty value
+         */
+      // eslint-disable-next-line no-lonely-if
+      if (DefaultCompletionService.isEmptyOrCommaValue(textDocument, offset)) {
+        const rightAfterColonOffset = DefaultCompletionService.getRightAfterColonOffset(
+          textDocument,
+          offset,
+          false,
+        );
+        if (rightAfterColonOffset !== -1) {
+          targetOffset = rightAfterColonOffset;
+        }
+      }
     }
 
     // find the current node
     const node = findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
+
     // only if we have a node
     if (node) {
       const caretContext = this.resolveCaretContext(node, targetOffset);
       const completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
-      // const currentWord = DefaultCompletionService.getCurrentWord(textDocument, offset);
 
       let overwriteRange: Range | undefined;
       let quotes: string | undefined;
@@ -322,7 +357,6 @@ export class DefaultCompletionService implements CompletionService {
       const proposed: { [key: string]: CompletionItem } = {};
 
       const nodeSourceMap = getSourceMap(completionNode);
-      const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
 
       const collector: CompletionsCollector = {
         add: (suggestion: CompletionItem) => {
@@ -350,7 +384,7 @@ export class DefaultCompletionService implements CompletionService {
             item.label = label;
             proposed[label] = item;
             completionList.items.push(item);
-          } else if (!existing.documentation) {
+          } else if (!existing.documentation && item.documentation) {
             existing.documentation = item.documentation;
           }
         },
@@ -378,18 +412,95 @@ export class DefaultCompletionService implements CompletionService {
             proposed[p.key.toValue()] = CompletionItem.create('__');
           }
         }
-        const inNewLine = text.substring(offset, text.indexOf('\n', offset)).trim().length === 0;
-        const apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
+        const nonEmptyContentRange = DefaultCompletionService.getNonEmptyContentRange(
+          textDocument,
+          offset,
+        );
+        let nextLineNonEmptyOffset = DefaultCompletionService.getNextLineOffset(
+          textDocument,
+          offset,
+        );
+        while (DefaultCompletionService.isEmptyLine(textDocument, nextLineNonEmptyOffset)) {
+          nextLineNonEmptyOffset = DefaultCompletionService.getNextLineOffset(
+            textDocument,
+            nextLineNonEmptyOffset,
+          );
+        }
+        const nextLineNonEmptyContentRange = DefaultCompletionService.getNonEmptyContentRange(
+          textDocument,
+          nextLineNonEmptyOffset,
+        );
+        const nextLineNonEmptyContent = nextLineNonEmptyContentRange
+          ? textDocument.getText(nextLineNonEmptyContentRange)
+          : '';
+
+        if (
+          caretContext === CaretContext.KEY_INNER ||
+          caretContext === CaretContext.KEY_END ||
+          caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.OBJECT_VALUE_INNER
+        ) {
+          overwriteRange = nonEmptyContentRange;
+        } else {
+          overwriteRange = undefined;
+        }
+
+        const apidomCompletions = this.getMetadataPropertyCompletions(
           api,
           completionNode,
           !isJsonDoc(textDocument),
           docNs,
           specVersion,
+          quotes,
         );
         for (const item of apidomCompletions) {
-          if (inNewLine) {
-            // eslint-disable-next-line
-            item.insertText = item.insertText?.substring(0, item.insertText?.length - 1);
+          /*
+            see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
+            contrary to docs, range must start with the request offset. Workaround is providing
+            a filterText with the content of the target range
+          */
+          // item.filterText = text.substring(location.offset, location.offset + location.length);
+          if (overwriteRange) {
+            item.filterText = text.substring(
+              textDocument.offsetAt(overwriteRange.start),
+              textDocument.offsetAt(overwriteRange.end),
+            );
+          }
+
+          if (nonEmptyContentRange) {
+            if (caretContext === CaretContext.KEY_INNER || caretContext === CaretContext.KEY_END) {
+              if (isJsonDoc(textDocument)) {
+                if (
+                  nextLineNonEmptyContent.length > 0 &&
+                  ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
+                ) {
+                  item.insertText = `${item.insertText},`;
+                }
+              } else {
+                // item.insertText = `${item.insertText}\n`;
+              }
+            } else if (isJsonDoc(textDocument)) {
+              if (caretContext === CaretContext.OBJECT_VALUE_INNER) {
+                item.insertText = `${item.insertText},`;
+              } else {
+                item.insertText = `${item.insertText},\n`;
+              }
+            } else if (caretContext === CaretContext.OBJECT_VALUE_INNER) {
+              // item.insertText = `${item.insertText}\n`;
+            } else {
+              item.insertText = `${item.insertText}\n`;
+            }
+          } else if (isJsonDoc(textDocument)) {
+            if (
+              nextLineNonEmptyContent.length > 0 &&
+              ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
+            ) {
+              item.insertText = `${item.insertText},`;
+            } else {
+              item.insertText = `${item.insertText}`;
+            }
+          } else if (!isJsonDoc(textDocument)) {
+            // item.insertText = `${item.insertText}\n`;
           }
           collector.add(item);
         }
@@ -414,8 +525,8 @@ export class DefaultCompletionService implements CompletionService {
         // if node is not empty we must replace text
         if (nodeValueFromText.length > 0) {
           overwriteRange = Range.create(
-            textDocument.positionAt(location.offset),
-            textDocument.positionAt(location.offset + location.length),
+            textDocument.positionAt(nodeSourceMap.offset),
+            textDocument.positionAt(nodeSourceMap.endOffset!),
           );
         } else {
           // node is empty
@@ -431,12 +542,13 @@ export class DefaultCompletionService implements CompletionService {
             !isJsonDoc(textDocument),
           );
         } else {
-          apidomCompletions = DefaultCompletionService.getMetadataPropertyCompletions(
+          apidomCompletions = this.getMetadataPropertyCompletions(
             api,
             completionNode,
             !isJsonDoc(textDocument),
             docNs,
             specVersion,
+            quotes,
           );
         }
 
@@ -450,7 +562,6 @@ export class DefaultCompletionService implements CompletionService {
             const unquotedOriginalInsertText = !completionTextQuotes
               ? item.insertText
               : item.insertText?.substring(1, item.insertText.length);
-
             if (!completionTextQuotes && quotes) {
               item.insertText = quotes + item.insertText + quotes;
             }
@@ -459,7 +570,7 @@ export class DefaultCompletionService implements CompletionService {
               contrary to docs, range must start with the request offset. Workaround is providing
               a filterText with the content of the target range
             */
-            item.filterText = text.substring(location.offset, location.offset + location.length);
+            item.filterText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset!);
 
             if (word && word.length > 0 && unquotedOriginalInsertText?.startsWith(word)) {
               collector.add(item);
@@ -497,7 +608,11 @@ export class DefaultCompletionService implements CompletionService {
     return text.substring(i + 1, offset);
   }
 
-  private static getRightAfterColonOffset(document: TextDocument, offset: number): number {
+  private static getRightAfterColonOffset(
+    document: TextDocument,
+    offset: number,
+    mustBeEmpty: boolean,
+  ): number {
     const text = document.getText();
     let i = offset - 1;
     while (i >= 0 && ':'.indexOf(text.charAt(i)) === -1) {
@@ -506,6 +621,9 @@ export class DefaultCompletionService implements CompletionService {
     const rightAfterColon = i + 1;
     if (text.substring(i + 1, offset).trim().length > 0) {
       return -1;
+    }
+    if (!mustBeEmpty) {
+      return rightAfterColon;
     }
     i = offset;
     while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
@@ -532,6 +650,52 @@ export class DefaultCompletionService implements CompletionService {
     return text.substring(start + 1, end);
   }
 
+  private static getLineAfterOffset(document: TextDocument, offset: number): string {
+    const text = document.getText();
+    let i = offset;
+    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    const end = i;
+    return text.substring(offset, end);
+  }
+
+  private static getNonEmptyContentRange(
+    document: TextDocument,
+    offset: number,
+  ): Range | undefined {
+    if (offset < 0) {
+      return undefined;
+    }
+    const text = document.getText();
+    let i = offset - 1;
+    // go to beginning of line
+    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    // go to the first non space
+    while (i < text.length && ' \t\n\r\v'.indexOf(text.charAt(i)) !== -1) {
+      i += 1;
+    }
+    const start = i;
+    // go to the end of line
+    i = offset;
+    while (i < text.length && '\r\n'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    // go back to the first non space
+    // go to the first non space
+    while (i > start && ' \t\n\r\v'.indexOf(text.charAt(i)) !== -1) {
+      i -= 1;
+    }
+    const end = i + 1;
+    if (end - start < 1) {
+      return undefined;
+    }
+    const result = Range.create(document.positionAt(start), document.positionAt(end));
+    return result;
+  }
+
   private static getPreviousLineOffset(document: TextDocument, offset: number): number {
     const text = document.getText();
     let i = offset - 1;
@@ -544,8 +708,50 @@ export class DefaultCompletionService implements CompletionService {
     return i;
   }
 
+  private static getNextLineOffset(document: TextDocument, offset: number): number {
+    const text = document.getText();
+    let i = offset;
+    while (i < text.length && '\r\n'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    if (i >= text.length - 1) {
+      return -1;
+    }
+    // consider \r\n
+    if ('\r\n'.indexOf(text.charAt(i + 1)) !== -1 && i + 2 < text.length) {
+      return i + 2;
+    }
+    return i + 1;
+  }
+
+  private static isLastField(document: TextDocument, offset: number): boolean {
+    const text = document.getText();
+    let i = offset;
+    while (i < text.length && '}]'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    const after = document.getText(
+      Range.create(document.positionAt(offset), document.positionAt(offset + i)),
+    );
+    if (after.trim().length === 0) {
+      return true;
+    }
+    return false;
+  }
+
   private static isEmptyLine(document: TextDocument, offset: number): boolean {
     return DefaultCompletionService.getLine(document, offset).trim().length === 0;
+  }
+
+  private static isEmptyOrCommaValue(document: TextDocument, offset: number): boolean {
+    const line = DefaultCompletionService.getLineAfterOffset(document, offset).trim();
+    if (line.length === 0) {
+      return true;
+    }
+    if (line.endsWith(',')) {
+      return true;
+    }
+    return false;
   }
 
   public static getIndentation(lineContent: string, position?: number): number {
@@ -587,10 +793,11 @@ export class DefaultCompletionService implements CompletionService {
     // build completion item
     let i = 97;
     for (const p of pointers) {
+      const valueQuotes = yaml ? "'" : '"';
       const sm = getSourceMap(p.node);
       const item: CompletionItem = {
         label: p.ref,
-        insertText: `${p.ref}$1`,
+        insertText: `${valueQuotes}${p.ref}$1${valueQuotes}`,
         kind: 18,
         documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
         // detail: 'replace with',
@@ -604,37 +811,62 @@ export class DefaultCompletionService implements CompletionService {
     return result;
   }
 
-  private static getMetadataPropertyCompletions(
+  private getMetadataPropertyCompletions(
     doc: Element,
     node: Element,
     yaml: boolean,
     docNs: string,
     specVersion: string,
+    quotes: string | undefined,
   ): CompletionItem[] {
     const apidomCompletions: ApidomCompletionItem[] = [];
+    let set: string[] = [];
     if (node.classes) {
-      const set: string[] = Array.from(new Set(node.classes.toValue()));
-      const referencedElement = node.getMetaProperty('referenced-element', '').toValue();
-      // TODO maybe move to adapter
-      if (referencedElement.length > 0 && referencedElement === 'schema') {
-        set.unshift('schema');
+      set = Array.from(new Set(node.classes.toValue()));
+    }
+    const referencedElement = node.getMetaProperty('referenced-element', '').toValue();
+    // TODO maybe move to adapter
+    if (referencedElement.length > 0 && referencedElement === 'schema') {
+      set.unshift('schema');
+    }
+    set.unshift(node.element);
+    set.forEach((s) => {
+      const classCompletions: ApidomCompletionItem[] = doc.meta
+        .get('metadataMap')
+        ?.get(s)
+        ?.get('completion')
+        ?.toValue();
+      if (classCompletions) {
+        apidomCompletions.push(...classCompletions.filter((ci) => !ci.target));
       }
-      set.unshift(node.element);
-      set.forEach((s) => {
-        const classCompletions: ApidomCompletionItem[] = doc.meta
-          .get('metadataMap')
-          ?.get(s)
-          ?.get(yaml ? 'yaml' : 'json')
-          ?.get('completion')
-          ?.toValue();
-        if (classCompletions) {
-          apidomCompletions.push(...classCompletions.filter((ci) => !ci.target));
-        }
-        // check also parent for completions with `target` property
-        // get parent
-        if (node.parent && isMember(node.parent)) {
-          const containerNode = node.parent.parent;
-          const key = (node.parent.key as Element).toValue();
+      // check also parent for completions with `target` property
+      // get parent
+      if (node.parent && isMember(node.parent)) {
+        const containerNode = node.parent.parent;
+        const key = (node.parent.key as Element).toValue();
+        // get metadata of parent with target
+        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        containerNodeSet.unshift(containerNode.element);
+        containerNodeSet.forEach((containerNodeSymbol) => {
+          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
+            .get('metadataMap')
+            ?.get(containerNodeSymbol)
+            ?.get('completion')
+            ?.toValue();
+          if (containerNodeClassCompletions) {
+            apidomCompletions.push(
+              ...containerNodeClassCompletions.filter((ci) => ci.target === key && !ci.arrayMember),
+            );
+          }
+        });
+      }
+      // check also parent for completions with `target` property and `arrayMember` set to true
+      // TODO merge with above, single iteration to retrieve
+      if (node.parent && isArray(node.parent)) {
+        const arrayParent = node.parent;
+        if (arrayParent.parent && isMember(arrayParent.parent)) {
+          const containerNode = arrayParent.parent.parent;
+          const key = (arrayParent.parent.key as Element).toValue();
           // get metadata of parent with target
           const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
           containerNodeSet.unshift(containerNode.element);
@@ -642,24 +874,224 @@ export class DefaultCompletionService implements CompletionService {
             const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
               .get('metadataMap')
               ?.get(containerNodeSymbol)
-              ?.get(yaml ? 'yaml' : 'json')
               ?.get('completion')
               ?.toValue();
             if (containerNodeClassCompletions) {
               apidomCompletions.push(
-                ...containerNodeClassCompletions.filter((ci) => ci.target === key),
+                ...containerNodeClassCompletions.filter((ci) => {
+                  return ci.target === key && ci.arrayMember;
+                }),
               );
             }
           });
         }
-      });
-    }
+      }
+    });
     // only keep relevant to ns/version
-    return apidomCompletions.filter(
+    let filteredCompletions = apidomCompletions.filter(
       (ci) =>
         !ci.targetSpecs ||
         (ci.targetSpecs &&
           ci.targetSpecs.some((nsv) => nsv.namespace === docNs && nsv.version === specVersion)),
-    ) as CompletionItem[];
+    );
+    // only keep the ones with satisfied condition
+    // TODO single filter traverse
+    filteredCompletions = filteredCompletions.filter((ci) => {
+      // if target is present pass parent node to check condition
+      let element = node;
+      if (ci.target && node.parent && isMember(node.parent)) {
+        element = node.parent.parent;
+      }
+      return checkConditions(ci, docNs, element, doc, this.settings);
+    });
+    // build insert text
+    // TODO refactor code branches
+    // TODO add flag as user preference for quotes for yaml, and use it
+    const customCompletionItems: CompletionItem[] = [];
+    for (const item of filteredCompletions) {
+      if (item.function) {
+        const funcName = item.function;
+        // first check if it is a standard function and exists.
+        let func = standardLinterfunctions.find((e) => e.functionName === funcName)?.function;
+        // else get it from configuration
+        if (!func) {
+          func = this.settings?.metadata?.linterFunctions[docNs][funcName];
+        }
+        if (func) {
+          try {
+            let lintRes: CompletionItem[] | boolean | undefined = [];
+            const targetElement =
+              item.target && item.target.length > 0 && isObject(node)
+                ? node.hasKey(item.target)
+                  ? node.get(item.target)
+                  : node
+                : node;
+
+            if (
+              item.functionParams &&
+              Array.isArray(item.functionParams) &&
+              item.functionParams.length > 0
+            ) {
+              const params = [targetElement].concat(item.functionParams);
+              lintRes = func(...params);
+            } else {
+              lintRes = func(targetElement);
+            }
+            if (lintRes) {
+              customCompletionItems.push(...(lintRes as CompletionItem[]));
+              for (const customItem of customCompletionItems) {
+                DefaultCompletionService.style(customItem, item, yaml, quotes);
+              }
+            }
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log('completion function error', JSON.stringify(e), e);
+          }
+          item.label = DefaultCompletionService.DELETEME;
+        }
+      } else {
+        DefaultCompletionService.style(item, item, yaml, quotes);
+      }
+      delete item.type;
+      delete item.format;
+      delete item.function;
+      delete item.functionParams;
+    }
+    filteredCompletions = filteredCompletions.filter(
+      (ci) => ci.label !== DefaultCompletionService.DELETEME,
+    );
+    filteredCompletions.push(...customCompletionItems);
+    return filteredCompletions as CompletionItem[];
+  }
+
+  private static style(
+    targetItem: CompletionItem,
+    definedItem: ApidomCompletionItem,
+    yaml: boolean,
+    quotes?: string,
+  ): void {
+    switch (definedItem.type) {
+      case CompletionType.VALUE:
+        switch (definedItem.format) {
+          case CompletionFormat.OBJECT:
+            if (yaml) {
+              if (quotes) {
+                // if we are in YAML within quotes this shouldn't happen, leave as is
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `\n  ${targetItem.insertText}: $1`;
+              }
+            } else if (quotes) {
+              // if we are in JSON within quotes this shouldn't happen, leave as is
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `{\n  "${targetItem.insertText}": $1\n}`;
+            }
+            break;
+          case CompletionFormat.ARRAY:
+            if (yaml) {
+              if (quotes) {
+                // if we are in YAML within quotes this shouldn't happen, leave as is
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `\n  - ${targetItem.insertText}: $1`;
+              }
+            } else if (quotes) {
+              // if we are in JSON within quotes this shouldn't happen, leave as is
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `[\n  "${targetItem.insertText}": $1\n]`;
+            }
+            break;
+          case CompletionFormat.QUOTED:
+            if (yaml) {
+              if (quotes) {
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              }
+            } else if (quotes) {
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}"$1`;
+            }
+            break;
+          case CompletionFormat.UNQUOTED:
+            if (yaml) {
+              if (quotes) {
+                // shouldn't happen
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              }
+            } else if (quotes) {
+              // shouldn't happen
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            }
+            break;
+          case CompletionFormat.QUOTED_FORCED:
+            if (yaml) {
+              if (quotes) {
+                // shouldn't happen
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `"${targetItem.insertText}"$1`;
+              }
+            } else if (quotes) {
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}"$1`;
+            }
+            break;
+          default:
+          //
+        }
+        break;
+      case CompletionType.PROPERTY:
+        switch (definedItem.format) {
+          case CompletionFormat.OBJECT:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: \n  $1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": {\n  $1\n}`;
+            }
+            break;
+          case CompletionFormat.ARRAY:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: \n  - $1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": [\n  $1\n]`;
+            }
+            break;
+          case CompletionFormat.QUOTED:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: $1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": "$1"`;
+            }
+            break;
+          case CompletionFormat.UNQUOTED:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: $1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": $1`;
+            }
+            break;
+          case CompletionFormat.QUOTED_FORCED:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: "$1"`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": "$1"`;
+            }
+            break;
+          default:
+          //
+        }
+        break;
+      default:
+      //
+    }
   }
 }

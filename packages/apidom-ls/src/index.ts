@@ -32,11 +32,17 @@ export type {
   MetadataMap,
   Metadata,
   LinterMeta,
-  ElementMeta,
   LinterFunctionsMap,
   LinterFunctions,
   MetadataMaps,
   ApidomCompletionItem,
 } from './apidom-language-types';
 
-export { SUPPORTED_LANGUAGES, FORMAT } from './apidom-language-types';
+export {
+  SupportedLanguages,
+  Format,
+  CompletionType,
+  CompletionFormat,
+} from './apidom-language-types';
+
+export { config } from './config/config';

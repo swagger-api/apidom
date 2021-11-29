@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import dedent from 'dedent';
-import { isParseResultElement, SourceMapElement } from '@swagger-api/apidom-core';
+import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
 import { isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as adapter from '../src/adapter';
@@ -19,6 +19,7 @@ describe('adapter', function () {
 
     assert.isTrue(isParseResultElement(parseResult));
     assert.isTrue(isOpenApi3_1Element(parseResult.api));
+    expect(sexprs(parseResult)).toMatchSnapshot();
   });
 
   context('given zero byte empty file', function () {

@@ -1,20 +1,15 @@
 /* eslint-disable */
-
 require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
 /**
- * JSDOM setup.
+ * Configure snapshot testing.
  */
-require('jsdom-global')();
+const chai = require('chai');
+const { jestSnapshotPlugin, addSerializer } = require('mocha-chai-jest-snapshot');
 
-/**
- * This loader is responsible for loading WASM files in node.js environment.
- */
+const jestApiDOMSerializer = require('../../../scripts/jest-serializer-apidom');
+const jestStringSerializer = require('../../../scripts/jest-serializer-string');
 
-// WASM documents loader
-const WASMLoader = (module, filename) => {
-  module.exports = filename;
-};
-
-// allow loading of WASM documents
-require.extensions['.wasm'] = WASMLoader;
+chai.use(jestSnapshotPlugin());
+addSerializer(jestApiDOMSerializer);
+addSerializer(jestStringSerializer);

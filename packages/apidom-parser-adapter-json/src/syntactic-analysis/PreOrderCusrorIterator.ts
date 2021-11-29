@@ -27,33 +27,20 @@ class PreOrderCursorIterator {
   }
 
   public *[Symbol.iterator]() {
-    let reachedRoot = false;
+    // @ts-ignore
+    const method = this[this.cursor.nodeType];
+    const constructor = this.constructor as any;
 
-    while (!reachedRoot) {
-      // @ts-ignore
-      const method = this[this.cursor.nodeType];
+    yield (method || this.createNode).call(this) as SyntaxNodeSurrogate;
 
-      yield (method || this.createNode).call(this) as SyntaxNodeSurrogate;
+    if (this.cursor.gotoFirstChild()) {
+      yield* new constructor(this.cursor);
 
-      if (this.cursor.gotoFirstChild()) {
-        continue; // eslint-disable-line no-continue
+      while (this.cursor.gotoNextSibling()) {
+        yield* new constructor(this.cursor);
       }
 
-      if (this.cursor.gotoNextSibling()) {
-        continue; // eslint-disable-line no-continue
-      }
-
-      let retracting = true;
-      while (retracting) {
-        if (!this.cursor.gotoParent()) {
-          retracting = false;
-          reachedRoot = true;
-        }
-
-        if (this.cursor.gotoNextSibling()) {
-          retracting = false;
-        }
-      }
+      this.cursor.gotoParent();
     }
   }
 }

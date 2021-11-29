@@ -1,10 +1,27 @@
+import fs from 'fs';
+import path from 'path';
 import { assert } from 'chai';
 import dedent from 'dedent';
-import { SourceMapElement } from '@swagger-api/apidom-core';
+import { isObjectElement, isParseResultElement, SourceMapElement } from '@swagger-api/apidom-core';
 
 import * as adapter from '../src/adapter-node';
 
+const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.yaml')).toString();
+
 describe('adapter-node', function () {
+  it('should not detect proper media type', function () {
+    assert.isFalse(adapter.detect(spec));
+  });
+
+  it('should parse', async function () {
+    const parseResult = await adapter.parse(spec, {
+      sourceMap: true,
+    });
+
+    assert.isTrue(isParseResultElement(parseResult));
+    assert.isTrue(isObjectElement(parseResult.result));
+  });
+
   context('given zero byte empty file', function () {
     specify('should return empty parse result', async function () {
       const parseResult = await adapter.parse('', { sourceMap: true });

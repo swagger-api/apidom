@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16.8.0
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: 16.8
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
           scope: "@swagger-api"
       - name: Cache npm cache files
@@ -41,10 +41,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16.8.0
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: 16.8
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
           scope: "@swagger-api"
       - name: Cache npm cache files
@@ -67,10 +67,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16.8.0
+      - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
-          node-version: 16.8
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
           scope: "@swagger-api"
       - name: Cache npm cache files
@@ -93,10 +93,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 16.8.0
+    - name: Use Node.js 16
       uses: actions/setup-node@v2
       with:
-        node-version: 16.8
+        node-version: 16
         registry-url: https://npm.pkg.github.com/
         scope: "@swagger-api"
     - name: Cache npm cache files

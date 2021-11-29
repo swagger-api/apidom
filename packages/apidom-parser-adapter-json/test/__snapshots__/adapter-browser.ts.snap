@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adapter-browser should parse 1`] = `
+(ParseResultElement
+  (ObjectElement
+    (MemberElement
+      (StringElement)
+      (StringElement))
+    (MemberElement
+      (StringElement)
+      (BooleanElement))
+    (MemberElement
+      (StringElement)
+      (StringElement))))
+`;

@@ -3,11 +3,11 @@ import path from 'path';
 import { expect, assert } from 'chai';
 import { sexprs, isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
 
-import * as adapter from '../src/adapter-node';
+import * as adapter from '../src/adapter-browser';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json')).toString();
 
-describe('adapter-node', function () {
+describe('adapter-browser', function () {
   it('should detect proper media type', async function () {
     assert.isTrue(await adapter.detect(spec));
   });

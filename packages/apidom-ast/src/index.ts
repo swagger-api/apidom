@@ -69,4 +69,4 @@ export {
   visit,
   getNodeType,
   isNode,
-} from './visitor';
+} from './traversal/visitor';

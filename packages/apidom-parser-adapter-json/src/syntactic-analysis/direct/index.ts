@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { Tree as NodeTree, SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
-import { Tree as WebTree, SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
+import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
+import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import { visit, getNodeType as getCSTNodeType, isNode as isCSTNode } from '@swagger-api/apidom-ast';
 import {
   BooleanElement,
@@ -23,7 +23,6 @@ import {
 
 /* eslint-disable no-underscore-dangle */
 
-type Tree = WebTree | NodeTree;
 type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
 
 const keyMap = {
@@ -261,7 +260,7 @@ const Visitor = stampit({
  * This version of syntactic analysis translates TreeSitter CTS into ApiDOM.
  * Single traversal pass is needed to get from CST to ApiDOM.
  */
-const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
+const analyze = (cst: { rootNode: unknown }, { sourceMap = false } = {}): ParseResultElement => {
   const visitor = Visitor();
 
   return visit(cst.rootNode, visitor, {

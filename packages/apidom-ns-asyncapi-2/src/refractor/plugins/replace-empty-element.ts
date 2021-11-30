@@ -377,7 +377,7 @@ const schema = {
     enum: (...args: any[]) => new ArrayElement(...args),
     items: (...args: any[]) => new SchemaElement(...args),
     additionalItems: (...args: any[]) => new SchemaElement(...args),
-    containsProp: (...args: any[]) => new SchemaElement(...args),
+    contains: (...args: any[]) => new SchemaElement(...args),
     required: (...args: any[]) => {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-required');

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adapter-node should parse 1`] = `
+(ParseResultElement
+  (CommentElement)
+  (ObjectElement
+    (MemberElement
+      (StringElement)
+      (StringElement))
+    (MemberElement
+      (StringElement)
+      (StringElement))))
+`;

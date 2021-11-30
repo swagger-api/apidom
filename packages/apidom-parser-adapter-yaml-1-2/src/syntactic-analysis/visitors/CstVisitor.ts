@@ -126,15 +126,7 @@ const CstVisitor = stampit({
       const keyNode = getFieldFromNode('key', node);
 
       // keyNode was not explicitly provided; tag and anchor are missing too
-      if (keyNode === null) {
-        return true;
-      }
-
-      // keyNode was not explicitly provided; tag or anchor are provided though
-      // @ts-ignore
-      return !keyNode.children.some(
-        (n: SyntaxNode) => isScalar(n) || isSequence(n) || isMapping(n),
-      );
+      return keyNode === null;
     };
 
     const hasKeyValuePairEmptyValue = (node: SyntaxNode) => {
@@ -145,15 +137,7 @@ const CstVisitor = stampit({
       const valueNode = getFieldFromNode('value', node);
 
       // valueNode was not explicitly provided; tag and anchor are missing too
-      if (valueNode === null) {
-        return true;
-      }
-
-      // valueNode was not explicitly provided; tag or anchor are provided though
-      // @ts-ignore
-      return !valueNode.children.some(
-        (n: SyntaxNode) => isScalar(n) || isSequence(n) || isMapping(n),
-      );
+      return valueNode === null;
     };
 
     const createKeyValuePairEmptyKey = (node: SyntaxNode) => {
@@ -344,7 +328,29 @@ const CstVisitor = stampit({
 
     this.flow_node = {
       enter(node: SyntaxNode) {
-        return node.children;
+        const [kindCandidate] = node.children.slice(-1);
+
+        // kind node is present in flow node
+        if (isScalar(kindCandidate) || isMapping(kindCandidate) || isSequence(kindCandidate)) {
+          return node.children;
+        }
+
+        // kind node not present in flow node, creating empty node
+        const emptyPoint = Point({
+          row: kindCandidate.endPosition.row,
+          column: kindCandidate.endPosition.column,
+          char: kindCandidate.endIndex,
+        });
+        const emptyScalarNode = YamlScalar({
+          content: '',
+          anchor: kindNodeToYamlAnchor(kindCandidate),
+          tag: kindNodeToYamlTag(kindCandidate),
+          position: Position({ start: emptyPoint, end: emptyPoint }),
+          styleGroup: YamlStyleGroup.Flow,
+          style: YamlStyle.Plain,
+        });
+
+        return [...node.children, emptyScalarNode];
       },
     };
 
@@ -386,7 +392,7 @@ const CstVisitor = stampit({
 
         if (hasKeyValuePairEmptyKey(node)) {
           const keyNode = createKeyValuePairEmptyKey(node);
-          children.push(keyNode);
+          children.unshift(keyNode);
         }
         if (hasKeyValuePairEmptyValue(node)) {
           const valueNode = createKeyValuePairEmptyValue(node);
@@ -428,7 +434,7 @@ const CstVisitor = stampit({
 
         if (hasKeyValuePairEmptyKey(node)) {
           const keyNode = createKeyValuePairEmptyKey(node);
-          children.push(keyNode);
+          children.unshift(keyNode);
         }
         if (hasKeyValuePairEmptyValue(node)) {
           const valueNode = createKeyValuePairEmptyValue(node);
@@ -470,7 +476,30 @@ const CstVisitor = stampit({
 
     this.block_sequence_item = {
       enter(node: SyntaxNode) {
-        return node.children;
+        // flow or block node present; first node is always `-` literal
+        if (node.children.length > 1) {
+          return node.children;
+        }
+
+        // create empty node
+        const emptyPoint = Point({
+          row: node.endPosition.row,
+          column: node.endPosition.column,
+          char: node.endIndex,
+        });
+        const emptyScalarNode = YamlScalar({
+          content: '',
+          anchor: null,
+          tag: YamlTag({
+            explicitName: '?',
+            kind: YamlNodeKind.Scalar,
+          }),
+          position: Position({ start: emptyPoint, end: emptyPoint }),
+          styleGroup: YamlStyleGroup.Flow,
+          style: YamlStyle.Plain,
+        });
+
+        return [emptyScalarNode];
       },
     };
 

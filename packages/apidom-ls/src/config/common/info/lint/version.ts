@@ -4,21 +4,13 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const infoVersionLint: LinterMeta = {
   code: ApilintCodes.INFO_VERSION,
   source: 'apilint',
-  message: "should always have a 'version'",
+  message: 'version must be a string',
   severity: 1,
-  linterFunction: 'hasRequiredField',
-  linterParams: ['version'],
-  marker: 'key',
-  data: {
-    quickFix: [
-      {
-        message: "add 'version' field",
-        action: 'addChild',
-        snippetYaml: 'version: \n  ',
-        snippetJson: '"version": "",\n    ',
-      },
-    ],
-  },
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  marker: 'value',
+  target: 'version',
+  data: {},
 };
 
 export default infoVersionLint;

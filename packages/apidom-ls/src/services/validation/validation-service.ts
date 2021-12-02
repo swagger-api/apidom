@@ -22,6 +22,7 @@ import {
   getSpecVersion,
   localReferencePointers,
   checkConditions,
+  processPath,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -521,23 +522,9 @@ export class DefaultValidationService implements ValidationService {
               // find the current node
               let node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
               if (quickFix.target && node) {
-                const pathAr = quickFix.target.split('.');
-                // TODO deduplicate
-                for (const pathSegment of pathAr) {
-                  if (pathSegment === 'parent') {
-                    if (!node?.parent?.parent) {
-                      break;
-                    }
-                    node = node.parent.parent;
-                  } else if (pathSegment === 'root') {
-                    node = api;
-                  } else {
-                    // key
-                    if (node && (!isObject(node) || !node.hasKey(pathSegment))) {
-                      break;
-                    }
-                    node = node!.get(pathSegment);
-                  }
+                const targetEl = processPath(node, quickFix.target, api);
+                if (targetEl) {
+                  node = targetEl;
                 }
               }
               if (node && isObject(node) && node.hasKey(target)) {

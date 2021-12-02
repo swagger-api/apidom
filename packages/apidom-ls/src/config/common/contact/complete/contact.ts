@@ -12,7 +12,10 @@ const contactComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `name` property',
+    documentation: {
+      kind: 'markdown',
+      value: 'The identifying name of the contact person/organization.',
+    },
   },
   {
     label: 'url',
@@ -21,7 +24,10 @@ const contactComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `url` property',
+    documentation: {
+      kind: 'markdown',
+      value: 'The URL pointing to the contact information. **MUST** be in the format of a URL.',
+    },
   },
   {
     label: 'email',
@@ -30,7 +36,11 @@ const contactComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `email` property',
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The email address of the contact person/organization. **MUST** be in the format of an email address.',
+    },
   },
 ];
 

@@ -202,6 +202,8 @@ declare module 'minim' {
     get<T extends Element>(index: number): T;
 
     [Symbol.iterator](): IterableIterator<any>;
+
+    toValue(): any;
   }
 
   export class ObjectSlice extends ArraySlice {}

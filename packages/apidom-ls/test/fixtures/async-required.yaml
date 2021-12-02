@@ -1,0 +1,16 @@
+asyncapi: "2.0.0"
+info:
+  title: AsyncAPI Sample API
+  version: 0.1.9
+components:
+  schemas:
+    userSignedUpPayload:
+      type: object
+      required:
+        - foo
+        - car
+      properties:
+        foo: 
+          type: string
+        bar:
+          type: string

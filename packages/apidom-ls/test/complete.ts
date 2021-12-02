@@ -19,6 +19,10 @@ const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async.yaml'))
   .toString();
 
+const specCompletionRoot = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-root.yaml'))
+  .toString();
+
 const specCompletionRef = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-ref.yaml'))
   .toString();
@@ -31,6 +35,14 @@ const specCompletionSchemaTypeArray = fs
   .readFileSync(
     path.join(__dirname, 'fixtures', 'sample-api-async-validation-schema-type-array.yaml'),
   )
+  .toString();
+
+const specCompletionServers = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async-server.yaml'))
+  .toString();
+
+const specCompletionRequired = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async-required.yaml'))
   .toString();
 
 describe('apidom-ls-complete', function () {
@@ -107,6 +119,108 @@ describe('apidom-ls-complete', function () {
                 },
               },
               newText: '"2.2.0$1"',
+            },
+          },
+        ],
+        isIncomplete: false,
+      },
+    ];
+
+    const pos = Position.create(
+      completionTestInputValue[1] as number,
+      completionTestInputValue[2] as number,
+    );
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+  });
+
+  it('asyncapi / yaml - test completion root', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionRoot.json',
+      'json',
+      0,
+      specCompletionRoot,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const completionTestInputValue = [
+      'empty line in root',
+      7,
+      0,
+      {
+        items: [
+          {
+            label: 'id',
+            insertText: 'id: $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                'This field represents a unique universal identifier of the [application](https://www.asyncapi.com/docs/specifications/v2.2.0#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\n ---- \n\nIt is **RECOMMENDED** to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+            },
+          },
+          {
+            label: 'defaultContentType',
+            insertText: 'defaultContentType: $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                "A string representing the default content type to use when encoding/decoding a message's payload. The value **MUST** be a specific media type (e.g. `application/json`). This value **MUST** be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.2.0#messageObjectContentType) property is omitted.",
+            },
+          },
+          {
+            label: 'channels',
+            insertText: 'channels: \n  $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                'Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers.\n\n ---- \n\nChannels are also known as "topics", "routing keys", "event types" or "paths".',
+            },
+          },
+          {
+            label: 'servers',
+            insertText: 'servers: \n  - $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                'The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.2.0#serverObject).',
+            },
+          },
+          {
+            label: 'tags',
+            insertText: 'tags: \n  - $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                'A list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
+            },
+          },
+          {
+            label: 'externalDocs',
+            insertText: 'externalDocs: \n  $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '#### External Documentation Object\n\n ---- \n\nnAllows referencing an external resource for extended documentation.\n\n ---- \n\n##### Fixed Fields\n\n ---- \n\n**description** (`string`) : A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.\n\n ---- \n\n**url** (`string`) : **Required.** The URL for the target documentation. Value MUST be in the format of a URL.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
             },
           },
         ],
@@ -749,5 +863,84 @@ describe('apidom-ls-complete', function () {
       completionContext,
     );
     assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+  });
+
+  it('asyncapi / yaml - test server security completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionServers.json',
+      'yaml',
+      0,
+      specCompletionServers,
+    );
+
+    const pos = Position.create(18, 8);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'user_pass',
+        insertText: 'user_pass: \n  - $1\n',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
+      },
+      {
+        label: 'user_pass_other',
+        insertText: 'user_pass_other: \n  - $1\n',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
+      },
+    ] as ApidomCompletionItem[]);
+  });
+
+  it('asyncapi / yaml - test schema required completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionRequired.json',
+      'yaml',
+      0,
+      specCompletionRequired,
+    );
+
+    const pos = Position.create(9, 10);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'bar',
+        insertText: 'bar$1',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
+        filterText: 'foo',
+        textEdit: {
+          range: {
+            start: {
+              line: 9,
+              character: 10,
+            },
+            end: {
+              line: 9,
+              character: 13,
+            },
+          },
+          newText: 'bar$1',
+        },
+      },
+    ] as ApidomCompletionItem[]);
   });
 });

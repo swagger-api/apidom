@@ -9,6 +9,9 @@ import operationMeta from '../common/operation/meta';
 import channelMeta from './channel/meta';
 import serversMeta from './servers/meta';
 import externalDocsMeta from './external-documentation/meta';
+import licenseMeta from '../common/license/meta';
+import serverMeta from './server/meta';
+import securityRequirementMeta from './securityrequirement/meta';
 
 export default {
   '*': {
@@ -16,6 +19,7 @@ export default {
   },
   info: infoMeta,
   contact: contactMeta,
+  license: licenseMeta,
   operation: operationMeta,
   channel: channelMeta,
   asyncApi2: asyncapi2Meta,
@@ -23,6 +27,8 @@ export default {
   // 'json-schema-type': jsonSchemaTypeMeta,
   schema: jsonSchemaMeta,
   securityScheme: securitySchemeMeta,
+  securityRequirement: securityRequirementMeta,
   servers: serversMeta,
+  server: serverMeta,
   externalDocumentation: externalDocsMeta,
 };

@@ -315,7 +315,7 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
       }
-    } else {
+    } else if (isJson && position.character > 0) {
       /*
         This is a hack to handle empty nodes in JSON, e.g in a situation like:
 
@@ -1037,7 +1037,7 @@ export class DefaultCompletionService implements CompletionService {
                 // shouldn't happen
                 targetItem.insertText = `${targetItem.insertText}$1`;
               } else {
-                targetItem.insertText = `"${targetItem.insertText}"$1`;
+                targetItem.insertText = `'${targetItem.insertText}$1'`;
               }
             } else if (quotes) {
               targetItem.insertText = `${targetItem.insertText}$1`;
@@ -1081,7 +1081,7 @@ export class DefaultCompletionService implements CompletionService {
             break;
           case CompletionFormat.QUOTED_FORCED:
             if (yaml) {
-              targetItem.insertText = `${targetItem.insertText}: "$1"`;
+              targetItem.insertText = `${targetItem.insertText}: '$1'`;
             } else {
               targetItem.insertText = `"${targetItem.insertText}": "$1"`;
             }

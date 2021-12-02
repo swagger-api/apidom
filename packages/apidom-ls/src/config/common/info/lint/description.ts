@@ -4,21 +4,13 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const infoDescriptionLint: LinterMeta = {
   code: ApilintCodes.INFO_DESCRIPTION,
   source: 'apilint',
-  message: "should always have a 'description'",
+  message: 'description must be a string',
   severity: 1,
-  linterFunction: 'hasRequiredField',
-  linterParams: ['description'],
-  marker: 'key',
-  data: {
-    quickFix: [
-      {
-        message: "add 'description' field",
-        action: 'addChild',
-        snippetYaml: 'description: \n  ',
-        snippetJson: '"description": "",\n    ',
-      },
-    ],
-  },
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  marker: 'value',
+  target: 'description',
+  data: {},
 };
 
 export default infoDescriptionLint;

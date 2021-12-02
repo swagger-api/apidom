@@ -66,35 +66,43 @@ const completionTestInput = [
           insertText: 'license: \n  $1',
           kind: 14,
           insertTextFormat: 2,
-          documentation: 'Add `license` section',
-        },
-        {
-          label: 'summary',
-          insertText: 'summary: $1',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: 'Add `summary` property',
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+          },
         },
         {
           label: 'description',
           insertText: 'description: $1',
           kind: 14,
           insertTextFormat: 2,
-          documentation: 'Add `description` property',
+          documentation: {
+            kind: 'markdown',
+            value:
+              'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+          },
         },
         {
           label: 'termsOfService',
           insertText: 'termsOfService: $1',
           kind: 14,
           insertTextFormat: 2,
-          documentation: 'Add `termsOfService` property',
+          documentation: {
+            kind: 'markdown',
+            value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+          },
         },
         {
           label: 'contact',
           insertText: 'contact: \n  $1',
           kind: 14,
           insertTextFormat: 2,
-          documentation: 'Add `contact` section',
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+          },
         },
       ],
       isIncomplete: false,
@@ -431,17 +439,17 @@ describe('apidom-ls-yaml', function () {
             character: 4,
           },
         },
-        message: "should always have a 'description'",
+        message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 10097,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "add 'description' field",
+              message: "add 'title' field",
               action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
             },
           ],
         },

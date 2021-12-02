@@ -1,9 +1,32 @@
-import { Element, ArrayElement, MemberElement } from '@swagger-api/apidom-core';
+import {
+  Element,
+  ArrayElement,
+  MemberElement,
+  filter,
+  ArraySlice,
+  ObjectElement,
+} from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 
 // eslint-disable-next-line import/no-cycle
-import { isObject, isString, isArray, isNumber, isBoolean, isMember } from '../../utils/utils';
+import {
+  isObject,
+  isString,
+  isArray,
+  isNumber,
+  isBoolean,
+  isMember,
+  processPath,
+} from '../../utils/utils';
 import { FunctionItem } from '../../apidom-language-types';
+
+const root = (el: Element): Element => {
+  let node = el;
+  while (node.parent && !['openApi3_1', 'asyncApi2'].includes(node.parent.element)) {
+    node = node.parent;
+  }
+  return node.parent;
+};
 
 const apilintElementOrClass = (element: Element, elementsOrClasses: string[]): boolean => {
   if (element) {
@@ -417,6 +440,44 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apicompleteSecurity',
+    function: (element: Element): CompletionItem[] => {
+      const result: CompletionItem[] = [];
+
+      if (element.parent?.parent) {
+        const existing: string[] = [];
+        if (element.element === 'securityRequirement' && isObject(element)) {
+          existing.push(...(element.keys() as string[]));
+        }
+        if (isArray(element.parent)) {
+          const api = root(element);
+          const schemes: ArraySlice = filter((el: Element) => {
+            return el.element === 'securityScheme';
+          }, api);
+
+          for (const scheme of schemes) {
+            const key = scheme.parent && isMember(scheme.parent) ? scheme.parent.key : undefined;
+            if (key) {
+              if (!existing.includes(key.toValue())) {
+                const item: CompletionItem = {
+                  label: key.toValue(),
+                  insertText: key.toValue(),
+                  kind: 12,
+                  documentation: '',
+                  // detail: 'replace with',
+                  insertTextFormat: 2,
+                };
+                result.push(item);
+              }
+            }
+          }
+        }
+      }
+
+      return result;
+    },
+  },
+  {
     functionName: 'apilintDiscriminator',
     function: (element: Element): boolean => {
       if (element) {
@@ -430,6 +491,32 @@ export const standardLinterfunctions: FunctionItem[] = [
           ? elParent.get('required').toValue()
           : [];
         return elRequired.includes(element.toValue());
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintKeysIncluded',
+    function: (element: Element, path: string): boolean => {
+      if (element && (isObject(element) || isArray(element))) {
+        const api = root(element);
+
+        const targetEl = processPath(element, path, api);
+        if (!targetEl) {
+          return true;
+        }
+
+        if (isObject(element)) {
+          return element.keys().every((v) => (targetEl as ObjectElement).keys().includes(v));
+        }
+        if (isArray(element)) {
+          return (
+            element.findElements(
+              (e) => !(targetEl as ObjectElement).keys().includes(e.toValue()),
+              {},
+            ).length > 0
+          );
+        }
       }
       return true;
     },

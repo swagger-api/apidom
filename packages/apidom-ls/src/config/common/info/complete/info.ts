@@ -12,7 +12,11 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `license` section',
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+    },
   },
   {
     label: 'version',
@@ -21,7 +25,11 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED_FORCED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `version` property',
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**Required** Provides the version of the application API (not to be confused with the specification version).',
+    },
   },
   {
     label: 'title',
@@ -30,16 +38,10 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `title` property',
-  },
-  {
-    label: 'summary',
-    insertText: 'summary',
-    kind: 14,
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: 'Add `summary` property',
+    documentation: {
+      kind: 'markdown',
+      value: '**Required.** The title of the application.',
+    },
   },
   {
     label: 'description',
@@ -48,7 +50,11 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `description` property',
+    documentation: {
+      kind: 'markdown',
+      value:
+        'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    },
   },
   {
     label: 'termsOfService',
@@ -57,7 +63,10 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `termsOfService` property',
+    documentation: {
+      kind: 'markdown',
+      value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+    },
   },
   {
     label: 'contact',
@@ -66,7 +75,11 @@ const infoComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation: 'Add `contact` section',
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+    },
   },
 ];
 

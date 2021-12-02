@@ -67,6 +67,19 @@ describe('apidom-ls-validate', function () {
     ],
   };
 
+  const metadataNoTitle = JSON.parse(JSON.stringify(metadata()));
+  metadataNoTitle.metadataMaps.asyncapi.info.lint.splice(3, 1);
+
+  const contextNoTitle: LanguageServiceContext = {
+    metadata: metadataNoTitle,
+    validatorProviders: [
+      oasJsonSchemavalidationProvider,
+      asyncJsonSchemavalidationProvider,
+      async21JsonSchemavalidationProvider,
+      async22JsonSchemavalidationProvider,
+    ],
+  };
+
   const context30: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [
@@ -216,17 +229,17 @@ describe('apidom-ls-validate', function () {
             character: 8,
           },
         },
-        message: "should always have a 'description'",
+        message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 10097,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "add 'description' field",
+              message: "add 'title' field",
               action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
             },
           ],
         },
@@ -785,17 +798,17 @@ describe('apidom-ls-validate', function () {
             character: 8,
           },
         },
-        message: "should always have a 'description'",
+        message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 10097,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "add 'description' field",
+              message: "add 'title' field",
               action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
             },
           ],
         },
@@ -921,17 +934,17 @@ describe('apidom-ls-validate', function () {
             character: 4,
           },
         },
-        message: "should always have a 'description'",
+        message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 10097,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "add 'description' field",
+              message: "add 'title' field",
               action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
             },
           ],
         },
@@ -1238,7 +1251,7 @@ describe('apidom-ls-validate', function () {
       asyncapiErrorSpec,
     );
 
-    const languageService: LanguageService = getLanguageService(context);
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
@@ -1284,7 +1297,7 @@ describe('apidom-ls-validate', function () {
       asyncapiErrorSpec,
     );
 
-    const languageService: LanguageService = getLanguageService(context);
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
@@ -1390,8 +1403,8 @@ describe('apidom-ls-validate', function () {
             {
               message: "add 'channels' section",
               action: 'addChild',
-              snippetYaml: 'channels: \n  $1\n',
-              snippetJson: '"channels": {\n  $1\n},\n',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n},\n',
             },
           ],
         },
@@ -1506,8 +1519,8 @@ describe('apidom-ls-validate', function () {
                 {
                   message: "add 'channels' section",
                   action: 'addChild',
-                  snippetYaml: 'channels: \n  $1\n',
-                  snippetJson: '"channels": {\n  $1\n},\n',
+                  snippetYaml: 'channels: \n  \n',
+                  snippetJson: '"channels": {\n  \n},\n',
                 },
               ],
             },
@@ -1527,7 +1540,7 @@ describe('apidom-ls-validate', function () {
                     character: 2,
                   },
                 },
-                newText: 'channels: \n  $1\n',
+                newText: 'channels: \n  \n',
               },
             ],
           },
@@ -2165,7 +2178,7 @@ describe('apidom-ls-validate', function () {
       asyncapiErrorSpec,
     );
 
-    const languageService: LanguageService = getLanguageService(context);
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
@@ -2221,34 +2234,8 @@ describe('apidom-ls-validate', function () {
             {
               message: "add 'channels' section",
               action: 'addChild',
-              snippetYaml: 'channels: \n  $1\n',
-              snippetJson: '"channels": {\n  $1\n},\n',
-            },
-          ],
-        },
-      },
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 0,
-          },
-          end: {
-            line: 1,
-            character: 4,
-          },
-        },
-        message: "should always have a 'description'",
-        severity: 1,
-        code: 10076,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: "add 'description' field",
-              action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n},\n',
             },
           ],
         },
@@ -2308,8 +2295,8 @@ describe('apidom-ls-validate', function () {
                 {
                   message: "add 'channels' section",
                   action: 'addChild',
-                  snippetYaml: 'channels: \n  $1\n',
-                  snippetJson: '"channels": {\n  $1\n},\n',
+                  snippetYaml: 'channels: \n  \n',
+                  snippetJson: '"channels": {\n  \n},\n',
                 },
               ],
             },
@@ -2329,58 +2316,7 @@ describe('apidom-ls-validate', function () {
                     character: 2,
                   },
                 },
-                newText: 'channels: \n  $1\n',
-              },
-            ],
-          },
-        },
-      },
-      {
-        title: "add 'description' field",
-        kind: 'quickfix',
-        diagnostics: [
-          {
-            range: {
-              start: {
-                line: 1,
-                character: 0,
-              },
-              end: {
-                line: 1,
-                character: 4,
-              },
-            },
-            message: "should always have a 'description'",
-            severity: 1,
-            code: 10076,
-            source: 'apilint',
-            data: {
-              quickFix: [
-                {
-                  message: "add 'description' field",
-                  action: 'addChild',
-                  snippetYaml: 'description: \n  ',
-                  snippetJson: '"description": "",\n    ',
-                },
-              ],
-            },
-          },
-        ],
-        edit: {
-          changes: {
-            'foo://bar/asyncapiErrorSpecSchemaMaxLength.json': [
-              {
-                range: {
-                  start: {
-                    line: 2,
-                    character: 2,
-                  },
-                  end: {
-                    line: 2,
-                    character: 2,
-                  },
-                },
-                newText: 'description: \n  ',
+                newText: 'channels: \n  \n',
               },
             ],
           },
@@ -2454,7 +2390,7 @@ describe('apidom-ls-validate', function () {
       specAsyncYamlAdditionalItems,
     );
 
-    const languageService: LanguageService = getLanguageService(context);
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
@@ -2527,34 +2463,8 @@ describe('apidom-ls-validate', function () {
             {
               message: "add 'channels' section",
               action: 'addChild',
-              snippetYaml: 'channels: \n  $1\n',
-              snippetJson: '"channels": {\n  $1\n},\n',
-            },
-          ],
-        },
-      },
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 0,
-          },
-          end: {
-            line: 1,
-            character: 4,
-          },
-        },
-        message: "should always have a 'description'",
-        severity: 1,
-        code: 10076,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: "add 'description' field",
-              action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n},\n',
             },
           ],
         },
@@ -2628,7 +2538,7 @@ describe('apidom-ls-validate', function () {
       specAsyncYamlItems,
     );
 
-    const languageService: LanguageService = getLanguageService(context);
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
 
     const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
     const expected = [
@@ -2684,34 +2594,8 @@ describe('apidom-ls-validate', function () {
             {
               message: "add 'channels' section",
               action: 'addChild',
-              snippetYaml: 'channels: \n  $1\n',
-              snippetJson: '"channels": {\n  $1\n},\n',
-            },
-          ],
-        },
-      },
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 0,
-          },
-          end: {
-            line: 1,
-            character: 4,
-          },
-        },
-        message: "should always have a 'description'",
-        severity: 1,
-        code: 10076,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: "add 'description' field",
-              action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n},\n',
             },
           ],
         },
@@ -2741,6 +2625,135 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi / yaml - test server security ', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const specServers = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'async-server.yaml'))
+      .toString();
+
+    const asyncapiErrorDoc: TextDocument = TextDocument.create(
+      'foo://bar/specServers.json',
+      'yaml',
+      0,
+      specServers,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
+
+    const result = await languageService.doValidation(asyncapiErrorDoc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 1,
+          },
+        },
+        message: "must have required property 'info'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 1,
+          },
+        },
+        message: "must have required property 'channels'",
+        severity: 1,
+        code: 0,
+        source: 'asyncapi schema',
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 0,
+          },
+        },
+        message: "should always have a 'info' section",
+        severity: 1,
+        code: 10069,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'info' section",
+              action: 'addChild',
+              snippetYaml: 'info: \n  \n',
+              snippetJson: '"info": {\n  \n},\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 0,
+          },
+        },
+        message: "should always have a 'channels' section",
+        severity: 1,
+        code: 10070,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n},\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 18,
+            character: 8,
+          },
+          end: {
+            line: 18,
+            character: 15,
+          },
+        },
+        message: 'security members must be included in defined security schemes',
+        severity: 1,
+        code: 10116,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

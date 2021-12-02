@@ -12,8 +12,11 @@ const externalDocsCompleteJson: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation:
-      '**Required**. The URL for the target documentation. Value **MUST** be in the format of a URL.',
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**Required**. The URL for the target documentation. Value **MUST** be in the format of a URL.',
+    },
   },
   {
     label: 'description',
@@ -22,8 +25,11 @@ const externalDocsCompleteJson: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    documentation:
-      'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**Required**. The URL for the target documentation. Value **MUST** be in the format of a URL.',
+    },
   },
 ];
 

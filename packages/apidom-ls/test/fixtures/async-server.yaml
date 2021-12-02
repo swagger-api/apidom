@@ -1,0 +1,27 @@
+asyncapi: 2.0.0
+servers:
+  production:
+    url: "{username}.gigantic-server.com:{port}/{basePath}"
+    description: The production API server
+    protocol: kafka
+    protocolVersion: 1.0.0
+    variables:
+      username:
+        default: demo
+        description: This value is assigned by the service provider, in this example
+          `gigantic-server.com`
+        examples:
+          - value1
+          - value2
+      basePath:
+        default: v2
+    security:
+      - foo: []
+      - user_pass: []
+    bindings: {}
+components:
+  securitySchemes:
+    user_pass: 
+      type: userPassword
+    user_pass_other:
+      type: userPassword      

@@ -434,17 +434,17 @@ describe('apidom-ls', function () {
             character: 8,
           },
         },
-        message: "should always have a 'description'",
+        message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 10097,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "add 'description' field",
+              message: "add 'title' field",
               action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
             },
           ],
         },
@@ -502,32 +502,6 @@ describe('apidom-ls', function () {
         severity: 1,
         code: 0,
         source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 2,
-            character: 2,
-          },
-          end: {
-            line: 2,
-            character: 8,
-          },
-        },
-        message: "should always have a 'description'",
-        severity: 1,
-        code: 10076,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: "add 'description' field",
-              action: 'addChild',
-              snippetYaml: 'description: \n  ',
-              snippetJson: '"description": "",\n    ',
-            },
-          ],
-        },
       },
       {
         range: {

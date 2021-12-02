@@ -273,3 +273,25 @@ export function checkConditions(
   }
   return conditionsSuccess;
 }
+
+export function processPath(element: Element, path: string, api: Element): Element | undefined {
+  let targetEl: Element = element;
+  const pathAr = path.split('.');
+  for (const pathSegment of pathAr) {
+    if (pathSegment === 'parent') {
+      if (!targetEl.parent.parent) {
+        return undefined;
+      }
+      targetEl = targetEl.parent.parent;
+    } else if (pathSegment === 'root') {
+      targetEl = api;
+    } else {
+      // key
+      if (!isObject(targetEl) || !targetEl.hasKey(pathSegment)) {
+        return undefined;
+      }
+      targetEl = targetEl.get(pathSegment);
+    }
+  }
+  return targetEl;
+}

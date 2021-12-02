@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor plugins replace-empty-element given AsyncAPI definition with no empty values should do nothing 1`] = `
+exports[`given OpenAPI definition with no empty values should do nothing 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)
@@ -10,17 +10,7 @@ exports[`refractor plugins replace-empty-element given AsyncAPI definition with 
     (JsonSchemaDialectElement)))
 `;
 
-exports[`refractor plugins replace-empty-element given OpenAPI definition with no empty values should do nothing 1`] = `
-(OpenApi3_1Element
-  (MemberElement
-    (StringElement)
-    (OpenapiElement))
-  (MemberElement
-    (StringElement)
-    (JsonSchemaDialectElement)))
-`;
-
-exports[`refractor plugins replace-empty-element given empty value instead for OpenAPI.components.schemas should replace empty value with semantic element 1`] = `
+exports[`given empty value instead for OpenAPI.components.schemas should replace empty value with semantic element 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)
@@ -33,7 +23,7 @@ exports[`refractor plugins replace-empty-element given empty value instead for O
         (ObjectElement)))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead for OpenAPI.components.schemas.* should replace empty value with semantic element 1`] = `
+exports[`given empty value instead for OpenAPI.components.schemas.* should replace empty value with semantic element 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)
@@ -49,7 +39,7 @@ exports[`refractor plugins replace-empty-element given empty value instead for O
             (SchemaElement)))))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
+exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)
@@ -62,7 +52,7 @@ exports[`refractor plugins replace-empty-element given empty value instead of Co
         (ContactElement)))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
+exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)

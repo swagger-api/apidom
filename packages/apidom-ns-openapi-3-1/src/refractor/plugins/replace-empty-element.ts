@@ -5,6 +5,7 @@ import {
   StringElement,
   isStringElement,
   includesClasses,
+  isArrayElement,
 } from '@swagger-api/apidom-core';
 
 /**
@@ -36,6 +37,8 @@ import LinkElement from '../../elements/Link';
 import CallbackElement from '../../elements/Callback';
 import MediaTypeElement from '../../elements/MediaType';
 import EncodingElement from '../../elements/Encoding';
+import SecurityRequirementElement from '../../elements/SecurityRequirement';
+import TagElement from '../../elements/Tag';
 // non-concrete Elements (NCEs)
 import ServersElement from '../../elements/nces/Servers';
 import SecurityElement from '../../elements/nces/Security';
@@ -132,7 +135,7 @@ const schema = {
     enum: (...args: any[]) => new ArrayElement(...args),
   },
   PathsElement: {
-    '*': (...args: any[]) => new PathItemElement(...args),
+    '[keyName: *]': (...args: any[]) => new PathItemElement(...args),
   },
   PathItemElement: {
     get: (...args: any[]) => new OperationElement(...args),
@@ -173,7 +176,7 @@ const schema = {
     headers: (...args: any[]) => new EncodingHeadersElement(...args),
   },
   ResponsesElement: {
-    '*': (...args: any[]) => new ResponseElement(...args),
+    '[key: *]': (...args: any[]) => new ResponseElement(...args),
   },
   ResponseElement: {
     headers: (...args: any[]) => new ResponseHeadersElement(...args),
@@ -181,7 +184,7 @@ const schema = {
     links: (...args: any[]) => new ResponseLinksElement(...args),
   },
   CallbackElement: {
-    '*': (...args: any[]) => new PathItemElement(...args),
+    '[key: *]': (...args: any[]) => new PathItemElement(...args),
   },
   LinkElement: {
     server: (...args: any[]) => new ServerElement(...args),
@@ -204,7 +207,7 @@ const schema = {
     pathItems: (...args: any[]) => new ComponentsPathItemsElement(...args),
   },
   SecurityRequirementElement: {
-    '*': (...args: any[]) => new ArrayElement(...args),
+    '[key: *]': (...args: any[]) => new ArrayElement(...args),
   },
   TagElement: {
     externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
@@ -215,7 +218,6 @@ const schema = {
       element.classes.push('json-schema-$vocabulary');
       return element;
     },
-
     $defs: (...args: any[]) => {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-$defs');
@@ -313,82 +315,117 @@ const schema = {
   },
   // non-concrete types handling (NCEs)
   [WebhooksElement.primaryClass]: {
-    '*': (...args: any[]) => new PathItemElement(...args),
+    '[key: *]': (...args: any[]) => new PathItemElement(...args),
   },
   [ServerVariablesElement.primaryClass]: {
-    '*': (...args: any[]) => new ServerVariableElement(...args),
+    '[key: *]': (...args: any[]) => new ServerVariableElement(...args),
   },
   [ComponentsSchemasElement.primaryClass]: {
-    '*': (...args: any[]) => new SchemaElement(...args),
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
   },
   [ComponentsResponsesElement.primaryClass]: {
-    '*': (...args: any[]) => new ResponseElement(...args),
+    '[key: *]': (...args: any[]) => new ResponseElement(...args),
   },
   [ComponentsParametersElement.primaryClass]: {
-    '*': (...args: any[]) => new ParameterElement(...args),
+    '[key: *]': (...args: any[]) => new ParameterElement(...args),
   },
   [ComponentsExamplesElement.primaryClass]: {
-    '*': (...args: any[]) => new ExampleElement(...args),
+    '[key: *]': (...args: any[]) => new ExampleElement(...args),
   },
   [ComponentsRequestBodiesElement.primaryClass]: {
-    '*': (...args: any[]) => new RequestBodyElement(...args),
+    '[key: *]': (...args: any[]) => new RequestBodyElement(...args),
   },
   [ComponentsHeadersElement.primaryClass]: {
-    '*': (...args: any[]) => new HeaderElement(...args),
+    '[key: *]': (...args: any[]) => new HeaderElement(...args),
   },
   [ComponentsSecuritySchemesElement.primaryClass]: {
-    '*': (...args: any[]) => new SecuritySchemeElement(...args),
+    '[key: *]': (...args: any[]) => new SecuritySchemeElement(...args),
   },
   [ComponentsLinksElement.primaryClass]: {
-    '*': (...args: any[]) => new LinkElement(...args),
+    '[key: *]': (...args: any[]) => new LinkElement(...args),
   },
   [ComponentsCallbacksElement.primaryClass]: {
-    '*': (...args: any[]) => new CallbackElement(...args),
+    '[key: *]': (...args: any[]) => new CallbackElement(...args),
   },
   [ComponentsPathItemsElement.primaryClass]: {
-    '*': (...args: any[]) => new PathItemElement(...args),
+    '[key: *]': (...args: any[]) => new PathItemElement(...args),
   },
   [OperationCallbacksElement.primaryClass]: {
-    '*': (...args: any[]) => new CallbackElement(...args),
+    '[key: *]': (...args: any[]) => new CallbackElement(...args),
   },
   [ParameterExamplesElement.primaryClass]: {
-    '*': (...args: any[]) => new ExampleElement(...args),
+    '[key: *]': (...args: any[]) => new ExampleElement(...args),
   },
   [ParameterContentElement.primaryClass]: {
-    '*': (...args: any[]) => new MediaTypeElement(...args),
+    '[key: *]': (...args: any[]) => new MediaTypeElement(...args),
   },
   [RequestBodyContentElement.primaryClass]: {
-    '*': (...args: any[]) => new MediaTypeElement(...args),
+    '[key: *]': (...args: any[]) => new MediaTypeElement(...args),
   },
   [MediaTypeExamplesElement.primaryClass]: {
-    '*': (...args: any[]) => new ExampleElement(...args),
+    '[key: *]': (...args: any[]) => new ExampleElement(...args),
   },
   [MediaTypeEncodingElement.primaryClass]: {
-    '*': (...args: any[]) => new EncodingElement(...args),
+    '[key: *]': (...args: any[]) => new EncodingElement(...args),
   },
   [EncodingHeadersElement.primaryClass]: {
-    '*': (...args: any[]) => new HeaderElement(...args),
+    '[key: *]': (...args: any[]) => new HeaderElement(...args),
   },
   [ResponseHeadersElement.primaryClass]: {
-    '*': (...args: any[]) => new HeaderElement(...args),
+    '[key: *]': (...args: any[]) => new HeaderElement(...args),
   },
   [ResponseContentElement.primaryClass]: {
-    '*': (...args: any[]) => new MediaTypeElement(...args),
+    '[key: *]': (...args: any[]) => new MediaTypeElement(...args),
   },
   [ResponseLinksElement.primaryClass]: {
-    '*': (...args: any[]) => new LinkElement(...args),
+    '[key: *]': (...args: any[]) => new LinkElement(...args),
+  },
+  [ServersElement.primaryClass]: {
+    '<*>': (...args: any[]) => new ServerElement(...args),
+  },
+  [SecurityElement.primaryClass]: {
+    '<*>': (...args: any[]) => new SecurityRequirementElement(...args),
+  },
+  [TagsElement.primaryClass]: {
+    '<*>': (...args: any[]) => new TagElement(...args),
+  },
+  [PathItemServersElement.primaryClass]: {
+    '<*>': (...args: any[]) => new ServerElement(...args),
+  },
+  [PathItemParametersElement.primaryClass]: {
+    '<*>': (...args: any[]) => new ParameterElement(...args),
+  },
+  [OperationParametersElement.primaryClass]: {
+    '<*>': (...args: any[]) => new ParameterElement(...args),
+  },
+  [OperationSecurityElement.primaryClass]: {
+    '<*>': (...args: any[]) => new SecurityRequirementElement(...args),
+  },
+  [OperationServersElement.primaryClass]: {
+    '<*>': (...args: any[]) => new ServerElement(...args),
+  },
+  'json-schema-allOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-anyOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-oneOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-prefixItems': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
   },
 };
 
-const findElementFactory = (ancestor: any, element: MemberElement) => {
+const findElementFactory = (ancestor: any, keyName: string) => {
   const elementType = getNodeType(ancestor); // @ts-ignore
-  const keyName = element.key.toValue(); // @ts-ignore
   const keyMapping = schema[elementType] || schema[ancestor.classes.first?.toValue?.()];
 
   return typeof keyMapping === 'undefined'
     ? undefined
-    : Object.prototype.hasOwnProperty.call(keyMapping, '*')
-    ? keyMapping['*']
+    : Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
+    ? keyMapping['[key: *]']
     : keyMapping[keyName];
 };
 
@@ -401,7 +438,8 @@ const plugin = () => () => {
 
         const [, , , ancestors] = rest;
         const ancestor = ancestors[ancestors.length - 1];
-        const elementFactory = findElementFactory(ancestor, element);
+        // @ts-ignore
+        const elementFactory = findElementFactory(ancestor, element.key.toValue());
 
         // no element factory found
         if (typeof elementFactory === 'undefined') return undefined;
@@ -414,6 +452,23 @@ const plugin = () => () => {
           element.meta.clone(),
           element.attributes.clone(),
         );
+      },
+
+      StringElement(element: StringElement, ...rest: any) {
+        if (!isEmptyElement(element)) return undefined;
+
+        const [, , , ancestors] = rest;
+        const ancestor = ancestors[ancestors.length - 1];
+
+        // we're only interested in empty elements in ArrayElements
+        if (!isArrayElement(ancestor)) return undefined;
+
+        const elementFactory = findElementFactory(ancestor, '<*>');
+
+        // no element factory found
+        if (typeof elementFactory === 'undefined') return undefined;
+
+        return elementFactory(undefined, element.meta.clone(), element.attributes.clone());
       },
     },
   };

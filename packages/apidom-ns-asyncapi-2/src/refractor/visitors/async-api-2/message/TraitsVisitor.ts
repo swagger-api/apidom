@@ -4,10 +4,11 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+import MessageTraitsElement from '../../../../elements/nces/MessageTraits';
 
 const TraitsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
+    this.element = new MessageTraitsElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

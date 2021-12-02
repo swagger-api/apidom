@@ -1,9 +1,10 @@
 import stampit from 'stampit';
-import { ObjectElement, ArrayElement, isArrayElement, BREAK } from '@swagger-api/apidom-core';
+import { ObjectElement, isArrayElement, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+import OperationMessageElement from '../../../../elements/nces/OperationMessage';
 
 const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
@@ -12,8 +13,7 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
         this.element = this.toRefractedElement(['document', 'objects', 'Reference'], objectElement);
         this.element.setMetaProperty('referenced-element', 'message');
       } else if (isArrayElement(objectElement.get('oneOf'))) {
-        this.element = new ArrayElement();
-        this.element.classes.push('operation-message');
+        this.element = new OperationMessageElement();
 
         objectElement.get('oneOf').forEach((item: ObjectElement) => {
           let element;

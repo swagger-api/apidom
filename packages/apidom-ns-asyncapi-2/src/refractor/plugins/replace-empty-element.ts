@@ -5,6 +5,7 @@ import {
   ArrayElement,
   isStringElement,
   includesClasses,
+  isArrayElement,
 } from '@swagger-api/apidom-core';
 
 /**
@@ -38,6 +39,9 @@ import MessageBindingsElement from '../../elements/MessageBindings';
 import OAuthFlowsElement from '../../elements/OAuthFlows';
 import OAuthFlowElement from '../../elements/OAuthFlow';
 import OperationElement from '../../elements/Operation';
+import SecurityRequirementElement from '../../elements/SecurityRequirement';
+import TagElement from '../../elements/Tag';
+import MessageExampleElement from '../../elements/MessageExample';
 /**
  * Binding elements.
  */
@@ -136,6 +140,11 @@ import ServerVariablesElement from '../../elements/nces/ServerVariables';
 import ChannelItemServersElement from '../../elements/nces/ChannelItemsServers';
 import OAuthFlowScopesElement from '../../elements/nces/OAuthFlowScopes';
 import OperationTraitsElement from '../../elements/nces/OperationTraits';
+import ServerSecurityElement from '../../elements/nces/ServerSecurity';
+import OperationMessageElement from '../../elements/nces/OperationMessage';
+import MessageExamplesElement from '../../elements/nces/MessageExamples';
+import MessageTraitsElement from '../../elements/nces/MessageTraits';
+import MessageTraitExamplesElement from '../../elements/nces/MessageTraitExamples';
 import { getNodeType } from '../../traversal/visitor';
 
 /**
@@ -193,11 +202,11 @@ const schema = {
     license: (...args: any[]) => new LicenseElement(...args),
   },
   ServersElement: {
-    '*': (...args: any[]) => new ServerElement(...args),
+    '[key: *]': (...args: any[]) => new ServerElement(...args),
   },
   ServerElement: {
     variables: (...args: any[]) => new ServerVariablesElement(...args),
-    security: (...args: any[]) => new ArrayElement(...args),
+    security: (...args: any[]) => new ServerSecurityElement(...args),
     bindings: (...args: any[]) => new ServerBindingsElement(...args),
   },
   ServerVariableElement: {
@@ -205,10 +214,10 @@ const schema = {
     examples: (...args: any[]) => new ArrayElement(...args),
   },
   SecurityRequirementElement: {
-    '*': (...args: any[]) => new ArrayElement(...args),
+    '[key: *]': (...args: any[]) => new ArrayElement(...args),
   },
   ChannelsElement: {
-    '*': (...args: any[]) => new ChannelItemElement(...args),
+    '[key: *]': (...args: any[]) => new ChannelItemElement(...args),
   },
   ChannelItemElement: {
     servers: (...args: any[]) => new ChannelItemServersElement(...args),
@@ -262,7 +271,7 @@ const schema = {
     scopes: (...args: any[]) => new OAuthFlowScopesElement(...args),
   },
   ParametersElement: {
-    '*': (...args: any[]) => new ParameterElement(...args),
+    '[key: *]': (...args: any[]) => new ParameterElement(...args),
   },
   ParameterElement: {
     schema: (...args: any[]) => new SchemaElement(...args),
@@ -444,54 +453,83 @@ const schema = {
     queue: (...args: any[]) => new ObjectElement(...args),
     topic: (...args: any[]) => new ObjectElement(...args),
   },
+  TagsElement: {
+    '<*>': (...args: any[]) => new TagElement(...args),
+  },
   // non-concrete types handling (NCEs)
   [ComponentsSchemasElement.primaryClass]: {
-    '*': (...args: any[]) => new SchemaElement(...args),
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
   },
   [ComponentsMessagesElement.primaryClass]: {
-    '*': (...args: any[]) => new MessageElement(...args),
+    '[key: *]': (...args: any[]) => new MessageElement(...args),
   },
   [ComponentsSecuritySchemesElement.primaryClass]: {
-    '*': (...args: any[]) => new SecuritySchemeElement(...args),
+    '[key: *]': (...args: any[]) => new SecuritySchemeElement(...args),
   },
   [ComponentsParametersElement.primaryClass]: {
-    '*': (...args: any[]) => new ParameterElement(...args),
+    '[key: *]': (...args: any[]) => new ParameterElement(...args),
   },
   [ComponentsCorrelationIDsElement.primaryClass]: {
-    '*': (...args: any[]) => new CorrelationIDElement(...args),
+    '[key: *]': (...args: any[]) => new CorrelationIDElement(...args),
   },
   [ComponentsOperationTraitsElement.primaryClass]: {
-    '*': (...args: any[]) => new OperationTraitElement(...args),
+    '[key: *]': (...args: any[]) => new OperationTraitElement(...args),
   },
   [ComponentsMessageTraitsElement.primaryClass]: {
-    '*': (...args: any[]) => new MessageTraitElement(...args),
+    '[key: *]': (...args: any[]) => new MessageTraitElement(...args),
   },
   [ComponentsServerBindingsElement.primaryClass]: {
-    '*': (...args: any[]) => new ServerBindingsElement(...args),
+    '[key: *]': (...args: any[]) => new ServerBindingsElement(...args),
   },
   [ComponentsChannelBindingsElement.primaryClass]: {
-    '*': (...args: any[]) => new ChannelBindingsElement(...args),
+    '[key: *]': (...args: any[]) => new ChannelBindingsElement(...args),
   },
   [ComponentsOperationBindingsElement.primaryClass]: {
-    '*': (...args: any[]) => new OperationBindingsElement(...args),
+    '[key: *]': (...args: any[]) => new OperationBindingsElement(...args),
   },
   [ComponentsMessageBindingsElement.primaryClass]: {
-    '*': (...args: any[]) => new MessageBindingsElement(...args),
+    '[key: *]': (...args: any[]) => new MessageBindingsElement(...args),
   },
   [ServerVariablesElement.primaryClass]: {
-    '*': (...args: any[]) => new ServerVariableElement(...args),
+    '[key: *]': (...args: any[]) => new ServerVariableElement(...args),
+  },
+  [ServerSecurityElement.primaryClass]: {
+    '<*>': (...args: any[]) => new SecurityRequirementElement(...args),
+  },
+  [OperationTraitsElement.primaryClass]: {
+    '<*>': (...args: any[]) => new OperationTraitElement(...args),
+  },
+  [OperationMessageElement.primaryClass]: {
+    '<*>': (...args: any[]) => new MessageElement(...args),
+  },
+  [MessageExamplesElement.primaryClass]: {
+    '<*>': (...args: any[]) => new MessageExampleElement(...args),
+  },
+  [MessageTraitsElement.primaryClass]: {
+    '<*>': (...args: any[]) => new MessageTraitElement(...args),
+  },
+  [MessageTraitExamplesElement.primaryClass]: {
+    '<*>': (...args: any[]) => new MessageExampleElement(...args),
+  },
+  'json-schema-allOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-anyOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-oneOf': {
+    '<*>': (...args: any[]) => new SchemaElement(...args),
   },
 };
 
-const findElementFactory = (ancestor: any, element: MemberElement) => {
+const findElementFactory = (ancestor: any, keyName: string) => {
   const elementType = getNodeType(ancestor); // @ts-ignore
-  const keyName = element.key.toValue(); // @ts-ignore
   const keyMapping = schema[elementType] || schema[ancestor.classes.first?.toValue?.()];
 
   return typeof keyMapping === 'undefined'
     ? undefined
-    : Object.prototype.hasOwnProperty.call(keyMapping, '*')
-    ? keyMapping['*']
+    : Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
+    ? keyMapping['[key: *]']
     : keyMapping[keyName];
 };
 
@@ -503,8 +541,8 @@ const plugin = () => () => {
         if (!isEmptyElement(element.value)) return undefined;
 
         const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1];
-        const elementFactory = findElementFactory(ancestor, element);
+        const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
+        const elementFactory = findElementFactory(ancestor, element.key.toValue());
 
         // no element factory found
         if (typeof elementFactory === 'undefined') return undefined;
@@ -517,6 +555,23 @@ const plugin = () => () => {
           element.meta.clone(),
           element.attributes.clone(),
         );
+      },
+
+      StringElement(element: StringElement, ...rest: any) {
+        if (!isEmptyElement(element)) return undefined;
+
+        const [, , , ancestors] = rest;
+        const ancestor = ancestors[ancestors.length - 1];
+
+        // we're only interested in empty elements in ArrayElements
+        if (!isArrayElement(ancestor)) return undefined;
+
+        const elementFactory = findElementFactory(ancestor, '<*>');
+
+        // no element factory found
+        if (typeof elementFactory === 'undefined') return undefined;
+
+        return elementFactory(undefined, element.meta.clone(), element.attributes.clone());
       },
     },
   };

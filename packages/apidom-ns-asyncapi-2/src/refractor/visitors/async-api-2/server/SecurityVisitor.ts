@@ -4,10 +4,11 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isSecurityRequirementLikeElement } from '../../../predicates';
+import ServerSecurityElement from '../../../../elements/nces/ServerSecurity';
 
 const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
+    this.element = new ServerSecurityElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -24,7 +25,6 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);
-      this.element.classes.push('server-security');
 
       return BREAK;
     },

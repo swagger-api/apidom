@@ -437,8 +437,7 @@ const plugin = () => () => {
         if (!isEmptyElement(element.value)) return undefined;
 
         const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1];
-        // @ts-ignore
+        const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
         const elementFactory = findElementFactory(ancestor, element.key.toValue());
 
         // no element factory found

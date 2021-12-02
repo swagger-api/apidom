@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/swagger-api/apidom/compare/v0.10.0...v0.11.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* **ns-asyncapi-2:** fix empty node mapping ([603ac8a](https://github.com/swagger-api/apidom/commit/603ac8a293e5ace80e9d112885bb831160f3d8f1))
+
+
+### Features
+
+* **adapter-yaml-1-2:** add full support for empty nodes ([2984f59](https://github.com/swagger-api/apidom/commit/2984f59f5e7cb1f2693883766051e7b0c45f94b4)), closes [#916](https://github.com/swagger-api/apidom/issues/916)
+* **ns-asyncapi-2:** add support for empty noes in sequences ([94d6765](https://github.com/swagger-api/apidom/commit/94d6765d598f090d739902762e9a8765cca56253)), closes [#916](https://github.com/swagger-api/apidom/issues/916)
+* **ns-openapi-3-1:** add support for empty nodes in sequences ([f660341](https://github.com/swagger-api/apidom/commit/f6603417b77fb169c1bd3d58071bcaa29ea187f7)), closes [#916](https://github.com/swagger-api/apidom/issues/916)
+
+
+### Performance Improvements
+
+* implement optimized tree-sitter CST access ([f672afd](https://github.com/swagger-api/apidom/commit/f672afd5f21f68a6dbd65444b87c12df3e845979)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.10.0](https://github.com/swagger-api/apidom/compare/v0.9.0...v0.10.0) (2021-11-25)
 
 

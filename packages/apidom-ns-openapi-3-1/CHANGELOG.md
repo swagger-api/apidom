@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/swagger-api/apidom/compare/v0.10.0...v0.11.0) (2021-12-02)
+
+
+### Features
+
+* **ns-asyncapi-2:** add support for empty noes in sequences ([94d6765](https://github.com/swagger-api/apidom/commit/94d6765d598f090d739902762e9a8765cca56253)), closes [#916](https://github.com/swagger-api/apidom/issues/916)
+* **ns-openapi-3-1:** add support for empty nodes in sequences ([f660341](https://github.com/swagger-api/apidom/commit/f6603417b77fb169c1bd3d58071bcaa29ea187f7)), closes [#916](https://github.com/swagger-api/apidom/issues/916)
+
+
+
+
+
 # [0.10.0](https://github.com/swagger-api/apidom/compare/v0.9.0...v0.10.0) (2021-11-25)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

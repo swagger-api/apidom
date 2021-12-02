@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/swagger-api/apidom/compare/v0.10.0...v0.11.0) (2021-12-02)
+
+
+### Performance Improvements
+
+* implement optimized tree-sitter CST access ([f672afd](https://github.com/swagger-api/apidom/commit/f672afd5f21f68a6dbd65444b87c12df3e845979)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.10.0](https://github.com/swagger-api/apidom/compare/v0.9.0...v0.10.0) (2021-11-25)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

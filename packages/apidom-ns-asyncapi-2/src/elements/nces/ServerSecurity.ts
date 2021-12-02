@@ -1,0 +1,13 @@
+import { Attributes, Meta } from 'minim';
+import { ArrayElement } from '@swagger-api/apidom-core';
+
+class ServerSecurity extends ArrayElement {
+  static primaryClass = 'server-security';
+
+  constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
+    super(content, meta, attributes);
+    this.classes.push(ServerSecurity.primaryClass);
+  }
+}
+
+export default ServerSecurity;

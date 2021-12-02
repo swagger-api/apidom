@@ -3,10 +3,11 @@ import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apid
 
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
+import MessageTraitExamplesElement from '../../../../elements/nces/MessageTraitExamples';
 
 const ExamplesVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new ArrayElement();
+    this.element = new MessageTraitExamplesElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {

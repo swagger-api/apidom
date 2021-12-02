@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given empty value instead of OperationTraitElement should replace empty value with semantic element 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ChannelsElement
+      (MemberElement
+        (StringElement)
+        (ChannelItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (OperationTraitElement))))))))))
+`;
+
+exports[`given empty value instead of SecurityRequirementElement should replace empty value with semantic element 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ServersElement
+      (MemberElement
+        (StringElement)
+        (ServerElement
+          (MemberElement
+            (StringElement)
+            (ArrayElement
+              (SecurityRequirementElement))))))))
+`;
+
+exports[`given empty values instead of SchemaElement for allOf keyword should replace empty values with semantic elements 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SchemaElement))))))))))
+`;
+
+exports[`given multiple empty value instead of MessageElement should replace empty values with semantic elements 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ChannelsElement
+      (MemberElement
+        (StringElement)
+        (ChannelItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (MessageElement)
+                  (MessageElement))))))))))
+`;
+
+exports[`given multiple empty value instead of TagElement should replace empty values with semantic elements 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ChannelsElement
+      (MemberElement
+        (StringElement)
+        (ChannelItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (OperationTraitElement
+                    (MemberElement
+                      (StringElement)
+                      (TagsElement
+                        (TagElement)))))))))))))
+`;

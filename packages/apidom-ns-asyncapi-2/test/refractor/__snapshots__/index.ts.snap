@@ -2876,6 +2876,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-examples"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageExample",
@@ -2919,6 +2930,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageTrait",
@@ -3578,6 +3600,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "array",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message-trait-examples"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "messageExample",
@@ -6025,6 +6058,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-examples"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageExample",
@@ -6068,6 +6112,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageTrait",
@@ -6727,6 +6782,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "array",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message-trait-examples"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "messageExample",
@@ -11793,6 +11859,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-examples"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageExample",
@@ -11917,6 +11994,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageTrait",
@@ -12576,6 +12664,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "array",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message-trait-examples"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "messageExample",
@@ -13520,6 +13619,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "reference",
@@ -19802,6 +19912,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-examples"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageExample",
@@ -19926,6 +20047,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "messageTrait",
@@ -20657,6 +20789,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "array",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message-trait-examples"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "messageExample",
@@ -21673,6 +21816,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "array",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "message-traits"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "reference",

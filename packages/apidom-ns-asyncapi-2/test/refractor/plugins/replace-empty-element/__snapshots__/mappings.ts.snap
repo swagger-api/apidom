@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor plugins replace-empty-element given AsyncAPI definition with no empty values should do nothing 1`] = `
+exports[`given AsyncAPI definition with no empty values should do nothing 1`] = `
 (AsyncApi2Element
   (MemberElement
     (StringElement)
@@ -10,7 +10,7 @@ exports[`refractor plugins replace-empty-element given AsyncAPI definition with 
     (IdentifierElement)))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead for AsyncAPI.components.schemas should replace empty value with semantic element 1`] = `
+exports[`given empty value instead for AsyncAPI.components.schemas should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement
     (StringElement)
@@ -23,7 +23,7 @@ exports[`refractor plugins replace-empty-element given empty value instead for A
         (ObjectElement)))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead for AsyncAPI.components.schemas.* should replace empty value with semantic element 1`] = `
+exports[`given empty value instead for AsyncAPI.components.schemas.* should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement
     (StringElement)
@@ -39,7 +39,7 @@ exports[`refractor plugins replace-empty-element given empty value instead for A
             (SchemaElement)))))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
+exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement
     (StringElement)
@@ -52,7 +52,7 @@ exports[`refractor plugins replace-empty-element given empty value instead of Co
         (ContactElement)))))
 `;
 
-exports[`refractor plugins replace-empty-element given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
+exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement
     (StringElement)

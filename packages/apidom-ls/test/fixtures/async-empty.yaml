@@ -1,0 +1,10 @@
+asyncapi: '2.2.0'
+components:
+  schemas:
+    my:
+      type: string
+      
+  securitySchemes:
+    saslScram:
+      type: scramSha256
+      description: Provide your username and password for SASL/SCRAM authentication

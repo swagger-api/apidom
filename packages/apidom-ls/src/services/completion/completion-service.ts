@@ -263,25 +263,72 @@ export class DefaultCompletionService implements CompletionService {
 
       let handledTarget = false;
       if (DefaultCompletionService.isEmptyLine(textDocument, offset)) {
-        let prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+        let alreadyInGoodNode = false;
+        let nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, offset);
         while (
-          prevLineOffset !== -1 &&
-          DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset)
+          nextLineOffset !== -1 &&
+          DefaultCompletionService.isEmptyLine(textDocument, nextLineOffset)
         ) {
-          prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+          nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, nextLineOffset);
         }
-        if (prevLineOffset !== -1) {
-          // get indent of that line and compare with the position.character
+        if (nextLineOffset !== -1) {
           if (
             DefaultCompletionService.getIndentation(
-              DefaultCompletionService.getLine(textDocument, prevLineOffset),
+              DefaultCompletionService.getLine(textDocument, nextLineOffset),
             ) === position.character
           ) {
-            // set the target offset as that line
-            const pos = textDocument.positionAt(prevLineOffset);
-            targetOffset = textDocument.offsetAt(Position.create(pos.line, position.character));
-            emptyLine = true;
-            handledTarget = true;
+            // next non empty line has same indentation, which means we are inside the correct node
+            alreadyInGoodNode = true;
+          }
+        }
+        console.log('doCompletion b');
+        if (!alreadyInGoodNode) {
+          let prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+          let prevLineEmpty = DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset);
+          let prevLineIndentation = prevLineEmpty
+            ? -1
+            : DefaultCompletionService.getIndentation(
+                DefaultCompletionService.getLine(textDocument, prevLineOffset),
+              );
+          while (
+            prevLineOffset !== -1 &&
+            (prevLineEmpty || prevLineIndentation > position.character)
+          ) {
+            prevLineOffset = DefaultCompletionService.getPreviousLineOffset(
+              textDocument,
+              prevLineOffset,
+            );
+            prevLineEmpty = DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset);
+            prevLineIndentation = prevLineEmpty
+              ? -1
+              : DefaultCompletionService.getIndentation(
+                  DefaultCompletionService.getLine(textDocument, prevLineOffset),
+                );
+          }
+          if (prevLineOffset !== -1) {
+            // get indent of that line and compare with the position.character
+            const prevLine = DefaultCompletionService.getLine(textDocument, prevLineOffset);
+            prevLineIndentation = DefaultCompletionService.getIndentation(prevLine);
+            if (prevLineIndentation === position.character) {
+              // set the target offset as that line
+              const pos = textDocument.positionAt(prevLineOffset);
+              targetOffset = textDocument.offsetAt(Position.create(pos.line, position.character));
+              emptyLine = true;
+              handledTarget = true;
+            } else if (prevLineIndentation < position.character) {
+              // check if line has empty value
+              // TODO shaky, better regex grouping, consider case with colon in key
+              // eslint-disable-next-line prefer-regex-literals
+              const regex = new RegExp('^.*\\:{1}\\s*$');
+              if (regex.test(prevLine)) {
+                // set the target offset to right after the colon (empty node)
+                const column = prevLine.indexOf(':') + 1;
+                const pos = textDocument.positionAt(prevLineOffset);
+                targetOffset = textDocument.offsetAt(Position.create(pos.line, column));
+                emptyLine = true;
+                handledTarget = true;
+              }
+            }
           }
         }
       }
@@ -339,10 +386,8 @@ export class DefaultCompletionService implements CompletionService {
         }
       }
     }
-
     // find the current node
     const node = findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
-
     // only if we have a node
     if (node) {
       const caretContext = this.resolveCaretContext(node, targetOffset);
@@ -357,7 +402,6 @@ export class DefaultCompletionService implements CompletionService {
       const proposed: { [key: string]: CompletionItem } = {};
 
       const nodeSourceMap = getSourceMap(completionNode);
-
       const collector: CompletionsCollector = {
         add: (suggestion: CompletionItem) => {
           const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
@@ -444,7 +488,6 @@ export class DefaultCompletionService implements CompletionService {
         } else {
           overwriteRange = undefined;
         }
-
         const apidomCompletions = this.getMetadataPropertyCompletions(
           api,
           completionNode,
@@ -466,7 +509,6 @@ export class DefaultCompletionService implements CompletionService {
               textDocument.offsetAt(overwriteRange.end),
             );
           }
-
           if (nonEmptyContentRange) {
             if (caretContext === CaretContext.KEY_INNER || caretContext === CaretContext.KEY_END) {
               if (isJsonDoc(textDocument)) {

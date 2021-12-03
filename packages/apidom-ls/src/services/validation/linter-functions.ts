@@ -413,13 +413,21 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apicompleteRequired',
     function: (element: Element): CompletionItem[] => {
+      /*
+       TODO this is made to work specifically for required in JSON and YAML, where the element parameter
+       is different: In YAML it's the string array item, while in JSON with no quotes it's the parent array.
+       */
+      let targetElement = element?.parent;
+      if (isArray(element)) {
+        targetElement = element;
+      }
       const result: CompletionItem[] = [];
       const existing: string[] = [];
-      if (element?.parent && Array.isArray(element.parent.toValue())) {
-        existing.push(...element.parent.toValue());
+      if (targetElement && Array.isArray(targetElement.toValue())) {
+        existing.push(...targetElement.toValue());
       }
-      if (element?.parent?.parent?.parent && isObject(element.parent.parent.parent)) {
-        const elParent = element.parent.parent.parent;
+      if (targetElement?.parent?.parent && isObject(targetElement.parent.parent)) {
+        const elParent = targetElement.parent.parent;
         if (elParent.get('properties')) {
           for (const key of elParent.get('properties').keys()) {
             if (!existing.includes(key)) {

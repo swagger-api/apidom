@@ -1,0 +1,18 @@
+{
+  "asyncapi": "2.0.0",
+  "components": {
+    "schemas": {
+      "userSignedUpPayload": {
+        "type": "object",
+        "required": [
+          
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+          }
+        }
+      }
+    }
+  }
+}

@@ -342,7 +342,7 @@ const serverComplete: ApidomCompletionItem[] = [
     insertText: '?',
     arrayMember: true,
     kind: 12,
-    format: CompletionFormat.ARRAY,
+    format: CompletionFormat.ARRAY_OBJECT,
     type: CompletionType.PROPERTY,
     function: 'apicompleteSecurity',
     insertTextFormat: 2,

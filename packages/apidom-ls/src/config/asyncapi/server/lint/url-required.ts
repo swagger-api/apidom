@@ -14,8 +14,8 @@ const serverUrlRequiredLint: LinterMeta = {
       {
         message: "add 'url'",
         action: 'addChild',
-        snippetYaml: "url: ''\n",
-        snippetJson: '"url": "",\n',
+        snippetYaml: 'url: \n    ',
+        snippetJson: '"url": "",\n      ',
       },
     ],
   },

@@ -15,7 +15,7 @@ const rootChannelsLint: LinterMeta = {
         message: "add 'channels' section",
         action: 'addChild',
         snippetYaml: 'channels: \n  \n',
-        snippetJson: '"channels": {\n  \n},\n',
+        snippetJson: '"channels": {\n  \n  },\n',
       },
     ],
   },

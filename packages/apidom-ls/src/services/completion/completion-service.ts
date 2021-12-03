@@ -244,6 +244,7 @@ export class DefaultCompletionService implements CompletionService {
     let targetOffset = offset;
     let emptyLine = false;
 
+    let handledTarget = false;
     if (!isJson && position.character > 0) {
       /*
       This is a hack to handle empty nodes in YAML, e.g in a situation like:
@@ -260,8 +261,6 @@ export class DefaultCompletionService implements CompletionService {
       - the caret is at the same indent position as the first non blank line above
       - the indent position is not 0 (root)
       */
-
-      let handledTarget = false;
       if (DefaultCompletionService.isEmptyLine(textDocument, offset)) {
         let alreadyInGoodNode = false;
         let nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, offset);
@@ -281,7 +280,6 @@ export class DefaultCompletionService implements CompletionService {
             alreadyInGoodNode = true;
           }
         }
-        console.log('doCompletion b');
         if (!alreadyInGoodNode) {
           let prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
           let prevLineEmpty = DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset);
@@ -359,6 +357,7 @@ export class DefaultCompletionService implements CompletionService {
           ) {
             emptyLine = true;
             targetOffset = rightAfterColonOffset;
+            handledTarget = true;
           }
         }
       }
@@ -383,6 +382,36 @@ export class DefaultCompletionService implements CompletionService {
         );
         if (rightAfterColonOffset !== -1) {
           targetOffset = rightAfterColonOffset;
+          handledTarget = true;
+        }
+      }
+    }
+    /*
+      This is a hack to handle empty nodes in YAML array items, e.g in a situation like:
+
+      - <caret here>
+
+      in this case the parser doesn't set the sourceMap of the empty value to be one space after the dash,
+      but it sets it right after the dash
+      Therefore we look for the offset right after the dash where we found and empty value
+       */
+    if (!handledTarget && !isJson && position.character > 0) {
+      const rightAfterDashOffset = DefaultCompletionService.getRightAfterDashOffset(
+        textDocument,
+        offset,
+        true,
+      );
+      if (rightAfterDashOffset !== -1) {
+        if (
+          position.character >
+          DefaultCompletionService.getIndentation(
+            DefaultCompletionService.getLine(textDocument, rightAfterDashOffset),
+            undefined,
+            false,
+          )
+        ) {
+          emptyLine = true;
+          targetOffset = rightAfterDashOffset;
         }
       }
     }
@@ -441,7 +470,7 @@ export class DefaultCompletionService implements CompletionService {
       };
 
       if (
-        isObject(completionNode) &&
+        (isObject(completionNode) || (isArray(completionNode) && isJson)) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
           CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
         (caretContext === CaretContext.KEY_INNER ||
@@ -677,6 +706,33 @@ export class DefaultCompletionService implements CompletionService {
     return rightAfterColon;
   }
 
+  private static getRightAfterDashOffset(
+    document: TextDocument,
+    offset: number,
+    mustBeEmpty: boolean,
+  ): number {
+    const text = document.getText();
+    let i = offset - 1;
+    while (i >= 0 && '-'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    const rightAfterDash = i + 1;
+    if (text.substring(i + 1, offset).trim().length > 0) {
+      return -1;
+    }
+    if (!mustBeEmpty) {
+      return rightAfterDash;
+    }
+    i = offset;
+    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
+      i += 1;
+    }
+    if (text.substring(offset, i + 1).trim().length > 0) {
+      return -1;
+    }
+    return rightAfterDash;
+  }
+
   private static getLine(document: TextDocument, offset: number): string {
     const text = document.getText();
     let i = offset - 1;
@@ -796,7 +852,11 @@ export class DefaultCompletionService implements CompletionService {
     return false;
   }
 
-  public static getIndentation(lineContent: string, position?: number): number {
+  public static getIndentation(
+    lineContent: string,
+    position?: number,
+    considerArrayItem = true,
+  ): number {
     if (position && lineContent.length < position) {
       return 0;
     }
@@ -806,15 +866,27 @@ export class DefaultCompletionService implements CompletionService {
       position = lineContent.length;
     }
 
+    let result = -1;
     for (let i = 0; i < position; i += 1) {
       const char = lineContent.charCodeAt(i);
       if (char !== 32 && char !== 9) {
-        return i;
+        result = i;
+        break;
       }
     }
-
+    if (considerArrayItem && result) {
+      if (lineContent.charAt(result) === '-') {
+        result += 1;
+        if (
+          result < position &&
+          (lineContent.charCodeAt(result) === 32 || lineContent.charCodeAt(result) === 9)
+        ) {
+          result += 1;
+        }
+      }
+    }
     // assuming that current position is indentation
-    return position;
+    return result > -1 ? result : position;
   }
 
   public static findReferencePointers(
@@ -902,33 +974,74 @@ export class DefaultCompletionService implements CompletionService {
           }
         });
       }
-      // check also parent for completions with `target` property and `arrayMember` set to true
-      // TODO merge with above, single iteration to retrieve
-      if (node.parent && isArray(node.parent)) {
-        const arrayParent = node.parent;
-        if (arrayParent.parent && isMember(arrayParent.parent)) {
-          const containerNode = arrayParent.parent.parent;
-          const key = (arrayParent.parent.key as Element).toValue();
-          // get metadata of parent with target
-          const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
-          containerNodeSet.unshift(containerNode.element);
-          containerNodeSet.forEach((containerNodeSymbol) => {
-            const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
-              .get('metadataMap')
-              ?.get(containerNodeSymbol)
-              ?.get('completion')
-              ?.toValue();
-            if (containerNodeClassCompletions) {
-              apidomCompletions.push(
-                ...containerNodeClassCompletions.filter((ci) => {
-                  return ci.target === key && ci.arrayMember;
-                }),
-              );
-            }
-          });
-        }
-      }
     });
+    // check also parent for completions with `target` property and `arrayMember` set to true
+    // TODO merge with above, single iteration to retrieve
+    if (node.parent && isArray(node.parent)) {
+      const arrayParent = node.parent;
+      if (arrayParent.parent && isMember(arrayParent.parent)) {
+        const containerNode = arrayParent.parent.parent;
+        const key = (arrayParent.parent.key as Element).toValue();
+        // get metadata of parent with target
+        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        containerNodeSet.unshift(containerNode.element);
+        containerNodeSet.forEach((containerNodeSymbol) => {
+          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
+            .get('metadataMap')
+            ?.get(containerNodeSymbol)
+            ?.get('completion')
+            ?.toValue();
+          if (containerNodeClassCompletions) {
+            apidomCompletions.push(
+              ...containerNodeClassCompletions.filter((ci) => {
+                return ci.target === key && ci.arrayMember;
+              }),
+            );
+          }
+        });
+      }
+    }
+    /*
+      hack for JSON empty array with no quotes:
+      ```
+      [
+        <caret here>
+      ]
+      ```
+
+      while the following works
+      ```
+      [
+        "<caret here>"
+      ]
+      ```
+      in this case the node from offset is the parent array, so check his parent for completions with `target` property and `arrayMember` set to true
+     */
+    // TODO merge with above, single iteration to retrieve
+    if (!yaml && isArray(node)) {
+      if (node.parent && isMember(node.parent)) {
+        const containerNode = node.parent.parent;
+        const key = (node.parent.key as Element).toValue();
+        // get metadata of parent with target
+        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        containerNodeSet.unshift(containerNode.element);
+        containerNodeSet.forEach((containerNodeSymbol) => {
+          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
+            .get('metadataMap')
+            ?.get(containerNodeSymbol)
+            ?.get('completion')
+            ?.toValue();
+          if (containerNodeClassCompletions) {
+            apidomCompletions.push(
+              ...containerNodeClassCompletions.filter((ci) => {
+                return ci.target === key && ci.arrayMember;
+              }),
+            );
+          }
+        });
+      }
+    }
+
     // only keep relevant to ns/version
     let filteredCompletions = apidomCompletions.filter(
       (ci) =>
@@ -1045,6 +1158,21 @@ export class DefaultCompletionService implements CompletionService {
               targetItem.insertText = `[\n  "${targetItem.insertText}": $1\n]`;
             }
             break;
+          case CompletionFormat.ARRAY_OBJECT:
+            if (yaml) {
+              if (quotes) {
+                // if we are in YAML within quotes this shouldn't happen, leave as is
+                targetItem.insertText = `${targetItem.insertText}$1`;
+              } else {
+                targetItem.insertText = `\n  - ${targetItem.insertText}: $1`;
+              }
+            } else if (quotes) {
+              // if we are in JSON within quotes this shouldn't happen, leave as is
+              targetItem.insertText = `${targetItem.insertText}$1`;
+            } else {
+              targetItem.insertText = `[\n  "${targetItem.insertText}": {\n  $1\n}\n]`;
+            }
+            break;
           case CompletionFormat.QUOTED:
             if (yaml) {
               if (quotes) {
@@ -1105,6 +1233,13 @@ export class DefaultCompletionService implements CompletionService {
               targetItem.insertText = `${targetItem.insertText}: \n  - $1`;
             } else {
               targetItem.insertText = `"${targetItem.insertText}": [\n  $1\n]`;
+            }
+            break;
+          case CompletionFormat.ARRAY_OBJECT:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}: \n  - $1`;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}": [\n  {\n  $1\n}\n]`;
             }
             break;
           case CompletionFormat.QUOTED:

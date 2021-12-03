@@ -14,8 +14,8 @@ const serverProtocolRequiredLint: LinterMeta = {
       {
         message: "add 'protocol'",
         action: 'addChild',
-        snippetYaml: "protocol: ''\n",
-        snippetJson: '"protocol": "",\n',
+        snippetYaml: 'protocol: \n    ',
+        snippetJson: '"protocol": "",\n      ',
       },
     ],
   },

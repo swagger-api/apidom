@@ -14,8 +14,8 @@ const licenseNameRequiredLint: LinterMeta = {
       {
         message: "add 'name' section",
         action: 'addChild',
-        snippetYaml: "name: ''\n",
-        snippetJson: '"name": "",\n',
+        snippetYaml: 'name: \n    ',
+        snippetJson: '"name": "",\n      ',
       },
     ],
   },

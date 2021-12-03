@@ -123,6 +123,7 @@ export enum CompletionFormat {
   QUOTED_FORCED,
   OBJECT,
   ARRAY,
+  ARRAY_OBJECT,
   UNDEFINED,
 }
 

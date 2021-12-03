@@ -313,8 +313,10 @@ export class DefaultValidationService implements ValidationService {
                           // TODO use create
                           lintSm = {
                             offset: 0,
-                            endOffset: 0,
-                            length: 0,
+                            endOffset:
+                              textDocument.getText().length < 6 ? textDocument.getText().length : 5,
+                            length:
+                              textDocument.getText().length < 6 ? textDocument.getText().length : 5,
                             column: 0,
                             endColumn: 0,
                             endLine: 0,

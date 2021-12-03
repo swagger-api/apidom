@@ -15,7 +15,7 @@ const rootInfoLint: LinterMeta = {
         message: "add 'info' section",
         action: 'addChild',
         snippetYaml: 'info: \n  \n',
-        snippetJson: '"info": {\n  \n},\n',
+        snippetJson: '"info": {\n  \n  },\n',
       },
     ],
   },

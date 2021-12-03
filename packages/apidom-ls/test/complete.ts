@@ -45,6 +45,14 @@ const specCompletionRequired = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async-required.yaml'))
   .toString();
 
+const specCompletionRequiredEmpty = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async-required-empty.yaml'))
+  .toString();
+
+const specCompletionRequiredJson = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async-required.json'))
+  .toString();
+
 describe('apidom-ls-complete', function () {
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
 
@@ -940,6 +948,73 @@ describe('apidom-ls-complete', function () {
           },
           newText: 'bar$1',
         },
+      },
+    ] as ApidomCompletionItem[]);
+  });
+
+  it('asyncapi / yaml - test schema empty required completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionRequiredEmpty.json',
+      'yaml',
+      0,
+      specCompletionRequiredEmpty,
+    );
+
+    const pos = Position.create(9, 10);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'foo',
+        insertText: 'foo$1',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
+        filterText: '',
+      },
+      {
+        label: 'bar',
+        insertText: 'bar$1',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
+        filterText: '',
+      },
+    ] as ApidomCompletionItem[]);
+  });
+
+  it('asyncapi / json - test schema required completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletionRequiredJson.json',
+      'json',
+      0,
+      specCompletionRequiredJson,
+    );
+
+    const pos = Position.create(7, 10);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'firstName',
+        insertText: '"firstName"$1',
+        kind: 12,
+        documentation: '',
+        insertTextFormat: 2,
       },
     ] as ApidomCompletionItem[]);
   });

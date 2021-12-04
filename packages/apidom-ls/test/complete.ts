@@ -1018,4 +1018,147 @@ describe('apidom-ls-complete', function () {
       },
     ] as ApidomCompletionItem[]);
   });
+
+  it('asyncapi / yaml - test partial completion', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'async-info.yaml')).toString();
+
+    const doc: TextDocument = TextDocument.create('foo://bar/async-info.yaml', 'yaml', 0, spec);
+
+    const pos = Position.create(2, 5);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'license',
+        insertText: 'license: \n  $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+        },
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'license: \n  $1',
+        },
+      },
+      {
+        label: 'title',
+        insertText: 'title: $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value: '**Required.** The title of the application.',
+        },
+        preselect: true,
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'title: $1',
+        },
+      },
+      {
+        label: 'description',
+        insertText: 'description: $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+        },
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'description: $1',
+        },
+      },
+      {
+        label: 'termsOfService',
+        insertText: 'termsOfService: $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+        },
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'termsOfService: $1',
+        },
+      },
+      {
+        label: 'contact',
+        insertText: 'contact: \n  $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+        },
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'contact: \n  $1',
+        },
+      },
+    ] as ApidomCompletionItem[]);
+  });
 });

@@ -405,7 +405,7 @@ describe('apidom-ls-async', function () {
         message: '(Error ,,,)',
         range: {
           end: {
-            character: 6,
+            character: 8,
             line: 15,
           },
           start: {
@@ -421,7 +421,7 @@ describe('apidom-ls-async', function () {
         message: '(Error ::)',
         range: {
           end: {
-            character: 15,
+            character: 16,
             line: 16,
           },
           start: {

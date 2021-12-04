@@ -52,7 +52,7 @@ export function isJsonDoc(document: TextDocument | string): boolean {
   return jsonStart != null && JSON_ENDS[jsonStart[0]].test(text);
 }
 
-export function getParser(document: TextDocument): ApiDOMParser {
+export function getParser(document: TextDocument | string): ApiDOMParser {
   const async = isAsyncDoc(document);
   const json = isJsonDoc(document);
   if (async && json) {
@@ -71,11 +71,11 @@ export function getParser(document: TextDocument): ApiDOMParser {
 }
 
 export async function parse(
-  textDocument: TextDocument,
+  textDocument: TextDocument | string,
   metadataMaps: MetadataMaps | undefined,
 ): Promise<ParseResultElement> {
   // TODO improve detection mechanism
-  const text: string = textDocument.getText();
+  const text: string = typeof textDocument === 'string' ? textDocument : textDocument.getText();
   const async = isAsyncDoc(textDocument);
   const json = isJsonDoc(textDocument);
   let result;

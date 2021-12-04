@@ -2760,4 +2760,41 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('asyncapi / yaml - test partial key / wrong syntax', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'async-info.yaml')).toString();
+
+    const doc: TextDocument = TextDocument.create('foo://bar/async-info.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoTitle);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 3,
+            character: 9,
+          },
+        },
+        message: "(Error asyncapi: '2.2.0'\ninfo:\n  tit\n  version)",
+        severity: 1,
+        code: 0,
+        source: 'syntax',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

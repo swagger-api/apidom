@@ -14,10 +14,8 @@ describe('apidom-ls-parse-partial', function () {
     const doc: TextDocument = TextDocument.create('foo://bar/spec.json', 'yaml', 0, spec);
 
     parse(doc, undefined).then((result) => {
-      console.log(JSON.stringify(result, null, 2));
       const { api } = result;
       if (!api) {
-        console.log('x');
         return;
       }
       api.freeze(); // !! freeze and add parent !!

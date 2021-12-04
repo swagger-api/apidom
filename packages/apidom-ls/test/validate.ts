@@ -2792,6 +2792,32 @@ describe('apidom-ls-validate', function () {
         code: 0,
         source: 'syntax',
       },
+      {
+        range: {
+          start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 5,
+          },
+        },
+        message: "should always have a 'channels' section",
+        severity: 1,
+        code: 10070,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'channels' section",
+              action: 'addChild',
+              snippetYaml: 'channels: \n  \n',
+              snippetJson: '"channels": {\n  \n  },\n',
+            },
+          ],
+        },
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 

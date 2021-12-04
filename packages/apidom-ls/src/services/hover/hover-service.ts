@@ -4,8 +4,15 @@ import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-ap
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 
 import { DocumentationMeta, LanguageSettings, MetadataMap } from '../../apidom-language-types';
-import { getSourceMap, isMember, isObject, isArray, getSpecVersion } from '../../utils/utils';
-import { isAsyncDoc } from '../../parser-factory';
+import {
+  getSourceMap,
+  isMember,
+  isObject,
+  isArray,
+  getSpecVersion,
+  correctPartialKeys,
+} from '../../utils/utils';
+import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 
 export interface HoverService {
   computeHover(textDocument: TextDocument, position: Position): Promise<Hover | undefined>;
@@ -34,7 +41,18 @@ export class DefaultHoverService implements HoverService {
       contents: { kind: 'markdown', value: '' },
     };
 
-    const result = await this.settings!.documentCache?.get(textDocument);
+    const isJson = isJsonDoc(textDocument);
+    let processedText;
+
+    let result = await this.settings!.documentCache?.get(textDocument);
+    if (!result) return undefined;
+
+    if (result.annotations && !isJson) {
+      processedText = correctPartialKeys(result, textDocument, isJson);
+    }
+    if (processedText) {
+      result = await this.settings!.documentCache?.get(textDocument, processedText);
+    }
     if (!result) return undefined;
     const { api } = result;
     // no API document has been parsed

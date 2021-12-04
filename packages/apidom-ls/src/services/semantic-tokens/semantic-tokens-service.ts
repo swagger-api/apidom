@@ -14,7 +14,8 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
-import { SourceMap, getSourceMap, isMember } from '../../utils/utils';
+import { SourceMap, getSourceMap, isMember, correctPartialKeys } from '../../utils/utils';
+import { isJsonDoc } from '../../parser-factory';
 
 export interface SemanticTokensService {
   computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
@@ -125,12 +126,26 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
   public async computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens> {
     const tokens: number[][] = [];
 
-    const result = await this.settings!.documentCache?.get(textDocument);
+    let result = await this.settings!.documentCache?.get(textDocument);
     if (!result) {
       return {
         data: tokens.flat(),
       } as SemanticTokens;
     }
+    const isJson = isJsonDoc(textDocument);
+    let processedText;
+    if (result.annotations && !isJson) {
+      processedText = correctPartialKeys(result, textDocument, isJson);
+    }
+    if (processedText) {
+      result = await this.settings!.documentCache?.get(textDocument, processedText);
+    }
+    if (!result) {
+      return {
+        data: tokens.flat(),
+      } as SemanticTokens;
+    }
+
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined)

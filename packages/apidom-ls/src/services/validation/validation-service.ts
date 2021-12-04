@@ -23,6 +23,7 @@ import {
   localReferencePointers,
   checkConditions,
   processPath,
+  correctPartialKeys,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -94,10 +95,10 @@ export class DefaultValidationService implements ValidationService {
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
-    const result = await this.settings!.documentCache?.get(textDocument);
+    let result = await this.settings!.documentCache?.get(textDocument);
     if (!result) return diagnostics;
-    const { api } = result;
 
+    let processedText;
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (result.annotations) {
@@ -143,30 +144,41 @@ export class DefaultValidationService implements ValidationService {
 
         diagnostics.push(diagnostic);
       }
+      processedText = correctPartialKeys(result, textDocument, isJsonDoc(textDocument));
     }
+    if (processedText) {
+      result = await this.settings!.documentCache?.get(textDocument, processedText);
+    }
+    if (!result) return diagnostics;
+    const { api } = result;
+
     if (api === undefined) return diagnostics;
     const specVersion = getSpecVersion(api);
 
     const hasSyntaxErrors = !!diagnostics.length;
     if (!hasSyntaxErrors) {
-      // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      try {
+        // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
 
-      const allProvidersDiagnostics: Diagnostic[] = [];
-      for (const provider of this.validationProviders) {
-        if (
-          provider.namespaces().some((ns) => ns.namespace === docNs && ns.version === specVersion)
-        ) {
-          allProvidersDiagnostics.push(
-            ...// eslint-disable-next-line no-await-in-loop
-            (await provider.doValidation(textDocument, api, validationContext)),
-          );
-          if (provider.break()) {
-            break;
+        const allProvidersDiagnostics: Diagnostic[] = [];
+        for (const provider of this.validationProviders) {
+          if (
+            provider.namespaces().some((ns) => ns.namespace === docNs && ns.version === specVersion)
+          ) {
+            allProvidersDiagnostics.push(
+              ...// eslint-disable-next-line no-await-in-loop
+              (await provider.doValidation(textDocument, api, validationContext)),
+            );
+            if (provider.break()) {
+              break;
+            }
           }
         }
-      }
 
-      diagnostics.push(...allProvidersDiagnostics);
+        diagnostics.push(...allProvidersDiagnostics);
+      } catch (e) {
+        console.log('error in validatiion provider');
+      }
     }
 
     const pointersMap: Record<string, Pointer[]> = {};

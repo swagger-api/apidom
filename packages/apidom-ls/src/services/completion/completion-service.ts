@@ -37,6 +37,17 @@ import {
   isObject,
   isArray,
   localReferencePointers,
+  isPartialKey,
+  getCurrentWord,
+  getIndentation,
+  getPreviousLineOffset,
+  getNextLineOffset,
+  getLine,
+  isEmptyOrCommaValue,
+  getNonEmptyContentRange,
+  isEmptyLine,
+  getRightAfterColonOffset,
+  getRightAfterDashOffset,
 } from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { standardLinterfunctions } from '../validation/linter-functions';
@@ -244,32 +255,7 @@ export class DefaultCompletionService implements CompletionService {
      */
     let processedText;
     if (!isJson) {
-      const lineContentRange = DefaultCompletionService.getNonEmptyContentRange(
-        textDocument,
-        offset,
-      );
-      const lineNonEmptyContent = lineContentRange ? textDocument.getText(lineContentRange) : '';
-      const lineContent = lineContentRange
-        ? DefaultCompletionService.getLine(textDocument, offset)
-        : '';
-      const lineIndent = DefaultCompletionService.getIndentation(lineContent);
-
-      const prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
-      const prevLineContent = DefaultCompletionService.getLine(textDocument, prevLineOffset);
-      const prevIndent = DefaultCompletionService.getIndentation(prevLineContent);
-      const nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, offset);
-      const nextLineContent = DefaultCompletionService.getLine(textDocument, nextLineOffset);
-      const nextIndent = DefaultCompletionService.getIndentation(nextLineContent);
-      // must not be an array item AND not end with `:`
-      const isValueNode = DefaultCompletionService.isValueNode(textDocument, offset);
-      if (
-        !isValueNode &&
-        lineNonEmptyContent &&
-        lineNonEmptyContent.length > 0 &&
-        !lineNonEmptyContent.startsWith('-') &&
-        !lineNonEmptyContent.endsWith(':') &&
-        (prevIndent < lineIndent || nextIndent < prevIndent)
-      ) {
+      if (isPartialKey(textDocument, offset)) {
         processedText = `${textDocument.getText().slice(0, offset)}:${textDocument
           .getText()
           .slice(offset)}`;
@@ -308,52 +294,38 @@ export class DefaultCompletionService implements CompletionService {
       - the caret is at the same indent position as the first non blank line above
       - the indent position is not 0 (root)
       */
-      if (DefaultCompletionService.isEmptyLine(textDocument, offset)) {
+      if (isEmptyLine(textDocument, offset)) {
         let alreadyInGoodNode = false;
-        let nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, offset);
-        while (
-          nextLineOffset !== -1 &&
-          DefaultCompletionService.isEmptyLine(textDocument, nextLineOffset)
-        ) {
-          nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, nextLineOffset);
+        let nextLineOffset = getNextLineOffset(textDocument, offset);
+        while (nextLineOffset !== -1 && isEmptyLine(textDocument, nextLineOffset)) {
+          nextLineOffset = getNextLineOffset(textDocument, nextLineOffset);
         }
         if (nextLineOffset !== -1) {
-          if (
-            DefaultCompletionService.getIndentation(
-              DefaultCompletionService.getLine(textDocument, nextLineOffset),
-            ) === position.character
-          ) {
+          if (getIndentation(getLine(textDocument, nextLineOffset)) === position.character) {
             // next non empty line has same indentation, which means we are inside the correct node
             alreadyInGoodNode = true;
           }
         }
         if (!alreadyInGoodNode) {
-          let prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
-          let prevLineEmpty = DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset);
+          let prevLineOffset = getPreviousLineOffset(textDocument, offset);
+          let prevLineEmpty = isEmptyLine(textDocument, prevLineOffset);
           let prevLineIndentation = prevLineEmpty
             ? -1
-            : DefaultCompletionService.getIndentation(
-                DefaultCompletionService.getLine(textDocument, prevLineOffset),
-              );
+            : getIndentation(getLine(textDocument, prevLineOffset));
           while (
             prevLineOffset !== -1 &&
             (prevLineEmpty || prevLineIndentation > position.character)
           ) {
-            prevLineOffset = DefaultCompletionService.getPreviousLineOffset(
-              textDocument,
-              prevLineOffset,
-            );
-            prevLineEmpty = DefaultCompletionService.isEmptyLine(textDocument, prevLineOffset);
+            prevLineOffset = getPreviousLineOffset(textDocument, prevLineOffset);
+            prevLineEmpty = isEmptyLine(textDocument, prevLineOffset);
             prevLineIndentation = prevLineEmpty
               ? -1
-              : DefaultCompletionService.getIndentation(
-                  DefaultCompletionService.getLine(textDocument, prevLineOffset),
-                );
+              : getIndentation(getLine(textDocument, prevLineOffset));
           }
           if (prevLineOffset !== -1) {
             // get indent of that line and compare with the position.character
-            const prevLine = DefaultCompletionService.getLine(textDocument, prevLineOffset);
-            prevLineIndentation = DefaultCompletionService.getIndentation(prevLine);
+            const prevLine = getLine(textDocument, prevLineOffset);
+            prevLineIndentation = getIndentation(prevLine);
             if (prevLineIndentation === position.character) {
               // set the target offset as that line
               const pos = textDocument.positionAt(prevLineOffset);
@@ -390,18 +362,9 @@ export class DefaultCompletionService implements CompletionService {
       Therefore we look for the offset right after the colon where we found and empty value
        */
       if (!handledTarget) {
-        const rightAfterColonOffset = DefaultCompletionService.getRightAfterColonOffset(
-          textDocument,
-          offset,
-          true,
-        );
+        const rightAfterColonOffset = getRightAfterColonOffset(textDocument, offset, true);
         if (rightAfterColonOffset !== -1) {
-          if (
-            position.character >
-            DefaultCompletionService.getIndentation(
-              DefaultCompletionService.getLine(textDocument, rightAfterColonOffset),
-            )
-          ) {
+          if (position.character > getIndentation(getLine(textDocument, rightAfterColonOffset))) {
             emptyLine = true;
             targetOffset = rightAfterColonOffset;
             handledTarget = true;
@@ -421,12 +384,8 @@ export class DefaultCompletionService implements CompletionService {
         Therefore we look for the offset right after the colon where we found and empty value
          */
       // eslint-disable-next-line no-lonely-if
-      if (DefaultCompletionService.isEmptyOrCommaValue(textDocument, offset)) {
-        const rightAfterColonOffset = DefaultCompletionService.getRightAfterColonOffset(
-          textDocument,
-          offset,
-          false,
-        );
+      if (isEmptyOrCommaValue(textDocument, offset)) {
+        const rightAfterColonOffset = getRightAfterColonOffset(textDocument, offset, false);
         if (rightAfterColonOffset !== -1) {
           targetOffset = rightAfterColonOffset;
           handledTarget = true;
@@ -443,19 +402,11 @@ export class DefaultCompletionService implements CompletionService {
       Therefore we look for the offset right after the dash where we found and empty value
        */
     if (!handledTarget && !isJson && position.character > 0) {
-      const rightAfterDashOffset = DefaultCompletionService.getRightAfterDashOffset(
-        textDocument,
-        offset,
-        true,
-      );
+      const rightAfterDashOffset = getRightAfterDashOffset(textDocument, offset, true);
       if (rightAfterDashOffset !== -1) {
         if (
           position.character >
-          DefaultCompletionService.getIndentation(
-            DefaultCompletionService.getLine(textDocument, rightAfterDashOffset),
-            undefined,
-            false,
-          )
+          getIndentation(getLine(textDocument, rightAfterDashOffset), undefined, false)
         ) {
           emptyLine = true;
           targetOffset = rightAfterDashOffset;
@@ -530,7 +481,7 @@ export class DefaultCompletionService implements CompletionService {
         },
       };
 
-      const word = DefaultCompletionService.getCurrentWord(textDocument, offset);
+      const word = getCurrentWord(textDocument, offset);
       if (
         (isObject(completionNode) || (isArray(completionNode) && isJson)) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
@@ -548,21 +499,12 @@ export class DefaultCompletionService implements CompletionService {
             proposed[p.key.toValue()] = CompletionItem.create('__');
           }
         }
-        const nonEmptyContentRange = DefaultCompletionService.getNonEmptyContentRange(
-          textDocument,
-          offset,
-        );
-        let nextLineNonEmptyOffset = DefaultCompletionService.getNextLineOffset(
-          textDocument,
-          offset,
-        );
-        while (DefaultCompletionService.isEmptyLine(textDocument, nextLineNonEmptyOffset)) {
-          nextLineNonEmptyOffset = DefaultCompletionService.getNextLineOffset(
-            textDocument,
-            nextLineNonEmptyOffset,
-          );
+        const nonEmptyContentRange = getNonEmptyContentRange(textDocument, offset);
+        let nextLineNonEmptyOffset = getNextLineOffset(textDocument, offset);
+        while (isEmptyLine(textDocument, nextLineNonEmptyOffset)) {
+          nextLineNonEmptyOffset = getNextLineOffset(textDocument, nextLineNonEmptyOffset);
         }
-        const nextLineNonEmptyContentRange = DefaultCompletionService.getNonEmptyContentRange(
+        const nextLineNonEmptyContentRange = getNonEmptyContentRange(
           textDocument,
           nextLineNonEmptyOffset,
         );
@@ -738,242 +680,6 @@ export class DefaultCompletionService implements CompletionService {
         });
     }
     return completionList;
-  }
-
-  private static getCurrentWord(document: TextDocument | string, offset: number) {
-    let i = offset - 1;
-    const text = typeof document === 'string' ? document : document.getText();
-    while (i >= 0 && ' \t\n\r\v"\':{[,]}'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    return text.substring(i + 1, offset);
-  }
-
-  private static getRightAfterColonOffset(
-    document: TextDocument | string,
-    offset: number,
-    mustBeEmpty: boolean,
-  ): number {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset - 1;
-    while (i >= 0 && ':'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    const rightAfterColon = i + 1;
-    if (text.substring(i + 1, offset).trim().length > 0) {
-      return -1;
-    }
-    if (!mustBeEmpty) {
-      return rightAfterColon;
-    }
-    i = offset;
-    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    if (text.substring(offset, i + 1).trim().length > 0) {
-      return -1;
-    }
-    return rightAfterColon;
-  }
-
-  private static isValueNode(document: TextDocument | string, offset: number): boolean {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset - 1;
-    while (i >= 0 && ':\r\n'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    if ('\r\n'.indexOf(text.charAt(i)) === -1) {
-      return true;
-    }
-    return false;
-  }
-
-  private static getRightAfterDashOffset(
-    document: TextDocument | string,
-    offset: number,
-    mustBeEmpty: boolean,
-  ): number {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset - 1;
-    while (i >= 0 && '-'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    const rightAfterDash = i + 1;
-    if (text.substring(i + 1, offset).trim().length > 0) {
-      return -1;
-    }
-    if (!mustBeEmpty) {
-      return rightAfterDash;
-    }
-    i = offset;
-    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    if (text.substring(offset, i + 1).trim().length > 0) {
-      return -1;
-    }
-    return rightAfterDash;
-  }
-
-  private static getLine(document: TextDocument | string, offset: number): string {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset - 1;
-    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    const start = i;
-    i = offset;
-    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    const end = i;
-    return text.substring(start + 1, end);
-  }
-
-  private static getLineAfterOffset(document: TextDocument | string, offset: number): string {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset;
-    while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    const end = i;
-    return text.substring(offset, end);
-  }
-
-  private static getNonEmptyContentRange(
-    document: TextDocument | string,
-    offset: number,
-  ): Range | undefined {
-    if (offset < 0) {
-      return undefined;
-    }
-    const text = typeof document === 'string' ? document : document.getText();
-    const doc =
-      typeof document === 'string'
-        ? TextDocument.create('foo://bar/spec.yaml', 'json', 0, document)
-        : document;
-    let i = offset - 1;
-    // go to beginning of line
-    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    // go to the first non space
-    while (i < text.length && ' \t\n\r\v'.indexOf(text.charAt(i)) !== -1) {
-      i += 1;
-    }
-    const start = i;
-    // go to the end of line
-    i = offset;
-    while (i < text.length && '\r\n'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    // go back to the first non space
-    while (i > start && ' \t\n\r\v'.indexOf(text.charAt(i)) !== -1) {
-      i -= 1;
-    }
-    const end = i + 1;
-    if (end - start < 1) {
-      return undefined;
-    }
-    const result = Range.create(doc.positionAt(start), doc.positionAt(end));
-    return result;
-  }
-
-  private static getPreviousLineOffset(document: TextDocument | string, offset: number): number {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset - 1;
-    while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
-      i -= 1;
-    }
-    if (i === 0) {
-      return -1;
-    }
-    return i;
-  }
-
-  private static getNextLineOffset(document: TextDocument | string, offset: number): number {
-    const text = typeof document === 'string' ? document : document.getText();
-    let i = offset;
-    while (i < text.length && '\r\n'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    if (i >= text.length - 1) {
-      return -1;
-    }
-    // consider \r\n
-    if ('\r\n'.indexOf(text.charAt(i + 1)) !== -1 && i + 2 < text.length) {
-      return i + 2;
-    }
-    return i + 1;
-  }
-
-  private static isLastField(document: TextDocument | string, offset: number): boolean {
-    const text = typeof document === 'string' ? document : document.getText();
-    const doc =
-      typeof document === 'string'
-        ? TextDocument.create('foo://bar/spec.yaml', 'json', 0, document)
-        : document;
-    let i = offset;
-    while (i < text.length && '}]'.indexOf(text.charAt(i)) === -1) {
-      i += 1;
-    }
-    const after = doc.getText(Range.create(doc.positionAt(offset), doc.positionAt(offset + i)));
-    if (after.trim().length === 0) {
-      return true;
-    }
-    return false;
-  }
-
-  private static isEmptyLine(document: TextDocument | string, offset: number): boolean {
-    return DefaultCompletionService.getLine(document, offset).trim().length === 0;
-  }
-
-  private static isEmptyOrCommaValue(document: TextDocument | string, offset: number): boolean {
-    const line = DefaultCompletionService.getLineAfterOffset(document, offset).trim();
-    if (line.length === 0) {
-      return true;
-    }
-    if (line.endsWith(',')) {
-      return true;
-    }
-    return false;
-  }
-
-  public static getIndentation(
-    lineContent: string,
-    position?: number,
-    considerArrayItem = true,
-  ): number {
-    if (position && lineContent.length < position) {
-      return 0;
-    }
-
-    if (!position) {
-      // eslint-disable-next-line no-param-reassign
-      position = lineContent.length;
-    }
-
-    let result = -1;
-    for (let i = 0; i < position; i += 1) {
-      const char = lineContent.charCodeAt(i);
-      if (char !== 32 && char !== 9) {
-        result = i;
-        break;
-      }
-    }
-    if (considerArrayItem && result) {
-      if (lineContent.charAt(result) === '-') {
-        result += 1;
-        if (
-          result < position &&
-          (lineContent.charCodeAt(result) === 32 || lineContent.charCodeAt(result) === 9)
-        ) {
-          result += 1;
-        }
-      }
-    }
-    // assuming that current position is indentation
-    return result > -1 ? result : position;
   }
 
   public static findReferencePointers(

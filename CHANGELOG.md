@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/swagger-api/apidom/compare/v0.11.0...v0.12.0) (2021-12-04)
+
+
+### Bug Fixes
+
+* **apidom-ls:** correct partial keys in YAML ([a5c14cf](https://github.com/swagger-api/apidom/commit/a5c14cfee5a8a3f4153b4bb8d145fc4290db3109))
+* **apidom-ls:** fix completion and validation edge cases ([a9c67d4](https://github.com/swagger-api/apidom/commit/a9c67d41e815e0be0a4f0cd526583837f7fc3436))
+* **apidom-ls:** fix completion in empty line ([00f8be5](https://github.com/swagger-api/apidom/commit/00f8be53a60cc42d188b9dae1e7048c390f32e39))
+* **apidom-ls:** fix completion scenarios with update apidom core ([3540870](https://github.com/swagger-api/apidom/commit/3540870ce6e38e2765d5f353f1c0ff50e246593e))
+
+
+### Features
+
+* **apidom-ls:** add more asyncapi rules and logic minor fixes ([81cf99f](https://github.com/swagger-api/apidom/commit/81cf99f46cadbaaebdab79aca74cf4d2c9a99bf8))
+
+
+
+
+
 # [0.11.0](https://github.com/swagger-api/apidom/compare/v0.10.0...v0.11.0) (2021-12-02)
 
 

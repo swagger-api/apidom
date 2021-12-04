@@ -100,8 +100,6 @@ export class DefaultValidationService implements ValidationService {
 
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
-    if (api === undefined) return diagnostics;
-    const specVersion = getSpecVersion(api);
     if (result.annotations) {
       for (const annotation of result.annotations) {
         if (
@@ -112,7 +110,7 @@ export class DefaultValidationService implements ValidationService {
           return diagnostics;
         }
         const nodeSourceMap = getSourceMap(annotation);
-        const location = { offset: nodeSourceMap.offset, length: 1 };
+        const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
         const range = Range.create(
           textDocument.positionAt(location.offset),
           textDocument.positionAt(location.offset + location.length),
@@ -146,6 +144,9 @@ export class DefaultValidationService implements ValidationService {
         diagnostics.push(diagnostic);
       }
     }
+    if (api === undefined) return diagnostics;
+    const specVersion = getSpecVersion(api);
+
     const hasSyntaxErrors = !!diagnostics.length;
     if (!hasSyntaxErrors) {
       // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)

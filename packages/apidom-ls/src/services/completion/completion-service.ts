@@ -228,7 +228,55 @@ export class DefaultCompletionService implements CompletionService {
       endArrayNodeChar = ']'; // eslint-disable-line @typescript-eslint/no-unused-vars
     }
 
-    const result = await this.settings?.documentCache?.get(textDocument);
+    const offset = textDocument.offsetAt(position);
+
+    /*
+     process errored YAML input badly handled by YAML parser (see https://github.com/swagger-api/apidom/issues/194)
+     similarly to what done in swagger-editor: check if we are in a partial "prefix" scenario, in this case add a `:`
+     to the line and parse that line instead.
+
+     ```
+     info:
+       foo<caret here>
+       ..
+     ```
+
+     */
+    let processedText;
+    if (!isJson) {
+      const lineContentRange = DefaultCompletionService.getNonEmptyContentRange(
+        textDocument,
+        offset,
+      );
+      const lineNonEmptyContent = lineContentRange ? textDocument.getText(lineContentRange) : '';
+      const lineContent = lineContentRange
+        ? DefaultCompletionService.getLine(textDocument, offset)
+        : '';
+      const lineIndent = DefaultCompletionService.getIndentation(lineContent);
+
+      const prevLineOffset = DefaultCompletionService.getPreviousLineOffset(textDocument, offset);
+      const prevLineContent = DefaultCompletionService.getLine(textDocument, prevLineOffset);
+      const prevIndent = DefaultCompletionService.getIndentation(prevLineContent);
+      const nextLineOffset = DefaultCompletionService.getNextLineOffset(textDocument, offset);
+      const nextLineContent = DefaultCompletionService.getLine(textDocument, nextLineOffset);
+      const nextIndent = DefaultCompletionService.getIndentation(nextLineContent);
+      // must not be an array item AND not end with `:`
+      const isValueNode = DefaultCompletionService.isValueNode(textDocument, offset);
+      if (
+        !isValueNode &&
+        lineNonEmptyContent &&
+        lineNonEmptyContent.length > 0 &&
+        !lineNonEmptyContent.startsWith('-') &&
+        !lineNonEmptyContent.endsWith(':') &&
+        (prevIndent < lineIndent || nextIndent < prevIndent)
+      ) {
+        processedText = `${textDocument.getText().slice(0, offset)}:${textDocument
+          .getText()
+          .slice(offset)}`;
+      }
+    }
+
+    const result = await this.settings?.documentCache?.get(textDocument, processedText);
     if (!result) return CompletionList.create();
     const { api } = result;
     // if we cannot parse nothing to do
@@ -240,7 +288,6 @@ export class DefaultCompletionService implements CompletionService {
       isIncomplete: false,
     };
 
-    const offset = textDocument.offsetAt(position);
     let targetOffset = offset;
     let emptyLine = false;
 
@@ -415,8 +462,22 @@ export class DefaultCompletionService implements CompletionService {
         }
       }
     }
+    // check if we are at the end of text, get root node if that's the case
+    const endOfText =
+      !isJson &&
+      textDocument.getText().length > 0 &&
+      (targetOffset >= textDocument.getText().length ||
+        textDocument.getText().substring(offset, textDocument.getText().length).trim().length ===
+          0) &&
+      '\r\n'.indexOf(textDocument.getText().charAt(targetOffset - 1)) !== -1;
+
+    if (endOfText) {
+      targetOffset = 0;
+    }
     // find the current node
-    const node = findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
+    const node = endOfText
+      ? api
+      : findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
     // only if we have a node
     if (node) {
       const caretContext = this.resolveCaretContext(node, targetOffset);
@@ -469,10 +530,12 @@ export class DefaultCompletionService implements CompletionService {
         },
       };
 
+      const word = DefaultCompletionService.getCurrentWord(textDocument, offset);
       if (
         (isObject(completionNode) || (isArray(completionNode) && isJson)) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
-          CompletionNodeContext.VALUE_OBJECT === completionNodeContext) &&
+          CompletionNodeContext.VALUE_OBJECT === completionNodeContext ||
+          processedText) &&
         (caretContext === CaretContext.KEY_INNER ||
           caretContext === CaretContext.KEY_START ||
           caretContext === CaretContext.KEY_END ||
@@ -532,6 +595,14 @@ export class DefaultCompletionService implements CompletionService {
             a filterText with the content of the target range
           */
           // item.filterText = text.substring(location.offset, location.offset + location.length);
+          if (
+            word &&
+            word.length > 0 &&
+            item.insertText?.replace(/^['"]{1}/g, '').startsWith(word)
+          ) {
+            item.preselect = true;
+          }
+
           if (overwriteRange) {
             item.filterText = text.substring(
               textDocument.offsetAt(overwriteRange.start),
@@ -590,7 +661,6 @@ export class DefaultCompletionService implements CompletionService {
           nodeValueFromText.charAt(0) === '"' || nodeValueFromText.charAt(0) === "'"
             ? nodeValueFromText.charAt(0)
             : undefined;
-        const word = DefaultCompletionService.getCurrentWord(textDocument, offset);
         proposed[completionNode.toValue()] = CompletionItem.create('__');
         proposed[nodeValueFromText] = CompletionItem.create('__');
         // if node is not empty we must replace text
@@ -670,9 +740,9 @@ export class DefaultCompletionService implements CompletionService {
     return completionList;
   }
 
-  private static getCurrentWord(document: TextDocument, offset: number) {
+  private static getCurrentWord(document: TextDocument | string, offset: number) {
     let i = offset - 1;
-    const text = document.getText();
+    const text = typeof document === 'string' ? document : document.getText();
     while (i >= 0 && ' \t\n\r\v"\':{[,]}'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
     }
@@ -680,11 +750,11 @@ export class DefaultCompletionService implements CompletionService {
   }
 
   private static getRightAfterColonOffset(
-    document: TextDocument,
+    document: TextDocument | string,
     offset: number,
     mustBeEmpty: boolean,
   ): number {
-    const text = document.getText();
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset - 1;
     while (i >= 0 && ':'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
@@ -706,12 +776,24 @@ export class DefaultCompletionService implements CompletionService {
     return rightAfterColon;
   }
 
+  private static isValueNode(document: TextDocument | string, offset: number): boolean {
+    const text = typeof document === 'string' ? document : document.getText();
+    let i = offset - 1;
+    while (i >= 0 && ':\r\n'.indexOf(text.charAt(i)) === -1) {
+      i -= 1;
+    }
+    if ('\r\n'.indexOf(text.charAt(i)) === -1) {
+      return true;
+    }
+    return false;
+  }
+
   private static getRightAfterDashOffset(
-    document: TextDocument,
+    document: TextDocument | string,
     offset: number,
     mustBeEmpty: boolean,
   ): number {
-    const text = document.getText();
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset - 1;
     while (i >= 0 && '-'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
@@ -733,8 +815,8 @@ export class DefaultCompletionService implements CompletionService {
     return rightAfterDash;
   }
 
-  private static getLine(document: TextDocument, offset: number): string {
-    const text = document.getText();
+  private static getLine(document: TextDocument | string, offset: number): string {
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset - 1;
     while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
@@ -748,8 +830,8 @@ export class DefaultCompletionService implements CompletionService {
     return text.substring(start + 1, end);
   }
 
-  private static getLineAfterOffset(document: TextDocument, offset: number): string {
-    const text = document.getText();
+  private static getLineAfterOffset(document: TextDocument | string, offset: number): string {
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset;
     while (text.charAt(i).length > 0 && '\n\r'.indexOf(text.charAt(i)) === -1) {
       i += 1;
@@ -759,13 +841,17 @@ export class DefaultCompletionService implements CompletionService {
   }
 
   private static getNonEmptyContentRange(
-    document: TextDocument,
+    document: TextDocument | string,
     offset: number,
   ): Range | undefined {
     if (offset < 0) {
       return undefined;
     }
-    const text = document.getText();
+    const text = typeof document === 'string' ? document : document.getText();
+    const doc =
+      typeof document === 'string'
+        ? TextDocument.create('foo://bar/spec.yaml', 'json', 0, document)
+        : document;
     let i = offset - 1;
     // go to beginning of line
     while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
@@ -782,7 +868,6 @@ export class DefaultCompletionService implements CompletionService {
       i += 1;
     }
     // go back to the first non space
-    // go to the first non space
     while (i > start && ' \t\n\r\v'.indexOf(text.charAt(i)) !== -1) {
       i -= 1;
     }
@@ -790,12 +875,12 @@ export class DefaultCompletionService implements CompletionService {
     if (end - start < 1) {
       return undefined;
     }
-    const result = Range.create(document.positionAt(start), document.positionAt(end));
+    const result = Range.create(doc.positionAt(start), doc.positionAt(end));
     return result;
   }
 
-  private static getPreviousLineOffset(document: TextDocument, offset: number): number {
-    const text = document.getText();
+  private static getPreviousLineOffset(document: TextDocument | string, offset: number): number {
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset - 1;
     while (i >= 0 && '\r\n'.indexOf(text.charAt(i)) === -1) {
       i -= 1;
@@ -806,8 +891,8 @@ export class DefaultCompletionService implements CompletionService {
     return i;
   }
 
-  private static getNextLineOffset(document: TextDocument, offset: number): number {
-    const text = document.getText();
+  private static getNextLineOffset(document: TextDocument | string, offset: number): number {
+    const text = typeof document === 'string' ? document : document.getText();
     let i = offset;
     while (i < text.length && '\r\n'.indexOf(text.charAt(i)) === -1) {
       i += 1;
@@ -822,26 +907,28 @@ export class DefaultCompletionService implements CompletionService {
     return i + 1;
   }
 
-  private static isLastField(document: TextDocument, offset: number): boolean {
-    const text = document.getText();
+  private static isLastField(document: TextDocument | string, offset: number): boolean {
+    const text = typeof document === 'string' ? document : document.getText();
+    const doc =
+      typeof document === 'string'
+        ? TextDocument.create('foo://bar/spec.yaml', 'json', 0, document)
+        : document;
     let i = offset;
     while (i < text.length && '}]'.indexOf(text.charAt(i)) === -1) {
       i += 1;
     }
-    const after = document.getText(
-      Range.create(document.positionAt(offset), document.positionAt(offset + i)),
-    );
+    const after = doc.getText(Range.create(doc.positionAt(offset), doc.positionAt(offset + i)));
     if (after.trim().length === 0) {
       return true;
     }
     return false;
   }
 
-  private static isEmptyLine(document: TextDocument, offset: number): boolean {
+  private static isEmptyLine(document: TextDocument | string, offset: number): boolean {
     return DefaultCompletionService.getLine(document, offset).trim().length === 0;
   }
 
-  private static isEmptyOrCommaValue(document: TextDocument, offset: number): boolean {
+  private static isEmptyOrCommaValue(document: TextDocument | string, offset: number): boolean {
     const line = DefaultCompletionService.getLineAfterOffset(document, offset).trim();
     if (line.length === 0) {
       return true;

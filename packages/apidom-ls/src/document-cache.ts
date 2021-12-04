@@ -4,7 +4,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
  Adapted from https://github.com/microsoft/vscode/blob/main/extensions/json-language-features/server/src/languageModelCache.ts
  */
 export interface DocumentCache<T> {
-  get(document: TextDocument): Promise<T | undefined>;
+  get(document: TextDocument, text?: string): Promise<T | undefined>;
   onDocumentRemoved(document: TextDocument): void;
   dispose(): void;
 }
@@ -12,14 +12,16 @@ export interface DocumentCache<T> {
 export function getDocumentCache<T>(
   maxEntries: number,
   cleanupIntervalTimeInSec: number,
-  parse: (document: TextDocument) => Promise<T>,
+  parse: (document: TextDocument | string) => Promise<T>,
 ): DocumentCache<T> {
+  // TODO possibly better comparison on processedText length or other cheap comparison
   let documents: {
     [uri: string]: {
       version: number;
       languageId: string;
       cTime: number;
       parsedDocument: T;
+      processedText?: string;
     };
   } = {};
   let nModels = 0;
@@ -41,24 +43,26 @@ export function getDocumentCache<T>(
   }
 
   return {
-    async get(document: TextDocument): Promise<T> {
+    async get(document: TextDocument, text?: string): Promise<T> {
       const { version } = document;
       const { languageId } = document;
       const documentInfo = documents[document.uri];
       if (
         documentInfo &&
         documentInfo.version === version &&
-        documentInfo.languageId === languageId
+        documentInfo.languageId === languageId &&
+        (!text || documentInfo.processedText === text)
       ) {
         documentInfo.cTime = Date.now();
         return documentInfo.parsedDocument;
       }
-      const parsedDocument = await parse(document);
+      const parsedDocument = await parse(text || document);
       documents[document.uri] = {
         parsedDocument,
         version,
         languageId,
         cTime: Date.now(),
+        processedText: text,
       };
       if (!documentInfo) {
         // eslint-disable-next-line no-plusplus

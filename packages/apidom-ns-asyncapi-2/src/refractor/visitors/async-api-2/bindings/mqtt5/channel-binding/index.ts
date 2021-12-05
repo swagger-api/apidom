@@ -12,6 +12,7 @@ const Mqtt5ChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, 
   },
   init() {
     this.element = new Mqtt5ChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

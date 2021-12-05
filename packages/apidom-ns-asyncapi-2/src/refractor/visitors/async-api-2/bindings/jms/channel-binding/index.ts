@@ -12,6 +12,7 @@ const JmsChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new JmsChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

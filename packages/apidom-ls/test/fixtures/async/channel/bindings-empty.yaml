@@ -1,0 +1,6 @@
+asyncapi: 2.0.0
+channels:
+  foo:
+    bindings:
+      
+      

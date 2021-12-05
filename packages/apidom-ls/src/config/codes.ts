@@ -117,6 +117,22 @@ const ApilintCodes = {
   SERVER_BINDINGS: (code += 1),
   SECURITYREQUIREMENT_KEYS: (code += 1),
   SCHEMA_REQUIRED_KEYS: (code += 1),
+  SERVERS_KEYS: (code += 1),
+  SERVERS_SERVER_MEMBERS: (code += 1),
+  SERVERVARIABLE_ENUM: (code += 1),
+  SERVERVARIABLE_DEFAULT: (code += 1),
+  SERVERVARIABLE_DESCRIPTION: (code += 1),
+  SERVERVARIABLE_EXAMPLES: (code += 1),
+  CHANNELS_CHANNEL_MEMBERS: (code += 1),
+  CHANNEL_REF: (code += 1),
+  CHANNEL_DESCRIPTION: (code += 1),
+  CHANNEL_SERVERS: (code += 1),
+  CHANNEL_SERVERS_KEYS: (code += 1),
+  CHANNEL_SUBSCRIBE: (code += 1),
+  CHANNEL_PUBLISH: (code += 1),
+  CHANNEL_PARAMETERS: (code += 1),
+  CHANNEL_BINDINGS: (code += 1),
+  CHANNEL_REF_NOSIBLINGS: (code += 1),
 };
 
 export default ApilintCodes;

@@ -1,0 +1,48 @@
+asyncapi: 2.0.0
+servers:
+  prod:
+    url: "prod"
+    protocol: kafka
+  dev:
+    url: "dev"
+    protocol: kafka
+channels:
+  foo:
+    $ref: '#/channels/bar'
+    servers:
+      - bar
+  bar:
+    servers:
+      - bar 
+  car:
+    $ref: '#/channels/none'
+  othergood:
+    description: 0
+    servers:
+      - prod
+    subscribe: '1'
+    publish: '1'
+    bindings:
+      http:
+        type: request
+      kafka:
+        bindingVersion: '1'
+    parameters:
+      userId:
+        description: Id of the user.
+        schema:
+          type: string
+  otherbad:
+    description: 0
+    servers:
+      - prod
+    subscribe: '1'
+    publish: '1'
+    bindings:
+      http: "1"
+      kafka:
+        bindingVersion: '1'
+    parameters:
+      userId: "2"
+
+      

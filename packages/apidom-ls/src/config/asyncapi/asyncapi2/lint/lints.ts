@@ -10,6 +10,9 @@ import componentsObjectLint from './components-object';
 import tagsObjectLint from './tags-object';
 import externaldocsObjectLint from './externaldocs-object';
 import rootDefaultContentTypeLint from './defaultcontenttype';
+import serversLint from './servers';
+import serversKeyLint from './servers-key';
+import channelsMembersLint from './channels-members';
 
 const asyncapiRootLints = [
   rootIdLint,
@@ -24,6 +27,9 @@ const asyncapiRootLints = [
   tagsObjectLint,
   externaldocsObjectLint,
   rootDefaultContentTypeLint,
+  serversLint,
+  serversKeyLint,
+  channelsMembersLint,
 ];
 
 export default asyncapiRootLints;

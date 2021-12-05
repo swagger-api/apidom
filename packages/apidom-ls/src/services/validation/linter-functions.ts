@@ -355,6 +355,24 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintChildrenOfType',
+    function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
+      if (element && isObject(element)) {
+        if (
+          element.findElements((e) => !isType(e, type), {
+            recursive: false,
+          }).length > 0
+        ) {
+          return false;
+        }
+        if (nonEmpty && element.keys().length === 0) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintKeyIsRegex',
     function: (element: Element): boolean => {
       if (element && element.parent && isMember(element.parent)) {
@@ -522,11 +540,81 @@ export const standardLinterfunctions: FunctionItem[] = [
             element.findElements(
               (e) => !(targetEl as ObjectElement).keys().includes(e.toValue()),
               {},
-            ).length > 0
+            ).length === 0
           );
         }
       }
       return true;
+    },
+  },
+  {
+    functionName: 'apilintElementKeysIncluded',
+    function: (element: Element, elementOrClass: string): boolean => {
+      if (isObject(element) || isArray(element)) {
+        const api = root(element);
+
+        const elements: ArraySlice = filter((el: Element) => {
+          return (
+            el.element === elementOrClass ||
+            el.getMetaProperty('classes', []).toValue().includes(elementOrClass)
+          );
+        }, api);
+        const targetKeys: string[] = [];
+        for (const targetEl of elements) {
+          if (isObject(targetEl)) {
+            // @ts-ignore
+            targetKeys.push(...targetEl.keys());
+          }
+        }
+        if (isObject(element)) {
+          // @ts-ignore
+          return element.keys().every((v) => targetKeys.includes(v.toValue()));
+        }
+        if (isArray(element)) {
+          return (
+            element.findElements((e) => {
+              return !targetKeys.includes(e.toValue());
+            }, {}).length === 0
+          );
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apicompleteChannelServers',
+    function: (element: Element): CompletionItem[] => {
+      const result: CompletionItem[] = [];
+
+      if (element.parent?.parent) {
+        const existing: string[] = [];
+        if (isArray(element.parent)) {
+          existing.push(...(element.parent.toValue() as string[]));
+          const api = root(element);
+          const servers: ArraySlice = filter((el: Element) => {
+            return el.element === 'server';
+          }, api);
+
+          for (const server of servers) {
+            const key = server.parent && isMember(server.parent) ? server.parent.key : undefined;
+            if (key) {
+              if (!existing.includes(key.toValue())) {
+                const item: CompletionItem = {
+                  label: key.toValue(),
+                  insertText: key.toValue(),
+                  kind: 12,
+                  documentation: '',
+                  // detail: 'replace with',
+                  insertTextFormat: 2,
+                };
+                result.push(item);
+              }
+            }
+          }
+        }
+      }
+
+      return result;
     },
   },
 ];

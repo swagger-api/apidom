@@ -12,6 +12,7 @@ const AnypointmqChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisi
   },
   init() {
     this.element = new AnypointmqChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

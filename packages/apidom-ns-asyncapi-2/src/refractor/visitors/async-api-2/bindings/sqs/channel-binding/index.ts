@@ -12,6 +12,7 @@ const SqsChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new SqsChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

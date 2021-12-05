@@ -4146,7 +4146,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -7305,7 +7316,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                   "content": "jms"
                                 },
                                 "value": {
-                                  "element": "jmsChannelBinding"
+                                  "element": "jmsChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -8390,7 +8412,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -13298,7 +13331,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             },
@@ -13322,6 +13366,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                 },
                                 "value": {
                                   "element": "ibmmqChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -16025,7 +16080,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -21446,7 +21512,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             },
@@ -21470,6 +21547,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                 },
                                 "value": {
                                   "element": "anypointmqChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -21519,6 +21607,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                 },
                                 "value": {
                                   "element": "ibmmqChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -24245,7 +24344,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                   "content": "kafka"
                                 },
                                 "value": {
-                                  "element": "kafkaChannelBinding"
+                                  "element": "kafkaChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             },
@@ -24268,7 +24378,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                   "content": "anypointmq"
                                 },
                                 "value": {
-                                  "element": "anypointmqChannelBinding"
+                                  "element": "anypointmqChannelBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "channel-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               }
                             }

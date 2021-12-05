@@ -12,6 +12,7 @@ const SnsChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new SnsChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

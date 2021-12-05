@@ -12,6 +12,7 @@ const StompChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, 
   },
   init() {
     this.element = new StompChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

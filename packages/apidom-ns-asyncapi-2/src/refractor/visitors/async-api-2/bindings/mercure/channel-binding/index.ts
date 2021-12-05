@@ -12,6 +12,7 @@ const MercureChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor
   },
   init() {
     this.element = new MercureChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

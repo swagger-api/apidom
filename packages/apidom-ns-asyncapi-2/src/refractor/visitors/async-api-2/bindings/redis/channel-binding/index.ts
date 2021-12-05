@@ -12,6 +12,7 @@ const RedisChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, 
   },
   init() {
     this.element = new RedisChannelBindingElement();
+    this.element.classes.push('channel-binding');
   },
 });
 

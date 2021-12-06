@@ -12,7 +12,6 @@ const WebSocketChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisit
   },
   init() {
     this.element = new WebSocketChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

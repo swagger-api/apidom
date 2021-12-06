@@ -7,6 +7,7 @@ class KafkaMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'kafkaMessageBinding';
+    this.classes.push('message-binding');
   }
 
   get key(): SchemaElement {

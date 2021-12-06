@@ -7,6 +7,7 @@ class HttpOperationBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'httpOperationBinding';
+    this.classes.push('operation-binding');
   }
 
   get type(): StringElement {

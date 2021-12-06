@@ -12,7 +12,6 @@ const KafkaChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, 
   },
   init() {
     this.element = new KafkaChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

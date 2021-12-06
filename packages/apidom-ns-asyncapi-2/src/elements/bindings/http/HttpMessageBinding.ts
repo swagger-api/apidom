@@ -7,6 +7,7 @@ class HttpMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'httpMessageBinding';
+    this.classes.push('message-binding');
   }
 
   get headers(): SchemaElement {

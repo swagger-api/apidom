@@ -12,7 +12,6 @@ const NatsChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new NatsChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

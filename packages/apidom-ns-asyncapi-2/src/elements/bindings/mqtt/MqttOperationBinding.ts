@@ -10,6 +10,7 @@ class MqttOperationBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'mqttOperationBinding';
+    this.classes.push('operation-binding');
   }
 
   get qos(): NumberElement {

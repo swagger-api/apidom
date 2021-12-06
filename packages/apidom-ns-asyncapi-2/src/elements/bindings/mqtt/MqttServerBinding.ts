@@ -10,6 +10,7 @@ class MqttServerBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'mqttServerBinding';
+    this.classes.push('server-binding');
   }
 
   get clientId(): StringElement {

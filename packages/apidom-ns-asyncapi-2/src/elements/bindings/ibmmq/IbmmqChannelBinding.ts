@@ -5,6 +5,7 @@ class IbmmqChannelBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'ibmmqChannelBinding';
+    this.classes.push('channel-binding');
   }
 
   get destinationType(): StringElement {

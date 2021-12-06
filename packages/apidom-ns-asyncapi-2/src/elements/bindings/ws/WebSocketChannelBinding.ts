@@ -7,6 +7,7 @@ class WebSocketChannelBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'webSocketChannelBinding';
+    this.classes.push('channel-binding');
   }
 
   get method(): StringElement {

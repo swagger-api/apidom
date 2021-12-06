@@ -12,7 +12,6 @@ const AmqpChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new AmqpChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

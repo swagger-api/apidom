@@ -12,7 +12,6 @@ const IbmmqChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, 
   },
   init() {
     this.element = new IbmmqChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

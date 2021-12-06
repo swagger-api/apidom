@@ -5,6 +5,7 @@ class Amqp1MessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'amqp1MessageBinding';
+    this.classes.push('message-binding');
   }
 }
 

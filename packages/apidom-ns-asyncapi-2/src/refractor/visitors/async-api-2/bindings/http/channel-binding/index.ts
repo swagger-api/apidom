@@ -12,7 +12,6 @@ const HttpChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   init() {
     this.element = new HttpChannelBindingElement();
-    this.element.classes.push('channel-binding');
   },
 });
 

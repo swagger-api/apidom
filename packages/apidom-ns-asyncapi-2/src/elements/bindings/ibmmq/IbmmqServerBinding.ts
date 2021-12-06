@@ -10,6 +10,7 @@ class IbmmqServerBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'ibmmqServerBinding';
+    this.classes.push('server-binding');
   }
 
   get groupId(): StringElement {

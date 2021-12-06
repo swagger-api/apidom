@@ -48,6 +48,7 @@ import {
   isEmptyLine,
   getRightAfterColonOffset,
   getRightAfterDashOffset,
+  correctPartialKeys,
 } from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { standardLinterfunctions } from '../validation/linter-functions';
@@ -254,16 +255,26 @@ export class DefaultCompletionService implements CompletionService {
 
      */
     let processedText;
+    let textModified = false;
     if (!isJson) {
       if (isPartialKey(textDocument, offset)) {
-        processedText = `${textDocument.getText().slice(0, offset)}:${textDocument
+        processedText = `${textDocument.getText().slice(0, offset - 1)}:${textDocument
           .getText()
           .slice(offset)}`;
+        textModified = true;
       }
     }
 
-    const result = await this.settings?.documentCache?.get(textDocument, processedText);
+    let result = await this.settings?.documentCache?.get(textDocument, processedText);
     if (!result) return CompletionList.create();
+
+    processedText = correctPartialKeys(result, textDocument, isJson);
+    if (processedText) {
+      result = await this.settings!.documentCache?.get(textDocument, processedText);
+      textModified = true;
+    }
+    if (!result) return CompletionList.create();
+
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return CompletionList.create();
@@ -274,7 +285,7 @@ export class DefaultCompletionService implements CompletionService {
       isIncomplete: false,
     };
 
-    let targetOffset = offset;
+    let targetOffset = textModified ? offset - 1 : offset;
     let emptyLine = false;
 
     let handledTarget = false;
@@ -486,7 +497,7 @@ export class DefaultCompletionService implements CompletionService {
         (isObject(completionNode) || (isArray(completionNode) && isJson)) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
           CompletionNodeContext.VALUE_OBJECT === completionNodeContext ||
-          processedText) &&
+          textModified) &&
         (caretContext === CaretContext.KEY_INNER ||
           caretContext === CaretContext.KEY_START ||
           caretContext === CaretContext.KEY_END ||
@@ -691,9 +702,11 @@ export class DefaultCompletionService implements CompletionService {
   ): CompletionItem[] {
     const result: CompletionItem[] = [];
     // get type of node (element)
+    const refElementType = node.parent?.parent
+      ?.getMetaProperty('referenced-element', '')
+      ?.toValue();
     const nodeElement =
-      node.parent?.parent?.getMetaProperty('referenced-element')?.toValue() ||
-      node.parent?.parent?.element;
+      refElementType && refElementType.length > 0 ? refElementType : node.parent?.parent?.element;
     if (!nodeElement) return result;
 
     const pointers = localReferencePointers(doc, nodeElement);

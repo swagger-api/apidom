@@ -15,7 +15,7 @@ channels:
     servers:
       - bar 
   car:
-    $ref: '#/channels/none'
+    $ref: '#/channels/bar'
   othergood:
     description: 0
     servers:

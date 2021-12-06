@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/swagger-api/apidom/compare/v0.12.0...v0.13.0) (2021-12-06)
+
+
+### Bug Fixes
+
+* **apidom-ls:** update completion service doc processing ([214a7b1](https://github.com/swagger-api/apidom/commit/214a7b1d9193c408582b632aa8d00f1a9892b06c))
+
+
+### Features
+
+* **apidom-ls:** add asyncapi channels and servers rules ([2dbe838](https://github.com/swagger-api/apidom/commit/2dbe838000e10e1c93f2d59c41eb77b6386ac3ce))
+
+
+
+
+
 # [0.12.0](https://github.com/swagger-api/apidom/compare/v0.11.0...v0.12.0) (2021-12-04)
 
 

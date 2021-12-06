@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/swagger-api/apidom/compare/v0.12.0...v0.13.0) (2021-12-06)
+
+
+### Features
+
+* add '*-binding' classes to binding elements ([395bbf6](https://github.com/swagger-api/apidom/commit/395bbf6c6c6285a31d782baba765f9e0476ff321))
+* add class  to channel-binding elements ([6197441](https://github.com/swagger-api/apidom/commit/61974415dc19915ea741bc7bd55b4f96e94d9250))
+* add referenced-element to channelItem ([1bc9771](https://github.com/swagger-api/apidom/commit/1bc97710d3d3dd8b20c400e43d809794979bc2c8))
+
+
+
+
+
 # [0.12.0](https://github.com/swagger-api/apidom/compare/v0.11.0...v0.12.0) (2021-12-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-2

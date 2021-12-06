@@ -22,6 +22,7 @@ const ChannelItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
       // mark this ChannelItemElement with reference metadata
       if (isStringElement(this.element.$ref)) {
         this.element.classes.push('reference-element');
+        this.element.setMetaProperty('referenced-element', 'channelItem');
       }
 
       return result;

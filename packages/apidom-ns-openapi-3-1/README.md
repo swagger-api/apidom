@@ -2,6 +2,22 @@
 
 `@swagger-api/apidom-ns-openapi-3-1` contains ApiDOM namespace specific to [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md).
 
+## Installation
+
+`@swagger-api/apidom-ns-openapi-3-1` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-ns-openapi-3-1` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install apidom-ns-openapi-3-1
+```
+
 ## OpenApi 3.1.0 namespace
 
 OpenApi 3.1.0 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1/src/elements) implemented on top

@@ -7,6 +7,22 @@ the structure of input string in a way that makes it easier to work with.
 
 `@swagger-api/apidom-ast` currently contains AST nodes for [JSON](https://www.json.org/json-en.html) and [YAML 1.2](https://yaml.org/spec/1.2/spec.html) formats.
 
+## Installation
+
+`@swagger-api/apidom-ast` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-ast` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-ast
+```
+
 ## Base AST Nodes
 
 Base AST nodes are nodes that are supplementary to any specific AST nodes.

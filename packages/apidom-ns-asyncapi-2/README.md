@@ -6,6 +6,21 @@
 - [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
 - [AsyncAPI 2.2.0 specification](https://github.com/asyncapi/spec/blob/v2.2.0/spec/asyncapi.md)
 
+## Installation
+
+`@swagger-api/apidom-ns-asyncapi-2` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-ns-asyncapi-2` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-ns-asyncapi-2
+```
 
 ## AsyncApi 2.x.y namespace
 

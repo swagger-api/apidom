@@ -5,6 +5,21 @@
 [CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
 ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
 
+## Installation
+
+`@swagger-api/apidom-parser-adapter-json` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-parser-adapter-json` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-parser-adapter-json
+```
 
 ## Parse phases
 

@@ -1,6 +1,22 @@
 # @swagger-api/apidom-core
 
-`apidom` is a package that contains tools for manipulating the ApiDOM structures.
+`apidom-core` is a package that contains tools for manipulating the ApiDOM structures.
+
+## Installation
+
+`@swagger-api/apidom-core` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-core` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-core
+```
 
 ## Base namespace
 

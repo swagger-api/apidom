@@ -5,6 +5,22 @@ Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
 which is then refracted with [OpenApi 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).
 
+## Installation
+
+`@swagger-api/apidom-parser-adapter-openapi-json-3-1` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-parser-adapter-openapi-json-3-1` from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-parser-adapter-openapi-json-3-1
+```
+
 ## Parser adapter API
 
 This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#mounting-parser-adapters)

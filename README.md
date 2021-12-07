@@ -25,17 +25,26 @@ and allows tool builders to consume one structure for all formats.
 
 - [Getting started](#getting-started)
   - [Installation](#installation)
-  - [Usage]()
+  - [Usage](#usage)
   - [ApiDOM Playground](#apidom-playground)
 - [Development](#development)
+  - [Prerequisites](#prerequisites)
+  - [Setting up](#setting-up)
+  - [npm scripts](#npm-scripts)
+  - [Build artifacts](#build-artifacts)
+  - [Package mapping](#package-mapping)
+  - [Using this monorepo as a local dev dependency](#using-this-monorepo-as-a-local-dev-dependency)
 - [Contributing](#contributing)
 - [Documentation](#documentation)
+  - [What is an Element ?](#what-is-an-element-)
+  - [As a way to annotate JSON](#as-a-way-to-annotate-json)
+  - [As a unifying structure](#as-a-unifying-structure)
+  - [As a queryable structure](#as-a-queryable-structure)
+  - [ApiDOM stages](#apidom-stages)
 - [License](#license)
   - [License analysis of dependencies](#license-analysis-of-dependencies)
 
 ## Getting started
-
-
 
 ### Installation
 
@@ -63,6 +72,10 @@ You can now install ApiDOM packages using `npm`:
  $ npm install @swagger-api/apidom-parser-adapter-openapi-yaml-3-1
  $ npm install @swagger-api/apidom-reference
 ```
+
+### Usage
+
+
 
 For more information about installing npm packages from GitHub packages registry please visit [Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
 section in their documentation.

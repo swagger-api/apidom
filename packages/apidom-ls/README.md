@@ -22,7 +22,7 @@ const languageService = getLanguageService(apidomContext);
 
 const oas31orAsyncapiDoc = 'asyncapi: 2.2.0';
 const doc = TextDocument.create('foo://bar/file.yaml', 'apidom', 0, oas31orAsyncapiDoc);
-const diagnostics = await this._languageService.doValidation(document);
+const diagnostics = await languageService.doValidation(document);
 console.log(JSON.stringify(diagnostics, null, 2);
 
 ```

@@ -78,6 +78,9 @@ ApiDOM Playground is available at [https://reimagined-dollop-c7e3930f.pages.gith
 
 ## Development
 
+This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
+All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
+
 ### Prerequisites
 
 [Node.js](https://nodejs.org/) >= 16.8.0 and `npm >= 7.21.0` are the minimum required versions that this repo runs on.
@@ -93,6 +96,158 @@ Run the following commands to setup the repository for local development:
  $ npm i
  $ npm run build
 ```
+> Note: monorepo needs to be build in order for monorepo package topology for work correctly.
+
+### npm scripts
+
+**Build artifacts**
+
+```sh
+ $ npm run build
+```
+
+**Test**
+
+You must first **build the artifacts** before running tests.
+
+```sh
+ $ npm run test
+```
+
+**Lint**
+
+```sh
+ $ npm run lint
+```
+
+**Check TypeScript types**
+
+```sh
+ $ npm run typescript:check-types
+```
+
+**Generate TypeScript types**
+
+```sh
+ $ npm run typescript:declaration
+```
+
+**Clean**
+
+```sh
+ $ npm run clean
+```
+
+### Build artifacts
+
+All the packages have identical build system and expose build artifacts in identical way.
+After [building artifacts](#building-artifacts) every package will contain five (5) additional directories.
+All the build artifacts are polymorphic - they can run in different environments like [Web Browser](https://en.wikipedia.org/wiki/Web_browser), [Node.js](https://nodejs.org/) or [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+
+**cjs/**
+
+This directory mirrors the structure of the codebase in `src/`.
+Contains ES5 compatible code with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) style imports.
+Build fragments in this directory are ideal for [Node.js](https://nodejs.org/) and similar environments.
+
+**es/**
+
+This directory mirrors the structure of the codebase in `src/`.
+Contains ES5 compatible code with [ES6 imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+Build fragments in this directory are ideal for bundling with [Webpack](https://webpack.js.org/) or similar bundlers.
+
+**dist/**
+
+This directory contains bundled build fragments that use [UMD](https://github.com/umdjs/umd) modules.
+They're ideal for browser usage. The fragments are both in minified and un-minified form.
+
+**types/**
+
+TypeScript types generated from the source code.
+
+### Package mapping
+
+Every package maps it's [build artifacts](#build-artifacts) in `package.json` file in following way:
+
+```json
+"main": "cjs/index.js",
+"module": "es/index.js",
+"jsnext:main": "es/index.js",
+"unpkg": "dist/apidom.browser.min.js",
+"types": "types/index.d.ts",
+```
+
+To learn more about these fields please refer to [webpack mainFields documentation](https://webpack.js.org/configuration/resolve/#resolvemainfields).
+
+Some packages produce build artifacts that are not [isomorphic](https://en.wikipedia.org/wiki/Isomorphic_JavaScript)
+and instead code is written specifically for the client or the server. In that case `package.json` mapping looks like this:
+
+```json
+"main": "cjs/adapter-node.js",
+"module": "es/adapter-browser.js",
+"jsnext:main": "es/adapter-browser.js",
+"browser": "es/adapter-browser.js",
+"unpkg": "dist/apidom-parser-apdater-json.browser.min.js",
+"types": "types/adapter-browser.d.ts",
+```
+
+### Using this monorepo as a local dev dependency
+
+For using this monorepo as a local dev dependency for `dependent project`,
+following commands needs to be issued inside the monorepo directory after
+it has been cloned to a local filesystem:
+
+```sh
+ $ npm i
+ $ npm run build
+ $ npm link --workspaces
+```
+This will install the dependencies, built the monorepo and link all it's packages to
+global `node_modules`.
+
+#### Usage in `dependent project`
+
+Now that we have monorepo packages globally linked we can use them in `dependent project`.
+Let's say `dependent project` needs to directly use following packages:
+
+- @swagger-api/apidom-ast
+- @swagger-api/apidom-core
+
+Issuing following command from inside the `dependent project` will link these packages:
+
+```sh
+ $ npm link @swagger-api/apidom-ast @swagger-api/apidom-core
+```
+
+If more packages (or all of them) need to be used in `dependent project`, they need to be explicitly
+enumerated using above command and separated by single empty space.
+
+Notice that we link packages using single `npm link` command. This is necessary
+because of how `npm link` works internally. Always use single `npm link` command with
+multiple package names as argument.
+
+**Don't ever do this!**
+
+```sh
+ $ npm link @swagger-api/apidom-ast
+ $ npm link @swagger-api/apidom-core
+```
+
+> Setting up an npm script in `depedent project` can help keep things DRY.
+
+#### Cleaning up
+
+It is not necessary to unlink monorepo packages from global `node_modules`. But if you
+want to keep your global `node_modules` tidy you can issue the following command:
+
+```shell
+ $ npm unlink --global @swagger-api/apidom-ast @swagger-api/apidom-core
+```
+
+You have to enumerate all the monorepo packages that should be unlinked explicitly.
+
+> Setting up an npm script in `dependent project` can help keep things DRY.
+
 
 ## Contributing
 
@@ -314,183 +469,6 @@ JSON string -> tree-sitter CST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM -> plugin
 This very closely reflects how [Babel](https://github.com/babel/babel) works.
 Their transform phase is our refract phase. The only difference is that when plugins are involved, our transform phase
 requires 2 traversals instead of a single one. We can find a way in the future how to fold these 2 traversals into a single one.
-
-## Technical info
-
-This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
-To see all these monorepo packages working in browser check out our [ApiDOM Playground](https://reimagined-dollop-c7e3930f.pages.github.io/).
-
-## Monorepo management
-
-All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
-
-## Installation
-
-This repository is using [scopes GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) for installation and publishing.
-In order to use GitHub Packages you have be authenticated with a personal access token.
-Please read following document to [Authenticate with a personal access token](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-with-a-personal-access-token) against GitHub Packages.
-
-```sh
- $ npm i
- $ npm run build
-```
-
-> Note: monorepo needs to be build in order for monorepo package topology for work correctly.
-
-## Building artifacts
-
-```sh
- $ npm run build
-```
-
-## Tests
-
-You must first **build the artifacts** before running tests.
-
-```sh
- $ npm run test
-```
-
-## Linting
-
-```sh
- $ npm run lint
-```
-
-## TypeScript types checking
-
-
-```sh
- $ npm run typescript:check-types
-```
-
-## TypeScript types generation
-
-```sh
- $ npm run typescript:declaration
-```
-
-## Security audit
-
-```sh
- $ npm run security-audit
-```
-
-## Clean
-
-```sh
- $ npm run clean
-```
-
-## Build artifacts
-
-All the packages have identical build system and expose build artifacts in identical way.
-After [building artifacts](#building-artifacts) every package will contain five (5) additional directories.
-All the build artifacts are polymorphic - they can run in different environments like [Web Browser](https://en.wikipedia.org/wiki/Web_browser), [Node.js](https://nodejs.org/) or [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-
-**cjs/**
-
-This directory mirrors the structure of the codebase in `src/`.
-Contains ES5 compatible code with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) style imports.
-Build fragments in this directory are ideal for [Node.js](https://nodejs.org/) and similar environments.
-
-**es/**
-
-This directory mirrors the structure of the codebase in `src/`.
-Contains ES5 compatible code with [ES6 imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
-Build fragments in this directory are ideal for bundling with [Webpack](https://webpack.js.org/) or similar bundlers.
-
-**dist/**
-
-This directory contains bundled build fragments that use [UMD](https://github.com/umdjs/umd) modules.
-They're ideal for browser usage. The fragments are both in minified and un-minified form.
-
-**types/**
-
-TypeScript types generated from the source code.
-
-## Package mapping
-
-Every package maps it's [build artifacts](#build-artifacts) in `package.json` file in following way:
-
-```json
-"main": "cjs/index.js",
-"module": "es/index.js",
-"jsnext:main": "es/index.js",
-"unpkg": "dist/apidom.browser.min.js",
-"types": "types/index.d.ts",
-```
-
-To learn more about these fields please refer to [webpack mainFields documentation](https://webpack.js.org/configuration/resolve/#resolvemainfields).
-
-Some packages produce build artifacts that are not [isomorphic](https://en.wikipedia.org/wiki/Isomorphic_JavaScript)
-and instead code is written specifically for the client or the server. In that case `package.json` mapping looks like this:
-
-```json
-"main": "cjs/adapter-node.js",
-"module": "es/adapter-browser.js",
-"jsnext:main": "es/adapter-browser.js",
-"browser": "es/adapter-browser.js",
-"unpkg": "dist/apidom-parser-apdater-json.browser.min.js",
-"types": "types/adapter-browser.d.ts",
-```
-
-## Using this monorepo as a local dev dependency
-
-For usig this monorepo as a local dev dependency for `dependent project`,
-following commands needs to be issued inside the monorepo directory after
-it has been cloned to a local filesystem:
-
-```sh
- $ npm i
- $ npm run build
- $ npm link --workspaces
-```
-This will install the dependencies, built the monorepo and link all it's packages to
-global `node_modules`.
-
-#### Usage in `dependent project`
-
-Now that we have monorepo packages globally linked we can use them in `dependent project`.
-Let's say `dependent project` needs to directly use following packages:
-
-- @swagger-api/apidom-ast
-- @swagger-api/apidom-core
-
-Issuing following command from inside the `dependent project` will link these packages:
-
-```sh
- $ npm link @swagger-api/apidom-ast @swagger-api/apidom-core
-```
-
-If more packages (or all of them) need to be used in `dependent project`, they need to be explicitly
-enumerated using above command and separated by single empty space.
-
-Notice that we link packages using single `npm link` command. This is necessary
-because of how `npm link` works internally. Always use single `npm link` command with
-multiple package names as argument.
-
-**Don't ever do this!**
-
-```sh
- $ npm link @swagger-api/apidom-ast
- $ npm link @swagger-api/apidom-core
-```
-
-> Setting up an npm script in `depedent project` can help keep things DRY.
-
-#### Cleaning up
-
-It is not necessary to unlink monorepo packages from global `node_modules`. But if you
-want to keep your global `node_modules` tidy you can issue the following command:
-
-```shell
- $ npm unlink --global @swagger-api/apidom-ast @swagger-api/apidom-core
-```
-
-You have to enumerate all the monorepo packages that should be unlinked explicitly.
-
-> Setting up an npm script in `dependent project` can help keep things DRY.
 
 ## License
 

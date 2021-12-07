@@ -9,6 +9,7 @@
 [![Build Status](https://github.com/swagger-api/apidom/actions/workflows/build.yml/badge.svg)](https://github.com/swagger-api/apidom/actions)
 [![Dependabot enabled](https://badgen.net/badge/icon/dependabot?icon=dependabot&label)](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically)
 
+
 The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across
 API description language and serialization formats. There currently exists several API description languages one can choose
 when defining an API, from OpenAPI, RAML or API Blueprint.
@@ -19,6 +20,53 @@ and requires each maintainer to stay in step with every format they support.
 
 ApiDOM solves this complex problem in a simple way. It allows parsers to parse to a single structure
 and allows tool builders to consume one structure for all formats.
+
+## Table of Contents
+
+- [Getting started](#getting-started)
+  - [Installation](#installation)
+  - [Usage]()
+  - [Development]()
+- [ApiDOM Playground]()
+- [Documentation]()
+- [Contributing Guide]()
+- [License]()
+
+## Getting started
+
+
+
+### Installation
+
+ApiDOM is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing ApiDOM npm packages from GitHub packages registry, create `.npmrc` file in your current directory and add
+the following line to it:
+
+```
+@swagger-api:registry=https://npm.pkg.github.com
+```
+
+You can now install ApiDOM packages using `npm`:
+
+```sh
+ $ npm install @swagger-api/apidom-ast
+ $ npm install @swagger-api/apidom-core
+ $ npm install @swagger-api/apidom-ls
+ $ npm install @swagger-api/apidom-ns-asyncapi-2
+ $ npm install @swagger-api/apidom-ns-openapi-3-1
+ $ npm install @swagger-api/apidom-parser
+ $ npm install @swagger-api/apidom-parser-adapter-asyncapi-json-2
+ $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-2
+ $ npm install @swagger-api/apidom-parser-adapter-json
+ $ npm install @swagger-api/apidom-parser-adapter-openapi-json-3-1
+ $ npm install @swagger-api/apidom-parser-adapter-openapi-yaml-3-1
+ $ npm install @swagger-api/apidom-reference
+```
+
+For more information about installing npm packages from GitHub packages registry please visit [Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
+section in their documentation.
+
+## Documentation
 
 If there is one thing API description languages have taught us, it is that a single contract provides
 the best and fastest way to design and iterate on an API. Developers building the API can move independently

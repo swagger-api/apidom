@@ -27,7 +27,7 @@ and allows tool builders to consume one structure for all formats.
   - [Installation](#installation)
   - [Usage]()
   - [Development]()
-- [ApiDOM Playground]()
+- [ApiDOM Playground](#apidom-playground)
 - [Documentation]()
 - [Contributing Guide]()
 - [License]()
@@ -65,6 +65,15 @@ You can now install ApiDOM packages using `npm`:
 
 For more information about installing npm packages from GitHub packages registry please visit [Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
 section in their documentation.
+
+## ApiDOM Playground
+
+ApiDOM Playground is a React application that runs in a browser and can visually demonstrate capabilities
+of the ApiDOM. ApiDOM Playground is build and deployed whenever the new commit lands on `main` branch.
+
+![image](https://user-images.githubusercontent.com/193286/145010522-5d85e34b-8d28-4a07-9ee2-b28807a013cd.png)
+
+ApiDOM Playground is available here: [https://reimagined-dollop-c7e3930f.pages.github.io/](https://reimagined-dollop-c7e3930f.pages.github.io/)
 
 ## Documentation
 

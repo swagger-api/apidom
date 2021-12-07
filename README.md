@@ -30,7 +30,8 @@ and allows tool builders to consume one structure for all formats.
 - [ApiDOM Playground](#apidom-playground)
 - [Documentation]()
 - [Contributing Guide]()
-- [License]()
+- [License](#license)
+  - [License analysis of dependencies](#license-analysis-of-dependencies)
 
 ## Getting started
 
@@ -73,7 +74,7 @@ of the ApiDOM. ApiDOM Playground is build and deployed whenever the new commit l
 
 ![image](https://user-images.githubusercontent.com/193286/145010522-5d85e34b-8d28-4a07-9ee2-b28807a013cd.png)
 
-ApiDOM Playground is available here: [https://reimagined-dollop-c7e3930f.pages.github.io/](https://reimagined-dollop-c7e3930f.pages.github.io/)
+ApiDOM Playground is available at [https://reimagined-dollop-c7e3930f.pages.github.io/](https://reimagined-dollop-c7e3930f.pages.github.io/)
 
 ## Documentation
 
@@ -482,7 +483,13 @@ You have to enumerate all the monorepo packages that should be unlinked explicit
 
 > Setting up an npm script in `dependent project` can help keep things DRY.
 
-## License analysis
+## License
+
+ApiDOM is licensed under [Apache 2.0 license](https://github.com/swagger-api/apidom/blob/main/LICENSES/Apache-2.0.txt).
+ApiDOM comes with an explicit [NOTICE](https://github.com/swagger-api/apidom/blob/main/NOTICE) file
+containing additional legal notifications and information.
+
+### License analysis of dependencies
 
 This license analysis was done on 4th of October 2021.
 

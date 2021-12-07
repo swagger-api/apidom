@@ -27,7 +27,7 @@ and allows tool builders to consume one structure for all formats.
   - [Installation](#installation)
   - [Usage]()
   - [ApiDOM Playground](#apidom-playground)
-- [Development]()
+- [Development](#development)
 - [Contributing](#contributing)
 - [Documentation]()
 - [License](#license)
@@ -76,10 +76,30 @@ of the ApiDOM. ApiDOM Playground is build and deployed whenever the new commit l
 
 ApiDOM Playground is available at [https://reimagined-dollop-c7e3930f.pages.github.io/](https://reimagined-dollop-c7e3930f.pages.github.io/)
 
+## Development
+
+### Prerequisites
+
+[Node.js](https://nodejs.org/) >= 16.8.0 and `npm >= 7.21.0` are the minimum required versions that this repo runs on.
+We recommend using the latest version of Node.js@16 though. We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fragments that require [Python 3.x](https://www.python.org/downloads/).
+[emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed
+on your operating system. We strongly recommend going with a docker option.
+
+### Setting up
+
+Run the following commands to setup the repository for local development:
+
+```shell
+ $ npm i
+ $ npm run build
+```
+
 ## Contributing
 
-This project uses [swagger-api](https://github.com/swagger-api) GitHub organizations Contributing Guide.
-You can obtain copy of this Contributing guide at [https://github.com/swagger-api/.github/blob/master/CONTRIBUTING.md](https://github.com/swagger-api/.github/blob/master/CONTRIBUTING.md).
+This project uses [swagger-api](https://github.com/swagger-api) GitHub organizations contributing guide.
+You can obtain copy of this contributing guide at [https://github.com/swagger-api/.github/blob/master/CONTRIBUTING.md](https://github.com/swagger-api/.github/blob/master/CONTRIBUTING.md).
+Read our contributing guide to learn about our development process, how to propose bugfixes and improvements,
+and how to build and test your changes to ApiDOM.
 
 ## Documentation
 
@@ -299,22 +319,6 @@ requires 2 traversals instead of a single one. We can find a way in the future h
 
 This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
 To see all these monorepo packages working in browser check out our [ApiDOM Playground](https://reimagined-dollop-c7e3930f.pages.github.io/).
-
-
-## Prerequisites
-
-We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fragments that require [Python 3.x](https://www.python.org/downloads/).
-[emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) need to be installed
-on your operating system. We strongly recommend going with a docker option.
-
-```json
-"engines": {
-  "node": "~16.8",
-  "npm": ">=7.21.0"
-}
-```
-
-
 
 ## Monorepo management
 

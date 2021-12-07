@@ -133,6 +133,7 @@ const ApilintCodes = {
   CHANNEL_PARAMETERS: (code += 1),
   CHANNEL_BINDINGS: (code += 1),
   CHANNEL_REF_NOSIBLINGS: (code += 1),
+  SERVER_BINDINGS_KEYS: (code += 1),
 };
 
 export default ApilintCodes;

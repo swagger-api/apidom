@@ -24,8 +24,14 @@ import {
   checkConditions,
   processPath,
   correctPartialKeys,
+  perfStart,
+  perfEnd,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
+
+enum PerfLabels {
+  START = 'doValidation',
+}
 
 export interface ValidationService {
   doValidation(
@@ -92,10 +98,15 @@ export class DefaultValidationService implements ValidationService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
+    perfStart(PerfLabels.START);
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
-    let result = await this.settings!.documentCache?.get(textDocument);
+    let result = await this.settings!.documentCache?.get(
+      textDocument,
+      undefined,
+      'doValidation-parse-first',
+    );
     if (!result) return diagnostics;
 
     let processedText;
@@ -147,7 +158,11 @@ export class DefaultValidationService implements ValidationService {
       processedText = correctPartialKeys(result, textDocument, isJsonDoc(textDocument));
     }
     if (processedText) {
-      result = await this.settings!.documentCache?.get(textDocument, processedText);
+      result = await this.settings!.documentCache?.get(
+        textDocument,
+        processedText,
+        'doValidation-parse-second',
+      );
     }
     if (!result) return diagnostics;
     const { api } = result;
@@ -388,6 +403,7 @@ export class DefaultValidationService implements ValidationService {
       }
     };
     traverse(lint, api);
+    perfEnd(PerfLabels.START);
     return diagnostics;
   }
 
@@ -448,108 +464,72 @@ export class DefaultValidationService implements ValidationService {
 
     const text: string = textDocument.getText();
 
-    return this.settings!.documentCache!.get(textDocument).then((result) => {
-      if (!result) {
-        return [];
-      }
-      const { api } = result;
-      if (!api) {
-        return [];
-      }
-      const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
-      const codeActions: CodeAction[] = [];
-      // TODO deduplicate, action maps elsewhere
-      diagnostics.forEach((diag) => {
-        const quickFixes = this.findQuickFix(diag, lang, String(diag.code));
-        if (quickFixes) {
-          for (const quickFix of quickFixes) {
-            if (quickFix.action === 'updateValue') {
-              let newText: string | undefined;
-              if (quickFix.function === 'transformToLowercase') {
-                newText = textDocument.getText(diag.range).toLowerCase();
-              } else if (!quickFix.function) {
-                if (quickFix.functionParams && quickFix.functionParams.length > 0) {
-                  [newText] = quickFix.functionParams;
+    return this.settings!.documentCache!.get(textDocument, undefined, 'doCodeActions').then(
+      (result) => {
+        if (!result) {
+          return [];
+        }
+        const { api } = result;
+        if (!api) {
+          return [];
+        }
+        const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
+        const codeActions: CodeAction[] = [];
+        // TODO deduplicate, action maps elsewhere
+        diagnostics.forEach((diag) => {
+          const quickFixes = this.findQuickFix(diag, lang, String(diag.code));
+          if (quickFixes) {
+            for (const quickFix of quickFixes) {
+              if (quickFix.action === 'updateValue') {
+                let newText: string | undefined;
+                if (quickFix.function === 'transformToLowercase') {
+                  newText = textDocument.getText(diag.range).toLowerCase();
+                } else if (!quickFix.function) {
+                  if (quickFix.functionParams && quickFix.functionParams.length > 0) {
+                    [newText] = quickFix.functionParams;
+                  }
                 }
-              }
-              const oldText = textDocument.getText(diag.range);
-              const oldTextquotes =
-                oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
-                  ? oldText.charAt(0)
-                  : undefined;
-              const quotedInsertText =
-                newText && oldTextquotes && newText.startsWith(oldTextquotes);
-              if (oldTextquotes && !quotedInsertText) {
-                newText = oldTextquotes + newText + oldTextquotes;
-              }
-              if (newText || newText === '') {
-                codeActions.push({
-                  // @ts-ignore
-                  title: quickFix.message,
-                  kind: CodeActionKind.QuickFix,
-                  diagnostics: [diag],
-                  edit: {
-                    changes: {
-                      [documentUri]: [
-                        {
-                          range: diag.range,
-                          newText,
-                        },
-                      ],
-                    },
-                  },
-                });
-              }
-            } else if (quickFix.action === 'addChild') {
-              // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
-              // if (quickFix.function === 'addDescription') {
-              // TODO (francesco@tumanischvili@smartbear.com)  use apidom node to add a child  whenroundtrip serialization gets supported
-              const newText = isJsonDoc(text) ? quickFix.snippetJson : quickFix.snippetYaml;
-
-              // get the range of 0 length for the same line + 1
-              const line = diag.range.start.line + 1;
-              // get the char with indent
-              // TODO (francesco@tumanischvili@smartbear.com)  better indent handling
-              const character = diag.range.start.character + 2;
-              const range = Range.create({ line, character }, { line, character });
-              // TODO (francesco@tumanischvili@smartbear.com)  caret is not moved to $1 like in completion, use a command or something
-              codeActions.push({
-                // @ts-ignore
-                title: quickFix.message,
-                kind: CodeActionKind.QuickFix,
-                diagnostics: [diag],
-                edit: {
-                  changes: {
-                    [documentUri]: [
-                      {
-                        range,
-                        newText: newText || '',
+                const oldText = textDocument.getText(diag.range);
+                const oldTextquotes =
+                  oldText.charAt(0) === '"' || oldText.charAt(0) === "'"
+                    ? oldText.charAt(0)
+                    : undefined;
+                const quotedInsertText =
+                  newText && oldTextquotes && newText.startsWith(oldTextquotes);
+                if (oldTextquotes && !quotedInsertText) {
+                  newText = oldTextquotes + newText + oldTextquotes;
+                }
+                if (newText || newText === '') {
+                  codeActions.push({
+                    // @ts-ignore
+                    title: quickFix.message,
+                    kind: CodeActionKind.QuickFix,
+                    diagnostics: [diag],
+                    edit: {
+                      changes: {
+                        [documentUri]: [
+                          {
+                            range: diag.range,
+                            newText,
+                          },
+                        ],
                       },
-                    ],
-                  },
-                },
-              });
-            } else if (quickFix.action === 'removeChild') {
-              // @ts-ignore
-              const [target] = quickFix.functionParams;
-              // get element from range
-              const offset = textDocument.offsetAt(diag.range.start);
-              // find the current node
-              let node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
-              if (quickFix.target && node) {
-                const targetEl = processPath(node, quickFix.target, api);
-                if (targetEl) {
-                  node = targetEl;
+                    },
+                  });
                 }
-              }
-              if (node && isObject(node) && node.hasKey(target)) {
-                // range of child value
-                const targetSm = getSourceMap(node.getMember(target));
-                const location = { offset: targetSm.offset, length: targetSm.length };
-                const targetRange = Range.create(
-                  textDocument.positionAt(location.offset),
-                  textDocument.positionAt(location.offset + location.length),
-                );
+              } else if (quickFix.action === 'addChild') {
+                // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
+                // if (quickFix.function === 'addDescription') {
+                // TODO (francesco@tumanischvili@smartbear.com)  use apidom node to add a child  whenroundtrip serialization gets supported
+                const newText = isJsonDoc(text) ? quickFix.snippetJson : quickFix.snippetYaml;
+
+                // get the range of 0 length for the same line + 1
+                const line = diag.range.start.line + 1;
+                // get the char with indent
+                // TODO (francesco@tumanischvili@smartbear.com)  better indent handling
+                const character = diag.range.start.character + 2;
+                const range = Range.create({ line, character }, { line, character });
+                // TODO (francesco@tumanischvili@smartbear.com)  caret is not moved to $1 like in completion, use a command or something
                 codeActions.push({
                   // @ts-ignore
                   title: quickFix.message,
@@ -559,20 +539,58 @@ export class DefaultValidationService implements ValidationService {
                     changes: {
                       [documentUri]: [
                         {
-                          range: targetRange,
-                          newText: '',
+                          range,
+                          newText: newText || '',
                         },
                       ],
                     },
                   },
                 });
+              } else if (quickFix.action === 'removeChild') {
+                // @ts-ignore
+                const [target] = quickFix.functionParams;
+                // get element from range
+                const offset = textDocument.offsetAt(diag.range.start);
+                // find the current node
+                let node = findAtOffset({ offset: offset + 1, includeRightBound: true }, api);
+                if (quickFix.target && node) {
+                  const targetEl = processPath(node, quickFix.target, api);
+                  if (targetEl) {
+                    node = targetEl;
+                  }
+                }
+                if (node && isObject(node) && node.hasKey(target)) {
+                  // range of child value
+                  const targetSm = getSourceMap(node.getMember(target));
+                  const location = { offset: targetSm.offset, length: targetSm.length };
+                  const targetRange = Range.create(
+                    textDocument.positionAt(location.offset),
+                    textDocument.positionAt(location.offset + location.length),
+                  );
+                  codeActions.push({
+                    // @ts-ignore
+                    title: quickFix.message,
+                    kind: CodeActionKind.QuickFix,
+                    diagnostics: [diag],
+                    edit: {
+                      changes: {
+                        [documentUri]: [
+                          {
+                            range: targetRange,
+                            newText: '',
+                          },
+                        ],
+                      },
+                    },
+                  });
+                }
               }
             }
           }
-        }
-      });
+        });
 
-      return codeActions;
-    });
+        return codeActions;
+      },
+    );
   }
 }

@@ -26,9 +26,13 @@ import { DefaultDefinitionService } from './services/definition/definition-servi
 import { getDocumentCache } from './document-cache';
 import { parse } from './parser-factory';
 import { config } from './config/config';
+import { togglePerformanceLogs, toggleLogs } from './utils/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
+  togglePerformanceLogs(!!context.performanceLogs);
+  if (context.logLevel) toggleLogs(context.logLevel);
+
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService();
   const validationService = new DefaultValidationService();
@@ -60,6 +64,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     validate: true,
     validatorProviders: context?.validatorProviders,
     documentCache,
+    performanceLogs: context.performanceLogs,
+    logLevel: context.logLevel,
   };
   configureServices(languageSettings);
 

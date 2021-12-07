@@ -26,7 +26,19 @@ import {
 } from 'vscode-languageserver-protocol';
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
-import { DocumentCache } from './document-cache';
+export interface DocumentCache<T> {
+  get(document: TextDocument, text?: string, caller?: string): Promise<T | undefined>;
+  onDocumentRemoved(document: TextDocument): void;
+  dispose(): void;
+}
+
+export enum LogLevel {
+  DEBUG = 1,
+  INFO,
+  WARN,
+  ERROR,
+  NONE,
+}
 
 export enum SupportedLanguages {
   OPENAPI_31,
@@ -50,6 +62,8 @@ export interface LanguageServiceContext {
   workspaceContext?: WorkspaceContextService;
   metadata?: Metadata;
   validatorProviders?: ValidationProvider[];
+  performanceLogs?: boolean;
+  logLevel?: LogLevel;
 }
 
 export interface NamespaceVersion {
@@ -79,6 +93,8 @@ export interface LanguageSettings {
   validatorProviders?: ValidationProvider[];
   metadata?: Metadata;
   documentCache?: DocumentCache<ParseResultElement>;
+  performanceLogs?: boolean;
+  logLevel?: LogLevel;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';

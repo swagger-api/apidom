@@ -21,6 +21,7 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
+import { logPerformance, logLevel } from './test-utils';
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-2.0.0.yaml'))
@@ -294,6 +295,8 @@ describe('apidom-ls-async-yaml', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [asyncJsonSchemavalidationProvider],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const languageService: LanguageService = getLanguageService(context);

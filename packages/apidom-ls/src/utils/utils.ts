@@ -23,6 +23,7 @@ import {
   ApidomCompletionItem,
   LanguageSettings,
   LinterMeta,
+  LogLevel,
   MetadataMaps,
   Pointer,
 } from '../apidom-language-types';
@@ -31,6 +32,31 @@ import { standardLinterfunctions } from '../services/validation/linter-functions
 
 // TODO remove, keep for remote debugging
 // import { appendFile } from 'fs';
+
+let performanceLogs = false;
+let logLevel = LogLevel.WARN;
+const perfLabels: Record<string, string> = {};
+
+export function togglePerformanceLogs(status: boolean) {
+  performanceLogs = status;
+}
+
+export function toggleLogs(level: LogLevel) {
+  logLevel = level;
+}
+
+export function info(...args: unknown[]) {
+  if (logLevel <= LogLevel.INFO) console.info.apply(null, args);
+}
+export function warn(...args: unknown[]) {
+  if (logLevel <= LogLevel.WARN) console.warn.apply(null, args);
+}
+export function debug(...args: unknown[]) {
+  if (logLevel <= LogLevel.DEBUG) console.debug.apply(null, args);
+}
+export function error(...args: unknown[]) {
+  if (logLevel <= LogLevel.ERROR) console.error.apply(null, args);
+}
 
 export class SourceMap {
   constructor(
@@ -593,4 +619,54 @@ export function correctPartialKeys(
     }
   }
   return processedText;
+}
+
+export function perfStart(label: string, force = false): string {
+  if (force || performanceLogs) {
+    const random = ` _R_${Math.random() * 100}`;
+    const realLabel = label + random;
+    try {
+      // console.time(realLabel);
+      performance.mark(realLabel);
+      console.info(
+        'performance: mark',
+        label,
+        `[${(performance.getEntriesByName(realLabel, 'mark')[0].startTime / 1000).toFixed(2)}]`,
+      );
+      perfLabels[label] = realLabel;
+      return realLabel;
+    } catch (e) {
+      // console.error('error in perfStart', label, realLabel, perfLabels[label], e);
+    }
+  }
+  return '';
+}
+
+export function perfEnd(label: string, force = false) {
+  if (force || performanceLogs) {
+    const realLabel = perfLabels[label];
+    let endMark = '';
+    try {
+      // console.timeEnd(label);
+      endMark = `${realLabel}${Date.now()}`;
+      performance.mark(endMark);
+      performance.measure(realLabel, realLabel, endMark);
+      const perf = performance.getEntriesByName(realLabel)[1];
+      console.info(
+        'performance: MEAS',
+        realLabel ? realLabel.substring(0, realLabel.indexOf('_R_')) : `NO LABEL: ${label}`,
+        `${perf.duration.toFixed(2)}ms`,
+        `[${(perf.startTime / 1000).toFixed(2)} - ${(
+          (perf.startTime + perf.duration) /
+          1000
+        ).toFixed(2)}]`,
+      );
+    } catch (e) {
+      // console.error('error in perfEnd', label, realLabel, e);
+    } finally {
+      performance.clearMarks(endMark);
+      performance.clearMarks(realLabel);
+      performance.clearMeasures(realLabel);
+    }
+  }
 }

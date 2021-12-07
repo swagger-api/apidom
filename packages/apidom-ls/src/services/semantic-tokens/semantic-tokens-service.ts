@@ -14,8 +14,19 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
-import { SourceMap, getSourceMap, isMember, correctPartialKeys } from '../../utils/utils';
+import {
+  SourceMap,
+  getSourceMap,
+  isMember,
+  correctPartialKeys,
+  perfEnd,
+  perfStart,
+} from '../../utils/utils';
 import { isJsonDoc } from '../../parser-factory';
+
+enum PerfLabels {
+  START = 'computeSemanticTokens',
+}
 
 export interface SemanticTokensService {
   computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
@@ -124,9 +135,14 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
 
   // eslint-disable-next-line class-methods-use-this
   public async computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens> {
+    perfStart(PerfLabels.START);
     const tokens: number[][] = [];
 
-    let result = await this.settings!.documentCache?.get(textDocument);
+    let result = await this.settings!.documentCache?.get(
+      textDocument,
+      undefined,
+      'computeSemanticTokens-parse-first',
+    );
     if (!result) {
       return {
         data: tokens.flat(),
@@ -138,7 +154,11 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
       processedText = correctPartialKeys(result, textDocument, isJson);
     }
     if (processedText) {
-      result = await this.settings!.documentCache?.get(textDocument, processedText);
+      result = await this.settings!.documentCache?.get(
+        textDocument,
+        processedText,
+        'computeSemanticTokens-parse-second',
+      );
     }
     if (!result) {
       return {
@@ -421,6 +441,7 @@ console.log(
     };
 
     traverse(buildTokens, api);
+    perfEnd(PerfLabels.START);
     return {
       data: tokens.flat(),
     } as SemanticTokens;

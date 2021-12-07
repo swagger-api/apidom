@@ -44,14 +44,22 @@ export class DefaultHoverService implements HoverService {
     const isJson = isJsonDoc(textDocument);
     let processedText;
 
-    let result = await this.settings!.documentCache?.get(textDocument);
+    let result = await this.settings!.documentCache?.get(
+      textDocument,
+      undefined,
+      'computeHover-parse-first',
+    );
     if (!result) return undefined;
 
     if (result.annotations && !isJson) {
       processedText = correctPartialKeys(result, textDocument, isJson);
     }
     if (processedText) {
-      result = await this.settings!.documentCache?.get(textDocument, processedText);
+      result = await this.settings!.documentCache?.get(
+        textDocument,
+        processedText,
+        'computeHover-parse-second',
+      );
     }
     if (!result) return undefined;
     const { api } = result;

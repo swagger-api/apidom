@@ -1,14 +1,13 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
+// eslint-disable-next-line import/no-cycle
+import { debug, perfEnd, perfStart } from './utils/utils';
+import { DocumentCache } from './apidom-language-types';
+
 /*
  Adapted from https://github.com/microsoft/vscode/blob/main/extensions/json-language-features/server/src/languageModelCache.ts
  */
-export interface DocumentCache<T> {
-  get(document: TextDocument, text?: string): Promise<T | undefined>;
-  onDocumentRemoved(document: TextDocument): void;
-  dispose(): void;
-}
-
+// eslint-disable-next-line import/prefer-default-export
 export function getDocumentCache<T>(
   maxEntries: number,
   cleanupIntervalTimeInSec: number,
@@ -34,6 +33,7 @@ export function getDocumentCache<T>(
       for (const uri of uris) {
         const documentInfo = documents[uri];
         if (documentInfo.cTime < cutoffTime) {
+          debug(`cache DELETING(timer) ${documentInfo.version}`);
           delete documents[uri];
           // eslint-disable-next-line no-plusplus
           nModels--;
@@ -43,27 +43,51 @@ export function getDocumentCache<T>(
   }
 
   return {
-    async get(document: TextDocument, text?: string): Promise<T> {
+    async get(document: TextDocument, text?: string, caller = 'nocaller'): Promise<T> {
       const { version } = document;
       const { languageId } = document;
-      const documentInfo = documents[document.uri];
+      const processedUri =
+        // @ts-ignore
+        // eslint-disable-next-line no-underscore-dangle
+        document.uri && document.uri._formatted ? document.uri._formatted : document.uri;
+      const documentInfo = documents[processedUri];
       if (
         documentInfo &&
         documentInfo.version === version &&
         documentInfo.languageId === languageId &&
-        (!text || documentInfo.processedText === text)
+        ((!text && !documentInfo.processedText) || documentInfo.processedText === text)
       ) {
         documentInfo.cTime = Date.now();
+        debug(
+          `cache HIT by ${caller}`,
+          `document.uri: ${JSON.stringify(document.uri)}`,
+          `processedUri: ${processedUri}`,
+          `new/old vers: ${document.version}/${documentInfo.version}`,
+          `new/old text: ${text?.length}/${documentInfo.processedText?.length}`,
+        );
         return documentInfo.parsedDocument;
       }
+      debug(
+        `cache MISSED by ${caller}`,
+        `document.uri: ${JSON.stringify(document.uri)}`,
+        `processedUri: ${processedUri}`,
+        `vers: ${document.version}`,
+        `text: ${text?.length}`,
+        `documentInfo: ${documentInfo ? documentInfo.version : 'no doc'} - ${
+          documentInfo ? documentInfo.languageId : 'no doc'
+        }`,
+      );
+      perfStart('parse');
       const parsedDocument = await parse(text || document);
-      documents[document.uri] = {
+      perfEnd('parse');
+      documents[processedUri] = {
         parsedDocument,
         version,
         languageId,
         cTime: Date.now(),
         processedText: text,
       };
+      debug(`cache RELOADED by ${caller}`, `vers: ${documents[processedUri]?.version}`);
       if (!documentInfo) {
         // eslint-disable-next-line no-plusplus
         nModels++;
@@ -81,6 +105,7 @@ export function getDocumentCache<T>(
           }
         }
         if (oldestUri) {
+          debug(`cache DELETING ${documents[oldestUri].version}`);
           delete documents[oldestUri];
           // eslint-disable-next-line no-plusplus
           nModels--;

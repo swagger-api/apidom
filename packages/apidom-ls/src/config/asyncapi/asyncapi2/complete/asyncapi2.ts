@@ -74,7 +74,7 @@ const asyncapiRootComplete: ApidomCompletionItem[] = [
     label: 'servers',
     insertText: 'servers',
     kind: 14,
-    format: CompletionFormat.ARRAY,
+    format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {

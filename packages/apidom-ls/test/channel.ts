@@ -18,6 +18,7 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
+import { logPerformance, logLevel } from './test-utils';
 
 const specServersEmptyDash = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'servers-empty-dash.yaml'))
@@ -35,6 +36,8 @@ describe('asyncapi channel test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const languageService: LanguageService = getLanguageService(context);

@@ -49,6 +49,8 @@ import {
   getRightAfterColonOffset,
   getRightAfterDashOffset,
   correctPartialKeys,
+  perfStart,
+  perfEnd,
 } from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { standardLinterfunctions } from '../validation/linter-functions';
@@ -91,6 +93,12 @@ enum CompletionNodeContext {
   VALUE_PRIMITIVE,
 }
 
+enum PerfLabels {
+  START = 'doCompletion',
+  PARSE_FIRST = 'doCompletion-parse-first',
+  PARSE_SECOND = 'doCompletion-parse-second',
+  CORRECT_PARTIAL = 'doCompletion-correctPartialKeys',
+}
 export class DefaultCompletionService implements CompletionService {
   private static DELETEME = 'deleteme';
 
@@ -213,6 +221,8 @@ export class DefaultCompletionService implements CompletionService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
   ): Promise<CompletionList> {
+    perfStart(PerfLabels.START);
+
     const position =
       'position' in completionParamsOrPosition
         ? completionParamsOrPosition.position
@@ -264,13 +274,26 @@ export class DefaultCompletionService implements CompletionService {
         textModified = true;
       }
     }
-
-    let result = await this.settings?.documentCache?.get(textDocument, processedText);
+    perfStart(PerfLabels.PARSE_FIRST);
+    let result = await this.settings?.documentCache?.get(
+      textDocument,
+      processedText,
+      PerfLabels.PARSE_FIRST,
+    );
+    perfEnd(PerfLabels.PARSE_FIRST);
     if (!result) return CompletionList.create();
 
+    perfStart(PerfLabels.CORRECT_PARTIAL);
     processedText = correctPartialKeys(result, textDocument, isJson);
+    perfEnd(PerfLabels.CORRECT_PARTIAL);
     if (processedText) {
-      result = await this.settings!.documentCache?.get(textDocument, processedText);
+      perfStart(PerfLabels.PARSE_SECOND);
+      result = await this.settings!.documentCache?.get(
+        textDocument,
+        processedText,
+        PerfLabels.PARSE_SECOND,
+      );
+      perfEnd(PerfLabels.PARSE_SECOND);
       textModified = true;
     }
     if (!result) return CompletionList.create();
@@ -690,6 +713,7 @@ export class DefaultCompletionService implements CompletionService {
           completionList.items.push(...schemaList.items);
         });
     }
+    perfEnd(PerfLabels.START);
     return completionList;
   }
 

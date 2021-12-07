@@ -16,6 +16,7 @@ import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validati
 import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider';
 import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
 import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
+import { logPerformance, logLevel } from './test-utils';
 
 const specOpenapiSimple = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'ajv-simple-api.json'))
@@ -65,6 +66,8 @@ describe('apidom-ls-validate', function () {
       async21JsonSchemavalidationProvider,
       async22JsonSchemavalidationProvider,
     ],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const metadataNoTitle = JSON.parse(JSON.stringify(metadata()));
@@ -78,6 +81,8 @@ describe('apidom-ls-validate', function () {
       async21JsonSchemavalidationProvider,
       async22JsonSchemavalidationProvider,
     ],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const context30: LanguageServiceContext = {
@@ -88,6 +93,8 @@ describe('apidom-ls-validate', function () {
       async21JsonSchemavalidationProvider,
       async22JsonSchemavalidationProvider,
     ],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   it('test validation for asyncapi and openapi', async function () {

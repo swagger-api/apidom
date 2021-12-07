@@ -20,6 +20,7 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
+import { logLevel, logPerformance } from './test-utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export function logj(e: unknown, label?: string): void {
@@ -149,6 +150,8 @@ describe('apidom-ls-yaml', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [oasJsonSchemavalidationProvider],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const languageService: LanguageService = getLanguageService(context);

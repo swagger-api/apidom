@@ -19,6 +19,7 @@ export { Asyncapi22JsonSchemaValidationProvider } from './services/validation/pr
 export { OpenAPi31JsonSchemaValidationProvider } from './services/validation/providers/openapi-31-json-schema-validation-provider';
 
 export { isJsonDoc, isAsyncDoc, getText } from './parser-factory';
+export { perfStart, perfEnd } from './utils/utils';
 
 export type {
   LanguageService,
@@ -43,6 +44,7 @@ export {
   Format,
   CompletionType,
   CompletionFormat,
+  LogLevel,
 } from './apidom-language-types';
 
 export { config } from './config/config';

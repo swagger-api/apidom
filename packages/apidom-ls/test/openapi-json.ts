@@ -25,6 +25,7 @@ import { metadata } from './metadata';
 import { getParser } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
+import { logPerformance, logLevel } from './test-utils';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 /* const specAjvSimple = fs
@@ -144,6 +145,8 @@ describe('apidom-ls', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [oasJsonSchemavalidationProvider],
+    performanceLogs: logPerformance,
+    logLevel,
   };
 
   const languageService: LanguageService = getLanguageService(context);

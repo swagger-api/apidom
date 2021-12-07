@@ -29,7 +29,7 @@ and allows tool builders to consume one structure for all formats.
   - [ApiDOM Playground](#apidom-playground)
 - [Development](#development)
 - [Contributing](#contributing)
-- [Documentation]()
+- [Documentation](#documentation)
 - [License](#license)
   - [License analysis of dependencies](#license-analysis-of-dependencies)
 
@@ -391,7 +391,7 @@ ApiDOM is meant to free us from the structure of our documents, similar to how X
 like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM,
 which decouples our SDK from our structure and our structure from our data.
 
-## ApiDOM stages
+### ApiDOM stages
 
 There are three stages to ApiDOM
 
@@ -400,7 +400,7 @@ There are three stages to ApiDOM
 - Generate stage
 
 
-### Parse stage
+#### Parse stage
 
 The parse stage takes JSON string and produces ApiDOM structure using the base ApiDOM namespace. There are two phases of parsing:
 
@@ -408,37 +408,37 @@ The parse stage takes JSON string and produces ApiDOM structure using the base A
 - Syntactic Analysis phase
 
 
-#### Lexical Analysis phase
+##### Lexical Analysis phase
 
 Lexical Analysis will take a JSON string and turn it into a stream of tokens. tree-sitter / web-tree-sitter is used
 as an underlying lexical analyzer.
 
-#### Syntactic Analysis
+##### Syntactic Analysis
 
 Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
 CST produced by lexical analysis is syntactically analyzed, and ApiDOM structure using base (generic) ApiDOM namespace is produced.
 Syntactic analysis can further be direct or indirect. JSON parser has both direct and indirect syntactical analyzers,
 but YAML parser only has an indirect one.
 
-##### Direct Syntactical analysis
+###### Direct Syntactical analysis
 
 This analysis directly turns tree-sitter CST into ApiDOM. Single traversal is required, which makes it super performant,
 and it's the default analysis used.
 
-##### Indirect Syntactic analysis
+###### Indirect Syntactic analysis
 
 This analysis turns trees-sitter CST into JSON AST representation. Then JSON AST is turned into ApiDOM.
 Two traversals are required, which makes the indirect analysis less performant than the direct one.
 Though less performant, having JSON AST representation allows us to do further complex analysis.
 
-### Refract stage
+#### Refract stage
 
 The refract stage takes a generic ApiDOM structure (base namespace) and traverses through it, adding, updating,
 and removing nodes as it goes along and turning it into semantic ApiDOM structure (like OpenAPI or AsyncAPI).
 This is by far the most complex part of ApiDOM. This is where plugins operate.
 If plugins are used, additional traversal is currently needed.
 
-### Generate stage
+#### Generate stage
 
 We can currently only generate JSON documents from the ApiDOM structure.
 It doesn't matter if the original document was originally defined in JSON or YAML.

@@ -73,14 +73,13 @@ You can now install ApiDOM packages using `npm`:
  $ npm install @swagger-api/apidom-reference
 ```
 
-### Usage
-
-
-
 For more information about installing npm packages from GitHub packages registry please visit [Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
 section in their documentation.
 
-## ApiDOM Playground
+### Usage
+
+
+### ApiDOM Playground
 
 ApiDOM Playground is a React application that runs in a browser and can visually demonstrate capabilities
 of the ApiDOM. ApiDOM Playground is build and deployed whenever the new commit lands on `main` branch.
@@ -488,6 +487,9 @@ requires 2 traversals instead of a single one. We can find a way in the future h
 ApiDOM is licensed under [Apache 2.0 license](https://github.com/swagger-api/apidom/blob/main/LICENSES/Apache-2.0.txt).
 ApiDOM comes with an explicit [NOTICE](https://github.com/swagger-api/apidom/blob/main/NOTICE) file
 containing additional legal notifications and information.
+
+This project uses [REUSE specification](https://reuse.software/spec/) that defines a standardized method
+for declaring copyright and licensing for software projects.
 
 ### License analysis of dependencies
 

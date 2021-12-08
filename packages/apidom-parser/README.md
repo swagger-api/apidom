@@ -12,7 +12,7 @@ the following line to it:
 @swagger-api:registry=https://npm.pkg.github.com
 ```
 
-You can now install ApiDOM packages using `npm`:
+You can now install the package using `npm`:
 
 ```sh
  $ npm install @swagger-api/apidom-parser

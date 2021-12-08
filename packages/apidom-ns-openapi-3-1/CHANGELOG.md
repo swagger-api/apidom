@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/swagger-api/apidom/compare/v0.13.0...v0.14.0) (2021-12-08)
+
+
+### Bug Fixes
+
+* **replace-empty-element:** map additional Schema keywords ([c9622dd](https://github.com/swagger-api/apidom/commit/c9622dd8effbc12583d8938badaa3910281dc72a)), closes [#969](https://github.com/swagger-api/apidom/issues/969)
+
+
+
+
+
 # [0.13.0](https://github.com/swagger-api/apidom/compare/v0.12.0...v0.13.0) (2021-12-06)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

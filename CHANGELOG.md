@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/swagger-api/apidom/compare/v0.13.0...v0.14.0) (2021-12-08)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix securityScheme lint ([e351e9e](https://github.com/swagger-api/apidom/commit/e351e9e677264641cb16771fad70d3f27e822174))
+* **replace-empty-element:** map additional Schema keywords ([c9622dd](https://github.com/swagger-api/apidom/commit/c9622dd8effbc12583d8938badaa3910281dc72a)), closes [#969](https://github.com/swagger-api/apidom/issues/969)
+
+
+### Features
+
+* **apidom-ls:** add logs to completion-service ([b6ea639](https://github.com/swagger-api/apidom/commit/b6ea639c1427f1c479c65c08addc5ffb6379a976))
+* **apidom-ls:** add trace function ([5c77c9b](https://github.com/swagger-api/apidom/commit/5c77c9b3943f52e747c0a76edfc05de80af46018))
+* **apidom-ls:** expand provided symbols ([2b49302](https://github.com/swagger-api/apidom/commit/2b49302d97102f1e473aae895a6f9fe9bd03735f))
+* **apidom-ls:** fix cache and add performance(/)logs mechanism ([14bd6a8](https://github.com/swagger-api/apidom/commit/14bd6a8bbb439b3117d3580a735fd3bf477a4725))
+
+
+
+
+
 # [0.13.0](https://github.com/swagger-api/apidom/compare/v0.12.0...v0.13.0) (2021-12-06)
 
 

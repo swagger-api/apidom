@@ -493,6 +493,9 @@ const schema = {
   [ServerVariablesElement.primaryClass]: {
     '[key: *]': (...args: any[]) => new ServerVariableElement(...args),
   },
+  'json-schema-properties': {
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+  },
   [ServerSecurityElement.primaryClass]: {
     '<*>': (...args: any[]) => new SecurityRequirementElement(...args),
   },

@@ -380,6 +380,15 @@ const schema = {
   [ResponseLinksElement.primaryClass]: {
     '[key: *]': (...args: any[]) => new LinkElement(...args),
   },
+  'json-schema-$defs': {
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-dependentSchemas': {
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+  },
+  'json-schema-properties': {
+    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+  },
   [ServersElement.primaryClass]: {
     '<*>': (...args: any[]) => new ServerElement(...args),
   },

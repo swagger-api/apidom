@@ -39,6 +39,28 @@ exports[`given empty value instead for AsyncAPI.components.schemas.* should repl
             (SchemaElement)))))))
 `;
 
+exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
+(AsyncApi2Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement)))))))))))
+`;
+
 exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
 (AsyncApi2Element
   (MemberElement

@@ -74,6 +74,25 @@ describe('given empty value instead for OpenAPI.components.schemas.*', function 
   });
 });
 
+describe('given empty value instead for Schema.properties.*', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          openapi: 3.1.0
+          components:
+            schemas:
+              User:
+                properties:
+                  firstName:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as OpenApi3_1Element;
+
+    expect(sexprs(openApiElement)).toMatchSnapshot();
+  });
+});
+
 describe('given OpenAPI definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`

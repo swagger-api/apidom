@@ -203,7 +203,7 @@ describe('apidom-ls-complete', function () {
           },
           {
             label: 'servers',
-            insertText: 'servers: \n  - $1',
+            insertText: 'servers: \n  $1',
             kind: 14,
             insertTextFormat: 2,
             documentation: {

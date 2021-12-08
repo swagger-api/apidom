@@ -1,0 +1,68 @@
+asyncapi: 2.0.0
+servers:
+  prod:
+    url: "prod"
+    protocol: kafka
+  dev:
+    url: "dev"
+    protocol: kafka
+channels:
+  foo:
+    subscribe:
+      operationId: foo
+      summary: 0
+      description: 0
+      tags:
+        - aa
+      externalDocs:
+        description: aa
+      bindings:
+        kafka:
+          aa: bb
+      traits:
+        - $ref: '#/components/operationTraits/test'
+      message:
+        payload: 1
+    publish:
+      operationId: bar
+      summary: 'aa'
+      description: 'aa'
+      tags:
+        - name: aa
+      externalDocs:
+        description: aa
+      bindings:
+        kafka: 1
+      traits:
+        - operationId: car
+      message: 12   
+  bar:
+    subscribe:
+      operationId: foo
+      summary: 0
+      description: 0
+      tags:
+        - aa
+      externalDocs:
+        description: aa
+      bindings: 
+        kafka: 
+          aa: bb
+      traits:
+        - aa
+      message: 
+        payload: 1
+    publish: '1'
+components:
+  operationTraits:
+    test:
+      operationId: foo
+      summary: 0
+      description: 0
+      tags:
+        - aa
+      externalDocs:
+        description: aa
+      bindings:
+        kafka:
+          aa: bb

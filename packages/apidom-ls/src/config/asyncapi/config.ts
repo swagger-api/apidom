@@ -22,6 +22,7 @@ export default {
   contact: contactMeta,
   license: licenseMeta,
   operation: operationMeta,
+  operationTrait: operationMeta,
   channelItem: channelMeta,
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,

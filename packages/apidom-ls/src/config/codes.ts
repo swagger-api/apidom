@@ -134,6 +134,15 @@ const ApilintCodes = {
   CHANNEL_BINDINGS: (code += 1),
   CHANNEL_REF_NOSIBLINGS: (code += 1),
   SERVER_BINDINGS_KEYS: (code += 1),
+  OPERATION_ID: (code += 1),
+  OPERATION_DESCRIPTION: (code += 1),
+  OPERATION_SUMMARY: (code += 1),
+  OPERATION_TAGS: (code += 1),
+  OPERATION_EXTERNALDOCS: (code += 1),
+  OPERATION_BINDINGS: (code += 1),
+  OPERATION_TRAITS: (code += 1),
+  OPERATION_MESSAGE: (code += 1),
+  OPERATION_ID_UNIQUE: (code += 1),
 };
 
 export default ApilintCodes;

@@ -33,7 +33,8 @@ export interface DocumentCache<T> {
 }
 
 export enum LogLevel {
-  DEBUG = 1,
+  TRACE = 1,
+  DEBUG,
   INFO,
   WARN,
   ERROR,

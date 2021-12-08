@@ -130,7 +130,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download math result for job 1
+      - name: Download ApiDOM Playground build artifacts
         uses: actions/download-artifact@v2
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

@@ -51,6 +51,8 @@ import {
   correctPartialKeys,
   perfStart,
   perfEnd,
+  debug,
+  trace,
 } from '../../utils/utils';
 import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { standardLinterfunctions } from '../validation/linter-functions';
@@ -459,6 +461,9 @@ export class DefaultCompletionService implements CompletionService {
     if (endOfText) {
       targetOffset = 0;
     }
+    trace('doCompletion - text', textDocument.getText());
+    debug('doCompletion - offset', offset, textDocument.positionAt(offset));
+    debug('doCompletion - targetOffset', targetOffset, textDocument.positionAt(targetOffset));
     // find the current node
     const node = endOfText
       ? api
@@ -468,6 +473,11 @@ export class DefaultCompletionService implements CompletionService {
       const caretContext = this.resolveCaretContext(node, targetOffset);
       const completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
+
+      debug('doCompletion - node', node.element, node.toValue());
+      debug('doCompletion - completionNode', completionNode.element, completionNode.toValue());
+      debug('doCompletion - caretContext', caretContext);
+      debug('doCompletion - completionNodeContext', completionNodeContext);
 
       let overwriteRange: Range | undefined;
       let quotes: string | undefined;

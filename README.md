@@ -78,6 +78,8 @@ section in their documentation.
 
 ### Usage
 
+Every package of the monorepo has an associated README file demonstrating its purpose and containing
+usage examples.
 
 ### ApiDOM Playground
 

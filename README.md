@@ -88,7 +88,7 @@ of the ApiDOM. ApiDOM Playground is build and deployed whenever the new commit l
 
 ![image](https://user-images.githubusercontent.com/193286/145010522-5d85e34b-8d28-4a07-9ee2-b28807a013cd.png)
 
-ApiDOM Playground is available at [https://reimagined-dollop-c7e3930f.pages.github.io/](https://reimagined-dollop-c7e3930f.pages.github.io/)
+ApiDOM Playground is available at [https://swagger-api.github.io/apidom/](https://swagger-api.github.io/apidom/)
 
 ## Development
 

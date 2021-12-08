@@ -21,7 +21,7 @@ You can now install the package using `npm`:
 ## Base namespace
 
 Base namespace consists of [four higher order elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core/src/elements) implemented on top
-of [primitive ones](https://github.com/refractproject/minim/tree/main/lib/primitives).
+of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
 import { createNamespace } from '@swagger-api/apidom-core';

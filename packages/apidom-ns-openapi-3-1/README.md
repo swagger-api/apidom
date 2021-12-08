@@ -21,7 +21,7 @@ You can now install the package using `npm`:
 ## OpenApi 3.1.0 namespace
 
 OpenApi 3.1.0 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1/src/elements) implemented on top
-of [primitive ones](https://github.com/refractproject/minim/tree/main/lib/primitives).
+of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
 import { createNamespace } from '@swagger-api/apidom-core';

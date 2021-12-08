@@ -45,14 +45,17 @@ export function toggleLogs(level: LogLevel) {
   logLevel = level;
 }
 
+export function trace(...args: unknown[]) {
+  if (logLevel <= LogLevel.TRACE) console.log.apply(null, args);
+}
+export function debug(...args: unknown[]) {
+  if (logLevel <= LogLevel.DEBUG) console.debug.apply(null, args);
+}
 export function info(...args: unknown[]) {
   if (logLevel <= LogLevel.INFO) console.info.apply(null, args);
 }
 export function warn(...args: unknown[]) {
   if (logLevel <= LogLevel.WARN) console.warn.apply(null, args);
-}
-export function debug(...args: unknown[]) {
-  if (logLevel <= LogLevel.DEBUG) console.debug.apply(null, args);
 }
 export function error(...args: unknown[]) {
   if (logLevel <= LogLevel.ERROR) console.error.apply(null, args);

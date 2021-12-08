@@ -328,6 +328,38 @@ export function processPath(element: Element, path: string, api: Element): Eleme
   return targetEl;
 }
 
+export function buildPath(element: Element): string {
+  try {
+    const path: string[] = [];
+    if (!element.parent) return '';
+    let targetEl = element;
+    while (isArray(targetEl.parent)) {
+      path.unshift('[]');
+      targetEl = targetEl.parent;
+    }
+
+    if (targetEl.parent && isMember(targetEl.parent)) {
+      // @ts-ignore
+      path.unshift(targetEl.parent.key.toValue() as string);
+    }
+
+    while (targetEl.parent?.parent) {
+      targetEl = targetEl.parent.parent;
+      while (isArray(targetEl.parent)) {
+        path.unshift('[]');
+        targetEl = targetEl.parent;
+      }
+      if (targetEl.parent && isMember(targetEl.parent)) {
+        // @ts-ignore
+        path.unshift(targetEl.parent.key.toValue() as string);
+      }
+    }
+    return `/${path.join('/')}`;
+  } catch (e) {
+    return '';
+  }
+}
+
 export function getCurrentWord(document: TextDocument | string, offset: number) {
   let i = offset - 1;
   const text = typeof document === 'string' ? document : document.getText();

@@ -4,7 +4,7 @@ import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from '@swagger-api/apidom-core';
 import { SymbolKind } from 'vscode-languageserver-types';
 
-import { getSourceMap, isMember, SourceMap } from '../../utils/utils';
+import { buildPath, getSourceMap, isMember, SourceMap } from '../../utils/utils';
 import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
 
 export interface SymbolsService {
@@ -54,6 +54,14 @@ export class DefaultSymbolsService implements SymbolsService {
       'components-parameters',
       'paths',
       'channels',
+      'channelItem',
+      'schema',
+      'server',
+      'servers',
+      'channel-binding',
+      'contact',
+      'identifier',
+      'message',
       'servers',
       'components-messages',
     ];
@@ -105,7 +113,10 @@ export class DefaultSymbolsService implements SymbolsService {
             si.containerName = key.toValue() as string;
             symbols.push(si);
           } else {
-            symbols.push(SymbolInformation.create(s, SymbolKind.Property, r));
+            const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+            const path = buildPath(e);
+            si.containerName = path;
+            symbols.push(si);
           }
         }
       });

@@ -109,7 +109,7 @@ const completionTestInput = [
         },
         {
           label: 'servers',
-          insertText: '"servers": [\n  $1\n],',
+          insertText: '"servers": {\n  $1\n},',
           kind: 14,
           insertTextFormat: 2,
           documentation: {
@@ -207,7 +207,7 @@ const completionTestInput = [
         },
         {
           label: 'servers',
-          insertText: '"servers": [\n  $1\n],\n',
+          insertText: '"servers": {\n  $1\n},\n',
           kind: 14,
           insertTextFormat: 2,
           documentation: {
@@ -305,7 +305,7 @@ const completionTestInput = [
         },
         {
           label: 'servers',
-          insertText: '"servers": [\n  $1\n],\n',
+          insertText: '"servers": {\n  $1\n},\n',
           kind: 14,
           insertTextFormat: 2,
           documentation: {

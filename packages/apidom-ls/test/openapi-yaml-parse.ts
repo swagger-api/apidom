@@ -98,14 +98,13 @@ describe('apidom-parse-test', function () {
         console.log(
           node.element,
           node.getMetaProperty('classes', []).toValue(),
-          node.getMetaProperty('httpMethod', []).toValue(),
           `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
           node.toValue(),
         );
       }
 
       // traverse(printSourceMap, api);
-      traverse(printSourceMap, api);
+      traverse(printContent, api);
 
       if (result.annotations) {
         for (const annotation of result.annotations) {

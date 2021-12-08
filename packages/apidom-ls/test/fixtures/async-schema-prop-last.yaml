@@ -1,0 +1,13 @@
+asyncapi: '2.2.0'
+components:
+  schemas:
+    foo:
+
+    bad:
+      type: object
+      properties:
+        car:
+          
+    bar:
+      type: string
+      

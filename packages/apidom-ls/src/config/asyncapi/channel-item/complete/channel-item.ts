@@ -58,6 +58,19 @@ const channelCompleteJson: ApidomCompletionItem[] = [
     },
   },
   {
+    label: 'publish',
+    insertText: 'publish',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Operation Object](https://www.asyncapi.com/docs/specifications/v2.2.0#operationObject)\n\n ---- \n\nA definition of the PUBLISH operation, which defines the messages consumed by the application from the channel.',
+    },
+  },
+  {
     label: 'parameters',
     insertText: 'parameters',
     kind: 14,

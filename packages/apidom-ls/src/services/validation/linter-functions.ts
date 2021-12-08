@@ -617,4 +617,25 @@ export const standardLinterfunctions: FunctionItem[] = [
       return result;
     },
   },
+  {
+    functionName: 'apilintPropertyUniqueValue',
+    function: (element: Element, elementOrClasses: string[], key: string): boolean => {
+      const api = root(element);
+      const value = element.toValue();
+      const elements: ArraySlice = filter((el: Element) => {
+        const classes: string[] = el.getMetaProperty('classes', []).toValue();
+        return (
+          (elementOrClasses.includes(el.element) ||
+            classes.every((v) => elementOrClasses.includes(v))) &&
+          isObject(el) &&
+          el.hasKey(key) &&
+          el.get(key).toValue() === value
+        );
+      }, api);
+      if (elements.length > 1) {
+        return false;
+      }
+      return true;
+    },
+  },
 ];

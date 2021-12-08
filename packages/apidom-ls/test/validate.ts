@@ -72,6 +72,7 @@ describe('apidom-ls-validate', function () {
 
   const metadataNoTitle = JSON.parse(JSON.stringify(metadata()));
   metadataNoTitle.metadataMaps.asyncapi.info.lint.splice(3, 1);
+  metadataNoTitle.metadataMaps.openapi.operation.lint.splice(1, 1);
 
   const contextNoTitle: LanguageServiceContext = {
     metadata: metadataNoTitle,

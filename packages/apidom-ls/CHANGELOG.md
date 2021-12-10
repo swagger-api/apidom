@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/swagger-api/apidom/compare/v0.14.0...v0.15.0) (2021-12-10)
+
+
+### Features
+
+* **apidom-ls:** add rules for channel items, operation, traits ([3d924db](https://github.com/swagger-api/apidom/commit/3d924dbbcab245071171204bdebf437190b95488))
+* **apidom-ls:** add rules for channel parameter and empty spec ([82bacff](https://github.com/swagger-api/apidom/commit/82bacff56fce36ef0ac66ac94a4bc5504cfadc32))
+
+
+
+
+
 # [0.14.0](https://github.com/swagger-api/apidom/compare/v0.13.0...v0.14.0) (2021-12-08)
 
 

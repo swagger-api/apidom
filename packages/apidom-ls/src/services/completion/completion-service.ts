@@ -53,8 +53,10 @@ import {
   perfEnd,
   debug,
   trace,
+  isAsyncDoc,
+  isJsonDoc,
+  isSpecVersionSet,
 } from '../../utils/utils';
-import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import { standardLinterfunctions } from '../validation/linter-functions';
 
 export interface CompletionsCollector {
@@ -225,6 +227,11 @@ export class DefaultCompletionService implements CompletionService {
   ): Promise<CompletionList> {
     perfStart(PerfLabels.START);
 
+    const completionList: CompletionList = {
+      items: [],
+      isIncomplete: false,
+    };
+
     const position =
       'position' in completionParamsOrPosition
         ? completionParamsOrPosition.position
@@ -254,6 +261,41 @@ export class DefaultCompletionService implements CompletionService {
 
     const offset = textDocument.offsetAt(position);
 
+    // if no spec version has been set, provide completion for it anyway
+    // TODO handle also JSON, must identify offset
+    // TODO move to adapter
+    if (
+      !isSpecVersionSet(textDocument) &&
+      !isJson &&
+      textDocument.positionAt(offset).character === 0
+    ) {
+      const isEmpty = isEmptyLine(textDocument, offset);
+      trace('doCompletion - no version', { isEmpty });
+      const asyncItem = CompletionItem.create('asyncapi');
+      asyncItem.insertText = `asyncapi: '2.2.0$1'${isEmpty ? '' : '\n'}`;
+      asyncItem.documentation = {
+        kind: 'markdown',
+        value:
+          'The version string signifies the version of the AsyncAPI Specification that the document complies to. The format for this string _must_ be `major`.`minor`.`patch`. The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\n ---- \n\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version. The patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\n ---- \n\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
+      };
+      asyncItem.kind = CompletionItemKind.Keyword;
+      asyncItem.insertTextFormat = 2;
+      asyncItem.insertTextMode = 2;
+      completionList.items.push(asyncItem);
+      const oasItem = CompletionItem.create('openapi');
+      oasItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
+      oasItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. This string MUST be the [version number](#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](#infoVersion) string.',
+      };
+      oasItem.kind = CompletionItemKind.Keyword;
+      oasItem.insertTextFormat = 2;
+      oasItem.insertTextMode = 2;
+      completionList.items.push(oasItem);
+      trace('doCompletion - no version', `completionList: ${JSON.stringify(completionList)}`);
+    }
+
     /*
      process errored YAML input badly handled by YAML parser (see https://github.com/swagger-api/apidom/issues/194)
      similarly to what done in swagger-editor: check if we are in a partial "prefix" scenario, in this case add a `:`
@@ -270,6 +312,7 @@ export class DefaultCompletionService implements CompletionService {
     let textModified = false;
     if (!isJson) {
       if (isPartialKey(textDocument, offset)) {
+        debug('doCompletion - isPartialKey', { offset });
         processedText = `${textDocument.getText().slice(0, offset - 1)}:${textDocument
           .getText()
           .slice(offset)}`;
@@ -283,12 +326,14 @@ export class DefaultCompletionService implements CompletionService {
       PerfLabels.PARSE_FIRST,
     );
     perfEnd(PerfLabels.PARSE_FIRST);
-    if (!result) return CompletionList.create();
+    if (!result) return completionList;
 
     perfStart(PerfLabels.CORRECT_PARTIAL);
+    debug('doCompletion - correctPartialKeys');
     processedText = correctPartialKeys(result, textDocument, isJson);
     perfEnd(PerfLabels.CORRECT_PARTIAL);
     if (processedText) {
+      debug('doCompletion - parsing processedText');
       perfStart(PerfLabels.PARSE_SECOND);
       result = await this.settings!.documentCache?.get(
         textDocument,
@@ -298,17 +343,13 @@ export class DefaultCompletionService implements CompletionService {
       perfEnd(PerfLabels.PARSE_SECOND);
       textModified = true;
     }
-    if (!result) return CompletionList.create();
+    if (!result) return completionList;
 
     const { api } = result;
     // if we cannot parse nothing to do
-    if (api === undefined) return CompletionList.create();
+    if (api === undefined) return completionList;
     const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     const specVersion = getSpecVersion(api);
-    const completionList: CompletionList = {
-      items: [],
-      isIncomplete: false,
-    };
 
     let targetOffset = textModified ? offset - 1 : offset;
     let emptyLine = false;
@@ -538,6 +579,7 @@ export class DefaultCompletionService implements CompletionService {
           caretContext === CaretContext.OBJECT_VALUE_INNER ||
           caretContext === CaretContext.OBJECT_VALUE_START)
       ) {
+        debug('doCompletion - adding property');
         for (const p of completionNode) {
           if (!node.parent || node.parent !== p || emptyLine) {
             proposed[p.key.toValue()] = CompletionItem.create('__');
@@ -566,6 +608,7 @@ export class DefaultCompletionService implements CompletionService {
         } else {
           overwriteRange = undefined;
         }
+        trace('doCompletion - calling getMetadataPropertyCompletions');
         const apidomCompletions = this.getMetadataPropertyCompletions(
           api,
           completionNode,
@@ -575,6 +618,7 @@ export class DefaultCompletionService implements CompletionService {
           quotes,
         );
         for (const item of apidomCompletions) {
+          trace('doCompletion - apidomCompletions item', item);
           /*
             see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
             contrary to docs, range must start with the request offset. Workaround is providing
@@ -773,6 +817,7 @@ export class DefaultCompletionService implements CompletionService {
     specVersion: string,
     quotes: string | undefined,
   ): CompletionItem[] {
+    debug('getMetadataPropertyCompletions', node.element, yaml, docNs, specVersion, quotes);
     const apidomCompletions: ApidomCompletionItem[] = [];
     let set: string[] = [];
     if (node.classes) {
@@ -785,6 +830,7 @@ export class DefaultCompletionService implements CompletionService {
     }
     set.unshift(node.element);
     set.forEach((s) => {
+      debug('getMetadataPropertyCompletions - class', s);
       const classCompletions: ApidomCompletionItem[] = doc.meta
         .get('metadataMap')
         ?.get(s)
@@ -793,6 +839,7 @@ export class DefaultCompletionService implements CompletionService {
       if (classCompletions) {
         apidomCompletions.push(...classCompletions.filter((ci) => !ci.target));
       }
+      debug('getMetadataPropertyCompletions - class apidomCompletions', apidomCompletions);
       // check also parent for completions with `target` property
       // get parent
       if (node.parent && isMember(node.parent)) {

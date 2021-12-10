@@ -21,8 +21,8 @@ import {
   correctPartialKeys,
   perfEnd,
   perfStart,
+  isJsonDoc,
 } from '../../utils/utils';
-import { isJsonDoc } from '../../parser-factory';
 
 enum PerfLabels {
   START = 'computeSemanticTokens',

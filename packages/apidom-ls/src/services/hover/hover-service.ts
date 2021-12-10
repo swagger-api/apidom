@@ -11,8 +11,9 @@ import {
   isArray,
   getSpecVersion,
   correctPartialKeys,
+  isAsyncDoc,
+  isJsonDoc,
 } from '../../utils/utils';
-import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 
 export interface HoverService {
   computeHover(textDocument: TextDocument, position: Position): Promise<Hover | undefined>;

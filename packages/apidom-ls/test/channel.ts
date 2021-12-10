@@ -265,16 +265,7 @@ describe('asyncapi channel test', function () {
     const result = await languageService.doValidation(doc, validationContext);
     assert.deepEqual(result, [
       {
-        range: {
-          start: {
-            line: 0,
-            character: 0,
-          },
-          end: {
-            line: 0,
-            character: 5,
-          },
-        },
+        range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
         message: "should always have a 'info' section",
         severity: 1,
         code: 10069,
@@ -291,16 +282,7 @@ describe('asyncapi channel test', function () {
         },
       },
       {
-        range: {
-          start: {
-            line: 9,
-            character: 2,
-          },
-          end: {
-            line: 9,
-            character: 5,
-          },
-        },
+        range: { start: { line: 9, character: 2 }, end: { line: 9, character: 5 } },
         message:
           "If there are conflicts between the referenced definition and this Channel Item's definition, the behavior is undefined",
         severity: 2,
@@ -318,16 +300,7 @@ describe('asyncapi channel test', function () {
         },
       },
       {
-        range: {
-          start: {
-            line: 11,
-            character: 4,
-          },
-          end: {
-            line: 11,
-            character: 11,
-          },
-        },
+        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 11 } },
         message: 'server names must be included in defined servers',
         severity: 1,
         code: 10128,
@@ -335,16 +308,25 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 14,
-            character: 4,
-          },
-          end: {
-            line: 14,
-            character: 11,
-          },
+        range: { start: { line: 9, character: 2 }, end: { line: 9, character: 5 } },
+        message:
+          "If there are conflicts between the referenced definition and this Channel Item's definition, the behavior is undefined",
+        severity: 2,
+        code: 10133,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
         },
+      },
+      {
+        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 11 } },
         message: 'server names must be included in defined servers',
         severity: 1,
         code: 10128,
@@ -352,16 +334,15 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 19,
-            character: 17,
-          },
-          end: {
-            line: 19,
-            character: 18,
-          },
-        },
+        range: { start: { line: 14, character: 4 }, end: { line: 14, character: 11 } },
+        message: 'server names must be included in defined servers',
+        severity: 1,
+        code: 10128,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 19, character: 17 }, end: { line: 19, character: 18 } },
         message: "description' value must be a string",
         severity: 1,
         code: 10126,
@@ -369,16 +350,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 22,
-            character: 15,
-          },
-          end: {
-            line: 22,
-            character: 18,
-          },
-        },
+        range: { start: { line: 22, character: 15 }, end: { line: 22, character: 18 } },
         message: '"subscribe" must be an operation',
         severity: 1,
         code: 10129,
@@ -386,16 +358,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 23,
-            character: 13,
-          },
-          end: {
-            line: 23,
-            character: 16,
-          },
-        },
+        range: { start: { line: 23, character: 13 }, end: { line: 23, character: 16 } },
         message: '"publish" must be an operation',
         severity: 1,
         code: 10130,
@@ -403,16 +366,15 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 35,
-            character: 17,
-          },
-          end: {
-            line: 35,
-            character: 18,
-          },
-        },
+        range: { start: { line: 30, character: 6 }, end: { line: 30, character: 12 } },
+        message: 'parameter key must be defined in channel name',
+        severity: 1,
+        code: 10144,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 35, character: 17 }, end: { line: 35, character: 18 } },
         message: "description' value must be a string",
         severity: 1,
         code: 10126,
@@ -420,16 +382,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 38,
-            character: 15,
-          },
-          end: {
-            line: 38,
-            character: 18,
-          },
-        },
+        range: { start: { line: 38, character: 15 }, end: { line: 38, character: 18 } },
         message: '"subscribe" must be an operation',
         severity: 1,
         code: 10129,
@@ -437,16 +390,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 39,
-            character: 13,
-          },
-          end: {
-            line: 39,
-            character: 16,
-          },
-        },
+        range: { start: { line: 39, character: 13 }, end: { line: 39, character: 16 } },
         message: '"publish" must be an operation',
         severity: 1,
         code: 10130,
@@ -454,16 +398,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 44,
-            character: 4,
-          },
-          end: {
-            line: 44,
-            character: 14,
-          },
-        },
+        range: { start: { line: 44, character: 4 }, end: { line: 44, character: 14 } },
         message: 'parameters members must be parameter objects',
         severity: 1,
         code: 10131,
@@ -471,16 +406,7 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: {
-          start: {
-            line: 40,
-            character: 4,
-          },
-          end: {
-            line: 40,
-            character: 12,
-          },
-        },
+        range: { start: { line: 40, character: 4 }, end: { line: 40, character: 12 } },
         message: 'bindings members must be binding objects',
         severity: 1,
         code: 10132,

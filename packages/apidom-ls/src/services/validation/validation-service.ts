@@ -3,7 +3,6 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
 import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
 
-import { isAsyncDoc, isJsonDoc } from '../../parser-factory';
 import {
   APIDOM_LINTER,
   LanguageSettings,
@@ -26,6 +25,8 @@ import {
   correctPartialKeys,
   perfStart,
   perfEnd,
+  isAsyncDoc,
+  isJsonDoc,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -258,10 +259,10 @@ export class DefaultValidationService implements ValidationService {
           set.unshift(element.element);
         }
         const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
-        // TODO maybe move to adapter
-        if (referencedElement.length > 0 && referencedElement === 'schema') {
-          set.unshift('schema');
+        if (referencedElement.length > 0) {
+          set.unshift(referencedElement);
         }
+
         if (referencedElement.length > 0) {
           // lint local references
           if (isObject(element) && element.hasKey('$ref')) {

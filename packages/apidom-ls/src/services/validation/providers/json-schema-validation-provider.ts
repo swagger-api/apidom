@@ -12,8 +12,8 @@ import {
   ValidationContext,
   ValidationProvider,
 } from '../../../apidom-language-types';
-import { isJsonDoc } from '../../../parser-factory';
 import * as AjvUtils from './ajv-utils';
+import { isJsonDoc } from '../../../utils/utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export abstract class JsonSchemaValidationProvider implements ValidationProvider {

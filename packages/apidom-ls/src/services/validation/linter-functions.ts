@@ -638,4 +638,23 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintChannelParameterExist',
+    function: (element: Element): boolean => {
+      const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
+      // check ancestor to be a channelItem
+      if (element.parent?.parent?.parent?.parent?.element !== 'channelItem') {
+        return true;
+      }
+      if (element.element === 'parameter' || referencedElement === 'parameter') {
+        const parameterName = ((element.parent as MemberElement)?.key as Element).toValue();
+        const channelEl: Element = element.parent?.parent?.parent?.parent;
+        const channelName: string = ((channelEl.parent as MemberElement)?.key as Element).toValue();
+        if (channelName.indexOf(`{${parameterName}}`) === -1) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
 ];

@@ -4,7 +4,8 @@ import { isString } from 'ramda-adjunct';
 import { ArraySlice, Element, filter, ObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
-import { getParser, isJsonDoc } from '../../parser-factory';
+import { getParser } from '../../parser-factory';
+import { isJsonDoc } from '../../utils/utils';
 
 export interface DerefService {
   doDeref(textDocument: TextDocument, derefContext: DerefContext): Promise<string>;

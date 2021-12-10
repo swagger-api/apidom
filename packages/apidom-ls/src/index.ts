@@ -18,8 +18,14 @@ export { Asyncapi21JsonSchemaValidationProvider } from './services/validation/pr
 export { Asyncapi22JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-22-json-schema-validation-provider';
 export { OpenAPi31JsonSchemaValidationProvider } from './services/validation/providers/openapi-31-json-schema-validation-provider';
 
-export { isJsonDoc, isAsyncDoc, getText } from './parser-factory';
-export { perfStart, perfEnd } from './utils/utils';
+export {
+  perfStart,
+  perfEnd,
+  isAsyncDoc,
+  isJsonDoc,
+  getText,
+  isSpecVersionSet,
+} from './utils/utils';
 
 export type {
   LanguageService,

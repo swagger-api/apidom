@@ -1,20 +1,20 @@
 import {
-  Element,
-  ObjectElement,
-  MemberElement,
   ArrayElement,
-  StringElement,
-  NumberElement,
   BooleanElement,
-  isMemberElement,
-  isObjectElement,
-  isArrayElement,
-  isStringElement,
-  isNumberElement,
-  isBooleanElement,
+  Element,
   find,
-  traverse,
+  isArrayElement,
+  isBooleanElement,
+  isMemberElement,
+  isNumberElement,
+  isObjectElement,
+  isStringElement,
+  MemberElement,
+  NumberElement,
+  ObjectElement,
   ParseResultElement,
+  StringElement,
+  traverse,
 } from '@swagger-api/apidom-core';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
@@ -29,9 +29,6 @@ import {
 } from '../apidom-language-types';
 // eslint-disable-next-line import/no-cycle
 import { standardLinterfunctions } from '../services/validation/linter-functions';
-
-// TODO remove, keep for remote debugging
-// import { appendFile } from 'fs';
 
 let performanceLogs = false;
 let logLevel = LogLevel.WARN;
@@ -704,4 +701,69 @@ export function perfEnd(label: string, force = false) {
       performance.clearMeasures(realLabel);
     }
   }
+}
+
+export interface RegexMap {
+  [key: string]: RegExp;
+}
+
+export function getText(document: TextDocument | string, trim = false): string {
+  let text = '';
+  if (typeof document === 'string') {
+    text = document;
+  } else {
+    text = document.getText();
+  }
+  if (trim) text = text.trim();
+  return text;
+}
+
+export function isJsonDoc(document: TextDocument | string): boolean {
+  const text = getText(document, true);
+  const JSON_START = /^\[|^\{(?!\{)/;
+  const JSON_ENDS: RegexMap = {
+    '[': /]$/,
+    '{': /}$/,
+  };
+
+  const jsonStart: RegExpMatchArray | null = text.match(JSON_START);
+  return jsonStart != null && JSON_ENDS[jsonStart[0]].test(text);
+}
+
+export function isSpecVersionSet(document: TextDocument | string): boolean {
+  const text = getText(document, true);
+
+  const VERSION_STRING_YAML_ASYNC =
+    '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
+  const VERSION_STRING_JSON_ASYNC =
+    '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
+  const VERSION_STRING_YAML_OAS =
+    '^["\']?openapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
+  const VERSION_STRING_JSON_OAS = '^.*"openapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
+
+  if (isJsonDoc(text)) {
+    return (
+      new RegExp(VERSION_STRING_JSON_ASYNC, 'm').test(text) ||
+      new RegExp(VERSION_STRING_JSON_OAS, 'm').test(text)
+    );
+  }
+  return (
+    new RegExp(VERSION_STRING_YAML_ASYNC, 'm').test(text) ||
+    new RegExp(VERSION_STRING_YAML_OAS, 'm').test(text)
+  );
+}
+
+export function isAsyncDoc(document: TextDocument | string): boolean {
+  const text = getText(document, true);
+  if (!isSpecVersionSet(document)) {
+    return true;
+  }
+  const VERSION_STRING_YAML =
+    '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
+  const VERSION_STRING_JSON = '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
+
+  if (isJsonDoc(text)) {
+    return new RegExp(VERSION_STRING_JSON, 'm').test(text);
+  }
+  return new RegExp(VERSION_STRING_YAML, 'm').test(text);
 }

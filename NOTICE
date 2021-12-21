@@ -1,5 +1,7 @@
-apidom-monorepo
+ApiDOM
 Copyright 2020 SmartBear Software Inc.
+ApiDOM is licensed under Apache 2.0 license.
+Copy of the Apache 2.0 license can be found in `LICENSES/Apache-2.0.txt` file.
 
 json-schema-ref-parser
 Copyright (c) 2015 James Messinger

@@ -112,22 +112,3 @@ jobs:
       with:
         name: build
         path: ./packages/apidom-playground/build
-
-  deploy:
-
-    name: Deploy ApiDOM Playground
-    if: github.ref == 'refs/heads/main'
-
-    needs: [ lint, test, check-typescript-types, build ]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download ApiDOM Playground build artifacts
-        uses: actions/download-artifact@v2
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch

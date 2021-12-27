@@ -29,8 +29,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Lint commit message
         run: git log -1 --pretty=format:"%s" | npx commitlint
       - name: Lint code
@@ -55,8 +53,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Generate typescript declarations
         run: npm run typescript:declaration
       - name: Check TypeScript types
@@ -81,8 +77,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Build monorepo for testing
         run: npm run build:cjs
       - name: Execute tests in monorepo
@@ -107,8 +101,6 @@ jobs:
         key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm ci
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
     - name: Build monorepo
       run: npm run build:es
     - name: Build ApiDOM Playground

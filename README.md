@@ -214,7 +214,7 @@ it has been cloned to a local filesystem:
 ```sh
  $ npm i
  $ npm run build
- $ npm link --workspaces
+ $ npm run link
 ```
 This will install the dependencies, built the monorepo and link all it's packages to
 global `node_modules`.
@@ -252,16 +252,19 @@ multiple package names as argument.
 #### Cleaning up
 
 It is not necessary to unlink monorepo packages from global `node_modules`. But if you
-want to keep your global `node_modules` tidy you can issue the following command:
+want to keep your global `node_modules` tidy you can run the following command in monorepo directory:
+
+```shell
+ $ npm run unlink
+```
+
+Running above npm script will unlink all monorepo packages from global `node_modules`.
+
+If you want to just unlink particular monorepo packages, you have to enumerate them explicitly:
 
 ```shell
  $ npm unlink --global @swagger-api/apidom-ast @swagger-api/apidom-core
 ```
-
-You have to enumerate all the monorepo packages that should be unlinked explicitly.
-
-> Setting up an npm script in `dependent project` can help keep things DRY.
-
 
 ## Contributing
 

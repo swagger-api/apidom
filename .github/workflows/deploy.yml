@@ -36,12 +36,13 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/build.zip', Buffer.from(download.data));
+            fs.mkdirSync('${{github.workspace}}/deploy-dir');
+            fs.writeFileSync('${{github.workspace}}/deploy-dir/build.zip', Buffer.from(download.data));
       - run: unzip build.zip
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
+          FOLDER: deploy-dir # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch

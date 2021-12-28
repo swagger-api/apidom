@@ -1,3 +1,4 @@
+# inspired by https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
 name: Deploy ApiDOM Playground
 
 on:
@@ -38,7 +39,7 @@ jobs:
             var fs = require('fs');
             fs.mkdirSync('${{github.workspace}}/deploy-dir');
             fs.writeFileSync('${{github.workspace}}/deploy-dir/build.zip', Buffer.from(download.data));
-      - run: unzip build.zip
+      - run: unzip deploy-dir/build.zip
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:

@@ -247,9 +247,27 @@ multiple package names as argument.
  $ npm link @swagger-api/apidom-core
 ```
 
-> Setting up an npm script in `depedent project` can help keep things DRY.
+> Setting up npm script in `depedent project` can help keep things DRY.
 
 #### Cleaning up
+
+##### Dependent project
+
+The best way to unlink monorepo packages from `dependent project` is to run following command
+inside the `dependent project`:
+
+```shell
+ $ npm i
+```
+
+Running `npm i` will remove the links to monorepo packages and install the packages from npm registry.
+
+> Note: running `npm unlink <package-name>` in `dependent project` will remove the link to monorepo package,
+but will leave the `dependent project` node_modules in corrupted state as there is no version of the package
+installed anymore. Running `npm i` is always a prefered way to restore your node_modules to original state.
+
+
+##### ApiDOM monorepo
 
 It is not necessary to unlink monorepo packages from global `node_modules`. But if you
 want to keep your global `node_modules` tidy you can run the following command in monorepo directory:

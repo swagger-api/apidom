@@ -37,9 +37,9 @@ jobs:
                archive_format: 'zip',
             });
             var fs = require('fs');
-            fs.mkdirSync('${{github.workspace}}/deploy-dir');
             fs.writeFileSync('${{github.workspace}}/build.zip', Buffer.from(download.data));
       - run: |
+          mkdir deploy-dir
           unzip build.zip -d deploy-dir
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

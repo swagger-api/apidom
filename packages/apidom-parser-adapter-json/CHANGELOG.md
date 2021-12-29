@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/swagger-api/apidom/compare/v0.15.0...v0.15.1) (2021-12-29)
+
+
+### Bug Fixes
+
+* amend browser patches ([a8d11a8](https://github.com/swagger-api/apidom/commit/a8d11a88d9e7ba8b2aa997f7949da7e3884fbe09)), closes [#1035](https://github.com/swagger-api/apidom/issues/1035)
+
+
+
+
+
 # [0.15.0](https://github.com/swagger-api/apidom/compare/v0.14.0...v0.15.0) (2021-12-10)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

@@ -9,7 +9,7 @@ const realFetch = globalThis.fetch;
 if (isFunction(realFetch)) {
   globalThis.fetch = (...args) => {
     // @ts-ignore
-    if (isString(args[0]) && args[0].endsWith('/tree-sitter.wasm')) {
+    if (isString(args[0]) && args[0].endsWith('tree-sitter.wasm')) {
       // @ts-ignore
       return realFetch.apply(globalThis, [treeSitterWasm, tail(args)]);
     }

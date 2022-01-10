@@ -144,6 +144,12 @@ const ApilintCodes = {
   OPERATION_MESSAGE: (code += 1),
   OPERATION_ID_UNIQUE: (code += 1),
   CHANNEL_PARAMETERS_EXIST: (code += 1),
+  PARAMETER_DESCRIPTION: (code += 1),
+  PARAMETER_SCHEMA: (code += 1),
+  PARAMETER_LOCATION: (code += 1),
+  PARAMETER_OBJECT: (code += 1),
+  PARAMETER_REF: (code += 1),
+  PARAMETER_REF_SIBLINGS: (code += 1),
 };
 
 export default ApilintCodes;

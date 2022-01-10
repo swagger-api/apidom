@@ -9,7 +9,7 @@ module.exports = {
             debug: false,
             modules: 'commonjs',
             targets: {
-              node: '10',
+              node: '11',
             },
             forceAllTransforms: false,
             ignoreBrowserslistConfig: true,

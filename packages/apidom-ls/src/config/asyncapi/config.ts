@@ -4,7 +4,6 @@ import jsonSchemaMeta from '../common/schema/meta';
 import securitySchemeMeta from './securityscheme/meta';
 import infoMeta from '../common/info/meta';
 import contactMeta from '../common/contact/meta';
-import operationMeta from '../common/operation/meta';
 import channelMeta from './channel-item/meta';
 import serversMeta from './servers/meta';
 import externalDocsMeta from './external-documentation/meta';
@@ -14,6 +13,8 @@ import securityRequirementMeta from './securityrequirement/meta';
 import serverVariableMeta from './server-variable/meta';
 import channelsMeta from './channels/meta';
 import parameterMeta from './parameter/meta';
+import operationMeta from './operation/meta';
+import operationTraitMeta from './operation-trait/meta';
 
 export default {
   '*': {
@@ -23,7 +24,7 @@ export default {
   contact: contactMeta,
   license: licenseMeta,
   operation: operationMeta,
-  operationTrait: operationMeta,
+  operationTrait: operationTraitMeta,
   channelItem: channelMeta,
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,

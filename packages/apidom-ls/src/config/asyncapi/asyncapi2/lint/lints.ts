@@ -13,6 +13,7 @@ import rootDefaultContentTypeLint from './defaultcontenttype';
 import serversLint from './servers';
 import serversKeyLint from './servers-key';
 import channelsMembersLint from './channels-members';
+import asyncapi2AllowedFieldsLint from './allowed-fields';
 
 const asyncapiRootLints = [
   rootIdLint,
@@ -30,6 +31,7 @@ const asyncapiRootLints = [
   serversLint,
   serversKeyLint,
   channelsMembersLint,
+  asyncapi2AllowedFieldsLint,
 ];
 
 export default asyncapiRootLints;

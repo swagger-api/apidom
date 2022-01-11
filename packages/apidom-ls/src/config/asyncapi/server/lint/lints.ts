@@ -8,6 +8,7 @@ import serverVariablesLint from './variables';
 import serverVariablesObjectLint from './variables-object';
 import serverSecurityLint from './security';
 import serverBindingsObjectLint from './bindings-object';
+import serverAllowedFieldsLint from './allowed-fields';
 
 const serverLints = [
   serverUrlLint,
@@ -20,6 +21,7 @@ const serverLints = [
   serverVariablesObjectLint,
   serverSecurityLint,
   serverBindingsObjectLint,
+  serverAllowedFieldsLint,
 ];
 
 export default serverLints;

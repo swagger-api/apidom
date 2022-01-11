@@ -1,10 +1,11 @@
-import operationIdLint from '../../../common/operation/lint/operationid';
-import operationTagsLint from '../../../common/operation/lint/tags';
-import operationDescriptionLint from '../../../common/operation/lint/description';
-import operationSummaryLint from '../../../common/operation/lint/summary';
+import operationIdLint from '../../operation/lint/operationid';
+import operationTagsLint from '../../operation/lint/tags';
+import operationDescriptionLint from '../../operation/lint/description';
+import operationSummaryLint from '../../operation/lint/summary';
 import externaldocsObjectLint from '../../asyncapi2/lint/externaldocs-object';
-import operationBindingsLint from '../../../common/operation/lint/bindings';
-import operationIdUniqueLint from '../../../common/operation/lint/operationid-unique';
+import operationBindingsLint from '../../operation/lint/bindings';
+import operationIdUniqueLint from '../../operation/lint/operationid-unique';
+import operationTraitAllowedFieldsLint from './allowed-fields';
 
 const operationTraitLints = [
   operationIdLint,
@@ -14,6 +15,7 @@ const operationTraitLints = [
   externaldocsObjectLint,
   operationBindingsLint,
   operationIdUniqueLint,
+  operationTraitAllowedFieldsLint,
 ];
 
 export default operationTraitLints;

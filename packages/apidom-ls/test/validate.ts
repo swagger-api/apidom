@@ -2826,6 +2826,22 @@ describe('apidom-ls-validate', function () {
           ],
         },
       },
+      {
+        code: 10151,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 4,
+            line: 1,
+          },
+          start: {
+            character: 0,
+            line: 1,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 

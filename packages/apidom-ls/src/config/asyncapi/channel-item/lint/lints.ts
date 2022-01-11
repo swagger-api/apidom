@@ -7,6 +7,7 @@ import channelSubscribeLint from './subscribe';
 import channelPublishLint from './publish';
 import channelParametersLint from './parameters';
 import channelBindingsLint from './bindings';
+import channelAllowedFieldsLint from './allowed-fields';
 
 const channelLints = [
   channel$RefLint,
@@ -18,6 +19,7 @@ const channelLints = [
   channelPublishLint,
   channelParametersLint,
   channelBindingsLint,
+  channelAllowedFieldsLint,
 ];
 
 export default channelLints;

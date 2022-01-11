@@ -116,11 +116,25 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'allowedFields',
-    function: (element: Element, keys: string[]): boolean => {
+    function: (
+      element: Element,
+      keys: string[],
+      allowExtensionPrefix: string | undefined,
+    ): boolean => {
       if (element && isObject(element)) {
         if (
           element.findElements(
-            (e) => !keys.includes(((e.parent as MemberElement).key as Element).toValue()),
+            (e) => {
+              const included = keys.includes(
+                ((e.parent as MemberElement).key as Element).toValue(),
+              );
+              const isExtension =
+                allowExtensionPrefix !== undefined &&
+                ((e.parent as MemberElement).key as Element)
+                  .toValue()
+                  .startsWith(allowExtensionPrefix);
+              return !included && (allowExtensionPrefix === undefined || !isExtension);
+            },
             {
               recursive: false,
             },

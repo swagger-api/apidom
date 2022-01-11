@@ -150,6 +150,7 @@ const ApilintCodes = {
   PARAMETER_OBJECT: (code += 1),
   PARAMETER_REF: (code += 1),
   PARAMETER_REF_SIBLINGS: (code += 1),
+  ALL_NOT_ALLOWED_FIELDS: (code += 1),
 };
 
 export default ApilintCodes;

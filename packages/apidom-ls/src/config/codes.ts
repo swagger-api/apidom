@@ -151,6 +151,23 @@ const ApilintCodes = {
   PARAMETER_REF: (code += 1),
   PARAMETER_REF_SIBLINGS: (code += 1),
   ALL_NOT_ALLOWED_FIELDS: (code += 1),
+  SERVER_BINDING: (code += 1),
+  SERVER_BINDING_HTTP: (code += 1),
+  SERVER_BINDING_WS: (code += 1),
+  SERVER_BINDING_KAFKA: (code += 1),
+  SERVER_BINDING_ANYPOINTMQ: (code += 1),
+  SERVER_BINDING_AMQP: (code += 1),
+  SERVER_BINDING_AMQP1: (code += 1),
+  SERVER_BINDING_MQTT: (code += 1),
+  SERVER_BINDING_MQTT5: (code += 1),
+  SERVER_BINDING_NATS: (code += 1),
+  SERVER_BINDING_JMS: (code += 1),
+  SERVER_BINDING_SNS: (code += 1),
+  SERVER_BINDING_SQS: (code += 1),
+  SERVER_BINDING_STOMP: (code += 1),
+  SERVER_BINDING_REDIS: (code += 1),
+  SERVER_BINDING_MERCURE: (code += 1),
+  SERVER_BINDING_IBMMQ: (code += 1),
 };
 
 export default ApilintCodes;

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/swagger-api/apidom/compare/v0.15.1...v0.16.0) (2022-01-12)
+
+
+### Features
+
+* **web-tree-sitter:** initialize in lazy manner ([90003c4](https://github.com/swagger-api/apidom/commit/90003c44e10ce118fa6ab8e10a80288d24b0ca72)), closes [#476](https://github.com/swagger-api/apidom/issues/476)
+
+
+
+
+
 ## [0.15.1](https://github.com/swagger-api/apidom/compare/v0.15.0...v0.15.1) (2021-12-29)
 
 

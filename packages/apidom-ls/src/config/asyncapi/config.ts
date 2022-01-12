@@ -15,6 +15,9 @@ import channelsMeta from './channels/meta';
 import parameterMeta from './parameter/meta';
 import operationMeta from './operation/meta';
 import operationTraitMeta from './operation-trait/meta';
+import serverBindingsMeta from './server-bindings/meta';
+import httpServerBindingMeta from './http-server-binding/meta';
+import kafkaServerBindingMeta from './kafka-server-binding/meta';
 
 export default {
   '*': {
@@ -38,4 +41,7 @@ export default {
   server: serverMeta,
   serverVariable: serverVariableMeta,
   externalDocumentation: externalDocsMeta,
+  serverBindings: serverBindingsMeta,
+  httpServerBinding: httpServerBindingMeta,
+  kafkaServerBinding: kafkaServerBindingMeta,
 };

@@ -5,24 +5,38 @@ import Parser, { Tree } from 'web-tree-sitter';
 // @ts-ignore
 import treeSitterYaml from '../../wasm/tree-sitter-yaml.wasm';
 
-/**
- * We initialize the WebTreeSitter as soon as we can.
- */
-const parserP = (async () => {
-  await Parser.init();
-  const yamlLanguage = await Parser.Language.load(treeSitterYaml);
-  const parser = new Parser();
-
-  parser.setLanguage(yamlLanguage);
-  return parser;
-})();
+let parser: Parser | null = null;
+let parserInitLock: Promise<Parser> | null = null;
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
  * This is WebAssembly version of TreeSitters Lexical Analysis.
+ *
+ * Given JavaScript doesn't support true parallelism, this
+ * code should be as lazy as possible and temporal safety should be fine.
  */
 const analyze = async (source: string): Promise<Tree> => {
-  const parser = await parserP;
+  if (parser === null && parserInitLock === null) {
+    // acquire lock
+    parserInitLock = Parser.init()
+      .then(() => Parser.Language.load(treeSitterYaml))
+      .then((jsonLanguage) => {
+        const parserInstance = new Parser();
+        parserInstance.setLanguage(jsonLanguage);
+        return parserInstance;
+      })
+      .finally(() => {
+        // release lock
+        parserInitLock = null;
+      });
+    parser = await parserInitLock;
+  } else if (parser === null && parserInitLock !== null) {
+    // await for lock to be released if there is one
+    parser = await parserInitLock;
+  } else if (parser === null) {
+    throw new Error('Error while initializing web-tree-sitter');
+  }
+
   return parser.parse(source);
 };
 

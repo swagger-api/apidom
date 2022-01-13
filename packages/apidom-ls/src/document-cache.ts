@@ -60,6 +60,7 @@ export function getDocumentCache<T>(
         documentInfo.cTime = Date.now();
         debug(
           `cache HIT by ${caller}`,
+          `timestamp: ${Date.now()}`,
           `document.uri: ${JSON.stringify(document.uri)}`,
           `processedUri: ${processedUri}`,
           `new/old vers: ${document.version}/${documentInfo.version}`,
@@ -69,6 +70,7 @@ export function getDocumentCache<T>(
       }
       debug(
         `cache MISSED by ${caller}`,
+        `timestamp: ${Date.now()}`,
         `document.uri: ${JSON.stringify(document.uri)}`,
         `processedUri: ${processedUri}`,
         `vers: ${document.version}`,
@@ -87,7 +89,11 @@ export function getDocumentCache<T>(
         cTime: Date.now(),
         processedText: text,
       };
-      debug(`cache RELOADED by ${caller}`, `vers: ${documents[processedUri]?.version}`);
+      debug(
+        `cache RELOADED by ${caller}`,
+        `timestamp: ${Date.now()}`,
+        `vers: ${documents[processedUri]?.version}`,
+      );
       if (!documentInfo) {
         // eslint-disable-next-line no-plusplus
         nModels++;

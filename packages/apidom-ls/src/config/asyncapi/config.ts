@@ -18,6 +18,10 @@ import operationTraitMeta from './operation-trait/meta';
 import serverBindingsMeta from './server-bindings/meta';
 import httpServerBindingMeta from './http-server-binding/meta';
 import kafkaServerBindingMeta from './kafka-server-binding/meta';
+import messageBindingsMeta from './message-bindings/meta';
+import httpMessageBindingMeta from './http-message-binding/meta';
+import kafkaMessageBindingMeta from './kafka-message-binding/meta';
+import messageMeta from './message/meta';
 
 export default {
   '*': {
@@ -44,4 +48,8 @@ export default {
   serverBindings: serverBindingsMeta,
   httpServerBinding: httpServerBindingMeta,
   kafkaServerBinding: kafkaServerBindingMeta,
+  messageBindings: messageBindingsMeta,
+  httpMessageBinding: httpMessageBindingMeta,
+  kafkaMessageBinding: kafkaMessageBindingMeta,
+  message: messageMeta,
 };

@@ -7,7 +7,7 @@ const serversLint: LinterMeta = {
   message: 'servers members must be of type `server`',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: ['server'],
+  linterParams: [['server']],
   marker: 'key',
   markerTarget: 'servers',
   target: 'servers',

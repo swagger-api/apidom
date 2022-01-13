@@ -22,6 +22,7 @@ import messageBindingsMeta from './message-bindings/meta';
 import httpMessageBindingMeta from './http-message-binding/meta';
 import kafkaMessageBindingMeta from './kafka-message-binding/meta';
 import messageMeta from './message/meta';
+import componentsMeta from './components/meta';
 
 export default {
   '*': {
@@ -52,4 +53,5 @@ export default {
   httpMessageBinding: httpMessageBindingMeta,
   kafkaMessageBinding: kafkaMessageBindingMeta,
   message: messageMeta,
+  components: componentsMeta,
 };

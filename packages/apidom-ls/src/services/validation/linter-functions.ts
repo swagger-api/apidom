@@ -671,4 +671,58 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintKeysRegex',
+    function: (element: Element, regexString: string): boolean => {
+      if (element && isObject(element)) {
+        if (isObject(element)) {
+          const regex = new RegExp(regexString);
+
+          return (element.keys() as string[]).every((v) => {
+            return regex.test(v);
+          });
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintMembersKeysRegex',
+    function: (element: Element, regexString: string): boolean => {
+      if (element && isObject(element)) {
+        if (isObject(element)) {
+          const regex = new RegExp(regexString);
+          for (const key of element.keys() as string[]) {
+            if (isObject(element.get(key))) {
+              const member = element.get(key);
+              const ok = (member.keys() as string[]).every((v) => {
+                return regex.test(v);
+              });
+              if (!ok) {
+                return ok;
+              }
+            }
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintNamedChildrenOfElementsOrClasess',
+    function: (element: Element, keys: string[], elementsOrClasses: string[][]): boolean => {
+      if (element && !isObject(element)) {
+        return false;
+      }
+      if (element && isObject(element)) {
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i++; i < keys.length) {
+          if (!apilintElementOrClass(element.get(keys[i]), elementsOrClasses[i])) {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+  },
 ];

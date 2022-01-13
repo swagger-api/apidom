@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const parameterRefNonSiblingsLint: LinterMeta = {
-  code: ApilintCodes.PARAMETER_REF_SIBLINGS,
+const messageBindingsRefNonSiblingsLint: LinterMeta = {
+  code: ApilintCodes.CHANNEL_REF_NOSIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
   severity: 2,
@@ -27,4 +27,4 @@ const parameterRefNonSiblingsLint: LinterMeta = {
   },
 };
 
-export default parameterRefNonSiblingsLint;
+export default messageBindingsRefNonSiblingsLint;

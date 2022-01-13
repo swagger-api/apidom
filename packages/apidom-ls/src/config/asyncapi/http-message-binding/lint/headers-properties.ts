@@ -4,7 +4,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const headersPropertiesLint: LinterMeta = {
   code: ApilintCodes.MESSAGE_BINDING_HTTP_HEADERS,
   source: 'apilint',
-  message: '"headers" must be a schema',
+  message: '"headers" must have a `properties` key',
   severity: 1,
   linterFunction: 'hasRequiredField',
   linterParams: ['properties'],

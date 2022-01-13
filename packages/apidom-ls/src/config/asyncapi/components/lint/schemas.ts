@@ -1,17 +1,17 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const schemaPropertiesLint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_PROPERTIES,
+const componentsSchemasLint: LinterMeta = {
+  code: ApilintCodes.COMPONENTS_SCHEMAS,
   source: 'apilint',
-  message: 'properties members must be schemas',
+  message: '"schemas" members must be Schema object',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
   linterParams: [['schema']],
   marker: 'key',
-  markerTarget: 'properties',
-  target: 'properties',
+  markerTarget: 'schemas',
+  target: 'schemas',
   data: {},
 };
 
-export default schemaPropertiesLint;
+export default componentsSchemasLint;

@@ -7,7 +7,7 @@ const messageBindingsLint: LinterMeta = {
   message: 'bindings members must be Message Binding objects',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: ['message-binding'],
+  linterParams: [['message-binding']],
   marker: 'key',
   markerTarget: 'bindings',
   target: 'bindings',

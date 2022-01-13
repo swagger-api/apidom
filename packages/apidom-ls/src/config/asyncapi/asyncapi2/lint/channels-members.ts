@@ -7,7 +7,7 @@ const channelsMembersLint: LinterMeta = {
   message: 'channels members must be of type `channel`',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: ['channelItem'],
+  linterParams: [['channelItem']],
   marker: 'key',
   markerTarget: 'channels',
   target: 'channels',

@@ -7,7 +7,7 @@ const channelBindingsLint: LinterMeta = {
   message: 'bindings members must be binding objects',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: ['channel-binding'],
+  linterParams: [['channel-binding']],
   marker: 'key',
   markerTarget: 'bindings',
   target: 'bindings',

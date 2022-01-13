@@ -1,10 +1,10 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const channelParametersLint: LinterMeta = {
-  code: ApilintCodes.CHANNEL_PARAMETERS,
+const componentsParametersLint: LinterMeta = {
+  code: ApilintCodes.COMPONENTS_PARAMETERS,
   source: 'apilint',
-  message: 'parameters members must be parameter objects',
+  message: '"parameters" members must be Parameter object',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
   linterParams: [['parameter']],
@@ -14,4 +14,4 @@ const channelParametersLint: LinterMeta = {
   data: {},
 };
 
-export default channelParametersLint;
+export default componentsParametersLint;

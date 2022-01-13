@@ -7,7 +7,7 @@ const schemaPatternPropertiesLint: LinterMeta = {
   message: 'patternProperties members must be schemas',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: ['schema'],
+  linterParams: [['schema']],
   marker: 'key',
   markerTarget: 'patternProperties',
   target: 'patternProperties',

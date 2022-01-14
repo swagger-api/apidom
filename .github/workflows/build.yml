@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # necessary for linting commit messages
       - name: Use Node.js 16
         uses: actions/setup-node@v2
         with:
@@ -32,7 +34,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Lint commit message
-        run: git log -1 --pretty=format:"%s" | npx commitlint
+        if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
+        run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
       - name: Lint code
         run: npm run lint
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/swagger-api/apidom/compare/v0.16.0...v0.17.0) (2022-01-14)
+
+
+### Features
+
+* **apidom-ls:** add rules for allowed fields ([e71c156](https://github.com/swagger-api/apidom/commit/e71c1563a132b6db381dcc7d6c789ec0d6e313ad))
+* **apidom-ls:** add rules for components ([4473af7](https://github.com/swagger-api/apidom/commit/4473af7e544ca67ba292e70361d50e70d1f75344))
+* **apidom-ls:** add rules for http and kafka message binding ([7a8fed2](https://github.com/swagger-api/apidom/commit/7a8fed233bda5e5a2a8997b1e6a9afadf286d248))
+* **apidom-ls:** add rules for message ([95345f6](https://github.com/swagger-api/apidom/commit/95345f6ece5da91234e32460fd69ecc65987b1ee))
+* **apidom-ls:** add rules for parameter ([f81a7ee](https://github.com/swagger-api/apidom/commit/f81a7ee711a1767da43a18282afe0f39e9b02b75))
+* **apidom-ls:** add rules for server bindings ([6f400ab](https://github.com/swagger-api/apidom/commit/6f400abbd85dde926aee7ecff6bbfa344e9c388f))
+
+
+
+
+
 # [0.16.0](https://github.com/swagger-api/apidom/compare/v0.15.1...v0.16.0) (2022-01-12)
 
 

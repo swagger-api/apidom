@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
+      interval: "daily"
+      time: "23:00"
     commit-message:
       prefix: "chore"
       include: "scope"

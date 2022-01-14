@@ -49,7 +49,7 @@
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "json-source-map": "^0.6.1",
-    "ramda": "=0.27.1",
+    "ramda": "=0.27.2",
     "ramda-adjunct": "=2.35.0",
     "stampit": "=4.3.2",
     "vscode-languageserver-protocol": "^3.16.0",

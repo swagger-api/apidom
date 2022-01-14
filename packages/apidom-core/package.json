@@ -36,7 +36,7 @@
     "@swagger-api/apidom-ast": "^0.16.0",
     "@types/ramda": "=0.27.62",
     "minim": "=0.23.8",
-    "ramda": "=0.27.1",
+    "ramda": "=0.27.2",
     "ramda-adjunct": "=2.35.0",
     "short-unique-id": "=4.4.4",
     "stampit": "=4.3.2"

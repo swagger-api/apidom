@@ -6,6 +6,8 @@ on:
     workflows: ["ApiDOM Monorepo Build"]
     types:
       - completed
+    branches:
+      - main
 
 jobs:
 
@@ -22,27 +24,27 @@ jobs:
         uses: actions/github-script@v3.1.0
         with:
           script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
+            const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
-               run_id: ${{github.event.workflow_run.id }},
+               run_id: context.payload.workflow_run.id,
             });
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+            const matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
               return artifact.name == "build"
             })[0];
-            var download = await github.actions.downloadArtifact({
+            const download = await github.rest.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
                archive_format: 'zip',
             });
-            var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/build.zip', Buffer.from(download.data));
+            const fs = require('fs');
+            fs.writeFileSync('${process.env.GITHUB_WORKSPACE}/build.zip', Buffer.from(download.data));
       - run: |
           mkdir deploy-dir
           unzip build.zip -d deploy-dir
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.2.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.

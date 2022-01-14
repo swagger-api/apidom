@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: 'Download build artifact'
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v5
         with:
           script: |
             const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -39,7 +39,7 @@ jobs:
                archive_format: 'zip',
             });
             const fs = require('fs');
-            fs.writeFileSync('${process.env.GITHUB_WORKSPACE}/build.zip', Buffer.from(download.data));
+            fs.writeFileSync('${{github.workspace}}/build.zip', Buffer.from(download.data));
       - run: |
           mkdir deploy-dir
           unzip build.zip -d deploy-dir

@@ -41,12 +41,12 @@
     "@swagger-api/apidom-ast": "^0.16.0",
     "@swagger-api/apidom-core": "^0.16.0",
     "@types/ramda": "=0.27.62",
-    "ramda": "=0.27.1",
+    "ramda": "=0.27.2",
     "ramda-adjunct": "=2.35.0",
     "stampit": "=4.3.2",
     "tree-sitter": "=0.20.0",
     "tree-sitter-yaml": "=0.5.0",
-    "web-tree-sitter": "=0.19.4"
+    "web-tree-sitter": "=0.20.2"
   },
   "devDependencies": {
     "tree-sitter-cli": "=0.20.1"

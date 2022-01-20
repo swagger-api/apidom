@@ -260,7 +260,9 @@ export class DefaultValidationService implements ValidationService {
         }
         const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
         if (referencedElement.length > 0) {
-          set.unshift(referencedElement);
+          if (!set.includes(referencedElement)) {
+            set.unshift(referencedElement);
+          }
         }
 
         if (referencedElement.length > 0) {

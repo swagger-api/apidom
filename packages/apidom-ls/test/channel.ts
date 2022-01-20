@@ -308,32 +308,6 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 9, character: 2 }, end: { line: 9, character: 5 } },
-        message:
-          "If there are conflicts between the referenced definition and this Channel Item's definition, the behavior is undefined",
-        severity: 2,
-        code: 10133,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: 'remove $ref',
-              action: 'removeChild',
-              functionParams: ['$ref'],
-              target: 'parent',
-            },
-          ],
-        },
-      },
-      {
-        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 11 } },
-        message: 'server names must be included in defined servers',
-        severity: 1,
-        code: 10128,
-        source: 'apilint',
-        data: {},
-      },
-      {
         range: { start: { line: 14, character: 4 }, end: { line: 14, character: 11 } },
         message: 'server names must be included in defined servers',
         severity: 1,

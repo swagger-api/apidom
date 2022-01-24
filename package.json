@@ -60,7 +60,7 @@
     "@types/mocha": "=9.1.0",
     "@types/sinon": "=10.0.8",
     "@typescript-eslint/eslint-plugin": "=5.10.0",
-    "@typescript-eslint/parser": "=5.10.0",
+    "@typescript-eslint/parser": "=5.10.1",
     "babel-loader": "=8.2.3",
     "babel-plugin-native-error-extend": "=2.0.2",
     "benchmark": "=2.1.4",

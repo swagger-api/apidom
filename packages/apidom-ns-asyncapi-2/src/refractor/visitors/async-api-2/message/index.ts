@@ -49,7 +49,7 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
       } else {
         // refract payload according to `schemaFormat`
         const schemaFormat = defaultTo(
-          'application/vnd.aai.asyncapi;version=2.0.0',
+          'application/vnd.aai.asyncapi;version=2.2.0',
           objectElement.get('schemaFormat')?.toValue(),
         );
         this.refractPayload(schemaFormat, payload);

@@ -1,3 +1,4 @@
+import { defaultTo } from 'ramda';
 import {
   MemberElement,
   StringElement,
@@ -257,6 +258,31 @@ const schema = {
     bindings: (...args: any[]) => new MessageBindingsElement(...args),
     examples: (...args: any[]) => new ArrayElement(...args),
     traits: (...args: any[]) => new ArrayElement(...args),
+    payload(...args: any[]) {
+      // @ts-ignore
+      const { context: messageElement } = this;
+      const supportedSchemaFormats = [
+        'application/vnd.aai.asyncapi;version=2.0.0',
+        'application/vnd.aai.asyncapi+json;version=2.0.0',
+        'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+        'application/vnd.aai.asyncapi;version=2.1.0',
+        'application/vnd.aai.asyncapi+json;version=2.1.0',
+        'application/vnd.aai.asyncapi+yaml;version=2.1.0',
+        'application/vnd.aai.asyncapi;version=2.2.0',
+        'application/vnd.aai.asyncapi+json;version=2.2.0',
+        'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+      ];
+      const schemaFormat = defaultTo(
+        'application/vnd.aai.asyncapi;version=2.2.0',
+        messageElement.schemaFormat?.toValue(),
+      );
+
+      if (supportedSchemaFormats.includes(schemaFormat)) {
+        return new SchemaElement(...args);
+      }
+
+      return new ObjectElement(...args);
+    },
   },
   SecuritySchemeElement: {
     flows: (...args: any[]) => new OAuthFlowsElement(...args),
@@ -554,7 +580,12 @@ const plugin = () => () => {
 
         return new MemberElement(
           element.key,
-          elementFactory(undefined, originalValue.meta.clone(), originalValue.attributes.clone()),
+          elementFactory.call(
+            { context: ancestor },
+            undefined,
+            originalValue.meta.clone(),
+            originalValue.attributes.clone(),
+          ),
           element.meta.clone(),
           element.attributes.clone(),
         );

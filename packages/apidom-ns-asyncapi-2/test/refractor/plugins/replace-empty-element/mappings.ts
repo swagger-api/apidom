@@ -36,6 +36,62 @@ describe('given empty value instead of ContactElement', function () {
   });
 });
 
+describe('given empty value instead of Message.payload with unspecified schema format', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          components:
+            messages:
+                userSignUp:
+                  payload:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value instead of Message.payload with supported schema format', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          components:
+            messages:
+                userSignUp:
+                  schemaFormat: application/vnd.aai.asyncapi;version=2.2.0
+                  payload:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value instead of Message.payload with unsupported schema format', function () {
+  it('should replace empty value with generic element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 2.2.0
+          components:
+            messages:
+                userSignUp:
+                  schemaFormat: application/vnd.apache.avro;version=1.9.0
+                  payload:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi2Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
 describe('given empty value instead for AsyncAPI.components.schemas', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`

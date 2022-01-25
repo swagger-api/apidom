@@ -1,0 +1,7 @@
+asyncapi: 2.2.0
+components:
+  messages:
+    userSignUp:
+      headers: 
+      payload: 
+        

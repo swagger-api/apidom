@@ -9,7 +9,10 @@ import * as openapi3_1Adapter_Yaml from '@swagger-api/apidom-parser-adapter-open
 // @ts-ignore
 import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 // @ts-ignore
-import { refractorPluginReplaceEmptyElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import {
+  refractorPluginReplaceEmptyElement,
+  refractorPluginReplaceEmptyElementPayload,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOas } from '@swagger-api/apidom-ns-openapi-3-1';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
@@ -56,12 +59,22 @@ export async function parse(
   } else if (async && !json) {
     result = await asyncapi2Adapter_Yaml.parse(text, {
       sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
+      refractorOpts: {
+        plugins: [
+          refractorPluginReplaceEmptyElement(),
+          refractorPluginReplaceEmptyElementPayload(),
+        ],
+      },
     });
   } else if (!versionSet) {
     result = await asyncapi2Adapter_Yaml.parse(text, {
       sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
+      refractorOpts: {
+        plugins: [
+          refractorPluginReplaceEmptyElement(),
+          refractorPluginReplaceEmptyElementPayload(),
+        ],
+      },
     });
   } else if (!async && json) {
     result = await openapi3_1Adapter.parse(text, { sourceMap: true });
@@ -74,7 +87,12 @@ export async function parse(
     // fallback
     result = await asyncapi2Adapter_Yaml.parse(text, {
       sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
+      refractorOpts: {
+        plugins: [
+          refractorPluginReplaceEmptyElement(),
+          refractorPluginReplaceEmptyElementPayload(),
+        ],
+      },
     });
   }
   const { api } = result;

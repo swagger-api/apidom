@@ -17,6 +17,7 @@ export {
 export { default } from './namespace';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+export { default as refractorPluginReplaceEmptyElementPayload } from './refractor/plugins/replace-empty-element-payload';
 
 export {
   isAsyncApi2Element,

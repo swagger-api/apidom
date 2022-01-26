@@ -260,6 +260,8 @@ export class DefaultCompletionService implements CompletionService {
     }
 
     const offset = textDocument.offsetAt(position);
+    debug('doCompletion - position and offset', position, offset);
+    trace('doCompletion - text', text);
 
     // if no spec version has been set, provide completion for it anyway
     // TODO handle also JSON, must identify offset
@@ -319,6 +321,7 @@ export class DefaultCompletionService implements CompletionService {
         textModified = true;
       }
     }
+    trace('doCompletion - processedText first', processedText);
     perfStart(PerfLabels.PARSE_FIRST);
     let result = await this.settings?.documentCache?.get(
       textDocument,
@@ -331,6 +334,7 @@ export class DefaultCompletionService implements CompletionService {
     perfStart(PerfLabels.CORRECT_PARTIAL);
     debug('doCompletion - correctPartialKeys');
     processedText = correctPartialKeys(result, textDocument, isJson);
+    trace('doCompletion - processedText second', processedText);
     perfEnd(PerfLabels.CORRECT_PARTIAL);
     if (processedText) {
       debug('doCompletion - parsing processedText');

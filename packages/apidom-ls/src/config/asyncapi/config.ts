@@ -23,10 +23,20 @@ import httpMessageBindingMeta from './http-message-binding/meta';
 import kafkaMessageBindingMeta from './kafka-message-binding/meta';
 import messageMeta from './message/meta';
 import componentsMeta from './components/meta';
+import ApilintCodes from '../codes';
 
 export default {
   '*': {
-    lint: [],
+    lint: [
+      {
+        code: ApilintCodes.DUPLICATE_KEYS,
+        source: 'apilint',
+        message: 'an object cannot contain duplicate keys',
+        severity: 1,
+        linterFunction: 'apilintNoDuplicateKeys',
+        marker: 'key',
+      },
+    ],
   },
   info: infoMeta,
   contact: contactMeta,

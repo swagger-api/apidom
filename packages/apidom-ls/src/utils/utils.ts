@@ -613,6 +613,7 @@ export function isPartialKey(textDocument: TextDocument, offset: number): number
     lineNonEmptyContent.length > 0 &&
     !lineNonEmptyContent.startsWith('-') &&
     !lineNonEmptyContent.endsWith(':') &&
+    !(lineNonEmptyContent.indexOf(':') > -1 && !lineNonEmptyContent.endsWith(':')) && // must not be a correct key/value
     (prevIndent < lineIndent || nextIndent < prevIndent)
   ) {
     return lineContentRange ? textDocument.offsetAt(lineContentRange.end) : undefined;

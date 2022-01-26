@@ -725,4 +725,16 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintNoDuplicateKeys',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        const keys = element.keys() as string[];
+        if (keys.length !== new Set(keys).size) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
 ];

@@ -219,6 +219,7 @@ const ApilintCodes = {
   COMPONENTS_OPERATIONBINDINGS: (code += 1),
   COMPONENTS_MESSAGEBINDINGS: (code += 1),
   DUPLICATE_KEYS: (code += 1),
+  SCHEMA_REQUIRED_WITHOUT_PROPERTIES: (code += 1),
 };
 
 export default ApilintCodes;

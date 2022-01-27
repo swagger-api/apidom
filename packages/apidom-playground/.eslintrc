@@ -1,13 +1,15 @@
 {
   "extends": [
-//    "react-app",
-//    "react-app/jest",
-//    "airbnb",
+    "react-app",
+    "react-app/jest",
+    "airbnb",
     "plugin:jsx-a11y/recommended",
-    "prettier"
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "globals": {
-    "window": "writable"
+    "window": "writable",
+    "document": "readonly"
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -27,10 +29,16 @@
       ],
       "newlines-between": "always"
     }],
+    "import/extensions": ["error", "always", {
+      "ignorePackages": true
+    }],
     "prettier/prettier": "error",
     "import/no-unresolved": 0,
     "jsx-a11y/no-autofocus": [ 2, {
       "ignoreNonDOM": true
+    }],
+    "react/function-component-definition": [1, {
+      "namedComponents": ["arrow-function"]
     }]
   }
 }

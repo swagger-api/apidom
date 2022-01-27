@@ -54,7 +54,6 @@
     "eslint-config-airbnb": "=19.0.4",
     "react-scripts": "5.0.0",
     "rewire": "^6.0.0",
-    "sass": "^1.43.4",
-    "worker-loader": "^3.0.8"
+    "sass": "^1.43.4"
   }
 }

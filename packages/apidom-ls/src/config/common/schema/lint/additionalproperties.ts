@@ -4,10 +4,10 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const schemaAdditionalPropertiesLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ADDITIONALPROPERTIES,
   source: 'apilint',
-  message: 'additionalProperties must be a schema',
+  message: 'additionalProperties must be a Schema or a Boolean',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
   target: 'additionalProperties',
   data: {},

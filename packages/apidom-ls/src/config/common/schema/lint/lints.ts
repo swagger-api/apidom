@@ -62,6 +62,7 @@ import schemaDiscriminatorLint from './discriminator';
 import schemaDiscriminatorExistLint from './discriminator-exist';
 import externalDocsObjectLint from './externaldocs-object';
 import schemaDeprecatedLint from './deprecated';
+import schemaRequiredWithoutPropertiesLint from './required-without-property';
 
 const schemaLints = [
   schema$IdLint,
@@ -128,6 +129,7 @@ const schemaLints = [
   schemaDiscriminatorExistLint,
   externalDocsObjectLint,
   schemaDeprecatedLint,
+  schemaRequiredWithoutPropertiesLint,
 ];
 
 export default schemaLints;

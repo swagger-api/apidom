@@ -29,7 +29,9 @@
       ],
       "newlines-between": "always"
     }],
-    "import/extensions": ["error", "always"],
+    "import/extensions": ["error", "always", {
+      "ignorePackages"git ad: true
+    }],
     "prettier/prettier": "error",
     "import/no-unresolved": 0,
     "jsx-a11y/no-autofocus": [ 2, {

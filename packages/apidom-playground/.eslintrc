@@ -30,7 +30,7 @@
       "newlines-between": "always"
     }],
     "import/extensions": ["error", "always", {
-      "ignorePackages"git ad: true
+      "ignorePackages": true
     }],
     "prettier/prettier": "error",
     "import/no-unresolved": 0,

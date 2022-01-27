@@ -6,14 +6,14 @@ import * as Complink from 'comlink';
 import System, { SystemContext, useSystemComponent } from 'swagger-adjust';
 
 import './index.scss';
-import ApiDOMPlaygroundPlugin from './playground/plugin';
-import ApiDOMWorker from './playground/apidom.worker';
-import reportWebVitals from './reportWebVitals';
+import ApiDOMPlaygroundPlugin from './playground/plugin.js';
+import reportWebVitals from './reportWebVitals.js';
 
+// eslint-disable-next-line react/jsx-no-constructed-context-values
 const system = new System({
   plugins: [ApiDOMPlaygroundPlugin],
   middleware: (sys) => (getDefaultMiddleware) => {
-    const apiDOMWorker = new ApiDOMWorker();
+    const apiDOMWorker = new Worker(new URL('./playground/apidom.worker', import.meta.url));
     const apiDOMService = Complink.wrap(apiDOMWorker);
 
     return getDefaultMiddleware({

@@ -10,7 +10,7 @@ import {
   resolveApiDOM,
   interpretApiDOM,
   dereferenceApiDOM,
-} from './actions';
+} from './actions.js';
 
 export const initialState = {
   source: '',

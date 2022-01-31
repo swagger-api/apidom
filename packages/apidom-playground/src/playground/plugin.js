@@ -1,4 +1,4 @@
-import reducers, { initialState } from './reducers';
+import reducers, { initialState } from './reducers.js';
 import {
   setSource,
   setApiDOM,
@@ -11,7 +11,7 @@ import {
   resolveApiDOM,
   interpretApiDOM,
   dereferenceApiDOM,
-} from './actions';
+} from './actions.js';
 import {
   selectSource,
   selectApiDOM,
@@ -28,7 +28,7 @@ import {
   selectCanParse,
   selectCanResolve,
   selectCanDereference,
-} from './selectors';
+} from './selectors.js';
 import AppBar from './components/AppBar.jsx';
 import Backdrop from './components/Backdrop.jsx';
 import Drawer, { drawerWidth } from './components/Drawer.jsx';

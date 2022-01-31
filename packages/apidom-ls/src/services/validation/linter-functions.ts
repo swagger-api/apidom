@@ -228,7 +228,7 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintContainsValue',
-    function: (element: Element, value: string): boolean => {
+    function: (element: Element, value: unknown): boolean => {
       if (element) {
         const elValue = element.toValue();
         const isArrayVal = Array.isArray(elValue);
@@ -732,6 +732,23 @@ export const standardLinterfunctions: FunctionItem[] = [
         const keys = element.keys() as string[];
         if (keys.length !== new Set(keys).size) {
           return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintRequiredDefinedInProperties',
+    function: (element: Element): boolean => {
+      if (element && element.parent?.parent && isObject(element.parent?.parent)) {
+        const required = element.toValue() as string[];
+        const properties = element.parent.parent.get('properties') as ObjectElement | undefined;
+        if (required) {
+          for (const r of required) {
+            if (!properties?.hasKey(r)) {
+              return false;
+            }
+          }
         }
       }
       return true;

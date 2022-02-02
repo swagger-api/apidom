@@ -36,7 +36,7 @@
   "author": "Vladimir Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.16.8",
+    "@babel/runtime-corejs3": "=7.17.0",
     "@swagger-api/apidom-ast": "^0.17.0",
     "@swagger-api/apidom-core": "^0.17.0",
     "@swagger-api/apidom-ns-asyncapi-2": "^0.17.0",

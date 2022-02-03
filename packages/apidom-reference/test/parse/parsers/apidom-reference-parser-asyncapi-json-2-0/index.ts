@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import File from '../../../../src/util/File';
 import AsyncApiJson2Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-json-2';
@@ -15,11 +16,11 @@ describe('parsers', function () {
           specify('should return true', function () {
             const file1 = File({
               uri: '/path/to/asyncapi.json',
-              mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0',
+              mediaType: mediaTypes.latest('json'),
             });
             const file2 = File({
               uri: '/path/to/asyncapi.json',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: mediaTypes.latest(),
             });
             const parser = AsyncApiJson2Parser();
 
@@ -45,7 +46,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/asyncapi.yaml',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+            mediaType: mediaTypes.latest(),
           });
           const parser = AsyncApiJson2Parser();
 
@@ -57,7 +58,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/asyncapi',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+            mediaType: mediaTypes.latest(),
           });
           const parser = AsyncApiJson2Parser();
 
@@ -74,7 +75,7 @@ describe('parsers', function () {
           const file = File({
             url,
             data,
-            mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0',
+            mediaType: mediaTypes.latest('json'),
           });
           const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
@@ -90,7 +91,7 @@ describe('parsers', function () {
           const file = File({
             url,
             data,
-            mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0',
+            mediaType: mediaTypes.latest('json'),
           });
           const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
@@ -105,7 +106,7 @@ describe('parsers', function () {
             const file = File({
               uri: '/path/to/file.json',
               data: 1,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: mediaTypes.latest(),
             });
             const parser = AsyncApiJson2Parser();
             await parser.parse(file);
@@ -123,7 +124,7 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.json',
             data: '',
-            mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+            mediaType: mediaTypes.latest(),
           });
           const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
@@ -141,7 +142,7 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: mediaTypes.latest(),
             });
             const parser = AsyncApiJson2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
@@ -157,7 +158,7 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: mediaTypes.latest(),
             });
             const parser = AsyncApiJson2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);

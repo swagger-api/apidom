@@ -11497,7 +11497,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
-                                          "content": "application/vnd.aai.asyncapi;version=2.0.0"
+                                          "content": "application/vnd.aai.asyncapi;version=2.1.0"
                                         }
                                       }
                                     },
@@ -12397,7 +12397,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "string",
-                                                      "content": "application/vnd.aai.asyncapi;version=2.0.0"
+                                                      "content": "application/vnd.aai.asyncapi;version=2.1.0"
                                                     }
                                                   }
                                                 },
@@ -19647,7 +19647,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
-                                          "content": "application/vnd.aai.asyncapi;version=2.0.0"
+                                          "content": "application/vnd.aai.asyncapi;version=2.2.0"
                                         }
                                       }
                                     },
@@ -20630,7 +20630,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "string",
-                                                      "content": "application/vnd.aai.asyncapi;version=2.0.0"
+                                                      "content": "application/vnd.aai.asyncapi;version=2.2.0"
                                                     }
                                                   }
                                                 },

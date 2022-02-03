@@ -130,7 +130,7 @@
             "description": "correlation id description",
             "location": "http://asyncapi.com/"
           },
-          "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.2.0",
           "contentType": "application/json",
           "name": "name of the message",
           "title": "title of the message",
@@ -183,7 +183,7 @@
                 "description": "correlation id description",
                 "location": "http://asyncapi.com/"
               },
-              "schemaFormat": "application/vnd.aai.asyncapi;version=2.0.0",
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.2.0",
               "contentType": "application/json",
               "name": "name of the message trait",
               "title": "title of the message trait",

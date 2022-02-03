@@ -1,6 +1,7 @@
 import path from 'path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
@@ -17,7 +18,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0' },
+              parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 

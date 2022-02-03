@@ -7,6 +7,7 @@ import defaultNamespaceInstance from './namespace';
 
 export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
 export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
+export { default as MediaTypes } from './media-types';
 
 export {
   Element,

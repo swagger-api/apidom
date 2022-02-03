@@ -2,16 +2,11 @@ import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
-import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
+import asyncApiNamespace, { AsyncApi2Element, mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 
-export const mediaTypes = [
-  'application/vnd.aai.asyncapi;version=2.0.0',
-  'application/vnd.aai.asyncapi+json;version=2.0.0',
-  'application/vnd.aai.asyncapi;version=2.1.0',
-  'application/vnd.aai.asyncapi+json;version=2.1.0',
-  'application/vnd.aai.asyncapi;version=2.2.0',
-  'application/vnd.aai.asyncapi+json;version=2.2.0',
-];
+const jsonMediaTypes = mediaTypes.forFormat('json');
+
+export { jsonMediaTypes as mediaTypes };
 
 export const detect = (source: string): boolean =>
   !!source.match(/(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/g);

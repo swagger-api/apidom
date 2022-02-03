@@ -28,6 +28,7 @@ import {
   selectCanParse,
   selectCanResolve,
   selectCanDereference,
+  selectMediaTypes,
 } from './selectors.js';
 import AppBar from './components/AppBar.jsx';
 import Backdrop from './components/Backdrop.jsx';
@@ -97,6 +98,7 @@ const ApiDOMPlaygroundPlugin = () => ({
         selectCanParse,
         selectCanResolve,
         selectCanDereference,
+        selectMediaTypes,
       },
     },
   },

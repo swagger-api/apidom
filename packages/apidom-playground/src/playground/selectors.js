@@ -4,7 +4,9 @@ import { from, traverse, createNamespace, sexprs, toValue } from '@swagger-api/a
 /* eslint-disable camelcase */
 import openApi3_1NsPlugin from '@swagger-api/apidom-ns-openapi-3-1';
 /* eslint-enable */
-import asyncApi2NsPlugin from '@swagger-api/apidom-ns-asyncapi-2';
+import asyncApi2NsPlugin, {
+  mediaTypes as asyncApi2MediaTypes,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
 export const selectSource = (state) => state.source;
 
@@ -31,7 +33,7 @@ export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType)
   if (mediaType.includes('vnd.oai.openapi')) {
     return createNamespace(openApi3_1NsPlugin);
   }
-  if (mediaType.includes('vnd.aai.asyncapi')) {
+  if (asyncApi2MediaTypes.includes(mediaType)) {
     return createNamespace(asyncApi2NsPlugin);
   }
   return createNamespace();
@@ -99,3 +101,8 @@ export const selectCanDereference = createSelector(
   (baseURI, apiDOM, mediaType) =>
     isNonEmptyString(baseURI) && isNonEmptyString(apiDOM) && isNonEmptyString(mediaType)
 );
+
+export const selectMediaTypes = (() => {
+  const allMediaTypes = [...asyncApi2MediaTypes];
+  return () => allMediaTypes;
+})();

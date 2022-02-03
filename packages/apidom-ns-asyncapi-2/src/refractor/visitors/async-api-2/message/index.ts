@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { always, defaultTo } from 'ramda';
 import { ObjectElement, isObjectElement, Element } from '@swagger-api/apidom-core';
 
+import mediaTypes from '../../../../media-types';
 import MessageElement from '../../../../elements/Message';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
@@ -17,20 +18,7 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
   methods: {
     refractPayload(schemaFormat: string, payload: Element) {
-      if (
-        [
-          'application/vnd.aai.asyncapi;version=2.0.0',
-          'application/vnd.aai.asyncapi+json;version=2.0.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.0.0',
-          'application/vnd.aai.asyncapi;version=2.1.0',
-          'application/vnd.aai.asyncapi+json;version=2.1.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.1.0',
-          'application/vnd.aai.asyncapi;version=2.2.0',
-          'application/vnd.aai.asyncapi+json;version=2.2.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.2.0',
-        ].includes(schemaFormat) &&
-        isObjectElement(payload)
-      ) {
+      if (isObjectElement(payload) && mediaTypes.includes(schemaFormat)) {
         this.element.payload = this.toRefractedElement(['document', 'objects', 'Schema'], payload);
       }
     },
@@ -49,7 +37,7 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
       } else {
         // refract payload according to `schemaFormat`
         const schemaFormat = defaultTo(
-          'application/vnd.aai.asyncapi;version=2.2.0',
+          mediaTypes.latest(),
           objectElement.get('schemaFormat')?.toValue(),
         );
         this.refractPayload(schemaFormat, payload);

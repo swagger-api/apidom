@@ -4,6 +4,7 @@ import asyncApi2Namespace, {
   getNodeType,
   isAsyncApi2Element,
   keyMap,
+  mediaTypes,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ResolveStrategy from '../ResolveStrategy';
@@ -27,17 +28,7 @@ const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resolv
     canResolve(file: IFile) {
       // assert by media type
       if (file.mediaType !== 'text/plain') {
-        return [
-          'application/vnd.aai.asyncapi;version=2.0.0',
-          'application/vnd.aai.asyncapi+json;version=2.0.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.0.0',
-          'application/vnd.aai.asyncapi;version=2.1.0',
-          'application/vnd.aai.asyncapi+json;version=2.1.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.1.0',
-          'application/vnd.aai.asyncapi;version=2.2.0',
-          'application/vnd.aai.asyncapi+json;version=2.2.0',
-          'application/vnd.aai.asyncapi+yaml;version=2.2.0',
-        ].includes(file.mediaType);
+        return mediaTypes.includes(file.mediaType);
       }
 
       // assert by inspecting ApiDOM

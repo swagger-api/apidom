@@ -33,6 +33,7 @@ const EditorControls = () => {
   const canDereference = useSystemSelector('playground', 'selectCanDereference');
   const source = useSystemSelector('playground', 'selectSource');
   const apiDOM = useSystemSelector('playground', 'selectApiDOM');
+  const mediaTypes = useSystemSelector('playground', 'selectMediaTypes');
   const setMediaType = useSystemActionCreatorBound('playground', 'setMediaType');
   const setBaseURI = useSystemActionCreatorBound('playground', 'setBaseURI');
   const parseSource = useSystemActionCreatorBound('playground', 'parseSource');
@@ -103,33 +104,11 @@ const EditorControls = () => {
                 <MenuItem value="application/vnd.oai.openapi+yaml;version=3.1.0">
                   application/vnd.oai.openapi+yaml;version=3.1.0
                 </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi;version=2.0.0">
-                  application/vnd.aai.asyncapi;version=2.0.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+json;version=2.0.0">
-                  application/vnd.aai.asyncapi+json;version=2.0.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+yaml;version=2.0.0">
-                  application/vnd.aai.asyncapi+yaml;version=2.0.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi;version=2.1.0">
-                  application/vnd.aai.asyncapi;version=2.1.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+json;version=2.1.0">
-                  application/vnd.aai.asyncapi+json;version=2.1.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+yaml;version=2.1.0">
-                  application/vnd.aai.asyncapi+yaml;version=2.1.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi;version=2.1.0">
-                  application/vnd.aai.asyncapi;version=2.2.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+json;version=2.1.0">
-                  application/vnd.aai.asyncapi+json;version=2.2.0
-                </MenuItem>
-                <MenuItem value="application/vnd.aai.asyncapi+yaml;version=2.1.0">
-                  application/vnd.aai.asyncapi+yaml;version=2.2.0
-                </MenuItem>
+                {mediaTypes.map((medType) => (
+                  <MenuItem key={medType} value={medType}>
+                    {medType}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>

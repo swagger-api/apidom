@@ -13,7 +13,7 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as mediaTypes } from './media-types';
+export { default as mediaTypes, AsyncAPIMediaTypes } from './media-types';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace';

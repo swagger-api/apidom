@@ -1,6 +1,6 @@
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-class AsyncAPIMediaTypes extends MediaTypes<string> {
+export class AsyncAPIMediaTypes extends MediaTypes<string> {
   forFormat(format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'asyncapi;version' : format;
     return this.filter((mediaType) => mediaType.includes(effectiveFormat));

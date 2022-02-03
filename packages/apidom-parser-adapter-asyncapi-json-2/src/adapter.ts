@@ -2,9 +2,16 @@ import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
-import asyncApiNamespace, { AsyncApi2Element, mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
+import asyncApiNamespace, {
+  AsyncApi2Element,
+  mediaTypes,
+  AsyncAPIMediaTypes,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
-const jsonMediaTypes = mediaTypes.forFormat('json');
+const jsonMediaTypes = new AsyncAPIMediaTypes(
+  ...mediaTypes.forFormat('generic'),
+  ...mediaTypes.forFormat('json'),
+);
 
 export { jsonMediaTypes as mediaTypes };
 

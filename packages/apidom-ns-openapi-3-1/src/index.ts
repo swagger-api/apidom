@@ -13,6 +13,8 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
+export { default as mediaTypes, OpenAPIMediaTypes } from './media-types';
+
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace';
 

@@ -1,5 +1,6 @@
 import { assert } from 'chai';
 import ApiDOMParser from '@swagger-api/apidom-parser';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 
 import { findAtOffset } from '../../src';
@@ -14,7 +15,7 @@ describe('traversal', function () {
       beforeEach(async function () {
         parseResult = await parser.parse('{"prop": "val"}', {
           sourceMap: true,
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
         });
       });
 

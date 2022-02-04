@@ -1,6 +1,7 @@
+import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
-import path from 'path';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { parse, resolve, resolveApiDOM } from '../src';
 
@@ -10,7 +11,7 @@ describe('apidom-reference', function () {
       specify('should read & parse the file', async function () {
         const uri = path.join(__dirname, 'parse', 'fixtures', 'sample-openapi-3-1-api.json#hash');
         const options = {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: mediaTypes.latest('json') },
         };
         const parseResult = await parse(uri, options);
 
@@ -24,7 +25,7 @@ describe('apidom-reference', function () {
       specify('should resolve the file', async function () {
         const uri = path.join(__dirname, 'resolve', 'fixtures', 'sample-openapi-3-1-api.json');
         const options = {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: mediaTypes.latest('json') },
         };
         const refSet = await resolve(uri, options);
 
@@ -38,7 +39,7 @@ describe('apidom-reference', function () {
       specify('should resolve ApiDOM', async function () {
         const uri = path.join(__dirname, 'resolve', 'fixtures', 'sample-openapi-3-1-api.json');
         const options = {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: mediaTypes.latest('json') },
           resolve: { baseURI: uri },
         };
         const parseResult = await parse(uri, options);

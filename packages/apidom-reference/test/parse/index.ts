@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import path from 'path';
 import { isParseResultElement } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';
@@ -13,7 +14,7 @@ describe('parse', function () {
     specify('should read & parse the file', async function () {
       const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
       const options = mergeOptions(defaultOptions, {
-        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+        parse: { mediaType: mediaTypes.latest('json') },
       });
       const parseResult = await parse(uri, options);
 
@@ -26,7 +27,7 @@ describe('parse', function () {
       const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
       const options = mergeOptions(defaultOptions, {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parserOpts: { sourceMap: true },
         },
       });
@@ -40,7 +41,7 @@ describe('parse', function () {
       const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json#hash');
       const options = mergeOptions(defaultOptions, {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parserOpts: { sourceMap: false },
         },
       });
@@ -86,7 +87,7 @@ describe('parse', function () {
     specify('should throw error', async function () {
       const uri = '/path/to/non-existing-file.json';
       const options = mergeOptions(defaultOptions, {
-        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+        parse: { mediaType: mediaTypes.latest('json') },
       });
 
       try {
@@ -103,7 +104,7 @@ describe('parse', function () {
       const uri = path.join(__dirname, 'fixtures', 'empty-openapi-3-1-api.json');
       const options = mergeOptions(defaultOptions, {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parsers: [OpenApiJson3_1Parser({ allowEmpty: false })],
         },
       });
@@ -134,7 +135,7 @@ describe('parse', function () {
       const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json');
       const options = mergeOptions(defaultOptions, {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parsers: [parser],
         },
       });

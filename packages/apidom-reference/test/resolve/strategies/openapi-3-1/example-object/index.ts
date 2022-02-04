@@ -1,5 +1,6 @@
 import path from 'path';
 import { assert } from 'chai';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { resolve } from '../../../../../src';
 import { ResolverError } from '../../../../../src/util/errors';
@@ -17,7 +18,7 @@ describe('resolve', function () {
             specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -30,7 +31,7 @@ describe('resolve', function () {
             specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -43,7 +44,7 @@ describe('resolve', function () {
             specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -56,7 +57,7 @@ describe('resolve', function () {
             specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -69,7 +70,7 @@ describe('resolve', function () {
             specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -84,7 +85,7 @@ describe('resolve', function () {
 
               try {
                 await resolve(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');
               } catch (e) {
@@ -99,7 +100,7 @@ describe('resolve', function () {
             specify('should not resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
 
@@ -115,7 +116,7 @@ describe('resolve', function () {
 
               try {
                 await resolve(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');
               } catch (error: any) {

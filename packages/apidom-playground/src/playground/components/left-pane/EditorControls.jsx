@@ -95,15 +95,6 @@ const EditorControls = () => {
                 <MenuItem value="application/json">application/json</MenuItem>
                 <MenuItem value="application/yaml">application/yaml</MenuItem>
                 <MenuItem value="text/yaml">text/yaml</MenuItem>
-                <MenuItem value="application/vnd.oai.openapi;version=3.1.0">
-                  application/vnd.oai.openapi;version=3.1.0
-                </MenuItem>
-                <MenuItem value="application/vnd.oai.openapi+json;version=3.1.0">
-                  application/vnd.oai.openapi+json;version=3.1.0
-                </MenuItem>
-                <MenuItem value="application/vnd.oai.openapi+yaml;version=3.1.0">
-                  application/vnd.oai.openapi+yaml;version=3.1.0
-                </MenuItem>
                 {mediaTypes.map((medType) => (
                   <MenuItem key={medType} value={medType}>
                     {medType}

@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+env:
+  CPU_CORES: 2
+
 jobs:
   release:
     name: Release

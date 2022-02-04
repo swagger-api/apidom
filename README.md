@@ -114,6 +114,20 @@ Run the following commands to setup the repository for local development:
 
 ### npm scripts
 
+Some npm scripts run in parallel. Default maximum parallelization is set `2`. This is due to the fact
+that our `CI` runs on GitHub Actions which uses GitHub hosted runners with [2-core CPUs](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources).
+If you have computer with more than 2 CPU cores, you can speed running npm scripts by
+creating an environment variable called `CPU_CORES` and assign it a number of your CPU cores.
+
+Assuming 4 CPU cores are available:
+
+```sh
+  $ export CPU_CORES=4
+  $ npm run build
+```
+
+`build` scripts now runs much faster than before.
+
 **Build artifacts**
 
 ```sh

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import File from '../../../../src/util/File';
 import OpenApiYaml3_1Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
@@ -15,11 +16,11 @@ describe('parsers', function () {
           specify('should return true', function () {
             const file1 = File({
               uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+              mediaType: mediaTypes.latest('yaml'),
             });
             const file2 = File({
               uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.oai.openapi;version=3.1.0',
+              mediaType: mediaTypes.latest('generic'),
             });
             const parser = OpenApiYaml3_1Parser();
 
@@ -46,11 +47,11 @@ describe('parsers', function () {
           specify('should return true', function () {
             const file1 = File({
               uri: '/path/to/openapi.yml',
-              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+              mediaType: mediaTypes.latest('yaml'),
             });
             const file2 = File({
               uri: '/path/to/openapi.yml',
-              mediaType: 'application/vnd.oai.openapi;version=3.1.0',
+              mediaType: mediaTypes.latest('generic'),
             });
             const parser = OpenApiYaml3_1Parser();
 
@@ -76,7 +77,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/openapi.txt',
-            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+            mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
 
@@ -88,7 +89,7 @@ describe('parsers', function () {
         specify('should return false', function () {
           const file = File({
             uri: '/path/to/openapi',
-            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+            mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
 
@@ -105,7 +106,7 @@ describe('parsers', function () {
           const file = File({
             url,
             data,
-            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+            mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
           const parseResult = await parser.parse(file);
@@ -121,7 +122,7 @@ describe('parsers', function () {
           const file = File({
             url,
             data,
-            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+            mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
           const parseResult = await parser.parse(file);
@@ -136,7 +137,7 @@ describe('parsers', function () {
             const file = File({
               uri: '/path/to/file.yaml',
               data: 1,
-              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+              mediaType: mediaTypes.latest('yaml'),
             });
             const parser = OpenApiYaml3_1Parser();
             await parser.parse(file);
@@ -154,7 +155,7 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.yaml',
             data: '',
-            mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+            mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
           const parseResult = await parser.parse(file);
@@ -172,7 +173,7 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: 'application/vnd.oai.openapi+yaml;version=3.1.0',
+              mediaType: mediaTypes.latest('yaml'),
             });
             const parser = OpenApiYaml3_1Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);

@@ -4,6 +4,7 @@ import openApi3_1Namespace, {
   getNodeType,
   isOpenApi3_1Element,
   keyMap,
+  mediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ResolveStrategy from '../ResolveStrategy';
@@ -28,11 +29,7 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     canResolve(file: IFile) {
       // assert by media type
       if (file.mediaType !== 'text/plain') {
-        return [
-          'application/vnd.oai.openapi;version=3.1.0',
-          'application/vnd.oai.openapi+json;version=3.1.0',
-          'application/vnd.oai.openapi+yaml;version=3.1.0',
-        ].includes(file.mediaType);
+        return mediaTypes.includes(file.mediaType);
       }
 
       // assert by inspecting ApiDOM

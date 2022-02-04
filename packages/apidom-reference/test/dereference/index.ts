@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import path from 'path';
 import { toValue } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { dereference, dereferenceApiDOM, parse } from '../../src';
 import { loadJsonFile } from '../helpers';
@@ -21,7 +22,7 @@ describe('dereference', function () {
     context('dereference', function () {
       specify('should dereference a file', async function () {
         const actual = await dereference(rootFilePath, {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: mediaTypes.latest('json') },
         });
 
         assert.deepEqual(toValue(actual), expected);
@@ -43,7 +44,7 @@ describe('dereference', function () {
 
         specify('should dereference an ApiDOM fragment using CWD as baseURI', async function () {
           const fragment = await parse(rootFilePath, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: mediaTypes.latest('json') },
           });
           const actual = await dereferenceApiDOM(fragment);
 
@@ -54,7 +55,7 @@ describe('dereference', function () {
       context('given fragment is instance of ParseResultElement', function () {
         specify('should dereference an ApiDOM fragment', async function () {
           const fragment = await parse(rootFilePath, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: mediaTypes.latest('json') },
           });
           const actual = await dereferenceApiDOM(fragment, { resolve: { baseURI: rootFilePath } });
 
@@ -65,7 +66,7 @@ describe('dereference', function () {
       context("given fragment isn't instance of ParseResultElement", function () {
         specify('should dereference an ApiDOM fragment', async function () {
           const { api } = await parse(rootFilePath, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: mediaTypes.latest('json') },
           });
 
           // @ts-ignore

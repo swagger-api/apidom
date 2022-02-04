@@ -1,6 +1,7 @@
 import path from 'path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
@@ -18,7 +19,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -32,7 +33,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -46,7 +47,7 @@ describe('dereference', function () {
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
-              parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+              parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -61,7 +62,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -75,7 +76,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -89,7 +90,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -103,7 +104,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -117,7 +118,7 @@ describe('dereference', function () {
             specify('should not dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -132,7 +133,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -146,7 +147,7 @@ describe('dereference', function () {
             specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
-                parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
@@ -162,7 +163,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {
@@ -179,7 +180,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                   dereference: { maxDepth: 1 },
                 });
                 assert.fail('should throw MaximumDereferenceDepthError');
@@ -199,7 +200,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {
@@ -216,7 +217,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {
@@ -233,7 +234,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {
@@ -250,7 +251,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {
@@ -267,7 +268,7 @@ describe('dereference', function () {
 
               try {
                 await dereference(rootFilePath, {
-                  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+                  parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
               } catch (e) {

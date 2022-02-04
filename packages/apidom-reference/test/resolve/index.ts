@@ -1,5 +1,6 @@
 import path from 'path';
 import { assert } from 'chai';
+import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { resolve, resolveApiDOM, parse } from '../../src';
 import { UnmatchedResolveStrategyError, ResolverError, ParserError } from '../../src/util/errors';
@@ -21,7 +22,7 @@ describe('resolve', function () {
     context('resolve', function () {
       specify('should resolve a file', async function () {
         const refSet = await resolve(rootFilePath, {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: mediaTypes.latest('json') },
         });
 
         assert.strictEqual(refSet.size, 2);
@@ -32,7 +33,7 @@ describe('resolve', function () {
       context('given fragment is instance of ParseResultElement', function () {
         specify('should resolve an ApiDOM fragment', async function () {
           const fragment = await parse(rootFilePath, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: mediaTypes.latest('json') },
           });
           const refSet = await resolveApiDOM(fragment, {
             resolve: { baseURI: rootFilePath },
@@ -45,7 +46,7 @@ describe('resolve', function () {
       context("given fragment isn't instance of ParseResultElement", function () {
         specify('should resolve an ApiDOM fragment', async function () {
           const { api } = await parse(rootFilePath, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: mediaTypes.latest('json') },
           });
           // @ts-ignore
           const refSet = await resolveApiDOM(api, {
@@ -70,7 +71,7 @@ describe('resolve', function () {
         'root.json',
       );
       const refSet = await resolve(uri, {
-        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+        parse: { mediaType: mediaTypes.latest('json') },
       });
 
       assert.strictEqual(refSet.size, 4);
@@ -124,7 +125,7 @@ describe('resolve', function () {
     specify('should throw error', async function () {
       const uri = '/path/to/non-existing-file.json';
       const options = {
-        parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+        parse: { mediaType: mediaTypes.latest('json') },
       };
 
       try {
@@ -141,7 +142,7 @@ describe('resolve', function () {
       const uri = path.join(__dirname, 'fixtures', 'empty-openapi-3-1-api.json');
       const options = {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parsers: [OpenApiJson3_1Parser({ allowEmpty: false })],
         },
       };
@@ -172,7 +173,7 @@ describe('resolve', function () {
       const uri = path.join(__dirname, 'fixtures', 'sample-openapi-3-1-api.json');
       const options = {
         parse: {
-          mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+          mediaType: mediaTypes.latest('json'),
           parsers: [parser],
         },
       };

@@ -189,76 +189,172 @@ const isEmptyElement = (element: any) =>
 const schema = {
   // concrete types handling (CTs)
   AsyncApi2Element: {
-    asyncapi: (...args: any[]) => new AsyncApiVersionElement(...args),
-    identifier: (...args: any[]) => new IdentifierElement(...args),
-    info: (...args: any[]) => new InfoElement(...args),
-    servers: (...args: any[]) => new ServersElement(...args),
-    defaultContentType: (...args: any[]) => new DefaultContentTypeElement(...args),
-    channels: (...args: any[]) => new ChannelsElement(...args),
-    components: (...args: any[]) => new ComponentsElement(...args),
-    tags: (...args: any[]) => new TagsElement(...args),
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
+    asyncapi(...args: any[]) {
+      return new AsyncApiVersionElement(...args);
+    },
+    identifier(...args: any[]) {
+      return new IdentifierElement(...args);
+    },
+    info(...args: any[]) {
+      return new InfoElement(...args);
+    },
+    servers(...args: any[]) {
+      return new ServersElement(...args);
+    },
+    defaultContentType(...args: any[]) {
+      return new DefaultContentTypeElement(...args);
+    },
+    channels(...args: any[]) {
+      return new ChannelsElement(...args);
+    },
+    components(...args: any[]) {
+      return new ComponentsElement(...args);
+    },
+    tags(...args: any[]) {
+      return new TagsElement(...args);
+    },
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
   },
   InfoElement: {
-    contact: (...args: any[]) => new ContactElement(...args),
-    license: (...args: any[]) => new LicenseElement(...args),
+    contact(...args: any[]) {
+      return new ContactElement(...args);
+    },
+    license(...args: any[]) {
+      return new LicenseElement(...args);
+    },
   },
   ServersElement: {
-    '[key: *]': (...args: any[]) => new ServerElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ServerElement(...args);
+    },
   },
   ServerElement: {
-    variables: (...args: any[]) => new ServerVariablesElement(...args),
-    security: (...args: any[]) => new ServerSecurityElement(...args),
-    bindings: (...args: any[]) => new ServerBindingsElement(...args),
+    variables(...args: any[]) {
+      return new ServerVariablesElement(...args);
+    },
+    security(...args: any[]) {
+      return new ServerSecurityElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new ServerBindingsElement(...args);
+    },
   },
   ServerVariableElement: {
-    enum: (...args: any[]) => new ArrayElement(...args),
-    examples: (...args: any[]) => new ArrayElement(...args),
+    enum(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    examples(...args: any[]) {
+      return new ArrayElement(...args);
+    },
   },
   SecurityRequirementElement: {
-    '[key: *]': (...args: any[]) => new ArrayElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ArrayElement(...args);
+    },
   },
   ChannelsElement: {
-    '[key: *]': (...args: any[]) => new ChannelItemElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ChannelItemElement(...args);
+    },
   },
   ChannelItemElement: {
-    servers: (...args: any[]) => new ChannelItemServersElement(...args),
-    subscribe: (...args: any[]) => new OperationElement(...args),
-    publish: (...args: any[]) => new OperationElement(...args),
-    parameters: (...args: any[]) => new ParameterElement(...args),
-    bindings: (...args: any[]) => new ChannelBindingsElement(...args),
+    servers(...args: any[]) {
+      return new ChannelItemServersElement(...args);
+    },
+    subscribe(...args: any[]) {
+      return new OperationElement(...args);
+    },
+    publish(...args: any[]) {
+      return new OperationElement(...args);
+    },
+    parameters(...args: any[]) {
+      return new ParameterElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new ChannelBindingsElement(...args);
+    },
   },
   OperationElement: {
-    tags: (...args: any[]) => new TagsElement(...args),
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
-    bindings: (...args: any[]) => new OperationBindingsElement(...args),
-    traits: (...args: any[]) => new OperationTraitsElement(...args),
-    message: (...args: any[]) => new MessageElement(...args),
+    tags(...args: any[]) {
+      return new TagsElement(...args);
+    },
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new OperationBindingsElement(...args);
+    },
+    traits(...args: any[]) {
+      return new OperationTraitsElement(...args);
+    },
+    message(...args: any[]) {
+      return new MessageElement(...args);
+    },
   },
   ComponentsElement: {
-    schemas: (...args: any[]) => new ComponentsSchemasElement(...args),
-    messages: (...args: any[]) => new ComponentsMessagesElement(...args),
-    securitySchemes: (...args: any[]) => new ComponentsSecuritySchemesElement(...args),
-    parameters: (...args: any[]) => new ComponentsParametersElement(...args),
-    correlationIds: (...args: any[]) => new ComponentsCorrelationIDsElement(...args),
-    operationTraits: (...args: any[]) => new ComponentsOperationTraitsElement(...args),
-    messageTraits: (...args: any[]) => new ComponentsMessageTraitsElement(...args),
-    serverBindings: (...args: any[]) => new ComponentsServerBindingsElement(...args),
-    channelBindings: (...args: any[]) => new ComponentsChannelBindingsElement(...args),
-    operationBindings: (...args: any[]) => new ComponentsOperationBindingsElement(...args),
-    messageBindings: (...args: any[]) => new ComponentsMessageBindingsElement(...args),
+    schemas(...args: any[]) {
+      return new ComponentsSchemasElement(...args);
+    },
+    messages(...args: any[]) {
+      return new ComponentsMessagesElement(...args);
+    },
+    securitySchemes(...args: any[]) {
+      return new ComponentsSecuritySchemesElement(...args);
+    },
+    parameters(...args: any[]) {
+      return new ComponentsParametersElement(...args);
+    },
+    correlationIds(...args: any[]) {
+      return new ComponentsCorrelationIDsElement(...args);
+    },
+    operationTraits(...args: any[]) {
+      return new ComponentsOperationTraitsElement(...args);
+    },
+    messageTraits(...args: any[]) {
+      return new ComponentsMessageTraitsElement(...args);
+    },
+    serverBindings(...args: any[]) {
+      return new ComponentsServerBindingsElement(...args);
+    },
+    channelBindings(...args: any[]) {
+      return new ComponentsChannelBindingsElement(...args);
+    },
+    operationBindings(...args: any[]) {
+      return new ComponentsOperationBindingsElement(...args);
+    },
+    messageBindings(...args: any[]) {
+      return new ComponentsMessageBindingsElement(...args);
+    },
   },
   TagElement: {
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
   },
   MessageElement: {
-    headers: (...args: any[]) => new SchemaElement(...args),
-    correlationId: (...args: any[]) => new CorrelationIDElement(...args),
-    tags: (...args: any[]) => new TagsElement(...args),
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
-    bindings: (...args: any[]) => new MessageBindingsElement(...args),
-    examples: (...args: any[]) => new ArrayElement(...args),
-    traits: (...args: any[]) => new ArrayElement(...args),
+    headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    correlationId(...args: any[]) {
+      return new CorrelationIDElement(...args);
+    },
+    tags(...args: any[]) {
+      return new TagsElement(...args);
+    },
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new MessageBindingsElement(...args);
+    },
+    examples(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    traits(...args: any[]) {
+      return new ArrayElement(...args);
+    },
     payload(...args: any[]) {
       // @ts-ignore
       const { context: messageElement } = this;
@@ -272,269 +368,527 @@ const schema = {
     },
   },
   SecuritySchemeElement: {
-    flows: (...args: any[]) => new OAuthFlowsElement(...args),
+    flows(...args: any[]) {
+      return new OAuthFlowsElement(...args);
+    },
   },
   OAuthFlowsElement: {
-    implicit: (...args: any[]) => new OAuthFlowElement(...args),
-    password: (...args: any[]) => new OAuthFlowElement(...args),
-    clientCredentials: (...args: any[]) => new OAuthFlowElement(...args),
-    authorizationCode: (...args: any[]) => new OAuthFlowElement(...args),
+    implicit(...args: any[]) {
+      return new OAuthFlowElement(...args);
+    },
+    password(...args: any[]) {
+      return new OAuthFlowElement(...args);
+    },
+    clientCredentials(...args: any[]) {
+      return new OAuthFlowElement(...args);
+    },
+    authorizationCode(...args: any[]) {
+      return new OAuthFlowElement(...args);
+    },
   },
   OAuthFlow: {
-    scopes: (...args: any[]) => new OAuthFlowScopesElement(...args),
+    scopes(...args: any[]) {
+      return new OAuthFlowScopesElement(...args);
+    },
   },
   ParametersElement: {
-    '[key: *]': (...args: any[]) => new ParameterElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ParameterElement(...args);
+    },
   },
   ParameterElement: {
-    schema: (...args: any[]) => new SchemaElement(...args),
+    schema(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   OperationTraitElement: {
-    tags: (...args: any[]) => new TagsElement(...args),
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
-    bindings: (...args: any[]) => new OperationBindingsElement(...args),
+    tags(...args: any[]) {
+      return new TagsElement(...args);
+    },
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new OperationBindingsElement(...args);
+    },
   },
   MessageTraitElement: {
-    headers: (...args: any[]) => new SchemaElement(...args),
-    correlationId: (...args: any[]) => new CorrelationIDElement(...args),
-    tags: (...args: any[]) => new TagsElement(...args),
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
-    bindings: (...args: any[]) => new MessageBindingsElement(...args),
-    examples: (...args: any[]) => new ArrayElement(...args),
+    headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    correlationId(...args: any[]) {
+      return new CorrelationIDElement(...args);
+    },
+    tags(...args: any[]) {
+      return new TagsElement(...args);
+    },
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
+    bindings(...args: any[]) {
+      return new MessageBindingsElement(...args);
+    },
+    examples(...args: any[]) {
+      return new ArrayElement(...args);
+    },
   },
   MessageExampleElement: {
-    headers: (...args: any[]) => new ObjectElement(...args),
+    headers(...args: any[]) {
+      return new ObjectElement(...args);
+    },
   },
   OperationBindingsElement: {
-    http: (...args: any[]) => new HttpOperationBindingElement(...args),
-    ws: (...args: any[]) => new WebSocketOperationBindingElement(...args),
-    kafka: (...args: any[]) => new KafkaOperationBindingElement(...args),
-    anypointmq: (...args: any[]) => new AnypointmqOperationBindingElement(...args),
-    amqp: (...args: any[]) => new AmqpOperationBindingElement(...args),
-    amqp1: (...args: any[]) => new Amqp1OperationBindingElement(...args),
-    mqtt: (...args: any[]) => new MqttOperationBindingElement(...args),
-    mqtt5: (...args: any[]) => new Mqtt5OperationBindingElement(...args),
-    nats: (...args: any[]) => new NatsOperationBindingElement(...args),
-    jms: (...args: any[]) => new JmsOperationBindingElement(...args),
-    sns: (...args: any[]) => new SnsOperationBindingElement(...args),
-    sqs: (...args: any[]) => new SqsOperationBindingElement(...args),
-    stomp: (...args: any[]) => new StompOperationBindingElement(...args),
-    redis: (...args: any[]) => new RedisOperationBindingElement(...args),
-    mercure: (...args: any[]) => new MercureOperationBindingElement(...args),
+    http(...args: any[]) {
+      return new HttpOperationBindingElement(...args);
+    },
+    ws(...args: any[]) {
+      return new WebSocketOperationBindingElement(...args);
+    },
+    kafka(...args: any[]) {
+      return new KafkaOperationBindingElement(...args);
+    },
+    anypointmq(...args: any[]) {
+      return new AnypointmqOperationBindingElement(...args);
+    },
+    amqp(...args: any[]) {
+      return new AmqpOperationBindingElement(...args);
+    },
+    amqp1(...args: any[]) {
+      return new Amqp1OperationBindingElement(...args);
+    },
+    mqtt(...args: any[]) {
+      return new MqttOperationBindingElement(...args);
+    },
+    mqtt5(...args: any[]) {
+      return new Mqtt5OperationBindingElement(...args);
+    },
+    nats(...args: any[]) {
+      return new NatsOperationBindingElement(...args);
+    },
+    jms(...args: any[]) {
+      return new JmsOperationBindingElement(...args);
+    },
+    sns(...args: any[]) {
+      return new SnsOperationBindingElement(...args);
+    },
+    sqs(...args: any[]) {
+      return new SqsOperationBindingElement(...args);
+    },
+    stomp(...args: any[]) {
+      return new StompOperationBindingElement(...args);
+    },
+    redis(...args: any[]) {
+      return new RedisOperationBindingElement(...args);
+    },
+    mercure(...args: any[]) {
+      return new MercureOperationBindingElement(...args);
+    },
   },
   MessageBindingsElement: {
-    http: (...args: any[]) => new HttpMessageBindingElement(...args),
-    ws: (...args: any[]) => new WebSocketMessageBindingElement(...args),
-    kafka: (...args: any[]) => new KafkaMessageBindingElement(...args),
-    anypointmq: (...args: any[]) => new AnypointmqMessageBindingElement(...args),
-    amqp: (...args: any[]) => new AmqpMessageBindingElement(...args),
-    amqp1: (...args: any[]) => new Amqp1MessageBindingElement(...args),
-    mqtt: (...args: any[]) => new MqttMessageBindingElement(...args),
-    mqtt5: (...args: any[]) => new Mqtt5MessageBindingElement(...args),
-    nats: (...args: any[]) => new NatsMessageBindingElement(...args),
-    jms: (...args: any[]) => new JmsMessageBindingElement(...args),
-    sns: (...args: any[]) => new SnsMessageBindingElement(...args),
-    sqs: (...args: any[]) => new SqsMessageBindingElement(...args),
-    stomp: (...args: any[]) => new StompMessageBindingElement(...args),
-    redis: (...args: any[]) => new RedisMessageBindingElement(...args),
-    mercure: (...args: any[]) => new MercureMessageBindingElement(...args),
-    ibmmq: (...args: any[]) => new IbmmqMessageBindingElement(...args),
+    http(...args: any[]) {
+      return new HttpMessageBindingElement(...args);
+    },
+    ws(...args: any[]) {
+      return new WebSocketMessageBindingElement(...args);
+    },
+    kafka(...args: any[]) {
+      return new KafkaMessageBindingElement(...args);
+    },
+    anypointmq(...args: any[]) {
+      return new AnypointmqMessageBindingElement(...args);
+    },
+    amqp(...args: any[]) {
+      return new AmqpMessageBindingElement(...args);
+    },
+    amqp1(...args: any[]) {
+      return new Amqp1MessageBindingElement(...args);
+    },
+    mqtt(...args: any[]) {
+      return new MqttMessageBindingElement(...args);
+    },
+    mqtt5(...args: any[]) {
+      return new Mqtt5MessageBindingElement(...args);
+    },
+    nats(...args: any[]) {
+      return new NatsMessageBindingElement(...args);
+    },
+    jms(...args: any[]) {
+      return new JmsMessageBindingElement(...args);
+    },
+    sns(...args: any[]) {
+      return new SnsMessageBindingElement(...args);
+    },
+    sqs(...args: any[]) {
+      return new SqsMessageBindingElement(...args);
+    },
+    stomp(...args: any[]) {
+      return new StompMessageBindingElement(...args);
+    },
+    redis(...args: any[]) {
+      return new RedisMessageBindingElement(...args);
+    },
+    mercure(...args: any[]) {
+      return new MercureMessageBindingElement(...args);
+    },
+    ibmmq(...args: any[]) {
+      return new IbmmqMessageBindingElement(...args);
+    },
   },
   ServerBindingsElement: {
-    http: (...args: any[]) => new HttpServerBindingElement(...args),
-    ws: (...args: any[]) => new WebSocketServerBindingElement(...args),
-    kafka: (...args: any[]) => new KafkaServerBindingElement(...args),
-    anypointmq: (...args: any[]) => new AnypointmqServerBindingElement(...args),
-    amqp: (...args: any[]) => new AmqpServerBindingElement(...args),
-    amqp1: (...args: any[]) => new Amqp1ServerBindingElement(...args),
-    mqtt: (...args: any[]) => new MqttServerBindingElement(...args),
-    mqtt5: (...args: any[]) => new Mqtt5ServerBindingElement(...args),
-    nats: (...args: any[]) => new NatsServerBindingElement(...args),
-    jms: (...args: any[]) => new JmsServerBindingElement(...args),
-    sns: (...args: any[]) => new SnsServerBindingElement(...args),
-    sqs: (...args: any[]) => new SqsServerBindingElement(...args),
-    stomp: (...args: any[]) => new StompServerBindingElement(...args),
-    redis: (...args: any[]) => new RedisServerBindingElement(...args),
-    mercure: (...args: any[]) => new MercureServerBindingElement(...args),
-    ibmmq: (...args: any[]) => new IbmmqServerBindingElement(...args),
+    http(...args: any[]) {
+      return new HttpServerBindingElement(...args);
+    },
+    ws(...args: any[]) {
+      return new WebSocketServerBindingElement(...args);
+    },
+    kafka(...args: any[]) {
+      return new KafkaServerBindingElement(...args);
+    },
+    anypointmq(...args: any[]) {
+      return new AnypointmqServerBindingElement(...args);
+    },
+    amqp(...args: any[]) {
+      return new AmqpServerBindingElement(...args);
+    },
+    amqp1(...args: any[]) {
+      return new Amqp1ServerBindingElement(...args);
+    },
+    mqtt(...args: any[]) {
+      return new MqttServerBindingElement(...args);
+    },
+    mqtt5(...args: any[]) {
+      return new Mqtt5ServerBindingElement(...args);
+    },
+    nats(...args: any[]) {
+      return new NatsServerBindingElement(...args);
+    },
+    jms(...args: any[]) {
+      return new JmsServerBindingElement(...args);
+    },
+    sns(...args: any[]) {
+      return new SnsServerBindingElement(...args);
+    },
+    sqs(...args: any[]) {
+      return new SqsServerBindingElement(...args);
+    },
+    stomp(...args: any[]) {
+      return new StompServerBindingElement(...args);
+    },
+    redis(...args: any[]) {
+      return new RedisServerBindingElement(...args);
+    },
+    mercure(...args: any[]) {
+      return new MercureServerBindingElement(...args);
+    },
+    ibmmq(...args: any[]) {
+      return new IbmmqServerBindingElement(...args);
+    },
   },
   ChannelBindingsElement: {
-    http: (...args: any[]) => new HttpChannelBindingElement(...args),
-    ws: (...args: any[]) => new WebSocketChannelBindingElement(...args),
-    kafka: (...args: any[]) => new KafkaChannelBindingElement(...args),
-    anypointmq: (...args: any[]) => new AnypointmqChannelBindingElement(...args),
-    amqp: (...args: any[]) => new AmqpChannelBindingElement(...args),
-    amqp1: (...args: any[]) => new Amqp1ChannelBindingElement(...args),
-    mqtt: (...args: any[]) => new MqttChannelBindingElement(...args),
-    mqtt5: (...args: any[]) => new Mqtt5ChannelBindingElement(...args),
-    nats: (...args: any[]) => new NatsChannelBindingElement(...args),
-    jms: (...args: any[]) => new JmsChannelBindingElement(...args),
-    sns: (...args: any[]) => new SnsChannelBindingElement(...args),
-    sqs: (...args: any[]) => new SqsChannelBindingElement(...args),
-    stomp: (...args: any[]) => new StompChannelBindingElement(...args),
-    redis: (...args: any[]) => new RedisChannelBindingElement(...args),
-    mercure: (...args: any[]) => new MercureChannelBindingElement(...args),
-    ibmmq: (...args: any[]) => new IbmmqChannelBindingElement(...args),
+    http(...args: any[]) {
+      return new HttpChannelBindingElement(...args);
+    },
+    ws(...args: any[]) {
+      return new WebSocketChannelBindingElement(...args);
+    },
+    kafka(...args: any[]) {
+      return new KafkaChannelBindingElement(...args);
+    },
+    anypointmq(...args: any[]) {
+      return new AnypointmqChannelBindingElement(...args);
+    },
+    amqp(...args: any[]) {
+      return new AmqpChannelBindingElement(...args);
+    },
+    amqp1(...args: any[]) {
+      return new Amqp1ChannelBindingElement(...args);
+    },
+    mqtt(...args: any[]) {
+      return new MqttChannelBindingElement(...args);
+    },
+    mqtt5(...args: any[]) {
+      return new Mqtt5ChannelBindingElement(...args);
+    },
+    nats(...args: any[]) {
+      return new NatsChannelBindingElement(...args);
+    },
+    jms(...args: any[]) {
+      return new JmsChannelBindingElement(...args);
+    },
+    sns(...args: any[]) {
+      return new SnsChannelBindingElement(...args);
+    },
+    sqs(...args: any[]) {
+      return new SqsChannelBindingElement(...args);
+    },
+    stomp(...args: any[]) {
+      return new StompChannelBindingElement(...args);
+    },
+    redis(...args: any[]) {
+      return new RedisChannelBindingElement(...args);
+    },
+    mercure(...args: any[]) {
+      return new MercureChannelBindingElement(...args);
+    },
+    ibmmq(...args: any[]) {
+      return new IbmmqChannelBindingElement(...args);
+    },
   },
   SchemaElement: {
-    allOf: (...args: any[]) => {
+    allOf(...args: any[]) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-allOf');
       return element;
     },
-    anyOf: (...args: any[]) => {
+    anyOf(...args: any[]) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-anyOf');
       return element;
     },
-    oneOf: (...args: any[]) => {
+    oneOf(...args: any[]) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-oneOf');
       return element;
     },
-    not: (...args: any[]) => new SchemaElement(...args),
-    if: (...args: any[]) => new SchemaElement(...args),
-    then: (...args: any[]) => new SchemaElement(...args),
-    else: (...args: any[]) => new SchemaElement(...args),
-    enum: (...args: any[]) => new ArrayElement(...args),
-    items: (...args: any[]) => new SchemaElement(...args),
-    additionalItems: (...args: any[]) => new SchemaElement(...args),
-    contains: (...args: any[]) => new SchemaElement(...args),
-    required: (...args: any[]) => {
+    not(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    if(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    then(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    else(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    enum(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    items(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    additionalItems(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    contains(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    required(...args: any[]) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-required');
       return element;
     },
-    properties: (...args: any[]) => {
+    properties(...args: any[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-properties');
       return element;
     },
-    patternProperties: (...args: any[]) => {
+    patternProperties(...args: any[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-patternProperties');
       return element;
     },
-    additionalProperties: (...args: any[]) => new SchemaElement(...args),
-    dependencies: (...args: any[]) => {
+    additionalProperties(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    dependencies(...args: any[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-dependencies');
       return element;
     },
-    propertyNames: (...args: any[]) => new SchemaElement(...args),
-    examples: (...args: any[]) => {
+    propertyNames(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    examples(...args: any[]) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-examples');
       return element;
     },
-    definitions: (...args: any[]) => {
+    definitions(...args: any[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-definitions');
       return element;
     },
-    externalDocs: (...args: any[]) => new ExternalDocumentationElement(...args),
+    externalDocs(...args: any[]) {
+      return new ExternalDocumentationElement(...args);
+    },
   },
   HttpOperationBindingElement: {
-    query: (...args: any[]) => new SchemaElement(...args),
+    query(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   HttpMessageBindingElement: {
-    headers: (...args: any[]) => new SchemaElement(...args),
+    headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   WebSocketChannelBindingElement: {
-    query: (...args: any[]) => new SchemaElement(...args),
-    headers: (...args: any[]) => new SchemaElement(...args),
+    query(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   KafkaOperationBindingElement: {
-    groupId: (...args: any[]) => new SchemaElement(...args),
-    clientId: (...args: any[]) => new SchemaElement(...args),
+    groupId(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+    clientId(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   KafkaMessageBindingElement: {
-    key: (...args: any[]) => new SchemaElement(...args),
+    key(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   AnypointmqMessageBindingElement: {
-    headers: (...args: any[]) => new SchemaElement(...args),
+    headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   AmqpChannelBindingElement: {
-    exchange: (...args: any[]) => new ObjectElement(...args),
-    queue: (...args: any[]) => new ObjectElement(...args),
+    exchange(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    queue(...args: any[]) {
+      return new ObjectElement(...args);
+    },
   },
   AmqpOperationBindingElement: {
-    cc: (...args: any[]) => new ArrayElement(...args),
-    bcc: (...args: any[]) => new ArrayElement(...args),
+    cc(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    bcc(...args: any[]) {
+      return new ArrayElement(...args);
+    },
   },
   IbmmqChannelBindingElement: {
-    queue: (...args: any[]) => new ObjectElement(...args),
-    topic: (...args: any[]) => new ObjectElement(...args),
+    queue(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    topic(...args: any[]) {
+      return new ObjectElement(...args);
+    },
   },
   TagsElement: {
-    '<*>': (...args: any[]) => new TagElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new TagElement(...args);
+    },
   },
   // non-concrete types handling (NCEs)
   [ComponentsSchemasElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   [ComponentsMessagesElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new MessageElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new MessageElement(...args);
+    },
   },
   [ComponentsSecuritySchemesElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new SecuritySchemeElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new SecuritySchemeElement(...args);
+    },
   },
   [ComponentsParametersElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new ParameterElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ParameterElement(...args);
+    },
   },
   [ComponentsCorrelationIDsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new CorrelationIDElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new CorrelationIDElement(...args);
+    },
   },
   [ComponentsOperationTraitsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new OperationTraitElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new OperationTraitElement(...args);
+    },
   },
   [ComponentsMessageTraitsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new MessageTraitElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new MessageTraitElement(...args);
+    },
   },
   [ComponentsServerBindingsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new ServerBindingsElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ServerBindingsElement(...args);
+    },
   },
   [ComponentsChannelBindingsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new ChannelBindingsElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ChannelBindingsElement(...args);
+    },
   },
   [ComponentsOperationBindingsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new OperationBindingsElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new OperationBindingsElement(...args);
+    },
   },
   [ComponentsMessageBindingsElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new MessageBindingsElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new MessageBindingsElement(...args);
+    },
   },
   [ServerVariablesElement.primaryClass]: {
-    '[key: *]': (...args: any[]) => new ServerVariableElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new ServerVariableElement(...args);
+    },
   },
   'json-schema-properties': {
-    '[key: *]': (...args: any[]) => new SchemaElement(...args),
+    '[key: *]': function key(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   [ServerSecurityElement.primaryClass]: {
-    '<*>': (...args: any[]) => new SecurityRequirementElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new SecurityRequirementElement(...args);
+    },
   },
   [OperationTraitsElement.primaryClass]: {
-    '<*>': (...args: any[]) => new OperationTraitElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new OperationTraitElement(...args);
+    },
   },
   [OperationMessageElement.primaryClass]: {
-    '<*>': (...args: any[]) => new MessageElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new MessageElement(...args);
+    },
   },
   [MessageExamplesElement.primaryClass]: {
-    '<*>': (...args: any[]) => new MessageExampleElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new MessageExampleElement(...args);
+    },
   },
   [MessageTraitsElement.primaryClass]: {
-    '<*>': (...args: any[]) => new MessageTraitElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new MessageTraitElement(...args);
+    },
   },
   [MessageTraitExamplesElement.primaryClass]: {
-    '<*>': (...args: any[]) => new MessageExampleElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new MessageExampleElement(...args);
+    },
   },
   'json-schema-allOf': {
-    '<*>': (...args: any[]) => new SchemaElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   'json-schema-anyOf': {
-    '<*>': (...args: any[]) => new SchemaElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
   'json-schema-oneOf': {
-    '<*>': (...args: any[]) => new SchemaElement(...args),
+    '<*>': function asterisk(...args: any[]) {
+      return new SchemaElement(...args);
+    },
   },
 };
 
@@ -592,7 +946,12 @@ const plugin = () => () => {
         // no element factory found
         if (typeof elementFactory === 'undefined') return undefined;
 
-        return elementFactory(undefined, element.meta.clone(), element.attributes.clone());
+        return elementFactory.call(
+          { context: element },
+          undefined,
+          element.meta.clone(),
+          element.attributes.clone(),
+        );
       },
     },
   };

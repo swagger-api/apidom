@@ -14,6 +14,15 @@ describe('refractor', function () {
               $ref: '#/path/to/UserSchema',
             },
           },
+          servers: {
+            development: {},
+            production: {
+              $ref: '#/path/to/production/server',
+            },
+          },
+          channels: {
+            channel1: {},
+          },
           messages: {
             Message: {},
             MessageRef: {

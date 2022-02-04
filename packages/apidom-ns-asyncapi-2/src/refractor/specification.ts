@@ -104,6 +104,8 @@ import ExternalDocumentationDescriptionVisitor from './visitors/async-api-2/exte
 import ExternalDocumentationUrlVisitor from './visitors/async-api-2/external-documentation/UrlVisitor';
 import ComponentsVisitor from './visitors/async-api-2/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2/components/SchemasVisitor';
+import ComponentsServersVisitor from './visitors/async-api-2/components/ServersVisitor';
+import ComponentsChannelsVisitor from './visitors/async-api-2/components/ChannelsVisitor';
 import ComponentsMessagesVisitor from './visitors/async-api-2/components/MessagesVisitor';
 import ComponentsSecuritySchemesVisitor from './visitors/async-api-2/components/SecuritySchemesVisitor';
 import ComponentsParametersVisitor from './visitors/async-api-2/components/ParametersVisitor';
@@ -547,6 +549,8 @@ const specification = {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
+            servers: ComponentsServersVisitor,
+            channels: ComponentsChannelsVisitor,
             messages: ComponentsMessagesVisitor,
             securitySchemes: ComponentsSecuritySchemesVisitor,
             parameters: ComponentsParametersVisitor,

@@ -10,7 +10,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 
 export const keyMap = {
   /**
-   * AsyncApi 2.0.0 | 2.1.0 specification elements.
+   * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 specification elements.
    */
   AsyncApi2Element: ['content'],
   AsyncApiVersionElement: [],
@@ -111,6 +111,11 @@ export const keyMap = {
   SnsMessageBindingElement: ['content'],
   SnsOperationBindingElement: ['content'],
   SnsServerBindingElement: ['content'],
+  // Solace
+  SolaceChannelBindingElement: ['content'],
+  SolaceMessageBindingElement: ['content'],
+  SolaceOperationBindingElement: ['content'],
+  SolaceServerBindingElement: ['content'],
   // SQS
   SqsChannelBindingElement: ['content'],
   SqsMessageBindingElement: ['content'],

@@ -2,9 +2,10 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-yaml-2` is a parser adapter for following AsyncAPI specification versions defined in [YAML format](https://yaml.org/spec/1.2/spec.html):
 
-- [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
-- [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
+- [AsyncAPI 2.3.0 specification](https://github.com/asyncapi/spec/blob/v2.3.0/spec/asyncapi.md)
 - [AsyncAPI 2.2.0 specification](https://github.com/asyncapi/spec/blob/v2.2.0/spec/asyncapi.md)
+- [AsyncAPI 2.1.0 specification](https://github.com/asyncapi/spec/blob/v2.1.0/spec/asyncapi.md)
+- [AsyncAPI 2.0.0 specification](https://github.com/asyncapi/spec/blob/2.0.0/versions/2.0.0/asyncapi.md)
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
@@ -38,11 +39,13 @@ Defines list of media types that this parser adapter recognizes.
 ```js
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
   'application/vnd.aai.asyncapi;version=2.1.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.3.0',
 ]
 ```
 
@@ -82,10 +85,11 @@ import { parse, detect } from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-
 await detect('asyncapi: 2.0.0'); // => true
 await detect('asyncapi: 2.1.0'); // => true
 await detect('asyncapi: 2.2.0'); // => true
+await detect('asyncapi: 2.3.0'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('asyncapi: 2.2.0', { sourceMap: true });
+const parseResult = await parse('asyncapi: 2.3.0', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -100,5 +104,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiYamlAdapter);
 
-const parseResult = await parser.parse('asyncapi: 2.2.0', { mediaType: asyncApiYamlAdapter.mediaTypes[2] });
+const parseResult = await parser.parse('asyncapi: 2.3.0', { mediaType: asyncApiYamlAdapter.mediaTypes[2] });
 ```

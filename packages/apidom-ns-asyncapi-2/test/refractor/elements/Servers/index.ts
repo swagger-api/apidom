@@ -10,7 +10,9 @@ describe('refractor', function () {
         const serversElement = ServersElement.refract({
           dev: {},
           staging: {},
-          production: {},
+          production: {
+            $ref: '#/path/to/production/server',
+          },
         });
 
         expect(sexprs(serversElement)).toMatchSnapshot();

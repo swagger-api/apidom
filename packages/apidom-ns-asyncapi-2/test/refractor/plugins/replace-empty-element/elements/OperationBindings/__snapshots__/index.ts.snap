@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should refract to semantic ApiDOM tree 1`] = `
+(OperationBindingsElement
+  (MemberElement
+    (StringElement)
+    (HttpOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (WebSocketOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (KafkaOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (AnypointmqOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (AmqpOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (Amqp1OperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (MqttOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (Mqtt5OperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (NatsOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (JmsOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (SnsOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (SolaceOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (SqsOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (StompOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (RedisOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (MercureOperationBindingElement)))
+`;

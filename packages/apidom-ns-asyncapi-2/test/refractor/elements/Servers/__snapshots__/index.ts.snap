@@ -10,5 +10,8 @@ exports[`refractor elements ServersElement should refract to semantic ApiDOM tre
     (ServerElement))
   (MemberElement
     (StringElement)
-    (ServerElement)))
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
 `;

@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -103,6 +103,11 @@ import SnsChannelBindingElement from '../elements/bindings/sns/SnsChannelBinding
 import SnsMessageBindingElement from '../elements/bindings/sns/SnsMessageBinding';
 import SnsOperationBindingElement from '../elements/bindings/sns/SnsOperationBinding';
 import SnsServerBindingElement from '../elements/bindings/sns/SnsServerBinding';
+// Solace
+import SolaceChannelBindingElement from '../elements/bindings/solace/SolaceChannelBinding';
+import SolaceMessageBindingElement from '../elements/bindings/solace/SolaceMessageBinding';
+import SolaceOperationBindingElement from '../elements/bindings/solace/SolaceOperationBinding';
+import SolaceServerBindingElement from '../elements/bindings/solace/SolaceServerBinding';
 // SQS
 import SqsChannelBindingElement from '../elements/bindings/sqs/SqsChannelBinding';
 import SqsMessageBindingElement from '../elements/bindings/sqs/SqsMessageBinding';
@@ -120,7 +125,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',
@@ -803,6 +808,43 @@ SnsServerBindingElement.refract = createRefractor([
   'objects',
   'bindings',
   'sns',
+  'ServerBinding',
+  '$visitor',
+]);
+// Solace
+SolaceChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'solace',
+  'ChannelBinding',
+  '$visitor',
+]);
+SolaceMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'solace',
+  'MessageBinding',
+  '$visitor',
+]);
+SolaceOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'solace',
+  'OperationBinding',
+  '$visitor',
+]);
+SolaceServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'solace',
   'ServerBinding',
   '$visitor',
 ]);

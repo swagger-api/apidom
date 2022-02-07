@@ -12,6 +12,7 @@ import Mqtt5OperationBindingElement from './bindings/mqtt5/Mqtt5OperationBinding
 import NatsOperationBindingElement from './bindings/nats/NatsOperationBinding';
 import JmsOperationBindingElement from './bindings/jms/JmsOperationBinding';
 import SnsOperationBindingElement from './bindings/sns/SnsOperationBinding';
+import SolaceOperationBindingElement from './bindings/solace/SolaceOperationBinding';
 import SqsOperationBindingElement from './bindings/sqs/SqsOperationBinding';
 import StompOperationBindingElement from './bindings/stomp/StompOperationBinding';
 import RedisOperationBindingElement from './bindings/redis/RedisOperationBinding';
@@ -109,6 +110,14 @@ class OperationBindings extends ObjectElement {
 
   set sns(sns: SnsOperationBindingElement | undefined) {
     this.set('sns', sns);
+  }
+
+  get solace(): SolaceOperationBindingElement | undefined {
+    return this.get('solace');
+  }
+
+  set solace(solace: SolaceOperationBindingElement | undefined) {
+    this.set('solace', solace);
   }
 
   get sqs(): SqsOperationBindingElement | undefined {

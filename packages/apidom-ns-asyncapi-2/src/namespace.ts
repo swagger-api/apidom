@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from 'minim';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -104,6 +104,11 @@ import SnsChannelBindingElement from './elements/bindings/sns/SnsChannelBinding'
 import SnsMessageBindingElement from './elements/bindings/sns/SnsMessageBinding';
 import SnsOperationBindingElement from './elements/bindings/sns/SnsOperationBinding';
 import SnsServerBindingElement from './elements/bindings/sns/SnsServerBinding';
+// Solace
+import SolaceChannelBindingElement from './elements/bindings/solace/SolaceChannelBinding';
+import SolaceMessageBindingElement from './elements/bindings/solace/SolaceMessageBinding';
+import SolaceOperationBindingElement from './elements/bindings/solace/SolaceOperationBinding';
+import SolaceServerBindingElement from './elements/bindings/solace/SolaceServerBinding';
 // SQS
 import SqsChannelBindingElement from './elements/bindings/sqs/SqsChannelBinding';
 import SqsMessageBindingElement from './elements/bindings/sqs/SqsMessageBinding';
@@ -125,7 +130,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+     * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
@@ -229,6 +234,11 @@ const asyncApi2 = {
     base.register('snsMessageBinding', SnsMessageBindingElement);
     base.register('snsOperationBinding', SnsOperationBindingElement);
     base.register('snsServerBinding', SnsServerBindingElement);
+    // Solace
+    base.register('solaceChannelBinding', SolaceChannelBindingElement);
+    base.register('solaceMessageBinding', SolaceMessageBindingElement);
+    base.register('solaceOperationBinding', SolaceOperationBindingElement);
+    base.register('solaceServerBinding', SolaceServerBindingElement);
     // SQS
     base.register('sqsChannelBinding', SqsChannelBindingElement);
     base.register('sqsMessageBinding', SqsMessageBindingElement);

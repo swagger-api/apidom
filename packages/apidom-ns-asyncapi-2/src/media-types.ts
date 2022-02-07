@@ -28,6 +28,9 @@ const mediaTypes = new AsyncAPIMediaTypes(
   'application/vnd.aai.asyncapi;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi+json;version=2.3.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.3.0',
 );
 
 export default mediaTypes;

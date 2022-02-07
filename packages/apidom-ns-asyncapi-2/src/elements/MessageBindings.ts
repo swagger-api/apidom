@@ -12,6 +12,7 @@ import Mqtt5MessageBindingElement from './bindings/mqtt5/Mqtt5MessageBinding';
 import NatsMessageBindingElement from './bindings/nats/NatsMessageBinding';
 import JmsMessageBindingElement from './bindings/jms/JmsMessageBinding';
 import SnsMessageBindingElement from './bindings/sns/SnsMessageBinding';
+import SolaceMessageBindingElement from './bindings/solace/SolaceMessageBinding';
 import SqsMessageBindingElement from './bindings/sqs/SqsMessageBinding';
 import StompMessageBindingElement from './bindings/stomp/StompMessageBinding';
 import RedisMessageBindingElement from './bindings/redis/RedisMessageBinding';
@@ -110,6 +111,14 @@ class MessageBindings extends ObjectElement {
 
   set sns(sns: SnsMessageBindingElement | undefined) {
     this.set('sns', sns);
+  }
+
+  get solace(): SolaceMessageBindingElement | undefined {
+    return this.get('solace');
+  }
+
+  set solace(solace: SolaceMessageBindingElement | undefined) {
+    this.set('solace', solace);
   }
 
   get sqs(): SqsMessageBindingElement | undefined {

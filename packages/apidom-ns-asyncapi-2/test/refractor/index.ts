@@ -47,6 +47,19 @@ describe('refractor', function () {
     });
   });
 
+  context('given generic ApiDOM object in AsyncApi 2.3.0 shape', function () {
+    specify('should refract to AsyncApi2Element', function () {
+      const asyncApiString = fs
+        .readFileSync(path.join(__dirname, 'fixtures', 'asyncapi-2-3-0.json'))
+        .toString();
+      const asyncApiPojo = JSON.parse(asyncApiString);
+      const genericObjectElement = new ObjectElement(asyncApiPojo);
+      const asyncApiElement = AsyncApi2Element.refract(genericObjectElement);
+
+      expect(asyncApiElement).toMatchSnapshot();
+    });
+  });
+
   context('supports plugins', function () {
     let plugin1Spec: any;
     let plugin2Spec: any;

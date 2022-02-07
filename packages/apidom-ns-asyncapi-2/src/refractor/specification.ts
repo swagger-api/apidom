@@ -1,7 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 | 2.3.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -290,6 +290,11 @@ import SnsChannelBindingVisitor from './visitors/async-api-2/bindings/sns/channe
 import SnsMessageBindingVisitor from './visitors/async-api-2/bindings/sns/message-binding';
 import SnsOperationBindingVisitor from './visitors/async-api-2/bindings/sns/operation-binding';
 import SnsServerBindingVisitor from './visitors/async-api-2/bindings/sns/server-binding';
+// Solace
+import SolaceChannelBindingVisitor from './visitors/async-api-2/bindings/solace/channel-binding';
+import SolaceMessageBindingVisitor from './visitors/async-api-2/bindings/solace/message-binding';
+import SolaceOperationBindingVisitor from './visitors/async-api-2/bindings/solace/operation-binding';
+import SolaceServerBindingVisitor from './visitors/async-api-2/bindings/solace/server-binding';
 // SQS
 import SqsChannelBindingVisitor from './visitors/async-api-2/bindings/sqs/channel-binding';
 import SqsMessageBindingVisitor from './visitors/async-api-2/bindings/sqs/message-binding';
@@ -717,6 +722,9 @@ const specification = {
             sns: {
               $ref: '#/visitors/document/objects/bindings/sns/ServerBinding',
             },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/ServerBinding',
+            },
             sqs: {
               $ref: '#/visitors/document/objects/bindings/sqs/ServerBinding',
             },
@@ -781,6 +789,9 @@ const specification = {
             sns: {
               $ref: '#/visitors/document/objects/bindings/sns/ChannelBinding',
             },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/ChannelBinding',
+            },
             sqs: {
               $ref: '#/visitors/document/objects/bindings/sqs/ChannelBinding',
             },
@@ -834,6 +845,9 @@ const specification = {
             sns: {
               $ref: '#/visitors/document/objects/bindings/sns/OperationBinding',
             },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/OperationBinding',
+            },
             sqs: {
               $ref: '#/visitors/document/objects/bindings/sqs/OperationBinding',
             },
@@ -883,6 +897,9 @@ const specification = {
             },
             sns: {
               $ref: '#/visitors/document/objects/bindings/sns/MessageBinding',
+            },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/MessageBinding',
             },
             sqs: {
               $ref: '#/visitors/document/objects/bindings/sqs/MessageBinding',
@@ -1150,6 +1167,20 @@ const specification = {
             },
             MessageBinding: {
               $visitor: SnsMessageBindingVisitor,
+            },
+          },
+          solace: {
+            ServerBinding: {
+              $visitor: SolaceServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: SolaceChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SolaceOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: SolaceMessageBindingVisitor,
             },
           },
           sqs: {

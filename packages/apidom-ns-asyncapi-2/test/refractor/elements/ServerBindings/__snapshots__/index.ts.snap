@@ -37,6 +37,9 @@ exports[`refractor elements ServerBindingsElement should refract to semantic Api
     (SnsServerBindingElement))
   (MemberElement
     (StringElement)
+    (SolaceServerBindingElement))
+  (MemberElement
+    (StringElement)
     (SqsServerBindingElement))
   (MemberElement
     (StringElement)

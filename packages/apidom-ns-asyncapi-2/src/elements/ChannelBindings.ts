@@ -12,6 +12,7 @@ import Mqtt5ChannelBindingElement from './bindings/mqtt5/Mqtt5ChannelBinding';
 import NatsChannelBindingElement from './bindings/nats/NatsChannelBinding';
 import JmsChannelBindingElement from './bindings/jms/JmsChannelBinding';
 import SnsChannelBindingElement from './bindings/sns/SnsChannelBinding';
+import SolaceChannelBindingElement from './bindings/solace/SolaceChannelBinding';
 import SqsChannelBindingElement from './bindings/sqs/SqsChannelBinding';
 import StompChannelBindingElement from './bindings/stomp/StompChannelBinding';
 import RedisChannelBindingElement from './bindings/redis/RedisChannelBinding';
@@ -110,6 +111,14 @@ class ChannelBindings extends ObjectElement {
 
   set sns(sns: SnsChannelBindingElement | undefined) {
     this.set('sns', sns);
+  }
+
+  get solace(): SolaceChannelBindingElement | undefined {
+    return this.get('solace');
+  }
+
+  set solace(solace: SolaceChannelBindingElement | undefined) {
+    this.set('solace', solace);
   }
 
   get sqs(): SqsChannelBindingElement | undefined {

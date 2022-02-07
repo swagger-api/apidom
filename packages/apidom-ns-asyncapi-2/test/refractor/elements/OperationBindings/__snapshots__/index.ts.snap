@@ -37,6 +37,9 @@ exports[`refractor elements OperationBindingsElement should refract to semantic 
     (SnsOperationBindingElement))
   (MemberElement
     (StringElement)
+    (SolaceOperationBindingElement))
+  (MemberElement
+    (StringElement)
     (SqsOperationBindingElement))
   (MemberElement
     (StringElement)

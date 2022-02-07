@@ -111,6 +111,11 @@ export const keyMap = {
   SnsMessageBindingElement: ['content'],
   SnsOperationBindingElement: ['content'],
   SnsServerBindingElement: ['content'],
+  // Solace
+  SolaceChannelBindingElement: ['content'],
+  SolaceMessageBindingElement: ['content'],
+  SolaceOperationBindingElement: ['content'],
+  SolaceServerBindingElement: ['content'],
   // SQS
   SqsChannelBindingElement: ['content'],
   SqsMessageBindingElement: ['content'],

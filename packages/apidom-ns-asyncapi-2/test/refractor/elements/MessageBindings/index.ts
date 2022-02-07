@@ -19,6 +19,7 @@ describe('refractor', function () {
           nats: {},
           jms: {},
           sns: {},
+          solace: {},
           sqs: {},
           stomp: {},
           redis: {},

@@ -37,6 +37,9 @@ exports[`refractor elements ChannelBindingsElement should refract to semantic Ap
     (SnsChannelBindingElement))
   (MemberElement
     (StringElement)
+    (SolaceChannelBindingElement))
+  (MemberElement
+    (StringElement)
     (SqsChannelBindingElement))
   (MemberElement
     (StringElement)

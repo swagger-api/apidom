@@ -37,6 +37,9 @@ exports[`refractor elements MessageBindingsElement should refract to semantic Ap
     (SnsMessageBindingElement))
   (MemberElement
     (StringElement)
+    (SolaceMessageBindingElement))
+  (MemberElement
+    (StringElement)
     (SqsMessageBindingElement))
   (MemberElement
     (StringElement)

@@ -310,6 +310,13 @@ Only fully implemented specification objects should be checked here.
 - [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#operation-binding-object)
 - [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/sns/README.md#message-binding-object)
 
+#### Solace
+
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/solace/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/main/solace/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/main/solace/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/main/solace/README.md#message-binding-object)
+
 #### SQS
 
 - [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/main/sqs/README.md#server-binding-object)

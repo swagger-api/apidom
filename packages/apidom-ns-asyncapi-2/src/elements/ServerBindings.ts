@@ -12,6 +12,7 @@ import Mqtt5ServerBindingElement from './bindings/mqtt5/Mqtt5ServerBinding';
 import NatsServerBindingElement from './bindings/nats/NatsServerBinding';
 import JmsServerBindingElement from './bindings/jms/JmsServerBinding';
 import SnsServerBindingElement from './bindings/sns/SnsServerBinding';
+import SolaceServerBindingElement from './bindings/solace/SolaceServerBinding';
 import SqsServerBindingElement from './bindings/sqs/SqsServerBinding';
 import StompServerBindingElement from './bindings/stomp/StompServerBinding';
 import RedisServerBindingElement from './bindings/redis/RedisServerBinding';
@@ -110,6 +111,14 @@ class ServerBindings extends ObjectElement {
 
   set sns(sns: SnsServerBindingElement | undefined) {
     this.set('sns', sns);
+  }
+
+  get solace(): SolaceServerBindingElement | undefined {
+    return this.get('solace');
+  }
+
+  set solace(solace: SolaceServerBindingElement | undefined) {
+    this.set('solace', solace);
   }
 
   get sqs(): SqsServerBindingElement | undefined {

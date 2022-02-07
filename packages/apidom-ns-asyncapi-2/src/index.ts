@@ -59,7 +59,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 | 2.3.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
@@ -163,6 +163,11 @@ export { default as SnsChannelBindingElement } from './elements/bindings/sns/Sns
 export { default as SnsMessageBindingElement } from './elements/bindings/sns/SnsMessageBinding';
 export { default as SnsOperationBindingElement } from './elements/bindings/sns/SnsOperationBinding';
 export { default as SnsServerBindingElement } from './elements/bindings/sns/SnsServerBinding';
+// Solace
+export { default as SolaceChannelBindingElement } from './elements/bindings/solace/SolaceChannelBinding';
+export { default as SolaceMessageBindingElement } from './elements/bindings/solace/SolaceMessageBinding';
+export { default as SolaceOperationBindingElement } from './elements/bindings/solace/SolaceOperationBinding';
+export { default as SolaceServerBindingElement } from './elements/bindings/solace/SolaceServerBinding';
 // SQS
 export { default as SqsChannelBindingElement } from './elements/bindings/sqs/SqsChannelBinding';
 export { default as SqsMessageBindingElement } from './elements/bindings/sqs/SqsMessageBinding';

@@ -111,11 +111,13 @@ Supported media types are:
 ```js
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
-  'application/vnd.aai.asyncapi;version=2.2.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
-  'application/vnd.aai.asyncapi;version=2.2.0',
-  'application/vnd.aai.asyncapi+json;version=2.2.0',
+  'application/vnd.aai.asyncapi+json;version=2.3.0',
 ]
 ```
 
@@ -130,9 +132,13 @@ Supported media types are:
 ```js
 [
   'application/vnd.aai.asyncapi;version=2.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
   'application/vnd.aai.asyncapi;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.3.0',
 ]
 ```
 
@@ -715,9 +721,15 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.2.0'
+  'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi+json;version=2.3.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.3.0',
 ]
 ```
 
@@ -984,9 +996,15 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
+  'application/vnd.aai.asyncapi;version=2.1.0',
+  'application/vnd.aai.asyncapi+json;version=2.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
-  'application/vnd.aai.asyncapi+yaml;version=2.2.0'
+  'application/vnd.aai.asyncapi+yaml;version=2.2.0',
+  'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi+json;version=2.3.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.3.0',
 ]
 ```
 

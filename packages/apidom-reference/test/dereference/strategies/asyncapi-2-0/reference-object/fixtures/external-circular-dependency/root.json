@@ -1,5 +1,5 @@
 {
-  "asyncapi": "2.2.0",
+  "asyncapi": "2.3.0",
   "components": {
     "parameters": {
       "param1": {

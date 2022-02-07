@@ -68,7 +68,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.2.0 JSON data', function () {
+      context('given AsyncApi 2.3.0 JSON data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url).toString();
@@ -84,7 +84,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 2.2.0 JSON data as buffer', function () {
+      context('given AsyncApi 2.3.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url);
@@ -100,7 +100,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 2.2.0 JSON data', function () {
+      context('given data that is not an AsyncApi 2.3.0 JSON data', function () {
         specify('should throw ParserError', async function () {
           try {
             const file = File({

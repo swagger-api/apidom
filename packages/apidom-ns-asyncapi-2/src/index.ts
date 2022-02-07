@@ -59,7 +59,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 | 2.3.0 specification elements.
+ * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';

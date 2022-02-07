@@ -33,7 +33,7 @@ describe('parsers', function () {
           specify('should return false', function () {
             const file = File({
               uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.3.0',
             });
             const parser = OpenApiYaml3_1Parser();
 
@@ -64,7 +64,7 @@ describe('parsers', function () {
           specify('should return false', function () {
             const file = File({
               uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.2.0',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.3.0',
             });
             const parser = OpenApiYaml3_1Parser();
 

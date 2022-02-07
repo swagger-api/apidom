@@ -33,7 +33,7 @@ describe('parsers', function () {
           specify('should return false', function () {
             const file = File({
               uri: '/path/to/openapi.json',
-              mediaType: 'application/vnd.aai.asyncapi+json;version=2.2.0',
+              mediaType: 'application/vnd.aai.asyncapi+json;version=2.3.0',
             });
             const parser = OpenApiJson3_1Parser();
 

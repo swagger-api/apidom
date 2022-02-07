@@ -1,7 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 | 2.3.0 specification elements.
+ * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -327,7 +327,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+         * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,

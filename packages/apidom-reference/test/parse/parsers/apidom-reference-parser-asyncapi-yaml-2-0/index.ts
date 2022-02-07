@@ -99,7 +99,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.2.0 YAML data', function () {
+      context('given AsyncApi 2.3.0 YAML data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
@@ -111,7 +111,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 2.2.0 YAML data as buffer', function () {
+      context('given AsyncApi 2.3.0 YAML data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
@@ -123,7 +123,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 2.2.0 YAML data', function () {
+      context('given data that is not an AsyncApi 2.3.0 YAML data', function () {
         specify('should throw ParserError', async function () {
           try {
             const file = File({

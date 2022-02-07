@@ -11,7 +11,7 @@ import {
 
 import mediaTypes from '../../media-types';
 /**
- * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 specification elements.
+ * AsyncApi 2.0.0 | 2.1.0 | 2.2.0 | 2.3.0 specification elements.
  */
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
 import IdentifierElement from '../../elements/Identifier';
@@ -111,6 +111,11 @@ import SnsChannelBindingElement from '../../elements/bindings/sns/SnsChannelBind
 import SnsMessageBindingElement from '../../elements/bindings/sns/SnsMessageBinding';
 import SnsOperationBindingElement from '../../elements/bindings/sns/SnsOperationBinding';
 import SnsServerBindingElement from '../../elements/bindings/sns/SnsServerBinding';
+// Solace
+import SolaceChannelBindingElement from '../../elements/bindings/solace/SolaceChannelBinding';
+import SolaceMessageBindingElement from '../../elements/bindings/solace/SolaceMessageBinding';
+import SolaceOperationBindingElement from '../../elements/bindings/solace/SolaceOperationBinding';
+import SolaceServerBindingElement from '../../elements/bindings/solace/SolaceServerBinding';
 // SQS
 import SqsChannelBindingElement from '../../elements/bindings/sqs/SqsChannelBinding';
 import SqsMessageBindingElement from '../../elements/bindings/sqs/SqsMessageBinding';
@@ -471,6 +476,9 @@ const schema = {
     sns(...args: any[]) {
       return new SnsOperationBindingElement(...args);
     },
+    solace(...args: any[]) {
+      return new SolaceOperationBindingElement(...args);
+    },
     sqs(...args: any[]) {
       return new SqsOperationBindingElement(...args);
     },
@@ -517,6 +525,9 @@ const schema = {
     },
     sns(...args: any[]) {
       return new SnsMessageBindingElement(...args);
+    },
+    solace(...args: any[]) {
+      return new SolaceMessageBindingElement(...args);
     },
     sqs(...args: any[]) {
       return new SqsMessageBindingElement(...args);
@@ -568,6 +579,9 @@ const schema = {
     sns(...args: any[]) {
       return new SnsServerBindingElement(...args);
     },
+    solace(...args: any[]) {
+      return new SolaceServerBindingElement(...args);
+    },
     sqs(...args: any[]) {
       return new SqsServerBindingElement(...args);
     },
@@ -617,6 +631,9 @@ const schema = {
     },
     sns(...args: any[]) {
       return new SnsChannelBindingElement(...args);
+    },
+    solace(...args: any[]) {
+      return new SolaceChannelBindingElement(...args);
     },
     sqs(...args: any[]) {
       return new SqsChannelBindingElement(...args);

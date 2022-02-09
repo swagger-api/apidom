@@ -45,7 +45,7 @@
   ],
   "devDependencies": {
     "@babel/cli": "=7.17.0",
-    "@babel/core": "=7.17.0",
+    "@babel/core": "=7.17.2",
     "@babel/plugin-proposal-class-properties": "=7.16.7",
     "@babel/plugin-proposal-object-rest-spread": "=7.16.7",
     "@babel/plugin-transform-modules-commonjs": "=7.16.8",
@@ -58,7 +58,7 @@
     "@types/chai": "=4.3.0",
     "@types/dedent": "=0.7.0",
     "@types/mocha": "=9.1.0",
-    "@types/sinon": "=10.0.10",
+    "@types/sinon": "=10.0.11",
     "@typescript-eslint/eslint-plugin": "=5.11.0",
     "@typescript-eslint/parser": "=5.11.0",
     "babel-loader": "=8.2.3",

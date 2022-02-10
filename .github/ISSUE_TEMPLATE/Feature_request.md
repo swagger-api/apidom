@@ -2,6 +2,8 @@
 name: Feature request
 about: Suggest a new feature or enhancement for this project
 
+---
+
 ### Is your feature request related to a problem?
 <!--
   Please provide a clear and concise description of what the problem is.

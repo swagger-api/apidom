@@ -528,31 +528,7 @@ containing additional legal notifications and information.
 This project uses [REUSE specification](https://reuse.software/spec/) that defines a standardized method
 for declaring copyright and licensing for software projects.
 
-### License analysis of dependencies
+## Software Bill Of Materials (SBOM)
 
-This license analysis was done on 4th of October 2021.
+Software Bill Of materials is available in [apidom.spdx.yaml](https://github.com/swagger-api/apidom/blob/main/apidom.spdx.yaml) using [SPDX](https://spdx.dev/) language.
 
-```
-Dependencies distributed directly to the user:
-- stampit - MIT, $, #
-- minim - MIT, $, <1>
-- ramda - MIT, $, #
-- ramda-adjunct, BSD 3-Clause License, $, #
-- unraw - MIT, $, #
-- @babel/runtime-corejs3 - MIT, $, <2>
-- tree-sitter - MIT, $, <1>
-- tree-sitter-json - MIT, $, <1>
-- tree-sitter-yaml - MIT, $, <1>
-- web-tree-sitter - MIT, #
-- axios - MIT, $, <1>
-Transitive depedencies directly distributed to the user:
- lodash - MIT, CC0, #, required by minim
- core-js-pure - MIT, $, #, required by @babel/runtime-corejs3
- regenerator-runtime - MIT, $, #, required by @babel/runtime-corejs3
- nan - MIT, $, #, required by tree-sitter-* packages
- follow-redirects - MIT, $, #, required by axios
-Legend
- - $: license present in distribution package
- - #: has no depedencies
- - <number>: number of transitive dependencies
-```

@@ -9,7 +9,7 @@ module.exports = {
             debug: false,
             modules: 'commonjs',
             targets: {
-              node: '10',
+              node: '12.22.0',
             },
             forceAllTransforms: false,
             ignoreBrowserslistConfig: true,
@@ -25,13 +25,11 @@ module.exports = {
             loose: true,
           },
         ],
-        '@babel/proposal-class-properties',
-        '@babel/proposal-object-rest-spread',
         [
           '@babel/plugin-transform-runtime',
           {
             corejs: 3,
-            version: '^7.11.2',
+            version: '^7',
           },
         ],
         'babel-plugin-native-error-extend',
@@ -58,7 +56,7 @@ module.exports = {
           '@babel/plugin-transform-runtime',
           {
             corejs: 3,
-            version: '^7.11.2',
+            version: '^7',
             useESModules: true,
           },
         ],
@@ -71,7 +69,6 @@ module.exports = {
           '@babel/preset-env',
           {
             debug: false,
-            useBuiltIns: false,
             corejs: 3,
             ignoreBrowserslistConfig: false,
             exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
@@ -86,7 +83,7 @@ module.exports = {
           '@babel/plugin-transform-runtime',
           {
             corejs: 3,
-            version: '^7.11.2',
+            version: '^7',
             useESModules: true,
           },
         ],

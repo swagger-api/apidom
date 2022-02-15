@@ -113,7 +113,7 @@ module.exports = {
             debug: false,
             useBuiltIns: false,
             ignoreBrowserslistConfig: false,
-            exclude: ['transform-function-name'],
+            exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
           },
         ],
         '@babel/preset-typescript',

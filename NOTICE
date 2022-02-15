@@ -15,6 +15,12 @@ File packages/apidom-ast/src/visitor.ts (the file) was originally created under 
 The file has been copied into this project and modified. All modifications are licensed under Apache 2.0 License.
 Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
 
+babel-plugin-add-import-extension
+Copyright (c) 2019 Karl Prieb
+File scripts/babel-plugin-add-import-extension.cjs (the file) was originally created under MIT license in https://codeberg.org/karl/babel-plugin-add-import-extension.
+The file has been copied into this project and modified. All modifications are licensed under Apache 2.0 License.
+Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
+
 refract-spec
 Copyright (c) 2015 refractproject
 Specific texts in README.md (the file) were originally created under MIT license in https://github.com/refractproject/refract-spec repository.

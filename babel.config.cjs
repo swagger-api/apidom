@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   babelrcRoots: ['packages/*'],
   env: {
@@ -100,7 +102,7 @@ module.exports = {
           },
         ],
         'babel-plugin-native-error-extend',
-        ['babel-plugin-add-import-extension', { extension: 'js' }],
+        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'js' }],
       ],
     },
     browser: {

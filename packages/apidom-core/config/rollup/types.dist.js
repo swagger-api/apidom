@@ -8,4 +8,5 @@ const config = [
     external: ['Function/Curry'],
   },
 ];
+
 export default config;

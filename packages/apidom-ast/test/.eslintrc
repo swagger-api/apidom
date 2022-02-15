@@ -27,7 +27,7 @@
     "mocha/no-exclusive-tests": 2
   },
   "overrides": [{
-    "files": ["mocha-bootstrap.js"],
+    "files": ["mocha-bootstrap.cjs"],
     "parserOptions": {
       "sourceType": "script"
     }

@@ -42,8 +42,8 @@ export { default as YamlStream } from './yaml/nodes/YamlStream';
 export { default as YamlTag, YamlNodeKind } from './yaml/nodes/YamlTag';
 export { default as YamlAnchor } from './yaml/nodes/YamlAnchor';
 export { YamlStyle, YamlStyleGroup } from './yaml/nodes/YamlStyle';
-export { default as YamlFailsafeSchema } from './yaml/schemas/failsafe';
-export { default as YamlJsonSchema } from './yaml/schemas/json';
+export { default as YamlFailsafeSchema } from './yaml/schemas/failsafe/index';
+export { default as YamlJsonSchema } from './yaml/schemas/json/index';
 export {
   isAlias as isYamlAlias,
   isKeyValuePair as isYamlKeyValuePair,

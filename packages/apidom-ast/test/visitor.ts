@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { assert } from 'chai';
 
-import { visit } from '../src/traversal/visitor';
+import { visit } from '../src/index';
 
 describe('visitor', function () {
   context('given structure with cycle', function () {

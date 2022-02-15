@@ -5,6 +5,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "type": "module",
   "private": true,
   "engines": {
     "node": ">=16.8.0",
@@ -62,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "=5.11.0",
     "@typescript-eslint/parser": "=5.11.0",
     "babel-loader": "=8.2.3",
+    "babel-plugin-add-import-extension": "=1.6.0",
     "babel-plugin-native-error-extend": "=2.0.2",
     "benchmark": "=2.1.4",
     "chai": "=4.3.6",

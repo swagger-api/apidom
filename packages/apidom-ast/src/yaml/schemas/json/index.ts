@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 
-import FailsafeSchema from '../failsafe';
+import FailsafeSchema from '../failsafe/index';
 import Boolean from './Boolean';
 import FloatingPoint from './FloatingPoint';
 import Integer from './Integer';

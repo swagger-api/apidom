@@ -5,4 +5,4 @@
 /config
 /.nyc_output
 /node_modules
-/**/*.js
+/swagger-api-apidom-adapter-openapi-json-3-1-*.tgz

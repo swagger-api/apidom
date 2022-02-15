@@ -1,4 +1,4 @@
-const { isElement, dehydrate } = require('../packages/apidom-core/es/index.js');
+const { isElement, dehydrate } = require('../packages/apidom-core');
 
 module.exports = {
   test: isElement,

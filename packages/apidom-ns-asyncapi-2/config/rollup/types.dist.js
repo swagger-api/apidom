@@ -7,4 +7,5 @@ const config = [
     plugins: [dts()],
   },
 ];
+
 export default config;

@@ -70,7 +70,7 @@ module.exports = {
         ],
         'babel-plugin-native-error-extend',
         process.env.NODE_ENV !== 'test'
-          ? ['babel-plugin-add-import-extension', { extension: 'cjs' }]
+          ? [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'cjs' }]
           : false
       ].filter(Boolean),
     },

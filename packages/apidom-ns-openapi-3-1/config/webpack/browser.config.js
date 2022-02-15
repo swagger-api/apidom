@@ -1,7 +1,5 @@
-'use strict';
-
-const path = require('path');
-const { nonMinimizeTrait, minimizeTrait } = require('./traits.config');
+import path from 'node:path';
+import { nonMinimizeTrait, minimizeTrait } from './traits.config.js';
 
 const browser = {
   mode: 'production',
@@ -69,4 +67,4 @@ const browserMin = {
   ...minimizeTrait,
 };
 
-module.exports = [browser, browserMin];
+export default [browser, browserMin];

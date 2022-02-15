@@ -33,6 +33,40 @@ module.exports = {
           },
         ],
         'babel-plugin-native-error-extend',
+      ],
+    },
+    'cjs-new': {
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            debug: false,
+            modules: false,
+            targets: {
+              node: '12.22.0',
+            },
+            forceAllTransforms: false,
+            ignoreBrowserslistConfig: true,
+            exclude: ['transform-function-name'],
+          },
+        ],
+        '@babel/preset-typescript',
+      ],
+      plugins: [
+        [
+          '@babel/plugin-transform-modules-commonjs',
+          {
+            loose: true,
+          },
+        ],
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: 3,
+            version: '^7',
+          },
+        ],
+        'babel-plugin-native-error-extend',
         process.env.NODE_ENV !== 'test'
           ? ['babel-plugin-add-import-extension', { extension: 'cjs' }]
           : false

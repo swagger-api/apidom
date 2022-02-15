@@ -1,9 +1,7 @@
-'use strict';
+import webpack from 'webpack';
+import TerserPlugin from 'terser-webpack-plugin';
 
-const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-
-const nonMinimizeTrait = {
+export const nonMinimizeTrait = {
   optimization: {
     minimize: false,
     usedExports: false,
@@ -11,7 +9,7 @@ const nonMinimizeTrait = {
   },
 };
 
-const minimizeTrait = {
+export const minimizeTrait = {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       minimize: true,
@@ -31,9 +29,4 @@ const minimizeTrait = {
       }),
     ],
   },
-};
-
-module.exports = {
-  nonMinimizeTrait,
-  minimizeTrait,
 };

@@ -20,7 +20,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
-    "test": "cross-env BABEL_ENV=cjs mocha",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",

@@ -1,4 +1,4 @@
-const { isElement, dehydrate } = require('../packages/apidom-core');
+const { isElement, dehydrate } = require('@swagger-api/apidom-core');
 
 module.exports = {
   test: isElement,

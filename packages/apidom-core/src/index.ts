@@ -49,10 +49,10 @@ export {
   hasElementSourceMap,
   includesSymbols,
   includesClasses,
-} from './predicates';
+} from './predicates/index';
 export { default as createPredicate } from './predicates/helpers';
 
-export { filter, reject, find, findAtOffset, some, traverse, parents } from './traversal';
+export { filter, reject, find, findAtOffset, some, traverse, parents } from './traversal/index';
 export {
   visit,
   BREAK,
@@ -60,7 +60,7 @@ export {
   getNodeType,
   keyMapDefault as keyMap,
 } from './traversal/visitor';
-export { transclude, default as Transcluder } from './transcluder';
+export { transclude, default as Transcluder } from './transcluder/index';
 export { dereference } from './util';
 
 /**

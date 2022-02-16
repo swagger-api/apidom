@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/swagger-api/apidom/compare/v0.18.0...v0.18.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **apidom-ls:** use import of ajv with full file extension ([ea12865](https://github.com/swagger-api/apidom/commit/ea12865574fea34cccaf274890b8d548edaae6ee)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+
+
+
+
+
 # [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
 
 

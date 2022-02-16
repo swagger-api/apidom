@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/swagger-api/apidom/compare/v0.18.0...v0.18.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* **apidom-ast:** fix how unraw library is used ([#1193](https://github.com/swagger-api/apidom/issues/1193)) ([da80349](https://github.com/swagger-api/apidom/commit/da803498e50ab40c1a312fc6d9653f74ae98f255)), closes [#1192](https://github.com/swagger-api/apidom/issues/1192)
+
+
+
+
+
 # [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
 
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix duplicated diagnostics ([7c86c77](https://github.com/swagger-api/apidom/commit/7c86c77fc594f0c7fdbd5f274518e5dc44060881)), closes [#1078](https://github.com/swagger-api/apidom/issues/1078)
+* **apidom-ls:** fix partial keys identification ([318799f](https://github.com/swagger-api/apidom/commit/318799f8e39678d6c0f3fc4658775566db0ec641))
+
+
+### Features
+
+* **apidom-ls:** convert to ESM ([#1186](https://github.com/swagger-api/apidom/issues/1186)) ([a7d6bd7](https://github.com/swagger-api/apidom/commit/a7d6bd7fa310d7462b972e8597d7e08c72ee7bf7)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **apidom-ls:** rules for schema additionalProperties ([73e6d1d](https://github.com/swagger-api/apidom/commit/73e6d1d793e35c6c43362cd71aec5ae918baa43c))
+
+
+
+
+
 # [0.17.0](https://github.com/swagger-api/apidom/compare/v0.16.0...v0.17.0) (2022-01-14)
 
 

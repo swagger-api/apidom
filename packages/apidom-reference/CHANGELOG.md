@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
+
+
+### Features
+
+* **asyncapi-2:** add support for AsyncAPI 2.2.0 specification ([#1151](https://github.com/swagger-api/apidom/issues/1151)) ([f94c38f](https://github.com/swagger-api/apidom/commit/f94c38fbb26051d1ef9f62a9086533aeef7574c1)), closes [#1130](https://github.com/swagger-api/apidom/issues/1130)
+* convert 3 additional packages to ESM modules ([#1185](https://github.com/swagger-api/apidom/issues/1185)) ([b1f314b](https://github.com/swagger-api/apidom/commit/b1f314bb68cb57e18d9e925e0c5191c31faba49a)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+
+
+
+
+
 # [0.17.0](https://github.com/swagger-api/apidom/compare/v0.16.0...v0.17.0) (2022-01-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
+
+
+### Features
+
+* **parser:** convert to ESM ([22d0c72](https://github.com/swagger-api/apidom/commit/22d0c72e08da5d2c0458d648939bde94be9b142a)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+
+
+
+
+
 # [0.17.0](https://github.com/swagger-api/apidom/compare/v0.16.0...v0.17.0) (2022-01-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser

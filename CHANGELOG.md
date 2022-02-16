@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/swagger-api/apidom/compare/v0.17.0...v0.18.0) (2022-02-16)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix duplicated diagnostics ([7c86c77](https://github.com/swagger-api/apidom/commit/7c86c77fc594f0c7fdbd5f274518e5dc44060881)), closes [#1078](https://github.com/swagger-api/apidom/issues/1078)
+* **apidom-ls:** fix partial keys identification ([318799f](https://github.com/swagger-api/apidom/commit/318799f8e39678d6c0f3fc4658775566db0ec641))
+
+
+### Features
+
+* **apidom-ast:** convert to ESM ([#1175](https://github.com/swagger-api/apidom/issues/1175)) ([75231d6](https://github.com/swagger-api/apidom/commit/75231d690e485c9e96da5fb806fc35712018f81c)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **apidom-core:** convert to ESM ([#1177](https://github.com/swagger-api/apidom/issues/1177)) ([0e1b784](https://github.com/swagger-api/apidom/commit/0e1b7845ddf70454b9230353639561c56bf1e6a4)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **apidom-ls:** convert to ESM ([#1186](https://github.com/swagger-api/apidom/issues/1186)) ([a7d6bd7](https://github.com/swagger-api/apidom/commit/a7d6bd7fa310d7462b972e8597d7e08c72ee7bf7)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **apidom-ls:** rules for schema additionalProperties ([73e6d1d](https://github.com/swagger-api/apidom/commit/73e6d1d793e35c6c43362cd71aec5ae918baa43c))
+* **apidom-ns-asyncapi-2:** convert to ESM ([#1178](https://github.com/swagger-api/apidom/issues/1178)) ([b970733](https://github.com/swagger-api/apidom/commit/b970733c179ec361bd4203acb3f56957efa1a127)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **asyncapi-2:** add support for AsyncAPI 2.2.0 specification ([#1151](https://github.com/swagger-api/apidom/issues/1151)) ([f94c38f](https://github.com/swagger-api/apidom/commit/f94c38fbb26051d1ef9f62a9086533aeef7574c1)), closes [#1130](https://github.com/swagger-api/apidom/issues/1130)
+* convert 3 additional packages to ESM modules ([#1185](https://github.com/swagger-api/apidom/issues/1185)) ([b1f314b](https://github.com/swagger-api/apidom/commit/b1f314bb68cb57e18d9e925e0c5191c31faba49a)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **ns-asyncapi-2:** add support for Message.payload empty values ([fa8e4cd](https://github.com/swagger-api/apidom/commit/fa8e4cd0c6c8c9f991403992520e029e863044a3)), closes [#1112](https://github.com/swagger-api/apidom/issues/1112) [#1076](https://github.com/swagger-api/apidom/issues/1076)
+* **ns-openapi-3-1:** convert to ESM ([dfd7773](https://github.com/swagger-api/apidom/commit/dfd77731e54294519996c34ded7740dbe3f755b7)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **parser-adapter-asyncapi-json-2:** convert to ESM ([e4ce197](https://github.com/swagger-api/apidom/commit/e4ce197daea06cfa6c2b08df35a2c1a04d54bc82)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **parser-adapter-asyncapi-yaml-2:** convert to ESM ([1904567](https://github.com/swagger-api/apidom/commit/190456764c3c338a4eb0d3adf5f501d552afe41f)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **parser-adapter-json:** convert to ESM ([3fbe9be](https://github.com/swagger-api/apidom/commit/3fbe9be2bdfa5ad7b6b0cbdcd8a241dd4ef484a4)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **parser-adapter-opneapi-json-3-1:** convert to ESM ([f6de4df](https://github.com/swagger-api/apidom/commit/f6de4df8c23bb6fd403a41ef36988c9ea30f7aa9)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+* **parser:** convert to ESM ([22d0c72](https://github.com/swagger-api/apidom/commit/22d0c72e08da5d2c0458d648939bde94be9b142a)), closes [#930](https://github.com/swagger-api/apidom/issues/930)
+
+
+
+
+
 # [0.17.0](https://github.com/swagger-api/apidom/compare/v0.16.0...v0.17.0) (2022-01-14)
 
 

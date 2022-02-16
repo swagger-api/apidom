@@ -21,7 +21,7 @@ import {
   repeatStr,
   concatRight,
 } from 'ramda-adjunct';
-import unraw from 'unraw';
+import { unraw } from 'unraw';
 
 /**
  * Helpers.

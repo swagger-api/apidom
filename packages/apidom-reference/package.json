@@ -8,6 +8,7 @@
   "type": "module",
   "types": "types/dist.d.ts",
   "unpkg": "dist/apidom-reference.browser.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

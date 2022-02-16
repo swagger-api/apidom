@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "dist/apidom-parser-apdater-json.browser.min.js",
+  "main": "./cjs/adapter-node.cjs",
   "exports": {
     "node": {
       "import": "./es/adapter-node.js",

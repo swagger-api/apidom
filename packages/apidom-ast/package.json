@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "dist/apidom.ast.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

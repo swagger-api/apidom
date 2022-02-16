@@ -30,8 +30,3 @@ export const minimizeTrait = {
     ],
   },
 };
-
-module.exports = {
-  nonMinimizeTrait,
-  minimizeTrait,
-};

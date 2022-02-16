@@ -18,14 +18,6 @@ object-assign
  */
 
 /**
- * @file **unraw** | Convert raw escape sequences to their respective characters
- * (undo `String.raw`).
- * @author Ian Sanders
- * @copyright 2019 Ian Sanders
- * @license MIT
- */
-
-/**
  * A better abstraction over CSS.
  *
  * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present

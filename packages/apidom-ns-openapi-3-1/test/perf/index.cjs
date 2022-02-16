@@ -2,11 +2,13 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
 const Benchmark = require('benchmark');
 
-const visitorShortcutBench = require('./visitor-shortcut');
+const refractBench = require('./refract.cjs');
+const visitorShortcutBench = require('./visitor-shortcut.cjs');
 
 const suite = new Benchmark.Suite();
 
 suite
+  .add(refractBench)
   .add(visitorShortcutBench)
   // add listeners
   .on('cycle', function (event) {

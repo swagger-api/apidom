@@ -2,10 +2,10 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
 const Benchmark = require('benchmark');
 
-const lexicalAnalysisBench = require('./lexical-analysis');
-const syntacticAnalysisBench = require('./syntactic-analysis');
-const refractBench = require('./refract');
-const parseBench = require('./parse');
+const lexicalAnalysisBench = require('./lexical-analysis.cjs');
+const syntacticAnalysisBench = require('./syntactic-analysis.cjs');
+const refractBench = require('./refract.cjs');
+const parseBench = require('./parse.cjs');
 
 const suite = new Benchmark.Suite();
 

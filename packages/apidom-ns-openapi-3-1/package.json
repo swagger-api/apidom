@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "dist/apidom-ns-openapi-3-1.browser.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

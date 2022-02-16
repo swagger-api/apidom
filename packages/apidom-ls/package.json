@@ -17,6 +17,7 @@
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "type": "module",
   "unpkg": "dist/apidom-ls.browser.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

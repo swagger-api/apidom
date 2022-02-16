@@ -1,4 +1,4 @@
-import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020';
+import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020.js'; // eslint-disable-line import/extensions
 import Ajv, * as AjvNs from 'ajv';
 import * as draft7MetaSchema from 'ajv/dist/refs/json-schema-draft-07.json';
 import AjvErrors from 'ajv-errors';

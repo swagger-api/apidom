@@ -2,14 +2,18 @@ require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
 const Benchmark = require('benchmark');
 
-const refractBench = require('./refract');
-const visitorShortcutBench = require('./visitor-shortcut');
+const lexicalAnalysisBench = require('./lexical-analysis.cjs');
+const syntacticAnalysisBench = require('./syntactic-analysis.cjs');
+const refractBench = require('./refract.cjs');
+const parseBench = require('./parse.cjs');
 
 const suite = new Benchmark.Suite();
 
 suite
+  .add(lexicalAnalysisBench)
+  .add(syntacticAnalysisBench)
   .add(refractBench)
-  .add(visitorShortcutBench)
+  .add(parseBench)
   // add listeners
   .on('cycle', function (event) {
     console.info(String(event.target));

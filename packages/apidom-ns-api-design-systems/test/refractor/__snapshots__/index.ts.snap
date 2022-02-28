@@ -1,0 +1,1182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor given generic ApiDOM object in API Design Systems 2021-05-07 shape should refract to API Design Systems 1`] = `
+{
+  "element": "main",
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "version"
+        },
+        "value": {
+          "element": "string",
+          "content": "2021-05-07"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "info"
+        },
+        "value": {
+          "element": "info",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "title"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "Paypal API Guidelines"
+                }
+              }
+            },
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "description"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "Paypla API Guidelines description"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "principles"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "main-principles"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "principle",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "name"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "robustness"
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "description"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "Robustness principle"
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "iri"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "urn:apidesign.systems:principle:robustness"
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "level"
+                    },
+                    "value": {
+                      "element": "requirementLevel",
+                      "content": "must"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "standards"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "main-standards"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "standard",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "name"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "error.json"
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "level"
+                    },
+                    "value": {
+                      "element": "requirementLevel",
+                      "content": "may"
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "iri"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "https://github.com/paypal/api-standards/blob/master/v1/schema/json/draft-04/error.json"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "scenarios"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "main-scenarios"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "scenario",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "when"
+                    },
+                    "value": {
+                      "element": "standardIdentifier",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http"
+                        },
+                        {
+                          "element": "string",
+                          "content": "transaction"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "then"
+                    },
+                    "value": {
+                      "element": "array",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "scenario-then"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "method"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "may"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "values"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "get"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "post"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "put"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "delete"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "patch"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "may"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "values"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "Accept"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Accept-Charset"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Language"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Link"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Prefer"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "response"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "may"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "values"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Language"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Link"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Location"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Prefer"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Prefer"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "may"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "values"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "respond-async"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "read-consistent"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "read-eventual-consistent"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "read-cache"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "return=representation"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "return=minimal"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "should"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "values"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "scenario",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "when"
+                    },
+                    "value": {
+                      "element": "standardIdentifier",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http"
+                        },
+                        {
+                          "element": "string",
+                          "content": "response"
+                        },
+                        {
+                          "element": "string",
+                          "content": "status_code"
+                        },
+                        {
+                          "element": "string",
+                          "content": "client_error"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "then"
+                    },
+                    "value": {
+                      "element": "array",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "scenario-then"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "requirement",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "subject"
+                                },
+                                "value": {
+                                  "element": "standardIdentifier",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "body"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "level"
+                                },
+                                "value": {
+                                  "element": "requirementLevel",
+                                  "content": "must"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "follow"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "error.json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;

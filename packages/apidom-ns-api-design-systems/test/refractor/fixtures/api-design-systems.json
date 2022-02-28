@@ -1,0 +1,126 @@
+{
+  "version": "2021-05-07",
+  "info": {
+    "title": "Paypal API Guidelines",
+    "description": "Paypla API Guidelines description"
+  },
+  "principles": [
+    {
+      "name": "robustness",
+      "description": "Robustness principle",
+      "iri": "urn:apidesign.systems:principle:robustness",
+      "level": "must"
+    }
+  ],
+  "standards": [
+    {
+      "name": "error.json",
+      "level": "may",
+      "iri": "https://github.com/paypal/api-standards/blob/master/v1/schema/json/draft-04/error.json"
+    }
+  ],
+  "scenarios": [
+    {
+      "when": [
+        "http",
+        "transaction"
+      ],
+      "then": [
+        {
+          "subject": [
+            "http",
+            "request",
+            "method"
+          ],
+          "level": "may",
+          "values": [
+            "get",
+            "post",
+            "put",
+            "delete",
+            "patch"
+          ]
+        },
+        {
+          "subject": [
+            "http",
+            "request",
+            "header"
+          ],
+          "level": "may",
+          "values": [
+            "Accept",
+            "Accept-Charset",
+            "Content-Language",
+            "Content-Type",
+            "Link",
+            "Prefer"
+          ]
+        },
+        {
+          "subject": [
+            "http",
+            "response",
+            "header"
+          ],
+          "level": "may",
+          "values": [
+            "Content-Language",
+            "Content-Type",
+            "Link",
+            "Location",
+            "Prefer"
+          ]
+        },
+        {
+          "subject": [
+            "http",
+            "request",
+            "header",
+            "Prefer"
+          ],
+          "level": "may",
+          "values": [
+            "respond-async",
+            "read-consistent",
+            "read-eventual-consistent",
+            "read-cache",
+            "return=representation",
+            "return=minimal"
+          ]
+        },
+        {
+          "subject": [
+            "http",
+            "message",
+            "header",
+            "Content-Type"
+          ],
+          "level": "should",
+          "values": [
+            "application/json"
+          ]
+        }
+      ]
+    },
+    {
+      "when": [
+        "http",
+        "response",
+        "status_code",
+        "client_error"
+      ],
+      "then": [
+        {
+          "subject": [
+            "http",
+            "message",
+            "body"
+          ],
+          "level": "must",
+          "follow": "error.json"
+        }
+      ]
+    }
+  ]
+}

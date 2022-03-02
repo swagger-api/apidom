@@ -806,7 +806,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "GET"
                             }
@@ -835,7 +835,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "PUT"
                             }
@@ -2872,7 +2872,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                         "value": {
                                                           "element": "operation",
                                                           "meta": {
-                                                            "httpMethod": {
+                                                            "http-method": {
                                                               "element": "string",
                                                               "content": "POST"
                                                             }
@@ -3619,7 +3619,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "POST"
                             }
@@ -3833,7 +3833,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "DELETE"
                             }
@@ -3862,7 +3862,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "OPTIONS"
                             }
@@ -3891,7 +3891,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "HEAD"
                             }
@@ -3920,7 +3920,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "PATCH"
                             }
@@ -3949,7 +3949,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "TRACE"
                             }
@@ -4666,7 +4666,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "operation",
                           "meta": {
-                            "httpMethod": {
+                            "http-method": {
                               "element": "string",
                               "content": "GET"
                             }
@@ -5195,10 +5195,6 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                         "value": {
                                           "element": "header",
                                           "meta": {
-                                            "headerName": {
-                                              "element": "string",
-                                              "content": "Content-Type"
-                                            },
                                             "header-name": {
                                               "element": "string",
                                               "content": "Content-Type"
@@ -7038,7 +7034,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                         "value": {
                                           "element": "operation",
                                           "meta": {
-                                            "httpMethod": {
+                                            "http-method": {
                                               "element": "string",
                                               "content": "PUT"
                                             }
@@ -7482,7 +7478,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 "value": {
                                   "element": "operation",
                                   "meta": {
-                                    "httpMethod": {
+                                    "http-method": {
                                       "element": "string",
                                       "content": "GET"
                                     }

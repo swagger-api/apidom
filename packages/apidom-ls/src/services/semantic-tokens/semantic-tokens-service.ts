@@ -317,7 +317,7 @@ console.log(
               if (s === 'operation') {
                 // check for httpMethod
                 modifier = DefaultSemanticTokensService.getTokenModifiers([
-                  `httpMethod-${element.getMetaProperty('httpMethod', 'GET').toValue()}`,
+                  `httpMethod-${element.getMetaProperty('http-method', 'GET').toValue()}`,
                 ]);
               }
               const token = [

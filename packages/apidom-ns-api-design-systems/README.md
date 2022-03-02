@@ -145,6 +145,70 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
 
+#### OpenAPI 3.1 Standard Identifier plugin
+
+This plugin is specific to OpenAPI 3.1 specification and decorates significant
+OpenAPI 3.1 elements with [Standard Identifiers](https://apidesign.systems/standards/).
+
+```js
+import { parse } from '@swagger-api/apidom-parser-adapter-json';
+import { refractPluginOpenApi3_1StandardIdentifier } from '@swagger-api/apidom-ns-api-design-systems';
+import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const jsonDefinition = `
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/path1": {
+      "get": {},
+      "put": {
+        "parameters": [
+          {
+            "name": "X-Header",
+            "in": "header",
+            "description": "parameter3 description",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "X-Header2",
+          "in": "header",
+          "description": "parameter1 description",
+          "allowEmptyValue": true
+        }
+      ]
+    }
+  }
+}
+`;
+const apiDOM = await parse(jsonDefinition);
+const apenApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractPluginOpenApi3_1StandardIdentifier()],
+});
+// => PathItemElement now contains [['http', 'transaction']] under `ads-standard-identifier` key
+// => other elements are decorated by different metadata as well
+```
 
 ## Implementation progress
 

@@ -36,7 +36,7 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
 
         const headerName = key.toValue();
 
-        value.setMetaProperty('headerName', headerName);
+        value.setMetaProperty('header-name', headerName);
       });
 
       return result;

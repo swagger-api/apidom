@@ -26,7 +26,7 @@ const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
         .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
           const httpMethod = httpMethodElementCI.toValue().toUpperCase();
           const httpMethodElementCS = new StringElement(httpMethod);
-          operationElement.setMetaProperty('httpMethod', httpMethodElementCS);
+          operationElement.setMetaProperty('http-method', httpMethodElementCS);
         });
 
       // mark this PathItemElement with reference metadata

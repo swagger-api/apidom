@@ -130,6 +130,8 @@ declare module 'minim' {
 
     hasKey(value: string): boolean;
 
+    getKey(value: string): StringElement;
+
     getMember(key: string): MemberElement;
 
     // @ts-ignore

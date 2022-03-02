@@ -1,10 +1,8 @@
 import { Attributes, Meta } from 'minim';
-import { StringElement, ObjectElement } from '@swagger-api/apidom-core';
+import { StringElement, ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
 
 import ServerElement from './Server';
 import OperationElement from './Operation';
-import ParameterElement from './Parameter';
-import ReferenceElement from './Reference';
 
 class PathItem extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -60,7 +58,7 @@ class PathItem extends ObjectElement {
     return this.get('servers');
   }
 
-  get parameters(): ParameterElement | ReferenceElement {
+  get parameters(): ArrayElement {
     return this.get('parameters');
   }
 }

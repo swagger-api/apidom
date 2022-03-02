@@ -634,7 +634,7 @@ describe('apidom-ls-async', function () {
       console.log(
         node.element,
         node.getMetaProperty('classes', []).toValue(),
-        node.getMetaProperty('httpMethod', []).toValue(),
+        node.getMetaProperty('http-method', []).toValue(),
         `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
         node.toValue(),
       );

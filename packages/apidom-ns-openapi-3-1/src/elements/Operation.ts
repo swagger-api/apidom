@@ -1,7 +1,11 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement, BooleanElement, StringElement } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  ArrayElement,
+  BooleanElement,
+  StringElement,
+} from '@swagger-api/apidom-core';
 
-import ParameterElement from './Parameter';
 import ReferenceElement from './Reference';
 import ServerElement from './Server';
 import ExternalDocumentationElement from './ExternalDocumentation';
@@ -56,11 +60,11 @@ class Operation extends ObjectElement {
     this.set('operationId', operationId);
   }
 
-  get parameters(): ParameterElement[] | ReferenceElement[] {
+  get parameters(): ArrayElement {
     return this.get('parameters');
   }
 
-  set parameters(parameters: ParameterElement[] | ReferenceElement[]) {
+  set parameters(parameters: ArrayElement) {
     this.set('parameters', parameters);
   }
 

@@ -1,0 +1,50 @@
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/path1": {
+      "get": {},
+      "put": {
+        "parameters": [
+          {
+            "name": "X-Header",
+            "in": "header",
+            "description": "parameter3 description",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "example": "x header value"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "headers": {
+              "X-Header-Name": {}
+            },
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "X-Header2",
+          "in": "header",
+          "description": "parameter1 description",
+          "allowEmptyValue": true,
+          "example": "x header value 2"
+        }
+      ]
+    }
+  }
+}

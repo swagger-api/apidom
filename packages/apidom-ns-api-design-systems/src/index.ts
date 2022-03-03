@@ -18,7 +18,7 @@ export { default as mediaTypes, ApiDesignSystemsMediaTypes } from './media-types
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace';
 
-export { default as refractPluginOpenApi3_1StandardIdentifier } from './refractor/plugins/openapi-3-1-standard-identifier';
+export { default as refractPluginOpenApi3_1StandardIdentifierSelectors } from './refractor/plugins/openapi-3-1/standard-identifier-selectors';
 
 export {
   isInfoElement,

@@ -26,10 +26,14 @@
         },
         "responses": {
           "201": {
+            "headers": {
+              "X-Header-Name": {}
+            },
             "content": {
               "application/json": {}
             }
-          }
+          },
+          "202": {}
         }
       },
       "parameters": [

@@ -17,12 +17,13 @@ const formatLocation = <T extends Element>(element: T) => {
   return ` on line ${line}, column ${column}`;
 };
 
-const validateRequirement = (requirement: RequirementElement, operation: OperationElement) => {
-  const { subject } = requirement;
-  const value = access(operation, subject);
+const validateValue = (value: Element, requirement: RequirementElement) => {
   const annotations: AnnotationElement[] = [];
+  const { subject } = requirement;
 
-  if (requirement.level.toValue() === 'may' && typeof requirement.values !== 'undefined') {
+  if (typeof requirement.values === 'undefined') return annotations;
+
+  if (requirement.level.toValue() === 'may') {
     const isValid = may(value.toValue(), requirement.values.toValue());
     if (!isValid) {
       const annotation = new AnnotationElement(
@@ -34,6 +35,18 @@ const validateRequirement = (requirement: RequirementElement, operation: Operati
       annotations.push(annotation);
     }
   }
+
+  return annotations;
+};
+
+const validateRequirement = (requirement: RequirementElement, operation: OperationElement) => {
+  const { subject } = requirement;
+  const values = access(operation, subject);
+  const annotations: AnnotationElement[] = [];
+
+  values.forEach((value) => {
+    annotations.push(...validateValue(value, requirement));
+  });
 
   return annotations;
 };

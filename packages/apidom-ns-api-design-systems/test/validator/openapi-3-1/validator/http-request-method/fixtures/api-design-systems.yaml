@@ -4,26 +4,6 @@ info:
   description: |
     A machine and human readable version of the SmartBear API Style Guide aimed at promoting living API Style Governance across various tools and teams, leading to improved API quality.
     See the [SmartBear Standards and Guidelines](https://github.com/SmartBear/api-standards-and-guidelines) repo for a traditional view of the static guidelines.
-principles:
-  - iri: urn:apidesign.systems:principle:robustness
-    level: must
-  - iri: urn:apidesign.systems:principle:rmm:level2
-    level: must
-  - iri: urn:apidesign.systems:principle:rmm:level3
-    level: should
-standards:
-  - iri: urn:ietf:rfc:6648
-    level: must
-  - iri: urn:ietf:rfc:7807
-    level: must
-  - iri: urn:ietf:rfc:7231
-    level: should
-  - iri: urn:ietf:rfc:6585
-    level: may
-  - iri: urn:ietf:rfc:5788
-    level: may
-  - iri: urn:ietf:draft:http-semantics
-    level: may
 scenarios:
   - description: SB-API-010 - Only apply standard HTTP methods
     when: [http, transaction]

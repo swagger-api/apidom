@@ -352,7 +352,8 @@ export class DefaultCompletionService implements CompletionService {
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return completionList;
-    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    // const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const docNs: string = 'ads';
     const specVersion = getSpecVersion(api);
 
     let targetOffset = textModified ? offset - 1 : offset;

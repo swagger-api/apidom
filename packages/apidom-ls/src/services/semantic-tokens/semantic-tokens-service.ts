@@ -80,6 +80,12 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
       'reference-element',
       'reference-value',
       'components-messages',
+      'principle',
+      'requirement',
+      'requirementLevel',
+      'scenario',
+      'standard',
+      'standardIdentifier',
     ];
   }
 

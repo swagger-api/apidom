@@ -64,6 +64,12 @@ export class DefaultSymbolsService implements SymbolsService {
       'message',
       'servers',
       'components-messages',
+      'principle',
+      'requirement',
+      'requirementLevel',
+      'scenario',
+      'standard',
+      'standardIdentifier',
     ];
 
     const res: ArraySlice = filter((el: Element) => {

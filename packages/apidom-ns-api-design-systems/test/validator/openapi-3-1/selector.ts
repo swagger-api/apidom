@@ -167,7 +167,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
   });
 
   context('given StandardIdentifier([http, response, header])', function () {
-    specify('should select matching Operation elements', function () {
+    specify('should select matching Response elements', function () {
       const standardIdentifier = new StandardIdentifierElement(['http', 'response', 'header']);
       const selected = select(openapiElement, standardIdentifier);
 

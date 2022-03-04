@@ -1,6 +1,11 @@
 import { includes } from 'ramda';
 import { Element, visit, BREAK } from '@swagger-api/apidom-core';
-import { OperationElement, getNodeType, keyMap } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  OperationElement,
+  OpenApi3_1Element,
+  getNodeType,
+  keyMap,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import StandardIdentifierElement from '../../elements/StandardIdentifier';
 
@@ -26,8 +31,8 @@ const makeStandardIdentifierVisitor = (standardIdentifier: StandardIdentifierEle
   },
 });
 
-const select = <T extends Element>(
-  element: T,
+const select = (
+  element: OpenApi3_1Element,
   standardIdentifier: StandardIdentifierElement,
 ): OperationElement[] => {
   const selected: OperationElement[] = [];

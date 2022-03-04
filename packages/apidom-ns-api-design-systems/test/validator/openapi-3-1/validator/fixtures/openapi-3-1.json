@@ -1,0 +1,11 @@
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/path1": {
+      "get": {},
+      "put": {},
+      "trace": {},
+      "options": {}
+    }
+  }
+}

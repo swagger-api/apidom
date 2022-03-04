@@ -2,7 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
-import { OpenApi3_1Element, isOperationElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  OpenApi3_1Element,
+  isResponseElement,
+  isOperationElement,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import {
   refractPluginOpenApi3_1StandardIdentifierSelectors,
@@ -28,6 +32,8 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isOperationElement(selected[1]));
     });
   });
 
@@ -51,6 +57,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 1);
+      assert.isTrue(isOperationElement(selected[0]));
     });
   });
 
@@ -60,6 +67,8 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isOperationElement(selected[1]));
     });
   });
 
@@ -69,6 +78,8 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isOperationElement(selected[1]));
     });
   });
 
@@ -83,6 +94,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 1);
+      assert.isTrue(isOperationElement(selected[0]));
     });
   });
 
@@ -97,6 +109,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 1);
+      assert.isTrue(isOperationElement(selected[0]));
     });
   });
 
@@ -111,6 +124,8 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isOperationElement(selected[1]));
     });
   });
 
@@ -125,6 +140,8 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isOperationElement(selected[1]));
     });
   });
 
@@ -134,24 +151,58 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 1);
+      assert.isTrue(isOperationElement(selected[0]));
     });
   });
 
   context('given StandardIdentifier([http, message, body])', function () {
-    specify('should select matching Operation elements', function () {
+    specify('should select matching elements', function () {
       const standardIdentifier = new StandardIdentifierElement(['http', 'message', 'body']);
       const selected = select(openapiElement, standardIdentifier);
 
-      assert.lengthOf(selected, 1);
+      assert.lengthOf(selected, 2);
+      assert.isTrue(isOperationElement(selected[0]));
+      assert.isTrue(isResponseElement(selected[1]));
     });
   });
 
   context('given StandardIdentifier([http, response, header])', function () {
-    specify('should select matching Operation elements', function () {
+    specify('should select matching Response elements', function () {
       const standardIdentifier = new StandardIdentifierElement(['http', 'response', 'header']);
       const selected = select(openapiElement, standardIdentifier);
 
       assert.lengthOf(selected, 1);
+      assert.isTrue(isResponseElement(selected[0]));
+    });
+  });
+
+  context('given StandardIdentifier([http, response, status_code, 201])', function () {
+    specify('should select matching Response elements', function () {
+      const standardIdentifier = new StandardIdentifierElement([
+        'http',
+        'response',
+        'status_code',
+        '201',
+      ]);
+      const selected = select(openapiElement, standardIdentifier);
+
+      assert.lengthOf(selected, 1);
+      assert.isTrue(isResponseElement(selected[0]));
+    });
+  });
+
+  context('given StandardIdentifier([http, response, status_code, success])', function () {
+    specify('should select matching Response elements', function () {
+      const standardIdentifier = new StandardIdentifierElement([
+        'http',
+        'response',
+        'status_code',
+        'success',
+      ]);
+      const selected = select(openapiElement, standardIdentifier);
+
+      assert.lengthOf(selected, 1);
+      assert.isTrue(isResponseElement(selected[0]));
     });
   });
 });

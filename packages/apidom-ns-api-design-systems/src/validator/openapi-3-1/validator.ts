@@ -1,5 +1,9 @@
 import { AnnotationElement, Element, isArrayElement } from '@swagger-api/apidom-core';
-import { OpenApi3_1Element, OperationElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  OpenApi3_1Element,
+  OperationElement,
+  ResponseElement,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import MainElement from '../../elements/Main';
 import ScenarioElement from '../../elements/Scenario';
@@ -39,9 +43,12 @@ const validateValue = (value: Element, requirement: RequirementElement) => {
   return annotations;
 };
 
-const validateRequirement = (requirement: RequirementElement, operation: OperationElement) => {
+const validateRequirement = (
+  requirement: RequirementElement,
+  selected: OperationElement | ResponseElement,
+) => {
   const { subject } = requirement;
-  const values = access(operation, subject);
+  const values = access(selected, subject);
   const annotations: AnnotationElement[] = [];
 
   values.forEach((value) => {
@@ -54,15 +61,15 @@ const validateRequirement = (requirement: RequirementElement, operation: Operati
 const validateScenario = (scenario: ScenarioElement, openApiElement: OpenApi3_1Element) => {
   const annotations: AnnotationElement[] = [];
   const { when } = scenario;
-  const operations = select(openApiElement, when);
+  const selected = select(openApiElement, when);
   const { then: requirements } = scenario;
 
   if (typeof requirements === 'undefined') return annotations;
 
-  operations.forEach((operation: OperationElement) => {
+  selected.forEach((item) => {
     // @ts-ignore
     requirements.forEach((requirement: RequirementElement) => {
-      annotations.push(...validateRequirement(requirement, operation));
+      annotations.push(...validateRequirement(requirement, item));
     });
   });
 

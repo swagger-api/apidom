@@ -2,7 +2,6 @@ import {
   PathItemElement,
   ParameterElement,
   RequestBodyElement,
-  ResponsesElement,
   ResponseElement,
   OperationElement,
   isStringElement,
@@ -10,36 +9,46 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const plugin = () => () => {
+  let operationIdentifiers: string[][] = [];
+  let responseIdentifiers: string[][] = [];
+
   return {
     visitor: {
-      OperationElement(element: OperationElement, ...rest: any) {
-        const [, , , ancestors] = rest;
-        const parentPathItem: PathItemElement = ancestors[ancestors.length - 2];
-        const standardIdentifiers = [
-          ['http', 'transaction'],
-          ['http', 'request'],
-          ['http', 'request', 'url'],
-          ['http', 'request', 'url', parentPathItem.meta.get('path').toValue()],
-          ['http', 'request', 'method'],
-          ['http', 'request', 'method', element.meta.get('http-method').toValue().toLowerCase()],
-        ];
+      OperationElement: {
+        enter(element: OperationElement, ...rest: any) {
+          const [, , , ancestors] = rest;
+          const parentPathItem: PathItemElement = ancestors[ancestors.length - 2];
 
-        // fold PathItem.parameters to Operation.parameters
-        // @ts-ignore
-        parentPathItem?.parameters?.forEach((parameter: ParameterElement) => {
-          if (
-            isStringElement(parameter.in) &&
-            isStringElement(parameter.name) &&
-            parameter.in.toValue() === 'header'
-          ) {
-            standardIdentifiers.push(['http', 'request', 'header']);
-            standardIdentifiers.push(['http', 'request', 'header', parameter.name.toValue()]);
-            standardIdentifiers.push(['http', 'message', 'header']);
-            standardIdentifiers.push(['http', 'message', 'header', parameter.name.toValue()]);
-          }
-        });
+          operationIdentifiers.push(
+            ['http', 'transaction'],
+            ['http', 'request'],
+            ['http', 'request', 'url'],
+            ['http', 'request', 'url', parentPathItem.meta.get('path').toValue()],
+            ['http', 'request', 'method'],
+            ['http', 'request', 'method', element.meta.get('http-method').toValue().toLowerCase()],
+          );
 
-        element.setMetaProperty('ads-s-standard-identifier', standardIdentifiers);
+          // fold PathItem.parameters to Operation.parameters
+          // @ts-ignore
+          parentPathItem?.parameters?.forEach((parameter: ParameterElement) => {
+            if (
+              isStringElement(parameter.in) &&
+              isStringElement(parameter.name) &&
+              parameter.in.toValue() === 'header'
+            ) {
+              operationIdentifiers.push(
+                ['http', 'request', 'header'],
+                ['http', 'request', 'header', parameter.name.toValue()],
+                ['http', 'message', 'header'],
+                ['http', 'message', 'header', parameter.name.toValue()],
+              );
+            }
+          });
+        },
+        leave(element: OperationElement) {
+          element.setMetaProperty('ads-s-standard-identifier', operationIdentifiers);
+          operationIdentifiers = [];
+        },
       },
       ParameterElement(element: ParameterElement) {
         if (
@@ -47,84 +56,83 @@ const plugin = () => () => {
           isStringElement(element.name) &&
           element.in.toValue() === 'header'
         ) {
-          element.name.setMetaProperty('ads-s-standard-identifier', [
+          operationIdentifiers.push(
             ['http', 'request', 'header'],
             ['http', 'request', 'header', element.name.toValue()],
             ['http', 'message', 'header'],
             ['http', 'message', 'header', element.name.toValue()],
-          ]);
+          );
         }
       },
       RequestBodyElement(element: RequestBodyElement) {
         if (!isObjectElement(element.contentProp)) return;
 
-        element.setMetaProperty('ads-s-standard-identifier', [
-          ['http', 'request', 'body'],
-          ['http', 'message', 'body'],
-        ]);
+        operationIdentifiers.push(['http', 'request', 'body'], ['http', 'message', 'body']);
 
         if (typeof element.contentProp !== 'undefined' && isObjectElement(element.contentProp)) {
-          element.contentProp.forEach((mediaType, key) => {
-            key.setMetaProperty('ads-s-standard-identifier', [
+          element.contentProp.forEach(() => {
+            operationIdentifiers.push(
               ['http', 'request', 'header'],
               ['http', 'request', 'header', 'Content-Type'],
               ['http', 'message', 'header'],
               ['http', 'message', 'header', 'Content-Type'],
-            ]);
+            );
           });
         }
       },
-      ResponsesElement(element: ResponsesElement) {
-        element.forEach((value, key) => {
-          const statusCode = String(key.toValue());
-          const statusCodeAlias = statusCode.startsWith('2')
-            ? 'success'
-            : statusCode.startsWith('3')
-            ? 'redirect'
-            : statusCode.startsWith('4')
-            ? 'client_error'
-            : statusCode.startsWith('5')
-            ? 'sever_error'
-            : 'unknown';
+      ResponseElement: {
+        enter(element: ResponseElement) {
+          responseIdentifiers.push(['http', 'response']);
 
-          key.setMetaProperty('ads-s-standard-identifier', [
-            ['http', 'response', 'status_code'],
-            ['http', 'response', 'status_code', statusCode],
-            ['http', 'response', 'status_code', statusCodeAlias],
-          ]);
-        });
-      },
-      ResponseElement(element: ResponseElement) {
-        element.setMetaProperty('add-s-standard-identifier', [['http', 'response']]);
+          if (element.meta.hasKey('http-status-code')) {
+            const statusCode = String(element.meta.get('http-status-code').toValue());
+            const statusCodeAlias = statusCode.startsWith('2')
+              ? 'success'
+              : statusCode.startsWith('3')
+              ? 'redirect'
+              : statusCode.startsWith('4')
+              ? 'client_error'
+              : statusCode.startsWith('5')
+              ? 'sever_error'
+              : 'unknown';
 
-        if (typeof element.headers !== 'undefined' && isObjectElement(element.headers)) {
-          element.headers.forEach((value, key) => {
-            const headerName = key.toValue();
+            responseIdentifiers.push(
+              ['http', 'response', 'status_code'],
+              ['http', 'response', 'status_code', statusCode],
+              ['http', 'response', 'status_code', statusCodeAlias],
+            );
+          }
 
-            value.setMetaProperty('ads-s-standard-identifier', [
-              ['http', 'response', 'header'],
-              ['http', 'response', 'header', headerName],
-              ['http', 'message', 'header', headerName],
-            ]);
-          });
-        }
+          if (typeof element.headers !== 'undefined' && isObjectElement(element.headers)) {
+            element.headers.forEach((value, key) => {
+              const headerName = key.toValue();
 
-        if (typeof element.contentProp !== 'undefined' && isObjectElement(element.contentProp)) {
-          element.contentProp.setMetaProperty('add-s-standard-identifier', [
-            ['http', 'response', 'body'],
-            ['http', 'message', 'body'],
-          ]);
+              responseIdentifiers.push(
+                ['http', 'response', 'header'],
+                ['http', 'response', 'header', headerName],
+                ['http', 'message', 'header', headerName],
+              );
+            });
+          }
 
-          element.contentProp.forEach((value, key) => {
-            const headerName = key.toValue();
+          if (typeof element.contentProp !== 'undefined' && isObjectElement(element.contentProp)) {
+            responseIdentifiers.push(['http', 'response', 'body'], ['http', 'message', 'body']);
 
-            value.setMetaProperty('ads-standard-identifier', [
-              ['http', 'response', 'header'],
-              ['http', 'response', 'header', headerName],
-              ['http', 'message', 'header', headerName],
-            ]);
-          });
-        }
+            element.contentProp.forEach((value, key) => {
+              const headerName = key.toValue();
+
+              responseIdentifiers.push(
+                ['http', 'response', 'header'],
+                ['http', 'response', 'header', headerName],
+                ['http', 'message', 'header', headerName],
+              );
+            });
+          }
+        },
+        leave(element: ResponseElement) {
+          element.setMetaProperty('ads-s-standard-identifier', responseIdentifiers);
+          responseIdentifiers = [];
+        },
       },
     },
   };

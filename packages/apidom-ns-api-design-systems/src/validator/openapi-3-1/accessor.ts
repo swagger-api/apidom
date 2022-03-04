@@ -1,5 +1,10 @@
 import { Element, visit, ArrayElement } from '@swagger-api/apidom-core';
-import { OperationElement, getNodeType, keyMap } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  OperationElement,
+  ResponseElement,
+  getNodeType,
+  keyMap,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import StandardIdentifierElement from '../../elements/StandardIdentifier';
 
@@ -10,7 +15,7 @@ import StandardIdentifierElement from '../../elements/StandardIdentifier';
 const visitorOptions = { keyMap, nodeTypeGetter: getNodeType };
 
 const access = (
-  operationElement: OperationElement,
+  selected: OperationElement | ResponseElement,
   standardIdentifier: StandardIdentifierElement,
 ): ArrayElement => {
   const strStandardIdentifier = String(standardIdentifier.toValue());
@@ -30,7 +35,7 @@ const access = (
     },
   };
 
-  visit(operationElement, visitor, visitorOptions);
+  visit(selected, visitor, visitorOptions);
 
   return values;
 };

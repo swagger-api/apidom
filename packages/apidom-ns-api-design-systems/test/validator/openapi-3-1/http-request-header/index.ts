@@ -11,7 +11,7 @@ import {
   refractPluginOpenApi3_1StandardIdentifierAccessors,
   MainElement,
   validateOpenAPI3_1,
-} from '../../../../../src';
+} from '../../../../src';
 
 const apiDesignSystemsDefinition = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'api-design-systems.yaml'))
@@ -37,30 +37,30 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     });
   });
 
-  it('should not produce annotation for post requests', function () {
+  it('should produce specific list of annotation', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
 
     assert.lengthOf(annotations, 2);
   });
 
-  it('should produce annotation about 201 status code', function () {
+  it('should produce annotation about X-Custom-Header', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"201" not allowed for subject ["http","response","status_code"] on line 7, column 10'
+        '"X-Custom-Header" not allowed for subject ["http","request","header"] on line 11, column 20'
       );
     });
 
     assert.isTrue(statusCodeAnnotation instanceof AnnotationElement);
   });
 
-  it('should produce annotation about 305 status code', function () {
+  it('should produce annotation about X-Custom-Header2', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"305" not allowed for subject ["http","response","status_code"] on line 8, column 10'
+        '"X-Custom-Header-2" not allowed for subject ["http","request","header"] on line 30, column 18'
       );
     });
 

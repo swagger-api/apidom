@@ -11,7 +11,7 @@ import {
   refractPluginOpenApi3_1StandardIdentifierAccessors,
   MainElement,
   validateOpenAPI3_1,
-} from '../../../../../src';
+} from '../../../../src';
 
 const apiDesignSystemsDefinition = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'api-design-systems.yaml'))
@@ -37,27 +37,33 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     });
   });
 
-  it('should produce annotation about trace method', function () {
+  it('should not produce annotation for post requests', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
-    const traceAnnotation = annotations.find((annotation: AnnotationElement) => {
-      return (
-        annotation.toValue() ===
-        '"trace" not allowed for subject ["http","request","method"] on line 6, column 6'
-      );
-    });
 
-    assert.isTrue(traceAnnotation instanceof AnnotationElement);
+    assert.lengthOf(annotations, 2);
   });
 
-  it('should produce annotation about options method', function () {
+  it('should produce annotation about 201 status code', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
-    const traceAnnotation = annotations.find((annotation: AnnotationElement) => {
+    const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"options" not allowed for subject ["http","request","method"] on line 7, column 6'
+        '"201" not allowed for subject ["http","response","status_code"] on line 7, column 10'
       );
     });
 
-    assert.isTrue(traceAnnotation instanceof AnnotationElement);
+    assert.isTrue(statusCodeAnnotation instanceof AnnotationElement);
+  });
+
+  it('should produce annotation about 305 status code', function () {
+    const annotations = validateOpenAPI3_1(mainElement, openapiElement);
+    const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
+      return (
+        annotation.toValue() ===
+        '"305" not allowed for subject ["http","response","status_code"] on line 8, column 10'
+      );
+    });
+
+    assert.isTrue(statusCodeAnnotation instanceof AnnotationElement);
   });
 });

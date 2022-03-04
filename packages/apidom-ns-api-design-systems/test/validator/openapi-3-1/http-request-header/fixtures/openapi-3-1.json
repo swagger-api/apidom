@@ -1,0 +1,37 @@
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/path1": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header"
+          },
+          {
+            "name": "X-Custom-Header",
+            "in": "header"
+          }
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header"
+          },
+          {
+            "name": "X-Custom-Header",
+            "in": "header"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "X-Custom-Header-2",
+          "in": "header"
+        }
+      ]
+    }
+  }
+}

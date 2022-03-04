@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adapters should parse YAML API Design Systems definition 1`] = `
+{
+  "element": "main",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "result"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "version"
+        },
+        "value": {
+          "element": "string",
+          "content": "2021-05-07"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "info"
+        },
+        "value": {
+          "element": "info",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "title"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "Paypal API Guidelines"
+                }
+              }
+            },
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "description"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "Paypla API Guidelines description"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;

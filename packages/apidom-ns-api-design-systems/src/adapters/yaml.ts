@@ -3,6 +3,7 @@ import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseYaml } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
+import '../refractor/registration';
 import MainElement from '../elements/Main';
 import mediaTypes, { ApiDesignSystemsMediaTypes } from '../media-types';
 import apiDesignSystemsNamespace from '../namespace';

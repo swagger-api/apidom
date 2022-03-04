@@ -10,19 +10,19 @@ class Requirement extends ObjectElement {
     this.element = 'requirement';
   }
 
-  get subject(): StandardIdentifierElement | undefined {
+  get subject(): StandardIdentifierElement {
     return this.get('subject');
   }
 
-  set subject(subject: StandardIdentifierElement | undefined) {
+  set subject(subject: StandardIdentifierElement) {
     this.set('subject', subject);
   }
 
-  get level(): RequirementLevelElement | undefined {
+  get level(): RequirementLevelElement {
     return this.get('level');
   }
 
-  set level(level: RequirementLevelElement | undefined) {
+  set level(level: RequirementLevelElement) {
     this.set('level', level);
   }
 

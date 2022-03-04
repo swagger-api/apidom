@@ -1,6 +1,8 @@
 import { Attributes, Meta } from 'minim';
 import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
+import StandardIdentifierElement from './StandardIdentifier';
+
 class Scenario extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
@@ -15,12 +17,12 @@ class Scenario extends ObjectElement {
     this.set('description', description);
   }
 
-  get iri(): StringElement | undefined {
-    return this.get('iri');
+  get when(): StandardIdentifierElement {
+    return this.get('when');
   }
 
-  set iri(iri: StringElement | undefined) {
-    this.set('iri', iri);
+  set when(when: StandardIdentifierElement) {
+    this.set('when', when);
   }
 
   get then(): ArrayElement | undefined {

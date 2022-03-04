@@ -19,7 +19,8 @@ export { default as mediaTypes, ApiDesignSystemsMediaTypes } from './media-types
 export { default } from './namespace';
 
 export { default as refractPluginOpenApi3_1StandardIdentifierSelectors } from './refractor/plugins/openapi-3-1/standard-identifier-selectors';
-
+export { default as refractPluginOpenApi3_1StandardIdentifierAccessors } from './refractor/plugins/openapi-3-1/standard-identifier-accessors';
+export { default as validateOpenAPI3_1 } from './validator/openapi-3-1/validator';
 export {
   isInfoElement,
   isMainElement,

@@ -26,7 +26,7 @@ const plugin = () => () => {
 
         // fold PathItem.parameters to Operation.parameters
         // @ts-ignore
-        parentPathItem?.parameters.forEach((parameter: ParameterElement) => {
+        parentPathItem?.parameters?.forEach((parameter: ParameterElement) => {
           if (
             isStringElement(parameter.in) &&
             isStringElement(parameter.name) &&

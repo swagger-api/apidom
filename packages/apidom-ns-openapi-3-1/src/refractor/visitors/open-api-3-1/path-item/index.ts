@@ -24,8 +24,8 @@ const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
       this.element
         .filter(isOperationElement)
         .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
-          const httpMethod = httpMethodElementCI.toValue().toUpperCase();
-          const httpMethodElementCS = new StringElement(httpMethod);
+          const httpMethodElementCS = httpMethodElementCI.clone();
+          httpMethodElementCS.content = httpMethodElementCS.toValue().toUpperCase();
           operationElement.setMetaProperty('http-method', httpMethodElementCS);
         });
 

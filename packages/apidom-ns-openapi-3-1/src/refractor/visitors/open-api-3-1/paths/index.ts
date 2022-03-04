@@ -26,7 +26,7 @@ const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
       this.element
         .filter(isPathItemElement)
         .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('path', key.toValue());
+          pathItemElement.setMetaProperty('path', key.clone());
         });
 
       return result;

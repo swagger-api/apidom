@@ -145,15 +145,17 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
 
-#### OpenAPI 3.1 Standard Identifier Selectors plugin
+#### OpenAPI 3.1 Standard Identifier plugins
 
-This plugin is specific to OpenAPI 3.1 specification and decorates significant
-OpenAPI 3.1 elements with [Standard Identifiers](https://apidesign.systems/standards/) used
-for [Scenario.when](https://apidesign.systems/specification/#scenario) field.
+This namespace comes with two refractor plugins specific to OpenAPI 3.1 specification and decorates significant
+OpenAPI 3.1 elements with [Standard Identifiers](https://apidesign.systems/standards/).
 
 ```js
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
-import { refractPluginOpenApi3_1StandardIdentifierSelectors } from '@swagger-api/apidom-ns-api-design-systems';
+import {
+  refractPluginOpenApi3_1StandardIdentifierSelectors,
+  refractPluginOpenApi3_1StandardIdentifierAccessors,
+} from '@swagger-api/apidom-ns-api-design-systems';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const jsonDefinition = `
@@ -203,12 +205,117 @@ const jsonDefinition = `
   }
 }
 `;
-const apiDOM = await parse(jsonDefinition);
+const apiDOM = await parse(jsonDefinition, { sourceMap: true });
 const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
-  plugins: [refractPluginOpenApi3_1StandardIdentifier()],
+  plugins: [
+    refractPluginOpenApi3_1StandardIdentifierSelectors(),
+    refractPluginOpenApi3_1StandardIdentifierAccessors(),
+  ],
 });
 // => OperationElement now contains [['http', 'transaction']] under `ads-s-standard-identifier` key
-// => other elements are decorated by different metadata as well
+// => OperationElement now contains followign structure under `ads-a-standard-identifier` key
+// [
+//   {
+//     subject: ['http', 'request', 'method'],
+//     value: 'get',
+//   },
+// ]
+//
+// other elements are decorated by different metadata as well
+```
+
+## Validation
+
+This package supports validation API Design Systems definition against OpenAPI 3.1 definition.
+Validator is in POC phase and there is limited support for `Scenario` objects. Validation
+produces list of `Annotation` elements.
+
+**API Design Systems definition**:
+
+```yaml
+version: "2021-05-07"
+info:
+  title: SmartBear API Guidelines
+  description: |
+    A machine and human readable version of the SmartBear API Style Guide aimed at promoting living API Style Governance across various tools and teams, leading to improved API quality.
+    See the [SmartBear Standards and Guidelines](https://github.com/SmartBear/api-standards-and-guidelines) repo for a traditional view of the static guidelines.
+principles:
+  - iri: urn:apidesign.systems:principle:robustness
+    level: must
+  - iri: urn:apidesign.systems:principle:rmm:level2
+    level: must
+  - iri: urn:apidesign.systems:principle:rmm:level3
+    level: should
+standards:
+  - iri: urn:ietf:rfc:6648
+    level: must
+  - iri: urn:ietf:rfc:7807
+    level: must
+  - iri: urn:ietf:rfc:7231
+    level: should
+  - iri: urn:ietf:rfc:6585
+    level: may
+  - iri: urn:ietf:rfc:5788
+    level: may
+  - iri: urn:ietf:draft:http-semantics
+    level: may
+scenarios:
+  - description: SB-API-010 - Only apply standard HTTP methods
+    when: [http, transaction]
+    then:
+      - subject: [http, request, method]
+        level: may
+        values:
+          - get
+          - post
+          - put
+          - patch
+          - delete
+```
+
+**OpenAPI 3.1 definition**:
+
+```json
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/path1": {
+      "get": {},
+      "put": {},
+      "trace": {},
+      "options": {}
+    }
+  }
+}
+```
+
+**Validation**:
+
+```js
+import { parse as parseJSON } from '@swagger-api/apidom-parser-adapter-json';
+import { parse as parseYAML } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  refractPluginOpenApi3_1StandardIdentifierSelectors,
+  refractPluginOpenApi3_1StandardIdentifierAccessors,
+  MainElement,
+  validateOpenAPI3_1,
+} from '@swagger-api/apidom-ns-api-design-systems';
+
+const apiDesignSystemsParseResult = await parseYAML(apiDesignSystemsDefinition);
+const openAPIParseResult = await parseJSON(openAPIDefinition, { sourceMap: true });
+const mainElement = MainElement.refract(apiDesignSystemsParseResult.result);
+const  openapiElement = OpenApi3_1Element.refract(openAPIParseResult.result, {
+  plugins: [
+    refractPluginOpenApi3_1StandardIdentifierSelectors(),
+    refractPluginOpenApi3_1StandardIdentifierAccessors(),
+  ],
+});
+const annotations = validateOpenAPI3_1(mainElement, openapiElement);
+// [
+//   Annotation('"trace" not allowed for subject ["http","request","method"] on line 6, column 6', class=error),
+//   Annotation('"options" not allowed for subject ["http","request","method"] on line 7, column 6', class=error),
+// ]
 ```
 
 ## Implementation progress

@@ -38,7 +38,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const [operationElement] = select(openapiElement, selectorStandardIdentifier);
       const value = access(operationElement, accessorStandardIdentifier);
 
-      assert.strictEqual(value.toValue(), 'get');
+      assert.deepEqual(value.toValue(), ['get']);
     });
   });
 });

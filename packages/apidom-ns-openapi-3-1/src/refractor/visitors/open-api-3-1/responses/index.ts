@@ -37,8 +37,8 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
 
       // decorate every ResponseElement with metadata about their status code
       this.element.filter(isResponseElement).forEach((value: Element, key: StringElement) => {
-        const httpStatusCode = key.toValue();
-        if (!this.fieldPatternPredicate(httpStatusCode)) return;
+        const httpStatusCode = key.clone();
+        if (!this.fieldPatternPredicate(httpStatusCode.toValue())) return;
         value.setMetaProperty('http-status-code', httpStatusCode);
       });
 

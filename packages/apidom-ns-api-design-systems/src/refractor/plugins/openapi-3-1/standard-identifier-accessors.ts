@@ -1,4 +1,8 @@
-import { PathItemElement, OperationElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import {
+  PathItemElement,
+  OperationElement,
+  ResponseElement,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 const plugin = () => () => {
   return {
@@ -18,6 +22,18 @@ const plugin = () => () => {
           {
             subject: ['http', 'request', 'method'],
             value: httpMethod,
+          },
+        ];
+
+        element.setMetaProperty('ads-a-standard-identifier', standardIdentifiers);
+      },
+      ResponseElement(element: ResponseElement) {
+        if (!element.meta.hasKey('http-status-code')) return;
+
+        const standardIdentifiers = [
+          {
+            subject: ['http', 'response', 'status_code'],
+            value: element.meta.get('http-status-code').clone(),
           },
         ];
 

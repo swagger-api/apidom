@@ -5,6 +5,8 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 
 // @ts-ignore
+import * as adsAdapter from '@swagger-api/apidom-ns-api-design-systems/adapters/json';
+// @ts-ignore
 import getLanguageService from '../src/apidom-language-service';
 import {
   LanguageService,
@@ -13,13 +15,13 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
-import operationLintExpected from './fixtures/async/operation/operation-lint-expected';
+import adsExpected from './fixtures/ads/ads-expected';
 
-const specOperationLint = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'operation', 'operation-lint.yaml'))
+const adsLint = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'ads', 'ads.json'))
   .toString();
 
-describe('asyncapi operation test', function () {
+describe('ads test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     validatorProviders: [],
@@ -34,7 +36,7 @@ describe('asyncapi operation test', function () {
     languageService.terminate();
   });
 
-  it('lint operation', async function () {
+  it('lint ads', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -43,13 +45,17 @@ describe('asyncapi operation test', function () {
 
     // valid spec
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/specChannelLint.yaml',
-      'yaml',
+      'foo://bar/adsLint.json',
+      'json',
       0,
-      specOperationLint,
+      adsLint,
     );
 
+    // const result = await adsAdapter.parse(adsLint);
+    // const result = await adsAdapter.parse(adsLint);
+    // console.log(JSON.stringify(result, null, 2));
     const result = await languageService.doValidation(doc, validationContext);
-    assert.deepEqual(result, operationLintExpected as Diagnostic[]);
+    console.log(JSON.stringify(result, null, 2));
+    // assert.deepEqual(result, adsExpected as Diagnostic[]);
   });
 });

@@ -111,7 +111,8 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
 
     let processedText;
-    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    // const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const docNs: string = 'ads';
     // no API document has been parsed
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -166,6 +167,7 @@ export class DefaultValidationService implements ValidationService {
       );
     }
     if (!result) return diagnostics;
+    result.classes.push('api');
     const { api } = result;
 
     if (api === undefined) return diagnostics;
@@ -476,7 +478,8 @@ export class DefaultValidationService implements ValidationService {
         if (!api) {
           return [];
         }
-        const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
+        // const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
+        const lang = 'ads';
         const codeActions: CodeAction[] = [];
         // TODO deduplicate, action maps elsewhere
         diagnostics.forEach((diag) => {

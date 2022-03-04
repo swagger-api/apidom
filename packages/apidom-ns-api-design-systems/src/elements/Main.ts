@@ -7,6 +7,7 @@ class Main extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'main';
+    this.classes.push('api');
   }
 
   get version(): StringElement | undefined {

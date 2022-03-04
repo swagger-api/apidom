@@ -6,6 +6,7 @@ import {
   ParameterElement,
   RequestBodyElement,
   isStringElement,
+  isArrayElement,
   isObjectElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
@@ -30,24 +31,28 @@ const plugin = () => () => {
           },
         ];
 
-        // fold PathItem.parameters to Operation.parameters
-        // @ts-ignore
-        parentPathItem?.parameters?.forEach((parameter: ParameterElement) => {
-          if (
-            isStringElement(parameter.in) &&
-            isStringElement(parameter.name) &&
-            parameter.in.toValue() === 'header'
-          ) {
-            standardIdentifiers.push({
-              subject: ['http', 'request', 'header'],
-              value: parameter.name.clone(),
-            });
-            standardIdentifiers.push({
-              subject: ['http', 'message', 'header'],
-              value: parameter.name.clone(),
-            });
-          }
-        });
+        if (
+          typeof parentPathItem.parameters !== 'undefined' &&
+          isArrayElement(parentPathItem.parameters)
+        ) {
+          // @ts-ignore
+          parentPathItem.parameters.forEach((parameter: ParameterElement) => {
+            if (
+              isStringElement(parameter.in) &&
+              isStringElement(parameter.name) &&
+              parameter.in.toValue() === 'header'
+            ) {
+              standardIdentifiers.push({
+                subject: ['http', 'request', 'header'],
+                value: parameter.name.clone(),
+              });
+              standardIdentifiers.push({
+                subject: ['http', 'message', 'header'],
+                value: parameter.name.clone(),
+              });
+            }
+          });
+        }
 
         element.setMetaProperty('ads-a-standard-identifier', standardIdentifiers);
       },

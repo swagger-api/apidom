@@ -1,8 +1,9 @@
 import { includes } from 'ramda';
-import { Element, visit, BREAK } from '@swagger-api/apidom-core';
+import { visit } from '@swagger-api/apidom-core';
 import {
   OperationElement,
   OpenApi3_1Element,
+  ResponseElement,
   getNodeType,
   keyMap,
 } from '@swagger-api/apidom-ns-openapi-3-1';
@@ -15,42 +16,33 @@ import StandardIdentifierElement from '../../elements/StandardIdentifier';
 
 const visitorOptions = { keyMap, nodeTypeGetter: getNodeType };
 
-const makeStandardIdentifierVisitor = (standardIdentifier: StandardIdentifierElement) => ({
-  hasMatch: false,
-  enter(element: Element) {
-    if (!element.meta.hasKey('ads-s-standard-identifier')) return undefined;
-
-    const standardIdentifiers = element.meta.get('ads-s-standard-identifier').toValue();
-
-    if (includes(standardIdentifier.toValue(), standardIdentifiers)) {
-      this.hasMatch = true;
-      return BREAK;
-    }
-
-    return undefined;
-  },
-});
-
 const select = (
-  element: OpenApi3_1Element,
+  openAPIElement: OpenApi3_1Element,
   standardIdentifier: StandardIdentifierElement,
-): OperationElement[] => {
-  const selected: OperationElement[] = [];
+) => {
+  const selected: (OperationElement | ResponseElement)[] = [];
   const visitor = {
-    OperationElement(operationElement: OperationElement) {
-      const standardIdentifierVisitor = makeStandardIdentifierVisitor(standardIdentifier);
+    OperationElement(element: OperationElement) {
+      if (!element.meta.hasKey('ads-s-standard-identifier')) return;
 
-      visit(operationElement, standardIdentifierVisitor, visitorOptions);
+      const standardIdentifiers = element.meta.get('ads-s-standard-identifier').toValue();
 
-      if (standardIdentifierVisitor.hasMatch) {
-        selected.push(operationElement);
+      if (includes(standardIdentifier.toValue(), standardIdentifiers)) {
+        selected.push(element);
       }
+    },
+    ResponseElement(element: ResponseElement) {
+      if (!element.meta.hasKey('ads-s-standard-identifier')) return;
 
-      return false;
+      const standardIdentifiers = element.meta.get('ads-s-standard-identifier').toValue();
+
+      if (includes(standardIdentifier.toValue(), standardIdentifiers)) {
+        selected.push(element);
+      }
     },
   };
 
-  visit(element, visitor, visitorOptions);
+  visit(openAPIElement, visitor, visitorOptions);
 
   return selected;
 };

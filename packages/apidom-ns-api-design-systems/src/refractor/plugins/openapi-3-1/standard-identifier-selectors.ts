@@ -62,6 +62,17 @@ const plugin = () => () => {
           ['http', 'request', 'body'],
           ['http', 'message', 'body'],
         ]);
+
+        if (typeof element.contentProp !== 'undefined' && isObjectElement(element.contentProp)) {
+          element.contentProp.forEach((mediaType, key) => {
+            key.setMetaProperty('ads-s-standard-identifier', [
+              ['http', 'request', 'header'],
+              ['http', 'request', 'header', 'Content-Type'],
+              ['http', 'message', 'header'],
+              ['http', 'message', 'header', 'Content-Type'],
+            ]);
+          });
+        }
       },
       ResponsesElement(element: ResponsesElement) {
         element.forEach((value, key) => {

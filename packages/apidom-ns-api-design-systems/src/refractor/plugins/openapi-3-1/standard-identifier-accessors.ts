@@ -1,9 +1,12 @@
+import { StringElement } from '@swagger-api/apidom-core';
 import {
   PathItemElement,
   OperationElement,
   ResponseElement,
   ParameterElement,
+  RequestBodyElement,
   isStringElement,
+  isObjectElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const plugin = () => () => {
@@ -65,6 +68,36 @@ const plugin = () => () => {
             },
           ]);
         }
+      },
+      RequestBodyElement(element: RequestBodyElement) {
+        if (typeof element.contentProp === 'undefined' || !isObjectElement(element.contentProp)) {
+          return;
+        }
+
+        const standardIdentifiers: any = [];
+
+        element.contentProp.forEach((mediaType, key) => {
+          standardIdentifiers.push(
+            {
+              subject: ['http', 'request', 'header'],
+              value: new StringElement('Content-Type', key.meta.clone()),
+            },
+            {
+              subject: ['http', 'message', 'header'],
+              value: new StringElement('Content-Type', key.meta.clone()),
+            },
+            {
+              subject: ['http', 'request', 'header', 'Content-Type'],
+              value: key.clone(),
+            },
+            {
+              subject: ['http', 'message', 'header', 'Content-Type'],
+              value: key.clone(),
+            },
+          );
+        });
+
+        element.setMetaProperty('ads-a-standard-identifier', standardIdentifiers);
       },
       ResponseElement(element: ResponseElement) {
         if (!element.meta.hasKey('http-status-code')) return;

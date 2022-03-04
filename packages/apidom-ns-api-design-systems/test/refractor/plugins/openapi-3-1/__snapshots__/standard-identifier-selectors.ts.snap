@@ -910,6 +910,89 @@ exports[`given OpenAPI 3.1 definition should decorate with API Design Systems St
                                               "content": {
                                                 "key": {
                                                   "element": "string",
+                                                  "meta": {
+                                                    "ads-s-standard-identifier": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "http"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "request"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "header"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "http"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "request"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "header"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "Content-Type"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "http"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "header"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "http"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "message"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "header"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "Content-Type"
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": "application/json"
                                                 },
                                                 "value": {

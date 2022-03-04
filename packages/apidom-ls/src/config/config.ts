@@ -2,6 +2,7 @@ import { Element } from '@swagger-api/apidom-core';
 
 import configAsyncapi from './asyncapi/config';
 import configOpenapi from './openapi/config';
+import configAds from './ads/config';
 import { isObject, isString } from '../utils/utils';
 import { Metadata } from '../apidom-language-types';
 /* METADATA */
@@ -86,10 +87,12 @@ export function config(): Metadata {
     metadataMaps: {
       openapi: configOpenapi,
       asyncapi: configAsyncapi,
+      ads: configAds,
     },
     linterFunctions: {
       openapi: linterFunctionsOpenapi,
       asyncapi: linterFunctionsAsyncapi,
+      ads: linterFunctionsAsyncapi,
     },
   } as Metadata;
 }

@@ -16,6 +16,9 @@ import { logPerformance, logLevel } from './test-utils';
 import adsExpected from './fixtures/ads/ads-expected';
 
 const adsLint = fs.readFileSync(path.join(__dirname, 'fixtures', 'ads', 'ads.json')).toString();
+const oasLint = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'ads', 'openapi-3-1.json'))
+  .toString();
 
 describe('ads test', function () {
   const context: LanguageServiceContext = {
@@ -41,8 +44,18 @@ describe('ads test', function () {
 
     const doc: TextDocument = TextDocument.create('foo://bar/adsLint.json', 'json', 0, adsLint);
 
+    const textDocument: TextDocument = TextDocument.create(
+      'foo://bar/oasLint.json',
+      'json',
+      0,
+      oasLint,
+    );
+
     const result = await languageService.doValidation(doc, validationContext);
     // console.log(JSON.stringify(result, null, 2));
     assert.deepEqual(result, adsExpected as Diagnostic[]);
+
+    const resultAds = await languageService.doValidation(textDocument, validationContext);
+    console.log('ADS OAS LINT', JSON.stringify(resultAds, null, 2));
   });
 });

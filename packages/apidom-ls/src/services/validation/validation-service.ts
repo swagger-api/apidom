@@ -30,6 +30,7 @@ import {
   isAdsDoc,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
+import { validateAds } from '../../parser-factory';
 
 enum PerfLabels {
   START = 'doValidation',
@@ -408,6 +409,10 @@ export class DefaultValidationService implements ValidationService {
     };
     traverse(lint, api);
     perfEnd(PerfLabels.START);
+    if (!isAdsDoc(textDocument) && !isAsyncDoc(textDocument)) {
+      const adsDiags = await validateAds(textDocument);
+      diagnostics.push(...adsDiags);
+    }
     return diagnostics;
   }
 

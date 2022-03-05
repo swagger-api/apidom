@@ -1,17 +1,26 @@
 const operationLintExpected = [
   {
-    range: { start: { line: 63, character: 6 }, end: { line: 63, character: 18 } },
-    message: "should always have a 'url'",
+    range: {
+      start: {
+        line: 2,
+        character: 2,
+      },
+      end: {
+        line: 2,
+        character: 8,
+      },
+    },
+    message: "should always have a 'title'",
     severity: 1,
-    code: 10081,
+    code: 10097,
     source: 'apilint',
     data: {
       quickFix: [
         {
-          message: "add 'url' field",
+          message: "add 'title' field",
           action: 'addChild',
-          snippetYaml: 'url: \n  ',
-          snippetJson: '"url": "",\n    ',
+          snippetYaml: 'title: \n  ',
+          snippetJson: '"title": "",\n    ',
         },
       ],
     },

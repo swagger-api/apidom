@@ -27,6 +27,7 @@ import {
   perfEnd,
   isAsyncDoc,
   isJsonDoc,
+  isAdsDoc,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -111,8 +112,7 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
 
     let processedText;
-    // const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
-    const docNs: string = 'ads';
+    const docNs: string = isAdsDoc(text) ? 'ads' : isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     // no API document has been parsed
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -167,7 +167,6 @@ export class DefaultValidationService implements ValidationService {
       );
     }
     if (!result) return diagnostics;
-    result.classes.push('api');
     const { api } = result;
 
     if (api === undefined) return diagnostics;
@@ -478,8 +477,7 @@ export class DefaultValidationService implements ValidationService {
         if (!api) {
           return [];
         }
-        // const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
-        const lang = 'ads';
+        const lang: string = isAdsDoc(text) ? 'ads' : isAsyncDoc(text) ? 'asyncapi' : 'openapi';
         const codeActions: CodeAction[] = [];
         // TODO deduplicate, action maps elsewhere
         diagnostics.forEach((diag) => {

@@ -13,6 +13,7 @@ import {
   correctPartialKeys,
   isAsyncDoc,
   isJsonDoc,
+  isAdsDoc,
 } from '../../utils/utils';
 
 export interface HoverService {
@@ -66,8 +67,7 @@ export class DefaultHoverService implements HoverService {
     const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
-    // const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
-    const docNs: string = 'ads';
+    const docNs: string = isAdsDoc(text) ? 'ads' : isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     const specVersion = getSpecVersion(api);
 
     api.freeze(); // !! freeze and add parent !!

@@ -56,6 +56,7 @@ import {
   isAsyncDoc,
   isJsonDoc,
   isSpecVersionSet,
+  isAdsDoc,
 } from '../../utils/utils';
 import { standardLinterfunctions } from '../validation/linter-functions';
 
@@ -352,8 +353,7 @@ export class DefaultCompletionService implements CompletionService {
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return completionList;
-    // const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
-    const docNs: string = 'ads';
+    const docNs: string = isAdsDoc(text) ? 'ads' : isAsyncDoc(text) ? 'asyncapi' : 'openapi';
     const specVersion = getSpecVersion(api);
 
     let targetOffset = textModified ? offset - 1 : offset;

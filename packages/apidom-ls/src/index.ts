@@ -22,6 +22,7 @@ export {
   perfStart,
   perfEnd,
   isAsyncDoc,
+  isAdsDoc,
   isJsonDoc,
   getText,
   isSpecVersionSet,

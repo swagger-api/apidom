@@ -768,3 +768,17 @@ export function isAsyncDoc(document: TextDocument | string): boolean {
   }
   return new RegExp(VERSION_STRING_YAML, 'm').test(text);
 }
+
+export function isAdsDoc(document: TextDocument | string): boolean {
+  const text = getText(document, true);
+  if (!isSpecVersionSet(document)) {
+    return true;
+  }
+  const VERSION_STRING_YAML = '^["\']?version["\']?:\\s{1}["\']?2021\\-05\\-07["\']?\\s*$';
+  const VERSION_STRING_JSON = '^.*"version"\\s*:\\s*"{1}2021\\-05\\-07"{1}.*$';
+
+  if (isJsonDoc(text)) {
+    return new RegExp(VERSION_STRING_JSON, 'm').test(text);
+  }
+  return new RegExp(VERSION_STRING_YAML, 'm').test(text);
+}

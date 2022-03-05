@@ -45,8 +45,19 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
 
   static tokenModifiers: { [key: string]: number } = {};
 
+  private static allAdsClasses(): string[] {
+    return [
+      'principle',
+      'requirement',
+      'requirementLevel',
+      'scenario',
+      'standard',
+      'standardIdentifier',
+    ];
+  }
+
   // TODO REMOVE!
-  private static allClasses(): string[] {
+  private static allAsyncOpenApiClasses(): string[] {
     return [
       'parameter',
       'api-version',
@@ -80,24 +91,30 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
       'reference-element',
       'reference-value',
       'components-messages',
-      'principle',
-      'requirement',
-      'requirementLevel',
-      'scenario',
-      'standard',
-      'standardIdentifier',
     ];
+  }
+
+  // TODO REMOVE!
+  private static allClasses(): string[] {
+    const classes: string[] = [];
+    classes.push(...DefaultSemanticTokensService.allAsyncOpenApiClasses());
+    classes.push(...DefaultSemanticTokensService.allAdsClasses());
+    return classes;
   }
 
   private static _initialize: void = ((): void => {
     let tokenIndex = 0;
-    for (const entry of DefaultSemanticTokensService.allClasses()) {
+    for (const entry of DefaultSemanticTokensService.allAsyncOpenApiClasses()) {
       DefaultSemanticTokensService.tokenTypes[entry] = tokenIndex++;
     }
     DefaultSemanticTokensService.tokenTypes.value = tokenIndex++;
     DefaultSemanticTokensService.tokenTypes.string = tokenIndex++;
     DefaultSemanticTokensService.tokenTypes.number = tokenIndex++;
     DefaultSemanticTokensService.tokenTypes.key = tokenIndex++;
+
+    for (const entry of DefaultSemanticTokensService.allAdsClasses()) {
+      DefaultSemanticTokensService.tokenTypes[entry] = tokenIndex++;
+    }
 
     DefaultSemanticTokensService.tokenModifiers[SemanticTokenModifiers.declaration] = 1;
     DefaultSemanticTokensService.tokenModifiers[SemanticTokenModifiers.definition] = 2;

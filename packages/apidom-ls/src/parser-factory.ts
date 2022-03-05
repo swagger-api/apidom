@@ -13,12 +13,16 @@ import * as adsAdapter from '@swagger-api/apidom-ns-api-design-systems/adapters/
 // @ts-ignore
 import * as adsAdapter_Yaml from '@swagger-api/apidom-ns-api-design-systems/adapters/yaml';
 // @ts-ignore
-// import { refractorPluginReplaceEmptyElement } from '@swagger-api/apidom-ns-asyncapi-2';
-// import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOas } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginReplaceEmptyElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOas } from '@swagger-api/apidom-ns-openapi-3-1';
+/* import {
+  refractPluginOpenApi3_1StandardIdentifierSelectors,
+  refractPluginOpenApi3_1StandardIdentifierAccessors,
+} from '@swagger-api/apidom-ns-api-design-systems'; */
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { isAsyncDoc, isJsonDoc, isSpecVersionSet, setMetadataMap } from './utils/utils';
+import { isAsyncDoc, isAdsDoc, isJsonDoc, isSpecVersionSet, setMetadataMap } from './utils/utils';
 import { MetadataMaps } from './apidom-language-types';
 
 export interface ParserOptions {
@@ -29,15 +33,16 @@ export interface ParserOptions {
 
 export function getParser(document: TextDocument | string): ApiDOMParser {
   const async = isAsyncDoc(document);
+  const ads = isAdsDoc(document);
   const json = isJsonDoc(document);
 
-  if (json) {
+  if (ads && json) {
     return ApiDOMParser().use(adsAdapter);
-  } else {
+  }
+  if (ads && !json) {
     return ApiDOMParser().use(adsAdapter_Yaml);
   }
-
-/*  if (async && json) {
+  if (async && json) {
     return ApiDOMParser().use(asyncapi2Adapter);
   }
   if (async && !json) {
@@ -49,7 +54,7 @@ export function getParser(document: TextDocument | string): ApiDOMParser {
   if (!async && !json) {
     return ApiDOMParser().use(openapi3_1Adapter_Yaml);
   }
-  return ApiDOMParser().use(asyncapi2Adapter);*/
+  return ApiDOMParser().use(asyncapi2Adapter);
 }
 
 export async function parse(
@@ -59,45 +64,46 @@ export async function parse(
   // TODO improve detection mechanism
   const text: string = typeof textDocument === 'string' ? textDocument : textDocument.getText();
   const async = isAsyncDoc(textDocument);
+  const ads = isAdsDoc(textDocument);
   const versionSet = isSpecVersionSet(textDocument);
   const json = isJsonDoc(textDocument);
   let result;
 
-  if (json) {
-    result = await adsAdapter.parse(text, { sourceMap: true });
-  } else {
-    result = await adsAdapter_Yaml.parse(text, { sourceMap: true });
-  }
-/*  if (async && json) {
-    result = await asyncapi2Adapter.parse(text, { sourceMap: true });
+  const options: Record<string, unknown> = {
+    sourceMap: true,
+  };
+
+  if (ads && json) {
+    result = await adsAdapter.parse(text, options);
+  } else if (ads && !json) {
+    result = await adsAdapter_Yaml.parse(text, options);
+  } else if (async && json) {
+    result = await asyncapi2Adapter.parse(text, options);
   } else if (async && !json) {
-    result = await asyncapi2Adapter_Yaml.parse(text, {
-      sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
-    });
+    options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElement()] };
+    result = await asyncapi2Adapter_Yaml.parse(text, options);
   } else if (!versionSet) {
-    result = await asyncapi2Adapter_Yaml.parse(text, {
-      sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
-    });
+    options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElement()] };
+    result = await asyncapi2Adapter_Yaml.parse(text, options);
   } else if (!async && json) {
-    result = await openapi3_1Adapter.parse(text, { sourceMap: true });
+    result = await openapi3_1Adapter.parse(text, options);
   } else if (!async && !json) {
-    result = await openapi3_1Adapter_Yaml.parse(text, {
-      sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElementOas()] },
-    });
+    options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOas()] };
+    result = await openapi3_1Adapter_Yaml.parse(text, options);
   } else {
     // fallback
     result = await asyncapi2Adapter_Yaml.parse(text, {
       sourceMap: true,
       refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
     });
-  }*/
+  }
   const { api } = result;
   if (api === undefined) return result;
-  const docNs: string = 'ads';
-  // const docNs: string = isAsyncDoc(text) || !versionSet ? 'asyncapi' : 'openapi';
+  const docNs: string = isAdsDoc(text)
+    ? 'ads'
+    : isAsyncDoc(text) || !versionSet
+    ? 'asyncapi'
+    : 'openapi';
   // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
   setMetadataMap(api, docNs, metadataMaps); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
   api.freeze(); // !! freeze and add parent !!

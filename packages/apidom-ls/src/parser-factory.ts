@@ -155,7 +155,7 @@ export async function validateAds(document: TextDocument): Promise<Diagnostic[]>
       const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
       const range = Range.create(
         document.positionAt(location.offset),
-        document.positionAt(location.offset + 4),
+        document.positionAt(location.offset + location.length),
       );
       const diagnostic = Diagnostic.create(
         range,

@@ -16,7 +16,7 @@ const jsonMediaTypes = new ApiDesignSystemsMediaTypes(
 export { jsonMediaTypes as mediaTypes };
 
 export const detect = (source: string): boolean =>
-  !!source.match(/(["]?)version\1\s*:\s*(["]?)2021-05-07\2/g);
+  !!source.match(/(")version\1\s*:\s*(")2021-05-07\2/g);
 
 export const parse = async (
   source: string,

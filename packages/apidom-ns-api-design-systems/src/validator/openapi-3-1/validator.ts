@@ -43,17 +43,8 @@ const makeMessage = (
 const makeAnnotation = (message: string, value, level, standardIdentifier) => {
   const annotation = new AnnotationElement(message);
   annotation.classes.push(level);
-  annotation.attributes.set('value', value.toValue());
+  annotation.attributes.set('value', value.clone());
   annotation.attributes.set('standardIdentifier', standardIdentifier.clone());
-
-  if (value.meta.hasKey('sourceMap')) {
-    const sourceMap = value.meta.get('sourceMap');
-    const [line, column] = sourceMap.get(0).toValue();
-
-    annotation.attributes.set('line', line);
-    annotation.attributes.set('column', column);
-  }
-
   return annotation;
 };
 

@@ -48,7 +48,7 @@ describe('oas ads test', function () {
     assert.deepEqual(annotations.length, 2);
     for (const annotation of annotations) {
       console.log('ADS annotation', JSON.stringify(annotation, null, 2));
-      const nodeSourceMap = getSourceMap(annotation);
+      const nodeSourceMap = getSourceMap(annotation.attributes.get('value'));
       const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
       const range = Range.create(
         textDocument.positionAt(location.offset),

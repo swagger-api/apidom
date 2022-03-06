@@ -151,7 +151,7 @@ export async function validateAds(document: TextDocument): Promise<Diagnostic[]>
     );
     const diagnostics: Diagnostic[] = [];
     for (const annotation of annotations) {
-      const nodeSourceMap = getSourceMap(annotation);
+      const nodeSourceMap = getSourceMap(annotation.attributes.get('value'));
       const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
       const range = Range.create(
         document.positionAt(location.offset),

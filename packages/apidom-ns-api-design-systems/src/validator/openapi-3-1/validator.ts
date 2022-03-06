@@ -14,15 +14,6 @@ import select from './selector';
 import access from './accessor';
 import { may } from './requirement-level';
 
-const formatLocation = <T extends Element>(element: T) => {
-  if (!element.meta.hasKey('sourceMap')) return '';
-
-  const sourceMap = element.meta.get('sourceMap');
-  const [line, column] = sourceMap.get(0).toValue();
-
-  return `on line ${line}, column ${column}`;
-};
-
 const makeMessage = (
   value: Element,
   requirementLevel: RequirementLevelElement,
@@ -30,10 +21,9 @@ const makeMessage = (
 ) => {
   const primitiveValue = value.toValue();
   const primitiveStandardIdentifier = JSON.stringify(standardIdentifier.toValue());
-  const location = formatLocation(value);
 
   if (requirementLevel.toValue() === 'may') {
-    return `"${primitiveValue}" not allowed for subject ${primitiveStandardIdentifier} ${location}`;
+    return `"${primitiveValue}" not allowed for subject ${primitiveStandardIdentifier}`;
   }
 
   throw new Error('Not Implemented');

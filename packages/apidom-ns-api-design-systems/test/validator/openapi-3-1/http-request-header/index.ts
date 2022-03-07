@@ -48,7 +48,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"X-Custom-Header" not allowed for subject ["http","request","header"] on line 11, column 20'
+        '"X-Custom-Header" not allowed for subject ["http","request","header"]'
       );
     });
 
@@ -60,7 +60,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"X-Custom-Header-2" not allowed for subject ["http","request","header"] on line 30, column 18'
+        '"X-Custom-Header-2" not allowed for subject ["http","request","header"]'
       );
     });
 

@@ -48,7 +48,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
         annotation.toValue() ===
-        '"application/test" not allowed for subject ["http","request","header","Content-Type"] on line 7, column 12'
+        '"application/test" not allowed for subject ["http","request","header","Content-Type"]'
       );
     });
 

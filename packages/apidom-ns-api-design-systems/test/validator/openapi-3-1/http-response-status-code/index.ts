@@ -47,8 +47,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
-        annotation.toValue() ===
-        '"201" not allowed for subject ["http","response","status_code"] on line 7, column 10'
+        annotation.toValue() === '"201" not allowed for subject ["http","response","status_code"]'
       );
     });
 
@@ -59,8 +58,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
-        annotation.toValue() ===
-        '"305" not allowed for subject ["http","response","status_code"] on line 8, column 10'
+        annotation.toValue() === '"305" not allowed for subject ["http","response","status_code"]'
       );
     });
 

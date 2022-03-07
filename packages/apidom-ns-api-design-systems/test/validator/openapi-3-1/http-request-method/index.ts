@@ -40,10 +40,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
   it('should produce annotation about trace method', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const traceAnnotation = annotations.find((annotation: AnnotationElement) => {
-      return (
-        annotation.toValue() ===
-        '"trace" not allowed for subject ["http","request","method"] on line 6, column 6'
-      );
+      return annotation.toValue() === '"trace" not allowed for subject ["http","request","method"]';
     });
 
     assert.isTrue(traceAnnotation instanceof AnnotationElement);
@@ -53,8 +50,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const traceAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
-        annotation.toValue() ===
-        '"options" not allowed for subject ["http","request","method"] on line 7, column 6'
+        annotation.toValue() === '"options" not allowed for subject ["http","request","method"]'
       );
     });
 

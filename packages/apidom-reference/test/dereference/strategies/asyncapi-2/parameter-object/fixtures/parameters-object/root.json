@@ -1,0 +1,19 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "parameters": {
+      "parameter1": {
+        "description": "description of parameter 1"
+      }
+    }
+  },
+  "channels": {
+    "channelItem1": {
+      "parameters": {
+        "parameter2": {
+          "$ref": "#/components/parameters/parameter1"
+        }
+      }
+    }
+  }
+}

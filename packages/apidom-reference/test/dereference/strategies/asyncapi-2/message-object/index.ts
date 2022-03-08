@@ -12,8 +12,22 @@ describe('dereference', function () {
   context('strategies', function () {
     context('asyncapi-2', function () {
       context('Message Object', function () {
-        context('given in Operation Object', function () {
-          const fixturePath = path.join(rootFixturePath, 'operation-object');
+        context('given in Operation Object - variant #1', function () {
+          const fixturePath = path.join(rootFixturePath, 'operation-object-variant-1');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given in Operation Object - variant #2', function () {
+          const fixturePath = path.join(rootFixturePath, 'operation-object-variant-2');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

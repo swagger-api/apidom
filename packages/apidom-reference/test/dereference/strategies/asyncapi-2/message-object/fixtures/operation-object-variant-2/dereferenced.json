@@ -1,0 +1,35 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "channels": {
+      "user/signedup": {
+        "subscribe": {
+          "summary": "A user signed up.",
+          "operationId": "emitUserSignUpEvent",
+          "message": {
+            "oneOf": [
+              {
+                "name": "userSignedUp",
+                "title": "User signed up event",
+                "summary": "Inform about a new user",
+                "contentType": "application/json",
+                "payload": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    "components": {
+      "messages": {
+        "UserSignedUp": {
+          "name": "userSignedUp",
+          "title": "User signed up event",
+          "summary": "Inform about a new user",
+          "contentType": "application/json",
+          "payload": {}
+        }
+      }
+    }
+  }
+]

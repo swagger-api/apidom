@@ -13,7 +13,8 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
         this.element = this.toRefractedElement(['document', 'objects', 'Reference'], objectElement);
         this.element.setMetaProperty('referenced-element', 'message');
       } else if (isArrayElement(objectElement.get('oneOf'))) {
-        this.element = new OperationMessageElement();
+        this.element = new ObjectElement();
+        const operationMessageElement = new OperationMessageElement();
 
         objectElement.get('oneOf').forEach((item: ObjectElement) => {
           let element;
@@ -24,8 +25,10 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
             element = this.toRefractedElement(['document', 'objects', 'Message'], item);
           }
 
-          this.element.push(element);
+          operationMessageElement.push(element);
         });
+
+        this.element.set('oneOf', operationMessageElement);
       } else {
         this.element = this.toRefractedElement(['document', 'objects', 'Message'], objectElement);
       }

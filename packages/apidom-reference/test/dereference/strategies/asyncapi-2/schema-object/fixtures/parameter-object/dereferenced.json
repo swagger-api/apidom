@@ -1,0 +1,19 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "components": {
+      "parameters": {
+        "parameter1": {
+          "schema": {
+            "title": "parameter1 schema title"
+          }
+        },
+        "parameter2": {
+          "schema": {
+            "title": "parameter1 schema title"
+          }
+        }
+      }
+    }
+  }
+]

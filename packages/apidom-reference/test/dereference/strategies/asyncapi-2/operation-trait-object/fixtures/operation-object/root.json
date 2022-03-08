@@ -1,0 +1,21 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "operationTraits": {
+      "operationTrait1": {
+        "description": "operation trait 1 description"
+      }
+    }
+  },
+  "channels": {
+    "channelItem1": {
+      "subscribe": {
+        "traits": [
+          {
+            "$ref": "#/components/operationTraits/operationTrait1"
+          }
+        ]
+      }
+    }
+  }
+}

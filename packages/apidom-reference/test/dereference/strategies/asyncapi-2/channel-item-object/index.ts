@@ -184,6 +184,20 @@ describe('dereference', function () {
             });
           });
 
+          context('given Channel Item Objects with external circular dependency', function () {
+            const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          });
+
           context('given $ref field with with indirect circular internal reference', function () {
             const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 

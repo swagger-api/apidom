@@ -1,0 +1,18 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "components": {
+      "channels": {
+        "channel1": {
+          "description": "channel 2 description"
+        },
+        "channel2": {
+          "description": "channel 2 description"
+        },
+        "channel3": {
+          "description": "description of ex channel 3"
+        }
+      }
+    }
+  }
+]

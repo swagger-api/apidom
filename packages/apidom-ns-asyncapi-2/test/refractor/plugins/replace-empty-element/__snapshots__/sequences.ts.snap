@@ -73,9 +73,12 @@ exports[`given multiple empty value instead of MessageElement should replace emp
             (OperationElement
               (MemberElement
                 (StringElement)
-                (ArrayElement
-                  (MessageElement)
-                  (MessageElement))))))))))
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (ArrayElement
+                      (MessageElement)
+                      (MessageElement))))))))))))
 `;
 
 exports[`given multiple empty value instead of TagElement should replace empty values with semantic elements 1`] = `

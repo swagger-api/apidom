@@ -21,12 +21,15 @@ exports[`refractor elements OperationElement given message field of \`oneOf\` sh
 (OperationElement
   (MemberElement
     (StringElement)
-    (ArrayElement
-      (MessageElement)
-      (ReferenceElement
-        (MemberElement
-          (StringElement)
-          (StringElement))))))
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (MessageElement)
+          (ReferenceElement
+            (MemberElement
+              (StringElement)
+              (StringElement))))))))
 `;
 
 exports[`refractor elements OperationElement given message field of type MessageElement should refract to semantic ApiDOM tree 1`] = `

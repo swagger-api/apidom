@@ -144,6 +144,24 @@ describe('dereference', function () {
           });
         });
 
+        context('given Reference Objects with internal cycles', function () {
+          const fixturePath = path.join(rootFixturePath, 'cycle-internal');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
+            const cyclicParent = evaluate(
+              '/0/components/schemas/User/properties/parent/properties/parent',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+        });
+
         context('given Reference Objects with external resolution disabled', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-external');
 

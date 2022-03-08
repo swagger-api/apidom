@@ -4,18 +4,18 @@
     "parameters": {
       "userId": {
         "$ref": "#/components/parameters/indirection1",
-        "prop1": "value1",
-        "prop2": "value2"
+        "field1": "value1",
+        "field2": "value2"
       },
       "indirection1": {
         "$ref": "#/components/parameters/indirection2",
-        "prop1": "value1",
-        "prop2": "value2"
+        "field1": "value1",
+        "field2": "value2"
       },
       "indirection2": {
         "$ref": "#/components/parameters/userIdRef",
-        "prop1": "value1",
-        "prop2": "value2"
+        "field1": "value1",
+        "field2": "value2"
       },
       "userIdRef": {
         "description": "Id of the user.",
@@ -25,8 +25,8 @@
       },
       "externalRef": {
         "$ref": "./ex.json#/externalParameter",
-        "prop1": "value1",
-        "prop2": "value2"
+        "field1": "value1",
+        "field2": "value2"
       }
     }
   }

@@ -1,0 +1,21 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "components": {
+      "operationBindings": {
+        "operationBindings1": {
+          "kafka": {}
+        }
+      }
+    },
+    "channels": {
+      "channelItem1": {
+        "subscribe": {
+          "bindings": {
+            "kafka": {}
+          }
+        }
+      }
+    }
+  }
+]

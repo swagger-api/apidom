@@ -1,0 +1,15 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "operationTraits": {
+      "operationTrait1": {
+        "bindings": {
+          "kafka": {}
+        }
+      },
+      "operationTrait2": {
+        "$ref": "#/components/operationTraits/operationTrait1"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "channels": {
+      "channel1": {
+        "$ref": "./root.json#/components/channels/channel2"
+      },
+      "channel2": {
+        "$ref": "./root.json#/components/channels/channel2"
+      },
+      "channel3": {
+        "description": "description of ex channel 3"
+      }
+    }
+  }
+}

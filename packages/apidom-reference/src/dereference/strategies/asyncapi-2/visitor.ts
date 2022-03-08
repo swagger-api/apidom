@@ -229,7 +229,7 @@ const AsyncApi2DereferenceVisitor = stampit({
         referencedElement.meta.clone(),
         referencedElement.attributes.clone(),
       );
-      // existing keywords from referencing ChannelItemElement overrides ones from referenced schema
+      // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
       channelItemElement.forEach((value: Element, key: Element, item: Element) => {
         mergedResult.remove(key.toValue());
         mergedResult.content.push(item);

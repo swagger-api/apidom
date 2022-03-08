@@ -110,8 +110,22 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects with additional ignored props', function () {
-          const fixturePath = path.join(rootFixturePath, 'additional-ignored-props');
+        context('given Reference Objects with additional ignored fields', function () {
+          const fixturePath = path.join(rootFixturePath, 'additional-ignored-fields');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Boolean JSON Schemas', function () {
+          const fixturePath = path.join(rootFixturePath, 'boolean-json-schema');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

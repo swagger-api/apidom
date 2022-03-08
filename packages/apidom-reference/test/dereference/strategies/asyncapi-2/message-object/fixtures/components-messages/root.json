@@ -1,0 +1,13 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "$ref": "#/components/messages/UserLoggedOut"
+      },
+      "UserLoggedOut": {
+        "name": "userLoggedOut"
+      }
+    }
+  }
+}

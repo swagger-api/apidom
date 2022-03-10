@@ -41,7 +41,7 @@ describe('dereference', function () {
         });
       });
 
-      context('given in components/correleationIds field', function () {
+      context('given in components/correlationIds field', function () {
         const fixturePath = path.join(rootFixturePath, 'components-correlation-ids');
 
         specify('should dereference', async function () {

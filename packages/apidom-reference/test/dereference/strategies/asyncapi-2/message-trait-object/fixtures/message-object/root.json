@@ -1,0 +1,19 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "messageTraits": {
+      "messageTrait1": {
+        "description": "message trait 1 description"
+      }
+    },
+    "messages": {
+      "UserLoggedOut": {
+        "traits": [
+          {
+            "$ref": "#/components/messageTraits/messageTrait1"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "components": {
+      "messageTraits": {
+        "messageTrait1": {
+          "description": "message trait 1 description"
+        },
+        "messageTrait2": {
+          "description": "message trait 1 description"
+        }
+      }
+    }
+  }
+]

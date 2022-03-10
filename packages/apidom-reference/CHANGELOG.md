@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/swagger-api/apidom/compare/v0.18.1...v0.19.0) (2022-03-10)
+
+
+### Bug Fixes
+
+* **ns-asyncapi-2:** fix bug regarding refracting of Operation.message ([#1239](https://github.com/swagger-api/apidom/issues/1239)) ([f3e744c](https://github.com/swagger-api/apidom/commit/f3e744c9eff5db7ffb665a6240b7b67eb217af43)), closes [#427](https://github.com/swagger-api/apidom/issues/427)
+
+
+
+
+
 ## [0.18.1](https://github.com/swagger-api/apidom/compare/v0.18.0...v0.18.1) (2022-02-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

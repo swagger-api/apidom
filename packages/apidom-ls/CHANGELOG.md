@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/swagger-api/apidom/compare/v0.18.1...v0.19.0) (2022-03-10)
+
+
+### Features
+
+* **ns-api-design-systems:** introduce Standard Identifer plugin ([#1215](https://github.com/swagger-api/apidom/issues/1215)) ([c49dfa8](https://github.com/swagger-api/apidom/commit/c49dfa8e80908d6cd84ca04b21064a49d0de8c8d))
+
+
+
+
+
 ## [0.18.1](https://github.com/swagger-api/apidom/compare/v0.18.0...v0.18.1) (2022-02-16)
 
 

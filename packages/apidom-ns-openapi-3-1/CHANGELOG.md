@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/swagger-api/apidom/compare/v0.18.1...v0.19.0) (2022-03-10)
+
+
+### Features
+
+* **ns-api-design-systems:** add POC of OpenAPI 3.1 validator ([#1224](https://github.com/swagger-api/apidom/issues/1224)) ([1e137a0](https://github.com/swagger-api/apidom/commit/1e137a0f761cb5bbb9ea3a060cf97df14aea571a))
+* **ns-api-design-systems:** introduce Standard Identifer plugin ([#1215](https://github.com/swagger-api/apidom/issues/1215)) ([c49dfa8](https://github.com/swagger-api/apidom/commit/c49dfa8e80908d6cd84ca04b21064a49d0de8c8d))
+* **ns-api-design-systems:** validate status codes ([#1225](https://github.com/swagger-api/apidom/issues/1225)) ([fbec933](https://github.com/swagger-api/apidom/commit/fbec9331bebf10e4324d025e2940839545d8810e))
+
+
+
+
+
 ## [0.18.1](https://github.com/swagger-api/apidom/compare/v0.18.0...v0.18.1) (2022-02-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

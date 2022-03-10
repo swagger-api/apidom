@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "2.3.0",
+    "components": {
+      "messageBindings": {
+        "messageBinding1": {
+          "kafka": {}
+        },
+        "messageBinding2": {
+          "kafka": {}
+        }
+      }
+    }
+  }
+]

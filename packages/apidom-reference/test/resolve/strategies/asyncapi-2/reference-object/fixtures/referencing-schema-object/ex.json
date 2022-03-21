@@ -1,0 +1,19 @@
+{
+  "asyncapi": "2.3.0",
+  "components": {
+    "schemas": {
+      "userSignedUpPayload": {
+        "type": "object",
+        "title": "User signed up event",
+        "summary": "Inform about a new user",
+        "contentType": "application/json",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "foo"
+          }
+        }
+      }
+    }
+  }
+}

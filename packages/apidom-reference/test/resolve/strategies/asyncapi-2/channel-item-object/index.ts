@@ -25,6 +25,19 @@ describe('resolve', function () {
             });
           });
 
+          context('given Channel Item Objects with external circular dependency', function () {
+            const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
+
+            specify('should resolve', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+
+              assert.strictEqual(refSet.size, 2);
+            });
+          });
+
           context('given $ref field pointing internally and externally', function () {
             const fixturePath = path.join(rootFixturePath, 'internal-external');
 

@@ -77,7 +77,7 @@ const defaultOptions: IReferenceOptions = {
     external: true,
     /**
      * Determines the maximum depth of resolve algorithms.
-     * By default there is no limit.
+     * By default, there is no limit.
      *
      * This option tracks the depth of the file tree not the depth of the dereference path.
      *
@@ -105,7 +105,7 @@ const defaultOptions: IReferenceOptions = {
     refSet: null,
     /**
      * Determines the maximum depth of dereferencing.
-     * By default there is no limit.
+     * By default, there is no limit.
      *
      * The maxDepth represents a number of references that needed to be followed
      * before the eventual value was reached.

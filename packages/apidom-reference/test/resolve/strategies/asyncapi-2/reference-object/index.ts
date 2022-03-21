@@ -96,6 +96,32 @@ describe('resolve', function () {
           });
         });
 
+        context('given Reference Objects with external circular dependency', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 2);
+          });
+        });
+
+        context('given Reference Objects referencing Schema Object', function () {
+          const fixturePath = path.join(rootFixturePath, 'referencing-schema-object');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 2);
+          });
+        });
+
         context('given Reference Objects with indirect circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 
@@ -173,19 +199,6 @@ describe('resolve', function () {
 
         context('given Reference Objects with arbitrary circular references', function () {
           const fixturePath = path.join(rootFixturePath, 'ignore-arbitrary-$refs');
-
-          specify('should resolve', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: mediaTypes.latest('json') },
-            });
-
-            assert.strictEqual(refSet.size, 2);
-          });
-        });
-
-        context('given Reference Objects with external circular dependency', function () {
-          const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
 
           specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

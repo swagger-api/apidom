@@ -524,7 +524,7 @@ requires 2 traversals instead of a single one. We can find a way in the future h
 
 ApiDOM is licensed under [Apache 2.0 license](https://github.com/swagger-api/apidom/blob/main/LICENSES/Apache-2.0.txt).
 ApiDOM comes with an explicit [NOTICE](https://github.com/swagger-api/apidom/blob/main/NOTICE) file
-containing additional legal notifications and information.
+containing additional legal notices and information.
 
 This project uses [REUSE specification](https://reuse.software/spec/) that defines a standardized method
 for declaring copyright and licensing for software projects.

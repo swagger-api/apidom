@@ -424,6 +424,36 @@ const objElement = new ObjectElement({ a: 'b' });
 toValue(objElement); // => { a: 'b' }
 ```
 
+### toJSON
+
+Transforms the ApiDOM into JSON string.
+
+```js
+import { toJSON, ObjectElement } from '@swagger-api/apidom-core';
+
+const objElement = new ObjectElement({ a: 'b' });
+
+toJSON(objElement); // => '{"a":"b"}'
+```
+
+### toYAML
+
+Transforms the ApiDOM into JSON string.
+
+```js
+import { toYAML, ObjectElement } from '@swagger-api/apidom-core';
+
+const objElement = new ObjectElement({ a: 'b' });
+
+toYAML(objElement);
+/**
+ * %YAML 1.2
+ * ---
+ *
+ * "a": "b"
+ */
+```
+
 ### dehydrate
 
 Creates a [refract representation](https://github.com/refractproject/refract-spec) of the an Element.

@@ -4,6 +4,9 @@ import { Element, Namespace as INamespace } from 'minim';
 
 import './refractor/registration';
 import defaultNamespaceInstance from './namespace';
+import serializeValue from './serializers/value';
+import serializeJSON from './serializers/json';
+import serializeYAML from './serializers/yaml-1-2';
 
 export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
 export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
@@ -69,7 +72,11 @@ export { dereference } from './util';
 export const from = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
   if (isString(data)) {
     // JSON serialized refract
-    return namespace.fromRefract(JSON.parse(data));
+    try {
+      return namespace.fromRefract(JSON.parse(data));
+    } catch {
+      // noop
+    }
   }
   if (isPlainObject(data) && has('element', data)) {
     // refract javascript structure
@@ -84,7 +91,17 @@ export const from = (data: any, namespace: INamespace = defaultNamespaceInstance
  * This POJO would be the result of interpreting the ApiDOM
  * into JavaScript structure.
  */
-export const toValue = (element: Element): any => element.toValue();
+export const toValue = serializeValue;
+
+/**
+ * Transforms the ApiDOM into JSON string.
+ */
+export const toJSON = serializeJSON;
+
+/**
+ * Transforms the ApiDOM into YAML string.
+ */
+export const toYAML = serializeYAML;
 
 /**
  * Creates a refract representation of an Element.

@@ -113,6 +113,22 @@ describe('serializers', function () {
       });
     });
 
+    context('given ArrayElement in ObjectElement', function () {
+      specify('should serialize to YAML 1.2', function () {
+        const apidom = from({ a: [1] });
+        const serialized = serialize(apidom);
+        const expected = dedent`
+        %YAML 1.2
+        ---
+
+        "a":
+          - 1
+        `;
+
+        assert.strictEqual(serialized, expected);
+      });
+    });
+
     context('given empty ObjectElement', function () {
       specify('should serialize to YAML 1.2', function () {
         const apidom = from({});

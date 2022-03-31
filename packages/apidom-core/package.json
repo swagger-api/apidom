@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "=7.17.8",
     "@swagger-api/apidom-ast": "^0.19.0",
-    "@types/ramda": "=0.28.5",
+    "@types/ramda": "=0.28.7",
     "minim": "=0.23.8",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.0.0",

@@ -75,7 +75,7 @@
     "eslint-config-airbnb-base": "=15.0.0",
     "eslint-config-airbnb-typescript": "=16.2.0",
     "eslint-config-prettier": "=8.5.0",
-    "eslint-plugin-import": "=2.25.4",
+    "eslint-plugin-import": "=2.26.0",
     "eslint-plugin-mocha": "=10.0.3",
     "eslint-plugin-prettier": "=4.0.0",
     "file-loader": "=6.2.0",

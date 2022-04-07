@@ -7,7 +7,7 @@ const transform = (str) => {
   console.log(JSON.stringify(str.trim().replace(/(\r\n|\n|\r)/gm, '\n')));
 };
 
-transform(`Map[\`string\`, [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.3.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]
+transform(`[Schema Object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject) \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html)
 \\
 \\
-An object to hold reusable [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.3.0#securitySchemeObject).`);
+ The message key. **NOTE**: You can also use the [reference object](https://asyncapi.io/docs/specifications/v2.3.0#referenceObject) way.`);

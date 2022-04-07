@@ -1,7 +1,7 @@
 const kafkaMessageBindingDocs = [
   {
     target: 'key',
-    docs: '[Schema Object][schemaObject] \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html) | The message key. **NOTE**: You can also use the [reference object](https://asyncapi.io/docs/specifications/v2.1.0#referenceObject) way.',
+    docs: '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject) \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html)\n\\\n\\\n The message key. **NOTE**: You can also use the [reference object](https://asyncapi.io/docs/specifications/v2.3.0#referenceObject) way.',
   },
   {
     target: 'bindingVersion',

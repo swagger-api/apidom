@@ -7,7 +7,7 @@ const transform = (str) => {
   console.log(JSON.stringify(str.trim().replace(/(\r\n|\n|\r)/gm, '\n')));
 };
 
-transform(
-  `#### [Channel Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)
-A map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.`,
-);
+transform(`Map[\`string\`, [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.3.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]
+\\
+\\
+An object to hold reusable [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.3.0#securitySchemeObject).`);

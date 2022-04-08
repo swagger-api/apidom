@@ -21,7 +21,7 @@ const componentsDocs = [
   },
   {
     target: 'parameters',
-    docs: 'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject).',
+    docs: 'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject).',
   },
   {
     target: 'correlationIds',
@@ -52,7 +52,7 @@ const componentsDocs = [
     docs: 'Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#messageBindingsObject).',
   },
   {
-    docs: '[Components Object](https://www.asyncapi.com/docs/specifications/v2.2.0#componentsObject)\n\n ---- \n\nHolds a set of reusable objects for different aspects of the AsyncAPI specification. All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.',
+    docs: '[Components Object](https://www.asyncapi.com/docs/specifications/v2.3.0#componentsObject)\n\\\n\\\nHolds a set of reusable objects for different aspects of the AsyncAPI specification. All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.',
   },
 ];
 export default componentsDocs;

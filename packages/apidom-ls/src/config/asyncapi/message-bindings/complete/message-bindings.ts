@@ -68,7 +68,10 @@ const messageBindingsComplete: ApidomCompletionItem[] = [
       value:
         '[Anypoint MQ Message Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq#message)\n\\\n\\\nProtocol-specific information for an Anypoint MQ message.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.2.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+    ],
   },
   {
     label: 'amqp',

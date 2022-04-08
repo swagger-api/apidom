@@ -80,7 +80,7 @@ const componentsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject).',
+        'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#parameterObject).',
     },
   },
   {

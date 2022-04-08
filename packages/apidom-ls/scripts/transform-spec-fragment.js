@@ -7,7 +7,11 @@ const transform = (str) => {
   console.log(JSON.stringify(str.trim().replace(/(\r\n|\n|\r)/gm, '\n')));
 };
 
-transform(`[Schema Object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject) \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html)
+transform(
+  `#### Message Object
+
+Describes a message received on a given channel and operation.
 \\
 \\
- The message key. **NOTE**: You can also use the [reference object](https://asyncapi.io/docs/specifications/v2.3.0#referenceObject) way.`);
+A message is the mechanism by which information is exchanged via a channel between servers and applications. A message MUST contain a payload and MAY also contain headers. The headers MAY be subdivided into [protocol](https://www.asyncapi.com/docs/specifications/v2.3.0#definitionsProtocol)-defined headers and header properties defined by the application which can act as supporting metadata. The payload contains the data, defined by the application, which MUST be serialized into a format (JSON, XML, Avro, binary, etc.). Since a message is a generic mechanism, it can support multiple interaction patterns such as event, command, request, or response. `,
+);

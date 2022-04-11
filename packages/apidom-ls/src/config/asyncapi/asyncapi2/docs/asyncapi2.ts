@@ -9,7 +9,7 @@ const asyncapi2Docs = [
   },
   {
     target: 'info',
-    docs: 'The object provides metadata about the API. The metadata can be used by the clients if needed.',
+    docs: '[Info Object](https://www.asyncapi.com/docs/specifications/v2.3.0#infoObject)\n\\\n\\\nThe object provides metadata about the API. The metadata can be used by the clients if needed.',
   },
   {
     target: 'servers',

@@ -1039,31 +1039,6 @@ describe('apidom-ls-complete', function () {
     );
     assert.deepEqual(result!.items, [
       {
-        label: 'license',
-        insertText: 'license: \n  $1',
-        kind: 14,
-        insertTextFormat: 2,
-        documentation: {
-          kind: 'markdown',
-          value:
-            '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
-        },
-        filterText: 'tit',
-        textEdit: {
-          range: {
-            start: {
-              line: 2,
-              character: 2,
-            },
-            end: {
-              line: 2,
-              character: 5,
-            },
-          },
-          newText: 'license: \n  $1',
-        },
-      },
-      {
         label: 'title',
         insertText: 'title: $1',
         kind: 14,
@@ -1145,7 +1120,7 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+            '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.3.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
         },
         filterText: 'tit',
         textEdit: {
@@ -1160,6 +1135,31 @@ describe('apidom-ls-complete', function () {
             },
           },
           newText: 'contact: \n  $1',
+        },
+      },
+      {
+        label: 'license',
+        insertText: 'license: \n  $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[License Object](https://www.asyncapi.com/docs/specifications/v2.3.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
+        },
+        filterText: 'tit',
+        textEdit: {
+          range: {
+            start: {
+              line: 2,
+              character: 2,
+            },
+            end: {
+              line: 2,
+              character: 5,
+            },
+          },
+          newText: 'license: \n  $1',
         },
       },
     ] as ApidomCompletionItem[]);

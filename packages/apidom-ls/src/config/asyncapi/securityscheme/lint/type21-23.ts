@@ -7,6 +7,7 @@ const securitySchemeTypeLint2122: LinterMeta = {
   message: 'type must be one of allowed values',
   severity: 1,
   targetSpecs: [
+    { namespace: 'asyncapi', version: '2.3.0' },
     { namespace: 'asyncapi', version: '2.2.0' },
     { namespace: 'asyncapi', version: '2.1.0' },
   ],

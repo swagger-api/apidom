@@ -25,6 +25,11 @@ import messageMeta from './message/meta';
 import componentsMeta from './components/meta';
 import ApilintCodes from '../codes';
 
+/**
+ * Keys in this object represents either element type names
+ * or value of one of the meta classes.
+ */
+
 export default {
   '*': {
     lint: [

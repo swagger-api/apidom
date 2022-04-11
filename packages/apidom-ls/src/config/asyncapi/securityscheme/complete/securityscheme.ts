@@ -87,10 +87,6 @@ const securitySchemeTypeComplete: ApidomCompletionItem[] = [
     insertTextFormat: 2,
   },
   {
-    targetSpecs: [
-      { namespace: 'asyncapi', version: '2.1.0' },
-      { namespace: 'asyncapi', version: '2.2.0' },
-    ],
     target: 'type',
     label: 'plain',
     insertText: 'plain',
@@ -98,12 +94,13 @@ const securitySchemeTypeComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-  },
-  {
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
+  },
+  {
     target: 'type',
     label: 'scramSha256',
     insertText: 'scramSha256',
@@ -111,12 +108,13 @@ const securitySchemeTypeComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-  },
-  {
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
+  },
+  {
     target: 'type',
     label: 'scramSha512',
     insertText: 'scramSha512',
@@ -124,12 +122,13 @@ const securitySchemeTypeComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-  },
-  {
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
+  },
+  {
     target: 'type',
     label: 'gssapi',
     insertText: 'gssapi',
@@ -137,6 +136,11 @@ const securitySchemeTypeComplete: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.1.0' },
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+    ],
   },
 ];
 

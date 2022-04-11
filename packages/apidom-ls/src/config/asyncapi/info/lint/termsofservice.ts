@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const operationSummaryLint: LinterMeta = {
-  code: ApilintCodes.OPERATION_SUMMARY,
+const infoTermsOfServiceLint: LinterMeta = {
+  code: ApilintCodes.INFO_TERMS,
   source: 'apilint',
-  message: "summary' value must be a string",
+  message: 'termsOfService must be a string',
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'summary',
+  target: 'termsOfService',
   data: {},
 };
 
-export default operationSummaryLint;
+export default infoTermsOfServiceLint;

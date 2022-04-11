@@ -142,8 +142,6 @@ const refTestInput = [
 
 describe('apidom-ls', function () {
   const metadataOas = JSON.parse(JSON.stringify(metadata()));
-  metadataOas.metadataMaps.openapi.operation.lint.splice(1, 1);
-
   const oasJsonSchemavalidationProvider = new OpenAPi31JsonSchemaValidationProvider();
   const context: LanguageServiceContext = {
     metadata: metadataOas,

@@ -1,8 +1,7 @@
 import jsonSchemaTypeMeta from '../common/json-schema-type/meta';
 import jsonSchemaMeta from '../common/schema/meta';
-import infoMeta from '../common/info/meta';
-import contactMeta from '../common/contact/meta';
-import operationMeta from '../common/operation/meta';
+import infoMeta from './info/meta';
+import contactMeta from './contact/meta';
 
 export default {
   '*': {
@@ -10,7 +9,6 @@ export default {
   },
   info: infoMeta,
   contact: contactMeta,
-  operation: operationMeta,
   'json-schema-type': jsonSchemaTypeMeta,
   schema: jsonSchemaMeta,
 };

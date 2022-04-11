@@ -51,17 +51,6 @@ const completionTestInput = [
     {
       items: [
         {
-          label: 'license',
-          insertText: 'license: \n  $1',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: {
-            kind: 'markdown',
-            value:
-              '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
-          },
-        },
-        {
           label: 'description',
           insertText: 'description: $1',
           kind: 14,
@@ -90,7 +79,18 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+              '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.3.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
+          },
+        },
+        {
+          label: 'license',
+          insertText: 'license: \n  $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[License Object](https://www.asyncapi.com/docs/specifications/v2.3.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
           },
         },
       ],

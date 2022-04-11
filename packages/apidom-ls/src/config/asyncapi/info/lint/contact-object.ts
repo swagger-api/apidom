@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const operationMessageLint: LinterMeta = {
-  code: ApilintCodes.CHANNEL_PUBLISH,
+const contactObjectLint: LinterMeta = {
+  code: ApilintCodes.INFO_CONTACT,
   source: 'apilint',
-  message: '"message" must be a Message Object',
+  message: 'contact must be an object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['message'],
+  linterParams: ['contact'],
   marker: 'value',
-  target: 'message',
+  target: 'contact',
   data: {},
 };
 
-export default operationMessageLint;
+export default contactObjectLint;

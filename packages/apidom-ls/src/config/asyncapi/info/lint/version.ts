@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const operationDescriptionLint: LinterMeta = {
-  code: ApilintCodes.OPERATION_DESCRIPTION,
+const infoVersionLint: LinterMeta = {
+  code: ApilintCodes.INFO_VERSION,
   source: 'apilint',
-  message: "description' value must be a string",
+  message: 'version must be a string',
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'description',
+  target: 'version',
   data: {},
 };
 
-export default operationDescriptionLint;
+export default infoVersionLint;

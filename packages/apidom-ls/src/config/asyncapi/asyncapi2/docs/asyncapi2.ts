@@ -31,5 +31,9 @@ const asyncapi2Docs = [
     target: 'tags',
     docs: 'A list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
   },
+  {
+    target: 'externalDocs',
+    docs: 'Additional external documentation.',
+  },
 ];
 export default asyncapi2Docs;

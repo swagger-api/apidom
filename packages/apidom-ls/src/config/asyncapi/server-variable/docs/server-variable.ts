@@ -13,10 +13,10 @@ const serverVariableDocs = [
   },
   {
     target: 'examples',
-    docs: 'An array of examples of the server variable.\n\n ---- \n\nThis object **MAY** be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+    docs: 'An array of examples of the server variable.',
   },
   {
-    docs: 'An object representing a Server Variable for server URL template substitution.\n\n ---- \n\nThis object **MAY** be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+    docs: 'An object representing a Server Variable for server URL template substitution.\n\\\n\\\nThis object **MAY** be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.3.0#specificationExtensions).',
   },
 ];
 export default serverVariableDocs;

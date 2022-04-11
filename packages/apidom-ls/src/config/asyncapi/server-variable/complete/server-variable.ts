@@ -53,8 +53,7 @@ const serverVariableComplete: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value:
-        'An array of examples of the server variable.\n\n ---- \n\nThis object **MAY** be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+      value: 'An array of examples of the server variable.',
     },
   },
 ];

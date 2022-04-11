@@ -1,6 +1,6 @@
 import securitySchemeTypeLint20 from './type20';
-import securitySchemeTypeLint2122 from './type2122';
+import securitySchemeTypeLint2123 from './type21-23';
 
-const securitySchemeLints = [securitySchemeTypeLint20, securitySchemeTypeLint2122];
+const securitySchemeLints = [securitySchemeTypeLint20, securitySchemeTypeLint2123];
 
 export default securitySchemeLints;

@@ -15,7 +15,7 @@ const externalDocsCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**Required**. The URL for the target documentation. Value **MUST** be in the format of a URL.',
+        '**Required.** The URL for the target documentation. Value MUST be in the format of a URL.',
     },
   },
   {
@@ -28,7 +28,7 @@ const externalDocsCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**Required**. The URL for the target documentation. Value **MUST** be in the format of a URL.',
+        'A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
     },
   },
 ];

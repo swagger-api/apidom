@@ -27,7 +27,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.2.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)\n\n ----\n\nSchema definition of the application headers. Schema MUST be of type "object". It **MUST NOT** define the protocol headers.',
+        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject) \\\n\\\nSchema definition of the application headers. Schema MUST be of type "object". It **MUST NOT** define the protocol headers.',
     },
   },
   {
@@ -40,7 +40,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Definition of the message payload. It can be of any type but defaults to [Schema object](https://www.asyncapi.com/docs/specifications/v2.2.0#schemaObject). It must match the schema format, including encoding type - e.g Avro should be inlined as either a YAML or JSON object NOT a string to be parsed as YAML or JSON.',
+        'Definition of the message payload. It can be of any type but defaults to [Schema object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject). It must match the schema format, including encoding type - e.g Avro should be inlined as either a YAML or JSON object NOT a string to be parsed as YAML or JSON.',
     },
   },
   {
@@ -53,7 +53,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Correlation ID Object](https://www.asyncapi.com/docs/specifications/v2.2.0#correlationIdObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)\n\n ---- \n\nDefinition of the correlation ID used for message tracing or matching.',
+        '[Correlation ID Object](https://www.asyncapi.com/docs/specifications/v2.3.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
     },
   },
   {
@@ -66,8 +66,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A string containing the name of the schema format used to define the message payload. If omitted, implementations should parse the payload as a [Schema object](https://www.asyncapi.com/docs/specifications/v2.2.0#schemaObject). When the payload is defined using a `$ref` to a remote file, it is RECOMMENDED the schema format includes the file encoding type to allow implementations to parse the file correctly. E.g., adding `+yaml` if content type is `application/vnd.apache.avro` results in `application/vnd.apache.avro+yaml`.  \n' +
-        '\n\n ---- \n\nCheck out the [supported schema formats table](https://www.asyncapi.com/docs/specifications/v2.2.0#messageObjectSchemaFormatTable) for more information. Custom values are allowed but their implementation is OPTIONAL. A custom value MUST NOT refer to one of the schema formats listed in the [table](https://www.asyncapi.com/docs/specifications/v2.2.0#messageObjectSchemaFormatTable).',
+        'A string containing the name of the schema format used to define the message payload. If omitted, implementations should parse the payload as a [Schema object](https://www.asyncapi.com/docs/specifications/v2.3.0#schemaObject). When the payload is defined using a `$ref` to a remote file, it is RECOMMENDED the schema format includes the file encoding type to allow implementations to parse the file correctly. E.g., adding `+yaml` if content type is `application/vnd.apache.avro` results in `application/vnd.apache.avro+yaml`.\n\\\n\\\nCheck out the [supported schema formats table](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectSchemaFormatTable) for more information. Custom values are allowed but their implementation is OPTIONAL. A custom value MUST NOT refer to one of the schema formats listed in the [table](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectSchemaFormatTable).',
     },
   },
   {
@@ -80,7 +79,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/specifications/v2.2.0#defaultContentTypeString) field.",
+        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/specifications/v2.3.0#defaultContentTypeString) field.",
     },
   },
   {
@@ -142,7 +141,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.2.0#tagsObject)\n\n ---- \n\nA list of tags for API documentation control.',
+        '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.3.0#tagsObject)\n\\\n\\\nA list of tags for API documentation control. Tags can be used for logical grouping of messages.',
     },
   },
   {
@@ -155,7 +154,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.2.0#externalDocumentationObject)\n\n ---- \n\nAdditional external documentation for this message..',
+        '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this message.',
     },
   },
   {
@@ -168,7 +167,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Message Bindings Object](https://www.asyncapi.com/docs/specifications/v2.2.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)\n\n ---- \n\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+        '[Message Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
     },
   },
   {
@@ -181,7 +180,7 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '\\[[Message Example Object](https://www.asyncapi.com/docs/specifications/v2.2.0#messageExampleObject)\\]\n\n ---- \n\nList of examples.',
+        '[[Message Example Object](https://www.asyncapi.com/docs/specifications/v2.3.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
     },
   },
   {
@@ -194,8 +193,38 @@ const messageComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Message Trait Object](https://www.asyncapi.com/docs/specifications/v2.2.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.2.0#referenceObject)]\n\n ---- \n\nA list of traits to apply to the message object. Traits MUST be merged into the message object using the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) algorithm in the same order they are defined here. The resulting object MUST be a valid [Message Object](https://www.asyncapi.com/docs/specifications/v2.2.0#messageObject).\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+        '[[Message Trait Object](https://www.asyncapi.com/docs/specifications/v2.3.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nA list of traits to apply to the message object. Traits MUST be merged into the message object using the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) algorithm in the same order they are defined here. The resulting object MUST be a valid [Message Object](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObject).',
     },
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi;version=2.3.0',
+    insertText: 'application/vnd.aai.asyncapi;version=2.3.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+json;version=2.3.0',
+    insertText: 'application/vnd.aai.asyncapi+json;version=2.3.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+yaml;version=2.3.0',
+    insertText: 'application/vnd.aai.asyncapi+yaml;version=2.3.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
   },
   {
     target: 'schemaFormat',

@@ -27,7 +27,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[HTTP Server Binding](https://github.com/asyncapi/bindings/blob/master/http#server)\n\n ---- \n\nProtocol-specific information for an HTTP server.',
+        '[HTTP Server Binding](https://github.com/asyncapi/bindings/blob/master/http#server)\n\\\n\\\nProtocol-specific information for an HTTP server.',
     },
   },
   {
@@ -40,7 +40,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[WebSockets Server Binding](https://github.com/asyncapi/bindings/blob/master/websockets#server)\n\n ---- \n\nProtocol-specific information for a WebSockets server.',
+        '[WebSockets Server Binding](https://github.com/asyncapi/bindings/blob/master/websockets#server)\n\\\n\\\nProtocol-specific information for a WebSockets server.',
     },
   },
   {
@@ -53,7 +53,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Kafka Server Binding](https://github.com/asyncapi/bindings/blob/master/kafka#server)\n\n ---- \n\nProtocol-specific information for a Kafka server.',
+        '[Kafka Server Binding](https://github.com/asyncapi/bindings/blob/master/kafka#server)\n\\\n\\\nProtocol-specific information for a Kafka server.',
     },
   },
   {
@@ -66,9 +66,12 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Anypoint MQ Server Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq#server)\n\n ---- \n\nProtocol-specific information for an Anypoint MQ server.\n',
+        '[Anypoint MQ Server Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq#server)\n\\\n\\\nProtocol-specific information for an Anypoint MQ server.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.2.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+    ],
   },
   {
     label: 'amqp',
@@ -80,7 +83,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[AMQP Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp#server)\n\n ---- \n\nProtocol-specific information for an AMQP 0-9-1 server.',
+        '[AMQP Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp#server)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 server.',
     },
   },
   {
@@ -93,7 +96,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[AMQP 1.0 Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#server)\n\n ---- \n\nProtocol-specific information for an AMQP 1.0 server.',
+        '[AMQP 1.0 Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#server)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 server.',
     },
   },
   {
@@ -106,7 +109,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[MQTT Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#server)\n\n ---- \n\nProtocol-specific information for an MQTT server.',
+        '[MQTT Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#server)\n\\\n\\\nProtocol-specific information for an MQTT server.',
     },
   },
   {
@@ -119,7 +122,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[MQTT 5 Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#server)\n\n ---- \n\nProtocol-specific information for an MQTT 5 server.',
+        '[MQTT 5 Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#server)\n\\\n\\\nProtocol-specific information for an MQTT 5 server.',
     },
   },
   {
@@ -132,7 +135,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[NATS Server Binding](https://github.com/asyncapi/bindings/blob/master/nats#server)\n\n ---- \n\nProtocol-specific information for a NATS server.',
+        '[NATS Server Binding](https://github.com/asyncapi/bindings/blob/master/nats#server)\n\\\n\\\nProtocol-specific information for a NATS server.',
     },
   },
   {
@@ -145,7 +148,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[JMS Server Binding](https://github.com/asyncapi/bindings/blob/master/jms#server)\n\n ---- \n\nProtocol-specific information for a JMS server.',
+        '[JMS Server Binding](https://github.com/asyncapi/bindings/blob/master/jms#server)\n\\\n\\\nProtocol-specific information for a JMS server.',
     },
   },
   {
@@ -158,8 +161,22 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SNS Server Binding](https://github.com/asyncapi/bindings/blob/master/sns#server)\n\n ---- \n\nProtocol-specific information for an SNS server.',
+        '[SNS Server Binding](https://github.com/asyncapi/bindings/blob/master/sns#server)\n\\\n\\\nProtocol-specific information for an SNS server.',
     },
+  },
+  {
+    label: 'solace',
+    insertText: 'solace',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Solace Server Binding](https://github.com/asyncapi/bindings/tree/master/solace#server-binding-object)\n\\\n\\\nProtocol-specific information for a Solace server.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
   },
   {
     label: 'sqs',
@@ -171,7 +188,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SQS Server Binding](https://github.com/asyncapi/bindings/blob/master/sqs#server)\n\n ---- \n\nProtocol-specific information for an SQS server.',
+        '[SQS Server Binding](https://github.com/asyncapi/bindings/blob/master/sqs#server)\n\\\n\\\nProtocol-specific information for an SQS server.',
     },
   },
   {
@@ -184,7 +201,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[STOMP Server Binding](https://github.com/asyncapi/bindings/blob/master/stomp#server)\n\n ---- \n\nProtocol-specific information for a STOMP server.',
+        '[STOMP Server Binding](https://github.com/asyncapi/bindings/blob/master/stomp#server)\n\\\n\\\nProtocol-specific information for a STOMP server.',
     },
   },
   {
@@ -197,7 +214,7 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Redis Server Binding](https://github.com/asyncapi/bindings/blob/master/redis#server)\n\n ---- \n\nProtocol-specific information for a Redis server.',
+        '[Redis Server Binding](https://github.com/asyncapi/bindings/blob/master/redis#server)\n\\\n\\\nProtocol-specific information for a Redis server.',
     },
   },
   {
@@ -210,11 +227,12 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Mercure Server Binding](https://github.com/asyncapi/bindings/blob/master/mercure#server)\n\n ---- \n\nProtocol-specific information for a Mercure server.',
+        '[Mercure Server Binding](https://github.com/asyncapi/bindings/blob/master/mercure#server)\n\\\n\\\nProtocol-specific information for a Mercure server.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
   },
   {
@@ -227,11 +245,12 @@ const serverBindingsComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[IBM MQ Server Binding](https://github.com/asyncapi/bindings/blob/master/ibmmq#server-binding-object)\n\n ---- \n\nProtocol-specific information for an IBM MQ server.',
+        '[IBM MQ Server Binding](https://github.com/asyncapi/bindings/blob/master/ibmmq#server-binding-object)\n\\\n\\\nProtocol-specific information for an IBM MQ server.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
   },
 ];

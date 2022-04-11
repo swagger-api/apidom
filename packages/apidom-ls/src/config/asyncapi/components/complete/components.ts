@@ -30,6 +30,7 @@ const componentsComplete: ApidomCompletionItem[] = [
       value:
         'Map[`string`, [Server Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
     },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
   },
   {
     label: 'channels',
@@ -43,6 +44,7 @@ const componentsComplete: ApidomCompletionItem[] = [
       value:
         'Map[`string`, [Server Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
     },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
   },
   {
     label: 'messages',

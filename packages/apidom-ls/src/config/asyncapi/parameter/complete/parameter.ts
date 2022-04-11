@@ -41,7 +41,7 @@ const parameterComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A [runtime expression](#runtimeExpression) that specifies the location of the parameter value. Even when a definition for the target field exists, it MUST NOT be used to validate this parameter but, instead, the `schema` property MUST be used.',
+        'A [runtime expression](https://www.asyncapi.com/docs/specifications/v2.3.0#runtimeExpression) that specifies the location of the parameter value. Even when a definition for the target field exists, it MUST NOT be used to validate this parameter but, instead, the `schema` property MUST be used.',
     },
   },
   {

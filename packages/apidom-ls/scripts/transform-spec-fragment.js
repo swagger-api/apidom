@@ -4,12 +4,15 @@
  */
 
 const transform = (str) => {
-  console.log(JSON.stringify(str.trim().replace(/(\r\n|\n|\r)/gm, '\n')));
+  const transformed = JSON.stringify(str.trim().replace(/(\r\n|\n|\r)/gm, '\n'));
+  const jsonTransformed = transformed.replace(/```json/m, '\n\\\nJSON\n```json');
+  const yamlTransformed = jsonTransformed.replace(/```yaml/m, '\n\\\nYAML\n```yaml');
+  console.log(yamlTransformed);
 };
 
 transform(
-  `[Contact Object](https://www.asyncapi.com/docs/specifications/v2.3.0#contactObject)
-\\
-\\
-Contact information for the exposed API.`,
+  `\`\`\`json
+  test
+  \`\`\`
+  `,
 );

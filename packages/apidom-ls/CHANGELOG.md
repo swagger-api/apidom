@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/swagger-api/apidom/compare/v0.19.0...v0.20.0) (2022-04-11)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix all documentation URLs to point to AsyncAPI 2.3.0 docs ([#1286](https://github.com/swagger-api/apidom/issues/1286)) ([6f8ac59](https://github.com/swagger-api/apidom/commit/6f8ac595c777af9e061837a2972d8ff96f5fef48)), closes [#1284](https://github.com/swagger-api/apidom/issues/1284)
+* **apidom-ls:** make formatting of JSON/YAML better ([#1305](https://github.com/swagger-api/apidom/issues/1305)) ([0a01e29](https://github.com/swagger-api/apidom/commit/0a01e295ca0da56f353faabd959fa7f5997fee89)), closes [#1284](https://github.com/swagger-api/apidom/issues/1284)
+* **apidom-ls:** use amqps in proper context only ([#1302](https://github.com/swagger-api/apidom/issues/1302)) ([2105c72](https://github.com/swagger-api/apidom/commit/2105c726ba4b4525f57bae70ac0f6e0b79dca070)), closes [#1287](https://github.com/swagger-api/apidom/issues/1287)
+
+
+
+
+
 # [0.19.0](https://github.com/swagger-api/apidom/compare/v0.18.1...v0.19.0) (2022-03-10)
 
 

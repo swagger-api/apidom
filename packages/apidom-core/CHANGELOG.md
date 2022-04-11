@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/swagger-api/apidom/compare/v0.19.0...v0.20.0) (2022-04-11)
+
+
+### Features
+
+* **YAML:** implement YAML 1.2 serializer for ApiDOM ([#1282](https://github.com/swagger-api/apidom/issues/1282)) ([618a7de](https://github.com/swagger-api/apidom/commit/618a7de82f8937944dc031d5cb37f644831b637a)), closes [#134](https://github.com/swagger-api/apidom/issues/134)
+
+
+
+
+
 # [0.19.0](https://github.com/swagger-api/apidom/compare/v0.18.1...v0.19.0) (2022-03-10)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

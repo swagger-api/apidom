@@ -111,7 +111,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version. The patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
+              '[AsyncAPI Version String](https://www.asyncapi.com/docs/specifications/v2.3.0#A2SVersionString)\n\\\n\\\n**Required.** Specifies the AsyncAPI Specification version being used. It can be used by tooling Specifications and clients to interpret the version. The structure shall be `major`.`minor`.`patch`, where `patch` versions _must_ be compatible with the existing `major`.`minor` tooling. Typically patch versions will be introduced to address errors in the documentation, and tooling should typically be compatible with the corresponding `major`.`minor` (1.0.*). Patch versions will correspond to patches of this document.',
           },
         },
         {
@@ -122,29 +122,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'This field represents a unique universal identifier of the [application](https://www.asyncapi.com/docs/specifications/v2.3.0#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
-          },
-        },
-        {
-          label: 'defaultContentType',
-          insertText: 'defaultContentType: $1\n',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: {
-            kind: 'markdown',
-            value:
-              "A string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectContentType) property is omitted.\n\\\n\\\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
-          },
-        },
-        {
-          label: 'channels',
-          insertText: 'channels: \n  $1\n',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: {
-            kind: 'markdown',
-            value:
-              'Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers.\n\\\n\\\nChannels are also known as "topics", "routing keys", "event types" or "paths".',
+              '[Identifier](https://www.asyncapi.com/docs/specifications/v2.3.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/specifications/v2.3.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
           },
         },
         {
@@ -155,7 +133,29 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
+              '[Servers Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
+          },
+        },
+        {
+          label: 'defaultContentType',
+          insertText: 'defaultContentType: $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[Default Content Type](https://www.asyncapi.com/docs/specifications/v2.3.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+          },
+        },
+        {
+          label: 'channels',
+          insertText: 'channels: \n  $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Channels Object](https://www.asyncapi.com/docs/specifications/v2.3.0#channelsObject)\n\\\n\\\n**Required**. The available channels and messages for the API. Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers. Channels are also known as "topics", "routing keys", "event types" or "paths".',
           },
         },
         {
@@ -166,7 +166,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'A list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
+              '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.3.0#tagsObject)\n\\\n\\\nA list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
           },
         },
         {
@@ -177,7 +177,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '#### External Documentation Object\n\\\nAllows referencing an external resource for extended documentation.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\ndescription | `string` | A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.\nurl | `string` | **Required.** The URL for the target documentation. Value MUST be in the format of a URL.\n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.3.0#specificationExtensions).\n\n##### External Documentation Object Example\n\n\n\\\nJSON\n```json\n{\n  "description": "Find more info here",\n  "url": "https://example.com"\n}\n```\n\n\n\\\nYAML\n```yaml\ndescription: Find more info here\nurl: https://example.com\n```',
+              '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation. Allows referencing an external resource for extended documentation.',
           },
         },
       ],
@@ -191,17 +191,6 @@ const completionTestInput = [
     {
       items: [
         {
-          label: 'info',
-          insertText: 'info: \n  $1\n',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: {
-            kind: 'markdown',
-            value:
-              'The object provides metadata about the API. The metadata can be used by the clients if needed.',
-          },
-        },
-        {
           label: 'id',
           insertText: 'id: $1\n',
           kind: 14,
@@ -209,29 +198,18 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'This field represents a unique universal identifier of the [application](https://www.asyncapi.com/docs/specifications/v2.3.0#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+              '[Identifier](https://www.asyncapi.com/docs/specifications/v2.3.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/specifications/v2.3.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
           },
         },
         {
-          label: 'defaultContentType',
-          insertText: 'defaultContentType: $1\n',
+          label: 'info',
+          insertText: 'info: \n  $1\n',
           kind: 14,
           insertTextFormat: 2,
           documentation: {
             kind: 'markdown',
             value:
-              "A string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectContentType) property is omitted.\n\\\n\\\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
-          },
-        },
-        {
-          label: 'channels',
-          insertText: 'channels: \n  $1\n',
-          kind: 14,
-          insertTextFormat: 2,
-          documentation: {
-            kind: 'markdown',
-            value:
-              'Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers.\n\\\n\\\nChannels are also known as "topics", "routing keys", "event types" or "paths".',
+              '[Info Object](https://www.asyncapi.com/docs/specifications/v2.3.0#infoObject)\n\\\n\\\n**Required.** Provides metadata about the API. The metadata can be used by the clients if needed.',
           },
         },
         {
@@ -242,7 +220,29 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
+              '[Servers Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.3.0#serverObject).',
+          },
+        },
+        {
+          label: 'defaultContentType',
+          insertText: 'defaultContentType: $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[Default Content Type](https://www.asyncapi.com/docs/specifications/v2.3.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.3.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+          },
+        },
+        {
+          label: 'channels',
+          insertText: 'channels: \n  $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Channels Object](https://www.asyncapi.com/docs/specifications/v2.3.0#channelsObject)\n\\\n\\\n**Required**. The available channels and messages for the API. Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers. Channels are also known as "topics", "routing keys", "event types" or "paths".',
           },
         },
         {
@@ -253,7 +253,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'A list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
+              '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.3.0#tagsObject)\n\\\n\\\nA list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
           },
         },
         {
@@ -264,7 +264,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '#### External Documentation Object\n\\\nAllows referencing an external resource for extended documentation.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\ndescription | `string` | A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.\nurl | `string` | **Required.** The URL for the target documentation. Value MUST be in the format of a URL.\n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.3.0#specificationExtensions).\n\n##### External Documentation Object Example\n\n\n\\\nJSON\n```json\n{\n  "description": "Find more info here",\n  "url": "https://example.com"\n}\n```\n\n\n\\\nYAML\n```yaml\ndescription: Find more info here\nurl: https://example.com\n```',
+              '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation. Allows referencing an external resource for extended documentation.',
           },
         },
       ],

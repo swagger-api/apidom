@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.1](https://github.com/swagger-api/apidom/compare/v0.20.0...v0.20.1) (2022-04-12)
+
+
+### Bug Fixes
+
+* **apidom-ls:** enhance docs config for Channel Item Object ([073b285](https://github.com/swagger-api/apidom/commit/073b2857e278661acb47e29019e7bf1c620359ec)), closes [#1313](https://github.com/swagger-api/apidom/issues/1313)
+* **apidom-ls:** enhance docs config formatting for AsyncAPI ([#1316](https://github.com/swagger-api/apidom/issues/1316)) ([1c9d287](https://github.com/swagger-api/apidom/commit/1c9d2871e3e4b85e04bc0a622e113b20e4d2abc7)), closes [#1313](https://github.com/swagger-api/apidom/issues/1313)
+
+
+
+
+
 # [0.20.0](https://github.com/swagger-api/apidom/compare/v0.19.0...v0.20.0) (2022-04-11)
 
 

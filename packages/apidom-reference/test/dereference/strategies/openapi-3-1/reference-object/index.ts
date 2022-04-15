@@ -92,20 +92,6 @@ describe('dereference', function () {
           });
         });
 
-        context('given Reference Objects pointing externally with sub dirs', function () {
-          const fixturePath = path.join(rootFixturePath, 'external-subdir');
-
-          specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.yml');
-            const actual = await dereference(rootFilePath, {
-              parse: { mediaType: mediaTypes.latest('yaml') },
-            });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-
-            assert.deepEqual(toValue(actual), expected);
-          });
-        });
-
         context('given Reference Objects pointing to external indirections', function () {
           const fixturePath = path.join(rootFixturePath, 'external-indirections');
 

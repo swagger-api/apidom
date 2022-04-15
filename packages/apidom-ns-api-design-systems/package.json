@@ -46,7 +46,7 @@
     "@swagger-api/apidom-ns-openapi-3-1": "^0.20.0",
     "@swagger-api/apidom-parser-adapter-json": "^0.20.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.20.0",
-    "@types/ramda": "=0.28.8",
+    "@types/ramda": "=0.28.11",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.0.0",
     "stampit": "=4.3.2"

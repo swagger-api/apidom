@@ -54,7 +54,7 @@ const channelCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [Operation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#operationObject)\nA definition of the SUBSCRIBE operation, which defines the messages produced by the application and sent to the channel.',
+        '[Operation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#operationObject)\n\\\n\\\nA definition of the SUBSCRIBE operation, which defines the messages produced by the application and sent to the channel.',
     },
   },
   {
@@ -67,7 +67,7 @@ const channelCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [Operation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#operationObject)\nA definition of the PUBLISH operation, which defines the messages consumed by the application from the channel.',
+        '[Operation Object](https://www.asyncapi.com/docs/specifications/v2.3.0#operationObject)\n\\\n\\\nA definition of the PUBLISH operation, which defines the messages consumed by the application from the channel.',
     },
   },
   {
@@ -80,7 +80,7 @@ const channelCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [Parameters Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parametersObject)\nA map of the parameters included in the channel name. It SHOULD be present only when using channels with expressions (as defined by [RFC 6570 section 2.2](https://tools.ietf.org/html/rfc6570#section-2.2)).',
+        '[Parameters Object](https://www.asyncapi.com/docs/specifications/v2.3.0#parametersObject)\n\\\n\\\nA map of the parameters included in the channel name. It SHOULD be present only when using channels with expressions (as defined by [RFC 6570 section 2.2](https://tools.ietf.org/html/rfc6570#section-2.2)).',
     },
   },
   {
@@ -93,7 +93,7 @@ const channelCompleteJson: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [Channel Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.',
+        '[Channel Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.',
     },
   },
   {

@@ -8,12 +8,6 @@ const configFactory = start.__get__('configFactory');
 const configFactoryMock = (webpackEnv) => {
   const config = configFactory(webpackEnv);
 
-  // display errors for child compilations
-  config.stats = {
-    ...config.stats,
-    children: true,
-  };
-
   // fallbacks
   config.resolve.fallback = {
     ...config.resolve.fallback,

@@ -27,12 +27,13 @@ import Reference from '../../../Reference';
 import File from '../../../util/File';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { evaluate as uriEvaluate } from '../../../dereference/strategies/openapi-3-1/selectors/uri';
-import { refractToSchemaElement, resolveInherited$id } from './util';
+import { maybeRefractToSchemaElement, resolveInherited$id } from './util';
 import {
   evaluate as $anchorEvaluate,
   isAnchor,
   uriToAnchor,
 } from '../../../dereference/strategies/openapi-3-1/selectors/$anchor';
+import EvaluationJsonSchemaUriError from '../../../dereference/strategies/openapi-3-1/selectors/uri/errors/EvaluationJsonSchemaUriError';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -329,38 +330,70 @@ const OpenApi3_1ResolveVisitor = stampit({
       const baseURI = this.toBaseURI(base$idURI);
       const file = File({ uri: baseURI });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
-      const reference = isUnknownURI ? this.reference : await this.toReference(base$idURI);
+      const isURL = !isUnknownURI;
 
       this.indirections.push(referencingElement);
 
-      // determining proper evaluation and selection mechanism
+      // determining reference, proper evaluation and selection mechanism
       const $refValue = referencingElement.$ref?.toValue();
-      let evaluate: any;
-      let selector: string;
-      if (isUnknownURI) {
-        // we're dealing with canonical URI with possible fragment
-        evaluate = uriEvaluate;
-        selector = url.resolve(reference.uri, $refValue);
-      } else if (isAnchor(uriToAnchor($refValue))) {
-        // we're dealing with JSON Schema $anchor here
-        evaluate = $anchorEvaluate;
-        selector = uriToAnchor($refValue);
-      } else {
-        // we're assuming here that we're dealing with JSON Pointer here
-        evaluate = jsonPointerEvaluate;
-        selector = uriToPointer($refValue);
-      }
-
-      // possibly non-semantic fragment
+      let reference: IReference;
       let referencedElement;
 
-      if (isPrimitiveElement(reference.value.result)) {
-        // applying semantics to entire parsing result due to $schema and $id behavior of inheritance
-        // @ts-ignore
-        referencedElement = evaluate(selector, refractToSchemaElement(reference.value.result));
-      } else {
-        // here we're assuming that result reference.value.result is already Schema Element
-        referencedElement = evaluate(selector, reference.value.result);
+      try {
+        if (isUnknownURI || isURL) {
+          // we're dealing with canonical URI or URL with possible fragment
+          reference = this.reference;
+          const selector = url.resolve(reference.uri, $refValue);
+          referencedElement = uriEvaluate(
+            selector,
+            // @ts-ignore
+            maybeRefractToSchemaElement(reference.value.result),
+          );
+        } else if (isAnchor(uriToAnchor($refValue))) {
+          // we're dealing with JSON Schema $anchor here
+          reference = await this.toReference(baseURI);
+          const selector = uriToAnchor($refValue);
+          referencedElement = $anchorEvaluate(
+            selector,
+            // @ts-ignore
+            maybeRefractToSchemaElement(reference.value.result),
+          );
+        } else {
+          // we're assuming here that we're dealing with JSON Pointer here
+          reference = await this.toReference(baseURI);
+          const selector = uriToPointer($refValue);
+          referencedElement = maybeRefractToSchemaElement(
+            // @ts-ignore
+            jsonPointerEvaluate(selector, reference.value.result),
+          );
+        }
+      } catch (error) {
+        /**
+         * No SchemaElement($id=URL) was not found, so we're going to try to resolve
+         * the URL and assume the returned response is a JSON Schema.
+         */
+        if (isURL && error instanceof EvaluationJsonSchemaUriError) {
+          if (isAnchor(uriToAnchor($refValue))) {
+            // we're dealing with JSON Schema $anchor here
+            reference = await this.toReference(baseURI);
+            const selector = uriToAnchor($refValue);
+            referencedElement = $anchorEvaluate(
+              selector,
+              // @ts-ignore
+              maybeRefractToSchemaElement(reference.value.result),
+            );
+          } else {
+            // we're assuming here that we're dealing with JSON Pointer here
+            reference = await this.toReference(baseURI);
+            const selector = uriToPointer($refValue);
+            referencedElement = maybeRefractToSchemaElement(
+              // @ts-ignore
+              jsonPointerEvaluate(selector, reference.value.result),
+            );
+          }
+        } else {
+          throw error;
+        }
       }
 
       // mark current referencing schema as visited

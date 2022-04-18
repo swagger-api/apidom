@@ -7,7 +7,7 @@ const operationMessageLint: LinterMeta = {
   message: '"message" must be a Message Object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['message'],
+  linterParams: [['message', 'operation-message-map']],
   marker: 'value',
   target: 'message',
   data: {},

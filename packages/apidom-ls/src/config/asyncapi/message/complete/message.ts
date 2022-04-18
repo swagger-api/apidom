@@ -18,6 +18,19 @@ const messageComplete: ApidomCompletionItem[] = [
     },
   },
   {
+    label: 'oneOf',
+    insertText: 'oneOf',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`oneOf` key is specific to **Operation.message** fixed field. The key is allowed here to specify multiple messages. However, **a message MUST be valid only against one of the message objects.**',
+    },
+  },
+  {
     label: 'headers',
     insertText: 'headers',
     kind: 14,

@@ -148,6 +148,7 @@ import ChannelItemServersElement from '../../elements/nces/ChannelItemsServers';
 import OAuthFlowScopesElement from '../../elements/nces/OAuthFlowScopes';
 import OperationTraitsElement from '../../elements/nces/OperationTraits';
 import ServerSecurityElement from '../../elements/nces/ServerSecurity';
+import OperationMessageMapElement from '../../elements/nces/OperationMessageMap';
 import OperationMessageElement from '../../elements/nces/OperationMessage';
 import MessageExamplesElement from '../../elements/nces/MessageExamples';
 import MessageTraitsElement from '../../elements/nces/MessageTraits';
@@ -870,6 +871,11 @@ const schema = {
   [OperationTraitsElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
       return new OperationTraitElement(...args);
+    },
+  },
+  [OperationMessageMapElement.primaryClass]: {
+    oneOf(...args: any[]) {
+      return new OperationMessageElement(...args);
     },
   },
   [OperationMessageElement.primaryClass]: {

@@ -480,6 +480,19 @@ describe('resolve', function () {
           });
         });
 
+        context('given Schema Objects with various document boundaries', function () {
+          const fixturePath = path.join(rootFixturePath, 'document-boundaries');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.yml');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('yaml') },
+            });
+
+            assert.strictEqual(refSet.size, 6);
+          });
+        });
+
         context('given Reference Objects with indirect circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 

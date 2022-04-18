@@ -598,6 +598,20 @@ describe('dereference', function () {
           },
         );
 
+        context('given Schema Objects with various document boundaries', function () {
+          const fixturePath = path.join(rootFixturePath, 'document-boundaries');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.yml');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('yaml') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects with not found $anchor', function () {
           const fixturePath = path.join(rootFixturePath, '$anchor-not-found');
 

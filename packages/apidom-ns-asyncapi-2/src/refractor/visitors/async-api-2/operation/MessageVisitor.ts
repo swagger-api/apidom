@@ -4,6 +4,7 @@ import { ObjectElement, isArrayElement, BREAK } from '@swagger-api/apidom-core';
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+import OperationMessageMapElement from '../../../../elements/nces/OperationMessageMap';
 import OperationMessageElement from '../../../../elements/nces/OperationMessage';
 
 const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
@@ -13,7 +14,7 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
         this.element = this.toRefractedElement(['document', 'objects', 'Reference'], objectElement);
         this.element.setMetaProperty('referenced-element', 'message');
       } else if (isArrayElement(objectElement.get('oneOf'))) {
-        this.element = new ObjectElement();
+        this.element = new OperationMessageMapElement();
         const operationMessageElement = new OperationMessageElement();
 
         objectElement.get('oneOf').forEach((item: ObjectElement) => {
@@ -28,7 +29,7 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
           operationMessageElement.push(element);
         });
 
-        this.element.set('oneOf', operationMessageElement);
+        this.element.oneOf = operationMessageElement;
       } else {
         this.element = this.toRefractedElement(['document', 'objects', 'Message'], objectElement);
       }

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/swagger-api/apidom/compare/v0.20.1...v0.21.0) (2022-04-18)
+
+
+### Bug Fixes
+
+* **reference:** enhance OpenAPI 3.1 dereferecing  ([4b1bdbe](https://github.com/swagger-api/apidom/commit/4b1bdbee4ef85ee24792948844c0d62093b81b83)), closes [#1336](https://github.com/swagger-api/apidom/issues/1336)
+* **reference:** enhance OpenAPI 3.1 resolution ([#1339](https://github.com/swagger-api/apidom/issues/1339)) ([1dff277](https://github.com/swagger-api/apidom/commit/1dff2770b415ad27d0c1f884416ad2971bba7228)), closes [#1337](https://github.com/swagger-api/apidom/issues/1337)
+
+
+
+
+
 # [0.20.0](https://github.com/swagger-api/apidom/compare/v0.19.0...v0.20.0) (2022-04-11)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

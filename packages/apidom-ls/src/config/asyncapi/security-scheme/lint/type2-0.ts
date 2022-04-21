@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const securitySchemeTypeLint20: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_SECURITYSCHEME_TYPE_20,
+  code: ApilintCodes.ASYNCAPI_SECURITYSCHEME_TYPE_2_0,
   source: 'apilint',
   message: 'type must be one of allowed values',
   severity: 1,

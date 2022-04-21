@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const asyncapiVersionLint20: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_ASYNCAPIVERSION_20,
+  code: ApilintCodes.ASYNCAPI_ASYNCAPIVERSION_2_0,
   source: 'apilint',
   message: "'asyncapi' value must be 2.0.0",
   severity: 1,

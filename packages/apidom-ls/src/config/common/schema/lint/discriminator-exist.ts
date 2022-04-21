@@ -13,6 +13,7 @@ const schemaDiscriminatorExistLint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.0.0' },
     { namespace: 'asyncapi', version: '2.1.0' },
     { namespace: 'asyncapi', version: '2.2.0' },
+    { namespace: 'asyncapi', version: '2.3.0' },
   ],
   data: {},
 };

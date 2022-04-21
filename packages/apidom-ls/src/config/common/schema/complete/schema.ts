@@ -526,6 +526,7 @@ const jsonSchemaComplete: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.0.0' },
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
     documentation: {
       kind: 'markdown',
@@ -1121,6 +1122,7 @@ const jsonSchemaComplete: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.0.0' },
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
     documentation: {
       kind: 'markdown',
@@ -1167,6 +1169,7 @@ const jsonSchemaComplete: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.0.0' },
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
     documentation: {
       kind: 'markdown',
@@ -1185,6 +1188,7 @@ const jsonSchemaComplete: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.0.0' },
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
     ],
     documentation: {
       kind: 'markdown',

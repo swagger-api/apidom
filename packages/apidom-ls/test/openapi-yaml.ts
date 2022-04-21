@@ -445,7 +445,7 @@ describe('apidom-ls-yaml', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10097,
+        code: 10098,
         source: 'apilint',
         data: {
           quickFix: [

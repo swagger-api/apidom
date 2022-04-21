@@ -238,7 +238,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10097,
+        code: 10098,
         source: 'apilint',
         data: {
           quickFix: [
@@ -374,7 +374,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10077,
+        code: 10078,
         source: 'apilint',
         data: {
           quickFix: [
@@ -492,7 +492,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10077,
+        code: 10078,
         source: 'apilint',
         data: {
           quickFix: [
@@ -807,7 +807,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10097,
+        code: 10098,
         source: 'apilint',
         data: {
           quickFix: [
@@ -943,7 +943,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10097,
+        code: 10098,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1028,7 +1028,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10077,
+        code: 10078,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1165,7 +1165,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10077,
+        code: 10078,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1429,7 +1429,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10077,
+        code: 10078,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1570,7 +1570,7 @@ describe('apidom-ls-validate', function () {
             },
             message: "should always have a 'version'",
             severity: 1,
-            code: 10077,
+            code: 10078,
             source: 'apilint',
             data: {
               quickFix: [
@@ -2758,7 +2758,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'security members must be included in defined security schemes',
         severity: 1,
-        code: 10116,
+        code: 10117,
         source: 'apilint',
         data: {},
       },
@@ -2826,7 +2826,7 @@ describe('apidom-ls-validate', function () {
         },
       },
       {
-        code: 10151,
+        code: 10152,
         message: 'Object includes not allowed fields',
         range: {
           end: {

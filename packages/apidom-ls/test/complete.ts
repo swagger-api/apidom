@@ -91,7 +91,6 @@ describe('apidom-ls-complete', function () {
       {
         items: [
           {
-            target: 'asyncapi',
             label: '2.1.0',
             insertText: '"2.1.0$1"',
             kind: 12,
@@ -112,7 +111,6 @@ describe('apidom-ls-complete', function () {
             },
           },
           {
-            target: 'asyncapi',
             label: '2.2.0',
             insertText: '"2.2.0$1"',
             kind: 12,
@@ -133,7 +131,6 @@ describe('apidom-ls-complete', function () {
             },
           },
           {
-            target: 'asyncapi',
             label: '2.3.0',
             insertText: '"2.3.0$1"',
             kind: 12,

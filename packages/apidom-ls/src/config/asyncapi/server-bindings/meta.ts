@@ -1,12 +1,12 @@
-import serverBindingsLints from './lint/lints';
-import serverBindingsComplete from './complete/server-bindings';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import serverBindingsDocs from './docs/server-bindings';
 
-const serverBindingsMeta: FormatMeta = {
-  lint: serverBindingsLints,
-  completion: serverBindingsComplete,
-  documentation: serverBindingsDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default serverBindingsMeta;
+export default meta;

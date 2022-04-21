@@ -1,12 +1,12 @@
-import componentsComplete from './complete/components';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
-import componentsDocs from './docs/components';
-import componentsLints from './lint/lints';
 
-const componentsMeta: FormatMeta = {
-  lint: componentsLints,
-  completion: componentsComplete,
-  documentation: componentsDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default componentsMeta;
+export default meta;

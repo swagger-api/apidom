@@ -1,12 +1,12 @@
+import lint from './lint';
+import documentation from './documentation';
+import completion from './completion';
 import { FormatMeta } from '../../../apidom-language-types';
-import kafkaMessageBindingLints from './lint/lints';
-import kafkaMessageBindingDocs from './docs/kafka-message-binding';
-import kafkaMessageBindingCompleteJson from './complete/kafka-message-binding';
 
-const kafkaMessageBindingMeta: FormatMeta = {
-  lint: kafkaMessageBindingLints,
-  completion: kafkaMessageBindingCompleteJson,
-  documentation: kafkaMessageBindingDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default kafkaMessageBindingMeta;
+export default meta;

@@ -1,8 +1,8 @@
-import channelsDocs from './docs/channels';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const channelsMeta: FormatMeta = {
-  documentation: channelsDocs,
+const meta: FormatMeta = {
+  documentation,
 };
 
-export default channelsMeta;
+export default meta;

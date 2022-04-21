@@ -1,8 +1,8 @@
-import securityRequirementLints from './lint/lints';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const securityRequirementMeta: FormatMeta = {
-  lint: securityRequirementLints,
+const meta: FormatMeta = {
+  lint,
 };
 
-export default securityRequirementMeta;
+export default meta;

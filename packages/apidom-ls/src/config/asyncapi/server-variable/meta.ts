@@ -1,12 +1,12 @@
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import serverVariableLints from './lint/lints';
-import serverVariableComplete from './complete/server-variable';
-import serverVariableDocs from './docs/server-variable';
 
-const serverVariableMeta: FormatMeta = {
-  lint: serverVariableLints,
-  completion: serverVariableComplete,
-  documentation: serverVariableDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default serverVariableMeta;
+export default meta;

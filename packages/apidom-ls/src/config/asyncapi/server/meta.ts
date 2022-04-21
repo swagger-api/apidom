@@ -1,12 +1,12 @@
-import serverLints from './lint/lints';
-import serverComplete from './complete/server';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import serverDocs from './docs/server';
 
-const serverMeta: FormatMeta = {
-  lint: serverLints,
-  completion: serverComplete,
-  documentation: serverDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default serverMeta;
+export default meta;

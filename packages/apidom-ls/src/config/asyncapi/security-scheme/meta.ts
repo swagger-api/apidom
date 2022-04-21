@@ -1,10 +1,10 @@
-import securitySchemeLints from './lint/lints';
-import securitySchemeTypeComplete from './complete/security-scheme';
+import lint from './lint';
+import completion from './completion';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const securitySchemeMeta: FormatMeta = {
-  lint: securitySchemeLints,
-  completion: securitySchemeTypeComplete,
+const meta: FormatMeta = {
+  lint,
+  completion,
 };
 
-export default securitySchemeMeta;
+export default meta;

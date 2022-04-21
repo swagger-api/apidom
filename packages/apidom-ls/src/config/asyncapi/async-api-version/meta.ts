@@ -1,10 +1,10 @@
-import asyncapiVersionLints from './lint/lints';
-// import asyncapiVersionComplete from './complete/asyncapiversion';
+import lint from './lint';
+// import completion from './completion';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const asyncApiVersionMeta: FormatMeta = {
-  lint: asyncapiVersionLints,
-  // completion: asyncapiVersionComplete,
+const meta: FormatMeta = {
+  lint,
+  // completion,
 };
 
-export default asyncApiVersionMeta;
+export default meta;

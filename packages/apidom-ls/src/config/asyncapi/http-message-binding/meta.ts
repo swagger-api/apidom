@@ -1,12 +1,12 @@
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import httpMessageBindingLints from './lint/lints';
-import httpMessageBindingCompleteJson from './complete/http-message-binding';
-import httpMessageBindingDocs from './docs/http-message-binding';
 
-const httpMessageBindingMeta: FormatMeta = {
-  lint: httpMessageBindingLints,
-  completion: httpMessageBindingCompleteJson,
-  documentation: httpMessageBindingDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default httpMessageBindingMeta;
+export default meta;

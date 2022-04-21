@@ -1,12 +1,12 @@
-import contactLints from './lint/lints';
-import contactComplete from './complete/contact';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import contactDocs from './docs/contact';
 
-const contactMeta: FormatMeta = {
-  lint: contactLints,
-  completion: contactComplete,
-  documentation: contactDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default contactMeta;
+export default meta;

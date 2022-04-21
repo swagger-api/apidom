@@ -1,8 +1,8 @@
-import serversDocs from './docs/servers';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const serversMeta: FormatMeta = {
-  documentation: serversDocs,
+const meta: FormatMeta = {
+  documentation,
 };
 
-export default serversMeta;
+export default meta;

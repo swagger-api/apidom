@@ -274,11 +274,11 @@ export class DefaultCompletionService implements CompletionService {
       const isEmpty = isEmptyLine(textDocument, offset);
       trace('doCompletion - no version', { isEmpty });
       const asyncItem = CompletionItem.create('asyncapi');
-      asyncItem.insertText = `asyncapi: '2.2.0$1'${isEmpty ? '' : '\n'}`;
+      asyncItem.insertText = `asyncapi: '2.3.0$1'${isEmpty ? '' : '\n'}`;
       asyncItem.documentation = {
         kind: 'markdown',
         value:
-          'The version string signifies the version of the AsyncAPI Specification that the document complies to. The format for this string _must_ be `major`.`minor`.`patch`. The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\n ---- \n\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version. The patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\n ---- \n\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
+          'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version.\nThe patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
       };
       asyncItem.kind = CompletionItemKind.Keyword;
       asyncItem.insertTextFormat = 2;

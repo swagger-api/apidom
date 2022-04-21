@@ -149,6 +149,15 @@ const asyncapiRootComplete: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
   },
+  {
+    target: 'asyncapi',
+    label: '2.3.0',
+    insertText: '2.3.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED_FORCED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
 ];
 
 export default asyncapiRootComplete;

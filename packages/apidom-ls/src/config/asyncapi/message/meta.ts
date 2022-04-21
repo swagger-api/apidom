@@ -1,12 +1,12 @@
-import messageComplete from './complete/message';
-import messageDocs from './docs/message';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
-import messageLints from './lint/lints';
 
-const messageMeta: FormatMeta = {
-  documentation: messageDocs,
-  completion: messageComplete,
-  lint: messageLints,
+const meta: FormatMeta = {
+  lint,
+  documentation,
+  completion,
 };
 
-export default messageMeta;
+export default meta;

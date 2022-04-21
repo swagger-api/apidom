@@ -1,8 +1,8 @@
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
-import httpServerBindingLints from './lint/lints';
 
-const httpServerBindingMeta: FormatMeta = {
-  lint: httpServerBindingLints,
+const meta: FormatMeta = {
+  lint,
 };
 
-export default httpServerBindingMeta;
+export default meta;

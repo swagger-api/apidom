@@ -1,12 +1,12 @@
-import messageBindingsLints from './lint/lints';
-import messageBindingsComplete from './complete/message-bindings';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import messageBindingsDocs from './docs/message-bindings';
 
-const messageBindingsMeta: FormatMeta = {
-  lint: messageBindingsLints,
-  completion: messageBindingsComplete,
-  documentation: messageBindingsDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default messageBindingsMeta;
+export default meta;

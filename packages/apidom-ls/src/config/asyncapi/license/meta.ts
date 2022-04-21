@@ -1,12 +1,12 @@
-import licenseLints from './lint/lints';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import licenseComplete from './complete/license';
-import licenseDocs from './docs/license';
 
-const licenseMeta: FormatMeta = {
-  lint: licenseLints,
-  completion: licenseComplete,
-  documentation: licenseDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default licenseMeta;
+export default meta;

@@ -1,12 +1,12 @@
-import asyncapiRootLints from './lint/lints';
-import asyncapiRootComplete from './complete/asyncapi2';
 import { FormatMeta } from '../../../apidom-language-types';
-import asyncapi2Docs from './docs/asyncapi2';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 
-const asyncapi2Meta: FormatMeta = {
-  lint: asyncapiRootLints,
-  completion: asyncapiRootComplete,
-  documentation: asyncapi2Docs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default asyncapi2Meta;
+export default meta;

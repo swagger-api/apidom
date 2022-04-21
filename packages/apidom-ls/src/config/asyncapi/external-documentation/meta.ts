@@ -1,12 +1,12 @@
-import externalDocsComplete from './complete/externaldocs';
-import externalDocsDocs from './docs/externaldocs';
-import externalDocsLints from './lint/lints';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const externalDocsMeta: FormatMeta = {
-  documentation: externalDocsDocs,
-  completion: externalDocsComplete,
-  lint: externalDocsLints,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default externalDocsMeta;
+export default meta;

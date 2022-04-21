@@ -1,12 +1,12 @@
-import operationComplete from './complete/operation';
-import operationDocs from './docs/operation';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
-import operationLints from './lint/lints';
 
-const operationMeta: FormatMeta = {
-  documentation: operationDocs,
-  completion: operationComplete,
-  lint: operationLints,
+const meta: FormatMeta = {
+  lint,
+  documentation,
+  completion,
 };
 
-export default operationMeta;
+export default meta;

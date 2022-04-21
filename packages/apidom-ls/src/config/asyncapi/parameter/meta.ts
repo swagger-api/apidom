@@ -1,12 +1,12 @@
-import parameterLints from './lint/lints';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import parameterComplete from './complete/parameter';
-import parameterDocs from './docs/parameter';
 
-const parameterMeta: FormatMeta = {
-  lint: parameterLints,
-  completion: parameterComplete,
-  documentation: parameterDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default parameterMeta;
+export default meta;

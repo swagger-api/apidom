@@ -1,12 +1,12 @@
-import channelComplete from './complete/channel-item';
-import channelDocs from './docs/channel-item';
-import channelLints from './lint/lints';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 import { FormatMeta } from '../../../apidom-language-types';
 
-const channelMeta: FormatMeta = {
-  documentation: channelDocs,
-  completion: channelComplete,
-  lint: channelLints,
+const meta: FormatMeta = {
+  lint,
+  documentation,
+  completion,
 };
 
-export default channelMeta;
+export default meta;

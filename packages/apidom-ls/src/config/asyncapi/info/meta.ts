@@ -1,12 +1,12 @@
-import infoLints from './lint/lints';
-import infoComplete from './complete/info';
+import lint from './lint';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
-import infoDocs from './docs/info';
 
-const infoMeta: FormatMeta = {
-  lint: infoLints,
-  completion: infoComplete,
-  documentation: infoDocs,
+const meta: FormatMeta = {
+  lint,
+  completion,
+  documentation,
 };
 
-export default infoMeta;
+export default meta;

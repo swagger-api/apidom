@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-json",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "Parser adapter for parsing JSON documents into base namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -47,8 +47,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.17.9",
-    "@swagger-api/apidom-ast": "^0.21.0",
-    "@swagger-api/apidom-core": "^0.21.0",
+    "@swagger-api/apidom-ast": "^0.22.0",
+    "@swagger-api/apidom-core": "^0.22.0",
     "@types/ramda": "=0.28.11",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.0.0",

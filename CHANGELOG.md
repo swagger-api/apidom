@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0](https://github.com/swagger-api/apidom/compare/v0.21.0...v0.22.0) (2022-04-21)
+
+
+### Features
+
+* **apidom-ls:** add support for AsyncAPI 2.3 ([#1354](https://github.com/swagger-api/apidom/issues/1354)) ([95e8456](https://github.com/swagger-api/apidom/commit/95e845607cfee8c9a7e9ecdb3c38b5a9d0a1e95d)), closes [#1317](https://github.com/swagger-api/apidom/issues/1317)
+
+
+
+
+
 # [0.21.0](https://github.com/swagger-api/apidom/compare/v0.20.1...v0.21.0) (2022-04-18)
 
 

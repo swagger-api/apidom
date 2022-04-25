@@ -4,7 +4,8 @@ import jsonSchemaMeta from '../common/schema/meta';
 import securitySchemeMeta from './security-scheme/meta';
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
-import channelMeta from './channel-item/meta';
+import channelItemMeta from './channel-item/meta';
+import channelBindingsMeta from './channel-bindings/meta';
 import serversMeta from './servers/meta';
 import externalDocsMeta from './external-documentation/meta';
 import licenseMeta from './license/meta';
@@ -50,7 +51,8 @@ export default {
   operation: operationMeta,
   operationBindings: operationBindingsMeta,
   operationTrait: operationTraitMeta,
-  channelItem: channelMeta,
+  channelItem: channelItemMeta,
+  channelBindings: channelBindingsMeta,
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,
   asyncApiVersion: asyncapiVersionMeta,

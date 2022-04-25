@@ -66,14 +66,6 @@ const operationLintExpected = [
     },
   },
   {
-    range: { start: { line: 33, character: 6 }, end: { line: 33, character: 14 } },
-    message: 'bindings members must be Operation Binding objects',
-    severity: 1,
-    code: 10141,
-    source: 'apilint',
-    data: {},
-  },
-  {
     range: { start: { line: 37, character: 15 }, end: { line: 37, character: 17 } },
     message: '"message" must be a Message Object',
     severity: 1,

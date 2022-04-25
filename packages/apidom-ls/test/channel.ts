@@ -119,95 +119,157 @@ describe('asyncapi channel test', function () {
       {
         items: [
           {
-            target: 'bindings',
+            label: '$ref',
+            insertText: '\\$ref: $1',
+            kind: 14,
+            insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value: 'A reference to an Channel Bindings',
+            },
+          },
+          {
             label: 'http',
             insertText: 'http: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/mastechannel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'ws',
             insertText: 'ws: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets#channel)\n\\\n\\\nProtocol-specific information for a WebSockets channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'kafka',
             insertText: 'kafka: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka#channel)\n\\\n\\\nProtocol-specific information for a Kafka channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'amqp',
             insertText: 'amqp: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp#channel)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'amqp1',
             insertText: 'amqp1: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'mqtt',
             insertText: 'mqtt: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'mqtt5',
             insertText: 'mqtt5: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'nats',
             insertText: 'nats: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'jms',
             insertText: 'jms: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'sns',
             insertText: 'sns: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'sqs',
             insertText: 'sqs: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'stomp',
             insertText: 'stomp: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
+            },
           },
           {
-            target: 'bindings',
             label: 'redis',
             insertText: 'redis: \n  $1',
             kind: 14,
             insertTextFormat: 2,
+            documentation: {
+              kind: 'markdown',
+              value:
+                '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
+            },
           },
         ],
         isIncomplete: false,
@@ -359,10 +421,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 40, character: 4 }, end: { line: 40, character: 12 } },
-        message: 'bindings members must be binding objects',
+        range: { start: { line: 41, character: 12 }, end: { line: 41, character: 15 } },
+        message: '"http" must be a HTTP Channel Binding',
         severity: 1,
-        code: 10133,
+        code: 10242,
         source: 'apilint',
         data: {},
       },

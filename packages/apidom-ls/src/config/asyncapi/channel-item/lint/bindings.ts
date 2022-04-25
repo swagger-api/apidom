@@ -4,10 +4,10 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const channelBindingsLint: LinterMeta = {
   code: ApilintCodes.CHANNEL_BINDINGS,
   source: 'apilint',
-  message: 'bindings members must be binding objects',
+  message: 'bindings must be an object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
-  linterParams: [['channel-binding']],
+  linterFunction: 'apilintElementOrClass',
+  linterParams: ['channelBindings'],
   marker: 'key',
   markerTarget: 'bindings',
   target: 'bindings',

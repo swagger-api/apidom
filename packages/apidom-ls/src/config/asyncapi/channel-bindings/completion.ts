@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A reference to an Operation Bindings',
+      value: 'A reference to an Channel Bindings',
     },
   },
   {
@@ -27,7 +27,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[HTTP Operation Binding](https://github.com/asyncapi/bindings/blob/master/http#operation)\n\\\n\\\nProtocol-specific information for an HTTP operation.',
+        '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/mastechannel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
     },
   },
   {
@@ -40,7 +40,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[WebSockets Operation Binding](https://github.com/asyncapi/bindings/blob/master/websockets#operation)\n\\\n\\\nProtocol-specific information for a WebSockets operation.',
+        '[WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets#channel)\n\\\n\\\nProtocol-specific information for a WebSockets channel.',
     },
   },
   {
@@ -53,7 +53,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Kafka Operation Binding](https://github.com/asyncapi/bindings/blob/master/kafka#operation)\n\\\n\\\nProtocol-specific information for a Kafka operation.',
+        '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka#channel)\n\\\n\\\nProtocol-specific information for a Kafka channel.',
     },
   },
   {
@@ -66,7 +66,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Anypoint MQ Operation Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq#operation)\n\\\n\\\nProtocol-specific information for an Anypoint MQ operation.',
+        '[Anypoint MQ Channel Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq#channel)\n\\\n\\\nProtocol-specific information for an Anypoint MQ channel.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.2.0' },
@@ -83,7 +83,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[AMQP Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp#operation)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 operation.',
+        '[AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp#channel)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 channel.',
     },
   },
   {
@@ -96,7 +96,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[AMQP 1.0 Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#operation)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 operation.',
+        '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
     },
   },
   {
@@ -109,7 +109,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[MQTT Operation Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#operation)\n\\\n\\\nProtocol-specific information for an MQTT operation.',
+        '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
     },
   },
   {
@@ -122,7 +122,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[MQTT 5 Operation Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#operation)\n\\\n\\\nProtocol-specific information for an MQTT 5 operation.',
+        '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
     },
   },
   {
@@ -135,7 +135,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[NATS Operation Binding](https://github.com/asyncapi/bindings/blob/master/nats#operation)\n\\\n\\\nProtocol-specific information for a NATS operation.',
+        '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
     },
   },
   {
@@ -148,7 +148,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[JMS Operation Binding](https://github.com/asyncapi/bindings/blob/master/jms#operation)\n\\\n\\\nProtocol-specific information for a JMS operation.',
+        '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
     },
   },
   {
@@ -161,7 +161,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SNS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sns#operation)\n\\\n\\\nProtocol-specific information for an SNS operation.',
+        '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
     },
   },
   {
@@ -174,7 +174,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Solace Operation Binding](https://github.com/asyncapi/bindings/tree/master/solace#operation-binding-object)\n\\\n\\\nProtocol-specific information for a Solace operation.',
+        '[Solace Channel Binding](https://github.com/asyncapi/bindings/tree/master/solace#channel-binding-object)\n\\\n\\\nProtocol-specific information for a Solace channel.',
     },
     targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
   },
@@ -188,7 +188,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SQS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sqs#operation)\n\\\n\\\nProtocol-specific information for an SQS operation.',
+        '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
     },
   },
   {
@@ -201,7 +201,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[STOMP Operation Binding](https://github.com/asyncapi/bindings/blob/master/stomp#operation)\n\\\n\\\nProtocol-specific information for a STOMP operation.',
+        '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
     },
   },
   {
@@ -214,7 +214,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Redis Operation Binding](https://github.com/asyncapi/bindings/blob/master/redis#operation)\n\\\n\\\nProtocol-specific information for a Redis operation.',
+        '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
     },
   },
   {
@@ -227,7 +227,25 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Mercure Operation Binding](https://github.com/asyncapi/bindings/blob/master/mercure#operation)\n\\\n\\\nProtocol-specific information for a Mercure operation.',
+        '[Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure#channel)\n\\\n\\\nProtocol-specific information for a Mercure channel.',
+    },
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.1.0' },
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+    ],
+  },
+  {
+    label: 'ibmmq',
+    insertText: 'ibmmq',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[IBM MQ Channel Binding](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel-binding-object)\n\\\n\\\nProtocol-specific information for an IBM MQ channel.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/swagger-api/apidom/compare/v0.22.0...v0.23.0) (2022-04-25)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix linting of Operation.bindings ([2a34be9](https://github.com/swagger-api/apidom/commit/2a34be9b2bb591ee172886aa00ecb9f18b158f82)), closes [#1370](https://github.com/swagger-api/apidom/issues/1370)
+
+
+### Features
+
+* **apidom-ls:** add Channel Bindings meta config ([#1374](https://github.com/swagger-api/apidom/issues/1374)) ([f2afc7c](https://github.com/swagger-api/apidom/commit/f2afc7c8d7a133f254be0b13bb1372fe7c627ee3)), closes [#1371](https://github.com/swagger-api/apidom/issues/1371)
+* **apidom-ls:** add Message Bindings docs meta config ([#1375](https://github.com/swagger-api/apidom/issues/1375)) ([5b351a4](https://github.com/swagger-api/apidom/commit/5b351a4b787e2fce5d4e3ec1fa52711396ded77f)), closes [#1314](https://github.com/swagger-api/apidom/issues/1314)
+* **apidom-ls:** add Operation Bindings meta config ([#1372](https://github.com/swagger-api/apidom/issues/1372)) ([51edb6f](https://github.com/swagger-api/apidom/commit/51edb6f6ff332d916a96b24778e197c9c3dea6f9)), closes [#1370](https://github.com/swagger-api/apidom/issues/1370)
+* **apidom-ls:** add Server Bindings docs meta config ([#1373](https://github.com/swagger-api/apidom/issues/1373)) ([6352dad](https://github.com/swagger-api/apidom/commit/6352dadbf00908890d8ff6b741357135e3e9a3fd)), closes [#1315](https://github.com/swagger-api/apidom/issues/1315)
+
+
+
+
+
 # [0.22.0](https://github.com/swagger-api/apidom/compare/v0.21.0...v0.22.0) (2022-04-21)
 
 

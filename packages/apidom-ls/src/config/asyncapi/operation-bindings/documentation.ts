@@ -25,7 +25,7 @@ const documentation = [
   },
   {
     target: 'amqp1',
-    docs: '[AMQP 1.0 Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#operation)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 operaiton.',
+    docs: '[AMQP 1.0 Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#operation)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 operation.',
   },
   {
     target: 'mqtt',

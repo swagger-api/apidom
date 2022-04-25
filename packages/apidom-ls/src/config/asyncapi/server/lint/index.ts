@@ -7,7 +7,7 @@ import serverDescriptionLint from './description';
 import serverVariablesLint from './variables';
 import serverVariablesObjectLint from './variables-object';
 import serverSecurityLint from './security';
-import serverBindingsObjectLint from './bindings-object';
+import serverBindingsObjectLint from './bindings';
 import serverAllowedFieldsLint from './allowed-fields';
 
 const lints = [

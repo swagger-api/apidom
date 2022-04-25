@@ -99,6 +99,14 @@ const operationLintExpected = [
     },
   },
   {
+    code: 10226,
+    data: {},
+    message: '"kafka" must be a Kafka Operation Binding',
+    range: { end: { character: 16, line: 34 }, start: { character: 15, line: 34 } },
+    severity: 1,
+    source: 'apilint',
+  },
+  {
     range: { start: { line: 54, character: 13 }, end: { line: 54, character: 16 } },
     message: '"publish" must be an operation',
     severity: 1,

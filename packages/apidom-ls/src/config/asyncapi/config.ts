@@ -14,6 +14,7 @@ import serverVariableMeta from './server-variable/meta';
 import channelsMeta from './channels/meta';
 import parameterMeta from './parameter/meta';
 import operationMeta from './operation/meta';
+import operationBindingsMeta from './operation-bindings/meta';
 import operationTraitMeta from './operation-trait/meta';
 import serverBindingsMeta from './server-bindings/meta';
 import httpServerBindingMeta from './http-server-binding/meta';
@@ -47,6 +48,7 @@ export default {
   contact: contactMeta,
   license: licenseMeta,
   operation: operationMeta,
+  operationBindings: operationBindingsMeta,
   operationTrait: operationTraitMeta,
   channelItem: channelMeta,
   channels: channelsMeta,

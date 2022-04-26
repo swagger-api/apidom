@@ -2,9 +2,9 @@ import {
   ApidomCompletionItem,
   CompletionFormat,
   CompletionType,
-} from '../../../../apidom-language-types';
+} from '../../../apidom-language-types';
 
-const contactComplete: ApidomCompletionItem[] = [
+const completion: ApidomCompletionItem[] = [
   {
     label: 'name',
     insertText: 'name',
@@ -26,7 +26,7 @@ const contactComplete: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The URL pointing to the contact information. **MUST** be in the format of a URL.',
+      value: 'The URL pointing to the contact information. This MUST be in the form of a URL.',
     },
   },
   {
@@ -39,9 +39,9 @@ const contactComplete: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The email address of the contact person/organization. **MUST** be in the format of an email address.',
+        'The email address of the contact person/organization. This MUST be in the form of an email address.',
     },
   },
 ];
 
-export default contactComplete;
+export default completion;

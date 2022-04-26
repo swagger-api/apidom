@@ -361,11 +361,26 @@ describe('apidom-ls', function () {
         code: 0,
         source: 'openapi schema',
       },
+      {
+        code: 10152,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 8,
+            line: 3,
+          },
+          start: {
+            character: 2,
+            line: 3,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
     doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
-
     assert.deepEqual(result, [
       {
         range: { start: { line: 16, character: 5 }, end: { line: 16, character: 6 } },
@@ -373,6 +388,22 @@ describe('apidom-ls', function () {
         severity: 1,
         code: 0,
         source: 'syntax',
+      },
+      {
+        code: 10152,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 8,
+            line: 3,
+          },
+          start: {
+            character: 2,
+            line: 3,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
       },
     ]);
   });

@@ -257,6 +257,7 @@ enum ApilintCodes {
   CHANNEL_BINDING_REDIS,
   CHANNEL_BINDING_MERCURE,
   CHANNEL_BINDING_IBMMQ,
+  INFO_SUMMARY,
 }
 
 export default ApilintCodes;

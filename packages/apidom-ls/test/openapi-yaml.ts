@@ -63,14 +63,13 @@ const completionTestInput = [
     {
       items: [
         {
-          label: 'license',
-          insertText: 'license: \n  $1',
+          label: 'summary',
+          insertText: 'summary: $1',
           kind: 14,
           insertTextFormat: 2,
           documentation: {
             kind: 'markdown',
-            value:
-              '[License Object](https://www.asyncapi.com/docs/specifications/v2.2.0#licenseObject) - License information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+            value: 'A short summary of the API.',
           },
         },
         {
@@ -81,7 +80,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+              'A description of the API. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
           },
         },
         {
@@ -91,7 +90,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           documentation: {
             kind: 'markdown',
-            value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+            value: 'A URL to the Terms of Service for the API. This MUST be in the form of a URL.',
           },
         },
         {
@@ -102,7 +101,18 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.2.0#contactObject) - Contact information for the exposed API.\n\n ---- \n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.2.0#specificationExtensions).',
+              '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
+          },
+        },
+        {
+          label: 'license',
+          insertText: 'license: \n  $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
           },
         },
       ],
@@ -365,6 +375,22 @@ describe('apidom-ls-yaml', function () {
         severity: 1,
         code: 0,
         source: 'openapi schema',
+      },
+      {
+        code: 10152,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 4,
+            line: 3,
+          },
+          start: {
+            character: 0,
+            line: 3,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

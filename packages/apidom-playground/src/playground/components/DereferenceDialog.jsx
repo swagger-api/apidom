@@ -1,30 +1,27 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSystemSelector, useSystemActionCreatorBound } from 'swagger-adjust';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
-import DialogContent from '@material-ui/core/DialogContent';
-import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import Slide from '@mui/material/Slide';
+import DialogContent from '@mui/material/DialogContent';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
+const Title = styled(Typography)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+  flex: 1,
 }));
 
 const Transition = React.forwardRef(
@@ -32,7 +29,6 @@ const Transition = React.forwardRef(
 );
 
 const ApiDOMInterpreterDialog = ({ open, onClose }) => {
-  const classes = useStyles();
   const inputRef = useRef();
   const source = useSystemSelector('playground', 'selectSource');
   const apiDOM = useSystemSelector('playground', 'selectApiDOM');
@@ -65,16 +61,15 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition}
     >
-      <AppBar className={classes.appBar}>
+      <AppBar>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Dereferenced ApiDOM
-          </Typography>
+          <Title variant="h6">Dereferenced ApiDOM</Title>
         </Toolbar>
       </AppBar>
+      <Offset />
       <DialogContent>
         <FormControl fullWidth>
           <OutlinedInput

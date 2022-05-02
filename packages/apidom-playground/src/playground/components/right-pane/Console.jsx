@@ -1,25 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { useSystemSelector, useSystemActionCreatorBound } from 'swagger-adjust';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import BlockIcon from '@material-ui/icons/Block';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@mui/material/TextField';
+import MUIIconButton from '@mui/material/IconButton';
+import BlockIcon from '@mui/icons-material/Block';
+import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  input: {
-    ...theme.typography.caption,
-    marginBottom: theme.spacing(1.5),
-  },
-  cleanButton: {
-    position: 'absolute',
-    right: theme.spacing(2.6),
-    bottom: theme.spacing(2),
-  },
+const IconButton = styled(MUIIconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: theme.spacing(2.6),
+  bottom: theme.spacing(2),
 }));
 
 const Console = () => {
-  const classes = useStyles();
   const consoleContent = useSystemSelector('playground', 'selectConsole');
   const clearConsole = useSystemActionCreatorBound('playground', 'clearConsole');
   const inputRef = useRef();
@@ -45,21 +38,18 @@ const Console = () => {
         inputRef={inputRef}
         InputProps={{
           readOnly: true,
-          classes: {
-            input: classes.input,
-          },
+          sx: (theme) => ({
+            height: 190.5,
+            ...theme.typography.caption,
+            marginBottom: 0,
+          }),
         }}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <Tooltip title="Clear console">
-        <IconButton
-          aria-label="Clear console"
-          size="small"
-          className={classes.cleanButton}
-          onClick={handleClearConsole}
-        >
+        <IconButton aria-label="Clear console" size="small" onClick={handleClearConsole}>
           <BlockIcon />
         </IconButton>
       </Tooltip>

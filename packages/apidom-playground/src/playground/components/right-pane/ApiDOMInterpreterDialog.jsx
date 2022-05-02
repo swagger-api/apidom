@@ -1,27 +1,24 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSystemSelector, useSystemActionCreatorBound } from 'swagger-adjust';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import Slide from '@mui/material/Slide';
+import Button from '@mui/material/Button';
+import DialogContent from '@mui/material/DialogContent';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+
+const Title = styled(Typography)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+  flex: 1,
 }));
 
 const Transition = React.forwardRef(
@@ -29,7 +26,6 @@ const Transition = React.forwardRef(
 );
 
 const ApiDOMInterpreterDialog = ({ open, onClose }) => {
-  const classes = useStyles();
   const inputRef = useRef();
   const interpreter = useSystemSelector('playground', 'selectInterpreter');
   const interpretApiDOM = useSystemActionCreatorBound('playground', 'interpretApiDOM');
@@ -47,19 +43,18 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition}
     >
-      <AppBar className={classes.appBar}>
+      <AppBar>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Interpret ApiDOM
-          </Typography>
+          <Title variant="h6">Interpret ApiDOM</Title>
           <Button autoFocus color="inherit" onClick={handleInterpret}>
             Interpret
           </Button>
         </Toolbar>
       </AppBar>
+      <Offset />
       <DialogContent>
         <FormControl fullWidth>
           <OutlinedInput

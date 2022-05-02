@@ -1,18 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSystemSelector, useSystemActionCreatorBound } from 'swagger-adjust';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(() => ({
-  outlinedInput: {
-    height: '100%',
-  },
-}));
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 const Editor = ({ className }) => {
-  const classes = useStyles();
   const source = useSystemSelector('playground', 'selectSource');
   const setSource = useSystemActionCreatorBound('playground', 'setSource');
 
@@ -27,8 +19,10 @@ const Editor = ({ className }) => {
           fullWidth
           multiline
           id="input"
+          sx={{
+            height: '100%',
+          }}
           value={source}
-          className={classes.outlinedInput}
           onChange={handleEditorChange}
           inputProps={{
             style: { display: 'block', height: '100%', overflow: 'auto' },

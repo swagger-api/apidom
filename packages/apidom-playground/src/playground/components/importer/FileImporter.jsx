@@ -1,28 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { useSystemActionCreatorBound } from 'swagger-adjust';
-import { makeStyles } from '@material-ui/core/styles';
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import DescriptionIcon from '@material-ui/icons/Description';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
+import MUISpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import { styled } from '@mui/material/styles';
 
 import UrlImportDialog from './UrlImportDialog.jsx';
 
-const useStyles = makeStyles((theme) => ({
-  speedDial: {
-    position: 'absolute',
-    top: theme.spacing(10),
-    left: theme.spacing(1),
-  },
-  fileInput: {
-    display: 'none',
-  },
+const SpeedDial = styled(MUISpeedDial)(({ theme }) => ({
+  position: 'absolute',
+  top: theme.spacing(10),
+  left: theme.spacing(1),
 }));
 
+const FileInput = styled('input')({
+  display: 'none',
+});
+
 const FileImporter = () => {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openUrlImportDialog, setUrlImportDialogOpen] = useState(false);
   const fileUploadRef = useRef();
@@ -68,16 +66,10 @@ const FileImporter = () => {
 
   return (
     <>
-      <input
-        className={classes.fileInput}
-        ref={fileUploadRef}
-        onChange={handleFileUpload}
-        type="file"
-      />
+      <FileInput ref={fileUploadRef} onChange={handleFileUpload} type="file" />
       <UrlImportDialog open={openUrlImportDialog} onClose={handleUrlDialogClose} />
       <SpeedDial
         ariaLabel="Import file"
-        className={classes.speedDial}
         icon={<SpeedDialIcon openIcon={<DescriptionIcon />} />}
         onClose={handleClose}
         onOpen={handleOpen}

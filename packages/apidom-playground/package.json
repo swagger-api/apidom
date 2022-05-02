@@ -42,7 +42,7 @@
     "ramda": "^0.28.0",
     "ramda-adjunct": "^3.0.0",
     "react": "^18.1.0",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.1.0",
     "react-redux": "^8.0.0",
     "swagger-adjust": "=0.4.1",
     "web-vitals": "^2.1.2"

@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import * as Complink from 'comlink';
 import System, { SystemContext, useSystemComponent } from 'swagger-adjust';
 
@@ -28,6 +29,7 @@ const system = new System({
   },
 });
 const store = system.getStore();
+const themeInstance = createTheme();
 
 const App = () => {
   const Playground = useSystemComponent('Playground');
@@ -35,16 +37,20 @@ const App = () => {
   return <Playground />;
 };
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+
+root.render(
   <React.StrictMode>
     <SystemContext.Provider value={system.getSystem}>
       <CssBaseline />
       <Provider store={store}>
-        <App />
+        <ThemeProvider theme={themeInstance}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </SystemContext.Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

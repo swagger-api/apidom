@@ -21,9 +21,10 @@
     "clean": "rimraf ./build"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@emotion/react": "=11.9.0",
+    "@emotion/styled": "=11.8.1",
+    "@mui/icons-material": "=5.6.2",
+    "@mui/material": "=5.6.3",
     "@swagger-api/apidom-ast": "*",
     "@swagger-api/apidom-core": "*",
     "@swagger-api/apidom-ns-asyncapi-2": "*",
@@ -44,7 +45,7 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.0",
-    "swagger-adjust": "=0.4.1",
+    "swagger-adjust": "^0.5.0",
     "web-vitals": "^2.1.2"
   },
   "devDependencies": {

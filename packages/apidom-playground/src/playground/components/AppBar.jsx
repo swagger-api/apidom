@@ -1,26 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import MUIAppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import MUIAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
+const StyledMUIAppBar = styled(MUIAppBar)(({ theme }) => {
+  return {
     zIndex: theme.zIndex.drawer + 1,
-  },
-}));
+  };
+});
 
 const AppBar = () => {
-  const classes = useStyles();
-
   return (
-    <MUIAppBar className={classes.root} position="sticky">
+    <StyledMUIAppBar position="sticky">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          ApiDOM Playground
-        </Typography>
+        <Typography variant="h6">ApiDOM Playground</Typography>
       </Toolbar>
-    </MUIAppBar>
+    </StyledMUIAppBar>
   );
 };
 

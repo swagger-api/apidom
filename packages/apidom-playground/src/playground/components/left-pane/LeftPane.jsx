@@ -1,31 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { useSystemComponent } from 'swagger-adjust';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: theme.spacing(2),
-  },
-  editor: {
-    flexGrow: 1,
-    display: 'flex',
-  },
+const Root = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: theme.spacing(2),
 }));
 
+const styledEditor = (component) =>
+  styled(component)({
+    flexGrow: 1,
+    display: 'flex',
+  });
+
 const LeftPane = ({ className }) => {
-  const classes = useStyles();
-  const Editor = useSystemComponent('Editor');
+  const Editor = styledEditor(useSystemComponent('Editor'));
   const EditorControls = useSystemComponent('EditorControls');
 
   return (
-    <div className={classNames(className, classes.root)}>
-      <Editor className={classes.editor} />
+    <Root className={className}>
+      <Editor />
       <EditorControls />
-    </div>
+    </Root>
   );
 };
 

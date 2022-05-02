@@ -1,27 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSystemComponent } from 'swagger-adjust';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import LaunchIcon from '@material-ui/icons/Launch';
+import MUIBox from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import MUIIconButton from '@mui/material/IconButton';
+import LaunchIcon from '@mui/icons-material/Launch';
+import { styled } from '@mui/material/styles';
 
-/* eslint-disable react/no-danger */
+const Box = styled(MUIBox)(({ theme }) => ({
+  ...theme.typography.body2,
+}));
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    fontSize: '1rem',
-  },
-  launchButtonTooltip: {
-    position: 'absolute',
-    right: theme.spacing(-1),
-    bottom: theme.spacing(0),
-  },
+const IconButton = styled(MUIIconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: theme.spacing(-1),
+  bottom: theme.spacing(0),
 }));
 
 const ApiDOM = ({ apiDOM }) => {
-  const classes = useStyles();
   const ApiDOMInterpreterDialog = useSystemComponent('ApiDOMInterpreterDialog');
   const [openInterpreterDialog, setInterpreterDialogOpen] = useState(false);
 
@@ -35,31 +31,33 @@ const ApiDOM = ({ apiDOM }) => {
 
   return (
     <Box
-      flexGrow="1"
-      flexDirection="column"
-      className={classes.root}
-      borderColor="grey.400"
-      p={1.5}
-      pt={2}
-      pb={0}
-      borderRadius="borderRadius"
-      border={1}
-      display="flex"
-      overflow="hidden"
+      sx={{
+        fontSize: '1rem',
+        flexGrow: 1,
+        flexDirection: 'column',
+        p: 1.5,
+        pt: 2,
+        pb: 0,
+        border: '1px solid #A3A3A3',
+        borderRadius: 1,
+        display: 'flex',
+        overflow: 'hidden',
+      }}
     >
       <Box
-        flexDirection="column"
-        flexGrow="1"
-        overflow="auto"
-        whiteSpace="pre"
+        sx={{
+          flexDirection: 'column',
+          flexGrow: 1,
+          overflow: 'auto',
+          whiteSpace: 'pre',
+        }}
         dangerouslySetInnerHTML={{ __html: apiDOM }}
       />
-      <Box minHeight={28} position="relative">
+      <Box sx={{ minHeight: 28, position: 'relative' }}>
         <Tooltip title="Interpret ApiDOM">
           <IconButton
             aria-label="Interpret ApiDOM"
             size="small"
-            className={classes.launchButtonTooltip}
             onClick={handleInterpreterDialogOpen}
           >
             <LaunchIcon />

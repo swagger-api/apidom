@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import { useSystemActionCreatorBound, useSystemComponent, useSystemSelector } from 'swagger-adjust';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
+import MUIPaper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import MUIFormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(1),
-  },
-  formControl: {
-    width: '100%',
-  },
-  buttons: {
-    marginTop: theme.spacing(2),
-  },
+const Paper = styled(MUIPaper)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  padding: theme.spacing(1),
 }));
 
+const FormControl = styled(MUIFormControl)({
+  width: '100%',
+});
+
 const EditorControls = () => {
-  const classes = useStyles();
   const baseURI = useSystemSelector('playground', 'selectBaseURI');
   const mediaType = useSystemSelector('playground', 'selectMediaType');
   const canParse = useSystemSelector('playground', 'selectCanParse');
@@ -73,14 +68,20 @@ const EditorControls = () => {
   };
 
   return (
-    <Paper variant="outlined" className={classes.root}>
+    <Paper variant="outlined">
       <form noValidate autoComplete="off">
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextField fullWidth label="Base URI" onChange={handleBaseURIChange} value={baseURI} />
+            <TextField
+              fullWidth
+              variant="standard"
+              label="Base URI"
+              onChange={handleBaseURIChange}
+              value={baseURI}
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl className={classes.formControl}>
+            <FormControl variant="standard">
               <InputLabel id="media-type-label">Media Type</InputLabel>
               <Select
                 labelId="media-type-label"
@@ -110,7 +111,7 @@ const EditorControls = () => {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        className={classes.buttons}
+        sx={{ marginTop: (theme) => theme.spacing(2) }}
       >
         <Grid item>
           <ButtonGroup

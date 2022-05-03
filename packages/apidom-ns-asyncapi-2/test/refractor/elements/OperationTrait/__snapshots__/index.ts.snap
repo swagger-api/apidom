@@ -30,6 +30,13 @@ exports[`refractor elements OperationTraitElement should refract to semantic Api
     (StringElement))
   (MemberElement
     (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement)))))
+  (MemberElement
+    (StringElement)
     (TagsElement))
   (MemberElement
     (StringElement)

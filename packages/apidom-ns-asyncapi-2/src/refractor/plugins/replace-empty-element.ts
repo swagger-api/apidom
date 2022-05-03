@@ -11,7 +11,7 @@ import {
 
 import mediaTypes from '../../media-types';
 /**
- * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
  */
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
 import IdentifierElement from '../../elements/Identifier';
@@ -133,6 +133,8 @@ import WebSocketOperationBindingElement from '../../elements/bindings/ws/WebSock
 import WebSocketServerBindingElement from '../../elements/bindings/ws/WebSocketServerBinding';
 // non-concrete Elements (NCEs)
 import ComponentsSchemasElement from '../../elements/nces/ComponentsSchemas';
+import ComponentsServersElement from '../../elements/nces/ComponentsServers';
+import ComponentsServerVariablesElement from '../../elements/nces/ComponentsServerVariables';
 import ComponentsMessagesElement from '../../elements/nces/ComponentsMessages';
 import ComponentsSecuritySchemesElement from '../../elements/nces/ComponentsSecuritySchemes';
 import ComponentsParametersElement from '../../elements/nces/ComponentsParameters';
@@ -150,6 +152,8 @@ import OperationTraitsElement from '../../elements/nces/OperationTraits';
 import ServerSecurityElement from '../../elements/nces/ServerSecurity';
 import OperationMessageMapElement from '../../elements/nces/OperationMessageMap';
 import OperationMessageElement from '../../elements/nces/OperationMessage';
+import OperationSecurityElement from '../../elements/nces/OperationSecurity';
+import OperationTraitSecurityElement from '../../elements/nces/OperationTraitSecurity';
 import MessageExamplesElement from '../../elements/nces/MessageExamples';
 import MessageTraitsElement from '../../elements/nces/MessageTraits';
 import MessageTraitExamplesElement from '../../elements/nces/MessageTraitExamples';
@@ -165,7 +169,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * asyncapi: 2.3.0
+ * asyncapi: 2.4.0
  * info:
  * ```
  * Refracting result without this plugin:
@@ -302,6 +306,12 @@ const schema = {
   ComponentsElement: {
     schemas(...args: any[]) {
       return new ComponentsSchemasElement(...args);
+    },
+    servers(...args: any[]) {
+      return new ComponentsServersElement(...args);
+    },
+    serverVariables(...args: any[]) {
+      return new ComponentsServerVariablesElement(...args);
     },
     messages(...args: any[]) {
       return new ComponentsMessagesElement(...args);
@@ -803,6 +813,16 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  [ComponentsServersElement.primaryClass]: {
+    '[key: *]': function key(...args: any[]) {
+      return new ServerElement(...args);
+    },
+  },
+  [ComponentsServerVariablesElement.primaryClass]: {
+    '[key: *]': function key(...args: any[]) {
+      return new ServerVariablesElement(...args);
+    },
+  },
   [ComponentsMessagesElement.primaryClass]: {
     '[key: *]': function key(...args: any[]) {
       return new MessageElement(...args);
@@ -881,6 +901,16 @@ const schema = {
   [OperationMessageElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
       return new MessageElement(...args);
+    },
+  },
+  [OperationSecurityElement.primaryClass]: {
+    '<*>': function asterisk(...args: any[]) {
+      return new SecurityRequirementElement(...args);
+    },
+  },
+  [OperationTraitSecurityElement.primaryClass]: {
+    '<*>': function asterisk(...args: any[]) {
+      return new SecurityRequirementElement(...args);
     },
   },
   [MessageExamplesElement.primaryClass]: {

@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -125,7 +125,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',

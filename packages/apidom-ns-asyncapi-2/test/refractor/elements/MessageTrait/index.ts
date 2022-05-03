@@ -8,6 +8,7 @@ describe('refractor', function () {
     context('MessageTraitElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const messageTraitElement = MessageTraitElement.refract({
+          messageId: 'unique-id',
           schemaFormat: 'application/schema+json;version=draft-07',
           contentType: 'application/json',
           name: 'message-trait-name',

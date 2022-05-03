@@ -22,6 +22,9 @@ exports[`refractor elements MessageTraitElement should refract to semantic ApiDO
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (TagsElement))
   (MemberElement
     (StringElement)

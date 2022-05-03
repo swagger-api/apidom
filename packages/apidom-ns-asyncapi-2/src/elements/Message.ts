@@ -14,6 +14,14 @@ class Message extends ObjectElement {
     this.element = 'message';
   }
 
+  get messageId(): StringElement | undefined {
+    return this.get('messageId');
+  }
+
+  set messageId(messageId: StringElement | undefined) {
+    this.set('messageId', messageId);
+  }
+
   get headers(): SchemaElement | ReferenceElement | undefined {
     return this.get('headers');
   }

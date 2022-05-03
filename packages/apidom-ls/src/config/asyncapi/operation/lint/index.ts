@@ -7,7 +7,8 @@ import operationBindingsLint from './bindings';
 import operationTraitsLint from './traits';
 import operationMessageLint from './message';
 import operationIdUniqueLint from './operationid-unique';
-import operationAllowedFieldsLint from './allowed-fields';
+import operationAllowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
+import operationAllowedFields2_4Lint from './allowed-fields-2-4';
 
 const lints = [
   operationIdLint,
@@ -19,7 +20,8 @@ const lints = [
   operationTraitsLint,
   operationMessageLint,
   operationIdUniqueLint,
-  operationAllowedFieldsLint,
+  operationAllowedFields2_0__2_3Lint,
+  operationAllowedFields2_4Lint,
 ];
 
 export default lints;

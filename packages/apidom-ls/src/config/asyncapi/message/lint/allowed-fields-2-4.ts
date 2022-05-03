@@ -1,7 +1,7 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const operationAllowedFieldsLint: LinterMeta = {
+const messageAllowedFieldsLint: LinterMeta = {
   code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
@@ -9,18 +9,27 @@ const operationAllowedFieldsLint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [
     [
-      'operationId',
+      'messageId',
+      'headers',
       'description',
       'summary',
       'tags',
       'externalDocs',
       'bindings',
       'traits',
-      'message',
+      'payload',
+      'correlationId',
+      'schemaFormat',
+      'contentType',
+      'name',
+      'title',
+      'examples',
+      '$ref',
     ],
     'x-',
   ],
   marker: 'key',
+  targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
 };
 
-export default operationAllowedFieldsLint;
+export default messageAllowedFieldsLint;

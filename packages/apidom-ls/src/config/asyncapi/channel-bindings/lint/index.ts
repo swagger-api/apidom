@@ -2,7 +2,7 @@ import channelBindings$RefLint from './ref';
 import channelBindingsRefNonSiblingsLint from './ref-non-siblings';
 import channelBindingsAllowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import channelBindingsAllowedFields2_2Lint from './allowed-fields-2-2';
-import channelBindingsAllowedFields2_3Lint from './allowed-fields-2-3';
+import channelBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
 import httpLint from './http';
 import ibmmqLint from './ibmmq';
 import amqpLint from './amqp';
@@ -24,7 +24,7 @@ import wsLint from './ws';
 const lints = [
   channelBindingsAllowedFields2_0__2_1Lint,
   channelBindingsAllowedFields2_2Lint,
-  channelBindingsAllowedFields2_3Lint,
+  channelBindingsAllowedFields2_3__2_4Lint,
   channelBindings$RefLint,
   channelBindingsRefNonSiblingsLint,
   httpLint,

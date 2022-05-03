@@ -15,6 +15,7 @@ const schemaDeprecatedLint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.1.0' },
     { namespace: 'asyncapi', version: '2.2.0' },
     { namespace: 'asyncapi', version: '2.3.0' },
+    { namespace: 'asyncapi', version: '2.4.0' },
   ],
   data: {},
 };

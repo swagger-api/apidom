@@ -67,7 +67,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's URL template.",
+        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's URL template.",
     },
   },
   {
@@ -80,7 +80,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Security Requirement Object](https://www.asyncapi.com/docs/specifications/v2.3.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used with this server. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a connection or operation.',
+        '[[Security Requirement Object](https://www.asyncapi.com/docs/specifications/v2.4.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used with this server. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a connection or operation.',
     },
   },
   {
@@ -93,7 +93,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Server Bindings Object](https://www.asyncapi.com/docs/specifications/v2.3.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.3.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
+        '[Server Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
     },
   },
   {

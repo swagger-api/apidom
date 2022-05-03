@@ -2,7 +2,7 @@ import serverBindings$RefLint from './ref';
 import serverBindingsRefNonSiblingsLint from './ref-non-siblings';
 import serverBindingsAllowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import serverBindingsAllowedFields2_2Lint from './allowed-fields-2-2';
-import serverBindingsAllowedFields2_3Lint from './allowed-fields-2-3';
+import serverBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
 import httpLint from './http';
 import amqpLint from './amqp';
 import amqp1Lint from './amqp1';
@@ -24,7 +24,7 @@ import wsLint from './ws';
 const lints = [
   serverBindingsAllowedFields2_0__2_1Lint,
   serverBindingsAllowedFields2_2Lint,
-  serverBindingsAllowedFields2_3Lint,
+  serverBindingsAllowedFields2_3__2_4Lint,
   serverBindings$RefLint,
   serverBindingsRefNonSiblingsLint,
   httpLint,

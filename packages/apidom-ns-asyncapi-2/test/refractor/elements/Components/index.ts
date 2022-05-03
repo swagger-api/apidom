@@ -20,6 +20,15 @@ describe('refractor', function () {
               $ref: '#/path/to/production/server',
             },
           },
+          serverVariables: {
+            port: {
+              enum: ['8883', '8884'],
+              default: '8883',
+            },
+            port1: {
+              $ref: '#/components/serverVariables/port',
+            },
+          },
           channels: {
             channel1: {},
           },

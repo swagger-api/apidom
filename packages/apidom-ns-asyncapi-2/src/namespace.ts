@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from 'minim';
 
 /**
- * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -130,7 +130,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+     * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);

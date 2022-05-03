@@ -22,6 +22,9 @@ exports[`refractor elements MessageElement should refract to semantic ApiDOM tre
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (TagsElement))
   (MemberElement
     (StringElement)

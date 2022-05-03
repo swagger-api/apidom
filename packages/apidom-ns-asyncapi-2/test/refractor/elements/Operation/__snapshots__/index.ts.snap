@@ -81,6 +81,13 @@ exports[`refractor elements OperationElement should refract to semantic ApiDOM t
     (StringElement))
   (MemberElement
     (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement)))))
+  (MemberElement
+    (StringElement)
     (TagsElement))
   (MemberElement
     (StringElement)

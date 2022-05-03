@@ -15,6 +15,22 @@ class Components extends ObjectElement {
     this.set('schemas', schemas);
   }
 
+  get servers(): ObjectElement | undefined {
+    return this.get('servers');
+  }
+
+  set servers(servers: ObjectElement | undefined) {
+    this.set('servers', servers);
+  }
+
+  get serverVariables(): ObjectElement | undefined {
+    return this.get('serverVariables');
+  }
+
+  set serverVariables(serverVariables: ObjectElement | undefined) {
+    this.set('serverVariables', serverVariables);
+  }
+
   get messages(): ObjectElement | undefined {
     return this.get('messages');
   }

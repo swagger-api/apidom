@@ -14,6 +14,14 @@ class MessageTrait extends ObjectElement {
     this.element = 'messageTrait';
   }
 
+  get messageId(): StringElement | undefined {
+    return this.get('messageId');
+  }
+
+  set messageId(messageId: StringElement | undefined) {
+    this.set('messageId', messageId);
+  }
+
   get headers(): SchemaElement | ReferenceElement | undefined {
     return this.get('headers');
   }

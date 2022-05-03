@@ -8,13 +8,13 @@ export class AsyncAPIMediaTypes extends MediaTypes<string> {
 
   latest(format = 'generic') {
     if (format === 'json') {
-      return this[7];
+      return this[13];
     }
     if (format === 'yaml') {
-      return this[8];
+      return this[14];
     }
 
-    return this[6];
+    return this[12];
   }
 }
 
@@ -31,6 +31,9 @@ const mediaTypes = new AsyncAPIMediaTypes(
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.3.0',
   'application/vnd.aai.asyncapi+yaml;version=2.3.0',
+  'application/vnd.aai.asyncapi;version=2.4.0',
+  'application/vnd.aai.asyncapi+json;version=2.4.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.4.0',
 );
 
 export default mediaTypes;

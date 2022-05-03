@@ -1,7 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -105,6 +105,7 @@ import ExternalDocumentationUrlVisitor from './visitors/async-api-2/external-doc
 import ComponentsVisitor from './visitors/async-api-2/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2/components/SchemasVisitor';
 import ComponentsServersVisitor from './visitors/async-api-2/components/ServersVisitor';
+import ComponentsServerVariablesVisitor from './visitors/async-api-2/components/ServerVariablesVisitor';
 import ComponentsChannelsVisitor from './visitors/async-api-2/components/ChannelsVisitor';
 import ComponentsMessagesVisitor from './visitors/async-api-2/components/MessagesVisitor';
 import ComponentsSecuritySchemesVisitor from './visitors/async-api-2/components/SecuritySchemesVisitor';
@@ -120,6 +121,7 @@ import OperationVisitor from './visitors/async-api-2/operation';
 import OperationOperationIdVisitor from './visitors/async-api-2/operation/OperationIdVisitor';
 import OperationSummaryVisitor from './visitors/async-api-2/operation/SummaryVisitor';
 import OperationDescriptionVisitor from './visitors/async-api-2/operation/DescriptionVisitor';
+import OperationSecurityVisitor from './visitors/async-api-2/operation/SecurityVisitor';
 import OperationBindingsVisitor_ from './visitors/async-api-2/operation/BindingsVisitor';
 import OperationTraitsVisitor from './visitors/async-api-2/operation/TraitsVisitor';
 import OperationMessageVisitor from './visitors/async-api-2/operation/MessageVisitor';
@@ -141,6 +143,7 @@ import MessageExamplePayloadVisitor from './visitors/async-api-2/message-example
 import MessageExampleNameVisitor from './visitors/async-api-2/message-example/NameVisitor';
 import MessageExampleSummaryVisitor from './visitors/async-api-2/message-example/SummaryVisitor';
 import MessageTraitVisitor from './visitors/async-api-2/message-trait';
+import MessageTraitMessageIdVisitor from './visitors/async-api-2/message-trait/MessageIdVisitor';
 import MessageTraitHeadersVisitor from './visitors/async-api-2/message-trait/HeadersVisitor';
 import MessageTraitCorrelationIdVisitor from './visitors/async-api-2/message-trait/CorrelationIdVisitor';
 import MessageTraitSchemaFormatVisitor from './visitors/async-api-2/message-trait/SchemaFormatVisitor';
@@ -152,6 +155,7 @@ import MessageTraitDescriptionVisitor from './visitors/async-api-2/message-trait
 import MessageTraitBindingsVisitor from './visitors/async-api-2/message-trait/BindingsVisitor';
 import MessageTraitExamplesVisitor from './visitors/async-api-2/message-trait/ExamplesVisitor';
 import MessageVisitor from './visitors/async-api-2/message';
+import MessageMessageIdVisitor from './visitors/async-api-2/message/MessageIdVisitor';
 import MessageHeadersVisitor from './visitors/async-api-2/message/HeadersVisitor';
 import MessagePayloadVisitor from './visitors/async-api-2/message/PayloadVisitor';
 import MessageCorrelationIdVisitor from './visitors/async-api-2/message/CorrelationIdVisitor';
@@ -169,6 +173,7 @@ import OperationTraitVisitor from './visitors/async-api-2/operation-trait';
 import OperationTraitOperationIdVisitor from './visitors/async-api-2/operation-trait/OperationIdVisitor';
 import OperationTraitSummaryVisitor from './visitors/async-api-2/operation-trait/SummaryVisitor';
 import OperationTraitDescriptionVisitor from './visitors/async-api-2/operation-trait/DescriptionVisitor';
+import OperationTraitSecurityVisitor from './visitors/async-api-2/operation-trait/SecurityVisitor';
 import OperationTraitBindingsVisitor from './visitors/async-api-2/operation-trait/BindingsVisitor';
 /**
  * Binding elements.
@@ -327,7 +332,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi 2.3.0 | 2.2.0 | 2.1.0 | 2.0.0 specification elements.
+         * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -451,6 +456,7 @@ const specification = {
             operationId: OperationOperationIdVisitor,
             summary: OperationSummaryVisitor,
             description: OperationDescriptionVisitor,
+            security: OperationSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -468,6 +474,7 @@ const specification = {
             operationId: OperationTraitOperationIdVisitor,
             summary: OperationTraitSummaryVisitor,
             description: OperationTraitDescriptionVisitor,
+            security: OperationTraitSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -480,6 +487,7 @@ const specification = {
         Message: {
           $visitor: MessageVisitor,
           fixedFields: {
+            messageId: MessageMessageIdVisitor,
             headers: MessageHeadersVisitor,
             payload: MessagePayloadVisitor,
             correlationId: MessageCorrelationIdVisitor,
@@ -503,6 +511,7 @@ const specification = {
         MessageTrait: {
           $visitor: MessageTraitVisitor,
           fixedFields: {
+            messageId: MessageTraitMessageIdVisitor,
             headers: MessageTraitHeadersVisitor,
             correlationId: MessageTraitCorrelationIdVisitor,
             schemaFormat: MessageTraitSchemaFormatVisitor,
@@ -555,6 +564,7 @@ const specification = {
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
             servers: ComponentsServersVisitor,
+            serverVariables: ComponentsServerVariablesVisitor,
             channels: ComponentsChannelsVisitor,
             messages: ComponentsMessagesVisitor,
             securitySchemes: ComponentsSecuritySchemesVisitor,

@@ -37,6 +37,14 @@ class Operation extends ObjectElement {
     this.set('description', description);
   }
 
+  get security(): ArrayElement {
+    return this.get('security');
+  }
+
+  set security(security: ArrayElement) {
+    this.set('security', security);
+  }
+
   get tags(): TagsElement | undefined {
     return this.get('tags');
   }

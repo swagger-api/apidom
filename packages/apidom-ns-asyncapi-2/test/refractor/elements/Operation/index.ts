@@ -11,6 +11,7 @@ describe('refractor', function () {
           operationId: 'operation-operationId',
           summary: 'operation-summary',
           description: 'operation-description',
+          security: [{ user_pass: [] }],
           tags: [],
           externalDocs: {},
         });

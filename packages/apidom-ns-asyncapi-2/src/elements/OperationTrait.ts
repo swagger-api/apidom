@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { StringElement, ObjectElement } from '@swagger-api/apidom-core';
+import { StringElement, ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
 
 import TagsElement from './Tags';
 import ExternalDocumentationElement from './ExternalDocumentation';
@@ -34,6 +34,14 @@ class OperationTrait extends ObjectElement {
 
   set description(description: StringElement) {
     this.set('description', description);
+  }
+
+  get security(): ArrayElement {
+    return this.get('security');
+  }
+
+  set security(security: ArrayElement) {
+    this.set('security', security);
   }
 
   get tags(): TagsElement | undefined {

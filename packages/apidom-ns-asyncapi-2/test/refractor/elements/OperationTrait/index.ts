@@ -11,6 +11,7 @@ describe('refractor', function () {
           operationId: 'operation-trait-operationId',
           summary: 'operation-trait-summary',
           description: 'operation-trait-description',
+          security: [{ petstore_auth: [] }],
           tags: [],
           externalDocs: {},
         });

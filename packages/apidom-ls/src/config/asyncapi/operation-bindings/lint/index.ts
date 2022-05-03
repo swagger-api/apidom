@@ -2,7 +2,7 @@ import operationBindings$RefLint from './ref';
 import operationBindingsRefNonSiblingsLint from './ref-non-siblings';
 import operationBindingsAllowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import operationBindingsAllowedFields2_2Lint from './allowed-fields-2-2';
-import operationBindingsAllowedFields2_3Lint from './allowed-fields-2-3';
+import operationBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
 import httpLint from './http';
 import amqpLint from './amqp';
 import amqp1Lint from './amqp1';
@@ -23,7 +23,7 @@ import wsLint from './ws';
 const lints = [
   operationBindingsAllowedFields2_0__2_1Lint,
   operationBindingsAllowedFields2_2Lint,
-  operationBindingsAllowedFields2_3Lint,
+  operationBindingsAllowedFields2_3__2_4Lint,
   operationBindings$RefLint,
   operationBindingsRefNonSiblingsLint,
   httpLint,

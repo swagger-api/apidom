@@ -154,6 +154,7 @@ const schemaDocs = [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
     ],
     docs: 'The default value represents what would be assumed by the consumer of the input as the value of the schema if one is not provided. Unlike JSON Schema, the value MUST conform to the defined type for the Schema Object defined at the same level. For example, of `type` is `string`, then `default` can be `"foo"` but cannot be `1`.',
   },

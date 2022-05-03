@@ -2,14 +2,15 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const securitySchemeTypeLint2123: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_SECURITYSCHEME_TYPE_2_1__2_3,
+  code: ApilintCodes.ASYNCAPI_SECURITYSCHEME_TYPE_2_1__2_4,
   source: 'apilint',
   message: 'type must be one of allowed values',
   severity: 1,
   targetSpecs: [
-    { namespace: 'asyncapi', version: '2.3.0' },
-    { namespace: 'asyncapi', version: '2.2.0' },
     { namespace: 'asyncapi', version: '2.1.0' },
+    { namespace: 'asyncapi', version: '2.2.0' },
+    { namespace: 'asyncapi', version: '2.3.0' },
+    { namespace: 'asyncapi', version: '2.4.0' },
   ],
   linterFunction: 'apilintValueOrArray',
   linterParams: [

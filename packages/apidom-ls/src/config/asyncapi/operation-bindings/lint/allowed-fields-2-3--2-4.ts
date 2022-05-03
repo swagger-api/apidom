@@ -30,7 +30,10 @@ const operationBindingsAllowedFields23Lint: LinterMeta = {
     'x-',
   ],
   marker: 'key',
-  targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
+  targetSpecs: [
+    { namespace: 'asyncapi', version: '2.3.0' },
+    { namespace: 'asyncapi', version: '2.4.0' },
+  ],
 };
 
 export default operationBindingsAllowedFields23Lint;

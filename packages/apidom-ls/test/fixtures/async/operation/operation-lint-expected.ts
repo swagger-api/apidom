@@ -66,6 +66,22 @@ const operationLintExpected = [
     },
   },
   {
+    code: 10152,
+    message: 'Object includes not allowed fields',
+    range: {
+      end: {
+        character: 51,
+        line: 22,
+      },
+      start: {
+        character: 10,
+        line: 22,
+      },
+    },
+    severity: 1,
+    source: 'apilint',
+  },
+  {
     range: { start: { line: 37, character: 15 }, end: { line: 37, character: 17 } },
     message: '"message" must be a Message Object',
     severity: 1,

@@ -71,6 +71,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
     ],
   },
   {
@@ -176,7 +177,10 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Solace Operation Binding](https://github.com/asyncapi/bindings/tree/master/solace#operation-binding-object)\n\\\n\\\nProtocol-specific information for a Solace operation.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.3.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
+    ],
   },
   {
     label: 'sqs',
@@ -233,6 +237,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
     ],
   },
 ];

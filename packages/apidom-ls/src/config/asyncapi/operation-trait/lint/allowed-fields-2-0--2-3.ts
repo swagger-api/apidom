@@ -8,7 +8,7 @@ const operationTraitAllowedFieldsLint: LinterMeta = {
   severity: 1,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['operationId', 'summary', 'description', 'tags', 'externalDocs', 'bindings'],
+    ['$ref', 'operationId', 'summary', 'description', 'tags', 'externalDocs', 'bindings'],
     'x-',
   ],
   marker: 'key',

@@ -7,7 +7,7 @@ const rootAsyncapiLint: LinterMeta = {
   message: 'asyncapi must be one of 2.0.0, 2.1.0, 2.2.0, 2.3.0 or 2.4.0',
   severity: 1,
   linterFunction: 'apilintValueRegex',
-  linterParams: ['^2\\.[0123]\\.0$'],
+  linterParams: ['^2\\.[01234]\\.0$'],
   marker: 'value',
   target: 'asyncapi',
   data: {

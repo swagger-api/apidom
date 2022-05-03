@@ -2,7 +2,7 @@ import messageBindings$RefLint from './ref';
 import messageBindingsRefNonSiblingsLint from './ref-non-siblings';
 import messageBindingsAllowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import messageBindingsAllowedFields2_2Lint from './allowed-fields-2-2';
-import messageBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2.4';
+import messageBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
 import httpLint from './http';
 import amqpLint from './amqp';
 import amqp1Lint from './amqp1';

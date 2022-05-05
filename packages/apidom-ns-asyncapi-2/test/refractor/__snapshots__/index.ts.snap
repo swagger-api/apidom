@@ -40920,63 +40920,107 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                   "content": "message"
                                 },
                                 "value": {
-                                  "element": "reference",
+                                  "element": "object",
                                   "meta": {
                                     "classes": {
                                       "element": "array",
                                       "content": [
                                         {
                                           "element": "string",
-                                          "content": "json-reference"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "asyncapi-reference"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "reference-element"
+                                          "content": "operation-message-map"
                                         }
                                       ]
-                                    },
-                                    "referenced-element": {
-                                      "element": "string",
-                                      "content": "message"
                                     }
                                   },
                                   "content": [
                                     {
                                       "element": "member",
-                                      "meta": {
-                                        "classes": {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "string",
-                                              "content": "fixed-field"
-                                            }
-                                          ]
-                                        }
-                                      },
                                       "content": {
                                         "key": {
                                           "element": "string",
-                                          "content": "$ref"
+                                          "content": "oneOf"
                                         },
                                         "value": {
-                                          "element": "string",
+                                          "element": "array",
                                           "meta": {
                                             "classes": {
                                               "element": "array",
                                               "content": [
                                                 {
                                                   "element": "string",
-                                                  "content": "reference-value"
+                                                  "content": "operation-message"
                                                 }
                                               ]
                                             }
                                           },
-                                          "content": "#/components/messages/Message1"
+                                          "content": [
+                                            {
+                                              "element": "reference",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "json-reference"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "asyncapi-reference"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-element"
+                                                    }
+                                                  ]
+                                                },
+                                                "referenced-element": {
+                                                  "element": "string",
+                                                  "content": "message"
+                                                }
+                                              },
+                                              "content": [
+                                                {
+                                                  "element": "member",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "fixed-field"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "$ref"
+                                                    },
+                                                    "value": {
+                                                      "element": "string",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "reference-value"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": "#/path/to/message"
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "element": "message"
+                                            }
+                                          ]
                                         }
                                       }
                                     }

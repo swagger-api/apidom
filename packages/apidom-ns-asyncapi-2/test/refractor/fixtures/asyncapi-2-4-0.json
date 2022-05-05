@@ -336,7 +336,12 @@
         "traits": [
           {"$ref": "#/components/operationTraits/OperationTrait1"}
         ],
-        "message": { "$ref": "#/components/messages/Message1" },
+        "message": {
+          "oneOf": [
+            { "$ref": "#/path/to/message" },
+            {}
+          ]
+        },
         "bindings": {
           "$ref": "#/components/operationBindings/OperationBinding1"
         }

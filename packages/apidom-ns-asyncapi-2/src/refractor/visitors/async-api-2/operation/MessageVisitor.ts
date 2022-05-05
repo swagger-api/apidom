@@ -22,6 +22,7 @@ const MessageVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
 
           if (isReferenceLikeElement(item)) {
             element = this.toRefractedElement(['document', 'objects', 'Reference'], item);
+            element.setMetaProperty('referenced-element', 'message');
           } else {
             element = this.toRefractedElement(['document', 'objects', 'Message'], item);
           }

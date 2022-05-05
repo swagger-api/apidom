@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-asyncapi-2",
-  "version": "0.24.0",
+  "version": "0.24.1",
   "description": "AsyncAPI 2.x.y namespace for ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

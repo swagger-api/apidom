@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1](https://github.com/swagger-api/apidom/compare/v0.24.0...v0.24.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* **ns-asyncapi-2:** provide semantics for oneOf field ([#1419](https://github.com/swagger-api/apidom/issues/1419)) ([47cbd0a](https://github.com/swagger-api/apidom/commit/47cbd0a921688ec4573e335dc5b10d03671e3c46)), closes [#1348](https://github.com/swagger-api/apidom/issues/1348)
+
+
+
+
+
 # [0.24.0](https://github.com/swagger-api/apidom/compare/v0.23.0...v0.24.0) (2022-05-03)
 
 

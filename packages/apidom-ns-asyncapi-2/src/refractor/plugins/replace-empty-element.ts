@@ -820,7 +820,7 @@ const schema = {
   },
   [ComponentsServerVariablesElement.primaryClass]: {
     '[key: *]': function key(...args: any[]) {
-      return new ServerVariablesElement(...args);
+      return new ServerVariableElement(...args);
     },
   },
   [ComponentsMessagesElement.primaryClass]: {

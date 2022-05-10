@@ -9,6 +9,8 @@ import serverVariablesObjectLint from './variables-object';
 import serverSecurityLint from './security';
 import serverBindingsObjectLint from './bindings';
 import serverAllowedFieldsLint from './allowed-fields';
+import serverRefNonSiblingsLint from './ref-non-siblings';
+import server$RefLint from './ref';
 
 const lints = [
   serverUrlLint,
@@ -22,6 +24,8 @@ const lints = [
   serverSecurityLint,
   serverBindingsObjectLint,
   serverAllowedFieldsLint,
+  serverRefNonSiblingsLint,
+  server$RefLint,
 ];
 
 export default lints;

@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     label: 'messageId',
     insertText: 'messageId',
     kind: 14,
-    format: CompletionFormat.OBJECT,
+    format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {

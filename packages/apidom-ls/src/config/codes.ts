@@ -263,6 +263,7 @@ enum ApilintCodes {
   COMPONENTS_SERVER_VARIABLES,
   SERVER_REF,
   SERVER_REF_SIBLINGS,
+  MESSAGE_ID,
 }
 
 export default ApilintCodes;

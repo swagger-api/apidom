@@ -356,6 +356,18 @@ const completion: ApidomCompletionItem[] = [
     function: 'apicompleteSecurity',
     insertTextFormat: 2,
   },
+  {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A reference to a server',
+    },
+  },
 ];
 
 export default completion;

@@ -4,7 +4,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const messageNameLint: LinterMeta = {
   code: ApilintCodes.MESSAGE_NAME,
   source: 'apilint',
-  message: "name' value must be a string",
+  message: "'name' value must be a string",
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],

@@ -1,3 +1,4 @@
+import messageIdLint from './messageId';
 import messageTagsLint from './tags';
 import messageDescriptionLint from './description';
 import messageSummaryLint from './summary';
@@ -6,7 +7,7 @@ import messageBindingsLint from './bindings';
 import messageTraitsLint from './traits';
 import messageAllowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
 import messageAllowedFields2_4Lint from './allowed-fields-2-4';
-import messageHeaders from './headers';
+import messageHeadersLint from './headers';
 import messageCorrelationId from './correlation-id';
 import messageSchemaFormatLint from './schema-format';
 import message$RefLint from './ref';
@@ -17,7 +18,8 @@ import messageTitleLint from './title';
 import messageExamplesLint from './examples';
 
 const lints = [
-  messageHeaders,
+  messageIdLint,
+  messageHeadersLint,
   messageTagsLint,
   messageDescriptionLint,
   messageSummaryLint,

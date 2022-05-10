@@ -56,6 +56,18 @@ export type Pointer = {
   ref: string;
 };
 
+export enum MergeStrategy {
+  REPLACE,
+  PREPEND,
+  APPEND,
+  IGNORE,
+}
+
+export enum ProviderMode {
+  FULL,
+  REF,
+}
+
 export const APIDOM_LINTER = 'apilint';
 
 export interface LanguageServiceContext {
@@ -63,6 +75,7 @@ export interface LanguageServiceContext {
   workspaceContext?: WorkspaceContextService;
   metadata?: Metadata;
   validatorProviders?: ValidationProvider[];
+  completionProviders?: CompletionProvider[];
   performanceLogs?: boolean;
   logLevel?: LogLevel;
 }
@@ -71,19 +84,76 @@ export interface NamespaceVersion {
   namespace: string;
   version: string;
 }
+export interface ValidationProviderResult {
+  diagnostics: Diagnostic[];
+  mergeStrategy: MergeStrategy;
+  quickFixes?: Record<string, QuickFixData[]>;
+}
+
+export interface CompletionProviderResult {
+  completionList: CompletionList;
+  mergeStrategy: MergeStrategy;
+}
+
 /* represent any validation provider  */
 export interface ValidationProvider {
   namespaces(): NamespaceVersion[];
 
   break(): boolean;
 
-  doValidation(
+  providerMode?(): ProviderMode;
+
+  doValidation?(
     textDocument: TextDocument,
     api: Element,
+    currentDiagnostics: Diagnostic[],
     validationContext?: ValidationContext,
-  ): Promise<Diagnostic[]>;
+  ): Promise<ValidationProviderResult>;
 
-  configure(settings: LanguageSettings): void;
+  configure?(settings: LanguageSettings): void;
+
+  doRefValidation?(
+    textDocument: TextDocument,
+    api: Element,
+    element: Element,
+    referencedElement: string,
+    refValue: string,
+    currentDiagnostics: Diagnostic[],
+    validationContext?: ValidationContext,
+  ): ValidationProviderResult;
+
+  name(): string;
+}
+
+/* represent any completion provider  */
+export interface CompletionProvider {
+  namespaces(): NamespaceVersion[];
+
+  break(): boolean;
+
+  providerMode?(): ProviderMode;
+
+  doCompletion?(
+    textDocument: TextDocument,
+    element: Element | undefined,
+    api: Element | undefined,
+    completionParamsOrPosition: CompletionParams | Position,
+    currentCompletionItems: CompletionItem[],
+    completionContext?: CompletionContext,
+  ): Promise<CompletionProviderResult>;
+
+  doRefCompletion?(
+    textDocument: TextDocument,
+    element: Element | undefined,
+    api: Element | undefined,
+    refValue: string,
+    referencedElement: string,
+    completionParamsOrPosition: CompletionParams | Position,
+    currentCompletionItems: CompletionItem[],
+    completionContext?: CompletionContext,
+  ): CompletionProviderResult;
+
+  configure?(settings: LanguageSettings): void;
 
   name(): string;
 }
@@ -92,6 +162,7 @@ export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
   validatorProviders?: ValidationProvider[];
+  completionProviders?: CompletionProvider[];
   metadata?: Metadata;
   documentCache?: DocumentCache<ParseResultElement>;
   performanceLogs?: boolean;
@@ -289,4 +360,7 @@ export interface LanguageService {
 
   format(document: TextDocument, range: Range, options: FormattingOptions): TextEdit[];
   terminate(): void;
+
+  registerValidationProvider(validationProvider: ValidationProvider): void;
+  registerCompletionProvider(completionProvider: CompletionProvider): void;
 }

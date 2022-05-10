@@ -26,8 +26,11 @@ import {
   ApidomCompletionItem,
   CompletionContext,
   CompletionFormat,
+  CompletionProvider,
   CompletionType,
   LanguageSettings,
+  MergeStrategy,
+  ProviderMode,
 } from '../../apidom-language-types';
 import {
   checkConditions,
@@ -73,6 +76,8 @@ export interface CompletionService {
   ): Promise<CompletionList>;
 
   configure(settings?: LanguageSettings): void;
+
+  registerProvider(provider: CompletionProvider): void;
 }
 
 enum CaretContext {
@@ -110,12 +115,33 @@ export class DefaultCompletionService implements CompletionService {
 
   private jsonSchemaCompletionService: CompletionService | undefined;
 
+  private completionProviders: CompletionProvider[] = [];
+
   public constructor(jsonSchemaCompletionService?: CompletionService) {
     this.jsonSchemaCompletionService = jsonSchemaCompletionService;
   }
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
+    if (settings) {
+      if (settings.completionProviders) {
+        this.completionProviders = settings.completionProviders;
+      }
+      for (const provider of this.completionProviders) {
+        if (provider.configure) {
+          provider.configure(settings);
+        }
+      }
+    }
+  }
+
+  public registerProvider(provider: CompletionProvider): void {
+    this.completionProviders.push(provider);
+    if (this.settings) {
+      if (provider.configure) {
+        provider.configure(this.settings);
+      }
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -514,9 +540,10 @@ export class DefaultCompletionService implements CompletionService {
       ? api
       : findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
     // only if we have a node
+    let completionNode: Element | undefined;
     if (node) {
       const caretContext = this.resolveCaretContext(node, targetOffset);
-      const completionNode = this.resolveCompletionNode(node, caretContext);
+      completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
 
       debug('doCompletion - node', node.element, node.toValue());
@@ -710,11 +737,16 @@ export class DefaultCompletionService implements CompletionService {
         let apidomCompletions: CompletionItem[] | undefined;
         // check if we are in a ref value, in this case build ref pointers
         if (this.isReferenceValue(completionNode)) {
-          apidomCompletions = DefaultCompletionService.findReferencePointers(
+          apidomCompletions = this.findReferencePointers(
             textDocument,
             api,
             completionNode,
+            docNs,
+            specVersion,
+            nodeValueFromText,
+            completionParamsOrPosition,
             !isJsonDoc(textDocument),
+            completionContext,
           );
         } else {
           apidomCompletions = this.getMetadataPropertyCompletions(
@@ -772,15 +804,67 @@ export class DefaultCompletionService implements CompletionService {
         });
     }
     perfEnd(PerfLabels.START);
+    try {
+      // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      for (const provider of this.completionProviders) {
+        if (
+          provider
+            .namespaces()
+            .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+          provider.doCompletion &&
+          (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
+        ) {
+          // eslint-disable-next-line no-await-in-loop
+          const completionProviderResult = await provider.doCompletion(
+            textDocument,
+            completionNode,
+            api,
+            completionParamsOrPosition,
+            completionList.items,
+            completionContext,
+          );
+          switch (completionProviderResult.mergeStrategy) {
+            case MergeStrategy.APPEND:
+              completionList.items.push(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.PREPEND:
+              completionList.items.unshift(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.REPLACE:
+              completionList.items.splice(
+                0,
+                completionList.items.length,
+                ...completionProviderResult.completionList.items,
+              );
+              break;
+            case MergeStrategy.IGNORE:
+              break;
+            default:
+              completionList.items.push(...completionProviderResult.completionList.items);
+          }
+          if (provider.break()) {
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      console.log('error in validation provider');
+    }
     return completionList;
   }
 
-  public static findReferencePointers(
+  public findReferencePointers(
     textDocument: TextDocument,
     doc: Element,
     node: Element,
+    docNs: string,
+    specVersion: string,
+    nodeValue: string,
+    completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     yaml: boolean,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    completionContext?: CompletionContext,
   ): CompletionItem[] {
     const result: CompletionItem[] = [];
     // get type of node (element)
@@ -810,6 +894,51 @@ export class DefaultCompletionService implements CompletionService {
       i += 1;
     }
     // TODO also add to completion description target fragment so user can preview
+    try {
+      // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      for (const provider of this.completionProviders) {
+        if (
+          provider
+            .namespaces()
+            .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+          provider.doRefCompletion &&
+          provider.providerMode &&
+          provider.providerMode() === ProviderMode.REF
+        ) {
+          // eslint-disable-next-line no-await-in-loop
+          const completionProviderResult = provider.doRefCompletion(
+            textDocument,
+            node,
+            doc,
+            nodeValue,
+            nodeElement,
+            completionParamsOrPosition,
+            result,
+            completionContext,
+          );
+          switch (completionProviderResult.mergeStrategy) {
+            case MergeStrategy.APPEND:
+              result.push(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.PREPEND:
+              result.unshift(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.REPLACE:
+              result.splice(0, result.length, ...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.IGNORE:
+              break;
+            default:
+              result.push(...completionProviderResult.completionList.items);
+          }
+          if (provider.break()) {
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      console.log('error in validation provider');
+    }
     return result;
   }
 

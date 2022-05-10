@@ -102,6 +102,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       // mark this SchemaElement with reference metadata
       if (isStringElement(this.element.$ref)) {
         this.element.classes.push('reference-element');
+        this.element.setMetaProperty('referenced-element', 'schema');
       }
 
       return result;

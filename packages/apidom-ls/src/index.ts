@@ -35,6 +35,8 @@ export type {
   SymbolsContext,
   ValidationContext,
   CompletionContext,
+  ValidationProvider,
+  CompletionProvider,
   WorkspaceContextService,
   ColorsContext,
   LanguageServiceContext,
@@ -45,6 +47,8 @@ export type {
   LinterFunctions,
   MetadataMaps,
   ApidomCompletionItem,
+  CompletionProviderResult,
+  ValidationProviderResult,
 } from './apidom-language-types';
 
 export {
@@ -53,6 +57,8 @@ export {
   CompletionType,
   CompletionFormat,
   LogLevel,
+  MergeStrategy,
+  ProviderMode,
 } from './apidom-language-types';
 
 export { config } from './config/config';

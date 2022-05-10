@@ -1,32 +1,34 @@
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
-import { CodeActionParams, CodeActionKind } from 'vscode-languageserver-protocol';
+import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 
 import {
   APIDOM_LINTER,
   LanguageSettings,
-  ValidationContext,
-  ValidationProvider,
   LinterMeta,
-  QuickFixData,
+  LinterMetaData,
+  MergeStrategy,
   MetadataMap,
   Pointer,
-  LinterMetaData,
+  ProviderMode,
+  QuickFixData,
+  ValidationContext,
+  ValidationProvider,
 } from '../../apidom-language-types';
 import {
-  getSourceMap,
-  isMember,
-  isObject,
-  getSpecVersion,
-  localReferencePointers,
   checkConditions,
-  processPath,
   correctPartialKeys,
-  perfStart,
-  perfEnd,
+  getSourceMap,
+  getSpecVersion,
   isAsyncDoc,
   isJsonDoc,
+  isMember,
+  isObject,
+  localReferencePointers,
+  perfEnd,
+  perfStart,
+  processPath,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -65,7 +67,7 @@ export class DefaultValidationService implements ValidationService {
 
   public registerProvider(provider: ValidationProvider): void {
     this.validationProviders.push(provider);
-    if (this.settings) {
+    if (this.settings && provider.configure) {
       provider.configure(this.settings);
     }
   }
@@ -77,7 +79,9 @@ export class DefaultValidationService implements ValidationService {
         this.validationProviders = settings.validatorProviders;
       }
       for (const provider of this.validationProviders) {
-        provider.configure(settings);
+        if (provider.configure) {
+          provider.configure(settings);
+        }
       }
       this.validationEnabled = settings.validate;
       this.commentSeverity = settings.allowComments ? undefined : DiagnosticSeverity.Error;
@@ -172,104 +176,132 @@ export class DefaultValidationService implements ValidationService {
     const specVersion = getSpecVersion(api);
 
     const hasSyntaxErrors = !!diagnostics.length;
-    if (!hasSyntaxErrors) {
+
+    const pointersMap: Record<string, Pointer[]> = {};
+    const lintReference = (
+      doc: Element,
+      referencedElement: string,
+      refValueElement: Element,
+    ): Diagnostic[] => {
+      const refDiagnostics: Diagnostic[] = [];
+      if (refValueElement.toValue().startsWith('#')) {
+        let pointers = pointersMap[referencedElement];
+        if (!pointers) {
+          pointers = localReferencePointers(doc, referencedElement);
+          pointersMap[referencedElement] = pointers;
+        }
+        if (!pointers.some((p) => p.ref === refValueElement.toValue())) {
+          // local ref not found
+          const lintSm = getSourceMap(refValueElement);
+          const location = { offset: lintSm.offset, length: lintSm.length };
+          const range = Range.create(
+            textDocument.positionAt(location.offset),
+            textDocument.positionAt(location.offset + location.length),
+          );
+          const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+          const diagnostic = Diagnostic.create(
+            range,
+            'local reference not found',
+            DiagnosticSeverity.Error,
+            code,
+            'apilint',
+          );
+
+          diagnostic.source = 'apilint';
+          diagnostic.data = {
+            quickFix: [],
+          } as LinterMetaData;
+          for (const p of pointers) {
+            // @ts-ignore
+            diagnostic.data.quickFix.push({
+              message: `update to ${p.ref}`,
+              action: 'updateValue',
+              functionParams: [p.ref],
+            });
+          }
+          // @ts-ignore
+          this.quickFixesMap[code] = diagnostic.data.quickFix;
+
+          refDiagnostics.push(diagnostic);
+        }
+      }
       try {
         // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-
-        const allProvidersDiagnostics: Diagnostic[] = [];
         for (const provider of this.validationProviders) {
           if (
-            provider.namespaces().some((ns) => ns.namespace === docNs && ns.version === specVersion)
+            provider
+              .namespaces()
+              .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+            provider.doRefValidation &&
+            provider.providerMode &&
+            provider.providerMode() === ProviderMode.REF
           ) {
-            allProvidersDiagnostics.push(
-              ...// eslint-disable-next-line no-await-in-loop
-              (await provider.doValidation(textDocument, api, validationContext)),
+            // eslint-disable-next-line no-await-in-loop
+            const validationProviderResult = provider.doRefValidation(
+              textDocument,
+              api,
+              refValueElement,
+              referencedElement,
+              refValueElement.toValue(),
+              refDiagnostics,
+              validationContext,
             );
+            switch (validationProviderResult.mergeStrategy) {
+              case MergeStrategy.APPEND:
+                refDiagnostics.push(...validationProviderResult.diagnostics);
+                break;
+              case MergeStrategy.PREPEND:
+                refDiagnostics.unshift(...validationProviderResult.diagnostics);
+                break;
+              case MergeStrategy.REPLACE:
+                refDiagnostics.splice(
+                  0,
+                  diagnostics.length,
+                  ...validationProviderResult.diagnostics,
+                );
+                break;
+              case MergeStrategy.IGNORE:
+                break;
+              default:
+                refDiagnostics.push(...validationProviderResult.diagnostics);
+            }
+
+            if (validationProviderResult.quickFixes) {
+              // eslint-disable-next-line guard-for-in
+              for (const fix in validationProviderResult.quickFixes) {
+                this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
+              }
+            }
             if (provider.break()) {
               break;
             }
           }
         }
-
-        diagnostics.push(...allProvidersDiagnostics);
       } catch (e) {
-        console.log('error in validatiion provider');
+        console.log('error in validation provider', e);
       }
-    }
-
-    const pointersMap: Record<string, Pointer[]> = {};
-    const lintLocalReference = (
-      doc: Element,
-      referencedElement: string,
-      refValueElement: Element,
-    ): Diagnostic[] => {
-      const localRefDiagnostics: Diagnostic[] = [];
-      if (!refValueElement.toValue().startsWith('#')) {
-        return localRefDiagnostics;
-      }
-      let pointers = pointersMap[referencedElement];
-      if (!pointers) {
-        pointers = localReferencePointers(doc, referencedElement);
-        pointersMap[referencedElement] = pointers;
-      }
-      if (!pointers.some((p) => p.ref === refValueElement.toValue())) {
-        // local ref not found
-        const lintSm = getSourceMap(refValueElement);
-        const location = { offset: lintSm.offset, length: lintSm.length };
-        const range = Range.create(
-          textDocument.positionAt(location.offset),
-          textDocument.positionAt(location.offset + location.length),
-        );
-        const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
-        const diagnostic = Diagnostic.create(
-          range,
-          'local reference not found',
-          DiagnosticSeverity.Error,
-          code,
-          'apilint',
-        );
-
-        diagnostic.source = 'apilint';
-        diagnostic.data = {
-          quickFix: [],
-        } as LinterMetaData;
-        for (const p of pointers) {
-          // @ts-ignore
-          diagnostic.data.quickFix.push({
-            message: `update to ${p.ref}`,
-            action: 'updateValue',
-            functionParams: [p.ref],
-          });
-        }
-        // @ts-ignore
-        this.quickFixesMap[code] = diagnostic.data.quickFix;
-
-        localRefDiagnostics.push(diagnostic);
-      }
-
-      return localRefDiagnostics;
+      return refDiagnostics;
     };
 
     const lint = (element: Element) => {
       const sm = getSourceMap(element);
+      const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
+      if (referencedElement.length > 0) {
+        // lint local references
+        if (isObject(element) && element.hasKey('$ref')) {
+          // TODO get ref value from metadata or in adapter
+          diagnostics.push(...lintReference(api, referencedElement, element.get('$ref')));
+        }
+      }
       if (element.classes) {
         const set: string[] = Array.from(new Set(element.classes.toValue()));
         // add element value to the set (e.g. 'pathItem', 'operation'
         if (!set.includes(element.element)) {
           set.unshift(element.element);
         }
-        const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
         if (referencedElement.length > 0) {
           if (!set.includes(referencedElement)) {
             set.unshift(referencedElement);
-          }
-        }
-
-        if (referencedElement.length > 0) {
-          // lint local references
-          if (isObject(element) && element.hasKey('$ref')) {
-            // TODO get ref value from metadata or in adapter
-            diagnostics.push(...lintLocalReference(api, referencedElement, element.get('$ref')));
           }
         }
         set.unshift('*');
@@ -407,6 +439,56 @@ export class DefaultValidationService implements ValidationService {
     };
     traverse(lint, api);
     perfEnd(PerfLabels.START);
+    if (!hasSyntaxErrors) {
+      try {
+        // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+        for (const provider of this.validationProviders) {
+          if (
+            provider
+              .namespaces()
+              .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+            provider.doValidation &&
+            (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
+          ) {
+            // eslint-disable-next-line no-await-in-loop
+            const validationProviderResult = await provider.doValidation(
+              textDocument,
+              api,
+              diagnostics,
+              validationContext,
+            );
+            switch (validationProviderResult.mergeStrategy) {
+              case MergeStrategy.APPEND:
+                diagnostics.push(...validationProviderResult.diagnostics);
+                break;
+              case MergeStrategy.PREPEND:
+                diagnostics.unshift(...validationProviderResult.diagnostics);
+                break;
+              case MergeStrategy.REPLACE:
+                diagnostics.splice(0, diagnostics.length, ...validationProviderResult.diagnostics);
+                break;
+              case MergeStrategy.IGNORE:
+                console.log('TTTT AAAA');
+                break;
+              default:
+                diagnostics.push(...validationProviderResult.diagnostics);
+            }
+            if (validationProviderResult.quickFixes) {
+              // eslint-disable-next-line guard-for-in
+              for (const fix in validationProviderResult.quickFixes) {
+                this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
+              }
+            }
+            if (provider.break()) {
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        console.log('error in validation provider');
+      }
+    }
+
     return diagnostics;
   }
 

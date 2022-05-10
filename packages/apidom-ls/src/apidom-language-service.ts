@@ -63,6 +63,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     metadata,
     validate: true,
     validatorProviders: context?.validatorProviders,
+    completionProviders: context?.completionProviders,
     documentCache,
     performanceLogs: context.performanceLogs,
     logLevel: context.logLevel,
@@ -112,5 +113,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     terminate(): void {
       documentCache.dispose();
     },
+    registerCompletionProvider: completionService.registerProvider.bind(completionService),
+    registerValidationProvider: validationService.registerProvider.bind(validationService),
   };
 }

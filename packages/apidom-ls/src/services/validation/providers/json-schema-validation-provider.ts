@@ -1,6 +1,6 @@
 import Ajv2020 from 'ajv/dist/2020';
 import Ajv from 'ajv';
-import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode-languageserver-types';
+import { Diagnostic, DiagnosticSeverity, Position, Range } from 'vscode-languageserver-types';
 import jsonSourceMap from 'json-source-map';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from '@swagger-api/apidom-core';
@@ -8,9 +8,11 @@ import { Element } from '@swagger-api/apidom-core';
 import { positionRangeForPath } from '../../../utils/ast';
 import {
   LanguageSettings,
+  MergeStrategy,
   NamespaceVersion,
   ValidationContext,
   ValidationProvider,
+  ValidationProviderResult,
 } from '../../../apidom-language-types';
 import * as AjvUtils from './ajv-utils';
 import { isJsonDoc } from '../../../utils/utils';
@@ -35,10 +37,11 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
   public doValidation(
     textDocument: TextDocument,
     api: Element,
+    currentDiagnostics: Diagnostic[],
     validationContext?: ValidationContext,
-  ): Promise<Diagnostic[]> {
+  ): Promise<ValidationProviderResult> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return new Promise<Diagnostic[]>((resolve, reject) => {
+    return new Promise<ValidationProviderResult>((resolve, reject) => {
       const diagnostics: Diagnostic[] = [];
 
       // get the serialized apidom JSON if doc is yaml
@@ -49,8 +52,12 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
         jsonText = JSON.stringify(api.toValue());
       }
       this.validate(jsonText, text, isYaml, diagnostics, validationContext);
+      const result: ValidationProviderResult = {
+        diagnostics,
+        mergeStrategy: MergeStrategy.PREPEND,
+      };
       // eslint-disable-next-line no-promise-executor-return
-      return resolve(diagnostics);
+      return resolve(result);
     });
   }
 

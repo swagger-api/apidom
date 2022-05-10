@@ -5013,6 +5013,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                   "content": "reference-element"
                                 }
                               ]
+                            },
+                            "referenced-element": {
+                              "element": "string",
+                              "content": "schema"
                             }
                           },
                           "content": [

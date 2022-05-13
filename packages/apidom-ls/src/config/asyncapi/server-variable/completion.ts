@@ -56,6 +56,18 @@ const completion: ApidomCompletionItem[] = [
       value: 'An array of examples of the server variable.',
     },
   },
+  {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A reference to a server variable',
+    },
+  },
 ];
 
 export default completion;

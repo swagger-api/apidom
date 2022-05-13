@@ -9,6 +9,12 @@ const serverUrlRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['url'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

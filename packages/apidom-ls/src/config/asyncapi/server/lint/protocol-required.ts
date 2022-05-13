@@ -9,6 +9,12 @@ const serverProtocolRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['protocol'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

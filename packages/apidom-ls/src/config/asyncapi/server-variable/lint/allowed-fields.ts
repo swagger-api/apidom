@@ -7,7 +7,7 @@ const serverVariableAllowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: 1,
   linterFunction: 'allowedFields',
-  linterParams: [['enum', 'default', 'description', 'examples'], 'x-'],
+  linterParams: [['enum', 'default', 'description', 'examples', '$ref'], 'x-'],
   marker: 'key',
 };
 

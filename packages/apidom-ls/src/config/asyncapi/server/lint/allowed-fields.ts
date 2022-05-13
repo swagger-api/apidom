@@ -8,7 +8,16 @@ const serverAllowedFieldsLint: LinterMeta = {
   severity: 1,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['url', 'protocol', 'protocolVersion', 'description', 'variables', 'security', 'bindings'],
+    [
+      'url',
+      'protocol',
+      'protocolVersion',
+      'description',
+      'variables',
+      'security',
+      'bindings',
+      '$ref',
+    ],
     'x-',
   ],
   marker: 'key',

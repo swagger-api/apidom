@@ -1,13 +1,12 @@
-import operationComplete from '../operation/completion';
 import lint from './lint';
-import documentation from '../operation/documentation';
+import completion from './completion';
+import documentation from './documentation';
 import { FormatMeta } from '../../../apidom-language-types';
 
 const meta: FormatMeta = {
   lint,
   documentation,
-  // TODO(Francesco): solve this
-  completion: operationComplete.slice(0, -2),
+  completion,
 };
 
 export default meta;

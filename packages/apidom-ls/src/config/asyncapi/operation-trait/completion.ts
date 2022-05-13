@@ -107,32 +107,6 @@ const completion: ApidomCompletionItem[] = [
         '[Operation Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the operation.',
     },
   },
-  {
-    label: 'traits',
-    insertText: 'traits',
-    kind: 14,
-    format: CompletionFormat.ARRAY,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value:
-        '[[Operation Trait Object](https://www.asyncapi.com/docs/specifications/v2.4.0#operationTraitObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject) ]\n\\\n\\\nA list of traits to apply to the operation object. Traits MUST be merged into the operation object using the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) algorithm in the same order they are defined here.',
-    },
-  },
-  {
-    label: 'message',
-    insertText: 'message',
-    kind: 14,
-    format: CompletionFormat.OBJECT,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value:
-        '[Message Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject) &#124; Map["oneOf", [[Message Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]]\n\\\n\\\nA definition of the message that will be published or received by this operation. Map containing a single `oneOf` key is allowed here to specify multiple messages. However, **a message MUST be valid only against one of the message objects.**',
-    },
-  },
 ];
 
 export default completion;

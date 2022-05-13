@@ -47,7 +47,7 @@ const completion: ApidomCompletionItem[] = [
     label: 'security',
     insertText: 'security',
     kind: 14,
-    format: CompletionFormat.QUOTED,
+    format: CompletionFormat.ARRAY,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {

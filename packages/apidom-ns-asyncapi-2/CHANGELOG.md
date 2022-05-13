@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/swagger-api/apidom/compare/v0.24.1...v0.25.0) (2022-05-13)
+
+
+### Features
+
+* **apidom-ls:** enable completion for Components.serverVariables ([#1441](https://github.com/swagger-api/apidom/issues/1441)) ([cf8c261](https://github.com/swagger-api/apidom/commit/cf8c261ec6e8ede0ba0f7085f4fc81511386491b)), closes [#1429](https://github.com/swagger-api/apidom/issues/1429)
+
+
+
+
+
 ## [0.24.1](https://github.com/swagger-api/apidom/compare/v0.24.0...v0.24.1) (2022-05-05)
 
 

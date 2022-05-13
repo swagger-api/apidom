@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/swagger-api/apidom/compare/v0.24.1...v0.25.0) (2022-05-13)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix completion format for Operation.security ([#1444](https://github.com/swagger-api/apidom/issues/1444)) ([0cb1185](https://github.com/swagger-api/apidom/commit/0cb118546f1b0636d1227c8eda8d45b1bb97d2dc)), closes [#1434](https://github.com/swagger-api/apidom/issues/1434)
+
+
+### Features
+
+* **apidom-ls:** add completion for Operation/OperationTrait security ([#1445](https://github.com/swagger-api/apidom/issues/1445)) ([03a40e8](https://github.com/swagger-api/apidom/commit/03a40e8d32ab964f132b4bab84adeec009e3338f)), closes [#1435](https://github.com/swagger-api/apidom/issues/1435)
+* **apidom-ls:** add extended docs for Server Variable Object ([#1442](https://github.com/swagger-api/apidom/issues/1442)) ([0464a7d](https://github.com/swagger-api/apidom/commit/0464a7d289911c23251dbf5b8f4eed0313ea7410)), closes [#1423](https://github.com/swagger-api/apidom/issues/1423)
+* **apidom-ls:** enhance completion/validation providers integration ([6869294](https://github.com/swagger-api/apidom/commit/6869294939b133763720edbe3f368cdd9b34c7ff))
+* **apidom-ls:** support completion/lint for Server/ServerVariable ([#1446](https://github.com/swagger-api/apidom/issues/1446)) ([05e9a1a](https://github.com/swagger-api/apidom/commit/05e9a1a740e28772ec6e12d5aff529979a1c330f)), closes [#1430](https://github.com/swagger-api/apidom/issues/1430)
+* **apidom-ls:** support proper completion format for messageId ([#1440](https://github.com/swagger-api/apidom/issues/1440)) ([ff9fe70](https://github.com/swagger-api/apidom/commit/ff9fe703e6c594e55bd34ac8398d0c75c5d3f091)), closes [#1433](https://github.com/swagger-api/apidom/issues/1433)
+* **apidom-ls:** support referencing Server Object ([#1439](https://github.com/swagger-api/apidom/issues/1439)) ([93b8c35](https://github.com/swagger-api/apidom/commit/93b8c35e91cb75917fb2b6e9d74b73ae7ed704fa)), closes [#1431](https://github.com/swagger-api/apidom/issues/1431)
+
+
+
+
+
 ## [0.24.1](https://github.com/swagger-api/apidom/compare/v0.24.0...v0.24.1) (2022-05-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

@@ -264,6 +264,10 @@ export interface LinterMeta {
   targetSpecs?: NamespaceVersion[];
   conditions?: LinterCondition[];
   negate?: boolean;
+  name?: string;
+  description?: string;
+  summary?: string;
+  recommended?: boolean;
 }
 
 export interface LinterCondition {

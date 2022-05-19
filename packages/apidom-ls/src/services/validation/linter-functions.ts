@@ -1,3 +1,4 @@
+import { escapeRegExp } from 'ramda-adjunct';
 import {
   Element,
   ArrayElement,
@@ -38,6 +39,55 @@ const apilintElementOrClass = (element: Element, elementsOrClasses: string[]): b
         element.classes.toValue().some((v: string) => elementsOrClasses.includes(v)))
     );
   }
+  return true;
+};
+
+const CASES: Record<string, string> = {
+  camel: '[a-z][a-z{0-9}]*(?:[A-Z{0-9}](?:[a-z{0-9}]+|$))*',
+  cobol: '[A-Z][A-Z{0-9}]*(?:-[A-Z{0-9}]+)*',
+  flat: '[a-z][a-z{0-9}]*',
+  kebab: '[a-z][a-z{0-9}]*(?:-[a-z{0-9}]+)*',
+  macro: '[A-Z][A-Z{0-9}]*(?:_[A-Z{0-9}]+)*',
+  pascal: '[A-Z][a-z{0-9}]*(?:[A-Z{0-9}](?:[a-z{0-9}]+|$))*',
+  snake: '[a-z][a-z{0-9}]*(?:_[a-z{0-9}]+)*',
+};
+
+const CASES_NO_NUMBERS: Record<string, string> = {
+  camel: '[a-z][a-z{}]*(?:[A-Z{}](?:[a-z{}]+|$))*',
+  cobol: '[A-Z][A-Z{}]*(?:-[A-Z{}]+)*',
+  flat: '[a-z][a-z{}]*',
+  kebab: '[a-z][a-z{}]*(?:-[a-z{}]+)*',
+  macro: '[A-Z][A-Z{}]*(?:_[A-Z{}]+)*',
+  pascal: '[A-Z][a-z{}]*(?:[A-Z{}](?:[a-z{}]+|$))*',
+  snake: '[a-z][a-z{}]*(?:_[a-z{}]+)*',
+};
+
+const casing = (
+  value: string,
+  casingStyle: string,
+  noNumbers?: boolean,
+  separatorChar?: string,
+  separatorAsFirstChar?: boolean,
+): boolean => {
+  if (value.length === 1 && separatorAsFirstChar && value === separatorChar) {
+    return true;
+  }
+  const casingRegexString = noNumbers ? CASES_NO_NUMBERS[casingStyle] : CASES[casingStyle];
+  if (!casingRegexString) {
+    return true;
+  }
+  let regex = new RegExp(`^${casingRegexString}$`);
+  if (separatorChar) {
+    const separatorRegexString = `[${escapeRegExp(separatorChar)}]`;
+    const separatorFirstCharString = separatorAsFirstChar ? `${separatorRegexString}?` : '';
+    regex = new RegExp(
+      `^${separatorFirstCharString}${casingRegexString}(?:${separatorRegexString}${casingRegexString})*$`,
+    );
+  }
+  if (!regex.test(value)) {
+    return false;
+  }
+
   return true;
 };
 
@@ -172,6 +222,19 @@ export const standardLinterfunctions: FunctionItem[] = [
           if (!isType(element, elementType)) {
             return false;
           }
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintKeyRegex',
+    function: (element: Element, regexString: string): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const elKey = (element.parent.key as Element).toValue();
+        const regex = new RegExp(regexString);
+        if (!regex.test(elKey)) {
+          return false;
         }
       }
       return true;
@@ -750,6 +813,92 @@ export const standardLinterfunctions: FunctionItem[] = [
             }
           }
         }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintFieldsKeysCasing',
+    function: (
+      element: Element,
+      casingStyle: string,
+      noNumbers?: boolean,
+      separatorChar?: string,
+      separatorAsFirstChar?: boolean,
+    ): boolean => {
+      if (element && !isObject(element)) {
+        return true;
+      }
+      if (element && isObject(element)) {
+        return (element.keys() as string[]).every((k) =>
+          casing(k, casingStyle, noNumbers, separatorChar, separatorAsFirstChar),
+        );
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintFieldsValuesCasing',
+    function: (
+      element: Element,
+      casingStyle: string,
+      noNumbers?: boolean,
+      separatorChar?: string,
+      separatorAsFirstChar?: boolean,
+    ): boolean => {
+      if (element && !isObject(element)) {
+        return true;
+      }
+      if (element && isObject(element)) {
+        return (element.keys() as string[]).every((k) =>
+          casing(
+            element.get(k).toValue(),
+            casingStyle,
+            noNumbers,
+            separatorChar,
+            separatorAsFirstChar,
+          ),
+        );
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintValueCasing',
+    function: (
+      element: Element,
+      casingStyle: string,
+      noNumbers?: boolean,
+      separatorChar?: string,
+      separatorAsFirstChar?: boolean,
+    ): boolean => {
+      if (element) {
+        return casing(
+          element.toValue(),
+          casingStyle,
+          noNumbers,
+          separatorChar,
+          separatorAsFirstChar,
+        );
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintKeyCasing',
+    function: (
+      element: Element,
+      casingStyle: string,
+      noNumbers?: boolean,
+      separatorChar?: string,
+      separatorAsFirstChar?: boolean,
+    ): boolean => {
+      if (element && (!element.parent || !isMember(element.parent))) {
+        return true;
+      }
+      if (element && element.parent && isMember(element.parent)) {
+        const elKey = (element.parent.key as Element).toValue();
+        return casing(elKey, casingStyle, noNumbers, separatorChar, separatorAsFirstChar);
       }
       return true;
     },

@@ -259,6 +259,7 @@ export interface LinterMeta {
   marker?: string;
   markerTarget?: string;
   target?: string;
+  targetFields?: boolean;
   data?: LinterMetaData;
   targetSpecs?: NamespaceVersion[];
   conditions?: LinterCondition[];

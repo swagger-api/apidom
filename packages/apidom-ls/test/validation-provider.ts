@@ -5,6 +5,7 @@ import path from 'path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { Element } from '@swagger-api/apidom-core';
+import { isOpenApi3_1Element, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -26,6 +27,10 @@ import { getSourceMap } from '../src/utils/utils';
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-ref.yaml'))
   .toString();
+
+const isOpenApi31 = (element: Element): element is OpenApi3_1Element => {
+  return isOpenApi3_1Element(element);
+};
 
 class RefValidationProvider implements ValidationProvider {
   /*
@@ -222,6 +227,15 @@ class FullValidationProvider implements ValidationProvider {
     const quickFixes = {};
     const diagnostics = this.legacyValidation(textDocument.getText(), textDocument, quickFixes);
     const mergeStrategy = diagnostics.length > 0 ? MergeStrategy.APPEND : MergeStrategy.IGNORE;
+
+    /*
+    we can also semantically access elements in the apidom tree:
+    */
+    if (isOpenApi31(api)) {
+      const contactName = api.info?.contact?.name?.toValue();
+      // eslint-disable-next-line no-console
+      console.log({ contactName });
+    }
 
     return Promise.resolve({
       mergeStrategy,

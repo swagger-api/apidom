@@ -468,7 +468,6 @@ export class DefaultValidationService implements ValidationService {
                 diagnostics.splice(0, diagnostics.length, ...validationProviderResult.diagnostics);
                 break;
               case MergeStrategy.IGNORE:
-                console.log('TTTT AAAA');
                 break;
               default:
                 diagnostics.push(...validationProviderResult.diagnostics);

@@ -7,6 +7,9 @@ export function metadata(): Metadata {
   const customConfig = config() as Metadata;
 
   const camelCasesSchemaLint: LinterMeta = {
+    name: 'SB-API-050-property-names',
+    description: 'property names must be camelCase and alphanumeric',
+    recommended: true,
     code: 20001,
     source: 'apilint',
     message: 'properties MUST follow camelCase',
@@ -25,6 +28,9 @@ export function metadata(): Metadata {
   };
 
   const camelCasesQueryParamsLint: LinterMeta = {
+    name: 'SB-API-050-query-parameter-names',
+    description: 'query parameter names must be camelCase',
+    recommended: true,
     code: 20002,
     source: 'apilint',
     message: 'parameter names MUST follow camelCase',
@@ -45,6 +51,9 @@ export function metadata(): Metadata {
   };
 
   const camelCasesPathSegments: LinterMeta = {
+    name: 'SB-API-051-path-segments',
+    description: 'path segments must be kebab-case',
+    recommended: true,
     code: 20003,
     source: 'apilint',
     message: 'path segments MUST follow kebab-case (lower case and separated with hyphens).',

@@ -1,4 +1,4 @@
-name: ApiDOM Monorepo full nigtly build
+name: ApiDOM Monorepo full nightly build
 
 on:
   workflow_dispatch:

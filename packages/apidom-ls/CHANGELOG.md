@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.27.0](https://github.com/swagger-api/apidom/compare/v0.26.0...v0.27.0) (2022-05-20)
+
+
+### Features
+
+* **apidom-ls:** allow top level rules with  as array of elements ([dbb08dd](https://github.com/swagger-api/apidom/commit/dbb08dd2e3735adf8066b65cbaea782c92c3fa5f))
+
+
+
+
+
 # [0.26.0](https://github.com/swagger-api/apidom/compare/v0.25.0...v0.26.0) (2022-05-20)
 
 

@@ -268,6 +268,7 @@ export interface LinterMeta {
   description?: string;
   summary?: string;
   recommended?: boolean;
+  given?: string[] | string;
 }
 
 export interface LinterCondition {
@@ -297,6 +298,7 @@ export interface MetadataMaps {
 }
 
 export interface Metadata {
+  rules?: Record<string, FormatMeta>;
   metadataMaps: MetadataMaps;
   linterFunctions: LinterFunctionsMap;
 }

@@ -31,6 +31,7 @@ export function metadata(): Metadata {
     name: 'SB-API-050-query-parameter-names',
     description: 'query parameter names must be camelCase',
     recommended: true,
+    given: ['parameter'],
     code: 20002,
     source: 'apilint',
     message: 'parameter names MUST follow camelCase',
@@ -72,8 +73,13 @@ export function metadata(): Metadata {
   };
 
   customConfig.metadataMaps.openapi?.schema?.lint?.push(camelCasesSchemaLint);
-  customConfig.metadataMaps.openapi.parameter = {
+  /*  customConfig.metadataMaps.openapi.parameter = {
     lint: [camelCasesQueryParamsLint],
+  }; */
+  customConfig.rules = {
+    openapi: {
+      lint: [camelCasesQueryParamsLint],
+    },
   };
   customConfig.metadataMaps.openapi.pathItem = {
     lint: [camelCasesPathSegments],

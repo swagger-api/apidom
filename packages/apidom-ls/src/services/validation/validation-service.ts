@@ -89,12 +89,31 @@ export class DefaultValidationService implements ValidationService {
     }
   }
 
-  private static getMetadataPropertyLint(doc: Element, metaId: string): LinterMeta[] {
+  private getMetadataPropertyLint(doc: Element, metaId: string, docNs: string): LinterMeta[] {
     let meta: LinterMeta[] = [];
     const elementMeta = doc.meta.get('metadataMap')?.get(metaId)?.get('lint')?.toValue();
     if (elementMeta) {
       meta = meta.concat(elementMeta);
+      meta = meta.filter((r) => !r.given);
     }
+    // get namespace rules with `given` populated as array
+    try {
+      if (!this.settings?.metadata?.rules) {
+        return meta;
+      }
+      const rules = this.settings?.metadata?.rules;
+      if (!rules[docNs]?.lint) {
+        return meta;
+      }
+      meta = meta.concat(
+        rules[docNs]!.lint!.filter(
+          (r) => r.given && Array.isArray(r.given) && r.given.includes(metaId),
+        ),
+      );
+    } catch (e) {
+      console.log('error in retrieving ns rules', e);
+    }
+
     return meta;
   }
 
@@ -308,7 +327,7 @@ export class DefaultValidationService implements ValidationService {
 
         set.forEach((s) => {
           // get linter meta from meta
-          const linterMeta = DefaultValidationService.getMetadataPropertyLint(api, s);
+          const linterMeta = this.getMetadataPropertyLint(api, s, docNs);
           if (linterMeta && linterMeta.length > 0) {
             for (const meta of linterMeta) {
               if (

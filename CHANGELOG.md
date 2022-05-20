@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://github.com/swagger-api/apidom/compare/v0.25.0...v0.26.0) (2022-05-20)
+
+
+### Bug Fixes
+
+* **apidom-ls:** add semantic APIs example and remove console ([b48113d](https://github.com/swagger-api/apidom/commit/b48113de4efcf4a77a808383a2873b9a8e673650))
+
+
+### Features
+
+* **apidom-ls:** add additional rules descriptive metadata ([c570c86](https://github.com/swagger-api/apidom/commit/c570c86fe192cab4e8716655994f3111e84c3627))
+
+
+
+
+
 # [0.25.0](https://github.com/swagger-api/apidom/compare/v0.24.1...v0.25.0) (2022-05-13)
 
 

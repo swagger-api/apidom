@@ -1,12 +1,12 @@
 {
-  "name": "@swagger-api/apidom-core",
+  "name": "@swagger-api/apidom-json-path",
   "version": "0.27.0",
-  "description": "Tools for manipulating ApiDOM structures.",
+  "description": "Evaluate JSON Path expressions against ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "unpkg": "dist/apidom-core.browser.min.js",
+  "unpkg": "dist/apidom-json-path.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
@@ -24,7 +24,6 @@
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
-    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
@@ -36,13 +35,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.18.0",
-    "@swagger-api/apidom-ast": "^0.27.0",
-    "@types/ramda": "=0.28.12",
-    "minim": "=0.23.8",
-    "ramda": "=0.28.0",
-    "ramda-adjunct": "=3.1.0",
-    "short-unique-id": "=4.4.4",
-    "stampit": "=4.3.2"
+    "jsonpath-plus": "=6.0.1",
+    "@swagger-api/apidom-core": "^0.27.0"
   },
   "files": [
     "cjs/",

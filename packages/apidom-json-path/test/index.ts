@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import { evaluate, evaluateMulti } from '../src/index';
+import { evaluate, evaluateMulti } from '../src';
 
 describe('apidom-json-path', function () {
   context('evaluate', function () {

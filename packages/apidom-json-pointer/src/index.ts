@@ -1,0 +1,63 @@
+import { split, replace, tail, startsWith, map, pipe } from 'ramda';
+import { isEmptyString, isInteger } from 'ramda-adjunct';
+import { Element, isObjectElement, isArrayElement } from '@swagger-api/apidom-core';
+
+import { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';
+
+export { InvalidJsonPointerError, EvaluationJsonPointerError };
+
+// escape :: String -> String
+export const escape = pipe(replace(/~/g, '~0'), replace(/\//g, '~1'), encodeURIComponent);
+
+// unescape :: String -> String
+export const unescape = pipe(replace(/~1/g, '/'), replace(/~0/g, '~'), decodeURIComponent);
+
+// parse :: String -> String[]
+export const parse = (pointer: string): string[] => {
+  if (isEmptyString(pointer)) {
+    return [];
+  }
+
+  if (!startsWith('/', pointer)) {
+    throw new InvalidJsonPointerError(pointer);
+  }
+
+  const tokens = pipe(split('/'), map(unescape))(pointer);
+
+  return tail(tokens);
+};
+
+// compile :: String[] -> String
+export const compile = (tokens: string[]): string => {
+  if (tokens.length === 0) {
+    return '';
+  }
+
+  return `/${tokens.map(escape).join('/')}`;
+};
+
+// evaluates JSON Pointer against ApiDOM fragment
+export const evaluate = <T extends Element>(pointer: string, element: T): Element => {
+  const tokens = parse(pointer);
+
+  return tokens.reduce((acc, token) => {
+    if (isObjectElement(acc)) {
+      // @ts-ignore
+      if (!acc.hasKey(token)) {
+        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+      }
+      // @ts-ignore
+      return acc.get(token);
+    }
+
+    if (isArrayElement(acc)) {
+      if (!(token in acc.content) || !isInteger(Number(token))) {
+        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+      }
+      // @ts-ignore
+      return acc.get(Number(token));
+    }
+
+    throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+  }, element);
+};

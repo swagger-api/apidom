@@ -1,12 +1,12 @@
 {
-  "name": "@swagger-api/apidom-json-path",
+  "name": "@swagger-api/apidom-json-pointer",
   "version": "0.27.0",
-  "description": "Evaluate JSONPath expressions against ApiDOM.",
+  "description": "Evaluate JSON Pointer expressions against ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "unpkg": "dist/apidom-json-path.browser.min.js",
+  "unpkg": "dist/apidom-json-pointer.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "import": "./es/index.js",
@@ -35,8 +35,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.18.0",
-    "jsonpath-plus": "=6.0.1",
-    "@swagger-api/apidom-core": "^0.27.0"
+    "@swagger-api/apidom-core": "^0.27.0",
+    "ramda": "=0.28.0",
+    "ramda-adjunct": "=3.1.0"
   },
   "files": [
     "cjs/",

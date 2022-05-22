@@ -8,6 +8,7 @@ import {
   Element,
   find,
 } from '@swagger-api/apidom-core';
+import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -28,7 +29,6 @@ import {
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { evaluate as uriEvaluate } from './selectors/uri';
 import { Reference as IReference, Resolver as IResolver } from '../../../types';
-import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';

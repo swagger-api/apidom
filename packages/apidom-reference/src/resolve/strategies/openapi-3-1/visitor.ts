@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { propEq, values, has, pipe, none } from 'ramda';
 import { allP } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit } from '@swagger-api/apidom-core';
+import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
   isReferenceElement,
@@ -25,7 +26,6 @@ import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
 import File from '../../../util/File';
-import { evaluate as jsonPointerEvaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { evaluate as uriEvaluate } from '../../../dereference/strategies/openapi-3-1/selectors/uri';
 import { maybeRefractToSchemaElement, resolveInherited$id } from './util';
 import {

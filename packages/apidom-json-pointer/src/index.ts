@@ -1,5 +1,5 @@
 import { split, replace, tail, startsWith, map, pipe } from 'ramda';
-import { isEmptyString, isInteger } from 'ramda-adjunct';
+import { isEmptyString, isInteger, trimCharsStart } from 'ramda-adjunct';
 import { Element, isObjectElement, isArrayElement } from '@swagger-api/apidom-core';
 
 import { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';
@@ -60,4 +60,22 @@ export const evaluate = <T extends Element>(pointer: string, element: T): Elemen
 
     throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
   }, element);
+};
+
+/**
+ * Returns the hash (URL fragment), of the given path.
+ * If there is no hash, then the root hash ("#") is returned.
+ */
+const getHash = (uri: string): string => {
+  const hashIndex = uri.indexOf('#');
+  if (hashIndex !== -1) {
+    return uri.substring(hashIndex);
+  }
+  return '#';
+};
+
+// uriToPointer :: String -> String
+export const uriToPointer = (uri: string): string => {
+  const hash = getHash(uri);
+  return trimCharsStart('#', hash);
 };

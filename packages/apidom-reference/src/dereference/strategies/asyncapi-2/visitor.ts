@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
 import { isPrimitiveElement, isStringElement, visit, Element } from '@swagger-api/apidom-core';
+import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -13,7 +14,6 @@ import {
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { Reference as IReference } from '../../../types';
-import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
 import * as url from '../../../util/url';
 import parse from '../../../parse';

@@ -2,10 +2,10 @@ import path from 'path';
 import { assert } from 'chai';
 import { ParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, dereferenceApiDOM, resolve, parse } from '../../../../../src';
-import { evaluate } from '../../../../../src/selectors/json-pointer';
 import {
   DereferenceError,
   MaximumDereferenceDepthError,

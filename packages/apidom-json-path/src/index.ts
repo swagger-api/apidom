@@ -1,5 +1,6 @@
 import { JSONPath } from 'jsonpath-plus';
-import { Element, toValue, ObjectElement } from '@swagger-api/apidom-core';
+import { Element, toValue } from '@swagger-api/apidom-core';
+import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 type Evaluate = {
   <T extends Element>(path: string, element: T): Element[];
@@ -24,7 +25,7 @@ export const evaluate: Evaluate = (path, element) => {
     resultType: 'pointer',
   }) as string[];
 
-  return pointers.map(() => new ObjectElement());
+  return pointers.map((pointer) => jsonPointerEvaluate(pointer, element));
 };
 
 /**
@@ -43,7 +44,8 @@ export const evaluateMulti: EvaluateMulti = (paths, element) => {
 
     const endPointValues: Element[] = [];
     for (const pointer of pointers) {
-      endPointValues.push(new ObjectElement({ pointer }));
+      const endPointValue = jsonPointerEvaluate(pointer, element);
+      endPointValues.push(endPointValue);
     }
 
     if (Array.isArray(path)) {

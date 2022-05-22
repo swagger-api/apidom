@@ -1,4 +1,5 @@
 import path from 'node:path';
+
 import { nonMinimizeTrait, minimizeTrait } from './traits.config.js';
 
 const browser = {
@@ -11,9 +12,9 @@ const browser = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-core.browser.js',
+    filename: 'apidom-json-path.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomCore',
+    library: 'apidomJsonPath',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -42,9 +43,9 @@ const browserMin = {
   target: 'web',
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-core.browser.min.js',
+    filename: 'apidom-json-path.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomCore',
+    library: 'apidomJsonPath',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

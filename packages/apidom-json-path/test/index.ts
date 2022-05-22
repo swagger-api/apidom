@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement } from '@swagger-api/apidom-core';
+import { ObjectElement, NumberElement } from '@swagger-api/apidom-core';
 
 import { evaluate, evaluateMulti } from '../src';
 
@@ -14,7 +14,7 @@ describe('apidom-json-path', function () {
         });
         const result = evaluate('$.a.b[?(@ < 10)]', objectElement);
 
-        assert.lengthOf(result, 2);
+        assert.deepEqual(result, [new NumberElement(1), new NumberElement(2)]);
       });
     });
 
@@ -27,7 +27,7 @@ describe('apidom-json-path', function () {
         });
         const result = evaluate(['$', 'a', 'b', '?(@ < 10)'], objectElement);
 
-        assert.lengthOf(result, 2);
+        assert.deepEqual(result, [new NumberElement(1), new NumberElement(2)]);
       });
     });
 
@@ -55,7 +55,10 @@ describe('apidom-json-path', function () {
         });
         const result = evaluateMulti(['$.a.b[?(@ < 10)]', '$.a.b[?(@ > 10)]'], objectElement);
 
-        assert.lengthOf(result, 2);
+        assert.deepEqual(result, [
+          ['$.a.b[?(@ < 10)]', [new NumberElement(1), new NumberElement(2)]],
+          ['$.a.b[?(@ > 10)]', [new NumberElement(100)]],
+        ]);
       });
     });
 
@@ -74,7 +77,10 @@ describe('apidom-json-path', function () {
           objectElement,
         );
 
-        assert.lengthOf(result, 2);
+        assert.deepEqual(result, [
+          ["$['a']['b']['?(@ < 10)']", [new NumberElement(1), new NumberElement(2)]],
+          ["$['a']['b']['?(@ > 10)']", [new NumberElement(100)]],
+        ]);
       });
     });
 

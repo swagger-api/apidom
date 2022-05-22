@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { propEq, values, has, pipe } from 'ramda';
 import { allP } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit } from '@swagger-api/apidom-core';
+import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
   isReferenceElement,
@@ -19,7 +20,6 @@ import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../.
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
-import { evaluate, uriToPointer } from '../../../selectors/json-pointer';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

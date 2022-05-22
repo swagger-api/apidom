@@ -2,6 +2,7 @@ import path from 'path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { dereference } from '../../../../../src';
 import {
@@ -11,7 +12,6 @@ import {
   ResolverError,
 } from '../../../../../src/util/errors';
 import { loadJsonFile } from '../../../../helpers';
-import { evaluate } from '../../../../../src/selectors/json-pointer';
 import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
 import { EvaluationJsonSchemaUriError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/uri/errors';
 

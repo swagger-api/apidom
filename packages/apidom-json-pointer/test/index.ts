@@ -1,7 +1,12 @@
 import { assert } from 'chai';
 import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
-import { evaluate, EvaluationJsonPointerError, InvalidJsonPointerError } from '../src';
+import {
+  evaluate,
+  uriToPointer,
+  EvaluationJsonPointerError,
+  InvalidJsonPointerError,
+} from '../src';
 
 context('apidom-json-pointer', function () {
   context('given valid JSON pointer', function () {
@@ -59,6 +64,15 @@ context('apidom-json-pointer', function () {
 
         assert.throws(() => evaluate('/x/0/z', element), EvaluationJsonPointerError);
       });
+    });
+  });
+
+  context('given JSON pointer in URI', function () {
+    specify('should return JSON Pointer from URI', function () {
+      const uri = 'https://example.com/path/#/a/b';
+      const expected = '/a/b';
+
+      assert.strictEqual(uriToPointer(uri), expected);
     });
   });
 

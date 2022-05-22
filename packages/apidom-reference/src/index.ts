@@ -36,20 +36,6 @@ export { merge as mergeOptions } from './options/util';
 export { default as Reference } from './Reference';
 export { default as ReferenceSet } from './ReferenceSet';
 
-export {
-  escape as jsonPointerEscape,
-  unescape as jsonPointerUnescape,
-  uriToPointer as uriToJsonPointer,
-  parse as jsonPointerParse,
-  compile as jsonPointerCompile,
-  join as jsonPointerJoin,
-  evaluate as jsonPointerEvaluate,
-} from './selectors/json-pointer';
-export {
-  EvaluationJsonPointerError,
-  InvalidJsonPointerError,
-} from './selectors/json-pointer/errors';
-
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   const sanitizedURI = url.isFileSystemPath(uri) ? url.fromFileSystemPath(uri) : uri;

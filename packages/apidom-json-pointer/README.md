@@ -59,6 +59,16 @@ escape('~a/'); // => '~0a~1'
 unescape('~0a~1'); // => '~a/'
 ```
 
+## Transforming URI to JSON Pointer
+
+Handles case of [URI Fragment Identifier Representation](https://datatracker.ietf.org/doc/html/rfc6901#section-6).
+
+```js
+import { uriToPointer } from '@swagger-api/apidom-json-pointer';
+
+uriToPointer('https://example.com/path/#/a/b'); // => '/a/b'
+```
+
 ## Invalid JSON Pointers
 
 If invalid JSON Pointer is supplied to `parse` or `evaluate` functions, `InvalidJsonPointerError`

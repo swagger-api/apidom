@@ -2,8 +2,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, ObjectElement, MemberElement } from '@swagger-api/apidom-core';
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
-// @ts-ignore
-import { jsonPointerEvaluate } from '@swagger-api/apidom-reference';
+import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import { LanguageSettings } from '../../apidom-language-types';
 import { getSourceMap, isArray, isMember, isObject } from '../../utils/utils';

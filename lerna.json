@@ -4,7 +4,7 @@
   ],
   "npmClient": "npm",
   "useWorkspaces": true,
-  "version": "0.27.0",
+  "version": "0.28.0",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {

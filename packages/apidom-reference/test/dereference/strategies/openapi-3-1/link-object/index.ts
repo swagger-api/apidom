@@ -1,5 +1,5 @@
 import path from 'path';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isOperationElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
@@ -24,6 +24,7 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
+            expect(actual).toMatchSnapshot();
           });
         });
 
@@ -38,6 +39,7 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
+            expect(actual).toMatchSnapshot();
           });
         });
 
@@ -53,6 +55,7 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
+              expect(actual).toMatchSnapshot();
             });
           });
 
@@ -67,6 +70,7 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
+              expect(actual).toMatchSnapshot();
             });
 
             specify('should apply semantics to external fragment', async function () {
@@ -143,6 +147,7 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
+              expect(actual).toMatchSnapshot();
             });
           });
 

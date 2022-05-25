@@ -1,0 +1,2088 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dereference strategies openapi-3-1 Link Object given in Response Object should dereference 1`] = `
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "openApi3_1",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            },
+            {
+              "element": "string",
+              "content": "result"
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "openapi"
+            },
+            "value": {
+              "element": "openapi",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "spec-version"
+                    },
+                    {
+                      "element": "string",
+                      "content": "version"
+                    }
+                  ]
+                }
+              },
+              "content": "3.1.0"
+            }
+          }
+        },
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "components"
+            },
+            "value": {
+              "element": "components",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "responses"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-responses"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "201"
+                            },
+                            "value": {
+                              "element": "response",
+                              "meta": {
+                                "http-status-code": {
+                                  "element": "string",
+                                  "content": "201"
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "description"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "201 description"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "links"
+                                    },
+                                    "value": {
+                                      "element": "object",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "response-links"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "patterned-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "link"
+                                            },
+                                            "value": {
+                                              "element": "link",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-element"
+                                                    }
+                                                  ]
+                                                },
+                                                "ref-fields": {
+                                                  "element": "object",
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "$ref"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "#/components/links/link1"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "description"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "summary"
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": [
+                                                {
+                                                  "element": "member",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "fixed-field"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "operationId"
+                                                    },
+                                                    "value": {
+                                                      "element": "string",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "reference-value"
+                                                            }
+                                                          ]
+                                                        },
+                                                        "operation": {
+                                                          "element": "operation",
+                                                          "meta": {
+                                                            "http-method": {
+                                                              "element": "string",
+                                                              "content": "GET"
+                                                            }
+                                                          },
+                                                          "content": [
+                                                            {
+                                                              "element": "member",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "fixed-field"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "operationId"
+                                                                },
+                                                                "value": {
+                                                                  "element": "string",
+                                                                  "content": "op1"
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": "op1"
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "links"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-links"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link1"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationId"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "meta": {
+                                            "http-method": {
+                                              "element": "string",
+                                              "content": "GET"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "operationId"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "op1"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "op1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "pathItems"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-path-items"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "pathItem1"
+                            },
+                            "value": {
+                              "element": "pathItem",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "get"
+                                    },
+                                    "value": {
+                                      "element": "operation",
+                                      "meta": {
+                                        "http-method": {
+                                          "element": "string",
+                                          "content": "GET"
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "operationId"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "op1"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+`;
+
+exports[`dereference strategies openapi-3-1 Link Object given in components/links field should dereference 1`] = `
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "openApi3_1",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            },
+            {
+              "element": "string",
+              "content": "result"
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "openapi"
+            },
+            "value": {
+              "element": "openapi",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "spec-version"
+                    },
+                    {
+                      "element": "string",
+                      "content": "version"
+                    }
+                  ]
+                }
+              },
+              "content": "3.1.0"
+            }
+          }
+        },
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "components"
+            },
+            "value": {
+              "element": "components",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "links"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-links"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link1"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationId"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "meta": {
+                                            "http-method": {
+                                              "element": "string",
+                                              "content": "GET"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "operationId"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "op1"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "op1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link2"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                },
+                                "ref-fields": {
+                                  "element": "object",
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "$ref"
+                                        },
+                                        "value": {
+                                          "element": "string",
+                                          "content": "#/components/links/link1"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "description"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "summary"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationId"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "meta": {
+                                            "http-method": {
+                                              "element": "string",
+                                              "content": "GET"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "operationId"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "op1"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "op1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "pathItems"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-path-items"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "pathItem1"
+                            },
+                            "value": {
+                              "element": "pathItem",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "get"
+                                    },
+                                    "value": {
+                                      "element": "operation",
+                                      "meta": {
+                                        "http-method": {
+                                          "element": "string",
+                                          "content": "GET"
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "operationId"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "op1"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+`;
+
+exports[`dereference strategies openapi-3-1 Link Object given operationId field and OperationElement with operationId exists should dereference 1`] = `
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "openApi3_1",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            },
+            {
+              "element": "string",
+              "content": "result"
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "openapi"
+            },
+            "value": {
+              "element": "openapi",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "spec-version"
+                    },
+                    {
+                      "element": "string",
+                      "content": "version"
+                    }
+                  ]
+                }
+              },
+              "content": "3.1.0"
+            }
+          }
+        },
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "components"
+            },
+            "value": {
+              "element": "components",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "links"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-links"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link1"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationId"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "meta": {
+                                            "http-method": {
+                                              "element": "string",
+                                              "content": "GET"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "operationId"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "op1"
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "description"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "description of operation"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "op1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "pathItems"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-path-items"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "pathItem1"
+                            },
+                            "value": {
+                              "element": "pathItem",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "get"
+                                    },
+                                    "value": {
+                                      "element": "operation",
+                                      "meta": {
+                                        "http-method": {
+                                          "element": "string",
+                                          "content": "GET"
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "operationId"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "op1"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "description of operation"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+`;
+
+exports[`dereference strategies openapi-3-1 Link Object given operationRef field and with external JSON Pointer should dereference 1`] = `
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "openApi3_1",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            },
+            {
+              "element": "string",
+              "content": "result"
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "openapi"
+            },
+            "value": {
+              "element": "openapi",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "spec-version"
+                    },
+                    {
+                      "element": "string",
+                      "content": "version"
+                    }
+                  ]
+                }
+              },
+              "content": "3.1.0"
+            }
+          }
+        },
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "components"
+            },
+            "value": {
+              "element": "components",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "links"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-links"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link1"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationRef"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "description"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "description of operation"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "./ex.json#/operation"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+`;
+
+exports[`dereference strategies openapi-3-1 Link Object given operationRef field and with internal JSON Pointer should dereference 1`] = `
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "openApi3_1",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            },
+            {
+              "element": "string",
+              "content": "result"
+            }
+          ]
+        }
+      },
+      "content": [
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "openapi"
+            },
+            "value": {
+              "element": "openapi",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "spec-version"
+                    },
+                    {
+                      "element": "string",
+                      "content": "version"
+                    }
+                  ]
+                }
+              },
+              "content": "3.1.0"
+            }
+          }
+        },
+        {
+          "element": "member",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "fixed-field"
+                }
+              ]
+            }
+          },
+          "content": {
+            "key": {
+              "element": "string",
+              "content": "components"
+            },
+            "value": {
+              "element": "components",
+              "content": [
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "links"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-links"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "link1"
+                            },
+                            "value": {
+                              "element": "link",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "operationRef"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        },
+                                        "operation": {
+                                          "element": "operation",
+                                          "meta": {
+                                            "http-method": {
+                                              "element": "string",
+                                              "content": "GET"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "description"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "content": "description of operation"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "#/components/pathItems/pathItem1/get"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "member",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "fixed-field"
+                        }
+                      ]
+                    }
+                  },
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "pathItems"
+                    },
+                    "value": {
+                      "element": "object",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "components-path-items"
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "member",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "patterned-field"
+                                }
+                              ]
+                            }
+                          },
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "pathItem1"
+                            },
+                            "value": {
+                              "element": "pathItem",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "get"
+                                    },
+                                    "value": {
+                                      "element": "operation",
+                                      "meta": {
+                                        "http-method": {
+                                          "element": "string",
+                                          "content": "GET"
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "description of operation"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+`;

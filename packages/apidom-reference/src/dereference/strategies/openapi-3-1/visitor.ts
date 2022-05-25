@@ -286,6 +286,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isPrimitiveElement(operationElement)) {
           operationElement = OperationElement.refract(operationElement);
         }
+        linkElement.operationRef.meta.set('operation', operationElement);
       } else if (isStringElement(linkElement.operationId)) {
         const operationId = linkElement.operationId.toValue();
         operationElement = find(
@@ -296,10 +297,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isUndefined(operationElement)) {
           throw new Error(`OperationElement(operationId=${operationId}) not found.`);
         }
+        linkElement.operationId.meta.set('operation', operationElement);
       }
-
-      // @ts-ignore
-      linkElement.operation = operationElement; // eslint-disable-line no-param-reassign
 
       return undefined;
     },

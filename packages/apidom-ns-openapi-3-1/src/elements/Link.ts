@@ -1,5 +1,5 @@
 import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, Element, isStringElement } from '@swagger-api/apidom-core';
 
 import ServerElement from './Server';
 import OperationElement from './Operation';
@@ -27,7 +27,13 @@ class Link extends ObjectElement {
   }
 
   get operation(): OperationElement | undefined {
-    return this.get('operation');
+    if (isStringElement(this.operationRef)) {
+      return this.operationRef.meta.get('operation');
+    }
+    if (isStringElement(this.operationId)) {
+      return this.operationId.meta.get('operation');
+    }
+    return undefined;
   }
 
   set operation(operation: OperationElement | undefined) {

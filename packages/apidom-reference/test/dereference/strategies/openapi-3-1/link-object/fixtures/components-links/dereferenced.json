@@ -4,16 +4,10 @@
     "components": {
       "links": {
         "link1": {
-          "operationId": "op1",
-          "operation": {
-            "operationId": "op1"
-          }
+          "operationId": "op1"
         },
         "link2": {
-          "operationId": "op1",
-          "operation": {
-            "operationId": "op1"
-          }
+          "operationId": "op1"
         }
       },
       "pathItems": {

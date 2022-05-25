@@ -4,10 +4,7 @@
     "components": {
       "links": {
         "link1": {
-          "operationRef": "./ex.json#/operation",
-          "operation": {
-            "description": "description of operation"
-          }
+          "operationRef": "./ex.json#/operation"
         }
       }
     }

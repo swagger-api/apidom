@@ -151,7 +151,7 @@ export interface CompletionProvider {
     completionParamsOrPosition: CompletionParams | Position,
     currentCompletionItems: CompletionItem[],
     completionContext?: CompletionContext,
-  ): CompletionProviderResult;
+  ): CompletionProviderResult | Promise<CompletionProviderResult>;
 
   configure?(settings: LanguageSettings): void;
 

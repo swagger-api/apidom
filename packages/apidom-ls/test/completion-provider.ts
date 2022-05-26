@@ -171,6 +171,97 @@ class RefCompletionProvider implements CompletionProvider {
   }
 }
 
+class AsyncRefCompletionProvider implements CompletionProvider {
+  // eslint-disable-next-line class-methods-use-this
+  break(): boolean {
+    return false;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  providerMode(): ProviderMode {
+    return ProviderMode.REF;
+  }
+
+  // eslint-disable-next-line class-methods-use-this,@typescript-eslint/no-unused-vars
+  configure(settings: LanguageSettings): void {}
+
+  async doRefCompletion(
+    textDocument: TextDocument,
+    element: Element,
+    api: Element,
+    referencedElement: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    refValue: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    completionParamsOrPosition: CompletionParams | Position,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    currentCompletionItems: CompletionItem[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    completionContext?: CompletionContext,
+  ): Promise<CompletionProviderResult> {
+    console.log(element.toValue(), referencedElement, refValue);
+    // build completions
+    const refs = await this.legacyPotentialRefs(referencedElement);
+    if (refs.length === 0) {
+      return {
+        mergeStrategy: MergeStrategy.IGNORE,
+        completionList: {
+          items: [],
+          isIncomplete: false,
+        },
+      };
+    }
+
+    const valueQuotes = !isJsonDoc(textDocument) ? "'" : '"';
+    let i = 301;
+    const items: CompletionItem[] = [];
+    for (const p of refs) {
+      const item: CompletionItem = {
+        label: p,
+        insertText: `${valueQuotes}${p}$1${valueQuotes}`,
+        kind: 18,
+        // documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
+        // detail: 'replace with',
+        insertTextFormat: 2,
+        sortText: `${String.fromCharCode(i)}`,
+      };
+      items.push(item);
+      i += 1;
+    }
+    return {
+      mergeStrategy: MergeStrategy.APPEND,
+      completionList: {
+        isIncomplete: false,
+        items,
+      },
+    };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  name(): string {
+    return 'RefProvider';
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  namespaces(): NamespaceVersion[] {
+    return [
+      {
+        namespace: 'openapi',
+        version: '3.1.0',
+      },
+    ];
+  }
+
+  // eslint-disable-next-line class-methods-use-this,@typescript-eslint/no-unused-vars
+  private async legacyPotentialRefs(ref: string): Promise<string[]> {
+    // logic here to get possible refs to add to completion items
+    return [
+      'http://example.com/#components/schemas/foo',
+      'http://example.com/#components/schemas/bar',
+    ];
+  }
+}
+
 class FullCompletionProvider implements CompletionProvider {
   /*
   returning `true` skips execution of any subsequent defined providers
@@ -300,10 +391,18 @@ class FullCompletionProvider implements CompletionProvider {
 describe('apidom-ls-completion-provider', function () {
   const refCompletionProvider = new RefCompletionProvider();
   const fullCompletionProvider = new FullCompletionProvider();
+  const asyncRefCompletionProvider = new AsyncRefCompletionProvider();
 
   const contextRef: LanguageServiceContext = {
     metadata: metadata(),
     completionProviders: [refCompletionProvider],
+    performanceLogs: logPerformance,
+    logLevel,
+  };
+
+  const contextAsyncRef: LanguageServiceContext = {
+    metadata: metadata(),
+    completionProviders: [asyncRefCompletionProvider],
     performanceLogs: logPerformance,
     logLevel,
   };
@@ -319,7 +418,7 @@ describe('apidom-ls-completion-provider', function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
-    const languageService: LanguageService = getLanguageService(contextRef);
+    let languageService: LanguageService = getLanguageService(contextAsyncRef);
 
     try {
       // valid spec
@@ -330,11 +429,6 @@ describe('apidom-ls-completion-provider', function () {
         specOpenapi,
       );
 
-      const result = await languageService.doCompletion(
-        docOpenapi,
-        { line: 13, character: 24 },
-        completionContext,
-      );
       const expected = [
         {
           label: '#/components/schemas/UserProfile',
@@ -409,6 +503,21 @@ describe('apidom-ls-completion-provider', function () {
           filterText: '',
         },
       ] as CompletionItem[];
+
+      const resultAsync = await languageService.doCompletion(
+        docOpenapi,
+        { line: 13, character: 24 },
+        completionContext,
+      );
+
+      assert.deepEqual(resultAsync!.items, expected as CompletionItem[]);
+      languageService.terminate();
+      languageService = getLanguageService(contextRef);
+      const result = await languageService.doCompletion(
+        docOpenapi,
+        { line: 13, character: 24 },
+        completionContext,
+      );
       assert.deepEqual(result!.items, expected as CompletionItem[]);
     } finally {
       languageService.terminate();

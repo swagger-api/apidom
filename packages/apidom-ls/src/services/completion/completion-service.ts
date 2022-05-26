@@ -737,7 +737,7 @@ export class DefaultCompletionService implements CompletionService {
         let apidomCompletions: CompletionItem[] | undefined;
         // check if we are in a ref value, in this case build ref pointers
         if (this.isReferenceValue(completionNode)) {
-          apidomCompletions = this.findReferencePointers(
+          apidomCompletions = await this.findReferencePointers(
             textDocument,
             api,
             completionNode,
@@ -853,7 +853,7 @@ export class DefaultCompletionService implements CompletionService {
     return completionList;
   }
 
-  public findReferencePointers(
+  public async findReferencePointers(
     textDocument: TextDocument,
     doc: Element,
     node: Element,
@@ -865,7 +865,7 @@ export class DefaultCompletionService implements CompletionService {
     yaml: boolean,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
-  ): CompletionItem[] {
+  ): Promise<CompletionItem[]> {
     const result: CompletionItem[] = [];
     // get type of node (element)
     const refElementType = node.parent?.parent
@@ -906,7 +906,7 @@ export class DefaultCompletionService implements CompletionService {
           provider.providerMode() === ProviderMode.REF
         ) {
           // eslint-disable-next-line no-await-in-loop
-          const completionProviderResult = provider.doRefCompletion(
+          const completionProviderResult = await provider.doRefCompletion(
             textDocument,
             node,
             doc,

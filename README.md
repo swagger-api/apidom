@@ -264,7 +264,7 @@ multiple package names as argument.
  $ npm link @swagger-api/apidom-core
 ```
 
-> Setting up npm script in `depedent project` can help keep things DRY.
+> Setting up npm script in `dependent project` can help keep things DRY.
 
 #### Cleaning up
 

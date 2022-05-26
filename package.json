@@ -92,7 +92,7 @@
     "prettier": "=2.6.2",
     "rimraf": "=3.0.2",
     "rollup": "=2.74.1",
-    "rollup-plugin-dts": "=4.2.1",
+    "rollup-plugin-dts": "=4.2.2",
     "sinon": "=14.0.0",
     "terser-webpack-plugin": "=5.3.1",
     "ts-node": "=10.8.0",

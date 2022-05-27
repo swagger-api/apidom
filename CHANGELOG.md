@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.29.0](https://github.com/swagger-api/apidom/compare/v0.28.0...v0.29.0) (2022-05-27)
+
+
+### Features
+
+* **apidom-ls:** allow async doRefCompletion ([#1512](https://github.com/swagger-api/apidom/issues/1512)) ([ea28013](https://github.com/swagger-api/apidom/commit/ea28013272b48ee521fc05d1c3237518b3b6065b))
+
+
+
+
+
 # [0.28.0](https://github.com/swagger-api/apidom/compare/v0.27.0...v0.28.0) (2022-05-22)
 
 

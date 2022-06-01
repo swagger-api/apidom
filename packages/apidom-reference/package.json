@@ -53,7 +53,7 @@
     "stampit": "=4.3.2"
   },
   "devDependencies": {
-    "axios-mock-adapter": "=1.20.0"
+    "axios-mock-adapter": "=1.21.1"
   },
   "files": [
     "cjs/",

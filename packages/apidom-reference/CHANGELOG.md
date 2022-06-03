@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
+
+
+### Bug Fixes
+
+* **reference:** allow passing custom resolver opts ([#1535](https://github.com/swagger-api/apidom/issues/1535)) ([2cc8dbd](https://github.com/swagger-api/apidom/commit/2cc8dbd76628a2e800362b38d5649671cd527a9f))
+
+
+
+
+
 # [0.29.0](https://github.com/swagger-api/apidom/compare/v0.28.0...v0.29.0) (2022-05-27)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

@@ -1,6 +1,5 @@
 import stampit from 'stampit';
-import axios from 'axios';
-import { clone } from 'ramda';
+import axios, { AxiosInstance } from 'axios';
 
 import ResolverError from '../../util/errors/ResolverError';
 import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
@@ -11,12 +10,8 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).in
     /**
      * Private Api.
      */
-    const axiosInstance = axios.create({
-      timeout: this.timeout,
-      maxRedirects: this.redirects,
-      withCredentials: this.withCredentials,
-      responseType: 'arraybuffer',
-    });
+    let axiosInstance: AxiosInstance;
+    let oldAxiosConfig: Record<string, any>;
 
     /**
      * Public Api.
@@ -24,13 +19,26 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).in
 
     this.name = 'http-axios';
 
-    this.getHttpClient = function getHttpClient() {
-      return clone(axiosInstance);
+    this.getHttpClient = function getHttpClient(): AxiosInstance {
+      if (typeof axiosInstance === 'undefined' || oldAxiosConfig !== this.axiosConfig) {
+        axiosInstance = axios.create({
+          timeout: this.timeout,
+          maxRedirects: this.redirects,
+          withCredentials: this.withCredentials,
+          responseType: 'arraybuffer',
+          ...(this.axiosConfig || {}),
+        });
+        oldAxiosConfig = this.axiosConfig;
+      }
+
+      return axiosInstance;
     };
 
     this.read = async function read(file: IFile): Promise<Buffer> {
+      const client: AxiosInstance = this.getHttpClient();
+
       try {
-        const response = await axiosInstance.get<string>(file.uri);
+        const response = await client.get<string>(file.uri);
         return Buffer.from(response.data);
       } catch (error: any) {
         throw new ResolverError(`Error downloading "${file.uri}"`, error);

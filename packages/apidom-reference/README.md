@@ -525,7 +525,9 @@ Some resolver plugins accept additional options. It's possible to **change** res
 import { options, readFile } from '@swagger-api/apidom-reference';
 
 options.resolve.resolverOpts = {
-  timeout: 10000,
+  axiosConfig: {
+    timeout: 10000,
+  },
 };
 
 await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
@@ -538,7 +540,11 @@ import { readFile } from '@swagger-api/apidom-reference';
 
 await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   resolve: {
-    resolverOpts: { timeout: 10000 },
+    resolverOpts: {
+      axiosConfig: {
+        timeout: 10000,
+      },
+    },
   },
 });
 ```
@@ -669,7 +675,13 @@ import { resolve } from '@swagger-api/apidom-reference';
 
 await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-  resolve: { resolverOpts: { timeout: 10 } },
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        timeout: 10
+      },
+    },
+  },
 }); // Promise<ReferenceSet>
 ```
 
@@ -922,7 +934,6 @@ import { dereference } from '@swagger-api/apidom-reference';
 
 await dereference('/home/user/oas.json', {
   parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-  resolve: { resolverOpts: { timeout: 10 } },
 }); // Promise<Element>
 ```
 
@@ -933,7 +944,13 @@ import { dereference } from '@swagger-api/apidom-reference';
 
 await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-  resolve: { resolverOpts: { timeout: 10 } },
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        timeout: 10
+      },
+    },
+  },
 }); // Promise<ReferenceSet>
 ```
 

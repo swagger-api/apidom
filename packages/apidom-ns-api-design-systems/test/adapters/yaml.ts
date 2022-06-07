@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
 
-import { parse as parseYAML } from '../../src/adapters/yaml';
+import { parse as parseYAML } from '../../src/adapters/yaml/adapter';
 
 describe('adapters', function () {
   it('should parse YAML API Design Systems definition', async function () {

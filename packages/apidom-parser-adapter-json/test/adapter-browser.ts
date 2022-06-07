@@ -8,8 +8,8 @@ import * as adapter from '../src/adapter-browser';
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json')).toString();
 
 describe('adapter-browser', function () {
-  it('should detect proper media type', async function () {
-    assert.isTrue(await adapter.detect(spec));
+  it('should detect proper media type', function () {
+    assert.isTrue(adapter.detect(spec));
   });
 
   it('should parse', async function () {

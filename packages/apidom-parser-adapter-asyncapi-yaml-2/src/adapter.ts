@@ -2,18 +2,9 @@ import { omit, propOr } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseYaml } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import asyncApiNamespace, {
-  AsyncApi2Element,
-  mediaTypes,
-  AsyncAPIMediaTypes,
-} from '@swagger-api/apidom-ns-asyncapi-2';
+import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-const yamlMediaTypes = new AsyncAPIMediaTypes(
-  ...mediaTypes.forFormat('generic'),
-  ...mediaTypes.forFormat('yaml'),
-);
-
-export { yamlMediaTypes as mediaTypes };
+export { default as mediaTypes } from './media-types';
 
 export const detect = (source: string): boolean =>
   !!source.match(

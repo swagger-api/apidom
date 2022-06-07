@@ -1,6 +1,6 @@
 import { createNamespace } from '@swagger-api/apidom-core';
 
-export const mediaTypes = ['application/json'];
+export { default as mediaTypes } from './media-types';
 
 export const detect = async (source: string): Promise<boolean> => {
   try {

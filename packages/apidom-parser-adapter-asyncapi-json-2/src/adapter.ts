@@ -2,18 +2,9 @@ import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
-import asyncApiNamespace, {
-  AsyncApi2Element,
-  mediaTypes,
-  AsyncAPIMediaTypes,
-} from '@swagger-api/apidom-ns-asyncapi-2';
+import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-const jsonMediaTypes = new AsyncAPIMediaTypes(
-  ...mediaTypes.forFormat('generic'),
-  ...mediaTypes.forFormat('json'),
-);
-
-export { jsonMediaTypes as mediaTypes };
+export { default as mediaTypes } from './media-types';
 
 export const detect = async (source: string): Promise<boolean> => {
   const isJson = await detectJSON(source);

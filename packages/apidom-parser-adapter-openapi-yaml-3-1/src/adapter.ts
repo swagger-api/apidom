@@ -7,7 +7,7 @@ import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-open
 export { default as mediaTypes } from './media-types';
 
 export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)openapi\1\s*:\s*(["']?)3\.\d+\.\d+\2/g);
+  /(["']?)openapi\1\s*:\s*(["']?)3\.1\.0\2/g.test(source);
 
 export const parse = async (
   source: string,

@@ -7,7 +7,7 @@ interface ParserOptions extends Record<string, any> {
   mediaType?: string;
 }
 
-type Detect = (source: string) => boolean;
+type Detect = (source: string) => boolean | Promise<boolean>;
 type Parse = (source: string, options: ParserOptions) => Promise<ParseResultElement>;
 
 interface ApiDOMParserAdapter {

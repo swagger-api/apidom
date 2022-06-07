@@ -1,13 +1,13 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
-import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
+import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
 import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 export { default as mediaTypes } from './media-types';
 
 export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)openapi\1\s*:\s*(["']?)3\.\d+\.\d+\2/g);
+  detectJSON(source) && /"openapi"\s*:\s*"3\.1\.0"/g.test(source);
 
 export const parse = async (
   source: string,
@@ -15,7 +15,7 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  const parseResultElement = await parseJson(source, parserOpts);
+  const parseResultElement = await parseJSON(source, parserOpts);
   const { result } = parseResultElement;
 
   if (isNotUndefined(result)) {

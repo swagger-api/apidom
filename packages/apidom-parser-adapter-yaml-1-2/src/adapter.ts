@@ -1,6 +1,6 @@
 import { createNamespace } from '@swagger-api/apidom-core';
 
-export const mediaTypes = ['text/yaml', 'application/yaml'];
+export { default as mediaTypes } from './media-types';
 
 export const detect: (source?: string) => boolean = () => {
   /**

@@ -3,8 +3,14 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import lexicalAnalysis from './lexical-analysis/node';
 import syntacticAnalysis from './syntactic-analysis/index';
 
-export { detect, mediaTypes, namespace } from './adapter';
+export { mediaTypes, namespace } from './adapter';
 export { lexicalAnalysis, syntacticAnalysis };
+
+export const detect = async (source: string): Promise<boolean> => {
+  const cst = await lexicalAnalysis(source);
+
+  return cst.rootNode.type !== 'ERROR';
+};
 
 interface ParseFunctionOptions {
   sourceMap?: boolean;

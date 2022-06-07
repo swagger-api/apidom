@@ -8,8 +8,16 @@ import * as adapter from '../../src/adapter-node';
 const spec = fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sample-data.yaml')).toString();
 
 describe('adapter-node', function () {
-  it('should not detect proper media type', function () {
-    assert.isFalse(adapter.detect(spec));
+  context('given valid YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(await adapter.detect(spec));
+    });
+  });
+
+  context('given non YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isFalse(await adapter.detect('test : test : test'));
+    });
   });
 
   it('should parse', async function () {

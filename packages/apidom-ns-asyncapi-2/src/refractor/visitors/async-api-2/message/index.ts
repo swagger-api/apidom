@@ -1,12 +1,17 @@
 import stampit from 'stampit';
 import { always, defaultTo } from 'ramda';
-import { ObjectElement, isObjectElement, Element } from '@swagger-api/apidom-core';
+import { ObjectElement, isObjectElement } from '@swagger-api/apidom-core';
 
 import mediaTypes from '../../../../media-types';
 import MessageElement from '../../../../elements/Message';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+
+/**
+ * Implementation of refracting according `schemaFormat` fixed field is now limited,
+ * and currently only supports AsyncAPI Schema Object >= 2.0.0 <=2.4.0.
+ */
 
 const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
@@ -17,30 +22,25 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
     this.element = new MessageElement();
   },
   methods: {
-    refractPayload(schemaFormat: string, payload: Element) {
-      if (isObjectElement(payload) && mediaTypes.includes(schemaFormat)) {
-        this.element.payload = this.toRefractedElement(['document', 'objects', 'Schema'], payload);
-      }
-    },
-
     ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
       const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
       const payload = this.element.get('payload');
+      const schemaFormat = defaultTo(
+        mediaTypes.latest(),
+        objectElement.get('schemaFormat')?.toValue(),
+      );
 
-      if (isReferenceLikeElement(payload)) {
+      if (mediaTypes.includes(schemaFormat) && isReferenceLikeElement(payload)) {
         // refract to ReferenceElement
-        this.element.payload = this.toRefractedElement(
+        const referenceElement = this.toRefractedElement(
           ['document', 'objects', 'Reference'],
           payload,
         );
-      } else {
-        // refract payload according to `schemaFormat`
-        const schemaFormat = defaultTo(
-          mediaTypes.latest(),
-          objectElement.get('schemaFormat')?.toValue(),
-        );
-        this.refractPayload(schemaFormat, payload);
+        referenceElement.meta.set('referenced-element', 'schema');
+        this.element.payload = referenceElement;
+      } else if (mediaTypes.includes(schemaFormat) && isObjectElement(this.element.payload)) {
+        this.element.payload = this.toRefractedElement(['document', 'objects', 'Schema'], payload);
       }
 
       return result;

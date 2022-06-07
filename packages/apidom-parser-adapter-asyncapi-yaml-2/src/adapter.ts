@@ -16,7 +16,9 @@ const yamlMediaTypes = new AsyncAPIMediaTypes(
 export { yamlMediaTypes as mediaTypes };
 
 export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/g);
+  !!source.match(
+    /(["']?)asyncapi\1\s*:\s*(["']?)((2\.0\.0)|(2\.1\.0)|(2\.2\.0)|(2\.3\.0)|(2\.4\.0))\2/g,
+  );
 
 export const parse = async (
   source: string,

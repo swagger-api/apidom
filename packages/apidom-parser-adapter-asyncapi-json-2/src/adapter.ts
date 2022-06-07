@@ -1,7 +1,7 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
-import { parse as parseJson } from '@swagger-api/apidom-parser-adapter-json';
+import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
 import asyncApiNamespace, {
   AsyncApi2Element,
   mediaTypes,
@@ -15,8 +15,14 @@ const jsonMediaTypes = new AsyncAPIMediaTypes(
 
 export { jsonMediaTypes as mediaTypes };
 
-export const detect = (source: string): boolean =>
-  !!source.match(/(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/g);
+export const detect = async (source: string): Promise<boolean> => {
+  const isJson = await detectJSON(source);
+
+  return (
+    isJson &&
+    !!source.match(/"asyncapi"\s*:\s*"((2\.0\.0)|(2\.1\.0)|(2\.2\.0)|(2\.3\.0)|(2\.4\.0))"/g)
+  );
+};
 
 export const parse = async (
   source: string,
@@ -24,7 +30,7 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  const parseResultElement = await parseJson(source, parserOpts);
+  const parseResultElement = await parseJSON(source, parserOpts);
   const { result } = parseResultElement;
 
   if (isNotUndefined(result)) {

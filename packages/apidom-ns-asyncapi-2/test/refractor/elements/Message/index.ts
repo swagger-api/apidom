@@ -9,7 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const messageElement = MessageElement.refract({
           messageId: 'unique-id',
-          schemaFormat: 'application/schema+json;version=draft-07',
+          schemaFormat: 'application/vnd.aai.asyncapi;version=2.4.0',
           contentType: 'application/json',
           name: 'message-name',
           title: 'message-title',
@@ -53,25 +53,79 @@ describe('refractor', function () {
       });
     });
 
-    context('given payload field of type SchemaElement', function () {
-      specify('should refract to semantic ApiDOM tree', function () {
-        const messageElement = MessageElement.refract({
-          payload: {},
-        });
+    context('given implicit value of schemaFormat fixed field', function () {
+      context('given payload field', function () {
+        specify('should refract payload to SchemaElement', function () {
+          const messageElement = MessageElement.refract({
+            payload: {},
+          });
 
-        expect(sexprs(messageElement)).toMatchSnapshot();
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given payload field of type ReferenceElement', function () {
+        specify('should refract payload to ReferenceElement', function () {
+          const messageElement = MessageElement.refract({
+            payload: {
+              $ref: '#/json-pointer',
+            },
+          });
+
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
       });
     });
 
-    context('given payload field of type ReferenceElement', function () {
-      specify('should refract to semantic ApiDOM tree', function () {
-        const messageElement = MessageElement.refract({
-          payload: {
-            $ref: '#/json-pointer',
-          },
-        });
+    context('given explicit value of schemaFormat fixed field', function () {
+      context('given payload field', function () {
+        specify('should refract payload to SchemaElement', function () {
+          const messageElement = MessageElement.refract({
+            schemaFormat: 'application/vnd.aai.asyncapi;version=2.4.0',
+            payload: {},
+          });
 
-        expect(sexprs(messageElement)).toMatchSnapshot();
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given payload field of type ReferenceElement', function () {
+        specify('should refract payload to ReferenceElement', function () {
+          const messageElement = MessageElement.refract({
+            schemaFormat: 'application/vnd.aai.asyncapi;version=2.4.0',
+            payload: {
+              $ref: '#/json-pointer',
+            },
+          });
+
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
+      });
+    });
+
+    context('given explicit unsupported value of schemaFormat fixed field', function () {
+      context('given payload field', function () {
+        specify('should refract payload to generic ObjectElement', function () {
+          const messageElement = MessageElement.refract({
+            schemaFormat: 'application/schema+json;version=draft-07',
+            payload: {},
+          });
+
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given payload field of type ReferenceElement', function () {
+        specify('should refract payload to generic ObjectElement', function () {
+          const messageElement = MessageElement.refract({
+            schemaFormat: 'application/schema+json;version=draft-07',
+            payload: {
+              $ref: '#/json-pointer',
+            },
+          });
+
+          expect(sexprs(messageElement)).toMatchSnapshot();
+        });
       });
     });
 

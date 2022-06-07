@@ -10,8 +10,8 @@
   "main": "./cjs/index.cjs",
   "exports": {
     "./adapters/*": {
-      "import": "./es/adapters/*.js",
-      "require": "./cjs/adapters/*.cjs"
+      "import": "./es/adapters/*/adapter.js",
+      "require": "./cjs/adapters/*/adapter.cjs"
     },
     ".": {
       "import": "./es/index.js",

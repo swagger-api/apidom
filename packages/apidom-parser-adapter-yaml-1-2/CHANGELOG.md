@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **media-types:** unify how media types are defined ([#1550](https://github.com/swagger-api/apidom/issues/1550)) ([dcb45ce](https://github.com/swagger-api/apidom/commit/dcb45ceba18e5c73dd9e53bea53b302860a214db)), closes [#1549](https://github.com/swagger-api/apidom/issues/1549)
+
+
+### Features
+
+* **yaml-1-2:** add YAML 1.2 detection mechanism ([#1553](https://github.com/swagger-api/apidom/issues/1553)) ([e1dd8d5](https://github.com/swagger-api/apidom/commit/e1dd8d519b4a53fe1f8b535122624a27d99817e9)), closes [#422](https://github.com/swagger-api/apidom/issues/422) [#1551](https://github.com/swagger-api/apidom/issues/1551)
+
+
+
+
+
 ## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2

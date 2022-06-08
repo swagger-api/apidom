@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **AsyncAPI:** detect AsyncAPI in different formats properly ([#1548](https://github.com/swagger-api/apidom/issues/1548)) ([76ac43f](https://github.com/swagger-api/apidom/commit/76ac43f8d9eb7704d15223cf0bdc33e6867e7702)), closes [#1536](https://github.com/swagger-api/apidom/issues/1536)
+* **media-types:** unify how media types are defined ([#1550](https://github.com/swagger-api/apidom/issues/1550)) ([dcb45ce](https://github.com/swagger-api/apidom/commit/dcb45ceba18e5c73dd9e53bea53b302860a214db)), closes [#1549](https://github.com/swagger-api/apidom/issues/1549)
+* **ns-asyncapi-2:** fix refracting of Message.payload ([#1547](https://github.com/swagger-api/apidom/issues/1547)) ([f9c0dcf](https://github.com/swagger-api/apidom/commit/f9c0dcf1f3d8f6402e0e50222651823deb0fb7ef)), closes [#1534](https://github.com/swagger-api/apidom/issues/1534)
+* **OpenAPI:** detect OpenAPI in different formats properly ([#1552](https://github.com/swagger-api/apidom/issues/1552)) ([b21e81e](https://github.com/swagger-api/apidom/commit/b21e81ead95b7de5cc8b5e4161f6096c79a62c0b)), closes [#422](https://github.com/swagger-api/apidom/issues/422)
+
+
+### Features
+
+* **api-design-systems:** add better JSON & YAML detection ([#1554](https://github.com/swagger-api/apidom/issues/1554)) ([990b769](https://github.com/swagger-api/apidom/commit/990b7695093ab82f757091cca126a555f8fa7cc3)), closes [#422](https://github.com/swagger-api/apidom/issues/422)
+* **yaml-1-2:** add YAML 1.2 detection mechanism ([#1553](https://github.com/swagger-api/apidom/issues/1553)) ([e1dd8d5](https://github.com/swagger-api/apidom/commit/e1dd8d519b4a53fe1f8b535122624a27d99817e9)), closes [#422](https://github.com/swagger-api/apidom/issues/422) [#1551](https://github.com/swagger-api/apidom/issues/1551)
+
+
+
+
+
 ## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
 
 

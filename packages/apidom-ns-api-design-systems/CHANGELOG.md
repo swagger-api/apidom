@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
+
+
+### Features
+
+* **api-design-systems:** add better JSON & YAML detection ([#1554](https://github.com/swagger-api/apidom/issues/1554)) ([990b769](https://github.com/swagger-api/apidom/commit/990b7695093ab82f757091cca126a555f8fa7cc3)), closes [#422](https://github.com/swagger-api/apidom/issues/422)
+
+
+
+
+
 ## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-api-design-systems

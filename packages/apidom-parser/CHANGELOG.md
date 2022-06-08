@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **AsyncAPI:** detect AsyncAPI in different formats properly ([#1548](https://github.com/swagger-api/apidom/issues/1548)) ([76ac43f](https://github.com/swagger-api/apidom/commit/76ac43f8d9eb7704d15223cf0bdc33e6867e7702)), closes [#1536](https://github.com/swagger-api/apidom/issues/1536)
+
+
+
+
+
 ## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser

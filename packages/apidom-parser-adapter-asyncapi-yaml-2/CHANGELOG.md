@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* **AsyncAPI:** detect AsyncAPI in different formats properly ([#1548](https://github.com/swagger-api/apidom/issues/1548)) ([76ac43f](https://github.com/swagger-api/apidom/commit/76ac43f8d9eb7704d15223cf0bdc33e6867e7702)), closes [#1536](https://github.com/swagger-api/apidom/issues/1536)
+* **media-types:** unify how media types are defined ([#1550](https://github.com/swagger-api/apidom/issues/1550)) ([dcb45ce](https://github.com/swagger-api/apidom/commit/dcb45ceba18e5c73dd9e53bea53b302860a214db)), closes [#1549](https://github.com/swagger-api/apidom/issues/1549)
+* **OpenAPI:** detect OpenAPI in different formats properly ([#1552](https://github.com/swagger-api/apidom/issues/1552)) ([b21e81e](https://github.com/swagger-api/apidom/commit/b21e81ead95b7de5cc8b5e4161f6096c79a62c0b)), closes [#422](https://github.com/swagger-api/apidom/issues/422)
+
+
+
+
+
 ## [0.29.1](https://github.com/swagger-api/apidom/compare/v0.29.0...v0.29.1) (2022-06-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-yaml-2

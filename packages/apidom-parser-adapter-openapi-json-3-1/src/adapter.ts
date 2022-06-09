@@ -6,8 +6,8 @@ import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-open
 
 export { default as mediaTypes } from './media-types';
 
-export const detect = (source: string): boolean =>
-  detectJSON(source) && /"openapi"\s*:\s*"3\.1\.0"/g.test(source);
+export const detect = async (source: string): Promise<boolean> =>
+  /"openapi"\s*:\s*"3\.1\.0"/g.test(source) && (await detectJSON(source));
 
 export const parse = async (
   source: string,

@@ -4,12 +4,21 @@ import lexicalAnalysis from './lexical-analysis/node';
 import syntacticAnalysisDirect from './syntactic-analysis/direct';
 import syntacticAnalysisIndirect from './syntactic-analysis/indirect';
 
-export { detect, mediaTypes, namespace } from './adapter';
+export { mediaTypes, namespace } from './adapter';
 export {
   lexicalAnalysis,
   syntacticAnalysisDirect as syntacticAnalysis,
   syntacticAnalysisDirect,
   syntacticAnalysisIndirect,
+};
+
+export const detect = async (source: string): Promise<boolean> => {
+  try {
+    const cst = await lexicalAnalysis(source);
+    return cst.rootNode.type !== 'ERROR';
+  } catch {
+    return false;
+  }
 };
 
 interface ParseFunctionOptions {

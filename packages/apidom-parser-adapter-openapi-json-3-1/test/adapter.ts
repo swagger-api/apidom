@@ -6,15 +6,30 @@ import { isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as adapter from '../src/adapter';
 
-const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
+const jsonSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
+const yamlSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 
 describe('adapter', function () {
-  it('should detect proper media type', function () {
-    assert.isTrue(adapter.detect(spec));
+  context('given definition in JSON format', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(await adapter.detect(jsonSpec));
+    });
+  });
+
+  context('given definition in YAML 1.2 format', function () {
+    specify('should detect proper media type', async function () {
+      assert.isFalse(await adapter.detect(yamlSpec));
+    });
+  });
+
+  context('given definition of unknown type', function () {
+    specify('should detect proper media type', async function () {
+      assert.isFalse(await adapter.detect('"asyncapi": "2.4.0"'));
+    });
   });
 
   it('should parse', async function () {
-    const parseResult = await adapter.parse(spec, { sourceMap: true });
+    const parseResult = await adapter.parse(jsonSpec, { sourceMap: true });
 
     assert.isTrue(isParseResultElement(parseResult));
     assert.isTrue(isOpenApi3_1Element(parseResult.api));

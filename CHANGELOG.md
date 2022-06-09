@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* **parser-adapters:** align detection with underlying parser ([#1562](https://github.com/swagger-api/apidom/issues/1562)) ([b9186cf](https://github.com/swagger-api/apidom/commit/b9186cf1ad28ea69715ca3052c68933193696924))
+
+
+
+
+
 # [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
 
 

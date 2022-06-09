@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-yaml-1-2",
-  "version": "0.30.0",
+  "version": "0.30.1",
   "description": "Parser adapter for parsing YAML documents into base namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -7,9 +7,12 @@ export { mediaTypes, namespace } from './adapter';
 export { lexicalAnalysis, syntacticAnalysis };
 
 export const detect = async (source: string): Promise<boolean> => {
-  const cst = await lexicalAnalysis(source);
-
-  return cst.rootNode.type !== 'ERROR';
+  try {
+    const cst = await lexicalAnalysis(source);
+    return cst.rootNode.type !== 'ERROR';
+  } catch {
+    return false;
+  }
 };
 
 interface ParseFunctionOptions {

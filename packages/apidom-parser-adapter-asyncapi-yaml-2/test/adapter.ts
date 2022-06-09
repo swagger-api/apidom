@@ -12,20 +12,20 @@ const jsonSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.js
 
 describe('adapter', function () {
   context('given definition in YAML 1.2 format', function () {
-    specify('should detect proper media type', function () {
-      assert.isTrue(adapter.detect(yamlSpec));
+    specify('should detect proper media type', async function () {
+      assert.isTrue(await adapter.detect(yamlSpec));
     });
   });
 
   context('given definition in JSON format', function () {
-    specify('should detect proper media type', function () {
-      assert.isTrue(adapter.detect(jsonSpec));
+    specify('should detect proper media type', async function () {
+      assert.isTrue(await adapter.detect(jsonSpec));
     });
   });
 
   context('given definition of unknown type', function () {
     specify('should detect proper media type', async function () {
-      assert.isFalse(adapter.detect('"openapi": "3.1.0"'));
+      assert.isFalse(await adapter.detect('"openapi": "3.1.0"'));
     });
   });
 

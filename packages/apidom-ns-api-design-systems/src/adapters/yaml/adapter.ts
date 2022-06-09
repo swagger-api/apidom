@@ -12,11 +12,8 @@ import apiDesignSystemsNamespace from '../../namespace';
 
 export { default as mediaTypes } from './media-types';
 
-export const detect = async (source: string): Promise<boolean> => {
-  const isYAML = await detectYAML(source);
-
-  return isYAML && /(["']?)version\1\s*:\s*(["']?)2021-05-07\2/g.test(source);
-};
+export const detect = async (source: string): Promise<boolean> =>
+  /(["']?)version\1\s*:\s*(["']?)2021-05-07\2/g.test(source) && (await detectYAML(source));
 
 export const parse = async (
   source: string,

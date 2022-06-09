@@ -1,13 +1,16 @@
 import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
-import { parse as parseYaml } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import {
+  parse as parseYAML,
+  detect as detectYAML,
+} from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 export { default as mediaTypes } from './media-types';
 
-export const detect = (source: string): boolean =>
-  /(["']?)openapi\1\s*:\s*(["']?)3\.1\.0\2/g.test(source);
+export const detect = async (source: string): Promise<boolean> =>
+  /(["']?)openapi\1\s*:\s*(["']?)3\.1\.0\2/g.test(source) && (await detectYAML(source));
 
 export const parse = async (
   source: string,
@@ -15,7 +18,7 @@ export const parse = async (
 ): Promise<ParseResultElement> => {
   const refractorOpts: Record<string, unknown> = propOr({}, 'refractorOpts', options);
   const parserOpts = omit(['refractorOpts'], options);
-  const parseResultElement = await parseYaml(source, parserOpts);
+  const parseResultElement = await parseYAML(source, parserOpts);
   const { result } = parseResultElement;
 
   if (isNotUndefined(result)) {

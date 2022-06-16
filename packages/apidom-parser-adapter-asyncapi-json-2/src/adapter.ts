@@ -7,8 +7,7 @@ import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyn
 export { default as mediaTypes } from './media-types';
 
 export const detect = async (source: string): Promise<boolean> =>
-  /"asyncapi"\s*:\s*"((2\.0\.0)|(2\.1\.0)|(2\.2\.0)|(2\.3\.0)|(2\.4\.0))"/g.test(source) &&
-  (await detectJSON(source));
+  /"asyncapi"\s*:\s*"2\.\d+\.\d+"/g.test(source) && (await detectJSON(source));
 
 export const parse = async (
   source: string,

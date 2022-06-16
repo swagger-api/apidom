@@ -9,8 +9,10 @@ import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyn
 
 export { default as mediaTypes } from './media-types';
 
+export const detectionRegExp = /(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/;
+
 export const detect = async (source: string): Promise<boolean> =>
-  /(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/g.test(source) && (await detectYAML(source));
+  detectionRegExp.test(source) && (await detectYAML(source));
 
 export const parse = async (
   source: string,

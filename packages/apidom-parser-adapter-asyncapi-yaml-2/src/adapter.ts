@@ -9,7 +9,8 @@ import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyn
 
 export { default as mediaTypes } from './media-types';
 
-export const detectionRegExp = /(["']?)asyncapi\1\s*:\s*(["']?)2\.\d+\.\d+\2/;
+export const detectionRegExp =
+  /(?<YAML>^(["']?)asyncapi\2\s*:\s*(["']?)2\.\d+\.\d+\3)|(?<JSON>"asyncapi"\s*:\s*"2\.\d+\.\d+")/m;
 
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectYAML(source));

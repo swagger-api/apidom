@@ -9,8 +9,10 @@ import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-open
 
 export { default as mediaTypes } from './media-types';
 
+export const detectionRegExp = /(["']?)openapi\1\s*:\s*(["']?)3\.1\.\d+\2/;
+
 export const detect = async (source: string): Promise<boolean> =>
-  /(["']?)openapi\1\s*:\s*(["']?)3\.1\.\d+\2/g.test(source) && (await detectYAML(source));
+  detectionRegExp.test(source) && (await detectYAML(source));
 
 export const parse = async (
   source: string,

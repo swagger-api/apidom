@@ -1,18 +1,18 @@
-# @swagger-api/apidom-parser-adapter-api-design-systems-json
+# @swagger-api/apidom-parser-adapter-api-design-systems-yaml
 
-`@swagger-api/apidom-parser-adapter-api-design-systems-json` is a parser adapter for [API Design Systems](https://apidesign.systems/) specification versions defined in [JSON format](https://www.json.org/json-en.html).
+`@swagger-api/apidom-parser-adapter-api-design-systems-yaml` is a parser adapter for [API Design Systems](https://apidesign.systems/) specification versions defined in [YAML format](https://yaml.org/spec/1.2/spec.html).
 
 Supported versions:
 - 2021-05-07
 
-Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
+Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
 which is then refracted with [API Design Systems Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-api-design-systems#refractors).
 
 ## Installation
 
-`@swagger-api/apidom-parser-adapter-api-design-systems-json` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
-For installing `@swagger-api/apidom-parser-adapter-api-design-systems-json` from GitHub packages registry, create `.npmrc` file in your current directory and add
+`@swagger-api/apidom-parser-adapter-api-design-systems-yaml` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+For installing `@swagger-api/apidom-parser-adapter-api-design-systems-yaml` from GitHub packages registry, create `.npmrc` file in your current directory and add
 the following line to it:
 
 ```
@@ -22,7 +22,7 @@ the following line to it:
 You can now install the package using `npm`:
 
 ```sh
- $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-json
+ $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-yaml
 ```
 
 ## Parser adapter API
@@ -37,13 +37,13 @@ Defines list of media types that this parser adapter recognizes.
 ```js
 [
   'application/vnd.aai.apidesignsystems;version=2021-05-07',
-  'application/vnd.aai.apidesignsystems+json;version=2021-05-07'
+  'application/vnd.aai.apidesignsystems+yaml;version=2021-05-07'
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-api-design-systems-json/src/adapter.ts#L11) is based on a regular expression matching required API Design Systems specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-api-design-systems-yaml/src/adapter.ts#L11) is based on a regular expression matching required API Design Systems specification symbols in YAML format.
 
 ### namespace
 
@@ -74,11 +74,11 @@ with [supported media types](#mediatypes).
 import { parse, detect } from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 
 // detecting
-await detect('{"version": "2021-05-07"}'); // => true
+await detect('version: "2021-05-07"'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('{"version": "2021-05-07"}', { sourceMap: true });
+const parseResult = await parse('version: "2021-05-07"', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -87,13 +87,13 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';
-import * as apiDesignSystemsJsonAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
+import * as apiDesignSystemsYamlAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 
 const parser = ApiDOMParser();
 
-parser.use(apiDesignSystemsJsonAdapter);
+parser.use(apiDesignSystemsYamlAdapter);
 
-const parseResult = await parser.parse('{"version": "2021-05-07"}', {
-  mediaType: apiDesignSystemsJsonAdapter.mediaTypes.latest('json')
+const parseResult = await parser.parse('version: "2021-05-07"', {
+  mediaType: apiDesignSystemsYamlAdapter.mediaTypes.latest('json')
 });
 ```

@@ -68,6 +68,8 @@ You can now install ApiDOM packages using `npm`:
  $ npm install @swagger-api/apidom-ns-asyncapi-2
  $ npm install @swagger-api/apidom-ns-openapi-3-1
  $ npm install @swagger-api/apidom-parser
+ $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-json
+ $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-yaml
  $ npm install @swagger-api/apidom-parser-adapter-asyncapi-json-2
  $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-2
  $ npm install @swagger-api/apidom-parser-adapter-json

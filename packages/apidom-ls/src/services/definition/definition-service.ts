@@ -81,7 +81,6 @@ export class DefaultDefinitionService implements DefinitionService {
     textDocument: TextDocument,
     referenceParams: ReferenceParams,
   ): Promise<Location[] | null> {
-    // const asyncapi: boolean = isAsyncDoc(textDocument);
     const offset = textDocument.offsetAt(referenceParams.position);
 
     const result = await this.settings!.documentCache?.get(textDocument);

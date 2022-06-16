@@ -78,12 +78,20 @@ export interface LanguageServiceContext {
   completionProviders?: CompletionProvider[];
   performanceLogs?: boolean;
   logLevel?: LogLevel;
+  defaultContentLanguage?: ContentLanguage;
 }
 
 export interface NamespaceVersion {
   namespace: string;
   version: string;
 }
+
+export interface ContentLanguage {
+  namespace: string;
+  format?: 'JSON' | 'YAML';
+  version?: string;
+}
+
 export interface ValidationProviderResult {
   diagnostics: Diagnostic[];
   mergeStrategy: MergeStrategy;
@@ -167,6 +175,7 @@ export interface LanguageSettings {
   documentCache?: DocumentCache<ParseResultElement>;
   performanceLogs?: boolean;
   logLevel?: LogLevel;
+  defaultContentLanguage?: ContentLanguage;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';

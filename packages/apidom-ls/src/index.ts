@@ -25,8 +25,11 @@ export {
   perfEnd,
   isAsyncDoc,
   isJsonDoc,
+  isAdsDoc,
+  isOpenapiDoc,
   getText,
   isSpecVersionSet,
+  findNamespace,
 } from './utils/utils';
 
 export type {
@@ -49,6 +52,7 @@ export type {
   ApidomCompletionItem,
   CompletionProviderResult,
   ValidationProviderResult,
+  ContentLanguage,
 } from './apidom-language-types';
 
 export {

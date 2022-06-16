@@ -11,8 +11,8 @@ import {
   isArray,
   getSpecVersion,
   correctPartialKeys,
-  isAsyncDoc,
   isJsonDoc,
+  findNamespace,
 } from '../../utils/utils';
 
 export interface HoverService {
@@ -66,7 +66,7 @@ export class DefaultHoverService implements HoverService {
     const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
-    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
     const specVersion = getSpecVersion(api);
 
     api.freeze(); // !! freeze and add parent !!

@@ -9,8 +9,10 @@ import apiDesignSystemsNamespace from '../../namespace';
 
 export { default as mediaTypes } from './media-types';
 
+export const detectionRegExp = /"version"\s*:\s*"2021-05-07"/;
+
 export const detect = async (source: string): Promise<boolean> =>
-  /"version"\s*:\s*"2021-05-07"/g.test(source) && (await detectJSON(source));
+  detectionRegExp.test(source) && (await detectJSON(source));
 
 export const parse = async (
   source: string,

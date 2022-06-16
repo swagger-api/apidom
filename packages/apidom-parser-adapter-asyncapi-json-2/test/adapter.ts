@@ -14,6 +14,18 @@ describe('adapter', function () {
     specify('should detect proper media type', async function () {
       assert.isTrue(await adapter.detect(jsonSpec));
     });
+
+    specify('should detect minor version bump', async function () {
+      assert.isTrue(await adapter.detect('{"asyncapi": "2.25.0"}'));
+    });
+
+    specify('should detect patch version bump', async function () {
+      assert.isTrue(await adapter.detect('{"asyncapi": "2.4.1"}'));
+    });
+
+    specify('should detect minor and patch version bump', async function () {
+      assert.isTrue(await adapter.detect('{"asyncapi": "2.25.1"}'));
+    });
   });
 
   context('given definition in YAML 1.2 format', function () {

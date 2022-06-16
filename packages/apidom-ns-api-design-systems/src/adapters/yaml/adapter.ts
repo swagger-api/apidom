@@ -12,8 +12,11 @@ import apiDesignSystemsNamespace from '../../namespace';
 
 export { default as mediaTypes } from './media-types';
 
+export const detectionRegExp =
+  /(?<YAML>^(["']?)version\2\s*:\s*(["']?)2021-05-07\3)|(?<JSON>"version"\s*:\s*"2021-05-07")/m;
+
 export const detect = async (source: string): Promise<boolean> =>
-  /(["']?)version\1\s*:\s*(["']?)2021-05-07\2/g.test(source) && (await detectYAML(source));
+  detectionRegExp.test(source) && (await detectYAML(source));
 
 export const parse = async (
   source: string,

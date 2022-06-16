@@ -15,6 +15,18 @@ describe('adapter', function () {
     specify('should detect proper media type', async function () {
       assert.isTrue(await adapter.detect(yamlSpec));
     });
+
+    specify('should not detect minor version bump', async function () {
+      assert.isFalse(await adapter.detect('openapi: "3.2.0"'));
+    });
+
+    specify('should detect patch version bump', async function () {
+      assert.isTrue(await adapter.detect('openapi: "3.1.24"'));
+    });
+
+    specify('should not detect minor and patch version bump', async function () {
+      assert.isFalse(await adapter.detect('openapi: "3.2.24"'));
+    });
   });
 
   context('given definition in JSON format', function () {

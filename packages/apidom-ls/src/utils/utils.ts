@@ -21,6 +21,7 @@ import { Range } from 'vscode-languageserver-types';
 
 import {
   ApidomCompletionItem,
+  ContentLanguage,
   LanguageSettings,
   LinterMeta,
   LogLevel,
@@ -33,6 +34,19 @@ import { standardLinterfunctions } from '../services/validation/linter-functions
 let performanceLogs = false;
 let logLevel = LogLevel.WARN;
 const perfLabels: Record<string, string> = {};
+
+const ASYNCAPI_VERSION_STRING_YAML =
+  '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
+const ASYNCAPI_VERSION_STRING_JSON =
+  '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
+
+const OAS_VERSION_STRING_JSON = '"openapi"\\s*:\\s*"3\\.\\d+.\\d+"';
+const OAS_VERSION_STRING_YAML =
+  '(?<YAML>^(["\']?)openapi\\2\\s*:\\s*(["\']?)3\\.\\d+\\.\\d+\\3)|(?<JSON>"openapi"\\s*:\\s*"3\\.\\d+\\.\\d+")';
+
+const DS_VERSION_STRING_JSON = '"version"\\s*:\\s*"2021-05-07"';
+const DS_VERSION_STRING_YAML =
+  '(?<YAML>^(["\']?)version\\2\\s*:\\s*(["\']?)2021-05-07\\3)|(?<JSON>"version"\\s*:\\s*"2021-05-07")';
 
 export function togglePerformanceLogs(status: boolean) {
   performanceLogs = status;
@@ -734,37 +748,83 @@ export function isJsonDoc(document: TextDocument | string): boolean {
 export function isSpecVersionSet(document: TextDocument | string): boolean {
   const text = getText(document, true);
 
-  const VERSION_STRING_YAML_ASYNC =
-    '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
-  const VERSION_STRING_JSON_ASYNC =
-    '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
-  const VERSION_STRING_YAML_OAS =
-    '^["\']?openapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
-  const VERSION_STRING_JSON_OAS = '^.*"openapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
-
   if (isJsonDoc(text)) {
     return (
-      new RegExp(VERSION_STRING_JSON_ASYNC, 'm').test(text) ||
-      new RegExp(VERSION_STRING_JSON_OAS, 'm').test(text)
+      new RegExp(ASYNCAPI_VERSION_STRING_JSON, 'm').test(text) ||
+      new RegExp(OAS_VERSION_STRING_JSON, 'm').test(text)
     );
   }
   return (
-    new RegExp(VERSION_STRING_YAML_ASYNC, 'm').test(text) ||
-    new RegExp(VERSION_STRING_YAML_OAS, 'm').test(text)
+    new RegExp(ASYNCAPI_VERSION_STRING_YAML, 'm').test(text) ||
+    new RegExp(OAS_VERSION_STRING_YAML, 'm').test(text)
   );
 }
 
-export function isAsyncDoc(document: TextDocument | string): boolean {
+export function findNamespace(
+  document: TextDocument | string,
+  defaultContentLanguage?: ContentLanguage,
+): ContentLanguage {
   const text = getText(document, true);
-  if (!isSpecVersionSet(document)) {
-    return true;
+  const json = isJsonDoc(text);
+  if (json) {
+    if (new RegExp(ASYNCAPI_VERSION_STRING_JSON, 'm').test(text)) {
+      return {
+        namespace: 'asyncapi',
+        format: 'JSON',
+      };
+    }
+    if (new RegExp(OAS_VERSION_STRING_JSON, 'm').test(text)) {
+      return {
+        namespace: 'openapi',
+        format: 'JSON',
+      };
+    }
+    if (new RegExp(DS_VERSION_STRING_JSON, 'm').test(text)) {
+      return {
+        namespace: 'ads',
+        format: 'JSON',
+      };
+    }
+  } else {
+    if (new RegExp(ASYNCAPI_VERSION_STRING_YAML, 'm').test(text)) {
+      return {
+        namespace: 'asyncapi',
+        format: 'YAML',
+      };
+    }
+    if (new RegExp(OAS_VERSION_STRING_YAML, 'm').test(text)) {
+      return {
+        namespace: 'openapi',
+        format: 'YAML',
+      };
+    }
+    if (new RegExp(DS_VERSION_STRING_YAML, 'm').test(text)) {
+      return {
+        namespace: 'ads',
+        format: 'YAML',
+      };
+    }
   }
-  const VERSION_STRING_YAML =
-    '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
-  const VERSION_STRING_JSON = '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
+  return defaultContentLanguage
+    ? {
+        namespace: defaultContentLanguage.namespace,
+        version: defaultContentLanguage.version,
+        format: json ? 'JSON' : 'YAML',
+      }
+    : {
+        namespace: 'apidom',
+        format: json ? 'JSON' : 'YAML',
+      };
+}
 
-  if (isJsonDoc(text)) {
-    return new RegExp(VERSION_STRING_JSON, 'm').test(text);
-  }
-  return new RegExp(VERSION_STRING_YAML, 'm').test(text);
+export function isAsyncDoc(document: TextDocument | string): boolean {
+  return findNamespace(document).namespace === 'asyncapi';
+}
+
+export function isOpenapiDoc(document: TextDocument | string): boolean {
+  return findNamespace(document).namespace === 'openapi';
+}
+
+export function isAdsDoc(document: TextDocument | string): boolean {
+  return findNamespace(document).namespace === 'ads';
 }

@@ -56,9 +56,9 @@ import {
   perfEnd,
   debug,
   trace,
-  isAsyncDoc,
   isJsonDoc,
   isSpecVersionSet,
+  findNamespace,
 } from '../../utils/utils';
 import { standardLinterfunctions } from '../validation/linter-functions';
 
@@ -378,7 +378,7 @@ export class DefaultCompletionService implements CompletionService {
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return completionList;
-    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
     const specVersion = getSpecVersion(api);
 
     let targetOffset = textModified ? offset - 1 : offset;

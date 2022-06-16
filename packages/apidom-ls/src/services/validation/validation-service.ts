@@ -19,9 +19,9 @@ import {
 import {
   checkConditions,
   correctPartialKeys,
+  findNamespace,
   getSourceMap,
   getSpecVersion,
-  isAsyncDoc,
   isJsonDoc,
   isMember,
   isObject,
@@ -134,7 +134,7 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
 
     let processedText;
-    const docNs: string = isAsyncDoc(text) ? 'asyncapi' : 'openapi';
+    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
     // no API document has been parsed
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -576,7 +576,10 @@ export class DefaultValidationService implements ValidationService {
         if (!api) {
           return [];
         }
-        const lang = isAsyncDoc(textDocument) ? 'asyncapi' : 'openapi';
+        const lang: string = findNamespace(
+          textDocument,
+          this.settings?.defaultContentLanguage,
+        ).namespace;
         const codeActions: CodeAction[] = [];
         // TODO deduplicate, action maps elsewhere
         diagnostics.forEach((diag) => {

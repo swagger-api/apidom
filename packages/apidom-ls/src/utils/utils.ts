@@ -1,3 +1,19 @@
+// @ts-ignore
+import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
+// @ts-ignore
+import * as asyncapi2Adapter from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+// @ts-ignore
+import * as openapi3_1Adapter_Yaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+// @ts-ignore
+import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+// @ts-ignore
+import * as adsAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
+// @ts-ignore
+import * as adsAdapter_Yaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
+// @ts-ignore
+import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
+// @ts-ignore
+import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import {
   ArrayElement,
   BooleanElement,
@@ -34,19 +50,6 @@ import { standardLinterfunctions } from '../services/validation/linter-functions
 let performanceLogs = false;
 let logLevel = LogLevel.WARN;
 const perfLabels: Record<string, string> = {};
-
-const ASYNCAPI_VERSION_STRING_YAML =
-  '^["\']?asyncapi["\']?:\\s{1}["\']?\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}["\']?\\s*$';
-const ASYNCAPI_VERSION_STRING_JSON =
-  '^.*"asyncapi"\\s*:\\s*"{1}\\d{1}\\.{1}\\d{1}\\.{1}\\d{1}"{1}.*$';
-
-const OAS_VERSION_STRING_JSON = '"openapi"\\s*:\\s*"3\\.\\d+.\\d+"';
-const OAS_VERSION_STRING_YAML =
-  '(?<YAML>^(["\']?)openapi\\2\\s*:\\s*(["\']?)3\\.\\d+\\.\\d+\\3)|(?<JSON>"openapi"\\s*:\\s*"3\\.\\d+\\.\\d+")';
-
-const DS_VERSION_STRING_JSON = '"version"\\s*:\\s*"2021-05-07"';
-const DS_VERSION_STRING_YAML =
-  '(?<YAML>^(["\']?)version\\2\\s*:\\s*(["\']?)2021-05-07\\3)|(?<JSON>"version"\\s*:\\s*"2021-05-07")';
 
 export function togglePerformanceLogs(status: boolean) {
   performanceLogs = status;
@@ -733,77 +736,87 @@ export function getText(document: TextDocument | string, trim = false): string {
   return text;
 }
 
-export function isJsonDoc(document: TextDocument | string): boolean {
+export async function isJsonDoc(document: TextDocument | string): Promise<boolean> {
   const text = getText(document, true);
-  const JSON_START = /^\[|^\{(?!\{)/;
-  const JSON_ENDS: RegexMap = {
-    '[': /]$/,
-    '{': /}$/,
-  };
-
-  const jsonStart: RegExpMatchArray | null = text.match(JSON_START);
-  return jsonStart != null && JSON_ENDS[jsonStart[0]].test(text);
+  return await jsonParserAdapter.detect(text);
 }
 
-export function isSpecVersionSet(document: TextDocument | string): boolean {
+export function isJsonDocSync(document: TextDocument | string): boolean {
   const text = getText(document, true);
-
-  if (isJsonDoc(text)) {
-    return (
-      new RegExp(ASYNCAPI_VERSION_STRING_JSON, 'm').test(text) ||
-      new RegExp(OAS_VERSION_STRING_JSON, 'm').test(text)
-    );
-  }
-  return (
-    new RegExp(ASYNCAPI_VERSION_STRING_YAML, 'm').test(text) ||
-    new RegExp(OAS_VERSION_STRING_YAML, 'm').test(text)
-  );
+  return jsonParserAdapter.detectionRegExp.test(text);
 }
 
-export function findNamespace(
+export async function isYamlDoc(document: TextDocument | string): Promise<boolean> {
+  const text = getText(document, true);
+  return (await yamlParserAdapter.detect(text)) && !(await isJsonDoc(document));
+}
+
+export async function findNamespace(
   document: TextDocument | string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   defaultContentLanguage?: ContentLanguage,
-): ContentLanguage {
+): Promise<ContentLanguage> {
   const text = getText(document, true);
-  const json = isJsonDoc(text);
-  if (json) {
-    if (new RegExp(ASYNCAPI_VERSION_STRING_JSON, 'm').test(text)) {
-      return {
-        namespace: 'asyncapi',
-        format: 'JSON',
-      };
-    }
-    if (new RegExp(OAS_VERSION_STRING_JSON, 'm').test(text)) {
-      return {
-        namespace: 'openapi',
-        format: 'JSON',
-      };
-    }
-    if (new RegExp(DS_VERSION_STRING_JSON, 'm').test(text)) {
-      return {
-        namespace: 'ads',
-        format: 'JSON',
-      };
-    }
-  } else {
-    if (new RegExp(ASYNCAPI_VERSION_STRING_YAML, 'm').test(text)) {
-      return {
-        namespace: 'asyncapi',
-        format: 'YAML',
-      };
-    }
-    if (new RegExp(OAS_VERSION_STRING_YAML, 'm').test(text)) {
-      return {
-        namespace: 'openapi',
-        format: 'YAML',
-      };
-    }
-    if (new RegExp(DS_VERSION_STRING_YAML, 'm').test(text)) {
-      return {
-        namespace: 'ads',
-        format: 'YAML',
-      };
-    }
+  const json = await isJsonDoc(text);
+  if (await asyncapi2Adapter.detect(text)) {
+    return {
+      namespace: 'asyncapi',
+      format: 'JSON',
+    };
+  }
+  if (await asyncapi2Adapter_Yaml.detect(text)) {
+    return {
+      namespace: 'asyncapi',
+      format: 'YAML',
+    };
+  }
+  if (await openapi3_1Adapter.detect(text)) {
+    return {
+      namespace: 'openapi',
+      format: 'JSON',
+    };
+  }
+  if (await openapi3_1Adapter_Yaml.detect(text)) {
+    return {
+      namespace: 'openapi',
+      format: 'YAML',
+    };
+  }
+  if (await adsAdapter.detect(text)) {
+    return {
+      namespace: 'ads',
+      format: 'JSON',
+    };
+  }
+  if (await adsAdapter_Yaml.detect(text)) {
+    return {
+      namespace: 'ads',
+      format: 'YAML',
+    };
+  }
+  if (await jsonParserAdapter.detect(text)) {
+    return defaultContentLanguage
+      ? {
+          namespace: defaultContentLanguage.namespace,
+          version: defaultContentLanguage.version,
+          format: 'JSON',
+        }
+      : {
+          namespace: 'apidom',
+          format: 'JSON',
+        };
+  }
+  if (await yamlParserAdapter.detect(text)) {
+    return defaultContentLanguage
+      ? {
+          namespace: defaultContentLanguage.namespace,
+          version: defaultContentLanguage.version,
+          format: 'YAML',
+        }
+      : {
+          namespace: 'apidom',
+          format: 'YAML',
+        };
   }
   return defaultContentLanguage
     ? {
@@ -815,16 +828,4 @@ export function findNamespace(
         namespace: 'apidom',
         format: json ? 'JSON' : 'YAML',
       };
-}
-
-export function isAsyncDoc(document: TextDocument | string): boolean {
-  return findNamespace(document).namespace === 'asyncapi';
-}
-
-export function isOpenapiDoc(document: TextDocument | string): boolean {
-  return findNamespace(document).namespace === 'openapi';
-}
-
-export function isAdsDoc(document: TextDocument | string): boolean {
-  return findNamespace(document).namespace === 'ads';
 }

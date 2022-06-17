@@ -22,7 +22,7 @@ import {
   Format,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
-import { getParser } from '../src/parser-factory';
+import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 import { logPerformance, logLevel } from './test-utils';
@@ -429,22 +429,6 @@ describe('apidom-ls', function () {
       {
         range: {
           start: {
-            line: 1,
-            character: 13,
-          },
-          end: {
-            line: 1,
-            character: 20,
-          },
-        },
-        message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
             line: 2,
             character: 2,
           },
@@ -506,22 +490,6 @@ describe('apidom-ls', function () {
     const result = await languageService.doValidation(doc, validationContext);
 
     const expected = [
-      {
-        range: {
-          start: {
-            line: 1,
-            character: 13,
-          },
-          end: {
-            line: 1,
-            character: 20,
-          },
-        },
-        message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
       {
         range: {
           start: {
@@ -768,12 +736,11 @@ describe('apidom-ls', function () {
       specFullResponses,
     );
 
-    const parser = getParser(doc);
     const text: string = doc.getText();
     const diagnostics: Diagnostic[] = [];
 
     // eslint-disable-next-line consistent-return
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await parse(text, undefined);
 
     const { api } = result;
     if (!api) {

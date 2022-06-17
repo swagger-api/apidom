@@ -148,7 +148,7 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
         data: tokens.flat(),
       } as SemanticTokens;
     }
-    const isJson = isJsonDoc(textDocument);
+    const isJson = await isJsonDoc(textDocument);
     let processedText;
     if (result.annotations && !isJson) {
       processedText = correctPartialKeys(result, textDocument, isJson);

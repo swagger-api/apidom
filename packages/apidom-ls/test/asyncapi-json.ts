@@ -21,7 +21,7 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
-import { getParser } from '../src/parser-factory';
+import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 import { logPerformance, logLevel } from './test-utils';
@@ -608,12 +608,11 @@ describe('apidom-ls-async', function () {
   it('test parse json', async function () {
     const doc: TextDocument = TextDocument.create('foo://bar/specFull.json', 'json', 0, specFull);
 
-    const parser = getParser(doc);
     const text: string = doc.getText();
     const diagnostics: Diagnostic[] = [];
 
     // eslint-disable-next-line consistent-return
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await parse(text, undefined);
 
     const { api } = result;
     if (!api) {

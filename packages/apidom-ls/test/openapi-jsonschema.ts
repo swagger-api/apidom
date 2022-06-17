@@ -5,7 +5,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
 import { Element, traverse } from '@swagger-api/apidom-core';
 
-import { getParser } from '../src/parser-factory';
+import { parse } from '../src/parser-factory';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const spec = fs
@@ -16,11 +16,10 @@ describe('apidom-jsonschema-prototype-test', function () {
   it('test parse', async function () {
     const doc: TextDocument = TextDocument.create('foo://bar/file.json', 'json', 0, spec);
 
-    const parser = getParser(doc);
     const text: string = doc.getText();
     const diagnostics: Diagnostic[] = [];
 
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await parse(text, undefined);
 
     const { api } = result;
     if (!api) {

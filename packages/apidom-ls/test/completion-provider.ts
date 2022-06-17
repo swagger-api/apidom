@@ -21,7 +21,7 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logLevel, logPerformance } from './test-utils';
-import { isJsonDoc } from '../src/utils/utils';
+import { isJsonDoc, isJsonDocSync } from '../src/utils/utils';
 
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-ref-completion.yaml'))
@@ -111,7 +111,7 @@ class RefCompletionProvider implements CompletionProvider {
       };
     }
 
-    const valueQuotes = !isJsonDoc(textDocument) ? "'" : '"';
+    const valueQuotes = !isJsonDocSync(textDocument) ? "'" : '"';
     let i = 301;
     const items: CompletionItem[] = [];
     for (const p of refs) {
@@ -212,7 +212,7 @@ class AsyncRefCompletionProvider implements CompletionProvider {
       };
     }
 
-    const valueQuotes = !isJsonDoc(textDocument) ? "'" : '"';
+    const valueQuotes = !(await isJsonDoc(textDocument)) ? "'" : '"';
     let i = 301;
     const items: CompletionItem[] = [];
     for (const p of refs) {
@@ -326,7 +326,7 @@ class FullCompletionProvider implements CompletionProvider {
       };
     }
 
-    const valueQuotes = !isJsonDoc(textDocument) ? "'" : '"';
+    const valueQuotes = !(await isJsonDoc(textDocument)) ? "'" : '"';
     let i = 301;
     const items: CompletionItem[] = [];
     for (const p of refs) {

@@ -134,7 +134,8 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
 
     let processedText;
-    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
+    let docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
+      .namespace;
     // no API document has been parsed
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -179,9 +180,10 @@ export class DefaultValidationService implements ValidationService {
 
         diagnostics.push(diagnostic);
       }
-      processedText = correctPartialKeys(result, textDocument, isJsonDoc(textDocument));
+      processedText = correctPartialKeys(result, textDocument, await isJsonDoc(textDocument));
     }
     if (processedText) {
+      docNs = (await findNamespace(processedText, this.settings?.defaultContentLanguage)).namespace;
       result = await this.settings!.documentCache?.get(
         textDocument,
         processedText,
@@ -550,7 +552,7 @@ export class DefaultValidationService implements ValidationService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public doCodeActions(
+  public async doCodeActions(
     textDocument: TextDocument,
     parmsOrDiagnostics: CodeActionParams | Diagnostic[],
   ): Promise<CodeAction[]> {
@@ -566,7 +568,10 @@ export class DefaultValidationService implements ValidationService {
     }
 
     const text: string = textDocument.getText();
+    const lang: string = (await findNamespace(textDocument, this.settings?.defaultContentLanguage))
+      .namespace;
 
+    const isJsonDocument = await isJsonDoc(text);
     return this.settings!.documentCache!.get(textDocument, undefined, 'doCodeActions').then(
       (result) => {
         if (!result) {
@@ -576,10 +581,6 @@ export class DefaultValidationService implements ValidationService {
         if (!api) {
           return [];
         }
-        const lang: string = findNamespace(
-          textDocument,
-          this.settings?.defaultContentLanguage,
-        ).namespace;
         const codeActions: CodeAction[] = [];
         // TODO deduplicate, action maps elsewhere
         diagnostics.forEach((diag) => {
@@ -627,7 +628,7 @@ export class DefaultValidationService implements ValidationService {
                 // TODO (francesco@tumanischvili@smartbear.com)  functions as linter from client, defined elsewhere
                 // if (quickFix.function === 'addDescription') {
                 // TODO (francesco@tumanischvili@smartbear.com)  use apidom node to add a child  whenroundtrip serialization gets supported
-                const newText = isJsonDoc(text) ? quickFix.snippetJson : quickFix.snippetYaml;
+                const newText = isJsonDocument ? quickFix.snippetJson : quickFix.snippetYaml;
 
                 // get the range of 0 length for the same line + 1
                 const line = diag.range.start.line + 1;

@@ -2,6 +2,8 @@ import FileResolver from '../resolve/resolvers/FileResolver';
 import HttpResolverAxios from '../resolve/resolvers/HttpResolverAxios';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
 import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
+import ApiDesignSystemsJsonParser from '../parse/parsers/apidom-reference-parser-api-design-systems-json';
+import ApiDesignSystemsYamlParser from '../parse/parsers/apidom-reference-parser-api-design-systems-yaml';
 import OpenApiJson3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
 import AsyncApiJson2Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2';
@@ -21,7 +23,7 @@ const defaultOptions: IReferenceOptions = {
     mediaType: 'text/plain',
 
     /**
-     * Determines how how different types of files will be parsed.
+     * Determines how different types of files will be parsed.
      *
      * You can add additional parsers of your own, replace an existing one with
      * your own implementation, or remove any resolver by removing it from the list.
@@ -32,6 +34,8 @@ const defaultOptions: IReferenceOptions = {
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+      ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
+      ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),

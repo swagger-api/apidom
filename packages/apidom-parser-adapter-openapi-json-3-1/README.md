@@ -89,5 +89,5 @@ const parser = ApiDOMParser();
 
 parser.use(openApiJsonAdapter);
 
-const parseResult = await parser.parse('{"openapi": "3.1.0"}', { mediaType: openApiJsonAdapter.mediaTypes[0] });
+const parseResult = await parser.parse('{"openapi": "3.1.0"}', { mediaType: openApiJsonAdapter.mediaTypes.latest('json') });
 ```

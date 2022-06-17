@@ -108,5 +108,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiJsonAdapter);
 
-const parseResult = await parser.parse('{"asyncapi": "2.3.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes[2] });
+const parseResult = await parser.parse('{"asyncapi": "2.3.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
 ```

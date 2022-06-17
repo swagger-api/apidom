@@ -3,8 +3,11 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import lexicalAnalysis from './lexical-analysis/browser';
 import syntacticAnalysisDirect from './syntactic-analysis/direct';
 import syntacticAnalysisIndirect from './syntactic-analysis/indirect';
+import { detectionRegExp } from './adapter';
 
 export { mediaTypes, namespace } from './adapter';
+export { detectionRegExp };
+
 export {
   lexicalAnalysis,
   syntacticAnalysisDirect as syntacticAnalysis,
@@ -13,6 +16,10 @@ export {
 };
 
 export const detect = async (source: string): Promise<boolean> => {
+  if (!detectionRegExp.test(source)) {
+    return false;
+  }
+
   try {
     const cst = await lexicalAnalysis(source);
     return cst.rootNode.type !== 'ERROR';

@@ -128,5 +128,5 @@ const parser = ApiDOMParser();
 
 parser.use(jsonParserAdapter);
 
-const parseResult = await parser.parse('{"prop", "value"}', { mediaType: jsonParserAdapter.mediaTypes[0] });
+const parseResult = await parser.parse('{"prop", "value"}', { mediaType: jsonParserAdapter.mediaTypes.latest('json') });
 ```

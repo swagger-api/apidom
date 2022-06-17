@@ -108,5 +108,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiYamlAdapter);
 
-const parseResult = await parser.parse('asyncapi: 2.4.0', { mediaType: asyncApiYamlAdapter.mediaTypes[2] });
+const parseResult = await parser.parse('asyncapi: 2.4.0', { mediaType: asyncApiYamlAdapter.mediaTypes.latest('yaml') });
 ```

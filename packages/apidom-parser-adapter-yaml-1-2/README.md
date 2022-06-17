@@ -100,5 +100,5 @@ const parser = ApiDOMParser();
 
 parser.use(yamlParserAdapter);
 
-const parseResult = await parser.parse('prop: value', { mediaType: yamlParserAdapter.mediaTypes[0] });
+const parseResult = await parser.parse('prop: value', { mediaType: yamlParserAdapter.mediaTypes.latest('yaml') });
 ```

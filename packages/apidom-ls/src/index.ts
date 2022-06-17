@@ -23,12 +23,10 @@ export { OpenAPi31JsonSchemaValidationProvider } from './services/validation/pro
 export {
   perfStart,
   perfEnd,
-  isAsyncDoc,
   isJsonDoc,
-  isAdsDoc,
-  isOpenapiDoc,
+  isJsonDocSync,
+  isYamlDoc,
   getText,
-  isSpecVersionSet,
   findNamespace,
 } from './utils/utils';
 

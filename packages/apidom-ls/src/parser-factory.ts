@@ -1,6 +1,4 @@
 // @ts-ignore
-import ApiDOMParser from '@swagger-api/apidom-parser';
-// @ts-ignore
 import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 // @ts-ignore
 import * as asyncapi2Adapter from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
@@ -31,57 +29,38 @@ export interface ParserOptions {
   parser?: unknown;
 }
 
-export function getParser(
-  document: TextDocument | string,
-  defaultContentLanguage?: ContentLanguage,
-): ApiDOMParser {
-  const text: string = typeof document === 'string' ? document : document.getText();
-  const contentLanguage = findNamespace(text, defaultContentLanguage);
-  if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'JSON') {
-    return ApiDOMParser().use(asyncapi2Adapter);
-  }
-  if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'YAML') {
-    return ApiDOMParser().use(asyncapi2Adapter_Yaml);
-  }
-  if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'JSON') {
-    return ApiDOMParser().use(openapi3_1Adapter);
-  }
-  if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'YAML') {
-    return ApiDOMParser().use(openapi3_1Adapter_Yaml);
-  }
-  if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
-    return ApiDOMParser().use(adsAdapter);
-  }
-  if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {
-    return ApiDOMParser().use(adsAdapter_Yaml);
-  }
-  // fallback
-  return ApiDOMParser();
-}
-
 export async function parse(
   textDocument: TextDocument | string,
   metadataMaps: MetadataMaps | undefined,
+  registerPlugins = true,
+  freeze = true,
+  setMetadata = true,
   defaultContentLanguage?: ContentLanguage,
 ): Promise<ParseResultElement> {
   // TODO improve detection mechanism
   const text: string = typeof textDocument === 'string' ? textDocument : textDocument.getText();
   let result;
-  const contentLanguage = findNamespace(text, defaultContentLanguage);
+  const contentLanguage = await findNamespace(text, defaultContentLanguage);
   if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'JSON') {
     result = await asyncapi2Adapter.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'YAML') {
-    result = await asyncapi2Adapter_Yaml.parse(text, {
+    const options: Record<string, unknown> = {
       sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElement()] },
-    });
+    };
+    if (registerPlugins) {
+      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElement()] };
+    }
+    result = await asyncapi2Adapter_Yaml.parse(text, options);
   } else if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'JSON') {
     result = await openapi3_1Adapter.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'YAML') {
-    result = await openapi3_1Adapter_Yaml.parse(text, {
+    const options: Record<string, unknown> = {
       sourceMap: true,
-      refractorOpts: { plugins: [refractorPluginReplaceEmptyElementOas()] },
-    });
+    };
+    if (registerPlugins) {
+      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOas()] };
+    }
+    result = await openapi3_1Adapter_Yaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapter.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {
@@ -98,8 +77,12 @@ export async function parse(
   if (api === undefined) return result;
   const docNs = contentLanguage.namespace;
   // TODO  (francesco@tumanischvili@smartbear.com) use the type related metadata at root level defining the tokenTypes and modifiers
-  setMetadataMap(api, docNs, metadataMaps); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
-  api.freeze(); // !! freeze and add parent !!
+  if (setMetadata) {
+    setMetadataMap(api, docNs, metadataMaps); // TODO (francesco@tumanischvili@smartbear.com)  move to parser/adapter, extending the one standard
+  }
+  if (freeze) {
+    api.freeze(); // !! freeze and add parent !!
+  }
 
   return result;
 }

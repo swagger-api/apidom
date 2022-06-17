@@ -429,22 +429,6 @@ describe('apidom-ls-yaml', function () {
       {
         range: {
           start: {
-            line: 0,
-            character: 9,
-          },
-          end: {
-            line: 0,
-            character: 14,
-          },
-        },
-        message: 'must match pattern "^3\\.1\\.\\d+(-.+)?$"',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
             line: 1,
             character: 0,
           },

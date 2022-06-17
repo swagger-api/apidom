@@ -34,20 +34,22 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
     this.ajv = AjvUtils.ajv(ajv2020);
   }
 
-  public doValidation(
+  public async doValidation(
     textDocument: TextDocument,
     api: Element,
     currentDiagnostics: Diagnostic[],
     validationContext?: ValidationContext,
   ): Promise<ValidationProviderResult> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const text = textDocument.getText();
+    const isYaml = !(await isJsonDoc(text));
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return new Promise<ValidationProviderResult>((resolve, reject) => {
       const diagnostics: Diagnostic[] = [];
 
       // get the serialized apidom JSON if doc is yaml
-      const text = textDocument.getText();
       let jsonText = text;
-      const isYaml = !isJsonDoc(text);
       if (isYaml) {
         jsonText = JSON.stringify(api.toValue());
       }

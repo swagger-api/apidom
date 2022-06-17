@@ -42,7 +42,7 @@ export class DefaultHoverService implements HoverService {
       contents: { kind: 'markdown', value: '' },
     };
 
-    const isJson = isJsonDoc(textDocument);
+    const isJson = await isJsonDoc(textDocument);
     let processedText;
 
     let result = await this.settings!.documentCache?.get(
@@ -66,7 +66,8 @@ export class DefaultHoverService implements HoverService {
     const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
-    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
+    const docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
+      .namespace;
     const specVersion = getSpecVersion(api);
 
     api.freeze(); // !! freeze and add parent !!

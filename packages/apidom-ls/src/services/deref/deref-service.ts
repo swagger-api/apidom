@@ -4,7 +4,7 @@ import { isString } from 'ramda-adjunct';
 import { ArraySlice, Element, filter, ObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
-import { getParser } from '../../parser-factory';
+import { parse } from '../../parser-factory';
 import { isJsonDoc } from '../../utils/utils';
 
 export interface DerefService {
@@ -26,13 +26,18 @@ export class DefaultDerefService implements DerefService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     derefContext?: DerefContext,
   ): Promise<string> {
-    // get right parser
-    const parser = getParser(textDocument);
     const text: string = textDocument.getText();
 
-    const textFormat = isJsonDoc(text) ? Format.JSON : Format.YAML;
+    const textFormat = (await isJsonDoc(text)) ? Format.JSON : Format.YAML;
 
-    const result = await parser.parse(text, { sourceMap: true });
+    const result = await parse(
+      text,
+      this.settings?.metadata?.metadataMaps,
+      false,
+      false,
+      false,
+      this.settings?.defaultContentLanguage,
+    );
 
     const api: ObjectElement = <ObjectElement>result.api;
 

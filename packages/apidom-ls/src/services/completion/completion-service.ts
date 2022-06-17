@@ -56,8 +56,6 @@ import {
   perfEnd,
   debug,
   trace,
-  isJsonDoc,
-  isSpecVersionSet,
   findNamespace,
 } from '../../utils/utils';
 import { standardLinterfunctions } from '../validation/linter-functions';
@@ -264,7 +262,7 @@ export class DefaultCompletionService implements CompletionService {
         : completionParamsOrPosition;
 
     const text: string = textDocument.getText();
-    const isJson = isJsonDoc(textDocument);
+    let contentLanguage = await findNamespace(textDocument, this.settings?.defaultContentLanguage);
 
     const schema = false;
 
@@ -277,7 +275,7 @@ export class DefaultCompletionService implements CompletionService {
     let endArrayNodeChar = '\n';
 
     // TODO handle also yaml and others, with specific logic for the format
-    if (isJson) {
+    if (contentLanguage.format === 'JSON') {
       // commit chars for json
       valueCommitCharacters = [',', '}', ']'];
       propertyCommitCharacters = [':'];
@@ -293,8 +291,8 @@ export class DefaultCompletionService implements CompletionService {
     // TODO handle also JSON, must identify offset
     // TODO move to adapter
     if (
-      !isSpecVersionSet(textDocument) &&
-      !isJson &&
+      contentLanguage.namespace === 'apidom' &&
+      contentLanguage.format !== 'JSON' &&
       textDocument.positionAt(offset).character === 0
     ) {
       const isEmpty = isEmptyLine(textDocument, offset);
@@ -338,7 +336,7 @@ export class DefaultCompletionService implements CompletionService {
      */
     let processedText;
     let textModified = false;
-    if (!isJson) {
+    if (contentLanguage.format !== 'JSON') {
       if (isPartialKey(textDocument, offset)) {
         debug('doCompletion - isPartialKey', { offset });
         processedText = `${textDocument.getText().slice(0, offset - 1)}:${textDocument
@@ -356,13 +354,16 @@ export class DefaultCompletionService implements CompletionService {
     );
     perfEnd(PerfLabels.PARSE_FIRST);
     if (!result) return completionList;
-
+    if (processedText) {
+      contentLanguage = await findNamespace(processedText, this.settings?.defaultContentLanguage);
+    }
     perfStart(PerfLabels.CORRECT_PARTIAL);
     debug('doCompletion - correctPartialKeys');
-    processedText = correctPartialKeys(result, textDocument, isJson);
+    processedText = correctPartialKeys(result, textDocument, contentLanguage.format === 'JSON');
     trace('doCompletion - processedText second', processedText);
     perfEnd(PerfLabels.CORRECT_PARTIAL);
     if (processedText) {
+      contentLanguage = await findNamespace(processedText, this.settings?.defaultContentLanguage);
       debug('doCompletion - parsing processedText');
       perfStart(PerfLabels.PARSE_SECOND);
       result = await this.settings!.documentCache?.get(
@@ -378,14 +379,14 @@ export class DefaultCompletionService implements CompletionService {
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined) return completionList;
-    const docNs: string = findNamespace(text, this.settings?.defaultContentLanguage).namespace;
+    const docNs: string = contentLanguage.namespace;
     const specVersion = getSpecVersion(api);
 
     let targetOffset = textModified ? offset - 1 : offset;
     let emptyLine = false;
 
     let handledTarget = false;
-    if (!isJson && position.character > 0) {
+    if (contentLanguage.format !== 'JSON' && position.character > 0) {
       /*
       This is a hack to handle empty nodes in YAML, e.g in a situation like:
 
@@ -478,7 +479,7 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
       }
-    } else if (isJson && position.character > 0) {
+    } else if (contentLanguage.format === 'JSON' && position.character > 0) {
       /*
         This is a hack to handle empty nodes in JSON, e.g in a situation like:
 
@@ -508,7 +509,7 @@ export class DefaultCompletionService implements CompletionService {
       but it sets it right after the dash
       Therefore we look for the offset right after the dash where we found and empty value
        */
-    if (!handledTarget && !isJson && position.character > 0) {
+    if (!handledTarget && contentLanguage.format !== 'JSON' && position.character > 0) {
       const rightAfterDashOffset = getRightAfterDashOffset(textDocument, offset, true);
       if (rightAfterDashOffset !== -1) {
         if (
@@ -522,7 +523,7 @@ export class DefaultCompletionService implements CompletionService {
     }
     // check if we are at the end of text, get root node if that's the case
     const endOfText =
-      !isJson &&
+      contentLanguage.format !== 'JSON' &&
       textDocument.getText().length > 0 &&
       (targetOffset >= textDocument.getText().length ||
         textDocument.getText().substring(offset, textDocument.getText().length).trim().length ===
@@ -599,7 +600,8 @@ export class DefaultCompletionService implements CompletionService {
 
       const word = getCurrentWord(textDocument, offset);
       if (
-        (isObject(completionNode) || (isArray(completionNode) && isJson)) &&
+        (isObject(completionNode) ||
+          (isArray(completionNode) && contentLanguage.format === 'JSON')) &&
         (CompletionNodeContext.OBJECT === completionNodeContext ||
           CompletionNodeContext.VALUE_OBJECT === completionNodeContext ||
           textModified) &&
@@ -643,7 +645,7 @@ export class DefaultCompletionService implements CompletionService {
         const apidomCompletions = this.getMetadataPropertyCompletions(
           api,
           completionNode,
-          !isJsonDoc(textDocument),
+          contentLanguage.format !== 'JSON',
           docNs,
           specVersion,
           quotes,
@@ -672,7 +674,7 @@ export class DefaultCompletionService implements CompletionService {
           }
           if (nonEmptyContentRange) {
             if (caretContext === CaretContext.KEY_INNER || caretContext === CaretContext.KEY_END) {
-              if (isJsonDoc(textDocument)) {
+              if (contentLanguage.format === 'JSON') {
                 if (
                   nextLineNonEmptyContent.length > 0 &&
                   ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
@@ -682,7 +684,7 @@ export class DefaultCompletionService implements CompletionService {
               } else {
                 // item.insertText = `${item.insertText}\n`;
               }
-            } else if (isJsonDoc(textDocument)) {
+            } else if (contentLanguage.format === 'JSON') {
               if (caretContext === CaretContext.OBJECT_VALUE_INNER) {
                 item.insertText = `${item.insertText},`;
               } else {
@@ -693,7 +695,7 @@ export class DefaultCompletionService implements CompletionService {
             } else {
               item.insertText = `${item.insertText}\n`;
             }
-          } else if (isJsonDoc(textDocument)) {
+          } else if (contentLanguage.format === 'JSON') {
             if (
               nextLineNonEmptyContent.length > 0 &&
               ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
@@ -702,7 +704,7 @@ export class DefaultCompletionService implements CompletionService {
             } else {
               item.insertText = `${item.insertText}`;
             }
-          } else if (!isJsonDoc(textDocument)) {
+          } else if (contentLanguage.format === 'YAML') {
             // item.insertText = `${item.insertText}\n`;
           }
           collector.add(item);
@@ -745,14 +747,14 @@ export class DefaultCompletionService implements CompletionService {
             specVersion,
             nodeValueFromText,
             completionParamsOrPosition,
-            !isJsonDoc(textDocument),
+            contentLanguage.format !== 'JSON',
             completionContext,
           );
         } else {
           apidomCompletions = this.getMetadataPropertyCompletions(
             api,
             completionNode,
-            !isJsonDoc(textDocument),
+            contentLanguage.format !== 'JSON',
             docNs,
             specVersion,
             quotes,

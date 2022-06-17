@@ -16,7 +16,7 @@ const ApiDesignSystemsYamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       return mediaTypes.includes(file.mediaType) && ['.yaml', '.yml'].includes(file.extension);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
+      const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;
 
       try {
         const parserOpts = pick(['sourceMap', 'refractorOpts'], this);

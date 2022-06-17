@@ -18,7 +18,7 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       );
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
+      const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;
 
       try {
         return await parse(source, { sourceMap: this.sourceMap });

@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { assert } from 'chai';
 import { ObjectElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 

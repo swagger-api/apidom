@@ -9,6 +9,10 @@
   "types": "types/dist.d.ts",
   "unpkg": "dist/apidom-reference.browser.min.js",
   "main": "./cjs/index.cjs",
+  "browser": {
+    "./es/parse/parsers/apidom-reference-parser-binary/index-node.js": "./es/parse/parsers/apidom-reference-parser-binary/index-browser.js",
+    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs"
+  },
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

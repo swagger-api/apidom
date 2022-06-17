@@ -19,7 +19,7 @@ export { default as AsyncApiJson2Parser } from './parse/parsers/apidom-reference
 export { default as AsyncApiYaml2Parser } from './parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
 export { default as JsonParser } from './parse/parsers/apidom-reference-parser-json';
 export { default as YamlParser } from './parse/parsers/apidom-reference-parser-yaml-1-2';
-export { default as BinaryParser } from './parse/parsers/apidom-reference-parser-binary';
+export { default as BinaryParser } from './parse/parsers/apidom-reference-parser-binary/index-node';
 
 export { default as FileResolver } from './resolve/resolvers/FileResolver';
 export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';

@@ -53,7 +53,7 @@ describe('resolve', function () {
             });
             const content = await resolver.read(fileSystemPath);
 
-            assert.instanceOf(content, Buffer);
+            assert.isTrue(ArrayBuffer.isView(content));
             assert.strictEqual(content.toString(), 'local file content\n');
           });
         });
@@ -65,7 +65,7 @@ describe('resolve', function () {
             });
             const content = await resolver.read(fileSystemPath);
 
-            assert.instanceOf(content, Buffer);
+            assert.isTrue(ArrayBuffer.isView(content));
             assert.strictEqual(content.toString(), 'local file content\n');
           });
         });

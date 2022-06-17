@@ -7,6 +7,7 @@ export const nonMinimizeTrait = {
     usedExports: false,
     concatenateModules: false,
   },
+  plugins: [],
 };
 
 export const minimizeTrait = {

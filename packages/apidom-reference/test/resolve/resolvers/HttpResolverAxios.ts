@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import http from 'http';
 import { assert } from 'chai';
 import { AxiosRequestConfig } from 'axios';
@@ -59,7 +60,7 @@ describe('resolve', function () {
             axiosMock.onGet(url).reply(200, Buffer.from('data'));
             const content = await resolver.read(File({ uri: url }));
 
-            assert.instanceOf(content, Buffer);
+            assert.isTrue(ArrayBuffer.isView(content));
             assert.strictEqual(content.toString(), 'data');
           });
 

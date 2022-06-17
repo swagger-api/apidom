@@ -16,7 +16,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       return file.mediaType === 'application/json' || file.extension === '.json';
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
+      const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;
 
       try {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis'], this);

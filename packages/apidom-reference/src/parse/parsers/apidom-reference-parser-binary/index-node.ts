@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import stampit from 'stampit';
 import { isString } from 'ramda-adjunct';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';

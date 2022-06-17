@@ -10,7 +10,7 @@ import AsyncApiJson2Parser from '../parse/parsers/apidom-reference-parser-asynca
 import AsyncApiYaml2Parser from '../parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
 import JsonParser from '../parse/parsers/apidom-reference-parser-json';
 import YamlParser from '../parse/parsers/apidom-reference-parser-yaml-1-2';
-import BinaryParser from '../parse/parsers/apidom-reference-parser-binary';
+import BinaryParser from '../parse/parsers/apidom-reference-parser-binary/index-node';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
 import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
 import { ReferenceOptions as IReferenceOptions } from '../types';

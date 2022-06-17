@@ -1,20 +1,16 @@
+import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
+type Format = 'generic' | 'json' | 'yaml';
+
 export class AsyncAPIMediaTypes extends MediaTypes<string> {
-  forFormat(format = 'generic') {
+  forFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'asyncapi;version' : format;
     return this.filter((mediaType) => mediaType.includes(effectiveFormat));
   }
 
-  latest(format = 'generic') {
-    if (format === 'json') {
-      return this[13];
-    }
-    if (format === 'yaml') {
-      return this[14];
-    }
-
-    return this[12];
+  latest(format: Format = 'generic') {
+    return last(this.forFormat(format)) as string;
   }
 }
 

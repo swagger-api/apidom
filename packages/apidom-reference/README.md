@@ -71,7 +71,7 @@ so providing it is always a better option.
 
 ### Parser plugins
 
-Parse component comes with six (6) default parser plugins.
+Parse component comes with number of default parser plugins.
 
 #### [openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-json-3-1)
 
@@ -146,6 +146,35 @@ Supported media types are:
 ]
 ```
 
+#### [api-design-systems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-api-design-systems-json)
+
+Wraps [@swagger-api/apidom-parser-adapter-api-design-systsems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) package
+and is uniquely identified by `api-design-systems-json` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.aai.apidesignsystems;version=2021-05-07',
+  'application/vnd.aai.apidesignsystems+json;version=2021-05-07'
+]
+```
+
+#### [api-design-systems-yaml](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-api-design-systems-yaml)
+
+Wraps [@swagger-api/apidom-parser-adapter-api-design-systems-yaml](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-yaml) package
+and is uniquely  identified by `api-design-systems-yaml` name.
+
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.aai.apidesignsystems;version=2021-05-07',
+  'application/vnd.aai.apidesignsystems+yaml;version=2021-05-07'
+]
+```
+
 #### [json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-json)
 
 Wraps [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json) package
@@ -194,6 +223,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+  ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
+  ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -210,6 +241,8 @@ import {
   OpenApiYaml3_1Parser,
   AsyncApiJson2Parser,
   AsyncApiYaml2Parser,
+  ApiDesignSystemsJsonParser,
+  ApiDesignSystemsYamlParser,
   JsonParser,
   YamlParser,
   BinaryParser,
@@ -220,6 +253,8 @@ options.parse.parsers = [
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+  ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
+  ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -235,6 +270,8 @@ import {
   OpenApiYaml3_1Parser,
   AsyncApiJson2Parser,
   AsyncApiYaml2Parser,
+  ApiDesignSystemsJsonParser,
+  ApiDesignSystemsYamlParser,
   JsonParser,
   YamlParser,
   BinaryParser,
@@ -248,6 +285,8 @@ await parse('/home/user/oas.json', {
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+      ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
+      ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),

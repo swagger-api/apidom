@@ -10,8 +10,8 @@
   "unpkg": "dist/apidom-reference.browser.min.js",
   "main": "./cjs/index.cjs",
   "browser": {
-    "./es/util/btoa/index-node.js": "./es/util/btoa/index-browser.js",
-    "./cjs/util/btoa/index-node.js": "./cjs/util/btoa/index-browser.js"
+    "./es/parse/parsers/apidom-reference-parser-binary/index-node.js": "./es/parse/parsers/apidom-reference-parser-binary/index-browser.js",
+    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs"
   },
   "exports": {
     "import": "./es/index.js",

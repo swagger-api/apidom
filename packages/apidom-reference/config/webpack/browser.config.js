@@ -90,14 +90,15 @@ const browserMin = {
 };
 
 const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
-  /util\/btoa\/index-node\.ts/,
+  /parse\/parsers\/apidom-reference-parser-binary\/index-node\.ts/,
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
     '..',
     '..',
     'src',
-    'util',
-    'btoa',
+    'parse',
+    'parsers',
+    'apidom-reference-parser-binary',
     'index-browser.ts',
   ),
 );

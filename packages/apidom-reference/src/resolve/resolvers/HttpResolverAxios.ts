@@ -38,8 +38,8 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).in
       const client: AxiosInstance = this.getHttpClient();
 
       try {
-        const response = await client.get<string>(file.uri);
-        return Buffer.from(response.data);
+        const response = await client.get<Buffer>(file.uri);
+        return response.data;
       } catch (error: any) {
         throw new ResolverError(`Error downloading "${file.uri}"`, error);
       }

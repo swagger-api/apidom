@@ -9,6 +9,10 @@
   "types": "types/dist.d.ts",
   "unpkg": "dist/apidom-reference.browser.min.js",
   "main": "./cjs/index.cjs",
+  "browser": {
+    "./es/util/btoa/index-node.js": "./es/util/btoa/index-browser.js",
+    "./cjs/util/btoa/index-node.js": "./cjs/util/btoa/index-browser.js"
+  },
   "exports": {
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"

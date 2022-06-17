@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { isString } from 'ramda-adjunct';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 
+import btoa from '../../../util/btoa/index-node';
 import { ParserError } from '../../../util/errors';
 import { Parser as IParser, File as IFile } from '../../../types';
 import Parser from '../Parser';
@@ -17,13 +18,27 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
   },
   methods: {
     canParse(file: IFile): boolean {
-      return isString(file.data) || Buffer.isBuffer(file.data);
+      return isString(file.data) || ArrayBuffer.isView(file.data);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       try {
-        const base64String = Buffer.isBuffer(file.data)
-          ? file.data.toString('base64')
-          : Buffer.from(file.data).toString('base64');
+        let base64String: string;
+
+        /**
+         * More information about binary strings and btoa function in following link:
+         *   https://developer.mozilla.org/en-US/docs/Web/API/btoa
+         */
+        if (ArrayBuffer.isView(file.data)) {
+          // @ts-ignore
+          const binaryString = String.fromCharCode.apply(null, file.data);
+          base64String = btoa(binaryString);
+        } else if (isString(file.data)) {
+          const binaryString = unescape(encodeURIComponent(file.data));
+          base64String = btoa(binaryString);
+        } else {
+          throw new TypeError('file.data is of invalid type. Only Buffer and string is allowed.');
+        }
+
         const parseResultElement = new ParseResultElement();
 
         if (base64String.length !== 0) {

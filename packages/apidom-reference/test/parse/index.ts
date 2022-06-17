@@ -1,5 +1,6 @@
-import { assert } from 'chai';
+import { Buffer } from 'node:buffer';
 import path from 'path';
+import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 

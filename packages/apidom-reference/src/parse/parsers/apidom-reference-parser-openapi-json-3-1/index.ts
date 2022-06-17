@@ -17,7 +17,7 @@ const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
       return mediaTypes.includes(file.mediaType) && file.extension === '.json';
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = Buffer.isBuffer(file.data) ? file.data.toString() : file.data;
+      const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;
 
       try {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis', 'refractorOpts'], this);

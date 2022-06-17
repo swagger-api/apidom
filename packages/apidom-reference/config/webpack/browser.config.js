@@ -1,4 +1,6 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import webpack from 'webpack';
 import { nonMinimizeTrait, minimizeTrait } from './traits.config.js';
 
 const browser = {
@@ -86,5 +88,21 @@ const browserMin = {
   },
   ...minimizeTrait,
 };
+
+const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
+  /util\/btoa\/index-node\.ts/,
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'src',
+    'util',
+    'btoa',
+    'index-browser.ts',
+  ),
+);
+
+browser.plugins.push(normalModuleReplacementPlugin);
+browserMin.plugins.push(normalModuleReplacementPlugin);
 
 export default [browser, browserMin];

@@ -40,7 +40,7 @@ const Parser = stampit({
     this.mediaTypes = mediaTypes;
   },
   methods: {
-    canParse(): boolean {
+    async canParse(): Promise<boolean> {
       throw new NotImplementedError();
     },
     async parse(): Promise<ParseResultElement> {

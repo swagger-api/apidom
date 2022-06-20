@@ -10,47 +10,47 @@ describe('parsers', function () {
   context('BinaryParser', function () {
     context('canParse', function () {
       context('given file with .bin extension', function () {
-        specify('should return true', function () {
+        specify('should return true', async function () {
           const file = File({ uri: '/path/to/file.bin', data: Buffer.from('data') });
           const parser = BinaryParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with unknown extension', function () {
-        specify('should return true', function () {
+        specify('should return true', async function () {
           const file = File({ uri: '/path/to/file.bin', data: Buffer.from('data') });
           const parser = BinaryParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with no extension', function () {
-        specify('should return true', function () {
+        specify('should return true', async function () {
           const file = File({ uri: '/path/to/file', data: Buffer.from('data') });
           const parser = BinaryParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with string data', function () {
-        specify('should return true', function () {
+        specify('should return true', async function () {
           const file = File({ uri: '/path/to/file.bin', data: 'data' });
           const parser = BinaryParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with no data', function () {
-        specify('should return false', function () {
+        specify('should return false', async function () {
           const file = File({ uri: '/path/to/file.bin' });
           const parser = BinaryParser();
 
-          assert.isFalse(parser.canParse(file));
+          assert.isFalse(await parser.canParse(file));
         });
       });
     });

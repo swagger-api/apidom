@@ -12,7 +12,7 @@ import { readFile } from '../resolve/util';
  * Parses the given file's contents, using the configured parser plugins.
  */
 const parseFile = async (file: IFile, options: IReferenceOptions): Promise<ParseResultElement> => {
-  const parsers = plugins.filter('canParse', file, options.parse.parsers);
+  const parsers = await plugins.filter('canParse', file, options.parse.parsers);
 
   // we couldn't find any parser for this File
   if (isEmpty(parsers)) {

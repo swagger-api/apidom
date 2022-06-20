@@ -40,7 +40,7 @@ export const dereferenceApiDOM = async <T extends Element>(
     mediaType: options.parse.mediaType,
   });
 
-  const dereferenceStrategies = plugins.filter(
+  const dereferenceStrategies = await plugins.filter(
     'canDereference',
     file,
     options.dereference.strategies,

@@ -6,9 +6,13 @@ import { PluginError } from './errors';
 /**
  * Filters the given plugins, returning only the ones return `true` for the given method.
  */
-export const filter = (method: string, file: IFile, plugins: Array<any>): Array<any> => {
-  // @ts-ignore
-  return plugins.filter(invokeArgs([method], [file]));
+export const filter = async (
+  method: string,
+  file: IFile,
+  plugins: Array<any>,
+): Promise<Array<any>> => {
+  const pluginResults = await Promise.all(plugins.map(invokeArgs([method], [file])));
+  return plugins.filter((plugin, index) => pluginResults[index]);
 };
 
 /**

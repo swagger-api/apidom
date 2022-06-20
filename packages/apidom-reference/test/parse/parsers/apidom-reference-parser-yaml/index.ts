@@ -10,38 +10,64 @@ describe('parsers', function () {
   context('YamlParser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
-        specify('should return true', function () {
-          const file = File({ uri: '/path/to/file.yaml' });
+        specify('should return true', async function () {
+          const file = File({ uri: '/path/to/file.yaml', data: 'key: value' });
           const parser = YamlParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with .yml extension', function () {
-        specify('should return true', function () {
-          const file = File({ uri: '/path/to/file.yml' });
+        specify('should return true', async function () {
+          const file = File({ uri: '/path/to/file.yml', data: 'key: value' });
           const parser = YamlParser();
 
-          assert.isTrue(parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
 
       context('given file with unknown extension', function () {
-        specify('should return false', function () {
+        specify('should return false', async function () {
           const file = File({ uri: '/path/to/file.txt' });
           const parser = YamlParser();
 
-          assert.isFalse(parser.canParse(file));
+          assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with no extension', function () {
-        specify('should return false', function () {
+        specify('should return false', async function () {
           const file = File({ uri: '/path/to/file' });
           const parser = YamlParser();
 
-          assert.isFalse(parser.canParse(file));
+          assert.isFalse(await parser.canParse(file));
+        });
+      });
+
+      context('given file with supported extension', function () {
+        context('and file data is buffer and can be detected as YAML 1.2', function () {
+          specify('should return true', async function () {
+            const file = File({
+              uri: '/path/to/yaml.yaml',
+              data: Buffer.from('key: value'),
+            });
+            const parser = YamlParser();
+
+            assert.isTrue(await parser.canParse(file));
+          });
+        });
+
+        context('and file data is string and can be detected as YAML 1.2', function () {
+          specify('should return true', async function () {
+            const file = File({
+              uri: '/path/to/yaml.yaml',
+              data: 'key: value',
+            });
+            const parser = YamlParser();
+
+            assert.isTrue(await parser.canParse(file));
+          });
         });
       });
     });

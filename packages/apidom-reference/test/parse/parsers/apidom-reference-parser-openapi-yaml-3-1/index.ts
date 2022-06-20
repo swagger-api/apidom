@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { assert } from 'chai';
 import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 
 import File from '../../../../src/util/File';
 import OpenApiYaml3_1Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
@@ -13,7 +13,7 @@ describe('parsers', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
-          specify('should return true', function () {
+          specify('should return true', async function () {
             const file1 = File({
               uri: '/path/to/openapi.yaml',
               mediaType: mediaTypes.latest('yaml'),
@@ -24,27 +24,27 @@ describe('parsers', function () {
             });
             const parser = OpenApiYaml3_1Parser();
 
-            assert.isTrue(parser.canParse(file1));
-            assert.isTrue(parser.canParse(file2));
+            assert.isTrue(await parser.canParse(file1));
+            assert.isTrue(await parser.canParse(file2));
           });
         });
 
         context('and with improper media type', function () {
-          specify('should return false', function () {
+          specify('should return false', async function () {
             const file = File({
               uri: '/path/to/openapi.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.4.0',
             });
             const parser = OpenApiYaml3_1Parser();
 
-            assert.isFalse(parser.canParse(file));
+            assert.isFalse(await parser.canParse(file));
           });
         });
       });
 
       context('given file with .yml extension', function () {
         context('and with proper media type', function () {
-          specify('should return true', function () {
+          specify('should return true', async function () {
             const file1 = File({
               uri: '/path/to/openapi.yml',
               mediaType: mediaTypes.latest('yaml'),
@@ -55,45 +55,73 @@ describe('parsers', function () {
             });
             const parser = OpenApiYaml3_1Parser();
 
-            assert.isTrue(parser.canParse(file1));
-            assert.isTrue(parser.canParse(file2));
+            assert.isTrue(await parser.canParse(file1));
+            assert.isTrue(await parser.canParse(file2));
           });
         });
 
         context('and with improper media type', function () {
-          specify('should return false', function () {
+          specify('should return false', async function () {
             const file = File({
               uri: '/path/to/openapi.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.4.0',
             });
             const parser = OpenApiYaml3_1Parser();
 
-            assert.isFalse(parser.canParse(file));
+            assert.isFalse(await parser.canParse(file));
           });
         });
       });
 
       context('given file with unknown extension', function () {
-        specify('should return false', function () {
+        specify('should return false', async function () {
           const file = File({
             uri: '/path/to/openapi.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
 
-          assert.isFalse(parser.canParse(file));
+          assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with no extension', function () {
-        specify('should return false', function () {
+        specify('should return false', async function () {
           const file = File({
             uri: '/path/to/openapi',
             mediaType: mediaTypes.latest('yaml'),
           });
           const parser = OpenApiYaml3_1Parser();
 
-          assert.isFalse(parser.canParse(file));
+          assert.isFalse(await parser.canParse(file));
+        });
+      });
+
+      context('given file with supported extension', function () {
+        context('and file data is buffer and can be detected as OpenAPI 3.1.0', function () {
+          specify('should return true', async function () {
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const file = File({
+              uri: '/path/to/open-api.yaml',
+              data: fs.readFileSync(url),
+            });
+            const parser = OpenApiYaml3_1Parser();
+
+            assert.isTrue(await parser.canParse(file));
+          });
+        });
+
+        context('and file data is string and can be detected as OpenAPI 3.1.0', function () {
+          specify('should return true', async function () {
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const file = File({
+              uri: '/path/to/open-api.yaml',
+              data: fs.readFileSync(url).toString(),
+            });
+            const parser = OpenApiYaml3_1Parser();
+
+            assert.isTrue(await parser.canParse(file));
+          });
         });
       });
     });

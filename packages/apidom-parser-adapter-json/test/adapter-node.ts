@@ -34,7 +34,7 @@ describe('adapter-node', function () {
   context('given direct syntactic analysis', function () {
     context('given zero byte empty file', function () {
       specify('should return empty parse result', async function () {
-        const parseResult = await adapter.parse('{"a":"b"}', {
+        const parseResult = await adapter.parse('', {
           sourceMap: true,
           syntacticAnalysis: 'direct',
         });

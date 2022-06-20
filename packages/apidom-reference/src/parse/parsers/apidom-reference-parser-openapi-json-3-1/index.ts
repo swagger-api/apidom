@@ -11,10 +11,14 @@ import Parser from '../Parser';
 const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
     name: 'openapi-json-3-1',
+    fileExtensions: ['.json'],
+    mediaTypes,
   },
   methods: {
     canParse(file: IFile): boolean {
-      return mediaTypes.includes(file.mediaType) && file.extension === '.json';
+      return (
+        this.mediaTypes.includes(file.mediaType) && this.fileExtensions.includes(file.extension)
+      );
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;

@@ -16,10 +16,28 @@ const Parser = stampit({
      * Whether to generate source map during parsing.
      */
     sourceMap: false,
+    /**
+     * List of supported file extensions.
+     */
+    fileExtensions: [],
+    /**
+     * List of supported media types.
+     */
+    mediaTypes: [],
   },
-  init(this: IParser, { allowEmpty = this.allowEmpty, sourceMap = this.sourceMap } = {}) {
+  init(
+    this: IParser,
+    {
+      allowEmpty = this.allowEmpty,
+      sourceMap = this.sourceMap,
+      fileExtensions = this.fileExtensions,
+      mediaTypes = this.mediaTypes,
+    } = {},
+  ) {
     this.allowEmpty = allowEmpty;
     this.sourceMap = sourceMap;
+    this.fileExtensions = fileExtensions;
+    this.mediaTypes = mediaTypes;
   },
   methods: {
     canParse(): boolean {

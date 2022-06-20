@@ -26,6 +26,8 @@ export interface HttpResolver extends Resolver {
 export interface Parser {
   allowEmpty: boolean;
   sourceMap: boolean;
+  fileExtensions: string[];
+  mediaTypes: string[];
 
   canParse(file: File): boolean;
   parse(file: File): Promise<ParseResultElement>;

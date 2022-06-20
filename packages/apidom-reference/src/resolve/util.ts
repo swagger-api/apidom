@@ -9,7 +9,7 @@ import { ResolverError, UnmatchedResolverError } from '../util/errors';
  */
 // eslint-disable-next-line import/prefer-default-export
 export const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer> => {
-  const resolvers = plugins.filter('canRead', file, options.resolve.resolvers);
+  const resolvers = await plugins.filter('canRead', file, options.resolve.resolvers);
 
   // we couldn't find any resolver for this File
   if (isEmpty(resolvers)) {

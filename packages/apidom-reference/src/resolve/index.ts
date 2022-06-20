@@ -37,7 +37,7 @@ export const resolveApiDOM = async <T extends Element>(
     mediaType: options.parse.mediaType,
   });
 
-  const resolveStrategies = plugins.filter('canResolve', file, options.resolve.strategies);
+  const resolveStrategies = await plugins.filter('canResolve', file, options.resolve.strategies);
 
   // we couldn't find any resolver for this File
   if (isEmpty(resolveStrategies)) {

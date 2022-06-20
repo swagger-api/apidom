@@ -1,6 +1,5 @@
 import { Buffer } from 'node:buffer';
 import stampit from 'stampit';
-import { isString } from 'ramda-adjunct';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 
 import { ParserError } from '../../../util/errors';
@@ -9,7 +8,7 @@ import Parser from '../Parser';
 
 /**
  * Everything that is not recognized by other parsers will be considered by this parser
- * as a binary data and t
+ * as a binary data and will be encoded to Base64 format.
  */
 
 const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
@@ -17,8 +16,12 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
     name: 'binary',
   },
   methods: {
-    canParse(file: IFile): boolean {
-      return isString(file.data) || Buffer.isBuffer(file.data);
+    async canParse(file: IFile): Promise<boolean> {
+      const hasSupportedFileExtension =
+        this.fileExtensions.length === 0 ? true : this.fileExtensions.includes(file.extension);
+
+      if (!hasSupportedFileExtension) return false;
+      return typeof file.data === 'string' || ArrayBuffer.isView(file.data);
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       try {

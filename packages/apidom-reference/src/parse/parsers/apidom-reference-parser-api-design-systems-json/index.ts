@@ -10,10 +10,14 @@ import Parser from '../Parser';
 const ApiDesignSystemsJsonParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
     name: 'api-design-systems-json',
+    fileExtensions: ['.json'],
+    mediaTypes,
   },
   methods: {
     canParse(file: IFile): boolean {
-      return mediaTypes.includes(file.mediaType) && file.extension === '.json';
+      return (
+        this.mediaTypes.includes(file.mediaType) && this.fileExtensions.includes(file.extension)
+      );
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;

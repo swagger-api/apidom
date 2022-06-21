@@ -5,10 +5,12 @@ import {
   ColorPresentation,
   FormattingOptions,
   TextEdit,
+  Position,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
 import { ParseResultElement } from '@swagger-api/apidom-core';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import {
   ColorsContext,
@@ -26,7 +28,7 @@ import { DefaultDefinitionService } from './services/definition/definition-servi
 import { getDocumentCache } from './document-cache';
 import { parse } from './parser-factory';
 import { config } from './config/config';
-import { togglePerformanceLogs, toggleLogs } from './utils/utils';
+import { togglePerformanceLogs, toggleLogs, getSourceMap } from './utils/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -116,5 +118,29 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     },
     registerCompletionProvider: completionService.registerProvider.bind(completionService),
     registerValidationProvider: validationService.registerProvider.bind(validationService),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null> {
+      const result = await documentCache?.get(
+        document,
+        undefined,
+        'languageService-getJsonPathPosition',
+      );
+      if (!result) {
+        return null;
+      }
+      const { api } = result;
+      // no API document has been parsed
+      if (api === undefined) return null;
+      try {
+        const jsonPointerResult = evaluate(path, api);
+        const sm = getSourceMap(jsonPointerResult);
+        return {
+          line: sm.line,
+          character: sm.column,
+        };
+      } catch (e) {
+        return null;
+      }
+    },
   };
 }

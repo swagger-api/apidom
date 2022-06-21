@@ -379,4 +379,6 @@ export interface LanguageService {
 
   registerValidationProvider(validationProvider: ValidationProvider): void;
   registerCompletionProvider(completionProvider: CompletionProvider): void;
+
+  getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null>;
 }

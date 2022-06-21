@@ -1,7 +1,14 @@
 class MediaTypes<T> extends Array<T> {
+  unknownMediaType = 'application/octet-stream';
+
   // eslint-disable-next-line class-methods-use-this
-  forFormat() {
+  filterByFormat() {
     throw new Error('Not implemented!');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  findBy() {
+    throw new Error('Not implemented');
   }
 
   // eslint-disable-next-line class-methods-use-this

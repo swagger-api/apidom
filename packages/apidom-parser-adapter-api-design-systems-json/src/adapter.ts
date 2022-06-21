@@ -6,7 +6,7 @@ import apiDesignSystemsNamespace, { MainElement } from '@swagger-api/apidom-ns-a
 
 export { default as mediaTypes } from './media-types';
 
-export const detectionRegExp = /"version"\s*:\s*"2021-05-07"/;
+export const detectionRegExp = /"version"\s*:\s*"(?<version_json>2021-05-07)"/;
 
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectJSON(source));

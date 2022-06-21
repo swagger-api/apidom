@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **build:** get rid of using blobal Buffer symbol ([#1607](https://github.com/swagger-api/apidom/issues/1607)) ([0db7685](https://github.com/swagger-api/apidom/commit/0db768510d6595da634cd7464a6a15c40af42490)), closes [#1606](https://github.com/swagger-api/apidom/issues/1606)
+
+
+### Features
+
+* **reference:** add support for API Design Systems ([#1605](https://github.com/swagger-api/apidom/issues/1605)) ([7d2b062](https://github.com/swagger-api/apidom/commit/7d2b0620f9dcaf5da763337aa94d8b33d29f131f)), closes [#1603](https://github.com/swagger-api/apidom/issues/1603)
+* **reference:** unify spec/format detection with adapters ([#1615](https://github.com/swagger-api/apidom/issues/1615)) ([57f07e0](https://github.com/swagger-api/apidom/commit/57f07e0c9fc9eeebbcdfec33d82bbeb7cd380afa)), closes [#1604](https://github.com/swagger-api/apidom/issues/1604)
+* **reference:** use smart spec/format detection with parser plugins ([#1617](https://github.com/swagger-api/apidom/issues/1617)) ([ed5f6e4](https://github.com/swagger-api/apidom/commit/ed5f6e461c8d58e9f10f7b6ec88c6f0d97b87f53)), closes [#1604](https://github.com/swagger-api/apidom/issues/1604)
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **adapter-json:** export detection regexp from browser adapter ([01452cf](https://github.com/swagger-api/apidom/commit/01452cf83ea314827eb64b009ab0d4cbfd33915e))
+
+
+### Features
+
+* **media-types:** detect media types using smart detection ([#1624](https://github.com/swagger-api/apidom/issues/1624)) ([29908fa](https://github.com/swagger-api/apidom/commit/29908fa37ac27915304b26b2d4ba9115c3ca689e)), closes [#1616](https://github.com/swagger-api/apidom/issues/1616)
+* **parser-adapter-json:** enhance JSON detection ([#1608](https://github.com/swagger-api/apidom/issues/1608)) ([b73028f](https://github.com/swagger-api/apidom/commit/b73028f85c9064dbec2759fb398271fbd97f10ba)), closes [#1582](https://github.com/swagger-api/apidom/issues/1582)
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 

@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ns-api-design-systems:** fix latest media type getter ([8d8f63b](https://github.com/swagger-api/apidom/commit/8d8f63be931873b3f3092adec8ef2726c6171294)), closes [#1589](https://github.com/swagger-api/apidom/issues/1589)
+
+
+### Code Refactoring
+
+* **ns-api-design-systems:** remove adapters from namespace ([#1598](https://github.com/swagger-api/apidom/issues/1598)) ([ac4bee1](https://github.com/swagger-api/apidom/commit/ac4bee103f05ea7c3438ec901a02fff6a1ac5c0c)), closes [#1586](https://github.com/swagger-api/apidom/issues/1586)
+
+
+### Features
+
+* **media-types:** detect media types using smart detection ([#1624](https://github.com/swagger-api/apidom/issues/1624)) ([29908fa](https://github.com/swagger-api/apidom/commit/29908fa37ac27915304b26b2d4ba9115c3ca689e)), closes [#1616](https://github.com/swagger-api/apidom/issues/1616)
+* **ns-api-design-systems:** export detection regexp ([#1588](https://github.com/swagger-api/apidom/issues/1588)) ([eee6dca](https://github.com/swagger-api/apidom/commit/eee6dca3de790583463c0add2a9cc065c1964df3)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+
+
+### BREAKING CHANGES
+
+* **ns-api-design-systems:** removes adapters (JSON/YAML) and replaces them with new
+packages
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Features
+
+* **apidom-ls:** update ns/format detection ([a445f16](https://github.com/swagger-api/apidom/commit/a445f16a17f3ec71c6e2fad6818ce6b049393433))
+* **apidom-ls:** use adapter.detect for ns/format detection ([a1d1900](https://github.com/swagger-api/apidom/commit/a1d1900bdf561253b8457b75d5ed0394d61febb4))
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

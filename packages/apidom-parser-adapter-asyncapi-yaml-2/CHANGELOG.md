@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Features
+
+* **adapter-asyncapi-yaml-2:** detect forward complatible versions ([cff935d](https://github.com/swagger-api/apidom/commit/cff935d5ab57bc1829d00abe2c8441d3d78fe781)), closes [#1583](https://github.com/swagger-api/apidom/issues/1583)
+* **adapter-asyncapi-yaml-2:** export detection regexp ([3ae324a](https://github.com/swagger-api/apidom/commit/3ae324a7be9552c498910191b526b26c73b205ac)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* **media-types:** detect media types using smart detection ([#1624](https://github.com/swagger-api/apidom/issues/1624)) ([29908fa](https://github.com/swagger-api/apidom/commit/29908fa37ac27915304b26b2d4ba9115c3ca689e)), closes [#1616](https://github.com/swagger-api/apidom/issues/1616)
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 

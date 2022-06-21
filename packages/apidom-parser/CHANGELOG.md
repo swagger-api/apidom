@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **parser:** set parser options type to Index Signature ([16b4858](https://github.com/swagger-api/apidom/commit/16b48584a2f6508e36d55170727b2551c22a29e5))
+
+
+### Features
+
+* **media-types:** detect media types using smart detection ([#1624](https://github.com/swagger-api/apidom/issues/1624)) ([29908fa](https://github.com/swagger-api/apidom/commit/29908fa37ac27915304b26b2d4ba9115c3ca689e)), closes [#1616](https://github.com/swagger-api/apidom/issues/1616)
+
+
+
+
+
 # [0.30.0](https://github.com/swagger-api/apidom/compare/v0.29.1...v0.30.0) (2022-06-07)
 
 

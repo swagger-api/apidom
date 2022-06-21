@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
+
+
+### Bug Fixes
+
+* **adapter-json:** export detection regexp from browser adapter ([01452cf](https://github.com/swagger-api/apidom/commit/01452cf83ea314827eb64b009ab0d4cbfd33915e))
+* **build:** get rid of using blobal Buffer symbol ([#1607](https://github.com/swagger-api/apidom/issues/1607)) ([0db7685](https://github.com/swagger-api/apidom/commit/0db768510d6595da634cd7464a6a15c40af42490)), closes [#1606](https://github.com/swagger-api/apidom/issues/1606)
+* **ns-api-design-systems:** fix latest media type getter ([8d8f63b](https://github.com/swagger-api/apidom/commit/8d8f63be931873b3f3092adec8ef2726c6171294)), closes [#1589](https://github.com/swagger-api/apidom/issues/1589)
+* **ns-asyncapi-2:** fix latest media type getter ([aa1ea00](https://github.com/swagger-api/apidom/commit/aa1ea0046abf9bcbaf2bac14870f5467e84bad57)), closes [#1589](https://github.com/swagger-api/apidom/issues/1589)
+* **ns-openapi-3-1:** fix latest media type getter ([bca4ea4](https://github.com/swagger-api/apidom/commit/bca4ea4b1af820243cc3d6c006a098432ca0ed90)), closes [#1589](https://github.com/swagger-api/apidom/issues/1589)
+* **parser:** set parser options type to Index Signature ([16b4858](https://github.com/swagger-api/apidom/commit/16b48584a2f6508e36d55170727b2551c22a29e5))
+
+
+### Code Refactoring
+
+* **ns-api-design-systems:** remove adapters from namespace ([#1598](https://github.com/swagger-api/apidom/issues/1598)) ([ac4bee1](https://github.com/swagger-api/apidom/commit/ac4bee103f05ea7c3438ec901a02fff6a1ac5c0c)), closes [#1586](https://github.com/swagger-api/apidom/issues/1586)
+
+
+### Features
+
+* **adapter-asyncapi-json-2:** detect forward compatible versions ([ecac288](https://github.com/swagger-api/apidom/commit/ecac288b83bb9dd16463f368ffabf5eadb6db6a3)), closes [#1583](https://github.com/swagger-api/apidom/issues/1583)
+* **adapter-asyncapi-json-2:** export detection regexp ([5ab3f89](https://github.com/swagger-api/apidom/commit/5ab3f89b76f354ecdc2e7c8ddd11efdea125d13f)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* **adapter-asyncapi-yaml-2:** detect forward complatible versions ([cff935d](https://github.com/swagger-api/apidom/commit/cff935d5ab57bc1829d00abe2c8441d3d78fe781)), closes [#1583](https://github.com/swagger-api/apidom/issues/1583)
+* **adapter-asyncapi-yaml-2:** export detection regexp ([3ae324a](https://github.com/swagger-api/apidom/commit/3ae324a7be9552c498910191b526b26c73b205ac)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* **adapter-openapi-json-3-1:** detect forward compatible versions ([4bbd63e](https://github.com/swagger-api/apidom/commit/4bbd63e3a81b2bae03e50d912afb402e5ebc695f)), closes [#1583](https://github.com/swagger-api/apidom/issues/1583)
+* **adapter-openapi-json-3-1:** export detection regexp ([cb58abf](https://github.com/swagger-api/apidom/commit/cb58abfbfd5844dfb170429b9c08c699fa1b72f3)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* **adapter-openapi-yaml-3-1:** detect forward compatible versions ([dff8f37](https://github.com/swagger-api/apidom/commit/dff8f3796b40791509cc37a80e3fb171f2dde8b6)), closes [#1583](https://github.com/swagger-api/apidom/issues/1583)
+* **adapter-openapi-yaml-3-1:** export detection regexp ([1899fbc](https://github.com/swagger-api/apidom/commit/1899fbc9aa4b0789bec77bd73c41cb101c315340)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* add JSON parser adapter for API Design Systems ([#1590](https://github.com/swagger-api/apidom/issues/1590)) ([719528e](https://github.com/swagger-api/apidom/commit/719528e89cef11f5e69659f9e251d1287d7d9dcd)), closes [#1586](https://github.com/swagger-api/apidom/issues/1586)
+* add YAML parser adapter for API Design Systems ([#1597](https://github.com/swagger-api/apidom/issues/1597)) ([c528a95](https://github.com/swagger-api/apidom/commit/c528a95ebdc209fdbaa241429bacdfa15c474e7d)), closes [#1586](https://github.com/swagger-api/apidom/issues/1586)
+* **apidom-ls:** update ns/format detection ([a445f16](https://github.com/swagger-api/apidom/commit/a445f16a17f3ec71c6e2fad6818ce6b049393433))
+* **apidom-ls:** use adapter.detect for ns/format detection ([a1d1900](https://github.com/swagger-api/apidom/commit/a1d1900bdf561253b8457b75d5ed0394d61febb4))
+* **media-types:** detect media types using smart detection ([#1624](https://github.com/swagger-api/apidom/issues/1624)) ([29908fa](https://github.com/swagger-api/apidom/commit/29908fa37ac27915304b26b2d4ba9115c3ca689e)), closes [#1616](https://github.com/swagger-api/apidom/issues/1616)
+* **ns-api-design-systems:** export detection regexp ([#1588](https://github.com/swagger-api/apidom/issues/1588)) ([eee6dca](https://github.com/swagger-api/apidom/commit/eee6dca3de790583463c0add2a9cc065c1964df3)), closes [#1584](https://github.com/swagger-api/apidom/issues/1584)
+* **parser-adapter-json:** enhance JSON detection ([#1608](https://github.com/swagger-api/apidom/issues/1608)) ([b73028f](https://github.com/swagger-api/apidom/commit/b73028f85c9064dbec2759fb398271fbd97f10ba)), closes [#1582](https://github.com/swagger-api/apidom/issues/1582)
+* **reference:** add support for API Design Systems ([#1605](https://github.com/swagger-api/apidom/issues/1605)) ([7d2b062](https://github.com/swagger-api/apidom/commit/7d2b0620f9dcaf5da763337aa94d8b33d29f131f)), closes [#1603](https://github.com/swagger-api/apidom/issues/1603)
+* **reference:** unify spec/format detection with adapters ([#1615](https://github.com/swagger-api/apidom/issues/1615)) ([57f07e0](https://github.com/swagger-api/apidom/commit/57f07e0c9fc9eeebbcdfec33d82bbeb7cd380afa)), closes [#1604](https://github.com/swagger-api/apidom/issues/1604)
+* **reference:** use smart spec/format detection with parser plugins ([#1617](https://github.com/swagger-api/apidom/issues/1617)) ([ed5f6e4](https://github.com/swagger-api/apidom/commit/ed5f6e461c8d58e9f10f7b6ec88c6f0d97b87f53)), closes [#1604](https://github.com/swagger-api/apidom/issues/1604)
+
+
+### BREAKING CHANGES
+
+* **ns-api-design-systems:** removes adapters (JSON/YAML) and replaces them with new
+packages
+
+
+
+
+
 ## [0.30.1](https://github.com/swagger-api/apidom/compare/v0.30.0...v0.30.1) (2022-06-09)
 
 

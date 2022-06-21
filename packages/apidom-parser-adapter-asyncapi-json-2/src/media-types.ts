@@ -1,8 +1,8 @@
 import { mediaTypes, AsyncAPIMediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const jsonMediaTypes = new AsyncAPIMediaTypes(
-  ...mediaTypes.forFormat('generic'),
-  ...mediaTypes.forFormat('json'),
+  ...mediaTypes.filterByFormat('generic'),
+  ...mediaTypes.filterByFormat('json'),
 );
 
 export default jsonMediaTypes;

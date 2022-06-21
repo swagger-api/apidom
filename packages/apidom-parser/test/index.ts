@@ -7,11 +7,11 @@ import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-j
 
 import ApiDOMParser from '../src/parser';
 
-const parser = ApiDOMParser().use(openapi3_1Adapter);
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 
 describe('apidom-parser', function () {
   it('should parse', async function () {
+    const parser = ApiDOMParser().use(openapi3_1Adapter);
     const parseResult = await parser.parse(spec);
 
     assert.isTrue(apiDOM.isParseResultElement(parseResult));

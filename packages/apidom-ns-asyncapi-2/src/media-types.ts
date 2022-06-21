@@ -4,13 +4,23 @@ import { MediaTypes } from '@swagger-api/apidom-core';
 type Format = 'generic' | 'json' | 'yaml';
 
 export class AsyncAPIMediaTypes extends MediaTypes<string> {
-  forFormat(format: Format = 'generic') {
+  filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'asyncapi;version' : format;
     return this.filter((mediaType) => mediaType.includes(effectiveFormat));
   }
 
+  findBy(version = '2.4.0', format: Format = 'generic') {
+    const search =
+      format === 'generic'
+        ? `vnd.aai.asyncapi;version=${version}`
+        : `vnd.aai.asyncapi+${format};version=${version}`;
+    const found = this.find((mediaType) => mediaType.includes(search));
+
+    return found || this.unknownMediaType;
+  }
+
   latest(format: Format = 'generic') {
-    return last(this.forFormat(format)) as string;
+    return last(this.filterByFormat(format)) as string;
   }
 }
 

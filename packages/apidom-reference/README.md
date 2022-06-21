@@ -4,7 +4,7 @@
 This package is divided into three (3) main components:
 
 - **Parse component**
-- **Resovle component**
+- **Resolve component**
 - **Dereference component**
 
 ## Installation
@@ -211,7 +211,7 @@ This parser is uniquely identified by `binary` name.
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
 by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L29) option.
-Every plugin is pulled from `options.parse.parsers` option and it's `canParse` method is called to determine
+Every plugin is pulled from `options.parse.parsers` option, and it's `canParse` method is called to determine
 whether the plugin can parse the URI. If `canParse` returns `true`, `parse` method of plugin is called
 and result from parsing is returned. No subsequent parser plugins are run. If `canParse` returns
 `false`, next parser plugin is pulled and this process is repeated until one of the parser plugins `canParse` method
@@ -337,7 +337,7 @@ must conform to the following interface/shape:
   name: string,
 
   // this method is called to determine whether the parser plugin can parse the file
-  canParse(file: IFile): boolean {
+  async canParse(file: IFile): Promise<boolean> {
     // ...implementation...
   },
 
@@ -355,7 +355,7 @@ import { parse, options } from '@swagger-api/apidom-reference';
 
 const myCustomParserPlugin = {
   name: 'myCustomParserPlugin',
-  canParse(file) {
+  async canParse(file) {
     return true;
   },
   async parse(file) {
@@ -383,7 +383,7 @@ import { parse, options } from '@swagger-api/apidom-reference';
 
 const myCustomParserPlugin = {
   name: 'myCustomParserPlugin',
-  canParse(file) {
+  async canParse(file) {
     return true;
   },
   async parse(file) {
@@ -406,7 +406,7 @@ import { parse } from '@swagger-api/apidom-reference';
 
 const myCustomParserPlugin = {
   name: 'myCustomParserPlugin',
-  canParse(file) {
+  async canParse(file) {
     return true;
   },
   async parse(file) {

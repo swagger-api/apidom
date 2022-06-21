@@ -62,6 +62,25 @@ parser.use(yamlParserAdapter);
 const namespace = await parser.findNamespace('{"prop", "value"}', { mediaType: 'application/json' });
 ```
 
+## Finding an appropriate media type
+
+ApiDOM parser contains logic of mapping a `source string` to appropriate media type.
+
+```js
+import ApiDOMParser from '@swagger-api/apidom-parser';
+import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
+import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml';
+
+const parser = ApiDOMParser();
+
+parser.use(jsonParserAdapter);
+parser.use(yamlParserAdapter);
+
+await parser.findMediaType('{"prop", "value"}'); // => 'application/json'
+await parser.findMediaType('key: value'); // => 'application/yaml'
+```
+
+
 ## Parsing
 
 ApiDOM parser doesn't contain any parsing logic. It uses parser adapter to provide the parsing logic for it.

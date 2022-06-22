@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import path from 'node:fpath';
+import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {

@@ -17,10 +17,6 @@ const browser = {
     libraryTarget: 'umd',
     library: 'apidomReference',
   },
-  externals: {
-    'node:fs': '{}',
-    'node:util': '{}',
-  },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
     fallback: {
@@ -61,16 +57,11 @@ const browserMin = {
     libraryTarget: 'umd',
     library: 'apidomReference',
   },
-  externals: {
-    'node:fs': '{}',
-    'node:util': '{}',
-  },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
     fallback: {
       fs: false,
       path: false,
-      util: false,
     },
   },
   module: {
@@ -110,7 +101,21 @@ const binaryParserReplacer = new webpack.NormalModuleReplacementPlugin(
   ),
 );
 
-browser.plugins.push(binaryParserReplacer);
-browserMin.plugins.push(binaryParserReplacer);
+const fileResolverReplacer = new webpack.NormalModuleReplacementPlugin(
+  /resolve\/resolvers\/FileResolver\/index-node\.ts/,
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'src',
+    'resolve',
+    'resolvers',
+    'FileResolver',
+    'index-browser.ts',
+  ),
+);
+
+browser.plugins.push(binaryParserReplacer, fileResolverReplacer);
+browserMin.plugins.push(binaryParserReplacer, fileResolverReplacer);
 
 export default [browser];

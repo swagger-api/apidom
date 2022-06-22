@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { assert, expect } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isOperationElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';

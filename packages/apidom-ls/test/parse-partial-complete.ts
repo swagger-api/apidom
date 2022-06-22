@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 // @ts-ignore
 import { traverse, Element } from '@swagger-api/apidom-core';

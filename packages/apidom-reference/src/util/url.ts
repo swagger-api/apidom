@@ -1,3 +1,4 @@
+import process from 'process';
 import { pathSatisfies, propOr, pipe, test, last } from 'ramda';
 import { isUndefined, replaceAll, isNotUndefined, trimCharsEnd } from 'ramda-adjunct';
 

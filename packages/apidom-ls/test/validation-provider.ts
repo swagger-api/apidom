@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
-import fs from 'fs';
+import fs from 'node:fs';
 import { assert } from 'chai';
-import path from 'path';
+import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { Element } from '@swagger-api/apidom-core';

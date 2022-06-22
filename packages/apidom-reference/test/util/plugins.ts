@@ -1,5 +1,5 @@
+import path from 'node:path';
 import { assert } from 'chai';
-import path from 'path';
 
 import File from '../../src/util/File';
 import { filter, run } from '../../src/util/plugins';

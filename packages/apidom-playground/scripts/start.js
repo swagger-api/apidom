@@ -8,13 +8,6 @@ const configFactory = start.__get__('configFactory');
 const configFactoryMock = (webpackEnv) => {
   const config = configFactory(webpackEnv);
 
-  // externals
-  config.externals = {
-    ...config.externals,
-    'node:fs': '{}',
-    'node:util': '{}',
-  };
-
   // fallbacks
   config.resolve.fallback = {
     ...config.resolve.fallback,

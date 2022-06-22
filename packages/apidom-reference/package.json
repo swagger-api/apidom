@@ -11,7 +11,9 @@
   "main": "./cjs/index.cjs",
   "browser": {
     "./es/parse/parsers/apidom-reference-parser-binary/index-node.js": "./es/parse/parsers/apidom-reference-parser-binary/index-browser.js",
-    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs"
+    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs",
+    "./cjs/resolve/resolvers/FileResolver/index-node.cjs": "./cjs/resolve/resolvers/FileResolver/index-browser.cjs",
+    "./es/resolve/resolvers/FileResolver/index-node.js": "./es/resolve/resolvers/FileResolver/index-browser.js"
   },
   "exports": {
     "import": "./es/index.js",

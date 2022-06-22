@@ -17,12 +17,15 @@ const browser = {
     libraryTarget: 'umd',
     library: 'apidomReference',
   },
+  externals: {
+    'node:fs': '{}',
+    'node:util': '{}',
+  },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
     fallback: {
       fs: false,
       path: false,
-      util: false,
     },
   },
   module: {
@@ -58,6 +61,10 @@ const browserMin = {
     libraryTarget: 'umd',
     library: 'apidomReference',
   },
+  externals: {
+    'node:fs': '{}',
+    'node:util': '{}',
+  },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
     fallback: {
@@ -89,7 +96,7 @@ const browserMin = {
   ...minimizeTrait,
 };
 
-const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
+const binaryParserReplacer = new webpack.NormalModuleReplacementPlugin(
   /parse\/parsers\/apidom-reference-parser-binary\/index-node\.ts/,
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -103,7 +110,7 @@ const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
   ),
 );
 
-browser.plugins.push(normalModuleReplacementPlugin);
-browserMin.plugins.push(normalModuleReplacementPlugin);
+browser.plugins.push(binaryParserReplacer);
+browserMin.plugins.push(binaryParserReplacer);
 
-export default [browser, browserMin];
+export default [browser];

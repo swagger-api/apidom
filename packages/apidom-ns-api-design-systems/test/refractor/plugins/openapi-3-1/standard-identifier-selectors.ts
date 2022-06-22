@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { expect } from 'chai';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';

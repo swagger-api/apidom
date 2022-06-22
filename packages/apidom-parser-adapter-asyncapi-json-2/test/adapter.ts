@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { assert, expect } from 'chai';
 import { isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';

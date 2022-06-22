@@ -1,6 +1,6 @@
+import { readFile } from 'node:fs';
+import { promisify } from 'node:util';
 import stampit from 'stampit';
-import { readFile } from 'fs';
-import { promisify } from 'util';
 
 import { Resolver as IResolver, File as IFile } from '../../types';
 import Resolver from './Resolver';

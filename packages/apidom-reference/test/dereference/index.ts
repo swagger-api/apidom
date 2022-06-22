@@ -1,5 +1,5 @@
+import path from 'node:path';
 import { assert } from 'chai';
-import path from 'path';
 import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 

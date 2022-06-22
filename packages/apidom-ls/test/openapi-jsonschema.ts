@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
 import { Element, traverse } from '@swagger-api/apidom-core';

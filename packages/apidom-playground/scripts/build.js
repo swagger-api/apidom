@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const rewire = require('rewire');
 
 process.chdir(path.join(__dirname, '..'));

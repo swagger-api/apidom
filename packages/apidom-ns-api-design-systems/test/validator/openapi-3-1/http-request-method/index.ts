@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { assert } from 'chai';
 import { AnnotationElement } from '@swagger-api/apidom-core';
 import { parse as parseJSON } from '@swagger-api/apidom-parser-adapter-json';

@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Diagnostic, Position } from 'vscode-languageserver-types';

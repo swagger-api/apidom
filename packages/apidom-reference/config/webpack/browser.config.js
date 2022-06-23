@@ -22,7 +22,6 @@ const browser = {
     fallback: {
       fs: false,
       path: false,
-      util: false,
     },
   },
   module: {
@@ -63,7 +62,6 @@ const browserMin = {
     fallback: {
       fs: false,
       path: false,
-      util: false,
     },
   },
   module: {
@@ -89,7 +87,7 @@ const browserMin = {
   ...minimizeTrait,
 };
 
-const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
+const binaryParserReplacer = new webpack.NormalModuleReplacementPlugin(
   /parse\/parsers\/apidom-reference-parser-binary\/index-node\.ts/,
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
@@ -103,7 +101,21 @@ const normalModuleReplacementPlugin = new webpack.NormalModuleReplacementPlugin(
   ),
 );
 
-browser.plugins.push(normalModuleReplacementPlugin);
-browserMin.plugins.push(normalModuleReplacementPlugin);
+const fileResolverReplacer = new webpack.NormalModuleReplacementPlugin(
+  /resolve\/resolvers\/FileResolver\/index-node\.ts/,
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '..',
+    'src',
+    'resolve',
+    'resolvers',
+    'FileResolver',
+    'index-browser.ts',
+  ),
+);
 
-export default [browser, browserMin];
+browser.plugins.push(binaryParserReplacer, fileResolverReplacer);
+browserMin.plugins.push(binaryParserReplacer, fileResolverReplacer);
+
+export default [browser];

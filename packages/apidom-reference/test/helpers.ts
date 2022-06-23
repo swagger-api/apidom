@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
 export const loadFile = (uri: string) => fs.readFileSync(uri).toString();
 

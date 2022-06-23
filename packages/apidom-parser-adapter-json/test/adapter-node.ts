@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { expect, assert } from 'chai';
 import { sexprs, isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
 

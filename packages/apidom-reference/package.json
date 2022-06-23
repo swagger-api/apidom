@@ -6,17 +6,19 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "types": "types/dist.d.ts",
-  "unpkg": "dist/apidom-reference.browser.min.js",
-  "main": "./cjs/index.cjs",
+  "unpkg": "./dist/apidom-reference.browser.min.js",
   "browser": {
     "./es/parse/parsers/apidom-reference-parser-binary/index-node.js": "./es/parse/parsers/apidom-reference-parser-binary/index-browser.js",
-    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs"
+    "./cjs/parse/parsers/apidom-reference-parser-binary/index-node.cjs": "./cjs/parse/parsers/apidom-reference-parser-binary/index-browser.cjs",
+    "./cjs/resolve/resolvers/FileResolver/index-node.cjs": "./cjs/resolve/resolvers/FileResolver/index-browser.cjs",
+    "./es/resolve/resolvers/FileResolver/index-node.js": "./es/resolve/resolvers/FileResolver/index-browser.js"
   },
   "exports": {
+    "types": "./types/dist.d.ts",
     "import": "./es/index.js",
     "require": "./cjs/index.cjs"
   },
+  "types": "./types/dist.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
@@ -27,7 +29,7 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
@@ -54,6 +56,7 @@
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.31.0",
     "@types/ramda": "=0.28.14",
     "axios": "=0.27.2",
+    "process": "=0.11.10",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.2.0",
     "stampit": "=4.3.2"

@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const rewire = require('rewire');
 
 process.chdir(path.join(__dirname, '..'));
@@ -11,7 +11,6 @@ config.resolve.fallback = {
   ...config.resolve.fallback,
   fs: false,
   path: false,
-  util: false,
 };
 
 // faulty source maps

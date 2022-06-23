@@ -21,7 +21,7 @@ export { default as JsonParser } from './parse/parsers/apidom-reference-parser-j
 export { default as YamlParser } from './parse/parsers/apidom-reference-parser-yaml-1-2';
 export { default as BinaryParser } from './parse/parsers/apidom-reference-parser-binary/index-node';
 
-export { default as FileResolver } from './resolve/resolvers/FileResolver';
+export { default as FileResolver } from './resolve/resolvers/FileResolver/index-node';
 export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 export { default as Resolver } from './resolve/resolvers/Resolver';

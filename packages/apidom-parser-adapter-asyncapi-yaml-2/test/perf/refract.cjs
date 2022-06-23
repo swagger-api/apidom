@@ -1,7 +1,7 @@
 require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const Benchmark = require('benchmark');
 const { ObjectElement } = require('apidom-core');
 const { AsyncApi2Element } = require('apidom-ns-asyncapi-2');

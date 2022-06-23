@@ -7,8 +7,8 @@
 
 const { declare } = require('@babel/helper-plugin-utils')
 const { types: { importDeclaration, exportNamedDeclaration, exportAllDeclaration, stringLiteral } } = require('@babel/core')
-const { existsSync, lstatSync } = require('fs')
-const { resolve, extname, dirname } = require('path')
+const { existsSync, lstatSync } = require('node:fs')
+const { resolve, extname, dirname } = require('node:path')
 
 const isActiveExtension = (module, observedScriptExtensions) => {
   return observedScriptExtensions.indexOf(extname(module).replace(/[^a-z]/, '')) > -1;

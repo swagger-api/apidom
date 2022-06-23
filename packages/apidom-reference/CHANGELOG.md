@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.31.1](https://github.com/swagger-api/apidom/compare/v0.31.0...v0.31.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **reference:** make FileResolver isomorphic ([#1639](https://github.com/swagger-api/apidom/issues/1639)) ([74c7494](https://github.com/swagger-api/apidom/commit/74c7494c1cb86c2db6360ccdffff27248caba276)), closes [#1633](https://github.com/swagger-api/apidom/issues/1633)
+
+
+
+
+
 # [0.31.0](https://github.com/swagger-api/apidom/compare/v0.30.1...v0.31.0) (2022-06-21)
 
 

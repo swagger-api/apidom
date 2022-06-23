@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, Namespace, toValue } from '@swagger-api/apidom-core';

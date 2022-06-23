@@ -1,7 +1,7 @@
+import path from 'node:path';
 import { assert } from 'chai';
-import path from 'path';
 
-import FileResolver from '../../../src/resolve/resolvers/FileResolver';
+import FileResolver from '../../../src/resolve/resolvers/FileResolver/index-node';
 import { ResolverError } from '../../../src/util/errors';
 import File from '../../../src/util/File';
 

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { assert } from 'chai';
 import { ParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';

@@ -10,7 +10,7 @@
   "exports": {
     "types": "./types/dist.d.ts",
     "import": "./es/index.js",
-    "require": "./cjs/index.cjs",
+    "require": "./cjs/index.cjs"
   },
   "types": "./types/dist.d.ts",
   "scripts": {

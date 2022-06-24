@@ -1,4 +1,3 @@
-import { Attributes, Meta } from 'minim';
 import {
   StringElement,
   ObjectElement,
@@ -6,6 +5,8 @@ import {
   ArrayElement,
   BooleanElement,
   Element,
+  Attributes,
+  Meta,
 } from '@swagger-api/apidom-core';
 
 import DiscriminatorElement from './Discriminator';

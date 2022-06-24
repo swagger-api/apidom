@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "./dist/apidom-ns-openapi-3-1.browser.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
     "import": "./es/index.js",
@@ -27,7 +28,7 @@
     "perf:visitor-shortcut": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/visitor-shortcut.cjs",
     "perf:refract": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/refract.cjs",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
@@ -50,7 +51,6 @@
     "dist/",
     "es/",
     "types/dist.d.ts",
-    "types/minim.d.ts",
     "LICENSES",
     "NOTICE",
     "README.md",

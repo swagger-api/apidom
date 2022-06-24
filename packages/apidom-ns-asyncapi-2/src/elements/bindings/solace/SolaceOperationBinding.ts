@@ -1,5 +1,10 @@
-import { Attributes, Meta, StringElement } from 'minim';
-import { ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  ArrayElement,
+  StringElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
 class SolaceOperationBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

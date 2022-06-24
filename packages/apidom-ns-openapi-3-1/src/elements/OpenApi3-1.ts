@@ -1,5 +1,4 @@
-import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';

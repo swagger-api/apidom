@@ -1,5 +1,10 @@
-import { Attributes, Meta } from 'minim';
-import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  ArrayElement,
+  StringElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
 import StandardIdentifierElement from './StandardIdentifier';
 

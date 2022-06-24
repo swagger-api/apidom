@@ -36,11 +36,11 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lint code
+        run: npm run lint
       - name: Lint commit message
         if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
         run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
-      - name: Lint code
-        run: npm run lint
 
   check-typescript-types:
     runs-on: ubuntu-latest

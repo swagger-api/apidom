@@ -1,9 +1,10 @@
-import { Attributes, Meta } from 'minim';
 import {
   ObjectElement,
   StringElement,
   BooleanElement,
   NumberElement,
+  Attributes,
+  Meta,
 } from '@swagger-api/apidom-core';
 
 class IbmmqServerBinding extends ObjectElement {

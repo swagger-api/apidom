@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "./dist/apidom.ast.min.js",
+  "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
     "import": "./es/index.js",
@@ -23,7 +24,7 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && copyfiles -u 2 ../@types/*.d.ts ./types && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },

@@ -1,5 +1,4 @@
-import { Attributes, Meta } from 'minim';
-import { ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
+import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 class OperationMessageMap extends ObjectElement {
   static primaryClass = 'operation-message-map';

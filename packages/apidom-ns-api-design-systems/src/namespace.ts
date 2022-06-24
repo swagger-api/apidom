@@ -1,4 +1,4 @@
-import { NamespacePluginOptions } from 'minim';
+import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
 /**
  * API Design Systems 2021-05-07 specification elements.

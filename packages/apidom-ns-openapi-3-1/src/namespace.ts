@@ -1,4 +1,4 @@
-import { NamespacePluginOptions } from 'minim';
+import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';

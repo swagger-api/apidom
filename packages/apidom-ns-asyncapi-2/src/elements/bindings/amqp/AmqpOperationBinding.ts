@@ -1,10 +1,11 @@
-import { Attributes, Meta } from 'minim';
 import {
   StringElement,
   ObjectElement,
   NumberElement,
   ArrayElement,
   BooleanElement,
+  Attributes,
+  Meta,
 } from '@swagger-api/apidom-core';
 
 class AmqpOperationBinding extends ObjectElement {

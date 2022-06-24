@@ -1,5 +1,10 @@
-import { Attributes, Meta } from 'minim';
-import { ArrayElement, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import {
+  ArrayElement,
+  ObjectElement,
+  StringElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
 import CorrelationIDElement from './CorrelationID';
 import ExternalDocumentationElement from './ExternalDocumentation';

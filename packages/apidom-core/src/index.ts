@@ -28,6 +28,7 @@ export {
   ArraySlice,
   refract,
 } from 'minim';
+export type { NamespacePluginOptions, Attributes, Meta } from 'minim';
 export { default as namespace, Namespace, createNamespace } from './namespace';
 export { default as AnnotationElement } from './elements/Annotation';
 export { default as CommentElement } from './elements/Comment';

@@ -1,9 +1,10 @@
-import { Attributes, Meta } from 'minim';
 import {
   ObjectElement,
   ArrayElement,
   BooleanElement,
   StringElement,
+  Attributes,
+  Meta,
 } from '@swagger-api/apidom-core';
 
 import ReferenceElement from './Reference';

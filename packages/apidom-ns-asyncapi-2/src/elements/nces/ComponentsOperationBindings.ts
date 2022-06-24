@@ -1,5 +1,4 @@
-import { Attributes, Meta } from 'minim';
-import { ObjectElement } from '@swagger-api/apidom-core';
+import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 class ComponentsOperationBindings extends ObjectElement {
   static primaryClass = 'components-operation-bindings';

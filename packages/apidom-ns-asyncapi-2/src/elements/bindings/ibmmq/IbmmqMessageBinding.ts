@@ -1,5 +1,10 @@
-import { Attributes, Meta } from 'minim';
-import { ObjectElement, StringElement, NumberElement } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  StringElement,
+  NumberElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
 class IbmmqMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

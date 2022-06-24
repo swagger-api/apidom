@@ -1,5 +1,4 @@
-import { Attributes, Meta } from 'minim';
-import { ArrayElement } from '@swagger-api/apidom-core';
+import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 class ChannelItemServers extends ArrayElement {
   static primaryClass = 'channel-item-server-names-list';

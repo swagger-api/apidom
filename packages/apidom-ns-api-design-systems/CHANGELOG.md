@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.31.2](https://github.com/swagger-api/apidom/compare/v0.31.1...v0.31.2) (2022-06-24)
+
+
+### Bug Fixes
+
+* **build:** make using minim an implementation detail ([a45009f](https://github.com/swagger-api/apidom/commit/a45009fef5855f3b2fba699c9e4faf560c613443)), closes [#1632](https://github.com/swagger-api/apidom/issues/1632)
+
+
+
+
+
 ## [0.31.1](https://github.com/swagger-api/apidom/compare/v0.31.0...v0.31.1) (2022-06-23)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-api-design-systems

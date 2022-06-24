@@ -7,6 +7,7 @@
   },
   "type": "module",
   "unpkg": "./dist/apidom-parser-adapter-api-design-systems-json.browser.min.js",
+  "main": "./cjs/adapter.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
     "import": "./es/adapter.js",

@@ -13,6 +13,7 @@
     "./cjs/resolve/resolvers/FileResolver/index-node.cjs": "./cjs/resolve/resolvers/FileResolver/index-browser.cjs",
     "./es/resolve/resolvers/FileResolver/index-node.js": "./es/resolve/resolvers/FileResolver/index-browser.js"
   },
+  "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
     "import": "./es/index.js",

@@ -30,6 +30,7 @@ import componentsMeta from './components/meta';
 import tagsMeta from './tags/meta';
 import tagMeta from './tag/meta';
 import correlationIDMeta from './correlation-ID/meta';
+import oAuthFlowsMeta from './oauth-flows/meta';
 import ApilintCodes from '../codes';
 
 /**
@@ -83,4 +84,5 @@ export default {
   tags: tagsMeta,
   tag: tagMeta,
   correlationID: correlationIDMeta,
+  oAuthFlows: oAuthFlowsMeta,
 };

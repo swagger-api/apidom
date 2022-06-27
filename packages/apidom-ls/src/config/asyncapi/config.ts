@@ -31,6 +31,7 @@ import tagsMeta from './tags/meta';
 import tagMeta from './tag/meta';
 import correlationIDMeta from './correlation-ID/meta';
 import oAuthFlowsMeta from './oauth-flows/meta';
+import oAuthFlowMeta from './oauth-flow/meta';
 import ApilintCodes from '../codes';
 
 /**
@@ -85,4 +86,5 @@ export default {
   tag: tagMeta,
   correlationID: correlationIDMeta,
   oAuthFlows: oAuthFlowsMeta,
+  oAuthFlow: oAuthFlowMeta,
 };

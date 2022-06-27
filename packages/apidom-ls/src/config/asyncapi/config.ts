@@ -25,6 +25,7 @@ import messageBindingsMeta from './message-bindings/meta';
 import httpMessageBindingMeta from './http-message-binding/meta';
 import kafkaMessageBindingMeta from './kafka-message-binding/meta';
 import messageMeta from './message/meta';
+import messageTraitMeta from './message-trait/meta';
 import componentsMeta from './components/meta';
 import ApilintCodes from '../codes';
 
@@ -74,5 +75,6 @@ export default {
   httpMessageBinding: httpMessageBindingMeta,
   kafkaMessageBinding: kafkaMessageBindingMeta,
   message: messageMeta,
+  messageTrait: messageTraitMeta,
   components: componentsMeta,
 };

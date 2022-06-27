@@ -13,6 +13,7 @@ import serverMeta from './server/meta';
 import securityRequirementMeta from './security-requirement/meta';
 import serverVariableMeta from './server-variable/meta';
 import channelsMeta from './channels/meta';
+import parametersMeta from './parameters/meta';
 import parameterMeta from './parameter/meta';
 import operationMeta from './operation/meta';
 import operationBindingsMeta from './operation-bindings/meta';
@@ -56,6 +57,7 @@ export default {
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,
   asyncApiVersion: asyncapiVersionMeta,
+  parameters: parametersMeta,
   parameter: parameterMeta,
   // 'json-schema-type': jsonSchemaTypeMeta,
   schema: jsonSchemaMeta,

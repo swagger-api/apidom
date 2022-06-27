@@ -29,6 +29,7 @@ import messageTraitMeta from './message-trait/meta';
 import componentsMeta from './components/meta';
 import tagsMeta from './tags/meta';
 import tagMeta from './tag/meta';
+import correlationIDMeta from './correlation-ID/meta';
 import ApilintCodes from '../codes';
 
 /**
@@ -81,4 +82,5 @@ export default {
   components: componentsMeta,
   tags: tagsMeta,
   tag: tagMeta,
+  correlationID: correlationIDMeta,
 };

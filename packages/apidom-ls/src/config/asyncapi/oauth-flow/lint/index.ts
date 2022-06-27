@@ -5,6 +5,7 @@ import oAuthFlowTokenUrlRequiredLint from './token-url-required';
 import oAuthFlowRefreshUrlLint from './refresh-url';
 import oAuthFlowScopesLint from './scopes';
 import oAuthFlowScopesRequiredLint from './scopes-required';
+import oAuthFlowAllowedFieldsLint from './allowed-fields';
 
 const lints = [
   oAuthFlowAuthorizationUrlLint,
@@ -14,6 +15,7 @@ const lints = [
   oAuthFlowRefreshUrlLint,
   oAuthFlowScopesLint,
   oAuthFlowScopesRequiredLint,
+  oAuthFlowAllowedFieldsLint,
 ];
 
 export default lints;

@@ -13,6 +13,7 @@ import serverMeta from './server/meta';
 import securityRequirementMeta from './security-requirement/meta';
 import serverVariableMeta from './server-variable/meta';
 import channelsMeta from './channels/meta';
+import parametersMeta from './parameters/meta';
 import parameterMeta from './parameter/meta';
 import operationMeta from './operation/meta';
 import operationBindingsMeta from './operation-bindings/meta';
@@ -24,7 +25,13 @@ import messageBindingsMeta from './message-bindings/meta';
 import httpMessageBindingMeta from './http-message-binding/meta';
 import kafkaMessageBindingMeta from './kafka-message-binding/meta';
 import messageMeta from './message/meta';
+import messageTraitMeta from './message-trait/meta';
 import componentsMeta from './components/meta';
+import tagsMeta from './tags/meta';
+import tagMeta from './tag/meta';
+import correlationIDMeta from './correlation-ID/meta';
+import oAuthFlowsMeta from './oauth-flows/meta';
+import oAuthFlowMeta from './oauth-flow/meta';
 import ApilintCodes from '../codes';
 
 /**
@@ -56,6 +63,7 @@ export default {
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,
   asyncApiVersion: asyncapiVersionMeta,
+  parameters: parametersMeta,
   parameter: parameterMeta,
   // 'json-schema-type': jsonSchemaTypeMeta,
   schema: jsonSchemaMeta,
@@ -72,5 +80,11 @@ export default {
   httpMessageBinding: httpMessageBindingMeta,
   kafkaMessageBinding: kafkaMessageBindingMeta,
   message: messageMeta,
+  messageTrait: messageTraitMeta,
   components: componentsMeta,
+  tags: tagsMeta,
+  tag: tagMeta,
+  correlationID: correlationIDMeta,
+  oAuthFlows: oAuthFlowsMeta,
+  oAuthFlow: oAuthFlowMeta,
 };

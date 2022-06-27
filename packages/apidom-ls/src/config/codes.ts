@@ -278,6 +278,9 @@ enum ApilintCodes {
   MESSAGE_TRAIT_SUMMARY,
   MESSAGE_TRAIT_TAGS,
   MESSAGE_TRAIT_TITLE,
+  TAG_DESCRIPTION,
+  TAG_NAME,
+  TAG_NAME_REQUIRED,
 }
 
 export default ApilintCodes;

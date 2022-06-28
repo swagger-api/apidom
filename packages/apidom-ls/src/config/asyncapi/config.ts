@@ -60,6 +60,11 @@ import mercureChannelBindingMeta from './bindings/mercure/channel-binding/meta';
 import mercureMessageBindingMeta from './bindings/mercure/message-binding/meta';
 import mercureOperationBindingMeta from './bindings/mercure/operation-binding/meta';
 import mercureServerBindingMeta from './bindings/mercure/server-binding/meta';
+// MQTT 5
+import mqtt5ChannelBindingMeta from './bindings/mqtt5/channel-binding/meta';
+import mqtt5MessageBindingMeta from './bindings/mqtt5/message-binding/meta';
+import mqtt5OperationBindingMeta from './bindings/mqtt5/operation-binding/meta';
+import mqtt5ServerBindingMeta from './bindings/mqtt5/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -141,4 +146,9 @@ export default {
   mercureMessageBinding: mercureMessageBindingMeta,
   mercureOperationBinding: mercureOperationBindingMeta,
   mercureServerBinding: mercureServerBindingMeta,
+  // MQTT 5
+  mqtt5ChannelBinding: mqtt5ChannelBindingMeta,
+  mqtt5MessageBinding: mqtt5MessageBindingMeta,
+  mqtt5OperationBinding: mqtt5OperationBindingMeta,
+  mqtt5ServerBinding: mqtt5ServerBindingMeta,
 };

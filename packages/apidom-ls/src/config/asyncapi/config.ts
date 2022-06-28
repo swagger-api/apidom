@@ -70,6 +70,11 @@ import redisChannelBindingMeta from './bindings/redis/channel-binding/meta';
 import redisMessageBindingMeta from './bindings/redis/message-binding/meta';
 import redisOperationBindingMeta from './bindings/redis/operation-binding/meta';
 import redisServerBindingMeta from './bindings/redis/server-binding/meta';
+// SNS
+import snsChannelBindingMeta from './bindings/sns/channel-binding/meta';
+import snsMessageBindingMeta from './bindings/sns/message-binding/meta';
+import snsOperationBindingMeta from './bindings/sns/operation-binding/meta';
+import snsServerBindingMeta from './bindings/sns/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -161,4 +166,9 @@ export default {
   redisMessageBinding: redisMessageBindingMeta,
   redisOperationBinding: redisOperationBindingMeta,
   redisServerBinding: redisServerBindingMeta,
+  // SNS
+  snsChannelBinding: snsChannelBindingMeta,
+  snsMessageBinding: snsMessageBindingMeta,
+  snsOperationBinding: snsOperationBindingMeta,
+  snsServerBinding: snsServerBindingMeta,
 };

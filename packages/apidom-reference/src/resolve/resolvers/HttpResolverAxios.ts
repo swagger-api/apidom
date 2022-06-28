@@ -1,4 +1,6 @@
 import stampit from 'stampit';
+import { omit, pathOr } from 'ramda';
+import { ensureArray } from 'ramda-adjunct';
 import axios, { AxiosInstance } from 'axios';
 
 import ResolverError from '../../util/errors/ResolverError';
@@ -21,13 +23,35 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).in
 
     this.getHttpClient = function getHttpClient(): AxiosInstance {
       if (typeof axiosInstance === 'undefined' || oldAxiosConfig !== this.axiosConfig) {
+        const config = omit(['interceptors'], this.axiosConfig);
+        const interceptors = pathOr(
+          { request: [], response: [] },
+          ['axiosConfig', 'interceptors'],
+          this,
+        );
+
         axiosInstance = axios.create({
           timeout: this.timeout,
           maxRedirects: this.redirects,
           withCredentials: this.withCredentials,
           responseType: 'arraybuffer',
-          ...(this.axiosConfig || {}),
+          ...config,
         });
+
+        // settings up request interceptors
+        if (Array.isArray(interceptors?.request)) {
+          interceptors.request.forEach((requestInterceptor: any) => {
+            axiosInstance.interceptors.request.use(...ensureArray(requestInterceptor));
+          });
+        }
+
+        // settings up response interceptors
+        if (Array.isArray(interceptors?.response)) {
+          interceptors.response.forEach((responseInterceptor: any) => {
+            axiosInstance.interceptors.response.use(...ensureArray(responseInterceptor));
+          });
+        }
+
         oldAxiosConfig = this.axiosConfig;
       }
 

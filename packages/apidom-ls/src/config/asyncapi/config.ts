@@ -65,6 +65,11 @@ import mqtt5ChannelBindingMeta from './bindings/mqtt5/channel-binding/meta';
 import mqtt5MessageBindingMeta from './bindings/mqtt5/message-binding/meta';
 import mqtt5OperationBindingMeta from './bindings/mqtt5/operation-binding/meta';
 import mqtt5ServerBindingMeta from './bindings/mqtt5/server-binding/meta';
+// Redis
+import redisChannelBindingMeta from './bindings/redis/channel-binding/meta';
+import redisMessageBindingMeta from './bindings/redis/message-binding/meta';
+import redisOperationBindingMeta from './bindings/redis/operation-binding/meta';
+import redisServerBindingMeta from './bindings/redis/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -151,4 +156,9 @@ export default {
   mqtt5MessageBinding: mqtt5MessageBindingMeta,
   mqtt5OperationBinding: mqtt5OperationBindingMeta,
   mqtt5ServerBinding: mqtt5ServerBindingMeta,
+  // Redis
+  redisChannelBinding: redisChannelBindingMeta,
+  redisMessageBinding: redisMessageBindingMeta,
+  redisOperationBinding: redisOperationBindingMeta,
+  redisServerBinding: redisServerBindingMeta,
 };

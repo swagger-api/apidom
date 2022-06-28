@@ -50,6 +50,7 @@ describe('asyncapi operation test', function () {
     );
 
     const result = await languageService.doValidation(doc, validationContext);
+
     assert.deepEqual(result, operationLintExpected as Diagnostic[]);
   });
 });

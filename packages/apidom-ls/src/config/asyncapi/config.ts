@@ -80,6 +80,11 @@ import sqsChannelBindingMeta from './bindings/sqs/channel-binding/meta';
 import sqsMessageBindingMeta from './bindings/sqs/message-binding/meta';
 import sqsOperationBindingMeta from './bindings/sqs/operation-binding/meta';
 import sqsServerBindingMeta from './bindings/sqs/server-binding/meta';
+// STOMP
+import stompChannelBindingMeta from './bindings/stomp/channel-binding/meta';
+import stompMessageBindingMeta from './bindings/stomp/message-binding/meta';
+import stompOperationBindingMeta from './bindings/stomp/operation-binding/meta';
+import stompServerBindingMeta from './bindings/stomp/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -181,4 +186,9 @@ export default {
   sqsMessageBinding: sqsMessageBindingMeta,
   sqsOperationBinding: sqsOperationBindingMeta,
   sqsServerBinding: sqsServerBindingMeta,
+  // STOMP
+  stompChannelBinding: stompChannelBindingMeta,
+  stompMessageBinding: stompMessageBindingMeta,
+  stompOperationBinding: stompOperationBindingMeta,
+  stompServerBinding: stompServerBindingMeta,
 };

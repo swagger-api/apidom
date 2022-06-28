@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.33.0](https://github.com/swagger-api/apidom/compare/v0.32.0...v0.33.0) (2022-06-28)
+
+
+### Features
+
+* **reference:** add configurable interceptors for HttpResolverAxios ([#1680](https://github.com/swagger-api/apidom/issues/1680)) ([3c40bcf](https://github.com/swagger-api/apidom/commit/3c40bcfdc3f85fcb46186c11be6ede8e55c2ed24))
+
+
+
+
+
 # [0.32.0](https://github.com/swagger-api/apidom/compare/v0.31.2...v0.32.0) (2022-06-27)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

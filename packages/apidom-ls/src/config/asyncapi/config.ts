@@ -75,6 +75,11 @@ import snsChannelBindingMeta from './bindings/sns/channel-binding/meta';
 import snsMessageBindingMeta from './bindings/sns/message-binding/meta';
 import snsOperationBindingMeta from './bindings/sns/operation-binding/meta';
 import snsServerBindingMeta from './bindings/sns/server-binding/meta';
+// SQS
+import sqsChannelBindingMeta from './bindings/sqs/channel-binding/meta';
+import sqsMessageBindingMeta from './bindings/sqs/message-binding/meta';
+import sqsOperationBindingMeta from './bindings/sqs/operation-binding/meta';
+import sqsServerBindingMeta from './bindings/sqs/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -171,4 +176,9 @@ export default {
   snsMessageBinding: snsMessageBindingMeta,
   snsOperationBinding: snsOperationBindingMeta,
   snsServerBinding: snsServerBindingMeta,
+  // SQS
+  sqsChannelBinding: sqsChannelBindingMeta,
+  sqsMessageBinding: sqsMessageBindingMeta,
+  sqsOperationBinding: sqsOperationBindingMeta,
+  sqsServerBinding: sqsServerBindingMeta,
 };

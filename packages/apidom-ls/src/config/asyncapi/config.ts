@@ -35,21 +35,26 @@ import oAuthFlowMeta from './oauth-flow/meta';
 /**
  * Binding metas.
  */
-// HTTP
-import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
-import httpMessageBindingMeta from './bindings/http/message-binding/meta';
-import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
-import httpServerBindingMeta from './bindings/http/server-binding/meta';
-// Kafka
-import kafkaChannelBindingMeta from './bindings/kafka/channel-binding/meta';
-import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
-import kafkaOperationBindingMeta from './bindings/kafka/operation-binding/meta';
-import kafkaServerBindingMeta from './bindings/kafka/server-binding/meta';
 // AMQP 1.0
 import amqp1ChannelBindingMeta from './bindings/amqp1/channel-binding/meta';
 import amqp1MessageBindingMeta from './bindings/amqp1/message-binding/meta';
 import amqp1OperationBindingMeta from './bindings/amqp1/operation-binding/meta';
 import amqp1ServerBindingMeta from './bindings/amqp1/server-binding/meta';
+// HTTP
+import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
+import httpMessageBindingMeta from './bindings/http/message-binding/meta';
+import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
+import httpServerBindingMeta from './bindings/http/server-binding/meta';
+// HTTP
+import jmsChannelBindingMeta from './bindings/jms/channel-binding/meta';
+import jmsMessageBindingMeta from './bindings/jms/message-binding/meta';
+import jmsOperationBindingMeta from './bindings/jms/operation-binding/meta';
+import jmsServerBindingMeta from './bindings/jms/server-binding/meta';
+// Kafka
+import kafkaChannelBindingMeta from './bindings/kafka/channel-binding/meta';
+import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
+import kafkaOperationBindingMeta from './bindings/kafka/operation-binding/meta';
+import kafkaServerBindingMeta from './bindings/kafka/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -106,19 +111,24 @@ export default {
   /**
    * Binding metas.
    */
-  // HTTP
-  httpChannelBinding: httpChannelBindingMeta,
-  httpMessageBinding: httpMessageBindingMeta,
-  httpOperationBinding: httpOperationBindingMeta,
-  httpServerBinding: httpServerBindingMeta,
-  // Kafka
-  kafkaChannelBinding: kafkaChannelBindingMeta,
-  kafkaMessageBinding: kafkaMessageBindingMeta,
-  kafkaOperationBinding: kafkaOperationBindingMeta,
-  kafkaServerBinding: kafkaServerBindingMeta,
   // AMQP 1.0
   amqp1ChannelBinding: amqp1ChannelBindingMeta,
   amqp1MessageBinding: amqp1MessageBindingMeta,
   amqp1OperationBinding: amqp1OperationBindingMeta,
   amqp1ServerBinding: amqp1ServerBindingMeta,
+  // HTTP
+  httpChannelBinding: httpChannelBindingMeta,
+  httpMessageBinding: httpMessageBindingMeta,
+  httpOperationBinding: httpOperationBindingMeta,
+  httpServerBinding: httpServerBindingMeta,
+  // JMS
+  jmsChannelBinding: jmsChannelBindingMeta,
+  jmsMessageBinding: jmsMessageBindingMeta,
+  jmsOperationBinding: jmsOperationBindingMeta,
+  jmsServerBinding: jmsServerBindingMeta,
+  // Kafka
+  kafkaChannelBinding: kafkaChannelBindingMeta,
+  kafkaMessageBinding: kafkaMessageBindingMeta,
+  kafkaOperationBinding: kafkaOperationBindingMeta,
+  kafkaServerBinding: kafkaServerBindingMeta,
 };

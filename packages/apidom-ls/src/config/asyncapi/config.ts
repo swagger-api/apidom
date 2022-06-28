@@ -36,7 +36,9 @@ import oAuthFlowMeta from './oauth-flow/meta';
  * Binding metas.
  */
 // HTTP
+import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
 import httpMessageBindingMeta from './bindings/http/message-binding/meta';
+import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
 import httpServerBindingMeta from './bindings/http/server-binding/meta';
 // Kafka
 import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
@@ -98,9 +100,11 @@ export default {
    * Binding metas.
    */
   // HTTP
-  httpServerBinding: httpServerBindingMeta,
+  httpChannelBinding: httpChannelBindingMeta,
   httpMessageBinding: httpMessageBindingMeta,
+  httpOperationBinding: httpOperationBindingMeta,
+  httpServerBinding: httpServerBindingMeta,
   // Kafka
-  kafkaServerBinding: kafkaServerBindingMeta,
   kafkaMessageBinding: kafkaMessageBindingMeta,
+  kafkaServerBinding: kafkaServerBindingMeta,
 };

@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../../../codes';
 import { LinterMeta } from '../../../../../../apidom-language-types';
 
-const httpMessageBindingBindingVersionLint: LinterMeta = {
-  code: ApilintCodes.MESSAGE_BINDING_HTTP_BINDINGVERSION,
+const httpOperationBindingTypeLint: LinterMeta = {
+  code: ApilintCodes.OPERATION_BINDING_HTTP_TYPE,
   source: 'apilint',
-  message: "'bindingVersion' value must be a string",
+  message: "'type' value must be a string",
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'bindingVersion',
+  target: 'type',
   data: {},
 };
 
-export default httpMessageBindingBindingVersionLint;
+export default httpOperationBindingTypeLint;

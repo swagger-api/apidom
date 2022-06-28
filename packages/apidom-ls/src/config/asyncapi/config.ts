@@ -55,6 +55,11 @@ import kafkaChannelBindingMeta from './bindings/kafka/channel-binding/meta';
 import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
 import kafkaOperationBindingMeta from './bindings/kafka/operation-binding/meta';
 import kafkaServerBindingMeta from './bindings/kafka/server-binding/meta';
+// Mercure
+import mercureChannelBindingMeta from './bindings/mercure/channel-binding/meta';
+import mercureMessageBindingMeta from './bindings/mercure/message-binding/meta';
+import mercureOperationBindingMeta from './bindings/mercure/operation-binding/meta';
+import mercureServerBindingMeta from './bindings/mercure/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -131,4 +136,9 @@ export default {
   kafkaMessageBinding: kafkaMessageBindingMeta,
   kafkaOperationBinding: kafkaOperationBindingMeta,
   kafkaServerBinding: kafkaServerBindingMeta,
+  // Mercure
+  mercureChannelBinding: mercureChannelBindingMeta,
+  mercureMessageBinding: mercureMessageBindingMeta,
+  mercureOperationBinding: mercureOperationBindingMeta,
+  mercureServerBinding: mercureServerBindingMeta,
 };

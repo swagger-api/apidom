@@ -1,5 +1,5 @@
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../../../codes';
+import { LinterMeta } from '../../../../../../apidom-language-types';
 
 const httpMessageBindingAllowedFieldsLint: LinterMeta = {
   code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,

@@ -1,3 +1,7 @@
+import ApilintCodes from '../codes';
+/**
+ * AsyncApi >= 2.0.0 <=2.4.0 specification metas.
+ */
 import asyncapi2Meta from './asyncapi2/meta';
 import asyncapiVersionMeta from './async-api-version/meta';
 import jsonSchemaMeta from '../common/schema/meta';
@@ -19,11 +23,7 @@ import operationMeta from './operation/meta';
 import operationBindingsMeta from './operation-bindings/meta';
 import operationTraitMeta from './operation-trait/meta';
 import serverBindingsMeta from './server-bindings/meta';
-import httpServerBindingMeta from './http-server-binding/meta';
-import kafkaServerBindingMeta from './kafka-server-binding/meta';
 import messageBindingsMeta from './message-bindings/meta';
-import httpMessageBindingMeta from './http-message-binding/meta';
-import kafkaMessageBindingMeta from './kafka-message-binding/meta';
 import messageMeta from './message/meta';
 import messageTraitMeta from './message-trait/meta';
 import componentsMeta from './components/meta';
@@ -32,7 +32,15 @@ import tagMeta from './tag/meta';
 import correlationIDMeta from './correlation-ID/meta';
 import oAuthFlowsMeta from './oauth-flows/meta';
 import oAuthFlowMeta from './oauth-flow/meta';
-import ApilintCodes from '../codes';
+/**
+ * Binding metas.
+ */
+// HTTP
+import httpMessageBindingMeta from './bindings/http/message-binding/meta';
+import httpServerBindingMeta from './bindings/http/server-binding/meta';
+// Kafka
+import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
+import kafkaServerBindingMeta from './bindings/kafka/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -52,6 +60,9 @@ export default {
       },
     ],
   },
+  /**
+   * AsyncApi >= 2.0.0 <=2.4.0 specification metas.
+   */
   info: infoMeta,
   contact: contactMeta,
   license: licenseMeta,
@@ -74,11 +85,7 @@ export default {
   serverVariable: serverVariableMeta,
   externalDocumentation: externalDocsMeta,
   serverBindings: serverBindingsMeta,
-  httpServerBinding: httpServerBindingMeta,
-  kafkaServerBinding: kafkaServerBindingMeta,
   messageBindings: messageBindingsMeta,
-  httpMessageBinding: httpMessageBindingMeta,
-  kafkaMessageBinding: kafkaMessageBindingMeta,
   message: messageMeta,
   messageTrait: messageTraitMeta,
   components: componentsMeta,
@@ -87,4 +94,13 @@ export default {
   correlationID: correlationIDMeta,
   oAuthFlows: oAuthFlowsMeta,
   oAuthFlow: oAuthFlowMeta,
+  /**
+   * Binding metas.
+   */
+  // HTTP
+  httpServerBinding: httpServerBindingMeta,
+  httpMessageBinding: httpMessageBindingMeta,
+  // Kafka
+  kafkaServerBinding: kafkaServerBindingMeta,
+  kafkaMessageBinding: kafkaMessageBindingMeta,
 };

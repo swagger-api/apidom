@@ -1,5 +1,5 @@
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../../../codes';
+import { LinterMeta } from '../../../../../../apidom-language-types';
 
 const keyObjectLint: LinterMeta = {
   code: ApilintCodes.SERVER_VARIABLES_OBJECT,

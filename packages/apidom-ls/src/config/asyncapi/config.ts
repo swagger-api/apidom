@@ -41,7 +41,9 @@ import httpMessageBindingMeta from './bindings/http/message-binding/meta';
 import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
 import httpServerBindingMeta from './bindings/http/server-binding/meta';
 // Kafka
+import kafkaChannelBindingMeta from './bindings/kafka/channel-binding/meta';
 import kafkaMessageBindingMeta from './bindings/kafka/message-binding/meta';
+import kafkaOperationBindingMeta from './bindings/kafka/operation-binding/meta';
 import kafkaServerBindingMeta from './bindings/kafka/server-binding/meta';
 
 /**
@@ -105,6 +107,8 @@ export default {
   httpOperationBinding: httpOperationBindingMeta,
   httpServerBinding: httpServerBindingMeta,
   // Kafka
+  kafkaChannelBinding: kafkaChannelBindingMeta,
   kafkaMessageBinding: kafkaMessageBindingMeta,
+  kafkaOperationBinding: kafkaOperationBindingMeta,
   kafkaServerBinding: kafkaServerBindingMeta,
 };

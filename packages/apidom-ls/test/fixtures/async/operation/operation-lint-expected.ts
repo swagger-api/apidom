@@ -66,6 +66,13 @@ const operationLintExpected = [
     },
   },
   {
+    range: { start: { line: 19, character: 8 }, end: { line: 19, character: 13 } },
+    message: 'Object includes not allowed fields',
+    severity: 1,
+    code: 10152,
+    source: 'apilint',
+  },
+  {
     range: { start: { line: 37, character: 15 }, end: { line: 37, character: 17 } },
     message: '"message" must be a Message Object',
     severity: 1,
@@ -164,6 +171,13 @@ const operationLintExpected = [
     },
   },
   {
+    range: { start: { line: 48, character: 8 }, end: { line: 48, character: 13 } },
+    message: 'Object includes not allowed fields',
+    severity: 1,
+    code: 10152,
+    source: 'apilint',
+  },
+  {
     range: { start: { line: 61, character: 6 }, end: { line: 61, character: 10 } },
     message: 'tags must be an array of Tags',
     severity: 1,
@@ -211,6 +225,13 @@ const operationLintExpected = [
         },
       ],
     },
+  },
+  {
+    range: { start: { line: 66, character: 8 }, end: { line: 66, character: 13 } },
+    message: 'Object includes not allowed fields',
+    severity: 1,
+    code: 10152,
+    source: 'apilint',
   },
 ];
 export default operationLintExpected;

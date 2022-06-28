@@ -304,6 +304,8 @@ describe('asyncapi channel test', function () {
     );
 
     const result = await languageService.doValidation(doc, validationContext);
+    console.dir(result);
+
     assert.deepEqual(result, [
       {
         range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
@@ -381,6 +383,22 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
+        range: { start: { line: 25, character: 6 }, end: { line: 25, character: 10 } },
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        severity: 1,
+        code: 10152,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 27, character: 6 }, end: { line: 27, character: 11 } },
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        severity: 1,
+        code: 10152,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 30, character: 6 }, end: { line: 30, character: 12 } },
         message: 'parameter key must be defined in channel name',
         severity: 1,
@@ -427,6 +445,14 @@ describe('asyncapi channel test', function () {
         code: 10242,
         source: 'apilint',
         data: {},
+      },
+      {
+        range: { start: { line: 42, character: 6 }, end: { line: 42, character: 11 } },
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        severity: 1,
+        code: 10152,
+        source: 'apilint',
       },
     ] as Diagnostic[]);
   });

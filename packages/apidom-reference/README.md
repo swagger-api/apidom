@@ -707,7 +707,7 @@ await resolve('/home/user/oas.json', {
 }); // Promise<ReferenceSet>
 ```
 
-**Externally resolving a HTTP(S) URL located on an internet:**
+**Externally resolving an HTTP(S) URL located on an internet:**
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';

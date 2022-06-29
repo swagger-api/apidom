@@ -27,7 +27,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '**Optional**, defaults to `latest`. The version of this binding',
+      value: '**Optional**, defaults to `latest`. The version of this binding.',
     },
   },
 ];

@@ -100,6 +100,7 @@ import stompMessageBindingMeta from './bindings/stomp/message-binding/meta';
 import stompOperationBindingMeta from './bindings/stomp/operation-binding/meta';
 import stompServerBindingMeta from './bindings/stomp/server-binding/meta';
 // WebSocket
+import webSocketChannelBindingMeta from './bindings/ws/channel-binding/meta';
 import webSocketMessageBindingMeta from './bindings/ws/message-binding/meta';
 import webSocketOperationBindingMeta from './bindings/ws/operation-binding/meta';
 import webSocketServerBindingMeta from './bindings/ws/server-binding/meta';
@@ -224,6 +225,7 @@ export default {
   stompOperationBinding: stompOperationBindingMeta,
   stompServerBinding: stompServerBindingMeta,
   // WebSocket
+  webSocketChannelBinding: webSocketChannelBindingMeta,
   webSocketMessageBinding: webSocketMessageBindingMeta,
   webSocketOperationBinding: webSocketOperationBindingMeta,
   webSocketServerBinding: webSocketServerBindingMeta,

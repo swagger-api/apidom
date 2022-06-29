@@ -6,7 +6,7 @@ const componentsParametersLint: LinterMeta = {
   source: 'apilint',
   message: '"parameters" members must be Parameter object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['parameter']],
   marker: 'key',
   markerTarget: 'parameters',

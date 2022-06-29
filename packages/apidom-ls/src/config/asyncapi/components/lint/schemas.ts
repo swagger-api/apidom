@@ -6,7 +6,7 @@ const componentsSchemasLint: LinterMeta = {
   source: 'apilint',
   message: '"schemas" members must be Schema object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['schema']],
   marker: 'key',
   markerTarget: 'schemas',

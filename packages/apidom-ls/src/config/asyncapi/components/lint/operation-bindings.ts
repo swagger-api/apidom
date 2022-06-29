@@ -6,7 +6,7 @@ const componentsOperationBindingsLint: LinterMeta = {
   source: 'apilint',
   message: '"operationBindings" members must be Operation Bindings Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['operationBindings']],
   marker: 'key',
   markerTarget: 'operationBindings',

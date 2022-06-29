@@ -6,7 +6,7 @@ const componentsServerBindingsLint: LinterMeta = {
   source: 'apilint',
   message: '"serverBindings" members must be Server Bindings Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['serverBindings']],
   marker: 'key',
   markerTarget: 'serverBindings',

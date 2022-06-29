@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const rootIdLint: LinterMeta = {
-  code: ApilintCodes.ROOT_ID,
+const idFormatURILint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_ID_TYPE,
   source: 'apilint',
   message: "'id' value must be a valid URI",
   severity: 1,
@@ -12,4 +12,4 @@ const rootIdLint: LinterMeta = {
   data: {},
 };
 
-export default rootIdLint;
+export default idFormatURILint;

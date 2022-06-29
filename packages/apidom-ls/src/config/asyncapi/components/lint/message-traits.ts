@@ -6,7 +6,7 @@ const componentsMessageTraitsLint: LinterMeta = {
   source: 'apilint',
   message: '"messageTraits" members must be Security Scheme Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['messageTrait']],
   marker: 'key',
   markerTarget: 'messageTraits',

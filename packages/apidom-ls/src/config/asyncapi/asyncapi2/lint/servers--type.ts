@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const infoObjectLint: LinterMeta = {
-  code: ApilintCodes.INFO_OBJECT,
+const serversTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_SERVERS_TYPE,
   source: 'apilint',
-  message: 'info must be an object',
+  message: 'servers must be an object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['info'],
+  linterParams: ['servers'],
   marker: 'value',
-  target: 'info',
+  target: 'servers',
   data: {},
 };
 
-export default infoObjectLint;
+export default serversTypeLint;

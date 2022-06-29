@@ -3,7 +3,7 @@ const operationLintExpected = [
     range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
     message: "should always have a 'info' section",
     severity: 1,
-    code: 10069,
+    code: 30501,
     source: 'apilint',
     data: {
       quickFix: [
@@ -45,6 +45,14 @@ const operationLintExpected = [
     message: "operationId' must be unique among all operations",
     severity: 1,
     code: 10144,
+    source: 'apilint',
+    data: {},
+  },
+  {
+    range: { start: { line: 14, character: 6 }, end: { line: 14, character: 10 } },
+    message: 'Tags Object items must be of Tag Object shape',
+    severity: 1,
+    code: 60001,
     source: 'apilint',
     data: {},
   },
@@ -154,6 +162,14 @@ const operationLintExpected = [
     data: {},
   },
   {
+    range: { start: { line: 43, character: 6 }, end: { line: 43, character: 10 } },
+    message: 'Tags Object items must be of Tag Object shape',
+    severity: 1,
+    code: 60001,
+    source: 'apilint',
+    data: {},
+  },
+  {
     range: { start: { line: 45, character: 6 }, end: { line: 45, character: 18 } },
     message: "should always have a 'url'",
     severity: 1,
@@ -206,6 +222,14 @@ const operationLintExpected = [
     message: "operationId' must be unique among all operations",
     severity: 1,
     code: 10144,
+    source: 'apilint',
+    data: {},
+  },
+  {
+    range: { start: { line: 61, character: 6 }, end: { line: 61, character: 10 } },
+    message: 'Tags Object items must be of Tag Object shape',
+    severity: 1,
+    code: 60001,
     source: 'apilint',
     data: {},
   },

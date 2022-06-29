@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const channelsObjectLint: LinterMeta = {
-  code: ApilintCodes.CHANNELS_OBJECT,
+const channelsTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_CHANNELS_TYPE,
   source: 'apilint',
   message: 'channels must be an object',
   severity: 1,
@@ -13,4 +13,4 @@ const channelsObjectLint: LinterMeta = {
   data: {},
 };
 
-export default channelsObjectLint;
+export default channelsTypeLint;

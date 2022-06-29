@@ -6,7 +6,7 @@ const componentsChannelBindingsLint: LinterMeta = {
   source: 'apilint',
   message: '"channelBindings" members must be Channel Bindings Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['channelBindings']],
   marker: 'key',
   markerTarget: 'channelBindings',

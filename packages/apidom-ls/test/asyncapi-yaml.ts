@@ -347,7 +347,7 @@ describe('apidom-ls-async-yaml', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [

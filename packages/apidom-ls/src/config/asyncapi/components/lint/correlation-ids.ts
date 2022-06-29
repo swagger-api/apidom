@@ -6,7 +6,7 @@ const componentsCorrelationIDsLint: LinterMeta = {
   source: 'apilint',
   message: '"correlationIds" members must be Correlation ID Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['correlationID']],
   marker: 'key',
   markerTarget: 'correlationIds',

@@ -1,37 +1,29 @@
-import rootInfoLint from './info';
-import rootChannelsLint from './channels';
-import rootAsyncapiLint from './asyncapi';
-import rootAsyncapiRequiredLint from './asyncapi-required';
-import rootIdLint from './id';
-import infoObjectLint from './info-object';
-import serversObjectLint from './servers-object';
-import channelsObjectLint from './channels-object';
-import componentsObjectLint from './components-object';
-import tagsObjectLint from './tags-object';
-import externaldocsObjectLint from './externaldocs-object';
-import rootDefaultContentTypeLint from './defaultcontenttype';
-import serversLint from './servers';
-import serversKeyLint from './servers-key';
-import channelsMembersLint from './channels-members';
-import asyncapi2AllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import asyncapiRequiredLint from './asyncapi--required';
+import channelsRequiredLint from './channels--required';
+import channelsTypeLint from './channels--type';
+import componentsTypeLint from './components--type';
+import defaultContentTypeTypeLint from './default-content-type--type';
+import externalDocsTypeLint from './external-docs--type';
+import idFormatURILint from './id--format-uri';
+import infoRequiredLint from './info--required';
+import infoTypeLint from './info--type';
+import serversTypeLint from './servers--type';
+import tagsTypeLint from './tags--type';
 
 const lints = [
-  rootIdLint,
-  rootInfoLint,
-  rootChannelsLint,
-  rootAsyncapiLint,
-  rootAsyncapiRequiredLint,
-  infoObjectLint,
-  serversObjectLint,
-  channelsObjectLint,
-  componentsObjectLint,
-  tagsObjectLint,
-  externaldocsObjectLint,
-  rootDefaultContentTypeLint,
-  serversLint,
-  serversKeyLint,
-  channelsMembersLint,
-  asyncapi2AllowedFieldsLint,
+  allowedFieldsLint,
+  asyncapiRequiredLint,
+  idFormatURILint,
+  infoRequiredLint,
+  infoTypeLint,
+  serversTypeLint,
+  defaultContentTypeTypeLint,
+  channelsRequiredLint,
+  channelsTypeLint,
+  componentsTypeLint,
+  tagsTypeLint,
+  externalDocsTypeLint,
 ];
 
 export default lints;

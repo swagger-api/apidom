@@ -6,7 +6,7 @@ const channelParametersLint: LinterMeta = {
   source: 'apilint',
   message: 'parameters members must be parameter objects',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['parameter']],
   marker: 'key',
   markerTarget: 'parameters',

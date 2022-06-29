@@ -77,6 +77,7 @@ import mqtt5ServerBindingMeta from './bindings/mqtt5/server-binding/meta';
 // NATS
 import natsChannelBindingMeta from './bindings/nats/channel-binding/meta';
 import natsMessageBindingMeta from './bindings/nats/message-binding/meta';
+import natsOperationBindingMeta from './bindings/nats/operation-binding/meta';
 import natsServerBindingMeta from './bindings/nats/server-binding/meta';
 // Redis
 import redisChannelBindingMeta from './bindings/redis/channel-binding/meta';
@@ -201,9 +202,10 @@ export default {
   mqtt5MessageBinding: mqtt5MessageBindingMeta,
   mqtt5OperationBinding: mqtt5OperationBindingMeta,
   mqtt5ServerBinding: mqtt5ServerBindingMeta,
-  // MQTT 5
+  // NATS
   natsChannelBinding: natsChannelBindingMeta,
   natsMessageBinding: natsMessageBindingMeta,
+  natsOperationBinding: natsOperationBindingMeta,
   natsServerBinding: natsServerBindingMeta,
   // Redis
   redisChannelBinding: redisChannelBindingMeta,

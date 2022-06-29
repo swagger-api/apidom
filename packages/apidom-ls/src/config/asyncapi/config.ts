@@ -43,6 +43,7 @@ import amqp1MessageBindingMeta from './bindings/amqp1/message-binding/meta';
 import amqp1OperationBindingMeta from './bindings/amqp1/operation-binding/meta';
 import amqp1ServerBindingMeta from './bindings/amqp1/server-binding/meta';
 // Anypoint MQ
+import anypointmqMessageBindingMeta from './bindings/anypointmq/message-binding/meta';
 import anypointmqOperationBindingMeta from './bindings/anypointmq/operation-binding/meta';
 import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/meta';
 // HTTP
@@ -168,6 +169,7 @@ export default {
   amqp1OperationBinding: amqp1OperationBindingMeta,
   amqp1ServerBinding: amqp1ServerBindingMeta,
   // Anypoint MQ
+  anypointmqMessageBinding: anypointmqMessageBindingMeta,
   anypointmqOperationBinding: anypointmqOperationBindingMeta,
   anypointmqServerBiding: anypointmqServerBidingMeta,
   // HTTP

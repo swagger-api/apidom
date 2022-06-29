@@ -465,6 +465,20 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintMaxLength',
+    function: (element: Element, maxLength: number): boolean => {
+      if (element) {
+        if (!isString(element)) {
+          return false;
+        }
+
+        return element.toValue().length <= maxLength;
+      }
+
+      return true;
+    },
+  },
+  {
     functionName: 'apilintValidURI',
     function: (element: Element): boolean => {
       if (element) {

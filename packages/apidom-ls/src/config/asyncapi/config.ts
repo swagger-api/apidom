@@ -35,17 +35,22 @@ import oAuthFlowMeta from './oauth-flow/meta';
 /**
  * Binding metas.
  */
+// AMQP 0-9-1
+import amqpServerBindingMeta from './bindings/amqp/server-binding/meta';
 // AMQP 1.0
 import amqp1ChannelBindingMeta from './bindings/amqp1/channel-binding/meta';
 import amqp1MessageBindingMeta from './bindings/amqp1/message-binding/meta';
 import amqp1OperationBindingMeta from './bindings/amqp1/operation-binding/meta';
 import amqp1ServerBindingMeta from './bindings/amqp1/server-binding/meta';
+// Anypoint MQ
+import anypointmqOperationBindingMeta from './bindings/anypointmq/operation-binding/meta';
+import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/meta';
 // HTTP
 import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
 import httpMessageBindingMeta from './bindings/http/message-binding/meta';
 import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
 import httpServerBindingMeta from './bindings/http/server-binding/meta';
-// HTTP
+// JMS
 import jmsChannelBindingMeta from './bindings/jms/channel-binding/meta';
 import jmsMessageBindingMeta from './bindings/jms/message-binding/meta';
 import jmsOperationBindingMeta from './bindings/jms/operation-binding/meta';
@@ -60,11 +65,17 @@ import mercureChannelBindingMeta from './bindings/mercure/channel-binding/meta';
 import mercureMessageBindingMeta from './bindings/mercure/message-binding/meta';
 import mercureOperationBindingMeta from './bindings/mercure/operation-binding/meta';
 import mercureServerBindingMeta from './bindings/mercure/server-binding/meta';
+// MQTT
+import mqttChannelBindingMeta from './bindings/mqtt/channel-binding/meta';
 // MQTT 5
 import mqtt5ChannelBindingMeta from './bindings/mqtt5/channel-binding/meta';
 import mqtt5MessageBindingMeta from './bindings/mqtt5/message-binding/meta';
 import mqtt5OperationBindingMeta from './bindings/mqtt5/operation-binding/meta';
 import mqtt5ServerBindingMeta from './bindings/mqtt5/server-binding/meta';
+// NATS
+import natsChannelBindingMeta from './bindings/nats/channel-binding/meta';
+import natsMessageBindingMeta from './bindings/nats/message-binding/meta';
+import natsServerBindingMeta from './bindings/nats/server-binding/meta';
 // Redis
 import redisChannelBindingMeta from './bindings/redis/channel-binding/meta';
 import redisMessageBindingMeta from './bindings/redis/message-binding/meta';
@@ -75,6 +86,9 @@ import snsChannelBindingMeta from './bindings/sns/channel-binding/meta';
 import snsMessageBindingMeta from './bindings/sns/message-binding/meta';
 import snsOperationBindingMeta from './bindings/sns/operation-binding/meta';
 import snsServerBindingMeta from './bindings/sns/server-binding/meta';
+// Solace
+import solaceChannelBindingMeta from './bindings/solace/channel-binding/meta';
+import solaceMessageBindingMeta from './bindings/solace/message-binding/meta';
 // SQS
 import sqsChannelBindingMeta from './bindings/sqs/channel-binding/meta';
 import sqsMessageBindingMeta from './bindings/sqs/message-binding/meta';
@@ -85,6 +99,10 @@ import stompChannelBindingMeta from './bindings/stomp/channel-binding/meta';
 import stompMessageBindingMeta from './bindings/stomp/message-binding/meta';
 import stompOperationBindingMeta from './bindings/stomp/operation-binding/meta';
 import stompServerBindingMeta from './bindings/stomp/server-binding/meta';
+// WebSocket
+import webSocketMessageBindingMeta from './bindings/ws/message-binding/meta';
+import webSocketOperationBindingMeta from './bindings/ws/operation-binding/meta';
+import webSocketServerBindingMeta from './bindings/ws/server-binding/meta';
 
 /**
  * Keys in this object represents either element type names
@@ -141,11 +159,16 @@ export default {
   /**
    * Binding metas.
    */
+  // AMQP 0-9-1
+  amqpServerBinding: amqpServerBindingMeta,
   // AMQP 1.0
   amqp1ChannelBinding: amqp1ChannelBindingMeta,
   amqp1MessageBinding: amqp1MessageBindingMeta,
   amqp1OperationBinding: amqp1OperationBindingMeta,
   amqp1ServerBinding: amqp1ServerBindingMeta,
+  // Anypoint MQ
+  anypointmqOperationBinding: anypointmqOperationBindingMeta,
+  anypointmqServerBiding: anypointmqServerBidingMeta,
   // HTTP
   httpChannelBinding: httpChannelBindingMeta,
   httpMessageBinding: httpMessageBindingMeta,
@@ -166,11 +189,17 @@ export default {
   mercureMessageBinding: mercureMessageBindingMeta,
   mercureOperationBinding: mercureOperationBindingMeta,
   mercureServerBinding: mercureServerBindingMeta,
+  // MQTT
+  mqttChannelBinding: mqttChannelBindingMeta,
   // MQTT 5
   mqtt5ChannelBinding: mqtt5ChannelBindingMeta,
   mqtt5MessageBinding: mqtt5MessageBindingMeta,
   mqtt5OperationBinding: mqtt5OperationBindingMeta,
   mqtt5ServerBinding: mqtt5ServerBindingMeta,
+  // MQTT 5
+  natsChannelBinding: natsChannelBindingMeta,
+  natsMessageBinding: natsMessageBindingMeta,
+  natsServerBinding: natsServerBindingMeta,
   // Redis
   redisChannelBinding: redisChannelBindingMeta,
   redisMessageBinding: redisMessageBindingMeta,
@@ -181,6 +210,9 @@ export default {
   snsMessageBinding: snsMessageBindingMeta,
   snsOperationBinding: snsOperationBindingMeta,
   snsServerBinding: snsServerBindingMeta,
+  // Solace
+  solaceChannelBinding: solaceChannelBindingMeta,
+  solaceMessageBinding: solaceMessageBindingMeta,
   // SQS
   sqsChannelBinding: sqsChannelBindingMeta,
   sqsMessageBinding: sqsMessageBindingMeta,
@@ -191,4 +223,8 @@ export default {
   stompMessageBinding: stompMessageBindingMeta,
   stompOperationBinding: stompOperationBindingMeta,
   stompServerBinding: stompServerBindingMeta,
+  // WebSocket
+  webSocketMessageBinding: webSocketMessageBindingMeta,
+  webSocketOperationBinding: webSocketOperationBindingMeta,
+  webSocketServerBinding: webSocketServerBindingMeta,
 };

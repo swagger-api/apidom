@@ -1,10 +1,10 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const rootDefaultContentTypeLint: LinterMeta = {
-  code: ApilintCodes.DEFAULTCONTENT_STRING,
+const defaultContentTypeTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_DEFAULT_CONTENT_TYPE_TYPE,
   source: 'apilint',
-  message: "defaultContentType' value must be a string",
+  message: "'defaultContentType' value must be a string",
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],
@@ -13,4 +13,4 @@ const rootDefaultContentTypeLint: LinterMeta = {
   data: {},
 };
 
-export default rootDefaultContentTypeLint;
+export default defaultContentTypeTypeLint;

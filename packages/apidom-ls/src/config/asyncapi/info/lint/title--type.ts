@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const infoTermsOfServiceLint: LinterMeta = {
-  code: ApilintCodes.INFO_TERMS,
+const titleTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_INFO_FIELD_TITLE_TYPE,
   source: 'apilint',
-  message: 'termsOfService must be a string',
+  message: 'title must be a string',
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'termsOfService',
+  target: 'title',
   data: {},
 };
 
-export default infoTermsOfServiceLint;
+export default titleTypeLint;

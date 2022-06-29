@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const infoVersionRequiredLint: LinterMeta = {
-  code: ApilintCodes.INFO_VERSION_REQUIRED,
+const versionRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_INFO_FIELD_VERSION_REQUIRED,
   source: 'apilint',
   message: "should always have a 'version'",
   severity: 1,
@@ -21,4 +21,4 @@ const infoVersionRequiredLint: LinterMeta = {
   },
 };
 
-export default infoVersionRequiredLint;
+export default versionRequiredLint;

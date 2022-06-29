@@ -2,7 +2,7 @@ import messageIdLint from './messageId';
 import messageTagsLint from './tags';
 import messageDescriptionLint from './description';
 import messageSummaryLint from './summary';
-import externalDocsObjectLint from '../../asyncapi2/lint/externaldocs-object';
+import externalDocsObjectLint from '../../asyncapi2/lint/external-docs--type';
 import messageBindingsLint from './bindings';
 import messageTraitsLint from './traits';
 import messageAllowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';

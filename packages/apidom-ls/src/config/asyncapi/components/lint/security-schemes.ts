@@ -6,7 +6,7 @@ const componentsSecuritySchemesLint: LinterMeta = {
   source: 'apilint',
   message: '"securitySchemes" members must be Security Scheme Object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['securityScheme']],
   marker: 'key',
   markerTarget: 'securitySchemes',

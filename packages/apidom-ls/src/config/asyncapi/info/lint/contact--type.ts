@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const licenseObjectLint: LinterMeta = {
-  code: ApilintCodes.INFO_LICENSE,
+const contactTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_INFO_FIELD_CONTACT_TYPE,
   source: 'apilint',
-  message: 'license must be an object',
+  message: 'contact must be an object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['license'],
+  linterParams: ['contact'],
   marker: 'value',
-  target: 'license',
+  target: 'contact',
   data: {},
 };
 
-export default licenseObjectLint;
+export default contactTypeLint;

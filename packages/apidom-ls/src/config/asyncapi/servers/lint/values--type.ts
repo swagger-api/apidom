@@ -1,17 +1,15 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const componentsServersLint: LinterMeta = {
-  code: ApilintCodes.COMPONENTS_SERVERS,
+const valuesTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SERVERS_VALUES_TYPE,
   source: 'apilint',
-  message: '"servers" members must be Server object',
+  message: 'Servers Object values must be of Server Object shape',
   severity: 1,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['server']],
   marker: 'key',
-  markerTarget: 'servers',
-  target: 'servers',
   data: {},
 };
 
-export default componentsServersLint;
+export default valuesTypeLint;

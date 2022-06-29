@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const rootChannelsLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_ROOT_CHANNELS,
+const channelsRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_CHANNELS_REQUIRED,
   source: 'apilint',
   message: "should always have a 'channels' section",
   severity: 1,
@@ -21,4 +21,4 @@ const rootChannelsLint: LinterMeta = {
   },
 };
 
-export default rootChannelsLint;
+export default channelsRequiredLint;

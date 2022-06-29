@@ -311,7 +311,7 @@ describe('asyncapi channel test', function () {
         range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
         message: "should always have a 'info' section",
         severity: 1,
-        code: 10069,
+        code: 30501,
         source: 'apilint',
         data: {
           quickFix: [

@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const tagsObjectLint: LinterMeta = {
-  code: ApilintCodes.TAGS_OBJECT,
+const tagsTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_TAGS_TYPE,
   source: 'apilint',
   message: 'tags must be an object',
   severity: 1,
@@ -13,4 +13,4 @@ const tagsObjectLint: LinterMeta = {
   data: {},
 };
 
-export default tagsObjectLint;
+export default tagsTypeLint;

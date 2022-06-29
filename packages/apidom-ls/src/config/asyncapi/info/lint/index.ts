@@ -1,23 +1,23 @@
-import infoVersionLint from './version';
-import infoVersionRequiredLint from './version-required';
-import infoTitleRequiredLint from './title-required';
-import infoTitleLint from './title';
-import infoDescriptionLint from './description';
-import infoTermsOfServiceLint from './termsofservice';
-import contactObjectLint from './contact-object';
-import licenseObjectLint from './license-object';
-import infoAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import titleRequiredLint from './title--required';
+import titleTypeLint from './title--type';
+import versionRequiredLint from './version--required';
+import versionTypeLint from './version--type';
+import descriptionTypeLint from './description--type';
+import termsOfServiceURILint from './terms-of-service--uri';
+import contactTypeLint from './contact--type';
+import licenseTypeLint from './license--type';
 
 const lints = [
-  infoTitleLint,
-  infoVersionLint,
-  infoVersionRequiredLint,
-  infoTitleRequiredLint,
-  infoDescriptionLint,
-  infoTermsOfServiceLint,
-  contactObjectLint,
-  licenseObjectLint,
-  infoAllowedFieldsLint,
+  titleTypeLint,
+  versionTypeLint,
+  versionRequiredLint,
+  titleRequiredLint,
+  descriptionTypeLint,
+  termsOfServiceURILint,
+  contactTypeLint,
+  licenseTypeLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

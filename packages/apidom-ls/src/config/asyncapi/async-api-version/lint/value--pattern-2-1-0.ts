@@ -1,8 +1,9 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const asyncapiVersionLint21: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_ASYNCAPIVERSION_2_1,
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const valuePattern2_1_0Lint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_VERSION_VALUE_PATTERN_2_1_0,
   source: 'apilint',
   message: "'asyncapi' value must be 2.1.0",
   severity: 1,
@@ -21,4 +22,4 @@ const asyncapiVersionLint21: LinterMeta = {
   },
 };
 
-export default asyncapiVersionLint21;
+export default valuePattern2_1_0Lint;

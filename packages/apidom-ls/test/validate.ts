@@ -374,7 +374,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [
@@ -492,7 +492,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [
@@ -943,7 +943,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10098,
+        code: 70101,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1028,7 +1028,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1165,7 +1165,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1403,7 +1403,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1429,7 +1429,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 70201,
         source: 'apilint',
         data: {
           quickFix: [
@@ -1519,7 +1519,7 @@ describe('apidom-ls-validate', function () {
             },
             message: "should always have a 'channels' section",
             severity: 1,
-            code: 10070,
+            code: 30102,
             source: 'apilint',
             data: {
               quickFix: [
@@ -1570,7 +1570,7 @@ describe('apidom-ls-validate', function () {
             },
             message: "should always have a 'version'",
             severity: 1,
-            code: 10078,
+            code: 70201,
             source: 'apilint',
             data: {
               quickFix: [
@@ -2234,7 +2234,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2295,7 +2295,7 @@ describe('apidom-ls-validate', function () {
             },
             message: "should always have a 'channels' section",
             severity: 1,
-            code: 10070,
+            code: 30102,
             source: 'apilint',
             data: {
               quickFix: [
@@ -2463,7 +2463,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2594,7 +2594,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2706,7 +2706,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'info' section",
         severity: 1,
-        code: 10069,
+        code: 30501,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2732,7 +2732,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2812,7 +2812,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'channels' section",
         severity: 1,
-        code: 10070,
+        code: 30102,
         source: 'apilint',
         data: {
           quickFix: [
@@ -2826,7 +2826,7 @@ describe('apidom-ls-validate', function () {
         },
       },
       {
-        code: 10152,
+        code: 15000,
         message: 'Object includes not allowed fields',
         range: {
           end: {

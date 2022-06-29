@@ -378,12 +378,12 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'apilintChildrenOfElementsOrClasess',
+    functionName: 'apilintChildrenOfElementsOrClasses',
     function: (element: Element, elementsOrClasses: string[]): boolean => {
-      if (element && !isObject(element)) {
+      if (element && !isObject(element) && !isArray(element)) {
         return false;
       }
-      if (element && isObject(element)) {
+      if (element && (isObject(element) || isArray(element))) {
         if (
           element.findElements((e) => !apilintElementOrClass(e, elementsOrClasses), {
             recursive: false,

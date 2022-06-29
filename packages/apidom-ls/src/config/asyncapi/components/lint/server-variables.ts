@@ -6,7 +6,7 @@ const componentsServerVariablesLint: LinterMeta = {
   source: 'apilint',
   message: '"servers" members must be Server Variable object',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasess',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['serverVariable']],
   marker: 'key',
   markerTarget: 'serverVariables',

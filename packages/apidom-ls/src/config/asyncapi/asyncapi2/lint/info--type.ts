@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const contactObjectLint: LinterMeta = {
-  code: ApilintCodes.INFO_CONTACT,
+const infoTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_INFO_TYPE,
   source: 'apilint',
-  message: 'contact must be an object',
+  message: 'info must be an object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['contact'],
+  linterParams: ['info'],
   marker: 'value',
-  target: 'contact',
+  target: 'info',
   data: {},
 };
 
-export default contactObjectLint;
+export default infoTypeLint;

@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const rootAsyncapiRequiredLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI_ASYNCAPIVERSION_REQUIRED,
+const asyncapiRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_ASYNCAPI_REQUIRED,
   source: 'apilint',
   message: "should always have a 'asyncapi' value",
   severity: 1,
@@ -21,4 +21,4 @@ const rootAsyncapiRequiredLint: LinterMeta = {
   },
 };
 
-export default rootAsyncapiRequiredLint;
+export default asyncapiRequiredLint;

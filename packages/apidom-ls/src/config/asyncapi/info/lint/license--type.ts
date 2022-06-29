@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const componentsObjectLint: LinterMeta = {
-  code: ApilintCodes.COMPONENTS_OBJECT,
+const licenseTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_INFO_FIELD_LICENSE_TYPE,
   source: 'apilint',
-  message: 'components must be an object',
+  message: 'license must be an object',
   severity: 1,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['components'],
+  linterParams: ['license'],
   marker: 'value',
-  target: 'components',
+  target: 'license',
   data: {},
 };
 
-export default componentsObjectLint;
+export default licenseTypeLint;

@@ -92,6 +92,7 @@ import snsServerBindingMeta from './bindings/sns/server-binding/meta';
 // Solace
 import solaceChannelBindingMeta from './bindings/solace/channel-binding/meta';
 import solaceMessageBindingMeta from './bindings/solace/message-binding/meta';
+import solaceOperationBindingMeta from './bindings/solace/operation-binding/meta';
 import solaceServerBindingMeta from './bindings/solace/server-binding/meta';
 // SQS
 import sqsChannelBindingMeta from './bindings/sqs/channel-binding/meta';
@@ -221,6 +222,7 @@ export default {
   // Solace
   solaceChannelBinding: solaceChannelBindingMeta,
   solaceMessageBinding: solaceMessageBindingMeta,
+  solaceOperationBinding: solaceOperationBindingMeta,
   solaceServerBinding: solaceServerBindingMeta,
   // SQS
   sqsChannelBinding: sqsChannelBindingMeta,

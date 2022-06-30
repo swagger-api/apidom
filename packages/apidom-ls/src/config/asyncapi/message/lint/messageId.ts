@@ -1,7 +1,7 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const messageIdLint: LinterMeta = {
+const messageIdTypeLint: LinterMeta = {
   code: ApilintCodes.MESSAGE_ID,
   source: 'apilint',
   message: "'messageId' value must be a string",
@@ -13,4 +13,4 @@ const messageIdLint: LinterMeta = {
   data: {},
 };
 
-export default messageIdLint;
+export default messageIdTypeLint;

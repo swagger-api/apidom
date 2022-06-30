@@ -4,7 +4,7 @@ import titleTypeLint from './title--type';
 import versionRequiredLint from './version--required';
 import versionTypeLint from './version--type';
 import descriptionTypeLint from './description--type';
-import termsOfServiceURILint from './terms-of-service--uri';
+import termsOfServiceFormatURILint from './terms-of-service--format-uri';
 import contactTypeLint from './contact--type';
 import licenseTypeLint from './license--type';
 
@@ -14,7 +14,7 @@ const lints = [
   versionRequiredLint,
   titleRequiredLint,
   descriptionTypeLint,
-  termsOfServiceURILint,
+  termsOfServiceFormatURILint,
   contactTypeLint,
   licenseTypeLint,
   allowedFieldsLint,

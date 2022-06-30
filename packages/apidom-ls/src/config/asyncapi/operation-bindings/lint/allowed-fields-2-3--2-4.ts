@@ -1,8 +1,9 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const operationBindingsAllowedFields23Lint: LinterMeta = {
-  code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const allowedFields2_3Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
   severity: 1,
@@ -36,4 +37,4 @@ const operationBindingsAllowedFields23Lint: LinterMeta = {
   ],
 };
 
-export default operationBindingsAllowedFields23Lint;
+export default allowedFields2_3Lint;

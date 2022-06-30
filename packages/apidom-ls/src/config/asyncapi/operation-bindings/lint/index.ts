@@ -1,47 +1,47 @@
-import operationBindings$RefLint from './ref';
-import operationBindingsRefNonSiblingsLint from './ref-non-siblings';
-import operationBindingsAllowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
-import operationBindingsAllowedFields2_2Lint from './allowed-fields-2-2';
-import operationBindingsAllowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
-import httpLint from './http';
-import amqpLint from './amqp';
-import amqp1Lint from './amqp1';
-import anypointmqLint from './anypointmq';
-import jmsLint from './jms';
-import kafkaLint from './kafka';
-import mercureLint from './mercure';
-import mqttLint from './mqtt';
-import mqtt5Lint from './mqtt5';
-import natsLint from './nats';
-import redisLint from './redis';
-import snsLint from './sns';
-import solaceLint from './solace';
-import sqsLint from './sqs';
-import stompLint from './stomp';
-import wsLint from './ws';
+import allowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
+import allowedFields2_2Lint from './allowed-fields-2-2';
+import allowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
+import $refValidLint from './$ref--valid';
+import $refNoSiblingsLint from './$ref--no-siblings';
+import httpTypeLint from './http--type';
+import amqpTypeLint from './amqp--type';
+import amqp1TypeLint from './amqp1--type';
+import anypointmqTypeLint from './anypointmq--type';
+import jmsTypeLint from './jms--type';
+import kafkaTypeLint from './kafka--type';
+import mercureTypeLint from './mercure--type';
+import mqttTypeLint from './mqtt--type';
+import mqtt5TypeLint from './mqtt5--type';
+import natsTypeLint from './nats--type';
+import redisTypeLint from './redis--type';
+import snsTypeLint from './sns--type';
+import solaceTypeLint from './solace--type';
+import sqsTypeLint from './sqs--type';
+import stompTypeLint from './stomp--type';
+import wsTypeLint from './ws--type';
 
 const lints = [
-  operationBindingsAllowedFields2_0__2_1Lint,
-  operationBindingsAllowedFields2_2Lint,
-  operationBindingsAllowedFields2_3__2_4Lint,
-  operationBindings$RefLint,
-  operationBindingsRefNonSiblingsLint,
-  httpLint,
-  amqpLint,
-  amqp1Lint,
-  anypointmqLint,
-  jmsLint,
-  kafkaLint,
-  mercureLint,
-  mqttLint,
-  mqtt5Lint,
-  natsLint,
-  redisLint,
-  snsLint,
-  solaceLint,
-  sqsLint,
-  stompLint,
-  wsLint,
+  allowedFields2_0__2_1Lint,
+  allowedFields2_2Lint,
+  allowedFields2_3__2_4Lint,
+  $refValidLint,
+  $refNoSiblingsLint,
+  httpTypeLint,
+  amqpTypeLint,
+  amqp1TypeLint,
+  anypointmqTypeLint,
+  jmsTypeLint,
+  kafkaTypeLint,
+  mercureTypeLint,
+  mqttTypeLint,
+  mqtt5TypeLint,
+  natsTypeLint,
+  redisTypeLint,
+  snsTypeLint,
+  solaceTypeLint,
+  sqsTypeLint,
+  stompTypeLint,
+  wsTypeLint,
 ];
 
 export default lints;

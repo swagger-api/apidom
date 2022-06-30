@@ -352,7 +352,7 @@ export const standardLinterfunctions: FunctionItem[] = [
     function: apilintElementOrClass,
   },
   {
-    functionName: 'apilintArrayOfElementsOrClasess',
+    functionName: 'apilintArrayOfElementsOrClasses',
     function: (element: Element, elementsOrClasses: string[], nonEmpty?: boolean): boolean => {
       if (element) {
         const elValue = element.toValue();

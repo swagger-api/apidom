@@ -1,31 +1,33 @@
-import serverUrlLint from './url';
-import serverUrlRequiredLint from './url-required';
-import serverProtocolLint from './protocol';
-import serverProtocolRequiredLint from './protocol-required';
-import serverProtocolVersionLint from './protocolversion';
-import serverDescriptionLint from './description';
-import serverVariablesLint from './variables';
-import serverVariablesObjectLint from './variables-object';
-import serverSecurityLint from './security';
-import serverBindingsObjectLint from './bindings';
-import serverAllowedFieldsLint from './allowed-fields';
-import serverRefNonSiblingsLint from './ref-non-siblings';
-import server$RefLint from './ref';
+import allowedFieldsLint from './allowed-fields';
+import urlFormatURILint from './url--format-uri';
+import urlRequiredLint from './url--required';
+import protocolType from './protocol--type';
+import protocolRequiredLint from './protocol--required';
+import protocolVersionType from './protocol-version--type';
+import descriptionTypeLint from './description--type';
+import variablesTypeLint from './variables--type';
+import variablesValuesTypeLint from './variables--values-type';
+import securityTypeLint from './security--type';
+import securityItemsTypeLint from './security--items-type';
+import bindingsTypeLint from './bindings--type';
+import $refValidLint from './$ref--valid';
+import $refNoSiblingsLint from './$ref--no-siblings';
 
 const lints = [
-  serverUrlLint,
-  serverUrlRequiredLint,
-  serverProtocolLint,
-  serverProtocolRequiredLint,
-  serverProtocolVersionLint,
-  serverDescriptionLint,
-  serverVariablesLint,
-  serverVariablesObjectLint,
-  serverSecurityLint,
-  serverBindingsObjectLint,
-  serverAllowedFieldsLint,
-  serverRefNonSiblingsLint,
-  server$RefLint,
+  urlFormatURILint,
+  urlRequiredLint,
+  protocolType,
+  protocolRequiredLint,
+  protocolVersionType,
+  descriptionTypeLint,
+  variablesTypeLint,
+  variablesValuesTypeLint,
+  securityTypeLint,
+  securityItemsTypeLint,
+  bindingsTypeLint,
+  allowedFieldsLint,
+  $refValidLint,
+  $refNoSiblingsLint,
 ];
 
 export default lints;

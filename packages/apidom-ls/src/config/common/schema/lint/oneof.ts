@@ -6,7 +6,7 @@ const schemaOneOfLint: LinterMeta = {
   source: 'apilint',
   message: 'oneOf must be a non-empty array of schemas',
   severity: 1,
-  linterFunction: 'apilintArrayOfElementsOrClasess',
+  linterFunction: 'apilintArrayOfElementsOrClasses',
   linterParams: [['schema'], true],
   marker: 'key',
   target: 'oneOf',

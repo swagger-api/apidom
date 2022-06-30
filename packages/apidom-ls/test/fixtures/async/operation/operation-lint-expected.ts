@@ -117,7 +117,7 @@ const operationLintExpected = [
     range: { start: { line: 54, character: 13 }, end: { line: 54, character: 16 } },
     message: '"publish" must be an operation',
     severity: 1,
-    code: 10131,
+    code: 120500,
     source: 'apilint',
     data: {},
   },

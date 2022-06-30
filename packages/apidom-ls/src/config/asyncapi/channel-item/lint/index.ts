@@ -1,25 +1,23 @@
-import channel$RefLint from './ref';
-import channelDescriptionLint from './description';
-import channelRefNonSiblingsLint from './ref-non-siblings';
-import serversKeysLint from './servers-keys';
-import channelServersLint from './servers';
-import channelSubscribeLint from './subscribe';
-import channelPublishLint from './publish';
-import channelParametersLint from './parameters';
-import channelBindingsLint from './bindings';
-import channelAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import $refValidLint from './$ref--valid';
+import descriptionTypeLint from './description--type';
+import serversTypeLint from './servers--type';
+import serversKeysDefinedLint from './servers--keys-defined';
+import subscribeTypeLint from './subscribe--type';
+import publishTypeLint from './publish--type';
+import parametersTypeLint from './parameters--type';
+import bindingsTypeLint from './bindings--type';
 
 const lints = [
-  channel$RefLint,
-  channelDescriptionLint,
-  channelRefNonSiblingsLint,
-  serversKeysLint,
-  channelServersLint,
-  channelSubscribeLint,
-  channelPublishLint,
-  channelParametersLint,
-  channelBindingsLint,
-  channelAllowedFieldsLint,
+  $refValidLint,
+  descriptionTypeLint,
+  serversTypeLint,
+  serversKeysDefinedLint,
+  subscribeTypeLint,
+  publishTypeLint,
+  parametersTypeLint,
+  bindingsTypeLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

@@ -1,8 +1,8 @@
-import licenseUrlLint from './url';
-import licenseNameLint from './name';
-import licenseNameRequiredLint from './name-required';
-import licenseAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import nameTypeLint from './name--type';
+import nameRequiredLint from './name--required';
+import urlFormatURILint from './url--format-uri';
 
-const lints = [licenseNameLint, licenseUrlLint, licenseNameRequiredLint, licenseAllowedFieldsLint];
+const lints = [nameTypeLint, nameRequiredLint, urlFormatURILint, allowedFieldsLint];
 
 export default lints;

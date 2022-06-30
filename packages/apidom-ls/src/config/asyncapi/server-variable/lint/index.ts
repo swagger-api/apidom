@@ -1,13 +1,19 @@
-import serverVariableDescriptionLint from './description';
-import serverVariableEnumLint from './enum';
-import serverVariableExamplesLint from './examples';
-import serverVariableAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import enumTypeLint from './enum--type';
+import defaultTypeLint from './default--type';
+import descriptionTypeLint from './description--type';
+import examplesTypeLint from './examples--type';
+import $refValidLint from './$ref--valid';
+import $refNoSiblingsLint from './$ref--no-siblings';
 
 const lints = [
-  serverVariableDescriptionLint,
-  serverVariableEnumLint,
-  serverVariableExamplesLint,
-  serverVariableAllowedFieldsLint,
+  allowedFieldsLint,
+  enumTypeLint,
+  defaultTypeLint,
+  descriptionTypeLint,
+  examplesTypeLint,
+  $refValidLint,
+  $refNoSiblingsLint,
 ];
 
 export default lints;

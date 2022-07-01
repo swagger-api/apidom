@@ -1,41 +1,41 @@
-import messageIdLint from './messageId';
-import messageTagsLint from './tags';
-import messageDescriptionLint from './description';
-import messageSummaryLint from './summary';
-import externalDocsObjectLint from '../../asyncapi2/lint/external-docs--type';
-import messageBindingsLint from './bindings';
-import messageTraitsLint from './traits';
-import messageAllowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
-import messageAllowedFields2_4Lint from './allowed-fields-2-4';
-import messageHeadersLint from './headers';
-import messageCorrelationId from './correlation-id';
-import messageSchemaFormatLint from './schema-format';
-import message$RefLint from './ref';
-import messageRefNonSiblingsLint from './ref-non-siblings';
-import messageContentTypeLint from './content-type';
-import messageNameLint from './name';
-import messageTitleLint from './title';
-import messageExamplesLint from './examples';
+import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
+import allowedFields2_4Lint from './allowed-fields-2-4';
+import messageIdType from './message-id--type';
+import headersTypeLint from './headers--type';
+import correlationIdType from './correlation-id--type';
+import schemaFormatTypeLint from './schema-format--type';
+import contentTypeLint from './content-type--type';
+import nameTypeLint from './name--type';
+import titleTypeLint from './title--type';
+import summaryTypeLint from './summary--type';
+import descriptionTypeLint from './description--type';
+import tagsTypeLint from './tags--type';
+import externalDocsTypeLint from './external-docs--type';
+import bindingsType from './bindings--type';
+import examplesTypeLint from './examples--type';
+import examplesItemsTypeLint from './examples--items-type';
+import traitsTypeLint from './traits--type';
+import traitsItemsTypeLint from './traits--items-type';
 
 const lints = [
-  messageIdLint,
-  messageHeadersLint,
-  messageTagsLint,
-  messageDescriptionLint,
-  messageSummaryLint,
-  externalDocsObjectLint,
-  messageBindingsLint,
-  messageTraitsLint,
-  message$RefLint,
-  messageAllowedFields2_0__2_3Lint,
-  messageAllowedFields2_4Lint,
-  messageCorrelationId,
-  messageSchemaFormatLint,
-  messageRefNonSiblingsLint,
-  messageContentTypeLint,
-  messageNameLint,
-  messageTitleLint,
-  messageExamplesLint,
+  allowedFields2_0__2_3Lint,
+  allowedFields2_4Lint,
+  messageIdType,
+  headersTypeLint,
+  correlationIdType,
+  schemaFormatTypeLint,
+  contentTypeLint,
+  nameTypeLint,
+  titleTypeLint,
+  summaryTypeLint,
+  descriptionTypeLint,
+  tagsTypeLint,
+  externalDocsTypeLint,
+  bindingsType,
+  examplesTypeLint,
+  examplesItemsTypeLint,
+  traitsTypeLint,
+  traitsItemsTypeLint,
 ];
 
 export default lints;

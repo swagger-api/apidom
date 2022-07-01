@@ -1,5 +1,5 @@
-import securityKeysLint from './security-keys';
+import keysDefinedLint from './keys--defined';
 
-const lints = [securityKeysLint];
+const lints = [keysDefinedLint];
 
 export default lints;

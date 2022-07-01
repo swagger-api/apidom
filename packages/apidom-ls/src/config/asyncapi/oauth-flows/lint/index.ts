@@ -1,15 +1,15 @@
-import oAuthFlowsImplicitLint from './implicit';
-import oAuthFlowsPasswordLint from './password';
-import oAuthFlowsClientCredentialsLint from './client-credentials';
-import oAuthFlowsAuthorizationCodeLint from './authorization-code';
-import oAuthFlowsAllowedFieldsLint from './allowed-fields';
+import implicitLintTypeLint from './implicit--type';
+import passwordTypeLint from './password--type';
+import clientCredentialsTypeLint from './client-credentials--type';
+import authorizationCodeTypeLint from './authorization-code--type';
+import allowedFieldsLint from './allowed-fields';
 
 const lints = [
-  oAuthFlowsImplicitLint,
-  oAuthFlowsPasswordLint,
-  oAuthFlowsClientCredentialsLint,
-  oAuthFlowsAuthorizationCodeLint,
-  oAuthFlowsAllowedFieldsLint,
+  implicitLintTypeLint,
+  passwordTypeLint,
+  clientCredentialsTypeLint,
+  authorizationCodeTypeLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

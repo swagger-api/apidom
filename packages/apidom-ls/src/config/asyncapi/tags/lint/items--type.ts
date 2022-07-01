@@ -6,7 +6,7 @@ const itemsTypeLint: LinterMeta = {
   source: 'apilint',
   message: 'Tags Object items must be of Tag Object shape',
   severity: 1,
-  linterFunction: 'apilintChildrenOfElementsOrClasses',
+  linterFunction: 'apilintArrayOfElementsOrClasses',
   linterParams: [['tag']],
   marker: 'key',
   data: {},

@@ -1,8 +1,9 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const componentsAllowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const allowedFieldsLint2_4: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
   severity: 1,
@@ -30,4 +31,4 @@ const componentsAllowedFieldsLint: LinterMeta = {
   targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
 };
 
-export default componentsAllowedFieldsLint;
+export default allowedFieldsLint2_4;

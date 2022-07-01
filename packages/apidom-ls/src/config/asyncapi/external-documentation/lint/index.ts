@@ -1,13 +1,8 @@
-import externalDocsDescriptionLint from './description';
-import externalDocsUrlRequiredLint from './url-required';
-import externalDocsUrlLint from './url';
-import externalDocsAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import descriptionTypeLint from './description--type';
+import urlFormatURILint from './url--format-uri';
+import urlRequiredLint from './url--required';
 
-const lints = [
-  externalDocsDescriptionLint,
-  externalDocsUrlRequiredLint,
-  externalDocsUrlLint,
-  externalDocsAllowedFieldsLint,
-];
+const lints = [descriptionTypeLint, urlFormatURILint, urlRequiredLint, allowedFieldsLint];
 
 export default lints;

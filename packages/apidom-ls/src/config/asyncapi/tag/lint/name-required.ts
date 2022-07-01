@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const tagNameRequiredLint: LinterMeta = {
-  code: ApilintCodes.TAG_NAME_REQUIRED,
+const nameRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_TAG_FIELD_NAME_REQUIRED,
   source: 'apilint',
   message: "should always have a 'name'",
   severity: 1,
@@ -21,4 +21,4 @@ const tagNameRequiredLint: LinterMeta = {
   },
 };
 
-export default tagNameRequiredLint;
+export default nameRequiredLint;

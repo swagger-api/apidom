@@ -13,7 +13,7 @@ import securitySchemeFlowsLint from './flows';
 import securitySchemeFlowsRequiredLint from './flows-required';
 import securitySchemeOpenIdConnectUrlLint from './open-id-connect-url';
 import securitySchemeOpenIdConnectUrlRequiredLint from './open-id-connect-url-required';
-import securitySchemeAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
 const lints = [
   securitySchemeTypeLint2_0,
@@ -31,7 +31,7 @@ const lints = [
   securitySchemeFlowsRequiredLint,
   securitySchemeOpenIdConnectUrlLint,
   securitySchemeOpenIdConnectUrlRequiredLint,
-  securitySchemeAllowedFieldsLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

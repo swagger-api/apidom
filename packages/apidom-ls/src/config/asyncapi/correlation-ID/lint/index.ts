@@ -1,17 +1,17 @@
-import correlationIDDescriptionLint from './description';
-import correlationIDLocationLint from './location';
-import correlationIDLocationRequiredLint from './location-required';
-import correlationIDRefLint from './ref';
-import correlationIDRefNonSiblingsLint from './ref-non-siblings';
-import correlationIDAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import descriptionTypeLint from './description--type';
+import locationTypeLint from './location--type';
+import locationRequiredLint from './location--required';
+import $refValidLint from './$ref--valid';
+import $refNoSiblingsLint from './$ref--no-siblings';
 
 const lints = [
-  correlationIDDescriptionLint,
-  correlationIDLocationLint,
-  correlationIDLocationRequiredLint,
-  correlationIDRefLint,
-  correlationIDRefNonSiblingsLint,
-  correlationIDAllowedFieldsLint,
+  descriptionTypeLint,
+  locationTypeLint,
+  locationRequiredLint,
+  $refValidLint,
+  $refNoSiblingsLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

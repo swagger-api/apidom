@@ -70,7 +70,7 @@ const operationLintExpected = [
     },
     message: "should always have a 'url'",
     severity: 1,
-    code: 10082,
+    code: 250201,
     source: 'apilint',
     data: {
       quickFix: [
@@ -111,7 +111,7 @@ const operationLintExpected = [
     },
     message: "should always have a 'url'",
     severity: 1,
-    code: 10082,
+    code: 250201,
     source: 'apilint',
     data: {
       quickFix: [
@@ -208,7 +208,7 @@ const operationLintExpected = [
     },
     message: "should always have a 'url'",
     severity: 1,
-    code: 10082,
+    code: 250201,
     source: 'apilint',
     data: {
       quickFix: [
@@ -282,7 +282,7 @@ const operationLintExpected = [
     },
     message: "should always have a 'url'",
     severity: 1,
-    code: 10082,
+    code: 250201,
     source: 'apilint',
     data: {
       quickFix: [

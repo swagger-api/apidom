@@ -26,6 +26,7 @@ import serverBindingsMeta from './server-bindings/meta';
 import messageBindingsMeta from './message-bindings/meta';
 import messageMeta from './message/meta';
 import messageTraitMeta from './message-trait/meta';
+import messageExampleMeta from './message-example/meta';
 import componentsMeta from './components/meta';
 import tagsMeta from './tags/meta';
 import tagMeta from './tag/meta';
@@ -156,6 +157,7 @@ export default {
   messageBindings: messageBindingsMeta,
   message: messageMeta,
   messageTrait: messageTraitMeta,
+  messageExample: messageExampleMeta,
   components: componentsMeta,
   tags: tagsMeta,
   tag: tagMeta,

@@ -1,39 +1,41 @@
-import componentsSchemasLint from './schemas';
-import componentsServersLint from './servers';
-import componentsServerVariablesLint from './server-variables';
 import componentsAllowedFields2_0__2_2Lint from './allowed-fields-2-0--2-2';
 import componentsAllowedFields2_3Lint from './allowed-fields-2-3';
 import componentsAllowedFields2_4Lint from './allowed-fields-2-4';
-import componentsKeysLint from './components-keys';
-import componentsChannelBindingsLint from './channel-bindings';
-import componentsMessagesLint from './messages';
-import componentsSecuritySchemesLint from './security-schemes';
-import componentsParametersLint from './parameters';
-import componentsCorrelationIDsLint from './correlation-ids';
-import componentsOperationTraitsLint from './operation-traits';
-import componentsMessageTraitsLint from './message-traits';
-import componentsServerBindingsLint from './server-bindings';
-import componentsOperationBindingsLint from './operation-bindings';
-import componentsMessageBindingsLint from './message-bindings';
+import schemasValuesTypeLint from './schemas--values-type';
+import serversValuesTypeLint from './servers--values-type';
+import serverVariablesValuesType from './server-variables--values-type';
+import channelsValuesTypeLint from './channels--values-type';
+import messagesValuesTypeLint from './messages--values-type';
+import securitySchemesValuesType from './security-schemes--values-type';
+import parametersValuesType from './parameters--values-type';
+import correlationIDsValuesTypeLint from './correlation-ids--values-type';
+import operationTraitsValuesType from './operation-traits--values-type';
+import messageTraitsValuesType from './message-traits--values-type';
+import serverBindingsValuesType from './server-bindings--values-type';
+import channelBindingsValuesTypeLint from './channel-bindings--values-type';
+import operationBindingsValuesType from './operation-bindings--values-type';
+import messageBindingsValuesType from './message-bindings--values-type';
+import keysPatternLint from './keys--pattern';
 
 const lints = [
-  componentsSchemasLint,
-  componentsServersLint,
-  componentsServerVariablesLint,
   componentsAllowedFields2_0__2_2Lint,
   componentsAllowedFields2_3Lint,
   componentsAllowedFields2_4Lint,
-  componentsKeysLint,
-  componentsChannelBindingsLint,
-  componentsMessagesLint,
-  componentsSecuritySchemesLint,
-  componentsParametersLint,
-  componentsCorrelationIDsLint,
-  componentsOperationTraitsLint,
-  componentsMessageTraitsLint,
-  componentsServerBindingsLint,
-  componentsOperationBindingsLint,
-  componentsMessageBindingsLint,
+  schemasValuesTypeLint,
+  serversValuesTypeLint,
+  serverVariablesValuesType,
+  channelsValuesTypeLint,
+  messagesValuesTypeLint,
+  securitySchemesValuesType,
+  parametersValuesType,
+  correlationIDsValuesTypeLint,
+  operationTraitsValuesType,
+  messageTraitsValuesType,
+  serverBindingsValuesType,
+  channelBindingsValuesTypeLint,
+  operationBindingsValuesType,
+  messageBindingsValuesType,
+  keysPatternLint,
 ];
 
 export default lints;

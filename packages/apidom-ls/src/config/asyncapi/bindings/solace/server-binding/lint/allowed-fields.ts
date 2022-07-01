@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../../../codes';
 import { LinterMeta } from '../../../../../../apidom-language-types';
 
-const solaceServerBindingAllowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,
+const allowedFieldsLint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
   severity: 1,
@@ -11,4 +11,4 @@ const solaceServerBindingAllowedFieldsLint: LinterMeta = {
   marker: 'key',
 };
 
-export default solaceServerBindingAllowedFieldsLint;
+export default allowedFieldsLint;

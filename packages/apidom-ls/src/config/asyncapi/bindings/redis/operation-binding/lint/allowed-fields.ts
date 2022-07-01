@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../../../codes';
 import { LinterMeta } from '../../../../../../apidom-language-types';
 
-const redisOperationBindingAllowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.ALL_NOT_ALLOWED_FIELDS,
+const allowedFieldsLint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
   severity: 1,
@@ -11,4 +11,4 @@ const redisOperationBindingAllowedFieldsLint: LinterMeta = {
   marker: 'key',
 };
 
-export default redisOperationBindingAllowedFieldsLint;
+export default allowedFieldsLint;

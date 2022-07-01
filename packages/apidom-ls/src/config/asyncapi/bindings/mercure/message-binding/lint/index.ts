@@ -1,5 +1,5 @@
-import mercureMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [mercureMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

@@ -1,5 +1,5 @@
-import snsServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [snsServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

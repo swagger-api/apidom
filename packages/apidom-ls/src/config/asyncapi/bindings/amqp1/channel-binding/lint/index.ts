@@ -1,5 +1,5 @@
-import amqp1ChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [amqp1ChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

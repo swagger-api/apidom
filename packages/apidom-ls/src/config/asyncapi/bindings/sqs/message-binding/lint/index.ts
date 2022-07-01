@@ -1,5 +1,5 @@
-import sqsMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [sqsMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

@@ -88,10 +88,20 @@ const normalizeLineBreaks = (val: string) => val.replace(/\r\n/g, '\n');
 const preventLineBreakCollapseToSpace = (val: string) => val.replace(/\\\n\s*/g, '');
 
 // collapse line breaks into spaces
-const collapseLineBreakToSpace = (val: string) =>
-  val
-    .replace(/(?<![\n]+)\n([^\n]+)/g, (match: string, p1: string) => ` ${p1.trimLeft()}`)
+const collapseLineBreakToSpace = (val: string) => {
+  /**
+   * Safari doesn't support negative lookbehind, thus we sue mimicking technique:
+   *
+   * - https://blog.stevenlevithan.com/archives/mimic-lookbehind-javascript
+   *
+   * Ideally we want to use following replace, but that's not currently possible:
+   *
+   * .replace(/[^\n]\n([^\n]+)/g, (match: string, p1: string) => ` ${p1.trimLeft()}`)
+   */
+  return val
+    .replace(/(\n)?\n([^\n]+)/g, (match, p1, p2) => (p1 ? match : ` ${p2.trimStart()}`))
     .replace(/[\n]{2}/g, '\n');
+};
 
 const removeQuotes = curry((quoteType, val) =>
   val.replace(new RegExp(`^${quoteType}`), '').replace(new RegExp(`${quoteType}$`), ''),

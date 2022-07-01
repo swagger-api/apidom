@@ -1,5 +1,5 @@
-import mqtt5ServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [mqtt5ServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

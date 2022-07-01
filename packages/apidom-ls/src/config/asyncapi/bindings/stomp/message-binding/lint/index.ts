@@ -1,5 +1,5 @@
-import stompMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [stompMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

@@ -362,7 +362,7 @@ describe('apidom-ls', function () {
         source: 'openapi schema',
       },
       {
-        code: 10152,
+        code: 10080,
         message: 'Object includes not allowed fields',
         range: {
           end: {
@@ -390,7 +390,7 @@ describe('apidom-ls', function () {
         source: 'syntax',
       },
       {
-        code: 10152,
+        code: 10080,
         message: 'Object includes not allowed fields',
         range: {
           end: {
@@ -455,7 +455,7 @@ describe('apidom-ls', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10098,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [
@@ -519,7 +519,7 @@ describe('apidom-ls', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 10078,
+        code: 10069,
         source: 'apilint',
         data: {
           quickFix: [

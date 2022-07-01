@@ -1,5 +1,5 @@
-import natsMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [natsMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

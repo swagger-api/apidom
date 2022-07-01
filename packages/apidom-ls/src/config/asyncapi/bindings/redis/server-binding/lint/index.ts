@@ -1,5 +1,5 @@
-import redisServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [redisServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

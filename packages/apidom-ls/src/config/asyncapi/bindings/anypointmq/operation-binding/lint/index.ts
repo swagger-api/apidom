@@ -1,5 +1,5 @@
-import anypointmqOperationBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [anypointmqOperationBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

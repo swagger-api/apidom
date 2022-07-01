@@ -1,13 +1,8 @@
-import natsOperationBindingAllowedFieldsLint from './allowed-fields';
-import natsOperationBindingQueueLint from './queue';
-import natsOperationBindingQueueMaxLengthLint from './queue-max-length';
-import natsOperationBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import queueTypeLint from './queue--type';
+import queueMaxLengthLint from './queue--max-length';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  natsOperationBindingAllowedFieldsLint,
-  natsOperationBindingQueueLint,
-  natsOperationBindingQueueMaxLengthLint,
-  natsOperationBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, queueTypeLint, queueMaxLengthLint, bindingVersionTypeLint];
 
 export default lints;

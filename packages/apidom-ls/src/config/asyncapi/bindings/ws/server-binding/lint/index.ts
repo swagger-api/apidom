@@ -1,5 +1,5 @@
-import webSocketServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [webSocketServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

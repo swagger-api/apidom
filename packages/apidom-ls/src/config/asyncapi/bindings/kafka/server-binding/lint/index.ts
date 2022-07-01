@@ -1,5 +1,5 @@
-import kafkaServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [kafkaServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

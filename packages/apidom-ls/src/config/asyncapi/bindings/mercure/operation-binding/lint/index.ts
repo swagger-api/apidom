@@ -1,5 +1,5 @@
-import mercureOperationBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [mercureOperationBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

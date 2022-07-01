@@ -1,5 +1,5 @@
-import jmsOperationBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [jmsOperationBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

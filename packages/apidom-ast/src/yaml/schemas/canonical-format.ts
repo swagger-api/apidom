@@ -90,7 +90,7 @@ const preventLineBreakCollapseToSpace = (val: string) => val.replace(/\\\n\s*/g,
 // collapse line breaks into spaces
 const collapseLineBreakToSpace = (val: string) => {
   /**
-   * Safari doesn't support negative lookbehind, thus we sue mimicking technique:
+   * Safari doesn't support negative lookbehind, thus we use mimicking technique:
    *
    * - https://blog.stevenlevithan.com/archives/mimic-lookbehind-javascript
    *

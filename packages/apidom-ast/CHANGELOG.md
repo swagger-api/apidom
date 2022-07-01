@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.34.0](https://github.com/swagger-api/apidom/compare/v0.33.0...v0.34.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* **ast:** minic lookbehind regexp to support Safari ([#1696](https://github.com/swagger-api/apidom/issues/1696)) ([4893810](https://github.com/swagger-api/apidom/commit/4893810c99a0bfc9e7bb45813de6a02d74d18a19)), closes [#1695](https://github.com/swagger-api/apidom/issues/1695)
+
+
+
+
+
 # [0.33.0](https://github.com/swagger-api/apidom/compare/v0.32.0...v0.33.0) (2022-06-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

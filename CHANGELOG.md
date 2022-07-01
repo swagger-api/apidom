@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.34.0](https://github.com/swagger-api/apidom/compare/v0.33.0...v0.34.0) (2022-07-01)
+
+
+### Bug Fixes
+
+* **ast:** minic lookbehind regexp to support Safari ([#1696](https://github.com/swagger-api/apidom/issues/1696)) ([4893810](https://github.com/swagger-api/apidom/commit/4893810c99a0bfc9e7bb45813de6a02d74d18a19)), closes [#1695](https://github.com/swagger-api/apidom/issues/1695)
+
+
+### Features
+
+* **apidom-ls:** add all empty AsyncAPI binding objects ([8bd8bac](https://github.com/swagger-api/apidom/commit/8bd8bac0b736140682bb9d2b726e41c274eebcdb)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI AMQP 1.0 Bidings rules ([6d7c046](https://github.com/swagger-api/apidom/commit/6d7c046a43004dae9a76d71227216c4ce1ab7baa)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Anypoint MQ Channel Binding ([108aa07](https://github.com/swagger-api/apidom/commit/108aa073cd4020e57bbe92dbacabdba5746db8d8)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Anypoint MQ Message Binding ([a8f7a26](https://github.com/swagger-api/apidom/commit/a8f7a26e6526efd33d1e3ee959133d0723a7f4dd)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI HTTP Bindings rules ([4fd0b18](https://github.com/swagger-api/apidom/commit/4fd0b183d358663c18e0e643c726369ee74bc51e)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI JMS Bidings rules ([8420487](https://github.com/swagger-api/apidom/commit/84204879dbe38ddb1feea66966e36aee93abe4ca)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Kafka Bindings rules ([44e9cd3](https://github.com/swagger-api/apidom/commit/44e9cd3efb4016bec2fcf9a650cab3e4139a7946)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Mercure Bindings rules ([027357e](https://github.com/swagger-api/apidom/commit/027357e333e6fc36d8ba4ffcaaec33b9e341f8c0)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI MQTT 5 Bidings rules ([052f201](https://github.com/swagger-api/apidom/commit/052f201cc677bcc6f233fdadb0e38c3283fc40db)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI NATS Operation Binding ([35d9638](https://github.com/swagger-api/apidom/commit/35d9638e5a7274d1d172fe5bf2f465e9c2778d79)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Redis Bindings rules ([6409c9e](https://github.com/swagger-api/apidom/commit/6409c9e2927c53eef4ccec83eafbecb71b05fdb7)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI SNS Bindings rules ([1e14d7f](https://github.com/swagger-api/apidom/commit/1e14d7fd518d4fbe7a70e643319cb913058a53da)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Solace Operation Binding ([5fa73cc](https://github.com/swagger-api/apidom/commit/5fa73cce04c2b673daafbe03c26d303408bec48a)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Solace Server Binding ([e0d8857](https://github.com/swagger-api/apidom/commit/e0d885731ef29c7f561fb4c50247baa575eca0a4)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI SQS Bindings rules ([ea23c45](https://github.com/swagger-api/apidom/commit/ea23c452184d784a2fc35875a7196bf727cda275)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI STOMP Bindings rules ([f12600d](https://github.com/swagger-api/apidom/commit/f12600d3732a49bcf9ee3ada9edf4c7e5fd8cb90)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI Web Socket Channel Binding ([9bb37a3](https://github.com/swagger-api/apidom/commit/9bb37a32bc2bb1037554e225177d1831681a3d85)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+
+
+
+
+
 # [0.33.0](https://github.com/swagger-api/apidom/compare/v0.32.0...v0.33.0) (2022-06-28)
 
 

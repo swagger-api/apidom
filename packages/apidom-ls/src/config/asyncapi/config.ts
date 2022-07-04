@@ -75,6 +75,7 @@ import mercureServerBindingMeta from './bindings/mercure/server-binding/meta';
 import mqttChannelBindingMeta from './bindings/mqtt/channel-binding/meta';
 import mqttMessageBindingMeta from './bindings/mqtt/message-binding/meta';
 import mqttOperationBindingMeta from './bindings/mqtt/operation-binding/meta';
+import mqttServerBindingMeta from './bindings/mqtt/server-binding/meta';
 // MQTT 5
 import mqtt5ChannelBindingMeta from './bindings/mqtt5/channel-binding/meta';
 import mqtt5MessageBindingMeta from './bindings/mqtt5/message-binding/meta';
@@ -210,6 +211,7 @@ export default {
   mqttChannelBinding: mqttChannelBindingMeta,
   mqttMessageBinding: mqttMessageBindingMeta,
   mqttOperationBinding: mqttOperationBindingMeta,
+  mqttServerBinding: mqttServerBindingMeta,
   // MQTT 5
   mqtt5ChannelBinding: mqtt5ChannelBindingMeta,
   mqtt5MessageBinding: mqtt5MessageBindingMeta,

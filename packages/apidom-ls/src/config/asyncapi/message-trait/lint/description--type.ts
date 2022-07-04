@@ -1,7 +1,7 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const dscriptionTypeLint: LinterMeta = {
+const descriptionTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MESSAGE_TRAIT_FIELD_DESCRIPTION_TYPE,
   source: 'apilint',
   message: "'description' value must be a string",
@@ -13,4 +13,4 @@ const dscriptionTypeLint: LinterMeta = {
   data: {},
 };
 
-export default dscriptionTypeLint;
+export default descriptionTypeLint;

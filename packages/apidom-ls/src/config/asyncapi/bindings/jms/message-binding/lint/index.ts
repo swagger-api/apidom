@@ -1,5 +1,5 @@
-import jmsMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [jmsMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

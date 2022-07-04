@@ -369,7 +369,7 @@ describe('asyncapi channel test', function () {
         message:
           'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
-        code: 10152,
+        code: 15000,
         source: 'apilint',
       },
       {
@@ -377,7 +377,7 @@ describe('asyncapi channel test', function () {
         message:
           'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
-        code: 10152,
+        code: 15000,
         source: 'apilint',
       },
       {
@@ -425,7 +425,7 @@ describe('asyncapi channel test', function () {
         message:
           'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
-        code: 10152,
+        code: 15000,
         source: 'apilint',
       },
     ] as Diagnostic[]);

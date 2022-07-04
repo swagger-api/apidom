@@ -1,7 +1,7 @@
-import kafkaMessageBindingAllowedFieldsLint from './allowed-fields';
-import bindingVersionLint from './bindingVersion';
-import keyObjectLint from './key-object';
+import allowedFieldsLint from './allowed-fields';
+import bindingVersionTypeLint from './binding-version--type';
+import keyTypeLint from './key--type';
 
-const lints = [kafkaMessageBindingAllowedFieldsLint, bindingVersionLint, keyObjectLint];
+const lints = [allowedFieldsLint, keyTypeLint, bindingVersionTypeLint];
 
 export default lints;

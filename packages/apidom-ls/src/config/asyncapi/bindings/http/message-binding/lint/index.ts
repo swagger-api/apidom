@@ -1,11 +1,7 @@
-import httpMessageBindingAllowedFieldsLint from './allowed-fields';
-import httpMessageBindingHeadersLint from './headers';
-import httpMessageBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import headersTypeLint from './headers--type';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  httpMessageBindingAllowedFieldsLint,
-  httpMessageBindingHeadersLint,
-  httpMessageBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, headersTypeLint, bindingVersionTypeLint];
 
 export default lints;

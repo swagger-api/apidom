@@ -1,5 +1,5 @@
-import mqttChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [mqttChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

@@ -377,7 +377,7 @@ describe('apidom-ls-yaml', function () {
         source: 'openapi schema',
       },
       {
-        code: 10152,
+        code: 10080,
         message: 'Object includes not allowed fields',
         range: {
           end: {
@@ -455,7 +455,7 @@ describe('apidom-ls-yaml', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10098,
+        code: 10076,
         source: 'apilint',
         data: {
           quickFix: [

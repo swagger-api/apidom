@@ -1,5 +1,5 @@
-import solaceMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [solaceMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

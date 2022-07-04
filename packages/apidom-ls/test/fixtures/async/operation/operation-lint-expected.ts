@@ -90,7 +90,7 @@ const operationLintExpected = [
     },
     message: 'Object includes not allowed fields',
     severity: 1,
-    code: 10152,
+    code: 15000,
     source: 'apilint',
   },
   {
@@ -228,7 +228,7 @@ const operationLintExpected = [
     },
     message: 'Object includes not allowed fields',
     severity: 1,
-    code: 10152,
+    code: 15000,
     source: 'apilint',
   },
   {
@@ -302,7 +302,7 @@ const operationLintExpected = [
     },
     message: 'Object includes not allowed fields',
     severity: 1,
-    code: 10152,
+    code: 15000,
     source: 'apilint',
   },
 ];

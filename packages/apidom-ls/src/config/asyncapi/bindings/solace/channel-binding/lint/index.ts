@@ -1,5 +1,5 @@
-import solaceChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [solaceChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

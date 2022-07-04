@@ -1,5 +1,5 @@
-import stompChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [stompChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

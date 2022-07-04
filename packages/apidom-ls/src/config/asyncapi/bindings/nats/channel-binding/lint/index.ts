@@ -1,5 +1,5 @@
-import natsChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [natsChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

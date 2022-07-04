@@ -1,11 +1,7 @@
-import solaceOperationBindingAllowedFieldsLint from './allowed-fields';
-import solaceServerBindingDestinationsLint from './destinations';
-import solaceOperationBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import destinationsTypeLint from './destinations--type';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  solaceOperationBindingAllowedFieldsLint,
-  solaceServerBindingDestinationsLint,
-  solaceOperationBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, destinationsTypeLint, bindingVersionTypeLint];
 
 export default lints;

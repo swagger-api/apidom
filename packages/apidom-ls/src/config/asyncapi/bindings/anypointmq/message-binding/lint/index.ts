@@ -1,11 +1,7 @@
-import anypointmqMessageBindingAllowedFieldsLint from './allowed-fields';
-import anypointmqMessageBindingHeadersLint from './headers';
-import anypointmqMessageBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import headersTypeLint from './headers--type';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  anypointmqMessageBindingAllowedFieldsLint,
-  anypointmqMessageBindingHeadersLint,
-  anypointmqMessageBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, headersTypeLint, bindingVersionTypeLint];
 
 export default lints;

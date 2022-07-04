@@ -1,11 +1,7 @@
-import solaceServerBindingAllowedFieldsLint from './allowed-fields';
-import solaceServerBindingMsgVpnLint from './msg-vpn';
-import solaceServerBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import msgVpnTypeLint from './msg-vpn--type';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  solaceServerBindingAllowedFieldsLint,
-  solaceServerBindingMsgVpnLint,
-  solaceServerBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, msgVpnTypeLint, bindingVersionTypeLint];
 
 export default lints;

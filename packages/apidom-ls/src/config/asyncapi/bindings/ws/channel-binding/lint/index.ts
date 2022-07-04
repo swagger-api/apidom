@@ -1,15 +1,15 @@
-import webSocketChannelBindingAllowedFieldsLint from './allowed-fields';
-import webSocketChannelBindingMethodLint from './method';
-import webSocketChannelBindingQueryLint from './query';
-import webSocketChannelBindingHeadersLint from './headers';
-import webSocketChannelBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import methodTypeLint from './method--type';
+import queryTypeLint from './query--type';
+import headersTypeLint from './headers--type';
+import bindingVersionTypeLint from './binding-version--type';
 
 const lints = [
-  webSocketChannelBindingAllowedFieldsLint,
-  webSocketChannelBindingMethodLint,
-  webSocketChannelBindingQueryLint,
-  webSocketChannelBindingHeadersLint,
-  webSocketChannelBindingBindingVersionLint,
+  allowedFieldsLint,
+  methodTypeLint,
+  queryTypeLint,
+  headersTypeLint,
+  bindingVersionTypeLint,
 ];
 
 export default lints;

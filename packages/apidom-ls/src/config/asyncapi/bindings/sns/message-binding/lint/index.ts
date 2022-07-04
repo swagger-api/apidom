@@ -1,5 +1,5 @@
-import snsMessageBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [snsMessageBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

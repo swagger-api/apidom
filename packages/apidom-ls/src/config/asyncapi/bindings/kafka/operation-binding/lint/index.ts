@@ -1,13 +1,8 @@
-import kafkaOperationBindingAllowedFieldsLint from './allowed-fields';
-import kafkaOperationBindingGroupIdLint from './group-id';
-import kafkaOperationBindingClientIdLint from './client-id';
-import kafkaOperationBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import groupIdTypeLint from './group-id--type';
+import clientIdTypeLint from './client-id--type';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  kafkaOperationBindingAllowedFieldsLint,
-  kafkaOperationBindingGroupIdLint,
-  kafkaOperationBindingClientIdLint,
-  kafkaOperationBindingBindingVersionLint,
-];
+const lints = [allowedFieldsLint, groupIdTypeLint, clientIdTypeLint, bindingVersionTypeLint];
 
 export default lints;

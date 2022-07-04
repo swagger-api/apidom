@@ -1,5 +1,5 @@
-import sqsChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [sqsChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

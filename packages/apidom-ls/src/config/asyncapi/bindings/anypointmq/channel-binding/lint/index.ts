@@ -1,13 +1,13 @@
-import anypointmqChannelBindingAllowedFieldsLint from './allowed-fields';
-import anypointmqChannelBindingDestinationLint from './destination';
-import anypointmqChannelBindingDestinationTypeLint from './destination-type';
-import anypointmqChannelBindingBindingVersionLint from './bindingVersion';
+import allowedFieldsLint from './allowed-fields';
+import destinationTypeLint from './destination--type';
+import destinationTypeTypeLint from './destination-type--type';
+import bindingVersionTypeLint from './binding-version--type';
 
 const lints = [
-  anypointmqChannelBindingAllowedFieldsLint,
-  anypointmqChannelBindingDestinationLint,
-  anypointmqChannelBindingDestinationTypeLint,
-  anypointmqChannelBindingBindingVersionLint,
+  allowedFieldsLint,
+  destinationTypeLint,
+  destinationTypeTypeLint,
+  bindingVersionTypeLint,
 ];
 
 export default lints;

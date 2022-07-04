@@ -1,5 +1,5 @@
-import sqsServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [sqsServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

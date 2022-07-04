@@ -1,5 +1,5 @@
-import amqp1ServerBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [amqp1ServerBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

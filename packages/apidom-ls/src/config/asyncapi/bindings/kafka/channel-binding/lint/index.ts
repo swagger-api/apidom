@@ -1,5 +1,5 @@
-import kafkaChannelBindingAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [kafkaChannelBindingAllowedFieldsLint];
+const lints = [allowedFieldsLint];
 
 export default lints;

@@ -37,6 +37,7 @@ import oAuthFlowMeta from './oauth-flow/meta';
  * Binding metas.
  */
 // AMQP 0-9-1
+import amqpChannelBindingMeta from './bindings/amqp/channel-binding/meta';
 import amqpServerBindingMeta from './bindings/amqp/server-binding/meta';
 // AMQP 1.0
 import amqp1ChannelBindingMeta from './bindings/amqp1/channel-binding/meta';
@@ -167,6 +168,7 @@ export default {
    * Binding metas.
    */
   // AMQP 0-9-1
+  amqpChannelBinding: amqpChannelBindingMeta,
   amqpServerBinding: amqpServerBindingMeta,
   // AMQP 1.0
   amqp1ChannelBinding: amqp1ChannelBindingMeta,

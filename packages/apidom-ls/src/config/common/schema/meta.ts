@@ -1,11 +1,11 @@
-import jsonSchemaComplete from './complete/schema';
-import schemaLints from './lint/lints';
-import schemaDocs from './docs/schema';
+import completion from './completion';
+import documentation from './documentation';
+import lint from './lint';
 
-const jsonSchemaMeta = {
-  documentation: schemaDocs,
-  lint: schemaLints,
-  completion: jsonSchemaComplete,
+const meta = {
+  documentation,
+  completion,
+  lint,
 };
 
-export default jsonSchemaMeta;
+export default meta;

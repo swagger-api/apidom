@@ -4,7 +4,7 @@ import ApilintCodes from '../codes';
  */
 import asyncapi2Meta from './asyncapi2/meta';
 import asyncapiVersionMeta from './async-api-version/meta';
-import jsonSchemaMeta from '../common/schema/meta';
+import meta from '../common/schema/meta';
 import securitySchemeMeta from './security-scheme/meta';
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
@@ -145,8 +145,7 @@ export default {
   asyncApiVersion: asyncapiVersionMeta,
   parameters: parametersMeta,
   parameter: parameterMeta,
-  // 'json-schema-type': jsonSchemaTypeMeta,
-  schema: jsonSchemaMeta,
+  schema: meta,
   securityScheme: securitySchemeMeta,
   securityRequirement: securityRequirementMeta,
   servers: serversMeta,

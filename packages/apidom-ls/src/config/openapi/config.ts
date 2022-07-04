@@ -1,14 +1,22 @@
-import jsonSchemaTypeMeta from '../common/json-schema-type/meta';
-import jsonSchemaMeta from '../common/schema/meta';
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
+import schemaMeta from '../common/schema/meta';
+import ApilintCodes from '../codes';
 
 export default {
   '*': {
-    lint: [],
+    lint: [
+      {
+        code: ApilintCodes.DUPLICATE_KEYS,
+        source: 'apilint',
+        message: 'an object cannot contain duplicate keys',
+        severity: 1,
+        linterFunction: 'apilintNoDuplicateKeys',
+        marker: 'key',
+      },
+    ],
   },
   info: infoMeta,
   contact: contactMeta,
-  'json-schema-type': jsonSchemaTypeMeta,
-  schema: jsonSchemaMeta,
+  schema: schemaMeta,
 };

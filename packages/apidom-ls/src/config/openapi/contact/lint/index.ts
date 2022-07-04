@@ -1,8 +1,8 @@
-import contactEmailLint from './email';
-import contactUrlLint from './url';
-import contactNameLint from './name';
-import contactAllowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields';
+import emailFormatEmailLint from './email--format-email';
+import nameTypeLint from './name--type';
+import urlFormatURILint from './url--format-uri';
 
-const contactLints = [contactNameLint, contactEmailLint, contactUrlLint, contactAllowedFieldsLint];
+const contactLints = [emailFormatEmailLint, nameTypeLint, urlFormatURILint, allowedFieldsLint];
 
 export default contactLints;

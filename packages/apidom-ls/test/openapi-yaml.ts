@@ -182,7 +182,6 @@ describe('apidom-ls-yaml', function () {
     let doc: TextDocument = TextDocument.create('foo://bar/spec.yaml', 'yaml', 0, spec);
 
     let result = await languageService.doValidation(doc, validationContext);
-
     const expected = [
       {
         range: {
@@ -377,7 +376,7 @@ describe('apidom-ls-yaml', function () {
         source: 'openapi schema',
       },
       {
-        code: 10080,
+        code: 15000,
         message: 'Object includes not allowed fields',
         range: {
           end: {
@@ -455,7 +454,7 @@ describe('apidom-ls-yaml', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 3020101,
         source: 'apilint',
         data: {
           quickFix: [

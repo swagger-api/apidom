@@ -238,7 +238,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 3020101,
         source: 'apilint',
         data: {
           quickFix: [
@@ -250,6 +250,23 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "exclusiveMaximum' value must be a number",
+        severity: 1,
+        code: 10016,
+        source: 'apilint',
+        data: {},
       },
       {
         range: {
@@ -305,23 +322,6 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
-      },
-      {
-        range: {
-          start: {
-            line: 19,
-            character: 38,
-          },
-          end: {
-            line: 19,
-            character: 42,
-          },
-        },
-        message: "exclusiveMaximum' value must be a number",
-        severity: 1,
-        code: 10016,
-        source: 'apilint',
-        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -807,7 +807,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 10076,
+        code: 3020101,
         source: 'apilint',
         data: {
           quickFix: [
@@ -819,6 +819,23 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "exclusiveMaximum' value must be a number",
+        severity: 1,
+        code: 10016,
+        source: 'apilint',
+        data: {},
       },
       {
         range: {
@@ -874,23 +891,6 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
-      },
-      {
-        range: {
-          start: {
-            line: 19,
-            character: 38,
-          },
-          end: {
-            line: 19,
-            character: 42,
-          },
-        },
-        message: "exclusiveMaximum' value must be a number",
-        severity: 1,
-        code: 10016,
-        source: 'apilint',
-        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -2480,23 +2480,6 @@ describe('apidom-ls-validate', function () {
         range: {
           start: {
             line: 7,
-            character: 23,
-          },
-          end: {
-            line: 7,
-            character: 24,
-          },
-        },
-        message: 'additionalItems must be a schema',
-        severity: 1,
-        code: 10020,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: {
-            line: 7,
             character: 6,
           },
           end: {
@@ -2518,6 +2501,23 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+      {
+        range: {
+          start: {
+            line: 7,
+            character: 23,
+          },
+          end: {
+            line: 7,
+            character: 24,
+          },
+        },
+        message: 'additionalItems must be a schema',
+        severity: 1,
+        code: 10020,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0](https://github.com/swagger-api/apidom/compare/v0.34.0...v0.35.0) (2022-07-05)
+
+
+### Features
+
+* **apidom-ls:** add AsyncAPI AMQP 0-9-1 Channel Bindings rules ([272e558](https://github.com/swagger-api/apidom/commit/272e55842d91501aa997e321ddf088b95ecc809d)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI AMQP 0-9-1 Message Bindings rules ([45daeac](https://github.com/swagger-api/apidom/commit/45daeac1a2116af6ecdafc055d88c8bb6a0235a4)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI AMQP 0-9-1 Operation Bindings rules ([410bbd8](https://github.com/swagger-api/apidom/commit/410bbd89a7c226cce45d8bc8189fde5cf96c07e3)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI IBM MQ Channel Bindings rules ([1591cfe](https://github.com/swagger-api/apidom/commit/1591cfe265c0eba5ac97b3290c56e7242e620881)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI IBM MQ Server Bindings rules ([5d2bae1](https://github.com/swagger-api/apidom/commit/5d2bae1832bdcafc30c150bd8ab6180793090391)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI IBM MQ Server Bindings rules ([664bc7b](https://github.com/swagger-api/apidom/commit/664bc7b6102f0bece415639caa1b6736955d44f0)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI MQTT Message Bindings rules ([f219bb1](https://github.com/swagger-api/apidom/commit/f219bb1684694c2035cc0b97bb9c0bd3cbeea146)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI MQTT Operation Bindings rules ([6abc88f](https://github.com/swagger-api/apidom/commit/6abc88f5f202f0ea5a4fb8c7bc4e48fa432e85c8)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+* **apidom-ls:** add AsyncAPI MQTT Server Bindings rules ([c8d9e14](https://github.com/swagger-api/apidom/commit/c8d9e146de86b0e2f48effc64a339173a95a3140)), closes [#1647](https://github.com/swagger-api/apidom/issues/1647)
+
+
+
+
+
 # [0.34.0](https://github.com/swagger-api/apidom/compare/v0.33.0...v0.34.0) (2022-07-01)
 
 

@@ -58,6 +58,7 @@ import httpOperationBindingMeta from './bindings/http/operation-binding/meta';
 import httpServerBindingMeta from './bindings/http/server-binding/meta';
 // IBM MQ
 import ibmmqMessageBindingMeta from './bindings/ibmmq/message-binding/meta';
+import ibmmqServerBindingMeta from './bindings/ibmmq/server-binding/meta';
 // JMS
 import jmsChannelBindingMeta from './bindings/jms/channel-binding/meta';
 import jmsMessageBindingMeta from './bindings/jms/message-binding/meta';
@@ -196,6 +197,7 @@ export default {
   httpServerBinding: httpServerBindingMeta,
   // IMB MQ
   ibmmqMessageBinding: ibmmqMessageBindingMeta,
+  ibmmqServerBinding: ibmmqServerBindingMeta,
   // JMS
   jmsChannelBinding: jmsChannelBindingMeta,
   jmsMessageBinding: jmsMessageBindingMeta,

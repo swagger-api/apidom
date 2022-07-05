@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.35.1](https://github.com/swagger-api/apidom/compare/v0.35.0...v0.35.1) (2022-07-05)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix corrupted file name ([#1717](https://github.com/swagger-api/apidom/issues/1717)) ([494f1e6](https://github.com/swagger-api/apidom/commit/494f1e652148117f5b97794d0b7ed81574e2c1ad))
+
+
+
+
+
 # [0.35.0](https://github.com/swagger-api/apidom/compare/v0.34.0...v0.35.0) (2022-07-05)
 
 

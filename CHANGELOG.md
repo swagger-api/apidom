@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/swagger-api/apidom/compare/v0.35.1...v0.36.0) (2022-07-13)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix typo in JSON Schema rules - refs [#1729](https://github.com/swagger-api/apidom/issues/1729) ([a9a7f84](https://github.com/swagger-api/apidom/commit/a9a7f846663b4b3cb0e86e6eb98979fe8378dd33))
+
+
+### Features
+
+* **apidom-ls:** implement getJsonPointerPosition ([ca0deb4](https://github.com/swagger-api/apidom/commit/ca0deb401cfcbf59f26d7b98c538c9120863c648))
+
+
+
+
+
 ## [0.35.1](https://github.com/swagger-api/apidom/compare/v0.35.0...v0.35.1) (2022-07-05)
 
 

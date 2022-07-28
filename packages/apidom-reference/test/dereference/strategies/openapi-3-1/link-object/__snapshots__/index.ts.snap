@@ -262,6 +262,10 @@ exports[`dereference strategies openapi-3-1 Link Object given in Response Object
                                                       }
                                                     }
                                                   ]
+                                                },
+                                                "ref-origin": {
+                                                  "element": "string",
+                                                  "content": "/home/char0n/Documents/GitHub/apidom/packages/apidom-reference/test/dereference/strategies/openapi-3-1/link-object/fixtures/response-object/root.json"
                                                 }
                                               },
                                               "content": [
@@ -904,6 +908,10 @@ exports[`dereference strategies openapi-3-1 Link Object given in components/link
                                       }
                                     }
                                   ]
+                                },
+                                "ref-origin": {
+                                  "element": "string",
+                                  "content": "/home/char0n/Documents/GitHub/apidom/packages/apidom-reference/test/dereference/strategies/openapi-3-1/link-object/fixtures/components-links/root.json"
                                 }
                               },
                               "content": [

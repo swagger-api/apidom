@@ -164,6 +164,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
         // @ts-ignore
         summary: referenceElement.summary?.toValue(),
       });
+      // annotate fragment with info about origin
+      fragment.setMetaProperty('ref-origin', reference.uri);
 
       // override description and summary (outer has higher priority then inner)
       const hasDescription = pathSatisfies(isNotUndefined, ['description'], referenceElement);

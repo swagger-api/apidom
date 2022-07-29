@@ -165,6 +165,8 @@ const AsyncApi2DereferenceVisitor = stampit({
       referencedElement.setMetaProperty('ref-fields', {
         $ref: referencingElement.$ref.toValue(),
       });
+      // annotate fragment with info about origin
+      referencedElement.setMetaProperty('ref-origin', reference.uri);
 
       // transclude referencing element with merged referenced element
       return referencedElement;

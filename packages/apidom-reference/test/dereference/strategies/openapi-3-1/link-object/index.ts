@@ -1,7 +1,8 @@
 import path from 'node:path';
-import { assert, expect } from 'chai';
+import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
-import { isOperationElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { isOperationElement, LinkElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
@@ -24,8 +25,22 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
-            expect(actual).toMatchSnapshot();
           });
+
+          specify(
+            'should set Operation Object as metadata of Link.operationId field',
+            async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+              const link2 = evaluate('/0/components/links/link2', dereferenced) as LinkElement;
+
+              assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
+              assert.isTrue(isOperationElement(link2.operationId.meta.get('operation')));
+            },
+          );
         });
 
         context('given in Response Object', function () {
@@ -39,8 +54,25 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
-            expect(actual).toMatchSnapshot();
           });
+
+          specify(
+            'should set Operation Object as metadata of Link.operationId field',
+            async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const link1 = evaluate(
+                '/0/components/responses/201/links/link',
+                dereferenced,
+              ) as LinkElement;
+              const link2 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+
+              assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
+              assert.isTrue(isOperationElement(link2.operationId.meta.get('operation')));
+            },
+          );
         });
 
         context('given operationRef field', function () {
@@ -55,8 +87,20 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
-              expect(actual).toMatchSnapshot();
             });
+
+            specify(
+              'should set Operation Object as metadata of Link.operationRef field',
+              async function () {
+                const rootFilePath = path.join(fixturePath, 'root.json');
+                const dereferenced = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+
+                assert.isTrue(isOperationElement(link1.operationRef.meta.get('operation')));
+              },
+            );
           });
 
           context('and with external JSON Pointer', function () {
@@ -70,7 +114,6 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
-              expect(actual).toMatchSnapshot();
             });
 
             specify('should apply semantics to external fragment', async function () {
@@ -83,6 +126,18 @@ describe('dereference', function () {
                 isOperationElement(dereferenced.api.components.links.get('link1').operation),
               );
             });
+
+            specify(
+              'should set Operation Object as metadata of Link.operationRef field',
+              async function () {
+                const dereferenced = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+
+                assert.isTrue(isOperationElement(link1.operationRef.meta.get('operation')));
+              },
+            );
           });
 
           context('with external resolution disabled', function () {
@@ -138,17 +193,28 @@ describe('dereference', function () {
         context('given operationId field', function () {
           context('and OperationElement with operationId exists', async function () {
             const fixturePath = path.join(rootFixturePath, 'operation-id');
+            const rootFilePath = path.join(fixturePath, 'root.json');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
-              expect(actual).toMatchSnapshot();
             });
+
+            specify(
+              'should set Operation Object as metadata of Link.operationId field',
+              async function () {
+                const dereferenced = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+
+                assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
+              },
+            );
           });
 
           context("and OperationElement with operationId doesn't exist", async function () {

@@ -481,6 +481,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
         referencedElementClone.setMetaProperty('ref-fields', {
           $ref: referencingElement.$ref?.toValue(),
         });
+        // annotate referenced element with info about origin
+        referencedElementClone.setMetaProperty('ref-origin', reference.uri);
         return referencedElementClone;
       }
 
@@ -502,6 +504,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
       mergedResult.setMetaProperty('ref-fields', {
         $ref: referencingElement.$ref?.toValue(),
       });
+      // annotate fragment with info about origin
+      mergedResult.setMetaProperty('ref-origin', reference.uri);
 
       // transclude referencing element with merged referenced element
       return mergedResult;

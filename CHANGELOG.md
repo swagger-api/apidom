@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.38.0](https://github.com/swagger-api/apidom/compare/v0.37.0...v0.38.0) (2022-07-29)
+
+
+### Features
+
+* **apidom-ls:** implement initial ext ref go to ([5ff591e](https://github.com/swagger-api/apidom/commit/5ff591edd16ff5227833a7c301eb8c1f389f578e))
+
+
+
+
+
 # [0.37.0](https://github.com/swagger-api/apidom/compare/v0.36.0...v0.37.0) (2022-07-29)
 
 

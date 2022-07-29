@@ -238,10 +238,12 @@ const AsyncApi2DereferenceVisitor = stampit({
       });
       mergedResult.remove('$ref');
 
-      // annotate referencing element with info about original referenced element
+      // annotate referenced element with info about original referencing element
       mergedResult.setMetaProperty('ref-fields', {
         $ref: channelItemElement.$ref?.toValue(),
       });
+      // annotate referenced with info about origin
+      mergedResult.setMetaProperty('ref-origin', reference.uri);
 
       // transclude referencing element with merged referenced element
       return mergedResult;

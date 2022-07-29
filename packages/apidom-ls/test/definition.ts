@@ -21,12 +21,12 @@ const defTestInput = [
     25,
     {
       end: {
-        character: 2,
-        line: 0,
+        character: 3,
+        line: 6,
       },
       start: {
-        character: 1,
-        line: 0,
+        character: 23,
+        line: 1,
       },
     },
   ],
@@ -39,12 +39,12 @@ const defTestInputYaml = [
     24,
     {
       end: {
-        character: 2,
-        line: 0,
+        character: 3,
+        line: 6,
       },
       start: {
-        character: 1,
-        line: 0,
+        character: 23,
+        line: 1,
       },
     },
   ],

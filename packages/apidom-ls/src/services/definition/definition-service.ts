@@ -73,7 +73,10 @@ export class DefaultDefinitionService implements DefinitionService {
             textDocument.getText(),
             this.settings?.defaultContentLanguage,
           );
-          const specVersion = getSpecVersion(api);
+          // TODO atm only support and default to OAS 3.1
+          const specVersion =
+            contentLanguage.namespace === 'openapi' ? '3.1.0' : getSpecVersion(api);
+
           const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
           const mediaTypePrefix =
             contentLanguage.namespace === 'openapi'
@@ -88,7 +91,7 @@ export class DefaultDefinitionService implements DefinitionService {
             `parent value: ${JSON.stringify(node.parent.parent.toValue())}`,
           );
           const dereferenced = await dereferenceApiDOM(node.parent.parent, {
-            parse: { mediaType },
+            parse: { mediaType, parserOpts: { sourceMap: true } },
             resolve: { baseURI: textDocument.uri },
           });
           debug(

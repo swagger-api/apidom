@@ -290,6 +290,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isPrimitiveElement(operationElement)) {
           operationElement = OperationElement.refract(operationElement);
         }
+        // create shallow copy to be able to annotate with metadata
+        operationElement = new OperationElement(
+          // @ts-ignore
+          [...operationElement.content],
+          operationElement.meta.clone(),
+          operationElement.attributes.clone(),
+        );
+        // annotate operation element with info about origin
+        operationElement.setMetaProperty('ref-origin', reference.uri);
         linkElement.operationRef.meta.set('operation', operationElement);
       } else if (isStringElement(linkElement.operationId)) {
         const operationId = linkElement.operationId.toValue();
@@ -297,7 +306,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
           (e) => isOperationElement(e) && e.operationId.equals(operationId),
           this.reference.value.result,
         );
-        // OperationElement not found by it's operationId
+        // OperationElement not found by its operationId
         if (isUndefined(operationElement)) {
           throw new Error(`OperationElement(operationId=${operationId}) not found.`);
         }

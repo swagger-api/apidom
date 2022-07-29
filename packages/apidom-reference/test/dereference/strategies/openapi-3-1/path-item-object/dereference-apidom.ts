@@ -2,18 +2,18 @@ import path from 'node:path';
 import { assert } from 'chai';
 import {
   mediaTypes,
-  isParameterElement,
+  isPathItemElement,
   OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate, compile } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
 
 describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
-      context('Reference Object', function () {
-        context('given single ReferenceElement passed to dereferenceApiDOM', function () {
+      context('Path Item Object', function () {
+        context('given single PathItemElement passed to dereferenceApiDOM', function () {
           const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'root.json');
 
           specify('should dereference', async function () {
@@ -21,7 +21,7 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const referenceElement = evaluate(
-              '/components/parameters/externalRef',
+              compile(['paths', '/path1']),
               parseResult.api as OpenApi3_1Element,
             );
             const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -29,7 +29,7 @@ describe('dereference', function () {
               resolve: { baseURI: fixturePath },
             });
 
-            assert.isTrue(isParameterElement(dereferenced));
+            assert.isTrue(isPathItemElement(dereferenced));
           });
 
           specify('should dereference and contain metadata about origin', async function () {
@@ -37,7 +37,7 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const referenceElement = evaluate(
-              '/components/parameters/externalRef',
+              compile(['paths', '/path1']),
               parseResult.api as OpenApi3_1Element,
             );
             const dereferenced = await dereferenceApiDOM(referenceElement, {

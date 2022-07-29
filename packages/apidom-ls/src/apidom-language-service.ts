@@ -70,6 +70,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     performanceLogs: context.performanceLogs,
     logLevel: context.logLevel,
     defaultContentLanguage: context.defaultContentLanguage,
+    workspaceFolders: context.workspaceFolders,
   };
   configureServices(languageSettings);
 

@@ -16,6 +16,7 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
+  WorkspaceFolder,
   ClientCapabilities,
   CompletionParams,
   SemanticTokens,
@@ -79,6 +80,7 @@ export interface LanguageServiceContext {
   performanceLogs?: boolean;
   logLevel?: LogLevel;
   defaultContentLanguage?: ContentLanguage;
+  workspaceFolders?: WorkspaceFolder[];
 }
 
 export interface NamespaceVersion {
@@ -176,6 +178,7 @@ export interface LanguageSettings {
   performanceLogs?: boolean;
   logLevel?: LogLevel;
   defaultContentLanguage?: ContentLanguage;
+  workspaceFolders?: WorkspaceFolder[];
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';

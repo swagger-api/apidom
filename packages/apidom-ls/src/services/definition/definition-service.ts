@@ -3,9 +3,18 @@ import { Element, findAtOffset, ObjectElement, MemberElement } from '@swagger-ap
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
+import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import { LanguageSettings } from '../../apidom-language-types';
-import { getSourceMap, isArray, isMember, isObject } from '../../utils/utils';
+import {
+  findNamespace,
+  getSourceMap,
+  getSpecVersion,
+  isArray,
+  isMember,
+  isObject,
+  debug,
+} from '../../utils/utils';
 
 export interface DefinitionService {
   doProvideDefinition(
@@ -34,14 +43,12 @@ export class DefaultDefinitionService implements DefinitionService {
     definitionParams: DefinitionParams,
   ): Promise<Location | null> {
     const offset = textDocument.offsetAt(definitionParams.position);
-
     const result = await this.settings!.documentCache?.get(textDocument);
     if (!result) return null;
     const api: ObjectElement = <ObjectElement>result.api;
 
     // no API document has been parsed
     if (api === undefined) return null;
-
     // TODO (francesco.tumanischvili@smartbear.com): handle by predicates and adapters, look for
     // refElements and/or metadata, replace current shaky handling by `$ref` key lookup
     const node = findAtOffset({ offset, includeRightBound: true }, api);
@@ -58,8 +65,57 @@ export class DefaultDefinitionService implements DefinitionService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const ref = node.toValue();
       // TODO (francesco.tumanischvili@smartbear.com): handle by URL parsing
-      if (!ref.startsWith('#')) {
-        return null;
+      if (!ref.startsWith('#') && node.parent?.parent) {
+        try {
+          // TODO full multi files support
+          // TODO get media type from initial parsing
+          const contentLanguage = await findNamespace(
+            textDocument.getText(),
+            this.settings?.defaultContentLanguage,
+          );
+          const specVersion = getSpecVersion(api);
+          const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
+          const mediaTypePrefix =
+            contentLanguage.namespace === 'openapi'
+              ? 'application/vnd.oai.openapi+'
+              : 'application/vnd.aai.asyncapi+';
+          const mediaType = `${mediaTypePrefix}${format};version=${specVersion}`;
+          debug(
+            'definitionService - go to external ref',
+            `mediaType: ${mediaType}`,
+            `textDocument.uri: ${textDocument.uri}`,
+            `node value: ${JSON.stringify(node.toValue())}`,
+            `parent value: ${JSON.stringify(node.parent.parent.toValue())}`,
+          );
+          const dereferenced = await dereferenceApiDOM(node.parent.parent, {
+            parse: { mediaType },
+            resolve: { baseURI: textDocument.uri },
+          });
+          debug(
+            'definitionService - go to external ref',
+            `dereferenced value: ${dereferenced.toValue()}`,
+          );
+          const newUri = dereferenced.meta.get('ref-origin').toValue();
+          debug('definitionService - go to external ref', `dereferenced file URI: ${newUri}`);
+          const nodeSourceMap = getSourceMap(dereferenced);
+          const range = Range.create(
+            {
+              line: nodeSourceMap.line,
+              character: nodeSourceMap.column,
+            },
+            {
+              line: nodeSourceMap.endLine || nodeSourceMap.line,
+              character: nodeSourceMap.endColumn || nodeSourceMap.column + 1,
+            },
+          );
+          return {
+            uri: newUri,
+            range,
+          };
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
       }
       // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
       const refTarget = jsonPointerEvaluate(ref.substring(1, ref.length), api);

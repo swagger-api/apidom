@@ -36,11 +36,11 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const referenceElement = evaluate(
+            const channelItemElement = evaluate(
               '/channels/channelItem1',
               parseResult.api as AsyncApi2Element,
             );
-            const dereferenced = await dereferenceApiDOM(referenceElement, {
+            const dereferenced = await dereferenceApiDOM(channelItemElement, {
               parse: { mediaType: mediaTypes.latest('json') },
               resolve: { baseURI: fixturePath },
             });

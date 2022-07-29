@@ -290,7 +290,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isPrimitiveElement(operationElement)) {
           operationElement = OperationElement.refract(operationElement);
         }
-        // create shallow copy to be able to annotate with metadata
+        // create shallow clone to be able to annotate with metadata
         operationElement = new OperationElement(
           // @ts-ignore
           [...operationElement.content],
@@ -334,8 +334,17 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       const reference = await this.toReference(exampleElement.externalValue.toValue());
 
+      // shallow clone of the referenced element
+      const valueElement = new reference.value.result.constructor(
+        reference.value.result.content,
+        reference.value.result.meta.clone(),
+        reference.value.result.attributes.clone(),
+      );
+      // annotate operation element with info about origin
+      valueElement.setMetaProperty('ref-origin', reference.uri);
+
       // eslint-disable-next-line no-param-reassign
-      exampleElement.value = reference.value.result;
+      exampleElement.value = valueElement;
 
       return undefined;
     },

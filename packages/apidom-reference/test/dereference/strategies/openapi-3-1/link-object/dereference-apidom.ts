@@ -27,11 +27,11 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const referenceElement = evaluate(
+            const linkElement = evaluate(
               '/components/links/link1',
               parseResult.api as OpenApi3_1Element,
             );
-            const dereferenced = (await dereferenceApiDOM(referenceElement, {
+            const dereferenced = (await dereferenceApiDOM(linkElement, {
               parse: { mediaType: mediaTypes.latest('json') },
               resolve: { baseURI: fixturePath },
             })) as LinkElement;

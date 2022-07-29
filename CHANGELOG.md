@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0](https://github.com/swagger-api/apidom/compare/v0.36.0...v0.37.0) (2022-07-29)
+
+
+### Features
+
+* **reference:** add origin support for ReferenceElement ([#1767](https://github.com/swagger-api/apidom/issues/1767)) ([fc6d091](https://github.com/swagger-api/apidom/commit/fc6d091fe9e9fdc6d4cf8530f8454934e3963dc0))
+
+
+
+
+
 # [0.36.0](https://github.com/swagger-api/apidom/compare/v0.35.1...v0.36.0) (2022-07-13)
 
 

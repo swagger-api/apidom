@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.39.0](https://github.com/swagger-api/apidom/compare/v0.38.0...v0.39.0) (2022-07-29)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix missing sourceMap in ext go-to ([54aa390](https://github.com/swagger-api/apidom/commit/54aa390bfcc9ae69dd7f3e070c5b68cee604f333))
+
+
+
+
+
 # [0.38.0](https://github.com/swagger-api/apidom/compare/v0.37.0...v0.38.0) (2022-07-29)
 
 

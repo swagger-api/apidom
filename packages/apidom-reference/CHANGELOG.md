@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.39.0](https://github.com/swagger-api/apidom/compare/v0.38.0...v0.39.0) (2022-07-29)
+
+
+### Features
+
+* **reference:** add origin support for Channel Item Element ([b126f14](https://github.com/swagger-api/apidom/commit/b126f14e9a0a4ed325066a367694a05710c5c192))
+* **reference:** add origin support for ExampleElement ([cf2c82d](https://github.com/swagger-api/apidom/commit/cf2c82d43ca2a7658fc30af38fd4bcfbe2399bd2))
+* **reference:** add origin support for LinkElement ([437228a](https://github.com/swagger-api/apidom/commit/437228abe0466ff2efa422560257cbdaca74e546))
+* **reference:** add origin support for PathItemElement ([863ae82](https://github.com/swagger-api/apidom/commit/863ae826bf980a5bbf7a598575337272b219ab81))
+* **reference:** add origin support for SchemaElement ([d43a20f](https://github.com/swagger-api/apidom/commit/d43a20f527d916962552cab1e5addf74497f7d05))
+
+
+
+
+
 # [0.38.0](https://github.com/swagger-api/apidom/compare/v0.37.0...v0.38.0) (2022-07-29)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

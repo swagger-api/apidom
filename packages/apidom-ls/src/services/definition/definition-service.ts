@@ -116,7 +116,6 @@ export class DefaultDefinitionService implements DefinitionService {
             range,
           };
         } catch (e) {
-          console.error(e);
           return null;
         }
       }

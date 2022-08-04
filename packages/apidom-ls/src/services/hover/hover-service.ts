@@ -167,22 +167,32 @@ export class DefaultHoverService implements HoverService {
                   'hoverService - computeHover',
                   `dereferenced value: ${dereferenced.toValue()}`,
                 );
-                contents.push(JSON.stringify(dereferenced.toValue(), null, 2));
+                const targetVal = JSON.stringify(dereferenced.toValue(), null, 2);
+                contents.push(`\n\n\n\n\`\`\`json\n${targetVal}\n\`\`\``);
               }
             } catch (e) {
-              console.error(e);
+              //
             }
           } else {
             try {
               // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
               const refTarget = jsonPointerEvaluate(ref.substring(1, ref.length), api);
               const nodeSourceMap = getSourceMap(refTarget);
-              const snippet = textDocument
-                .getText()
-                .substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
-              contents.push(snippet);
+
+              const linePosition = textDocument.positionAt(nodeSourceMap.offset);
+              linePosition.character = 0;
+              const targetVal = DefaultHoverService.fixYamlHoverSnippetIndent(
+                textDocument
+                  .getText()
+                  .substring(textDocument.offsetAt(linePosition), nodeSourceMap.endOffset),
+              );
+              const format =
+                targetVal.trim().startsWith('{') || targetVal.trim().startsWith('?')
+                  ? 'json'
+                  : 'yaml';
+              contents.push(`\n\n\n\n\`\`\`${format}\n${targetVal}\n\`\`\``);
             } catch (e) {
-              console.error(e);
+              //
             }
           }
         }
@@ -195,6 +205,19 @@ export class DefaultHoverService implements HoverService {
     }
 
     return hover;
+  }
+
+  private static fixYamlHoverSnippetIndent(snippet: string): string {
+    if (!snippet || snippet.trim().length === 0) {
+      return snippet;
+    }
+    const indent = snippet.search('[^\\s\\n]');
+    const lines = snippet.split('\n');
+    let res = '';
+    for (const line of lines) {
+      res += `${line.substring(indent)}\n`;
+    }
+    return res;
   }
 
   private getMetadataPropertyDocs(

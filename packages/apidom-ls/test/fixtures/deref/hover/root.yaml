@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info:
+  title: deref
+  version: 1.0.0
+components:
+  parameters:
+    externalRef:
+      $ref: './ex.json#/externalParameter'
+      description: another ref

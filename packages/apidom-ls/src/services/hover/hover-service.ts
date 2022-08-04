@@ -2,6 +2,8 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Hover } from 'vscode-languageserver-protocol';
 import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
+import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
+import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import { DocumentationMeta, LanguageSettings, MetadataMap } from '../../apidom-language-types';
 import {
@@ -13,6 +15,7 @@ import {
   correctPartialKeys,
   isJsonDoc,
   findNamespace,
+  debug,
 } from '../../utils/utils';
 
 export interface HoverService {
@@ -119,6 +122,69 @@ export class DefaultHoverService implements HoverService {
         }
         if (docs) {
           contents.push(docs);
+        }
+      } else {
+        // render target content for reference values if possible
+        if (!isObject(node) && isArray(node)) {
+          el = node;
+        } else {
+          el = (<MemberElement>node.parent).key as ObjectElement;
+        }
+        if (el?.toValue() === '$ref') {
+          const ref = node.toValue();
+          // TODO (francesco.tumanischvili@smartbear.com): handle by URL parsing
+          if (!ref.startsWith('#') && node.parent?.parent) {
+            try {
+              // TODO full multi files support
+              // TODO get media type from initial parsing
+              const contentLanguage = await findNamespace(
+                textDocument.getText(),
+                this.settings?.defaultContentLanguage,
+              );
+              // TODO atm only support and default to OAS 3.1
+              const nonStrictSpecVersion =
+                contentLanguage.namespace === 'openapi' ? '3.1.0' : getSpecVersion(api);
+
+              const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
+              const mediaTypePrefix =
+                contentLanguage.namespace === 'openapi'
+                  ? 'application/vnd.oai.openapi+'
+                  : 'application/vnd.aai.asyncapi+';
+              const mediaType = `${mediaTypePrefix}${format};version=${nonStrictSpecVersion}`;
+              debug(
+                'hoverService - computeHover',
+                `mediaType: ${mediaType}`,
+                `textDocument.uri: ${textDocument.uri}`,
+                `node value: ${JSON.stringify(node.toValue())}`,
+                `parent value: ${JSON.stringify(node.parent.parent.toValue())}`,
+              );
+              const dereferenced = await dereferenceApiDOM(node.parent.parent, {
+                parse: { mediaType, parserOpts: { sourceMap: true } },
+                resolve: { baseURI: textDocument.uri },
+              });
+              if (dereferenced) {
+                debug(
+                  'hoverService - computeHover',
+                  `dereferenced value: ${dereferenced.toValue()}`,
+                );
+                contents.push(JSON.stringify(dereferenced.toValue(), null, 2));
+              }
+            } catch (e) {
+              console.error(e);
+            }
+          } else {
+            try {
+              // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
+              const refTarget = jsonPointerEvaluate(ref.substring(1, ref.length), api);
+              const nodeSourceMap = getSourceMap(refTarget);
+              const snippet = textDocument
+                .getText()
+                .substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
+              contents.push(snippet);
+            } catch (e) {
+              console.error(e);
+            }
+          }
         }
       }
       (<MarkupContent>hover.contents).value = contents.join('\n');

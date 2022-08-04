@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  title: deref
+  version: 1.0.0
+  contact:
+    name: foo
+servers:
+  - description: local
+    url: http://localhost:8082/
+paths:
+  /a:
+    get:
+      operationId: aget
+      parameters:
+        - $ref: '#/components/parameters/userIdRef'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/foo'
+components:
+  schemas:
+    foo:
+      type: string
+    bar:
+      $id: http://localhost:8082/
+      type: string
+    cas:
+      type: object
+      properties:
+        camelCase:
+          type: string
+        snake_case:
+          type: string
+  parameters:
+    userIdRef:
+      name: userId
+      in: query
+      description: ID of the user
+      required: true

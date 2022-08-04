@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.1](https://github.com/swagger-api/apidom/compare/v0.40.0...v0.40.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix ref hover indent ([9e26947](https://github.com/swagger-api/apidom/commit/9e26947293c6b0251557e07dc4f3a46c29f64f16))
+
+
+
+
+
 # [0.40.0](https://github.com/swagger-api/apidom/compare/v0.39.0...v0.40.0) (2022-08-04)
 
 

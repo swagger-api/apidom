@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0](https://github.com/swagger-api/apidom/compare/v0.39.0...v0.40.0) (2022-08-04)
+
+
+### Bug Fixes
+
+* **apidom-ls:** list all production deps explicitly ([8d6ba96](https://github.com/swagger-api/apidom/commit/8d6ba96b2f7d79948a8c56443256208b26db5665)), closes [#1758](https://github.com/swagger-api/apidom/issues/1758)
+
+
+### Features
+
+* **apidom-ls:** implement ref target content in hover ([6f86b03](https://github.com/swagger-api/apidom/commit/6f86b03d7e5b6117e3762b881a78280290c5fb73))
+
+
+
+
+
 # [0.39.0](https://github.com/swagger-api/apidom/compare/v0.38.0...v0.39.0) (2022-07-29)
 
 

@@ -52,11 +52,7 @@ const parse = async (uri: string, options: IReferenceOptions): Promise<ParseResu
    * This is not intended to be a 100% bulletproof solution.
    * If it doesn't work for your use-case, then use a URL instead.
    */
-  const uriWithoutHash = url.stripHash(uri);
-  const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-    ? url.fromFileSystemPath(uriWithoutHash)
-    : uriWithoutHash;
-  const file = File({ uri: sanitizedURI, mediaType: options.parse.mediaType });
+  const file = File({ uri: url.sanitize(url.stripHash(uri)), mediaType: options.parse.mediaType });
   const data = await readFile(file, options);
 
   return parseFile(File({ ...file, data }), options);

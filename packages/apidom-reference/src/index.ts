@@ -40,8 +40,7 @@ export { default as ReferenceSet } from './ReferenceSet';
 
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
-  const sanitizedURI = url.isFileSystemPath(uri) ? url.fromFileSystemPath(uri) : uri;
-  const file = File({ uri: sanitizedURI });
+  const file = File({ uri: url.sanitize(uri) });
 
   return readFileFn(file, mergedOptions);
 };

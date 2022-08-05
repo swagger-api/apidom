@@ -13,12 +13,7 @@ export const resolveInherited$id = (baseURI: string, schemaElement: SchemaElemen
 
   return reduce(
     (acc: string, $id: string): string => {
-      const uriWithoutHash = url.stripHash($id);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-
-      return url.resolve(acc, sanitizedURI);
+      return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
     baseURI,
     [...inherited$id, schemaElement.$ref?.toValue()],

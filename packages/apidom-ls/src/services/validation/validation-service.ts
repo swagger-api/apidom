@@ -134,8 +134,8 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
 
     let processedText;
-    let docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
-      .namespace;
+    const nameSpace = await findNamespace(text, this.settings?.defaultContentLanguage);
+    let docNs: string = nameSpace.namespace;
     // no API document has been parsed
     if (result.annotations) {
       for (const annotation of result.annotations) {
@@ -147,18 +147,33 @@ export class DefaultValidationService implements ValidationService {
           return diagnostics;
         }
         const nodeSourceMap = getSourceMap(annotation);
-        const location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+        let location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+        if (
+          nameSpace.format === 'YAML' &&
+          nodeSourceMap.offset === 0 &&
+          nodeSourceMap.endLine &&
+          nodeSourceMap.endColumn
+        ) {
+          // workaround "whole doc" YAML grammar error
+          location = {
+            offset: textDocument.offsetAt({ line: nodeSourceMap.endLine, character: 0 }),
+            length: nodeSourceMap.endColumn,
+          };
+        }
+
         const range = Range.create(
           textDocument.positionAt(location.offset),
           textDocument.positionAt(location.offset + location.length),
         );
-        const diagnostic = Diagnostic.create(
-          range,
-          annotation.toValue(),
-          DiagnosticSeverity.Error,
-          0,
-          'syntax',
-        );
+        let message: string = annotation.toValue();
+        if (
+          message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
+          message.length > 70
+        ) {
+          message = `YAML Syntax error: '... ${message.substring(20)}'`;
+        }
+
+        const diagnostic = Diagnostic.create(range, message, DiagnosticSeverity.Error, 0, 'syntax');
         if (validationContext && validationContext.relatedInformation) {
           diagnostic.relatedInformation = [
             {

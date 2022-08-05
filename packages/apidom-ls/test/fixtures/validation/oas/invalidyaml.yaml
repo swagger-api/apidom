@@ -1,0 +1,6 @@
+asyncapi: 2..0
+info:
+  title: Streetlights
+  version: 1.0.0
+channels: {}
+foo

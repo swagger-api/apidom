@@ -2786,7 +2786,7 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 0,
+            line: 3,
             character: 0,
           },
           end: {

@@ -8,9 +8,10 @@ import DereferenceError from '../util/errors/DereferenceError';
 import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
 import { merge as mergeOptions } from '../options/util';
+import * as url from '../util/url';
 
 /**
- * Dereferences ApiDOM with all it's external references.
+ * Dereferences ApiDOM with all its external references.
  */
 export const dereferenceApiDOM = async <T extends Element>(
   element: T,
@@ -61,24 +62,25 @@ export const dereferenceApiDOM = async <T extends Element>(
 };
 
 /**
- * Dereferences a file with all it's external references.
+ * Dereferences a file with all its external references.
  */
 const dereference = async (
   uri: string,
   options: IReferenceOptions,
 ): Promise<ParseResultElement> => {
   const { refSet } = options.dereference;
+  const sanitizedURI = url.sanitize(uri);
   let parseResult;
 
   // if refSet was provided, use it to avoid unnecessary parsing
-  if (refSet !== null && refSet.has(uri)) {
+  if (refSet !== null && refSet.has(sanitizedURI)) {
     // @ts-ignore
-    ({ value: parseResult } = refSet.find(propEq('uri', uri)));
+    ({ value: parseResult } = refSet.find(propEq('uri', sanitizedURI)));
   } else {
     parseResult = await parse(uri, options);
   }
 
-  const mergedOptions = mergeOptions(options, { resolve: { baseURI: uri } });
+  const mergedOptions = mergeOptions(options, { resolve: { baseURI: sanitizedURI } });
 
   return dereferenceApiDOM(parseResult, mergedOptions);
 };

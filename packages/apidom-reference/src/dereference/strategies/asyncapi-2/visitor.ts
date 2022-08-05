@@ -52,11 +52,8 @@ const AsyncApi2DereferenceVisitor = stampit({
         );
       }
 
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-      const baseURI = url.resolve(this.reference.uri, sanitizedURI);
+      const baseURI = url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -64,7 +61,7 @@ const AsyncApi2DereferenceVisitor = stampit({
         return refSet.find(propEq('uri', baseURI));
       }
 
-      const parseResult = await parse(baseURI, {
+      const parseResult = await parse(url.unsanitize(baseURI), {
         ...this.options,
         parse: { ...this.options.parse, mediaType: 'text/plain' },
       });

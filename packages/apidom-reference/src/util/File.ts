@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { isString } from 'ramda-adjunct';
 
-import { getExtension } from './url';
+import * as url from './url';
 import { File as IFile } from '../types';
 
 /**
@@ -32,7 +32,7 @@ const File: stampit.Stamp<IFile> = stampit({
   methods: {
     get extension(): string {
       if (isString(this.uri)) {
-        return getExtension(this.uri);
+        return url.getExtension(this.uri);
       }
       return '';
     },

@@ -60,12 +60,7 @@ const OpenApi3_1ResolveVisitor = stampit({
   },
   methods: {
     toBaseURI(uri: string): string {
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-
-      return url.resolve(this.reference.uri, sanitizedURI);
+      return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
     },
 
     async toReference(uri: string): Promise<IReference> {
@@ -84,7 +79,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         return refSet.find(propEq('uri', baseURI));
       }
 
-      const parseResult = await parse(baseURI, {
+      const parseResult = await parse(url.unsanitize(baseURI), {
         ...this.options,
         parse: { ...this.options.parse, mediaType: 'text/plain' },
       });

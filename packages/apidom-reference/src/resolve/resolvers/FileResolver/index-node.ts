@@ -4,7 +4,7 @@ import stampit from 'stampit';
 
 import { Resolver as IResolver, File as IFile } from '../../../types';
 import Resolver from '../Resolver';
-import { isFileSystemPath, toFileSystemPath } from '../../../util/url';
+import * as url from '../../../util/url';
 import { ResolverError } from '../../../util/errors';
 
 const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
@@ -13,15 +13,14 @@ const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
   },
   methods: {
     canRead(file: IFile): boolean {
-      return isFileSystemPath(file.uri);
+      return url.isFileSystemPath(file.uri);
     },
     async read(file: IFile): Promise<Buffer> {
-      const fileSystemPath = toFileSystemPath(file.uri);
+      const fileSystemPath = url.toFileSystemPath(file.uri);
 
       try {
         return await promisify(readFile)(fileSystemPath);
       } catch (error: any) {
-        console.dir(error);
         throw new ResolverError(`Error opening file "${file.uri}"`, error);
       }
     },

@@ -7,9 +7,10 @@ import parse from '../parse';
 import * as plugins from '../util/plugins';
 import File from '../util/File';
 import { ResolverError, UnmatchedResolveStrategyError } from '../util/errors';
+import * as url from '../util/url';
 
 /**
- * Resolves ApiDOM with all it's external references.
+ * Resolves ApiDOM with all its external references.
  */
 export const resolveApiDOM = async <T extends Element>(
   element: T,
@@ -31,8 +32,9 @@ export const resolveApiDOM = async <T extends Element>(
     parseResult = new ParseResultElement([elementClone]);
   }
 
+  const sanitizedURI = url.sanitize(url.stripHash(options.resolve.baseURI));
   const file = File({
-    uri: options.resolve.baseURI,
+    uri: sanitizedURI,
     parseResult,
     mediaType: options.parse.mediaType,
   });
@@ -53,7 +55,7 @@ export const resolveApiDOM = async <T extends Element>(
 };
 
 /**
- * Resolves a file with all it's external references.
+ * Resolves a file with all its external references.
  */
 const resolve = async (uri: string, options: IReferenceOptions): Promise<IReferenceSet> => {
   const parseResult = await parse(uri, options);

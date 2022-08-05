@@ -8,6 +8,8 @@ import {
   getHash,
   resolve,
   stripHash,
+  sanitize,
+  unsanitize,
 } from '../../src/util/url';
 
 describe('util', function () {
@@ -209,6 +211,24 @@ describe('util', function () {
           assert.strictEqual(resolve('http://example.com/one', '/two'), 'http://example.com/two');
         });
       });
+
+      context('given URL with invalid URL characters', function () {
+        specify('should percent encode the URL', function () {
+          assert.strictEqual(
+            resolve('http://example.com/one with spaces/', './two with spaces'),
+            'http://example.com/one%20with%20spaces/two%20with%20spaces',
+          );
+        });
+      });
+
+      context('given URL with percent encoded invalid URL characters', function () {
+        specify('should not double percent encode the URL', function () {
+          assert.strictEqual(
+            resolve('http://example.com/one%20with%20spaces/', './two'),
+            'http://example.com/one%20with%20spaces/two',
+          );
+        });
+      });
     });
 
     context('stripHash', function () {
@@ -257,6 +277,82 @@ describe('util', function () {
           specify('should return original URL', function () {
             assert.strictEqual(stripHash('file://path/to/file'), 'file://path/to/file');
           });
+        });
+      });
+    });
+
+    context('sanitize', function () {
+      context('given percent decoded URL', function () {
+        specify('should percent encode the URL', function () {
+          const url = 'https://example.com/path with spaces/';
+          const sanitized = sanitize(url);
+
+          assert.strictEqual(sanitized, 'https://example.com/path%20with%20spaces/');
+        });
+      });
+
+      context('given percent encoded URL', function () {
+        specify('should not double percent encode the URL', function () {
+          const url = 'https://example.com/path%20with%20spaces/';
+          const sanitized = sanitize(url);
+
+          assert.strictEqual(sanitized, url);
+        });
+      });
+
+      context('given percent decoded file system path', function () {
+        specify('should sanitize the file system path', function () {
+          const url = '/home/User/path with spaces';
+          const sanitized = sanitize(url);
+
+          assert.strictEqual(sanitized, '/home/User/path%20with%20spaces');
+        });
+      });
+
+      context('given percent encoded file system path', function () {
+        specify('should not double encode the file system path', function () {
+          const url = '/home/User/path%20with%20spaces';
+          const sanitized = sanitize(url);
+
+          assert.strictEqual(sanitized, url);
+        });
+      });
+    });
+
+    context('unsanitize', function () {
+      context('given percent decoded URL', function () {
+        specify('should do nothing', function () {
+          const url = 'https://example.com/path with spaces/';
+          const unsanitized = unsanitize(url);
+
+          assert.strictEqual(unsanitized, url);
+        });
+      });
+
+      context('given percent encoded URL', function () {
+        specify('should percent decode the URL', function () {
+          const url = 'https://example.com/path%20with%20spaces/';
+          const unsanitized = unsanitize(url);
+
+          assert.strictEqual(unsanitized, 'https://example.com/path with spaces/');
+        });
+      });
+
+      context('given percent decoded file system path', function () {
+        specify('should do nothing', function () {
+          const url = '/home/User/path with spaces/';
+          const unsanitized = unsanitize(url);
+
+          assert.strictEqual(unsanitized, url);
+        });
+      });
+
+      context('given percent encoded file system path', function () {
+        specify('should percent decode the file system path', function () {
+          const url = '/home/User/path%20with%20spaces/';
+          const unsanitized = unsanitize(url);
+
+          assert.strictEqual(unsanitized, '/home/User/path with spaces/');
         });
       });
     });

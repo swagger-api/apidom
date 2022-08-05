@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 
 import Resolver from './Resolver';
-import { isHttpUrl } from '../../util/url';
+import * as url from '../../util/url';
 import NotImplementedError from '../../util/errors/NotImplementedError';
 import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
 
@@ -31,7 +31,7 @@ const HttpResolver: stampit.Stamp<IHttpResolver> = stampit(Resolver, {
   },
   methods: {
     canRead(file: IFile): boolean {
-      return isHttpUrl(file.uri);
+      return url.isHttpUrl(file.uri);
     },
 
     async read(): Promise<never> {

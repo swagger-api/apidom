@@ -228,10 +228,42 @@ export const cwd = (): string => {
  */
 export const resolve = (from: string, to: string): string => {
   const resolvedUrl = new URL(to, new URL(from, 'resolve://'));
+
   if (resolvedUrl.protocol === 'resolve:') {
     // `from` is a relative URL.
     const { pathname, search, hash } = resolvedUrl;
     return pathname + search + hash;
   }
   return resolvedUrl.toString();
+};
+
+/**
+ * Sanitizes/Encodes URI to it's url encoded form.
+ *
+ * The functional will compensate with the usecase when
+ * already sanitized URI is passed to it,
+ * by first unsatizing it and then performing sanitization again.
+ */
+
+export const sanitize = (uri: string) => {
+  if (isFileSystemPath(uri)) {
+    return fromFileSystemPath(toFileSystemPath(uri));
+  }
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI#encoding_for_ipv6
+  return encodeURI(decodeURI(uri)).replace(/%5B/g, '[').replace(/%5D/g, ']');
+};
+
+/**
+ * Unsanitizes/Decodes URI to it's url encoded form.
+ * This function already assumes that hash part of the URI
+ * has been removed prior to transforming it to it's sanitized form.
+ */
+
+export const unsanitize = (uri: string): string => {
+  if (isFileSystemPath(uri)) {
+    return toFileSystemPath(uri);
+  }
+
+  return decodeURI(uri);
 };

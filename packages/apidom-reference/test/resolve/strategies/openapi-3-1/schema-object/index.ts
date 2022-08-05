@@ -284,7 +284,7 @@ describe('resolve', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$ref-urn-pointer');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -300,7 +300,7 @@ describe('resolve', function () {
           function () {
             const fixturePath = path.join(rootFixturePath, '$ref-urn-$anchor');
 
-            specify('should dereference', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },

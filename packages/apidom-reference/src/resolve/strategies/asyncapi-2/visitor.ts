@@ -43,12 +43,7 @@ const AsyncApi2ResolveVisitor = stampit({
   },
   methods: {
     toBaseURI(uri: string): string {
-      const uriWithoutHash = url.stripHash(uri);
-      const sanitizedURI = url.isFileSystemPath(uriWithoutHash)
-        ? url.fromFileSystemPath(uriWithoutHash)
-        : uriWithoutHash;
-
-      return url.resolve(this.reference.uri, sanitizedURI);
+      return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
     },
 
     async toReference(uri: string): Promise<IReference> {
@@ -67,7 +62,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return refSet.find(propEq('uri', baseURI));
       }
 
-      const parseResult = await parse(baseURI, this.options);
+      const parseResult = await parse(url.unsanitize(baseURI), this.options);
 
       // register new Reference with ReferenceSet
       const reference = Reference({

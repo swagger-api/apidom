@@ -633,6 +633,7 @@ describe('apidom-ls-yaml', function () {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
       relatedInformation: false,
+      nativeYamlSyntaxValidation: true,
     };
 
     // valid spec
@@ -664,11 +665,12 @@ describe('apidom-ls-yaml', function () {
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
   });
-  it('test validate invalid YAML indent', async function () {
+  it('test validate invalid YAML indent native', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
       relatedInformation: false,
+      nativeYamlSyntaxValidation: true,
     };
 
     // valid spec
@@ -693,6 +695,43 @@ describe('apidom-ls-yaml', function () {
           },
         },
         message: '(Error title: Something)',
+        severity: 1,
+        code: 0,
+        source: 'syntax',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+  });
+
+  it('test validate invalid YAML indent', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specInvalidYamlIndent.yaml',
+      'yaml',
+      0,
+      specInvalidYamlIndent,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 0,
+          },
+          end: {
+            line: 3,
+            character: 4,
+          },
+        },
+        message: 'bad indentation of a mapping entry',
         severity: 1,
         code: 0,
         source: 'syntax',

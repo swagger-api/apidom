@@ -1,7 +1,14 @@
-import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
+import {
+  CodeAction,
+  Diagnostic,
+  DiagnosticSeverity,
+  Range,
+  Position,
+} from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
+import { load as loadYaml } from 'js-yaml';
 
 import {
   APIDOM_LINTER,
@@ -138,62 +145,102 @@ export class DefaultValidationService implements ValidationService {
     let docNs: string = nameSpace.namespace;
     // no API document has been parsed
     if (result.annotations) {
-      for (const annotation of result.annotations) {
-        if (
-          validationContext &&
-          validationContext.maxNumberOfProblems &&
-          diagnostics.length > validationContext.maxNumberOfProblems
-        ) {
-          return diagnostics;
-        }
-        const nodeSourceMap = getSourceMap(annotation);
-        let location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
-        if (
-          nameSpace.format === 'YAML' &&
-          nodeSourceMap.offset === 0 &&
-          nodeSourceMap.endLine &&
-          nodeSourceMap.endColumn
-        ) {
-          // workaround "whole doc" YAML grammar error
-          location = {
-            offset: textDocument.offsetAt({ line: nodeSourceMap.endLine, character: 0 }),
-            length: nodeSourceMap.endColumn,
-          };
-        }
-
-        const range = Range.create(
-          textDocument.positionAt(location.offset),
-          textDocument.positionAt(location.offset + location.length),
-        );
-        let message: string = annotation.toValue();
-        if (
-          message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
-          message.length > 70
-        ) {
-          message = `YAML Syntax error: '... ${message.substring(20)}'`;
-        }
-
-        const diagnostic = Diagnostic.create(range, message, DiagnosticSeverity.Error, 0, 'syntax');
-        if (validationContext && validationContext.relatedInformation) {
-          diagnostic.relatedInformation = [
-            {
-              location: {
-                uri: textDocument.uri,
-                range: { ...diagnostic.range },
+      if (!validationContext?.nativeYamlSyntaxValidation && nameSpace.format === 'YAML') {
+        try {
+          loadYaml(text);
+        } catch (e) {
+          // @ts-ignore
+          const endOffset = textDocument.offsetAt({ line: e.mark.line, character: e.mark.column });
+          // @ts-ignore
+          const startPosition: Position = { line: e.mark.line, character: 0 };
+          const range = Range.create(startPosition, textDocument.positionAt(endOffset));
+          // @ts-ignore
+          const message: string = e.reason;
+          const diagnostic = Diagnostic.create(
+            range,
+            message,
+            DiagnosticSeverity.Error,
+            0,
+            'syntax',
+          );
+          if (validationContext && validationContext.relatedInformation) {
+            diagnostic.relatedInformation = [
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'Syntax error while parsing',
               },
-              message: 'Syntax error while parsing',
-            },
-            {
-              location: {
-                uri: textDocument.uri,
-                range: { ...diagnostic.range },
-              },
-              message: 'more things',
-            },
-          ];
-        }
+            ];
+          }
 
-        diagnostics.push(diagnostic);
+          diagnostics.push(diagnostic);
+        }
+      } else {
+        for (const annotation of result.annotations) {
+          if (
+            validationContext &&
+            validationContext.maxNumberOfProblems &&
+            diagnostics.length > validationContext.maxNumberOfProblems
+          ) {
+            return diagnostics;
+          }
+          const nodeSourceMap = getSourceMap(annotation);
+          let location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+          if (
+            nameSpace.format === 'YAML' &&
+            nodeSourceMap.offset === 0 &&
+            nodeSourceMap.endLine &&
+            nodeSourceMap.endColumn
+          ) {
+            // workaround "whole doc" YAML grammar error
+            location = {
+              offset: textDocument.offsetAt({ line: nodeSourceMap.endLine, character: 0 }),
+              length: nodeSourceMap.endColumn,
+            };
+          }
+
+          const range = Range.create(
+            textDocument.positionAt(location.offset),
+            textDocument.positionAt(location.offset + location.length),
+          );
+          let message: string = annotation.toValue();
+          if (
+            message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
+            message.length > 70
+          ) {
+            message = `YAML Syntax error: '... ${message.substring(20)}'`;
+          }
+
+          const diagnostic = Diagnostic.create(
+            range,
+            message,
+            DiagnosticSeverity.Error,
+            0,
+            'syntax',
+          );
+          if (validationContext && validationContext.relatedInformation) {
+            diagnostic.relatedInformation = [
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'Syntax error while parsing',
+              },
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'more things',
+              },
+            ];
+          }
+
+          diagnostics.push(diagnostic);
+        }
       }
       processedText = correctPartialKeys(result, textDocument, await isJsonDoc(textDocument));
     }

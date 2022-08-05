@@ -2773,6 +2773,7 @@ describe('apidom-ls-validate', function () {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
       relatedInformation: false,
+      nativeYamlSyntaxValidation: true,
     };
 
     const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'async-info.yaml')).toString();

@@ -187,6 +187,7 @@ export interface ValidationContext {
   comments?: DiagnosticSeverity;
   relatedInformation?: boolean;
   maxNumberOfProblems?: number;
+  nativeYamlSyntaxValidation?: boolean;
 }
 
 export interface CompletionContext {

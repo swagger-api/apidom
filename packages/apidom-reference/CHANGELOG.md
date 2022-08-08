@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.2](https://github.com/swagger-api/apidom/compare/v0.40.1...v0.40.2) (2022-08-08)
+
+
+### Bug Fixes
+
+* **reference:** fix encoding problem with file system paths ([b7696c6](https://github.com/swagger-api/apidom/commit/b7696c6e41c2f9ec5a0cd70fe877ff5f3fed3b95)), closes [#1793](https://github.com/swagger-api/apidom/issues/1793)
+
+
+
+
+
 # [0.40.0](https://github.com/swagger-api/apidom/compare/v0.39.0...v0.40.0) (2022-08-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

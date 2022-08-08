@@ -92,4 +92,30 @@ describe('adapter', function () {
       assert.isTrue(positionEnd.equals(expectedEmptyPosition));
     });
   });
+
+  context('detectionRegExp', function () {
+    specify('should detect version ranges in forward compatible way', function () {
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.0.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.0.145'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.1.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.1.145'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.2.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.2.145'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.3.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.3.1'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.4.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.4.1'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.5.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 2.5.1'));
+    });
+
+    specify('should reject invalid version ranges', function () {
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 3.0.0'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 3.1.0'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 3.1.1'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.01.0'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.1.013'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.1.013 '));
+    });
+  });
 });

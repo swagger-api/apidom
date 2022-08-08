@@ -87,4 +87,19 @@ describe('adapter', function () {
       assert.instanceOf(subMappingValue.meta.get('sourceMap'), SourceMapElement);
     });
   });
+
+  context('detectionRegExp', function () {
+    specify('should detect version ranges in forward compatible way', function () {
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.1.0'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.1.1'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.1.15'));
+    });
+
+    specify('should reject invalid version ranges', function () {
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.0'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.1'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.01.0'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.1.01'));
+    });
+  });
 });

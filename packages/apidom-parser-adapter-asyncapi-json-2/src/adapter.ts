@@ -6,7 +6,8 @@ import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyn
 
 export { default as mediaTypes } from './media-types';
 
-export const detectionRegExp = /"asyncapi"\s*:\s*"(?<version_json>2\.\d+\.\d+)"/;
+export const detectionRegExp =
+  /"asyncapi"\s*:\s*"(?<version_json>2\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))"/;
 
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectJSON(source));

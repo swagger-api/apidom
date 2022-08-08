@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-asyncapi-json-2",
-  "version": "0.40.0",
+  "version": "0.40.3",
   "description": "Parser adapter for parsing JSON documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

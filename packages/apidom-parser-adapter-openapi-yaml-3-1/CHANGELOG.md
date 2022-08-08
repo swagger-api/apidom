@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.40.3](https://github.com/swagger-api/apidom/compare/v0.40.2...v0.40.3) (2022-08-08)
+
+
+### Bug Fixes
+
+* **adapters:** force forward compatible dection to be valid as well ([#1809](https://github.com/swagger-api/apidom/issues/1809)) ([39cafca](https://github.com/swagger-api/apidom/commit/39cafcae6d442792800b5ef98968e1e36ebf729f)), closes [#1741](https://github.com/swagger-api/apidom/issues/1741)
+
+
+
+
+
 # [0.40.0](https://github.com/swagger-api/apidom/compare/v0.39.0...v0.40.0) (2022-08-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-yaml-3-1

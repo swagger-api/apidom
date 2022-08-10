@@ -1,12 +1,12 @@
 {
-  "name": "@swagger-api/apidom-ns-asyncapi-2",
+  "name": "@swagger-api/apidom-ns-json-schema-draft-4",
   "version": "0.40.0",
-  "description": "AsyncAPI 2.x.y namespace for ApiDOM.",
+  "description": "JSON Schema Draft 4 namespace for ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "unpkg": "./dist/apidom-ns-asyncapi-2.browser.min.js",
+  "unpkg": "./dist/apidom-ns-openapi3-1.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
@@ -24,8 +24,6 @@
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
-    "perf": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/index.cjs",
-    "perf:visitor-shortcut": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/visitor-shortcut.cjs",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",

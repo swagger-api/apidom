@@ -55,6 +55,14 @@ const specHighlightNoQuotes = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-noquotes.yaml'))
   .toString();
 
+const specInvalidYaml = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'invalidyaml.yaml'))
+  .toString();
+
+const specInvalidYamlIndent = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'invalidyamlindent.yaml'))
+  .toString();
+
 const completionTestInput = [
   [
     'empty line in openapi 3.1 object value',
@@ -618,5 +626,78 @@ describe('apidom-ls-yaml', function () {
       // @ts-ignore
       assert(result?.contents.value.startsWith('***post***: **operation**'));
     }
+  });
+
+  it('test validate invalid YAML', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specInvalidYaml.yaml',
+      'yaml',
+      0,
+      specInvalidYaml,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 5,
+            character: 0,
+          },
+          end: {
+            line: 5,
+            character: 3,
+          },
+        },
+        message: '(Error foo)',
+        severity: 1,
+        code: 0,
+        source: 'syntax',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+  });
+  it('test validate invalid YAML indent', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specInvalidYamlIndent.yaml',
+      'yaml',
+      0,
+      specInvalidYamlIndent,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected = [
+      {
+        range: {
+          start: {
+            line: 3,
+            character: 4,
+          },
+          end: {
+            line: 3,
+            character: 20,
+          },
+        },
+        message: '(Error title: Something)',
+        severity: 1,
+        code: 0,
+        source: 'syntax',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
   });
 });

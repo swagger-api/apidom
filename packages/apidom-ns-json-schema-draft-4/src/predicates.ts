@@ -15,6 +15,16 @@ export const isJSONSchemaElement = createPredicate(
   },
 );
 
+export const isJSONReferenceElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: any) =>
+      element instanceof JSONReferenceElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('jsonReference', element) &&
+        primitiveEq('object', element));
+  },
+);
+
 export const isMediaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: any) =>
@@ -31,16 +41,6 @@ export const isLinkDescriptionElement = createPredicate(
       element instanceof LinkDescriptionElement ||
       (hasBasicElementProps(element) &&
         isElementType('linkDescription', element) &&
-        primitiveEq('object', element));
-  },
-);
-
-export const isJSONReferenceElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof JSONReferenceElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('jsonReference', element) &&
         primitiveEq('object', element));
   },
 );

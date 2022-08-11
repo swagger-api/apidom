@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given JSON Schema definition with no empty values should do nothing 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchemaDraft4Element)
+      (JSONSchemaDraft4Element))))
+`;
+
+exports[`given empty value for field allOf should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchemaDraft4Element))))
+`;
+
+exports[`given empty value for field anyOf should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchemaDraft4Element)
+      (JSONSchemaDraft4Element))))
+`;
+
+exports[`given empty value for field oneOf should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchemaDraft4Element)
+      (JSONSchemaDraft4Element))))
+`;

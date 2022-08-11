@@ -9,8 +9,8 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 };
 
 export const keyMap = {
-  JsonSchemaDraft4Element: ['content'],
-  JsonReferenceElement: ['content'],
+  JSONSchemaDraft4Element: ['content'],
+  JSONReferenceElement: ['content'],
   MediaElement: ['content'],
   LinkDescriptionElement: ['content'],
   ...keyMapBase,

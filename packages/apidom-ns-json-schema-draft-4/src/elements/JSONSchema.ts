@@ -14,7 +14,7 @@ import MediaElement from './Media';
 class JSONSchema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'jsonSchemaDraft4';
+    this.element = 'JSONSchemaDraft4';
   }
 
   /**
@@ -91,7 +91,7 @@ class JSONSchema extends ObjectElement {
     return this.get('additionalItems');
   }
 
-  get items(): JSONSchema | ArrayElement | undefined {
+  get items(): this | ArrayElement | undefined {
     return this.get('items');
   }
 

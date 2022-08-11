@@ -14,7 +14,7 @@ import createToolbox from './toolbox';
 
 const refract = <T extends Element>(
   value: any,
-  { specPath = ['visitors', 'document', 'objects', 'OpenApi', '$visitor'], plugins = [] } = {},
+  { specPath = ['visitors', 'document', 'objects', 'JSONSchema', '$visitor'], plugins = [] } = {},
 ): T => {
   const element = baseRefract(value);
   const resolvedSpec = dereference(specification);

@@ -15,7 +15,7 @@ the following line to it:
 You can now install the package using `npm`:
 
 ```sh
- $ npm install apidom-ns-api-design-systems
+ $ npm install @swagger-api/apidom-ns-api-design-systems
 ```
 
 ## API Design Systems 2021-05-07 namespace

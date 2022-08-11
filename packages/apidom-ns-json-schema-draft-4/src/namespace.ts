@@ -9,8 +9,8 @@ const jsonSchemaDraft4 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
-    base.register('jsonSchemaDraft4', JSONSchemaElement);
-    base.register('jsonReference', JSONReferenceElement);
+    base.register('jSONSchemaDraft4', JSONSchemaElement);
+    base.register('jSONReference', JSONReferenceElement);
     base.register('media', MediaElement);
     base.register('linkDescription', LinkDescriptionElement);
 

@@ -12,7 +12,7 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
 class JSONReference extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'jsonReference';
+    this.element = 'JSONReference';
     this.classes.push('json-reference');
   }
 

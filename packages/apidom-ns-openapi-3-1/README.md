@@ -15,7 +15,7 @@ the following line to it:
 You can now install the package using `npm`:
 
 ```sh
- $ npm install apidom-ns-openapi-3-1
+ $ npm install @swagger-api/apidom-ns-openapi-3-1
 ```
 
 ## OpenApi 3.1.0 namespace
@@ -61,7 +61,7 @@ isOpenApi3_1Element(openApiElement); // => true
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L11) and  and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L4).
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L4).
 To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 
 ```js

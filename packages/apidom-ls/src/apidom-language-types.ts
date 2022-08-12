@@ -313,6 +313,8 @@ export interface Metadata {
   rules?: Record<string, FormatMeta>;
   metadataMaps: MetadataMaps;
   linterFunctions: LinterFunctionsMap;
+  symbols: string[];
+  tokens: string[];
 }
 
 export interface LinterFunctionsMap {

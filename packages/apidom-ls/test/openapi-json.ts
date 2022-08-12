@@ -26,6 +26,7 @@ import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 import { logPerformance, logLevel } from './test-utils';
+import testTokens from './test-tokens';
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 /* const specAjvSimple = fs
@@ -149,6 +150,8 @@ describe('apidom-ls', function () {
     performanceLogs: logPerformance,
     logLevel,
   };
+
+  context.metadata!.tokens = testTokens;
 
   const languageService: LanguageService = getLanguageService(context);
 
@@ -573,7 +576,6 @@ describe('apidom-ls', function () {
 
     const result = await languageService.doFindDocumentSymbols(doc);
 
-    // console.log(JSON.stringify(result));
     const expected: SymbolInformation[] = [
       {
         name: 'spec-version',

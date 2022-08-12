@@ -39,98 +39,60 @@ export interface SemanticTokensService {
 export class DefaultSemanticTokensService implements SemanticTokensService {
   private settings: LanguageSettings | undefined;
 
-  static legend: SemanticTokensLegend;
+  private primitives: string[] = ['value', 'string', 'number', 'key'];
 
-  static tokenTypes: { [key: string]: number } = {};
-
-  static tokenModifiers: { [key: string]: number } = {};
-
-  // TODO REMOVE!
-  private static allClasses(): string[] {
-    return [
-      'parameter',
-      'api-version',
-      'spec-version',
-      'specVersion',
-      'info',
-      'operation',
-      'pathItem',
-      'components',
-      'components-parameters',
-      'components-schemas',
-      'openapi-reference',
-      'server-url',
-      'Asyncapi-reference',
-      'json-reference',
-      'content',
-      'mediaType',
-      'openapi',
-      'parameters',
-      'paths',
-      'reference',
-      'requestBody',
-      'response',
-      'responses',
-      'schema',
-      'server',
-      'servers',
-      'title',
-      'channelItem',
-      'channels',
-      'reference-element',
-      'reference-value',
-      'components-messages',
-    ];
+  private isSemanticToken(token: string): boolean {
+    return this.tokens.indexOf(token) > -1 && !this.primitives.includes(token);
   }
 
-  private static _initialize: void = ((): void => {
-    let tokenIndex = 0;
-    for (const entry of DefaultSemanticTokensService.allClasses()) {
-      DefaultSemanticTokensService.tokenTypes[entry] = tokenIndex++;
-    }
-    DefaultSemanticTokensService.tokenTypes.value = tokenIndex++;
-    DefaultSemanticTokensService.tokenTypes.string = tokenIndex++;
-    DefaultSemanticTokensService.tokenTypes.number = tokenIndex++;
-    DefaultSemanticTokensService.tokenTypes.key = tokenIndex++;
+  private legend: SemanticTokensLegend = {
+    tokenTypes: [],
+    tokenModifiers: [],
+  };
 
-    DefaultSemanticTokensService.tokenModifiers[SemanticTokenModifiers.declaration] = 1;
-    DefaultSemanticTokensService.tokenModifiers[SemanticTokenModifiers.definition] = 2;
-    DefaultSemanticTokensService.tokenModifiers[SemanticTokenModifiers.deprecated] = 4;
-    DefaultSemanticTokensService.tokenModifiers.reference = 8;
-    DefaultSemanticTokensService.tokenModifiers['httpMethod-GET'] = 16;
-    DefaultSemanticTokensService.tokenModifiers['httpMethod-POST'] = 32;
-    DefaultSemanticTokensService.tokenModifiers.string = 64;
-    DefaultSemanticTokensService.tokenModifiers.number = 128;
+  private tokenModifiers: Record<string, number> = {};
 
-    const legendTokenTypes = Object.keys(DefaultSemanticTokensService.tokenTypes);
-    const legendTokenModifiers = Object.keys(DefaultSemanticTokensService.tokenModifiers);
+  private tokens: string[] = [];
 
-    DefaultSemanticTokensService.legend = {
-      tokenTypes: legendTokenTypes,
-      tokenModifiers: legendTokenModifiers,
-    };
-  })();
-
-  static getTokenType(type: string): number {
-    return DefaultSemanticTokensService.tokenTypes[type];
+  private getTokenType(type: string): number {
+    return this.tokens.indexOf(type);
   }
 
-  static getTokenModifiers(modifiers: string[]): number {
+  private getTokenModifiers(modifiers: string[]): number {
     let bit = 0;
     for (const modifier of modifiers) {
       // eslint-disable-next-line no-bitwise
-      bit |= DefaultSemanticTokensService.tokenModifiers[modifier];
+      bit |= this.tokenModifiers[modifier];
     }
     return bit;
   }
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
+    if (settings?.metadata?.tokens) {
+      this.tokens = settings?.metadata?.tokens;
+    }
+
+    this.tokenModifiers[SemanticTokenModifiers.declaration] = 1;
+    this.tokenModifiers[SemanticTokenModifiers.definition] = 2;
+    this.tokenModifiers[SemanticTokenModifiers.deprecated] = 4;
+    this.tokenModifiers.reference = 8;
+    this.tokenModifiers['httpMethod-GET'] = 16;
+    this.tokenModifiers['httpMethod-POST'] = 32;
+    this.tokenModifiers.string = 64;
+    this.tokenModifiers.number = 128;
+
+    const legendTokenModifiers = Object.keys(this.tokenModifiers);
+
+    this.legend = {
+      tokenTypes: this.tokens,
+      tokenModifiers: legendTokenModifiers,
+    };
   }
 
   // eslint-disable-next-line class-methods-use-this
   public getLegend(): SemanticTokensLegend {
-    return DefaultSemanticTokensService.legend;
+    return this.legend;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -227,7 +189,7 @@ console.log(
             sm.line === lastLine ? sm.column - lastColumn : sm.column,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             sm.endOffset! - sm.offset,
-            DefaultSemanticTokensService.getTokenType(clz),
+            this.tokens.indexOf(clz),
             modifier,
           ];
 
@@ -267,7 +229,7 @@ console.log(
             sm.line === lastLine ? sm.column - lastColumn : sm.column,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             sm.endOffset! - sm.offset,
-            DefaultSemanticTokensService.getTokenType(clz),
+            this.tokens.indexOf(clz),
             modifier,
           ];
 
@@ -291,10 +253,7 @@ console.log(
         }
       } else {
         set.forEach((s) => {
-          if (
-            DefaultSemanticTokensService.allClasses().includes(s) &&
-            !processed.includes(element)
-          ) {
+          if (this.isSemanticToken(s) && !processed.includes(element)) {
             foundClasses = true;
             let sm: SourceMap;
             if (element.parent && isMember(element.parent)) {
@@ -316,7 +275,7 @@ console.log(
               let modifier = 0;
               if (s === 'operation') {
                 // check for httpMethod
-                modifier = DefaultSemanticTokensService.getTokenModifiers([
+                modifier = this.getTokenModifiers([
                   `httpMethod-${element.getMetaProperty('http-method', 'GET').toValue()}`,
                 ]);
               }
@@ -325,7 +284,7 @@ console.log(
                 sm.line === lastLine ? sm.column - lastColumn : sm.column,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType(s),
+                this.getTokenType(s),
                 modifier,
               ];
 
@@ -361,7 +320,7 @@ console.log(
             valueClasses.unshift(val.element);
             valueClasses = Array.from(new Set(valueClasses));
             for (const c of valueClasses) {
-              if (DefaultSemanticTokensService.allClasses().includes(c)) {
+              if (this.isSemanticToken(c)) {
                 hasSignificantValue = true;
                 break;
               }
@@ -377,10 +336,8 @@ console.log(
                 sm.line === lastLine ? sm.column - lastColumn : sm.column,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType('value'),
-                DefaultSemanticTokensService.getTokenModifiers(
-                  isStringElement(element) ? ['string'] : ['number'],
-                ),
+                this.getTokenType('value'),
+                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
               ];
 
               /*
@@ -411,10 +368,8 @@ console.log(
                 sm.line === lastLine ? sm.column - lastColumn : sm.column,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 sm.endOffset! - sm.offset,
-                DefaultSemanticTokensService.getTokenType('key'),
-                DefaultSemanticTokensService.getTokenModifiers(
-                  isStringElement(element) ? ['string'] : ['number'],
-                ),
+                this.getTokenType('key'),
+                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
               ];
 
               /*

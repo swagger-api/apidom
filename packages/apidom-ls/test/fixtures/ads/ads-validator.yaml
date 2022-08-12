@@ -1,0 +1,57 @@
+version: "2021-05-07"
+info:
+  title: SmartBear API Design
+  description: |
+    A machine and human readable version of the SmartBear API Style Guide aimed at promoting living API Style Governance across various tools and teams, leading to improved API quality.
+    See the [SmartBear Standards and Guidelines](https://github.com/SmartBear/api-standards-and-guidelines) repo for a traditional view of the static guidelines.
+scenarios:
+  - description: GET Methods - Allowed status codes
+    when: [http, request, method, get]
+    then:
+      - subject: [http, response, status_code]
+        level: may
+        values:
+          - "200"
+          - "304"
+          - "400"
+          - "401"
+          - "403"
+          - "404"
+          - "405"
+          - "422"
+          - "429"
+          - "500"
+          - "501"
+          - "503"
+  - description: SB-API-010 - Only apply standard HTTP methods
+    when: [http, transaction]
+    then:
+      - subject: [http, request, method]
+        level: may
+        values:
+          - get
+          - post
+          - put
+          - patch
+          - delete
+  - description: Allowed Content Type
+    when: [http, transaction]
+    then:
+      - subject: [http, request, header, Content-Type]
+        level: may
+        values:
+          - application/json
+          - application/hal+json
+  - description: GET Methods - Allowed headers
+    when: [http, request, method, get]
+    then:
+      - subject: [http, request, header]
+        level: may
+        values:
+          - Accept
+          - Accept-Charset
+          - Authorization
+          - Content-Language
+          - Content-Type
+          - Link
+          - Prefer

@@ -3,6 +3,17 @@
 exports[`refractor given generic ApiDOM object in API Design Systems 2021-05-07 shape should refract to API Design Systems 1`] = `
 {
   "element": "main",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
   "content": [
     {
       "element": "member",

@@ -21,6 +21,7 @@ import {
 import { metadata } from './metadata';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 import { logLevel, logPerformance } from './test-utils';
+import testTokens from './test-tokens';
 
 // eslint-disable-next-line import/prefer-default-export
 export function logj(e: unknown, label?: string): void {
@@ -172,6 +173,8 @@ describe('apidom-ls-yaml', function () {
     performanceLogs: logPerformance,
     logLevel,
   };
+
+  context.metadata!.tokens = testTokens;
 
   const languageService: LanguageService = getLanguageService(context);
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, MemberElement } from '@swagger-api/apidom-core';
@@ -23,6 +22,13 @@ export class DefaultSymbolsService implements SymbolsService {
     this.settings = settings;
   }
 
+  protected isMeaningfulIdentifier(id: string): boolean {
+    if (this.settings?.metadata?.symbols && this.settings.metadata.symbols.includes(id)) {
+      return true;
+    }
+    return false;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   public async doFindDocumentSymbols(
     textDocument: TextDocument,
@@ -39,37 +45,10 @@ export class DefaultSymbolsService implements SymbolsService {
 
     const symbols: SymbolInformation[] = [];
 
-    // TODO remove
-    const allClasses = [
-      'info',
-      'api-version',
-      'spec-version',
-      'specVersion',
-      'license',
-      'operation',
-      'pathItem',
-      'httpMethod',
-      'components',
-      'components-schemas',
-      'components-parameters',
-      'paths',
-      'channels',
-      'channelItem',
-      'schema',
-      'server',
-      'servers',
-      'channel-binding',
-      'contact',
-      'identifier',
-      'message',
-      'servers',
-      'components-messages',
-    ];
-
     const res: ArraySlice = filter((el: Element) => {
       return (
-        el.classes.toValue().some((item: string) => allClasses.includes(item)) ||
-        allClasses.includes(el.element)
+        el.classes.toValue().some((item: string) => this.isMeaningfulIdentifier(item)) ||
+        this.isMeaningfulIdentifier(el.element)
       );
     }, api);
 
@@ -82,7 +61,7 @@ export class DefaultSymbolsService implements SymbolsService {
         set.unshift(e.element);
       }
       set.forEach((s) => {
-        if (allClasses.includes(s)) {
+        if (this.isMeaningfulIdentifier(s)) {
           let sm: SourceMap;
           if (e.parent && isMember(e.parent) && e.parent.key) {
             sm = getSourceMap(e.parent.key as Element);

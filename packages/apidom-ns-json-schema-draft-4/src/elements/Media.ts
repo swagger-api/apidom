@@ -1,7 +1,7 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 /**
- * URI: https://datatracker.ietf.org/doc/html/draft-luff-json-hyper-schema-00#section-4.3.1
+ * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-4.3
  */
 
 class Media extends ObjectElement {

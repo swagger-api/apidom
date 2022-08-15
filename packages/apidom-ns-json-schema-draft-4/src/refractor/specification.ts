@@ -33,8 +33,8 @@ import JSONSchemaTitleVisitor from './visitors/json-schema/TitleVisitor';
 import JSONSchemaDescriptionVisitor from './visitors/json-schema/DescriptionVisitor';
 import JSONSchemaDefaultVisitor from './visitors/json-schema/DefaultVisitor';
 import JSONSchemaFormatVisitor from './visitors/json-schema/FormatVisitor';
+import JSONSchemaBaseVisitor from './visitors/json-schema/BaseVisitor';
 import JSONSchemaLinksVisitor from './visitors/json-schema/LinksVisitor';
-import JSONSchemaFragmentResolutionVisitor from './visitors/json-schema/FragmentResolutionVisitor';
 import JSONSchemaReadOnlyVisitor from './visitors/json-schema/ReadOnlyVisitor';
 import JSONReferenceVisitor from './visitors/json-schema/json-reference';
 import JSONReference$RefVisitor from './visitors/json-schema/json-reference/$RefVisitor';
@@ -110,8 +110,8 @@ const specification = {
             // semantic validation with "format"
             format: JSONSchemaFormatVisitor,
             // JSON Hyper-Schema
+            base: JSONSchemaBaseVisitor,
             links: JSONSchemaLinksVisitor,
-            fragmentResolution: JSONSchemaFragmentResolutionVisitor,
             media: {
               $ref: '#/visitors/document/objects/Media',
             },

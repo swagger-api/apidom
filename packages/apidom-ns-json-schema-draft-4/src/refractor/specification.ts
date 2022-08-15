@@ -10,7 +10,6 @@ import JSONSchemaExclusiveMinimumVisitor from './visitors/json-schema/ExclusiveM
 import JSONSchemaMaxLengthVisitor from './visitors/json-schema/MaxLengthVisitor';
 import JSONSchemaMinLengthVisitor from './visitors/json-schema/MinLengthVisitor';
 import JSONSchemaPatternVisitor from './visitors/json-schema/PatternVisitor';
-import JSONSchemaAdditionalItemsVisitor from './visitors/json-schema/AdditionalItemsVisitor';
 import JSONSchemaItemsVisitor from './visitors/json-schema/ItemsVisitor';
 import JSONSchemaMaxItemsVisitor from './visitors/json-schema/MaxItemsVisitor';
 import JSONSchemaMinItemsVisitor from './visitors/json-schema/MinItemsVisitor';
@@ -27,7 +26,6 @@ import JSONSchemaTypeVisitor from './visitors/json-schema/TypeVisitor';
 import JSONSchemaAllOfVisitor from './visitors/json-schema/AllOfVisitor';
 import JSONSchemaAnyOfVisitor from './visitors/json-schema/AnyOfVisitor';
 import JSONSchemaOneOfVisitor from './visitors/json-schema/OneOfVisitor';
-import JSONSchemaNotVisitor from './visitors/json-schema/NotVisitor';
 import JSONSchemaDefinitionsVisitor from './visitors/json-schema/DefinitionsVisitor';
 import JSONSchemaTitleVisitor from './visitors/json-schema/TitleVisitor';
 import JSONSchemaDescriptionVisitor from './visitors/json-schema/DescriptionVisitor';
@@ -38,6 +36,7 @@ import JSONSchemaLinksVisitor from './visitors/json-schema/LinksVisitor';
 import JSONSchemaReadOnlyVisitor from './visitors/json-schema/ReadOnlyVisitor';
 import JSONReferenceVisitor from './visitors/json-schema/json-reference';
 import JSONReference$RefVisitor from './visitors/json-schema/json-reference/$RefVisitor';
+import JSONSchemaOrJSONReferenceVisitor from './visitors/json-schema/JSONSchemaOrJSONReferenceVisitor';
 import MediaVisitor from './visitors/json-schema/media';
 import MediaBinaryEncodingVisitor from './visitors/json-schema/media/BinaryEncodingVisitor';
 import MediaTypeVisitor from './visitors/json-schema/media/TypeVisitor';
@@ -45,11 +44,9 @@ import LinkDescriptionVisitor from './visitors/json-schema/link-description';
 import LinkDescriptionHrefVisitor from './visitors/json-schema/link-description/HrefVisitor';
 import LinkDescriptionRelVisitor from './visitors/json-schema/link-description/RelVisitor';
 import LinkDescriptionTitleVisitor from './visitors/json-schema/link-description/TitleVisitor';
-import LinkDescriptionTargetSchemaVisitor from './visitors/json-schema/link-description/TargetSchemaVisitor';
 import LinkDescriptionMediaTypeVisitor from './visitors/json-schema/link-description/MediaTypeVisitor';
 import LinkDescriptionMethodVisitor from './visitors/json-schema/link-description/MethodVisitor';
 import LinkDescriptionEncTypeVisitor from './visitors/json-schema/link-description/EncTypeVisitor';
-import LinkDescriptionSchemaVisitor from './visitors/json-schema/link-description/SchemaVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -62,6 +59,7 @@ import LinkDescriptionSchemaVisitor from './visitors/json-schema/link-descriptio
 const specification = {
   visitors: {
     value: FallbackVisitor,
+    JSONSchemaOrJSONReferenceVisitor,
     document: {
       objects: {
         JSONSchema: {
@@ -82,7 +80,7 @@ const specification = {
             minLength: JSONSchemaMinLengthVisitor,
             pattern: JSONSchemaPatternVisitor,
             // validation keywords for arrays
-            additionalItems: JSONSchemaAdditionalItemsVisitor,
+            additionalItems: JSONSchemaOrJSONReferenceVisitor,
             items: JSONSchemaItemsVisitor,
             maxItems: JSONSchemaMaxItemsVisitor,
             minItems: JSONSchemaMinItemsVisitor,
@@ -101,7 +99,7 @@ const specification = {
             allOf: JSONSchemaAllOfVisitor,
             anyOf: JSONSchemaAnyOfVisitor,
             oneOf: JSONSchemaOneOfVisitor,
-            not: JSONSchemaNotVisitor,
+            not: JSONSchemaOrJSONReferenceVisitor,
             definitions: JSONSchemaDefinitionsVisitor,
             // metadata keywords
             title: JSONSchemaTitleVisitor,
@@ -137,11 +135,11 @@ const specification = {
             href: LinkDescriptionHrefVisitor,
             rel: LinkDescriptionRelVisitor,
             title: LinkDescriptionTitleVisitor,
-            targetSchema: LinkDescriptionTargetSchemaVisitor,
+            targetSchema: JSONSchemaOrJSONReferenceVisitor,
             mediaType: LinkDescriptionMediaTypeVisitor,
             method: LinkDescriptionMethodVisitor,
             encType: LinkDescriptionEncTypeVisitor,
-            schema: LinkDescriptionSchemaVisitor,
+            schema: JSONSchemaOrJSONReferenceVisitor,
           },
         },
       },

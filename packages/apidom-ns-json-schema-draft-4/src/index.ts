@@ -20,6 +20,8 @@ export { default } from './namespace';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
 
+export { default as specificationObj } from './refractor/specification';
+
 export {
   isJSONReferenceElement,
   isJSONSchemaElement,
@@ -28,6 +30,13 @@ export {
 } from './predicates';
 
 export { isJSONReferenceLikeElement } from './refractor/predicates';
+export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
+export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
+export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
+export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor';
+export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
+export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor';
+export { default as ParentSchemaAwareVisitor } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

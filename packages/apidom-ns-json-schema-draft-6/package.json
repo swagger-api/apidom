@@ -1,12 +1,12 @@
 {
-  "name": "@swagger-api/apidom-ns-json-schema-draft-4",
+  "name": "@swagger-api/apidom-ns-json-schema-draft-6",
   "version": "0.40.0",
-  "description": "JSON Schema Draft 4 namespace for ApiDOM.",
+  "description": "JSON Schema Draft 6 namespace for ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "unpkg": "./dist/apidom-ns-json-schema-drat-4.browser.min.js",
+  "unpkg": "./dist/apidom-ns-json-schema-draft-6.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "=7.18.9",
     "@swagger-api/apidom-core": "^0.40.0",
+    "@swagger-api/apidom-ns-json-schema-draft-4": "^0.40.0",
     "@types/ramda": "=0.28.15",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.2.0",

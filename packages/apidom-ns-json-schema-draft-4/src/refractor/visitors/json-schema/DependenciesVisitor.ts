@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, isObjectElement, Element } from '@swagger-api/apidom-core';
+import { ObjectElement, Element } from '@swagger-api/apidom-core';
 
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
@@ -11,9 +11,7 @@ const DependenciesVisitor = stampit(MapVisitor, ParentSchemaAwareVisitor, Fallba
     specPath: (element: Element) =>
       isJSONReferenceLikeElement(element)
         ? ['document', 'objects', 'JSONReference']
-        : isObjectElement(element)
-        ? ['document', 'objects', 'JSONSchema']
-        : ['value'],
+        : ['document', 'objects', 'JSONSchema'],
   },
   init() {
     this.element = new ObjectElement();

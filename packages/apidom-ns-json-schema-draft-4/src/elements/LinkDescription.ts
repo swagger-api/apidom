@@ -1,6 +1,7 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import JSONSchema from './JSONSchema';
+import JSONReferenceElement from './JSONReference';
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-5
@@ -36,11 +37,11 @@ class LinkDescription extends ObjectElement {
     this.set('title', title);
   }
 
-  get targetSchema(): JSONSchema | undefined {
+  get targetSchema(): JSONSchema | JSONReferenceElement | undefined {
     return this.get('targetSchema');
   }
 
-  set targetSchema(targetSchema: JSONSchema | undefined) {
+  set targetSchema(targetSchema: JSONSchema | JSONReferenceElement | undefined) {
     this.set('targetSchema', targetSchema);
   }
 
@@ -68,11 +69,11 @@ class LinkDescription extends ObjectElement {
     this.set('encType', encType);
   }
 
-  get schema(): JSONSchema | undefined {
+  get schema(): JSONSchema | JSONReferenceElement | undefined {
     return this.get('schema');
   }
 
-  set schema(schema: JSONSchema | undefined) {
+  set schema(schema: JSONSchema | JSONReferenceElement | undefined) {
     this.set('schema', schema);
   }
 }

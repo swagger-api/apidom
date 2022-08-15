@@ -1,6 +1,8 @@
 # @swagger-api/apidom-ns-json-schema-draft-4
 
-`@swagger-api/apidom-ns-json-schema-draft-4` contains ApiDOM namespace specific to [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04) specification.
+`@swagger-api/apidom-ns-json-schema-draft-4` contains ApiDOM namespace specific to [JSON Schema Draft 4](https://tools.ietf.org/html/draft-wright-json-schema-00) specification.
+
+> You might come across references to **Draft 5** a.k.a. **Wright Draft 00** ([core](https://tools.ietf.org/html/draft-wright-json-schema-00), [validation](https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-00) and [hyper-schema](https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00) vocabularies). There is no Draft 5 release of JSON Schema. Draft 5 refers to a no-change revision of the Draft 4 release. It does not add, remove, or change any functionality. It only updates references, makes clarifications, and fixes bugs. This package implements Draft 4 + no-change revision of Draft 5.
 
 ## Installation
 
@@ -189,7 +191,7 @@ const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
 
 Only fully implemented specification objects should be checked here.
 
-- [x] [JSON Schema Object](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04)
+- [x] [JSON Schema Object](https://tools.ietf.org/html/draft-wright-json-schema-00)
 - [x] [JSON Reference Object](https://datatracker.ietf.org/doc/html/draft-pbryan-zyp-json-ref-03)
-- [x] [Link Description Object](https://datatracker.ietf.org/doc/html/draft-luff-json-hyper-schema-00#section-5)
-- [x] [Media Object](https://datatracker.ietf.org/doc/html/draft-luff-json-hyper-schema-00#section-4.3)
+- [x] [Link Description Object](https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-5)
+- [x] [Media Object](https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-4.3)

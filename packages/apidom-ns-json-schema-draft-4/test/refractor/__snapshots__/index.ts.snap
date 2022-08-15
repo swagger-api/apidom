@@ -1064,6 +1064,30 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
       "content": {
         "key": {
           "element": "string",
+          "content": "base"
+        },
+        "value": {
+          "element": "string",
+          "content": "/object/{id}"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
           "content": "links"
         },
         "value": {
@@ -1084,30 +1108,6 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
               "element": "linkDescription"
             }
           ]
-        }
-      }
-    },
-    {
-      "element": "member",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "fixed-field"
-            }
-          ]
-        }
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "fragmentResolution"
-        },
-        "value": {
-          "element": "string",
-          "content": "json-pointer"
         }
       }
     },

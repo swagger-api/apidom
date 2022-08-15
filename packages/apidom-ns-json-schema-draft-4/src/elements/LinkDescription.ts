@@ -3,7 +3,7 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
 import JSONSchema from './JSONSchema';
 
 /**
- * URI: https://datatracker.ietf.org/doc/html/draft-luff-json-hyper-schema-00#section-5
+ * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-5
  */
 
 class LinkDescription extends ObjectElement {

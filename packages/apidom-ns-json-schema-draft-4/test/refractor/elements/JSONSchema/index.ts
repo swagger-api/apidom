@@ -41,8 +41,8 @@ describe('refractor', function () {
           description: 'description',
           default: 3,
           format: 'url',
+          base: '/object/{id}',
           links: [{}],
-          fragmentResolution: 'json-pointer',
           media: {},
           readOnly: false,
         });

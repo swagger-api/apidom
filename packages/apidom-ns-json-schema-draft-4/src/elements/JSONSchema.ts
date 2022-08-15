@@ -20,7 +20,7 @@ class JSONSchema extends ObjectElement {
   /**
    * Core vocabulary
    *
-   * URI: https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04
+   * URI: https://tools.ietf.org/html/draft-wright-json-schema-00
    */
 
   get idProp(): StringElement | undefined {
@@ -34,13 +34,11 @@ class JSONSchema extends ObjectElement {
   /**
    * Validation vocabulary
    *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00
+   * URI: https://tools.ietf.org/html/draft-wright-json-schema-validation-00
    */
 
   /**
    *  Validation keywords for numeric instances (number and integer)
-   *
-   *  URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.1
    */
 
   get multipleOf(): NumberElement | undefined {
@@ -65,8 +63,6 @@ class JSONSchema extends ObjectElement {
 
   /**
    * Validation keywords for strings
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.2
    */
 
   get maxLength(): NumberElement | undefined {
@@ -83,8 +79,6 @@ class JSONSchema extends ObjectElement {
 
   /**
    * Validation keywords for arrays
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.3
    */
 
   get additionalItems(): BooleanElement | this | undefined {
@@ -109,8 +103,6 @@ class JSONSchema extends ObjectElement {
 
   /**
    * Validation keywords for objects
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.4
    */
 
   get maxProperties(): NumberElement | undefined {
@@ -143,8 +135,6 @@ class JSONSchema extends ObjectElement {
 
   /**
    *  Validation keywords for any instance type
-   *
-   *  URI:  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.1
    */
 
   get enum(): ArrayElement | undefined {
@@ -178,7 +168,7 @@ class JSONSchema extends ObjectElement {
   /**
    * Metadata keywords
    *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-6
+   * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-00#section-6
    */
 
   get title(): StringElement | undefined {
@@ -196,7 +186,7 @@ class JSONSchema extends ObjectElement {
   /**
    * Semantic validation with "format"
    *
-   * URI: https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-7
+   * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-00#section-7
    */
 
   get format(): StringElement | undefined {
@@ -206,15 +196,15 @@ class JSONSchema extends ObjectElement {
   /**
    * JSON Hyper-Schema
    *
-   * URI: https://datatracker.ietf.org/doc/html/draft-luff-json-hyper-schema-00
+   * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00
    */
+
+  get base(): StringElement | undefined {
+    return this.get('base');
+  }
 
   get links(): ArrayElement | undefined {
     return this.get('links');
-  }
-
-  get fragmentResolution(): StringElement | undefined {
-    return this.get('fragmentResolution');
   }
 
   get media(): MediaElement | undefined {

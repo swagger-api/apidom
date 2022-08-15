@@ -6,7 +6,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "unpkg": "./dist/apidom-ns-json-schema-drat-4.browser.min.js",
+  "unpkg": "./dist/apidom-ns-json-schema-draft-4.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",

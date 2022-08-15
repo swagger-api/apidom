@@ -8,6 +8,7 @@ import JSONSchemaItemsVisitor from './visitors/json-schema/ItemsVisitor';
 import JSONSchemaPropertyNamesVisitor from './visitors/json-schema/PropertyNamesVisitor';
 import JSONSchemaConstVisitor from './visitors/json-schema/ConstVisitor';
 import JSONSchemaExamplesVisitor from './visitors/json-schema/ExamplesVisitor';
+import LinkDescriptionVisitor from './visitors/json-schema/link-description';
 import LinkDescriptionSubmissionEncTypeVisitor from './visitors/json-schema/link-description/SubmissionEncTypeVisitor';
 
 // @ts-ignore
@@ -40,6 +41,10 @@ const specification = pipe([
     JSONSchemaExamplesVisitor,
   ),
   // Link Description object modifications
+  assocPath(
+    ['visitors', 'document', 'objects', 'LinkDescription', '$visitor'],
+    LinkDescriptionVisitor,
+  ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'hrefSchema'],
     specificationObj.visitors.JSONSchemaOrJSONReferenceVisitor,

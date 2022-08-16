@@ -119,8 +119,8 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "exclusiveMaximum"
         },
         "value": {
-          "element": "number",
-          "content": 3
+          "element": "boolean",
+          "content": true
         }
       }
     },
@@ -167,8 +167,8 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "exclusiveMinimum"
         },
         "value": {
-          "element": "number",
-          "content": 5
+          "element": "boolean",
+          "content": false
         }
       }
     },

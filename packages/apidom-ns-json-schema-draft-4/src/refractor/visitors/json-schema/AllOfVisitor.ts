@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
@@ -14,16 +14,11 @@ const AllOfVisitor = stampit(SpecificationVisitor, ParentSchemaAwareVisitor, Fal
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element): void => {
-        if (isObjectElement(item)) {
-          const specPath = isJSONReferenceLikeElement(item)
-            ? ['document', 'objects', 'JSONReference']
-            : ['document', 'objects', 'JSONSchema'];
-          const element = this.toRefractedElement(specPath, item);
-          this.element.push(element);
-        } else {
-          const element = item.clone();
-          this.element.push(element);
-        }
+        const specPath = isJSONReferenceLikeElement(item)
+          ? ['document', 'objects', 'JSONReference']
+          : ['document', 'objects', 'JSONSchema'];
+        const element = this.toRefractedElement(specPath, item);
+        this.element.push(element);
       });
 
       this.copyMetaAndAttributes(arrayElement, this.element);

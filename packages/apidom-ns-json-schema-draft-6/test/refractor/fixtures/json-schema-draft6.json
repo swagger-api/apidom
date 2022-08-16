@@ -1,11 +1,11 @@
 {
-  "id": "http://x.y.z/rootschema.json#",
+  "$id": "http://x.y.z/rootschema.json#",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "multipleOf": 1,
   "maximum": 2,
-  "exclusiveMaximum": true,
+  "exclusiveMaximum": 3,
   "minimum": 4,
-  "exclusiveMinimum": false,
+  "exclusiveMinimum": 5,
   "maxLength": 6,
   "minLength": 7,
   "pattern": "[a-z]+",
@@ -16,6 +16,7 @@
   "maxItems": 8,
   "minItems": 9,
   "uniqueItems": true,
+  "contains": {},
   "maxProperties": 10,
   "minProperties": 11,
   "required": [
@@ -32,11 +33,13 @@
   "dependencies": {
     "dep1": {}
   },
+  "propertyNames": {},
   "enum": [
     1,
     "2",
     null
   ],
+  "const": 1,
   "type": "string",
   "allOf": [
     {}
@@ -54,6 +57,10 @@
   "title": "title",
   "description": "description",
   "default": 3,
+  "examples": [
+    1,
+    "string"
+  ],
   "format": "url",
   "base": "/object/{id}",
   "links": [

@@ -12,7 +12,7 @@ import LinkDescriptionVisitor from './visitors/json-schema/link-description';
 import LinkDescriptionSubmissionEncTypeVisitor from './visitors/json-schema/link-description/SubmissionEncTypeVisitor';
 
 // @ts-ignore
-const specification = pipe([
+const specification = pipe(
   // JSON Schema object modifications
   assocPath(['visitors', 'document', 'objects', 'JSONSchema', '$visitor'], JSONSchemaVisitor),
   dissocPath(['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'id']),
@@ -60,6 +60,6 @@ const specification = pipe([
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'submissionEncType'],
     LinkDescriptionSubmissionEncTypeVisitor,
   ),
-])(specificationObj);
+)(specificationObj);
 
-export default specification;
+export default specification as typeof specificationObj;

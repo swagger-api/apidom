@@ -3,9 +3,8 @@ import { T as stubTrue } from 'ramda';
 
 import { isJSONReferenceLikeElement } from '../../predicates';
 import AlternatingVisitor from '../generics/AlternatingVisitor';
-import FallbackVisitor from '../FallbackVisitor';
 
-const SchemaOrReferenceVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
+const SchemaOrReferenceVisitor = stampit(AlternatingVisitor, {
   props: {
     alternator: [
       { predicate: isJSONReferenceLikeElement, specPath: ['document', 'objects', 'JSONReference'] },

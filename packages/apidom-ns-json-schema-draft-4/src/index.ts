@@ -20,6 +20,7 @@ export { default } from './namespace';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
 
+export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
 export {

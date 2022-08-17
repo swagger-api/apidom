@@ -44,13 +44,13 @@
     "ramda-adjunct": "^3.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-redux": "^8.0.0",
+    "react-redux": "^8.0.2",
     "swagger-adjust": "^0.5.0",
     "web-vitals": "^2.1.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.1.1",
+    "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.0.0",
     "eslint-config-airbnb": "=19.0.4",
     "react-scripts": "=5.0.1",

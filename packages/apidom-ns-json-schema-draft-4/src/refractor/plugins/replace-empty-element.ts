@@ -121,6 +121,14 @@ const schema = {
       return new MediaElement(...args);
     },
   },
+  LinkDescriptionElement: {
+    targetSchema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+    schema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+  },
   'json-schema-properties': {
     '[key: *]': function key(...args: any[]) {
       return new JSONSchemaElement(...args);

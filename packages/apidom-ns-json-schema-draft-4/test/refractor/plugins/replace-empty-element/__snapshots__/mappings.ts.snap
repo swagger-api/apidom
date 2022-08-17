@@ -13,6 +13,34 @@ exports[`given JSON Schema definition with no empty values should do nothing 1`]
         (JSONSchemaDraft4Element)))))
 `;
 
+exports[`given empty value for LinkDescription.schema field should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchemaDraft4Element))))))
+`;
+
+exports[`given empty value for LinkDescription.targetSchema field should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchemaDraft4Element))))))
+`;
+
 exports[`given empty value for field additionalItems should replace empty value with semantic element 1`] = `
 (JSONSchemaDraft4Element
   (MemberElement
@@ -41,6 +69,19 @@ exports[`given empty value for field patternProperties should replace empty valu
   (MemberElement
     (StringElement)
     (ObjectElement)))
+`;
+
+exports[`given empty value for properties field should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft4Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchemaDraft4Element)))))
 `;
 
 exports[`given empty value instead for properties field keys should replace empty value with semantic element 1`] = `

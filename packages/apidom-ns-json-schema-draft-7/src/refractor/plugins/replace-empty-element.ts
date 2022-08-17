@@ -8,9 +8,8 @@ import {
   isArrayElement,
 } from '@swagger-api/apidom-core';
 /**
- * JSON Schema Draft 6 specification elements.
+ * JSON Schema Draft 7 specification elements.
  */
-import { MediaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import JSONSchemaElement from '../../elements/JSONSchema';
 import LinkDescriptionElement from '../../elements/LinkDescription';
@@ -26,7 +25,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * $schema: http://json-schema.org/draft-06/schema#
+ * $schema: http://json-schema.org/draft-07/schema#
  * items:
  * ```
  * Refracting result without this plugin:
@@ -110,6 +109,15 @@ const schema = {
       element.classes.push('json-schema-oneOf');
       return element;
     },
+    if(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+    then(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+    else(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
     not(...args: any[]) {
       return new JSONSchemaElement(...args);
     },
@@ -128,9 +136,6 @@ const schema = {
       element.classes.push('json-schema-links');
       return element;
     },
-    media(...args: any[]) {
-      return new MediaElement(...args);
-    },
   },
   LinkDescriptionElement: {
     hrefSchema(...args: any[]) {
@@ -141,6 +146,12 @@ const schema = {
     },
     submissionSchema(...args: any[]) {
       return new JSONSchemaElement(...args);
+    },
+    templatePointers(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    templateRequired(...args: any[]) {
+      return new ArrayElement(...args);
     },
   },
   'json-schema-properties': {

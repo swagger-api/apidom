@@ -79,8 +79,8 @@ class LinkDescription extends LinkDescriptionElement {
     return this.get('submissionEncType');
   }
 
-  set submissionEncType(encType: StringElement | undefined) {
-    this.set('submissionEncType', encType);
+  set submissionEncType(submissionEncType: StringElement | undefined) {
+    this.set('submissionEncType', submissionEncType);
   }
 }
 

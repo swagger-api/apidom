@@ -50,12 +50,44 @@ describe('given empty value for field enum', function () {
   });
 });
 
-describe('given empty value instead for properties field keys', function () {
+describe('given empty value for properties field', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
           $schema: 'http://json-schema.org/draft-04/schema#'
           properties:
             prop1:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value for LinkDescription.targetSchema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          links:
+            - targetSchema:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value for LinkDescription.schema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          links:
+            - schema:
         `;
     const apiDOM = await parse(yamlDefinition);
     const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {

@@ -81,11 +81,59 @@ describe('given empty value instead for contains field keys', function () {
   });
 });
 
-describe('given empty value instead for propertyNames field keys', function () {
+describe('given empty value for propertyNames field', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
           $schema: 'http://json-schema.org/draft-04/schema#'
           propertyNames:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value for LinkDescription.hrefSchema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          links:
+            - hrefSchema:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value for LinkDescription.targetSchema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          links:
+            - targetSchema:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value for LinkDescription.submissionSchema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          links:
+            - submissionSchema:
         `;
     const apiDOM = await parse(yamlDefinition);
     const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {

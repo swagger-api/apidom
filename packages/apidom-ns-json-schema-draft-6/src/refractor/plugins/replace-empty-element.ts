@@ -132,6 +132,17 @@ const schema = {
       return new MediaElement(...args);
     },
   },
+  LinkDescriptionElement: {
+    hrefSchema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+    targetSchema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+    submissionSchema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
+  },
   'json-schema-properties': {
     '[key: *]': function key(...args: any[]) {
       return new JSONSchemaElement(...args);

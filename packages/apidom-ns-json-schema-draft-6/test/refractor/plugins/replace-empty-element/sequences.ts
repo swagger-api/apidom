@@ -8,7 +8,7 @@ import { refractorPluginReplaceEmptyElement, JSONSchemaElement } from '../../../
 describe('given empty value for field allOf', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           allOf:
            -
         `;
@@ -24,7 +24,7 @@ describe('given empty value for field allOf', function () {
 describe('given empty value for field anyOf', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           anyOf:
            -
            -
@@ -41,7 +41,7 @@ describe('given empty value for field anyOf', function () {
 describe('given empty value for field oneOf', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           oneOf:
            -
            -
@@ -58,7 +58,7 @@ describe('given empty value for field oneOf', function () {
 describe('given empty value for field examples', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           examples:
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -73,7 +73,7 @@ describe('given empty value for field examples', function () {
 describe('given JSON Schema definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           oneOf:
            - {}
            - {}
@@ -90,7 +90,7 @@ describe('given JSON Schema definition with no empty values', function () {
 describe('given JSON Schema definition with empty values', function () {
   it('should generate proper source maps', async function () {
     const yamlDefinition = dedent`
-          $schema: 'http://json-schema.org/draft-04/schema#'
+          $schema: 'http://json-schema.org/draft-06/schema#'
           oneOf:
            -
         `;

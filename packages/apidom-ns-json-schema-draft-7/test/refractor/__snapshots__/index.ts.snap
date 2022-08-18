@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape should refract to JSONSchema Element 1`] = `
+exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape should refract to JSONSchema Element 1`] = `
 {
-  "element": "JSONSchemaDraft6",
+  "element": "JSONSchemaDraft7",
   "content": [
     {
       "element": "member",
@@ -48,7 +48,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
         },
         "value": {
           "element": "string",
-          "content": "http://json-schema.org/draft-04/schema#"
+          "content": "http://json-schema.org/draft-07/schema#"
         }
       }
     },
@@ -263,7 +263,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "additionalItems"
         },
         "value": {
-          "element": "JSONSchemaDraft6"
+          "element": "JSONSchemaDraft7"
         }
       }
     },
@@ -300,7 +300,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft6"
+              "element": "JSONSchemaDraft7"
             }
           ]
         }
@@ -397,7 +397,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "contains"
         },
         "value": {
-          "element": "object"
+          "element": "JSONSchemaDraft7"
         }
       }
     },
@@ -544,7 +544,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "prop1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft6"
+                  "element": "JSONSchemaDraft7"
                 }
               }
             }
@@ -571,7 +571,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "additionalProperties"
         },
         "value": {
-          "element": "JSONSchemaDraft6"
+          "element": "JSONSchemaDraft7"
         }
       }
     },
@@ -626,7 +626,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "[a-z]+"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft6"
+                  "element": "JSONSchemaDraft7"
                 }
               }
             }
@@ -685,7 +685,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "dep1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft6"
+                  "element": "JSONSchemaDraft7"
                 }
               }
             }
@@ -712,7 +712,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "propertyNames"
         },
         "value": {
-          "element": "JSONSchemaDraft6"
+          "element": "JSONSchemaDraft7"
         }
       }
     },
@@ -856,7 +856,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft6"
+              "element": "JSONSchemaDraft7"
             }
           ]
         }
@@ -895,7 +895,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft6"
+              "element": "JSONSchemaDraft7"
             }
           ]
         }
@@ -934,7 +934,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft6"
+              "element": "JSONSchemaDraft7"
             }
           ]
         }
@@ -959,7 +959,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "not"
         },
         "value": {
-          "element": "JSONSchemaDraft6"
+          "element": "JSONSchemaDraft7"
         }
       }
     },
@@ -1014,7 +1014,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "def1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft6"
+                  "element": "JSONSchemaDraft7"
                 }
               }
             }
@@ -1227,24 +1227,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
     },
     {
       "element": "member",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "fixed-field"
-            }
-          ]
-        }
-      },
       "content": {
         "key": {
           "element": "string",
           "content": "media"
         },
         "value": {
-          "element": "media"
+          "element": "object"
         }
       }
     },

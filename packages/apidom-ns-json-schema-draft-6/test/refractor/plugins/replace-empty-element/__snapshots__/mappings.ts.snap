@@ -117,13 +117,3 @@ exports[`given empty value instead for properties field keys should replace empt
         (StringElement)
         (JSONSchemaDraft6Element)))))
 `;
-
-exports[`given empty value instead for propertyNames field keys should replace empty value with semantic element 1`] = `
-(JSONSchemaDraft6Element
-  (MemberElement
-    (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
-    (JSONSchemaDraft6Element)))
-`;

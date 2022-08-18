@@ -9,7 +9,8 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const jsonSchemaElement = JSONSchemaElement.refract({
           $id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          $comment: 'this is comment',
           multipleOf: 1,
           maximum: 2,
           exclusiveMaximum: 3,
@@ -32,6 +33,9 @@ describe('refractor', function () {
           patternProperties: { '[a-z]+': {} },
           dependencies: { dep1: {} },
           propertyNames: {},
+          if: {},
+          then: {},
+          else: {},
           enum: [1, '2', null],
           const: 1,
           type: 'string',
@@ -40,6 +44,8 @@ describe('refractor', function () {
           oneOf: [{}],
           not: {},
           definitions: { def1: {} },
+          contentEncoding: 'base64',
+          contentMediaType: 'image/png',
           title: 'title',
           description: 'description',
           default: 3,
@@ -47,8 +53,8 @@ describe('refractor', function () {
           format: 'url',
           base: '/object/{id}',
           links: [{}],
-          media: {},
           readOnly: false,
+          writeOnly: true,
         });
 
         expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
@@ -81,6 +87,9 @@ describe('refractor', function () {
           patternProperties: { '[a-z]+': true },
           dependencies: { dep1: false },
           propertyNames: true,
+          if: true,
+          then: false,
+          else: true,
           allOf: [true],
           anyOf: [true],
           oneOf: [false],
@@ -103,6 +112,9 @@ describe('refractor', function () {
           patternProperties: { '[a-z]+': { $ref: '#/json/pointer' } },
           dependencies: { dep1: { $ref: '#/json/pointer' } },
           propertyNames: { $ref: '#/json/pointer' },
+          if: { $ref: '#/json/pointer' },
+          then: { $ref: '#/json/pointer' },
+          else: { $ref: '#/json/pointer' },
           allOf: [{ $ref: '#/json/pointer' }],
           anyOf: [{ $ref: '#/json/pointer' }],
           oneOf: [{ $ref: '#/json/pointer' }],

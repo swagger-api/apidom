@@ -53,7 +53,7 @@ const isEmptyElement = (element: any) =>
   isStringElement(element) && includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
 const schema = {
-  JSONSchemaDraft6Element: {
+  JSONSchemaDraft7Element: {
     additionalItems(...args: any[]) {
       return new JSONSchemaElement(...args);
     },
@@ -152,6 +152,9 @@ const schema = {
     },
     templateRequired(...args: any[]) {
       return new ArrayElement(...args);
+    },
+    targetHints(...args: any[]) {
+      return new ObjectElement(...args);
     },
   },
   'json-schema-properties': {

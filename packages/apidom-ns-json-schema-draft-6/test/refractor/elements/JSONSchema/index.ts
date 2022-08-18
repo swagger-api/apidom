@@ -9,7 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const jsonSchemaElement = JSONSchemaElement.refract({
           $id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
           multipleOf: 1,
           maximum: 2,
           exclusiveMaximum: 3,

@@ -80,13 +80,11 @@ class JSONSchema extends JSONSchemaElement {
     this.set('contains', contains);
   }
 
-  // @ts-ignore
-  get items(): this | BooleanElement | JSONReferenceElement | ArrayElement | undefined {
+  get items(): this | BooleanElement | JSONReferenceElement | ArrayElement | undefined | any {
     return this.get('items');
   }
 
-  // @ts-ignore
-  set items(items: this | BooleanElement | JSONReferenceElement | ArrayElement | undefined) {
+  set items(items: this | BooleanElement | JSONReferenceElement | ArrayElement | undefined | any) {
     this.set('items', items);
   }
 
@@ -114,13 +112,11 @@ class JSONSchema extends JSONSchemaElement {
     this.set('const', constValue);
   }
 
-  // @ts-ignore
-  get not(): this | BooleanElement | JSONReferenceElement | undefined {
+  get not(): this | BooleanElement | JSONReferenceElement | undefined | any {
     return this.get('not');
   }
 
-  // @ts-ignore
-  set not(not: this | BooleanElement | JSONReferenceElement | undefined) {
+  set not(not: this | BooleanElement | JSONReferenceElement | undefined | any) {
     this.set('not', not);
   }
 

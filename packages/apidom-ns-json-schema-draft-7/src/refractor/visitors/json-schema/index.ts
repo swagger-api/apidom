@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 import { ObjectElement, BooleanElement, BREAK } from '@swagger-api/apidom-core';
-import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
 import JSONSchemaElement from '../../../elements/JSONSchema';
 

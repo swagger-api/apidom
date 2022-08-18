@@ -4,11 +4,9 @@ import {
   isJSONSchemaElement,
   isJSONReferenceElement,
   isLinkDescriptionElement,
-  isMediaElement,
   JSONSchemaElement,
   JSONReferenceElement,
   LinkDescriptionElement,
-  MediaElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -43,7 +41,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const jsonSchemaElementDuck = {
-        _storedElement: 'jsonSchemaDraft6',
+        _storedElement: 'JSONSchemaDraft7',
         _content: [],
         primitive() {
           return 'object';
@@ -99,7 +97,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const jsonReferenceElementDuck = {
-        _storedElement: 'jsonReference',
+        _storedElement: 'JSONReference',
         _content: [],
         primitive() {
           return 'object';
@@ -172,59 +170,6 @@ describe('predicates', function () {
 
       assert.isTrue(isLinkDescriptionElement(linkDescriptionElementDuck));
       assert.isFalse(isLinkDescriptionElement(linkDescriptionElementSwan));
-    });
-  });
-
-  context('isMediaElement', function () {
-    context('given MediaElement instance value', function () {
-      specify('should return true', function () {
-        const element = new MediaElement();
-
-        assert.isTrue(isMediaElement(element));
-      });
-    });
-
-    context('given subtype instance value', function () {
-      specify('should return true', function () {
-        class MediaSubElement extends MediaElement {}
-
-        assert.isTrue(isMediaElement(new MediaSubElement()));
-      });
-    });
-
-    context('given non ComponentsElement instance value', function () {
-      specify('should return false', function () {
-        assert.isFalse(isMediaElement(1));
-        assert.isFalse(isMediaElement(null));
-        assert.isFalse(isMediaElement(undefined));
-        assert.isFalse(isMediaElement({}));
-        assert.isFalse(isMediaElement([]));
-        assert.isFalse(isMediaElement('string'));
-      });
-    });
-
-    specify('should support duck-typing', function () {
-      const mediaElementDuck = {
-        _storedElement: 'media',
-        _content: [],
-        primitive() {
-          return 'object';
-        },
-        get element() {
-          return this._storedElement;
-        },
-      };
-
-      const mediaElementSwan = {
-        _storedElement: undefined,
-        _content: undefined,
-        primitive() {
-          return 'swan';
-        },
-      };
-
-      assert.isTrue(isMediaElement(mediaElementDuck));
-      assert.isFalse(isMediaElement(mediaElementSwan));
     });
   });
 });

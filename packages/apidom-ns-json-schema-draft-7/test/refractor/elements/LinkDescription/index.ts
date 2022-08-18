@@ -8,13 +8,26 @@ describe('refractor', function () {
     context('LinkDescription', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const linkDescriptionElement = LinkDescriptionElement.refract({
-          href: 'base64',
+          $comment: 'this is comment',
+          anchor: 'nodes/{thisNodeId}',
+          anchorPointer: '#/relative/json/pointer',
+          templatePointers: {
+            pointer1: '#/relative/json/pointer/1',
+            pointer2: '#/relative/json/pointer/2',
+          },
+          templateRequired: ['id'],
+          href: 'things/{id}',
           hrefSchema: {},
           rel: 'image/png',
           title: 'title',
           targetSchema: {},
-          mediaType: 'text/html',
-          submissionEncType: 'application/x-www-form-urlencoded',
+          targetMediaType: 'text/html',
+          targetHints: {
+            field1: [],
+            field2: [],
+          },
+          description: 'LDO description',
+          submissionMediaType: 'multipart/alternative; boundary=ab2',
           submissionSchema: {},
         });
 

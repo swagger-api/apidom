@@ -8,7 +8,7 @@ import { JSONSchemaElement, MediaElement, isMediaElement } from '../../src';
 import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
-  context('given generic ApiDOM object in JSON Schema Draft 4 shape', function () {
+  context('given generic ApiDOM object in JSON Schema Draft 6 shape', function () {
     specify('should refract to JSONSchema Element', function () {
       const jsonSchemaString = fs
         .readFileSync(path.join(__dirname, 'fixtures', 'json-schema-draft6.json'))
@@ -65,8 +65,8 @@ describe('refractor', function () {
     context('plugin', function () {
       specify('should be called with toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -77,8 +77,8 @@ describe('refractor', function () {
 
       specify('should have predicates in toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -89,8 +89,8 @@ describe('refractor', function () {
 
       specify('should have namespace in toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -103,8 +103,8 @@ describe('refractor', function () {
     context('pre hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -115,8 +115,8 @@ describe('refractor', function () {
 
       specify('should call it before other plugin pre hook', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -127,8 +127,8 @@ describe('refractor', function () {
 
       specify('should call it before visiting', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
           media: {},
         });
         JSONSchemaElement.refract(genericObject, {
@@ -143,8 +143,8 @@ describe('refractor', function () {
     context('post hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -155,8 +155,8 @@ describe('refractor', function () {
 
       specify('should call it before other plugin post hook', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -167,8 +167,8 @@ describe('refractor', function () {
 
       specify('should call it after visiting', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
           media: {},
         });
         JSONSchemaElement.refract(genericObject, {
@@ -183,8 +183,8 @@ describe('refractor', function () {
     context('visitor', function () {
       specify('should be called once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
           media: {},
         });
         JSONSchemaElement.refract(genericObject, {
@@ -197,8 +197,8 @@ describe('refractor', function () {
 
       specify('should be called in proper order', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-06/schema#',
           media: {},
         });
         JSONSchemaElement.refract(genericObject, {
@@ -213,8 +213,8 @@ describe('refractor', function () {
       context('first plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           JSONSchemaElement.refract(genericObject, {
@@ -226,8 +226,8 @@ describe('refractor', function () {
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           JSONSchemaElement.refract(genericObject, {
@@ -239,8 +239,8 @@ describe('refractor', function () {
 
         specify('should augment MediaElement.binaryEncoding field', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           const jsonSchemaElement = JSONSchemaElement.refract(genericObject, {
@@ -248,8 +248,8 @@ describe('refractor', function () {
           });
 
           assert.deepEqual(toValue(jsonSchemaElement), {
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: { binaryEncoding: 'base64' },
           });
         });
@@ -258,8 +258,8 @@ describe('refractor', function () {
       context('second plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           JSONSchemaElement.refract(genericObject, {
@@ -271,8 +271,8 @@ describe('refractor', function () {
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           JSONSchemaElement.refract(genericObject, {
@@ -284,8 +284,8 @@ describe('refractor', function () {
 
         specify('should append metadata to MediaElement', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-06/schema#',
             media: {},
           });
           const jsonSchemaElement = JSONSchemaElement.refract(genericObject, {

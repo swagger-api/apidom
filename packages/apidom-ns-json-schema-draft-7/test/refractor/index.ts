@@ -4,14 +4,14 @@ import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
 
-import { JSONSchemaElement, MediaElement, isMediaElement } from '../../src';
+import { JSONSchemaElement, LinkDescriptionElement, isLinkDescriptionElement } from '../../src';
 import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
-  context('given generic ApiDOM object in JSON Schema Draft 4 shape', function () {
+  context('given generic ApiDOM object in JSON Schema Draft 7 shape', function () {
     specify('should refract to JSONSchema Element', function () {
       const jsonSchemaString = fs
-        .readFileSync(path.join(__dirname, 'fixtures', 'json-schema-draft6.json'))
+        .readFileSync(path.join(__dirname, 'fixtures', 'json-schema-draft7.json'))
         .toString();
       const jsonSchemaPojo = JSON.parse(jsonSchemaString);
       const genericObjectElement = new ObjectElement(jsonSchemaPojo);
@@ -32,9 +32,9 @@ describe('refractor', function () {
         name: 'plugin1',
         pre() {},
         visitor: {
-          MediaElement(element: MediaElement) {
+          LinkDescriptionElement(element: LinkDescriptionElement) {
             // @ts-ignore
-            element.binaryEncoding = 'base64'; // eslint-disable-line no-param-reassign
+            element.anchor = 'nodes/{thisNodeId}'; // eslint-disable-line no-param-reassign
           },
         },
         post() {},
@@ -43,7 +43,7 @@ describe('refractor', function () {
         name: 'plugin2',
         pre() {},
         visitor: {
-          MediaElement(element: MediaElement) {
+          LinkDescriptionElement(element: LinkDescriptionElement) {
             // @ts-ignore
             element.meta.set('metaKey', 'metaValue');
           },
@@ -55,18 +55,18 @@ describe('refractor', function () {
 
       sinon.spy(plugin1Spec, 'pre');
       sinon.spy(plugin1Spec, 'post');
-      sinon.spy(plugin1Spec.visitor, 'MediaElement');
+      sinon.spy(plugin1Spec.visitor, 'LinkDescriptionElement');
 
       sinon.spy(plugin2Spec, 'pre');
       sinon.spy(plugin2Spec, 'post');
-      sinon.spy(plugin2Spec.visitor, 'MediaElement');
+      sinon.spy(plugin2Spec.visitor, 'LinkDescriptionElement');
     });
 
     context('plugin', function () {
       specify('should be called with toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -77,8 +77,8 @@ describe('refractor', function () {
 
       specify('should have predicates in toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -89,8 +89,8 @@ describe('refractor', function () {
 
       specify('should have namespace in toolbox object', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -103,8 +103,8 @@ describe('refractor', function () {
     context('pre hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -115,8 +115,8 @@ describe('refractor', function () {
 
       specify('should call it before other plugin pre hook', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -127,24 +127,24 @@ describe('refractor', function () {
 
       specify('should call it before visiting', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
-          media: {},
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          links: [{}],
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.MediaElement));
-        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.MediaElement));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin1Spec.visitor.LinkDescriptionElement));
+        assert.isTrue(plugin1Spec.pre.calledBefore(plugin2Spec.visitor.LinkDescriptionElement));
       });
     });
 
     context('post hook', function () {
       specify('should call it once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1],
@@ -155,8 +155,8 @@ describe('refractor', function () {
 
       specify('should call it before other plugin post hook', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
@@ -167,90 +167,94 @@ describe('refractor', function () {
 
       specify('should call it after visiting', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
-          media: {},
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          links: [{}],
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.MediaElement));
-        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.MediaElement));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin1Spec.visitor.LinkDescriptionElement));
+        assert.isTrue(plugin1Spec.post.calledAfter(plugin2Spec.visitor.LinkDescriptionElement));
       });
     });
 
     context('visitor', function () {
       specify('should be called once', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
-          media: {},
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          links: [{}],
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
         });
 
-        assert.isTrue(plugin1Spec.visitor.MediaElement.calledOnce);
-        assert.isTrue(plugin2Spec.visitor.MediaElement.calledOnce);
+        assert.isTrue(plugin1Spec.visitor.LinkDescriptionElement.calledOnce);
+        assert.isTrue(plugin2Spec.visitor.LinkDescriptionElement.calledOnce);
       });
 
       specify('should be called in proper order', function () {
         const genericObject = new ObjectElement({
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
-          media: {},
+          $id: 'http://x.y.z/rootschema.json#',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          links: [{}],
         });
         JSONSchemaElement.refract(genericObject, {
           plugins: [plugin1, plugin2],
         });
 
         assert.isTrue(
-          plugin1Spec.visitor.MediaElement.calledBefore(plugin2Spec.visitor.MediaElement),
+          plugin1Spec.visitor.LinkDescriptionElement.calledBefore(
+            plugin2Spec.visitor.LinkDescriptionElement,
+          ),
         );
       });
 
       context('first plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1],
           });
 
-          assert.lengthOf(plugin1Spec.visitor.MediaElement.firstCall.args, 5);
+          assert.lengthOf(plugin1Spec.visitor.LinkDescriptionElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1],
           });
 
-          assert.isTrue(isMediaElement(plugin1Spec.visitor.MediaElement.firstCall.args[0]));
+          assert.isTrue(
+            isLinkDescriptionElement(plugin1Spec.visitor.LinkDescriptionElement.firstCall.args[0]),
+          );
         });
 
-        specify('should augment MediaElement.binaryEncoding field', function () {
+        specify('should augment LinkDescriptionElement.anchor field', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           const jsonSchemaElement = JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1],
           });
 
           assert.deepEqual(toValue(jsonSchemaElement), {
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: { binaryEncoding: 'base64' },
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{ anchor: 'nodes/{thisNodeId}' }],
           });
         });
       });
@@ -258,42 +262,47 @@ describe('refractor', function () {
       context('second plugin', function () {
         specify('should receive arguments', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1, plugin2],
           });
 
-          assert.lengthOf(plugin2Spec.visitor.MediaElement.firstCall.args, 5);
+          assert.lengthOf(plugin2Spec.visitor.LinkDescriptionElement.firstCall.args, 5);
         });
 
         specify('should receive node as first argument', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1, plugin2],
           });
 
-          assert.isTrue(isMediaElement(plugin2Spec.visitor.MediaElement.firstCall.args[0]));
+          assert.isTrue(
+            isLinkDescriptionElement(plugin2Spec.visitor.LinkDescriptionElement.firstCall.args[0]),
+          );
         });
 
-        specify('should append metadata to MediaElement', function () {
+        specify('should append metadata to LinkDescriptionElement', function () {
           const genericObject = new ObjectElement({
-            id: 'http://x.y.z/rootschema.json#',
-            $schema: 'http://json-schema.org/draft-04/schema#',
-            media: {},
+            $id: 'http://x.y.z/rootschema.json#',
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            links: [{}],
           });
           const jsonSchemaElement = JSONSchemaElement.refract(genericObject, {
             plugins: [plugin1, plugin2],
           });
 
-          // @ts-ignore
-          assert.strictEqual(jsonSchemaElement.media.meta.get('metaKey').toValue(), 'metaValue');
+          assert.strictEqual(
+            // @ts-ignore
+            jsonSchemaElement.links.get(0).meta.get('metaKey').toValue(),
+            'metaValue',
+          );
         });
       });
     });

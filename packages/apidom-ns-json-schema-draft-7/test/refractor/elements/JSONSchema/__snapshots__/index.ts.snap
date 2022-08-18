@@ -2,7 +2,7 @@
 
 exports[`refractor elements Boolean JSON Schema support should refract to semantic ApiDOM tree 1`] = `
 {
-  "element": "JSONSchemaDraft6",
+  "element": "JSONSchemaDraft7",
   "content": [
     {
       "element": "member",
@@ -94,6 +94,17 @@ exports[`refractor elements Boolean JSON Schema support should refract to semant
         },
         "value": {
           "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
           "content": true
         }
       }
@@ -292,6 +303,111 @@ exports[`refractor elements Boolean JSON Schema support should refract to semant
         "key": {
           "element": "string",
           "content": "propertyNames"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "if"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "then"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": false
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "else"
         },
         "value": {
           "element": "boolean",
@@ -574,7 +690,7 @@ exports[`refractor elements Boolean JSON Schema support should refract to semant
 `;
 
 exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`] = `
-(JSONSchemaDraft6Element
+(JSONSchemaDraft7Element
   (MemberElement
     (StringElement)
     (StringElement))
@@ -583,6 +699,9 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (NumberElement))
   (MemberElement
     (StringElement)
@@ -607,11 +726,11 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
     (StringElement))
   (MemberElement
     (StringElement)
-    (JSONSchemaDraft6Element))
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (ArrayElement
-      (JSONSchemaDraft6Element)))
+      (JSONSchemaDraft7Element)))
   (MemberElement
     (StringElement)
     (NumberElement))
@@ -623,7 +742,7 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
     (BooleanElement))
   (MemberElement
     (StringElement)
-    (ObjectElement))
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (NumberElement))
@@ -640,25 +759,34 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
     (ObjectElement
       (MemberElement
         (StringElement)
-        (JSONSchemaDraft6Element))))
+        (JSONSchemaDraft7Element))))
   (MemberElement
     (StringElement)
-    (JSONSchemaDraft6Element))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (JSONSchemaDraft6Element))))
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (ObjectElement
       (MemberElement
         (StringElement)
-        (JSONSchemaDraft6Element))))
+        (JSONSchemaDraft7Element))))
   (MemberElement
     (StringElement)
-    (JSONSchemaDraft6Element))
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchemaDraft7Element))))
+  (MemberElement
+    (StringElement)
+    (JSONSchemaDraft7Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchemaDraft7Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchemaDraft7Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (ArrayElement
@@ -674,24 +802,30 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
   (MemberElement
     (StringElement)
     (ArrayElement
-      (JSONSchemaDraft6Element)))
+      (JSONSchemaDraft7Element)))
   (MemberElement
     (StringElement)
     (ArrayElement
-      (JSONSchemaDraft6Element)))
+      (JSONSchemaDraft7Element)))
   (MemberElement
     (StringElement)
     (ArrayElement
-      (JSONSchemaDraft6Element)))
+      (JSONSchemaDraft7Element)))
   (MemberElement
     (StringElement)
-    (JSONSchemaDraft6Element))
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (ObjectElement
       (MemberElement
         (StringElement)
-        (JSONSchemaDraft6Element))))
+        (JSONSchemaDraft7Element))))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
   (MemberElement
     (StringElement)
     (StringElement))
@@ -718,20 +852,20 @@ exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`
       (LinkDescriptionElement)))
   (MemberElement
     (StringElement)
-    (MediaElement))
+    (BooleanElement))
   (MemberElement
     (StringElement)
     (BooleanElement)))
 `;
 
 exports[`refractor elements JSONSchema with alternate field values should refract to semantic ApiDOM tree 1`] = `
-(JSONSchemaDraft6Element
+(JSONSchemaDraft7Element
   (MemberElement
     (StringElement)
     (BooleanElement))
   (MemberElement
     (StringElement)
-    (JSONSchemaDraft6Element))
+    (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
     (BooleanElement))
@@ -757,7 +891,7 @@ exports[`refractor elements JSONSchema with alternate field values should refrac
 `;
 
 exports[`refractor elements given fields of type JSONReference should refract to semantic ApiDOM tree 1`] = `
-(JSONSchemaDraft6Element
+(JSONSchemaDraft7Element
   (MemberElement
     (StringElement)
     (JSONReferenceElement
@@ -773,7 +907,7 @@ exports[`refractor elements given fields of type JSONReference should refract to
           (StringElement)))))
   (MemberElement
     (StringElement)
-    (ObjectElement
+    (JSONReferenceElement
       (MemberElement
         (StringElement)
         (StringElement))))
@@ -810,6 +944,24 @@ exports[`refractor elements given fields of type JSONReference should refract to
           (MemberElement
             (StringElement)
             (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (JSONReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (JSONReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (JSONReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
   (MemberElement
     (StringElement)
     (JSONReferenceElement

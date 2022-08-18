@@ -475,17 +475,87 @@ Defaults resolver plugin is an object which knows how to obtain contents of a fi
 
 File resolution comes with two (2) default resolver plugins.
 
-##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/resolvers/FileResolver.ts)
+##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/FileResolver.ts)
 
 This resolver plugin is responsible for resolving a local file.
 It detects if the provided URI represents a filesystem path and if so,
 reads the file and provides its content.
 
-##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
+##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
 
 This resolver plugin is responsible for resolving a remove file represented by HTTP(s) URL.
-It detects if the provided URI represents a HTTP(s) URL and if so,
+It detects if the provided URI represents an HTTP(s) URL and if so,
 fetches the file and provides its content.
+
+###### [Axios Request Config](https://axios-http.com/docs/req_config) support
+
+HttpResolverAxios plugin supports all the options available in [Axios Request Config](https://axios-http.com/docs/req_config).
+Config options can be provided in following way:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        timeout: 10000,
+        withCredentials: false,
+        responseType: 'json',
+      },
+    },
+  },
+});
+```
+
+###### [Axios Interceptors](https://axios-http.com/docs/interceptors) support
+
+HttpResolverAxios plugin supports [Axios Interceptors](https://axios-http.com/docs/interceptors).
+Interceptors can be provided in following way:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+const requestInterceptor = (config) => config;
+const responseInterceptor = (response) => response;
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        interceptors: {
+          request: requestInterceptor,
+          response: responseInterceptor,
+        },
+      },
+    },
+  },
+});
+```
+
+Multiple request and response interceptors can be provided in following way:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+const requestInterceptor1 = (config) => config;
+const requestInterceptor2 = (config) => config;
+const responseInterceptor1 = (response) => response;
+const responseInterceptor2 = async (error) => Promise.reject(error);
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        interceptors: {
+          request: [requestInterceptor1, requestInterceptor2],
+          response: [responseInterceptor1, responseInterceptor2],
+        },
+      },
+    },
+  },
+});
+```
 
 **File resolution on local filesystem path**:
 
@@ -588,7 +658,7 @@ await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main
 });
 ```
 
-Both of above examples will be using [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts) plugin
+Both of above examples will be using [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts) plugin
 (as we're trying to resolve HTTP(s) URL) and the `timeout` of resolution will increase from **default 3 seconds**
 to 10 seconds.
 
@@ -684,7 +754,7 @@ await readFile('/home/user/oas.json', {
   }
 });
 ```
-New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HttpResolver](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
+New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HttpResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
 
 ##### Manipulating resolver plugins
 
@@ -756,8 +826,8 @@ for (const ref of refSet) {
 // /home/user/ex.json
 ```
 
-[ReferenceSet](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/ReferenceSet.ts) is a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
-like structure containing list of [Reference](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/Reference.ts) objects.
+[ReferenceSet](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/ReferenceSet.ts) is a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+like structure containing list of [Reference](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/Reference.ts) objects.
 Every Reference object represents single external dependency.
 
 #### [External resolution strategies](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies)
@@ -953,7 +1023,7 @@ await resolve('/home/user/oas.json', {
   }
 });
 ```
-New strategies can be based on a predefined stamp called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
+New strategies can be based on a predefined stamp called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
 
 ##### Manipulating external resolution strategies
 
@@ -1227,7 +1297,7 @@ await dereference('/home/user/oas.json', {
 });
 ```
 
-New strategies can be based on a predefined stamp called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/apidom/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
+New strategies can be based on a predefined stamp called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
 
 ##### Manipulating dereference strategies
 

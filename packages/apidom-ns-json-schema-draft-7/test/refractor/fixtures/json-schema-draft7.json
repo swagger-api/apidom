@@ -1,0 +1,71 @@
+{
+  "$id": "http://x.y.z/rootschema.json#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "multipleOf": 1,
+  "maximum": 2,
+  "exclusiveMaximum": 3,
+  "minimum": 4,
+  "exclusiveMinimum": 5,
+  "maxLength": 6,
+  "minLength": 7,
+  "pattern": "[a-z]+",
+  "additionalItems": {},
+  "items": [
+    {}
+  ],
+  "maxItems": 8,
+  "minItems": 9,
+  "uniqueItems": true,
+  "contains": {},
+  "maxProperties": 10,
+  "minProperties": 11,
+  "required": [
+    "prop1",
+    "prop2"
+  ],
+  "properties": {
+    "prop1": {}
+  },
+  "additionalProperties": {},
+  "patternProperties": {
+    "[a-z]+": {}
+  },
+  "dependencies": {
+    "dep1": {}
+  },
+  "propertyNames": {},
+  "enum": [
+    1,
+    "2",
+    null
+  ],
+  "const": 1,
+  "type": "string",
+  "allOf": [
+    {}
+  ],
+  "anyOf": [
+    {}
+  ],
+  "oneOf": [
+    {}
+  ],
+  "not": {},
+  "definitions": {
+    "def1": {}
+  },
+  "title": "title",
+  "description": "description",
+  "default": 3,
+  "examples": [
+    1,
+    "string"
+  ],
+  "format": "url",
+  "base": "/object/{id}",
+  "links": [
+    {}
+  ],
+  "media": {},
+  "readOnly": false
+}

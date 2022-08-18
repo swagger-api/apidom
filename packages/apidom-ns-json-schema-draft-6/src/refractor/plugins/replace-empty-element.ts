@@ -26,7 +26,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * $schema: http://json-schema.org/draft-04/schema#
+ * $schema: http://json-schema.org/draft-06/schema#
  * items:
  * ```
  * Refracting result without this plugin:

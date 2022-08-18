@@ -43,7 +43,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const jsonSchemaElementDuck = {
-        _storedElement: 'jsonSchemaDraft6',
+        _storedElement: 'JSONSchemaDraft6',
         _content: [],
         primitive() {
           return 'object';
@@ -99,7 +99,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const jsonReferenceElementDuck = {
-        _storedElement: 'jsonReference',
+        _storedElement: 'JSONReference',
         _content: [],
         primitive() {
           return 'object';

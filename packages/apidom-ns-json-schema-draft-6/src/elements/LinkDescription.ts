@@ -21,24 +21,22 @@ class LinkDescription extends LinkDescriptionElement {
     this.set('hrefSchema', hrefSchema);
   }
 
-  // @ts-ignore
-  get targetSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
+  get targetSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined | any {
     return this.get('targetSchema');
   }
 
-  // @ts-ignore
-  set targetSchema(targetSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined) {
+  set targetSchema(
+    targetSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined | any,
+  ) {
     this.set('targetSchema', targetSchema);
   }
 
-  // @ts-ignore
   get schema(): JSONSchema | JSONReferenceElement | undefined {
     throw new Error(
       'schema keyword from Hyper-Schema vocabulary has been renamed to submissionSchema.',
     );
   }
 
-  // @ts-ignore
   set schema(schema: JSONSchema | JSONReferenceElement | undefined) {
     throw new Error(
       'schema keyword from Hyper-Schema vocabulary has been renamed to submissionSchema.',
@@ -79,8 +77,8 @@ class LinkDescription extends LinkDescriptionElement {
     return this.get('submissionEncType');
   }
 
-  set submissionEncType(encType: StringElement | undefined) {
-    this.set('submissionEncType', encType);
+  set submissionEncType(submissionEncType: StringElement | undefined) {
+    this.set('submissionEncType', submissionEncType);
   }
 }
 

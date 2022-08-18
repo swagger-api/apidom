@@ -10,7 +10,7 @@ export const isJSONSchemaElement = createPredicate(
     return (element: any) =>
       element instanceof JSONSchemaElement ||
       (hasBasicElementProps(element) &&
-        isElementType('jsonSchemaDraft6', element) &&
+        isElementType('JSONSchemaDraft6', element) &&
         primitiveEq('object', element));
   },
 );

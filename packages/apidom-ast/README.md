@@ -50,7 +50,7 @@ along with [formatters for canonical block scalars](https://github.com/swagger-a
 
 ### visit
 
-[visit](https://github.com/swagger-api/apidom/blob/main/apidom-ast/src/visitor.ts#L214) will walk through an CST/AST using a depth first traversal, calling
+[visit](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/src/visitor.ts#L214) will walk through an CST/AST using a depth first traversal, calling
 the visitor's enter function at each node in the traversal, and calling the
 leave function after visiting that node and all of its child nodes.
 

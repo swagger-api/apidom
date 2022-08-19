@@ -72,11 +72,11 @@ class JSONSchema extends JSONSchemaElement {
    * Validation keywords for arrays
    */
 
-  get containsProp(): BooleanElement | this | undefined {
+  get containsProp(): this | BooleanElement | JSONReferenceElement | undefined {
     return this.get('contains');
   }
 
-  set containsProp(contains: BooleanElement | this | undefined) {
+  set containsProp(contains: this | BooleanElement | JSONReferenceElement | undefined) {
     this.set('contains', contains);
   }
 

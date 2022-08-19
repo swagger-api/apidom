@@ -1,34 +1,20 @@
 import {
-  Element,
   ArrayElement,
-  NumberElement,
-  ObjectElement,
   StringElement,
   BooleanElement,
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
+import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
+import ReferenceElement from './Reference';
 import ExternalDocumentationElement from './ExternalDocumentation';
 
-class Schema extends ObjectElement {
+class Schema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'schema';
-  }
-
-  /**
-   * Core vocabulary
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-01
-   */
-
-  get $id(): StringElement | undefined {
-    return this.get('$id');
-  }
-
-  get $comment(): StringElement | undefined {
-    return this.get('$comment');
+    // this.classes.push('json-schema-draft-7');
   }
 
   /**
@@ -43,19 +29,7 @@ class Schema extends ObjectElement {
    *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.7
    */
 
-  get allOf(): ArrayElement | undefined {
-    return this.get('allOf');
-  }
-
-  get anyOf(): ArrayElement | undefined {
-    return this.get('anyOf');
-  }
-
-  get oneOf(): ArrayElement | undefined {
-    return this.get('oneOf');
-  }
-
-  get not(): Schema | undefined {
+  get not(): this | BooleanElement | ReferenceElement | undefined | any {
     return this.get('not');
   }
 
@@ -65,78 +39,28 @@ class Schema extends ObjectElement {
    *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.6
    */
 
-  get if(): Schema | undefined {
+  get if(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('if');
   }
 
-  get then(): Schema | undefined {
+  set if(ifValue: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('if', ifValue);
+  }
+
+  get then(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('then');
   }
 
-  get else(): Schema | undefined {
+  set then(then: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('then', then);
+  }
+
+  get else(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('else');
   }
 
-  /**
-   *  Validation Keywords for Any Instance Type
-   *
-   *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.1
-   */
-
-  get type(): ArrayElement | StringElement | undefined {
-    return this.get('type');
-  }
-
-  get enum(): ArrayElement | undefined {
-    return this.get('enum');
-  }
-
-  get const(): Element | undefined {
-    return this.get('const');
-  }
-
-  /**
-   * Validation Keywords for Numeric Instances (number and integer)
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.2
-   */
-
-  get multipleOf(): NumberElement | undefined {
-    return this.get('multipleOf');
-  }
-
-  get maximum(): NumberElement | undefined {
-    return this.get('maximum');
-  }
-
-  get exclusiveMaximum(): NumberElement | undefined {
-    return this.get('exclusiveMaximum');
-  }
-
-  get minimum(): NumberElement | undefined {
-    return this.get('minimum');
-  }
-
-  get exclusiveMinimum(): NumberElement | undefined {
-    return this.get('exclusiveMinimum');
-  }
-
-  /**
-   * Validation Keywords for Strings
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.3
-   */
-
-  get maxLength(): NumberElement | undefined {
-    return this.get('maxLength');
-  }
-
-  get minLength(): NumberElement | undefined {
-    return this.get('minLength');
-  }
-
-  get pattern(): StringElement | undefined {
-    return this.get('pattern');
+  set else(elseValue: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('else', elseValue);
   }
 
   /**
@@ -145,28 +69,28 @@ class Schema extends ObjectElement {
    * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.4
    */
 
-  get items(): Schema | ArrayElement | undefined {
+  get items(): this | BooleanElement | ReferenceElement | ArrayElement | undefined | any {
     return this.get('items');
   }
 
-  get additionalItems(): Schema | undefined {
+  set items(items: this | BooleanElement | ReferenceElement | ArrayElement | undefined | any) {
+    this.set('items', items);
+  }
+
+  get additionalItems(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('additionalItems');
   }
 
-  get maxItems(): NumberElement | undefined {
-    return this.get('maxItems');
+  set additionalItems(additionalItems: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('additionalItems', additionalItems);
   }
 
-  get minItems(): NumberElement | undefined {
-    return this.get('minItems');
-  }
-
-  get uniqueItems(): BooleanElement | undefined {
-    return this.get('uniqueItems');
-  }
-
-  get containsProp(): Schema | undefined {
+  get containsProp(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('contains');
+  }
+
+  set containsProp(contains: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('contains', contains);
   }
 
   /**
@@ -175,106 +99,18 @@ class Schema extends ObjectElement {
    * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.5
    */
 
-  get maxProperties(): NumberElement | undefined {
-    return this.get('maxProperties');
-  }
-
-  get minProperties(): NumberElement | undefined {
-    return this.get('minProperties');
-  }
-
-  get required(): ArrayElement | undefined {
-    return this.get('required');
-  }
-
-  get properties(): ObjectElement | undefined {
-    return this.get('properties');
-  }
-
-  get patternProperties(): ObjectElement | undefined {
-    return this.get('patternProperties');
-  }
-
-  get additionalProperties(): Schema | undefined {
-    return this.get('additionalProperties');
-  }
-
-  get dependencies(): ObjectElement | undefined {
-    return this.get('dependencies');
-  }
-
-  get propertyNames(): Schema | undefined {
+  get propertyNames(): this | BooleanElement | ReferenceElement | undefined {
     return this.get('propertyNames');
   }
 
-  /**
-   * Vocabulary for Schema Annotations
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-10
-   */
-
-  get title(): StringElement | undefined {
-    return this.get('title');
-  }
-
-  get description(): StringElement | undefined {
-    return this.get('description');
-  }
-
-  get default(): Element | undefined {
-    return this.get('default');
-  }
-
-  get readOnly(): BooleanElement | undefined {
-    return this.get('readOnly');
-  }
-
-  get writeOnly(): BooleanElement | undefined {
-    return this.get('writeOnly');
-  }
-
-  get examples(): ArrayElement | undefined {
-    return this.get('examples');
-  }
-
-  /**
-   * Vocabularies for Semantic Validation With "format"
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-7
-   */
-
-  get format(): StringElement | undefined {
-    return this.get('format');
-  }
-
-  /**
-   * Vocabulary for String-Encoding Non-JSON Data
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8
-   */
-
-  get contentEncoding(): StringElement | undefined {
-    return this.get('contentEncoding');
-  }
-
-  get contentMediaType(): StringElement | undefined {
-    return this.get('contentMediaType');
-  }
-
-  /**
-   * Vocabulary for Schema Re-Use With "definitions"
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9
-   */
-
-  get definitions(): ObjectElement | undefined {
-    return this.get('definitions');
+  set propertyNames(propertyNames: this | BooleanElement | ReferenceElement | undefined) {
+    this.set('propertyNames', propertyNames);
   }
 
   /**
    * AsyncAPI vocabulary
    *
-   * URI: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#baseVocabulary
+   * URI: https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#fixed-fields-21
    */
 
   get discriminator(): StringElement | undefined {

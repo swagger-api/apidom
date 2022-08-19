@@ -1,23 +1,16 @@
 import stampit from 'stampit';
-import { T as stubTrue } from 'ramda';
-import { ObjectElement } from '@swagger-api/apidom-core';
+import { Element } from '@swagger-api/apidom-core';
+import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
-import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
-import AlternatingVisitor from '../../generics/AlternatingVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
 
-const SchemaOrReferenceVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
-  props: {
-    alternator: [
-      { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: stubTrue, specPath: ['document', 'objects', 'Schema'] },
-    ],
-  },
+const { JSONSchemaOrJSONReferenceVisitor } = JSONSchemaDraft7Specification.visitors;
+
+const SchemaOrReferenceVisitor = stampit(JSONSchemaOrJSONReferenceVisitor, {
   methods: {
-    ObjectElement(objectElement: ObjectElement) {
+    enter(element: Element) {
       // @ts-ignore
-      const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      const result = JSONSchemaOrJSONReferenceVisitor.compose.methods.enter.call(this, element);
 
       if (isReferenceElement(this.element)) {
         this.element.setMetaProperty('referenced-element', 'schema');

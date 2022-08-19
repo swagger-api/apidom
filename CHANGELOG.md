@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
+
+
+### Bug Fixes
+
+* **apidom-ls:** partially fix invalid YAML diagnostics ([417a48b](https://github.com/swagger-api/apidom/commit/417a48b1d6c4f25df53c29f977af91f9e27e6967))
+* **json-schema:** fix media type versions ([#1856](https://github.com/swagger-api/apidom/issues/1856)) ([82b8988](https://github.com/swagger-api/apidom/commit/82b8988a4847ca1ac9fd3392c6dfe5b35f7331df)), closes [#1814](https://github.com/swagger-api/apidom/issues/1814)
+
+
+### Features
+
+* **apidom-ls:** implement initial ADS support ([6c39489](https://github.com/swagger-api/apidom/commit/6c394890e6845dcd4765a5e6e1df12166446b691))
+* implement JSON Schema Draft 4 namespace ([#1824](https://github.com/swagger-api/apidom/issues/1824)) ([e065d4a](https://github.com/swagger-api/apidom/commit/e065d4a32007b62aebcb962403071cc911c7e43f)), closes [#1815](https://github.com/swagger-api/apidom/issues/1815)
+* implement JSON Schema Draft 6 namespace ([#1840](https://github.com/swagger-api/apidom/issues/1840)) ([e688239](https://github.com/swagger-api/apidom/commit/e688239dbcc520a247c1f1fd4584a955929ce019)), closes [#1817](https://github.com/swagger-api/apidom/issues/1817)
+* implement JSON Schema Draft 7 namespace ([#1853](https://github.com/swagger-api/apidom/issues/1853)) ([bc3d47a](https://github.com/swagger-api/apidom/commit/bc3d47ac3eb706218d31e0adde6745e94c808dad)), closes [#1818](https://github.com/swagger-api/apidom/issues/1818)
+* **ns-json-schema-draft-4:** complete replace empty elements plugin ([b50ac75](https://github.com/swagger-api/apidom/commit/b50ac75dfc97f638800c7ad90e4f6e3dab4c8719)), closes [#1843](https://github.com/swagger-api/apidom/issues/1843)
+* **ns-json-schema-draft-4:** incorporate JSON Schema Draft 5 ([#1838](https://github.com/swagger-api/apidom/issues/1838)) ([3d66200](https://github.com/swagger-api/apidom/commit/3d662007bc63b9db7d5a217d9400b94c1338bc8a)), closes [#1816](https://github.com/swagger-api/apidom/issues/1816)
+* **ns-json-schema-draft-6:** complete replace empty elements plugin ([5386bc3](https://github.com/swagger-api/apidom/commit/5386bc337c57a88a67ad5c3c88476d8f61ab7683)), closes [#1843](https://github.com/swagger-api/apidom/issues/1843)
+
+
+
+
+
 ## [0.40.3](https://github.com/swagger-api/apidom/compare/v0.40.2...v0.40.3) (2022-08-08)
 
 

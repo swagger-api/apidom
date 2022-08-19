@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
+
+
+### Bug Fixes
+
+* **apidom-ls:** partially fix invalid YAML diagnostics ([417a48b](https://github.com/swagger-api/apidom/commit/417a48b1d6c4f25df53c29f977af91f9e27e6967))
+
+
+### Features
+
+* **apidom-ls:** implement initial ADS support ([6c39489](https://github.com/swagger-api/apidom/commit/6c394890e6845dcd4765a5e6e1df12166446b691))
+
+
+
+
+
 ## [0.40.3](https://github.com/swagger-api/apidom/compare/v0.40.2...v0.40.3) (2022-08-08)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

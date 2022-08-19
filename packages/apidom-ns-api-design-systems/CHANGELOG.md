@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
+
+
+### Features
+
+* **apidom-ls:** implement initial ADS support ([6c39489](https://github.com/swagger-api/apidom/commit/6c394890e6845dcd4765a5e6e1df12166446b691))
+* implement JSON Schema Draft 4 namespace ([#1824](https://github.com/swagger-api/apidom/issues/1824)) ([e065d4a](https://github.com/swagger-api/apidom/commit/e065d4a32007b62aebcb962403071cc911c7e43f)), closes [#1815](https://github.com/swagger-api/apidom/issues/1815)
+
+
+
+
+
 # [0.40.0](https://github.com/swagger-api/apidom/compare/v0.39.0...v0.40.0) (2022-08-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-api-design-systems

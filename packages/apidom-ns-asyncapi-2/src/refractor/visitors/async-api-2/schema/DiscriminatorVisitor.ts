@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ContentEncodingVisitor = FallbackVisitor;
+const DiscriminatorVisitor = FallbackVisitor;
 
-export default ContentEncodingVisitor;
+export default DiscriminatorVisitor;

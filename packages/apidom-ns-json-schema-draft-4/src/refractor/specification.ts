@@ -18,7 +18,6 @@ import JSONSchemaMaxPropertiesVisitor from './visitors/json-schema/MaxProperties
 import JSONSchemaMinPropertiesVisitor from './visitors/json-schema/MinPropertiesVisitor';
 import JSONSchemaRequiredVisitor from './visitors/json-schema/RequiredVisitor';
 import JSONSchemaPropertiesVisitor from './visitors/json-schema/PropertiesVisitor';
-import JSONSchemaAdditionalPropertiesVisitor from './visitors/json-schema/AdditionalPropertiesVisitor';
 import JSONSchemaPatternPropertiesVisitor from './visitors/json-schema/PatternPropertiesVisitor';
 import JSONSchemaDependenciesVisitor from './visitors/json-schema/DependenciesVisitor';
 import JSONSchemaEnumVisitor from './visitors/json-schema/EnumVisitor';
@@ -90,7 +89,7 @@ const specification = {
             minProperties: JSONSchemaMinPropertiesVisitor,
             required: JSONSchemaRequiredVisitor,
             properties: JSONSchemaPropertiesVisitor,
-            additionalProperties: JSONSchemaAdditionalPropertiesVisitor,
+            additionalProperties: JSONSchemaOrJSONReferenceVisitor,
             patternProperties: JSONSchemaPatternPropertiesVisitor,
             dependencies: JSONSchemaDependenciesVisitor,
             // validation keywords for any instance type

@@ -1,34 +1,24 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement } from '@swagger-api/apidom-core';
+import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
-import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
+import ReferenceElement from '../../../../elements/Reference';
 import { isReferenceElement } from '../../../../predicates';
 
-const AnyOfVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  init() {
-    this.element = new ArrayElement();
-    this.element.classes.push('json-schema-anyOf');
-  },
+const { anyOf: JSONSchemaAnyOfVisitor } =
+  JSONSchemaDraft7Specification.visitors.document.objects.JSONSchema.fixedFields;
+
+const AnyOfVisitor = stampit(JSONSchemaAnyOfVisitor, {
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element): void => {
-        const specPath = isReferenceLikeElement(item)
-          ? ['document', 'objects', 'Reference']
-          : ['document', 'objects', 'Schema'];
-        const element = this.toRefractedElement(specPath, item);
+      // @ts-ignore
+      const result = JSONSchemaAnyOfVisitor.compose.methods.ArrayElement.call(this, arrayElement);
 
-        if (isReferenceElement(element)) {
-          element.setMetaProperty('referenced-element', 'schema');
-        }
-
-        this.element.push(element);
+      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'schema');
       });
 
-      this.copyMetaAndAttributes(arrayElement, this.element);
-
-      return BREAK;
+      return result;
     },
   },
 });

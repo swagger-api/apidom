@@ -1,18 +1,21 @@
 import stampit from 'stampit';
-import { ArrayElement } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
 import ReferenceElement from '../../../../elements/Reference';
 import { isReferenceElement } from '../../../../predicates';
 
-const { allOf: JSONSchemaAllOfVisitor } =
+const { patternProperties: JSONSchemaPatternPropertiesVisitor } =
   JSONSchemaDraft7Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const AllOfVisitor = stampit(JSONSchemaAllOfVisitor, {
+const PatternPropertiesVisitor = stampit(JSONSchemaPatternPropertiesVisitor, {
   methods: {
-    ArrayElement(arrayElement: ArrayElement) {
+    ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = JSONSchemaAllOfVisitor.compose.methods.ArrayElement.call(this, arrayElement);
+      const result = JSONSchemaPatternPropertiesVisitor.compose.methods.ObjectElement.call(
+        this,
+        objectElement,
+      );
 
       this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
         referenceElement.setMetaProperty('referenced-element', 'schema');
@@ -23,4 +26,4 @@ const AllOfVisitor = stampit(JSONSchemaAllOfVisitor, {
   },
 });
 
-export default AllOfVisitor;
+export default PatternPropertiesVisitor;

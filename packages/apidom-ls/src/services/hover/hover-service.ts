@@ -5,7 +5,14 @@ import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
-import { DocumentationMeta, LanguageSettings, MetadataMap } from '../../apidom-language-types';
+import {
+  HoverProvider,
+  DocumentationMeta,
+  LanguageSettings,
+  MetadataMap,
+  ProviderMode,
+  MergeStrategy,
+} from '../../apidom-language-types';
 import {
   getSourceMap,
   isMember,
@@ -22,6 +29,8 @@ export interface HoverService {
   computeHover(textDocument: TextDocument, position: Position): Promise<Hover | undefined>;
 
   configure(settings?: LanguageSettings): void;
+
+  registerProvider(provider: HoverProvider): void;
 }
 
 export class DefaultHoverService implements HoverService {
@@ -29,8 +38,29 @@ export class DefaultHoverService implements HoverService {
 
   private static _initialize: void = ((): void => {})();
 
+  private hoverProviders: HoverProvider[] = [];
+
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
+    if (settings) {
+      if (settings.hoverProviders) {
+        this.hoverProviders = settings.hoverProviders;
+      }
+      for (const provider of this.hoverProviders) {
+        if (provider.configure) {
+          provider.configure(settings);
+        }
+      }
+    }
+  }
+
+  public registerProvider(provider: HoverProvider): void {
+    this.hoverProviders.push(provider);
+    if (this.settings) {
+      if (provider.configure) {
+        provider.configure(this.settings);
+      }
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -195,7 +225,89 @@ export class DefaultHoverService implements HoverService {
               //
             }
           }
+          try {
+            for (const provider of this.hoverProviders) {
+              if (
+                provider
+                  .namespaces()
+                  .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+                provider.doRefHover &&
+                provider.providerMode &&
+                provider.providerMode() === ProviderMode.REF
+              ) {
+                // eslint-disable-next-line no-await-in-loop
+                const hoverProviderResult = await provider.doRefHover(
+                  textDocument,
+                  position,
+                  node,
+                  api,
+                  ref,
+                  contents,
+                );
+                switch (hoverProviderResult.mergeStrategy) {
+                  case MergeStrategy.APPEND:
+                    contents.push(...hoverProviderResult.hoverContent);
+                    break;
+                  case MergeStrategy.PREPEND:
+                    contents.unshift(...hoverProviderResult.hoverContent);
+                    break;
+                  case MergeStrategy.REPLACE:
+                    contents.splice(0, contents.length, ...hoverProviderResult.hoverContent);
+                    break;
+                  case MergeStrategy.IGNORE:
+                    break;
+                  default:
+                    contents.push(...hoverProviderResult.hoverContent);
+                }
+                if (provider.break()) {
+                  break;
+                }
+              }
+            }
+          } catch (e) {
+            console.log('error in hover provider');
+          }
         }
+      }
+      try {
+        for (const provider of this.hoverProviders) {
+          if (
+            provider
+              .namespaces()
+              .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+            provider.doHover &&
+            (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
+          ) {
+            // eslint-disable-next-line no-await-in-loop
+            const hoverProviderResult = await provider.doHover(
+              textDocument,
+              position,
+              node,
+              api,
+              contents,
+            );
+            switch (hoverProviderResult.mergeStrategy) {
+              case MergeStrategy.APPEND:
+                contents.push(...hoverProviderResult.hoverContent);
+                break;
+              case MergeStrategy.PREPEND:
+                contents.unshift(...hoverProviderResult.hoverContent);
+                break;
+              case MergeStrategy.REPLACE:
+                contents.splice(0, contents.length, ...hoverProviderResult.hoverContent);
+                break;
+              case MergeStrategy.IGNORE:
+                break;
+              default:
+                contents.push(...hoverProviderResult.hoverContent);
+            }
+            if (provider.break()) {
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        console.log('error in hover provider');
       }
       (<MarkupContent>hover.contents).value = contents.join('\n');
       hover.range = Range.create(

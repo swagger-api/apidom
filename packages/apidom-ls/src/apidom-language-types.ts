@@ -77,6 +77,7 @@ export interface LanguageServiceContext {
   metadata?: Metadata;
   validatorProviders?: ValidationProvider[];
   completionProviders?: CompletionProvider[];
+  hoverProviders?: HoverProvider[];
   performanceLogs?: boolean;
   logLevel?: LogLevel;
   defaultContentLanguage?: ContentLanguage;
@@ -102,6 +103,11 @@ export interface ValidationProviderResult {
 
 export interface CompletionProviderResult {
   completionList: CompletionList;
+  mergeStrategy: MergeStrategy;
+}
+
+export interface HoverProviderResult {
+  hoverContent: string[];
   mergeStrategy: MergeStrategy;
 }
 
@@ -168,11 +174,41 @@ export interface CompletionProvider {
   name(): string;
 }
 
+/* represent any completion provider  */
+export interface HoverProvider {
+  namespaces(): NamespaceVersion[];
+
+  break(): boolean;
+
+  providerMode?(): ProviderMode;
+
+  doHover?(
+    textDocument: TextDocument,
+    position: Position,
+    element: Element | undefined,
+    api: Element | undefined,
+    currentHoverItems: string[],
+  ): Promise<HoverProviderResult>;
+
+  doRefHover?(
+    textDocument: TextDocument,
+    position: Position,
+    element: Element | undefined,
+    api: Element | undefined,
+    refValue: string,
+    currentHoverItems: string[],
+  ): HoverProviderResult | Promise<HoverProviderResult>;
+
+  configure?(settings: LanguageSettings): void;
+
+  name(): string;
+}
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
   validatorProviders?: ValidationProvider[];
   completionProviders?: CompletionProvider[];
+  hoverProviders?: HoverProvider[];
   metadata?: Metadata;
   documentCache?: DocumentCache<ParseResultElement>;
   performanceLogs?: boolean;

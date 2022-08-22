@@ -888,7 +888,11 @@ export class DefaultCompletionService implements CompletionService {
         insertText: `${valueQuotes}${p.ref}$1${valueQuotes}`,
         kind: 18,
         documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
-        // detail: 'replace with',
+        // detail: 'DETAIL', // on top of right hand documentation panel
+        // labelDetails: {
+        // detail: 'LABELDETAILDETAIL', // right after label
+        // description: 'local', // right aligned in label panel
+        // },
         insertTextFormat: 2,
         sortText: `${String.fromCharCode(i)}`,
       };

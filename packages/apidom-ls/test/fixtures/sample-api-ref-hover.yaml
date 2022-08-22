@@ -1,0 +1,12 @@
+asyncapi: 2.4.0
+info:
+  title: Petstore
+  version: 1.0.0
+  description: The PetStore running in Kafka
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        category:
+          $ref: https://example.com/test/domain/ext.json

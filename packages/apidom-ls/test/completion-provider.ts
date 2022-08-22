@@ -377,7 +377,7 @@ class FullCompletionProvider implements CompletionProvider {
    */
 
   // eslint-disable-next-line class-methods-use-this,@typescript-eslint/no-unused-vars
-  private legacyPotentialRefs(ref: string, position: Position): string[] {
+  private legacyPotentialRefs(text: string, position: Position): string[] {
     // logic here to get possible refs to add to completion items
     // const line = position.line;
     // const char = position.character;

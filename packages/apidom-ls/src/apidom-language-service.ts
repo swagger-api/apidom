@@ -66,6 +66,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     validate: true,
     validatorProviders: context?.validatorProviders,
     completionProviders: context?.completionProviders,
+    hoverProviders: context?.hoverProviders,
     documentCache,
     performanceLogs: context.performanceLogs,
     logLevel: context.logLevel,

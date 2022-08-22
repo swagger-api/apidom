@@ -76,15 +76,15 @@ class RefCompletionProvider implements CompletionProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     api: Element,
     /*
-     the `element` or `class` referenced by this ref, e.g. `schema` or `path-item`
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    referencedElement: string,
-    /*
      the content of `$ref` as string
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     refValue: string,
+    /*
+     the `element` or `class` referenced by this ref, e.g. `schema` or `path-item`
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    referencedElement: string,
     /*
      cursor position / params
     */
@@ -189,9 +189,9 @@ class AsyncRefCompletionProvider implements CompletionProvider {
     textDocument: TextDocument,
     element: Element,
     api: Element,
-    referencedElement: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     refValue: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    referencedElement: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionParamsOrPosition: CompletionParams | Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

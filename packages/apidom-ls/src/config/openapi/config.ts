@@ -1,5 +1,10 @@
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
+import pathItemMeta from './path-item/meta';
+import pathsMeta from './paths/meta';
+import serversMeta from './servers/meta';
+import serverMeta from './server/meta';
+import serverVariableMeta from './server-variable/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -19,4 +24,9 @@ export default {
   info: infoMeta,
   contact: contactMeta,
   schema: schemaMeta,
+  pathItem: pathItemMeta,
+  paths: pathsMeta,
+  servers: serversMeta,
+  server: serverMeta,
+  serverVariables: serverVariableMeta,
 };

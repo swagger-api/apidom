@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.41.1](https://github.com/swagger-api/apidom/compare/v0.41.0...v0.41.1) (2022-08-22)
+
+
+### Bug Fixes
+
+* **apidom-ls:** implement custom hover provider support ([3ee5bfe](https://github.com/swagger-api/apidom/commit/3ee5bfefea41d34a92a6a7bec8daf85e15dd8b10))
+
+
+
+
+
 # [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
 
 

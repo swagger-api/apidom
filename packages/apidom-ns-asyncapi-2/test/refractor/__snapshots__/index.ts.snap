@@ -1833,6 +1833,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -1893,6 +1904,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -2012,6 +2034,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -2072,6 +2105,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -2828,6 +2872,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -3009,6 +3064,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -3563,6 +3629,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -3772,6 +3849,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -3832,6 +3920,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -4017,6 +4116,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -5074,6 +5184,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -5134,6 +5255,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -5253,6 +5385,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -5313,6 +5456,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -6069,6 +6223,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -6250,6 +6415,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -6804,6 +6980,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -7013,6 +7200,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -7073,6 +7271,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -7235,6 +7444,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -7530,6 +7750,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                         },
                         "value": {
                           "element": "schema",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-schema-draft-7"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -8038,6 +8269,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should re
                                 },
                                 "value": {
                                   "element": "schema",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-draft-7"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -10923,6 +11165,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -10983,6 +11236,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -11102,6 +11366,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -11162,6 +11437,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -11918,6 +12204,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -12264,6 +12561,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -12818,6 +13126,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -13115,6 +13434,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -13175,6 +13505,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -13360,6 +13701,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -14661,6 +15013,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -14980,6 +15343,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                         },
                         "value": {
                           "element": "schema",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-schema-draft-7"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -15488,6 +15862,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.1.0 shape should re
                                 },
                                 "value": {
                                   "element": "schema",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-draft-7"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -19039,6 +19424,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -19099,6 +19495,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -19252,6 +19659,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -19312,6 +19730,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -20068,6 +20497,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -20187,7 +20627,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                           "content": "headers"
                                                         },
                                                         "value": {
-                                                          "element": "schema"
+                                                          "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
                                                         }
                                                       }
                                                     },
@@ -20497,6 +20948,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -21051,6 +21513,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -21170,7 +21643,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                                       "content": "headers"
                                                                     },
                                                                     "value": {
-                                                                      "element": "schema"
+                                                                      "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
                                                                     }
                                                                   }
                                                                 },
@@ -21431,6 +21915,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -21491,6 +21986,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -21710,6 +22216,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -23071,6 +23588,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -23390,6 +23918,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                         },
                         "value": {
                           "element": "schema",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-schema-draft-7"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -23898,6 +24437,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                 },
                                 "value": {
                                   "element": "schema",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-draft-7"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -25253,7 +25803,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.2.0 shape should re
                                           "content": "headers"
                                         },
                                         "value": {
-                                          "element": "schema"
+                                          "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -27659,6 +28220,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -27719,6 +28291,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -27966,6 +28549,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -28026,6 +28620,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -28782,6 +29387,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -28901,7 +29517,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                           "content": "headers"
                                                         },
                                                         "value": {
-                                                          "element": "schema"
+                                                          "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
                                                         }
                                                       }
                                                     },
@@ -29245,6 +29872,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -29799,6 +30437,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -29952,7 +30601,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                                       "content": "headers"
                                                                     },
                                                                     "value": {
-                                                                      "element": "schema"
+                                                                      "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
                                                                     }
                                                                   }
                                                                 },
@@ -30213,6 +30873,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -30273,6 +30944,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -30553,6 +31235,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -31948,6 +32641,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -32267,6 +32971,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                         },
                         "value": {
                           "element": "schema",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-schema-draft-7"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -32775,6 +33490,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                 },
                                 "value": {
                                   "element": "schema",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-draft-7"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -34232,7 +34958,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.3.0 shape should re
                                           "content": "headers"
                                         },
                                         "value": {
-                                          "element": "schema"
+                                          "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -36820,6 +37557,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -36880,6 +37628,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                             },
                                                             "value": {
                                                               "element": "schema",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "json-schema-draft-7"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
                                                               "content": [
                                                                 {
                                                                   "element": "member",
@@ -37151,6 +37910,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -37211,6 +37981,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -37967,6 +38748,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                         },
                                                         "value": {
                                                           "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
                                                           "content": [
                                                             {
                                                               "element": "member",
@@ -38086,7 +38878,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                           "content": "headers"
                                                         },
                                                         "value": {
-                                                          "element": "schema"
+                                                          "element": "schema",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "json-schema-draft-7"
+                                                                }
+                                                              ]
+                                                            }
+                                                          }
                                                         }
                                                       }
                                                     },
@@ -38454,6 +39257,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                     },
                                                     "value": {
                                                       "element": "schema",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "json-schema-draft-7"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
                                                       "content": [
                                                         {
                                                           "element": "member",
@@ -39008,6 +39822,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                                     },
                                                                     "value": {
                                                                       "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
                                                                       "content": [
                                                                         {
                                                                           "element": "member",
@@ -39161,7 +39986,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                                       "content": "headers"
                                                                     },
                                                                     "value": {
-                                                                      "element": "schema"
+                                                                      "element": "schema",
+                                                                      "meta": {
+                                                                        "classes": {
+                                                                          "element": "array",
+                                                                          "content": [
+                                                                            {
+                                                                              "element": "string",
+                                                                              "content": "json-schema-draft-7"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
                                                                     }
                                                                   }
                                                                 },
@@ -39422,6 +40258,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -39482,6 +40329,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                                 },
                                                 "value": {
                                                   "element": "schema",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "json-schema-draft-7"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
                                                   "content": [
                                                     {
                                                       "element": "member",
@@ -39762,6 +40620,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -41201,6 +42070,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                         },
                                         "value": {
                                           "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": [
                                             {
                                               "element": "member",
@@ -41520,6 +42400,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                         },
                         "value": {
                           "element": "schema",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-schema-draft-7"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
@@ -42414,6 +43305,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                 },
                                 "value": {
                                   "element": "schema",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-schema-draft-7"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
@@ -43871,7 +44773,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 2.4.0 shape should re
                                           "content": "headers"
                                         },
                                         "value": {
-                                          "element": "schema"
+                                          "element": "schema",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "json-schema-draft-7"
+                                                }
+                                              ]
+                                            }
+                                          }
                                         }
                                       }
                                     }

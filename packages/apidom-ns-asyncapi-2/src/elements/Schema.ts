@@ -14,7 +14,7 @@ class Schema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'schema';
-    // this.classes.push('json-schema-draft-7');
+    this.classes.push('json-schema-draft-7');
   }
 
   /**

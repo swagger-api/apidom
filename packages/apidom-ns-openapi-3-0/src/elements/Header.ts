@@ -7,6 +7,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import SchemaElement from './Schema';
+import ReferenceElement from './Reference';
 
 class Header extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -14,8 +15,11 @@ class Header extends ObjectElement {
     this.element = 'header';
   }
 
-  get required(): BooleanElement | undefined {
-    return this.get('required');
+  get required(): BooleanElement {
+    if (this.hasKey('required')) {
+      return this.get('required');
+    }
+    return new BooleanElement(false);
   }
 
   set required(required: BooleanElement | undefined) {
@@ -23,7 +27,10 @@ class Header extends ObjectElement {
   }
 
   get deprecated(): BooleanElement | undefined {
-    return this.get('deprecated');
+    if (this.hasKey('deprecated')) {
+      return this.get('deprecated');
+    }
+    return new BooleanElement(false);
   }
 
   set deprecated(deprecated: BooleanElement | undefined) {
@@ -62,11 +69,11 @@ class Header extends ObjectElement {
     this.set('allowReserved', allowReserved);
   }
 
-  get schema(): SchemaElement | undefined {
+  get schema(): SchemaElement | ReferenceElement | undefined {
     return this.get('schema');
   }
 
-  set schema(schema: SchemaElement | undefined) {
+  set schema(schema: SchemaElement | ReferenceElement | undefined) {
     this.set('schema', schema);
   }
 

@@ -28,11 +28,14 @@ class RequestBody extends ObjectElement {
     this.set('content', content);
   }
 
-  get required(): BooleanElement | undefined {
-    return this.get('required');
+  get required(): BooleanElement {
+    if (this.hasKey('required')) {
+      return this.get('required');
+    }
+    return new BooleanElement(false);
   }
 
-  set required(required: BooleanElement | undefined) {
+  set required(required: BooleanElement) {
     this.set('required', required);
   }
 }

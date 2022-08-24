@@ -16,24 +16,4 @@ class Reference extends ObjectElement {
   }
 }
 
-Object.defineProperty(Reference.prototype, 'description', {
-  get(): StringElement {
-    return this.get('description');
-  },
-  set(description: StringElement) {
-    this.set('description', description);
-  },
-  enumerable: true,
-});
-
-Object.defineProperty(Reference.prototype, 'summary', {
-  get(): StringElement {
-    return this.get('summary');
-  },
-  set(description: StringElement) {
-    this.set('summary', description);
-  },
-  enumerable: true,
-});
-
 export default Reference;

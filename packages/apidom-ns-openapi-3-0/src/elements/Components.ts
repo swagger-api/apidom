@@ -77,14 +77,6 @@ class Components extends ObjectElement {
   set callbacks(callbacks: ObjectElement | undefined) {
     this.set('callbacks', callbacks);
   }
-
-  get pathItems(): ObjectElement | undefined {
-    return this.get('pathItems');
-  }
-
-  set pathItems(pathItems: ObjectElement | undefined) {
-    this.set('pathItems', pathItems);
-  }
 }
 
 export default Components;

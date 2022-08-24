@@ -3,6 +3,7 @@ import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apid
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';
 import ComponentsElement from './Components';
+import PathsElement from './Paths';
 import ExternalDocumentationElement from './ExternalDocumentation';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -37,11 +38,11 @@ class OpenApi3_0 extends ObjectElement {
     this.set('servers', servers);
   }
 
-  get paths(): ArrayElement | undefined {
+  get paths(): PathsElement | undefined {
     return this.get('paths');
   }
 
-  set paths(paths: ArrayElement | undefined) {
+  set paths(paths: PathsElement | undefined) {
     this.set('paths', paths);
   }
 

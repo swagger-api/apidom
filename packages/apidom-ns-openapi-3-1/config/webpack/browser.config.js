@@ -3,7 +3,7 @@ import { nonMinimizeTrait, minimizeTrait } from './traits.config.js';
 
 const browser = {
   mode: 'production',
-  entry: ['./src/namespace.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   performance: {
     maxEntrypointSize: 712000,
@@ -38,7 +38,7 @@ const browser = {
 
 const browserMin = {
   mode: 'production',
-  entry: ['./src/namespace.ts'],
+  entry: ['./src/index.ts'],
   target: 'web',
   output: {
     path: path.resolve('./dist'),

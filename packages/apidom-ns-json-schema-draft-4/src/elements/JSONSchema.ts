@@ -117,6 +117,7 @@ class JSONSchema extends ObjectElement {
   set pattern(pattern: StringElement | undefined) {
     this.set('pattern', pattern);
   }
+
   /**
    * Validation keywords for arrays
    */

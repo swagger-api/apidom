@@ -63,7 +63,7 @@
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.2.0",
     "stampit": "=4.3.2",
-    "vscode-languageserver-protocol": "^3.16.0",
+    "vscode-languageserver-protocol": "^3.17.2",
     "vscode-languageserver-textdocument": "^1.0.5",
     "vscode-languageserver-types": "^3.17.2",
     "yaml-js": "^0.3.0"

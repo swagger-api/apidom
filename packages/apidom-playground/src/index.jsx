@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import * as Complink from 'comlink';
+import * as Comlink from 'comlink';
 import System, { SystemContext, useSystemComponent } from 'swagger-adjust';
 
 import './index.scss';
@@ -15,7 +15,7 @@ const system = new System({
   plugins: [ApiDOMPlaygroundPlugin],
   middleware: (sys) => (getDefaultMiddleware) => {
     const apiDOMWorker = new Worker(new URL('./playground/apidom.worker', import.meta.url));
-    const apiDOMService = Complink.wrap(apiDOMWorker);
+    const apiDOMService = Comlink.wrap(apiDOMWorker);
 
     return getDefaultMiddleware({
       thunk: {

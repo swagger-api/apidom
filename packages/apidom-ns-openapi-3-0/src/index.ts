@@ -1,4 +1,4 @@
-// import './refractor/registration';
+import './refractor/registration';
 
 export {
   isRefElement,
@@ -48,15 +48,15 @@ export {
   isMediaTypeElement,
 } from './predicates';
 
-// export {
-//   isOpenApi3_1LikeElement,
-//   isParameterLikeElement,
-//   isReferenceLikeElement,
-//   isRequestBodyLikeElement,
-//   isResponseLikeElement,
-//   isServerLikeElement,
-//   isOpenApiExtension,
-// } from './refractor/predicates';
+export {
+  isOpenApi3_0LikeElement,
+  isParameterLikeElement,
+  isReferenceLikeElement,
+  isRequestBodyLikeElement,
+  isResponseLikeElement,
+  isServerLikeElement,
+  isOpenApiExtension,
+} from './refractor/predicates';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

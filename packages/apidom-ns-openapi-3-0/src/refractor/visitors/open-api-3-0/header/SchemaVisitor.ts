@@ -7,7 +7,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
+const SchemaVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   props: {
     alternator: [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
@@ -28,4 +28,4 @@ const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   },
 });
 
-export default HeadersVisitor;
+export default SchemaVisitor;

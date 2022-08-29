@@ -2,16 +2,15 @@ import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import AlternatingVisitor from '../../generics/AlternatingVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
+import AlternatingVisitor from '../../generics/AlternatingVisitor';
 
-const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
+const RequestBodyVisitor = stampit(AlternatingVisitor, {
   props: {
     alternator: [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: stubTrue, specPath: ['document', 'objects', 'Schema'] },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'RequestBody'] },
     ],
   },
   methods: {
@@ -20,7 +19,7 @@ const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
       const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
       if (isReferenceElement(this.element)) {
-        this.element.setMetaProperty('referenced-element', 'schema');
+        this.element.setMetaProperty('referenced-element', 'requestBody');
       }
 
       return result;
@@ -28,4 +27,4 @@ const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   },
 });
 
-export default HeadersVisitor;
+export default RequestBodyVisitor;

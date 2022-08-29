@@ -75,7 +75,12 @@ export class DefaultSymbolsService implements SymbolsService {
 
           //  TODO (francesco@tumanischvili@smartbear.com) replace with ns plugin/adapter
           if (s === 'operation') {
-            const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+            const si: SymbolInformation = SymbolInformation.create(
+              s,
+              SymbolKind.Property,
+              r,
+              textDocument.uri,
+            );
             // TODO solve this
             const superParent: MemberElement = e.parent.parent.parent as MemberElement;
             const keySuper = superParent.key as Element;
@@ -86,13 +91,23 @@ export class DefaultSymbolsService implements SymbolsService {
             si.containerName = `${keyValueSuper} -> ${keyValue}`;
             symbols.push(si);
           } else if (s === 'pathItem' || s === 'channelItem') {
-            const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+            const si: SymbolInformation = SymbolInformation.create(
+              s,
+              SymbolKind.Property,
+              r,
+              textDocument.uri,
+            );
             const parent: MemberElement = e.parent as MemberElement;
             const key = parent.key as Element;
             si.containerName = key.toValue() as string;
             symbols.push(si);
           } else {
-            const si: SymbolInformation = SymbolInformation.create(s, SymbolKind.Property, r);
+            const si: SymbolInformation = SymbolInformation.create(
+              s,
+              SymbolKind.Property,
+              r,
+              textDocument.uri,
+            );
             const path = buildPath(e);
             si.containerName = path;
             symbols.push(si);

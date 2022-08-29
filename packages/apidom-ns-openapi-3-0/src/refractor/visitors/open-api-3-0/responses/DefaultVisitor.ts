@@ -2,16 +2,16 @@ import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
+import { isReferenceLikeElement } from '../../../predicates';
+import { isReferenceElement, isResponseElement } from '../../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
 
-const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
+const DefaultVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   props: {
     alternator: [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: stubTrue, specPath: ['document', 'objects', 'Schema'] },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'Response'] },
     ],
   },
   methods: {
@@ -19,8 +19,11 @@ const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
       // @ts-ignore
       const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
 
+      // decorate ReferenceElement with type of referencing element
       if (isReferenceElement(this.element)) {
-        this.element.setMetaProperty('referenced-element', 'schema');
+        this.element.setMetaProperty('referenced-element', 'response');
+      } else if (isResponseElement(this.element)) {
+        this.element.setMetaProperty('http-status-code', 'default');
       }
 
       return result;
@@ -28,4 +31,4 @@ const HeadersVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   },
 });
 
-export default HeadersVisitor;
+export default DefaultVisitor;

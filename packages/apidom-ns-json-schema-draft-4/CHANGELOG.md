@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
+
+
+### Features
+
+* **ns-openapi-3-0:** implement Schema element ([#1918](https://github.com/swagger-api/apidom/issues/1918)) ([b51d107](https://github.com/swagger-api/apidom/commit/b51d107eee24fed1f177b2d8f14670c63e53155a)), closes [#1887](https://github.com/swagger-api/apidom/issues/1887)
+
+
+
+
+
 # [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
 
 

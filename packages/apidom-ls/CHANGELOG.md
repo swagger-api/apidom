@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
+
+
+### Bug Fixes
+
+* **apidom-ls:** fix inverted params in test class ([22dfa69](https://github.com/swagger-api/apidom/commit/22dfa6957d76b0c34e4badd30eb4449c90cb931c))
+
+
+
+
+
 ## [0.41.1](https://github.com/swagger-api/apidom/compare/v0.41.0...v0.41.1) (2022-08-22)
 
 

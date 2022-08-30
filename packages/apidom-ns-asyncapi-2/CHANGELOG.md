@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
+
+
+### Features
+
+* **ns-asyncapi-2:** add meta to SchemaElement about version ([#1913](https://github.com/swagger-api/apidom/issues/1913)) ([3377b75](https://github.com/swagger-api/apidom/commit/3377b750134c79af67fc63f86daf744a0395ae1e)), closes [#1814](https://github.com/swagger-api/apidom/issues/1814)
+* **ns-openapi-3-0:** implement refractor layer ([#1927](https://github.com/swagger-api/apidom/issues/1927)) ([7c95c9f](https://github.com/swagger-api/apidom/commit/7c95c9f408ce620ce2c3e4f18a00404892f4104b)), closes [#1886](https://github.com/swagger-api/apidom/issues/1886)
+
+
+
+
+
 # [0.41.0](https://github.com/swagger-api/apidom/compare/v0.40.3...v0.41.0) (2022-08-19)
 
 

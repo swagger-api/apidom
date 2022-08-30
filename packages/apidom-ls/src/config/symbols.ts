@@ -6,6 +6,7 @@ export default [
   'info',
   'operation',
   'pathItem',
+  'pathItem-parameters',
   'components',
   'components-parameters',
   'components-schemas',

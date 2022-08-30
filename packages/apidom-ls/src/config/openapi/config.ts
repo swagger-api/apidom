@@ -1,5 +1,7 @@
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
+import operationMeta from './operation/meta';
+import parameterMeta from './parameter/meta';
 import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
 import serversMeta from './servers/meta';
@@ -24,6 +26,9 @@ export default {
   info: infoMeta,
   contact: contactMeta,
   schema: schemaMeta,
+  operation: operationMeta,
+  parameter: parameterMeta,
+  parameters: parameterMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
   servers: serversMeta,

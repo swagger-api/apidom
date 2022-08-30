@@ -2,14 +2,13 @@
 
 `@swagger-api/apidom-ns-openapi-3-0` contains ApiDOM namespace supports following AsyncAPI specification versions:
 
-- OpenAPI 3.0.0-rc0
-- OpenAPI 3.0.0-rc1
-- OpenAPI 3.0.0-rc2
-- [OpenAPI 3.0.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md)
-- [OpenAPI 3.0.1 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md)
-- [OpenAPI 3.0.2 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md)
 - [OpenAPI 3.0.3 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md)
-
+- [OpenAPI 3.0.2 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md)
+- [OpenAPI 3.0.1 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md)
+- [OpenAPI 3.0.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md)
+- OpenAPI 3.0.0-rc2
+- OpenAPI 3.0.0-rc1
+- OpenAPI 3.0.0-rc0
 
 ## Installation
 

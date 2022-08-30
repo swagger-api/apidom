@@ -5,7 +5,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "private": true,
   "type": "module",
   "unpkg": "./dist/apidom-ns-openapi-3-0.browser.min.js",
   "main": "./cjs/index.cjs",

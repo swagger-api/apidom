@@ -9,7 +9,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 /**
- * OpenAPI 3.1.0 specification elements.
+ * OpenAPI 3.0.3 specification elements.
  */
 import InfoElement from '../../elements/Info';
 import ContactElement from '../../elements/Contact';

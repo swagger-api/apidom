@@ -1,3 +1,5 @@
+import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+
 import OpenApi3_0Visitor from './visitors/open-api-3-0';
 import OpenapiVisitor from './visitors/open-api-3-0/OpenapiVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
@@ -68,7 +70,6 @@ import HeaderContentVisitor from './visitors/open-api-3-0/header/ContentVisitor'
 import SchemaVisitor from './visitors/open-api-3-0/schema';
 import SchemaItemsVisitor from './visitors/open-api-3-0/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-0/schema/PropertiesVisitor';
-import SchemaAdditionalPropertiesVisitor from './visitors/open-api-3-0/schema/AdditionalPropertiesVisitor';
 import SchemaTypeVisitor from './visitors/open-api-3-0/schema/TypeVisitor';
 import SchemaNullableVisitor from './visitors/open-api-3-0/schema/NullableVisitor';
 import SchemaWriteOnlyVisitor from './visitors/open-api-3-0/schema/WriteOnlyVisitor';
@@ -181,7 +182,6 @@ const SchemaSpecification = {
     items: SchemaItemsVisitor,
     // Validation keywords for objects
     properties: SchemaPropertiesVisitor,
-    additionalProperties: SchemaAdditionalPropertiesVisitor,
     // validation keywords for any instance type
     type: SchemaTypeVisitor,
     // OpenAPI vocabulary
@@ -467,6 +467,8 @@ const specification = {
         Reference: ReferenceSpecification,
         JSONSchema: SchemaSpecification,
         Schema: SchemaSpecification,
+        LinkDescription: JSONSchemaDraft4Specification.visitors.document.objects.LinkDescription,
+        Media: JSONSchemaDraft4Specification.visitors.document.objects.Media,
         Discriminator: {
           $visitor: DiscriminatorVisitor,
           fixedFields: {

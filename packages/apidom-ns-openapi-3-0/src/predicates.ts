@@ -144,7 +144,7 @@ export const isOpenApi3_0Element = createPredicate(
     return (element: any) =>
       element instanceof OpenApi3_0Element ||
       (hasBasicElementProps(element) &&
-        isElementType('openApi3_1', element) &&
+        isElementType('openApi3_0', element) &&
         primitiveEq('object', element) &&
         hasClass('api', element));
   },

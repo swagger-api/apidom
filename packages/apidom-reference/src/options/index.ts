@@ -5,6 +5,7 @@ import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
 import ApiDesignSystemsJsonParser from '../parse/parsers/apidom-reference-parser-api-design-systems-json';
 import ApiDesignSystemsYamlParser from '../parse/parsers/apidom-reference-parser-api-design-systems-yaml';
 import OpenApiJson3_0Parser from '../parse/parsers/apidom-reference-parser-openapi-json-3-0';
+import OpenApiYaml3_0Parser from '../parse/parsers/apidom-reference-parser-openapi-yaml-3-0';
 import OpenApiJson3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
 import AsyncApiJson2Parser from '../parse/parsers/apidom-reference-parser-asyncapi-json-2';
@@ -32,6 +33,7 @@ const defaultOptions: IReferenceOptions = {
      */
     parsers: [
       OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),

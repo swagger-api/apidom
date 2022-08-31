@@ -14,6 +14,7 @@ export { default as Parser } from './parse/parsers/Parser';
 export { default as ApiDesignSystemsJsonParser } from './parse/parsers/apidom-reference-parser-api-design-systems-json';
 export { default as ApiDesignSystemsYamlParser } from './parse/parsers/apidom-reference-parser-api-design-systems-yaml';
 export { default as OpenApiJson3_0Parser } from './parse/parsers/apidom-reference-parser-openapi-json-3-0';
+export { default as OpenApiYaml3_0Parser } from './parse/parsers/apidom-reference-parser-openapi-yaml-3-0';
 export { default as OpenApiJson3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-json-3-1';
 export { default as OpenApiYaml3_1Parser } from './parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
 export { default as AsyncApiJson2Parser } from './parse/parsers/apidom-reference-parser-asyncapi-json-2';

@@ -3,6 +3,26 @@ const docsOperationObject =
 
 const documentation = [
   {
+    target: 'tags',
+    docs: 'A list of tags for API documentation control. Tags can be used for logical grouping of operations by resources or any other qualifier.',
+  },
+  {
+    target: 'summary',
+    docs: 'A short summary of what the operation does.',
+  },
+  {
+    target: 'description',
+    docs: 'A verbose explanation of the operation behavior. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
+  },
+  {
+    target: 'operationId',
+    docs: 'Unique string used to identify the operation. The id MUST be unique among all operations described in the API. The operationId value is **case-sensitive**. Tools and libraries MAY use the operationId to uniquely identify an operation, therefore, it is RECOMMENDED to follow common programming naming conventions.',
+  },
+  {
+    target: 'deprecated',
+    docs: 'Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. Default value is `false`.',
+  },
+  {
     docs: docsOperationObject,
   },
 ];

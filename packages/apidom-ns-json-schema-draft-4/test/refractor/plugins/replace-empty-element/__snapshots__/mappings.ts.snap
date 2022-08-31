@@ -83,16 +83,3 @@ exports[`given empty value for properties field should replace empty value with 
         (StringElement)
         (JSONSchemaDraft4Element)))))
 `;
-
-exports[`given empty value instead for properties field keys should replace empty value with semantic element 1`] = `
-(JSONSchemaDraft4Element
-  (MemberElement
-    (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (JSONSchemaDraft4Element)))))
-`;

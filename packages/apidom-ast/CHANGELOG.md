@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.43.0](https://github.com/swagger-api/apidom/compare/v0.42.0...v0.43.0) (2022-08-31)
+
+**Note:** Version bump only for package @swagger-api/apidom-ast
+
+
+
+
+
 # [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

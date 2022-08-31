@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.43.0](https://github.com/swagger-api/apidom/compare/v0.42.0...v0.43.0) (2022-08-31)
+
+
+### Features
+
+* **ns-asyncapi-2:** add support for Link Description Object ([#1947](https://github.com/swagger-api/apidom/issues/1947)) ([9d36bb2](https://github.com/swagger-api/apidom/commit/9d36bb203b38584356d9daec7ee46af8640fcd0e)), closes [#1942](https://github.com/swagger-api/apidom/issues/1942)
+
+
+
+
+
 # [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
 
 

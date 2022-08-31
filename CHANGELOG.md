@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.43.0](https://github.com/swagger-api/apidom/compare/v0.42.0...v0.43.0) (2022-08-31)
+
+
+### Bug Fixes
+
+* **parser-adapter-openapi-yaml-3-1:** fix incorrect detection ([#1952](https://github.com/swagger-api/apidom/issues/1952)) ([447f10c](https://github.com/swagger-api/apidom/commit/447f10cc47ba81295aeab32f1ad489097c2a563a))
+
+
+### Features
+
+* add JSON parser adapter for OpenAPI 3.0.x namespacd ([#1948](https://github.com/swagger-api/apidom/issues/1948)) ([ce254b2](https://github.com/swagger-api/apidom/commit/ce254b236082667e982b99d6fa32f565ffae1730)), closes [#1892](https://github.com/swagger-api/apidom/issues/1892)
+* add YAML parser adapter for OpenAPI 3.0.x namespace ([#1950](https://github.com/swagger-api/apidom/issues/1950)) ([ae469b4](https://github.com/swagger-api/apidom/commit/ae469b48891d529a62d51fdfea937d88bdf416e1)), closes [#1893](https://github.com/swagger-api/apidom/issues/1893)
+* **ns-asyncapi-2:** add support for Link Description Object ([#1947](https://github.com/swagger-api/apidom/issues/1947)) ([9d36bb2](https://github.com/swagger-api/apidom/commit/9d36bb203b38584356d9daec7ee46af8640fcd0e)), closes [#1942](https://github.com/swagger-api/apidom/issues/1942)
+
+
+
+
+
 # [0.42.0](https://github.com/swagger-api/apidom/compare/v0.41.1...v0.42.0) (2022-08-30)
 
 

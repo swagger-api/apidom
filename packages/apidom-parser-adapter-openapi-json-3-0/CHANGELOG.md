@@ -1,0 +1,12 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [0.43.0](https://github.com/swagger-api/apidom/compare/v0.42.0...v0.43.0) (2022-08-31)
+
+
+### Features
+
+* add JSON parser adapter for OpenAPI 3.0.x namespacd ([#1948](https://github.com/swagger-api/apidom/issues/1948)) ([ce254b2](https://github.com/swagger-api/apidom/commit/ce254b236082667e982b99d6fa32f565ffae1730)), closes [#1892](https://github.com/swagger-api/apidom/issues/1892)
+* add YAML parser adapter for OpenAPI 3.0.x namespace ([#1950](https://github.com/swagger-api/apidom/issues/1950)) ([ae469b4](https://github.com/swagger-api/apidom/commit/ae469b48891d529a62d51fdfea937d88bdf416e1)), closes [#1893](https://github.com/swagger-api/apidom/issues/1893)

@@ -272,6 +272,10 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
             (StringElement))))))
   (MemberElement
     (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement)))
+  (MemberElement
+    (StringElement)
     (StringElement))
   (MemberElement
     (StringElement)

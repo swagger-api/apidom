@@ -1,3 +1,5 @@
+import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
+
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
@@ -588,6 +590,7 @@ const specification = {
         Reference: ReferenceSpecification,
         JSONSchema: SchemaSpecification,
         Schema: SchemaSpecification,
+        LinkDescription: JSONSchemaDraft7Specification.visitors.document.objects.LinkDescription,
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {

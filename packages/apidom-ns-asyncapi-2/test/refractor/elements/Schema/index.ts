@@ -76,6 +76,8 @@ describe('refractor', function () {
             enabledToggle: {},
             disableToggle: { $ref: '#/components/schemas/Schema1' },
           },
+          // hyper-schema vocabulary
+          links: [{}],
           // AsyncAPI vocabulary
           discriminator: 'schema-discriminator',
           externalDocs: {},

@@ -51,7 +51,7 @@ This adapter exposes an instance of [OpenApi 3.1.0 ApiDOM namespace](https://git
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/parser/specification.ts) | This specification object drives the YAML AST transformation to base ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/refractor/specification.ts) | This specification object drives the YAML AST transformation to OpenAPI 3.1.0 ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
 <a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractor-plugins) during refracting phase.
 

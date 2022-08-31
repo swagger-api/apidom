@@ -66,7 +66,7 @@ This adapter exposes an instance of [AsyncApi 2.x.y ApiDOM namespace](https://gi
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/refractor/specification.ts) | This specification object drives the JSON AST transformation to AsyncAPI 2.x ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
 <a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#refractor-plugins) during refracting phase.
 

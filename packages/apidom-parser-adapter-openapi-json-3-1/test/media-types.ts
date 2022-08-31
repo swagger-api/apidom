@@ -1,10 +1,10 @@
 import { assert } from 'chai';
 import ApiDOMParser from '@swagger-api/apidom-parser';
 
-import * as asyncApiJsonAdapter from '../src/adapter';
+import * as openApiJsonAdapter from '../src/adapter';
 
 describe('given adapter is used in parser', function () {
-  const parser = ApiDOMParser().use(asyncApiJsonAdapter);
+  const parser = ApiDOMParser().use(openApiJsonAdapter);
 
   context('given OpenAPI 3.1.0 definition in JSON format', function () {
     specify('should find appropriate media type', async function () {

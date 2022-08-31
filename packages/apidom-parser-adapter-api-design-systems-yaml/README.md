@@ -55,7 +55,7 @@ This adapter exposes an instance of [API Design Systems ApiDOM namespace](https:
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/parser/specification.ts) | This specification object drives the JSON AST transformation to base ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-api-design-systems/src/refractor/specification.ts) | This specification object drives the JSON AST transformation to API Design Systems ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
 <a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-api-design-systems#refractor-plugins) during refracting phase.
 

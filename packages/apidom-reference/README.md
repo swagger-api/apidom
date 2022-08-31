@@ -99,6 +99,32 @@ Supported media types are:
 ]
 ```
 
+#### [openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-yaml-3-0)
+
+Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0) package
+and is uniquely  identified by `openapi-yaml-3-1` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.0.0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0',
+  'application/vnd.oai.openapi;version=3.0.0-rc0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc0',
+  'application/vnd.oai.openapi;version=3.0.0-rc1',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc1',
+  'application/vnd.oai.openapi;version=3.0.0-rc2',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc2',
+  'application/vnd.oai.openapi;version=3.0.1',
+  'application/vnd.oai.openapi+yaml;version=3.0.1',
+  'application/vnd.oai.openapi;version=3.0.2',
+  'application/vnd.oai.openapi+yaml;version=3.0.2',
+  'application/vnd.oai.openapi;version=3.0.3',
+  'application/vnd.oai.openapi+yaml;version=3.0.3',
+]
+```
+
 #### [openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-json-3-1)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-1) package

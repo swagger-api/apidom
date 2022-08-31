@@ -25,6 +25,9 @@ export class OpenAPIMediaTypes extends MediaTypes<string> {
 }
 
 const mediaTypes = new OpenAPIMediaTypes(
+  'application/vnd.oai.openapi;version=3.0.0',
+  'application/vnd.oai.openapi+json;version=3.0.0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0',
   'application/vnd.oai.openapi;version=3.0.0-rc0',
   'application/vnd.oai.openapi+json;version=3.0.0-rc0',
   'application/vnd.oai.openapi+yaml;version=3.0.0-rc0',
@@ -34,9 +37,6 @@ const mediaTypes = new OpenAPIMediaTypes(
   'application/vnd.oai.openapi;version=3.0.0-rc2',
   'application/vnd.oai.openapi+json;version=3.0.0-rc2',
   'application/vnd.oai.openapi+yaml;version=3.0.0-rc2',
-  'application/vnd.oai.openapi;version=3.0.0',
-  'application/vnd.oai.openapi+json;version=3.0.0',
-  'application/vnd.oai.openapi+yaml;version=3.0.0',
   'application/vnd.oai.openapi;version=3.0.1',
   'application/vnd.oai.openapi+json;version=3.0.1',
   'application/vnd.oai.openapi+yaml;version=3.0.1',

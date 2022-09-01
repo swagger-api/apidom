@@ -10,10 +10,6 @@ const documentation = [
     target: 'description',
     docs: 'An optional string describing the host designated by the URL. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
   },
-  // {
-  //   target: 'variables',
-  //   docs: "A map between a variable name and its value. The value is used for substitution in the server's URL template.",
-  // },
   {
     docs: docsServerObject,
   },

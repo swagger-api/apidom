@@ -33,6 +33,5 @@ export default {
   paths: pathsMeta,
   servers: serversMeta,
   server: serverMeta,
-  serverVariables: serverVariableMeta,
-  serverVariable: serverVariableMeta,
+  'server-variables': serverVariableMeta,
 };

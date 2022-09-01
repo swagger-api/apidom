@@ -34,4 +34,5 @@ export default {
   servers: serversMeta,
   server: serverMeta,
   serverVariables: serverVariableMeta,
+  serverVariable: serverVariableMeta,
 };

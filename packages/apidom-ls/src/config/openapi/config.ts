@@ -1,5 +1,6 @@
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
+import licenseMeta from './license/meta';
 import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
 import pathItemMeta from './path-item/meta';
@@ -25,6 +26,7 @@ export default {
   },
   info: infoMeta,
   contact: contactMeta,
+  license: licenseMeta,
   schema: schemaMeta,
   operation: operationMeta,
   parameter: parameterMeta,

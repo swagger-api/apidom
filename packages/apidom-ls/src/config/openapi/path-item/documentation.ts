@@ -13,7 +13,7 @@ const documentation = [
   },
   {
     target: 'description',
-    docs: 'An optional, string description, intended to apply to all operations in this path. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
+    docs: 'An optional string description, intended to apply to all operations in this path. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
   },
   {
     docs: docsPathItemObject,

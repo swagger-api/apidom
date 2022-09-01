@@ -6,7 +6,7 @@ import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
 import serversMeta from './servers/meta';
 import serverMeta from './server/meta';
-import serverVariableMeta from './server-variable/meta';
+import serverVariablesMeta from './server-variables/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -33,5 +33,5 @@ export default {
   paths: pathsMeta,
   servers: serversMeta,
   server: serverMeta,
-  'server-variables': serverVariableMeta,
+  'server-variables': serverVariablesMeta,
 };

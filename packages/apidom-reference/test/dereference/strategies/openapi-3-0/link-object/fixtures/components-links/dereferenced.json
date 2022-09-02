@@ -1,0 +1,22 @@
+[
+  {
+    "openapi": "3.0.3",
+    "components": {
+      "links": {
+        "link1": {
+          "operationId": "op1"
+        },
+        "link2": {
+          "operationId": "op1"
+        }
+      }
+    },
+    "paths": {
+      "/path": {
+        "get": {
+          "operationId": "op1"
+        }
+      }
+    }
+  }
+]

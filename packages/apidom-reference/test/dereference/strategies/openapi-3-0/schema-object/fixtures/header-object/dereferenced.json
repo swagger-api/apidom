@@ -1,0 +1,19 @@
+[
+  {
+    "openapi": "3.0.3",
+    "components": {
+      "headers": {
+        "header1": {
+          "schema": {
+            "title": "header1 schema title"
+          }
+        },
+        "header2": {
+          "schema": {
+            "title": "header1 schema title"
+          }
+        }
+      }
+    }
+  }
+]

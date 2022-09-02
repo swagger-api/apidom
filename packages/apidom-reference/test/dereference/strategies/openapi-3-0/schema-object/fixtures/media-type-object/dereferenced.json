@@ -1,0 +1,29 @@
+[
+  {
+    "openapi": "3.0.3",
+    "components": {
+      "schemas": {
+        "schema": {
+          "title": "schema title"
+        }
+      }
+    },
+    "paths": {
+      "/path": {
+        "get": {
+          "responses": {
+            "default": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "title": "schema title"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

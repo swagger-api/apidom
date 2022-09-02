@@ -1,0 +1,38 @@
+[
+  {
+    "openapi": "3.0.3",
+    "components": {
+      "parameters": {
+        "param1": {
+          "schema": {
+            "type": "object",
+            "title": "User signed up event",
+            "summary": "Inform about a new user",
+            "contentType": "application/json",
+            "properties": {
+              "firstName": {
+                "type": "string",
+                "description": "foo"
+              }
+            }
+          }
+        }
+      },
+      "schemas": {
+        "schema1": {
+          "type": "object",
+          "title": "User signed up event",
+          "summary": "Inform about a new user",
+          "contentType": "application/json",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "description": "foo"
+            }
+          }
+        }
+      }
+    }
+  }
+
+]

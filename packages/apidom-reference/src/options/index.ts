@@ -13,6 +13,7 @@ import AsyncApiYaml2Parser from '../parse/parsers/apidom-reference-parser-asynca
 import JsonParser from '../parse/parsers/apidom-reference-parser-json';
 import YamlParser from '../parse/parsers/apidom-reference-parser-yaml-1-2';
 import BinaryParser from '../parse/parsers/apidom-reference-parser-binary/index-node';
+import OpenApi3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
 import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
 import { ReferenceOptions as IReferenceOptions } from '../types';
@@ -104,7 +105,11 @@ const defaultOptions: IReferenceOptions = {
      * You can add additional dereference strategies of your own, replace an existing one with
      * your own implementation, or remove any dereference strategy by removing it from the list.
      */
-    strategies: [OpenApi3_1DereferenceStrategy(), AsyncApi2DereferenceStrategy()],
+    strategies: [
+      OpenApi3_0DereferenceStrategy(),
+      OpenApi3_1DereferenceStrategy(),
+      AsyncApi2DereferenceStrategy(),
+    ],
     /**
      * This option accepts an instance of pre-computed ReferenceSet.
      * If provided it will speed up the dereferencing significantly as the external

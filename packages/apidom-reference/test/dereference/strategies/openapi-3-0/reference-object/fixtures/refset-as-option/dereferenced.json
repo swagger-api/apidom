@@ -1,0 +1,15 @@
+[
+  {
+    "openapi": "3.0.3",
+    "components": {
+      "parameters": {
+        "externalRef": {
+          "name": "externalParameter",
+          "in": "query",
+          "description": "external ref",
+          "required": true
+        }
+      }
+    }
+  }
+]

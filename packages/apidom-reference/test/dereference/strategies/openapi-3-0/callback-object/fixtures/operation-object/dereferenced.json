@@ -1,0 +1,27 @@
+[
+  {
+    "openapi": "3.0.3",
+    "paths": {
+      "/path": {
+        "get": {
+          "callbacks": {
+            "callback": {
+              "{$method}": {
+                "description": "description of callback2"
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "callbacks": {
+        "callback": {
+          "{$method}": {
+            "description": "description of callback2"
+          }
+        }
+      }
+    }
+  }
+]

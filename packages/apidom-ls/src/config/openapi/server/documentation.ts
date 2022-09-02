@@ -11,6 +11,11 @@ const documentation = [
     docs: 'An optional string describing the host designated by the URL. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
   },
   {
+    target: 'variables',
+    // linter complains about escaping single quote in string, so use double quotes
+    docs: "#### Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)]\n\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
+  },
+  {
     docs: docsServerObject,
   },
 ];

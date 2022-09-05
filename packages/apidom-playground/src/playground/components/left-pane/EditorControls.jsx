@@ -93,9 +93,6 @@ const EditorControls = () => {
                 value={mediaType}
                 onChange={handleMediaTypeChange}
               >
-                <MenuItem value="application/json">application/json</MenuItem>
-                <MenuItem value="application/yaml">application/yaml</MenuItem>
-                <MenuItem value="text/yaml">text/yaml</MenuItem>
                 {mediaTypes.map((medType) => (
                   <MenuItem key={medType} value={medType}>
                     {medType}

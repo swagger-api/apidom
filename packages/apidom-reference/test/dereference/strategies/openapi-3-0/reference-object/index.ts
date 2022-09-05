@@ -5,7 +5,7 @@ import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
-import { dereference } from '../../../../../src';
+import { resolve, dereference } from '../../../../../src';
 import {
   DereferenceError,
   MaximumDereferenceDepthError,
@@ -329,20 +329,19 @@ describe('dereference', function () {
           });
         });
 
-        // @TODO: enable test
-        // context('given refSet is provided as an option', function () {
-        //   specify('should dereference without external resolution', async function () {
-        //     const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
-        //     const uri = path.join(fixturePath, 'root.json');
-        //     const refSet = await resolve(uri, {
-        //       parse: { mediaType: mediaTypes.latest('json') },
-        //     });
-        //     const actual = await dereference(uri, { dereference: { refSet } });
-        //     const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-        //
-        //     assert.deepEqual(toValue(actual), expected);
-        //   });
-        // });
+        context('given refSet is provided as an option', function () {
+          specify('should dereference without external resolution', async function () {
+            const fixturePath = path.join(__dirname, 'fixtures', 'refset-as-option');
+            const uri = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(uri, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const actual = await dereference(uri, { dereference: { refSet } });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
 
         context('given path with invalid URL characters - spaces', function () {
           const fixturePath = path.join(rootFixturePath, 'path-encoding', 'path with spaces');

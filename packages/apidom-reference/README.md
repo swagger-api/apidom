@@ -912,6 +912,37 @@ Supported media types:
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
 ]
 ```
+##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-0)
+
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.0.0',
+  'application/vnd.oai.openapi+json;version=3.0.0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0',
+  'application/vnd.oai.openapi;version=3.0.0-rc0',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc0',
+  'application/vnd.oai.openapi;version=3.0.0-rc1',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc1',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc1',
+  'application/vnd.oai.openapi;version=3.0.0-rc2',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc2',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc2',
+  'application/vnd.oai.openapi;version=3.0.1',
+  'application/vnd.oai.openapi+json;version=3.0.1',
+  'application/vnd.oai.openapi+yaml;version=3.0.1',
+  'application/vnd.oai.openapi;version=3.0.2',
+  'application/vnd.oai.openapi+json;version=3.0.2',
+  'application/vnd.oai.openapi+yaml;version=3.0.2',
+  'application/vnd.oai.openapi;version=3.0.3',
+  'application/vnd.oai.openapi+json;version=3.0.3',
+  'application/vnd.oai.openapi+yaml;version=3.0.3',
+]
+```
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-1)
 
@@ -939,8 +970,9 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
+  AsyncApi2ResolveStrategy(),
+  OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
-  AsyncApi2ResolveStrategy()
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -951,8 +983,9 @@ It's possible to **change** strategies **order globally** by mutating global `re
 import { options, AsyncApi2ResolveStrategy, OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference';
 
 options.resolve.strategies = [
-  AsyncApi2ResolveStrategy(),
+  OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
+  AsyncApi2ResolveStrategy(),
 ];
 ```
 
@@ -967,8 +1000,9 @@ await resolve('/home/user/oas.json', {
   },
   resolve: {
     strategies: [
-      AsyncApi2ResolveStrategy(),
+      OpenApi3_0ResolveStrategy(),
       OpenApi3_1ResolveStrategy(),
+      AsyncApi2ResolveStrategy(),
     ]
   }
 });
@@ -1193,6 +1227,38 @@ Supported media types:
 ]
 ```
 
+##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-0)
+
+Dereference strategy for dereferencing [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.0.0',
+  'application/vnd.oai.openapi+json;version=3.0.0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0',
+  'application/vnd.oai.openapi;version=3.0.0-rc0',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc0',
+  'application/vnd.oai.openapi;version=3.0.0-rc1',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc1',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc1',
+  'application/vnd.oai.openapi;version=3.0.0-rc2',
+  'application/vnd.oai.openapi+json;version=3.0.0-rc2',
+  'application/vnd.oai.openapi+yaml;version=3.0.0-rc2',
+  'application/vnd.oai.openapi;version=3.0.1',
+  'application/vnd.oai.openapi+json;version=3.0.1',
+  'application/vnd.oai.openapi+yaml;version=3.0.1',
+  'application/vnd.oai.openapi;version=3.0.2',
+  'application/vnd.oai.openapi+json;version=3.0.2',
+  'application/vnd.oai.openapi+yaml;version=3.0.2',
+  'application/vnd.oai.openapi;version=3.0.3',
+  'application/vnd.oai.openapi+json;version=3.0.3',
+  'application/vnd.oai.openapi+yaml;version=3.0.3',
+]
+```
+
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1)
 
 Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) definitions.
@@ -1219,8 +1285,9 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
+  OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
-  AsyncApi2DereferenceStrategy()
+  AsyncApi2DereferenceStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1231,6 +1298,7 @@ It's possible to **change** strategies **order globally** by mutating global `de
 import { options, AsyncApi2DereferenceStrategy, OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference';
 
 options.dereference.strategies = [
+  OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
 ];
@@ -1248,6 +1316,7 @@ await dereference('/home/user/oas.json', {
   dereference: {
     strategies: [
       AsyncApi2DereferenceStrategy(),
+      OpenApi3_0DereferenceStrategy(),
       OpenApi3_1DereferenceStrategy(),
     ]
   }

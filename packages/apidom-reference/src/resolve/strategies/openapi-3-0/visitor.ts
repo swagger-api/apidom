@@ -6,14 +6,17 @@ import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
   isReferenceElement,
-  isChannelItemElement,
   isReferenceLikeElement,
+  isPathItemElement,
   keyMap,
   ReferenceElement,
-  ChannelItemElement,
+  PathItemElement,
+  LinkElement,
+  ExampleElement,
   isReferenceElementExternal,
-  isChannelItemElementExternal,
-} from '@swagger-api/apidom-ns-asyncapi-2';
+  isPathItemElementExternal,
+  isLinkElementExternal,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { Reference as IReference } from '../../../types';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
@@ -24,7 +27,8 @@ import Reference from '../../../Reference';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
-const AsyncApi2ResolveVisitor = stampit({
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const OpenApi3_0ResolveVisitor = stampit({
   props: {
     indirections: [],
     namespace: null,
@@ -85,7 +89,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return false;
       }
 
-      const uri = referenceElement.$ref.toValue();
+      const uri = referenceElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -96,24 +100,78 @@ const AsyncApi2ResolveVisitor = stampit({
       return undefined;
     },
 
-    ChannelItemElement(channelItemElement: ChannelItemElement) {
+    PathItemElement(pathItemElement: PathItemElement) {
       // ignore PathItemElement without $ref field
-      if (!isStringElement(channelItemElement.$ref)) {
+      if (!isStringElement(pathItemElement.$ref)) {
         return undefined;
       }
 
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isChannelItemElementExternal(channelItemElement)) {
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
         return undefined;
       }
 
-      const uri = channelItemElement.$ref.toValue();
+      const uri = pathItemElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
         this.crawlingMap[baseURI] = this.toReference(uri);
       }
-      this.crawledElements.push(channelItemElement);
+      this.crawledElements.push(pathItemElement);
+
+      return undefined;
+    },
+
+    LinkElement(linkElement: LinkElement) {
+      // ignore LinkElement without operationRef or operationId field
+      if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
+        return undefined;
+      }
+
+      // ignore resolving external Path Item Elements
+      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
+        return undefined;
+      }
+
+      // operationRef and operationId are mutually exclusive
+      if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
+        throw new Error('LinkElement operationRef and operationId are mutually exclusive.');
+      }
+
+      if (isLinkElementExternal(linkElement)) {
+        const uri = linkElement.operationRef?.toValue();
+        const baseURI = this.toBaseURI(uri);
+
+        if (!has(baseURI, this.crawlingMap)) {
+          this.crawlingMap[baseURI] = this.toReference(uri);
+        }
+      }
+
+      return undefined;
+    },
+
+    ExampleElement(exampleElement: ExampleElement) {
+      // ignore ExampleElement without externalValue field
+      if (!isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // ignore resolving ExampleElement externalValue
+      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
+        return undefined;
+      }
+
+      // value and externalValue fields are mutually exclusive
+      if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
+        throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
+      }
+
+      const uri = exampleElement.externalValue?.toValue();
+      const baseURI = this.toBaseURI(uri);
+
+      if (!has(baseURI, this.crawlingMap)) {
+        this.crawlingMap[baseURI] = this.toReference(uri);
+      }
 
       return undefined;
     },
@@ -124,7 +182,7 @@ const AsyncApi2ResolveVisitor = stampit({
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let fragment = evaluate(jsonPointer, reference.value.result);
@@ -157,7 +215,7 @@ const AsyncApi2ResolveVisitor = stampit({
       }
 
       // dive deep into the fragment
-      const visitor = AsyncApi2ResolveVisitor({
+      const visitor = OpenApi3_0ResolveVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -169,20 +227,20 @@ const AsyncApi2ResolveVisitor = stampit({
       this.indirections.pop();
     },
 
-    async crawlChannelItemElement(channelItemElement: ChannelItemElement) {
+    async crawlPathItemElement(pathItemElement: PathItemElement) {
       // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref.toValue());
+      const reference = await this.toReference(pathItemElement.$ref?.toValue());
 
-      this.indirections.push(channelItemElement);
+      this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(channelItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
 
-      // possibly non-semantic referenced element
+      // possibly non-semantic fragment
       let referencedElement = evaluate(jsonPointer, reference.value.result);
 
-      // applying semantics to a referenced element
+      // applying semantics to a fragment
       if (isPrimitiveElement(referencedElement)) {
-        referencedElement = ChannelItemElement.refract(referencedElement);
+        referencedElement = PathItemElement.refract(referencedElement);
       }
 
       // detect direct or indirect reference
@@ -197,8 +255,8 @@ const AsyncApi2ResolveVisitor = stampit({
         );
       }
 
-      // dive deep into the referenced element
-      const visitor: any = AsyncApi2ResolveVisitor({
+      // dive deep into the fragment
+      const visitor: any = OpenApi3_0ResolveVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -223,8 +281,8 @@ const AsyncApi2ResolveVisitor = stampit({
       for (const element of this.crawledElements) {
         if (isReferenceElement(element)) {
           await this.crawlReferenceElement(element);
-        } else if (isChannelItemElement(element)) {
-          await this.crawlChannelItemElement(element);
+        } else if (isPathItemElement(element)) {
+          await this.crawlPathItemElement(element);
         }
       }
       /* eslint-enabled */
@@ -232,4 +290,4 @@ const AsyncApi2ResolveVisitor = stampit({
   },
 });
 
-export default AsyncApi2ResolveVisitor;
+export default OpenApi3_0ResolveVisitor;

@@ -6,7 +6,7 @@
         "externalRef": {
           "name": "externalParameter",
           "in": "query",
-          "description": "external ref",
+          "description": "this is parameter stored in external file",
           "required": true
         }
       }

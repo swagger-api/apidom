@@ -119,7 +119,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Reference Objects
+      // ignore resolving external Path Item Objects
       if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
         return undefined;
       }

@@ -4,6 +4,8 @@ import { dehydrate, from, sexprs, toValue } from '@swagger-api/apidom-core';
 import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as jsonAdapter from '@swagger-api/apidom-parser-adapter-json';
 import * as yamlAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
@@ -17,6 +19,8 @@ import {
 const parser = ApiDOMParser()
   .use(jsonAdapter)
   .use(yamlAdapter)
+  .use(openapi3_0AdapterJson)
+  .use(openapi3_0AdapterYaml)
   .use(openapi3_1AdapterJson)
   .use(openapi3_1AdapterYaml)
   .use(asyncapi2AdapterJson)

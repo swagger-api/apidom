@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.44.0](https://github.com/swagger-api/apidom/compare/v0.43.0...v0.44.0) (2022-09-05)
+
+
+### Features
+
+* **playground:** add support for OpenAPI 3.0.x ([#1958](https://github.com/swagger-api/apidom/issues/1958)) ([bfc5445](https://github.com/swagger-api/apidom/commit/bfc5445bb191bd836215e9876b86e11423ffddeb)), closes [#1943](https://github.com/swagger-api/apidom/issues/1943)
+* **reference:** add OpenAPI 3.0.x JSON parser plugin ([c15294c](https://github.com/swagger-api/apidom/commit/c15294c12bdf9b869c31a6f831951d6e68bb1e2b)), closes [#1894](https://github.com/swagger-api/apidom/issues/1894)
+* **reference:** add OpenAPI 3.0.x resolve strategy ([#1957](https://github.com/swagger-api/apidom/issues/1957)) ([9617cb3](https://github.com/swagger-api/apidom/commit/9617cb32f942b703a7c9099e29c86166e24ed088)), closes [#1895](https://github.com/swagger-api/apidom/issues/1895)
+* **reference:** add OpenAPI 3.0.x YAML parser plugin ([0dfbabe](https://github.com/swagger-api/apidom/commit/0dfbabe3cb275dea5a3868f6f6439dffeb037496)), closes [#1894](https://github.com/swagger-api/apidom/issues/1894)
+* **referene:** add OpenAPI 3.0.x dereference strategy ([#1955](https://github.com/swagger-api/apidom/issues/1955)) ([6ea5bfd](https://github.com/swagger-api/apidom/commit/6ea5bfd5098581f079fc56f9b3bfe15942f4f37b)), closes [#1896](https://github.com/swagger-api/apidom/issues/1896)
+
+
+
+
+
 # [0.43.0](https://github.com/swagger-api/apidom/compare/v0.42.0...v0.43.0) (2022-08-31)
 
 

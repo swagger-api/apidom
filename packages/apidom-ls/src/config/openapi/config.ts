@@ -7,6 +7,7 @@ import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
 import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
+import responsesMeta from './responses/meta';
 import serversMeta from './servers/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
@@ -36,6 +37,7 @@ export default {
   parameters: parameterMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
+  responses: responsesMeta,
   servers: serversMeta,
   server: serverMeta,
   // 'server-variables': serverVariablesMeta,

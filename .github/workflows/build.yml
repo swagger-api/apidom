@@ -90,7 +90,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build monorepo for testing
-        run: npm run build:cjs
+        run: |
+          npm run prebuild
+          npm run build:cjs
       - name: Execute tests in monorepo
         run: npm run test
 

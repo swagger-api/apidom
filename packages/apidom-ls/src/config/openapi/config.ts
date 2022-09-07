@@ -11,7 +11,6 @@ import responsesMeta from './responses/meta';
 import serversMeta from './servers/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
-// import serverVariablesMeta from './server-variables/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -40,7 +39,6 @@ export default {
   responses: responsesMeta,
   servers: serversMeta,
   server: serverMeta,
-  // 'server-variables': serverVariablesMeta,
   serverVariable: serverVariableMeta,
   tags: tagsMeta,
   externalDocumentation: externalDocumentationMeta,

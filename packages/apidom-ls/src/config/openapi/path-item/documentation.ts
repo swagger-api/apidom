@@ -1,6 +1,5 @@
 const documentation = [
   {
-    // OAS 3.1 adds the last sentence vs OAS3.0.3, re: "rules for resolving"
     target: '$ref',
     docs: 'Allows for an external definition of this path item. The referenced structure MUST be in the format of a [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject). In case a Path Item Object field appears both in the defined object and the referenced object, the behavior is undefined. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],

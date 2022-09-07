@@ -1,6 +1,7 @@
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
 import licenseMeta from './license/meta';
+import tagMeta from './tag/meta';
 import tagsMeta from './tags/meta';
 import externalDocumentationMeta from './external-documentation/meta';
 import operationMeta from './operation/meta';
@@ -41,5 +42,6 @@ export default {
   server: serverMeta,
   serverVariable: serverVariableMeta,
   tags: tagsMeta,
+  tag: tagMeta,
   externalDocumentation: externalDocumentationMeta,
 };

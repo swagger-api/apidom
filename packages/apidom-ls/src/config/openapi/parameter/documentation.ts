@@ -5,6 +5,7 @@ const documentation = [
   {
     target: 'name',
     docs: '**REQUIRED**. The name of the parameter. Parameter names are *case sensitive*.\n\n  * If [`in`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn) is `"path"`, the `name` field MUST correspond to a template expression occurring within the [path](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsPath) field in the [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject). See [Path Templating](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathTemplating) for further information.\n\n  * If [`in`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn) is `"header"` and the `name` field is `"Accept"`, `"Content-Type"` or `"Authorization"`, the parameter definition SHALL be ignored.\n\n  * For all other cases, the `name` corresponds to the parameter name used by the [`in`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn) property.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'in',
@@ -17,6 +18,7 @@ const documentation = [
   {
     target: 'required',
     docs: 'Determines whether this parameter is mandatory. If the [parameter location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn) is `"path"`, this property is **REQUIRED** and its value MUST be `true`. Otherwise, the property MAY be included and its default value is `false`.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'deprecated',
@@ -25,6 +27,7 @@ const documentation = [
   {
     target: 'allowEmptyValue',
     docs: 'Sets the ability to pass empty-valued parameters. This is valid only for `query` parameters and allows sending a parameter with an empty value. Default value is `false`. If [`style`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterStyle) is used, and if behavior is `n/a` (cannot be serialized), the value of `allowEmptyValue` SHALL be ignored. Use of this property is NOT RECOMMENDED, as it is likely to be removed in a later revision.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'style',
@@ -33,6 +36,7 @@ const documentation = [
   {
     target: 'explode',
     docs: 'When this is true, parameter values of type `array` or `object` generate separate parameters for each value of the array or key-value pair of the map. For other types of parameters this property has no effect. When [`style`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterStyle) is `form`, the default value is `true`. For all other styles, the default value is `false`.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'allowReserved',
@@ -49,10 +53,12 @@ const documentation = [
     target: 'examples',
     // linter complains about escaping single quote in string, so use double quotes
     docs: "#### Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\n Examples of the parameter's potential value. Each example SHOULD contain a value in the correct format as specified in the parameter encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema",
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'content',
     docs: 'A map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     docs: docsParametersObject,

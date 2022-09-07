@@ -14,9 +14,11 @@ const documentation = [
     target: 'variables',
     // linter complains about escaping single quote in string, so use double quotes
     docs: "#### Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)]\n\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     docs: docsServerObject,
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
 ];
 

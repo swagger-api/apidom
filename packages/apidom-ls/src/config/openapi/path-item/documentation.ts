@@ -6,6 +6,7 @@ const documentation = [
     // OAS 3.1 adds the last sentence vs OAS3.0.3, re: "rules for resolving"
     target: '$ref',
     docs: 'Allows for an external definition of this path item. The referenced structure MUST be in the format of a [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject). In case a Path Item Object field appears both in the defined object and the referenced object, the behavior is undefined. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'summary',
@@ -18,13 +19,16 @@ const documentation = [
   {
     target: 'servers',
     docs: '#### [[ServerObject](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\nAn alternative `server` array to service all operations in this path.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'parameters',
     docs: "#### [[Parameter](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\nA list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterName) and [location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn). The list can use the [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject) to link to parameters that are defined at the [OpenAPI Object's components/parameters](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsParameters).",
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     docs: docsPathItemObject,
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
 ];
 

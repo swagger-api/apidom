@@ -4,6 +4,7 @@ const docsServersObject =
 const documentation = [
   {
     docs: docsServersObject,
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
 ];
 

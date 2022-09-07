@@ -40,18 +40,14 @@ const documentation = [
   },
   {
     target: 'allowReserved',
-    // linter complains about escaping single quote in string, so use double quotes
     docs: "Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'()*+,;=` to be included without percent - encoding. This property only applies to parameters with an `in` value of `query`. The default value is `false`.",
   },
   {
-    // mutually exlusive to `examples` -> Example Object | Reference Object
     target: 'example',
-    // linter complains about escaping single quote in string, so use double quotes
     docs: "Example of the parameter's potential value. The example SHOULD match the specified schema and encoding properties if present. The `example` field is mutually exclusive of the `examples` field. Furthermore, if referencing a `schema` that contains an example, the `example` value SHALL *override* the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON or YAML, a string value can contain the example with escaping where necessary.",
   },
   {
     target: 'examples',
-    // linter complains about escaping single quote in string, so use double quotes
     docs: "#### Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\n Examples of the parameter's potential value. Each example SHOULD contain a value in the correct format as specified in the parameter encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema",
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },

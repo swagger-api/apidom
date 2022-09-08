@@ -5,12 +5,12 @@ import {
   OAuthFlowsElement,
   SecuritySchemeElement,
   XmlElement,
+  DiscriminatorElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
-import DiscriminatorElement from './elements/Discriminator';
 import EncodingElement from './elements/Encoding';
 import ExampleElement from './elements/Example';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';

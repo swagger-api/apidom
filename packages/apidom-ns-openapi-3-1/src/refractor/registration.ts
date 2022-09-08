@@ -1,7 +1,6 @@
 import CallbackElement from '../elements/Callback';
 import ComponentsElement from '../elements/Components';
 import ContactElement from '../elements/Contact';
-import DiscriminatorElement from '../elements/Discriminator';
 import EncodingElement from '../elements/Encoding';
 import ExampleElement from '../elements/Example';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
@@ -54,13 +53,6 @@ ExampleElement.refract = createRefractor([
   'document',
   'objects',
   'Example',
-  '$visitor',
-]);
-DiscriminatorElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'Discriminator',
   '$visitor',
 ]);
 EncodingElement.refract = createRefractor([

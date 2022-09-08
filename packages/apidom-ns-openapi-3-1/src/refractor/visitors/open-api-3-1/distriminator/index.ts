@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { DiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import DiscriminatorElement from '../../../../elements/Discriminator';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 

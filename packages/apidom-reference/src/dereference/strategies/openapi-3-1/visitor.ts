@@ -108,7 +108,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -153,7 +153,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // annotate fragment with info about original Reference element
       fragment.setMetaProperty('ref-fields', {
-        $ref: referenceElement.$ref.toValue(),
+        $ref: referenceElement.$ref?.toValue(),
         // @ts-ignore
         description: referenceElement.description?.toValue(),
         // @ts-ignore

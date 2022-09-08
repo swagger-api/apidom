@@ -1,6 +1,5 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
-
-import OAuthFlowElement from './OAuthFlow';
+import { OAuthFlowElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 class OAuthFlows extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

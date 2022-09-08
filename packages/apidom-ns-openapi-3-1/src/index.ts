@@ -76,7 +76,7 @@ export { default as JsonSchemaDialectElement } from './elements/JsonSchemaDialec
 export { default as LicenseElement } from './elements/License';
 export { default as LinkElement } from './elements/Link';
 export { default as MediaTypeElement } from './elements/MediaType';
-export { default as OAuthFlowElement } from './elements/OAuthFlow';
+export { OAuthFlowElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as OAuthFlowsElement } from './elements/OAuthFlows';
 export { default as OpenapiElement } from './elements/Openapi';
 export { default as OpenApi3_1Element } from './elements/OpenApi3-1';

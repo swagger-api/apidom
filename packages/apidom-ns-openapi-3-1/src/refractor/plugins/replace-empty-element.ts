@@ -7,7 +7,11 @@ import {
   includesClasses,
   isArrayElement,
 } from '@swagger-api/apidom-core';
-import { SecurityRequirementElement, OAuthFlowElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  SecurityRequirementElement,
+  OAuthFlowElement,
+  OAuthFlowsElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
  * OpenAPI 3.1.0 specification elements.
@@ -27,7 +31,6 @@ import ResponseElement from '../../elements/Response';
 import ServerElement from '../../elements/Server';
 import DiscriminatorElement from '../../elements/Discriminator';
 import XmlElement from '../../elements/Xml';
-import OAuthFlowsElement from '../../elements/OAuthFlows';
 import ServerVariableElement from '../../elements/ServerVariable';
 import ParameterElement from '../../elements/Parameter';
 import ExampleElement from '../../elements/Example';

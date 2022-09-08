@@ -11,7 +11,6 @@ import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
 import LicenseElement from '../elements/License';
 import LinkElement from '../elements/Link';
 import MediaTypeElement from '../elements/MediaType';
-import OAuthFlowsElement from '../elements/OAuthFlows';
 import OpenapiElement from '../elements/Openapi';
 import OpenApi3_1Element from '../elements/OpenApi3-1';
 import OperationElement from '../elements/Operation';
@@ -103,13 +102,6 @@ MediaTypeElement.refract = createRefractor([
   'document',
   'objects',
   'MediaType',
-  '$visitor',
-]);
-OAuthFlowsElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'OAuthFlows',
   '$visitor',
 ]);
 OpenapiElement.refract = createRefractor([

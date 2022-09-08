@@ -1,6 +1,5 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
-
-import OAuthFlowsElement from './OAuthFlows';
+import { OAuthFlowsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 class SecurityScheme extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

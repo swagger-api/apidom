@@ -3,6 +3,7 @@ import {
   SecurityRequirementElement,
   OAuthFlowElement,
   OAuthFlowsElement,
+  SecuritySchemeElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
@@ -29,7 +30,6 @@ import RequestBodyElement from './elements/RequestBody';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
-import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import TagElement from './elements/Tag';

@@ -90,7 +90,7 @@ export { default as ResponseElement } from './elements/Response';
 export { default as ResponsesElement } from './elements/Responses';
 export { default as SchemaElement } from './elements/Schema';
 export { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
-export { default as SecuritySchemeElement } from './elements/SecurityScheme';
+export { SecuritySchemeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as TagElement } from './elements/Tag';

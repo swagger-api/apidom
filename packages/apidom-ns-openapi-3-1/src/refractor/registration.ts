@@ -22,7 +22,6 @@ import RequestBodyElement from '../elements/RequestBody';
 import ResponseElement from '../elements/Response';
 import ResponsesElement from '../elements/Responses';
 import SchemaElement from '../elements/Schema';
-import SecuritySchemeElement from '../elements/SecurityScheme';
 import ServerElement from '../elements/Server';
 import ServerVariableElement from '../elements/ServerVariable';
 import TagElement from '../elements/Tag';
@@ -170,13 +169,6 @@ ResponsesElement.refract = createRefractor([
   '$visitor',
 ]);
 SchemaElement.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
-SecuritySchemeElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'SecurityScheme',
-  '$visitor',
-]);
 ServerElement.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
 ServerVariableElement.refract = createRefractor([
   'visitors',

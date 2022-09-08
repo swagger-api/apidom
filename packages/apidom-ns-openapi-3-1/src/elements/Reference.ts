@@ -1,32 +1,23 @@
-import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
+import { ReferenceElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class Reference extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'reference';
-    this.classes.push('openapi-reference');
-  }
-
-  get $ref(): StringElement {
-    return this.get('$ref');
-  }
-}
+class Reference extends ReferenceElement {}
 
 Object.defineProperty(Reference.prototype, 'description', {
-  get(): StringElement {
+  get(): StringElement | undefined {
     return this.get('description');
   },
-  set(description: StringElement) {
+  set(description: StringElement | undefined) {
     this.set('description', description);
   },
   enumerable: true,
 });
 
 Object.defineProperty(Reference.prototype, 'summary', {
-  get(): StringElement {
+  get(): StringElement | undefined {
     return this.get('summary');
   },
-  set(description: StringElement) {
+  set(description: StringElement | undefined) {
     this.set('summary', description);
   },
   enumerable: true,

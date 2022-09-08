@@ -1,4 +1,5 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
+import { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
@@ -26,7 +27,6 @@ import RequestBodyElement from './elements/RequestBody';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
-import SecurityRequirementElement from './elements/SecurityRequirement';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';

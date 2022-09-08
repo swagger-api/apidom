@@ -1,0 +1,10 @@
+{
+  "asyncapi": "2.4.0",
+  "components": {
+    "parameters": {
+      "externalRef": {
+        "$ref": "http://localhost:8123/ex.json#/externalParameter"
+      }
+    }
+  }
+}

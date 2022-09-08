@@ -1,5 +1,9 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
-import { SecurityRequirementElement, OAuthFlowElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  SecurityRequirementElement,
+  OAuthFlowElement,
+  OAuthFlowsElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
@@ -14,7 +18,6 @@ import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
 import LinkElement from './elements/Link';
 import MediaTypeElement from './elements/MediaType';
-import OAuthFlowsElement from './elements/OAuthFlows';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';
 import OperationElement from './elements/Operation';

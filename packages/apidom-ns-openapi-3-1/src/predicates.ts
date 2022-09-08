@@ -21,7 +21,6 @@ import RequestBodyElement from './elements/RequestBody';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
-import SecurityRequirementElement from './elements/SecurityRequirement';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import MediaTypeElement from './elements/MediaType';
@@ -280,16 +279,6 @@ export const isSchemaElement = createPredicate(
 export const isBooleanJsonSchemaElement = (element: any) => {
   return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
 };
-
-export const isSecurityRequirementElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof SecurityRequirementElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('securityRequirement', element) &&
-        primitiveEq('object', element));
-  },
-);
 
 export const isServerElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

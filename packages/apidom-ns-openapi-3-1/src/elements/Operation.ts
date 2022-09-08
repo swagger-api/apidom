@@ -6,6 +6,7 @@ import {
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
+import { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from './Reference';
 import ServerElement from './Server';
@@ -13,7 +14,6 @@ import ExternalDocumentationElement from './ExternalDocumentation';
 import RequestBodyElement from './RequestBody';
 import ResponsesElement from './Responses';
 import CallbackElement from './Callback';
-import SecurityRequirementElement from './SecurityRequirement';
 
 class Operation extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

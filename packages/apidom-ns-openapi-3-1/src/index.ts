@@ -45,11 +45,11 @@ export {
   isResponsesElement,
   isSchemaElement,
   isBooleanJsonSchemaElement,
-  isSecurityRequirementElement,
   isServerElement,
   isServerVariableElement,
   isMediaTypeElement,
 } from './predicates';
+export { isSecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
   isOpenApi3_1LikeElement,
@@ -89,7 +89,7 @@ export { default as RequestBodyElement } from './elements/RequestBody';
 export { default as ResponseElement } from './elements/Response';
 export { default as ResponsesElement } from './elements/Responses';
 export { default as SchemaElement } from './elements/Schema';
-export { default as SecurityRequirementElement } from './elements/SecurityRequirement';
+export { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as SecuritySchemeElement } from './elements/SecurityScheme';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';

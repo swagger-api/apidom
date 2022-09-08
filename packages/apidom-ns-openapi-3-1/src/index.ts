@@ -66,7 +66,7 @@ export { keyMap, getNodeType } from './traversal/visitor';
 export { default as CallbackElement } from './elements/Callback';
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
-export { default as DiscriminatorElement } from './elements/Discriminator';
+export { DiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as EncodingElement } from './elements/Encoding';
 export { default as ExampleElement } from './elements/Example';
 export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';

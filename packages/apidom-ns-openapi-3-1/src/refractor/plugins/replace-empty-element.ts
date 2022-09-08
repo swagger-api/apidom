@@ -12,6 +12,7 @@ import {
   OAuthFlowElement,
   OAuthFlowsElement,
   SecuritySchemeElement,
+  XmlElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -31,7 +32,6 @@ import ResponsesElement from '../../elements/Responses';
 import ResponseElement from '../../elements/Response';
 import ServerElement from '../../elements/Server';
 import DiscriminatorElement from '../../elements/Discriminator';
-import XmlElement from '../../elements/Xml';
 import ServerVariableElement from '../../elements/ServerVariable';
 import ParameterElement from '../../elements/Parameter';
 import ExampleElement from '../../elements/Example';

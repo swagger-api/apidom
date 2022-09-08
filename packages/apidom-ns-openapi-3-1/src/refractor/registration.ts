@@ -25,7 +25,6 @@ import SchemaElement from '../elements/Schema';
 import ServerElement from '../elements/Server';
 import ServerVariableElement from '../elements/ServerVariable';
 import TagElement from '../elements/Tag';
-import XmlElement from '../elements/Xml';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
@@ -178,4 +177,3 @@ ServerVariableElement.refract = createRefractor([
   '$visitor',
 ]);
 TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
-XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);

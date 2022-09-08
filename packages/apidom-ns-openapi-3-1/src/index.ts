@@ -94,4 +94,4 @@ export { SecuritySchemeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as TagElement } from './elements/Tag';
-export { default as XmlElement } from './elements/Xml';
+export { XmlElement } from '@swagger-api/apidom-ns-openapi-3-0';

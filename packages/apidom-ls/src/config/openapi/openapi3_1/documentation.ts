@@ -1,20 +1,58 @@
 const documentation = [
   {
+    target: 'openapi',
+    docs: '`string`\n\n**REQUIRED**. This string MUST be the [version number](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoVersion) string.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
+    target: 'jsonSchemaDialect',
+    docs: '`string`\n\nThe default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
+    target: 'webhooks',
+    docs: 'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\n The incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
+    target: 'security',
+    docs: '#### [[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement ({}) can be included in the array.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     target: 'servers',
-    docs: '#### [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)\n\nA `server` array to service all operations in this path.\nIf the servers property is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\nurl | [`string`] | **REQUIRED**. A URL to the target host. This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the OpenAPI document is being served. Variable substitutions will be made when a variable is named in {brackets}.\ndescription | `string` | An optional string describing the host designated by the URL. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.\nvariables | Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)] | A map between a variable name and its value. The value is used for substitution in the server URL template.\n\n\\\nThis object MAY be extended with [Specification Extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#specificationExtensions).\n\n##### Server Object Example\n\n\n\\\nA single server would be described as:\n\n\\\nJSON\n```json\n{\n  "url": "https://development.gigantic-server.com/v1",\n  "description": "Development server"\n}\n```\n\n\n\\\nYAML\n```yaml\nurl: https://development.gigantic-server.com/v1\ndescription: Development server\n```\n\n\\\nThe following shows how multiple servers can be described, for example, at the OpenAPI Object\'s [`servers`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oasServers):\n\n\\\nJSON\n```json\n{\n  "servers": [\n    {\n      "url": "https://development.gigantic-server.com/v1",\n      "description": "Development server"\n    },\n    {\n      "url": "https://staging.gigantic-server.com/v1",\n      "description": "Staging server"\n    },\n    {\n      "url": "https://api.gigantic-server.com/v1",\n      "description": "Production server"\n    }\n  ]\n}\n```\n\n\n\\\nYAML\n```yaml\nservers:\n- url: https://development.gigantic-server.com/v1\n  description: Development server\n- url: https://staging.gigantic-server.com/v1\n  description: Staging server\n- url: https://api.gigantic-server.com/v1\n  description: Production server\n```\n\n\\\nThe following shows how variables can be used for a server configuration:\n\n\\\nJSON\n```json\n{\n  "servers": [\n    {\n      "url": "https://{username}.gigantic-server.com:{port}/{basePath}",\n      "description": "The production API server",\n      "variables": {\n        "username": {\n          "default": "demo",\n          "description": "this value is assigned by the service provider, in this example `gigantic-server.com`"\n        },\n        "port": {\n          "enum": [\n            "8443",\n            "443"\n          ],\n          "default": "8443"\n        },\n        "basePath": {\n          "default": "v2"\n        }\n      }\n    }\n  ]\n}\n```\n\n\n\\\nYAML\n```yaml\nservers:\n- url: https://{username}.gigantic-server.com:{port}/{basePath}\n  description: The production API server\n  variables:\n    username:\n      # note! no enum here means it is an open value\n      default: demo\n      description: this value is assigned by the service provider, in this example`gigantic-server.com`\n    port:\n      enum:\n        - \'8443\'\n        - \'443\'\n      default: \'8443\'\n    basePath:\n      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is`v2`\n      default: v2\n```\n',
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.1.0' },
-      { namespace: 'openapi', version: '3.0.0' },
-    ],
+    docs: '#### [[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'tags',
-    docs: "#### [[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\nA list of tags used by the document with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.\n",
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.1.0' },
-      { namespace: 'openapi', version: '3.0.0' },
-    ],
+    docs: "#### [[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\nA list of tags used by the document with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
+  /**
+   * The following Fixed Fields are provided as reference, but are more
+   * comprehensively described by their respective meta documentation
+   */
+  // {
+  //   target: 'info',
+  //   docs: '#### [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoObject)\n\n**REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.',
+  //   targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  // },
+  // {
+  //   target: 'paths',
+  //   docs: '#### [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\nThe available paths and operations for the API.',
+  //   targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  // },
+  // {
+  //   target: 'components',
+  //   docs: '#### [Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\nAn element to hold various schemas for the document.',
+  //   targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  // },
+  // {
+  //   target: 'externalDocs',
+  //   docs: '#### [External Dcoumentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\nAdditional external documentation.',
+  //   targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  // },
 ];
 
 export default documentation;

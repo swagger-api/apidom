@@ -8,6 +8,7 @@ import {
   DiscriminatorElement,
   ExternalDocumentationElement,
   TagElement,
+  ServerVariableElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
@@ -33,7 +34,6 @@ import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
 import ServerElement from './elements/Server';
-import ServerVariableElement from './elements/ServerVariable';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const openApi3_1 = {

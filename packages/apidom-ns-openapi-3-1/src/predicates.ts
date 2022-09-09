@@ -21,7 +21,6 @@ import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
 import ServerElement from './elements/Server';
-import ServerVariableElement from './elements/ServerVariable';
 import MediaTypeElement from './elements/MediaType';
 
 export const isCallbackElement = createPredicate(
@@ -275,16 +274,6 @@ export const isServerElement = createPredicate(
       element instanceof ServerElement ||
       (hasBasicElementProps(element) &&
         isElementType('server', element) &&
-        primitiveEq('object', element));
-  },
-);
-
-export const isServerVariableElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof ServerVariableElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('serverVariable', element) &&
         primitiveEq('object', element));
   },
 );

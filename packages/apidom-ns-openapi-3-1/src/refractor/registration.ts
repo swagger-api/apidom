@@ -21,7 +21,6 @@ import ResponseElement from '../elements/Response';
 import ResponsesElement from '../elements/Responses';
 import SchemaElement from '../elements/Schema';
 import ServerElement from '../elements/Server';
-import ServerVariableElement from '../elements/ServerVariable';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
@@ -152,10 +151,3 @@ ResponsesElement.refract = createRefractor([
 ]);
 SchemaElement.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
 ServerElement.refract = createRefractor(['visitors', 'document', 'objects', 'Server', '$visitor']);
-ServerVariableElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'ServerVariable',
-  '$visitor',
-]);

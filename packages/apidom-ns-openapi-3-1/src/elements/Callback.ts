@@ -1,10 +1,5 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { CallbackElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class Callback extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'callback';
-  }
-}
+class Callback extends CallbackElement {}
 
 export default Callback;

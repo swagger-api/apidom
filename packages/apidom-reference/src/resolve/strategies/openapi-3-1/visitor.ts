@@ -124,7 +124,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      const uri = pathItemElement.$ref.toValue();
+      const uri = pathItemElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -284,7 +284,7 @@ const OpenApi3_1ResolveVisitor = stampit({
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);

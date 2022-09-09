@@ -1,70 +1,71 @@
-import {
-  StringElement,
-  ObjectElement,
-  ArrayElement,
-  Attributes,
-  Meta,
-} from '@swagger-api/apidom-core';
-import { ServerElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { PathItemElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OperationElement from './Operation';
 
-class PathItem extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'pathItem';
-  }
-
-  get $ref(): StringElement {
-    return this.get('$ref');
-  }
-
-  get summary(): StringElement {
-    return this.get('summary');
-  }
-
-  get description(): StringElement {
-    return this.get('description');
-  }
-
+class PathItem extends PathItemElement {
   get GET(): OperationElement {
     return this.get('get');
+  }
+
+  set GET(operation: OperationElement | undefined) {
+    this.set('GET', operation);
   }
 
   get PUT(): OperationElement {
     return this.get('put');
   }
 
+  set PUT(operation: OperationElement | undefined) {
+    this.set('PUT', operation);
+  }
+
   get POST(): OperationElement {
     return this.get('post');
+  }
+
+  set POST(operation: OperationElement | undefined) {
+    this.set('POST', operation);
   }
 
   get DELETE(): OperationElement {
     return this.get('delete');
   }
 
+  set DELETE(operation: OperationElement | undefined) {
+    this.set('DELETE', operation);
+  }
+
   get OPTIONS(): OperationElement {
     return this.get('options');
+  }
+
+  set OPTIONS(operation: OperationElement | undefined) {
+    this.set('OPTIONS', operation);
   }
 
   get HEAD(): OperationElement {
     return this.get('head');
   }
 
+  set HEAD(operation: OperationElement | undefined) {
+    this.set('HEAD', operation);
+  }
+
   get PATCH(): OperationElement {
     return this.get('patch');
+  }
+
+  set PATCH(operation: OperationElement | undefined) {
+    this.set('PATCH', operation);
   }
 
   get TRACE(): OperationElement {
     return this.get('trace');
   }
 
-  get servers(): ServerElement[] {
-    return this.get('servers');
-  }
-
-  get parameters(): ArrayElement {
-    return this.get('parameters');
+  set TRACE(operation: OperationElement | undefined) {
+    this.set('TRACE', operation);
   }
 }
+
 export default PathItem;

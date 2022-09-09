@@ -1,5 +1,16 @@
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
+import licenseMeta from './license/meta';
+import tagMeta from './tag/meta';
+import externalDocumentationMeta from './external-documentation/meta';
+import operationMeta from './operation/meta';
+import parameterMeta from './parameter/meta';
+import pathItemMeta from './path-item/meta';
+import pathsMeta from './paths/meta';
+import responsesMeta from './responses/meta';
+import serverMeta from './server/meta';
+import serverVariableMeta from './server-variable/meta';
+import openapi3_1Meta from './openapi3_1/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -18,5 +29,17 @@ export default {
   },
   info: infoMeta,
   contact: contactMeta,
+  license: licenseMeta,
   schema: schemaMeta,
+  operation: operationMeta,
+  parameter: parameterMeta,
+  parameters: parameterMeta,
+  pathItem: pathItemMeta,
+  paths: pathsMeta,
+  responses: responsesMeta,
+  server: serverMeta,
+  serverVariable: serverVariableMeta,
+  tag: tagMeta,
+  externalDocumentation: externalDocumentationMeta,
+  openApi3_1: openapi3_1Meta,
 };

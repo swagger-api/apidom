@@ -1,6 +1,5 @@
 import CallbackElement from '../elements/Callback';
 import ComponentsElement from '../elements/Components';
-import EncodingElement from '../elements/Encoding';
 import HeaderElement from '../elements/Header';
 import InfoElement from '../elements/Info';
 import JsonSchemaDialectElement from '../elements/JsonSchemaDialect';
@@ -32,13 +31,6 @@ ComponentsElement.refract = createRefractor([
   'document',
   'objects',
   'Components',
-  '$visitor',
-]);
-EncodingElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'Encoding',
   '$visitor',
 ]);
 HeaderElement.refract = createRefractor(['visitors', 'document', 'objects', 'Header', '$visitor']);

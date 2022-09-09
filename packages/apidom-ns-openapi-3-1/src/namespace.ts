@@ -13,11 +13,11 @@ import {
   ContactElement,
   ExampleElement,
   LinkElement,
+  EncodingElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
-import EncodingElement from './elements/Encoding';
 import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';

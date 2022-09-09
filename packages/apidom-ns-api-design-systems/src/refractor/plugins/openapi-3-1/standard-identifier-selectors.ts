@@ -34,13 +34,13 @@ const plugin = () => () => {
             if (
               isStringElement(parameter.in) &&
               isStringElement(parameter.name) &&
-              parameter.in.toValue() === 'header'
+              parameter.in?.toValue() === 'header'
             ) {
               operationIdentifiers.push(
                 ['http', 'request', 'header'],
-                ['http', 'request', 'header', parameter.name.toValue()],
+                ['http', 'request', 'header', parameter.name?.toValue()],
                 ['http', 'message', 'header'],
-                ['http', 'message', 'header', parameter.name.toValue()],
+                ['http', 'message', 'header', parameter.name?.toValue()],
               );
             }
           });
@@ -54,13 +54,13 @@ const plugin = () => () => {
         if (
           isStringElement(element.in) &&
           isStringElement(element.name) &&
-          element.in.toValue() === 'header'
+          element.in?.toValue() === 'header'
         ) {
           operationIdentifiers.push(
             ['http', 'request', 'header'],
-            ['http', 'request', 'header', element.name.toValue()],
+            ['http', 'request', 'header', element.name?.toValue()],
             ['http', 'message', 'header'],
-            ['http', 'message', 'header', element.name.toValue()],
+            ['http', 'message', 'header', element.name?.toValue()],
           );
         }
       },

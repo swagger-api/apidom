@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 import { isObjectElement, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { EncodingElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import EncodingElement from '../../../../elements/Encoding';
 import HeaderElement from '../../../../elements/Header';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';

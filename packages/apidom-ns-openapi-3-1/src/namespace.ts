@@ -10,11 +10,11 @@ import {
   TagElement,
   ServerVariableElement,
   ServerElement,
+  ContactElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
-import ContactElement from './elements/Contact';
 import EncodingElement from './elements/Encoding';
 import ExampleElement from './elements/Example';
 import HeaderElement from './elements/Header';

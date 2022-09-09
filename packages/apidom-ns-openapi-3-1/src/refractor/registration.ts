@@ -1,6 +1,5 @@
 import CallbackElement from '../elements/Callback';
 import ComponentsElement from '../elements/Components';
-import ContactElement from '../elements/Contact';
 import EncodingElement from '../elements/Encoding';
 import ExampleElement from '../elements/Example';
 import HeaderElement from '../elements/Header';
@@ -35,13 +34,6 @@ ComponentsElement.refract = createRefractor([
   'document',
   'objects',
   'Components',
-  '$visitor',
-]);
-ContactElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'Contact',
   '$visitor',
 ]);
 ExampleElement.refract = createRefractor([

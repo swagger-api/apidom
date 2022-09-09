@@ -18,13 +18,13 @@ import {
   TagElement,
   ServerVariableElement,
   ServerElement,
+  ContactElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
  * OpenAPI 3.1.0 specification elements.
  */
 import InfoElement from '../../elements/Info';
-import ContactElement from '../../elements/Contact';
 import LicenseElement from '../../elements/License';
 import PathsElement from '../../elements/Paths';
 import PathItemElement from '../../elements/PathItem';

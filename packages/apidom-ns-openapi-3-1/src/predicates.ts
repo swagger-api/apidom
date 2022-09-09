@@ -2,7 +2,6 @@ import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
-import ContactElement from './elements/Contact';
 import ExampleElement from './elements/Example';
 import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
@@ -38,16 +37,6 @@ export const isComponentsElement = createPredicate(
       element instanceof ComponentsElement ||
       (hasBasicElementProps(element) &&
         isElementType('components', element) &&
-        primitiveEq('object', element));
-  },
-);
-
-export const isContactElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof ContactElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('contact', element) &&
         primitiveEq('object', element));
   },
 );

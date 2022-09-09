@@ -1,6 +1,6 @@
 import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ContactElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ContactElement from './Contact';
 import LicenseElement from './License';
 
 class Info extends ObjectElement {

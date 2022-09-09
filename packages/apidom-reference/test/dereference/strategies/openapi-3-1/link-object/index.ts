@@ -37,8 +37,8 @@ describe('dereference', function () {
               const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
               const link2 = evaluate('/0/components/links/link2', dereferenced) as LinkElement;
 
-              assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
-              assert.isTrue(isOperationElement(link2.operationId.meta.get('operation')));
+              assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
+              assert.isTrue(isOperationElement(link2.operationId?.meta.get('operation')));
             },
           );
         });
@@ -69,8 +69,8 @@ describe('dereference', function () {
               ) as LinkElement;
               const link2 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
 
-              assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
-              assert.isTrue(isOperationElement(link2.operationId.meta.get('operation')));
+              assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
+              assert.isTrue(isOperationElement(link2.operationId?.meta.get('operation')));
             },
           );
         });
@@ -98,7 +98,7 @@ describe('dereference', function () {
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
 
-                assert.isTrue(isOperationElement(link1.operationRef.meta.get('operation')));
+                assert.isTrue(isOperationElement(link1.operationRef?.meta.get('operation')));
               },
             );
           });
@@ -135,7 +135,7 @@ describe('dereference', function () {
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
 
-                assert.isTrue(isOperationElement(link1.operationRef.meta.get('operation')));
+                assert.isTrue(isOperationElement(link1.operationRef?.meta.get('operation')));
               },
             );
           });
@@ -212,7 +212,7 @@ describe('dereference', function () {
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
 
-                assert.isTrue(isOperationElement(link1.operationId.meta.get('operation')));
+                assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               },
             );
           });

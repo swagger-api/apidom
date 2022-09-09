@@ -47,7 +47,7 @@ describe('dereference', function () {
             })) as ExampleElement;
 
             assert.match(
-              dereferenced.value.meta.get('ref-origin').toValue(),
+              dereferenced.value?.meta.get('ref-origin').toValue(),
               /external-value-json\/ex\.json$/,
             );
           });

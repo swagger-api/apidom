@@ -196,7 +196,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
 
       // possibly non-semantic referenced element
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);

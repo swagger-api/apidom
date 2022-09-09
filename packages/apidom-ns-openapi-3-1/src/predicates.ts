@@ -4,7 +4,6 @@ import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import ExampleElement from './elements/Example';
-import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
@@ -61,16 +60,6 @@ export const isExampleElement = createPredicate(
       element instanceof ExampleElement ||
       (hasBasicElementProps(element) &&
         isElementType('example', element) &&
-        primitiveEq('object', element));
-  },
-);
-
-export const isExternalDocumentationElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof ExternalDocumentationElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('externalDocumentation', element) &&
         primitiveEq('object', element));
   },
 );

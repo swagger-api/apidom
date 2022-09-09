@@ -14,6 +14,7 @@ import {
   SecuritySchemeElement,
   XmlElement,
   DiscriminatorElement,
+  ExternalDocumentationElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -25,7 +26,6 @@ import LicenseElement from '../../elements/License';
 import PathsElement from '../../elements/Paths';
 import PathItemElement from '../../elements/PathItem';
 import ComponentsElement from '../../elements/Components';
-import ExternalDocumentationElement from '../../elements/ExternalDocumentation';
 import OperationElement from '../../elements/Operation';
 import SchemaElement from '../../elements/Schema';
 import RequestBodyElement from '../../elements/RequestBody';

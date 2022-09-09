@@ -25,7 +25,6 @@ export {
   isComponentsElement,
   isContactElement,
   isExampleElement,
-  isExternalDocumentationElement,
   isInfoElement,
   isJsonSchemaDialectElement,
   isLicenseElement,
@@ -49,7 +48,10 @@ export {
   isServerVariableElement,
   isMediaTypeElement,
 } from './predicates';
-export { isSecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
+export {
+  isSecurityRequirementElement,
+  isExternalDocumentationElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
   isOpenApi3_1LikeElement,
@@ -69,7 +71,7 @@ export { default as ContactElement } from './elements/Contact';
 export { DiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as EncodingElement } from './elements/Encoding';
 export { default as ExampleElement } from './elements/Example';
-export { default as ExternalDocumentationElement } from './elements/ExternalDocumentation';
+export { ExternalDocumentationElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as HeaderElement } from './elements/Header';
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectElement } from './elements/JsonSchemaDialect';

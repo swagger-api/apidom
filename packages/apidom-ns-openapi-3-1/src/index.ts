@@ -32,7 +32,6 @@ export {
   isParameterElement,
   isPathItemElement,
   isPathItemElementExternal,
-  isPathsElement,
   isReferenceElement,
   isReferenceElementExternal,
   isResponseElement,
@@ -52,6 +51,7 @@ export {
   isLinkElement,
   isLinkElementExternal,
   isRequestBodyElement,
+  isPathsElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
@@ -84,7 +84,7 @@ export { default as OpenApi3_1Element } from './elements/OpenApi3-1';
 export { default as OperationElement } from './elements/Operation';
 export { default as ParameterElement } from './elements/Parameter';
 export { default as PathItemElement } from './elements/PathItem';
-export { default as PathsElement } from './elements/Paths';
+export { PathsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ReferenceElement } from './elements/Reference';
 export { RequestBodyElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ResponseElement } from './elements/Response';

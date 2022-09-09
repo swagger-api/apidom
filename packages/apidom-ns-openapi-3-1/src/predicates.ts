@@ -11,7 +11,6 @@ import OpenApi3_1Element from './elements/OpenApi3-1';
 import OperationElement from './elements/Operation';
 import ParameterElement from './elements/Parameter';
 import PathItemElement from './elements/PathItem';
-import PathsElement from './elements/Paths';
 import ReferenceElement from './elements/Reference';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
@@ -142,16 +141,6 @@ export const isPathItemElementExternal = (element: any): element is PathItemElem
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
-
-export const isPathsElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof PathsElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('paths', element) &&
-        primitiveEq('object', element));
-  },
-);
 
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

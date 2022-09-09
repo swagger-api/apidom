@@ -10,7 +10,6 @@ import OpenApi3_1Element from '../elements/OpenApi3-1';
 import OperationElement from '../elements/Operation';
 import ParameterElement from '../elements/Parameter';
 import PathItemElement from '../elements/PathItem';
-import PathsElement from '../elements/Paths';
 import ReferenceElement from '../elements/Reference';
 import ResponseElement from '../elements/Response';
 import ResponsesElement from '../elements/Responses';
@@ -92,7 +91,6 @@ PathItemElement.refract = createRefractor([
   'PathItem',
   '$visitor',
 ]);
-PathsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
 ReferenceElement.refract = createRefractor([
   'visitors',
   'document',

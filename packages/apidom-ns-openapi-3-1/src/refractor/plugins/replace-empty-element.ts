@@ -21,6 +21,7 @@ import {
   ContactElement,
   ExampleElement,
   LinkElement,
+  EncodingElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -40,7 +41,6 @@ import ParameterElement from '../../elements/Parameter';
 import HeaderElement from '../../elements/Header';
 import CallbackElement from '../../elements/Callback';
 import MediaTypeElement from '../../elements/MediaType';
-import EncodingElement from '../../elements/Encoding';
 // non-concrete Elements (NCEs)
 import ServersElement from '../../elements/nces/Servers';
 import SecurityElement from '../../elements/nces/Security';

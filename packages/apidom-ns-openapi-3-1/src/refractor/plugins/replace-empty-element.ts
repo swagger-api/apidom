@@ -19,6 +19,7 @@ import {
   ServerVariableElement,
   ServerElement,
   ContactElement,
+  ExampleElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -35,7 +36,6 @@ import RequestBodyElement from '../../elements/RequestBody';
 import ResponsesElement from '../../elements/Responses';
 import ResponseElement from '../../elements/Response';
 import ParameterElement from '../../elements/Parameter';
-import ExampleElement from '../../elements/Example';
 import HeaderElement from '../../elements/Header';
 import LinkElement from '../../elements/Link';
 import CallbackElement from '../../elements/Callback';

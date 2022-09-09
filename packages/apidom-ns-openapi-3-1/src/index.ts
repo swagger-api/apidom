@@ -23,7 +23,6 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 export {
   isCallbackElement,
   isComponentsElement,
-  isExampleElement,
   isInfoElement,
   isJsonSchemaDialectElement,
   isLicenseElement,
@@ -52,6 +51,7 @@ export {
   isServerVariableElement,
   isServerLikeElement,
   isContactElement,
+  isExampleElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
@@ -70,7 +70,7 @@ export { default as ComponentsElement } from './elements/Components';
 export { ContactElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { DiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as EncodingElement } from './elements/Encoding';
-export { default as ExampleElement } from './elements/Example';
+export { ExampleElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { ExternalDocumentationElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as HeaderElement } from './elements/Header';
 export { default as InfoElement } from './elements/Info';

@@ -1,43 +1,14 @@
-import { ObjectElement, Element, Attributes, Meta } from '@swagger-api/apidom-core';
+import { MediaTypeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SchemaElement from './Schema';
 
-class MediaType extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'mediaType';
-  }
-
-  get schema(): SchemaElement {
+class MediaType extends MediaTypeElement {
+  get schema(): SchemaElement | undefined {
     return this.get('schema');
   }
 
-  set schema(schema: SchemaElement) {
+  set schema(schema: SchemaElement | undefined) {
     this.set('schema', schema);
-  }
-
-  get example(): Element {
-    return this.get('example');
-  }
-
-  set example(example: Element) {
-    this.set('example', example);
-  }
-
-  get examples(): ObjectElement {
-    return this.get('examples');
-  }
-
-  set examples(examples: ObjectElement) {
-    this.set('examples', examples);
-  }
-
-  get encoding(): ObjectElement {
-    return this.get('encoding');
-  }
-
-  set encoding(encoding: ObjectElement) {
-    this.set('encoding', encoding);
   }
 }
 

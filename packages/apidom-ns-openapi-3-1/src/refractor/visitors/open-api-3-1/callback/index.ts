@@ -1,6 +1,7 @@
 import stampit from 'stampit';
 import { test } from 'ramda';
 import { Element, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from '../../../../elements/Callback';
 import PathItemElement from '../../../../elements/PathItem';
@@ -8,7 +9,6 @@ import ReferenceElement from '../../../../elements/Reference';
 import PatternedFieldsJsonObjectVisitor from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isPathItemElement } from '../../../../predicates';
 
 const CallbackVisitor = stampit(PatternedFieldsJsonObjectVisitor, FallbackVisitor, {

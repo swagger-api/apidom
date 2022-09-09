@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { isReferenceElement } from '../../../../predicates';
-import { isReferenceLikeElement } from '../../../predicates';
 import AlternatingVisitor from '../../generics/AlternatingVisitor';
 
 const RequestBodyVisitor = stampit(AlternatingVisitor, {

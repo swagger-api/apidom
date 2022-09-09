@@ -1,10 +1,5 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ResponsesElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class Responses extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'responses';
-  }
-}
+class Responses extends ResponsesElement {}
 
 export default Responses;

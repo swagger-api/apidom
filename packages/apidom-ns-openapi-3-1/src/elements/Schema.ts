@@ -8,11 +8,10 @@ import {
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
-import {
-  XmlElement,
-  DiscriminatorElement,
-  ExternalDocumentationElement,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+
+import XmlElement from './Xml';
+import DiscriminatorElement from './Discriminator';
+import ExternalDocumentationElement from './ExternalDocumentation';
 
 class Schema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

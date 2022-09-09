@@ -1,11 +1,11 @@
 import stampit from 'stampit';
+import { MediaTypeExamplesElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import BaseExamplesVisitor from '../ExamplesVisitor';
-import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples';
 
 const ExamplesVisitor = stampit(BaseExamplesVisitor, {
   init() {
-    this.element = new MediaTypeExamples();
+    this.element = new MediaTypeExamplesElement();
   },
 });
 

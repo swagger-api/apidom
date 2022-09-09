@@ -1,5 +1,6 @@
-import { RequestBodyElement, OperationElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { OperationElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
+import RequestBodyElement from './RequestBody';
 import ReferenceElement from './Reference';
 
 class Operation extends OperationElement {

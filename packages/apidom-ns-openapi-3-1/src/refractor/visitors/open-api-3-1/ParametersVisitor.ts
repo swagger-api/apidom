@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
-import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 
 const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {

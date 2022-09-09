@@ -1,12 +1,12 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
 import { Element, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ResponsesElement from '../../../../elements/Responses';
 import MixedFieldsVisitor from '../../generics/MixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isResponseElement } from '../../../../predicates';
 
 const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {

@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { ServerVariablesElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import ServerVariablesElement from '../../../../elements/nces/ServerVariables';
 
 const VariablesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {

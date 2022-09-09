@@ -2,9 +2,9 @@ import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
 import { ObjectElement, Element, MemberElement, BREAK } from '@swagger-api/apidom-core';
+import { isOpenApiExtension } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SpecificationVisitor from '../SpecificationVisitor';
-import { isOpenApiExtension } from '../../predicates';
 
 const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
   props: {

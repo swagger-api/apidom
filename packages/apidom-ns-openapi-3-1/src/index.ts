@@ -35,7 +35,6 @@ export {
   isPathsElement,
   isReferenceElement,
   isReferenceElementExternal,
-  isRequestBodyElement,
   isResponseElement,
   isResponsesElement,
   isSchemaElement,
@@ -52,13 +51,13 @@ export {
   isExampleElement,
   isLinkElement,
   isLinkElementExternal,
+  isRequestBodyElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
   isOpenApi3_1LikeElement,
   isParameterLikeElement,
   isReferenceLikeElement,
-  isRequestBodyLikeElement,
   isResponseLikeElement,
   isOpenApiExtension,
 } from './refractor/predicates';
@@ -87,7 +86,7 @@ export { default as ParameterElement } from './elements/Parameter';
 export { default as PathItemElement } from './elements/PathItem';
 export { default as PathsElement } from './elements/Paths';
 export { default as ReferenceElement } from './elements/Reference';
-export { default as RequestBodyElement } from './elements/RequestBody';
+export { RequestBodyElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ResponseElement } from './elements/Response';
 export { default as ResponsesElement } from './elements/Responses';
 export { default as SchemaElement } from './elements/Schema';

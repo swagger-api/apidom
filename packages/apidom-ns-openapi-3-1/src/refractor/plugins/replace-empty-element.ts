@@ -22,6 +22,7 @@ import {
   ExampleElement,
   LinkElement,
   EncodingElement,
+  RequestBodyElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -34,7 +35,6 @@ import PathItemElement from '../../elements/PathItem';
 import ComponentsElement from '../../elements/Components';
 import OperationElement from '../../elements/Operation';
 import SchemaElement from '../../elements/Schema';
-import RequestBodyElement from '../../elements/RequestBody';
 import ResponsesElement from '../../elements/Responses';
 import ResponseElement from '../../elements/Response';
 import ParameterElement from '../../elements/Parameter';

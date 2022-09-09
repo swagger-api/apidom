@@ -13,7 +13,6 @@ import ParameterElement from './elements/Parameter';
 import PathItemElement from './elements/PathItem';
 import PathsElement from './elements/Paths';
 import ReferenceElement from './elements/Reference';
-import RequestBodyElement from './elements/RequestBody';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
@@ -176,16 +175,6 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
-
-export const isRequestBodyElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof RequestBodyElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('requestBody', element) &&
-        primitiveEq('object', element));
-  },
-);
 
 export const isResponseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

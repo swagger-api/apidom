@@ -1,7 +1,7 @@
 import stampit from 'stampit';
+import { ComponentsExamplesElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import BaseExamplesVisitor from '../ExamplesVisitor';
-import ComponentsExamplesElement from '../../../../elements/nces/ComponentsExamples';
 
 const ExamplesVisitor = stampit(BaseExamplesVisitor, {
   init() {

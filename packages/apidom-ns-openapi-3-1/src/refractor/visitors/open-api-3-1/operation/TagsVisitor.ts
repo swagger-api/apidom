@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { ArrayElement, BREAK } from '@swagger-api/apidom-core';
+import { OperationTagsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OperationTagsElement from '../../../../elements/nces/OperationTags';
 import FallbackVisitor from '../../FallbackVisitor';
 
 const TagsVisitor = stampit(FallbackVisitor, {

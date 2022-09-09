@@ -1,26 +1,5 @@
-import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { DiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class Discriminator extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'discriminator';
-  }
-
-  get propertyName(): StringElement {
-    return this.get('propertyName');
-  }
-
-  set propertyName(propertyName: StringElement) {
-    this.set('propertyName', propertyName);
-  }
-
-  get mapping(): ObjectElement {
-    return this.get('mapping');
-  }
-
-  set mapping(mapping: ObjectElement) {
-    this.set('mapping', mapping);
-  }
-}
+class Discriminator extends DiscriminatorElement {}
 
 export default Discriminator;

@@ -40,15 +40,15 @@ const plugin = () => () => {
             if (
               isStringElement(parameter.in) &&
               isStringElement(parameter.name) &&
-              parameter.in.toValue() === 'header'
+              parameter.in?.toValue() === 'header'
             ) {
               standardIdentifiers.push({
                 subject: ['http', 'request', 'header'],
-                value: parameter.name.clone(),
+                value: parameter.name?.clone(),
               });
               standardIdentifiers.push({
                 subject: ['http', 'message', 'header'],
-                value: parameter.name.clone(),
+                value: parameter.name?.clone(),
               });
             }
           });
@@ -60,16 +60,16 @@ const plugin = () => () => {
         if (
           isStringElement(element.in) &&
           isStringElement(element.name) &&
-          element.in.toValue() === 'header'
+          element.in?.toValue() === 'header'
         ) {
           element.setMetaProperty('ads-a-standard-identifier', [
             {
               subject: ['http', 'request', 'header'],
-              value: element.name.clone(),
+              value: element.name?.clone(),
             },
             {
               subject: ['http', 'message', 'header'],
-              value: element.name.clone(),
+              value: element.name?.clone(),
             },
           ]);
         }

@@ -23,43 +23,42 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 export {
   isCallbackElement,
   isComponentsElement,
-  isContactElement,
-  isExampleElement,
-  isExternalDocumentationElement,
   isInfoElement,
   isJsonSchemaDialectElement,
   isLicenseElement,
-  isLinkElement,
-  isLinkElementExternal,
   isOpenapiElement,
   isOpenApi3_1Element,
   isOperationElement,
   isParameterElement,
   isPathItemElement,
   isPathItemElementExternal,
-  isPathsElement,
   isReferenceElement,
   isReferenceElementExternal,
-  isRequestBodyElement,
   isResponseElement,
   isResponsesElement,
   isSchemaElement,
   isBooleanJsonSchemaElement,
-  isSecurityRequirementElement,
-  isServerElement,
-  isServerVariableElement,
   isMediaTypeElement,
+  isServerElement,
+  isSecurityRequirementElement,
+  isExternalDocumentationElement,
+  isServerVariableElement,
+  isContactElement,
+  isExampleElement,
+  isLinkElement,
+  isLinkElementExternal,
+  isRequestBodyElement,
+  isPathsElement,
 } from './predicates';
 
+export { isOpenApi3_1LikeElement } from './refractor/predicates';
 export {
-  isOpenApi3_1LikeElement,
   isParameterLikeElement,
   isReferenceLikeElement,
-  isRequestBodyLikeElement,
   isResponseLikeElement,
-  isServerLikeElement,
   isOpenApiExtension,
-} from './refractor/predicates';
+  isServerLikeElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

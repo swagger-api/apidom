@@ -9,8 +9,8 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import DiscriminatorElement from './Discriminator';
 import XmlElement from './Xml';
+import DiscriminatorElement from './Discriminator';
 import ExternalDocumentationElement from './ExternalDocumentation';
 
 class Schema extends ObjectElement {

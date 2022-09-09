@@ -1,10 +1,5 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class SecurityRequirement extends ObjectElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'securityRequirement';
-  }
-}
+class SecurityRequirement extends SecurityRequirementElement {}
 
 export default SecurityRequirement;

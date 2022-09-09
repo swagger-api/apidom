@@ -1,12 +1,12 @@
 import stampit from 'stampit';
 import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from '../../../elements/Reference';
 import PathItemElement from '../../../elements/PathItem';
 import WebhooksElement from '../../../elements/nces/Webhooks';
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { isReferenceLikeElement } from '../../predicates';
 import { isPathItemElement, isReferenceElement } from '../../../predicates';
 
 const WebhooksVisitor = stampit(MapVisitor, FallbackVisitor, {

@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { Element, ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import MapVisitor from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 import ReferenceElement from '../../../elements/Reference';
 

@@ -7,6 +7,41 @@ import {
   includesClasses,
   isArrayElement,
 } from '@swagger-api/apidom-core';
+import {
+  ServersElement,
+  SecurityElement,
+  TagsElement,
+  ServerVariablesElement,
+  ComponentsSchemasElement,
+  ComponentsResponsesElement,
+  ComponentsParametersElement,
+  ComponentsExamplesElement,
+  ComponentsRequestBodiesElement,
+  ComponentsHeadersElement,
+  ComponentsSecuritySchemesElement,
+  ComponentsLinksElement,
+  ComponentsCallbacksElement,
+  PathItemServersElement,
+  PathItemParametersElement,
+  OperationParametersElement,
+  ParameterExamplesElement,
+  ParameterContentElement,
+  HeaderExamplesElement,
+  HeaderContentElement,
+  OperationTagsElement,
+  OperationCallbacksElement,
+  OperationSecurityElement,
+  OperationServersElement,
+  RequestBodyContentElement,
+  MediaTypeExamplesElement,
+  MediaTypeEncodingElement,
+  EncodingHeadersElement,
+  ResponseHeadersElement,
+  ResponseContentElement,
+  ResponseLinksElement,
+  DiscriminatorMappingElement,
+  OAuthFlowScopesElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
  * OpenAPI 3.1.0 specification elements.
@@ -40,39 +75,8 @@ import EncodingElement from '../../elements/Encoding';
 import SecurityRequirementElement from '../../elements/SecurityRequirement';
 import TagElement from '../../elements/Tag';
 // non-concrete Elements (NCEs)
-import ServersElement from '../../elements/nces/Servers';
-import SecurityElement from '../../elements/nces/Security';
-import TagsElement from '../../elements/nces/Tags';
-import WebhooksElement from '../../elements/nces/Webhooks';
-import ServerVariablesElement from '../../elements/nces/ServerVariables';
-import ComponentsSchemasElement from '../../elements/nces/ComponentsSchemas';
-import ComponentsResponsesElement from '../../elements/nces/ComponentsResponses';
-import ComponentsParametersElement from '../../elements/nces/ComponentsParameters';
-import ComponentsExamplesElement from '../../elements/nces/ComponentsExamples';
-import ComponentsRequestBodiesElement from '../../elements/nces/ComponentsRequestBodies';
-import ComponentsHeadersElement from '../../elements/nces/ComponentsHeaders';
-import ComponentsSecuritySchemesElement from '../../elements/nces/ComponentsSecuritySchemes';
-import ComponentsLinksElement from '../../elements/nces/ComponentsLinks';
-import ComponentsCallbacksElement from '../../elements/nces/ComponentsCallbacks';
 import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems';
-import PathItemServersElement from '../../elements/nces/PathItemServers';
-import PathItemParametersElement from '../../elements/nces/PathItemParameters';
-import OperationParametersElement from '../../elements/nces/OperationParameters';
-import ParameterExamplesElement from '../../elements/nces/ParameterExamples';
-import ParameterContentElement from '../../elements/nces/ParameterContent';
-import OperationTagsElement from '../../elements/nces/OperationTags';
-import OperationCallbacksElement from '../../elements/nces/OperationCallbacks';
-import OperationSecurityElement from '../../elements/nces/OperationSecurity';
-import OperationServersElement from '../../elements/nces/OperationServers';
-import RequestBodyContentElement from '../../elements/nces/RequestBodyContent';
-import MediaTypeExamplesElement from '../../elements/nces/MediaTypeExamples';
-import MediaTypeEncodingElement from '../../elements/nces/MediaTypeEncoding';
-import EncodingHeadersElement from '../../elements/nces/EncodingHeaders';
-import ResponseHeadersElement from '../../elements/nces/ResponseHeaders';
-import ResponseContentElement from '../../elements/nces/ResponseContent';
-import ResponseLinksElement from '../../elements/nces/ResponseLinks';
-import DiscriminatorMappingElement from '../../elements/nces/DiscriminatorMapping';
-import OAuthFlowScopesElement from '../../elements/nces/OAuthFlowScopes';
+import WebhooksElement from '../../elements/nces/Webhooks';
 import { getNodeType } from '../../traversal/visitor';
 
 /**
@@ -284,10 +288,10 @@ const schema = {
       return new SchemaElement(...args);
     },
     examples(...args: any[]) {
-      return new ParameterExamplesElement(...args);
+      return new HeaderExamplesElement(...args);
     },
     content(...args: any[]) {
-      return new ParameterContentElement(...args);
+      return new HeaderContentElement(...args);
     },
   },
   ComponentsElement: {

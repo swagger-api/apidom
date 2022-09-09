@@ -1,6 +1,6 @@
 import stampit from 'stampit';
+import { RequestBodyContentElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import RequestBodyContentElement from '../../../../elements/nces/RequestBodyContent';
 import BaseContentVisitor from '../ContentVisitor';
 
 const ContentVisitor = stampit(BaseContentVisitor, {

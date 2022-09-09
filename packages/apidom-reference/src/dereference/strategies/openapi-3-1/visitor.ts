@@ -108,7 +108,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -153,7 +153,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // annotate fragment with info about original Reference element
       fragment.setMetaProperty('ref-fields', {
-        $ref: referenceElement.$ref.toValue(),
+        $ref: referenceElement.$ref?.toValue(),
         // @ts-ignore
         description: referenceElement.description?.toValue(),
         // @ts-ignore
@@ -196,7 +196,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
 
       // possibly non-semantic referenced element
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -278,8 +278,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       if (isStringElement(linkElement.operationRef)) {
         // possibly non-semantic referenced element
-        const jsonPointer = uriToPointer(linkElement.operationRef.toValue());
-        const reference = await this.toReference(linkElement.operationRef.toValue());
+        const jsonPointer = uriToPointer(linkElement.operationRef?.toValue());
+        const reference = await this.toReference(linkElement.operationRef?.toValue());
         operationElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
         if (isPrimitiveElement(operationElement)) {
@@ -294,9 +294,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
         // annotate operation element with info about origin
         operationElement.setMetaProperty('ref-origin', reference.uri);
-        linkElement.operationRef.meta.set('operation', operationElement);
+        linkElement.operationRef?.meta.set('operation', operationElement);
       } else if (isStringElement(linkElement.operationId)) {
-        const operationId = linkElement.operationId.toValue();
+        const operationId = linkElement.operationId?.toValue();
         operationElement = find(
           (e) => isOperationElement(e) && e.operationId.equals(operationId),
           this.reference.value.result,
@@ -305,7 +305,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isUndefined(operationElement)) {
           throw new Error(`OperationElement(operationId=${operationId}) not found.`);
         }
-        linkElement.operationId.meta.set('operation', operationElement);
+        linkElement.operationId?.meta.set('operation', operationElement);
       }
 
       return undefined;
@@ -327,7 +327,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
       }
 
-      const reference = await this.toReference(exampleElement.externalValue.toValue());
+      const reference = await this.toReference(exampleElement.externalValue?.toValue());
 
       // shallow clone of the referenced element
       const valueElement = new reference.value.result.constructor(

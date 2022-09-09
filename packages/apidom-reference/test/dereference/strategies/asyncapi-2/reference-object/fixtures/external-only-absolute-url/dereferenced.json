@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "2.4.0",
+    "components": {
+      "parameters": {
+        "externalRef": {
+          "description": "external parameter",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

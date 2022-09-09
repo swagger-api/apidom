@@ -102,7 +102,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         return false;
       }
 
-      const uri = referenceElement.$ref.toValue();
+      const uri = referenceElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -124,7 +124,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      const uri = pathItemElement.$ref.toValue();
+      const uri = pathItemElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -152,7 +152,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       if (isLinkElementExternal(linkElement)) {
-        const uri = linkElement.operationRef.toValue();
+        const uri = linkElement.operationRef?.toValue();
         const baseURI = this.toBaseURI(uri);
 
         if (!has(baseURI, this.crawlingMap)) {
@@ -179,7 +179,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
       }
 
-      const uri = exampleElement.externalValue.toValue();
+      const uri = exampleElement.externalValue?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -233,7 +233,7 @@ const OpenApi3_1ResolveVisitor = stampit({
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -284,7 +284,7 @@ const OpenApi3_1ResolveVisitor = stampit({
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);

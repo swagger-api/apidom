@@ -39,22 +39,6 @@ export const isLinkLikeElement = isObjectElement;
 
 export const isCallbackLikeElement = isObjectElement;
 
-export const isSecuritySchemeLikeElement = <T extends Element>(element: T): boolean => {
-  return (
-    isObjectElement(element) &&
-    // @ts-ignore
-    element.hasKey('type') &&
-    // @ts-ignore
-    element.hasKey('name') &&
-    // @ts-ignore
-    element.hasKey('in') &&
-    // @ts-ignore
-    element.hasKey('scheme') &&
-    // @ts-ignore
-    elememt.hasKey('flows')
-  );
-};
-
 export const isTagLikeElement = isObjectElement;
 
 export const isOpenApiExtension = (element: MemberElement): boolean => {

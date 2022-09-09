@@ -45,12 +45,12 @@ export {
   isSchemaElement,
   isBooleanJsonSchemaElement,
   isServerElement,
-  isServerVariableElement,
   isMediaTypeElement,
 } from './predicates';
 export {
   isSecurityRequirementElement,
   isExternalDocumentationElement,
+  isServerVariableElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
@@ -94,6 +94,6 @@ export { default as SchemaElement } from './elements/Schema';
 export { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { SecuritySchemeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ServerElement } from './elements/Server';
-export { default as ServerVariableElement } from './elements/ServerVariable';
+export { ServerVariableElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { TagElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { XmlElement } from '@swagger-api/apidom-ns-openapi-3-0';

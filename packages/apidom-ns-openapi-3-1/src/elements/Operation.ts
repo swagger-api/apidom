@@ -9,10 +9,10 @@ import {
 import {
   SecurityRequirementElement,
   ExternalDocumentationElement,
+  ServerElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from './Reference';
-import ServerElement from './Server';
 import RequestBodyElement from './RequestBody';
 import ResponsesElement from './Responses';
 import CallbackElement from './Callback';

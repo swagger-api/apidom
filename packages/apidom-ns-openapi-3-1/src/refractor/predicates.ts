@@ -27,8 +27,6 @@ export const isResponseLikeElement = <T extends Element>(element: T): boolean =>
   return isObjectElement(element) && element.hasKey('description');
 };
 
-export const isServerLikeElement = isObjectElement;
-
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
   return isStringElement(element.key) && startsWith('x-', element.key.toValue());

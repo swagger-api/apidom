@@ -6,8 +6,8 @@ import {
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
+import { ServerElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ServerElement from './Server';
 import OperationElement from './Operation';
 
 class Link extends ObjectElement {

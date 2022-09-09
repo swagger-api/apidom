@@ -17,6 +17,7 @@ import {
   ExternalDocumentationElement,
   TagElement,
   ServerVariableElement,
+  ServerElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -33,7 +34,6 @@ import SchemaElement from '../../elements/Schema';
 import RequestBodyElement from '../../elements/RequestBody';
 import ResponsesElement from '../../elements/Responses';
 import ResponseElement from '../../elements/Response';
-import ServerElement from '../../elements/Server';
 import ParameterElement from '../../elements/Parameter';
 import ExampleElement from '../../elements/Example';
 import HeaderElement from '../../elements/Header';

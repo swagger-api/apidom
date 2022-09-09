@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { ServerElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ServerElement from '../../../../elements/Server';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 

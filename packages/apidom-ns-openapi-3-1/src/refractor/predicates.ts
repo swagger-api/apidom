@@ -17,11 +17,6 @@ export const isReferenceLikeElement = <T extends Element>(element: T): boolean =
   return isObjectElement(element) && element.hasKey('$ref');
 };
 
-export const isRequestBodyLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('content');
-};
-
 export const isResponseLikeElement = <T extends Element>(element: T): boolean => {
   // @ts-ignore
   return isObjectElement(element) && element.hasKey('description');

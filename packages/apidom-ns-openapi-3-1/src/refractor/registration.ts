@@ -12,7 +12,6 @@ import ParameterElement from '../elements/Parameter';
 import PathItemElement from '../elements/PathItem';
 import PathsElement from '../elements/Paths';
 import ReferenceElement from '../elements/Reference';
-import RequestBodyElement from '../elements/RequestBody';
 import ResponseElement from '../elements/Response';
 import ResponsesElement from '../elements/Responses';
 import SchemaElement from '../elements/Schema';
@@ -99,13 +98,6 @@ ReferenceElement.refract = createRefractor([
   'document',
   'objects',
   'Reference',
-  '$visitor',
-]);
-RequestBodyElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'RequestBody',
   '$visitor',
 ]);
 ResponseElement.refract = createRefractor([

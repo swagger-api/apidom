@@ -15,6 +15,7 @@ import {
   XmlElement,
   DiscriminatorElement,
   ExternalDocumentationElement,
+  TagElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
@@ -40,7 +41,6 @@ import LinkElement from '../../elements/Link';
 import CallbackElement from '../../elements/Callback';
 import MediaTypeElement from '../../elements/MediaType';
 import EncodingElement from '../../elements/Encoding';
-import TagElement from '../../elements/Tag';
 // non-concrete Elements (NCEs)
 import ServersElement from '../../elements/nces/Servers';
 import SecurityElement from '../../elements/nces/Security';

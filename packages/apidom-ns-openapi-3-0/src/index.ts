@@ -57,6 +57,7 @@ export {
   isRequestBodyLikeElement,
   isResponseLikeElement,
   isServerLikeElement,
+  isTagLikeElement,
   isOpenApiExtension,
 } from './refractor/predicates';
 

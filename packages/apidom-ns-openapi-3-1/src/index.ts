@@ -44,13 +44,14 @@ export {
   isResponsesElement,
   isSchemaElement,
   isBooleanJsonSchemaElement,
-  isServerElement,
   isMediaTypeElement,
 } from './predicates';
 export {
+  isServerElement,
   isSecurityRequirementElement,
   isExternalDocumentationElement,
   isServerVariableElement,
+  isServerLikeElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
@@ -59,7 +60,6 @@ export {
   isReferenceLikeElement,
   isRequestBodyLikeElement,
   isResponseLikeElement,
-  isServerLikeElement,
   isOpenApiExtension,
 } from './refractor/predicates';
 
@@ -93,7 +93,7 @@ export { default as ResponsesElement } from './elements/Responses';
 export { default as SchemaElement } from './elements/Schema';
 export { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { SecuritySchemeElement } from '@swagger-api/apidom-ns-openapi-3-0';
-export { default as ServerElement } from './elements/Server';
+export { ServerElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { ServerVariableElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { TagElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { XmlElement } from '@swagger-api/apidom-ns-openapi-3-0';

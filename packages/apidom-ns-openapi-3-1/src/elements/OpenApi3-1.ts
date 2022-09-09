@@ -1,8 +1,8 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ServerElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OpenapiElement from './Openapi';
 import InfoElement from './Info';
-import ServerElement from './Server';
 import ComponentsElement from './Components';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

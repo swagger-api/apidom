@@ -20,7 +20,6 @@ import RequestBodyElement from './elements/RequestBody';
 import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
-import ServerElement from './elements/Server';
 import MediaTypeElement from './elements/MediaType';
 
 export const isCallbackElement = createPredicate(
@@ -267,16 +266,6 @@ export const isSchemaElement = createPredicate(
 export const isBooleanJsonSchemaElement = (element: any) => {
   return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
 };
-
-export const isServerElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof ServerElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('server', element) &&
-        primitiveEq('object', element));
-  },
-);
 
 export const isMediaTypeElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

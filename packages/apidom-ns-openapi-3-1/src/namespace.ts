@@ -6,6 +6,7 @@ import {
   SecuritySchemeElement,
   XmlElement,
   DiscriminatorElement,
+  ExternalDocumentationElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
@@ -13,7 +14,6 @@ import ComponentsElement from './elements/Components';
 import ContactElement from './elements/Contact';
 import EncodingElement from './elements/Encoding';
 import ExampleElement from './elements/Example';
-import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';

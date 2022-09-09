@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { ExternalDocumentationElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ExternalDocumentationElement from '../../../../elements/ExternalDocumentation';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 

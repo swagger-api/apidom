@@ -64,6 +64,9 @@ import HeaderAllowEmptyValueVisitor from './visitors/open-api-3-1/header/AllowEm
 import HeaderStyleVisitor from './visitors/open-api-3-1/header/StyleVisitor';
 import HeaderExplodeVisitor from './visitors/open-api-3-1/header/ExplodeVisitor';
 import HeaderAllowReservedVisitor from './visitors/open-api-3-1/header/AllowReservedVisitor';
+import HeaderContentVisitor from './visitors/open-api-3-1/header/ContentVisitor';
+import HeaderExampleVisitor from './visitors/open-api-3-1/header/ExampleVisitor';
+import HeaderExamplesVisitor from './visitors/open-api-3-1/header/ExamplesVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
 import Schema$schemaVisitor from './visitors/open-api-3-1/schema/$schemaVisitor';
 import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor';
@@ -124,8 +127,6 @@ import XmlWrappedVisitor from './visitors/open-api-3-1/xml/WrappedVisitor';
 import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
 import ParameterExamplesVisitor from './visitors/open-api-3-1/parameter/ExamplesVisitor';
 import ParameterContentVisitor from './visitors/open-api-3-1/parameter/ContentVisitor';
-import ExamplesVisitor from './visitors/open-api-3-1/ExamplesVisitor';
-import ContentVisitor from './visitors/open-api-3-1/ContentVisitor';
 import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
 import ComponentsResponsesVisitor from './visitors/open-api-3-1/components/ResponsesVisitor';
 import ComponentsParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
@@ -463,9 +464,9 @@ const specification = {
             schema: {
               $ref: '#/visitors/document/objects/Schema',
             },
-            example: ParameterExampleVisitor,
-            examples: ExamplesVisitor,
-            content: ContentVisitor,
+            example: HeaderExampleVisitor,
+            examples: HeaderExamplesVisitor,
+            content: HeaderContentVisitor,
           },
         },
         Tag: {

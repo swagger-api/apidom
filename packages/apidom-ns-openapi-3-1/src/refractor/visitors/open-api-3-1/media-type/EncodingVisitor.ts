@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { MediaTypeEncodingElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import MediaTypeEncodingElement from '../../../../elements/nces/MediaTypeEncoding';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 

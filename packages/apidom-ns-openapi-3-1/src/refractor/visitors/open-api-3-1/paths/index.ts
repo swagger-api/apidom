@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
 import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
-import { PathsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
+import PathsElement from '../../../../elements/Paths';
 import PathItemElement from '../../../../elements/PathItem';
 import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';

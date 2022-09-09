@@ -1,7 +1,7 @@
 import stampit from 'stampit';
+import { ParameterContentElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import BaseContentVisitor from '../ContentVisitor';
-import ParameterContentElement from '../../../../elements/nces/ParameterContent';
 
 const ExamplesVisitor = stampit(BaseContentVisitor, {
   init() {

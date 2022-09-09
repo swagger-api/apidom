@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
 import { isStringElement, MemberElement, Element, BREAK } from '@swagger-api/apidom-core';
+import { isOpenApiExtension } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SpecificationVisitor from '../SpecificationVisitor';
-import { isOpenApiExtension } from '../../predicates';
 
 const FixedFieldsVisitor = stampit(SpecificationVisitor, {
   props: {

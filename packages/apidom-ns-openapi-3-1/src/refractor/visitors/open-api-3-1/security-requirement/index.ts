@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { SecurityRequirementElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
+import SecurityRequirementElement from '../../../../elements/SecurityRequirement';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 

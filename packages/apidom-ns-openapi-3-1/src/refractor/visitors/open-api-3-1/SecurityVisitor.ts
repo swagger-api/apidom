@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { ArrayElement, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { SecurityElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import SecurityElement from '../../../elements/nces/Security';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 

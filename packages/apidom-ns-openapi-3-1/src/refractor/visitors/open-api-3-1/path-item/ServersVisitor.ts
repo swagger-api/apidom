@@ -1,6 +1,6 @@
 import stampit from 'stampit';
+import { PathItemServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import PathItemServersElement from '../../../../elements/nces/PathItemServers';
 import BaseServersVisitor from '../ServersVisitor';
 
 const ServersVisitor = stampit(BaseServersVisitor, {

@@ -1,9 +1,9 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
+import { OAuthFlowScopesElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import OAuthFlowScopesElement from '../../../../elements/nces/OAuthFlowScopes';
 
 const ScopesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {

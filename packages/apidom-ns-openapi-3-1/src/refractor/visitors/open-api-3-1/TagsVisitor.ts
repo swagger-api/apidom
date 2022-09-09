@@ -1,8 +1,7 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
-import { isTagLikeElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { isTagLikeElement, TagsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import TagsElement from '../../../elements/nces/Tags';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 

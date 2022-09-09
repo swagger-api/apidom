@@ -1,11 +1,13 @@
 import stampit from 'stampit';
 import { ObjectElement, Element, StringElement } from '@swagger-api/apidom-core';
+import {
+  isReferenceLikeElement,
+  ComponentsHeadersElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from '../../../../elements/Reference';
-import ComponentsHeadersElement from '../../../../elements/nces/ComponentsHeaders';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isHeaderElement } from '../../../../predicates';
 
 const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {

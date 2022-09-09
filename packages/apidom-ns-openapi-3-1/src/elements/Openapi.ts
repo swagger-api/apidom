@@ -1,12 +1,5 @@
-import { StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { OpenapiElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-class Openapi extends StringElement {
-  constructor(content?: string, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'openapi';
-    this.classes.push('spec-version');
-    this.classes.push('version');
-  }
-}
+class Openapi extends OpenapiElement {}
 
 export default Openapi;

@@ -8,73 +8,75 @@ import {
   isArrayElement,
 } from '@swagger-api/apidom-core';
 import {
-  SecurityRequirementElement,
-  OAuthFlowElement,
-  OAuthFlowsElement,
-  SecuritySchemeElement,
-  XmlElement,
-  DiscriminatorElement,
-  ExternalDocumentationElement,
-  TagElement,
-  ServerVariableElement,
-  ServerElement,
-  ContactElement,
-  ExampleElement,
-  LinkElement,
-  EncodingElement,
-  RequestBodyElement,
-  PathsElement,
+  ServersElement,
+  SecurityElement,
+  TagsElement,
+  ServerVariablesElement,
+  ComponentsSchemasElement,
+  ComponentsResponsesElement,
+  ComponentsParametersElement,
+  ComponentsExamplesElement,
+  ComponentsRequestBodiesElement,
+  ComponentsHeadersElement,
+  ComponentsSecuritySchemesElement,
+  ComponentsLinksElement,
+  ComponentsCallbacksElement,
+  PathItemServersElement,
+  PathItemParametersElement,
+  OperationParametersElement,
+  ParameterExamplesElement,
+  ParameterContentElement,
+  HeaderExamplesElement,
+  HeaderContentElement,
+  OperationTagsElement,
+  OperationCallbacksElement,
+  OperationSecurityElement,
+  OperationServersElement,
+  RequestBodyContentElement,
+  MediaTypeExamplesElement,
+  MediaTypeEncodingElement,
+  EncodingHeadersElement,
+  ResponseHeadersElement,
+  ResponseContentElement,
+  ResponseLinksElement,
+  DiscriminatorMappingElement,
+  OAuthFlowScopesElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 /**
  * OpenAPI 3.1.0 specification elements.
  */
 import InfoElement from '../../elements/Info';
+import ContactElement from '../../elements/Contact';
 import LicenseElement from '../../elements/License';
+import PathsElement from '../../elements/Paths';
 import PathItemElement from '../../elements/PathItem';
 import ComponentsElement from '../../elements/Components';
+import ExternalDocumentationElement from '../../elements/ExternalDocumentation';
 import OperationElement from '../../elements/Operation';
 import SchemaElement from '../../elements/Schema';
+import RequestBodyElement from '../../elements/RequestBody';
 import ResponsesElement from '../../elements/Responses';
 import ResponseElement from '../../elements/Response';
+import ServerElement from '../../elements/Server';
+import DiscriminatorElement from '../../elements/Discriminator';
+import XmlElement from '../../elements/Xml';
+import OAuthFlowsElement from '../../elements/OAuthFlows';
+import OAuthFlowElement from '../../elements/OAuthFlow';
+import ServerVariableElement from '../../elements/ServerVariable';
 import ParameterElement from '../../elements/Parameter';
+import ExampleElement from '../../elements/Example';
 import HeaderElement from '../../elements/Header';
+import SecuritySchemeElement from '../../elements/SecurityScheme';
+import LinkElement from '../../elements/Link';
 import CallbackElement from '../../elements/Callback';
 import MediaTypeElement from '../../elements/MediaType';
+import EncodingElement from '../../elements/Encoding';
+import SecurityRequirementElement from '../../elements/SecurityRequirement';
+import TagElement from '../../elements/Tag';
 // non-concrete Elements (NCEs)
-import ServersElement from '../../elements/nces/Servers';
-import SecurityElement from '../../elements/nces/Security';
-import TagsElement from '../../elements/nces/Tags';
-import WebhooksElement from '../../elements/nces/Webhooks';
-import ServerVariablesElement from '../../elements/nces/ServerVariables';
-import ComponentsSchemasElement from '../../elements/nces/ComponentsSchemas';
-import ComponentsResponsesElement from '../../elements/nces/ComponentsResponses';
-import ComponentsParametersElement from '../../elements/nces/ComponentsParameters';
-import ComponentsExamplesElement from '../../elements/nces/ComponentsExamples';
-import ComponentsRequestBodiesElement from '../../elements/nces/ComponentsRequestBodies';
-import ComponentsHeadersElement from '../../elements/nces/ComponentsHeaders';
-import ComponentsSecuritySchemesElement from '../../elements/nces/ComponentsSecuritySchemes';
-import ComponentsLinksElement from '../../elements/nces/ComponentsLinks';
-import ComponentsCallbacksElement from '../../elements/nces/ComponentsCallbacks';
 import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems';
-import PathItemServersElement from '../../elements/nces/PathItemServers';
-import PathItemParametersElement from '../../elements/nces/PathItemParameters';
-import OperationParametersElement from '../../elements/nces/OperationParameters';
-import ParameterExamplesElement from '../../elements/nces/ParameterExamples';
-import ParameterContentElement from '../../elements/nces/ParameterContent';
-import OperationTagsElement from '../../elements/nces/OperationTags';
-import OperationCallbacksElement from '../../elements/nces/OperationCallbacks';
-import OperationSecurityElement from '../../elements/nces/OperationSecurity';
-import OperationServersElement from '../../elements/nces/OperationServers';
-import RequestBodyContentElement from '../../elements/nces/RequestBodyContent';
-import MediaTypeExamplesElement from '../../elements/nces/MediaTypeExamples';
-import MediaTypeEncodingElement from '../../elements/nces/MediaTypeEncoding';
-import EncodingHeadersElement from '../../elements/nces/EncodingHeaders';
-import ResponseHeadersElement from '../../elements/nces/ResponseHeaders';
-import ResponseContentElement from '../../elements/nces/ResponseContent';
-import ResponseLinksElement from '../../elements/nces/ResponseLinks';
-import DiscriminatorMappingElement from '../../elements/nces/DiscriminatorMapping';
-import OAuthFlowScopesElement from '../../elements/nces/OAuthFlowScopes';
+import WebhooksElement from '../../elements/nces/Webhooks';
 import { getNodeType } from '../../traversal/visitor';
 
 /**
@@ -286,10 +288,10 @@ const schema = {
       return new SchemaElement(...args);
     },
     examples(...args: any[]) {
-      return new ParameterExamplesElement(...args);
+      return new HeaderExamplesElement(...args);
     },
     content(...args: any[]) {
-      return new ParameterContentElement(...args);
+      return new HeaderContentElement(...args);
     },
   },
   ComponentsElement: {

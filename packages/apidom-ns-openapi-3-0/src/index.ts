@@ -63,6 +63,7 @@ export {
 
 export { keyMap, getNodeType } from './traversal/visitor';
 
+// OpenAPI 3.0.x elements
 export { default as CallbackElement } from './elements/Callback';
 export { default as ComponentsElement } from './elements/Components';
 export { default as ContactElement } from './elements/Contact';
@@ -94,3 +95,38 @@ export { default as ServerElement } from './elements/Server';
 export { default as ServerVariableElement } from './elements/ServerVariable';
 export { default as TagElement } from './elements/Tag';
 export { default as XmlElement } from './elements/Xml';
+// NCE types
+export { default as ComponentsCallbacksElement } from './elements/nces/ComponentsCallbacks';
+export { default as ComponentsExamplesElement } from './elements/nces/ComponentsExamples';
+export { default as ComponentsHeadersElement } from './elements/nces/ComponentsHeaders';
+export { default as ComponentsLinksElement } from './elements/nces/ComponentsLinks';
+export { default as ComponentsParametersElement } from './elements/nces/ComponentsParameters';
+export { default as ComponentsRequestBodiesElement } from './elements/nces/ComponentsRequestBodies';
+export { default as ComponentsResponsesElement } from './elements/nces/ComponentsResponses';
+export { default as ComponentsSchemasElement } from './elements/nces/ComponentsSchemas';
+export { default as ComponentsSecuritySchemesElement } from './elements/nces/ComponentsSecuritySchemes';
+export { default as DiscriminatorMappingElement } from './elements/nces/DiscriminatorMapping';
+export { default as EncodingHeadersElement } from './elements/nces/EncodingHeaders';
+export { default as HeaderContentElement } from './elements/nces/HeaderContent';
+export { default as HeaderExamplesElement } from './elements/nces/HeaderExamples';
+export { default as LinkParametersElement } from './elements/nces/LinkParameters';
+export { default as MediaTypeEncodingElement } from './elements/nces/MediaTypeEncoding';
+export { default as MediaTypeExamplesElement } from './elements/nces/MediaTypeExamples';
+export { default as OAuthFlowScopesElement } from './elements/nces/OAuthFlowScopes';
+export { default as OperationCallbacksElement } from './elements/nces/OperationCallbacks';
+export { default as OperationParametersElement } from './elements/nces/OperationParameters';
+export { default as OperationSecurityElement } from './elements/nces/OperationSecurity';
+export { default as OperationServersElement } from './elements/nces/OperationServers';
+export { default as OperationTagsElement } from './elements/nces/OperationTags';
+export { default as ParameterContentElement } from './elements/nces/ParameterContent';
+export { default as ParameterExamplesElement } from './elements/nces/ParameterExamples';
+export { default as PathItemParametersElement } from './elements/nces/PathItemParameters';
+export { default as PathItemServersElement } from './elements/nces/PathItemServers';
+export { default as RequestBodyContentElement } from './elements/nces/RequestBodyContent';
+export { default as ResponseContentElement } from './elements/nces/ResponseContent';
+export { default as ResponseHeadersElement } from './elements/nces/ResponseHeaders';
+export { default as ResponseLinksElement } from './elements/nces/ResponseLinks';
+export { default as SecurityElement } from './elements/nces/Security';
+export { default as ServersElement } from './elements/nces/Servers';
+export { default as ServerVariablesElement } from './elements/nces/ServerVariables';
+export { default as TagsElement } from './elements/nces/Tags';

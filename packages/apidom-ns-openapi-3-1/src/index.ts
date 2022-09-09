@@ -26,8 +26,6 @@ export {
   isInfoElement,
   isJsonSchemaDialectElement,
   isLicenseElement,
-  isLinkElement,
-  isLinkElementExternal,
   isOpenapiElement,
   isOpenApi3_1Element,
   isOperationElement,
@@ -52,6 +50,8 @@ export {
   isServerLikeElement,
   isContactElement,
   isExampleElement,
+  isLinkElement,
+  isLinkElementExternal,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export {
@@ -76,7 +76,7 @@ export { default as HeaderElement } from './elements/Header';
 export { default as InfoElement } from './elements/Info';
 export { default as JsonSchemaDialectElement } from './elements/JsonSchemaDialect';
 export { default as LicenseElement } from './elements/License';
-export { default as LinkElement } from './elements/Link';
+export { LinkElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as MediaTypeElement } from './elements/MediaType';
 export { OAuthFlowElement } from '@swagger-api/apidom-ns-openapi-3-0';
 export { OAuthFlowsElement } from '@swagger-api/apidom-ns-openapi-3-0';

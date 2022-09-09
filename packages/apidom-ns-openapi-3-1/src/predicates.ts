@@ -6,7 +6,6 @@ import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
-import LinkElement from './elements/Link';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';
 import OperationElement from './elements/Operation';
@@ -79,29 +78,6 @@ export const isLicenseElement = createPredicate(
         primitiveEq('object', element));
   },
 );
-
-export const isLinkElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof LinkElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('link', element) &&
-        primitiveEq('object', element));
-  },
-);
-
-export const isLinkElementExternal = (element: any): element is LinkElement => {
-  if (!isLinkElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.operationRef)) {
-    return false;
-  }
-
-  const value = element.operationRef.toValue();
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
 
 export const isOpenapiElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

@@ -37,7 +37,7 @@ describe('dereference', function () {
             })) as LinkElement;
 
             assert.isTrue(isLinkElement(dereferenced));
-            assert.isTrue(isOperationElement(dereferenced.operationRef.meta.get('operation')));
+            assert.isTrue(isOperationElement(dereferenced.operationRef?.meta.get('operation')));
           });
 
           specify('should dereference and contain metadata about origin', async function () {
@@ -54,7 +54,7 @@ describe('dereference', function () {
             })) as LinkElement;
 
             assert.match(
-              dereferenced.operationRef.meta.get('operation').meta.get('ref-origin').toValue(),
+              dereferenced.operationRef?.meta.get('operation').meta.get('ref-origin').toValue(),
               /operation-ref-external\/ex\.json$/,
             );
           });

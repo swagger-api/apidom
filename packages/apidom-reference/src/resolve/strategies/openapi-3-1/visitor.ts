@@ -152,7 +152,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       if (isLinkElementExternal(linkElement)) {
-        const uri = linkElement.operationRef.toValue();
+        const uri = linkElement.operationRef?.toValue();
         const baseURI = this.toBaseURI(uri);
 
         if (!has(baseURI, this.crawlingMap)) {
@@ -179,7 +179,7 @@ const OpenApi3_1ResolveVisitor = stampit({
         throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
       }
 
-      const uri = exampleElement.externalValue.toValue();
+      const uri = exampleElement.externalValue?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {

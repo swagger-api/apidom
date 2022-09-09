@@ -12,6 +12,7 @@ import {
   ServerElement,
   ContactElement,
   ExampleElement,
+  LinkElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from './elements/Callback';
@@ -21,7 +22,6 @@ import HeaderElement from './elements/Header';
 import InfoElement from './elements/Info';
 import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
 import LicenseElement from './elements/License';
-import LinkElement from './elements/Link';
 import MediaTypeElement from './elements/MediaType';
 import OpenapiElement from './elements/Openapi';
 import OpenApi3_1Element from './elements/OpenApi3-1';

@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import InfoElement from '../../../../elements/Info';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const InfoVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Info']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        Info: { $visitor: BaseInfoVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const InfoVisitor = stampit(BaseInfoVisitor, {
   init() {
     this.element = new InfoElement();
   },

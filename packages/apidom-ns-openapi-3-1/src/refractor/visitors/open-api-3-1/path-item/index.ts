@@ -1,41 +1,21 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
-import { StringElement, ObjectElement, isStringElement } from '@swagger-api/apidom-core';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import PathItemElement from '../../../../elements/PathItem';
-import OperationElement from '../../../../elements/Operation';
-import { isOperationElement } from '../../../../predicates';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
 
-const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'PathItem']),
+const {
+  visitors: {
+    document: {
+      objects: {
+        PathItem: { $visitor: BasePathItemVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const PathItemVisitor = stampit(BasePathItemVisitor, {
   init() {
     this.element = new PathItemElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-
-      // decorate Operation elements with HTTP method
-      this.element
-        .filter(isOperationElement)
-        .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
-          const httpMethodElementCS = httpMethodElementCI.clone();
-          httpMethodElementCS.content = httpMethodElementCS.toValue().toUpperCase();
-          operationElement.setMetaProperty('http-method', httpMethodElementCS);
-        });
-
-      // mark this PathItemElement with reference metadata
-      if (isStringElement(this.element.$ref)) {
-        this.element.classes.push('reference-element');
-      }
-
-      return result;
-    },
   },
 });
 

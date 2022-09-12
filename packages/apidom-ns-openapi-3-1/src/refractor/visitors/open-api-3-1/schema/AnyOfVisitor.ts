@@ -1,8 +1,7 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { FallbackVisitor, SpecificationVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
 import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
 const AnyOfVisitor = stampit(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {

@@ -4,12 +4,12 @@ import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 import CallbackElement from '../../../../elements/Callback';
 import PathItemElement from '../../../../elements/PathItem';
-import PatternedFieldsJsonObjectVisitor from '../../generics/PatternedFieldsVisitor';
+import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
 import { isPathItemElement } from '../../../../predicates';
 
-const CallbackVisitor = stampit(PatternedFieldsJsonObjectVisitor, FallbackVisitor, {
+const CallbackVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   props: {
     fieldPatternPredicate: test(/{(?<expression>.*)}/),
     specPath: always(['document', 'objects', 'PathItem']),

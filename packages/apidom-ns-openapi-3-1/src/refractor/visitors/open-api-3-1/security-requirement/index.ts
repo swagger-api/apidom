@@ -1,14 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SecurityRequirementElement from '../../../../elements/SecurityRequirement';
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
 
-const SecurityRequirementVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['value']),
+const {
+  visitors: {
+    document: {
+      objects: {
+        SecurityRequirement: { $visitor: BaseSecurityRequirementVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const SecurityRequirementVisitor = stampit(BaseSecurityRequirementVisitor, {
   init() {
     this.element = new SecurityRequirementElement();
   },

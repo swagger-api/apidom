@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import XmlElement from '../../../../elements/Xml';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const XmlVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'XML']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        XML: { $visitor: BaseXMLVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const XmlVisitor = stampit(BaseXMLVisitor, {
   init() {
     this.element = new XmlElement();
   },

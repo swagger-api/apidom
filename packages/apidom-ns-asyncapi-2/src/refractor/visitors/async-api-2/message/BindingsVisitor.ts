@@ -17,7 +17,7 @@ const BindingsVisitor = stampit(AlternatingVisitor, FallbackVisitor, {
   methods: {
     ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore
-      const result = AlternatingVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      const result = AlternatingVisitor.compose.methods.enter.call(this, objectElement);
 
       if (isReferenceElement(this.element)) {
         this.element.setMetaProperty('referenced-element', 'messageBindings');

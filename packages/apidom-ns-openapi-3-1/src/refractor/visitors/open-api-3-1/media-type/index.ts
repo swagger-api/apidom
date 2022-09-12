@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import MediaTypeElement from '../../../../elements/MediaType';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const MediaTypeVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'MediaType']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        MediaType: { $visitor: BaseMediaTypeVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const MediaTypeVisitor = stampit(BaseMediaTypeVisitor, {
   init() {
     this.element = new MediaTypeElement();
   },

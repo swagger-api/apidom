@@ -1,9 +1,8 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
+import { FallbackVisitor, MapVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import FallbackVisitor from '../../FallbackVisitor';
-import MapVisitor from '../../generics/MapVisitor';
 import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
 const PropertiesVisitor = stampit(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {

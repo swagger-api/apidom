@@ -1,36 +1,21 @@
 import stampit from 'stampit';
-import { test, always } from 'ramda';
-import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import PathsElement from '../../../../elements/Paths';
-import PathItemElement from '../../../../elements/PathItem';
-import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
-import { isPathItemElement } from '../../../../predicates';
 
-const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
-  props: {
-    fieldPatternPredicate: test(/^\/(?<path>.*)$/),
-    specPath: always(['document', 'objects', 'PathItem']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        Paths: { $visitor: BasePathsVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const PathsVisitor = stampit(BasePathsVisitor, {
   init() {
     this.element = new PathsElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-
-      // decorate every PathItemElement with path metadata
-      this.element
-        .filter(isPathItemElement)
-        .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('path', key.clone());
-        });
-
-      return result;
-    },
   },
 });
 

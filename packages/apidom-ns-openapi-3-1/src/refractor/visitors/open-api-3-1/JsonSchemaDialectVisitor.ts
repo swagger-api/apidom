@@ -1,8 +1,7 @@
 import stampit from 'stampit';
 import { StringElement, BREAK } from '@swagger-api/apidom-core';
+import { FallbackVisitor, SpecificationVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import FallbackVisitor from '../FallbackVisitor';
-import SpecificationVisitor from '../SpecificationVisitor';
 import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect';
 
 const JsonSchemaDialectVisitor = stampit(SpecificationVisitor, FallbackVisitor, {

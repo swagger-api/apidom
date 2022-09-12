@@ -1,72 +1,24 @@
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
-import OpenapiVisitor from './visitors/open-api-3-1/OpenapiVisitor';
-import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import InfoVisitor from './visitors/open-api-3-1/info';
-import InfoTitleVisitor from './visitors/open-api-3-1/info/TitleVisitor';
-import InfoDescriptionVisitor from './visitors/open-api-3-1/info/DescriptionVisitor';
 import InfoSummaryVisitor from './visitors/open-api-3-1/info/SummaryVisitor';
-import InfoTermsOfServiceVisitor from './visitors/open-api-3-1/info/TermsOfServiceVisitor';
-import InfoVersionVisitor from './visitors/open-api-3-1/info/VersionVisitor';
 import ContactVisitor from './visitors/open-api-3-1/contact';
-import ContactNameVisitor from './visitors/open-api-3-1/contact/NameVisitor';
-import ContactUrlVisitor from './visitors/open-api-3-1/contact/UrlVisitor';
-import ContactEmailVisitor from './visitors/open-api-3-1/contact/EmailVisitor';
 import LicenseVisitor from './visitors/open-api-3-1/license';
-import LicenseNameVisitor from './visitors/open-api-3-1/license/NameVisitor';
 import LicenseIdentifierVisitor from './visitors/open-api-3-1/license/IdentifierVisitor';
-import LicenseUrlVisitor from './visitors/open-api-3-1/license/UrlVisitor';
 import LinkVisitor from './visitors/open-api-3-1/link';
-import LinkOperationRefVisitor from './visitors/open-api-3-1/link/OperationRefVisitor';
-import LinkOperationIdVisitor from './visitors/open-api-3-1/link/OperationIdVisitor';
-import LinkParametersVisitor from './visitors/open-api-3-1/link/ParametersVisitor';
-import LinkRequestBodyVisitor from './visitors/open-api-3-1/link/RequestBodyVisitor';
-import LinkDescriptionVisitor from './visitors/open-api-3-1/link/DescriptionVisitor';
 import JsonSchemaDialectVisitor from './visitors/open-api-3-1/JsonSchemaDialectVisitor';
 import ServerVisitor from './visitors/open-api-3-1/server';
-import ServerUrlVisitor from './visitors/open-api-3-1/server/UrlVisitor';
-import ServerDescriptionVisitor from './visitors/open-api-3-1/server/DescriptionVisitor';
-import ServersVisitor from './visitors/open-api-3-1/ServersVisitor';
 import ServerVariableVisitor from './visitors/open-api-3-1/server-variable';
-import ServerVariableEnumVisitor from './visitors/open-api-3-1/server-variable/EnumVisitor';
-import ServerVariableDefaultVisitor from './visitors/open-api-3-1/server-variable/DefaultVisitor';
-import ServerVariableDescriptionVisitor from './visitors/open-api-3-1/server-variable/DescriptionVisitor';
-import ServerVariablesVisitor from './visitors/open-api-3-1/server/VariablesVisitor';
-import FallbackVisitor from './visitors/FallbackVisitor';
 import MediaTypeVisitor from './visitors/open-api-3-1/media-type';
-import MediaTypeExampleVisitor from './visitors/open-api-3-1/media-type/ExampleVisitor';
-import MediaTypeExamplesVisitor from './visitors/open-api-3-1/media-type/ExamplesVisitor';
-import MediaTypeEncodingVisitor from './visitors/open-api-3-1/media-type/EncodingVisitor';
 import SecurityRequirementVisitor from './visitors/open-api-3-1/security-requirement';
-import SecurityVisitor from './visitors/open-api-3-1/SecurityVisitor';
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import TagVisitor from './visitors/open-api-3-1/tag';
-import TagNameVisitor from './visitors/open-api-3-1/tag/NameVisitor';
-import TagDescriptionVisitor from './visitors/open-api-3-1/tag/DescriptionVisitor';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
-import Reference$RefVisitor from './visitors/open-api-3-1/reference/$RefVisitor';
 import ReferenceSummaryVisitor from './visitors/open-api-3-1/reference/SummaryVisitor';
 import ReferenceDescriptionVisitor from './visitors/open-api-3-1/reference/DescriptionVisitor';
 import ParameterVisitor from './visitors/open-api-3-1/parameter';
-import ParameterNameVisitor from './visitors/open-api-3-1/parameter/NameVisitor';
-import ParameterInVisitor from './visitors/open-api-3-1/parameter/InVisitor';
-import ParameterDescriptionVisitor from './visitors/open-api-3-1/parameter/DescriptionVisitor';
-import ParameterRequiredVisitor from './visitors/open-api-3-1/parameter/RequiredVisitor';
-import ParameterDeprecatedVisitor from './visitors/open-api-3-1/parameter/DeprecatedVisitor';
-import ParameterAllowEmptyValueVisitor from './visitors/open-api-3-1/parameter/AllowEmptyValueVisitor';
-import ParameterStyleVisitor from './visitors/open-api-3-1/parameter/StyleVisitor';
-import ParameterExplodeVisitor from './visitors/open-api-3-1/parameter/ExplodeVisitor';
-import ParameterAllowReservedVisitor from './visitors/open-api-3-1/parameter/AllowReservedVisitor';
 import HeaderVisitor from './visitors/open-api-3-1/header';
-import HeaderDescriptionVisitor from './visitors/open-api-3-1/header/DescriptionVisitor';
-import HeaderRequiredVisitor from './visitors/open-api-3-1/header/RequiredVisitor';
-import HeaderDeprecatedVisitor from './visitors/open-api-3-1/header/DeprecatedVisitor';
-import HeaderAllowEmptyValueVisitor from './visitors/open-api-3-1/header/AllowEmptyValueVisitor';
-import HeaderStyleVisitor from './visitors/open-api-3-1/header/StyleVisitor';
-import HeaderExplodeVisitor from './visitors/open-api-3-1/header/ExplodeVisitor';
-import HeaderAllowReservedVisitor from './visitors/open-api-3-1/header/AllowReservedVisitor';
-import HeaderContentVisitor from './visitors/open-api-3-1/header/ContentVisitor';
-import HeaderExampleVisitor from './visitors/open-api-3-1/header/ExampleVisitor';
-import HeaderExamplesVisitor from './visitors/open-api-3-1/header/ExamplesVisitor';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
 import Schema$schemaVisitor from './visitors/open-api-3-1/schema/$schemaVisitor';
 import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor';
@@ -116,87 +68,23 @@ import SchemaContentEncodingVisitor from './visitors/open-api-3-1/schema/Content
 import SchemaContentMediaTypeVisitor from './visitors/open-api-3-1/schema/ContentMediaTypeVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
-import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-1/distriminator/PropertyNameVisitor';
-import DiscriminatorMappingVisitor from './visitors/open-api-3-1/distriminator/MappingVisitor';
 import XmlVisitor from './visitors/open-api-3-1/xml';
-import XmlNameVisitor from './visitors/open-api-3-1/xml/NameVisitor';
-import XmlNamespaceVisitor from './visitors/open-api-3-1/xml/NamespaceVisitor';
-import XmlPrefixVisitor from './visitors/open-api-3-1/xml/PrefixVisitor';
-import XmlAttributeVisitor from './visitors/open-api-3-1/xml/AttributeVisitor';
-import XmlWrappedVisitor from './visitors/open-api-3-1/xml/WrappedVisitor';
-import ParameterExampleVisitor from './visitors/open-api-3-1/parameter/ExampleVisitor';
-import ParameterExamplesVisitor from './visitors/open-api-3-1/parameter/ExamplesVisitor';
-import ParameterContentVisitor from './visitors/open-api-3-1/parameter/ContentVisitor';
 import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
-import ComponentsResponsesVisitor from './visitors/open-api-3-1/components/ResponsesVisitor';
-import ComponentsParametersVisitor from './visitors/open-api-3-1/components/ParametersVisitor';
-import ComponentsExamplesVisitor from './visitors/open-api-3-1/components/ExamplesVisitor';
-import ComponentsRequestBodiesVisitor from './visitors/open-api-3-1/components/RequestBodiesVisitor';
-import ComponentsHeadersVisitor from './visitors/open-api-3-1/components/HeadersVisitor';
-import ComponentsSecuritySchemesVisitor from './visitors/open-api-3-1/components/SecuritySchemesVisitor';
-import ComponentsLinksVisitor from './visitors/open-api-3-1/components/LinksVisitor';
-import ComponentsCallbacksVisitor from './visitors/open-api-3-1/components/CallbacksVisitor';
 import ComponentsPathItemsVisitor from './visitors/open-api-3-1/components/PathItemsVisitor';
 import ExampleVisitor from './visitors/open-api-3-1/example';
-import ExampleSummaryVisitor from './visitors/open-api-3-1/example/SummaryVisitor';
-import ExampleDescriptionVisitor from './visitors/open-api-3-1/example/DescriptionVisitor';
-import ExampleValueVisitor from './visitors/open-api-3-1/example/ValueVisitor';
-import ExampleExternalValueVisitor from './visitors/open-api-3-1/example/ExternalValueVisitor';
 import ExternalDocumentationVisitor from './visitors/open-api-3-1/external-documentation';
-import ExternalDocumentationDescriptionVisitor from './visitors/open-api-3-1/external-documentation/DescriptionVisitor';
-import ExternalDocumentationUrlVisitor from './visitors/open-api-3-1/external-documentation/UrlVisitor';
 import EncodingVisitor from './visitors/open-api-3-1/encoding';
-import EncodingContentTypeVisitor from './visitors/open-api-3-1/encoding/ContentTypeVisitor';
-import EncodingHeadersVisitor from './visitors/open-api-3-1/encoding/HeadersVisitor';
-import EncodingStyleVisitor from './visitors/open-api-3-1/encoding/StyleVisitor';
-import EncodingExplodeVisitor from './visitors/open-api-3-1/encoding/ExplodeVisitor';
-import EncodingAllowReserved from './visitors/open-api-3-1/encoding/AllowReservedVisitor';
 import PathsVisitor from './visitors/open-api-3-1/paths';
 import RequestBodyVisitor from './visitors/open-api-3-1/request-body';
-import RequestBodyDescriptionVisitor from './visitors/open-api-3-1/request-body/DescriptionVisitor';
-import RequestBodyContentVisitor from './visitors/open-api-3-1/request-body/ContentVisitor';
-import RequestBodyRequiredVisitor from './visitors/open-api-3-1/request-body/RequiredVisitor';
 import CallbackVisitor from './visitors/open-api-3-1/callback';
 import ResponseVisitor from './visitors/open-api-3-1/response';
-import ResponseDescriptionVisitor from './visitors/open-api-3-1/response/DescriptionVisitor';
-import ResponseHeadersVisitor from './visitors/open-api-3-1/response/HeadersVisitor';
-import ResponseContentVisitor from './visitors/open-api-3-1/response/ContentVisitor';
-import ResponseLinksVisitor from './visitors/open-api-3-1/response/LinksVisitor';
 import ResponsesVisitor from './visitors/open-api-3-1/responses';
-import ResponsesDefaultVisitor from './visitors/open-api-3-1/responses/DefaultVisitor';
 import OperationVisitor from './visitors/open-api-3-1/operation';
-import OperationTagsVisitor from './visitors/open-api-3-1/operation/TagsVisitor';
-import OperationSummaryVisitor from './visitors/open-api-3-1/operation/SummaryVisitor';
-import OperationDescriptionVisitor from './visitors/open-api-3-1/operation/DescriptionVisitor';
-import OperationOperationIdVisitor from './visitors/open-api-3-1/operation/OperationIdVisitor';
-import OperationParametersVisitor from './visitors/open-api-3-1/operation/ParametersVisitor';
-import OperationRequestBodyVisitor from './visitors/open-api-3-1/operation/RequestBodyVisitor';
-import OperationCallbacksVisitor from './visitors/open-api-3-1/operation/CallbacksVisitor';
-import OperationDeprecatedVisitor from './visitors/open-api-3-1/operation/DeprecatedVisitor';
-import OperationSecurityVisitor from './visitors/open-api-3-1/operation/SecurityVisitor';
-import OperationServersVisitor from './visitors/open-api-3-1/operation/ServersVisitor';
 import PathItemVisitor from './visitors/open-api-3-1/path-item';
-import PathItem$RefVisitor from './visitors/open-api-3-1/path-item/$RefVisitor';
-import PathItemSummaryVisitor from './visitors/open-api-3-1/path-item/SummaryVisitor';
-import PathItemDescriptionVisitor from './visitors/open-api-3-1/path-item/DescriptionVisitor';
-import PathItemServersVisitor from './visitors/open-api-3-1/path-item/ServersVisitor';
-import PathItemParametersVisitor from './visitors/open-api-3-1/path-item/ParametersVisitor';
 import SecuritySchemeVisitor from './visitors/open-api-3-1/security-scheme';
-import SecuritySchemeTypeVisitor from './visitors/open-api-3-1/security-scheme/TypeVisitor';
-import SecuritySchemeDescriptionVisitor from './visitors/open-api-3-1/security-scheme/DescriptionVisitor';
-import SecuritySchemeNameVisitor from './visitors/open-api-3-1/security-scheme/NameVisitor';
-import SecuritySchemeInVisitor from './visitors/open-api-3-1/security-scheme/InVisitor';
-import SecuritySchemeSchemeVisitor from './visitors/open-api-3-1/security-scheme/SchemeVisitor';
-import SecuritySchemeBearerFormatVisitor from './visitors/open-api-3-1/security-scheme/BearerFormatVisitor';
-import SecuritySchemeOpenIdConnectUrlVisitor from './visitors/open-api-3-1/security-scheme/OpenIdConnectUrlVisitor';
 import OAuthFlowsVisitor from './visitors/open-api-3-1/oauth-flows';
 import OAuthFlowVisitor from './visitors/open-api-3-1/oauth-flow';
-import OAuthFlowAuthorizationUrlVisitor from './visitors/open-api-3-1/oauth-flow/AuthorizationUrlVisitor';
-import OAuthFlowTokenUrlVisitor from './visitors/open-api-3-1/oauth-flow/TokenUrlVisitor';
-import OAuthFlowRefreshUrlVisitor from './visitors/open-api-3-1/oauth-flow/RefreshUrlVisitor';
-import OAuthFlowScopesVisitor from './visitors/open-api-3-1/oauth-flow/ScopesVisitor';
 import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor';
-import TagsVisitor from './visitors/open-api-3-1/TagsVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -208,18 +96,18 @@ import TagsVisitor from './visitors/open-api-3-1/TagsVisitor';
  */
 const specification = {
   visitors: {
-    value: FallbackVisitor,
+    value: OpenApi3_1Specification.visitors.value,
     document: {
       objects: {
         OpenApi: {
           $visitor: OpenApi3_1Visitor,
           fixedFields: {
-            openapi: OpenapiVisitor,
+            openapi: OpenApi3_1Specification.visitors.document.objects.OpenApi.fixedFields.openapi,
             info: {
               $ref: '#/visitors/document/objects/Info',
             },
             jsonSchemaDialect: JsonSchemaDialectVisitor,
-            servers: ServersVisitor,
+            servers: OpenApi3_1Specification.visitors.document.objects.OpenApi.fixedFields.servers,
             paths: {
               $ref: '#/visitors/document/objects/Paths',
             },
@@ -227,8 +115,9 @@ const specification = {
             components: {
               $ref: '#/visitors/document/objects/Components',
             },
-            security: SecurityVisitor,
-            tags: TagsVisitor,
+            security:
+              OpenApi3_1Specification.visitors.document.objects.OpenApi.fixedFields.security,
+            tags: OpenApi3_1Specification.visitors.document.objects.OpenApi.fixedFields.tags,
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
@@ -237,63 +126,79 @@ const specification = {
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title: InfoTitleVisitor,
-            description: InfoDescriptionVisitor,
+            title: OpenApi3_1Specification.visitors.document.objects.Info.fixedFields.title,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Info.fixedFields.description,
             summary: InfoSummaryVisitor,
-            termsOfService: InfoTermsOfServiceVisitor,
-            version: InfoVersionVisitor,
+            termsOfService:
+              OpenApi3_1Specification.visitors.document.objects.Info.fixedFields.termsOfService,
             contact: {
               $ref: '#/visitors/document/objects/Contact',
             },
             license: {
               $ref: '#/visitors/document/objects/License',
             },
+            version: OpenApi3_1Specification.visitors.document.objects.Info.fixedFields.version,
           },
         },
         Contact: {
           $visitor: ContactVisitor,
           fixedFields: {
-            name: ContactNameVisitor,
-            url: ContactUrlVisitor,
-            email: ContactEmailVisitor,
+            name: OpenApi3_1Specification.visitors.document.objects.Contact.fixedFields.name,
+            url: OpenApi3_1Specification.visitors.document.objects.Contact.fixedFields.url,
+            email: OpenApi3_1Specification.visitors.document.objects.Contact.fixedFields.email,
           },
         },
         License: {
           $visitor: LicenseVisitor,
           fixedFields: {
-            name: LicenseNameVisitor,
+            name: OpenApi3_1Specification.visitors.document.objects.License.fixedFields.name,
             identifier: LicenseIdentifierVisitor,
-            url: LicenseUrlVisitor,
+            url: OpenApi3_1Specification.visitors.document.objects.License.fixedFields.url,
           },
         },
         Server: {
           $visitor: ServerVisitor,
           fixedFields: {
-            url: ServerUrlVisitor,
-            description: ServerDescriptionVisitor,
-            variables: ServerVariablesVisitor,
+            url: OpenApi3_1Specification.visitors.document.objects.Server.fixedFields.url,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Server.fixedFields.description,
+            variables:
+              OpenApi3_1Specification.visitors.document.objects.Server.fixedFields.variables,
           },
         },
         ServerVariable: {
           $visitor: ServerVariableVisitor,
           fixedFields: {
-            enum: ServerVariableEnumVisitor,
-            default: ServerVariableDefaultVisitor,
-            description: ServerVariableDescriptionVisitor,
+            enum: OpenApi3_1Specification.visitors.document.objects.ServerVariable.fixedFields.enum,
+            default:
+              OpenApi3_1Specification.visitors.document.objects.ServerVariable.fixedFields.default,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.ServerVariable.fixedFields
+                .description,
           },
         },
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
-            responses: ComponentsResponsesVisitor,
-            parameters: ComponentsParametersVisitor,
-            examples: ComponentsExamplesVisitor,
-            requestBodies: ComponentsRequestBodiesVisitor,
-            headers: ComponentsHeadersVisitor,
-            securitySchemes: ComponentsSecuritySchemesVisitor,
-            links: ComponentsLinksVisitor,
-            callbacks: ComponentsCallbacksVisitor,
+            responses:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.responses,
+            parameters:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.parameters,
+            examples:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.examples,
+            requestBodies:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields
+                .requestBodies,
+            headers:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.headers,
+            securitySchemes:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields
+                .securitySchemes,
+            links: OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.links,
+            callbacks:
+              OpenApi3_1Specification.visitors.document.objects.Components.fixedFields.callbacks,
             pathItems: ComponentsPathItemsVisitor,
           },
         },
@@ -303,9 +208,10 @@ const specification = {
         PathItem: {
           $visitor: PathItemVisitor,
           fixedFields: {
-            $ref: PathItem$RefVisitor,
-            summary: PathItemSummaryVisitor,
-            description: PathItemDescriptionVisitor,
+            $ref: OpenApi3_1Specification.visitors.document.objects.PathItem.fixedFields.$ref,
+            summary: OpenApi3_1Specification.visitors.document.objects.PathItem.fixedFields.summary,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.PathItem.fixedFields.description,
             get: {
               $ref: '#/visitors/document/objects/Operation',
             },
@@ -330,64 +236,90 @@ const specification = {
             trace: {
               $ref: '#/visitors/document/objects/Operation',
             },
-            servers: PathItemServersVisitor,
-            parameters: PathItemParametersVisitor,
+            servers: OpenApi3_1Specification.visitors.document.objects.PathItem.fixedFields.servers,
+            parameters:
+              OpenApi3_1Specification.visitors.document.objects.PathItem.fixedFields.parameters,
           },
         },
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {
-            tags: OperationTagsVisitor,
-            summary: OperationSummaryVisitor,
-            description: OperationDescriptionVisitor,
+            tags: OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.tags,
+            summary:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.summary,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.description,
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
-            operationId: OperationOperationIdVisitor,
-            parameters: OperationParametersVisitor,
-            requestBody: OperationRequestBodyVisitor,
+            operationId:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.operationId,
+            parameters:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.parameters,
+            requestBody:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.requestBody,
             responses: {
               $ref: '#/visitors/document/objects/Responses',
             },
-            callbacks: OperationCallbacksVisitor,
-            deprecated: OperationDeprecatedVisitor,
-            security: OperationSecurityVisitor,
-            servers: OperationServersVisitor,
+            callbacks:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.callbacks,
+            deprecated:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.deprecated,
+            security:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.security,
+            servers:
+              OpenApi3_1Specification.visitors.document.objects.Operation.fixedFields.servers,
           },
         },
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,
           fixedFields: {
-            description: ExternalDocumentationDescriptionVisitor,
-            url: ExternalDocumentationUrlVisitor,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.ExternalDocumentation.fixedFields
+                .description,
+            url: OpenApi3_1Specification.visitors.document.objects.ExternalDocumentation.fixedFields
+              .url,
           },
         },
         Parameter: {
           $visitor: ParameterVisitor,
           fixedFields: {
-            name: ParameterNameVisitor,
-            in: ParameterInVisitor,
-            description: ParameterDescriptionVisitor,
-            required: ParameterRequiredVisitor,
-            deprecated: ParameterDeprecatedVisitor,
-            allowEmptyValue: ParameterAllowEmptyValueVisitor,
-            style: ParameterStyleVisitor,
-            explode: ParameterExplodeVisitor,
-            allowReserved: ParameterAllowReservedVisitor,
+            name: OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.name,
+            in: OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.in,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.description,
+            required:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.required,
+            deprecated:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.deprecated,
+            allowEmptyValue:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields
+                .allowEmptyValue,
+            style: OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.style,
+            explode:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.explode,
+            allowReserved:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.allowReserved,
             schema: {
               $ref: '#/visitors/document/objects/Schema',
             },
-            example: ParameterExampleVisitor,
-            examples: ParameterExamplesVisitor,
-            content: ParameterContentVisitor,
+            example:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.example,
+            examples:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.examples,
+            content:
+              OpenApi3_1Specification.visitors.document.objects.Parameter.fixedFields.content,
           },
         },
         RequestBody: {
           $visitor: RequestBodyVisitor,
           fixedFields: {
-            description: RequestBodyDescriptionVisitor,
-            content: RequestBodyContentVisitor,
-            required: RequestBodyRequiredVisitor,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.RequestBody.fixedFields.description,
+            content:
+              OpenApi3_1Specification.visitors.document.objects.RequestBody.fixedFields.content,
+            required:
+              OpenApi3_1Specification.visitors.document.objects.RequestBody.fixedFields.required,
           },
         },
         MediaType: {
@@ -396,34 +328,41 @@ const specification = {
             schema: {
               $ref: '#/visitors/document/objects/Schema',
             },
-            example: MediaTypeExampleVisitor,
-            examples: MediaTypeExamplesVisitor,
-            encoding: MediaTypeEncodingVisitor,
+            example:
+              OpenApi3_1Specification.visitors.document.objects.MediaType.fixedFields.example,
+            examples:
+              OpenApi3_1Specification.visitors.document.objects.MediaType.fixedFields.examples,
+            encoding:
+              OpenApi3_1Specification.visitors.document.objects.MediaType.fixedFields.encoding,
           },
         },
         Encoding: {
           $visitor: EncodingVisitor,
           fixedFields: {
-            contentType: EncodingContentTypeVisitor,
-            headers: EncodingHeadersVisitor,
-            style: EncodingStyleVisitor,
-            explode: EncodingExplodeVisitor,
-            allowReserved: EncodingAllowReserved,
+            contentType:
+              OpenApi3_1Specification.visitors.document.objects.Encoding.fixedFields.contentType,
+            headers: OpenApi3_1Specification.visitors.document.objects.Encoding.fixedFields.headers,
+            style: OpenApi3_1Specification.visitors.document.objects.Encoding.fixedFields.style,
+            explode: OpenApi3_1Specification.visitors.document.objects.Encoding.fixedFields.explode,
+            allowReserved:
+              OpenApi3_1Specification.visitors.document.objects.Encoding.fixedFields.allowReserved,
           },
         },
         Responses: {
           $visitor: ResponsesVisitor,
           fixedFields: {
-            default: ResponsesDefaultVisitor,
+            default:
+              OpenApi3_1Specification.visitors.document.objects.Responses.fixedFields.default,
           },
         },
         Response: {
           $visitor: ResponseVisitor,
           fixedFields: {
-            description: ResponseDescriptionVisitor,
-            headers: ResponseHeadersVisitor,
-            content: ResponseContentVisitor,
-            links: ResponseLinksVisitor,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Response.fixedFields.description,
+            headers: OpenApi3_1Specification.visitors.document.objects.Response.fixedFields.headers,
+            content: OpenApi3_1Specification.visitors.document.objects.Response.fixedFields.content,
+            links: OpenApi3_1Specification.visitors.document.objects.Response.fixedFields.links,
           },
         },
         Callback: {
@@ -432,20 +371,27 @@ const specification = {
         Example: {
           $visitor: ExampleVisitor,
           fixedFields: {
-            summary: ExampleSummaryVisitor,
-            description: ExampleDescriptionVisitor,
-            value: ExampleValueVisitor,
-            externalValue: ExampleExternalValueVisitor,
+            summary: OpenApi3_1Specification.visitors.document.objects.Example.fixedFields.summary,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Example.fixedFields.description,
+            value: OpenApi3_1Specification.visitors.document.objects.Example.fixedFields.value,
+            externalValue:
+              OpenApi3_1Specification.visitors.document.objects.Example.fixedFields.externalValue,
           },
         },
         Link: {
           $visitor: LinkVisitor,
           fixedFields: {
-            operationRef: LinkOperationRefVisitor,
-            operationId: LinkOperationIdVisitor,
-            parameters: LinkParametersVisitor,
-            requestBody: LinkRequestBodyVisitor,
-            description: LinkDescriptionVisitor,
+            operationRef:
+              OpenApi3_1Specification.visitors.document.objects.Link.fixedFields.operationRef,
+            operationId:
+              OpenApi3_1Specification.visitors.document.objects.Link.fixedFields.operationId,
+            parameters:
+              OpenApi3_1Specification.visitors.document.objects.Link.fixedFields.parameters,
+            requestBody:
+              OpenApi3_1Specification.visitors.document.objects.Link.fixedFields.requestBody,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Link.fixedFields.description,
             server: {
               $ref: '#/visitors/document/objects/Server',
             },
@@ -454,26 +400,31 @@ const specification = {
         Header: {
           $visitor: HeaderVisitor,
           fixedFields: {
-            description: HeaderDescriptionVisitor,
-            required: HeaderRequiredVisitor,
-            deprecated: HeaderDeprecatedVisitor,
-            allowEmptyValue: HeaderAllowEmptyValueVisitor,
-            style: HeaderStyleVisitor,
-            explode: HeaderExplodeVisitor,
-            allowReserved: HeaderAllowReservedVisitor,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.description,
+            required: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.required,
+            deprecated:
+              OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.deprecated,
+            allowEmptyValue:
+              OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.allowEmptyValue,
+            style: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.style,
+            explode: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.explode,
+            allowReserved:
+              OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.allowReserved,
             schema: {
               $ref: '#/visitors/document/objects/Schema',
             },
-            example: HeaderExampleVisitor,
-            examples: HeaderExamplesVisitor,
-            content: HeaderContentVisitor,
+            example: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.example,
+            examples: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.examples,
+            content: OpenApi3_1Specification.visitors.document.objects.Header.fixedFields.content,
           },
         },
         Tag: {
           $visitor: TagVisitor,
           fixedFields: {
-            name: TagNameVisitor,
-            description: TagDescriptionVisitor,
+            name: OpenApi3_1Specification.visitors.document.objects.Tag.fixedFields.name,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.Tag.fixedFields.description,
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
@@ -482,7 +433,7 @@ const specification = {
         Reference: {
           $visitor: ReferenceVisitor,
           fixedFields: {
-            $ref: Reference$RefVisitor,
+            $ref: OpenApi3_1Specification.visitors.document.objects.Reference.fixedFields.$ref,
             summary: ReferenceSummaryVisitor,
             description: ReferenceDescriptionVisitor,
           },
@@ -597,33 +548,43 @@ const specification = {
         Discriminator: {
           $visitor: DiscriminatorVisitor,
           fixedFields: {
-            propertyName: DiscriminatorPropertyNameVisitor,
-            mapping: DiscriminatorMappingVisitor,
+            propertyName:
+              OpenApi3_1Specification.visitors.document.objects.Discriminator.fixedFields
+                .propertyName,
+            mapping:
+              OpenApi3_1Specification.visitors.document.objects.Discriminator.fixedFields.mapping,
           },
         },
         XML: {
           $visitor: XmlVisitor,
           fixedFields: {
-            name: XmlNameVisitor,
-            namespace: XmlNamespaceVisitor,
-            prefix: XmlPrefixVisitor,
-            attribute: XmlAttributeVisitor,
-            wrapped: XmlWrappedVisitor,
+            name: OpenApi3_1Specification.visitors.document.objects.XML.fixedFields.name,
+            namespace: OpenApi3_1Specification.visitors.document.objects.XML.fixedFields.namespace,
+            prefix: OpenApi3_1Specification.visitors.document.objects.XML.fixedFields.prefix,
+            attribute: OpenApi3_1Specification.visitors.document.objects.XML.fixedFields.attribute,
+            wrapped: OpenApi3_1Specification.visitors.document.objects.XML.fixedFields.wrapped,
           },
         },
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {
-            type: SecuritySchemeTypeVisitor,
-            description: SecuritySchemeDescriptionVisitor,
-            name: SecuritySchemeNameVisitor,
-            in: SecuritySchemeInVisitor,
-            scheme: SecuritySchemeSchemeVisitor,
-            bearerFormat: SecuritySchemeBearerFormatVisitor,
+            type: OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields.type,
+            description:
+              OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .description,
+            name: OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields.name,
+            in: OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields.in,
+            scheme:
+              OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields.scheme,
+            bearerFormat:
+              OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .bearerFormat,
             flows: {
               $ref: '#/visitors/document/objects/OAuthFlows',
             },
-            openIdConnectUrl: SecuritySchemeOpenIdConnectUrlVisitor,
+            openIdConnectUrl:
+              OpenApi3_1Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .openIdConnectUrl,
           },
         },
         OAuthFlows: {
@@ -646,10 +607,14 @@ const specification = {
         OAuthFlow: {
           $visitor: OAuthFlowVisitor,
           fixedFields: {
-            authorizationUrl: OAuthFlowAuthorizationUrlVisitor,
-            tokenUrl: OAuthFlowTokenUrlVisitor,
-            refreshUrl: OAuthFlowRefreshUrlVisitor,
-            scopes: OAuthFlowScopesVisitor,
+            authorizationUrl:
+              OpenApi3_1Specification.visitors.document.objects.OAuthFlow.fixedFields
+                .authorizationUrl,
+            tokenUrl:
+              OpenApi3_1Specification.visitors.document.objects.OAuthFlow.fixedFields.tokenUrl,
+            refreshUrl:
+              OpenApi3_1Specification.visitors.document.objects.OAuthFlow.fixedFields.refreshUrl,
+            scopes: OpenApi3_1Specification.visitors.document.objects.OAuthFlow.fixedFields.scopes,
           },
         },
         SecurityRequirement: {
@@ -657,7 +622,7 @@ const specification = {
         },
       },
       extension: {
-        $visitor: SpecificationExtensionVisitor,
+        $visitor: OpenApi3_1Specification.visitors.document.extension.$visitor,
       },
     },
   },

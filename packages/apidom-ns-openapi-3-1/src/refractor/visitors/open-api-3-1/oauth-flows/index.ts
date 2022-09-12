@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OAuthFlowsElement from '../../../../elements/OAuthFlows';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const OAuthFlowsVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'OAuthFlows']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        OAuthFlows: { $visitor: BaseOAuthFlowsVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const OAuthFlowsVisitor = stampit(BaseOAuthFlowsVisitor, {
   init() {
     this.element = new OAuthFlowsElement();
   },

@@ -29,16 +29,6 @@ export const isResponseLikeElement = <T extends Element>(element: T): boolean =>
 
 export const isServerLikeElement = isObjectElement;
 
-export const isHeaderLikeElement = isObjectElement;
-
-export const isPathItemLikeElement = isObjectElement;
-
-export const isExampleLikeElement = isObjectElement;
-
-export const isLinkLikeElement = isObjectElement;
-
-export const isCallbackLikeElement = isObjectElement;
-
 export const isTagLikeElement = isObjectElement;
 
 export const isOpenApiExtension = (element: MemberElement): boolean => {

@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SecuritySchemeElement from '../../../../elements/SecurityScheme';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const SecuritySchemeVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'SecurityScheme']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        SecurityScheme: { $visitor: BaseSecuritySchemeVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const SecuritySchemeVisitor = stampit(BaseSecuritySchemeVisitor, {
   init() {
     this.element = new SecuritySchemeElement();
   },

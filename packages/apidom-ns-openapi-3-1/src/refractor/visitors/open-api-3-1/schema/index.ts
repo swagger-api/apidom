@@ -8,12 +8,11 @@ import {
   isStringElement,
   BREAK,
 } from '@swagger-api/apidom-core';
+import { FallbackVisitor, FixedFieldsVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
 import SchemaElement from '../../../../elements/Schema';
 import JsonSchemaDialect from '../../../../elements/JsonSchemaDialect';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
 const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
@@ -36,15 +35,15 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       let jsonSchemaDialect;
 
       if (
-        this.openApi3_1Element !== null &&
-        isJsonSchemaDialectElement(this.openApi3_1Element.jsonSchemaDialect)
+        this.openApiSemanticElement !== null &&
+        isJsonSchemaDialectElement(this.openApiSemanticElement.jsonSchemaDialect)
       ) {
-        jsonSchemaDialect = this.openApi3_1Element.jsonSchemaDialect.toValue();
+        jsonSchemaDialect = this.openApiSemanticElement.jsonSchemaDialect.toValue();
       } else if (
-        this.unrefractedElement !== null &&
-        isStringElement(this.unrefractedElement.get('jsonSchemaDialect'))
+        this.openApiGenericElement !== null &&
+        isStringElement(this.openApiGenericElement.get('jsonSchemaDialect'))
       ) {
-        jsonSchemaDialect = this.unrefractedElement.get('jsonSchemaDialect').toValue();
+        jsonSchemaDialect = this.openApiGenericElement.get('jsonSchemaDialect').toValue();
       } else {
         jsonSchemaDialect = JsonSchemaDialect.default.toValue();
       }

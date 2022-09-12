@@ -1,7 +1,6 @@
 import stampit from 'stampit';
 import { StringElement, BREAK } from '@swagger-api/apidom-core';
-
-import FallbackVisitor from '../../FallbackVisitor';
+import { FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
 const $refVisitor = stampit(FallbackVisitor, {
   methods: {

@@ -11,7 +11,6 @@ const OpenApi3_0Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'OpenApi']),
     canSupportSpecificationExtensions: true,
-    unrefractedElement: null,
   },
   init() {
     this.element = new OpenApi3_0Element();

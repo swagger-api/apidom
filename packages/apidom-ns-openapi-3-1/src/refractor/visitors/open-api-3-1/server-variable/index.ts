@@ -1,15 +1,19 @@
 import stampit from 'stampit';
-import { always } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ServerVariableElement from '../../../../elements/ServerVariable';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const ServerVariableVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'ServerVariable']),
-    canSupportSpecificationExtensions: true,
+const {
+  visitors: {
+    document: {
+      objects: {
+        ServerVariable: { $visitor: BaseServerVariableVisitor },
+      },
+    },
   },
+} = OpenApi3_1Specification;
+
+const ServerVariableVisitor = stampit(BaseServerVariableVisitor, {
   init() {
     this.element = new ServerVariableElement();
   },

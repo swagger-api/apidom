@@ -1,9 +1,8 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
+import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import FixedFieldsVisitor from '../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../FallbackVisitor';
 import OpenApi3_1Element from '../../../elements/OpenApi3-1';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -11,16 +10,14 @@ const OpenApi3_1Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'OpenApi']),
     canSupportSpecificationExtensions: true,
-    unrefractedElement: null,
-    openApi3_1Element: null,
   },
   init() {
     this.element = new OpenApi3_1Element();
-    this.openApi3_1Element = this.element;
+    this.openApiSemanticElement = this.element;
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {
-      this.unrefractedElement = objectElement;
+      this.openApiGenericElement = objectElement;
 
       // @ts-ignore
       return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);

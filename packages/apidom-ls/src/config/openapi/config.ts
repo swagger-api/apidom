@@ -1,3 +1,4 @@
+import callbackMeta from './callback/meta';
 import contactMeta from './contact/meta';
 import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
@@ -30,6 +31,7 @@ export default {
       },
     ],
   },
+  callback: callbackMeta,
   contact: contactMeta,
   example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,

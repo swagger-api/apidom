@@ -1,4 +1,5 @@
 import contactMeta from './contact/meta';
+import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
 import headerMeta from './header/meta';
 import infoMeta from './info/meta';
@@ -30,6 +31,7 @@ export default {
     ],
   },
   contact: contactMeta,
+  example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,
   header: headerMeta,
   info: infoMeta,

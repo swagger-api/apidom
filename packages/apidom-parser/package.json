@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser",
-  "version": "0.44.0",
+  "version": "0.45.0",
   "description": "Parser consumes parser adapters and provides unified API for parsing.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -36,7 +36,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.19.0",
-    "@swagger-api/apidom-core": "^0.44.0",
+    "@swagger-api/apidom-core": "^0.45.0",
     "@types/ramda": "=0.28.15",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.2.0",

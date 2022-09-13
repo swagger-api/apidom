@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.45.0](https://github.com/swagger-api/apidom/compare/v0.44.0...v0.45.0) (2022-09-13)
+
+
+### Bug Fixes
+
+* **ls:** add targetSpecs for header object ([#2002](https://github.com/swagger-api/apidom/issues/2002)) ([df3fdd2](https://github.com/swagger-api/apidom/commit/df3fdd29642ba19e3513586182730a8314f01a75))
+
+
+### Features
+
+* **ls:** add documentation for OpenAPI 3.1.0 Header Object field ([#2008](https://github.com/swagger-api/apidom/issues/2008)) ([af30127](https://github.com/swagger-api/apidom/commit/af3012754c860a302fb604a7832e3d0133ea376c)), closes [#1992](https://github.com/swagger-api/apidom/issues/1992)
+* **ls:** add documentation rules for OpenAPI 3.1.0 ([#1946](https://github.com/swagger-api/apidom/issues/1946)) ([e358892](https://github.com/swagger-api/apidom/commit/e3588923e6bb98d616d1d29db5e17496853bc752)), closes [#1975](https://github.com/swagger-api/apidom/issues/1975) [#1976](https://github.com/swagger-api/apidom/issues/1976) [#1977](https://github.com/swagger-api/apidom/issues/1977) [#1978](https://github.com/swagger-api/apidom/issues/1978) [#1979](https://github.com/swagger-api/apidom/issues/1979) [#1980](https://github.com/swagger-api/apidom/issues/1980) [#1981](https://github.com/swagger-api/apidom/issues/1981) [#1982](https://github.com/swagger-api/apidom/issues/1982) [#1983](https://github.com/swagger-api/apidom/issues/1983) [#1984](https://github.com/swagger-api/apidom/issues/1984) [#1985](https://github.com/swagger-api/apidom/issues/1985)
+* **ls:** oas31 docs for example object ([#2004](https://github.com/swagger-api/apidom/issues/2004)) ([f203bb6](https://github.com/swagger-api/apidom/commit/f203bb6a18f3059394e9b46b02f0cfe10497e9bb))
+* **ls:** oas31 docs for header object ([#2000](https://github.com/swagger-api/apidom/issues/2000)) ([88607a1](https://github.com/swagger-api/apidom/commit/88607a1d5aa294358655af096e22583877ad5a31))
+* **ls:** oas31 docs response object ([#1997](https://github.com/swagger-api/apidom/issues/1997)) ([18cb4f0](https://github.com/swagger-api/apidom/commit/18cb4f0c1f22ce3830ae5da7311e73990a7ff47c))
+
+
+
+
+
 # [0.44.0](https://github.com/swagger-api/apidom/compare/v0.43.0...v0.44.0) (2022-09-05)
 
 

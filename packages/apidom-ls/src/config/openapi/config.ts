@@ -5,6 +5,7 @@ import externalDocumentationMeta from './external-documentation/meta';
 import headerMeta from './header/meta';
 import infoMeta from './info/meta';
 import licenseMeta from './license/meta';
+import linkMeta from './link/meta';
 import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
 import pathItemMeta from './path-item/meta';
@@ -38,6 +39,7 @@ export default {
   header: headerMeta,
   info: infoMeta,
   license: licenseMeta,
+  link: linkMeta,
   operation: operationMeta,
   parameter: parameterMeta,
   parameters: parameterMeta,

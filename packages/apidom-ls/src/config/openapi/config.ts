@@ -14,6 +14,7 @@ import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
 import responseMeta from './response/meta';
 import responsesMeta from './responses/meta';
+import securitySchemeMeta from './security-scheme/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
 import tagMeta from './tag/meta';
@@ -51,6 +52,7 @@ export default {
   paths: pathsMeta,
   response: responseMeta,
   responses: responsesMeta,
+  securityScheme: securitySchemeMeta,
   server: serverMeta,
   serverVariable: serverVariableMeta,
   tag: tagMeta,

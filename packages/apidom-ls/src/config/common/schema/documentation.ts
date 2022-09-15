@@ -180,10 +180,6 @@ const documentation = [
     docs: 'Allows referencing an external resource for extended documentation. See [External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.2.0#externalDocumentationObject)\n',
   },
   {
-    target: 'externalDocs',
-    docs: 'Allows referencing an external resource for extended documentation. See [External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.2.0#externalDocumentationObject)\n',
-  },
-  {
     target: 'deprecated',
     docs: 'Specifies that a schema is deprecated and **SHOULD** be transitioned out of usage. Default value is `false`.\n',
   },

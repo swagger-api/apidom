@@ -9,7 +9,7 @@ const documentation = [
   },
   {
     target: 'variables',
-    docs: "#### Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)]\n\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
+    docs: "#### Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {

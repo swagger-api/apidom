@@ -1,4 +1,5 @@
 import callbackMeta from './callback/meta';
+import componentsMeta from './components/meta';
 import contactMeta from './contact/meta';
 import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
@@ -37,6 +38,7 @@ export default {
     ],
   },
   callback: callbackMeta,
+  components: componentsMeta,
   contact: contactMeta,
   example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,
@@ -48,7 +50,6 @@ export default {
   oAuthFlows: oauthFlowsMeta,
   operation: operationMeta,
   parameter: parameterMeta,
-  parameters: parameterMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
   response: responseMeta,

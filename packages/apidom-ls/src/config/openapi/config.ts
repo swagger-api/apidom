@@ -13,6 +13,7 @@ import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
 import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
+import requestBodyMeta from './request-body/meta';
 import responseMeta from './response/meta';
 import responsesMeta from './responses/meta';
 import securityRequirementMeta from './security-requirement/meta';
@@ -52,6 +53,7 @@ export default {
   parameter: parameterMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
+  requestBody: requestBodyMeta,
   response: responseMeta,
   responses: responsesMeta,
   securityRequirement: securityRequirementMeta,

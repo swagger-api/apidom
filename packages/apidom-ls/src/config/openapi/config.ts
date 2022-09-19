@@ -1,6 +1,7 @@
 import callbackMeta from './callback/meta';
 import componentsMeta from './components/meta';
 import contactMeta from './contact/meta';
+import encodingMeta from './encoding/meta';
 import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
 import headerMeta from './header/meta';
@@ -41,6 +42,7 @@ export default {
   callback: callbackMeta,
   components: componentsMeta,
   contact: contactMeta,
+  encoding: encodingMeta,
   example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,
   header: headerMeta,

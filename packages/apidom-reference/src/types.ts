@@ -28,6 +28,7 @@ export interface Parser {
   sourceMap: boolean;
   fileExtensions: string[];
   mediaTypes: string[];
+  decoder: TextDecoder;
 
   canParse(file: File): boolean | Promise<boolean>;
   parse(file: File): Promise<ParseResultElement>;

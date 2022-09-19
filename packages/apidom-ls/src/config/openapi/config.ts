@@ -8,6 +8,7 @@ import headerMeta from './header/meta';
 import infoMeta from './info/meta';
 import licenseMeta from './license/meta';
 import linkMeta from './link/meta';
+import mediaTypeMeta from './media-type/meta';
 import oauthFlowMeta from './oauth-flow/meta';
 import oauthFlowsMeta from './oauth-flows/meta';
 import operationMeta from './operation/meta';
@@ -49,6 +50,7 @@ export default {
   info: infoMeta,
   license: licenseMeta,
   link: linkMeta,
+  mediaType: mediaTypeMeta,
   oAuthFlow: oauthFlowMeta,
   oAuthFlows: oauthFlowsMeta,
   operation: operationMeta,

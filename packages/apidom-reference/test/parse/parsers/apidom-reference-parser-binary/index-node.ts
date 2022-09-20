@@ -1,13 +1,12 @@
 import { Buffer } from 'node:buffer';
 import { assert } from 'chai';
-import { isParseResultElement, isStringElement } from '@swagger-api/apidom-core';
+import { StringElement, isParseResultElement, isStringElement } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import BinaryParser from '../../../../src/parse/parsers/apidom-reference-parser-binary/index-node';
-import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
-  context('BinaryParser', function () {
+  context('BinaryParser - node', function () {
     context('canParse', function () {
       context('given file with .bin extension', function () {
         specify('should return true', async function () {
@@ -46,11 +45,11 @@ describe('parsers', function () {
       });
 
       context('given file with no data', function () {
-        specify('should return false', async function () {
-          const file = File({ uri: '/path/to/file.bin' });
+        specify('should return true', async function () {
+          const file = File({ uri: '/path/to/file.bin', data: '' });
           const parser = BinaryParser();
 
-          assert.isFalse(await parser.canParse(file));
+          assert.isTrue(await parser.canParse(file));
         });
       });
     });
@@ -81,17 +80,14 @@ describe('parsers', function () {
       });
 
       context('given data that is not recognized', function () {
-        specify('should throw ParserError', async function () {
-          try {
-            const file = File({ uri: '/path/to/file.bin', data: 1 });
-            const parser = BinaryParser();
-            await parser.parse(file);
-            assert.fail('should throw ParserError');
-          } catch (error: any) {
-            assert.instanceOf(error.cause, TypeError);
-            assert.instanceOf(error, ParserError);
-            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.bin"');
-          }
+        specify('should coerce to string and parse', async function () {
+          const file = File({ uri: '/path/to/file.bin', data: 1 });
+          const parser = BinaryParser();
+          const result = await parser.parse(file);
+          const stringElement: StringElement = result.get(0);
+
+          assert.isTrue(isParseResultElement(result));
+          assert.isTrue(stringElement.equals(Buffer.from(String(file.data)).toString('base64')));
         });
       });
 

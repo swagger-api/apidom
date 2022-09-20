@@ -4,7 +4,7 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import * as url from '../util/url';
 import File from '../util/File';
 import * as plugins from '../util/plugins';
-import { ReferenceOptions as IReferenceOptions, File as IFile } from '../types';
+import { ReferenceOptions as IReferenceOptions, File as IFile, Parser as IParser } from '../types';
 import { ParserError, UnmatchedResolverError } from '../util/errors';
 import { readFile } from '../resolve/util';
 
@@ -12,7 +12,7 @@ import { readFile } from '../resolve/util';
  * Parses the given file's contents, using the configured parser plugins.
  */
 const parseFile = async (file: IFile, options: IReferenceOptions): Promise<ParseResultElement> => {
-  const parsers = await plugins.filter('canParse', file, options.parse.parsers);
+  const parsers: IParser[] = await plugins.filter('canParse', file, options.parse.parsers);
 
   // we couldn't find any parser for this File
   if (isEmpty(parsers)) {

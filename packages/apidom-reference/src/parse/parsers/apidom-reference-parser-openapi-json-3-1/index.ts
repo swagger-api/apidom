@@ -23,15 +23,12 @@ const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
       if (!hasSupportedFileExtension) return false;
       if (hasSupportedMediaType) return true;
       if (!hasSupportedMediaType) {
-        if (ArrayBuffer.isView(file.data)) {
-          return detect(file.data.toString());
-        }
-        return detect(file.data);
+        return detect(file.toString());
       }
       return false;
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = ArrayBuffer.isView(file.data) ? file.data.toString() : file.data;
+      const source = file.toString();
 
       try {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis', 'refractorOpts'], this);

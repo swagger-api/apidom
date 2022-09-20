@@ -1,6 +1,10 @@
 import { isEmpty } from 'ramda';
 
-import { File as IFile, ReferenceOptions as IReferenceOptions } from '../types';
+import {
+  File as IFile,
+  ReferenceOptions as IReferenceOptions,
+  Resolver as IResolver,
+} from '../types';
 import * as plugins from '../util/plugins';
 import { ResolverError, UnmatchedResolverError } from '../util/errors';
 
@@ -9,7 +13,7 @@ import { ResolverError, UnmatchedResolverError } from '../util/errors';
  */
 // eslint-disable-next-line import/prefer-default-export
 export const readFile = async (file: IFile, options: IReferenceOptions): Promise<Buffer> => {
-  const resolvers = await plugins.filter('canRead', file, options.resolve.resolvers);
+  const resolvers: IResolver[] = await plugins.filter('canRead', file, options.resolve.resolvers);
 
   // we couldn't find any resolver for this File
   if (isEmpty(resolvers)) {

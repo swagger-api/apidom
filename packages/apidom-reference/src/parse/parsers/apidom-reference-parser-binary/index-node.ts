@@ -20,13 +20,19 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
       const hasSupportedFileExtension =
         this.fileExtensions.length === 0 ? true : this.fileExtensions.includes(file.extension);
 
-      if (!hasSupportedFileExtension) return false;
-      return typeof file.data === 'string' || Buffer.isBuffer(file.data);
+      return hasSupportedFileExtension;
     },
     async parse(file: IFile): Promise<ParseResultElement> {
+      let base64String: string;
+
       try {
         // @ts-ignore
-        const base64String = Buffer.from(file.data).toString('base64');
+        base64String = Buffer.from(file.data).toString('base64');
+      } catch {
+        base64String = Buffer.from(file.data.toString()).toString('base64');
+      }
+
+      try {
         const parseResultElement = new ParseResultElement();
 
         if (base64String.length !== 0) {

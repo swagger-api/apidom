@@ -23,6 +23,7 @@ import securitySchemeMeta from './security-scheme/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
 import tagMeta from './tag/meta';
+import xmlMeta from './xml/meta';
 import openapi3_1Meta from './openapi3_1/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
@@ -65,6 +66,7 @@ export default {
   server: serverMeta,
   serverVariable: serverVariableMeta,
   tag: tagMeta,
+  xml: xmlMeta,
   openApi3_1: openapi3_1Meta,
   schema: schemaMeta,
 };

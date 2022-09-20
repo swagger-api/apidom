@@ -41,7 +41,7 @@
     "@types/ramda": "=0.28.15",
     "minim": "=0.23.8",
     "ramda": "=0.28.0",
-    "ramda-adjunct": "=3.2.0",
+    "ramda-adjunct": "=3.3.0",
     "short-unique-id": "=4.4.4",
     "stampit": "=4.3.2"
   },

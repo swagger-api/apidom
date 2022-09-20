@@ -38,7 +38,7 @@
     "@babel/runtime-corejs3": "=7.19.1",
     "@swagger-api/apidom-core": "^0.45.0",
     "ramda": "=0.28.0",
-    "ramda-adjunct": "=3.2.0"
+    "ramda-adjunct": "=3.3.0"
   },
   "files": [
     "cjs/",

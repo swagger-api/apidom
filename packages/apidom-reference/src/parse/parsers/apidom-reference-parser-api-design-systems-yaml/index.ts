@@ -26,15 +26,12 @@ const ApiDesignSystemsYamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       if (!hasSupportedFileExtension) return false;
       if (hasSupportedMediaType) return true;
       if (!hasSupportedMediaType) {
-        if (ArrayBuffer.isView(file.data)) {
-          return detect(this.decoder.decode(file.data));
-        }
-        return detect(file.data);
+        return detect(file.toString());
       }
       return false;
     },
     async parse(file: IFile): Promise<ParseResultElement> {
-      const source = ArrayBuffer.isView(file.data) ? this.decoder.decode(file.data) : file.data;
+      const source = file.toString();
 
       try {
         const parserOpts = pick(['sourceMap', 'refractorOpts'], this);

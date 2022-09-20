@@ -3,7 +3,7 @@ import { ParseResultElement, Element } from '@swagger-api/apidom-core';
 export interface File {
   uri: string;
   mediaType: string;
-  data: Buffer | string;
+  data: Buffer | DataView | ArrayBuffer | string;
   parseResult: ParseResultElement;
   readonly extension: string;
 }

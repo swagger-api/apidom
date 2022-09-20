@@ -1,10 +1,14 @@
 import { Buffer } from 'node:buffer';
 import { assert } from 'chai';
-import { ObjectElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import {
+  NumberElement,
+  ObjectElement,
+  isParseResultElement,
+  isSourceMapElement,
+} from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import JsonParser from '../../../../src/parse/parsers/apidom-reference-parser-json';
-import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
   context('JsonParser', function () {
@@ -89,17 +93,14 @@ describe('parsers', function () {
       });
 
       context('given data that is not a generic JSON data', function () {
-        specify('should throw ParserError', async function () {
-          try {
-            const file = File({ uri: '/path/to/file.json', data: 1 });
-            const parser = JsonParser();
-            await parser.parse(file);
-            assert.fail('should throw ParserError');
-          } catch (error: any) {
-            assert.instanceOf(error.cause, TypeError);
-            assert.instanceOf(error, ParserError);
-            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.json"');
-          }
+        specify('should coerce to string and parse', async function () {
+          const file = File({ uri: '/path/to/file.json', data: 1 });
+          const parser = JsonParser();
+          const result = await parser.parse(file);
+          const numberElement: NumberElement = result.get(0);
+
+          assert.isTrue(isParseResultElement(result));
+          assert.isTrue(numberElement.equals(1));
         });
       });
 

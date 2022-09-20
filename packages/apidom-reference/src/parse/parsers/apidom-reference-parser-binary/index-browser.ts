@@ -19,27 +19,22 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
       const hasSupportedFileExtension =
         this.fileExtensions.length === 0 ? true : this.fileExtensions.includes(file.extension);
 
-      if (!hasSupportedFileExtension) return false;
-      return typeof file.data === 'string' || ArrayBuffer.isView(file.data);
+      return hasSupportedFileExtension;
     },
     async parse(file: IFile): Promise<ParseResultElement> {
       try {
-        let base64String: string;
-
         /**
          * More information about binary strings and btoa function in following link:
          *   https://developer.mozilla.org/en-US/docs/Web/API/btoa
+         *
+         * @example
+         * ArrayBuffer to base64 conversion:
+         *
+         * const binaryString = String.fromCharCode.apply(null, file.data);
+         * base64String = btoa(binaryString);
          */
-        if (ArrayBuffer.isView(file.data)) {
-          // @ts-ignore
-          const binaryString = String.fromCharCode.apply(null, file.data);
-          base64String = btoa(binaryString);
-        } else if (typeof file.data === 'string') {
-          const binaryString = unescape(encodeURIComponent(file.data));
-          base64String = btoa(binaryString);
-        } else {
-          throw new TypeError('file.data is of invalid type. Only Buffer and string is allowed.');
-        }
+        const binaryString = unescape(encodeURIComponent(file.toString()));
+        const base64String = btoa(binaryString);
 
         const parseResultElement = new ParseResultElement();
 

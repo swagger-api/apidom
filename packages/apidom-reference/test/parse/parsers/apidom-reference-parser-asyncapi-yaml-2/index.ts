@@ -1,12 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
-import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 
 import File from '../../../../src/util/File';
 import AsyncApiYaml2Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2';
-import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
   context('AsyncApiYaml2Parser', function () {
@@ -153,20 +152,17 @@ describe('parsers', function () {
 
       context('given data that is not an AsyncApi 2.4.0 YAML data', function () {
         specify('should throw ParserError', async function () {
-          try {
-            const file = File({
-              uri: '/path/to/file.yaml',
-              data: 1,
-              mediaType: mediaTypes.latest(),
-            });
-            const parser = AsyncApiYaml2Parser();
-            await parser.parse(file);
-            assert.fail('should throw ParserError');
-          } catch (error: any) {
-            assert.instanceOf(error.cause, TypeError);
-            assert.instanceOf(error, ParserError);
-            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.yaml"');
-          }
+          const file = File({
+            uri: '/path/to/file.yaml',
+            data: 1,
+            mediaType: mediaTypes.latest(),
+          });
+          const parser = AsyncApiYaml2Parser();
+          const parseResult = await parser.parse(file);
+          const numberElement: NumberElement = parseResult.get(0);
+
+          assert.isTrue(isParseResultElement(parseResult));
+          assert.isTrue(numberElement.equals(1));
         });
       });
 
@@ -178,10 +174,10 @@ describe('parsers', function () {
             mediaType: mediaTypes.latest(),
           });
           const parser = AsyncApiYaml2Parser();
-          const parsceResult = await parser.parse(file);
+          const parseResult = await parser.parse(file);
 
-          assert.isTrue(isParseResultElement(parsceResult));
-          assert.isTrue(parsceResult.isEmpty);
+          assert.isTrue(isParseResultElement(parseResult));
+          assert.isTrue(parseResult.isEmpty);
         });
       });
 

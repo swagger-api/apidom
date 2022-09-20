@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { type } from 'ramda';
 import { isString } from 'ramda-adjunct';
 
 import * as url from './url';
@@ -35,6 +36,23 @@ const File: stampit.Stamp<IFile> = stampit({
         return url.getExtension(this.uri);
       }
       return '';
+    },
+
+    toString(): string {
+      if (typeof this.data === 'string') {
+        return this.data;
+      }
+
+      if (
+        this.data instanceof ArrayBuffer ||
+        ['ArrayBuffer'].includes(type(this.data)) ||
+        ArrayBuffer.isView(this.data)
+      ) {
+        const textDecoder = new TextDecoder('utf-8');
+        return textDecoder.decode(this.data as Buffer | DataView | ArrayBuffer);
+      }
+
+      return String(this.data);
     },
   },
 });

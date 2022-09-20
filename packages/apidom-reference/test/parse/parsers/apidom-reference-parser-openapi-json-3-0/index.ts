@@ -1,12 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
-import { isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
 
 import File from '../../../../src/util/File';
 import OpenApiJson3_0Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-json-3-0';
-import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
   context('OpenApiJson3_0Parser', function () {
@@ -129,21 +128,18 @@ describe('parsers', function () {
       });
 
       context('given data that is not an OpenApi 3.1.x JSON data', function () {
-        specify('should throw ParserError', async function () {
-          try {
-            const file = File({
-              uri: '/path/to/file.json',
-              data: 1,
-              mediaType: mediaTypes.latest('json'),
-            });
-            const parser = OpenApiJson3_0Parser();
-            await parser.parse(file);
-            assert.fail('should throw ParserError');
-          } catch (error: any) {
-            assert.instanceOf(error.cause, TypeError);
-            assert.instanceOf(error, ParserError);
-            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.json"');
-          }
+        specify('should coerce to string and parse', async function () {
+          const file = File({
+            uri: '/path/to/file.json',
+            data: 1,
+            mediaType: mediaTypes.latest('json'),
+          });
+          const parser = OpenApiJson3_0Parser();
+          const parseResult = await parser.parse(file);
+          const numberElement: NumberElement = parseResult.get(0);
+
+          assert.isTrue(isParseResultElement(parseResult));
+          assert.isTrue(numberElement.equals(1));
         });
       });
 

@@ -1,10 +1,14 @@
 import { Buffer } from 'node:buffer';
 import { assert } from 'chai';
-import { ObjectElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  NumberElement,
+  isParseResultElement,
+  isSourceMapElement,
+} from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
 import YamlParser from '../../../../src/parse/parsers/apidom-reference-parser-yaml-1-2';
-import { ParserError } from '../../../../src/util/errors';
 
 describe('parsers', function () {
   context('YamlParser', function () {
@@ -98,17 +102,14 @@ describe('parsers', function () {
       });
 
       context('given data that is not a generic YAML data', function () {
-        specify('should throw ParserError', async function () {
-          try {
-            const file = File({ uri: '/path/to/file.yaml', data: 1 });
-            const parser = YamlParser();
-            await parser.parse(file);
-            assert.fail('should throw ParserError');
-          } catch (error: any) {
-            assert.instanceOf(error.cause, TypeError);
-            assert.instanceOf(error, ParserError);
-            assert.propertyVal(error, 'message', 'Error parsing "/path/to/file.yaml"');
-          }
+        specify('should coerce to string and parse', async function () {
+          const file = File({ uri: '/path/to/file.yaml', data: 1 });
+          const parser = YamlParser();
+          const result = await parser.parse(file);
+          const numberElement: NumberElement = result.get(0);
+
+          assert.isTrue(isParseResultElement(result));
+          assert.isTrue(numberElement.equals(1));
         });
       });
 

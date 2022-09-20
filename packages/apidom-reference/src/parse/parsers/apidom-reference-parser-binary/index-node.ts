@@ -29,7 +29,7 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
         // @ts-ignore
         base64String = Buffer.from(file.data).toString('base64');
       } catch {
-        base64String = Buffer.from(file.data.toString()).toString('base64');
+        base64String = Buffer.from(file.toString()).toString('base64');
       }
 
       try {

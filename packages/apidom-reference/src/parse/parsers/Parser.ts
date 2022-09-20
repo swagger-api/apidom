@@ -24,10 +24,6 @@ const Parser = stampit({
      * List of supported media types.
      */
     mediaTypes: [],
-    /**
-     * Transforms array buffers into strings.
-     */
-    decoder: new TextDecoder('utf-8'),
   },
   init(
     this: IParser,
@@ -36,14 +32,12 @@ const Parser = stampit({
       sourceMap = this.sourceMap,
       fileExtensions = this.fileExtensions,
       mediaTypes = this.mediaTypes,
-      decoder = this.decoder,
     } = {},
   ) {
     this.allowEmpty = allowEmpty;
     this.sourceMap = sourceMap;
     this.fileExtensions = fileExtensions;
     this.mediaTypes = mediaTypes;
-    this.decoder = decoder;
   },
   methods: {
     async canParse(): Promise<boolean> {

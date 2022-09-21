@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/swagger-api/apidom/compare/v0.45.0...v0.46.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* **reference:** decode array buffers using TextDecoder ([#2036](https://github.com/swagger-api/apidom/issues/2036)) ([571e2ed](https://github.com/swagger-api/apidom/commit/571e2ede1bbe16410fb2b5f2337c074f5fff1667)), closes [#2029](https://github.com/swagger-api/apidom/issues/2029)
+
+
+
+
+
 # [0.45.0](https://github.com/swagger-api/apidom/compare/v0.44.0...v0.45.0) (2022-09-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

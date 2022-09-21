@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.46.0](https://github.com/swagger-api/apidom/compare/v0.45.0...v0.46.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* **ls:** add heading link to OpenApi 3.1.0 XML object docs ([#2050](https://github.com/swagger-api/apidom/issues/2050)) ([1bc927e](https://github.com/swagger-api/apidom/commit/1bc927e8772711fdbd90f731ff4f330fc6946a3e))
+* **ls:** add heading links for various OpenApi 3.1.0 objects ([#2037](https://github.com/swagger-api/apidom/issues/2037)) ([35a02e3](https://github.com/swagger-api/apidom/commit/35a02e37f7a6d21a828208d4fbd267a29ed1089b))
+* **ls:** fix docs rules for various OpenAPI 3.1.0 objects ([#2022](https://github.com/swagger-api/apidom/issues/2022)) ([b6ec0bc](https://github.com/swagger-api/apidom/commit/b6ec0bc0b4f12cc6923ee547c2e019587385f092))
+* **ls:** fixes inconsistencies in OpenAPI 3.1.0 docs rules ([#2028](https://github.com/swagger-api/apidom/issues/2028)) ([385d7db](https://github.com/swagger-api/apidom/commit/385d7dbea86a8a54e80a4df5aef25c4b8f360134))
+* **ls:** remove duplicate externalDocs target in documentation ([#2020](https://github.com/swagger-api/apidom/issues/2020)) ([bdf2aa3](https://github.com/swagger-api/apidom/commit/bdf2aa3796fd481f1a49ecbf021e8e0643c6d0d2))
+* **reference:** decode array buffers using TextDecoder ([#2036](https://github.com/swagger-api/apidom/issues/2036)) ([571e2ed](https://github.com/swagger-api/apidom/commit/571e2ede1bbe16410fb2b5f2337c074f5fff1667)), closes [#2029](https://github.com/swagger-api/apidom/issues/2029)
+
+
+### Features
+
+* **ls:** additional topics for OpenApi 3.1.0 Media Type object docs ([#2048](https://github.com/swagger-api/apidom/issues/2048)) ([9b22037](https://github.com/swagger-api/apidom/commit/9b22037f19c9dc0ac033fbb14dcbc8cda26cf6bc))
+* **ls:** docs for OpenApi 3.1.0 Components object ([#2025](https://github.com/swagger-api/apidom/issues/2025)) ([1bfce50](https://github.com/swagger-api/apidom/commit/1bfce505b118b605a59583fffa988e046562ad4c))
+* **ls:** docs for OpenApi 3.1.0 Encoding object ([#2038](https://github.com/swagger-api/apidom/issues/2038)) ([1d59c16](https://github.com/swagger-api/apidom/commit/1d59c16a9e990872728ac0266ad9cc09a16e61d1))
+* **ls:** docs for OpenApi 3.1.0 Media Type object ([#2040](https://github.com/swagger-api/apidom/issues/2040)) ([9a39a5e](https://github.com/swagger-api/apidom/commit/9a39a5e4530a433d5d71aaeb58aa1379a427fae6))
+* **ls:** docs for OpenApi 3.1.0 OAuth Flow and OAuth Flows objects ([#2011](https://github.com/swagger-api/apidom/issues/2011)) ([ab25a59](https://github.com/swagger-api/apidom/commit/ab25a597f9fbf082f37274598e1ff5f23e2fece0))
+* **ls:** docs for OpenApi 3.1.0 Request Body object ([#2027](https://github.com/swagger-api/apidom/issues/2027)) ([99e5e84](https://github.com/swagger-api/apidom/commit/99e5e841028f64b56520257cf9d502da17fe0827))
+* **ls:** docs for OpenApi 3.1.0 Security Requirement object ([#2021](https://github.com/swagger-api/apidom/issues/2021)) ([4f35c71](https://github.com/swagger-api/apidom/commit/4f35c71495977a19ca40c222f2a68c4916e08619))
+* **ls:** docs for OpenApi 3.1.0 Security Scheme object ([#2018](https://github.com/swagger-api/apidom/issues/2018)) ([1e983af](https://github.com/swagger-api/apidom/commit/1e983af54f2682fec46094b599921e98eac1b61a)), closes [#1993](https://github.com/swagger-api/apidom/issues/1993)
+* **ls:** docs for OpenApi 3.1.0 XML object ([#2049](https://github.com/swagger-api/apidom/issues/2049)) ([ff23fce](https://github.com/swagger-api/apidom/commit/ff23fce57a818609fb7ea4585b6482b1f1dd0a80))
+* **ls:** oas31 docs for callback object ([#2009](https://github.com/swagger-api/apidom/issues/2009)) ([57f728f](https://github.com/swagger-api/apidom/commit/57f728faf9d915267a956527edbb56fe07d11b9c))
+* **ls:** oas31 documentation for OpenAPI 3.1.0 Link Object ([#2010](https://github.com/swagger-api/apidom/issues/2010)) ([ba6bf7c](https://github.com/swagger-api/apidom/commit/ba6bf7cf6172706327ee43ffc4e76857ca1d2eeb))
+* **ls:** provide OpenAPI 3.0.x Contact docs rules ([#2034](https://github.com/swagger-api/apidom/issues/2034)) ([615df09](https://github.com/swagger-api/apidom/commit/615df09de74f9e5ea1e4fa2474037abe0fbd529f)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+
+
+
+
+
 # [0.45.0](https://github.com/swagger-api/apidom/compare/v0.44.0...v0.45.0) (2022-09-13)
 
 

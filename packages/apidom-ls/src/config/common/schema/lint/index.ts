@@ -11,7 +11,7 @@ import containsNonArrayLint from './contains--non-array';
 import containsTypeLint from './contains--type';
 import descriptionTypeLint from './description--type';
 import discriminatorExistInRequiredLint from './discriminator--exist-in-required';
-import discriminatorTypeLint from './discriminator--type';
+import discriminatorTypeLint from './discriminator--type-asyncapi-2-0--2-4';
 import elseNonIfLint from './else--non-if';
 import elseTypeLint from './else--type';
 import enumUniqueLint from './enum--unique';

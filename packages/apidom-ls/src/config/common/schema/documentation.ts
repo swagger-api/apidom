@@ -173,7 +173,24 @@ const documentation = [
   },
   {
     target: 'discriminator',
-    docs: 'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it **MUST** be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/specifications/v2.2.0#schemaComposition) for more details.\n\n',
+    docs: 'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it MUST be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/reference/specification/v2.4.0#schemaComposition) for more details.',
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.0.0' },
+      { namespace: 'asyncapi', version: '2.1.0' },
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
+    ],
+  },
+  {
+    target: 'discriminator',
+    docs: '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminatorObject)\\n\\\\\\n\\\\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaComposition) for more details.',
+    targetSpecs: [
+      { namespace: 'openapi', version: '3.0.0' },
+      { namespace: 'openapi', version: '3.0.1' },
+      { namespace: 'openapi', version: '3.0.2' },
+      { namespace: 'openapi', version: '3.0.3' },
+    ],
   },
   {
     target: 'externalDocs',

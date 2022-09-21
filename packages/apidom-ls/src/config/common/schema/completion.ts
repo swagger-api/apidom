@@ -1129,7 +1129,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it **MUST** be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/specifications/v2.2.0#schemaComposition) for more details.\n\n',
+        'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it **MUST** be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaComposition) for more details.\n\n',
     },
   },
   {

@@ -51,6 +51,8 @@
     "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.46.0",
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.46.0",
     "@swagger-api/apidom-parser-adapter-json": "^0.46.0",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^0.46.0",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.46.0",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.46.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.46.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.46.0",

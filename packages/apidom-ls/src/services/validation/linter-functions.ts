@@ -23,7 +23,7 @@ import { FunctionItem } from '../../apidom-language-types';
 
 const root = (el: Element): Element => {
   let node = el;
-  while (node.parent && !['openApi3_1', 'asyncApi2'].includes(node.parent.element)) {
+  while (node.parent && !['openApi3_0', 'openApi3_1', 'asyncApi2'].includes(node.parent.element)) {
     node = node.parent;
   }
   return node.parent;

@@ -1,22 +1,16 @@
-// @ts-ignore
-import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
-// @ts-ignore
-import * as asyncapi2Adapter from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
-// @ts-ignore
-import * as openapi3_1Adapter_Yaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
-// @ts-ignore
-import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
-// @ts-ignore
-import * as adsAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
-// @ts-ignore
-import * as adsAdapter_Yaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
-// @ts-ignore
-import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
-// @ts-ignore
-import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-// @ts-ignore
-import { refractorPluginReplaceEmptyElement } from '@swagger-api/apidom-ns-asyncapi-2';
-import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOas } from '@swagger-api/apidom-ns-openapi-3-1';
+import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
+import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
+import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
+import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
+import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
+import * as adapterYaml from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementAsyncAPI2 } from '@swagger-api/apidom-ns-asyncapi-2';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_0 } from '@swagger-api/apidom-ns-openapi-3-0';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_1 } from '@swagger-api/apidom-ns-openapi-3-1';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
@@ -42,36 +36,62 @@ export async function parse(
   let result;
   const contentLanguage = await findNamespace(text, defaultContentLanguage);
   if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'JSON') {
-    result = await asyncapi2Adapter.parse(text, { sourceMap: true });
+    result = await asyncapi2AdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'YAML') {
     const options: Record<string, unknown> = {
       sourceMap: true,
     };
     if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElement()] };
+      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementAsyncAPI2()] };
     }
-    result = await asyncapi2Adapter_Yaml.parse(text, options);
-  } else if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'JSON') {
-    result = await openapi3_1Adapter.parse(text, { sourceMap: true });
-  } else if (contentLanguage.namespace === 'openapi' && contentLanguage.format === 'YAML') {
+    result = await asyncapi2AdapterYaml.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.0') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    result = await openapi3_0AdapterJson.parse(text, { sourceMap: true });
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.0') &&
+    contentLanguage.format === 'YAML'
+  ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
     };
     if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOas()] };
+      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI3_0()] };
     }
-    result = await openapi3_1Adapter_Yaml.parse(text, options);
+    result = await openapi3_0AdapterYaml.parse(text, { sourceMap: true });
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.1') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    result = await openapi3_1AdapterJson.parse(text, { sourceMap: true });
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.1') &&
+    contentLanguage.format === 'YAML'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+    };
+    if (registerPlugins) {
+      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI3_1()] };
+    }
+    result = await openapi3_1AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
-    result = await adsAdapter.parse(text, { sourceMap: true });
+    result = await adsAdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {
-    result = await adsAdapter_Yaml.parse(text, { sourceMap: true });
+    result = await adsAdapterYaml.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'apidom' && contentLanguage.format === 'JSON') {
-    result = await jsonParserAdapter.parse(text, { sourceMap: true });
+    result = await adapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'apidom' && contentLanguage.format === 'YAML') {
-    result = await yamlParserAdapter.parse(text, { sourceMap: true });
+    result = await adapterYaml.parse(text, { sourceMap: true });
   } else {
     // fallback
-    result = await jsonParserAdapter.parse(text, { sourceMap: true });
+    result = await adapterJson.parse(text, { sourceMap: true });
   }
   const { api } = result;
   if (api === undefined) return result;

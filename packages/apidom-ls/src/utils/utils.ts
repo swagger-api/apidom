@@ -1,19 +1,13 @@
-// @ts-ignore
-import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
-// @ts-ignore
-import * as asyncapi2Adapter from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
-// @ts-ignore
-import * as openapi3_1Adapter_Yaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
-// @ts-ignore
-import * as asyncapi2Adapter_Yaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
-// @ts-ignore
-import * as adsAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
-// @ts-ignore
-import * as adsAdapter_Yaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
-// @ts-ignore
-import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
-// @ts-ignore
-import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
+import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
+import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
+import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
+import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
+import * as adapterYaml from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import {
   ArrayElement,
   BooleanElement,
@@ -738,17 +732,17 @@ export function getText(document: TextDocument | string, trim = false): string {
 
 export async function isJsonDoc(document: TextDocument | string): Promise<boolean> {
   const text = getText(document, true);
-  return await jsonParserAdapter.detect(text);
+  return await adapterJson.detect(text);
 }
 
 export function isJsonDocSync(document: TextDocument | string): boolean {
   const text = getText(document, true);
-  return jsonParserAdapter.detectionRegExp.test(text);
+  return adapterJson.detectionRegExp.test(text);
 }
 
 export async function isYamlDoc(document: TextDocument | string): Promise<boolean> {
   const text = getText(document, true);
-  return (await yamlParserAdapter.detect(text)) && !(await isJsonDoc(document));
+  return (await adapterYaml.detect(text)) && !(await isJsonDoc(document));
 }
 
 export async function findNamespace(
@@ -758,43 +752,67 @@ export async function findNamespace(
 ): Promise<ContentLanguage> {
   const text = getText(document, true);
   const json = await isJsonDoc(text);
-  if (await asyncapi2Adapter.detect(text)) {
+  if (await asyncapi2AdapterJson.detect(text)) {
+    const versionMatch = text.match(asyncapi2AdapterJson.detectionRegExp);
     return {
       namespace: 'asyncapi',
+      version: versionMatch?.groups?.version_json,
       format: 'JSON',
     };
   }
-  if (await asyncapi2Adapter_Yaml.detect(text)) {
+  if (await asyncapi2AdapterYaml.detect(text)) {
+    const versionMatch = text.match(asyncapi2AdapterYaml.detectionRegExp);
     return {
       namespace: 'asyncapi',
+      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
       format: 'YAML',
     };
   }
-  if (await openapi3_1Adapter.detect(text)) {
+  if (await openapi3_0AdapterJson.detect(text)) {
+    const versionMatch = text.match(openapi3_0AdapterYaml.detectionRegExp);
     return {
       namespace: 'openapi',
+      version: versionMatch?.groups?.version_json,
       format: 'JSON',
     };
   }
-  if (await openapi3_1Adapter_Yaml.detect(text)) {
+  if (await openapi3_0AdapterYaml.detect(text)) {
+    const versionMatch = text.match(openapi3_0AdapterYaml.detectionRegExp);
     return {
       namespace: 'openapi',
+      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
       format: 'YAML',
     };
   }
-  if (await adsAdapter.detect(text)) {
+  if (await openapi3_1AdapterJson.detect(text)) {
+    const versionMatch = text.match(openapi3_1AdapterYaml.detectionRegExp);
+    return {
+      namespace: 'openapi',
+      version: versionMatch?.groups?.version_json,
+      format: 'JSON',
+    };
+  }
+  if (await openapi3_1AdapterYaml.detect(text)) {
+    const versionMatch = text.match(openapi3_1AdapterYaml.detectionRegExp);
+    return {
+      namespace: 'openapi',
+      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
+      format: 'YAML',
+    };
+  }
+  if (await adsAdapterJson.detect(text)) {
     return {
       namespace: 'ads',
       format: 'JSON',
     };
   }
-  if (await adsAdapter_Yaml.detect(text)) {
+  if (await adsAdapterYaml.detect(text)) {
     return {
       namespace: 'ads',
       format: 'YAML',
     };
   }
-  if (await jsonParserAdapter.detect(text)) {
+  if (await adapterJson.detect(text)) {
     return defaultContentLanguage
       ? {
           namespace: defaultContentLanguage.namespace,
@@ -806,7 +824,7 @@ export async function findNamespace(
           format: 'JSON',
         };
   }
-  if (await yamlParserAdapter.detect(text)) {
+  if (await adapterYaml.detect(text)) {
     return defaultContentLanguage
       ? {
           namespace: defaultContentLanguage.namespace,

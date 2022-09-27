@@ -62,7 +62,7 @@ export async function parse(
     if (registerPlugins) {
       options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI3_0()] };
     }
-    result = await openapi3_0AdapterYaml.parse(text, { sourceMap: true });
+    result = await openapi3_0AdapterYaml.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version?.startsWith('3.1') &&

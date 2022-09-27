@@ -1,3 +1,4 @@
+import openapiMeta from './openapi/meta';
 import openapi3_0Meta from './openapi3_0/meta';
 import openapi3_1Meta from './openapi3_1/meta';
 import callbackMeta from './callback/meta';
@@ -43,6 +44,7 @@ export default {
       },
     ],
   },
+  openapi: openapiMeta,
   openApi3_0: openapi3_0Meta,
   openApi3_1: openapi3_1Meta,
   callback: callbackMeta,

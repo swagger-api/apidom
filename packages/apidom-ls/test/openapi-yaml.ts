@@ -80,6 +80,12 @@ const completionTestInput = [
             kind: 'markdown',
             value: 'A short summary of the API.',
           },
+          targetSpecs: [
+            {
+              namespace: 'openapi',
+              version: '3.1.0',
+            },
+          ],
         },
         {
           label: 'description',
@@ -112,6 +118,12 @@ const completionTestInput = [
             value:
               '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
           },
+          targetSpecs: [
+            {
+              namespace: 'openapi',
+              version: '3.1.0',
+            },
+          ],
         },
         {
           label: 'license',
@@ -123,6 +135,12 @@ const completionTestInput = [
             value:
               '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
           },
+          targetSpecs: [
+            {
+              namespace: 'openapi',
+              version: '3.1.0',
+            },
+          ],
         },
       ],
       isIncomplete: false,

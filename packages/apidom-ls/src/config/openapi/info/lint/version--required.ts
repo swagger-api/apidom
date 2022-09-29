@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const versionRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_INFO_FIELD_VERSION_REQUIRED,
+  code: ApilintCodes.OPENAPI3_0_INFO_FIELD_VERSION_REQUIRED,
   source: 'apilint',
   message: "should always have a 'version'",
   severity: 1,

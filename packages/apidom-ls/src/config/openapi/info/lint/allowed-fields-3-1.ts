@@ -9,7 +9,7 @@ const allowedFields3_1Lint: LinterMeta = {
   severity: 1,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['title', 'summary', 'version', 'description', 'termsOfService', 'contact', 'license'],
+    ['title', 'summary', 'description', 'termsOfService', 'contact', 'license', 'version'],
     'x-',
   ],
   marker: 'key',

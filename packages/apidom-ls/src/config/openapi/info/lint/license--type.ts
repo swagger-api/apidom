@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const licenseTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_INFO_FIELD_LICENSE_TYPE,
+  code: ApilintCodes.OPENAPI3_0_INFO_FIELD_LICENSE_TYPE,
   source: 'apilint',
   message: 'license must be an object',
   severity: 1,

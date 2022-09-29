@@ -458,7 +458,7 @@ describe('apidom-ls', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 3020101,
+        code: 5020101,
         source: 'apilint',
         data: {
           quickFix: [
@@ -522,7 +522,7 @@ describe('apidom-ls', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 3020601,
+        code: 5010801,
         source: 'apilint',
         data: {
           quickFix: [

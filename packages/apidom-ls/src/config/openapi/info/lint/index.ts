@@ -1,4 +1,4 @@
-import allowedFields2_0__3_0_3Lint from './allowed-fields-2-0--3-0-3';
+import allowedFields3_0Lint from './allowed-fields-3-0';
 import allowedFields3_1Lint from './allowed-fields-3-1';
 import titleTypeLint from './title--type';
 import titleRequiredLint from './title--required';
@@ -22,7 +22,7 @@ const infoLints = [
   licenseTypeLint,
   versionTypeLint,
   versionRequiredLint,
-  allowedFields2_0__3_0_3Lint,
+  allowedFields3_0Lint,
   allowedFields3_1Lint,
 ];
 

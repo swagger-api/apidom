@@ -238,7 +238,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 3020101,
+        code: 5020101,
         source: 'apilint',
         data: {
           quickFix: [
@@ -807,7 +807,7 @@ describe('apidom-ls-validate', function () {
         },
         message: "should always have a 'title'",
         severity: 1,
-        code: 3020101,
+        code: 5020101,
         source: 'apilint',
         data: {
           quickFix: [

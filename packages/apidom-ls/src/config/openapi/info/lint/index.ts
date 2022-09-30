@@ -11,7 +11,7 @@ import licenseTypeLint from './license--type';
 import versionTypeLint from './version--type';
 import versionRequiredLint from './version--required';
 
-const infoLints = [
+const lints = [
   titleTypeLint,
   titleRequiredLint,
   summaryTypeLint,
@@ -26,4 +26,4 @@ const infoLints = [
   allowedFields3_1Lint,
 ];
 
-export default infoLints;
+export default lints;

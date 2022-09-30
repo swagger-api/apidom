@@ -30,7 +30,6 @@ const completion: ApidomCompletionItem[] = [
       value:
         'An optional string describing the host designated by the URL. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     label: 'variables',

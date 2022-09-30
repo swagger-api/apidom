@@ -3,6 +3,6 @@ import nameTypeLint from './name--type';
 import nameRequiredLint from './name--required';
 import urlFormatURILint from './url--format-uri';
 
-const contactLints = [nameTypeLint, nameRequiredLint, urlFormatURILint, allowedFields3_0Lint];
+const lints = [nameTypeLint, nameRequiredLint, urlFormatURILint, allowedFields3_0Lint];
 
-export default contactLints;
+export default lints;

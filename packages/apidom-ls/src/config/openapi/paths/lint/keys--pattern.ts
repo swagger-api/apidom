@@ -4,10 +4,10 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const keysPatternLint: LinterMeta = {
   code: ApilintCodes.OPENAPI_3_0_PATHS_KEYS_PATTERN,
   source: 'apilint',
-  message: 'Paths Object keys must match the regular expression: `^/.*$`',
+  message: 'Paths Object keys must match the regular expression: `^/`',
   severity: 1,
-  linterFunction: 'apilintMembersKeysRegex',
-  linterParams: ['^\\/.*$'],
+  linterFunction: 'apilintKeysRegex',
+  linterParams: ['^/'],
   marker: 'key',
   data: {},
 };

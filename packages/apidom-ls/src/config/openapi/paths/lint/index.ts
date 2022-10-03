@@ -1,6 +1,6 @@
 import keysPatternLint from './keys--pattern';
 import valuesTypeLint from './values--type';
 
-const lints = [keysPatternLint, valuesTypeLint];
+const lints = [valuesTypeLint, keysPatternLint];
 
 export default lints;

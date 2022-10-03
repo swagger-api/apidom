@@ -1,0 +1,15 @@
+import ApilintCodes from '../../../codes';
+import { LinterMeta } from '../../../../apidom-language-types';
+
+const keysDefinedLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI_3_0_SECURITY_REQUIREMENT_KEYS_DEFINED,
+  source: 'apilint',
+  message: 'security keys must be included in defined security schemes',
+  severity: 1,
+  linterFunction: 'apilintKeysIncluded',
+  linterParams: ['root.components.securitySchemes'],
+  marker: 'key',
+  data: {},
+};
+
+export default keysDefinedLint;

@@ -25,3 +25,13 @@ exports[`refractor elements ResponsesElement given all fields of type ResponseEl
     (StringElement)
     (ResponseElement)))
 `;
+
+exports[`refractor elements given unrecognized fields should refract values to generic ApiDOM tree 1`] = `
+(ResponsesElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;

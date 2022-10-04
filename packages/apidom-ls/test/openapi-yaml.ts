@@ -420,6 +420,73 @@ describe('apidom-ls-yaml', function () {
         severity: 1,
         source: 'apilint',
       },
+      {
+        code: 5130600,
+        data: {},
+        message: 'parameters must be an array',
+        range: {
+          end: {
+            character: 22,
+            line: 82,
+          },
+          start: {
+            character: 8,
+            line: 79,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5130601,
+        data: {},
+        message: 'parameters must be an array of Parameter Objects',
+        range: {
+          end: {
+            character: 7,
+            line: 68,
+          },
+          start: {
+            character: 4,
+            line: 68,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5140001,
+        data: {},
+        message: 'Responses Object values must be of Response Object shape',
+        range: {
+          end: {
+            character: 15,
+            line: 85,
+          },
+          start: {
+            character: 6,
+            line: 85,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 15000,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 15,
+            line: 85,
+          },
+          start: {
+            character: 6,
+            line: 85,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 

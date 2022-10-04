@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.48.0](https://github.com/swagger-api/apidom/compare/v0.47.0...v0.48.0) (2022-10-04)
+
+
+### Features
+
+* **ls:** provide OpenAPI 3.0.x Operation completion rules ([636ff7f](https://github.com/swagger-api/apidom/commit/636ff7f1d78ebdd815968346f0d3bceafe4d613c)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Operation docs rules ([d0cf059](https://github.com/swagger-api/apidom/commit/d0cf05947bc08db5b2903134da7e24ed35438f56)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Operation lint rules ([1aa4f8c](https://github.com/swagger-api/apidom/commit/1aa4f8c33ff76bc4d2160685de9fca7981e4c128)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Path Item completion rules ([af0bac5](https://github.com/swagger-api/apidom/commit/af0bac5f6248e9c975f7c7920905bc09fb12bb8c)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Path Item docs rules ([3bfac0b](https://github.com/swagger-api/apidom/commit/3bfac0b806ab5faea3e2b61708517a77e6c35cf9)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Path Item lint rules ([4156ee4](https://github.com/swagger-api/apidom/commit/4156ee4376bcf6269fc8b312c5782836ec8736c2)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Paths docs rules ([e5d6f14](https://github.com/swagger-api/apidom/commit/e5d6f14c007f759d0be08521fa03b097f06ea1df)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Paths lint rules ([c08ca27](https://github.com/swagger-api/apidom/commit/c08ca27876ccb5b958d9c7cd5b876b603378d0e5)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Responses completion rules ([ee0529c](https://github.com/swagger-api/apidom/commit/ee0529cd4e157dabba8b00367e3492e3c7b83917)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Responses docs rules ([400fa1b](https://github.com/swagger-api/apidom/commit/400fa1be1b2db9ff6684b156aeb6b6be7874bee1)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Responses lint rules ([4edd438](https://github.com/swagger-api/apidom/commit/4edd438550e901dbbd0231a497bc4f8f9ac11e67)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Security Requirement docs rules ([68a47f7](https://github.com/swagger-api/apidom/commit/68a47f7eaa5a5624a51c6ddd3a52d8f277791542)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Security Requirement lint rules ([3ffe3ab](https://github.com/swagger-api/apidom/commit/3ffe3ab8b2dfa1426627fb8d1b346d5dc75b2c45)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Server completion rules ([b5ceb7f](https://github.com/swagger-api/apidom/commit/b5ceb7f50a67e360b59f2970c12d53390fb51ae2)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Server docs rules ([#2087](https://github.com/swagger-api/apidom/issues/2087)) ([36e311e](https://github.com/swagger-api/apidom/commit/36e311eec7a99bd409fe2cae71f25086a108994a)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Server lint rules ([b0cf458](https://github.com/swagger-api/apidom/commit/b0cf4586c9f674b6d518f9bf90b56fbcb3dacf48)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Server Variable completion rules ([4470ae7](https://github.com/swagger-api/apidom/commit/4470ae782bdf16e623b00b2641e7bf50fa7fb644)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Server Variable docs rules ([#2088](https://github.com/swagger-api/apidom/issues/2088)) ([144e27a](https://github.com/swagger-api/apidom/commit/144e27a1a27038a87a59bc3c5b919be7077b64b9)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Server Variable lint rules ([01cd0e7](https://github.com/swagger-api/apidom/commit/01cd0e77b5a0580d7e62d01466a882f0a6f6a3d4)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+* **ls:** provide OpenAPI 3.0.x Tag completion rules ([2ef49b4](https://github.com/swagger-api/apidom/commit/2ef49b4e85218abd0552813df28fd9b1971ccb6f)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+* **ls:** provide OpenAPI 3.0.x Tag docs rules ([d576d8d](https://github.com/swagger-api/apidom/commit/d576d8dc5929254b348a94124845522df20c7dc1)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+* **ls:** provide OpenAPI 3.0.x Tag lint rules ([de3b887](https://github.com/swagger-api/apidom/commit/de3b8875e01cf7668fc88d348ec4767bc0a027ea)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+
+
+
+
+
 # [0.47.0](https://github.com/swagger-api/apidom/compare/v0.46.0...v0.47.0) (2022-09-29)
 
 

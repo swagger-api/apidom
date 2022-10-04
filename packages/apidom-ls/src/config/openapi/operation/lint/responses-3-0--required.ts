@@ -20,6 +20,12 @@ const responsesRequiredLint3_0: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [
+    { namespace: 'openapi', version: '3.0.0' },
+    { namespace: 'openapi', version: '3.0.1' },
+    { namespace: 'openapi', version: '3.0.2' },
+    { namespace: 'openapi', version: '3.0.3' },
+  ],
 };
 
 export default responsesRequiredLint3_0;

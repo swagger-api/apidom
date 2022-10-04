@@ -13,6 +13,7 @@ const allowedFieldsLint: LinterMeta = {
       '100',
       '101',
       '1XX',
+      '200',
       '201',
       '202',
       '203',

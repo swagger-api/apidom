@@ -28,5 +28,16 @@ describe('refractor', function () {
         });
       });
     });
+
+    context('given unrecognized fields', function () {
+      specify('should refract values to generic ApiDOM tree', function () {
+        const responsesElement = ResponsesElement.refract({
+          '600': {},
+          XXX: {},
+        });
+
+        expect(sexprs(responsesElement)).toMatchSnapshot();
+      });
+    });
   });
 });

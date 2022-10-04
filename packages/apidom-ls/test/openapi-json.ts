@@ -380,6 +380,73 @@ describe('apidom-ls', function () {
         severity: 1,
         source: 'apilint',
       },
+      {
+        code: 5130600,
+        data: {},
+        message: 'parameters must be an array',
+        range: {
+          end: {
+            character: 9,
+            line: 109,
+          },
+          start: {
+            character: 22,
+            line: 104,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5130601,
+        data: {},
+        message: 'parameters must be an array of Parameter Objects',
+        range: {
+          end: {
+            character: 11,
+            line: 95,
+          },
+          start: {
+            character: 6,
+            line: 95,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5140001,
+        data: {},
+        message: 'Responses Object values must be of Response Object shape',
+        range: {
+          end: {
+            character: 19,
+            line: 113,
+          },
+          start: {
+            character: 8,
+            line: 113,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 15000,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 19,
+            line: 113,
+          },
+          start: {
+            character: 8,
+            line: 113,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
     doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
@@ -403,6 +470,73 @@ describe('apidom-ls', function () {
           start: {
             character: 2,
             line: 3,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5130600,
+        data: {},
+        message: 'parameters must be an array',
+        range: {
+          end: {
+            character: 9,
+            line: 109,
+          },
+          start: {
+            character: 22,
+            line: 104,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5130601,
+        data: {},
+        message: 'parameters must be an array of Parameter Objects',
+        range: {
+          end: {
+            character: 11,
+            line: 95,
+          },
+          start: {
+            character: 6,
+            line: 95,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5140001,
+        data: {},
+        message: 'Responses Object values must be of Response Object shape',
+        range: {
+          end: {
+            character: 19,
+            line: 113,
+          },
+          start: {
+            character: 8,
+            line: 113,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 15000,
+        message: 'Object includes not allowed fields',
+        range: {
+          end: {
+            character: 19,
+            line: 113,
+          },
+          start: {
+            character: 8,
+            line: 113,
           },
         },
         severity: 1,

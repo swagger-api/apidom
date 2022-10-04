@@ -1,6 +1,6 @@
 /**
  * Omitted fixed fields:
- *  - context
+ *  - contact
  *  - license
  *
  * Field omission reason: omitted fields do have a non-union type. Thus,

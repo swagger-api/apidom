@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const httpCodeDocsRule3_0 = {
+const httpCode3_0DocsRule = {
   docs: "[Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) can link to a response that the [OpenAPI Object's components/responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsResponses) section defines.",
   targetSpecs: [
     { namespace: 'openapi', version: '3.0.0' },
@@ -12,167 +12,167 @@ const httpCodeDocsRule3_0 = {
 const documentation = [
   {
     target: 'default',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '100',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '101',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '1XX',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '201',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '202',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '203',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '204',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '205',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '2XX',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '300',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '301',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '302',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '303',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '305',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '306',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '307',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '3XX',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '400',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '402',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '403',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '404',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '405',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '406',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '408',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '409',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '410',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '411',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '413',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '414',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '415',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '417',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '426',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '4XX',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '500',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '501',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '502',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '503',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '504',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '505',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     target: '5XX',
-    ...httpCodeDocsRule3_0,
+    ...httpCode3_0DocsRule,
   },
   {
     docs: '#### [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responses-object)\n\nA container for the expected responses of an operation.\nThe container maps a HTTP response code to the expected response.\n\nThe documentation is not necessarily expected to cover all possible HTTP response codes because they may not be known in advance.\nHowever, documentation is expected to cover a successful operation response and any known errors.\n\nThe `default` MAY be used as a default response object for all HTTP codes\nthat are not covered individually by the specification.\n\nThe `Responses Object` MUST contain at least one response code, and it\nSHOULD be the response for a successful operation call.\n\n##### Fixed Fields\nField Name | Type | Description\n---|:---:|---\ndefault | [Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) | The documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) can link to a response that the [OpenAPI Object\'s components/responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsResponses) section defines.\n\n##### Patterned Fields\nField Pattern | Type | Description\n---|:---:|---\n[HTTP Status Code](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#httpCodes) | [Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) | Any [HTTP status code](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#httpCodes) can be used as the property name, but only one property per code, to describe the expected response for that HTTP status code.  A [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) can link to a response that is defined in the [OpenAPI Object\'s components/responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsResponses) section. This field MUST be enclosed in quotation marks (for example, "200") for compatibility between JSON and YAML. To define a range of response codes, this field MAY contain the uppercase wildcard character `X`. For example, `2XX` represents all response codes between `[200-299]`. Only the following range definitions are allowed: `1XX`, `2XX`, `3XX`, `4XX`, and `5XX`. If a response is defined using an explicit code, the explicit code definition takes precedence over the range definition for that code.\n\n\nThis object MAY be extended with [Specification Extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#specificationExtensions).\n\n##### Responses Object Example\n\nA 200 response for a successful operation and a default response for others (implying an error):\n\n\n\\\nJSON\n```json\n{\n  "200": {\n    "description": "a pet to be returned",\n    "content": {\n      "application/json": {\n        "schema": {\n          "$ref": "#/components/schemas/Pet"\n        }\n      }\n    }\n  },\n  "default": {\n    "description": "Unexpected error",\n    "content": {\n      "application/json": {\n        "schema": {\n          "$ref": "#/components/schemas/ErrorModel"\n        }\n      }\n    }\n  }\n}\n```\n\n\n\\\nYAML\n```yaml\n\'200\':\n  description: a pet to be returned\n  content:\n    application/json:\n      schema:\n        $ref: \'#/components/schemas/Pet\'\ndefault:\n  description: Unexpected error\n  content:\n    application/json:\n      schema:\n        $ref: \'#/components/schemas/ErrorModel\'\n```',

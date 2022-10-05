@@ -126,7 +126,7 @@ const completion: ApidomCompletionItem[] = [
     label: 'jsonSchemaDialect',
     insertText: 'jsonSchemaDialect',
     kind: 14,
-    format: CompletionFormat.OBJECT,
+    format: CompletionFormat.UNQUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {

@@ -49,7 +49,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.0",
     "swagger-adjust": "^0.5.0",
-    "web-vitals": "^3.0.0"
+    "web-vitals": "^3.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -58,6 +58,6 @@
     "eslint-config-airbnb": "=19.0.4",
     "react-scripts": "=5.0.1",
     "rewire": "^6.0.0",
-    "sass": "^1.43.4"
+    "sass": "^1.55.0"
   }
 }

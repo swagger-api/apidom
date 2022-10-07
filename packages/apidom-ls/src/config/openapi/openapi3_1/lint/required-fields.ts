@@ -1,22 +1,21 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const pathsRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_OPEN_API_FIELD_PATHS_REQUIRED,
+const requiredFieldsLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_OPEN_API_REQUIRED_FIELDS,
   source: 'apilint',
-  message: "should always have a 'paths' section",
+  message: 'OpenAPI Object must contain one the following fields: paths, components, webhooks',
   severity: 1,
   linterFunction: 'hasRequiredField',
   linterParams: ['paths'],
   marker: 'key',
-  // conditions: [
-  //   {
-  //     // todo: fix setup so oas31 consists at least oneOf paths, components, webhooks
-  //     targets: [{ path: 'openApi3_1' }],
-  //     function: 'apilintContainsValue',
-  //     params: ['paths'],
-  //   },
-  // ],
+  conditions: [
+    {
+      targets: [{ path: 'root' }],
+      function: 'missingFields',
+      params: [['paths', 'components', 'webhooks']],
+    },
+  ],
   data: {
     quickFix: [
       {
@@ -29,4 +28,4 @@ const pathsRequiredLint: LinterMeta = {
   },
 };
 
-export default pathsRequiredLint;
+export default requiredFieldsLint;

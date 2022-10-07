@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const serversTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_OPERATION_FIELD_SERVERS_TYPE,
+  code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_SERVERS_TYPE,
   source: 'apilint',
   message: 'servers must be an array',
   severity: 1,

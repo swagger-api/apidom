@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const contentValuesTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_PARAMETER_FIELD_CONTENT_VALUES_TYPE,
+  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_CONTENT_VALUES_TYPE,
   source: 'apilint',
   message: '"content" members must be Media Type Object',
   severity: 1,

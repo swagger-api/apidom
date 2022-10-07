@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const requiredRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_PARAMETER_FIELD_REQUIRED_REQUIRED,
+  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_REQUIRED_REQUIRED,
   source: 'apilint',
   message: "should always have a 'required'",
   severity: 1,

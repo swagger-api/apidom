@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const callbacksValuesTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_OPERATION_FIELD_CALLBACKS_VALUES_TYPE,
+  code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_CALLBACKS_VALUES_TYPE,
   source: 'apilint',
   message: '"callbacks" members must be Callback Object',
   severity: 1,

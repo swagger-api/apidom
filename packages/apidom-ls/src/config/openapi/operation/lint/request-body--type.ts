@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const requestBodyTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_OPERATION_FIELD_REQUEST_BODY_TYPE,
+  code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_REQUEST_BODY_TYPE,
   source: 'apilint',
   message: 'requestBody must be an object',
   severity: 1,

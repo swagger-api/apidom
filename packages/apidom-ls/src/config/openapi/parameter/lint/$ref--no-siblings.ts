@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const $refNoSiblingsLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI_3_0_PARAMETER_FIELD_$REF_NO_SIBLINGS,
+  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
   severity: 2,

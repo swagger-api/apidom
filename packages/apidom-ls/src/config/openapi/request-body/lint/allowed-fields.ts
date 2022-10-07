@@ -7,25 +7,7 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: 1,
   linterFunction: 'allowedFields',
-  linterParams: [
-    [
-      'name',
-      'in',
-      'description',
-      'required',
-      'deprecated',
-      'allowEmptyValue',
-      'style',
-      'explode',
-      'allowReserved',
-      'schema',
-      'example',
-      'examples',
-      'content',
-      '$ref',
-    ],
-    'x-',
-  ],
+  linterParams: [['description', 'content', 'required', '$ref'], 'x-'],
   marker: 'key',
 };
 

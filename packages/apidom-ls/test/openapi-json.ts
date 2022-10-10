@@ -656,7 +656,7 @@ describe('apidom-ls', function () {
         },
         message: "should always have a 'version'",
         severity: 1,
-        code: 5010801,
+        code: 5020601,
         source: 'apilint',
         data: {
           quickFix: [

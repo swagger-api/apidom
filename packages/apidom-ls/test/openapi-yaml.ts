@@ -3,7 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
-  CompletionList,
+  // CompletionList,
   Diagnostic,
   DiagnosticSeverity,
   Position,
@@ -415,6 +415,40 @@ describe('apidom-ls-yaml', function () {
           start: {
             character: 0,
             line: 3,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5121300,
+        data: {},
+        message: 'parameters must be an array',
+        range: {
+          end: {
+            character: 7,
+            line: 190,
+          },
+          start: {
+            character: 20,
+            line: 185,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5121301,
+        data: {},
+        message: 'parameters must be an array of Parameter Objects',
+        range: {
+          end: {
+            character: 12,
+            line: 92,
+          },
+          start: {
+            character: 4,
+            line: 92,
           },
         },
         severity: 1,

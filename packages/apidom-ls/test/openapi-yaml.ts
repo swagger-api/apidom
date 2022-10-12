@@ -3,7 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
-  // CompletionList,
+  CompletionList,
   Diagnostic,
   DiagnosticSeverity,
   Position,
@@ -42,6 +42,7 @@ const specCompletionNoEmpty = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-no-empty.yaml'))
   .toString();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specError = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error.yaml'))
   .toString();
@@ -151,7 +152,107 @@ const completionTestInput = [
     0,
     0,
     {
-      items: [],
+      items: [
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '**REQUIRED**. This string MUST be the [version number](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoVersion) string.',
+          },
+          insertText: 'openapi: $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'openapi',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+          },
+          insertText: 'jsonSchemaDialect: $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'jsonSchemaDialect',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+          },
+          insertText: 'servers: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'servers',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+          },
+          insertText: 'paths: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'paths',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+          },
+          insertText: 'webhooks: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'webhooks',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+          },
+          insertText: 'components: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'components',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+          },
+          insertText: 'security: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'security',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+          },
+          insertText: 'tags: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'tags',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+          },
+          insertText: 'externalDocs: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'externalDocs',
+        },
+      ],
       isIncomplete: false,
     },
   ],
@@ -160,7 +261,107 @@ const completionTestInput = [
     1,
     0,
     {
-      items: [],
+      items: [
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoObject)\n\\\n\\\n**REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.',
+          },
+          insertText: 'info: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'info',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+          },
+          insertText: 'jsonSchemaDialect: $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'jsonSchemaDialect',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+          },
+          insertText: 'servers: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'servers',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+          },
+          insertText: 'paths: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'paths',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+          },
+          insertText: 'webhooks: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'webhooks',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+          },
+          insertText: 'components: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'components',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+          },
+          insertText: 'security: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'security',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+          },
+          insertText: 'tags: \n  - $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'tags',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+          },
+          insertText: 'externalDocs: \n  $1\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'externalDocs',
+        },
+      ],
       isIncomplete: false,
     },
   ],
@@ -208,9 +409,9 @@ describe('apidom-ls-yaml', function () {
     };
 
     // valid spec
-    let doc: TextDocument = TextDocument.create('foo://bar/spec.yaml', 'yaml', 0, spec);
+    const doc: TextDocument = TextDocument.create('foo://bar/spec.yaml', 'yaml', 0, spec);
 
-    let result = await languageService.doValidation(doc, validationContext);
+    const result = await languageService.doValidation(doc, validationContext);
     const expected = [
       {
         range: {
@@ -420,40 +621,40 @@ describe('apidom-ls-yaml', function () {
         severity: 1,
         source: 'apilint',
       },
-      {
-        code: 5121300,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 0,
-            line: 132,
-          },
-          start: {
-            character: 6,
-            line: 128,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5121301,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 10,
-            line: 65,
-          },
-          start: {
-            character: 2,
-            line: 65,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
+      // {
+      //   code: 5121300,
+      //   data: {},
+      //   message: 'parameters must be an array',
+      //   range: {
+      //     end: {
+      //       character: 0,
+      //       line: 132,
+      //     },
+      //     start: {
+      //       character: 6,
+      //       line: 128,
+      //     },
+      //   },
+      //   severity: 1,
+      //   source: 'apilint',
+      // },
+      // {
+      //   code: 5121301,
+      //   data: {},
+      //   message: 'parameters must be an array of Parameter Objects',
+      //   range: {
+      //     end: {
+      //       character: 10,
+      //       line: 65,
+      //     },
+      //     start: {
+      //       character: 2,
+      //       line: 65,
+      //     },
+      //   },
+      //   severity: 1,
+      //   source: 'apilint',
+      // },
       {
         code: 5130600,
         data: {},
@@ -524,10 +725,10 @@ describe('apidom-ls-yaml', function () {
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 
-    doc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
-    result = await languageService.doValidation(doc, validationContext);
+    // const specErrorDoc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
+    // const specErrorResult = await languageService.doValidation(doc, validationContext);
     // TODO yaml errors not recovered? no result?
-    /*     assert.deepEqual(result, [
+    /*     assert.deepEqual(specErrorResult, [
       {
         range: { start: { line: 16, character: 5 }, end: { line: 16, character: 6 } },
         message: '(Error ,)',
@@ -617,8 +818,7 @@ describe('apidom-ls-yaml', function () {
         { textDocument: doc, position: pos },
         completionContext,
       );
-      // assert.deepEqual(result, input[3] as CompletionList);
-      assert(result?.items && result?.items.length > 0);
+      assert.deepEqual(result, input[3] as CompletionList);
     }
   });
 

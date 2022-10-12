@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
 import {
-  // CompletionList,
+  CompletionList,
   Diagnostic,
   DiagnosticSeverity,
   Position,
@@ -73,7 +73,96 @@ const completionTestInput = [
     3,
     2,
     {
-      items: [],
+      items: [
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+          },
+          insertText: '"jsonSchemaDialect": "$1",',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'jsonSchemaDialect',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+          },
+          insertText: '"servers": [\n  $1\n],',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'servers',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+          },
+          insertText: '"paths": {\n  $1\n},',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'paths',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+          },
+          insertText: '"webhooks": {\n  $1\n},',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'webhooks',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+          },
+          insertText: '"components": {\n  $1\n},',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'components',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+          },
+          insertText: '"security": [\n  $1\n],',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'security',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+          },
+          insertText: '"tags": [\n  $1\n],',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'tags',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+          },
+          insertText: '"externalDocs": {\n  $1\n},',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'externalDocs',
+        },
+      ],
       isIncomplete: false,
     },
   ],
@@ -82,7 +171,107 @@ const completionTestInput = [
     2,
     2,
     {
-      items: [],
+      items: [
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '**REQUIRED**. This string MUST be the [version number](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoVersion) string.',
+          },
+          insertText: '"openapi": "$1",\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'openapi',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+          },
+          insertText: '"jsonSchemaDialect": "$1",\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'jsonSchemaDialect',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+          },
+          insertText: '"servers": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'servers',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+          },
+          insertText: '"paths": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'paths',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+          },
+          insertText: '"webhooks": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'webhooks',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+          },
+          insertText: '"components": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'components',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+          },
+          insertText: '"security": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'security',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+          },
+          insertText: '"tags": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'tags',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+          },
+          insertText: '"externalDocs": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'externalDocs',
+        },
+      ],
       isIncomplete: false,
     },
   ],
@@ -91,7 +280,107 @@ const completionTestInput = [
     4,
     2,
     {
-      items: [],
+      items: [
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#infoObject)\n\\\n\\\n**REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.',
+          },
+          insertText: '"info": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'info',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+          },
+          insertText: '"jsonSchemaDialect": "$1",\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'jsonSchemaDialect',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverUrl) value of `/`.',
+          },
+          insertText: '"servers": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'servers',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+          },
+          insertText: '"paths": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'paths',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+          },
+          insertText: '"webhooks": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'webhooks',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+          },
+          insertText: '"components": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'components',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+          },
+          insertText: '"security": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'security',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+          },
+          insertText: '"tags": [\n  $1\n],\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'tags',
+        },
+        {
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+          },
+          insertText: '"externalDocs": {\n  $1\n},\n',
+          insertTextFormat: 2,
+          kind: 14,
+          label: 'externalDocs',
+        },
+      ],
       isIncomplete: false,
     },
   ],
@@ -173,196 +462,11 @@ describe('apidom-ls', function () {
 
     const expected = [
       {
-        range: {
-          start: {
-            line: 11,
-            character: 4,
-          },
-          end: {
-            line: 11,
-            character: 13,
-          },
-        },
-        message: 'must match exactly one schema in oneOf',
+        range: { start: { line: 16, character: 5 }, end: { line: 16, character: 6 } },
+        message: '(Error ,)',
         severity: 1,
         code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 3,
-            character: 2,
-          },
-          end: {
-            line: 3,
-            character: 8,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 77,
-            character: 13,
-          },
-          end: {
-            line: 77,
-            character: 51,
-          },
-        },
-        message: 'must match format "uri-reference"',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 185,
-            character: 6,
-          },
-          end: {
-            line: 185,
-            character: 18,
-          },
-        },
-        message: 'must be array',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 104,
-            character: 8,
-          },
-          end: {
-            line: 104,
-            character: 20,
-          },
-        },
-        message: 'must be array',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 113,
-            character: 8,
-          },
-          end: {
-            line: 113,
-            character: 19,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 27,
-            character: 6,
-          },
-          end: {
-            line: 27,
-            character: 15,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 27,
-            character: 6,
-          },
-          end: {
-            line: 27,
-            character: 15,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 35,
-            character: 6,
-          },
-          end: {
-            line: 35,
-            character: 12,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 35,
-            character: 6,
-          },
-          end: {
-            line: 35,
-            character: 12,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 51,
-            character: 6,
-          },
-          end: {
-            line: 51,
-            character: 19,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
-      },
-      {
-        range: {
-          start: {
-            line: 51,
-            character: 6,
-          },
-          end: {
-            line: 51,
-            character: 19,
-          },
-        },
-        message: 'must NOT have unevaluated properties',
-        severity: 1,
-        code: 0,
-        source: 'openapi schema',
+        source: 'syntax',
       },
       {
         code: 15000,
@@ -380,40 +484,40 @@ describe('apidom-ls', function () {
         severity: 1,
         source: 'apilint',
       },
-      {
-        code: 5121300,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 7,
-            line: 190,
-          },
-          start: {
-            character: 20,
-            line: 185,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5121301,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 12,
-            line: 92,
-          },
-          start: {
-            character: 4,
-            line: 92,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
+      // {
+      //   code: 5121300,
+      //   data: {},
+      //   message: 'parameters must be an array',
+      //   range: {
+      //     end: {
+      //       character: 7,
+      //       line: 190,
+      //     },
+      //     start: {
+      //       character: 20,
+      //       line: 185,
+      //     },
+      //   },
+      //   severity: 1,
+      //   source: 'apilint',
+      // },
+      // {
+      //   code: 5121301,
+      //   data: {},
+      //   message: 'parameters must be an array of Parameter Objects',
+      //   range: {
+      //     end: {
+      //       character: 12,
+      //       line: 92,
+      //     },
+      //     start: {
+      //       character: 4,
+      //       line: 92,
+      //     },
+      //   },
+      //   severity: 1,
+      //   source: 'apilint',
+      // },
       {
         code: 5130600,
         data: {},
@@ -482,135 +586,9 @@ describe('apidom-ls', function () {
         source: 'apilint',
       },
     ];
-    assert.deepEqual(result, expected as Diagnostic[]);
     doc = TextDocument.create('foo://bar/specError.json', 'json', 0, specError);
     result = await languageService.doValidation(doc, validationContext);
-    assert.deepEqual(result, [
-      {
-        range: { start: { line: 16, character: 5 }, end: { line: 16, character: 6 } },
-        message: '(Error ,)',
-        severity: 1,
-        code: 0,
-        source: 'syntax',
-      },
-      {
-        code: 15000,
-        message: 'Object includes not allowed fields',
-        range: {
-          end: {
-            character: 8,
-            line: 3,
-          },
-          start: {
-            character: 2,
-            line: 3,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5121300,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 7,
-            line: 190,
-          },
-          start: {
-            character: 20,
-            line: 185,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5121301,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 12,
-            line: 92,
-          },
-          start: {
-            character: 4,
-            line: 92,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130600,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 9,
-            line: 109,
-          },
-          start: {
-            character: 22,
-            line: 104,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130601,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 11,
-            line: 95,
-          },
-          start: {
-            character: 6,
-            line: 95,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5140001,
-        data: {},
-        message: 'Responses Object values must be of Response Object shape',
-        range: {
-          end: {
-            character: 19,
-            line: 113,
-          },
-          start: {
-            character: 8,
-            line: 113,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 15000,
-        message: 'Object includes not allowed fields',
-        range: {
-          end: {
-            character: 19,
-            line: 113,
-          },
-          start: {
-            character: 8,
-            line: 113,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-    ]);
+    assert.deepEqual(result, expected as Diagnostic[]);
   });
 
   it('test validation and linter', async function () {
@@ -763,8 +741,7 @@ describe('apidom-ls', function () {
         { textDocument: doc, position: pos },
         completionContext,
       );
-      // assert.deepEqual(result, input[3] as CompletionList);
-      assert(result?.items && result?.items.length > 0);
+      assert.deepEqual(result, input[3] as CompletionList);
     }
   });
 

@@ -34,12 +34,6 @@ Defines list of media types that this parser adapter recognizes.
 [
   'application/vnd.oai.openapi;version=3.0.0',
   'application/vnd.oai.openapi+json;version=3.0.0',
-  'application/vnd.oai.openapi;version=3.0.0-rc0',
-  'application/vnd.oai.openapi+json;version=3.0.0-rc0',
-  'application/vnd.oai.openapi;version=3.0.0-rc1',
-  'application/vnd.oai.openapi+json;version=3.0.0-rc1',
-  'application/vnd.oai.openapi;version=3.0.0-rc2',
-  'application/vnd.oai.openapi+json;version=3.0.0-rc2',
   'application/vnd.oai.openapi;version=3.0.1',
   'application/vnd.oai.openapi+json;version=3.0.1',
   'application/vnd.oai.openapi;version=3.0.2',

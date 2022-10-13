@@ -38,30 +38,6 @@ describe('given adapter is used in parser', function () {
     });
   });
 
-  context('given OpenAPI 3.0.0-rc0 definition in YAML format', function () {
-    specify('should find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('openapi: "3.0.0-rc0"');
-
-      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+yaml;version=3.0.0-rc0');
-    });
-  });
-
-  context('given OpenAPI 3.0.0-rc1 definition in YAML format', function () {
-    specify('should find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('openapi: "3.0.0-rc1"');
-
-      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+yaml;version=3.0.0-rc1');
-    });
-  });
-
-  context('given OpenAPI 3.0.0-rc2 definition in YAML format', function () {
-    specify('should find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('openapi: "3.0.0-rc2"');
-
-      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+yaml;version=3.0.0-rc2');
-    });
-  });
-
   context('given OpenAPI 3.0.3-rc3 definition in YAML format', function () {
     specify('should not find appropriate media type', async function () {
       const mediaType = await parser.findMediaType('openapi: "3.0.3-rc3"');

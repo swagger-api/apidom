@@ -4,7 +4,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const deprecatedTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_DEPRECATED_TYPE,
   source: 'apilint',
-  message: 'deprecated must be a string',
+  message: 'deprecated must be a boolean',
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['boolean'],

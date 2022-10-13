@@ -1,25 +1,19 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "npm",
   "useWorkspaces": true,
-  "version": "0.48.0",
+  "version": "0.50.0",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {
       "hoist": true
     },
     "version": {
-      "allowBranch": [
-        "main"
-      ],
+      "allowBranch": ["main"],
       "conventionalCommits": true,
       "createRelease": "github",
       "message": "chore(release): cut the %s release [skip ci]",
-      "ignoreChanges": [
-        "**/test/**"
-      ]
+      "ignoreChanges": ["**/test/**"]
     },
     "publish": {
       "registry": "https://npm.pkg.github.com"

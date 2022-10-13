@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.50.0](https://github.com/swagger-api/apidom/compare/v0.49.0...v0.50.0) (2022-10-13)
+
+### Features
+
+- **ls:** provide OpenAPI 3.0.x Callback docs rules ([5f03938](https://github.com/swagger-api/apidom/commit/5f03938a70f0be3b5c7cad7d94ad23465cb94b7c)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Callback lint rules ([24b1927](https://github.com/swagger-api/apidom/commit/24b19271f0f6565021959c6f4e3543145d254122)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x Example completion rules ([e9add32](https://github.com/swagger-api/apidom/commit/e9add3217161178c170fc07d4ca711ad6ab6bb91)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Example docs rules ([450ed12](https://github.com/swagger-api/apidom/commit/450ed1254fbfc83c4cd664092aad7aa264a12ac2)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Example lint rules ([a48f9d6](https://github.com/swagger-api/apidom/commit/a48f9d6d481e39ae465684b6cb4c3650d56c8064)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x OAuth Flows completion rules ([2fdf149](https://github.com/swagger-api/apidom/commit/2fdf149c78c7a2131da9c9089168c9c7d3abadfc)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x OAuth Flows docs rules ([abb678d](https://github.com/swagger-api/apidom/commit/abb678ddc61c4509cdff1bb031a50dbf029ad3b8)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x OAuth Flows lint rules ([ba8ac26](https://github.com/swagger-api/apidom/commit/ba8ac2667c31a7fed4437eb2213e96f92f88b6bb)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+
 # [0.49.0](https://github.com/swagger-api/apidom/compare/v0.48.0...v0.49.0) (2022-10-11)
 
 ### Bug Fixes

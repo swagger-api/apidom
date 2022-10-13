@@ -1,16 +1,16 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const deprecatedTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_DEPRECATED_TYPE,
+const attributeTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_0_XML_FIELD_ATTRIBUTE_TYPE,
   source: 'apilint',
-  message: 'deprecated must be a boolean',
+  message: 'attribute must be a boolean',
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['boolean'],
   marker: 'value',
-  target: 'deprecated',
+  target: 'attribute',
   data: {},
 };
 
-export default deprecatedTypeLint;
+export default attributeTypeLint;

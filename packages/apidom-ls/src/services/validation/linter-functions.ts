@@ -494,14 +494,14 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintValidURI',
-    function: (element: Element): boolean => {
+    function: (element: Element, absolute = false): boolean => {
       if (element) {
         if (!isString(element)) {
           return false;
         }
         try {
           // eslint-disable-next-line no-new
-          new URL(element.toValue(), 'http://example.com');
+          new URL(element.toValue(), absolute ? undefined : 'http://example.com');
         } catch (e) {
           return false;
         }

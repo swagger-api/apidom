@@ -87,6 +87,32 @@ describe('apidom-ls-ads-validation-provider', function () {
           code: 0,
           source: 'syntax',
         },
+        {
+          range: {
+            start: {
+              line: 0,
+              character: 0,
+            },
+            end: {
+              line: 1,
+              character: 3,
+            },
+          },
+          message: "should always have a 'info' section",
+          severity: 1,
+          code: 7010101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                action: 'addChild',
+                message: "add 'info' section",
+                snippetJson: '"info": {\n  \n  },\n',
+                snippetYaml: 'info: \n  \n',
+              },
+            ],
+          },
+        },
       ] as Diagnostic[];
       assert.deepEqual(result, expected as Diagnostic[]);
     } finally {

@@ -49,6 +49,32 @@ describe('apidom-ls-validate-custom-rules', function () {
       {
         range: {
           start: {
+            line: 0,
+            character: 0,
+          },
+          end: {
+            line: 0,
+            character: 5,
+          },
+        },
+        message: "should always have a 'info' section",
+        severity: 1,
+        code: 7010101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              action: 'addChild',
+              message: "add 'info' section",
+              snippetJson: '"info": {\n  \n  },\n',
+              snippetYaml: 'info: \n  \n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
             line: 2,
             character: 2,
           },

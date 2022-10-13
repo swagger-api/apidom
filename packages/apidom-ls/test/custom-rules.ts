@@ -124,7 +124,7 @@ describe('apidom-ls-validate-custom-rules', function () {
         data: {},
       },
     ];
-    assert.deepEqual(result, expected as Diagnostic[]); // hang
+    assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();
   });

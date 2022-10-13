@@ -621,40 +621,6 @@ describe('apidom-ls-yaml', function () {
         severity: 1,
         source: 'apilint',
       },
-      // {
-      //   code: 5121300,
-      //   data: {},
-      //   message: 'parameters must be an array',
-      //   range: {
-      //     end: {
-      //       character: 0,
-      //       line: 132,
-      //     },
-      //     start: {
-      //       character: 6,
-      //       line: 128,
-      //     },
-      //   },
-      //   severity: 1,
-      //   source: 'apilint',
-      // },
-      // {
-      //   code: 5121301,
-      //   data: {},
-      //   message: 'parameters must be an array of Parameter Objects',
-      //   range: {
-      //     end: {
-      //       character: 10,
-      //       line: 65,
-      //     },
-      //     start: {
-      //       character: 2,
-      //       line: 65,
-      //     },
-      //   },
-      //   severity: 1,
-      //   source: 'apilint',
-      // },
       {
         code: 5130600,
         data: {},
@@ -724,10 +690,12 @@ describe('apidom-ls-yaml', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
-
+    /**
+     * 10/22 Dev note: not sure why the following is/was needed or progress status
+     */
+    // TODO yaml errors not recovered? no result?
     // const specErrorDoc = TextDocument.create('foo://bar/specError.yaml', 'yaml', 0, specError);
     // const specErrorResult = await languageService.doValidation(doc, validationContext);
-    // TODO yaml errors not recovered? no result?
     /*     assert.deepEqual(specErrorResult, [
       {
         range: { start: { line: 16, character: 5 }, end: { line: 16, character: 6 } },

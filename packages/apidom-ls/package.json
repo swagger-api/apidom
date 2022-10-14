@@ -58,7 +58,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.50.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.50.0",
     "@swagger-api/apidom-reference": "^0.50.0",
-    "@types/ramda": "=0.28.15",
+    "@types/ramda": "=0.28.16",
     "ajv": "^8.6.3",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",

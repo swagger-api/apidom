@@ -2,9 +2,9 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const nameTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_LICENSE_FIELD_NAME_TYPE,
+  code: ApilintCodes.OPENAPI3_1_LICENSE_FIELD_IDENTIFIER_TYPE,
   source: 'apilint',
-  message: "'name' must be a string",
+  message: "'identifier' must be a string",
   severity: 1,
   linterFunction: 'apilintType',
   linterParams: ['string'],

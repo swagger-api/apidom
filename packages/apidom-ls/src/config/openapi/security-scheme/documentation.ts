@@ -20,15 +20,15 @@ const documentation = [
   },
   {
     target: 'name',
-    docs: 'Applies to `apiKey`. **REQUIRED**. The name of the header, query or cookie parameter to be used.',
+    docs: '**REQUIRED**. Applies to `apiKey`. **REQUIRED**. The name of the header, query or cookie parameter to be used.',
   },
   {
     target: 'in',
-    docs: 'Applies to `apiKey`. **REQUIRED**. The location of the API key. Valid values are `"query"`, `"header"` or `"cookie"`.',
+    docs: '**REQUIRED**. Applies to `apiKey`. **REQUIRED**. The location of the API key. Valid values are `"query"`, `"header"` or `"cookie"`.',
   },
   {
     target: 'scheme',
-    docs: 'Applies to `http`. **REQUIRED**. The name of the HTTP Authorization scheme to be used in the [Authorization header as defined in RFC7235](https://tools.ietf.org/html/rfc7235#section-5.1). The values used SHOULD be registered in the [IANA Authentication Scheme registry](https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml).',
+    docs: '**REQUIRED**. Applies to `http`. **REQUIRED**. The name of the HTTP Authorization scheme to be used in the [Authorization header as defined in RFC7235](https://tools.ietf.org/html/rfc7235#section-5.1). The values used SHOULD be registered in the [IANA Authentication Scheme registry](https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml).',
   },
   {
     target: 'bearerFormat',
@@ -51,7 +51,17 @@ const documentation = [
   },
   {
     target: 'openIdConnectUrl',
-    docs: 'Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
+    docs: '**REQUIRED**. Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL.',
+    targetSpecs: [
+      { namespace: 'openapi', version: '3.0.0' },
+      { namespace: 'openapi', version: '3.0.1' },
+      { namespace: 'openapi', version: '3.0.2' },
+      { namespace: 'openapi', version: '3.0.3' },
+    ],
+  },
+  {
+    target: 'openIdConnectUrl',
+    docs: '**REQUIRED**. Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {

@@ -515,7 +515,7 @@ Defaults resolver plugin is an object which knows how to obtain contents of a fi
 
 File resolution comes with two (2) default resolver plugins.
 
-##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/FileResolver.ts)
+##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/FileResolver)
 
 This resolver plugin is responsible for resolving a local file.
 It detects if the provided URI represents a filesystem path and if so,

@@ -622,6 +622,22 @@ describe('apidom-ls-yaml', function () {
         source: 'apilint',
       },
       {
+        code: 7040600,
+        message: 'The identifier field and url field are mutually exclusive.',
+        range: {
+          end: {
+            character: 14,
+            line: 15,
+          },
+          start: {
+            character: 4,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
         code: 5130600,
         data: {},
         message: 'parameters must be an array',

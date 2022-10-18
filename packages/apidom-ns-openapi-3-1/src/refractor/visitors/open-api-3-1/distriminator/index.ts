@@ -14,6 +14,9 @@ const {
 } = OpenApi3_1Specification;
 
 const DiscriminatorVisitor = stampit(BaseDiscriminatorVisitor, {
+  props: {
+    canSupportSpecificationExtensions: true,
+  },
   init() {
     this.element = new DiscriminatorElement();
   },

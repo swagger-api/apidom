@@ -8,7 +8,7 @@ import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 const DiscriminatorVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Discriminator']),
-    canSupportSpecificationExtensions: true,
+    canSupportSpecificationExtensions: false,
   },
   init() {
     this.element = new DiscriminatorElement();

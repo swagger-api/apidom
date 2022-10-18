@@ -6,11 +6,10 @@ const identifierMutuallyExclusiveLint: LinterMeta = {
   source: 'apilint',
   message: 'The identifier field and url field are mutually exclusive.',
   severity: 1,
-  linterFunction: 'allowedFields',
+  linterFunction: 'missingFields',
   linterParams: [['identifier']],
   marker: 'key',
-  target: 'identifier',
-  data: {},
+  markerTarget: 'identifier',
   conditions: [
     {
       function: 'existFields',

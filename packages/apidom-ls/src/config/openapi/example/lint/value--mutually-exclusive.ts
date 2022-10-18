@@ -6,11 +6,10 @@ const valueMutuallyExclusiveLint: LinterMeta = {
   source: 'apilint',
   message: 'The value field and externalValue field are mutually exclusive.',
   severity: 1,
-  linterFunction: 'allowedFields',
+  linterFunction: 'missingFields',
   linterParams: [['value']],
   marker: 'key',
-  target: 'value',
-  data: {},
+  markerTarget: 'value',
   conditions: [
     {
       function: 'existFields',

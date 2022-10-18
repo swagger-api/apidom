@@ -1,0 +1,38 @@
+openapi: 3.1.0
+info:
+  title: deref
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+    url: http://should.not.exist.with.identifier.com
+
+paths:
+  /a:
+    get:
+      operationId: aget
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                confirmation-success:
+                  summary: short confirmation success
+                  value: testString
+                  externalValue: outsideLink
+                confirmation-error:
+                  summary: short confirmation success
+                  value: 
+                    test: object
+                  externalValue: outsideLink                  
+                confirmation-errors:
+                  summary: short confirmation success
+                  value:
+                    - test1
+                    - test2
+                  externalValue: outsideLink
+                confirmation-noerror:
+                  summary: short confirmation success
+                  value: testString

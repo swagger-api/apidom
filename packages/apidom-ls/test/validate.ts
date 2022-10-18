@@ -97,6 +97,12 @@ describe('apidom-ls-validate', function () {
     logLevel,
   };
 
+  const contextNoSchema: LanguageServiceContext = {
+    metadata: metadata(),
+    performanceLogs: logPerformance,
+    logLevel,
+  };
+
   it('test validation for asyncapi and openapi', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -2839,6 +2845,77 @@ describe('apidom-ls-validate', function () {
           },
         },
         severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml - test issue 2141 / example value', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue2141.yaml'))
+      .toString();
+
+    const doc: TextDocument = TextDocument.create('foo://bar/issue2141.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: {
+            line: 22,
+            character: 18,
+          },
+          end: {
+            line: 22,
+            character: 23,
+          },
+        },
+        message: 'The value field and externalValue field are mutually exclusive.',
+        severity: 1,
+        code: 5200300,
+        source: 'apilint',
+      },
+      {
+        range: {
+          start: {
+            line: 26,
+            character: 18,
+          },
+          end: {
+            line: 26,
+            character: 23,
+          },
+        },
+        message: 'The value field and externalValue field are mutually exclusive.',
+        severity: 1,
+        code: 5200300,
+        source: 'apilint',
+      },
+      {
+        range: {
+          start: {
+            line: 31,
+            character: 18,
+          },
+          end: {
+            line: 31,
+            character: 23,
+          },
+        },
+        message: 'The value field and externalValue field are mutually exclusive.',
+        severity: 1,
+        code: 5200300,
         source: 'apilint',
       },
     ];

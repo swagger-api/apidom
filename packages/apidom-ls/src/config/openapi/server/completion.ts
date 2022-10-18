@@ -50,6 +50,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.3' },
     ],
   },
+  {
+    label: 'variables',
+    insertText: 'variables',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
 ];
 
 export default completion;

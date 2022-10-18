@@ -2871,6 +2871,22 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
+        code: 7040600,
+        message: 'The identifier field and url field are mutually exclusive.',
+        range: {
+          end: {
+            character: 14,
+            line: 6,
+          },
+          start: {
+            character: 4,
+            line: 6,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
         range: {
           start: {
             line: 22,

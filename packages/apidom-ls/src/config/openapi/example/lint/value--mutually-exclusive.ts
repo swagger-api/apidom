@@ -7,10 +7,8 @@ const valueMutuallyExclusiveLint: LinterMeta = {
   message: 'The value field and externalValue field are mutually exclusive.',
   severity: 1,
   linterFunction: 'allowedFields',
-  linterParams: [['value']],
+  linterParams: [['summary', 'description', 'externalValue'], 'x-'],
   marker: 'key',
-  target: 'value',
-  data: {},
   conditions: [
     {
       function: 'existFields',

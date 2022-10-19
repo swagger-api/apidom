@@ -1,7 +1,7 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const $refValidLint: LinterMeta = {
+const $refFormatURILint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_$REF_VALID,
   source: 'apilint',
   message: "'$ref' value must be a valid URI-reference",
@@ -12,4 +12,4 @@ const $refValidLint: LinterMeta = {
   data: {},
 };
 
-export default $refValidLint;
+export default $refFormatURILint;

@@ -7,7 +7,7 @@ import {
 const completion: ApidomCompletionItem[] = [
   {
     label: '$ref',
-    insertText: '$ref',
+    insertText: '\\$ref',
     kind: 14,
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
@@ -26,15 +26,14 @@ const completion: ApidomCompletionItem[] = [
   },
   {
     label: '$ref',
-    insertText: '$ref',
+    insertText: '\\$ref',
     kind: 14,
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value:
-        'Allows for an external definition of this path item. The referenced structure MUST be in the format of a [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject). In case a Path Item Object field appears both in the defined object and the referenced object, the behavior is undefined. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
+      value: 'A reference to a Path Item',
     },
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },

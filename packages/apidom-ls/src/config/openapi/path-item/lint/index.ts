@@ -1,5 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import $refTypeLint from './$ref--type';
+import allowedFields3_0Lint from './allowed-fields-3-0';
+import allowedFields3_1Lint from './allowed-fields-3-1';
+import $refFormatURILint from './$ref--format-uri';
+import $refAllowedSiblings3_1Lint from './$ref--allowed-siblings-3-1';
 import summaryTypeLint from './summary--type';
 import descriptionTypeLint from './description--type';
 import getTypeLint from './get--type';
@@ -16,7 +18,8 @@ import parametersTypeLint from './parameters--type';
 import parametersItemsTypeLint from './parameters--items-type';
 
 const lints = [
-  $refTypeLint,
+  $refFormatURILint,
+  $refAllowedSiblings3_1Lint,
   summaryTypeLint,
   descriptionTypeLint,
   getTypeLint,
@@ -31,7 +34,8 @@ const lints = [
   serversItemsTypeLint,
   parametersTypeLint,
   parametersItemsTypeLint,
-  allowedFieldsLint,
+  allowedFields3_0Lint,
+  allowedFields3_1Lint,
 ];
 
 export default lints;

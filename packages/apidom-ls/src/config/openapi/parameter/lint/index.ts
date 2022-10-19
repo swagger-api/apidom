@@ -1,6 +1,7 @@
 import allowedFieldsLint from './allowed-fields';
-import $refValidLint from './$ref--valid';
-import $refNoSiblingsLint from './$ref--no-siblings';
+import $refFormatURILint from './$ref--format-uri';
+import $refNoSiblings3_0Lint from './$ref--no-siblings-3-0';
+import $refAllowedSiblings3_1Lint from './$ref--allowed-siblings-3-1';
 import nameTypeLint from './name--type';
 import nameRequiredLint from './name--required';
 import inTypeLint from './in--type';
@@ -20,8 +21,9 @@ import contentValuesTypeLint from './content--values-type';
 
 const lints = [
   allowedFieldsLint,
-  $refValidLint,
-  $refNoSiblingsLint,
+  $refFormatURILint,
+  $refNoSiblings3_0Lint,
+  $refAllowedSiblings3_1Lint,
   nameTypeLint,
   nameRequiredLint,
   inTypeLint,

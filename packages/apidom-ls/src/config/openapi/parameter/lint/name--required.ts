@@ -19,6 +19,12 @@ const nameRequiredLint: LinterMeta = {
       },
     ],
   },
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
 };
 
 export default nameRequiredLint;

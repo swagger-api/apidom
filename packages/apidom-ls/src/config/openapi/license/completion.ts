@@ -63,19 +63,6 @@ const completion: ApidomCompletionItem[] = [
     },
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
-  {
-    label: 'email',
-    insertText: 'email',
-    kind: 14,
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value:
-        'The email address of the contact person/organization. This MUST be in the form of an email address.',
-    },
-  },
 ];
 
 export default completion;

@@ -485,7 +485,7 @@ describe('apidom-ls', function () {
         source: 'apilint',
       },
       {
-        code: 7040600,
+        code: 7030101,
         message: 'The identifier field and url field are mutually exclusive.',
         range: {
           end: {

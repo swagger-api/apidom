@@ -190,7 +190,12 @@ export class DefaultHoverService implements HoverService {
               );
               const dereferenced = await dereferenceApiDOM(node.parent.parent, {
                 parse: { mediaType, parserOpts: { sourceMap: true } },
-                resolve: { baseURI: textDocument.uri },
+                resolve: {
+                  baseURI: textDocument.uri,
+                  resolverOpts: {
+                    fileAllowList: ['*'],
+                  },
+                },
               });
               if (dereferenced) {
                 debug(

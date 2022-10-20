@@ -9,10 +9,14 @@ export interface File {
 }
 
 export interface Resolver {
-  type: string;
+  // name: string; - causing issues with stamps
 
   canRead(file: File): boolean;
   read(file: File): Promise<Buffer>;
+}
+
+export interface FileResolver extends Resolver {
+  fileAllowList: (string | RegExp)[];
 }
 
 export interface HttpResolver extends Resolver {
@@ -24,6 +28,7 @@ export interface HttpResolver extends Resolver {
 }
 
 export interface Parser {
+  // name: string; - causing issues with stamps
   allowEmpty: boolean;
   sourceMap: boolean;
   fileExtensions: string[];

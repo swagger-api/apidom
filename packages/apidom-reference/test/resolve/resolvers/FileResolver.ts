@@ -11,7 +11,7 @@ describe('resolve', function () {
       let resolver: any;
 
       beforeEach(function () {
-        resolver = FileResolver();
+        resolver = FileResolver({ fileAllowList: ['*'] });
       });
 
       context('canRead', function () {
@@ -41,6 +41,54 @@ describe('resolve', function () {
             assert.isFalse(resolver.canRead(File({ uri: 'https://swagger.io/' })));
             assert.isFalse(resolver.canRead(File({ uri: 'http://swagger.io/' })));
             assert.isFalse(resolver.canRead(File({ uri: 'ftp://swagger.io/' })));
+          });
+        });
+
+        context('given paths covered by fileAllowList - glob pattern', function () {
+          specify('should consider it a file system path', function () {
+            resolver = FileResolver({ fileAllowList: ['*.json', '*.yaml'] });
+
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file1.json' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file2.json' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file1.yaml' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file2.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file.txt' })));
+          });
+        });
+
+        context('given paths covered by fileAllowList - regular expression', function () {
+          specify('should consider it a file system path', function () {
+            resolver = FileResolver({ fileAllowList: [/\.json$/, /\.yaml$/] });
+
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file1.json' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file2.json' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file1.yaml' })));
+            assert.isTrue(resolver.canRead(File({ uri: '/home/user/file2.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file.txt' })));
+          });
+        });
+
+        context('given empty fileAllowList', function () {
+          specify('should not consider anything a file system path', function () {
+            resolver = FileResolver({ fileAllowList: [] });
+
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file1.json' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file2.json' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file1.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file2.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file.txt' })));
+          });
+        });
+
+        context('given no fileAllowList provided', function () {
+          specify('should not consider anything a file system path', function () {
+            resolver = FileResolver();
+
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file1.json' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file2.json' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file1.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file2.yaml' })));
+            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file.txt' })));
           });
         });
       });

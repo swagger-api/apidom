@@ -2,7 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { resolve, resolveApiDOM, parse } from '../../src';
+import { resolve, resolveApiDOM, parse, FileResolver } from '../../src';
 import { UnmatchedResolveStrategyError, ResolverError, ParserError } from '../../src/util/errors';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/apidom-reference-parser-openapi-json-3-1';
 
@@ -134,6 +134,31 @@ describe('resolve', function () {
       } catch (error) {
         assert.instanceOf(error, ResolverError);
       }
+    });
+  });
+
+  context('given file allow list is provided as resolver option', function () {
+    specify('should resolve the file', async function () {
+      const uri = path.join(
+        __dirname,
+        'strategies',
+        'openapi-3-1',
+        'reference-object',
+        'fixtures',
+        'external-indirections',
+        'root.json',
+      );
+      const refSet = await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: {
+          resolvers: [FileResolver()],
+          resolverOpts: {
+            fileAllowList: ['*'],
+          },
+        },
+      });
+
+      assert.strictEqual(refSet.size, 4);
     });
   });
 

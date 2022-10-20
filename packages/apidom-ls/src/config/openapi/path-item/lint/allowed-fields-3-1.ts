@@ -10,7 +10,6 @@ const allowedFields3_1Lint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [
     [
-      '$ref',
       'summary',
       'description',
       'get',

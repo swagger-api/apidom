@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.51.0](https://github.com/swagger-api/apidom/compare/v0.50.0...v0.51.0) (2022-10-20)
+
+### Bug Fixes
+
+- **apidom-ls:** fix OAS example value/externalValue rule ([4b3b527](https://github.com/swagger-api/apidom/commit/4b3b527e03f4cf752ede5785fbdf8d373479a99d))
+- **ls:** duplicate completion rules for OpenAPI 3.1.0 Path Item ([#2151](https://github.com/swagger-api/apidom/issues/2151)) ([d476aef](https://github.com/swagger-api/apidom/commit/d476aeffe0fe1474646dcfd4de1bb1fd39d8f151))
+- **ls:** finalize rules for OpenAPI License object ([#2155](https://github.com/swagger-api/apidom/issues/2155)) ([9d37af4](https://github.com/swagger-api/apidom/commit/9d37af4c4dde41028bedb8eb8ce6e4a14745a3dd))
+- **ls:** finalize rules for OpenAPI Server object ([#2156](https://github.com/swagger-api/apidom/issues/2156)) ([6b4abbf](https://github.com/swagger-api/apidom/commit/6b4abbf1349cc153ad0da31fd7e2bda4b41600e6))
+- **ls:** fix OpenAPI 3.x.y Example Obj mutually exclusive lint rule ([#2146](https://github.com/swagger-api/apidom/issues/2146)) ([fd654e6](https://github.com/swagger-api/apidom/commit/fd654e6ed1b5262938dd99ea581311562f6246e5)), closes [#2141](https://github.com/swagger-api/apidom/issues/2141)
+- **ns-openapi-3-0:** drop support of extensions from Discriminator ([#2147](https://github.com/swagger-api/apidom/issues/2147)) ([4bc2bde](https://github.com/swagger-api/apidom/commit/4bc2bde70d9b41a15819195a4a3d1882f8b385ef))
+
+### Features
+
+- **ls:** introduce handling Referece Object for OpenAPI ([#2157](https://github.com/swagger-api/apidom/issues/2157)) ([8636086](https://github.com/swagger-api/apidom/commit/8636086eb593337cb059425e458765a3f8d3a21a))
+- **ls:** OpenAPI 3.1.0 lint rules for Server object ([#2149](https://github.com/swagger-api/apidom/issues/2149)) ([ae9ec4f](https://github.com/swagger-api/apidom/commit/ae9ec4f89a5e2afacc64575ef7151ad0ee38d404))
+- **ls:** provide OpenAPI 3.0.x Discriminator completion rules ([f6a972f](https://github.com/swagger-api/apidom/commit/f6a972f4dd973bc1acf40a56ed659b445c5c0cef)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Discriminator docs rules ([fb7fd19](https://github.com/swagger-api/apidom/commit/fb7fd19ff7c26fbf71d723dbf234a43c9ff4011e)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x OAuth Flow completion rules ([5130e76](https://github.com/swagger-api/apidom/commit/5130e76aedd4f7c7c38d18ac81a8824dc6a7e610)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x OAuth Flow docs rules ([26a895d](https://github.com/swagger-api/apidom/commit/26a895dec70bdf151df85a8e417ca521568844b4)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x OAuth Flow lint rules ([bcd12a7](https://github.com/swagger-api/apidom/commit/bcd12a7d0dd180be25f0cbb97fc13c80d97c330b)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x Security Scheme completion rules ([649638e](https://github.com/swagger-api/apidom/commit/649638e7f5634ece5c59d68855d2baacd23932b3)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Security Scheme docs rules ([6177e7d](https://github.com/swagger-api/apidom/commit/6177e7dc95f378bdbd2a3e718a94967a8c0e0386)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Security Scheme lint rules ([8582d4c](https://github.com/swagger-api/apidom/commit/8582d4c2f447abbb39df5ac58ce57e6fb54ed9ca)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x XML completion rules ([7bebafe](https://github.com/swagger-api/apidom/commit/7bebafe79bd854285651a938badcb56f7abebb77)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x XML docs rules ([6446de3](https://github.com/swagger-api/apidom/commit/6446de387f3775be5ca69fa8fac38c6d25d33619)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x XML lint rules ([f073907](https://github.com/swagger-api/apidom/commit/f073907624b3e15af25d18882883d7a73788c66d)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.1.0 completion rules for Operation object ([#2152](https://github.com/swagger-api/apidom/issues/2152)) ([4f414ef](https://github.com/swagger-api/apidom/commit/4f414ef78be4b645ac5d57e8bbe757cb8ebdcc76))
+- **ls:** provide OpenAPI 3.1.0 completion rules for Path Item object ([#2150](https://github.com/swagger-api/apidom/issues/2150)) ([e78665e](https://github.com/swagger-api/apidom/commit/e78665ed4419d822ef35718322b3fea14e2bb176))
+- **ls:** provide OpenAPI 3.1.0 License lint rules ([#2136](https://github.com/swagger-api/apidom/issues/2136)) ([20a09d5](https://github.com/swagger-api/apidom/commit/20a09d5f778947df0b7f490290381a8c56c1e15c))
+- **ls:** provider OpenAPI 3.0.x Discriminator lint rules ([40c9009](https://github.com/swagger-api/apidom/commit/40c9009753d39c8c2c482ea3c165c77c1c5cfb64)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **reference:** add support for file allow list for FileResolver ([#2159](https://github.com/swagger-api/apidom/issues/2159)) ([e1b914c](https://github.com/swagger-api/apidom/commit/e1b914cd6ed49302d0848647c9e1e9b1128ca560)), closes [#2154](https://github.com/swagger-api/apidom/issues/2154)
+
+### BREAKING CHANGES
+
+- **reference:** FileResolver will not detect and process any local file
+  unless explicitly allowed by fileAllowList option
+
 # [0.50.0](https://github.com/swagger-api/apidom/compare/v0.49.0...v0.50.0) (2022-10-13)
 
 ### Features

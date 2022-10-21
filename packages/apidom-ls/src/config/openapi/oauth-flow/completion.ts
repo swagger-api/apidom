@@ -25,6 +25,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'authorizationUrl',
+    insertText: 'authorizationUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2` (`"implicit"`, `"authorizationCode"`). **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     label: 'tokenUrl',
     insertText: 'tokenUrl',
     kind: 14,
@@ -44,6 +58,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'tokenUrl',
+    insertText: 'tokenUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`). **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     label: 'refreshUrl',
     insertText: 'refreshUrl ',
     kind: 14,
@@ -60,6 +88,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.2' },
       { namespace: 'openapi', version: '3.0.3' },
     ],
+  },
+  {
+    label: 'refreshUrl',
+    insertText: 'refreshUrl ',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2`. The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     label: 'scopes',

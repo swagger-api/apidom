@@ -49,6 +49,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.3' },
     ],
   },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
 ];
 
 export default completion;

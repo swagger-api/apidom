@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.51.1](https://github.com/swagger-api/apidom/compare/v0.51.0...v0.51.1) (2022-10-21)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-4
+
+# [0.51.0](https://github.com/swagger-api/apidom/compare/v0.50.0...v0.51.0) (2022-10-20)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-4
+
 # [0.50.0](https://github.com/swagger-api/apidom/compare/v0.49.0...v0.50.0) (2022-10-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-4

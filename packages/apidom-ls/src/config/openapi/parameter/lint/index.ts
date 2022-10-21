@@ -1,7 +1,5 @@
-import allowedFieldsLint from './allowed-fields';
-import $refFormatURILint from './$ref--format-uri';
-import $refNoSiblings3_0Lint from './$ref--no-siblings-3-0';
-import $refAllowedSiblings3_1Lint from './$ref--allowed-siblings-3-1';
+import allowedFields3_0Lint from './allowed-fields-3-0';
+import allowedFields3_1Lint from './allowed-fields-3-1';
 import nameTypeLint from './name--type';
 import nameRequiredLint from './name--required';
 import inTypeLint from './in--type';
@@ -20,10 +18,6 @@ import examplesValuesTypeLint from './examples--values-type';
 import contentValuesTypeLint from './content--values-type';
 
 const lints = [
-  allowedFieldsLint,
-  $refFormatURILint,
-  $refNoSiblings3_0Lint,
-  $refAllowedSiblings3_1Lint,
   nameTypeLint,
   nameRequiredLint,
   inTypeLint,
@@ -40,6 +34,8 @@ const lints = [
   schemaTypeLint,
   examplesValuesTypeLint,
   contentValuesTypeLint,
+  allowedFields3_0Lint,
+  allowedFields3_1Lint,
 ];
 
 export default lints;

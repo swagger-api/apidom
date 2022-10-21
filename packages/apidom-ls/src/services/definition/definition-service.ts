@@ -92,7 +92,12 @@ export class DefaultDefinitionService implements DefinitionService {
           );
           const dereferenced = await dereferenceApiDOM(node.parent.parent, {
             parse: { mediaType, parserOpts: { sourceMap: true } },
-            resolve: { baseURI: textDocument.uri },
+            resolve: {
+              baseURI: textDocument.uri,
+              resolverOpts: {
+                fileAllowList: ['*'],
+              },
+            },
           });
           debug(
             'definitionService - go to external ref',

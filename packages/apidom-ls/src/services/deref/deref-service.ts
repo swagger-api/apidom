@@ -70,7 +70,12 @@ export class DefaultDerefService implements DerefService {
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {
-      resolve: { baseURI },
+      resolve: {
+        baseURI,
+        resolverOpts: {
+          fileAllowList: ['*'],
+        },
+      },
     });
     const dereferencedValue = toValue(dereferenced);
 

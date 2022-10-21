@@ -7,7 +7,11 @@ import ResolverError from '../../util/errors/ResolverError';
 import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
 import HttpResolver from './HttpResolver';
 
-const HttpResolverAxios: stampit.Stamp<IHttpResolver> = stampit(HttpResolver).init(
+interface IHttpResolverAxios extends IHttpResolver {
+  getHttpClient(): AxiosInstance;
+}
+
+const HttpResolverAxios: stampit.Stamp<IHttpResolverAxios> = stampit(HttpResolver).init(
   function HttpResolverAxios() {
     /**
      * Private Api.

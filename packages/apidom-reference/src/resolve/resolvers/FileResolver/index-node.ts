@@ -1,19 +1,31 @@
 import { readFile } from 'node:fs';
 import { promisify } from 'node:util';
 import stampit from 'stampit';
+import minimatch from 'minimatch';
 
-import { Resolver as IResolver, File as IFile } from '../../../types';
+import { FileResolver as IFileResolver, File as IFile } from '../../../types';
 import Resolver from '../Resolver';
 import * as url from '../../../util/url';
 import { ResolverError } from '../../../util/errors';
 
-const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
-  init() {
-    this.name = 'file';
+const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
+  props: {
+    name: 'file',
+    fileAllowList: [],
+  },
+  init(this: IFileResolver, { fileAllowList = this.fileAllowList }) {
+    this.fileAllowList = fileAllowList;
   },
   methods: {
-    canRead(file: IFile): boolean {
-      return url.isFileSystemPath(file.uri);
+    canRead(this: IFileResolver, file: IFile): boolean {
+      return (
+        url.isFileSystemPath(file.uri) &&
+        this.fileAllowList.some((pattern) => {
+          return typeof pattern === 'string'
+            ? minimatch(file.uri, pattern, { matchBase: true })
+            : pattern.test(file.uri);
+        })
+      );
     },
     async read(file: IFile): Promise<Buffer> {
       const fileSystemPath = url.toFileSystemPath(file.uri);

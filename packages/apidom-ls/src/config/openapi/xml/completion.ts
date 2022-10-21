@@ -50,6 +50,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'prefix',
+    insertText: 'prefix ',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#xmlName).',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     label: 'attribute',
     insertText: 'attribute ',
     kind: 14,

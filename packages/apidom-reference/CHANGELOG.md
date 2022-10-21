@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.51.1](https://github.com/swagger-api/apidom/compare/v0.51.0...v0.51.1) (2022-10-21)
+
+### Bug Fixes
+
+- **reference:** bound options during resolution and parsing ([#2166](https://github.com/swagger-api/apidom/issues/2166)) ([89b946d](https://github.com/swagger-api/apidom/commit/89b946d8c7b28473a6acad67028251eb7d2b030f))
+
+# [0.51.0](https://github.com/swagger-api/apidom/compare/v0.50.0...v0.51.0) (2022-10-20)
+
+### Features
+
+- **reference:** add support for file allow list for FileResolver ([#2159](https://github.com/swagger-api/apidom/issues/2159)) ([e1b914c](https://github.com/swagger-api/apidom/commit/e1b914cd6ed49302d0848647c9e1e9b1128ca560)), closes [#2154](https://github.com/swagger-api/apidom/issues/2154)
+
+### BREAKING CHANGES
+
+- **reference:** FileResolver will not detect and process any local file
+  unless explicitly allowed by fileAllowList option
+
 # [0.50.0](https://github.com/swagger-api/apidom/compare/v0.49.0...v0.50.0) (2022-10-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

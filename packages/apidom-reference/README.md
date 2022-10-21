@@ -521,6 +521,46 @@ This resolver plugin is responsible for resolving a local file.
 It detects if the provided URI represents a filesystem path and if so,
 reads the file and provides its content.
 
+**WARNING**: use this plugin with caution, as it can read files from a local file system.
+By default, this plugin will reject to read any files from the local file system, unless
+explicitly provided by **fileAllowList** option.
+
+###### Providing file allow list
+
+File allow list can be provided **globally** as an option to `FileResolver` in form
+of array of *glob patterns* or *regular expressions*.
+
+```js
+import { options, FileResolver, HttpResolverAxios } from '@swagger-api/apidom-reference';
+
+options.resolve.resolvers = [
+  FileResolver({
+    fileAllowList: [
+      '*.json',
+      /\.json$/,
+    ]
+  }),
+  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+]
+```
+
+File allow list can also be provided on ad-hoc basis:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+await resolve('/home/user/oas.json', {
+  resolve: {
+    resolverOpts: {
+      fileAllowList: [
+        '*.json',
+        /\.json$/,
+      ]
+    },
+  },
+});
+```
+
 ##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
 
 This resolver plugin is responsible for resolving a remove file represented by HTTP(s) URL.

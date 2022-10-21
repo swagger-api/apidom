@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.51.1](https://github.com/swagger-api/apidom/compare/v0.51.0...v0.51.1) (2022-10-21)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1
+
+# [0.51.0](https://github.com/swagger-api/apidom/compare/v0.50.0...v0.51.0) (2022-10-20)
+
+### Bug Fixes
+
+- **ns-openapi-3-0:** drop support of extensions from Discriminator ([#2147](https://github.com/swagger-api/apidom/issues/2147)) ([4bc2bde](https://github.com/swagger-api/apidom/commit/4bc2bde70d9b41a15819195a4a3d1882f8b385ef))
+
 # [0.50.0](https://github.com/swagger-api/apidom/compare/v0.49.0...v0.50.0) (2022-10-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

@@ -170,6 +170,24 @@ const completion: ApidomCompletionItem[] = [
     },
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
+  {
+    target: 'style',
+    label: 'form',
+    insertText: 'form',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
+  {
+    target: 'style',
+    label: 'simple',
+    insertText: 'simple',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
 ];
 
 export default completion;

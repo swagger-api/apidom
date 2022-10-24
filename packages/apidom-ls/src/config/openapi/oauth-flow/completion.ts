@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of a URL.',
+        'Applies to `oauth2` (`"implicit"`, `"authorizationCode"`). **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of a URL.',
     },
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
@@ -48,7 +48,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. The token URL to be used for this flow. This MUST be in the form of a URL.',
+        'Applies to `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`). **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of a URL.',
     },
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
@@ -80,7 +80,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL.',
+      value:
+        'Applies to `oauth2`. The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL.',
     },
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },

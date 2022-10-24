@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const nameTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_SECURITY_SCHEME_FIELD_NAME_TYPE,
+  code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_NAME_TYPE,
   source: 'apilint',
   message: 'name must be a string',
   severity: 1,

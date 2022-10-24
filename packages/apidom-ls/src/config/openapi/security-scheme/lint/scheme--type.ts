@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const schemeTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_SECURITY_SCHEME_FIELD_SCHEME_TYPE,
+  code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_SCHEME_TYPE,
   source: 'apilint',
   message: 'scheme must be a string',
   severity: 1,

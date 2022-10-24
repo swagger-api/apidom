@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const bearerFormatTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_SECURITY_SCHEME_FIELD_BEARER_FORMAT_TYPE,
+  code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_BEARER_FORMAT_TYPE,
   source: 'apilint',
   message: 'bearerFormat must be a string',
   severity: 1,

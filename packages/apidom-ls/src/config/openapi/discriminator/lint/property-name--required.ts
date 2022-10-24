@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const propertyNameRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_DISCRIMINATOR_FIELD_PROPERTY_NAME_REQUIRED,
+  code: ApilintCodes.OPENAPI3_0_DISCRIMINATOR_FIELD_PROPERTY_NAME_REQUIRED,
   source: 'apilint',
   message: "should always have a 'propertyName'",
   severity: 1,

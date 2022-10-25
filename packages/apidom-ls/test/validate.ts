@@ -2887,6 +2887,32 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
+        code: 5290101,
+        data: {
+          quickFix: [
+            {
+              action: 'addChild',
+              message: "add 'description' field",
+              snippetJson: '"description": "",\n    ',
+              snippetYaml: 'description: \n  ',
+            },
+          ],
+        },
+        message: "should always have a 'description'",
+        range: {
+          end: {
+            character: 13,
+            line: 14,
+          },
+          start: {
+            character: 8,
+            line: 14,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
         range: {
           start: {
             line: 22,

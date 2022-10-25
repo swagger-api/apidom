@@ -25,6 +25,12 @@ import {
   debug,
 } from '../../utils/utils';
 
+const CONTROL_CODES = '\\u0000-\\u0020\\u007f-\\u009f';
+const WEB_LINK_REGEX = new RegExp(
+  `(?:[a-zA-Z][a-zA-Z0-9+.-]{2,}:\\/\\/|data:|www\\.)[^\\s${CONTROL_CODES}"]{2,}[^\\s${CONTROL_CODES}"')}\\],:;.!?]`,
+  'ug',
+);
+
 export interface HoverService {
   computeHover(textDocument: TextDocument, position: Position): Promise<Hover | undefined>;
 
@@ -271,6 +277,14 @@ export class DefaultHoverService implements HoverService {
             }
           } catch (e) {
             console.log('error in hover provider');
+          }
+        } else if (this.settings?.hoverFollowLinkEntry) {
+          // check if we have a "URL like" value, and add a link in case
+          const nodeValue = node.toValue();
+          // if (/^https?:\/\/[^\s]+.*/.test(nodeValue)) {
+          if (WEB_LINK_REGEX.test(nodeValue)) {
+            contents.push(`[follow link](${nodeValue})`);
+            // TODO no ctrl-click on link
           }
         }
       }

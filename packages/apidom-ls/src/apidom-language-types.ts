@@ -215,6 +215,7 @@ export interface LanguageSettings {
   logLevel?: LogLevel;
   defaultContentLanguage?: ContentLanguage;
   workspaceFolders?: WorkspaceFolder[];
+  hoverFollowLinkEntry?: boolean;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';

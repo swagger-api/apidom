@@ -1,4 +1,4 @@
-import allowedFieldsLint from './allowed-fields';
+import allowedFields3_0Lint from './allowed-fields-3-0';
 import descriptionTypeLint from './description--type';
 import descriptionRequiredLint from './description--required';
 import headersValuesTypeLint from './headers--values-type';
@@ -11,7 +11,7 @@ const lints = [
   headersValuesTypeLint,
   contentValuesTypeLint,
   linksValuesTypeLint,
-  allowedFieldsLint,
+  allowedFields3_0Lint,
 ];
 
 export default lints;

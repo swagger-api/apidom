@@ -1,6 +1,4 @@
-import allowedFieldsLint from './allowed-fields';
-import $refValidLint from './$ref--valid';
-import $refNoSiblingsLint from './$ref--no-siblings';
+import allowedFields3_0Lint from './allowed-fields-3-0';
 import summaryTypeLint from './summary--type';
 import descriptionTypeLint from './description--type';
 import valueMutuallyExclusiveLint from './value--mutually-exclusive';
@@ -11,9 +9,7 @@ const lints = [
   descriptionTypeLint,
   valueMutuallyExclusiveLint,
   externalValueFormatURILint,
-  $refValidLint,
-  $refNoSiblingsLint,
-  allowedFieldsLint,
+  allowedFields3_0Lint,
 ];
 
 export default lints;

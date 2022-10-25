@@ -1,4 +1,4 @@
-import allowedFieldsLint from './allowed-fields';
+import allowedFields3_0Lint from './allowed-fields-3-0';
 import typeEquals3_0Lint from './type--equals-3-0';
 import descriptionTypeLint from './description--type';
 import nameTypeLint from './name--type';
@@ -27,7 +27,7 @@ const lints = [
   flowsRequiredLint,
   openIdConnectUrlFormatURILint,
   openIdConnectUrlRequiredLint,
-  allowedFieldsLint,
+  allowedFields3_0Lint,
 ];
 
 export default lints;

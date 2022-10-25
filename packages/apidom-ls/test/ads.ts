@@ -113,6 +113,126 @@ describe('apidom-ls-ads-validation-provider', function () {
             ],
           },
         },
+        {
+          range: {
+            start: { line: 6, character: 10 },
+            end: { line: 6, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
+        {
+          range: {
+            start: { line: 7, character: 10 },
+            end: { line: 7, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
+        {
+          range: {
+            start: { line: 8, character: 10 },
+            end: { line: 8, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
+        {
+          range: {
+            start: { line: 13, character: 10 },
+            end: { line: 13, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
+        {
+          range: {
+            start: { line: 14, character: 10 },
+            end: { line: 14, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
+        {
+          range: {
+            start: { line: 15, character: 10 },
+            end: { line: 15, character: 15 },
+          },
+          message: "should always have a 'description'",
+          severity: 1,
+          code: 5290101,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: "add 'description' field",
+                action: 'addChild',
+                snippetYaml: 'description: \n  ',
+                snippetJson: '"description": "",\n    ',
+              },
+            ],
+          },
+        },
       ] as Diagnostic[];
       assert.deepEqual(result, expected as Diagnostic[]);
     } finally {

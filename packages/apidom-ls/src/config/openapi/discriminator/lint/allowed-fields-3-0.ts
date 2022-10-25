@@ -10,6 +10,12 @@ const allowedFields3_0Lint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [['propertyName', 'mapping']],
   marker: 'key',
+  targetSpecs: [
+    { namespace: 'openapi', version: '3.0.0' },
+    { namespace: 'openapi', version: '3.0.1' },
+    { namespace: 'openapi', version: '3.0.2' },
+    { namespace: 'openapi', version: '3.0.3' },
+  ],
 };
 
 export default allowedFields3_0Lint;

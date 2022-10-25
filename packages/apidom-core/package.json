@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-core",
-  "version": "0.51.1",
+  "version": "0.52.0",
   "description": "Tools for manipulating ApiDOM structures.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -37,7 +37,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.19.6",
-    "@swagger-api/apidom-ast": "^0.51.1",
+    "@swagger-api/apidom-ast": "^0.52.0",
     "@types/ramda": "=0.28.18",
     "minim": "=0.23.8",
     "ramda": "=0.28.0",

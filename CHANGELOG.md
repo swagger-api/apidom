@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.52.0](https://github.com/swagger-api/apidom/compare/v0.51.1...v0.52.0) (2022-10-25)
+
+### Bug Fixes
+
+- **ls:** finalize completion rules for OpenAPI Parameter ([#2176](https://github.com/swagger-api/apidom/issues/2176)) ([18d1d6a](https://github.com/swagger-api/apidom/commit/18d1d6a268ddb738743419ddd778b3d0b7fafd71)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** fix error code enum consistency for OpenAPI 3.0.x ([0b0fbf3](https://github.com/swagger-api/apidom/commit/0b0fbf3669fc204fbddebd0cb161af9c6291620d)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** fix OpenAPI Media Type value lint rule error code ([#2177](https://github.com/swagger-api/apidom/issues/2177)) ([9a85ca3](https://github.com/swagger-api/apidom/commit/9a85ca33ea5cc859797bd93cfd3f20afe03553d4)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** fix rule errors manifesting on OpenAPI 3.0.x Petstore ([#2189](https://github.com/swagger-api/apidom/issues/2189)) ([8c76cb9](https://github.com/swagger-api/apidom/commit/8c76cb933c5eba5c450f11df219a0164baa999a4)), closes [#2187](https://github.com/swagger-api/apidom/issues/2187)
+- **ls:** make OpenAPI OAuth Flow completion rules consistent ([#2179](https://github.com/swagger-api/apidom/issues/2179)) ([7f45be7](https://github.com/swagger-api/apidom/commit/7f45be7d4edba9b5ccdb31f538f90ecf609af7eb)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+
+### Features
+
+- **ls:** add completion rules for Encoding.style fiel ([#2178](https://github.com/swagger-api/apidom/issues/2178)) ([cfa11df](https://github.com/swagger-api/apidom/commit/cfa11dfcf95ac0303ba73af171761f6efeed83d2)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** finalize support for OpenAPI 3.0.x Spec Ext lint rules ([434bd92](https://github.com/swagger-api/apidom/commit/434bd9206e03bf9223d7fd12f589c18d33385d90)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** OpenAPI 3.x.x mutually exclusive lint rule for Media Type ([#2168](https://github.com/swagger-api/apidom/issues/2168)) ([de53a13](https://github.com/swagger-api/apidom/commit/de53a136b064792b2f6771a770cdf96ec895f1b5))
+- **ls:** provide OpenAPI 3.0.x Header completion rules ([cee0d9c](https://github.com/swagger-api/apidom/commit/cee0d9cd3148b468c6d0b7b378f20c2c041ff6ea)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Header docs rules ([c7b8ced](https://github.com/swagger-api/apidom/commit/c7b8ced06fd28df20926834f812ac3980bb1fc92)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Header lint rules ([af07fd3](https://github.com/swagger-api/apidom/commit/af07fd3b6bb4a0ab75edd7406e569e7a2bb6501c)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x Link completion rules ([8ad4efd](https://github.com/swagger-api/apidom/commit/8ad4efddc995cb278bff412fef5a82ed948fd86c)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Link docs rules ([5912364](https://github.com/swagger-api/apidom/commit/59123642fe531fb02977edec1a99860f0382294e)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Link lint rules ([98b0c8b](https://github.com/swagger-api/apidom/commit/98b0c8b9691046e027d812fedf205da72e2c4373)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x Reference lint rules ([#2185](https://github.com/swagger-api/apidom/issues/2185)) ([c7005b8](https://github.com/swagger-api/apidom/commit/c7005b8d1b805611bfc2298d70ca067c1e91ef0f)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.0.x Response completion rules ([409fbd1](https://github.com/swagger-api/apidom/commit/409fbd1be114649a7c158251eae4fcef834078bd)), closes [#2032](https://github.com/swagger-api/apidom/issues/2032)
+- **ls:** provide OpenAPI 3.0.x Response docs rules ([44f5e6c](https://github.com/swagger-api/apidom/commit/44f5e6cc906d6d1dd47023a79f1c347a7b942c7a)), closes [#2031](https://github.com/swagger-api/apidom/issues/2031)
+- **ls:** provide OpenAPI 3.0.x Response lint rules ([fb69f9d](https://github.com/swagger-api/apidom/commit/fb69f9dd2d35a737bb1100af30d6e52bf05b57ba)), closes [#2033](https://github.com/swagger-api/apidom/issues/2033)
+- **ls:** provide OpenAPI 3.1.0 completion rules for Encoding object ([#2169](https://github.com/swagger-api/apidom/issues/2169)) ([a4618af](https://github.com/swagger-api/apidom/commit/a4618af698b668c925d00d9fc223095f05518f34))
+- **ls:** provide OpenAPI 3.1.0 completion rules for OAuth Flow ([#2173](https://github.com/swagger-api/apidom/issues/2173)) ([7e74e6a](https://github.com/swagger-api/apidom/commit/7e74e6a2c3a309ae104461bbe80fbef30865a9fe))
+- **ls:** provide OpenAPI 3.1.0 completion rules for OAuth Flows ([#2172](https://github.com/swagger-api/apidom/issues/2172)) ([081e8aa](https://github.com/swagger-api/apidom/commit/081e8aa1a8052e14581dd647ecd30d7f5be8e296))
+- **ls:** provide OpenAPI 3.1.0 completion rules for Parameter object ([#2167](https://github.com/swagger-api/apidom/issues/2167)) ([4b437ff](https://github.com/swagger-api/apidom/commit/4b437ff1496e9320c94fdfc7e1409b504e24634c))
+- **ls:** provide OpenAPI 3.1.0 completion rules for Tag object ([#2170](https://github.com/swagger-api/apidom/issues/2170)) ([a4fb397](https://github.com/swagger-api/apidom/commit/a4fb397927d093dedc4b3199626f755816a241a9))
+- **ls:** provide OpenAPI 3.1.0 completion rules for XML object ([#2171](https://github.com/swagger-api/apidom/issues/2171)) ([8dda533](https://github.com/swagger-api/apidom/commit/8dda5331796f149a134c40fee119ae138643b5c2))
+
 ## [0.51.1](https://github.com/swagger-api/apidom/compare/v0.51.0...v0.51.1) (2022-10-21)
 
 ### Bug Fixes

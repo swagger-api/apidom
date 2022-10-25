@@ -99,7 +99,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject)\\n\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
+        '[OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject)\n\\\nnApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
     },
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },

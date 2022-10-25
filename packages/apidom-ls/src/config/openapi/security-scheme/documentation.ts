@@ -36,7 +36,7 @@ const documentation = [
   },
   {
     target: 'flows',
-    docs: '#### [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject)\\n\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
+    docs: '[OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject)\n\\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
       { namespace: 'openapi', version: '3.0.1' },
@@ -46,7 +46,7 @@ const documentation = [
   },
   {
     target: 'flows',
-    docs: '#### [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowsObject)\\n\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
+    docs: '[OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowsObject)\n\\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {

@@ -10,7 +10,7 @@
 const documentation = [
   {
     target: 'description',
-    docs: 'A brief description of the parameter. This could contain examples of use. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
+    docs: 'A brief description of the header. This could contain examples of use. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
   },
   {
     target: 'required',
@@ -18,12 +18,11 @@ const documentation = [
   },
   {
     target: 'deprecated',
-    docs: 'Specifies that a parameter is deprecated and SHOULD be transitioned out of usage. Default value is `false`.',
+    docs: 'Specifies that a header is deprecated and SHOULD be transitioned out of usage. Default value is `false`.',
   },
   {
     target: 'allowEmptyValue',
     docs: "Doesn't apply for headers. Default value is `false`. Use of this property is NOT RECOMMENDED, as it is likely to be removed in a later revision.",
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'style',
@@ -39,7 +38,7 @@ const documentation = [
   },
   {
     target: 'schema',
-    docs: '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject) | [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe schema defining the type used for the parameter.',
+    docs: '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject) | [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe schema defining the type used for the header.',
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
       { namespace: 'openapi', version: '3.0.1' },
@@ -53,7 +52,7 @@ const documentation = [
   },
   {
     target: 'examples',
-    docs: "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nExamples of the parameter's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema",
+    docs: "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nExamples of the header's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema.",
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
       { namespace: 'openapi', version: '3.0.1' },
@@ -63,12 +62,12 @@ const documentation = [
   },
   {
     target: 'examples',
-    docs: "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nExamples of the parameter's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema",
+    docs: "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nExamples of the header's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema.",
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     target: 'content',
-    docs: 'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.',
+    docs: 'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the header. The key is the media type and the value describes it. The map MUST only contain one entry.',
     targetSpecs: [
       { namespace: 'openapi', version: '3.0.0' },
       { namespace: 'openapi', version: '3.0.1' },
@@ -78,7 +77,7 @@ const documentation = [
   },
   {
     target: 'content',
-    docs: 'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the parameter. The key is the media type and the value describes it. The map MUST only contain one entry.',
+    docs: 'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the header. The key is the media type and the value describes it. The map MUST only contain one entry.',
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {

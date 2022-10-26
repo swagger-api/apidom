@@ -9,20 +9,16 @@ const allowedFields3_1Lint: LinterMeta = {
   severity: 1,
   linterFunction: 'allowedFields',
   linterParams: [
-    [
-      'type',
-      'description',
-      'name',
-      'in',
-      'scheme',
-      'bearerFormat',
-      'flows',
-      'openIdConnectUrl',
-      '$ref',
-    ],
+    ['type', 'description', 'name', 'in', 'scheme', 'bearerFormat', 'flows', 'openIdConnectUrl'],
     'x-',
   ],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
 };
 

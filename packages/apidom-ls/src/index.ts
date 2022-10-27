@@ -37,8 +37,11 @@ export type {
   SymbolsContext,
   ValidationContext,
   CompletionContext,
+  LinksContext,
+  DerefContext,
   ValidationProvider,
   CompletionProvider,
+  LinksProvider,
   WorkspaceContextService,
   ColorsContext,
   LanguageServiceContext,
@@ -51,6 +54,8 @@ export type {
   ApidomCompletionItem,
   CompletionProviderResult,
   ValidationProviderResult,
+  HoverProviderResult,
+  LinksProviderResult,
   ContentLanguage,
 } from './apidom-language-types';
 

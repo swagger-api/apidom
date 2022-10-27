@@ -28,13 +28,14 @@ import { DefaultDefinitionService } from './services/definition/definition-servi
 import { getDocumentCache } from './document-cache';
 import { parse } from './parser-factory';
 import { config } from './config/config';
-import { togglePerformanceLogs, toggleLogs, getSourceMap } from './utils/utils';
+import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils';
+import { DefaultLinksService } from './services/links/links-service';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
   togglePerformanceLogs(!!context.performanceLogs);
   if (context.logLevel) toggleLogs(context.logLevel);
-
+  debug('getLanguageService', context);
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService();
   const validationService = new DefaultValidationService();
@@ -42,6 +43,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   const hoverService = new DefaultHoverService();
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
+  const linksService = new DefaultLinksService();
 
   function configureServices(languageSettings?: LanguageSettings) {
     symbolsService.configure(languageSettings);
@@ -51,6 +53,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     hoverService.configure(languageSettings);
     derefService.configure(languageSettings);
     definitionService.configure(languageSettings);
+    linksService.configure(languageSettings);
   }
 
   let metadata = config();
@@ -67,11 +70,20 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     validatorProviders: context?.validatorProviders,
     completionProviders: context?.completionProviders,
     hoverProviders: context?.hoverProviders,
+    linksProviders: context?.linksProviders,
     documentCache,
+    hoverFollowLinkEntry: context?.hoverFollowLinkEntry,
     performanceLogs: context.performanceLogs,
     logLevel: context.logLevel,
     defaultContentLanguage: context.defaultContentLanguage,
     workspaceFolders: context.workspaceFolders,
+    allowComments: context.allowComments,
+    validationContext: context.validationContext,
+    completionContext: context.completionContext,
+    derefContext: context.derefContext,
+    symbolsContext: context.symbolsContext,
+    colorsContext: context.colorsContext,
+    linksContext: context.linksContext,
   };
   configureServices(languageSettings);
 
@@ -120,6 +132,9 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     },
     registerCompletionProvider: completionService.registerProvider.bind(completionService),
     registerValidationProvider: validationService.registerProvider.bind(validationService),
+    doLinks: linksService.doLinks.bind(linksService),
+    registerLinksProvider: linksService.registerProvider.bind(linksService),
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null> {
       const result = await documentCache?.get(

@@ -250,7 +250,7 @@ export class DefaultCompletionService implements CompletionService {
     completionContext?: CompletionContext,
   ): Promise<CompletionList> {
     perfStart(PerfLabels.START);
-
+    const context = !completionContext ? this.settings?.completionContext : completionContext;
     const completionList: CompletionList = {
       items: [],
       isIncomplete: false,
@@ -748,7 +748,7 @@ export class DefaultCompletionService implements CompletionService {
             nodeValueFromText,
             completionParamsOrPosition,
             contentLanguage.format !== 'JSON',
-            completionContext,
+            context,
           );
         } else {
           apidomCompletions = this.getMetadataPropertyCompletions(
@@ -800,7 +800,7 @@ export class DefaultCompletionService implements CompletionService {
 
     if (this.jsonSchemaCompletionService) {
       this.jsonSchemaCompletionService
-        .doCompletion(textDocument, completionParamsOrPosition, completionContext)
+        .doCompletion(textDocument, completionParamsOrPosition, context)
         .then((schemaList) => {
           completionList.items.push(...schemaList.items);
         });
@@ -823,7 +823,7 @@ export class DefaultCompletionService implements CompletionService {
             api,
             completionParamsOrPosition,
             completionList.items,
-            completionContext,
+            context,
           );
           switch (completionProviderResult.mergeStrategy) {
             case MergeStrategy.APPEND:

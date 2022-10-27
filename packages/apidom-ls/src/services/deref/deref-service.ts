@@ -26,6 +26,7 @@ export class DefaultDerefService implements DerefService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     derefContext?: DerefContext,
   ): Promise<string> {
+    const context = !derefContext ? this.settings?.derefContext : derefContext;
     const text: string = textDocument.getText();
 
     const textFormat = (await isJsonDoc(text)) ? Format.JSON : Format.YAML;
@@ -65,8 +66,8 @@ export class DefaultDerefService implements DerefService {
         baseURI = firstServer.url;
       }
     }
-    baseURI = isString(derefContext?.baseURI) ? derefContext?.baseURI : baseURI;
-    const format = isString(derefContext?.format) ? derefContext?.format : textFormat;
+    baseURI = isString(context?.baseURI) ? context?.baseURI : baseURI;
+    const format = isString(context?.format) ? context?.format : textFormat;
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {

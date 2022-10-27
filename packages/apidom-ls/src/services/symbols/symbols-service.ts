@@ -9,7 +9,7 @@ import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
 export interface SymbolsService {
   doFindDocumentSymbols(
     document: TextDocument,
-    context?: SymbolsContext,
+    symbolsContext?: SymbolsContext,
   ): Promise<SymbolInformation[]>;
 
   configure(settings?: LanguageSettings): void;
@@ -33,10 +33,11 @@ export class DefaultSymbolsService implements SymbolsService {
   public async doFindDocumentSymbols(
     textDocument: TextDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    context?: SymbolsContext,
+    symbolsContext?: SymbolsContext,
   ): Promise<SymbolInformation[]> {
     // TODO use added metadata instead of classes and stuff
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const context = !symbolsContext ? this.settings?.symbolsContext : symbolsContext;
     const result = await this.settings!.documentCache?.get(textDocument);
     if (!result) return [];
     const { api } = result;

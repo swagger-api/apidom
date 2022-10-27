@@ -6,6 +6,18 @@ import {
 
 const completion: ApidomCompletionItem[] = [
   {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A reference to a Security Scheme.',
+    },
+  },
+  {
     label: 'type',
     insertText: 'type',
     kind: 14,
@@ -23,6 +35,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.2' },
       { namespace: 'openapi', version: '3.0.3' },
     ],
+  },
+  {
+    label: 'type',
+    insertText: 'type',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**REQUIRED**. The type of the security scheme. Valid values are `"apiKey"`, `"http"`, `"mutualTLS"`, `"oauth2"`, `"openIdConnect"`.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     label: 'description',
@@ -107,6 +133,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.2' },
       { namespace: 'openapi', version: '3.0.3' },
     ],
+  },
+  {
+    label: 'flows',
+    insertText: 'flows',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowsObject)\n\\\nApplies to `oauth2`. **REQUIRED**. An object containing configuration information for the flow types supported.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {
     label: 'openIdConnectUrl',

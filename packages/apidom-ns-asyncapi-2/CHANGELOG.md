@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.53.0](https://github.com/swagger-api/apidom/compare/v0.52.0...v0.53.0) (2022-10-27)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-2
+
 # [0.52.0](https://github.com/swagger-api/apidom/compare/v0.51.1...v0.52.0) (2022-10-25)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-2

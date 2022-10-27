@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/adapter.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 2300000,
+    maxAssetSize: 2300000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -49,6 +49,10 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/adapter.ts'],
   target: 'web',
+  performance: {
+    maxEntrypointSize: 350000,
+    maxAssetSize: 350000,
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-asyncapi-json-2.browser.min.js',

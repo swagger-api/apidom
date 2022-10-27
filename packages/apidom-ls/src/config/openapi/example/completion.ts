@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A reference to an Example',
+      value: 'A reference to an Example.',
     },
   },
   {

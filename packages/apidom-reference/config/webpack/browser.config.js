@@ -8,8 +8,8 @@ const browser = {
   entry: ['./src/index.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 3500000,
+    maxAssetSize: 3500000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -51,6 +51,10 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/index.ts'],
   target: 'web',
+  performance: {
+    maxEntrypointSize: 600000,
+    maxAssetSize: 600000,
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-reference.browser.min.js',
@@ -118,4 +122,4 @@ const fileResolverReplacer = new webpack.NormalModuleReplacementPlugin(
 browser.plugins.push(binaryParserReplacer, fileResolverReplacer);
 browserMin.plugins.push(binaryParserReplacer, fileResolverReplacer);
 
-export default [browser];
+export default [browser, browserMin];

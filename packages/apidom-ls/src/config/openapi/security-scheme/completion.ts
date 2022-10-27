@@ -6,6 +6,18 @@ import {
 
 const completion: ApidomCompletionItem[] = [
   {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A reference to a Security Scheme.',
+    },
+  },
+  {
     label: 'type',
     insertText: 'type',
     kind: 14,

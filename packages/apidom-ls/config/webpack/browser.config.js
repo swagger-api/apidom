@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/index.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 7000000,
+    maxAssetSize: 7000000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -50,6 +50,10 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/index.ts'],
   target: 'web',
+  performance: {
+    maxEntrypointSize: 2300000,
+    maxAssetSize: 2300000,
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-ls.browser.min.js',

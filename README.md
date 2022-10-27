@@ -42,7 +42,7 @@ and allows tool builders to consume one structure for all formats.
   - [As a queryable structure](#as-a-queryable-structure)
   - [ApiDOM stages](#apidom-stages)
 - [License](#license)
-  - [License analysis of dependencies](#license-analysis-of-dependencies)
+- [Software Bill Of Materials (SBOM)](#software-bill-of-materials-sbom)
 
 ## Getting started
 

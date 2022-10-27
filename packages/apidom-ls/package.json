@@ -39,7 +39,7 @@
     "postpack": "rimraf NOTICE LICENSES"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.19.6",
+    "@babel/runtime-corejs3": "=7.20.0",
     "@swagger-api/apidom-core": "^0.53.0",
     "@swagger-api/apidom-json-pointer": "^0.53.0",
     "@swagger-api/apidom-ns-api-design-systems": "^0.53.0",

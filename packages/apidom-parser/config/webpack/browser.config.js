@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/parser.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 1200000,
+    maxAssetSize: 1200000,
   },
   output: {
     path: path.resolve('./dist'),

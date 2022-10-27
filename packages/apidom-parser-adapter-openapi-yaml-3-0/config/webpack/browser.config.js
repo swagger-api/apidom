@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/adapter.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 1800000,
+    maxAssetSize: 1800000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -49,6 +49,10 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/adapter.ts'],
   target: 'web',
+  performance: {
+    maxEntrypointSize: 280000,
+    maxAssetSize: 280000,
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-openapi-yaml-3-0.browser.min.js',

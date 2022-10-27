@@ -123,6 +123,7 @@ export class DefaultValidationService implements ValidationService {
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
     perfStart(PerfLabels.START);
+    const context = !validationContext ? this.settings?.validationContext : validationContext;
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
@@ -140,9 +141,9 @@ export class DefaultValidationService implements ValidationService {
     if (result.annotations) {
       for (const annotation of result.annotations) {
         if (
-          validationContext &&
-          validationContext.maxNumberOfProblems &&
-          diagnostics.length > validationContext.maxNumberOfProblems
+          context &&
+          context.maxNumberOfProblems &&
+          diagnostics.length > context.maxNumberOfProblems
         ) {
           return diagnostics;
         }
@@ -174,7 +175,7 @@ export class DefaultValidationService implements ValidationService {
         }
 
         const diagnostic = Diagnostic.create(range, message, DiagnosticSeverity.Error, 0, 'syntax');
-        if (validationContext && validationContext.relatedInformation) {
+        if (context && context.relatedInformation) {
           diagnostic.relatedInformation = [
             {
               location: {
@@ -280,7 +281,7 @@ export class DefaultValidationService implements ValidationService {
               referencedElement,
               refValueElement.toValue(),
               refDiagnostics,
-              validationContext,
+              context,
             );
             switch (validationProviderResult.mergeStrategy) {
               case MergeStrategy.APPEND:
@@ -491,7 +492,7 @@ export class DefaultValidationService implements ValidationService {
               textDocument,
               api,
               diagnostics,
-              validationContext,
+              context,
             );
             switch (validationProviderResult.mergeStrategy) {
               case MergeStrategy.APPEND:

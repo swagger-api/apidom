@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
+
+### Bug Fixes
+
+- **ls:** fix docs rule for OpenAPI 3.x.y Parameter ([#2215](https://github.com/swagger-api/apidom/issues/2215)) ([3fe4a0b](https://github.com/swagger-api/apidom/commit/3fe4a0b68888957284e03064f0ed0f3f35b45e5b)), closes [#2030](https://github.com/swagger-api/apidom/issues/2030)
+- **ls:** fix OpenAPI Link.requestBody field completion ([#2207](https://github.com/swagger-api/apidom/issues/2207)) ([9bd013b](https://github.com/swagger-api/apidom/commit/9bd013b1541caebfb6a0c5206f1f522ea44bcbf9)), closes [#2206](https://github.com/swagger-api/apidom/issues/2206)
+- **ls:** provide OpenAPI 3.1 Request Body allowed fields lint rule ([#2216](https://github.com/swagger-api/apidom/issues/2216)) ([ae4c69b](https://github.com/swagger-api/apidom/commit/ae4c69bef8f51b1b32b067ad3d697f7e78345a49)), closes [#2061](https://github.com/swagger-api/apidom/issues/2061)
+- **ls:** provide spec extension link rule for Discriminator ([#2211](https://github.com/swagger-api/apidom/issues/2211)) ([ecfeac5](https://github.com/swagger-api/apidom/commit/ecfeac514836ef89399cbe76c98ef13e41032d70)), closes [#2061](https://github.com/swagger-api/apidom/issues/2061)
+
+### Features
+
+- **ls:** provide completion rules for $ref field in supported objects ([#2203](https://github.com/swagger-api/apidom/issues/2203)) ([b1d13d8](https://github.com/swagger-api/apidom/commit/b1d13d80428a78a9cb3f6e9d33fe94a3c28ed963)), closes [#2202](https://github.com/swagger-api/apidom/issues/2202)
+- **ls:** provide OpenAPI 3.1 Response allowed fields lint rule ([#2217](https://github.com/swagger-api/apidom/issues/2217)) ([af281ef](https://github.com/swagger-api/apidom/commit/af281ef03b0f5033c92d08938e0e4963e4512844)), closes [#2061](https://github.com/swagger-api/apidom/issues/2061)
+- **ls:** provide OpenAPI 3.1 Responses docs rules ([#2218](https://github.com/swagger-api/apidom/issues/2218)) ([90da98a](https://github.com/swagger-api/apidom/commit/90da98af50185edbecfb63dcd7e4f3a22734ac93)), closes [#2063](https://github.com/swagger-api/apidom/issues/2063)
+- **ls:** provide OpenAPI 3.1.0 completion rules for Responses object ([#2196](https://github.com/swagger-api/apidom/issues/2196)) ([8602f74](https://github.com/swagger-api/apidom/commit/8602f74934b9652a6b35c1c12dce9a31306f46bc))
+- **ls:** provide OpenAPI 3.1.0 Example allowed fields lint rule ([#2212](https://github.com/swagger-api/apidom/issues/2212)) ([9c152ef](https://github.com/swagger-api/apidom/commit/9c152ef4f82c09da70998d621bfbcc1a9cd2d968)), closes [#2061](https://github.com/swagger-api/apidom/issues/2061)
+- **ls:** provide OpenAPI 3.1.0 lint and completion for Link object ([#2195](https://github.com/swagger-api/apidom/issues/2195)) ([beb02b9](https://github.com/swagger-api/apidom/commit/beb02b9da9f004383a6fc053aa1e6e6bed3fe000))
+- **ls:** provide OpenAPI 3.1.0 lint rules for Security Scheme object ([#2192](https://github.com/swagger-api/apidom/issues/2192)) ([50baf52](https://github.com/swagger-api/apidom/commit/50baf52ec9a451ef962488cc56c77a31b461f0c1))
+
 # [0.53.0](https://github.com/swagger-api/apidom/compare/v0.52.0...v0.53.0) (2022-10-27)
 
 ### Features

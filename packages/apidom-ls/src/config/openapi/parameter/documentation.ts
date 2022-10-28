@@ -1,7 +1,7 @@
 const documentation = [
   {
     target: '$ref',
-    docs: '**REQUIRED**. The reference identifier. This MUST be in the form of a URI.',
+    docs: 'A reference to a Parameter.',
   },
   {
     target: 'name',

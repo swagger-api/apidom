@@ -100,7 +100,7 @@ const completion: ApidomCompletionItem[] = [
     label: 'requestBody',
     insertText: 'requestBody',
     kind: 14,
-    format: CompletionFormat.QUOTED,
+    format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {
@@ -119,7 +119,7 @@ const completion: ApidomCompletionItem[] = [
     label: 'requestBody',
     insertText: 'requestBody',
     kind: 14,
-    format: CompletionFormat.QUOTED,
+    format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {

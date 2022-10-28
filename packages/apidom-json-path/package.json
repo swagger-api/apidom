@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-json-path",
-  "version": "0.52.0",
+  "version": "0.53.0",
   "description": "Evaluate JSONPath expressions against ApiDOM.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -35,9 +35,9 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.19.6",
-    "@swagger-api/apidom-core": "^0.52.0",
-    "@swagger-api/apidom-json-pointer": "^0.52.0",
+    "@babel/runtime-corejs3": "=7.20.0",
+    "@swagger-api/apidom-core": "^0.53.0",
+    "@swagger-api/apidom-json-pointer": "^0.53.0",
     "jsonpath-plus": "=7.2.0"
   },
   "files": [

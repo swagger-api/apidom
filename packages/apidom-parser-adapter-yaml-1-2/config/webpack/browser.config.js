@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/adapter-browser.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 1300000,
+    maxAssetSize: 1300000,
   },
   output: {
     path: path.resolve('./dist'),

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.53.0](https://github.com/swagger-api/apidom/compare/v0.52.0...v0.53.0) (2022-10-27)
+
+### Features
+
+- **apidom-ls:** add 'follow link' to hover for URL like strings ([487f7d3](https://github.com/swagger-api/apidom/commit/487f7d38a91b5e85e2f18ba9d27d5173daafb33a))
+- **apidom-ls:** implement links service ([33347c0](https://github.com/swagger-api/apidom/commit/33347c0434627d4fc21c54e783bb84dca7c81660))
+- **ls:** provide OpenAPI 3.1.0 completion for Server Variable object ([#2193](https://github.com/swagger-api/apidom/issues/2193)) ([ba5afdd](https://github.com/swagger-api/apidom/commit/ba5afddb6b46d5cd1586533f98a0df689447f1ff))
+
 # [0.52.0](https://github.com/swagger-api/apidom/compare/v0.51.1...v0.52.0) (2022-10-25)
 
 ### Bug Fixes

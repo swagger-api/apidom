@@ -13,6 +13,7 @@ import {
   Position,
   CodeAction,
   Location,
+  DocumentLink,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
@@ -78,10 +79,19 @@ export interface LanguageServiceContext {
   validatorProviders?: ValidationProvider[];
   completionProviders?: CompletionProvider[];
   hoverProviders?: HoverProvider[];
+  linksProviders?: LinksProvider[];
   performanceLogs?: boolean;
   logLevel?: LogLevel;
   defaultContentLanguage?: ContentLanguage;
   workspaceFolders?: WorkspaceFolder[];
+  hoverFollowLinkEntry?: boolean;
+  allowComments?: boolean;
+  validationContext?: ValidationContext;
+  completionContext?: CompletionContext;
+  derefContext?: DerefContext;
+  symbolsContext?: SymbolsContext;
+  colorsContext?: ColorsContext;
+  linksContext?: LinksContext;
 }
 
 export interface NamespaceVersion {
@@ -108,6 +118,11 @@ export interface CompletionProviderResult {
 
 export interface HoverProviderResult {
   hoverContent: string[];
+  mergeStrategy: MergeStrategy;
+}
+
+export interface LinksProviderResult {
+  links: DocumentLink[];
   mergeStrategy: MergeStrategy;
 }
 
@@ -174,7 +189,7 @@ export interface CompletionProvider {
   name(): string;
 }
 
-/* represent any completion provider  */
+/* represent any hover provider  */
 export interface HoverProvider {
   namespaces(): NamespaceVersion[];
 
@@ -203,12 +218,40 @@ export interface HoverProvider {
 
   name(): string;
 }
+
+/* represent any Links provider  */
+export interface LinksProvider {
+  namespaces(): NamespaceVersion[];
+
+  break(): boolean;
+
+  providerMode?(): ProviderMode;
+
+  doLinks?(
+    textDocument: TextDocument,
+    api: Element,
+    currentLinks: DocumentLink[],
+    linksContext?: LinksContext,
+  ): Promise<LinksProviderResult>;
+
+  doRefLinks?(
+    textDocument: TextDocument,
+    api: Element,
+    currentRefLinks: DocumentLink[],
+    linksContext?: LinksContext,
+  ): LinksProviderResult | Promise<LinksProviderResult>;
+
+  configure?(settings: LanguageSettings): void;
+
+  name(): string;
+}
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
   validatorProviders?: ValidationProvider[];
   completionProviders?: CompletionProvider[];
   hoverProviders?: HoverProvider[];
+  linksProviders?: LinksProvider[];
   metadata?: Metadata;
   documentCache?: DocumentCache<ParseResultElement>;
   performanceLogs?: boolean;
@@ -216,6 +259,12 @@ export interface LanguageSettings {
   defaultContentLanguage?: ContentLanguage;
   workspaceFolders?: WorkspaceFolder[];
   hoverFollowLinkEntry?: boolean;
+  validationContext?: ValidationContext;
+  completionContext?: CompletionContext;
+  derefContext?: DerefContext;
+  symbolsContext?: SymbolsContext;
+  colorsContext?: ColorsContext;
+  linksContext?: LinksContext;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -244,6 +293,15 @@ export interface ColorsContext {
   resultLimit?: number;
   onResultLimitExceeded?: (uri: string) => void;
 }
+
+export type LinksModifierFunction = ((value: string) => string) | undefined;
+
+export interface LinksContext {
+  maxNumberOfLinks?: number;
+  enableTrivialLinkDiscovery?: boolean;
+  modifierFunction?: LinksModifierFunction;
+}
+
 export interface WorkspaceContextService {
   resolveRelativePath(relativePath: string, resource: string): string;
 }
@@ -394,6 +452,8 @@ export interface LanguageService {
 
   doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
 
+  doLinks(document: TextDocument, context?: LinksContext): Promise<DocumentLink[]>;
+
   doProvideDefinition(
     document: TextDocument,
     definitionParams: DefinitionParams,
@@ -421,6 +481,7 @@ export interface LanguageService {
 
   registerValidationProvider(validationProvider: ValidationProvider): void;
   registerCompletionProvider(completionProvider: CompletionProvider): void;
+  registerLinksProvider(linksProvider: LinksProvider): void;
 
   getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null>;
 }

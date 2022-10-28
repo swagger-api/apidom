@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A reference to a Header',
+      value: 'A reference to a Header.',
     },
   },
   {

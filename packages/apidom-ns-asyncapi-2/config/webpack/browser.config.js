@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/index.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 712000,
-    maxAssetSize: 712000,
+    maxEntrypointSize: 2200000,
+    maxAssetSize: 2200000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -40,6 +40,10 @@ const browserMin = {
   mode: 'production',
   entry: ['./src/index.ts'],
   target: 'web',
+  performance: {
+    maxEntrypointSize: 310000,
+    maxAssetSize: 310000,
+  },
   output: {
     path: path.resolve('./dist'),
     filename: 'apidom-ns-asyncapi-2.browser.min.js',

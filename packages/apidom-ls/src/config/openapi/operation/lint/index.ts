@@ -31,7 +31,6 @@ const lints = [
   responsesRequiredLint3_0,
   callbacksValuesTypeLint,
   deprecatedTypeLint,
-  deprecatedTypeLint,
   securityTypeLint,
   securityItemsTypeLint,
   serversTypeLint,

@@ -171,7 +171,7 @@ const AsyncApi2ResolveVisitor = stampit({
 
     async crawlChannelItemElement(channelItemElement: ChannelItemElement) {
       // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref.toValue());
+      const reference = await this.toReference(channelItemElement.$ref?.toValue());
 
       this.indirections.push(channelItemElement);
 

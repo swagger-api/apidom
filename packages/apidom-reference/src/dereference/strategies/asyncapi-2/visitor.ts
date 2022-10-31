@@ -96,7 +96,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // @ts-ignore
-      const reference = await this.toReference(referencingElement.$ref.toValue());
+      const reference = await this.toReference(referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);
 
@@ -181,7 +181,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref.toValue());
+      const reference = await this.toReference(channelItemElement.$ref?.toValue());
 
       this.indirections.push(channelItemElement);
 

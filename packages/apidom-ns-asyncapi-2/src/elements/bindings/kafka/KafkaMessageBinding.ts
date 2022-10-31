@@ -18,6 +18,30 @@ class KafkaMessageBinding extends ObjectElement {
     this.set('key', key);
   }
 
+  get schemaIdLocation(): StringElement | undefined {
+    return this.get('schemaIdLocation');
+  }
+
+  set schemaIdLocation(schemaIdLocation: StringElement | undefined) {
+    this.set('schemaIdLocation', schemaIdLocation);
+  }
+
+  get schemaIdPayloadEncoding(): StringElement | undefined {
+    return this.get('schemaIdPayloadEncoding');
+  }
+
+  set schemaIdPayloadEncoding(schemaIdPayloadEncoding: StringElement | undefined) {
+    this.set('schemaIdPayloadEncoding', schemaIdPayloadEncoding);
+  }
+
+  get schemaLookupStrategy(): StringElement | undefined {
+    return this.get('schemaLookupStrategy');
+  }
+
+  set schemaLookupStrategy(schemaLookupStrategy: StringElement | undefined) {
+    this.set('schemaLookupStrategy', schemaLookupStrategy);
+  }
+
   get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }

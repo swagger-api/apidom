@@ -8,7 +8,11 @@ class Reference extends ObjectElement {
     this.classes.push('asyncapi-reference');
   }
 
-  get $ref(): StringElement {
+  set $ref($ref: StringElement | undefined) {
+    this.set('$ref', $ref);
+  }
+
+  get $ref(): StringElement | undefined {
     return this.get('$ref');
   }
 }

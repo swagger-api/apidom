@@ -96,11 +96,11 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // @ts-ignore
-      const reference = await this.toReference(referencingElement.$ref.toValue());
+      const reference = await this.toReference(referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);
 
-      const jsonPointer = uriToPointer(referencingElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referencingElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let referencedElement = evaluate(jsonPointer, reference.value.result);
@@ -160,7 +160,7 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       // annotate referenced element with info about original referencing element
       referencedElement.setMetaProperty('ref-fields', {
-        $ref: referencingElement.$ref.toValue(),
+        $ref: referencingElement.$ref?.toValue(),
       });
       // annotate fragment with info about origin
       referencedElement.setMetaProperty('ref-origin', reference.uri);
@@ -181,11 +181,11 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref.toValue());
+      const reference = await this.toReference(channelItemElement.$ref?.toValue());
 
       this.indirections.push(channelItemElement);
 
-      const jsonPointer = uriToPointer(channelItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(channelItemElement.$ref?.toValue());
 
       // possibly non-semantic referenced element
       let referencedElement = evaluate(jsonPointer, reference.value.result);

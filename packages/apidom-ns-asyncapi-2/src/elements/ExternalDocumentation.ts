@@ -6,19 +6,19 @@ class ExternalDocumentation extends ObjectElement {
     this.element = 'externalDocumentation';
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get url(): StringElement {
+  get url(): StringElement | undefined {
     return this.get('url');
   }
 
-  set url(url: StringElement) {
+  set url(url: StringElement | undefined) {
     this.set('url', url);
   }
 }

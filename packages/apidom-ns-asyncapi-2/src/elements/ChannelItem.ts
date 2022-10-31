@@ -16,59 +16,59 @@ class ChannelItem extends ObjectElement {
     this.element = 'channelItem';
   }
 
-  get $ref(): StringElement {
+  get $ref(): StringElement | undefined {
     return this.get('$ref');
   }
 
-  set $ref($ref: StringElement) {
+  set $ref($ref: StringElement | undefined) {
     this.set('$ref', $ref);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get servers(): ArrayElement {
+  get servers(): ArrayElement | undefined {
     return this.get('servers');
   }
 
-  set servers(servers: ArrayElement) {
+  set servers(servers: ArrayElement | undefined) {
     this.set('servers', servers);
   }
 
-  get subscribe(): OperationElement {
+  get subscribe(): OperationElement | undefined {
     return this.get('subscribe');
   }
 
-  set subscribe(subscribe: OperationElement) {
+  set subscribe(subscribe: OperationElement | undefined) {
     this.set('subscribe', subscribe);
   }
 
-  get publish(): OperationElement {
+  get publish(): OperationElement | undefined {
     return this.get('publish');
   }
 
-  set publish(publish: OperationElement) {
+  set publish(publish: OperationElement | undefined) {
     this.set('publish', publish);
   }
 
-  get parameters(): ParametersElement {
+  get parameters(): ParametersElement | undefined {
     return this.get('parameters');
   }
 
-  set parameters(parameters: ParametersElement) {
+  set parameters(parameters: ParametersElement | undefined) {
     this.set('parameters', parameters);
   }
 
-  get bindings(): ChannelBindingsElement {
+  get bindings(): ChannelBindingsElement | undefined {
     return this.get('bindings');
   }
 
-  set bindings(bindings: ChannelBindingsElement) {
+  set bindings(bindings: ChannelBindingsElement | undefined) {
     this.set('bindings', bindings);
   }
 }

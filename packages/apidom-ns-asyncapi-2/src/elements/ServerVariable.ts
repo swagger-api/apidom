@@ -1,4 +1,10 @@
-import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import {
+  StringElement,
+  ObjectElement,
+  ArrayElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
 class ServerVariable extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -6,35 +12,35 @@ class ServerVariable extends ObjectElement {
     this.element = 'serverVariable';
   }
 
-  get enum(): StringElement[] {
+  get enum(): ArrayElement | undefined {
     return this.get('enum');
   }
 
-  set enum(value: StringElement[]) {
+  set enum(value: ArrayElement | undefined) {
     this.set('enum', value);
   }
 
-  get default(): StringElement {
+  get default(): StringElement | undefined {
     return this.get('default');
   }
 
-  set default(value: StringElement) {
+  set default(value: StringElement | undefined) {
     this.set('default', value);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get examples(): StringElement[] {
+  get examples(): ArrayElement | undefined {
     return this.get('examples');
   }
 
-  set examples(examples: StringElement[]) {
+  set examples(examples: ArrayElement | undefined) {
     this.set('examples', examples);
   }
 }

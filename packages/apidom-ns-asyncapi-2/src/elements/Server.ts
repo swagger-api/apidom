@@ -1,7 +1,11 @@
-import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import {
+  StringElement,
+  ObjectElement,
+  ArrayElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 
-import ServerVariableElement from './ServerVariable';
-import SecurityRequirementElement from './SecurityRequirement';
 import ServerBindingsElement from './ServerBindings';
 
 class Server extends ObjectElement {
@@ -10,59 +14,59 @@ class Server extends ObjectElement {
     this.element = 'server';
   }
 
-  get url(): StringElement {
+  get url(): StringElement | undefined {
     return this.get('url');
   }
 
-  set url(url: StringElement) {
+  set url(url: StringElement | undefined) {
     this.set('url', url);
   }
 
-  get protocol(): StringElement {
+  get protocol(): StringElement | undefined {
     return this.get('protocol');
   }
 
-  set protocol(protocol: StringElement) {
+  set protocol(protocol: StringElement | undefined) {
     this.set('protocol', protocol);
   }
 
-  get protocolVersion(): StringElement {
+  get protocolVersion(): StringElement | undefined {
     return this.get('protocolVersion');
   }
 
-  set protocolVersion(protocolVersion: StringElement) {
+  set protocolVersion(protocolVersion: StringElement | undefined) {
     this.set('protocolVersion', protocolVersion);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get variables(): Record<string, ServerVariableElement> {
+  get variables(): ObjectElement | undefined {
     return this.get('variables');
   }
 
-  set variables(variables: Record<string, ServerVariableElement>) {
+  set variables(variables: ObjectElement | undefined) {
     this.set('variables', variables);
   }
 
-  get security(): SecurityRequirementElement[] {
+  get security(): ArrayElement | undefined {
     return this.get('security');
   }
 
-  set security(security: SecurityRequirementElement[]) {
+  set security(security: ArrayElement | undefined) {
     this.set('security', security);
   }
 
-  get bindings(): ServerBindingsElement {
+  get bindings(): ServerBindingsElement | undefined {
     return this.get('bindings');
   }
 
-  set bindings(bindings: ServerBindingsElement) {
+  set bindings(bindings: ServerBindingsElement | undefined) {
     this.set('bindings', bindings);
   }
 }

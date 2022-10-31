@@ -85,7 +85,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return false;
       }
 
-      const uri = referenceElement.$ref.toValue();
+      const uri = referenceElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -107,7 +107,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return undefined;
       }
 
-      const uri = channelItemElement.$ref.toValue();
+      const uri = channelItemElement.$ref?.toValue();
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -120,11 +120,11 @@ const AsyncApi2ResolveVisitor = stampit({
 
     async crawlReferenceElement(referenceElement: ReferenceElement) {
       // @ts-ignore
-      const reference = await this.toReference(referenceElement.$ref.toValue());
+      const reference = await this.toReference(referenceElement.$ref?.toValue());
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref.toValue());
+      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
 
       // possibly non-semantic fragment
       let fragment = evaluate(jsonPointer, reference.value.result);
@@ -171,11 +171,11 @@ const AsyncApi2ResolveVisitor = stampit({
 
     async crawlChannelItemElement(channelItemElement: ChannelItemElement) {
       // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref.toValue());
+      const reference = await this.toReference(channelItemElement.$ref?.toValue());
 
       this.indirections.push(channelItemElement);
 
-      const jsonPointer = uriToPointer(channelItemElement.$ref.toValue());
+      const jsonPointer = uriToPointer(channelItemElement.$ref?.toValue());
 
       // possibly non-semantic referenced element
       let referencedElement = evaluate(jsonPointer, reference.value.result);

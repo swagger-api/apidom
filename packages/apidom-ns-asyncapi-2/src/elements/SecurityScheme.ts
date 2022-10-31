@@ -8,51 +8,51 @@ class SecurityScheme extends ObjectElement {
     this.element = 'securityScheme';
   }
 
-  get type(): StringElement {
+  get type(): StringElement | undefined {
     return this.get('type');
   }
 
-  set type(type: StringElement) {
+  set type(type: StringElement | undefined) {
     this.set('type', type);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get in(): StringElement {
+  get in(): StringElement | undefined {
     return this.get('in');
   }
 
-  set in(inVal: StringElement) {
+  set in(inVal: StringElement | undefined) {
     this.set('in', inVal);
   }
 
-  get scheme(): StringElement {
+  get scheme(): StringElement | undefined {
     return this.get('scheme');
   }
 
-  set scheme(scheme: StringElement) {
+  set scheme(scheme: StringElement | undefined) {
     this.set('scheme', scheme);
   }
 
-  get bearerFormat(): StringElement {
+  get bearerFormat(): StringElement | undefined {
     return this.get('bearerFormat');
   }
 
-  set bearerFormat(bearerFormat: StringElement) {
+  set bearerFormat(bearerFormat: StringElement | undefined) {
     this.set('bearerFormat', bearerFormat);
   }
 
@@ -64,11 +64,11 @@ class SecurityScheme extends ObjectElement {
     this.set('flows', flows);
   }
 
-  get openIdConnectUrl(): StringElement {
+  get openIdConnectUrl(): StringElement | undefined {
     return this.get('openIdConnectUrl');
   }
 
-  set openIdConnectUrl(openIdConnectUrl: StringElement) {
+  set openIdConnectUrl(openIdConnectUrl: StringElement | undefined) {
     this.set('openIdConnectUrl', openIdConnectUrl);
   }
 }

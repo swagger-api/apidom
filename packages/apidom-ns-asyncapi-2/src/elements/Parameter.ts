@@ -8,27 +8,27 @@ class Parameter extends ObjectElement {
     this.element = 'parameter';
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get schema(): SchemaElement {
+  get schema(): SchemaElement | undefined {
     return this.get('schema');
   }
 
-  set schema(schema: SchemaElement) {
+  set schema(schema: SchemaElement | undefined) {
     this.set('schema', schema);
   }
 
-  get location(): StringElement {
+  get location(): StringElement | undefined {
     return this.get('location');
   }
 
-  set location(location: StringElement) {
+  set location(location: StringElement | undefined) {
     this.set('location', location);
   }
 }

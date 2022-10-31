@@ -43,51 +43,51 @@ class MessageTrait extends ObjectElement {
     this.set('correlationId', correlationId);
   }
 
-  get schemaFormat(): StringElement {
+  get schemaFormat(): StringElement | undefined {
     return this.get('schemaFormat');
   }
 
-  set schemaFormat(schemaFormat: StringElement) {
+  set schemaFormat(schemaFormat: StringElement | undefined) {
     this.set('schemaFormat', schemaFormat);
   }
 
-  get contentType(): StringElement {
+  get contentType(): StringElement | undefined {
     return this.get('contentType');
   }
 
-  set contentType(contentType: StringElement) {
+  set contentType(contentType: StringElement | undefined) {
     this.set('contentType', contentType);
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get title(): StringElement {
+  get title(): StringElement | undefined {
     return this.get('title');
   }
 
-  set title(title: StringElement) {
+  set title(title: StringElement | undefined) {
     this.set('title', title);
   }
 
-  get summary(): StringElement {
+  get summary(): StringElement | undefined {
     return this.get('summary');
   }
 
-  set summary(summary: StringElement) {
+  set summary(summary: StringElement | undefined) {
     this.set('summary', summary);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 

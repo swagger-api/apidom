@@ -6,19 +6,19 @@ class CorrelationID extends ObjectElement {
     this.element = 'correlationID';
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get location(): StringElement {
+  get location(): StringElement | undefined {
     return this.get('location');
   }
 
-  set location(location: StringElement) {
+  set location(location: StringElement | undefined) {
     this.set('location', location);
   }
 }

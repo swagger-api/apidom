@@ -8,27 +8,27 @@ class Tag extends ObjectElement {
     this.element = 'tag';
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get externalDocs(): ExternalDocumentationElement {
+  get externalDocs(): ExternalDocumentationElement | undefined {
     return this.get('externalDocs');
   }
 
-  set externalDocs(externalDocs: ExternalDocumentationElement) {
+  set externalDocs(externalDocs: ExternalDocumentationElement | undefined) {
     this.set('externalDocs', externalDocs);
   }
 }

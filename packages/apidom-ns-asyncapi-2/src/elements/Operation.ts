@@ -18,35 +18,35 @@ class Operation extends ObjectElement {
     this.element = 'operation';
   }
 
-  get operationId(): StringElement {
+  get operationId(): StringElement | undefined {
     return this.get('operationId');
   }
 
-  set operationId(operationId: StringElement) {
+  set operationId(operationId: StringElement | undefined) {
     this.set('operationId', operationId);
   }
 
-  get summary(): StringElement {
+  get summary(): StringElement | undefined {
     return this.get('summary');
   }
 
-  set summary(summary: StringElement) {
+  set summary(summary: StringElement | undefined) {
     this.set('summary', summary);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get security(): ArrayElement {
+  get security(): ArrayElement | undefined {
     return this.get('security');
   }
 
-  set security(security: ArrayElement) {
+  set security(security: ArrayElement | undefined) {
     this.set('security', security);
   }
 

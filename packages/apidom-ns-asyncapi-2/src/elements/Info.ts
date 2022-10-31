@@ -10,51 +10,51 @@ class Info extends ObjectElement {
     this.classes.push('info');
   }
 
-  get title(): StringElement {
+  get title(): StringElement | undefined {
     return this.get('title');
   }
 
-  set title(title: StringElement) {
+  set title(title: StringElement | undefined) {
     this.set('title', title);
   }
 
-  get description(): StringElement {
+  get description(): StringElement | undefined {
     return this.get('description');
   }
 
-  set description(description: StringElement) {
+  set description(description: StringElement | undefined) {
     this.set('description', description);
   }
 
-  get termsOfService(): StringElement {
+  get termsOfService(): StringElement | undefined {
     return this.get('termsOfService');
   }
 
-  set termsOfService(tos: StringElement) {
+  set termsOfService(tos: StringElement | undefined) {
     this.set('termsOfService', tos);
   }
 
-  get version(): StringElement {
+  get version(): StringElement | undefined {
     return this.get('version');
   }
 
-  set version(version: StringElement) {
+  set version(version: StringElement | undefined) {
     this.set('version', version);
   }
 
-  get license(): LicenseElement {
+  get license(): LicenseElement | undefined {
     return this.get('license');
   }
 
-  set license(licenseElement: LicenseElement) {
+  set license(licenseElement: LicenseElement | undefined) {
     this.set('license', licenseElement);
   }
 
-  get contact(): ContactElement {
+  get contact(): ContactElement | undefined {
     return this.get('contact');
   }
 
-  set contact(contactElement: ContactElement) {
+  set contact(contactElement: ContactElement | undefined) {
     this.set('contact', contactElement);
   }
 }

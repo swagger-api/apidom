@@ -6,35 +6,35 @@ class OAuthFlow extends ObjectElement {
     this.element = 'oAuthFlow';
   }
 
-  get authorizationUrl(): StringElement {
+  get authorizationUrl(): StringElement | undefined {
     return this.get('authorizationUrl');
   }
 
-  set authorizationUrl(authorizationUrl: StringElement) {
+  set authorizationUrl(authorizationUrl: StringElement | undefined) {
     this.set('authorizationUrl', authorizationUrl);
   }
 
-  get tokenUrl(): StringElement {
+  get tokenUrl(): StringElement | undefined {
     return this.get('tokenUrl');
   }
 
-  set tokenUrl(tokenUrl: StringElement) {
+  set tokenUrl(tokenUrl: StringElement | undefined) {
     this.set('tokenUrl', tokenUrl);
   }
 
-  get refreshUrl(): StringElement {
+  get refreshUrl(): StringElement | undefined {
     return this.get('refreshUrl');
   }
 
-  set refreshUrl(refreshUrl: StringElement) {
+  set refreshUrl(refreshUrl: StringElement | undefined) {
     this.set('refreshUrl', refreshUrl);
   }
 
-  get scopes(): ObjectElement {
+  get scopes(): ObjectElement | undefined {
     return this.get('scopes');
   }
 
-  set scopes(scopes: ObjectElement) {
+  set scopes(scopes: ObjectElement | undefined) {
     this.set('scopes', scopes);
   }
 }

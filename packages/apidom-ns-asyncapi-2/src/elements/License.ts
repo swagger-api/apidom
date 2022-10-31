@@ -6,19 +6,19 @@ class License extends ObjectElement {
     this.element = 'license';
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get url(): StringElement {
+  get url(): StringElement | undefined {
     return this.get('url');
   }
 
-  set url(url: StringElement) {
+  set url(url: StringElement | undefined) {
     this.set('url', url);
   }
 }

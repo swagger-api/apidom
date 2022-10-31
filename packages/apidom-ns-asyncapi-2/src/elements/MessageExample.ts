@@ -22,19 +22,19 @@ class MessageExample extends ObjectElement {
     this.set('payload', payload);
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get summary(): StringElement {
+  get summary(): StringElement | undefined {
     return this.get('summary');
   }
 
-  set summary(summary: StringElement) {
+  set summary(summary: StringElement | undefined) {
     this.set('summary', summary);
   }
 }

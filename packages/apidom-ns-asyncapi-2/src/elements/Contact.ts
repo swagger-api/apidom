@@ -6,27 +6,27 @@ class Contact extends ObjectElement {
     this.element = 'contact';
   }
 
-  get name(): StringElement {
+  get name(): StringElement | undefined {
     return this.get('name');
   }
 
-  set name(name: StringElement) {
+  set name(name: StringElement | undefined) {
     this.set('name', name);
   }
 
-  get url(): StringElement {
+  get url(): StringElement | undefined {
     return this.get('url');
   }
 
-  set url(url: StringElement) {
+  set url(url: StringElement | undefined) {
     this.set('url', url);
   }
 
-  get email(): StringElement {
+  get email(): StringElement | undefined {
     return this.get('email');
   }
 
-  set email(email: StringElement) {
+  set email(email: StringElement | undefined) {
     this.set('email', email);
   }
 }

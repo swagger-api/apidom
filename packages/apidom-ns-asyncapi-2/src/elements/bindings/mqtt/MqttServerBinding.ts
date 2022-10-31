@@ -14,43 +14,43 @@ class MqttServerBinding extends ObjectElement {
     this.classes.push('server-binding');
   }
 
-  get clientId(): StringElement {
+  get clientId(): StringElement | undefined {
     return this.get('clientId');
   }
 
-  set clientId(clientId: StringElement) {
+  set clientId(clientId: StringElement | undefined) {
     this.set('clientId', clientId);
   }
 
-  get cleanSession(): BooleanElement {
+  get cleanSession(): BooleanElement | undefined {
     return this.get('cleanSession');
   }
 
-  set cleanSession(cleanSession: BooleanElement) {
+  set cleanSession(cleanSession: BooleanElement | undefined) {
     this.set('cleanSession', cleanSession);
   }
 
-  get lastWill(): ObjectElement {
+  get lastWill(): ObjectElement | undefined {
     return this.get('lastWill');
   }
 
-  set lastWill(lastWill: ObjectElement) {
+  set lastWill(lastWill: ObjectElement | undefined) {
     this.set('lastWill', lastWill);
   }
 
-  get keepAlive(): NumberElement {
+  get keepAlive(): NumberElement | undefined {
     return this.get('keepAlive');
   }
 
-  set keepAlive(keepAlive: NumberElement) {
+  set keepAlive(keepAlive: NumberElement | undefined) {
     this.set('keepAlive', keepAlive);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

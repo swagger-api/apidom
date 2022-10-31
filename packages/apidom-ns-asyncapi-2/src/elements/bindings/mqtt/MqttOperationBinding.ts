@@ -14,27 +14,27 @@ class MqttOperationBinding extends ObjectElement {
     this.classes.push('operation-binding');
   }
 
-  get qos(): NumberElement {
+  get qos(): NumberElement | undefined {
     return this.get('qos');
   }
 
-  set qos(qos: NumberElement) {
+  set qos(qos: NumberElement | undefined) {
     this.set('qos', qos);
   }
 
-  get retain(): BooleanElement {
+  get retain(): BooleanElement | undefined {
     return this.get('retain');
   }
 
-  set retain(retain: BooleanElement) {
+  set retain(retain: BooleanElement | undefined) {
     this.set('retain', retain);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

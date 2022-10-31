@@ -13,19 +13,19 @@ class SolaceOperationBinding extends ObjectElement {
     this.classes.push('operation-binding');
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 
-  get destinations(): ArrayElement {
+  get destinations(): ArrayElement | undefined {
     return this.get('destinations');
   }
 
-  set destinations(destinations: ArrayElement) {
+  set destinations(destinations: ArrayElement | undefined) {
     this.set('destinations', destinations);
   }
 }

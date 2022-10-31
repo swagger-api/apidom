@@ -1,6 +1,7 @@
 import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import SchemaElement from './Schema';
+import ReferenceElement from './Reference';
 
 class Parameter extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -16,11 +17,11 @@ class Parameter extends ObjectElement {
     this.set('description', description);
   }
 
-  get schema(): SchemaElement | undefined {
+  get schema(): SchemaElement | ReferenceElement | undefined {
     return this.get('schema');
   }
 
-  set schema(schema: SchemaElement | undefined) {
+  set schema(schema: SchemaElement | ReferenceElement | undefined) {
     this.set('schema', schema);
   }
 

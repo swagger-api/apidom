@@ -7,27 +7,27 @@ class AnypointmqChannelBinding extends ObjectElement {
     this.classes.push('channel-binding');
   }
 
-  get destination(): StringElement {
+  get destination(): StringElement | undefined {
     return this.get('destination');
   }
 
-  set destination(destination: StringElement) {
+  set destination(destination: StringElement | undefined) {
     this.set('destination', destination);
   }
 
-  get destinationType(): StringElement {
+  get destinationType(): StringElement | undefined {
     return this.get('destinationType');
   }
 
-  set destinationType(destinationType: StringElement) {
+  set destinationType(destinationType: StringElement | undefined) {
     this.set('destinationType', destinationType);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

@@ -16,6 +16,8 @@ import SqsOperationBindingElement from './bindings/sqs/SqsOperationBinding';
 import StompOperationBindingElement from './bindings/stomp/StompOperationBinding';
 import RedisOperationBindingElement from './bindings/redis/RedisOperationBinding';
 import MercureOperationBindingElement from './bindings/mercure/MercureOperationBinding';
+import IbmmqOperationBindingElement from './bindings/ibmmq/IbmmqOperationBinding';
+import GooglePubSubOperationBindingElement from './bindings/googlepubsub/GooglePubSubOperationBinding';
 
 class OperationBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -149,6 +151,22 @@ class OperationBindings extends ObjectElement {
 
   set mercure(mercure: MercureOperationBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get googlepubsub(): GooglePubSubOperationBindingElement | undefined {
+    return this.get('googlepubsub');
+  }
+
+  set googlepubsub(googlepubsub: GooglePubSubOperationBindingElement | undefined) {
+    this.set('googlepubsub', googlepubsub);
+  }
+
+  get ibmmq(): IbmmqOperationBindingElement | undefined {
+    return this.get('ibmmq');
+  }
+
+  set ibmmq(ibmmq: IbmmqOperationBindingElement | undefined) {
+    this.set('ibmmq', ibmmq);
   }
 }
 

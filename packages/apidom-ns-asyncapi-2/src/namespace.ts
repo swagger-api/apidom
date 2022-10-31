@@ -50,6 +50,16 @@ import Amqp1ChannelBindingElement from './elements/bindings/amqp1/Amqp1ChannelBi
 import Amqp1MessageBindingElement from './elements/bindings/amqp1/Amqp1MessageBinding';
 import Amqp1OperationBindingElement from './elements/bindings/amqp1/Amqp1OperationBinding';
 import Amqp1ServerBindingElement from './elements/bindings/amqp1/Amqp1ServerBinding';
+// Anypoint MQ
+import AnypointmqChannelBindingElement from './elements/bindings/anypointmq/AnypointmqChannelBinding';
+import AnypointmqMessageBindingElement from './elements/bindings/anypointmq/AnypointmqMessageBinding';
+import AnypointmqOperationBindingElement from './elements/bindings/anypointmq/AnypointmqOperationBinding';
+import AnypointmqServerBindingElement from './elements/bindings/anypointmq/AnypointmqServerBinding';
+// Google Cloud Pub/Sub
+import GooglePubSubChannelBindingElement from './elements/bindings/googlepubsub/GooglePubSubChannelBinding';
+import GooglePubSubMessageBindingElement from './elements/bindings/googlepubsub/GooglePubSubMessageBinding';
+import GooglePubSubOperationBindingElement from './elements/bindings/googlepubsub/GooglePubSubOperationBinding';
+import GooglePubSubServerBindingElement from './elements/bindings/googlepubsub/GooglePubSubServerBinding';
 // HTTP
 import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
@@ -58,6 +68,7 @@ import HttpServerBindingElement from './elements/bindings/http/HttpServerBinding
 // IBM MQ
 import IbmmqChannelBindingElement from './elements/bindings/ibmmq/IbmmqChannelBinding';
 import IbmmqMessageBindingElement from './elements/bindings/ibmmq/IbmmqMessageBinding';
+import IbmmqOperationBindingElement from './elements/bindings/ibmmq/IbmmqOperationBinding';
 import IbmmqServerBindingElement from './elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 import JmsChannelBindingElement from './elements/bindings/jms/JmsChannelBinding';
@@ -69,11 +80,6 @@ import KafkaChannelBindingElement from './elements/bindings/kafka/KafkaChannelBi
 import KafkaMessageBindingElement from './elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from './elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from './elements/bindings/kafka/KafkaServerBinding';
-// Anypoint MQ
-import AnypointmqChannelBindingElement from './elements/bindings/anypointmq/AnypointmqChannelBinding';
-import AnypointmqMessageBindingElement from './elements/bindings/anypointmq/AnypointmqMessageBinding';
-import AnypointmqOperationBindingElement from './elements/bindings/anypointmq/AnypointmqOperationBinding';
-import AnypointmqServerBindingElement from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 import MercureChannelBindingElement from './elements/bindings/mercure/MercureChannelBinding';
 import MercureMessageBindingElement from './elements/bindings/mercure/MercureMessageBinding';
@@ -180,6 +186,16 @@ const asyncApi2 = {
     base.register('amqp1MessageBinding', Amqp1MessageBindingElement);
     base.register('amqp1OperationBinding', Amqp1OperationBindingElement);
     base.register('amqp1ServerBinding', Amqp1ServerBindingElement);
+    // Anypoint MQ
+    base.register('anypointmqChannelBinding', AnypointmqChannelBindingElement);
+    base.register('anypointmqMessageBinding', AnypointmqMessageBindingElement);
+    base.register('anypointmqOperationBinding', AnypointmqOperationBindingElement);
+    base.register('anypointmqServerBinding', AnypointmqServerBindingElement);
+    // Google Cloud Pub/Sub
+    base.register('googlepubsubChannelBinding', GooglePubSubChannelBindingElement);
+    base.register('googlepubsubMessageBinding', GooglePubSubMessageBindingElement);
+    base.register('googlepubsubOperationBinding', GooglePubSubOperationBindingElement);
+    base.register('googlepubsubServerBinding', GooglePubSubServerBindingElement);
     // HTTP
     base.register('httpChannelBinding', HttpChannelBindingElement);
     base.register('httpMessageBinding', HttpMessageBindingElement);
@@ -188,6 +204,7 @@ const asyncApi2 = {
     // IBM MQ
     base.register('ibmmqChannelBinding', IbmmqChannelBindingElement);
     base.register('ibmmqMessageBinding', IbmmqMessageBindingElement);
+    base.register('ibmmqOperationBinding', IbmmqOperationBindingElement);
     base.register('ibmmqServerBinding', IbmmqServerBindingElement);
     // JMS
     base.register('jmsChannelBinding', JmsChannelBindingElement);
@@ -199,11 +216,6 @@ const asyncApi2 = {
     base.register('kafkaMessageBinding', KafkaMessageBindingElement);
     base.register('kafkaOperationBinding', KafkaOperationBindingElement);
     base.register('kafkaServerBinding', KafkaServerBindingElement);
-    // Anypoint MQ
-    base.register('anypointmqChannelBinding', AnypointmqChannelBindingElement);
-    base.register('anypointmqMessageBinding', AnypointmqMessageBindingElement);
-    base.register('anypointmqOperationBinding', AnypointmqOperationBindingElement);
-    base.register('anypointmqServerBinding', AnypointmqServerBindingElement);
     // Mercure
     base.register('mercureChannelBinding', MercureChannelBindingElement);
     base.register('mercureMessageBinding', MercureMessageBindingElement);

@@ -54,6 +54,14 @@ class Server extends ObjectElement {
     this.set('variables', variables);
   }
 
+  get tags(): ArrayElement | undefined {
+    return this.get('tags');
+  }
+
+  set tags(tags: ArrayElement | undefined) {
+    this.set('tags', tags);
+  }
+
   get security(): ArrayElement | undefined {
     return this.get('security');
   }

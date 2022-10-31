@@ -109,6 +109,17 @@ export { default as Amqp1ChannelBindingElement } from './elements/bindings/amqp1
 export { default as Amqp1MessageBindingElement } from './elements/bindings/amqp1/Amqp1MessageBinding';
 export { default as Amqp1OperationBindingElement } from './elements/bindings/amqp1/Amqp1OperationBinding';
 export { default as Amqp1ServerBindingElement } from './elements/bindings/amqp1/Amqp1ServerBinding';
+// Anypoint MQ
+export { default as AnypointmqChannelBindingElement } from './elements/bindings/anypointmq/AnypointmqChannelBinding';
+export { default as AnypointmqMessageBindingElement } from './elements/bindings/anypointmq/AnypointmqMessageBinding';
+export { default as AnypointmqOperationBindingElement } from './elements/bindings/anypointmq/AnypointmqOperationBinding';
+export { default as AnypointmqServerBindingElement } from './elements/bindings/anypointmq/AnypointmqServerBinding';
+// Google Cloud Pub/Sub
+export { default as GooglePubSubChannelBindingElement } from './elements/bindings/googlepubsub/GooglePubSubChannelBinding';
+export { default as GooglePubSubMessageBindingElement } from './elements/bindings/googlepubsub/GooglePubSubMessageBinding';
+export { default as GooglePubSubOperationBindingElement } from './elements/bindings/googlepubsub/GooglePubSubOperationBinding';
+export { default as GooglePubSubServerBindingElement } from './elements/bindings/googlepubsub/GooglePubSubServerBinding';
+
 // HTTP
 export { default as HttpChannelBindingElement } from './elements/bindings/http/HttpChannelBinding';
 export { default as HttpMessageBindingElement } from './elements/bindings/http/HttpMessageBinding';
@@ -117,6 +128,7 @@ export { default as HttpServerBindingElement } from './elements/bindings/http/Ht
 // IBM MQ
 export { default as IbmmqChannelBindingElement } from './elements/bindings/ibmmq/IbmmqChannelBinding';
 export { default as IbmmqMessageBindingElement } from './elements/bindings/ibmmq/IbmmqMessageBinding';
+export { default as IbmmqOperationBindingElement } from './elements/bindings/ibmmq/IbmmqOperationBinding';
 export { default as IbmmqServerBindingElement } from './elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 export { default as JmsChannelBindingElement } from './elements/bindings/jms/JmsChannelBinding';
@@ -128,11 +140,6 @@ export { default as KafkaChannelBindingElement } from './elements/bindings/kafka
 export { default as KafkaMessageBindingElement } from './elements/bindings/kafka/KafkaMessageBinding';
 export { default as KafkaOperationBindingElement } from './elements/bindings/kafka/KafkaOperationBinding';
 export { default as KafkaServerBindingElement } from './elements/bindings/kafka/KafkaServerBinding';
-// Anypoint MQ
-export { default as AnypointmqChannelBindingElement } from './elements/bindings/anypointmq/AnypointmqChannelBinding';
-export { default as AnypointmqMessageBindingElement } from './elements/bindings/anypointmq/AnypointmqMessageBinding';
-export { default as AnypointmqOperationBindingElement } from './elements/bindings/anypointmq/AnypointmqOperationBinding';
-export { default as AnypointmqServerBindingElement } from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 export { default as MercureChannelBindingElement } from './elements/bindings/mercure/MercureChannelBinding';
 export { default as MercureMessageBindingElement } from './elements/bindings/mercure/MercureMessageBinding';

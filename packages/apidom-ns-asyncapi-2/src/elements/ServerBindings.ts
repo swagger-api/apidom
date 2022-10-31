@@ -17,6 +17,7 @@ import StompServerBindingElement from './bindings/stomp/StompServerBinding';
 import RedisServerBindingElement from './bindings/redis/RedisServerBinding';
 import MercureServerBindingElement from './bindings/mercure/MercureServerBinding';
 import IbmmqServerBindingElement from './bindings/ibmmq/IbmmqServerBinding';
+import GooglePubSubServerBindingElement from './bindings/googlepubsub/GooglePubSubServerBinding';
 
 class ServerBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -150,6 +151,14 @@ class ServerBindings extends ObjectElement {
 
   set mercure(mercure: MercureServerBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get googlepubsub(): GooglePubSubServerBindingElement | undefined {
+    return this.get('googlepubsub');
+  }
+
+  set googlepubsub(googlepubsub: GooglePubSubServerBindingElement | undefined) {
+    this.set('googlepubsub', googlepubsub);
   }
 
   get ibmmq(): IbmmqServerBindingElement | undefined {

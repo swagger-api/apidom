@@ -17,6 +17,7 @@ import StompChannelBindingElement from './bindings/stomp/StompChannelBinding';
 import RedisChannelBindingElement from './bindings/redis/RedisChannelBinding';
 import MercureChannelBindingElement from './bindings/mercure/MercureChannelBinding';
 import IbmmqChannelBindingElement from './bindings/ibmmq/IbmmqChannelBinding';
+import GooglePubSubChannelBindingElement from './bindings/googlepubsub/GooglePubSubChannelBinding';
 
 class ChannelBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -150,6 +151,14 @@ class ChannelBindings extends ObjectElement {
 
   set mercure(mercure: MercureChannelBindingElement | undefined) {
     this.set('mercure', mercure);
+  }
+
+  get googlepubsub(): GooglePubSubChannelBindingElement | undefined {
+    return this.get('googlepubsub');
+  }
+
+  set googlepubsub(googlepubsub: GooglePubSubChannelBindingElement | undefined) {
+    this.set('googlepubsub', googlepubsub);
   }
 
   get ibmmq(): IbmmqChannelBindingElement | undefined {

@@ -15,91 +15,91 @@ class AmqpOperationBinding extends ObjectElement {
     this.classes.push('operation-binding');
   }
 
-  get expiration(): NumberElement {
+  get expiration(): NumberElement | undefined {
     return this.get('expiration');
   }
 
-  set expiration(expiration: NumberElement) {
+  set expiration(expiration: NumberElement | undefined) {
     this.set('expiration', expiration);
   }
 
-  get userId(): StringElement {
+  get userId(): StringElement | undefined {
     return this.get('userId');
   }
 
-  set userId(userId: StringElement) {
+  set userId(userId: StringElement | undefined) {
     this.set('userId', userId);
   }
 
-  get cc(): ArrayElement {
+  get cc(): ArrayElement | undefined {
     return this.get('cc');
   }
 
-  set cc(cc: ArrayElement) {
+  set cc(cc: ArrayElement | undefined) {
     this.set('cc', cc);
   }
 
-  get priority(): NumberElement {
+  get priority(): NumberElement | undefined {
     return this.get('priority');
   }
 
-  set priority(priority: NumberElement) {
+  set priority(priority: NumberElement | undefined) {
     this.set('priority', priority);
   }
 
-  get deliveryMode(): NumberElement {
+  get deliveryMode(): NumberElement | undefined {
     return this.get('deliveryMode');
   }
 
-  set deliveryMode(deliveryMode: NumberElement) {
+  set deliveryMode(deliveryMode: NumberElement | undefined) {
     this.set('deliveryMode', deliveryMode);
   }
 
-  get mandatory(): BooleanElement {
+  get mandatory(): BooleanElement | undefined {
     return this.get('mandatory');
   }
 
-  set mandatory(mandatory: BooleanElement) {
+  set mandatory(mandatory: BooleanElement | undefined) {
     this.set('mandatory', mandatory);
   }
 
-  get bcc(): ArrayElement {
+  get bcc(): ArrayElement | undefined {
     return this.get('bcc');
   }
 
-  set bcc(bcc: ArrayElement) {
+  set bcc(bcc: ArrayElement | undefined) {
     this.set('bcc', bcc);
   }
 
-  get replyTo(): StringElement {
+  get replyTo(): StringElement | undefined {
     return this.get('replyTo');
   }
 
-  set replyTo(replyTo: StringElement) {
+  set replyTo(replyTo: StringElement | undefined) {
     this.set('replyTo', replyTo);
   }
 
-  get timestamp(): BooleanElement {
+  get timestamp(): BooleanElement | undefined {
     return this.get('timestamp');
   }
 
-  set timestamp(timestamp: BooleanElement) {
+  set timestamp(timestamp: BooleanElement | undefined) {
     this.set('timestamp', timestamp);
   }
 
-  get ack(): BooleanElement {
+  get ack(): BooleanElement | undefined {
     return this.get('ack');
   }
 
-  set ack(ack: BooleanElement) {
+  set ack(ack: BooleanElement | undefined) {
     this.set('ack', ack);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

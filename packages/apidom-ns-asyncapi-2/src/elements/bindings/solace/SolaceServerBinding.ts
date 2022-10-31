@@ -7,19 +7,19 @@ class SolaceServerBinding extends ObjectElement {
     this.classes.push('server-binding');
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 
-  get msgVpn(): StringElement {
+  get msgVpn(): StringElement | undefined {
     return this.get('msgVpn');
   }
 
-  set msgVpn(msgVpn: StringElement) {
+  set msgVpn(msgVpn: StringElement | undefined) {
     this.set('msgVpn', msgVpn);
   }
 }

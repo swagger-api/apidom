@@ -7,35 +7,35 @@ class AmqpChannelBinding extends ObjectElement {
     this.classes.push('channel-binding');
   }
 
-  get is(): StringElement {
+  get is(): StringElement | undefined {
     return this.get('is');
   }
 
-  set is(is: StringElement) {
+  set is(is: StringElement | undefined) {
     this.set('is', is);
   }
 
-  get exchange(): ObjectElement {
+  get exchange(): ObjectElement | undefined {
     return this.get('exchange');
   }
 
-  set exchange(exchange: ObjectElement) {
+  set exchange(exchange: ObjectElement | undefined) {
     this.set('exchange', exchange);
   }
 
-  get queue(): ObjectElement {
+  get queue(): ObjectElement | undefined {
     return this.get('queue');
   }
 
-  set queue(queue: ObjectElement) {
+  set queue(queue: ObjectElement | undefined) {
     this.set('queue', queue);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

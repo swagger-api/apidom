@@ -35,11 +35,11 @@ class Message extends ObjectElement {
     this.set('headers', headers);
   }
 
-  get payload(): SchemaElement | Element | undefined {
+  get payload(): SchemaElement | ReferenceElement | Element | undefined {
     return this.get('payload');
   }
 
-  set payload(payload: SchemaElement | Element | undefined) {
+  set payload(payload: SchemaElement | ReferenceElement | Element | undefined) {
     this.set('payload', payload);
   }
 

@@ -13,43 +13,43 @@ class IbmmqChannelBinding extends ObjectElement {
     this.classes.push('channel-binding');
   }
 
-  get destinationType(): StringElement {
+  get destinationType(): StringElement | undefined {
     return this.get('destinationType');
   }
 
-  set destinationType(destinationType: StringElement) {
+  set destinationType(destinationType: StringElement | undefined) {
     this.set('destinationType', destinationType);
   }
 
-  get queue(): ObjectElement {
+  get queue(): ObjectElement | undefined {
     return this.get('queue');
   }
 
-  set queue(queue: ObjectElement) {
+  set queue(queue: ObjectElement | undefined) {
     this.set('queue', queue);
   }
 
-  get topic(): ObjectElement {
+  get topic(): ObjectElement | undefined {
     return this.get('topic');
   }
 
-  set topic(topic: ObjectElement) {
+  set topic(topic: ObjectElement | undefined) {
     this.set('topic', topic);
   }
 
-  get maxMsgLength(): NumberElement {
+  get maxMsgLength(): NumberElement | undefined {
     return this.get('maxMsgLength');
   }
 
-  set maxMsgLength(maxMsgLength: NumberElement) {
+  set maxMsgLength(maxMsgLength: NumberElement | undefined) {
     this.set('maxMsgLength', maxMsgLength);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

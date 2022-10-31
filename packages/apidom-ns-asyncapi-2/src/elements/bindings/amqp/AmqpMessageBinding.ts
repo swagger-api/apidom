@@ -7,27 +7,27 @@ class AmqpMessageBinding extends ObjectElement {
     this.classes.push('message-binding');
   }
 
-  get contentEncoding(): StringElement {
+  get contentEncoding(): StringElement | undefined {
     return this.get('contentEncoding');
   }
 
-  set contentEncoding(contentEncoding: StringElement) {
+  set contentEncoding(contentEncoding: StringElement | undefined) {
     this.set('contentEncoding', contentEncoding);
   }
 
-  get messageType(): StringElement {
+  get messageType(): StringElement | undefined {
     return this.get('messageType');
   }
 
-  set messageType(messageType: StringElement) {
+  set messageType(messageType: StringElement | undefined) {
     this.set('messageType', messageType);
   }
 
-  get bindingVersion(): StringElement {
+  get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }
 
-  set bindingVersion(bindingVersion: StringElement) {
+  set bindingVersion(bindingVersion: StringElement | undefined) {
     this.set('bindingVersion', bindingVersion);
   }
 }

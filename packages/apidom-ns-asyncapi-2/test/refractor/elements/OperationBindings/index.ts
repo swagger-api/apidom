@@ -24,6 +24,8 @@ describe('refractor', function () {
           stomp: {},
           redis: {},
           mercure: {},
+          googlepubsub: {},
+          ibmmq: {},
         });
 
         expect(sexprs(operationBindingsElement)).toMatchSnapshot();

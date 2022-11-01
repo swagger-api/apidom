@@ -13,9 +13,6 @@ exports[`refractor elements IbmmqMessageBindingElement should refract to semanti
     (StringElement))
   (MemberElement
     (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
     (NumberElement))
   (MemberElement
     (StringElement)

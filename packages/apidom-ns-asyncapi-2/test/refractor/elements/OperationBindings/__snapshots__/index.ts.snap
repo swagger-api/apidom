@@ -49,5 +49,11 @@ exports[`refractor elements OperationBindingsElement should refract to semantic 
     (RedisOperationBindingElement))
   (MemberElement
     (StringElement)
-    (MercureOperationBindingElement)))
+    (MercureOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (GooglepubsubOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (IbmmqOperationBindingElement)))
 `;

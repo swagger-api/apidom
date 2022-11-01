@@ -14,6 +14,19 @@ describe('refractor', function () {
 
         expect(sexprs(anypointmqMessageBindingElement)).toMatchSnapshot();
       });
+
+      context('given headers field of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const anypointmqMessageBindingElement = AnypointmqMessageBindingElement.refract({
+            headers: {
+              $ref: '#/pointer',
+            },
+            bindingVersion: '0.1.0',
+          });
+
+          expect(sexprs(anypointmqMessageBindingElement)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

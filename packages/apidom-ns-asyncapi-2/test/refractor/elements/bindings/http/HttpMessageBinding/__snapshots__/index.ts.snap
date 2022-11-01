@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements HttpMessageBindingElement given query field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(HttpMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
 exports[`refractor elements HttpMessageBindingElement should refract to semantic ApiDOM tree 1`] = `
 (HttpMessageBindingElement
   (MemberElement

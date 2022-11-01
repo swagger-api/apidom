@@ -1,10 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements KafkaMessageBindingElement given query field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(KafkaMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
 exports[`refractor elements KafkaMessageBindingElement should refract to semantic ApiDOM tree 1`] = `
 (KafkaMessageBindingElement
   (MemberElement
     (StringElement)
     (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
   (MemberElement
     (StringElement)
     (StringElement)))

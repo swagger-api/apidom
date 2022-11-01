@@ -7,7 +7,10 @@ describe('refractor', function () {
   context('elements', function () {
     context('SolaceOperationBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
-        const solaceOperationBindingElement = SolaceOperationBindingElement.refract({});
+        const solaceOperationBindingElement = SolaceOperationBindingElement.refract({
+          bindingVersion: '0.2.0',
+          destinations: [{}],
+        });
 
         expect(sexprs(solaceOperationBindingElement)).toMatchSnapshot();
       });

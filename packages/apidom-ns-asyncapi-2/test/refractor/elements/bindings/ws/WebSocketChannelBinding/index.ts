@@ -16,6 +16,23 @@ describe('refractor', function () {
 
         expect(sexprs(webSocketChannelBindingElement)).toMatchSnapshot();
       });
+
+      context('given query and header fields of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const webSocketChannelBindingElement = WebSocketChannelBindingElement.refract({
+            method: 'web-socket-channel-method',
+            query: {
+              $ref: '#/pointer',
+            },
+            headers: {
+              $ref: '#/pointer',
+            },
+            bindingVersion: '0.1.0',
+          });
+
+          expect(sexprs(webSocketChannelBindingElement)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

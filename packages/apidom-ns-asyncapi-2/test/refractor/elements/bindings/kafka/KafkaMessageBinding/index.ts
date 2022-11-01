@@ -9,10 +9,27 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const kafkaMessageBindingElement = KafkaMessageBindingElement.refract({
           key: {},
-          bindingVersion: '0.1.0',
+          schemaIdLocation: 'payload',
+          schemaIdPayloadEncoding: '4',
+          bindingVersion: '0.3.0',
         });
 
         expect(sexprs(kafkaMessageBindingElement)).toMatchSnapshot();
+      });
+
+      context('given query field of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const kafkaMessageBindingElement = KafkaMessageBindingElement.refract({
+            key: {
+              $ref: '#/pointer',
+            },
+            schemaIdLocation: 'payload',
+            schemaIdPayloadEncoding: '4',
+            bindingVersion: '0.3.0',
+          });
+
+          expect(sexprs(kafkaMessageBindingElement)).toMatchSnapshot();
+        });
       });
     });
   });

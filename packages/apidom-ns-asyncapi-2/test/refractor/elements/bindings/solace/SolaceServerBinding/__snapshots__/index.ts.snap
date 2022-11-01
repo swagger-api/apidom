@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements SolaceServerBindingElement should refract to semantic ApiDOM tree 1`] = `(SolaceServerBindingElement)`;
+exports[`refractor elements SolaceServerBindingElement should refract to semantic ApiDOM tree 1`] = `
+(SolaceServerBindingElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

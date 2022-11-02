@@ -1,0 +1,13 @@
+{
+  "asyncapi": "2.5.0",
+  "components": {
+    "serverVariables": {
+      "variable1": {
+        "enum": ["a", "b", "c"]
+      },
+      "variable2": {
+        "$ref": "#/components/serverVariables/variable1"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "asyncapi": "2.5.0",
+    "components": {
+      "schemas": {
+        "schema1": {
+          "type": "object"
+        },
+        "schema2": {
+          "type": "number"
+        }
+      },
+      "channelBindings": {
+        "binding1": {
+          "ws": {
+            "query": {
+              "type": "object"
+            },
+            "headers": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+]

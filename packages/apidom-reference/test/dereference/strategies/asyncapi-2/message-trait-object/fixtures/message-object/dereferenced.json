@@ -1,6 +1,6 @@
 [
   {
-    "asyncapi": "2.4.0",
+    "asyncapi": "2.5.0",
     "components": {
       "messageTraits": {
         "messageTrait1": {

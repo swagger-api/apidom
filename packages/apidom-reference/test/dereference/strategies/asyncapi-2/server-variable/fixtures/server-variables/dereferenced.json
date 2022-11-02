@@ -1,0 +1,20 @@
+[
+  {
+    "asyncapi": "2.5.0",
+    "components": {
+      "servers": {
+        "server1": {
+          "url": "http://example.com",
+          "variables": {
+            "variable1": {
+              "enum": ["a", "b", "c"]
+            },
+            "variable2": {
+              "enum": ["a", "b", "c"]
+            }
+          }
+        }
+      }
+    }
+  }
+]

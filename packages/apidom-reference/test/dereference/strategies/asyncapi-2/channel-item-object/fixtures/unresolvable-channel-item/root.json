@@ -1,5 +1,5 @@
 {
-  "asyncapi": "2.4.0",
+  "asyncapi": "2.5.0",
   "channels": {
     "channelItem1": {
       "$ref": "#/channels/invalid-pointer"

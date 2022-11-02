@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { GooglePubSubOperationBindingElement } from '../../../../../../src';
+import { GooglepubsubOperationBindingElement } from '../../../../../../src';
 
 describe('refractor', function () {
   context('elements', function () {
-    context('GooglePubSubOperationBindingElement', function () {
+    context('GooglepubsubOperationBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
-        const googlepubsubOperationBindingElement = GooglePubSubOperationBindingElement.refract({});
+        const googlepubsubOperationBindingElement = GooglepubsubOperationBindingElement.refract({});
 
         expect(sexprs(googlepubsubOperationBindingElement)).toMatchSnapshot();
       });

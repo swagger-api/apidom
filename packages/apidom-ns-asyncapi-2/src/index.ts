@@ -59,7 +59,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
@@ -115,10 +115,10 @@ export { default as AnypointmqMessageBindingElement } from './elements/bindings/
 export { default as AnypointmqOperationBindingElement } from './elements/bindings/anypointmq/AnypointmqOperationBinding';
 export { default as AnypointmqServerBindingElement } from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Google Cloud Pub/Sub
-export { default as GooglePubSubChannelBindingElement } from './elements/bindings/googlepubsub/GooglePubSubChannelBinding';
-export { default as GooglePubSubMessageBindingElement } from './elements/bindings/googlepubsub/GooglePubSubMessageBinding';
-export { default as GooglePubSubOperationBindingElement } from './elements/bindings/googlepubsub/GooglePubSubOperationBinding';
-export { default as GooglePubSubServerBindingElement } from './elements/bindings/googlepubsub/GooglePubSubServerBinding';
+export { default as GooglepubsubChannelBindingElement } from './elements/bindings/googlepubsub/GooglepubsubChannelBinding';
+export { default as GooglepubsubMessageBindingElement } from './elements/bindings/googlepubsub/GooglepubsubMessageBinding';
+export { default as GooglepubsubOperationBindingElement } from './elements/bindings/googlepubsub/GooglepubsubOperationBinding';
+export { default as GooglepubsubServerBindingElement } from './elements/bindings/googlepubsub/GooglepubsubServerBinding';
 
 // HTTP
 export { default as HttpChannelBindingElement } from './elements/bindings/http/HttpChannelBinding';

@@ -6,7 +6,7 @@ const { ObjectElement } = require('@swagger-api/apidom-core');
 const { AsyncApi2Element } = require('../../src');
 
 const genericObjectElement = new ObjectElement({
-  asyncapi: '2.4.0',
+  asyncapi: '2.5.0',
   info: {
     title: 'Webhook Example',
     version: '1.0.0',

@@ -10,7 +10,7 @@ import { isReferenceLikeElement } from '../../../predicates';
 
 /**
  * Implementation of refracting according `schemaFormat` fixed field is now limited,
- * and currently only supports AsyncAPI Schema Object >= 2.0.0 <=2.4.0.
+ * and currently only supports AsyncAPI Schema Object >= 2.0.0 <=2.5.0.
  */
 
 const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {

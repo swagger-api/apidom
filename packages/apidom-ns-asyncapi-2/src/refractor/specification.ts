@@ -3,7 +3,7 @@ import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -174,10 +174,10 @@ import HttpMessageBindingVisitor from './visitors/async-api-2/bindings/http/mess
 import HttpOperationBindingVisitor from './visitors/async-api-2/bindings/http/operation-binding';
 import HttpServerBindingVisitor from './visitors/async-api-2/bindings/http/server-binding';
 // Google Cloud Pub/Sub
-import GooglePubSubChannelBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/channel-binding';
-import GooglePubSubMessageBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/message-binding';
-import GooglePubSubOperationBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/operation-binding';
-import GooglePubSubServerBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/server-binding';
+import GooglepubsubChannelBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/channel-binding';
+import GooglepubsubMessageBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/message-binding';
+import GooglepubsubOperationBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/operation-binding';
+import GooglepubsubServerBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/server-binding';
 // IBM MQ
 import IbmmqChannelBindingVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding';
 import IbmmqMessageBindingVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding';
@@ -292,7 +292,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+         * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -1280,10 +1280,10 @@ const specification = {
           },
           googlepubsub: {
             ServerBinding: {
-              $visitor: GooglePubSubServerBindingVisitor,
+              $visitor: GooglepubsubServerBindingVisitor,
             },
             ChannelBinding: {
-              $visitor: GooglePubSubChannelBindingVisitor,
+              $visitor: GooglepubsubChannelBindingVisitor,
               fixedFields: {
                 bindingVersion: {
                   $ref: '#/visitors/value',
@@ -1306,10 +1306,10 @@ const specification = {
               },
             },
             OperationBinding: {
-              $visitor: GooglePubSubOperationBindingVisitor,
+              $visitor: GooglepubsubOperationBindingVisitor,
             },
             MessageBinding: {
-              $visitor: GooglePubSubMessageBindingVisitor,
+              $visitor: GooglepubsubMessageBindingVisitor,
               fixedFields: {
                 bindingVersion: {
                   $ref: '#/visitors/value',

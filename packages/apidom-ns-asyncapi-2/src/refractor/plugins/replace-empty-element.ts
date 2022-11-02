@@ -11,7 +11,7 @@ import {
 
 import mediaTypes from '../../media-types';
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
 import IdentifierElement from '../../elements/Identifier';
@@ -57,6 +57,16 @@ import Amqp1ChannelBindingElement from '../../elements/bindings/amqp1/Amqp1Chann
 import Amqp1MessageBindingElement from '../../elements/bindings/amqp1/Amqp1MessageBinding';
 import Amqp1OperationBindingElement from '../../elements/bindings/amqp1/Amqp1OperationBinding';
 import Amqp1ServerBindingElement from '../../elements/bindings/amqp1/Amqp1ServerBinding';
+// Anypoint MQ
+import AnypointmqChannelBindingElement from '../../elements/bindings/anypointmq/AnypointmqChannelBinding';
+import AnypointmqMessageBindingElement from '../../elements/bindings/anypointmq/AnypointmqMessageBinding';
+import AnypointmqOperationBindingElement from '../../elements/bindings/anypointmq/AnypointmqOperationBinding';
+import AnypointmqServerBindingElement from '../../elements/bindings/anypointmq/AnypointmqServerBinding';
+// Google Cloud Pub/Sub
+import GooglepubsubChannelBindingElement from '../../elements/bindings/googlepubsub/GooglepubsubChannelBinding';
+import GooglepubsubMessageBindingElement from '../../elements/bindings/googlepubsub/GooglepubsubMessageBinding';
+import GooglepubsubOperationBindingElement from '../../elements/bindings/googlepubsub/GooglepubsubOperationBinding';
+import GooglepubsubServerBindingElement from '../../elements/bindings/googlepubsub/GooglepubsubServerBinding';
 // HTTP
 import HttpChannelBindingElement from '../../elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from '../../elements/bindings/http/HttpMessageBinding';
@@ -65,6 +75,7 @@ import HttpServerBindingElement from '../../elements/bindings/http/HttpServerBin
 // IBM MQ
 import IbmmqChannelBindingElement from '../../elements/bindings/ibmmq/IbmmqChannelBinding';
 import IbmmqMessageBindingElement from '../../elements/bindings/ibmmq/IbmmqMessageBinding';
+import IbmmqOperationBindingElement from '../../elements/bindings/ibmmq/IbmmqOperationBinding';
 import IbmmqServerBindingElement from '../../elements/bindings/ibmmq/IbmmqServerBinding';
 // JMS
 import JmsChannelBindingElement from '../../elements/bindings/jms/JmsChannelBinding';
@@ -76,11 +87,6 @@ import KafkaChannelBindingElement from '../../elements/bindings/kafka/KafkaChann
 import KafkaMessageBindingElement from '../../elements/bindings/kafka/KafkaMessageBinding';
 import KafkaOperationBindingElement from '../../elements/bindings/kafka/KafkaOperationBinding';
 import KafkaServerBindingElement from '../../elements/bindings/kafka/KafkaServerBinding';
-// Anypoint MQ
-import AnypointmqChannelBindingElement from '../../elements/bindings/anypointmq/AnypointmqChannelBinding';
-import AnypointmqMessageBindingElement from '../../elements/bindings/anypointmq/AnypointmqMessageBinding';
-import AnypointmqOperationBindingElement from '../../elements/bindings/anypointmq/AnypointmqOperationBinding';
-import AnypointmqServerBindingElement from '../../elements/bindings/anypointmq/AnypointmqServerBinding';
 // Mercure
 import MercureChannelBindingElement from '../../elements/bindings/mercure/MercureChannelBinding';
 import MercureMessageBindingElement from '../../elements/bindings/mercure/MercureMessageBinding';
@@ -169,7 +175,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * asyncapi: 2.4.0
+ * asyncapi: 2.5.0
  * info:
  * ```
  * Refracting result without this plugin:
@@ -246,6 +252,9 @@ const schema = {
     },
     security(...args: any[]) {
       return new ServerSecurityElement(...args);
+    },
+    tags(...args: any[]) {
+      return new TagsElement(...args);
     },
     bindings(...args: any[]) {
       return new ServerBindingsElement(...args);
@@ -502,6 +511,12 @@ const schema = {
     mercure(...args: any[]) {
       return new MercureOperationBindingElement(...args);
     },
+    googlepubsub(...args: any[]) {
+      return new GooglepubsubOperationBindingElement(...args);
+    },
+    ibmmq(...args: any[]) {
+      return new IbmmqOperationBindingElement(...args);
+    },
   },
   MessageBindingsElement: {
     http(...args: any[]) {
@@ -554,6 +569,9 @@ const schema = {
     },
     ibmmq(...args: any[]) {
       return new IbmmqMessageBindingElement(...args);
+    },
+    googlepubsub(...args: any[]) {
+      return new GooglepubsubMessageBindingElement(...args);
     },
   },
   ServerBindingsElement: {
@@ -608,6 +626,9 @@ const schema = {
     ibmmq(...args: any[]) {
       return new IbmmqServerBindingElement(...args);
     },
+    googlepubsub(...args: any[]) {
+      return new GooglepubsubServerBindingElement(...args);
+    },
   },
   ChannelBindingsElement: {
     http(...args: any[]) {
@@ -660,6 +681,9 @@ const schema = {
     },
     ibmmq(...args: any[]) {
       return new IbmmqChannelBindingElement(...args);
+    },
+    googlepubsub(...args: any[]) {
+      return new GooglepubsubChannelBindingElement(...args);
     },
   },
   SchemaElement: {
@@ -799,6 +823,35 @@ const schema = {
       return new ObjectElement(...args);
     },
     topic(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  MqttServerBindingElement: {
+    lastWill(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SolaceOperationBindingElement: {
+    destinations(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+  },
+  GooglepubsubChannelBindingElement: {
+    labels(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    messageStoragePolicy(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    schemaSettings(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  GooglepubsubMessageBindingElement: {
+    attributes(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    schema(...args: any[]) {
       return new ObjectElement(...args);
     },
   },

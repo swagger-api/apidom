@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import GooglePubSubChannelBindingElement from '../../../../../../elements/bindings/googlepubsub/GooglePubSubChannelBinding';
+import GooglepubsubChannelBindingElement from '../../../../../../elements/bindings/googlepubsub/GooglepubsubChannelBinding';
 import FallbackVisitor from '../../../../FallbackVisitor';
 import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const GooglePubSubChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const GooglepubsubChannelBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'bindings', 'googlepubsub', 'ChannelBinding']),
     canSupportSpecificationExtensions: false,
   },
   init() {
-    this.element = new GooglePubSubChannelBindingElement();
+    this.element = new GooglepubsubChannelBindingElement();
   },
 });
 
-export default GooglePubSubChannelBindingVisitor;
+export default GooglepubsubChannelBindingVisitor;

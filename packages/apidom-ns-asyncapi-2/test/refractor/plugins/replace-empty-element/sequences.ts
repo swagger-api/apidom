@@ -8,7 +8,7 @@ import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '../../../.
 describe('given empty value instead of SecurityRequirementElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           servers:
             server1:
               security:
@@ -26,7 +26,7 @@ describe('given empty value instead of SecurityRequirementElement', function () 
 describe('given empty value instead of OperationTraitElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           channels:
             "user/subscribe":
               subscribe:
@@ -45,7 +45,7 @@ describe('given empty value instead of OperationTraitElement', function () {
 describe('given multiple empty value instead of MessageElement', function () {
   it('should replace empty values with semantic elements', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           channels:
             "user/subscribe":
               subscribe:
@@ -66,7 +66,7 @@ describe('given multiple empty value instead of MessageElement', function () {
 describe('given multiple empty value instead of TagElement', function () {
   it('should replace empty values with semantic elements', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           channels:
             "user/subscribe":
               subscribe:
@@ -88,7 +88,7 @@ describe('given multiple empty value instead of TagElement', function () {
 describe('given empty values instead of SchemaElement for allOf keyword', function () {
   it('should replace empty values with semantic elements', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             schemas:
               Schema1:

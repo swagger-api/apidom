@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/apidom/static/css/main.e6c13ad2.css",
-    "main.js": "/apidom/static/js/main.4081b52c.js",
-    "static/js/702.3eb2402d.chunk.js": "/apidom/static/js/702.3eb2402d.chunk.js",
+    "main.js": "/apidom/static/js/main.b8c59ed8.js",
+    "static/js/331.21aec8a7.chunk.js": "/apidom/static/js/331.21aec8a7.chunk.js",
     "static/js/675.f04c5fb5.chunk.js": "/apidom/static/js/675.f04c5fb5.chunk.js",
     "static/js/589.1b0e82bb.chunk.js": "/apidom/static/js/589.1b0e82bb.chunk.js",
     "static/media/tree-sitter-yaml.wasm": "/apidom/static/media/tree-sitter-yaml.d396281e11774e0afa7a.wasm",
@@ -10,13 +10,13 @@
     "static/media/tree-sitter-json.wasm": "/apidom/static/media/tree-sitter-json.7c7ca323880d9fa6e48d.wasm",
     "index.html": "/apidom/index.html",
     "main.e6c13ad2.css.map": "/apidom/static/css/main.e6c13ad2.css.map",
-    "main.4081b52c.js.map": "/apidom/static/js/main.4081b52c.js.map",
-    "702.3eb2402d.chunk.js.map": "/apidom/static/js/702.3eb2402d.chunk.js.map",
+    "main.b8c59ed8.js.map": "/apidom/static/js/main.b8c59ed8.js.map",
+    "331.21aec8a7.chunk.js.map": "/apidom/static/js/331.21aec8a7.chunk.js.map",
     "675.f04c5fb5.chunk.js.map": "/apidom/static/js/675.f04c5fb5.chunk.js.map",
     "589.1b0e82bb.chunk.js.map": "/apidom/static/js/589.1b0e82bb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.4081b52c.js"
+    "static/js/main.b8c59ed8.js"
   ]
 }

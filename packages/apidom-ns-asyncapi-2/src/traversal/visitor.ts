@@ -10,7 +10,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 
 export const keyMap = {
   /**
-   * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+   * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
    */
   AsyncApi2Element: ['content'],
   AsyncApiVersionElement: [],
@@ -57,6 +57,16 @@ export const keyMap = {
   Amqp1MessageBindingElement: ['content'],
   Amqp1OperationBindingElement: ['content'],
   Amqp1ServerBindingElement: ['content'],
+  // Anypoint MQ
+  AnypointmqChannelBindingElement: ['content'],
+  AnypointmqMessageBindingElement: ['content'],
+  AnypointmqOperationBindingElement: ['content'],
+  AnypointmqServerBindingElement: ['content'],
+  // Google Cloud Pub/Sub Server Binding
+  GooglepubsubChannelBindingElement: ['content'],
+  GooglepubsubMessageBindingElement: ['content'],
+  GooglepubsubOperationBindingElement: ['content'],
+  GooglepubsubServerBindingElement: ['content'],
   // HTTP
   HttpChannelBindingElement: ['content'],
   HttpMessageBindingElement: ['content'],
@@ -65,6 +75,7 @@ export const keyMap = {
   // IBM MQ
   IbmmqChannelBindingElement: ['content'],
   IbmmqMessageBindingElement: ['content'],
+  IbmmqChannelOperationElement: ['content'],
   IbmmqServerBindingElement: ['content'],
   // JMS
   JmsChannelBindingElement: ['content'],
@@ -76,11 +87,6 @@ export const keyMap = {
   KafkaMessageBindingElement: ['content'],
   KafkaOperationBindingElement: ['content'],
   KafkaServerBindingElement: ['content'],
-  // Anypoint MQ
-  AnypointmqChannelBindingElement: ['content'],
-  AnypointmqMessageBindingElement: ['content'],
-  AnypointmqOperationBindingElement: ['content'],
-  AnypointmqServerBindingElement: ['content'],
   // Mercure
   MercureChannelBindingElement: ['content'],
   MercureMessageBindingElement: ['content'],

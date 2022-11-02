@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -56,10 +56,10 @@ import AnypointmqMessageBindingElement from './elements/bindings/anypointmq/Anyp
 import AnypointmqOperationBindingElement from './elements/bindings/anypointmq/AnypointmqOperationBinding';
 import AnypointmqServerBindingElement from './elements/bindings/anypointmq/AnypointmqServerBinding';
 // Google Cloud Pub/Sub
-import GooglePubSubChannelBindingElement from './elements/bindings/googlepubsub/GooglePubSubChannelBinding';
-import GooglePubSubMessageBindingElement from './elements/bindings/googlepubsub/GooglePubSubMessageBinding';
-import GooglePubSubOperationBindingElement from './elements/bindings/googlepubsub/GooglePubSubOperationBinding';
-import GooglePubSubServerBindingElement from './elements/bindings/googlepubsub/GooglePubSubServerBinding';
+import GooglepubsubChannelBindingElement from './elements/bindings/googlepubsub/GooglepubsubChannelBinding';
+import GooglepubsubMessageBindingElement from './elements/bindings/googlepubsub/GooglepubsubMessageBinding';
+import GooglepubsubOperationBindingElement from './elements/bindings/googlepubsub/GooglepubsubOperationBinding';
+import GooglepubsubServerBindingElement from './elements/bindings/googlepubsub/GooglepubsubServerBinding';
 // HTTP
 import HttpChannelBindingElement from './elements/bindings/http/HttpChannelBinding';
 import HttpMessageBindingElement from './elements/bindings/http/HttpMessageBinding';
@@ -136,7 +136,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+     * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
@@ -192,10 +192,10 @@ const asyncApi2 = {
     base.register('anypointmqOperationBinding', AnypointmqOperationBindingElement);
     base.register('anypointmqServerBinding', AnypointmqServerBindingElement);
     // Google Cloud Pub/Sub
-    base.register('googlepubsubChannelBinding', GooglePubSubChannelBindingElement);
-    base.register('googlepubsubMessageBinding', GooglePubSubMessageBindingElement);
-    base.register('googlepubsubOperationBinding', GooglePubSubOperationBindingElement);
-    base.register('googlepubsubServerBinding', GooglePubSubServerBindingElement);
+    base.register('googlepubsubChannelBinding', GooglepubsubChannelBindingElement);
+    base.register('googlepubsubMessageBinding', GooglepubsubMessageBindingElement);
+    base.register('googlepubsubOperationBinding', GooglepubsubOperationBindingElement);
+    base.register('googlepubsubServerBinding', GooglepubsubServerBindingElement);
     // HTTP
     base.register('httpChannelBinding', HttpChannelBindingElement);
     base.register('httpMessageBinding', HttpMessageBindingElement);

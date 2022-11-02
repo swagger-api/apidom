@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -60,10 +60,10 @@ import HttpMessageBindingElement from '../elements/bindings/http/HttpMessageBind
 import HttpOperationBindingElement from '../elements/bindings/http/HttpOperationBinding';
 import HttpServerBindingElement from '../elements/bindings/http/HttpServerBinding';
 // Google Cloud Pub/Sub
-import GooglePubSubChannelBindingElement from '../elements/bindings/googlepubsub/GooglePubSubChannelBinding';
-import GooglePubSubMessageBindingElement from '../elements/bindings/googlepubsub/GooglePubSubMessageBinding';
-import GooglePubSubOperationBindingElement from '../elements/bindings/googlepubsub/GooglePubSubOperationBinding';
-import GooglePubSubServerBindingElement from '../elements/bindings/googlepubsub/GooglePubSubServerBinding';
+import GooglepubsubChannelBindingElement from '../elements/bindings/googlepubsub/GooglepubsubChannelBinding';
+import GooglepubsubMessageBindingElement from '../elements/bindings/googlepubsub/GooglepubsubMessageBinding';
+import GooglepubsubOperationBindingElement from '../elements/bindings/googlepubsub/GooglepubsubOperationBinding';
+import GooglepubsubServerBindingElement from '../elements/bindings/googlepubsub/GooglepubsubServerBinding';
 // IBM MQ
 import IbmmqChannelBindingElement from '../elements/bindings/ibmmq/IbmmqChannelBinding';
 import IbmmqMessageBindingElement from '../elements/bindings/ibmmq/IbmmqMessageBinding';
@@ -131,7 +131,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',
@@ -457,7 +457,7 @@ HttpServerBindingElement.refract = createRefractor([
   '$visitor',
 ]);
 // Google Cloud Pub/Sub
-GooglePubSubChannelBindingElement.refract = createRefractor([
+GooglepubsubChannelBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -466,7 +466,7 @@ GooglePubSubChannelBindingElement.refract = createRefractor([
   'ChannelBinding',
   '$visitor',
 ]);
-GooglePubSubMessageBindingElement.refract = createRefractor([
+GooglepubsubMessageBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -475,7 +475,7 @@ GooglePubSubMessageBindingElement.refract = createRefractor([
   'MessageBinding',
   '$visitor',
 ]);
-GooglePubSubOperationBindingElement.refract = createRefractor([
+GooglepubsubOperationBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
@@ -484,7 +484,7 @@ GooglePubSubOperationBindingElement.refract = createRefractor([
   'OperationBinding',
   '$visitor',
 ]);
-GooglePubSubServerBindingElement.refract = createRefractor([
+GooglepubsubServerBindingElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',

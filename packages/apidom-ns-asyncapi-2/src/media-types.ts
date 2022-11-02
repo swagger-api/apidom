@@ -9,7 +9,7 @@ export class AsyncAPIMediaTypes extends MediaTypes<string> {
     return this.filter((mediaType) => mediaType.includes(effectiveFormat));
   }
 
-  findBy(version = '2.4.0', format: Format = 'generic') {
+  findBy(version = '2.5.0', format: Format = 'generic') {
     const search =
       format === 'generic'
         ? `vnd.aai.asyncapi;version=${version}`
@@ -40,6 +40,9 @@ const mediaTypes = new AsyncAPIMediaTypes(
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi+json;version=2.4.0',
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
+  'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi+json;version=2.5.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.5.0',
 );
 
 export default mediaTypes;

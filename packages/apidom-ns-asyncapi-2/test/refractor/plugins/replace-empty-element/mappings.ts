@@ -8,7 +8,7 @@ import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '../../../.
 describe('given empty value instead of InfoElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           info:
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -23,7 +23,7 @@ describe('given empty value instead of InfoElement', function () {
 describe('given empty value instead of ContactElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           info:
             contact:
         `;
@@ -39,7 +39,7 @@ describe('given empty value instead of ContactElement', function () {
 describe('given empty value instead of Message.payload with unspecified schema format', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             messages:
                 userSignUp:
@@ -57,11 +57,11 @@ describe('given empty value instead of Message.payload with unspecified schema f
 describe('given empty value instead of Message.payload with supported schema format', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             messages:
                 userSignUp:
-                  schemaFormat: application/vnd.aai.asyncapi;version=2.4.0
+                  schemaFormat: application/vnd.aai.asyncapi;version=2.5.0
                   payload:
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -76,7 +76,7 @@ describe('given empty value instead of Message.payload with supported schema for
 describe('given empty value instead of Message.payload with unsupported schema format', function () {
   it('should replace empty value with generic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             messages:
                 userSignUp:
@@ -95,7 +95,7 @@ describe('given empty value instead of Message.payload with unsupported schema f
 describe('given empty value instead for AsyncAPI.components.schemas', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             schemas:
         `;
@@ -116,7 +116,7 @@ describe('given empty value instead for AsyncAPI.components.schemas', function (
 describe('given empty value instead for AsyncAPI.components.schemas.*', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             schemas:
               Schema1:
@@ -133,7 +133,7 @@ describe('given empty value instead for AsyncAPI.components.schemas.*', function
 describe('given empty value instead for Schema.properties.*', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           components:
             schemas:
               User:
@@ -152,7 +152,7 @@ describe('given empty value instead for Schema.properties.*', function () {
 describe('given AsyncAPI definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           id: urn:com:smartylighting:streetlights:server
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -167,7 +167,7 @@ describe('given AsyncAPI definition with no empty values', function () {
 describe('given AsyncAPI definition with empty values', function () {
   it('should generate proper source maps', async function () {
     const yamlDefinition = dedent`
-          asyncapi: 2.4.0
+          asyncapi: 2.5.0
           info:
         `;
     const apiDOM = await parse(yamlDefinition, { sourceMap: true });

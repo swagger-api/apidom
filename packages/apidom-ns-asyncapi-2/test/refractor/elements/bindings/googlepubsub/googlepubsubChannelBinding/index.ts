@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { GooglePubSubChannelBindingElement } from '../../../../../../src';
+import { GooglepubsubChannelBindingElement } from '../../../../../../src';
 
 describe('refractor', function () {
   context('elements', function () {
-    context('GooglePubSubChannelBindingElement', function () {
+    context('GooglepubsubChannelBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
-        const googlepubsubChannelBindingElement = GooglePubSubChannelBindingElement.refract({
+        const googlepubsubChannelBindingElement = GooglepubsubChannelBindingElement.refract({
           bindingVersion: '0.1.0',
           labels: {},
           messageRetentionDuration: '86400s',

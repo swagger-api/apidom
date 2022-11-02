@@ -1,6 +1,6 @@
 import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-class GooglePubSubMessageBinding extends ObjectElement {
+class GooglepubsubMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'googlepubsubMessageBinding';
@@ -40,4 +40,4 @@ class GooglePubSubMessageBinding extends ObjectElement {
   }
 }
 
-export default GooglePubSubMessageBinding;
+export default GooglepubsubMessageBinding;

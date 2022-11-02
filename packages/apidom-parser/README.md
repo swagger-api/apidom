@@ -47,7 +47,7 @@ parser.use(yamlParserAdapter);
 ## Finding an appropriate ApiDOM namespace
 
 ApiDOM parser contains logic of mapping a `source string` + `mediaType` to appropriate ApiDOM namespace.
-It will return either [base namespace instance](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) or a specific one like [OpenApi 3.1.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace) or [AsyncApi 2.4.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
+It will return either [base namespace instance](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) or a specific one like [OpenApi 3.1.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace) or [AsyncApi 2.5.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';

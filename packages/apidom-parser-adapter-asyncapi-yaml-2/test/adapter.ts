@@ -76,7 +76,7 @@ describe('adapter', function () {
   context('given YAML with empty node', function () {
     specify('should generate source maps', async function () {
       const yamlSource = dedent`
-        asyncapi: 2.4.0
+        asyncapi: 2.5.0
         info:
       `;
 

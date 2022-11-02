@@ -374,6 +374,9 @@ const specification = {
             description: ServerDescriptionVisitor,
             variables: ServerVariablesVisitor,
             security: ServerSecurityVisitor,
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
             bindings: ServerBindingsVisitor_,
           },
         },

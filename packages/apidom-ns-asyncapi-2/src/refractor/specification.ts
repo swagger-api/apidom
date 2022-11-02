@@ -57,6 +57,7 @@ import SecurityRequirementVisitor from './visitors/async-api-2/security-requirem
 import ReferenceVisitor from './visitors/async-api-2/reference';
 import Reference$RefVisitor from './visitors/async-api-2/reference/$RefVisitor';
 import SchemaVisitor from './visitors/async-api-2/schema';
+import SchemaOrReferenceVisitor from './visitors/async-api-2/schema/SchemaOrReferenceVisitor';
 import SchemaDeprecatedVisitor from './visitors/async-api-2/schema/DeprecatedVisitor';
 import SchemaDiscriminatorVisitor from './visitors/async-api-2/schema/DiscriminatorVisitor';
 import SchemaAllOfVisitor from './visitors/async-api-2/schema/AllOfVisitor';
@@ -165,15 +166,12 @@ import Amqp1ServerBindingVisitor from './visitors/async-api-2/bindings/amqp1/ser
 // Anypoint MQ
 import AnypointmqChannelBindingVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding';
 import AnypointmqMessageBindingVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding';
-import AnypointmqMessageBindingHeadersVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding/HeadersVisitor';
 import AnypointmqOperationBindingVisitor from './visitors/async-api-2/bindings/anypointmq/operation-binding';
 import AnypointmqServerBindingVisitor from './visitors/async-api-2/bindings/anypointmq/server-binding';
 // HTTP
 import HttpChannelBindingVisitor from './visitors/async-api-2/bindings/http/channel-binding';
 import HttpMessageBindingVisitor from './visitors/async-api-2/bindings/http/message-binding';
-import HttpMessageBindingHeadersVisitor from './visitors/async-api-2/bindings/http/message-binding/HeadersVisitor';
 import HttpOperationBindingVisitor from './visitors/async-api-2/bindings/http/operation-binding';
-import HttpOperationBindingQueryVisitor from './visitors/async-api-2/bindings/http/operation-binding/QueryVisitor';
 import HttpServerBindingVisitor from './visitors/async-api-2/bindings/http/server-binding';
 // Google Cloud Pub/Sub
 import GooglePubSubChannelBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/channel-binding';
@@ -193,10 +191,7 @@ import JmsServerBindingVisitor from './visitors/async-api-2/bindings/jms/server-
 // Kafka
 import KafkaChannelBindingVisitor from './visitors/async-api-2/bindings/kafka/channel-binding';
 import KafkaMessageBindingVisitor from './visitors/async-api-2/bindings/kafka/message-binding';
-import KafkaMessageBindingKeyVisitor from './visitors/async-api-2/bindings/kafka/message-binding/KeyVisitor';
 import KafkaOperationBindingVisitor from './visitors/async-api-2/bindings/kafka/operation-binding';
-import KafkaOperationBindingGroupIdVisitor from './visitors/async-api-2/bindings/kafka/operation-binding/GroupIdVisitor';
-import KafkaOperationBindingClientIdVisitor from './visitors/async-api-2/bindings/kafka/operation-binding/ClientIdVisitor';
 import KafkaServerBindingVisitor from './visitors/async-api-2/bindings/kafka/server-binding';
 // Mercure
 import MercureChannelBindingVisitor from './visitors/async-api-2/bindings/mercure/channel-binding';
@@ -245,8 +240,6 @@ import StompOperationBindingVisitor from './visitors/async-api-2/bindings/stomp/
 import StompServerBindingVisitor from './visitors/async-api-2/bindings/stomp/server-binding';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2/bindings/ws/channel-binding';
-import WebSocketChannelBindingHeadersVisitor from './visitors/async-api-2/bindings/ws/channel-binding/HeadersVisitor';
-import WebSocketChannelBindingQueryVisitor from './visitors/async-api-2/bindings/ws/channel-binding/QueryVisitor';
 import WebSocketMessageBindingVisitor from './visitors/async-api-2/bindings/ws/message-binding';
 import WebSocketOperationBindingVisitor from './visitors/async-api-2/bindings/ws/operation-binding';
 import WebSocketServerBindingVisitor from './visitors/async-api-2/bindings/ws/server-binding';
@@ -865,7 +858,7 @@ const specification = {
                 method: {
                   $ref: '#/visitors/value',
                 },
-                query: HttpOperationBindingQueryVisitor,
+                query: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -874,7 +867,7 @@ const specification = {
             MessageBinding: {
               $visitor: HttpMessageBindingVisitor,
               fixedFields: {
-                headers: HttpMessageBindingHeadersVisitor,
+                headers: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -891,8 +884,8 @@ const specification = {
                 method: {
                   $ref: '#/visitors/value',
                 },
-                query: WebSocketChannelBindingQueryVisitor,
-                headers: WebSocketChannelBindingHeadersVisitor,
+                query: SchemaOrReferenceVisitor,
+                headers: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -940,8 +933,8 @@ const specification = {
             OperationBinding: {
               $visitor: KafkaOperationBindingVisitor,
               fixedFields: {
-                groupId: KafkaOperationBindingGroupIdVisitor,
-                clientId: KafkaOperationBindingClientIdVisitor,
+                groupId: SchemaOrReferenceVisitor,
+                clientId: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -950,7 +943,7 @@ const specification = {
             MessageBinding: {
               $visitor: KafkaMessageBindingVisitor,
               fixedFields: {
-                key: KafkaMessageBindingKeyVisitor,
+                key: SchemaOrReferenceVisitor,
                 schemaIdLocation: {
                   $ref: '#/visitors/value',
                 },
@@ -990,7 +983,7 @@ const specification = {
             MessageBinding: {
               $visitor: AnypointmqMessageBindingVisitor,
               fixedFields: {
-                headers: AnypointmqMessageBindingHeadersVisitor,
+                headers: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },

@@ -253,7 +253,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[IBM MQ Message Binding](https://github.com/asyncapi/bindings/blob/master/ibmmq#message-binding-object)\n\\\n\\\nProtocol-specific information for an IBM MQ message.',
+        '[IBM MQ Message Binding](https://github.com/asyncapi/bindings/blob/master/ibmmq#message)\n\\\n\\\nProtocol-specific information for an IBM MQ message.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
@@ -262,6 +262,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
     ],
+  },
+  {
+    label: 'googlepubusb',
+    insertText: 'googlepubusb',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Google Cloud Pub/Sub Message Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub#message)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
 ];
 

@@ -1,6 +1,7 @@
 import allowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import allowedFields2_2Lint from './allowed-fields-2-2';
 import allowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
+import allowedFields2_5Lint from './allowed-fields-2-5';
 import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
 import httpTypeLint from './http--type';
@@ -8,6 +9,7 @@ import amqpTypeLint from './amqp--type';
 import amqp1TypeLint from './amqp1--type';
 import anypointmqTypeLint from './anypointmq--type';
 import ibmmqTypeLint from './ibmmq--type';
+import googlepubsubTypeLint from './googlepubsub--type';
 import jmsTypeLint from './jms--type';
 import kafkaTypeLint from './kafka--type';
 import mercureTypeLint from './mercure--type';
@@ -25,6 +27,7 @@ const lints = [
   allowedFields2_0__2_1Lint,
   allowedFields2_2Lint,
   allowedFields2_3__2_4Lint,
+  allowedFields2_5Lint,
   $refValidLint,
   $refNoSiblingsLint,
   httpTypeLint,
@@ -32,6 +35,7 @@ const lints = [
   amqp1TypeLint,
   anypointmqTypeLint,
   ibmmqTypeLint,
+  googlepubsubTypeLint,
   jmsTypeLint,
   kafkaTypeLint,
   mercureTypeLint,

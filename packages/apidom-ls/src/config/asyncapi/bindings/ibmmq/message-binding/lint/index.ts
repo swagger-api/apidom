@@ -1,19 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import allowedFieldsTypeBinaryLint from './allowed-fields--type-binary';
-import typeEqualsLint from './type--equals';
-import headersTypeLint from './headers--type';
-import descriptionTypeLint from './description--type';
-import expiryTypeLint from './expiry--type';
+import messageBinding0_1_0Lints from './0-1-0';
+import messageBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  typeEqualsLint,
-  headersTypeLint,
-  descriptionTypeLint,
-  expiryTypeLint,
-  bindingVersionTypeLint,
-  allowedFieldsLint,
-  allowedFieldsTypeBinaryLint,
-];
+const lints = [...messageBinding0_1_0Lints, ...messageBindingLatestLints, bindingVersionTypeLint];
 
 export default lints;

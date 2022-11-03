@@ -26,7 +26,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The URL pointing to the contact information. **MUST** be in the format of a URL.',
+      value:
+        'The URL pointing to the contact information. This MUST be in the form of an absolute URL.',
     },
   },
   {

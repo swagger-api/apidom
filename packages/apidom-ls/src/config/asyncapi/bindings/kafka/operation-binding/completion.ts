@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject)\n\\\n\\\nId of the consumer group.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject)\n\\\n\\\nId of the consumer group.',
     },
   },
   {
@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject)\n\\\n\\\nId of the consumer inside a consumer group.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject)\n\\\n\\\nId of the consumer inside a consumer group.',
     },
   },
   {

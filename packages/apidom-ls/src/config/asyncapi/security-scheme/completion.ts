@@ -93,7 +93,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v2.4.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
+        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
     },
   },
   {
@@ -203,6 +203,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -218,6 +219,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -233,6 +235,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -248,6 +251,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {

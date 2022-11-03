@@ -5,7 +5,7 @@ import {
 } from '../../../apidom-language-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const httpCode3_0CompletionRule = {
+const httpCode3_0CompletionItem = {
   kind: 14,
   format: CompletionFormat.OBJECT,
   type: CompletionType.PROPERTY,
@@ -41,7 +41,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: 'default',
     insertText: 'default',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: 'default',
@@ -51,7 +51,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '100',
     insertText: '100',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '100',
@@ -61,7 +61,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '101',
     insertText: '101',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '101',
@@ -71,7 +71,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '1XX',
     insertText: '1XX',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '1XX',
@@ -81,7 +81,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '201',
     insertText: '201',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '201',
@@ -91,7 +91,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '202',
     insertText: '202',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '202',
@@ -101,7 +101,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '203',
     insertText: '203',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '203',
@@ -111,7 +111,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '204',
     insertText: '204',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '204',
@@ -121,7 +121,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '205',
     insertText: '205',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '205',
@@ -131,7 +131,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '2XX',
     insertText: '2XX',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '2XX',
@@ -141,7 +141,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '300',
     insertText: '300',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '300',
@@ -151,7 +151,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '301',
     insertText: '301',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '301',
@@ -161,7 +161,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '302',
     insertText: '302',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '302',
@@ -171,7 +171,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '303',
     insertText: '303',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '303',
@@ -181,7 +181,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '304',
     insertText: '304',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '304',
@@ -191,7 +191,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '305',
     insertText: '305',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '305',
@@ -201,7 +201,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '306',
     insertText: '306',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '306',
@@ -211,7 +211,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '307',
     insertText: '307',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '307',
@@ -221,7 +221,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '3XX',
     insertText: '3XX',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '3XX',
@@ -231,7 +231,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '400',
     insertText: '400',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '400',
@@ -241,7 +241,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '401',
     insertText: '401',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '401',
@@ -251,7 +251,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '402',
     insertText: '402',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '402',
@@ -261,7 +261,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '403',
     insertText: '403',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '403',
@@ -271,7 +271,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '404',
     insertText: '404',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '404',
@@ -281,7 +281,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '405',
     insertText: '405',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '405',
@@ -291,7 +291,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '406',
     insertText: '406',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '406',
@@ -301,7 +301,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '408',
     insertText: '408',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '408',
@@ -311,7 +311,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '409',
     insertText: '409',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '409',
@@ -321,7 +321,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '410',
     insertText: '410',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '410',
@@ -331,7 +331,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '411',
     insertText: '411',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '411',
@@ -341,7 +341,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '413',
     insertText: '413',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '413',
@@ -351,7 +351,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '414',
     insertText: '414',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '414',
@@ -361,7 +361,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '415',
     insertText: '415',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '415',
@@ -371,7 +371,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '417',
     insertText: '417',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '417',
@@ -381,7 +381,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '426',
     insertText: '426',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '426',
@@ -391,7 +391,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '4XX',
     insertText: '4XX',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '4XX',
@@ -401,7 +401,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '500',
     insertText: '500',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '500',
@@ -411,7 +411,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '501',
     insertText: '501',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '501',
@@ -421,7 +421,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '502',
     insertText: '502',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '502',
@@ -431,7 +431,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '503',
     insertText: '503',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '503',
@@ -441,7 +441,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '504',
     insertText: '504',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '504',
@@ -451,7 +451,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '505',
     insertText: '505',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '505',
@@ -461,7 +461,7 @@ const completion: ApidomCompletionItem[] = [
   {
     label: '5XX',
     insertText: '5XX',
-    ...httpCode3_0CompletionRule,
+    ...httpCode3_0CompletionItem,
   } as ApidomCompletionItem,
   {
     label: '5XX',

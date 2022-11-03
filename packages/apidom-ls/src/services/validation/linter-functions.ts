@@ -493,6 +493,20 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintMinimum',
+    function: (element: Element, minimum: number): boolean => {
+      if (element) {
+        if (!isNumber(element)) {
+          return false;
+        }
+
+        return element.toValue() <= minimum;
+      }
+
+      return true;
+    },
+  },
+  {
     functionName: 'apilintValidURI',
     function: (element: Element, absolute = false): boolean => {
       if (element) {

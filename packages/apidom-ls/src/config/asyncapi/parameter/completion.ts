@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nDefinition of the parameter.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nDefinition of the parameter.',
     },
   },
   {
@@ -41,7 +41,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A [runtime expression](https://www.asyncapi.com/docs/specifications/v2.4.0#runtimeExpression) that specifies the location of the parameter value. Even when a definition for the target field exists, it MUST NOT be used to validate this parameter but, instead, the `schema` property MUST be used.',
+        'A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v2.5.0#runtimeExpression) that specifies the location of the parameter value. Even when a definition for the target field exists, it MUST NOT be used to validate this parameter but, instead, the `schema` property MUST be used.',
     },
   },
   {

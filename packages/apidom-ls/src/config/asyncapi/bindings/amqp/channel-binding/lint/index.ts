@@ -1,8 +1,13 @@
-import allowedFieldsLint from './allowed-fields';
-import isEqualsLint from './is--equals';
-import exchangeTypeLint from './exchange--type';
-import queueTypeLint from './queue--type';
+import channelBinding0_1_0Lints from './0-1-0';
+import channelBinding0_2_0Lints from './0-2-0';
+import channelBindingLatestLints from './latest';
+import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [isEqualsLint, exchangeTypeLint, queueTypeLint, allowedFieldsLint];
+const lints = [
+  ...channelBinding0_1_0Lints,
+  ...channelBinding0_2_0Lints,
+  ...channelBindingLatestLints,
+  bindingVersionTypeLint,
+];
 
 export default lints;

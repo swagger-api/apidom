@@ -1,7 +1,7 @@
 import allowedFieldsLint from './allowed-fields';
 import typeRequiredLint from './type--required';
 import typeEqualsLint2_0Lint from './type--equals-2-0';
-import typeEqualsLint2_1__2_4Lint from './type--equals-2-1--2-4';
+import typeEqualsLint2_1__2_5int from './type--equals-2-1--2-5';
 import descriptionTypeLint from './description--type';
 import nameTypeLint from './name--type';
 import nameRequiredLint from './name--required';
@@ -20,7 +20,7 @@ import openIdConnectUrlFormatURILint from './open-id-connect-url--format-uri';
 const lints = [
   typeRequiredLint,
   typeEqualsLint2_0Lint,
-  typeEqualsLint2_1__2_4Lint,
+  typeEqualsLint2_1__2_5int,
   descriptionTypeLint,
   nameTypeLint,
   nameRequiredLint,

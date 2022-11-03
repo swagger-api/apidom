@@ -1,7 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import headersTypeLint from './headers--type';
+import messageBinding0_0_1Lints from './0-0-1';
+import messageBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [allowedFieldsLint, headersTypeLint, bindingVersionTypeLint];
+const lints = [...messageBinding0_0_1Lints, ...messageBindingLatestLints, bindingVersionTypeLint];
 
 export default lints;

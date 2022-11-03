@@ -9,6 +9,7 @@ import variablesTypeLint from './variables--type';
 import variablesValuesTypeLint from './variables--values-type';
 import securityTypeLint from './security--type';
 import securityItemsTypeLint from './security--items-type';
+import tagsTypeLint from './tags--type';
 import bindingsTypeLint from './bindings--type';
 import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
@@ -24,6 +25,7 @@ const lints = [
   variablesValuesTypeLint,
   securityTypeLint,
   securityItemsTypeLint,
+  tagsTypeLint,
   bindingsTypeLint,
   allowedFieldsLint,
   $refValidLint,

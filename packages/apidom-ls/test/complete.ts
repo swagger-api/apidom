@@ -170,6 +170,26 @@ describe('apidom-ls-complete', function () {
               newText: '"2.4.0$1"',
             },
           },
+          {
+            label: '2.5.0',
+            insertText: '"2.5.0$1"',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '"2.0.0"',
+            textEdit: {
+              range: {
+                start: {
+                  line: 0,
+                  character: 10,
+                },
+                end: {
+                  line: 0,
+                  character: 17,
+                },
+              },
+              newText: '"2.5.0$1"',
+            },
+          },
         ],
         isIncomplete: false,
       },
@@ -214,7 +234,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Identifier](https://www.asyncapi.com/docs/specifications/v2.4.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/specifications/v2.4.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+                '[Identifier](https://www.asyncapi.com/docs/reference/specification/v2.5.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v2.5.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
             },
           },
           {
@@ -225,7 +245,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Servers Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#serverObject).',
+                '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverObject).',
             },
           },
           {
@@ -236,7 +256,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                "[Default Content Type](https://www.asyncapi.com/docs/specifications/v2.4.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/specifications/v2.4.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+                "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v2.5.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
             },
           },
           {
@@ -247,7 +267,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Channels Object](https://www.asyncapi.com/docs/specifications/v2.4.0#channelsObject)\n\\\n\\\n**Required**. The available channels and messages for the API. Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers. Channels are also known as "topics", "routing keys", "event types" or "paths".',
+                '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#channelsObject)\n\\\n\\\n**REQUIRED**. The available channels and messages for the API. Holds the relative paths to the individual channel and their operations. Channel paths are relative to servers. Channels are also known as "topics", "routing keys", "event types" or "paths".',
             },
           },
           {
@@ -258,7 +278,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.4.0#tagsObject)\n\\\n\\\nA list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
+                '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#tagsObject)\n\\\n\\\nA list of tags used by the specification with additional metadata. Each tag name in the list **MUST** be unique.',
             },
           },
           {
@@ -269,7 +289,7 @@ describe('apidom-ls-complete', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.4.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation. Allows referencing an external resource for extended documentation.',
+                '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation. Allows referencing an external resource for extended documentation.',
             },
           },
         ],
@@ -1083,7 +1103,7 @@ describe('apidom-ls-complete', function () {
         insertTextFormat: 2,
         documentation: {
           kind: 'markdown',
-          value: '**Required.** The title of the application.',
+          value: '**REQUIRED.** The title of the application.',
         },
         preselect: true,
         filterText: 'tit',
@@ -1133,7 +1153,8 @@ describe('apidom-ls-complete', function () {
         insertTextFormat: 2,
         documentation: {
           kind: 'markdown',
-          value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+          value:
+            'A URL to the Terms of Service for the API. This MUST be in the form of an absolute URL.',
         },
         filterText: 'tit',
         textEdit: {
@@ -1158,7 +1179,7 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.4.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
+            '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
         },
         filterText: 'tit',
         textEdit: {
@@ -1183,7 +1204,7 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[License Object](https://www.asyncapi.com/docs/specifications/v2.4.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
+            '[License Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
         },
         filterText: 'tit',
         textEdit: {

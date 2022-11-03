@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**Required.** The URL for the target documentation. Value MUST be in the format of a URL.',
+        '**REQUIRED.** The URL for the target documentation. This MUST be in the form of an absolute URL.',
     },
   },
   {

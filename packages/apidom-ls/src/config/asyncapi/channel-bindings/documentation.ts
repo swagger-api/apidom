@@ -1,78 +1,37 @@
+/**
+ * Omitted fixed fields:
+ *  - http
+ *  - ws
+ *  - kafka
+ *  - anypointmq
+ *  - amqp
+ *  - amqp1
+ *  - mqtt
+ *  - mqtt5
+ *  - nats
+ *  - jms
+ *  - sns
+ *  - solace
+ *  - sqs
+ *  - stomp
+ *  - redis
+ *  - mercure
+ *  - ibmmq
+ *  - googlepubsub
+ *
+ * Field omission reason: omitted fields do have a non-union type. Thus,
+ * documentation for these fields doesn't need to be specified here and will
+ * come directly from the type itself. Description of these fields doesn't
+ * contain significant information.
+ */
+
 const documentation = [
   {
     target: '$ref',
     docs: 'A reference to an Channel Bindings',
   },
   {
-    target: 'http',
-    docs: '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/README.md#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
-  },
-  {
-    target: 'ws',
-    docs: '#### [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel)\n\nWhen using WebSockets, the channel represents the connection. Unlike other protocols that support multiple virtual channels (topics, routing keys, etc.) per connection, WebSockets doesn\'t support virtual channels or, put it another way, there\'s only one channel and its characteristics are strongly related to the protocol used for the handshake, i.e., HTTP.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`method` | string | The HTTP method to use when establishing the connection. Its value MUST be either `GET` or `POST`.\n`query` | [Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject) | A Schema object containing the definitions for each query parameter. This schema MUST be of type `object` and have a `properties` key.\n`headers` | [Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject) | A Schema object containing the definitions of the HTTP headers to use when establishing the connection. This schema MUST be of type `object` and have a `properties` key.\n`bindingVersion` | string | The version of this binding. If omitted, "latest" MUST be assumed.\n\nThis object MUST contain only the properties defined above.',
-  },
-  {
-    target: 'kafka',
-    docs: '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
-  },
-  {
-    target: 'anypointmq',
-    docs: "#### [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/anypointmq/README.md#channel)\n\nThe Anypoint MQ [Channel Binding Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object) is defined by a [JSON Schema](https://github.com/asyncapi/bindings/blob/master/anypointmq/json_schemas/channel.json), which defines these fields:\n\nField Name | Type | Description\n---|:---:|---\n`destination`       | string | **Optional**, defaults to the channel name. The destination (queue or exchange) name for this channel. SHOULD only be specified if the channel name differs from the actual destination name, such as when the channel name is not a valid destination name in Anypoint MQ.\n`destinationType`          | string | **Optional**, defaults to `queue`. The type of destination, which MUST be either `exchange` or `queue` or `fifo-queue`. SHOULD be specified to document the messaging model (publish/subscribe, point-to-point, strict message ordering) supported by this channel.\n`bindingVersion` | string | **Optional**, defaults to `latest`. The version of this binding.\n\nNote that an Anypoint MQ exchange can only be sent to, not received from. To receive messages sent to an exchange, [an intermediary queue must be defined and bound to the exchange](https://docs.mulesoft.com/mq/mq-understanding#message-exchanges). In this bindings specification, these intermediary queues are not exposed in the AsyncAPI document. Instead, it is simply assumed that whenever messages must be received from an exchange, such an intermediary queue is involved yet invisible in the AsyncAPI document.\n\n### Examples\n\nThe following example shows a `channels` object with two channels, the second having a channel binding object for `anypointmq`:\n\n\n\\\nYAML\n```yaml\nchannels:\n  user/signup:\n    description: |\n      This application receives command messages from this channel about users to sign up.\n      Minimal configuration, omitting a channel binding object.\n    publish:\n      #...\n  user/signedup:\n    description: |\n      This application sends events to this channel about users that have signed up.\n      Explicitly provides a channel binding object.\n    bindings:\n      anypointmq:\n        destination:     user-signup-exchg\n        destinationType: exchange\n        bindingVersion:  '0.0.1'\n    subscribe:\n      #...\n```",
-  },
-  {
-    target: 'amqp',
-    docs: '#### [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel)\n\nThis object contains information about the channel representation in AMQP.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`is` | string | Defines what type of channel is it. Can be either `queue` or `routingKey` (default).\n`exchange` | Map[string, any] | When `is`=`routingKey`, this object defines the exchange properties.\n`exchange.name` | string | The name of the exchange. It MUST NOT exceed 255 characters long.\n`exchange.type` | string | The type of the exchange. Can be either `topic`, `direct`, `fanout`, `default` or `headers`.\n`exchange.durable` | boolean | Whether the exchange should survive broker restarts or not.\n`exchange.autoDelete` | boolean | Whether the exchange should be deleted when the last queue is unbound from it.\n`exchange.vhost` | string | The virtual host of the exchange. Defaults to `/`.\n`queue` | Map[string, any] | When `is`=`queue`, this object defines the queue properties.\n`queue.name` | string | The name of the queue. It MUST NOT exceed 255 characters long.\n`queue.durable` | boolean | Whether the queue should survive broker restarts or not.\n`queue.exclusive` | boolean | Whether the queue should be used only by one connection or not.\n`queue.autoDelete` | boolean | Whether the queue should be deleted when the last consumer unsubscribes.\n`queue.vhost` | string | The virtual host of the queue. Defaults to `/`.\n`bindingVersion` | string | The version of this binding. If omitted, "latest" MUST be assumed.\n\nThis object MUST contain only the properties defined above.\n\n##### Example\n\n\n\\\nYAML\n```yaml\nchannels:\n  user/signedup:\n    bindings:\n      amqp:\n        is: routingKey\n        queue:\n          name: my-queue-name\n          durable: true\n          exclusive: true\n          autoDelete: false\n          vhost: /\n        exchange:\n          name: myExchange\n          type: topic\n          durable: true\n          autoDelete: false\n          vhost: /\n        bindingVersion: 0.2.0\n```',
-  },
-  {
-    target: 'amqp1',
-    docs: '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
-  },
-  {
-    target: 'mqtt',
-    docs: '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
-  },
-  {
-    target: 'mqtt5',
-    docs: '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
-  },
-  {
-    target: 'nats',
-    docs: '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
-  },
-  {
-    target: 'jms',
-    docs: '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
-  },
-  {
-    target: 'sns',
-    docs: '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
-  },
-  {
-    target: 'solace',
-    docs: '[Solace Channel Binding](https://github.com/asyncapi/bindings/tree/master/solace#channel-binding-object)\n\\\n\\\nProtocol-specific information for a Solace channel.',
-  },
-  {
-    target: 'sqs',
-    docs: '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
-  },
-  {
-    target: 'stomp',
-    docs: '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
-  },
-  {
-    target: 'redis',
-    docs: '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
-  },
-  {
-    target: 'mercure',
-    docs: '[Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure#channel)\n\\\n\\\nProtocol-specific information for a Mercure channel.',
-  },
-  {
-    target: 'ibmmq',
-    docs: '#### [Channel Binding Object](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel-binding-object)\n\nThis object contains information about the channel representation in IBM MQ. Each channel corresponds to a Queue or Topic within IBM MQ.\n\n##### Fixed Fields\n\nField Name | Type | Description | Applicability [default] | Constraints\n---|:---:|---|:---|:---\n`destinationType` | string | Defines the type of AsyncAPI channel.  | OPTIONAL [`topic`] | MUST be either `topic` or `queue`. For type `topic`, the AsyncAPI channel name MUST be assumed for the IBM MQ topic string unless overridden.\n`queue` | Map[string, any] | Defines the properties of a queue. | REQUIRED if `destinationType` = `queue` | `queue` and `topic` fields MUST NOT coexist within a channel binding\n`queue.objectName` | string | Defines the name of the IBM MQ queue associated with the channel. | REQUIRED | A value MUST be specified. MUST NOT exceed 48 characters in length. MUST be a valid IBM MQ queue name\n`queue.isPartitioned` | boolean | Defines if the queue is a cluster queue and therefore partitioned. If `true`, a binding option MAY be specified when accessing the queue. More information on binding options can be found on this [page](https://www.ibm.com/support/knowledgecenter/SSFKSJ_latest/com.ibm.mq.ref.dev.doc/q101870_.html#q101870___BIND_ON_OPEN) in the IBM MQ Knowledge Center. | OPTIONAL [`false`] | If `false`, binding options SHOULD NOT be specified when accessing the queue.\n`queue.exclusive` | boolean | Specifies if it is recommended to open the queue exclusively. | OPTIONAL [`false`] | -\n`topic` | Map[string, any] | Defines the properties of a topic. | OPTIONAL if `destinationType` = `topic` | `queue` and `topic` fields MUST NOT coexist within a channel binding.\n`topic.string`  | string | The value of the IBM MQ topic string to be used. | OPTIONAL ; *Note: if specified, SHALL override AsyncAPI channel name.* | MUST NOT exceed 10240 characters in length. MAY coexist with `topic.objectName`\n`topic.objectName`  | string | The name of the IBM MQ topic object. | OPTIONAL ; *Note: if specified, SHALL override AsyncAPI channel name.*| MUST NOT exceed 48 characters in length. MAY coexist with `topic.string`\n`topic.durablePermitted` | boolean | Defines if the subscription may be durable. | OPTIONAL [`true`] | -\n`topic.lastMsgRetained` | boolean | Defines if the last message published will be made available to new subscriptions. | OPTIONAL [`false`] | -\n`maxMsgLength` | integer | The maximum length of the physical message (in bytes) accepted by the Topic or Queue. Messages produced that are greater in size than this value may fail to be delivered. More information on the maximum message length can be found on this [page](https://www.ibm.com/support/knowledgecenter/SSFKSJ_latest/com.ibm.mq.ref.adm.doc/q085520_.html#q085520___maxmsgl) in the IBM MQ Knowledge Center. | OPTIONAL [negotiated on IBM MQ channel]| MUST be  `0-104,857,600` bytes (100 MB).\n`bindingVersion` | string | The version of this binding. | OPTIONAL [`latest`] | -\n\n\nThis object MUST contain only the properties defined above.\n\n##### Example for an IBM MQ Topic where topic string is defined by AsyncAPI channel\n\n\n\\\nYAML\n```yaml\nchannels:\n  user/signedup:\n```\n\n##### Example for AsyncAPI channel mapping to an IBM MQ topic with a specified MQ Topic object\n\n```yaml\nchannels:\n  user/signedup:\n    bindings:\n      ibmmq:\n        destinationType: topic\n        topic:\n          objectName: myTopicName\n        bindingVersion: 0.1.0\n```\n\n##### Example for AsyncAPI channel mapping to an IBM MQ Queue\n\n```yaml\nchannels:\n  user/signedup:\n    bindings:\n      ibmmq:\n        destinationType: queue\n        queue:\n          objectName: myQueueName\n          exclusive: true\n        bindingVersion: 0.1.0\n```',
-  },
-  {
-    docs: '#### [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object)\n\nMap describing protocol-specific definitions for a channel.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`http` | [HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/README.md#channel) | Protocol-specific information for an HTTP channel.\n`ws` | [WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel) | Protocol-specific information for a WebSockets channel.\n`kafka` | [Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel) | Protocol-specific information for a Kafka channel.\n`anypointmq` | [Anypoint MQ Channel Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq/README.md#channel) | Protocol-specific information for an Anypoint MQ channel.\n`amqp` | [AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel) | Protocol-specific information for an AMQP 0-9-1 channel.\n`amqp1` | [AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#channel) | Protocol-specific information for an AMQP 1.0 channel.\n`mqtt` | [MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#channel) | Protocol-specific information for an MQTT channel.\n`mqtt5` | [MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel) | Protocol-specific information for an MQTT 5 channel.\n`nats` | [NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats/README.md#channel) | Protocol-specific information for a NATS channel.\n`jms` | [JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms/README.md#channel) | Protocol-specific information for a JMS channel.\n`sns` | [SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns/README.md#channel) | Protocol-specific information for an SNS channel.\n`solace` | [Solace Channel Binding](https://github.com/asyncapi/bindings/blob/master/solace#channel) | Protocol-specific information for a Solace channel.\n`sqs` | [SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#channel) | Protocol-specific information for an SQS channel.\n`stomp` | [STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#channel) | Protocol-specific information for a STOMP channel.\n`redis` | [Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel) | Protocol-specific information for a Redis channel.\n`mercure` | [Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure#channel) | Protocol-specific information for a Mercure channel.\n`ibmmq` | [IBM MQ Channel Binding](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel-binding-object) | Protocol-specific information for an IBM MQ channel.\n\nThis object can be extended with [Specification Extensions](https://www.asyncapi.com/docs/specifications/v2.4.0#specificationExtensions).',
+    docs: '#### [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object)\n\nMap describing protocol-specific definitions for a channel.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`http` | [HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/README.md#channel) | Protocol-specific information for an HTTP channel.\n`ws` | [WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets/README.md#channel) | Protocol-specific information for a WebSockets channel.\n`kafka` | [Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#channel) | Protocol-specific information for a Kafka channel.\n`anypointmq` | [Anypoint MQ Channel Binding](https://github.com/asyncapi/bindings/blob/master/anypointmq/README.md#channel) | Protocol-specific information for an Anypoint MQ channel.\n`amqp` | [AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp/README.md#channel) | Protocol-specific information for an AMQP 0-9-1 channel.\n`amqp1` | [AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1/README.md#channel) | Protocol-specific information for an AMQP 1.0 channel.\n`mqtt` | [MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt/README.md#channel) | Protocol-specific information for an MQTT channel.\n`mqtt5` | [MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel) | Protocol-specific information for an MQTT 5 channel.\n`nats` | [NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats/README.md#channel) | Protocol-specific information for a NATS channel.\n`jms` | [JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms/README.md#channel) | Protocol-specific information for a JMS channel.\n`sns` | [SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns/README.md#channel) | Protocol-specific information for an SNS channel.\n`solace` | [Solace Channel Binding](https://github.com/asyncapi/bindings/blob/master/solace#channel) | Protocol-specific information for a Solace channel.\n`sqs` | [SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs/README.md#channel) | Protocol-specific information for an SQS channel.\n`stomp` | [STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp/README.md#channel) | Protocol-specific information for a STOMP channel.\n`redis` | [Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel) | Protocol-specific information for a Redis channel.\n`mercure` | [Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure#channel) | Protocol-specific information for a Mercure channel.\n`ibmmq` | [IBM MQ Channel Binding](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel) | Protocol-specific information for an IBM MQ channel.\n`googlepubsub` | [Google Cloud Pub/Sub Channel Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub/README.md#channel-binding-object) | rotocol-specific information for a Google Cloud Pub/Sub channel.\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.5.0#specificationExtensions)',
   },
 ];
 export default documentation;

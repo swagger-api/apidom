@@ -298,7 +298,7 @@ export class DefaultCompletionService implements CompletionService {
       const isEmpty = isEmptyLine(textDocument, offset);
       trace('doCompletion - no version', { isEmpty });
       const asyncItem = CompletionItem.create('asyncapi');
-      asyncItem.insertText = `asyncapi: '2.4.0$1'${isEmpty ? '' : '\n'}`;
+      asyncItem.insertText = `asyncapi: '2.5.0$1'${isEmpty ? '' : '\n'}`;
       asyncItem.documentation = {
         kind: 'markdown',
         value:

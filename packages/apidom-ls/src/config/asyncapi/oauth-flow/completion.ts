@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED.** The authorization URL to be used for this flow. This MUST be in the form of a URL.',
+        '**REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of an absolute URL.',
     },
   },
   {
@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED.** The token URL to be used for this flow. This MUST be in the form of a URL.',
+        '**REQUIRED**. The token URL to be used for this flow. This MUST be in the form of an absolute URL.',
     },
   },
   {
@@ -40,7 +40,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL.',
+      value:
+        'The URL to be used for obtaining refresh tokens. This MUST be in the form of an absolute URL.',
     },
   },
   {

@@ -1,13 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import destinationTypeLint from './destination--type';
-import destinationTypeTypeLint from './destination-type--type';
+import channelBinding0_0_1Lints from './0-0-1';
+import channelBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  allowedFieldsLint,
-  destinationTypeLint,
-  destinationTypeTypeLint,
-  bindingVersionTypeLint,
-];
+const lints = [...channelBinding0_0_1Lints, ...channelBindingLatestLints, bindingVersionTypeLint];
 
 export default lints;

@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. A URL to the target host. This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the AsyncAPI document is being served. Variable substitutions will be made when a variable is named in `{`braces`}`.',
+        '**REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the AsyncAPI document is being served. Variable substitutions will be made when a variable is named in `{`braces`}`.',
     },
   },
   {
@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. The protocol this URL supports for connection. Supported protocol include, but are not limited to: `amqp`, `amqps`, `http`, `https`, `ibmmq`, `jms`, `kafka`, `kafka-secure`, `anypointmq`, `mqtt`, `secure-mqtt`, `solace`, `stomp`, `stomps`, `ws`, `wss`, `mercure`.',
+        '**REQUIRED**. The protocol this URL supports for connection. Supported protocol include, but are not limited to: `amqp`, `amqps`, `http`, `https`, `ibmmq`, `jms`, `kafka`, `kafka-secure`, `anypointmq`, `mqtt`, `secure-mqtt`, `solace`, `stomp`, `stomps`, `ws`, `wss`, `mercure`, `googlepubsub`.',
     },
   },
   {
@@ -67,7 +67,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's URL template.",
+        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's URL template.",
     },
   },
   {
@@ -80,8 +80,22 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Security Requirement Object](https://www.asyncapi.com/docs/specifications/v2.4.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used with this server. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a connection or operation.',
+        '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used with this server. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a connection or operation.',
     },
+  },
+  {
+    label: 'tags',
+    insertText: 'tags',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of servers.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
   {
     label: 'bindings',
@@ -93,7 +107,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Server Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
+        '[Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
     },
   },
   {
@@ -244,6 +258,15 @@ const completion: ApidomCompletionItem[] = [
     target: 'protocol',
     label: 'mercure',
     insertText: 'mercure',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
+  {
+    target: 'protocol',
+    label: 'googlepubsub',
+    insertText: 'googlepubsub',
     kind: 12,
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,

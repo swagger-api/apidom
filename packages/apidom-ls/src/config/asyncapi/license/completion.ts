@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '**Required.** The license name used for the API.',
+      value: '**REQUIRED.** The license name used for the API.',
     },
   },
   {
@@ -26,7 +26,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A URL to the license used for the API. **MUST** be in the format of a URL.',
+      value: 'A URL to the license used for the API. This MUST be in the form of an absolute URL.',
     },
   },
 ];

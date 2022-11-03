@@ -27,7 +27,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/mastechannel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
+        '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
     },
   },
   {
@@ -72,6 +72,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -175,11 +176,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Solace Channel Binding](https://github.com/asyncapi/bindings/tree/master/solace#channel-binding-object)\n\\\n\\\nProtocol-specific information for a Solace channel.',
+        '[Solace Channel Binding](https://github.com/asyncapi/bindings/tree/master/solace#channel)\n\\\n\\\nProtocol-specific information for a Solace channel.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -238,6 +240,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -250,14 +253,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[IBM MQ Channel Binding](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel-binding-object)\n\\\n\\\nProtocol-specific information for an IBM MQ channel.',
+        '[IBM MQ Channel Binding](https://github.com/asyncapi/bindings/tree/master/ibmmq#channel)\n\\\n\\\nProtocol-specific information for an IBM MQ channel.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
+  },
+  {
+    label: 'googlepubsub',
+    insertText: 'googlepubsub',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Google Cloud Pub/Sub Channel Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub/#channel)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub channel.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
 ];
 

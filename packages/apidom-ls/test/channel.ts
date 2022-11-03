@@ -136,7 +136,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/mastechannel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
+                '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
             },
           },
           {
@@ -304,11 +304,13 @@ describe('asyncapi channel test', function () {
     );
 
     const result = await languageService.doValidation(doc, validationContext);
-    console.dir(result);
 
     assert.deepEqual(result, [
       {
-        range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
+        range: {
+          start: { line: 0, character: 0 },
+          end: { line: 0, character: 5 },
+        },
         message: "should always have a 'info' section",
         severity: 1,
         code: 30501,
@@ -325,7 +327,10 @@ describe('asyncapi channel test', function () {
         },
       },
       {
-        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 11 } },
+        range: {
+          start: { line: 11, character: 4 },
+          end: { line: 11, character: 11 },
+        },
         message: 'server names must be included in defined servers',
         severity: 1,
         code: 120301,
@@ -333,7 +338,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 14, character: 4 }, end: { line: 14, character: 11 } },
+        range: {
+          start: { line: 14, character: 4 },
+          end: { line: 14, character: 11 },
+        },
         message: 'server names must be included in defined servers',
         severity: 1,
         code: 120301,
@@ -341,7 +349,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 19, character: 17 }, end: { line: 19, character: 18 } },
+        range: {
+          start: { line: 19, character: 17 },
+          end: { line: 19, character: 18 },
+        },
         message: "description' value must be a string",
         severity: 1,
         code: 120200,
@@ -349,7 +360,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 22, character: 15 }, end: { line: 22, character: 18 } },
+        range: {
+          start: { line: 22, character: 15 },
+          end: { line: 22, character: 18 },
+        },
         message: '"subscribe" must be an operation',
         severity: 1,
         code: 120400,
@@ -357,7 +371,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 23, character: 13 }, end: { line: 23, character: 16 } },
+        range: {
+          start: { line: 23, character: 13 },
+          end: { line: 23, character: 16 },
+        },
         message: '"publish" must be an operation',
         severity: 1,
         code: 120500,
@@ -365,7 +382,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 25, character: 6 }, end: { line: 25, character: 10 } },
+        range: {
+          start: { line: 25, character: 6 },
+          end: { line: 25, character: 10 },
+        },
         message:
           'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
@@ -373,15 +393,10 @@ describe('asyncapi channel test', function () {
         source: 'apilint',
       },
       {
-        range: { start: { line: 27, character: 6 }, end: { line: 27, character: 11 } },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
-        severity: 1,
-        code: 15000,
-        source: 'apilint',
-      },
-      {
-        range: { start: { line: 30, character: 6 }, end: { line: 30, character: 12 } },
+        range: {
+          start: { line: 30, character: 6 },
+          end: { line: 30, character: 12 },
+        },
         message: 'parameter key must be defined in channel name',
         severity: 1,
         code: 160001,
@@ -389,7 +404,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 35, character: 17 }, end: { line: 35, character: 18 } },
+        range: {
+          start: { line: 35, character: 17 },
+          end: { line: 35, character: 18 },
+        },
         message: "description' value must be a string",
         severity: 1,
         code: 120200,
@@ -397,7 +415,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 38, character: 15 }, end: { line: 38, character: 18 } },
+        range: {
+          start: { line: 38, character: 15 },
+          end: { line: 38, character: 18 },
+        },
         message: '"subscribe" must be an operation',
         severity: 1,
         code: 120400,
@@ -405,7 +426,10 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 39, character: 13 }, end: { line: 39, character: 16 } },
+        range: {
+          start: { line: 39, character: 13 },
+          end: { line: 39, character: 16 },
+        },
         message: '"publish" must be an operation',
         severity: 1,
         code: 120500,
@@ -413,20 +437,15 @@ describe('asyncapi channel test', function () {
         data: {},
       },
       {
-        range: { start: { line: 41, character: 12 }, end: { line: 41, character: 15 } },
+        range: {
+          start: { line: 41, character: 12 },
+          end: { line: 41, character: 15 },
+        },
         message: '"http" must be a HTTP Channel Binding',
         severity: 1,
         code: 180100,
         source: 'apilint',
         data: {},
-      },
-      {
-        range: { start: { line: 42, character: 6 }, end: { line: 42, character: 11 } },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
-        severity: 1,
-        code: 15000,
-        source: 'apilint',
       },
     ] as Diagnostic[]);
   });

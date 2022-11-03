@@ -72,6 +72,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -180,6 +181,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -238,6 +240,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -257,7 +260,22 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
+  },
+  {
+    label: 'googlepubsub',
+    insertText: 'googlepubsub',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Google Cloud Pub/Sub Server Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub#server)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub server.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
 ];
 

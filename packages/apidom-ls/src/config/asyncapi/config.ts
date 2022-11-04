@@ -56,6 +56,7 @@ import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/met
 // Google Cloud Pub/Sub
 import googlepubsubChannelBindingMeta from './bindings/googlepubsub/channel-binding/meta';
 import googlepubsubMessageBindingMeta from './bindings/googlepubsub/message-binding/meta';
+import googlepubsubOperationBindingMeta from './bindings/googlepubsub/operation-binding/meta';
 // HTTP
 import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
 import httpMessageBindingMeta from './bindings/http/message-binding/meta';
@@ -64,6 +65,7 @@ import httpServerBindingMeta from './bindings/http/server-binding/meta';
 // IBM MQ
 import ibmmqChannelBindingMeta from './bindings/ibmmq/channel-binding/meta';
 import ibmmqMessageBindingMeta from './bindings/ibmmq/message-binding/meta';
+import ibmmqOperationBindingMeta from './bindings/ibmmq/operation-binding/meta';
 import ibmmqServerBindingMeta from './bindings/ibmmq/server-binding/meta';
 // JMS
 import jmsChannelBindingMeta from './bindings/jms/channel-binding/meta';
@@ -201,6 +203,7 @@ export default {
   // Google Cloud Pub/Sub
   googlepubsubChannelBinding: googlepubsubChannelBindingMeta,
   googlepubsubMessageBinding: googlepubsubMessageBindingMeta,
+  googlepubsubOperationBinding: googlepubsubOperationBindingMeta,
   // HTTP
   httpChannelBinding: httpChannelBindingMeta,
   httpMessageBinding: httpMessageBindingMeta,
@@ -209,6 +212,7 @@ export default {
   // IMB MQ
   ibmmqChannelBinding: ibmmqChannelBindingMeta,
   ibmmqMessageBinding: ibmmqMessageBindingMeta,
+  ibmmqOperationBinding: ibmmqOperationBindingMeta,
   ibmmqServerBinding: ibmmqServerBindingMeta,
   // JMS
   jmsChannelBinding: jmsChannelBindingMeta,

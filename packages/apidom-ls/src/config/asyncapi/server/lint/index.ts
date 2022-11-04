@@ -1,4 +1,5 @@
-import allowedFieldsLint from './allowed-fields';
+import allowedFields2_0__2_4Lint from './allowed-fields-2-0--2-4';
+import allowedFields2_5Lint from './allowed-fields-2-5';
 import urlFormatURILint from './url--format-uri';
 import urlRequiredLint from './url--required';
 import protocolType from './protocol--type';
@@ -27,7 +28,8 @@ const lints = [
   securityItemsTypeLint,
   tagsTypeLint,
   bindingsTypeLint,
-  allowedFieldsLint,
+  allowedFields2_0__2_4Lint,
+  allowedFields2_5Lint,
   $refValidLint,
   $refNoSiblingsLint,
 ];

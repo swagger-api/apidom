@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.55.0](https://github.com/swagger-api/apidom/compare/v0.54.0...v0.55.0) (2022-11-04)
+
+### Features
+
+- **ns-asyncapi-2:** improve types for elements ([#2221](https://github.com/swagger-api/apidom/issues/2221)) ([810c9f9](https://github.com/swagger-api/apidom/commit/810c9f9010ca3b8cbf6d1ee90fcc8f51cdfd71eb)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+
 # [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

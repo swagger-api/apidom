@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.55.0](https://github.com/swagger-api/apidom/compare/v0.54.0...v0.55.0) (2022-11-04)
+
+### Bug Fixes
+
+- **ls:** remove duplicated rule in OpenAPI config ([#2220](https://github.com/swagger-api/apidom/issues/2220)) ([e51bd31](https://github.com/swagger-api/apidom/commit/e51bd3194c043f02211213b87121c6aaf3235997))
+
+### Features
+
+- add AsyncAPI 2.5.0 support in parsing adapters ([#2236](https://github.com/swagger-api/apidom/issues/2236)) ([8347b62](https://github.com/swagger-api/apidom/commit/8347b62c2acb24902e6bd198a08ed19a0f6edea2)), closes [#2082](https://github.com/swagger-api/apidom/issues/2082)
+- **ls:** add AsyncAPI 2.5.0 support for all Message Binding Objects ([#2239](https://github.com/swagger-api/apidom/issues/2239)) ([d4a4dc8](https://github.com/swagger-api/apidom/commit/d4a4dc862e8d74fba834029159943a33ec7bdc29)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add AsyncAPI 2.5.0 support for Operation Binding Objects ([#2240](https://github.com/swagger-api/apidom/issues/2240)) ([81f9409](https://github.com/swagger-api/apidom/commit/81f9409f4f27dcb001d584c1ba8df8fa206a05fd)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add AsyncAPI 2.5.0 support for Server Binding Objects ([#2241](https://github.com/swagger-api/apidom/issues/2241)) ([33dfbb5](https://github.com/swagger-api/apidom/commit/33dfbb576fcd76baf8c7e991ac33c48c647af5f9)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add partial support for AsyncAPI 2.5.0 ([#2238](https://github.com/swagger-api/apidom/issues/2238)) ([368bfcf](https://github.com/swagger-api/apidom/commit/368bfcfa78aa2be7fabe69a0b08b730af77de3fa)), closes [#2084](https://github.com/swagger-api/apidom/issues/2084)
+- **ns-asyncapi-2:** add latest bindings versions in elements layer ([#2224](https://github.com/swagger-api/apidom/issues/2224)) ([15e436c](https://github.com/swagger-api/apidom/commit/15e436c85719bcf1733ae19a1c827d951a34f9eb)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** add support for 2.5.0 in bindings refractors ([#2231](https://github.com/swagger-api/apidom/issues/2231)) ([0db1bd3](https://github.com/swagger-api/apidom/commit/0db1bd34705451d9ce7f166b43f25b4ab6c38275)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** add support for 2.5.0 in refractors ([91e38a4](https://github.com/swagger-api/apidom/commit/91e38a4c27fec17128b3a06f733183e7ff6d42f6)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** add support for 2.5.0 version in element layer ([#2222](https://github.com/swagger-api/apidom/issues/2222)) ([9d1f9f6](https://github.com/swagger-api/apidom/commit/9d1f9f6a9f3a8b0b3e2cf2304e1cc50339adca03)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** add support for AsyncAPI 2.5.0 ([ef3ef25](https://github.com/swagger-api/apidom/commit/ef3ef25c8f6ed806f37e9cef45e4f7a41fef578d)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** improve types for bindings elements ([#2223](https://github.com/swagger-api/apidom/issues/2223)) ([b44dcfc](https://github.com/swagger-api/apidom/commit/b44dcfcd1852a4f04f411d3257b616618aa4bff3)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** improve types for elements ([#2221](https://github.com/swagger-api/apidom/issues/2221)) ([810c9f9](https://github.com/swagger-api/apidom/commit/810c9f9010ca3b8cbf6d1ee90fcc8f51cdfd71eb)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+
 # [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.55.0](https://github.com/swagger-api/apidom/compare/v0.54.0...v0.55.0) (2022-11-04)
+
+### Features
+
+- add AsyncAPI 2.5.0 support in parsing adapters ([#2236](https://github.com/swagger-api/apidom/issues/2236)) ([8347b62](https://github.com/swagger-api/apidom/commit/8347b62c2acb24902e6bd198a08ed19a0f6edea2)), closes [#2082](https://github.com/swagger-api/apidom/issues/2082)
+
 # [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-json-2

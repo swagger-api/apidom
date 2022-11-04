@@ -1,29 +1,13 @@
-import allowedFieldsLint from './allowed-fields';
-import expirationTypeLint from './expiration--type';
-import userIdTypeLint from './user-id--type';
-import ccTypeLint from './cc--type';
-import priorityTypeLint from './priority--type';
-import deliveryModeEqualsLint from './delivery-mode--equals';
-import mandatoryTypeLint from './mandatory--type';
-import bccTypeLint from './bcc--type';
-import replyToTypeLint from './reply-to--type';
-import timestampTypeLint from './timestamp--type';
-import ackTypeLint from './act--type';
+import operationBinding0_1_0Lints from './0-1-0';
+import operationBinding0_2_0Lints from './0-2-0';
+import operationBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
 const lints = [
-  expirationTypeLint,
-  userIdTypeLint,
-  ccTypeLint,
-  priorityTypeLint,
-  deliveryModeEqualsLint,
-  mandatoryTypeLint,
-  bccTypeLint,
-  replyToTypeLint,
-  timestampTypeLint,
-  ackTypeLint,
+  ...operationBinding0_1_0Lints,
+  ...operationBinding0_2_0Lints,
+  ...operationBindingLatestLints,
   bindingVersionTypeLint,
-  allowedFieldsLint,
 ];
 
 export default lints;

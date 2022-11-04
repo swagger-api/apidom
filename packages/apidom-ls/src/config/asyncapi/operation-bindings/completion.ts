@@ -181,6 +181,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -239,7 +240,36 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.2.0' },
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
+  },
+  {
+    label: 'googlepubsub',
+    insertText: 'googlepubsub',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Google Cloud Pub/Sub Operation Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub#operation)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub operation.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
+  },
+  {
+    label: 'ibmmq',
+    insertText: 'ibmmq',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[IBM MQ Operation Binding](https://github.com/asyncapi/bindings/blob/master/ibmmq#operation)\n\\\n\\\nProtocol-specific information for an IBM MQ operation.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
 ];
 

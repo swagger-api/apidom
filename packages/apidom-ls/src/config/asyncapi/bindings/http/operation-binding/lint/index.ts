@@ -1,16 +1,10 @@
-import allowedFieldsLint from './allowed-fields';
-import typeTypeLint from './type--type';
-import typeRequiredLint from './type--required';
-import methodTypeLint from './method--type';
-import queryTypeLint from './query--type';
+import operationBinding0_1_0Lints from './0-1-0';
+import operationBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
 const lints = [
-  allowedFieldsLint,
-  typeTypeLint,
-  typeRequiredLint,
-  methodTypeLint,
-  queryTypeLint,
+  ...operationBinding0_1_0Lints,
+  ...operationBindingLatestLints,
   bindingVersionTypeLint,
 ];
 

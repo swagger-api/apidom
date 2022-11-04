@@ -1,8 +1,15 @@
-import allowedFieldsLint from './allowed-fields';
-import groupIdTypeLint from './group-id--type';
-import clientIdTypeLint from './client-id--type';
+import operationBinding0_1_0Lints from './0-1-0';
+import operationBinding0_2_0Lints from './0-2-0';
+import operationBinding0_3_0Lints from './0-3-0';
+import operationBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [allowedFieldsLint, groupIdTypeLint, clientIdTypeLint, bindingVersionTypeLint];
+const lints = [
+  ...operationBinding0_1_0Lints,
+  ...operationBinding0_2_0Lints,
+  ...operationBinding0_3_0Lints,
+  ...operationBindingLatestLints,
+  bindingVersionTypeLint,
+];
 
 export default lints;

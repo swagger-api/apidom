@@ -17,7 +17,7 @@ import StompMessageBindingElement from './bindings/stomp/StompMessageBinding';
 import RedisMessageBindingElement from './bindings/redis/RedisMessageBinding';
 import MercureMessageBindingElement from './bindings/mercure/MercureMessageBinding';
 import IbmmqMessageBindingElement from './bindings/ibmmq/IbmmqMessageBinding';
-import GooglePubSubMessageBindingElement from './bindings/googlepubsub/GooglePubSubMessageBinding';
+import GooglepubsubMessageBindingElement from './bindings/googlepubsub/GooglepubsubMessageBinding';
 
 class MessageBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -153,11 +153,11 @@ class MessageBindings extends ObjectElement {
     this.set('mercure', mercure);
   }
 
-  get googlepubsub(): GooglePubSubMessageBindingElement | undefined {
+  get googlepubsub(): GooglepubsubMessageBindingElement | undefined {
     return this.get('googlepubsub');
   }
 
-  set googlepubsub(googlepubsub: GooglePubSubMessageBindingElement | undefined) {
+  set googlepubsub(googlepubsub: GooglepubsubMessageBindingElement | undefined) {
     this.set('googlepubsub', googlepubsub);
   }
 

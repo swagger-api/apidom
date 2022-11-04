@@ -21,7 +21,7 @@ describe('adapter', function () {
     });
 
     specify('should detect patch version bump', async function () {
-      assert.isTrue(await adapter.detect('asyncapi: "2.4.1"'));
+      assert.isTrue(await adapter.detect('asyncapi: "2.5.1"'));
     });
 
     specify('should detect minor and patch version bump', async function () {
@@ -76,7 +76,7 @@ describe('adapter', function () {
   context('given YAML with empty node', function () {
     specify('should generate source maps', async function () {
       const yamlSource = dedent`
-        asyncapi: 2.4.0
+        asyncapi: 2.5.0
         info:
       `;
 

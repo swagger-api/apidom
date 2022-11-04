@@ -52,5 +52,8 @@ exports[`refractor elements ChannelBindingsElement should refract to semantic Ap
     (MercureChannelBindingElement))
   (MemberElement
     (StringElement)
-    (IbmmqChannelBindingElement)))
+    (IbmmqChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (GooglepubsubChannelBindingElement)))
 `;

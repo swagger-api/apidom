@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Schema Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject).',
+        'Map[`string`, [Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Schema Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject).',
     },
   },
   {
@@ -28,11 +28,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Server Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#serverObject).',
+        'Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverObject).',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -45,9 +46,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#serverVariableObject).',
+        'Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverVariableObject).',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
+    ],
   },
   {
     label: 'channels',
@@ -59,11 +63,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Server Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#serverObject).',
+        'Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverObject).',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
     ],
   },
   {
@@ -76,7 +81,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Message Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#messageObject).',
+        'Map[`string`, [Message Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageObject).',
     },
   },
   {
@@ -89,7 +94,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.4.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Security Scheme Object](https://www.asyncapi.com/docs/specifications/v2.4.0#securitySchemeObject).',
+        'Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#securitySchemeObject).',
     },
   },
   {
@@ -102,7 +107,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/specifications/v2.4.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#parameterObject).',
+        'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#parameterObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#parameterObject).',
     },
   },
   {
@@ -115,7 +120,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/specifications/v2.4.0#correlationIdObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#correlationIdObject).',
+        'Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#correlationIdObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#correlationIdObject).',
     },
   },
   {
@@ -128,7 +133,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/specifications/v2.4.0#operationTraitObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#operationTraitObject).',
+        'Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#operationTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#operationTraitObject).',
     },
   },
   {
@@ -141,7 +146,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#messageTraitObject).',
+        'Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageTraitObject).',
     },
   },
   {
@@ -154,7 +159,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#serverBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#serverBindingsObject).',
+        'Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#serverBindingsObject).',
     },
   },
   {
@@ -167,7 +172,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#channelBindingsObject).',
+        'Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#channelBindingsObject).',
     },
   },
   {
@@ -180,7 +185,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#operationBindingsObject).',
+        'Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#operationBindingsObject).',
     },
   },
   {
@@ -193,7 +198,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/specifications/v2.4.0#messageBindingsObject).',
+        'Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageBindingsObject).',
     },
   },
 ];

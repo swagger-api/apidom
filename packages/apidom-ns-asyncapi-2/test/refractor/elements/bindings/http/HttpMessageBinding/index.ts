@@ -14,6 +14,19 @@ describe('refractor', function () {
 
         expect(sexprs(httpMessageBindingElement)).toMatchSnapshot();
       });
+
+      context('given query field of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const httpMessageBindingElement = HttpMessageBindingElement.refract({
+            headers: {
+              $ref: '#/pointer',
+            },
+            bindingVersion: '0.1.0',
+          });
+
+          expect(sexprs(httpMessageBindingElement)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

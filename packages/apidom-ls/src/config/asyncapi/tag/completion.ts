@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '**Required.** The name of the tag.',
+      value: '**REQUIRED.** The name of the tag.',
     },
   },
   {
@@ -40,7 +40,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.4.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
     },
   },
 ];

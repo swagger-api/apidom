@@ -11,6 +11,11 @@ const solaceTypeLint: LinterMeta = {
   marker: 'value',
   target: 'solace',
   data: {},
+  targetSpecs: [
+    { namespace: 'asyncapi', version: '2.3.0' },
+    { namespace: 'asyncapi', version: '2.4.0' },
+    { namespace: 'asyncapi', version: '2.5.0' },
+  ],
 };
 
 export default solaceTypeLint;

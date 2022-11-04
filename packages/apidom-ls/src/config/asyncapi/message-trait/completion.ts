@@ -29,7 +29,10 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Unique string used to identify the message. The id MUST be unique among all messages described in the API. The messageId value is **case-sensitive**. Tools and libraries MAY use the messageId to uniquely identify a message, therefore, it is RECOMMENDED to follow common programming naming conventions.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
+    ],
   },
   {
     label: 'headers',
@@ -41,7 +44,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/specifications/v2.4.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject) \\\n\\\nSchema definition of the application headers. Schema MUST be of type "object". It **MUST NOT** define the protocol headers.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject) \\\n\\\nSchema definition of the application headers. Schema MUST be of type "object". It **MUST NOT** define the protocol headers.',
     },
   },
   {
@@ -54,7 +57,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Correlation ID Object](https://www.asyncapi.com/docs/specifications/v2.4.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
+        '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
     },
   },
   {
@@ -67,7 +70,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A string containing the name of the schema format/language used to define the message payload. If omitted, implementations should parse the payload as a [Schema object](https://www.asyncapi.com/docs/reference/specification/v2.4.0#schemaObject).',
+        'A string containing the name of the schema format/language used to define the message payload. If omitted, implementations should parse the payload as a [Schema object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject).',
     },
   },
   {
@@ -80,7 +83,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/specifications/v2.4.0#defaultContentTypeString) field.",
+        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v2.5.0#defaultContentTypeString) field.",
     },
   },
   {
@@ -142,7 +145,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Tags Object](https://www.asyncapi.com/docs/specifications/v2.4.0#tagsObject)\n\\\n\\\nA list of tags for API documentation control. Tags can be used for logical grouping of messages.',
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#tagsObject)\n\\\n\\\nA list of tags for API documentation control. Tags can be used for logical grouping of messages.',
     },
   },
   {
@@ -155,7 +158,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.4.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this message.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this message.',
     },
   },
   {
@@ -168,7 +171,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Message Bindings Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/specifications/v2.4.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+        '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
     },
   },
   {
@@ -181,8 +184,38 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Message Example Object](https://www.asyncapi.com/docs/specifications/v2.4.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+        '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
     },
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi;version=2.5.0',
+    insertText: 'application/vnd.aai.asyncapi;version=2.5.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+json;version=2.5.0',
+    insertText: 'application/vnd.aai.asyncapi+json;version=2.5.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+    insertText: 'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
   },
   {
     target: 'schemaFormat',

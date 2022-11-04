@@ -18,6 +18,7 @@ export { Asyncapi21JsonSchemaValidationProvider } from './services/validation/pr
 export { Asyncapi22JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-22-json-schema-validation-provider';
 export { Asyncapi23JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-23-json-schema-validation-provider';
 export { Asyncapi24JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-24-json-schema-validation-provider';
+export { Asyncapi25JsonSchemaValidationProvider } from './services/validation/providers/asyncapi-25-json-schema-validation-provider';
 export { OpenAPi31JsonSchemaValidationProvider } from './services/validation/providers/openapi-31-json-schema-validation-provider';
 export { AdsValidationProvider } from './services/validation/providers/ads-validation-provider';
 

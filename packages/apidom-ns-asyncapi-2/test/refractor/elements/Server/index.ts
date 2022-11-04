@@ -16,6 +16,7 @@ describe('refractor', function () {
             username: {},
           },
           security: [{}],
+          tags: [{}],
         });
 
         expect(sexprs(serverElement)).toMatchSnapshot();
@@ -36,6 +37,20 @@ describe('refractor', function () {
           const serverElement = ServerElement.refract({
             bindings: {
               $ref: '#/path/to/bindings',
+            },
+          });
+
+          expect(sexprs(serverElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given variables field values contain ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const serverElement = ServerElement.refract({
+            variables: {
+              username: {
+                $ref: '#/path/to/server-variable',
+              },
             },
           });
 

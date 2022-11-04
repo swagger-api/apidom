@@ -20,7 +20,7 @@ describe('adapter', function () {
     });
 
     specify('should detect patch version bump', async function () {
-      assert.isTrue(await adapter.detect('{"asyncapi": "2.4.1"}'));
+      assert.isTrue(await adapter.detect('{"asyncapi": "2.5.1"}'));
     });
 
     specify('should detect minor and patch version bump', async function () {

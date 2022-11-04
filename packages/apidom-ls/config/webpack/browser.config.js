@@ -6,8 +6,8 @@ const browser = {
   entry: ['./src/index.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 7000000,
-    maxAssetSize: 7000000,
+    maxEntrypointSize: 8000000,
+    maxAssetSize: 8000000,
   },
   output: {
     path: path.resolve('./dist'),
@@ -51,8 +51,8 @@ const browserMin = {
   entry: ['./src/index.ts'],
   target: 'web',
   performance: {
-    maxEntrypointSize: 2300000,
-    maxAssetSize: 2300000,
+    maxEntrypointSize: 2500000,
+    maxAssetSize: 2500000,
   },
   output: {
     path: path.resolve('./dist'),

@@ -1,0 +1,19 @@
+{
+  "asyncapi": "2.5.0",
+  "components": {
+    "schemas": {
+      "schema1": {
+        "type": "object"
+      }
+    },
+    "messageBindings": {
+      "binding1": {
+        "anypointmq": {
+          "headers": {
+            "$ref": "#/components/schemas/schema1"
+          }
+        }
+      }
+    }
+  }
+}

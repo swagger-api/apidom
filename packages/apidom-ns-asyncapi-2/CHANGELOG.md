@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.55.0](https://github.com/swagger-api/apidom/compare/v0.54.0...v0.55.0) (2022-11-04)
+
+### Features
+
+- **ns-asyncapi-2:** add latest bindings versions in elements layer ([#2224](https://github.com/swagger-api/apidom/issues/2224)) ([15e436c](https://github.com/swagger-api/apidom/commit/15e436c85719bcf1733ae19a1c827d951a34f9eb)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** add support for 2.5.0 in bindings refractors ([#2231](https://github.com/swagger-api/apidom/issues/2231)) ([0db1bd3](https://github.com/swagger-api/apidom/commit/0db1bd34705451d9ce7f166b43f25b4ab6c38275)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** add support for 2.5.0 in refractors ([91e38a4](https://github.com/swagger-api/apidom/commit/91e38a4c27fec17128b3a06f733183e7ff6d42f6)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** add support for 2.5.0 version in element layer ([#2222](https://github.com/swagger-api/apidom/issues/2222)) ([9d1f9f6](https://github.com/swagger-api/apidom/commit/9d1f9f6a9f3a8b0b3e2cf2304e1cc50339adca03)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** add support for AsyncAPI 2.5.0 ([ef3ef25](https://github.com/swagger-api/apidom/commit/ef3ef25c8f6ed806f37e9cef45e4f7a41fef578d)), closes [#2081](https://github.com/swagger-api/apidom/issues/2081)
+- **ns-asyncapi-2:** improve types for bindings elements ([#2223](https://github.com/swagger-api/apidom/issues/2223)) ([b44dcfc](https://github.com/swagger-api/apidom/commit/b44dcfcd1852a4f04f411d3257b616618aa4bff3)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+- **ns-asyncapi-2:** improve types for elements ([#2221](https://github.com/swagger-api/apidom/issues/2221)) ([810c9f9](https://github.com/swagger-api/apidom/commit/810c9f9010ca3b8cbf6d1ee90fcc8f51cdfd71eb)), closes [#2080](https://github.com/swagger-api/apidom/issues/2080)
+
 # [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-2

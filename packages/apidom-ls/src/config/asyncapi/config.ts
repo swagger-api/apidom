@@ -1,10 +1,12 @@
 import ApilintCodes from '../codes';
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification metas.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification metas.
  */
 import asyncapi2Meta from './asyncapi2/meta';
 import asyncapiVersionMeta from './async-api-version/meta';
 import meta from '../common/schema/meta';
+import identifierMeta from './identifier/meta';
+import defaultContentTypeMeta from './default-content-type/meta';
 import securitySchemeMeta from './security-scheme/meta';
 import infoMeta from './info/meta';
 import contactMeta from './contact/meta';
@@ -51,6 +53,11 @@ import anypointmqChannelBindingMeta from './bindings/anypointmq/channel-binding/
 import anypointmqMessageBindingMeta from './bindings/anypointmq/message-binding/meta';
 import anypointmqOperationBindingMeta from './bindings/anypointmq/operation-binding/meta';
 import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/meta';
+// Google Cloud Pub/Sub
+import googlepubsubChannelBindingMeta from './bindings/googlepubsub/channel-binding/meta';
+import googlepubsubMessageBindingMeta from './bindings/googlepubsub/message-binding/meta';
+import googlepubsubOperationBindingMeta from './bindings/googlepubsub/operation-binding/meta';
+import googlepubsubServerBindingMeta from './bindings/googlepubsub/server-binding/meta';
 // HTTP
 import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
 import httpMessageBindingMeta from './bindings/http/message-binding/meta';
@@ -59,6 +66,7 @@ import httpServerBindingMeta from './bindings/http/server-binding/meta';
 // IBM MQ
 import ibmmqChannelBindingMeta from './bindings/ibmmq/channel-binding/meta';
 import ibmmqMessageBindingMeta from './bindings/ibmmq/message-binding/meta';
+import ibmmqOperationBindingMeta from './bindings/ibmmq/operation-binding/meta';
 import ibmmqServerBindingMeta from './bindings/ibmmq/server-binding/meta';
 // JMS
 import jmsChannelBindingMeta from './bindings/jms/channel-binding/meta';
@@ -140,8 +148,10 @@ export default {
     ],
   },
   /**
-   * AsyncApi >= 2.0.0 <=2.4.0 specification metas.
+   * AsyncApi >= 2.0.0 <=2.5.0 specification metas.
    */
+  identifier: identifierMeta,
+  defaultContentType: defaultContentTypeMeta,
   info: infoMeta,
   contact: contactMeta,
   license: licenseMeta,
@@ -191,6 +201,11 @@ export default {
   anypointmqMessageBinding: anypointmqMessageBindingMeta,
   anypointmqOperationBinding: anypointmqOperationBindingMeta,
   anypointmqServerBiding: anypointmqServerBidingMeta,
+  // Google Cloud Pub/Sub
+  googlepubsubChannelBinding: googlepubsubChannelBindingMeta,
+  googlepubsubMessageBinding: googlepubsubMessageBindingMeta,
+  googlepubsubOperationBinding: googlepubsubOperationBindingMeta,
+  googlepubsubServerBinding: googlepubsubServerBindingMeta,
   // HTTP
   httpChannelBinding: httpChannelBindingMeta,
   httpMessageBinding: httpMessageBindingMeta,
@@ -199,6 +214,7 @@ export default {
   // IMB MQ
   ibmmqChannelBinding: ibmmqChannelBindingMeta,
   ibmmqMessageBinding: ibmmqMessageBindingMeta,
+  ibmmqOperationBinding: ibmmqOperationBindingMeta,
   ibmmqServerBinding: ibmmqServerBindingMeta,
   // JMS
   jmsChannelBinding: jmsChannelBindingMeta,

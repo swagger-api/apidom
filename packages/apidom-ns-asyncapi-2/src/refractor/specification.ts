@@ -3,7 +3,7 @@ import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -57,6 +57,7 @@ import SecurityRequirementVisitor from './visitors/async-api-2/security-requirem
 import ReferenceVisitor from './visitors/async-api-2/reference';
 import Reference$RefVisitor from './visitors/async-api-2/reference/$RefVisitor';
 import SchemaVisitor from './visitors/async-api-2/schema';
+import SchemaOrReferenceVisitor from './visitors/async-api-2/schema/SchemaOrReferenceVisitor';
 import SchemaDeprecatedVisitor from './visitors/async-api-2/schema/DeprecatedVisitor';
 import SchemaDiscriminatorVisitor from './visitors/async-api-2/schema/DiscriminatorVisitor';
 import SchemaAllOfVisitor from './visitors/async-api-2/schema/AllOfVisitor';
@@ -154,61 +155,34 @@ import OperationTraitBindingsVisitor from './visitors/async-api-2/operation-trai
  */
 // AMQP 0-9-1
 import AmqpChannelBindingVisitor from './visitors/async-api-2/bindings/amqp/channel-binding';
-import AmqpChannelBindingIsVisitor from './visitors/async-api-2/bindings/amqp/channel-binding/IsVisitor';
-import AmqpChannelBindingExchangeVisitor from './visitors/async-api-2/bindings/amqp/channel-binding/ExchangeVisitor';
-import AmqpChannelBindingQueueVisitor from './visitors/async-api-2/bindings/amqp/channel-binding/QueueVisitor';
-import AmqpChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/amqp/channel-binding/BindingVersionVisitor';
 import AmqpMessageBindingVisitor from './visitors/async-api-2/bindings/amqp/message-binding';
-import AmqpMessageBindingContentEncodingVisitor from './visitors/async-api-2/bindings/amqp/message-binding/ContentEncodingVisitor';
-import AmqpMessageBindingMessageTypeVisitor from './visitors/async-api-2/bindings/amqp/message-binding/MessageTypeVisitor';
-import AmqpMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/amqp/message-binding/BindingVersionVisitor';
 import AmqpOperationBindingVisitor from './visitors/async-api-2/bindings/amqp/operation-binding';
-import AmqpOperationBindingExpirationVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/ExpirationVisitor';
-import AmqpOperationBindingUserIdVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/UserIdVisitor';
-import AmqpOperationBindingCcVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/CcVisitor';
-import AmqpOperationBindingPriorityVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/PriorityVisitor';
-import AmqpOperationBindingDeliveryModeVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/DeliveryModeVisitor';
-import AmqpOperationBindingMandatoryVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/MandatoryVisitor';
-import AmqpOperationBindingBccVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/BccVisitor';
-import AmqpOperationBindingReplyToVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/ReplyToVisitor';
-import AmqpOperationBindingTimestampVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/TimestampVisitor';
-import AmqpOperationBindingAckVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/AckVisitor';
-import AmqpOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/amqp/operation-binding/BindingVersionVisitor';
 import AmqpServerBindingVisitor from './visitors/async-api-2/bindings/amqp/server-binding';
 // AMQP 1.0
 import Amqp1ChannelBindingVisitor from './visitors/async-api-2/bindings/amqp1/channel-binding';
 import Amqp1MessageBindingVisitor from './visitors/async-api-2/bindings/amqp1/message-binding';
 import Amqp1OperationBindingVisitor from './visitors/async-api-2/bindings/amqp1/operation-binding';
 import Amqp1ServerBindingVisitor from './visitors/async-api-2/bindings/amqp1/server-binding';
+// Anypoint MQ
+import AnypointmqChannelBindingVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding';
+import AnypointmqMessageBindingVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding';
+import AnypointmqOperationBindingVisitor from './visitors/async-api-2/bindings/anypointmq/operation-binding';
+import AnypointmqServerBindingVisitor from './visitors/async-api-2/bindings/anypointmq/server-binding';
 // HTTP
 import HttpChannelBindingVisitor from './visitors/async-api-2/bindings/http/channel-binding';
 import HttpMessageBindingVisitor from './visitors/async-api-2/bindings/http/message-binding';
-import HttpMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/http/message-binding/BindingVersionVisitor';
 import HttpOperationBindingVisitor from './visitors/async-api-2/bindings/http/operation-binding';
-import HttpOperationBindingTypeVisitor from './visitors/async-api-2/bindings/http/operation-binding/TypeVisitor';
-import HttpOperationBindingMethodVisitor from './visitors/async-api-2/bindings/http/operation-binding/MethodVisitor';
-import HttpOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/http/operation-binding/BindingVersionVisitor';
 import HttpServerBindingVisitor from './visitors/async-api-2/bindings/http/server-binding';
+// Google Cloud Pub/Sub
+import GooglepubsubChannelBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/channel-binding';
+import GooglepubsubMessageBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/message-binding';
+import GooglepubsubOperationBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/operation-binding';
+import GooglepubsubServerBindingVisitor from './visitors/async-api-2/bindings/googlepubsub/server-binding';
 // IBM MQ
 import IbmmqChannelBindingVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding';
-import IbmmqChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/BindingVersionVisitor';
-import IbmmqChannelBindingDestinationTypeVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/DestinationTypeVisitor';
-import IbmmqChannelBindingMaxMsgLengthVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/MaxMsgLengthVisitor';
-import IbmmqChannelBindingQueueVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/QueueVisitor';
-import IbmmqChannelBindingTopicVisitor from './visitors/async-api-2/bindings/ibmmq/channel-binding/TopicVisitor';
 import IbmmqMessageBindingVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding';
-import IbmmqMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/BindingVersionVisitor';
-import IbmmqMessageBindingDescriptionVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/DescriptionVisitor';
-import IbmmqMessageBindingExpiryVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/ExpiryVisitor';
-import IbmmqMessageBindingHeadersVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/HeadersVisitor';
-import IbmmqMessageBindingTypeVisitor from './visitors/async-api-2/bindings/ibmmq/message-binding/TypeVisitor';
+import IbmmqOperationBindingVisitor from './visitors/async-api-2/bindings/ibmmq/operation-binding';
 import IbmmqServerBindingVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding';
-import IbmmqServerBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/BindingVersionVisitor';
-import IbmmqServerBindingCcdtQueueManagerNameVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/CcdtQueueManagerNameVisitor';
-import IbmmqServerBindingCipherSpecVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/CipherSpecVisitor';
-import IbmmqServerBindingGroupIdVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/GroupIdVisitor';
-import IbmmqServerBindingHeartBeatIntervalVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/HeartBeatIntervalVisitor';
-import IbmmqServerBindingMultiEndpointServerVisitor from './visitors/async-api-2/bindings/ibmmq/server-binding/MultiEndpointServerVisitor';
 // JMS
 import JmsChannelBindingVisitor from './visitors/async-api-2/bindings/jms/channel-binding';
 import JmsMessageBindingVisitor from './visitors/async-api-2/bindings/jms/message-binding';
@@ -217,19 +191,8 @@ import JmsServerBindingVisitor from './visitors/async-api-2/bindings/jms/server-
 // Kafka
 import KafkaChannelBindingVisitor from './visitors/async-api-2/bindings/kafka/channel-binding';
 import KafkaMessageBindingVisitor from './visitors/async-api-2/bindings/kafka/message-binding';
-import KafkaMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/kafka/message-binding/BindingVersionVisitor';
 import KafkaOperationBindingVisitor from './visitors/async-api-2/bindings/kafka/operation-binding';
-import KafkaOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/kafka/operation-binding/BindingVersionVisitor';
 import KafkaServerBindingVisitor from './visitors/async-api-2/bindings/kafka/server-binding';
-// Anypoint MQ
-import AnypointmqChannelBindingVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding';
-import AnypointmqChannelBindingDestinationVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/DestinationVisitor';
-import AnypointmqChannelBindingDestinationTypeVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/DestinationTypeVisitor';
-import AnypointmqChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/anypointmq/channel-binding/BindingVersionVisitor';
-import AnypointmqMessageBindingVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding';
-import AnypointmqMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/anypointmq/message-binding/BindingVersionVisitor';
-import AnypointmqOperationBindingVisitor from './visitors/async-api-2/bindings/anypointmq/operation-binding';
-import AnypointmqServerBindingVisitor from './visitors/async-api-2/bindings/anypointmq/server-binding';
 // Mercure
 import MercureChannelBindingVisitor from './visitors/async-api-2/bindings/mercure/channel-binding';
 import MercureMessageBindingVisitor from './visitors/async-api-2/bindings/mercure/message-binding';
@@ -238,17 +201,8 @@ import MercureServerBindingVisitor from './visitors/async-api-2/bindings/mercure
 // MQTT
 import MqttChannelBindingVisitor from './visitors/async-api-2/bindings/mqtt/channel-binding';
 import MqttMessageBindingVisitor from './visitors/async-api-2/bindings/mqtt/message-binding';
-import MqttMessageBindingBindingVersionVisitor from './visitors/async-api-2/bindings/mqtt/message-binding/BindingVersionVisitor';
 import MqttOperationBindingVisitor from './visitors/async-api-2/bindings/mqtt/operation-binding';
-import MqttOperationBindingQosVisitor from './visitors/async-api-2/bindings/mqtt/operation-binding/QosVisitor';
-import MqttOperationBindingRetainVisitor from './visitors/async-api-2/bindings/mqtt/operation-binding/RetainVisitor';
-import MqttOperationBindingBindingVersionVisitor from './visitors/async-api-2/bindings/mqtt/operation-binding/BindingVersionVisitor';
 import MqttServerBindingVisitor from './visitors/async-api-2/bindings/mqtt/server-binding';
-import MqttServerBindingClientIdVisitor from './visitors/async-api-2/bindings/mqtt/server-binding/ClientIdVisitor';
-import MqttServerBindingCleanSessionVisitor from './visitors/async-api-2/bindings/mqtt/server-binding/CleanSessionVisitor';
-import MqttServerBindingLastWillVisitor from './visitors/async-api-2/bindings/mqtt/server-binding/LastWillVisitor';
-import MqttServerBindingKeepAliveVisitor from './visitors/async-api-2/bindings/mqtt/server-binding/KeepAliveVisitor';
-import MqttServerBindingBindingVersionVisitor from './visitors/async-api-2/bindings/mqtt/server-binding/BindingVersionVisitor';
 // MQTT 5
 import Mqtt5ChannelBindingVisitor from './visitors/async-api-2/bindings/mqtt5/channel-binding';
 import Mqtt5MessageBindingVisitor from './visitors/async-api-2/bindings/mqtt5/message-binding';
@@ -286,8 +240,6 @@ import StompOperationBindingVisitor from './visitors/async-api-2/bindings/stomp/
 import StompServerBindingVisitor from './visitors/async-api-2/bindings/stomp/server-binding';
 // WebSocket
 import WebSocketChannelBindingVisitor from './visitors/async-api-2/bindings/ws/channel-binding';
-import WebSocketChannelBindingMethodVisitor from './visitors/async-api-2/bindings/ws/channel-binding/MethodVisitor';
-import WebSocketChannelBindingBindingVersionVisitor from './visitors/async-api-2/bindings/ws/channel-binding/BindingVersionVisitor';
 import WebSocketMessageBindingVisitor from './visitors/async-api-2/bindings/ws/message-binding';
 import WebSocketOperationBindingVisitor from './visitors/async-api-2/bindings/ws/operation-binding';
 import WebSocketServerBindingVisitor from './visitors/async-api-2/bindings/ws/server-binding';
@@ -340,7 +292,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi >= 2.0.0 <=2.4.0 specification elements.
+         * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -422,6 +374,9 @@ const specification = {
             description: ServerDescriptionVisitor,
             variables: ServerVariablesVisitor,
             security: ServerSecurityVisitor,
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
             bindings: ServerBindingsVisitor_,
           },
         },
@@ -689,6 +644,9 @@ const specification = {
             ibmmq: {
               $ref: '#/visitors/document/objects/bindings/ibmmq/ServerBinding',
             },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/ServerBinding',
+            },
           },
         },
         Parameters: {
@@ -756,6 +714,9 @@ const specification = {
             ibmmq: {
               $ref: '#/visitors/document/objects/bindings/ibmmq/ChannelBinding',
             },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/ChannelBinding',
+            },
           },
         },
         OperationBindings: {
@@ -808,6 +769,12 @@ const specification = {
             },
             mercure: {
               $ref: '#/visitors/document/objects/bindings/mercure/OperationBinding',
+            },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/OperationBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/OperationBinding',
             },
           },
         },
@@ -865,6 +832,9 @@ const specification = {
             ibmmq: {
               $ref: '#/visitors/document/objects/bindings/ibmmq/MessageBinding',
             },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/MessageBinding',
+            },
           },
         },
         CorrelationID: {
@@ -885,21 +855,25 @@ const specification = {
             OperationBinding: {
               $visitor: HttpOperationBindingVisitor,
               fixedFields: {
-                type: HttpOperationBindingTypeVisitor,
-                method: HttpOperationBindingMethodVisitor,
-                query: {
-                  $ref: '#/visitors/document/objects/Schema',
+                type: {
+                  $ref: '#/visitors/value',
                 },
-                bindingVersion: HttpOperationBindingBindingVersionVisitor,
+                method: {
+                  $ref: '#/visitors/value',
+                },
+                query: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             MessageBinding: {
               $visitor: HttpMessageBindingVisitor,
               fixedFields: {
-                headers: {
-                  $ref: '#/visitors/document/objects/Schema',
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
                 },
-                bindingVersion: HttpMessageBindingBindingVersionVisitor,
               },
             },
           },
@@ -910,14 +884,14 @@ const specification = {
             ChannelBinding: {
               $visitor: WebSocketChannelBindingVisitor,
               fixedFields: {
-                method: WebSocketChannelBindingMethodVisitor,
-                query: {
-                  $ref: '#/visitors/document/objects/Schema',
+                method: {
+                  $ref: '#/visitors/value',
                 },
-                headers: {
-                  $ref: '#/visitors/document/objects/Schema',
+                query: SchemaOrReferenceVisitor,
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
                 },
-                bindingVersion: WebSocketChannelBindingBindingVersionVisitor,
               },
             },
             OperationBinding: {
@@ -930,29 +904,61 @@ const specification = {
           kafka: {
             ServerBinding: {
               $visitor: KafkaServerBindingVisitor,
+              fixedFields: {
+                schemaRegistryUrl: {
+                  $ref: '#/visitors/value',
+                },
+                schemaRegistryVendor: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             ChannelBinding: {
               $visitor: KafkaChannelBindingVisitor,
+              fixedFields: {
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+                partitions: {
+                  $ref: '#/visitors/value',
+                },
+                replicas: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: KafkaOperationBindingVisitor,
               fixedFields: {
-                groupId: {
-                  $ref: '#/visitors/document/objects/Schema',
+                groupId: SchemaOrReferenceVisitor,
+                clientId: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
                 },
-                clientId: {
-                  $ref: '#/visitors/document/objects/Schema',
-                },
-                bindingVersion: KafkaOperationBindingBindingVersionVisitor,
               },
             },
             MessageBinding: {
               $visitor: KafkaMessageBindingVisitor,
               fixedFields: {
-                key: {
-                  $ref: '#/visitors/document/objects/Schema',
+                key: SchemaOrReferenceVisitor,
+                schemaIdLocation: {
+                  $ref: '#/visitors/value',
                 },
-                bindingVersion: KafkaMessageBindingBindingVersionVisitor,
+                schemaIdPayloadEncoding: {
+                  $ref: '#/visitors/value',
+                },
+                schemaLookupStrategy: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
           },
@@ -963,9 +969,15 @@ const specification = {
             ChannelBinding: {
               $visitor: AnypointmqChannelBindingVisitor,
               fixedFields: {
-                destination: AnypointmqChannelBindingDestinationVisitor,
-                destinationType: AnypointmqChannelBindingDestinationTypeVisitor,
-                bindingVersion: AnypointmqChannelBindingBindingVersionVisitor,
+                destination: {
+                  $ref: '#/visitors/value',
+                },
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             OperationBinding: {
@@ -974,10 +986,10 @@ const specification = {
             MessageBinding: {
               $visitor: AnypointmqMessageBindingVisitor,
               fixedFields: {
-                headers: {
-                  $ref: '#/visitors/document/objects/Schema',
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
                 },
-                bindingVersion: AnypointmqMessageBindingBindingVersionVisitor,
               },
             },
           },
@@ -988,34 +1000,70 @@ const specification = {
             ChannelBinding: {
               $visitor: AmqpChannelBindingVisitor,
               fixedFields: {
-                is: AmqpChannelBindingIsVisitor,
-                exchange: AmqpChannelBindingExchangeVisitor,
-                queue: AmqpChannelBindingQueueVisitor,
-                bindingVersion: AmqpChannelBindingBindingVersionVisitor,
+                is: {
+                  $ref: '#/visitors/value',
+                },
+                exchange: {
+                  $ref: '#/visitors/value',
+                },
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             OperationBinding: {
               $visitor: AmqpOperationBindingVisitor,
               fixedFields: {
-                expiration: AmqpOperationBindingExpirationVisitor,
-                userId: AmqpOperationBindingUserIdVisitor,
-                cc: AmqpOperationBindingCcVisitor,
-                priority: AmqpOperationBindingPriorityVisitor,
-                deliveryMode: AmqpOperationBindingDeliveryModeVisitor,
-                mandatory: AmqpOperationBindingMandatoryVisitor,
-                bcc: AmqpOperationBindingBccVisitor,
-                replyTo: AmqpOperationBindingReplyToVisitor,
-                timestamp: AmqpOperationBindingTimestampVisitor,
-                ack: AmqpOperationBindingAckVisitor,
-                bindingVersion: AmqpOperationBindingBindingVersionVisitor,
+                expiration: {
+                  $ref: '#/visitors/value',
+                },
+                userId: {
+                  $ref: '#/visitors/value',
+                },
+                cc: {
+                  $ref: '#/visitors/value',
+                },
+                priority: {
+                  $ref: '#/visitors/value',
+                },
+                deliveryMode: {
+                  $ref: '#/visitors/value',
+                },
+                mandatory: {
+                  $ref: '#/visitors/value',
+                },
+                bcc: {
+                  $ref: '#/visitors/value',
+                },
+                replyTo: {
+                  $ref: '#/visitors/value',
+                },
+                timestamp: {
+                  $ref: '#/visitors/value',
+                },
+                ack: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             MessageBinding: {
               $visitor: AmqpMessageBindingVisitor,
               fixedFields: {
-                contentEncoding: AmqpMessageBindingContentEncodingVisitor,
-                messageType: AmqpMessageBindingMessageTypeVisitor,
-                bindingVersion: AmqpMessageBindingBindingVersionVisitor,
+                contentEncoding: {
+                  $ref: '#/visitors/value',
+                },
+                messageType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
           },
@@ -1037,11 +1085,21 @@ const specification = {
             ServerBinding: {
               $visitor: MqttServerBindingVisitor,
               fixedFields: {
-                clientId: MqttServerBindingClientIdVisitor,
-                cleanSession: MqttServerBindingCleanSessionVisitor,
-                lastWill: MqttServerBindingLastWillVisitor,
-                keepAlive: MqttServerBindingKeepAliveVisitor,
-                bindingVersion: MqttServerBindingBindingVersionVisitor,
+                clientId: {
+                  $ref: '#/visitors/value',
+                },
+                cleanSession: {
+                  $ref: '#/visitors/value',
+                },
+                lastWill: {
+                  $ref: '#/visitors/value',
+                },
+                keepAlive: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             ChannelBinding: {
@@ -1050,15 +1108,23 @@ const specification = {
             OperationBinding: {
               $visitor: MqttOperationBindingVisitor,
               fixedFields: {
-                qos: MqttOperationBindingQosVisitor,
-                retain: MqttOperationBindingRetainVisitor,
-                bindingVersion: MqttOperationBindingBindingVersionVisitor,
+                qos: {
+                  $ref: '#/visitors/value',
+                },
+                retain: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             MessageBinding: {
               $visitor: MqttMessageBindingVisitor,
               fixedFields: {
-                bindingVersion: MqttMessageBindingBindingVersionVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
           },
@@ -1085,6 +1151,14 @@ const specification = {
             },
             OperationBinding: {
               $visitor: NatsOperationBindingVisitor,
+              fixedFields: {
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             MessageBinding: {
               $visitor: NatsMessageBindingVisitor,
@@ -1121,12 +1195,28 @@ const specification = {
           solace: {
             ServerBinding: {
               $visitor: SolaceServerBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                msgVpn: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             ChannelBinding: {
               $visitor: SolaceChannelBindingVisitor,
             },
             OperationBinding: {
               $visitor: SolaceOperationBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                destinations: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             MessageBinding: {
               $visitor: SolaceMessageBindingVisitor,
@@ -1188,37 +1278,120 @@ const specification = {
               $visitor: MercureMessageBindingVisitor,
             },
           },
+          googlepubsub: {
+            ServerBinding: {
+              $visitor: GooglepubsubServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: GooglepubsubChannelBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                labels: {
+                  $ref: '#/visitors/value',
+                },
+                messageRetentionDuration: {
+                  $ref: '#/visitors/value',
+                },
+                messageStoragePolicy: {
+                  $ref: '#/visitors/value',
+                },
+                schemaSettings: {
+                  $ref: '#/visitors/value',
+                },
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: GooglepubsubOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: GooglepubsubMessageBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                attributes: {
+                  $ref: '#/visitors/value',
+                },
+                orderingKey: {
+                  $ref: '#/visitors/value',
+                },
+                schema: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
           ibmmq: {
             ServerBinding: {
               $visitor: IbmmqServerBindingVisitor,
               fixedFields: {
-                groupId: IbmmqServerBindingGroupIdVisitor,
-                ccdtQueueManagerName: IbmmqServerBindingCcdtQueueManagerNameVisitor,
-                cipherSpec: IbmmqServerBindingCipherSpecVisitor,
-                multiEndpointServer: IbmmqServerBindingMultiEndpointServerVisitor,
-                heartBeatInterval: IbmmqServerBindingHeartBeatIntervalVisitor,
-                bindingVersion: IbmmqServerBindingBindingVersionVisitor,
+                groupId: {
+                  $ref: '#/visitors/value',
+                },
+                ccdtQueueManagerName: {
+                  $ref: '#/visitors/value',
+                },
+                cipherSpec: {
+                  $ref: '#/visitors/value',
+                },
+                multiEndpointServer: {
+                  $ref: '#/visitors/value',
+                },
+                heartBeatInterval: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             ChannelBinding: {
               $visitor: IbmmqChannelBindingVisitor,
               fixedFields: {
-                destinationType: IbmmqChannelBindingDestinationTypeVisitor,
-                queue: IbmmqChannelBindingQueueVisitor,
-                topic: IbmmqChannelBindingTopicVisitor,
-                maxMsgLength: IbmmqChannelBindingMaxMsgLengthVisitor,
-                bindingVersion: IbmmqChannelBindingBindingVersionVisitor,
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+                maxMsgLength: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             MessageBinding: {
               $visitor: IbmmqMessageBindingVisitor,
               fixedFields: {
-                type: IbmmqMessageBindingTypeVisitor,
-                headers: IbmmqMessageBindingHeadersVisitor,
-                description: IbmmqMessageBindingDescriptionVisitor,
-                expiry: IbmmqMessageBindingExpiryVisitor,
-                bindingVersion: IbmmqMessageBindingBindingVersionVisitor,
+                type: {
+                  $ref: '#/visitors/value',
+                },
+                headers: {
+                  $ref: '#/visitors/value',
+                },
+                description: {
+                  $ref: '#/visitors/value',
+                },
+                expiry: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
               },
+            },
+            OperationBinding: {
+              $visitor: IbmmqOperationBindingVisitor,
             },
           },
         },

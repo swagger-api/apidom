@@ -66,7 +66,7 @@ describe('parsers', function () {
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as AsyncAPI 2.4', function () {
+        context('and file data is buffer and can be detected as AsyncAPI 2.5.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
@@ -79,7 +79,7 @@ describe('parsers', function () {
           });
         });
 
-        context('and file data is string and can be detected as AsyncAPI 2.4', function () {
+        context('and file data is string and can be detected as AsyncAPI 2.5.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
@@ -95,7 +95,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.4.0 JSON data', function () {
+      context('given AsyncApi 2.5.0 JSON data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url).toString();
@@ -111,7 +111,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 2.4.0 JSON data as buffer', function () {
+      context('given AsyncApi 2.5.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url);
@@ -127,7 +127,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 2.4.0 JSON data', function () {
+      context('given data that is not an AsyncApi 2.5.0 JSON data', function () {
         specify('should coerce to string and parse', async function () {
           const file = File({
             uri: '/path/to/file.json',

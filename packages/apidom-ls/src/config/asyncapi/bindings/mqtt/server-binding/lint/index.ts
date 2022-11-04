@@ -1,17 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import clientIdTypeLint from './client-id--type';
-import cleanSessionTypeLint from './clean-session--type';
-import lastWillTypeLint from './last-will--type';
-import keepAliveTypeLint from './keep-alive--type';
+import serverBinding0_1_0Lints from './0-1-0';
+import serverBindingLatestLints from './latest';
 import bindingVersionTypeLint from './binding-version--type';
 
-const lints = [
-  allowedFieldsLint,
-  clientIdTypeLint,
-  cleanSessionTypeLint,
-  lastWillTypeLint,
-  keepAliveTypeLint,
-  bindingVersionTypeLint,
-];
+const lints = [...serverBinding0_1_0Lints, ...serverBindingLatestLints, bindingVersionTypeLint];
 
 export default lints;

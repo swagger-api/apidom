@@ -1,0 +1,531 @@
+{
+  "asyncapi": "2.5.0",
+  "id": "urn:com:smartylighting:streetlights:server",
+  "info": {
+    "title": "AsyncAPI Sample App",
+    "version": "1.0.1",
+    "description": "This is a sample server.",
+    "termsOfService": "http://asyncapi.org/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.asyncapi.org/support",
+      "email": "support@asyncapi.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": {
+    "production": {
+      "url": "{username}.gigantic-server.com",
+      "protocol": "kafka",
+      "protocolVersion": "1.0.0",
+      "description": "Production server",
+      "variables": {
+        "username": {
+          "enum": ["demo", "demo1", "demo2"],
+          "default": "demo",
+          "description": "This value is assigned by the service provider, in this example `gigantic-server.com`",
+          "examples": ["demo", "demo1", "demo2"]
+        },
+        "username1": {
+          "$ref": "#/servers/production/variables/username"
+        }
+      },
+      "security": [
+        {
+          "petstore_auth": [
+            "write:pets",
+            "read:pets"
+          ]
+        }
+      ],
+      "tags": [
+        {
+          "name": "tag1",
+          "description": "description of tag1",
+          "externalDocs": {
+            "description": "description of tag 1 external docs",
+            "url": "https://example.com/tag1"
+          }
+        }
+      ],
+      "bindings": {
+        "kafka": {},
+        "anypointmq": {},
+        "solace": {
+          "bindingVersion": "0.1.0"
+        },
+        "ibmmq": {
+          "groupId": "PRODCLSTR1",
+          "bindingVersion": "0.1.0"
+        },
+        "googlepubsub": {}
+      }
+    },
+    "development": {
+      "url": "gigantic-server.com",
+      "protocol": "kafka",
+      "bindings": {
+        "$ref": "#/components/serverBindings/ServerBinding1"
+      }
+    }
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "user/signedup": {
+      "description": "This channel is used to exchange messages about users signing up",
+      "servers": ["production"],
+      "subscribe": {
+        "operationId": "operation1",
+        "summary": "A user signed up.",
+        "description": "A user signed up description.",
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ],
+        "tags": [
+          {
+            "name": "tag1",
+            "description": "description of tag1",
+            "externalDocs": {
+              "description": "description of tag 1 external docs",
+              "url": "https://example.com/tag1"
+            }
+          }
+        ],
+        "externalDocs": {
+          "description": "description of operation1 external docs",
+          "url": "https://example.com/operation1-external-docs"
+        },
+        "traits": [
+          {
+            "operationId": "operation1",
+            "summary": "A user signed up.",
+            "description": "A user signed up description.",
+            "security": [
+              {
+                "petstore_auth": [
+                  "write:pets",
+                  "read:pets"
+                ]
+              }
+            ],
+            "tags": [
+              {
+                "name": "tag2",
+                "description": "description of tag2",
+                "externalDocs": {
+                  "description": "description of tag 2 external docs",
+                  "url": "https://example.com/tag2"
+                }
+              }
+            ],
+            "externalDocs": {
+              "description": "description of operation1 trait external docs",
+              "url": "https://example.com/operation1-trait-external-docs"
+            },
+            "bindings": {
+              "kafka": {
+                "clientId": {
+                  "type": "integer"
+                },
+                "groupId": {
+                  "type": "integer"
+                },
+                "bindingVersion": "0.1.0"
+              },
+              "solace": {
+                "bindingVersion": "0.1.0",
+                "destinations": [
+                  {
+                    "destinationType": "queue",
+                    "deliveryMode": "persistent"
+                  }
+                ]
+              },
+              "anypointmq": {},
+              "googlepubsub": {}
+            }
+          }
+        ],
+        "message": {
+          "messageId": "unique-id",
+          "headers": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/user"
+              },
+              "signup": {
+                "$ref": "#/components/schemas/signup"
+              }
+            }
+          },
+          "correlationId": {
+            "description": "correlation id description",
+            "location": "http://asyncapi.com/"
+          },
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.3.0",
+          "contentType": "application/json",
+          "name": "name of the message",
+          "title": "title of the message",
+          "summary": "summary of the message",
+          "description": "A longer description of the message",
+          "tags": [
+            {
+              "name": "tag3",
+              "description": "description of tag3",
+              "externalDocs": {
+                "description": "description of tag 3 external docs",
+                "url": "https://example.com/tag3"
+              }
+            }
+          ],
+          "externalDocs": {
+            "description": "description of message 1 external docs",
+            "url": "https://example.com/message-1-external-docs"
+          },
+          "bindings": {
+            "kafka": {
+              "key": {
+                "type": "integer"
+              },
+              "bindingVersion": "0.1.0"
+            },
+            "anypointmq": {
+              "headers": {},
+              "bindingVersion": "latest"
+            },
+            "solace": {},
+            "ibmmq": {
+              "type": "jms",
+              "bindingVersion": "0.1.0"
+            },
+            "googlepubsub": {
+              "bindingVersion": "0.1.0",
+              "attributes": {},
+              "orderingKey": "",
+              "schema": {
+                "name": "projects/your-project/schemas/message-avro",
+                "type": "avro"
+              }
+            }
+          },
+          "examples": [
+            {
+              "headers": {},
+              "payload": {},
+              "name": "example name",
+              "summary": "example summary"
+            }
+          ],
+          "traits": [
+            {
+              "messageId": "unique-id",
+              "headers": {
+                "type": "object"
+              },
+              "correlationId": {
+                "description": "correlation id description",
+                "location": "http://asyncapi.com/"
+              },
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.3.0",
+              "contentType": "application/json",
+              "name": "name of the message trait",
+              "title": "title of the message trait",
+              "summary": "summary of the message trait",
+              "description": "A longer description of the message trait",
+              "tags": [
+                {
+                  "name": "tag4",
+                  "description": "description of tag4",
+                  "externalDocs": {
+                    "description": "description of tag 4 external docs",
+                    "url": "https://example.com/tag4"
+                  }
+                }
+              ],
+              "externalDocs": {
+                "description": "description of message 1 trait external docs",
+                "url": "https://example.com/message-1-trait-external-docs"
+              },
+              "bindings": {
+                "kafka": {
+                  "key": {
+                    "type": "integer"
+                  },
+                  "bindingVersion": "0.1.0"
+                },
+                "solace": {},
+                "anypointmq": {
+                  "headers": {},
+                  "bindingVersion": "latest"
+                }
+              },
+              "examples": [
+                {
+                  "a": "b"
+                }
+              ]
+            },
+            {
+              "bindings": {
+                "$ref": "#/components/messageBindings/MessageBinding1"
+              }
+            }
+          ]
+        },
+        "bindings": {
+          "kafka": {
+            "clientId": {
+              "type": "integer"
+            },
+            "groupId": {
+              "type": "integer"
+            },
+            "bindingVersion": "0.1.0"
+          },
+          "solace": {
+            "bindingVersion": "0.1.0",
+            "destinations": []
+          },
+          "anypointmq": {}
+        }
+      },
+      "publish": {},
+      "parameters": {
+        "userId": {
+          "description": "parameter description",
+          "schema": {
+            "type": "integer"
+          },
+          "location": "http://example.com"
+        },
+        "userIdRef": {
+          "$ref": "#/components/parameters/userId"
+        }
+      },
+      "bindings": {
+        "kafka": {},
+        "anypointmq": {
+          "destinationType": "queue"
+        },
+        "solace": {},
+        "ibmmq": {
+          "destinationType": "topic",
+          "bindingVersion": "0.1.0"
+        },
+        "googlepubsub": {
+          "bindingVersion": "0.1.0",
+          "labels": {},
+          "messageRetentionDuration": "86400s",
+          "messageStoragePolicy": {
+            "allowedPersistenceRegions": ["us-central1"]
+          },
+          "schemaSettings": {
+            "encoding": "binary",
+            "name": "projects/your-project/schemas/message-proto"
+          },
+          "topic": "projects/your-project/topics/topic-avro-schema"
+        }
+      }
+    },
+    "user/loggedout": {
+      "$ref": "https://outside.com/#/path/to/channelItem",
+      "description": "This channel is used to exchange messages about users logging out",
+      "subscribe": {
+        "message": {
+          "bindings": {
+            "$ref": "#/components/messageBindings/MessageBinding1"
+          },
+          "traits": [
+            { "$ref": "#/components/messageTraits/MessageTrait1" }
+          ]
+        }
+      },
+      "publish": {
+        "operationId": "operation2",
+        "summary": "A user signed up.",
+        "description": "A user signed up description.",
+        "tags": [
+          {
+            "name": "tag5",
+            "description": "description of tag5",
+            "externalDocs": {
+              "description": "description of tag 5 external docs",
+              "url": "https://example.com/tag5"
+            }
+          }
+        ],
+        "externalDocs": {
+          "description": "description of operation2 external docs",
+          "url": "https://example.com/operation2-external-docs"
+        },
+        "traits": [
+          {"$ref": "#/components/operationTraits/OperationTrait1"}
+        ],
+        "message": {
+          "oneOf": [
+            { "$ref": "#/path/to/message" },
+            {}
+          ]
+        },
+        "bindings": {
+          "$ref": "#/components/operationBindings/OperationBinding1"
+        }
+      },
+      "parameters": {
+        "userId": {
+          "description": "parameter description",
+          "schema": {
+            "type": "integer"
+          },
+          "location": "http://example.com"
+        },
+        "userIdRef": {
+          "$ref": "#/components/parameters/userId"
+        }
+      },
+      "bindings": {
+        "$ref": "#/components/channelBindings/ChannelBinding1"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Schema1": {
+        "type": "object"
+      },
+      "Schema2": {
+        "$ref": "#/components/schemas/Schema1"
+      }
+    },
+    "servers": {
+      "development": {
+        "url": "{stage}.gigantic-server.com:{port}",
+        "description": "Development server",
+        "protocol": "amqp",
+        "protocolVersion": "0.9.1",
+        "variables": {
+          "stage": {
+            "default": "demo",
+            "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
+          }
+        }
+      }
+    },
+    "serverVariables": {
+      "stage": {
+        "default": "demo",
+        "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
+      }
+    },
+    "messages": {
+      "Message1": {},
+      "Message2": {
+        "$ref": "#/components/messages/Message1"
+      }
+    },
+    "securitySchemes": {
+      "SecurityScheme1": {},
+      "SecurityScheme2": {
+        "$ref": "#/components/securitySchemes/SecurityScheme1"
+      }
+    },
+    "parameters": {
+      "Parameter1": {
+        "description": "parameter description",
+        "schema": {
+          "type": "integer"
+        },
+        "location": "http://example.com"
+      },
+      "Parameter2": {
+        "$ref": "#/components/parameters/Parameter1"
+      }
+    },
+    "correlationIds": {
+      "CorrelationID1": {},
+      "CorrelationID2": {
+        "$ref": "#/components/correlationIds/CorrelationID1"
+      }
+    },
+    "operationTraits": {
+      "OperationTrait1": {},
+      "OperationTrait2": {
+        "$ref": "#/components/operationTraits/OperationTrait1"
+      }
+    },
+    "messageTraits": {
+      "MessageTrait1": {},
+      "MessageTrait2": {
+        "$ref": "#/components/messageTraits/MessageTrait1"
+      }
+    },
+    "serverBindings": {
+      "ServerBinding1": {
+        "kafka": {},
+        "anypointmq": {},
+        "solace": {}
+      },
+      "ServerBinding2": {
+        "$ref": "#/components/serverBindings/ServerBinding1"
+      }
+    },
+    "channelBindings": {
+      "ChannelBinding1": {
+        "kafka": {},
+        "solace": {},
+        "anypointmq": {}
+      },
+      "ChannelBinding2": {
+        "$ref": "#/components/channelBindings/ChannelBinding1"
+      }
+    },
+    "operationBindings": {
+      "OperationBinding1": {
+        "kafka": {},
+        "solace": {},
+        "anypointmq": {}
+      },
+      "OperationBinding2": {
+        "$ref": "#/components/operationBindings/OperationBinding1"
+      }
+    },
+    "messageBindings": {
+      "MessageBinding1": {
+        "kafka": {},
+        "anypointmq": {
+          "headers": {}
+        },
+        "solace": {}
+      },
+      "MessageBinding2": {
+        "$ref": "#/components/messageBindings/MessageBinding1"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "topLevelTag",
+      "description": "topLevelTag description",
+      "externalDocs": {
+        "description": "description of topLevelTag external docs",
+        "url": "https://example.com/topLevelTag"
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "description of this document external docs",
+    "url": "https://example.com/document"
+  }
+}

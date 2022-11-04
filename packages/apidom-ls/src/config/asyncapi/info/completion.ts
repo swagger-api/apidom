@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '**Required.** The title of the application.',
+      value: '**REQUIRED.** The title of the application.',
     },
   },
   {
@@ -27,7 +27,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**Required.** Provides the version of the application API (not to be confused with the specification version).',
+        '**REQUIRED.** Provides the version of the application API (not to be confused with the specification version).',
     },
   },
   {
@@ -52,7 +52,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A URL to the Terms of Service for the API. MUST be in the format of a URL.',
+      value:
+        'A URL to the Terms of Service for the API. This MUST be in the form of an absolute URL.',
     },
   },
   {
@@ -65,7 +66,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Contact Object](https://www.asyncapi.com/docs/specifications/v2.4.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
+        '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
     },
   },
   {
@@ -78,7 +79,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[License Object](https://www.asyncapi.com/docs/specifications/v2.4.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
+        '[License Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
     },
   },
 ];

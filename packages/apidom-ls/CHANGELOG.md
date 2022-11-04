@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.55.1](https://github.com/swagger-api/apidom/compare/v0.55.0...v0.55.1) (2022-11-04)
+
+### Bug Fixes
+
+- **ls:** fix lint rule for AsyncAPI 2.5.0 Server.tags ([#2243](https://github.com/swagger-api/apidom/issues/2243)) ([5c06ea9](https://github.com/swagger-api/apidom/commit/5c06ea93899786b6a8fcb9fe608188893727df20)), closes [#2084](https://github.com/swagger-api/apidom/issues/2084)
+
+# [0.55.0](https://github.com/swagger-api/apidom/compare/v0.54.0...v0.55.0) (2022-11-04)
+
+### Bug Fixes
+
+- **ls:** remove duplicated rule in OpenAPI config ([#2220](https://github.com/swagger-api/apidom/issues/2220)) ([e51bd31](https://github.com/swagger-api/apidom/commit/e51bd3194c043f02211213b87121c6aaf3235997))
+
+### Features
+
+- **ls:** add AsyncAPI 2.5.0 support for all Message Binding Objects ([#2239](https://github.com/swagger-api/apidom/issues/2239)) ([d4a4dc8](https://github.com/swagger-api/apidom/commit/d4a4dc862e8d74fba834029159943a33ec7bdc29)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add AsyncAPI 2.5.0 support for Operation Binding Objects ([#2240](https://github.com/swagger-api/apidom/issues/2240)) ([81f9409](https://github.com/swagger-api/apidom/commit/81f9409f4f27dcb001d584c1ba8df8fa206a05fd)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add AsyncAPI 2.5.0 support for Server Binding Objects ([#2241](https://github.com/swagger-api/apidom/issues/2241)) ([33dfbb5](https://github.com/swagger-api/apidom/commit/33dfbb576fcd76baf8c7e991ac33c48c647af5f9)), closes [#2086](https://github.com/swagger-api/apidom/issues/2086)
+- **ls:** add partial support for AsyncAPI 2.5.0 ([#2238](https://github.com/swagger-api/apidom/issues/2238)) ([368bfcf](https://github.com/swagger-api/apidom/commit/368bfcfa78aa2be7fabe69a0b08b730af77de3fa)), closes [#2084](https://github.com/swagger-api/apidom/issues/2084)
+
 # [0.54.0](https://github.com/swagger-api/apidom/compare/v0.53.0...v0.54.0) (2022-10-28)
 
 ### Bug Fixes

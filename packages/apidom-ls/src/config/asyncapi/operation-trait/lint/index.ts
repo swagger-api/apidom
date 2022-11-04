@@ -7,8 +7,8 @@ import securityItemsTypeLint from './security--items-type';
 import tagsTypeLint from './tags--type';
 import externalDocsType from './external-docs--type';
 import bindingsTypeLint from './bindings--type';
-import operationAllowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
-import operationAllowedFields2_4Lint from './allowed-fields-2-4';
+import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
+import allowedFields2_4__2_5Lint from './allowed-fields-2-4--2-5';
 
 const lints = [
   operationIdTypeLint,
@@ -20,8 +20,8 @@ const lints = [
   tagsTypeLint,
   externalDocsType,
   bindingsTypeLint,
-  operationAllowedFields2_0__2_3Lint,
-  operationAllowedFields2_4Lint,
+  allowedFields2_0__2_3Lint,
+  allowedFields2_4__2_5Lint,
 ];
 
 export default lints;

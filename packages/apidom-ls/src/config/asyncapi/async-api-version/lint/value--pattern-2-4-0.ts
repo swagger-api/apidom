@@ -10,7 +10,6 @@ const valuePattern2_4_0Lint: LinterMeta = {
   linterFunction: 'apilintValueRegex',
   linterParams: ['2\\.4\\.0'],
   marker: 'value',
-  targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
   data: {
     quickFix: [
       {
@@ -20,6 +19,7 @@ const valuePattern2_4_0Lint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [{ namespace: 'asyncapi', version: '2.4.0' }],
 };
 
 export default valuePattern2_4_0Lint;

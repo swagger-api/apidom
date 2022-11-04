@@ -4,7 +4,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "version": "0.55.0",
+  "version": "0.55.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"

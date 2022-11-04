@@ -57,6 +57,7 @@ import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/met
 import googlepubsubChannelBindingMeta from './bindings/googlepubsub/channel-binding/meta';
 import googlepubsubMessageBindingMeta from './bindings/googlepubsub/message-binding/meta';
 import googlepubsubOperationBindingMeta from './bindings/googlepubsub/operation-binding/meta';
+import googlepubsubServerBindingMeta from './bindings/googlepubsub/server-binding/meta';
 // HTTP
 import httpChannelBindingMeta from './bindings/http/channel-binding/meta';
 import httpMessageBindingMeta from './bindings/http/message-binding/meta';
@@ -204,6 +205,7 @@ export default {
   googlepubsubChannelBinding: googlepubsubChannelBindingMeta,
   googlepubsubMessageBinding: googlepubsubMessageBindingMeta,
   googlepubsubOperationBinding: googlepubsubOperationBindingMeta,
+  googlepubsubServerBinding: googlepubsubServerBindingMeta,
   // HTTP
   httpChannelBinding: httpChannelBindingMeta,
   httpMessageBinding: httpMessageBindingMeta,

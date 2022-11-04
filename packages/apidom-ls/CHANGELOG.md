@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.56.0](https://github.com/swagger-api/apidom/compare/v0.55.1...v0.56.0) (2022-11-04)
+
+### Features
+
+- **ls:** add semantic tokens ([#2244](https://github.com/swagger-api/apidom/issues/2244)) ([1a1ac80](https://github.com/swagger-api/apidom/commit/1a1ac80eba31cde1e93640be526604428a47fe53))
+
 ## [0.55.1](https://github.com/swagger-api/apidom/compare/v0.55.0...v0.55.1) (2022-11-04)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-openapi-json-3-1",
-  "version": "0.55.0",
+  "version": "0.56.0",
   "description": "Parser adapter for parsing JSON documents into OpenAPI 3.1.x namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -41,9 +41,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.20.1",
-    "@swagger-api/apidom-core": "^0.55.0",
-    "@swagger-api/apidom-ns-openapi-3-1": "^0.55.0",
-    "@swagger-api/apidom-parser-adapter-json": "^0.55.0",
+    "@swagger-api/apidom-core": "^0.56.0",
+    "@swagger-api/apidom-ns-openapi-3-1": "^0.56.0",
+    "@swagger-api/apidom-parser-adapter-json": "^0.56.0",
     "@types/ramda": "=0.28.18",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.3.0"

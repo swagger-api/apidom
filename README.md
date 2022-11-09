@@ -32,7 +32,6 @@ and allows tool builders to consume one structure for all formats.
   - [Setting up](#setting-up)
   - [npm scripts](#npm-scripts)
   - [Build artifacts](#build-artifacts)
-  - [Package mapping](#package-mapping)
   - [Using this monorepo as a local dev dependency](#using-this-monorepo-as-a-local-dev-dependency)
 - [Contributing](#contributing)
 - [Documentation](#documentation)
@@ -204,32 +203,6 @@ They're ideal for browser usage. The fragments are both in minified and un-minif
 **types/**
 
 TypeScript types generated from the source code.
-
-### Package mapping
-
-Every package maps it's [build artifacts](#build-artifacts) in `package.json` file in following way:
-
-```json
-"main": "cjs/index.js",
-"module": "es/index.js",
-"jsnext:main": "es/index.js",
-"unpkg": "dist/apidom.browser.min.js",
-"types": "types/index.d.ts",
-```
-
-To learn more about these fields please refer to [webpack mainFields documentation](https://webpack.js.org/configuration/resolve/#resolvemainfields).
-
-Some packages produce build artifacts that are not [isomorphic](https://en.wikipedia.org/wiki/Isomorphic_JavaScript)
-and instead code is written specifically for the client or the server. In that case `package.json` mapping looks like this:
-
-```json
-"main": "cjs/adapter-node.js",
-"module": "es/adapter-browser.js",
-"jsnext:main": "es/adapter-browser.js",
-"browser": "es/adapter-browser.js",
-"unpkg": "dist/apidom-parser-apdater-json.browser.min.js",
-"types": "types/adapter-browser.d.ts",
-```
 
 ### Using this monorepo as a local dev dependency
 

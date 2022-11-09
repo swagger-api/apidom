@@ -1,5 +1,6 @@
 /**
  * Omitted fixed fields:
+ *  - info
  *  - paths
  *  - components
  *  - externalDocs

@@ -25,6 +25,10 @@ const flowsRequiredLint: LinterMeta = {
       function: 'apilintContainsValue',
       params: ['oauth2'],
     },
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
   ],
 };
 

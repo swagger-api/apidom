@@ -2,7 +2,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const responsesRequiredLint3_0: LinterMeta = {
+const responsesRequired3_0Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_RESPONSES_REQUIRED,
   source: 'apilint',
   message: "should always have a 'responses'",
@@ -28,4 +28,4 @@ const responsesRequiredLint3_0: LinterMeta = {
   ],
 };
 
-export default responsesRequiredLint3_0;
+export default responsesRequired3_0Lint;

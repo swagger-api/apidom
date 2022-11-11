@@ -25,6 +25,10 @@ const openIdConnectUrlRequiredLint: LinterMeta = {
       function: 'apilintContainsValue',
       params: ['openIdConnect'],
     },
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
   ],
 };
 

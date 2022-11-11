@@ -15,6 +15,10 @@ const requiredRequiredLint: LinterMeta = {
       function: 'apilintContainsValue',
       params: ['path'],
     },
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
   ],
   data: {
     quickFix: [

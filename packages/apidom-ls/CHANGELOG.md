@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.56.1](https://github.com/swagger-api/apidom/compare/v0.56.0...v0.56.1) (2022-11-11)
+
+### Bug Fixes
+
+- **ls:** enable completion for AsyncAPI binding objects ([#2260](https://github.com/swagger-api/apidom/issues/2260)) ([821856e](https://github.com/swagger-api/apidom/commit/821856ed059d358c931068afff55eeac1bc07e53))
+- **ls:** fix OpenAPI Responses patterned fields linting ([1751c8d](https://github.com/swagger-api/apidom/commit/1751c8dea7627997b00f3cee089a1774bc6e1e08))
+- **ls:** fix required lints in OpenAPI ([b8046bd](https://github.com/swagger-api/apidom/commit/b8046bd6311d8d3bf5c686e8e4fd4df29b9e4084)), closes [#2264](https://github.com/swagger-api/apidom/issues/2264)
+
 # [0.56.0](https://github.com/swagger-api/apidom/compare/v0.55.1...v0.56.0) (2022-11-04)
 
 ### Features

@@ -25,6 +25,10 @@ const schemeRequiredLint: LinterMeta = {
       function: 'apilintContainsValue',
       params: ['http'],
     },
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
   ],
 };
 

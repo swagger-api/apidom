@@ -25,6 +25,10 @@ const nameRequiredLint: LinterMeta = {
       function: 'apilintContainsValue',
       params: ['apiKey'],
     },
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
   ],
 };
 

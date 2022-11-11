@@ -9,7 +9,7 @@ import parametersTypeLint from './parameters--type';
 import parametersItemsTypeLint from './parameters--items-type';
 import requestBodyTypeLint from './request-body--type';
 import responsesTypeLint from './responses--type';
-import responsesRequiredLint3_0 from './responses-3-0--required';
+import responsesRequired3_0Lint from './responses-3-0--required';
 import callbacksValuesTypeLint from './callbacks--values-type';
 import deprecatedTypeLint from './deprecated--type';
 import securityTypeLint from './security--type';
@@ -28,7 +28,7 @@ const lints = [
   parametersItemsTypeLint,
   requestBodyTypeLint,
   responsesTypeLint,
-  responsesRequiredLint3_0,
+  responsesRequired3_0Lint,
   callbacksValuesTypeLint,
   deprecatedTypeLint,
   securityTypeLint,

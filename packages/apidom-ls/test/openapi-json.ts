@@ -553,7 +553,8 @@ describe('apidom-ls', function () {
       },
       {
         code: 15000,
-        message: 'Object includes not allowed fields',
+        message:
+          'Responses Object uses HTTP Status Codes outside of allowed IANA HTTP Status code registry',
         range: {
           end: {
             character: 19,

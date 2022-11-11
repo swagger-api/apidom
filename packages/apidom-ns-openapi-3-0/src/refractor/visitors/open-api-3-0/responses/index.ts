@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { test, always } from 'ramda';
+import { test, always, range } from 'ramda';
 import { Element, ObjectElement, StringElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
@@ -17,9 +17,7 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Response'];
     },
-    fieldPatternPredicate: test(
-      /^(100|101|1XX|200|201|202|203|204|205|2XX|301|302|303|305|306|307|3XX|400|402|403|404|405|406|408|409|410|411|413|414|415|417|426|4XX|500|501|502|503|504|505|5XX|)$/,
-    ),
+    fieldPatternPredicate: test(new RegExp(`^(1XX|2XX|3XX|4XX|5XX|${range(100, 600).join('|')})$`)),
     canSupportSpecificationExtensions: true,
   },
   init() {

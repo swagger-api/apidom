@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2",
-  "version": "0.56.1",
+  "version": "0.56.2",
   "description": "Parser adapter for parsing YAML documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -41,9 +41,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.20.1",
-    "@swagger-api/apidom-core": "^0.56.1",
-    "@swagger-api/apidom-ns-asyncapi-2": "^0.56.1",
-    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.56.1",
+    "@swagger-api/apidom-core": "^0.56.2",
+    "@swagger-api/apidom-ns-asyncapi-2": "^0.56.2",
+    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.56.2",
     "@types/ramda": "=0.28.20",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.3.0"

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.56.2](https://github.com/swagger-api/apidom/compare/v0.56.1...v0.56.2) (2022-11-16)
+
+### Bug Fixes
+
+- **ls:** fix AsyncAPI 2.x Operation.security field lint rules ([d9d60a7](https://github.com/swagger-api/apidom/commit/d9d60a75fea1fb7e764fe3eaac72e4bf21cee8f6))
+- **ns-openapi-3-1:** add Info.summary getters/setters ([#2272](https://github.com/swagger-api/apidom/issues/2272)) ([9ca3aa4](https://github.com/swagger-api/apidom/commit/9ca3aa4abd40b447c12e9cd2f756e34edce8daa7))
+
 ## [0.56.1](https://github.com/swagger-api/apidom/compare/v0.56.0...v0.56.1) (2022-11-11)
 
 ### Bug Fixes

@@ -1,0 +1,44 @@
+asyncapi: 2.4.0
+info:
+  title: Test
+  version: 1.0.0
+channels:
+  user/devices:
+    description: Right.
+    bindings:
+      amqp:
+        is: queue
+        queue:
+          name: myqueue
+          durable: true
+          exclusive: false
+          autoDelete: false
+    publish:
+      operationId: test
+      security:
+        - Test:
+            - https://example.com/test
+            - BAR
+            - FOO
+            - FOO_BAR
+components:
+  securitySchemes:
+    test-password:
+      type: userPassword
+    Test:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com
+          tokenUrl: https://example.com
+          scopes:
+            https://example.com/test: >-
+              Test desc.
+          x-one:
+            BAR: >-
+              It's bar
+          x-two:
+            FOO: >-
+              It's foo  
+            FOO_BAR: >-
+              It's foo bar

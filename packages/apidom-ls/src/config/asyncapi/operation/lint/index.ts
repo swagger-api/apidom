@@ -2,7 +2,6 @@ import operationIdTypeLint from './operation-id--type';
 import operationIdUniqueLint from './operation-id--unique';
 import summaryTypeLint from './summary--type';
 import descriptionTypeLint from './description--type';
-import securityTypeLint from './security--type';
 import securityItemsTypeLint from './security--items-type';
 import tagsTypeLint from './tags--type';
 import externalDocsType from './external-docs--type';
@@ -18,7 +17,6 @@ const lints = [
   operationIdUniqueLint,
   summaryTypeLint,
   descriptionTypeLint,
-  securityTypeLint,
   securityItemsTypeLint,
   tagsTypeLint,
   externalDocsType,

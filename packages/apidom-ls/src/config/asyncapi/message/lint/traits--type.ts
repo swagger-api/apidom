@@ -9,7 +9,7 @@ const traitsTypeLint: LinterMeta = {
   linterFunction: 'apilintElementOrClass',
   linterParams: [['message-traits']],
   marker: 'key',
-  target: 'examples',
+  target: 'traits',
   data: {},
 };
 

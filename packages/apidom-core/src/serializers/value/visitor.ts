@@ -1,4 +1,5 @@
 import { Element } from 'minim';
+import { T as stubTrue } from 'ramda';
 
 import {
   visit as astVisit,
@@ -14,17 +15,13 @@ const nodeTypeGetter = (node: any): string | undefined => {
   return baseGetNodeType(node);
 };
 
-export const nodePredicate = (node: any): boolean => {
-  return Array.isArray(node) || typeof nodeTypeGetter(node) === 'string';
-};
-
 const keyMapDefault = {
   EphemeralObject: ['content'],
   EphemeralArray: ['content'],
   ...baseKeyMap,
 };
 
-// @ts-ignore
+// eslint-disable-next-line import/prefer-default-export
 export const visit = (
   root: Element,
   // @ts-ignore
@@ -35,7 +32,7 @@ export const visit = (
     keyMap,
     // @ts-ignore
     nodeTypeGetter,
-    nodePredicate,
+    nodePredicate: stubTrue,
     detectCycles: false,
     deleteNodeSymbol: Symbol.for('delete-node'),
     ...rest,
@@ -51,7 +48,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   return astVisit[Symbol.for('nodejs.util.promisify.custom')](root, visitor, {
     keyMap,
     nodeTypeGetter,
-    nodePredicate,
+    nodePredicate: stubTrue,
     detectCycles: false,
     deleteNodeSymbol: Symbol.for('delete-node'),
     ...rest,

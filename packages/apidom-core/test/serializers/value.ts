@@ -100,5 +100,27 @@ describe('serializers', function () {
         });
       });
     });
+
+    context('given duplicate ArrayElement inside ObjectElement', function () {
+      specify('should serialize to JavaScript value', function () {
+        const array = new ArrayElement(['a', 'b', 'c']);
+        const object = new ObjectElement({ d: array, e: array });
+        const serialized = serializer(object);
+
+        assert.deepEqual(serialized, { d: ['a', 'b', 'c'], e: ['a', 'b', 'c'] });
+        assert.strictEqual(serialized.d, serialized.e);
+      });
+    });
+
+    context('given duplicate ObjectElement inside ArrayElement', function () {
+      specify('should serialize to JavaScript value', function () {
+        const object = new ObjectElement({ a: 'b' });
+        const array = new ArrayElement([object, object]);
+        const serialized = serializer(array);
+
+        assert.deepEqual(serialized, [{ a: 'b' }, { a: 'b' }]);
+        assert.strictEqual(serialized[0], serialized[1]);
+      });
+    });
   });
 });

@@ -195,6 +195,7 @@ export const visit = (
     keyMap = null,
     state = {},
     breakSymbol = BREAK,
+    deleteNodeSymbol = null,
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
@@ -240,7 +241,7 @@ export const visit = (
           if (inArray) {
             editKey -= editOffset;
           }
-          if (inArray && editValue === null) {
+          if (inArray && editValue === deleteNodeSymbol) {
             node.splice(editKey, 1);
             editOffset += 1;
           } else {
@@ -259,7 +260,7 @@ export const visit = (
     } else {
       key = parent ? (inArray ? index : keys[index]) : undefined;
       node = parent ? parent[key] : newRoot;
-      if (node === null || node === undefined) {
+      if (node === deleteNodeSymbol || node === undefined) {
         continue;
       }
       if (parent) {
@@ -352,6 +353,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     keyMap = null,
     state = {},
     breakSymbol = BREAK,
+    deleteNodeSymbol = null,
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
@@ -396,7 +398,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           if (inArray) {
             editKey -= editOffset;
           }
-          if (inArray && editValue === null) {
+          if (inArray && editValue === deleteNodeSymbol) {
             node.splice(editKey, 1);
             editOffset += 1;
           } else {
@@ -415,7 +417,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     } else {
       key = parent ? (inArray ? index : keys[index]) : undefined;
       node = parent ? parent[key] : newRoot;
-      if (node === null || node === undefined) {
+      if (node === deleteNodeSymbol || node === undefined) {
         continue;
       }
       if (parent) {

@@ -64,6 +64,8 @@ declare module 'minim' {
 
     register(name: string, elementClass: any): Namespace;
 
+    detect(test: any, elementClass: any, givenPrepend: boolean): Namespace;
+
     use(plugin: NamespacePlugin): Namespace;
 
     getElementClass(element: string): typeof Element;
@@ -92,6 +94,8 @@ declare module 'minim' {
   }
 
   export class ArrayElement extends Element {
+    constructor(content?: unknown[], meta?: Meta, attributes?: Attributes);
+
     first: Element | undefined;
 
     second: Element | undefined;

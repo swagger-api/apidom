@@ -31,6 +31,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           repo-token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+          allow-repeats: true
           message: |
             @dependabot squash and merge
         env:

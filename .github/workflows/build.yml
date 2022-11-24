@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Fail fast
+        run: exit 1
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # necessary for linting commit messages

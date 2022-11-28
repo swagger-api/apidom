@@ -1,8 +1,9 @@
 import { Buffer } from 'node:buffer';
-import http from 'http';
+import http from 'node:http';
 import { assert } from 'chai';
 import { AxiosRequestConfig } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { identity } from 'ramda';
 
 import HttpResolverAxios from '../../../src/resolve/resolvers/HttpResolverAxios';
 import { ResolverError } from '../../../src/util/errors';
@@ -151,9 +152,10 @@ describe('resolve', function () {
                     assert.strictEqual(error.response.status, 302);
                     assert.strictEqual(error.response.headers.location, '/foo');
                   })
-                  .then(() => {
+                  .catch(identity)
+                  .then((error: any) => {
                     server.close();
-                    done();
+                    done(error);
                   });
               });
             });

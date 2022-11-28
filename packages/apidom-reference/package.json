@@ -69,7 +69,8 @@
     "stampit": "=4.3.2"
   },
   "devDependencies": {
-    "axios-mock-adapter": "=1.21.2"
+    "axios-mock-adapter": "=1.21.2",
+    "swagger-client": "=3.18.5"
   },
   "files": [
     "cjs/",

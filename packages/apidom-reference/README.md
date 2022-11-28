@@ -563,7 +563,7 @@ await resolve('/home/user/oas.json', {
 
 ##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
 
-This resolver plugin is responsible for resolving a remove file represented by HTTP(s) URL.
+This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
 It detects if the provided URI represents an HTTP(s) URL and if so,
 fetches the file and provides its content.
 
@@ -631,6 +631,38 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
           request: [requestInterceptor1, requestInterceptor2],
           response: [responseInterceptor1, responseInterceptor2],
         },
+      },
+    },
+  },
+});
+```
+
+##### [HttpResolverSwaggerClient](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverSwaggerClient.ts)
+
+This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
+It detects if the provided URI represents an HTTP(s) URL and if so,
+fetches the file and provides its content using [SwaggerClient's HTTP Client](https://github.com/swagger-api/swagger-js/blob/master/docs/usage/http-client.md).
+
+[SwaggerClient npm package](https://www.npmjs.com/package/swagger-client) needs to be installed explicitly before *HttpResolverSwaggerClient* is used.
+
+```sh
+ $ npm install --save swagger-client
+```
+
+SwaggerClient's HTTP Client is then passed to resolver plugin explicitly.
+
+```js
+import { resolve, HttpResolverSwaggerClient } from '@swagger-api/apidom-reference';
+import SwaggerClient from 'swagger-client';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolvers: [
+      HttpResolverSwaggerClient({ swaggerHTTPClient: SwaggerClient.http })
+    ],
+    resolverOpts: {
+      swaggerHTTPClientConfig: {
+        mode: 'cors',
       },
     },
   },

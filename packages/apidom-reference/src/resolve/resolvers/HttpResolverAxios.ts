@@ -8,6 +8,8 @@ import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
 import HttpResolver from './HttpResolver';
 
 interface IHttpResolverAxios extends IHttpResolver {
+  axiosConfig: { [key: string]: any };
+
   getHttpClient(): AxiosInstance;
 }
 
@@ -17,13 +19,14 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolverAxios> = stampit(HttpResolve
      * Private Api.
      */
     let axiosInstance: AxiosInstance;
-    let oldAxiosConfig: Record<string, any>;
+    let oldAxiosConfig: { [key: string]: any };
 
     /**
      * Public Api.
      */
 
     this.name = 'http-axios';
+    this.axiosConfig = {};
 
     this.getHttpClient = function getHttpClient(): AxiosInstance {
       if (typeof axiosInstance === 'undefined' || oldAxiosConfig !== this.axiosConfig) {

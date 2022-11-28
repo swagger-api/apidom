@@ -25,6 +25,7 @@ export { default as BinaryParser } from './parse/parsers/apidom-reference-parser
 
 export { default as FileResolver } from './resolve/resolvers/FileResolver/index-node';
 export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';
+export { default as HttpResolverSwaggerClient } from './resolve/resolvers/HttpResolverSwaggerClient';
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 export { default as Resolver } from './resolve/resolvers/Resolver';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';

@@ -3,11 +3,11 @@ import { ComponentsElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 class Components extends ComponentsElement {
   get pathItems(): ObjectElement | undefined {
-    return this.get('schemas');
+    return this.get('pathItems');
   }
 
-  set pathItems(schemas: ObjectElement | undefined) {
-    this.set('schemas', schemas);
+  set pathItems(pathItems: ObjectElement | undefined) {
+    this.set('pathItems', pathItems);
   }
 }
 

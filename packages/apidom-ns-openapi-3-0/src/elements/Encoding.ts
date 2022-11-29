@@ -37,7 +37,7 @@ class Encoding extends ObjectElement {
   }
 
   get explode(): BooleanElement | undefined {
-    return this.get('email');
+    return this.get('explode');
   }
 
   set explode(explode: BooleanElement | undefined) {

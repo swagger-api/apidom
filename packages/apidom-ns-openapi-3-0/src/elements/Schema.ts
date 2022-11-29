@@ -72,7 +72,7 @@ class Schema extends JSONSchemaElement {
    */
 
   get nullable(): BooleanElement | undefined {
-    return this.get('items');
+    return this.get('nullable');
   }
 
   set nullable(nullable: BooleanElement | undefined) {
@@ -80,7 +80,7 @@ class Schema extends JSONSchemaElement {
   }
 
   get discriminator(): DiscriminatorElement | undefined {
-    return this.get('items');
+    return this.get('discriminator');
   }
 
   set discriminator(discriminator: DiscriminatorElement | undefined) {

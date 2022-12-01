@@ -2,26 +2,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 
 import File from '../../../../src/util/File';
-import OpenApiYaml3_1Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1';
+import ApiDesignSystemsYamlParser from '../../../../src/parse/parsers/api-design-systems-yaml';
 
 describe('parsers', function () {
-  context('OpenApiYaml3_1Parser', function () {
+  context('ApiDesignSystemsYamlParser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
             const file1 = File({
-              uri: '/path/to/openapi.yaml',
+              uri: '/path/to/api-design-systems.yaml',
               mediaType: mediaTypes.latest('yaml'),
             });
             const file2 = File({
-              uri: '/path/to/openapi.yaml',
-              mediaType: mediaTypes.latest('generic'),
+              uri: '/path/to/api-design-systems.yaml',
+              mediaType: mediaTypes.latest(),
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -31,10 +31,10 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', async function () {
             const file = File({
-              uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.5.0',
+              uri: '/path/to/api-design-systems.yaml',
+              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -45,14 +45,14 @@ describe('parsers', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
             const file1 = File({
-              uri: '/path/to/openapi.yml',
+              uri: '/path/to/api-design-systems.yml',
               mediaType: mediaTypes.latest('yaml'),
             });
             const file2 = File({
-              uri: '/path/to/openapi.yml',
-              mediaType: mediaTypes.latest('generic'),
+              uri: '/path/to/api-design-systems.yml',
+              mediaType: mediaTypes.latest(),
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -62,10 +62,10 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', async function () {
             const file = File({
-              uri: '/path/to/openapi.yaml',
-              mediaType: 'application/vnd.aai.asyncapi;version=2.5.0',
+              uri: '/path/to/api-design-systems.yaml',
+              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -75,10 +75,10 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/openapi.txt',
-            mediaType: mediaTypes.latest('yaml'),
+            uri: '/path/to/api-design-systems.txt',
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiYaml3_1Parser();
+          const parser = ApiDesignSystemsYamlParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -87,37 +87,37 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/openapi',
-            mediaType: mediaTypes.latest('yaml'),
+            uri: '/path/to/api-design-systems',
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiYaml3_1Parser();
+          const parser = ApiDesignSystemsYamlParser();
 
           assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as OpenAPI 3.1.0', function () {
+        context('and file data is buffer and can be detected as API Design Systems', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
             const file = File({
-              uri: '/path/to/open-api.yaml',
+              uri: '/path/to/api-design-systems.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isTrue(await parser.canParse(file));
           });
         });
 
-        context('and file data is string and can be detected as OpenAPI 3.1.0', function () {
+        context('and file data is string and can be detected as API Design Systems', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
             const file = File({
-              uri: '/path/to/open-api.yaml',
+              uri: '/path/to/api-design-systems.yaml',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = OpenApiYaml3_1Parser();
+            const parser = ApiDesignSystemsYamlParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -126,50 +126,42 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given OpenApi 3.1.x YAML data', function () {
+      context('given API Design Systems YAML data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+          const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
           const data = fs.readFileSync(url).toString();
-          const file = File({
-            url,
-            data,
-            mediaType: mediaTypes.latest('yaml'),
-          });
-          const parser = OpenApiYaml3_1Parser();
+          const file = File({ url, data, mediaType: mediaTypes.latest() });
+          const parser = ApiDesignSystemsYamlParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given OpenApi 3.1.x YAML data as buffer', function () {
+      context('given API Design Systems YAML data as buffer', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+          const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
           const data = fs.readFileSync(url);
-          const file = File({
-            url,
-            data,
-            mediaType: mediaTypes.latest('yaml'),
-          });
-          const parser = OpenApiYaml3_1Parser();
+          const file = File({ url, data, mediaType: mediaTypes.latest() });
+          const parser = ApiDesignSystemsYamlParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given data that is not an OpenApi 3.1.x YAML data', function () {
+      context('given data that is not an API Design Systems YAML data', function () {
         specify('should coerce to string and parse', async function () {
           const file = File({
             uri: '/path/to/file.yaml',
             data: 1,
-            mediaType: mediaTypes.latest('yaml'),
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiYaml3_1Parser();
-          const result = await parser.parse(file);
-          const numberElement: NumberElement = result.get(0);
+          const parser = ApiDesignSystemsYamlParser();
+          const parseResult = await parser.parse(file);
+          const numberElement: NumberElement = parseResult.get(0);
 
-          assert.isTrue(isParseResultElement(result));
+          assert.isTrue(isParseResultElement(parseResult));
           assert.isTrue(numberElement.equals(1));
         });
       });
@@ -179,9 +171,9 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.yaml',
             data: '',
-            mediaType: mediaTypes.latest('yaml'),
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiYaml3_1Parser();
+          const parser = ApiDesignSystemsYamlParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -192,29 +184,33 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
             const data = fs.readFileSync(url).toString();
             const file = File({
               url,
               data,
-              mediaType: mediaTypes.latest('yaml'),
+              mediaType: mediaTypes.latest(),
             });
-            const parser = OpenApiYaml3_1Parser({ sourceMap: true });
+            const parser = ApiDesignSystemsYamlParser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
+            assert.isTrue(isSourceMapElement(parseResult.result?.meta.get('sourceMap')));
           });
         });
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
+            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
             const data = fs.readFileSync(url).toString();
-            const file = File({ url, data });
-            const parser = OpenApiYaml3_1Parser({ sourceMap: false });
+            const file = File({
+              url,
+              data,
+              mediaType: mediaTypes.latest(),
+            });
+            const parser = ApiDesignSystemsYamlParser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
-            assert.isUndefined(parseResult.api?.meta.get('sourceMap'));
+            assert.isUndefined(parseResult.result?.meta.get('sourceMap'));
           });
         });
       });

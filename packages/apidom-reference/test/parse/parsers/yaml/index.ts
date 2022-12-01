@@ -8,7 +8,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
-import YamlParser from '../../../../src/parse/parsers/apidom-reference-parser-yaml-1-2';
+import YamlParser from '../../../../src/parse/parsers/yaml-1-2';
 
 describe('parsers', function () {
   context('YamlParser', function () {

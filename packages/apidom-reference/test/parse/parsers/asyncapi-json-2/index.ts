@@ -2,26 +2,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 
 import File from '../../../../src/util/File';
-import OpenApiJson3_0Parser from '../../../../src/parse/parsers/apidom-reference-parser-openapi-json-3-0';
+import AsyncApiJson2Parser from '../../../../src/parse/parsers/asyncapi-json-2';
 
 describe('parsers', function () {
-  context('OpenApiJson3_0Parser', function () {
+  context('AsyncApiJson2Parser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
             const file1 = File({
-              uri: '/path/to/openapi.json',
-              mediaType: mediaTypes.latest('generic'),
-            });
-            const file2 = File({
-              uri: '/path/to/openapi.json',
+              uri: '/path/to/asyncapi.json',
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = OpenApiJson3_0Parser();
+            const file2 = File({
+              uri: '/path/to/asyncapi.json',
+              mediaType: mediaTypes.latest(),
+            });
+            const parser = AsyncApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -31,10 +31,10 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', async function () {
             const file = File({
-              uri: '/path/to/openapi.json',
-              mediaType: 'application/vnd.aai.asyncapi+json;version=2.5.0',
+              uri: '/path/to/asyncapi.json',
+              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = AsyncApiJson2Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -44,10 +44,10 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/openapi.yaml',
-            mediaType: mediaTypes.latest('json'),
+            uri: '/path/to/asyncapi.yaml',
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -56,37 +56,37 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/openapi',
-            mediaType: mediaTypes.latest('json'),
+            uri: '/path/to/asyncapi',
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as OpenAPI 3.1.0', function () {
+        context('and file data is buffer and can be detected as AsyncAPI 2.5.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
-              uri: '/path/to/open-api.json',
+              uri: '/path/to/async-api.json',
               data: fs.readFileSync(url),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = AsyncApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
         });
 
-        context('and file data is string and can be detected as OpenAPI 3.1.0', function () {
+        context('and file data is string and can be detected as AsyncAPI 2.5.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
-              uri: '/path/to/open-api.json',
+              uri: '/path/to/async-api.json',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = AsyncApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -95,7 +95,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given OpenApi 3.1.x JSON data', function () {
+      context('given AsyncApi 2.5.0 JSON data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url).toString();
@@ -104,14 +104,14 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given OpenApi 3.1.x JSON data as buffer', function () {
+      context('given AsyncApi 2.5.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url);
@@ -120,21 +120,21 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given data that is not an OpenApi 3.1.x JSON data', function () {
+      context('given data that is not an AsyncApi 2.5.0 JSON data', function () {
         specify('should coerce to string and parse', async function () {
           const file = File({
             uri: '/path/to/file.json',
             data: 1,
-            mediaType: mediaTypes.latest('json'),
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
           const numberElement: NumberElement = parseResult.get(0);
 
@@ -148,9 +148,9 @@ describe('parsers', function () {
           const file = File({
             uri: '/path/to/file.json',
             data: '',
-            mediaType: mediaTypes.latest('json'),
+            mediaType: mediaTypes.latest(),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = AsyncApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -166,9 +166,9 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: mediaTypes.latest('json'),
+              mediaType: mediaTypes.latest(),
             });
-            const parser = OpenApiJson3_0Parser({ sourceMap: true });
+            const parser = AsyncApiJson2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -182,12 +182,12 @@ describe('parsers', function () {
             const file = File({
               url,
               data,
-              mediaType: mediaTypes.latest('json'),
+              mediaType: mediaTypes.latest(),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = AsyncApiJson2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
-            assert.isUndefined(parseResult.api?.meta.get('sourceMap'));
+            assert.isUndefined(parseResult.meta.get('sourceMap'));
           });
         });
       });

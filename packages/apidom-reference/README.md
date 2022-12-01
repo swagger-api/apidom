@@ -73,7 +73,7 @@ so providing it is always a better option.
 
 Parse component comes with number of default parser plugins.
 
-#### [openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-json-3-0)
+#### [openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-3-0)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-0) package
 and is uniquely  identified by `openapi-json-3-1` name.
@@ -93,7 +93,7 @@ Supported media types are:
 ]
 ```
 
-#### [openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-yaml-3-0)
+#### [openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-yaml-3-0)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0) package
 and is uniquely  identified by `openapi-yaml-3-1` name.
@@ -113,7 +113,7 @@ Supported media types are:
 ]
 ```
 
-#### [openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-json-3-1)
+#### [openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-3-1)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-json-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-1) package
 and is uniquely  identified by `openapi-json-3-1` name.
@@ -127,7 +127,7 @@ Supported media types are:
 ]
 ```
 
-#### [openapi-yaml-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-openapi-yaml-3-1)
+#### [openapi-yaml-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-yaml-3-1)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-1) package
 and is uniquely  identified by `openapi-yaml-3-1` name.
@@ -141,7 +141,7 @@ Supported media types are:
 ]
 ```
 
-#### [asyncapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-json-2)
+#### [asyncapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/asyncapi-json-2)
 
 Wraps [@swagger-api/apidom-parser-adapter-asyncapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-2) package
 and is uniquely identified by `asyncapi-json-2` name.
@@ -163,7 +163,7 @@ Supported media types are:
 ]
 ```
 
-#### [asyncapi-yaml-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-asyncapi-yaml-2)
+#### [asyncapi-yaml-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/asyncapi-yaml-2)
 
 Wraps [@swagger-api/apidom-parser-adapter-asyncapi-yaml-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-2) package
 and is uniquely  identified by `asyncapi-yaml-2` name.
@@ -186,7 +186,7 @@ Supported media types are:
 ]
 ```
 
-#### [api-design-systems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-api-design-systems-json)
+#### [api-design-systems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/api-design-systems-json)
 
 Wraps [@swagger-api/apidom-parser-adapter-api-design-systsems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) package
 and is uniquely identified by `api-design-systems-json` name.
@@ -200,7 +200,7 @@ Supported media types are:
 ]
 ```
 
-#### [api-design-systems-yaml](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-api-design-systems-yaml)
+#### [api-design-systems-yaml](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/api-design-systems-yaml)
 
 Wraps [@swagger-api/apidom-parser-adapter-api-design-systems-yaml](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-yaml) package
 and is uniquely  identified by `api-design-systems-yaml` name.
@@ -215,7 +215,7 @@ Supported media types are:
 ]
 ```
 
-#### [json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-json)
+#### [json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/json)
 
 Wraps [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json) package
 and is uniquely  identified by `json` name.
@@ -227,7 +227,7 @@ Supported media types are:
 ['application/json']
 ```
 
-#### [yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-yaml-1-2)
+#### [yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/yaml-1-2)
 
 Wraps [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2) package
 and is uniquely  identified by `yaml-1-2` name.
@@ -239,7 +239,7 @@ Supported media types are:
 ['text/yaml', 'application/yaml']
 ```
 
-#### [binary](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-reference-parser-binary)
+#### [binary](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/binary)
 
 Can parse any binary or non-binary file and return it's content as `base64` encoded string.
 This parser is uniquely identified by `binary` name.

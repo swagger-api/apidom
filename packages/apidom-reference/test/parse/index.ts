@@ -8,7 +8,7 @@ import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';
 import parse from '../../src/parse';
 import { ParserError, ResolverError, UnmatchedResolverError } from '../../src/util/errors';
-import OpenApiJson3_1Parser from '../../src/parse/parsers/apidom-reference-parser-openapi-json-3-1';
+import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 describe('parse', function () {
   context('given URI with hash', function () {

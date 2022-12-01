@@ -1,15 +1,17 @@
 import stampit from 'stampit';
+// @ts-ignore
+import jsYaml from 'js-yaml'; // js-yaml comes with swagger-client
 import { ParseResultElement, from } from '@swagger-api/apidom-core';
 
-import { Parser as IParser, File as IFile } from '../../../../../../src/types';
-import Parser from '../../../../../../src/parse/parsers/Parser';
-import { ParserError } from '../../../../../../src';
+import { ParserError } from '../../../../../../../src/util/errors';
+import { File as IFile, Parser as IParser } from '../../../../../../../src/types';
+import Parser from '../../../../../../../src/parse/parsers/Parser';
 
-const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
+const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
-    name: 'json-swagger-client',
-    fileExtensions: ['.json'],
-    mediaTypes: ['application/json'],
+    name: 'yaml-1-2-swagger-client',
+    fileExtensions: ['.yaml', '.yml'],
+    mediaTypes: ['text/yaml', 'application/yaml'],
   },
   methods: {
     async canParse(file: IFile): Promise<boolean> {
@@ -21,8 +23,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       if (hasSupportedMediaType) return true;
       if (!hasSupportedMediaType) {
         try {
-          JSON.parse(file.toString());
-          return true;
+          jsYaml.load(file.toString());
         } catch {
           return false;
         }
@@ -33,7 +34,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = file.toString();
 
       try {
-        const element = from(JSON.parse(source));
+        const element = from(jsYaml.load(source));
         const parseResultElement = new ParseResultElement();
 
         element.classes.push('result');
@@ -46,4 +47,4 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
   },
 });
 
-export default JsonParser;
+export default YamlParser;

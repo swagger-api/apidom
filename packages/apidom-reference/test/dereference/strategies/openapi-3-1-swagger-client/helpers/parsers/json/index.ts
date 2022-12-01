@@ -1,5 +1,6 @@
 import stampit from 'stampit';
 import { ParseResultElement, from } from '@swagger-api/apidom-core';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-json';
 
 import { Parser as IParser, File as IFile } from '../../../../../../../src/types';
 import Parser from '../../../../../../../src/parse/parsers/Parser';
@@ -9,7 +10,7 @@ const JsonParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
     name: 'json-swagger-client',
     fileExtensions: ['.json'],
-    mediaTypes: ['application/json'],
+    mediaTypes,
   },
   methods: {
     async canParse(file: IFile): Promise<boolean> {

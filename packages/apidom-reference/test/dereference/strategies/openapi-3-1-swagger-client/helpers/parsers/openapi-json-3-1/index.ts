@@ -1,17 +1,17 @@
 import stampit from 'stampit';
-// @ts-ignore
-import jsYaml from 'js-yaml'; // js-yaml comes with swagger-client
-import { ParseResultElement, from } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { mediaTypes, detectionRegExp } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 
 import { ParserError } from '../../../../../../../src/util/errors';
 import { File as IFile, Parser as IParser } from '../../../../../../../src/types';
 import Parser from '../../../../../../../src/parse/parsers/Parser';
 
-const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const OpenApiJson3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
-    name: 'yaml-1-2-swagger-client',
-    fileExtensions: ['.yaml', '.yml'],
+    name: 'openapi-json-3-1-swagger-client',
+    fileExtensions: ['.json'],
     mediaTypes,
   },
   methods: {
@@ -24,8 +24,9 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       if (hasSupportedMediaType) return true;
       if (!hasSupportedMediaType) {
         try {
-          jsYaml.load(file.toString());
-          return true;
+          const source = file.toString();
+          JSON.parse(source);
+          return detectionRegExp.test(source);
         } catch {
           return false;
         }
@@ -36,7 +37,8 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = file.toString();
 
       try {
-        const element = from(jsYaml.load(source));
+        const pojo = JSON.parse(source);
+        const element = OpenApi3_1Element.refract(pojo, this.refractorOpts);
         const parseResultElement = new ParseResultElement();
 
         element.classes.push('result');
@@ -49,4 +51,4 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
   },
 });
 
-export default YamlParser;
+export default OpenApiJson3_1Parser;

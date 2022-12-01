@@ -2,26 +2,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 
 import File from '../../../../src/util/File';
-import AsyncApiJson2Parser from '../../../../src/parse/parsers/apidom-reference-parser-asyncapi-json-2';
+import OpenApiYaml3_0Parser from '../../../../src/parse/parsers/openapi-yaml-3-0';
 
 describe('parsers', function () {
-  context('AsyncApiJson2Parser', function () {
+  context('OpenApiYaml3_0Parser', function () {
     context('canParse', function () {
-      context('given file with .json extension', function () {
+      context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
             const file1 = File({
-              uri: '/path/to/asyncapi.json',
-              mediaType: mediaTypes.latest('json'),
+              uri: '/path/to/openapi.yaml',
+              mediaType: mediaTypes.latest('yaml'),
             });
             const file2 = File({
-              uri: '/path/to/asyncapi.json',
-              mediaType: mediaTypes.latest(),
+              uri: '/path/to/openapi.yaml',
+              mediaType: mediaTypes.latest('generic'),
             });
-            const parser = AsyncApiJson2Parser();
+            const parser = OpenApiYaml3_0Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -31,10 +31,41 @@ describe('parsers', function () {
         context('and with improper media type', function () {
           specify('should return false', async function () {
             const file = File({
-              uri: '/path/to/asyncapi.json',
-              mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.5.0',
             });
-            const parser = AsyncApiJson2Parser();
+            const parser = OpenApiYaml3_0Parser();
+
+            assert.isFalse(await parser.canParse(file));
+          });
+        });
+      });
+
+      context('given file with .yml extension', function () {
+        context('and with proper media type', function () {
+          specify('should return true', async function () {
+            const file1 = File({
+              uri: '/path/to/openapi.yml',
+              mediaType: mediaTypes.latest('yaml'),
+            });
+            const file2 = File({
+              uri: '/path/to/openapi.yml',
+              mediaType: mediaTypes.latest('generic'),
+            });
+            const parser = OpenApiYaml3_0Parser();
+
+            assert.isTrue(await parser.canParse(file1));
+            assert.isTrue(await parser.canParse(file2));
+          });
+        });
+
+        context('and with improper media type', function () {
+          specify('should return false', async function () {
+            const file = File({
+              uri: '/path/to/openapi.yaml',
+              mediaType: 'application/vnd.aai.asyncapi;version=2.5.0',
+            });
+            const parser = OpenApiYaml3_0Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -44,10 +75,10 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/asyncapi.yaml',
-            mediaType: mediaTypes.latest(),
+            uri: '/path/to/openapi.txt',
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
+          const parser = OpenApiYaml3_0Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -56,37 +87,37 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', async function () {
           const file = File({
-            uri: '/path/to/asyncapi',
-            mediaType: mediaTypes.latest(),
+            uri: '/path/to/openapi',
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
+          const parser = OpenApiYaml3_0Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as AsyncAPI 2.5.0', function () {
+        context('and file data is buffer and can be detected as OpenAPI 3.1.0', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = File({
-              uri: '/path/to/async-api.json',
+              uri: '/path/to/open-api.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = AsyncApiJson2Parser();
+            const parser = OpenApiYaml3_0Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
         });
 
-        context('and file data is string and can be detected as AsyncAPI 2.5.0', function () {
+        context('and file data is string and can be detected as OpenAPI 3.1.0', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = File({
-              uri: '/path/to/async-api.json',
+              uri: '/path/to/open-api.yaml',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = AsyncApiJson2Parser();
+            const parser = OpenApiYaml3_0Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -95,50 +126,50 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.5.0 JSON data', function () {
+      context('given OpenApi 3.1.x YAML data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
           const file = File({
             url,
             data,
-            mediaType: mediaTypes.latest('json'),
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
+          const parser = OpenApiYaml3_0Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given AsyncApi 2.5.0 JSON data as buffer', function () {
+      context('given OpenApi 3.1.x YAML data as buffer', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+          const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
           const file = File({
             url,
             data,
-            mediaType: mediaTypes.latest('json'),
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
+          const parser = OpenApiYaml3_0Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given data that is not an AsyncApi 2.5.0 JSON data', function () {
+      context('given data that is not an OpenApi 3.1.x YAML data', function () {
         specify('should coerce to string and parse', async function () {
           const file = File({
-            uri: '/path/to/file.json',
+            uri: '/path/to/file.yaml',
             data: 1,
-            mediaType: mediaTypes.latest(),
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
-          const parseResult = await parser.parse(file);
-          const numberElement: NumberElement = parseResult.get(0);
+          const parser = OpenApiYaml3_0Parser();
+          const result = await parser.parse(file);
+          const numberElement: NumberElement = result.get(0);
 
-          assert.isTrue(isParseResultElement(parseResult));
+          assert.isTrue(isParseResultElement(result));
           assert.isTrue(numberElement.equals(1));
         });
       });
@@ -146,11 +177,11 @@ describe('parsers', function () {
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
           const file = File({
-            uri: '/path/to/file.json',
+            uri: '/path/to/file.yaml',
             data: '',
-            mediaType: mediaTypes.latest(),
+            mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = AsyncApiJson2Parser();
+          const parser = OpenApiYaml3_0Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -161,14 +192,14 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(url).toString();
             const file = File({
               url,
               data,
-              mediaType: mediaTypes.latest(),
+              mediaType: mediaTypes.latest('yaml'),
             });
-            const parser = AsyncApiJson2Parser({ sourceMap: true });
+            const parser = OpenApiYaml3_0Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -177,17 +208,13 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-api.json');
+            const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(url).toString();
-            const file = File({
-              url,
-              data,
-              mediaType: mediaTypes.latest(),
-            });
-            const parser = AsyncApiJson2Parser({ sourceMap: false });
+            const file = File({ url, data });
+            const parser = OpenApiYaml3_0Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
-            assert.isUndefined(parseResult.meta.get('sourceMap'));
+            assert.isUndefined(parseResult.api?.meta.get('sourceMap'));
           });
         });
       });

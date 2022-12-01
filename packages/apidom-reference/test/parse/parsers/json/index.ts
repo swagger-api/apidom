@@ -8,7 +8,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/util/File';
-import JsonParser from '../../../../src/parse/parsers/apidom-reference-parser-json';
+import JsonParser from '../../../../src/parse/parsers/json';
 
 describe('parsers', function () {
   context('JsonParser', function () {

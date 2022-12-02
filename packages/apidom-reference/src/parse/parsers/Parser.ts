@@ -4,7 +4,7 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import { Parser as IParser } from '../../types';
 import { NotImplementedError } from '../../util/errors';
 
-const Parser = stampit({
+const Parser: stampit.Stamp<IParser> = stampit({
   props: {
     name: '',
     /**

@@ -36,6 +36,13 @@ const OpenApiYaml3_1Parser: stampit.Stamp<IParser> = stampit(Parser, {
       return false;
     },
     async parse(file: IFile): Promise<ParseResultElement> {
+      if (this.sourceMap) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "openapi-yaml-3-1-swagger-client parser plugin doesn't support sourceMaps option",
+        );
+      }
+
       const source = file.toString();
 
       try {

@@ -76,24 +76,24 @@ export interface ReferenceSet {
 }
 
 export interface ReferenceParserOptions {
-  readonly mediaType: string;
-  readonly parsers: Array<Parser>;
-  readonly parserOpts: Record<string, any>;
+  mediaType: string;
+  parsers: Array<Parser>;
+  parserOpts: Record<string, any>;
 }
 
 export interface ReferenceResolveOptions {
   baseURI: string;
-  readonly resolvers: Array<Resolver>;
-  readonly resolverOpts: Record<string, any>;
-  readonly strategies: Array<ResolveStrategy>;
-  readonly external: boolean;
-  readonly maxDepth: number;
+  resolvers: Array<Resolver>;
+  resolverOpts: Record<string, any>;
+  strategies: Array<ResolveStrategy>;
+  external: boolean;
+  maxDepth: number;
 }
 
 export interface ReferenceDereferenceOptions {
-  readonly strategies: Array<DereferenceStrategy>;
-  readonly refSet: null | ReferenceSet;
-  readonly maxDepth: number;
+  strategies: Array<DereferenceStrategy>;
+  refSet: null | ReferenceSet;
+  maxDepth: number;
 }
 
 export interface ReferenceOptions {

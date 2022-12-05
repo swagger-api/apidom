@@ -7,9 +7,11 @@ import YamlParser from './helpers/parsers/yaml1-2';
 import OpenApiJson3_1Parser from './helpers/parsers/openapi-json-3-1';
 import OpenApiYaml3_1Parser from './helpers/parsers/openapi-yaml-3-1';
 import HttpResolverSwaggerClient from '../../../../src/resolve/resolvers/HttpResolverSwaggerClient';
+import OpenApi3_1SwaggerClientDereferenceStrategy from '../../../../src/dereference/strategies/openapi-3-1-swagger-client';
 
 const originalParsers = [...options.parse.parsers];
 const originalResolvers = [...options.resolve.resolvers];
+const originalDereferenceStrategies = [...options.dereference.strategies];
 
 export const before = () => {
   // configure custom parser plugins globally
@@ -43,9 +45,20 @@ export const before = () => {
 
     return resolver;
   });
+
+  // configure custom dereference strategy globally
+  options.dereference.strategies = options.dereference.strategies.map((strategy) => {
+    // @ts-ignore
+    if (strategy.name === 'openapi-3-1') {
+      return OpenApi3_1SwaggerClientDereferenceStrategy();
+    }
+
+    return strategy;
+  });
 };
 
 export const after = () => {
   options.parse.parsers = originalParsers;
   options.resolve.resolvers = originalResolvers;
+  options.dereference.strategies = originalDereferenceStrategies;
 };

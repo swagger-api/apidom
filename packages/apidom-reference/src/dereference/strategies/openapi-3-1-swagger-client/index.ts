@@ -22,11 +22,23 @@ import OpenApi3_1DereferenceVisitor from './visitor';
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
-  DereferenceStrategy,
-  {
-    init() {
-      this.name = 'openapi-3-1';
+interface IOpenApi3_1SwaggerClientDereferenceStrategy extends IDereferenceStrategy {
+  useCircularStructures: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1SwaggerClientDereferenceStrategy> =
+  stampit(DereferenceStrategy, {
+    props: {
+      useCircularStructures: true,
+    },
+    init(
+      this: IOpenApi3_1SwaggerClientDereferenceStrategy,
+      { useCircularStructures = this.useCircularStructures } = {},
+    ) {
+      // @ts-ignore
+      this.name = 'openapi-3-1-swagger-client';
+      this.useCircularStructures = useCircularStructures;
     },
     methods: {
       canDereference(file: IFile): boolean {
@@ -52,14 +64,19 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IDereferenceStra
           reference = refSet.find(propEq('uri', file.uri));
         }
 
-        const visitor = OpenApi3_1DereferenceVisitor({ reference, namespace, options });
+        const visitor = OpenApi3_1DereferenceVisitor({
+          reference,
+          namespace,
+          options,
+          useCircularStructures: this.useCircularStructures,
+        });
         const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
         });
 
         /**
-         * Release all memory if this refSet was not provided as an configuration option.
+         * Release all memory if this refSet was not provided as a configuration option.
          * If provided as configuration option, then provider is responsible for cleanup.
          */
         if (options.dereference.refSet === null) {
@@ -69,7 +86,6 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IDereferenceStra
         return dereferencedElement;
       },
     },
-  },
-);
+  });
 
 export default OpenApi3_1SwaggerClientDereferenceStrategy;

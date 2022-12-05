@@ -11,10 +11,11 @@ import {
   MaximumResolverDepthError,
   ResolverError,
 } from '../../../../../src/util/errors';
-import { loadJsonFile } from '../../../../helpers';
+import { createHTTPServer, loadJsonFile } from '../../../../helpers';
 import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
 import { EvaluationJsonSchemaUriError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/uri/errors';
 import * as bootstrap from '../bootstrap';
+import OpenApi3_1SwaggerClientDereferenceStrategy from '../../../../../src/dereference/strategies/openapi-3-1-swagger-client';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
@@ -88,9 +89,8 @@ describe('dereference', function () {
         });
 
         context('given Schema Objects with internal cycles', function () {
-          const fixturePath = path.join(rootFixturePath, 'cycle-internal');
-
           specify('should dereference', async function () {
+            const fixturePath = path.join(rootFixturePath, 'cycle-internal');
             const rootFilePath = path.join(fixturePath, 'root.json');
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
@@ -103,12 +103,55 @@ describe('dereference', function () {
 
             assert.strictEqual(parent, cyclicParent);
           });
+
+          context('and useCircularStructures=false', function () {
+            specify('should avoid cycles by skipping transclusion', async function () {
+              const fixturePath = path.join(rootFixturePath, 'cycle-internal-disabled');
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategies: [
+                    OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
+                  ],
+                },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+
+            context('and using HTTP protocol', function () {
+              specify('should make JSON Pointer absolute', async function () {
+                let httpServer: any;
+
+                try {
+                  const fixturePath = path.join(rootFixturePath, 'cycle-external-disabled-http');
+                  httpServer = createHTTPServer({ port: 8123, cwd: fixturePath });
+                  const actual = await dereference('http://localhost:8123/root.json', {
+                    parse: { mediaType: mediaTypes.latest('json') },
+                    dereference: {
+                      strategies: [
+                        OpenApi3_1SwaggerClientDereferenceStrategy({
+                          useCircularStructures: false,
+                        }),
+                      ],
+                    },
+                  });
+                  const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                  assert.deepEqual(toValue(actual), expected);
+                } finally {
+                  await httpServer?.terminate();
+                }
+              });
+            });
+          });
         });
 
         context('given Schema Objects with external cycles', function () {
-          const fixturePath = path.join(rootFixturePath, 'cycle-external');
-
           specify('should dereference', async function () {
+            const fixturePath = path.join(rootFixturePath, 'cycle-external');
             const rootFilePath = path.join(fixturePath, 'root.json');
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
@@ -123,6 +166,24 @@ describe('dereference', function () {
             );
 
             assert.strictEqual(parent, cyclicParent);
+          });
+
+          context('and useCircularStructures=false', function () {
+            specify('should avoid cycles by skipping transclusion', async function () {
+              const fixturePath = path.join(rootFixturePath, 'cycle-external-disabled');
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategies: [
+                    OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
+                  ],
+                },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
           });
         });
 
@@ -777,6 +838,7 @@ describe('dereference', function () {
 
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
+
             try {
               await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -786,6 +848,26 @@ describe('dereference', function () {
               assert.instanceOf(e, DereferenceError);
             }
           });
+
+          context('and useCircularStructures=false', function () {
+            specify('should throw error', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
+                    ],
+                  },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
+          });
         });
 
         context('given Schema Objects with indirect circular internal reference', function () {
@@ -793,6 +875,7 @@ describe('dereference', function () {
 
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
+
             try {
               await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -801,6 +884,25 @@ describe('dereference', function () {
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }
+          });
+
+          context('and useCircularStructures=false', function () {
+            specify('should throw error', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
+                    ],
+                  },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
           });
         });
       });

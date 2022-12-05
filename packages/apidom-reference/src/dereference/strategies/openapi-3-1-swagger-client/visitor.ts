@@ -43,6 +43,7 @@ import {
   maybeRefractToSchemaElement,
 } from '../../../resolve/strategies/openapi-3-1/util';
 import EvaluationJsonSchemaUriError from '../openapi-3-1/selectors/uri/errors/EvaluationJsonSchemaUriError';
+import { isHttpUrl } from '../../../util/url';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -55,13 +56,22 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
     namespace: null,
     reference: null,
     options: null,
+    useCircularStructures: true,
   },
-  init({ indirections = [], visited = new WeakSet(), reference, namespace, options }) {
+  init({
+    indirections = [],
+    visited = new WeakSet(),
+    reference,
+    namespace,
+    options,
+    useCircularStructures,
+  }) {
     this.indirections = indirections;
     this.visited = visited;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
+    this.useCircularStructures = useCircularStructures;
   },
   methods: {
     toBaseURI(uri: string): string {
@@ -458,6 +468,20 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         );
       }
 
+      // detect possible cycle and avoid it
+      if (!this.useCircularStructures && this.visited.has(referencedElement)) {
+        // make the referencing URL absolute if possible
+        if (isHttpUrl(reference.uri) && isStringElement(referencingElement.$ref)) {
+          const absoluteJSONPointerURL = url.resolve(
+            reference.uri,
+            referencingElement.$ref?.toValue(),
+          );
+          referencingElement.set('$ref', absoluteJSONPointerURL);
+        }
+        // skip processing this node
+        return false;
+      }
+
       // dive deep into the fragment
       const visitor: any = OpenApi3_1SwaggerClientDereferenceVisitor({
         reference,
@@ -465,6 +489,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         indirections: [...this.indirections],
         options: this.options,
         visited: this.visited,
+        useCircularStructures: this.useCircularStructures,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,

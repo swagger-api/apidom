@@ -78,6 +78,20 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects pointing to internal indirections', function () {
+          const fixturePath = path.join(rootFixturePath, 'indirect-internal');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects with internal cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-internal');
 

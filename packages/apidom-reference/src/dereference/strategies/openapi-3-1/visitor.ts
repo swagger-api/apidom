@@ -52,7 +52,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
     reference: null,
     options: null,
   },
-  init({ indirections = [], visited = new WeakSet(), reference, namespace, options }) {
+  init({
+    indirections = [],
+    visited = { SchemaElement: new WeakSet(), SchemaElementReference: new WeakSet() },
+    reference,
+    namespace,
+    options,
+  }) {
     this.indirections = indirections;
     this.visited = visited;
     this.namespace = namespace;
@@ -349,13 +355,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
        * Skip traversal for already visited schemas and all their child schemas.
        * visit function detects cycles in path automatically.
        */
-      if (this.visited.has(referencingElement)) {
+      if (this.visited.SchemaElement.has(referencingElement)) {
         return false;
       }
       // skip current referencing schema as $ref keyword was not defined
       if (!isStringElement(referencingElement.$ref)) {
         // mark current referencing schema as visited
-        this.visited.add(referencingElement);
+        this.visited.SchemaElement.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
@@ -370,7 +376,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       // ignore resolving external Schema Objects
       if (!this.options.resolve.external && isExternal) {
         // mark current referencing schema as visited
-        this.visited.add(referencingElement);
+        this.visited.SchemaElementReference.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
@@ -440,7 +446,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // mark current referencing schema as visited
-      this.visited.add(referencingElement);
+      this.visited.SchemaElementReference.add(referencingElement);
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
@@ -460,7 +466,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
-        visited: this.visited,
+        // SchemaElementReference must be reset for deep dive, as we want to dereference all indirections
+        visited: {
+          SchemaElement: this.visited.SchemaElement,
+          SchemaElementReference: new WeakSet(),
+        },
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,

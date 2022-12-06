@@ -357,6 +357,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
+    detectCycles = true,
   } = {},
 ) => {
   const visitorKeys = keyMap || {};
@@ -429,6 +430,11 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
         throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
+      }
+      // cycle detected; skipping over a sub-tree to avoid recursion
+      if (detectCycles && ancestors.includes(node)) {
+        path.pop();
+        continue;
       }
       const visitFn = visitFnGetter(visitor, nodeTypeGetter(node), isLeaving);
       if (visitFn) {

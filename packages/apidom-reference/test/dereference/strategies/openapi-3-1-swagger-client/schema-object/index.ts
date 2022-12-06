@@ -4,7 +4,9 @@ import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
-import { dereference } from '../../../../../src';
+import { dereference, parse } from '../../../../../src';
+import Reference from '../../../../../src/Reference';
+import ReferenceSet from '../../../../../src/ReferenceSet';
 import {
   DereferenceError,
   MaximumDereferenceDepthError,
@@ -88,6 +90,20 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects pointing to internal indirections', function () {
+          const fixturePath = path.join(rootFixturePath, 'indirect-internal');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects with internal cycles', function () {
           specify('should dereference', async function () {
             const fixturePath = path.join(rootFixturePath, 'cycle-internal');
@@ -108,9 +124,17 @@ describe('dereference', function () {
             specify('should avoid cycles by skipping transclusion', async function () {
               const fixturePath = path.join(rootFixturePath, 'cycle-internal-disabled');
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const reference = Reference({
+                value: await parse(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                }),
+                uri: '/home/smartbear/root.json',
+              });
+              const refSet = ReferenceSet({ refs: [reference] });
+              const actual = await dereference('/home/smartbear/root.json', {
                 parse: { mediaType: mediaTypes.latest('json') },
                 dereference: {
+                  refSet,
                   strategies: [
                     OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
                   ],
@@ -172,9 +196,23 @@ describe('dereference', function () {
             specify('should avoid cycles by skipping transclusion', async function () {
               const fixturePath = path.join(rootFixturePath, 'cycle-external-disabled');
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const reference1 = Reference({
+                value: await parse(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                }),
+                uri: '/home/smartbear/root.json',
+              });
+              const reference2 = Reference({
+                value: await parse(path.join(fixturePath, 'ex.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                }),
+                uri: '/home/smartbear/ex.json',
+              });
+              const refSet = ReferenceSet({ refs: [reference1, reference2] });
+              const actual = await dereference('/home/smartbear/root.json', {
                 parse: { mediaType: mediaTypes.latest('json') },
                 dereference: {
+                  refSet,
                   strategies: [
                     OpenApi3_1SwaggerClientDereferenceStrategy({ useCircularStructures: false }),
                   ],

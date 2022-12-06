@@ -8,7 +8,8 @@
           "$$ref": "http://localhost:8123/root.json#/components/schemas/schema3"
         },
         "schema2": {
-          "$ref": "#/components/schemas/schema3"
+          "type": "object",
+          "$$ref": "http://localhost:8123/root.json#/components/schemas/schema3"
         },
         "schema3": {
           "type": "object"

@@ -9,10 +9,7 @@
         "$ref": "#/components/schemas/Indirection2"
       },
       "Indirection2": {
-        "$ref": "#/components/schemas/Indirection3"
-      },
-      "Indirection3": {
-        "$ref": "#/components/schemas/User"
+        "type": "object"
       }
     }
   }

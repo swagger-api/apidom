@@ -7,7 +7,7 @@
           "type": "object",
           "properties": {
             "parent": {
-              "$ref": "#/components/schemas/User"
+              "$ref": "/home/smartbear/root.json#/components/schemas/User"
             }
           }
         }

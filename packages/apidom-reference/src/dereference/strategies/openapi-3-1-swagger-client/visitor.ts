@@ -45,7 +45,6 @@ import {
   maybeRefractToSchemaElement,
 } from '../../../resolve/strategies/openapi-3-1/util';
 import EvaluationJsonSchemaUriError from '../openapi-3-1/selectors/uri/errors/EvaluationJsonSchemaUriError';
-import { isHttpUrl } from '../../../util/url';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -62,7 +61,11 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
   },
   init({
     indirections = [],
-    visited = new WeakSet(),
+    visited = {
+      SchemaElement: new WeakSet(),
+      SchemaElementReference: new WeakSet(),
+      SchemaElementNoReference: new WeakSet(),
+    },
     reference,
     namespace,
     options,
@@ -391,16 +394,21 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
 
     async SchemaElement(referencingElement: SchemaElement) {
       /**
-       * Skip traversal for already visited schemas and all their child schemas.
+       * Skip traversal for already visited schemas.
        * visit function detects cycles in path automatically.
        */
-      if (this.visited.has(referencingElement)) {
+      if (this.visited.SchemaElementNoReference.has(referencingElement)) {
         return false;
       }
+      if (this.visited.SchemaElementReference.has(referencingElement)) {
+        return undefined;
+      }
+
       // skip current referencing schema as $ref keyword was not defined
       if (!isStringElement(referencingElement.$ref)) {
         // mark current referencing schema as visited
-        this.visited.add(referencingElement);
+        this.visited.SchemaElement.add(referencingElement);
+        this.visited.SchemaElementNoReference.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
@@ -415,7 +423,8 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       // ignore resolving external Schema Objects
       if (!this.options.resolve.external && isExternal) {
         // mark current referencing schema as visited
-        this.visited.add(referencingElement);
+        this.visited.SchemaElement.add(referencingElement);
+        this.visited.SchemaElementReference.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
@@ -485,7 +494,8 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       }
 
       // mark current referencing schema as visited
-      this.visited.add(referencingElement);
+      this.visited.SchemaElement.add(referencingElement);
+      this.visited.SchemaElementReference.add(referencingElement);
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
@@ -500,16 +510,16 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       }
 
       // detect possible cycle and avoid it
-      if (!this.useCircularStructures && this.visited.has(referencedElement)) {
-        // make the referencing URL absolute if possible
-        if (isHttpUrl(reference.uri) && isStringElement(referencingElement.$ref)) {
+      if (!this.useCircularStructures && this.visited.SchemaElement.has(referencedElement)) {
+        if (url.isHttpUrl(reference.uri) || url.isFileSystemPath(reference.uri)) {
+          // make the referencing URL or file system path absolute
           const absoluteJSONPointerURL = url.resolve(
             reference.uri,
             referencingElement.$ref?.toValue(),
           );
           referencingElement.set('$ref', absoluteJSONPointerURL);
         }
-        // skip processing this node
+        // skip processing this schema and all it's child schemas
         return false;
       }
 
@@ -519,7 +529,12 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
-        visited: this.visited,
+        // SchemaElementReference must be reset for deep dive, as we want to dereference all indirections
+        visited: {
+          SchemaElement: this.visited.SchemaElement,
+          SchemaElementReference: new WeakSet(),
+          SchemaElementNoReference: this.visited.SchemaElementNoReference,
+        },
         useCircularStructures: this.useCircularStructures,
         allowMetaPatches: this.allowMetaPatches,
       });

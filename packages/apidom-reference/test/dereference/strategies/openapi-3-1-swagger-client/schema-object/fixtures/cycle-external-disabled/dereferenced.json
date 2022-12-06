@@ -9,7 +9,7 @@
             "profile": {
               "properties": {
                 "parent": {
-                  "$ref": "#/$defs/UserProfile"
+                  "$ref": "/home/smartbear/ex.json#/$defs/UserProfile"
                 }
               }
             }

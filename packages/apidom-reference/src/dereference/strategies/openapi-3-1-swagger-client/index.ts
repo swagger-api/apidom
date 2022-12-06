@@ -24,6 +24,7 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface IOpenApi3_1SwaggerClientDereferenceStrategy extends IDereferenceStrategy {
   useCircularStructures: boolean;
+  allowMetaPatches: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -31,14 +32,19 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1Swagg
   stampit(DereferenceStrategy, {
     props: {
       useCircularStructures: true,
+      allowMetaPatches: false,
     },
     init(
       this: IOpenApi3_1SwaggerClientDereferenceStrategy,
-      { useCircularStructures = this.useCircularStructures } = {},
+      {
+        useCircularStructures = this.useCircularStructures,
+        allowMetaPatches = this.allowMetaPatches,
+      } = {},
     ) {
       // @ts-ignore
       this.name = 'openapi-3-1-swagger-client';
       this.useCircularStructures = useCircularStructures;
+      this.allowMetaPatches = allowMetaPatches;
     },
     methods: {
       canDereference(file: IFile): boolean {
@@ -69,6 +75,7 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1Swagg
           namespace,
           options,
           useCircularStructures: this.useCircularStructures,
+          allowMetaPatches: this.allowMetaPatches,
         });
         const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
           keyMap,

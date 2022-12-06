@@ -4,7 +4,7 @@ import { ParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
-import { loadJsonFile } from '../../../../helpers';
+import { createHTTPServer, loadJsonFile } from '../../../../helpers';
 import { dereference, dereferenceApiDOM, resolve, parse } from '../../../../../src';
 import {
   DereferenceError,
@@ -13,6 +13,7 @@ import {
 } from '../../../../../src/util/errors';
 import Reference from '../../../../../src/Reference';
 import ReferenceSet from '../../../../../src/ReferenceSet';
+import OpenApi3_1SwaggerClientDereferenceStrategy from '../../../../../src/dereference/strategies/openapi-3-1-swagger-client';
 import * as bootstrap from '../bootstrap';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
@@ -150,6 +151,58 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given Reference Objects pointing internally', function () {
+          context('and allowMetaPatches=true', function () {
+            specify('should dereference', async function () {
+              let httpServer: any;
+
+              try {
+                const fixturePath = path.join(rootFixturePath, 'meta-patches-internal');
+                httpServer = createHTTPServer({ port: 8123, cwd: fixturePath });
+                const actual = await dereference('http://localhost:8123/root.json', {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ allowMetaPatches: true }),
+                    ],
+                  },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              } finally {
+                httpServer?.terminate();
+              }
+            });
+          });
+        });
+
+        context('given Reference Objects pointing externally', function () {
+          context('and allowMetaPatches=true', function () {
+            specify('should dereference', async function () {
+              let httpServer: any;
+
+              try {
+                const fixturePath = path.join(rootFixturePath, 'meta-patches-external');
+                httpServer = createHTTPServer({ port: 8123, cwd: fixturePath });
+                const actual = await dereference('http://localhost:8123/root.json', {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ allowMetaPatches: true }),
+                    ],
+                  },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              } finally {
+                httpServer?.terminate();
+              }
+            });
           });
         });
 

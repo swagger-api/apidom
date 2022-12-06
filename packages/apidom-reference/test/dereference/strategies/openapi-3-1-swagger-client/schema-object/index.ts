@@ -187,6 +187,58 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Object pointing internally', function () {
+          context('and allowMetaPatches=true', function () {
+            specify('should dereference', async function () {
+              let httpServer: any;
+
+              try {
+                const fixturePath = path.join(rootFixturePath, 'meta-patches-internal');
+                httpServer = createHTTPServer({ port: 8123, cwd: fixturePath });
+                const actual = await dereference('http://localhost:8123/root.json', {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ allowMetaPatches: true }),
+                    ],
+                  },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              } finally {
+                httpServer?.terminate();
+              }
+            });
+          });
+        });
+
+        context('given Schema Object pointing externally', function () {
+          context('and allowMetaPatches=true', function () {
+            specify('should dereference', async function () {
+              let httpServer: any;
+
+              try {
+                const fixturePath = path.join(rootFixturePath, 'meta-patches-external');
+                httpServer = createHTTPServer({ port: 8123, cwd: fixturePath });
+                const actual = await dereference('http://localhost:8123/root.json', {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: {
+                    strategies: [
+                      OpenApi3_1SwaggerClientDereferenceStrategy({ allowMetaPatches: true }),
+                    ],
+                  },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              } finally {
+                httpServer?.terminate();
+              }
+            });
+          });
+        });
+
         context('given Schema Objects with internal and external cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-internal-external');
 

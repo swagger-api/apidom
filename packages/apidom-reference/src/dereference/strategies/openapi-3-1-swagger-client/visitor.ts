@@ -2,6 +2,8 @@ import stampit from 'stampit';
 import { hasIn, pathSatisfies, propEq, none } from 'ramda';
 import { isUndefined, isNotUndefined } from 'ramda-adjunct';
 import {
+  isObjectElement,
+  ObjectElement,
   isPrimitiveElement,
   isStringElement,
   visit,
@@ -65,6 +67,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
     namespace,
     options,
     useCircularStructures,
+    allowMetaPatches,
   }) {
     this.indirections = indirections;
     this.visited = visited;
@@ -72,6 +75,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
     this.reference = reference;
     this.options = options;
     this.useCircularStructures = useCircularStructures;
+    this.allowMetaPatches = allowMetaPatches;
   },
   methods: {
     toBaseURI(uri: string): string {
@@ -160,6 +164,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        allowMetaPatches: this.allowMetaPatches,
       });
       fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
@@ -186,6 +191,19 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       if (hasSummary && hasIn('summary', fragment)) {
         // @ts-ignore
         fragment.summary = referenceElement.summary;
+      }
+
+      // apply meta patches
+      if (this.allowMetaPatches && isObjectElement(fragment)) {
+        const objectFragment = fragment as ObjectElement;
+        // apply meta patch only when not already applied
+        if (typeof objectFragment.get('$$ref') === 'undefined') {
+          const absoluteJSONPointerURL = url.resolve(
+            reference.uri,
+            referenceElement.$ref?.toValue(),
+          );
+          objectFragment.set('$$ref', absoluteJSONPointerURL);
+        }
       }
 
       this.indirections.pop();
@@ -238,6 +256,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        allowMetaPatches: this.allowMetaPatches,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -266,6 +285,18 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       });
       // annotate referenced element with info about origin
       mergedResult.setMetaProperty('ref-origin', reference.uri);
+
+      // apply meta patches
+      if (this.allowMetaPatches) {
+        // apply meta patch only when not already applied
+        if (typeof mergedResult.get('$$ref') === 'undefined') {
+          const absoluteJSONPointerURL = url.resolve(
+            reference.uri,
+            pathItemElement.$ref?.toValue(),
+          );
+          mergedResult.set('$$ref', absoluteJSONPointerURL);
+        }
+      }
 
       // transclude referencing element with merged referenced element
       return mergedResult;
@@ -490,6 +521,7 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
         options: this.options,
         visited: this.visited,
         useCircularStructures: this.useCircularStructures,
+        allowMetaPatches: this.allowMetaPatches,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -530,6 +562,17 @@ const OpenApi3_1SwaggerClientDereferenceVisitor = stampit({
       });
       // annotate fragment with info about origin
       mergedResult.setMetaProperty('ref-origin', reference.uri);
+      // apply meta patches
+      if (this.allowMetaPatches) {
+        // apply meta patch only when not already applied
+        if (typeof mergedResult.get('$$ref') === 'undefined') {
+          const absoluteJSONPointerURL = url.resolve(
+            reference.uri,
+            referencingElement.$ref?.toValue(),
+          );
+          mergedResult.set('$$ref', absoluteJSONPointerURL);
+        }
+      }
 
       // transclude referencing element with merged referenced element
       return mergedResult;

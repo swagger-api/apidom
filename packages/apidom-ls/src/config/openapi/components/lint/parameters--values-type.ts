@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const parametersValuesTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_COMPONENTS_FIELD_PARAMETERS_VALUES_TYPE,
   source: 'apilint',
   message: '"parameters" members must be Parameter Object',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['parameter']],
   marker: 'key',

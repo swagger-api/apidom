@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const flowsTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_FLOWS_TYPE,
   source: 'apilint',
   message: "'flows' must be an object",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['oAuthFlows'],
   marker: 'value',

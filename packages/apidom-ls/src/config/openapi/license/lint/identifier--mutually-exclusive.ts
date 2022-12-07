@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const identifierMutuallyExclusiveLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_LICENSE_FIELD_IDENTIFIER_MUTUALLY_EXCLUSIVE,
   source: 'apilint',
   message: 'The identifier field and url field are mutually exclusive.',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'missingFields',
   linterParams: [['identifier']],
   marker: 'key',

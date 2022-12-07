@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const valuePattern2_4_0Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_ASYNC_API_VERSION_VALUE_PATTERN_2_4_0,
   source: 'apilint',
   message: "'asyncapi' value must be 2.4.0",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueRegex',
   linterParams: ['2\\.4\\.0'],
   marker: 'value',

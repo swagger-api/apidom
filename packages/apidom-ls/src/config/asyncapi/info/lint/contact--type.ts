@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const contactTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_INFO_FIELD_CONTACT_TYPE,
   source: 'apilint',
   message: 'contact must be an object',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['contact'],
   marker: 'value',

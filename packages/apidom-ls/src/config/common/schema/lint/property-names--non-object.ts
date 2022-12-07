@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const propertyNamesNonObjectLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PROPERTYNAMES_NONOBJECT,
   source: 'apilint',
   message: 'propertyNames has no effect on non objects',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['propertyNames'],
   marker: 'key',

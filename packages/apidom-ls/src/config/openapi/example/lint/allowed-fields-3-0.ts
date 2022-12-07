@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const allowedFields3_0Lint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [['summary', 'description', 'value', 'externalValue', '$ref'], 'x-'],
   marker: 'key',

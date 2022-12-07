@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const minPropertiesNonObjectLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MINPROPERTIES_NONOBJECT,
   source: 'apilint',
   message: 'minProperties has no effect on non objects',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['minProperties'],
   marker: 'key',

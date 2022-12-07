@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const contentValuesTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_HEADER_FIELD_CONTENT_VALUES_TYPE,
   source: 'apilint',
   message: '"content" members must be Media Type Object',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['mediaType']],
   marker: 'key',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const ifNonThenLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_IF_NONTHEN,
   source: 'apilint',
   message: '"if" has no effect without a "then"',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['if'],
   marker: 'key',

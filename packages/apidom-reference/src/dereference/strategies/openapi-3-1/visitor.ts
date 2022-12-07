@@ -358,6 +358,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
       if (this.visited.SchemaElement.has(referencingElement)) {
         return false;
       }
+      if (this.visited.SchemaElementReference.has(referencingElement)) {
+        return undefined;
+      }
       // skip current referencing schema as $ref keyword was not defined
       if (!isStringElement(referencingElement.$ref)) {
         // mark current referencing schema as visited

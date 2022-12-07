@@ -360,7 +360,13 @@ export interface LinterMeta {
   code?: number;
   message?: string;
   source?: string;
-  severity?: 1 | 2 | 3 | 4 | undefined;
+  /**
+   * 1 => Error; Something not allowed by the rules of a language or other means.
+   * 2 => Warning; Something suspicious but allowed.
+   * 3 => Information; Something to inform about but not a problem.
+   * 4 => Hint; Something not allowed by the rules of a language or other means.
+   */
+  severity?: DiagnosticSeverity | undefined;
   linterFunction?: string;
   linterParams?: [unknown] | undefined | unknown;
   marker?: string;

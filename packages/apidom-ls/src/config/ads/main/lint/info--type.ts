@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const mainInfoObjectLint: LinterMeta = {
-  code: ApilintCodes.ADS_INFO_OBJECT,
+const infoTypeLint: LinterMeta = {
+  code: ApilintCodes.ADS_MAIN_FIELD_INFO_TYPE,
   source: 'apilint',
   message: 'info must be an object',
   severity: 1,
@@ -13,4 +13,4 @@ const mainInfoObjectLint: LinterMeta = {
   data: {},
 };
 
-export default mainInfoObjectLint;
+export default infoTypeLint;

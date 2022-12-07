@@ -1,15 +1,15 @@
-import mainAllowedFieldsLint from './allowed-fields';
-import mainInfoObjectLint from './info-object';
-import mainInfoRequiredLint from './info-required';
-import mainVersionRequiredLint from './version-required';
-import mainVersionLint from './version';
+import allowedFieldsLint from './allowed-fields';
+import infoTypeLint from './info--type';
+import infoRequiredLint from './info--required';
+import versionPatternLint from './version--pattern';
+import versionRequiredLint from './version--required';
 
 const lints = [
-  mainAllowedFieldsLint,
-  mainInfoObjectLint,
-  mainInfoRequiredLint,
-  mainVersionRequiredLint,
-  mainVersionLint,
+  infoTypeLint,
+  infoRequiredLint,
+  versionPatternLint,
+  versionRequiredLint,
+  allowedFieldsLint,
 ];
 
 export default lints;

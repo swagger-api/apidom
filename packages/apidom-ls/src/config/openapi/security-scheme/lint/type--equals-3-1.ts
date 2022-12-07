@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const typeEquals3_1Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_SECURITY_SCHEME_FIELD_TYPE_EQUALS,
   source: 'apilint',
   message: 'type must be one of allowed values',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['apiKey', 'http', 'mutualTLS', 'oauth2', 'openIdConnect']],
   marker: 'value',

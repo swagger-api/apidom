@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const additionalPropertiesNonObjectLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ADDITIONALPROPERTIES_NONOBJECT,
   source: 'apilint',
   message: 'additionalProperties has no effect on non objects',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['additionalProperties'],
   marker: 'key',

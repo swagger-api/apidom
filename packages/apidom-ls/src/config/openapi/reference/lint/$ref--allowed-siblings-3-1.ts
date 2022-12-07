@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -7,7 +9,7 @@ const $refAllowedSiblings3_1Lint: LinterMeta = {
   source: 'apilint',
   message:
     'All other properties other then summary and description in a Reference Object are ignored',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'allowedFields',
   linterParams: [['$ref', 'summary', 'description']],
   marker: 'key',

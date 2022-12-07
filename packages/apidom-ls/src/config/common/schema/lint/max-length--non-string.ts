@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const maxLengthNonStringLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MAXLENGTH_NONSTRING,
   source: 'apilint',
   message: 'maxLength has no effect on non strings',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['maxLength'],
   marker: 'key',

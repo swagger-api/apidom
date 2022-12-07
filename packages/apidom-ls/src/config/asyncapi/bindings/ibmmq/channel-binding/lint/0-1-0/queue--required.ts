@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../../../../codes';
 import { LinterMeta } from '../../../../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const queueRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_IBMMQ_CHANNEL_BINDING_FIELD_QUEUE_REQUIRED,
   source: 'apilint',
   message: "should always have a 'queue'",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['queue'],
   marker: 'key',

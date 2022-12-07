@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../../../../codes';
 import { LinterMeta } from '../../../../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const partitionsMinimumLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_KAFKA_CHANNEL_BINDING_FIELD_PARTITIONS_MINIMUM,
   source: 'apilint',
   message: "'partitions' value must be positive integer",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintMinimum',
   linterParams: [1],
   marker: 'value',

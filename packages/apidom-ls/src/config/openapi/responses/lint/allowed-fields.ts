@@ -1,4 +1,5 @@
 import { range } from 'ramda';
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
@@ -14,7 +15,7 @@ const allowedFieldsLint: LinterMeta = {
   source: 'apilint',
   message:
     'Responses Object uses HTTP Status Codes outside of allowed IANA HTTP Status code registry',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
     ['default', '1XX', '2XX', '3XX', '4XX', '5XX', ...range(100, 600).map(String)],

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const defaultRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_O_SERVER_VARIABLE_FIELD_DEFAULT_REQUIRED,
   source: 'apilint',
   message: "should always have a 'default'",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['default'],
   marker: 'key',

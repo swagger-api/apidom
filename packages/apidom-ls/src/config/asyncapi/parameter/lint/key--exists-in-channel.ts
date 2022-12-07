@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -7,7 +9,7 @@ const keyExistsInChannelLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_PARAMETER_KEY_EXISTS_IN_CHANNEL,
   source: 'apilint',
   message: 'parameter key must be defined in channel name',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChannelParameterExist',
   marker: 'key',
   data: {},

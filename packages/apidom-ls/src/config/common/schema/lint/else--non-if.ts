@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const elseNonIfLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ELSE_NONIF,
   source: 'apilint',
   message: '"else" has no effect without a "if"',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['else'],
   marker: 'key',

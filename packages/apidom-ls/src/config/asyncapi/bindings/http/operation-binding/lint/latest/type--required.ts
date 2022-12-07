@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../../../../codes';
 import { LinterMeta } from '../../../../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const typeRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_HTTP_OPERATION_BINDING_FIELD_TYPE_REQUIRED,
   source: 'apilint',
   message: "should always have a 'type'",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['type'],
   marker: 'key',

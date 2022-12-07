@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const requiredRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_REQUIRED_REQUIRED,
   source: 'apilint',
   message: "should always have a 'required'",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['required'],
   marker: 'key',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const serversKeysDefinedLint: LinterMeta = {
   target: 'servers',
   source: 'apilint',
   message: 'server names must be included in defined servers',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementKeysIncluded',
   linterParams: ['servers'],
   markerTarget: 'servers',

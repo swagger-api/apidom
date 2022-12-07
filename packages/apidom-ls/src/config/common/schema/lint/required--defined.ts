@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const requiredDefinedLint: LinterMeta = {
   source: 'apilint',
   message:
     'required properties should be defined in `properties` when `additionalProperties` is false',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'apilintRequiredDefinedInProperties',
   marker: 'key',
   target: 'required',

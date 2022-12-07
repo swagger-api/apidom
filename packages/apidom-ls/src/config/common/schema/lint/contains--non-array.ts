@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const containsNonArrayLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_CONTAINS_NONARRAY,
   source: 'apilint',
   message: 'contains has no effect on non arrays',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['contains'],
   marker: 'key',

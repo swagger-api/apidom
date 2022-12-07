@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const schemeRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_SCHEME_REQUIRED,
   source: 'apilint',
   message: "should always have a 'scheme'",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['scheme'],
   marker: 'key',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const minLengthNonStringLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MINLENGTH_NONSTRING,
   source: 'apilint',
   message: 'minLength has no effect on non strings',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['minLength'],
   marker: 'key',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const typeTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message: 'type must be one of allowed values',
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['null', 'boolean', 'object', 'array', 'number', 'string', 'integer'], true],
   marker: 'value',

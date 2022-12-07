@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const minItemsNonArrayLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MINITEMS_NONARRAY,
   source: 'apilint',
   message: 'minItems has no effect on non arrays',
-  severity: 2,
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['minItems'],
   marker: 'key',

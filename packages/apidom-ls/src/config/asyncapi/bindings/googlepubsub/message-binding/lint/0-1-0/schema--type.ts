@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../../../../codes';
 import { LinterMeta } from '../../../../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const schemaTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_MESSAGE_BINDING_FIELD_SCHEMA_TYPE,
   source: 'apilint',
   message: "'schema' value must be an object",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['object'],
   marker: 'value',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../../../../codes';
 import { LinterMeta } from '../../../../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const deliveryModeEqualsLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_AMQP_OPERATION_BINDING_FIELD_DELIVERY_MODE_EQUALS,
   source: 'apilint',
   message: "'deliveryMode' must be one of allowed values",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [[1, 2]],
   marker: 'value',

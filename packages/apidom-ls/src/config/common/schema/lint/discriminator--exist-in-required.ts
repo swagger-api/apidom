@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -5,7 +7,7 @@ const discriminatorExistInRequiredLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_DISCRIMINATOR_EXIST,
   source: 'apilint',
   message: "discriminator' value must be among values defined in `required`",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintDiscriminator',
   marker: 'value',
   target: 'discriminator',

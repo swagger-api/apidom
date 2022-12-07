@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
@@ -6,7 +8,7 @@ const valuePattern3_1_0Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_OPENAPI_VALUE_PATTERN_3_1_0,
   source: 'apilint',
   message: "'openapi' value must be 3.1.0",
-  severity: 1,
+  severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueRegex',
   linterParams: ['3\\.1\\.0'],
   marker: 'value',

@@ -1,3 +1,5 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
 import infoMeta from './info/meta';
 import mainMeta from './main/meta';
 import ApilintCodes from '../codes';
@@ -9,7 +11,7 @@ export default {
         code: ApilintCodes.DUPLICATE_KEYS,
         source: 'apilint',
         message: 'an object cannot contain duplicate keys',
-        severity: 1,
+        severity: DiagnosticSeverity.Error,
         linterFunction: 'apilintNoDuplicateKeys',
         marker: 'key',
       },

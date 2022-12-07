@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const infoTitleRequiredLint: LinterMeta = {
-  code: ApilintCodes.ADS_INFO_INFO_FIELD_TITLE_REQUIRED,
+const titleRequiredLint: LinterMeta = {
+  code: ApilintCodes.ADS_INFO_FIELD_TITLE_REQUIRED,
   source: 'apilint',
   message: "should always have a 'title'",
   severity: 1,
@@ -21,4 +21,4 @@ const infoTitleRequiredLint: LinterMeta = {
   },
 };
 
-export default infoTitleRequiredLint;
+export default titleRequiredLint;

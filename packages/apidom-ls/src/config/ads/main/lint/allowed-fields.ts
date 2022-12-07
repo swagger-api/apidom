@@ -1,7 +1,7 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const mainAllowedFieldsLint: LinterMeta = {
+const allowedFieldsLint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
@@ -11,4 +11,4 @@ const mainAllowedFieldsLint: LinterMeta = {
   marker: 'key',
 };
 
-export default mainAllowedFieldsLint;
+export default allowedFieldsLint;

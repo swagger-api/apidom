@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const mainInfoRequiredLint: LinterMeta = {
-  code: ApilintCodes.ADS_INFO_REQUIRED,
+const infoRequiredLint: LinterMeta = {
+  code: ApilintCodes.ADS_MAIN_FIELD_INFO_REQUIRED,
   source: 'apilint',
   message: "should always have a 'info' section",
   severity: 1,
@@ -21,4 +21,4 @@ const mainInfoRequiredLint: LinterMeta = {
   },
 };
 
-export default mainInfoRequiredLint;
+export default infoRequiredLint;

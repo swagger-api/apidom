@@ -1,8 +1,8 @@
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const mainVersionRequiredLint: LinterMeta = {
-  code: ApilintCodes.ADS_MAIN_VERSION_REQUIRED,
+const versionRequiredLint: LinterMeta = {
+  code: ApilintCodes.ADS_MAIN_FIELD_VERSION_REQUIRED,
   source: 'apilint',
   message: "should always have a 'version' value",
   severity: 1,
@@ -21,4 +21,4 @@ const mainVersionRequiredLint: LinterMeta = {
   },
 };
 
-export default mainVersionRequiredLint;
+export default versionRequiredLint;

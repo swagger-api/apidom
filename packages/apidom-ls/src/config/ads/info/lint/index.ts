@@ -1,8 +1,8 @@
-import infoTitleRequiredLint from './title-required';
-import infoTitleLint from './title';
-import infoDescriptionLint from './description';
-import infoAllowedFieldsLint from './allowed-fields';
+import titleRequiredLint from './title--required';
+import titleTypeLint from './title--type';
+import descriptionTypeLint from './description--type';
+import allowedFieldsLint from './allowed-fields';
 
-const lints = [infoTitleLint, infoTitleRequiredLint, infoDescriptionLint, infoAllowedFieldsLint];
+const lints = [titleTypeLint, titleRequiredLint, descriptionTypeLint, allowedFieldsLint];
 
 export default lints;

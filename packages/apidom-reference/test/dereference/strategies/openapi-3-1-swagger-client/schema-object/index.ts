@@ -4,9 +4,7 @@ import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
-import { dereference, parse } from '../../../../../src';
-import Reference from '../../../../../src/Reference';
-import ReferenceSet from '../../../../../src/ReferenceSet';
+import { dereference, resolve } from '../../../../../src';
 import {
   DereferenceError,
   MaximumDereferenceDepthError,
@@ -124,13 +122,10 @@ describe('dereference', function () {
             specify('should avoid cycles by skipping transclusion', async function () {
               const fixturePath = path.join(rootFixturePath, 'cycle-internal-disabled');
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const reference = Reference({
-                value: await parse(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                }),
-                uri: '/home/smartbear/root.json',
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
               });
-              const refSet = ReferenceSet({ refs: [reference] });
+              refSet.refs[0].uri = '/home/smartbear/root.json';
               const actual = await dereference('/home/smartbear/root.json', {
                 parse: { mediaType: mediaTypes.latest('json') },
                 dereference: {
@@ -196,19 +191,11 @@ describe('dereference', function () {
             specify('should avoid cycles by skipping transclusion', async function () {
               const fixturePath = path.join(rootFixturePath, 'cycle-external-disabled');
               const rootFilePath = path.join(fixturePath, 'root.json');
-              const reference1 = Reference({
-                value: await parse(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                }),
-                uri: '/home/smartbear/root.json',
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
               });
-              const reference2 = Reference({
-                value: await parse(path.join(fixturePath, 'ex.json'), {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                }),
-                uri: '/home/smartbear/ex.json',
-              });
-              const refSet = ReferenceSet({ refs: [reference1, reference2] });
+              refSet.refs[0].uri = '/home/smartbear/root.json';
+              refSet.refs[1].uri = '/home/smartbear/ex.json';
               const actual = await dereference('/home/smartbear/root.json', {
                 parse: { mediaType: mediaTypes.latest('json') },
                 dereference: {

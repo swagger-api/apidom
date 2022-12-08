@@ -515,7 +515,7 @@ Defaults resolver plugin is an object which knows how to obtain contents of a fi
 
 File resolution comes with two (2) default resolver plugins.
 
-##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/FileResolver)
+##### [FileResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/file)
 
 This resolver plugin is responsible for resolving a local file.
 It detects if the provided URI represents a filesystem path and if so,
@@ -561,7 +561,7 @@ await resolve('/home/user/oas.json', {
 });
 ```
 
-##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts)
+##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/http-axios)
 
 This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
 It detects if the provided URI represents an HTTP(s) URL and if so,
@@ -637,7 +637,7 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 });
 ```
 
-##### [HttpResolverSwaggerClient](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverSwaggerClient.ts)
+##### [HttpResolverSwaggerClient](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/htt-swagger-client)
 
 This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
 It detects if the provided URI represents an HTTP(s) URL and if so,
@@ -770,7 +770,7 @@ await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main
 });
 ```
 
-Both of above examples will be using [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolverAxios.ts) plugin
+Both of above examples will be using [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/http-axios) plugin
 (as we're trying to resolve HTTP(s) URL) and the `timeout` of resolution will increase from **default 3 seconds**
 to 10 seconds.
 

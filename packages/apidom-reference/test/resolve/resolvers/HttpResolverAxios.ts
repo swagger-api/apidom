@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { identity } from 'ramda';
 
-import HttpResolverAxios from '../../../src/resolve/resolvers/HttpResolverAxios';
+import HttpResolverAxios from '../../../src/resolve/resolvers/http-axios';
 import { ResolverError } from '../../../src/util/errors';
 import File from '../../../src/util/File';
 

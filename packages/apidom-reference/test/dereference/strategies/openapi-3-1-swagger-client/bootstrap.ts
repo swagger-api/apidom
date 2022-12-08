@@ -6,7 +6,7 @@ import JsonParser from './helpers/parsers/json';
 import YamlParser from './helpers/parsers/yaml1-2';
 import OpenApiJson3_1Parser from './helpers/parsers/openapi-json-3-1';
 import OpenApiYaml3_1Parser from './helpers/parsers/openapi-yaml-3-1';
-import HttpResolverSwaggerClient from '../../../../src/resolve/resolvers/HttpResolverSwaggerClient';
+import HttpResolverSwaggerClient from '../../../../src/resolve/resolvers/http-swagger-client';
 import OpenApi3_1SwaggerClientDereferenceStrategy from '../../../../src/dereference/strategies/openapi-3-1-swagger-client';
 
 const originalParsers = [...options.parse.parsers];

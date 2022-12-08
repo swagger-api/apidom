@@ -1,5 +1,5 @@
-import FileResolver from '../resolve/resolvers/FileResolver/index-node';
-import HttpResolverAxios from '../resolve/resolvers/HttpResolverAxios';
+import FileResolver from '../resolve/resolvers/file/index-node';
+import HttpResolverAxios from '../resolve/resolvers/http-axios';
 import OpenApi3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
 import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';

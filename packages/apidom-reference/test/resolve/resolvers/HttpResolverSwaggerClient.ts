@@ -7,7 +7,7 @@ import { identity } from 'ramda';
 // @ts-ignore
 import SwaggerClient from 'swagger-client';
 
-import HttpResolverSwaggerClient from '../../../src/resolve/resolvers/HttpResolverSwaggerClient';
+import HttpResolverSwaggerClient from '../../../src/resolve/resolvers/http-swagger-client';
 import { ResolverError } from '../../../src/util/errors';
 import File from '../../../src/util/File';
 import { createHTTPServer } from '../../helpers';

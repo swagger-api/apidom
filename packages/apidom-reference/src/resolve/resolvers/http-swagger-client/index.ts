@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 
-import ResolverError from '../../util/errors/ResolverError';
-import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
-import HttpResolver from './HttpResolver';
+import ResolverError from '../../../util/errors/ResolverError';
+import { HttpResolver as IHttpResolver, File as IFile } from '../../../types';
+import HttpResolver from '../HttpResolver';
 
 interface IHttpResolverSwaggerClient extends IHttpResolver {
   swaggerHTTPClient: any;

@@ -1,3 +1,13 @@
+/**
+ * Omitted fixed fields:
+ *  - schema
+ *
+ * Field omission reason: omitted fields do have a non-union type. Thus,
+ * documentation for these fields doesn't need to be specified here and will
+ * come directly from the type itself. Description of these fields doesn't
+ * contain significant information.
+ */
+
 const documentation = [
   {
     target: '$ref',

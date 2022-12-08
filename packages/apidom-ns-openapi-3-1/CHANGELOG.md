@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
+
+### Bug Fixes
+
+- **ns-openapi:** fix copy&paste typos in getters & setters ([#2311](https://github.com/swagger-api/apidom/issues/2311)) ([b498a99](https://github.com/swagger-api/apidom/commit/b498a99b931f6910d641531a2b5789f45e5f7b14))
+
 ## [0.56.2](https://github.com/swagger-api/apidom/compare/v0.56.1...v0.56.2) (2022-11-16)
 
 ### Bug Fixes

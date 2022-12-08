@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
+
+### Bug Fixes
+
+- **ls:** add lint rule for Parameter example & examples exclusivity ([#2351](https://github.com/swagger-api/apidom/issues/2351)) ([7738b71](https://github.com/swagger-api/apidom/commit/7738b71fd98ef36b834363c3f89486d683ac8c14))
+- **ls:** fix completion rules for OpenAPI Media Type Object ([#2353](https://github.com/swagger-api/apidom/issues/2353)) ([5e68e0e](https://github.com/swagger-api/apidom/commit/5e68e0eefe1c41cae59e645195035968be8d2241))
+- **ls:** fix links in OpenAPI Server Variable completion & docs ([#2349](https://github.com/swagger-api/apidom/issues/2349)) ([511e8ea](https://github.com/swagger-api/apidom/commit/511e8eae5f98c7e674449d51de038ae72a22c7bc))
+- **ls:** fix linting of OpenAPI 3 Server Variable enum field ([#2348](https://github.com/swagger-api/apidom/issues/2348)) ([42ce28c](https://github.com/swagger-api/apidom/commit/42ce28caa02814a287413e7cba0e8774670dd792))
+- **ns-openapi:** fix copy&paste typos in getters & setters ([#2311](https://github.com/swagger-api/apidom/issues/2311)) ([b498a99](https://github.com/swagger-api/apidom/commit/b498a99b931f6910d641531a2b5789f45e5f7b14))
+- **reference:** dereference OpenAPI 3.1 Schema Object indirections ([#2339](https://github.com/swagger-api/apidom/issues/2339)) ([7e42f0c](https://github.com/swagger-api/apidom/commit/7e42f0c6c4954e1298d5bd9b1c94326b041aa644)), closes [#2338](https://github.com/swagger-api/apidom/issues/2338)
+
+### Features
+
+- **core:** add support for cycles in toValue function ([#2296](https://github.com/swagger-api/apidom/issues/2296)) ([d536ec5](https://github.com/swagger-api/apidom/commit/d536ec55a70187030afe764ef53c46f10f0cff8b)), closes [#2282](https://github.com/swagger-api/apidom/issues/2282)
+- **reference:** add support for allowMetaPatches option ([#2337](https://github.com/swagger-api/apidom/issues/2337)) ([22c5c7c](https://github.com/swagger-api/apidom/commit/22c5c7cb29e794f90e343d7828d3c8f7b13fdbeb)), closes [#2336](https://github.com/swagger-api/apidom/issues/2336)
+- **reference:** add support for useCircularStructures option ([#2329](https://github.com/swagger-api/apidom/issues/2329)) ([de38ac3](https://github.com/swagger-api/apidom/commit/de38ac36dae3b1f5085fd68c12fb64c792099a64)), closes [#2328](https://github.com/swagger-api/apidom/issues/2328)
+- **reference:** add swagger-client OpenAPI 3.1 dereferene strategy ([#2326](https://github.com/swagger-api/apidom/issues/2326)) ([40dbf2a](https://github.com/swagger-api/apidom/commit/40dbf2a036517b6b8b23ea9c0a57618f033d6d3c)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+- **reference:** add SwaggerClient's HTTP Client resolver plugin ([#2303](https://github.com/swagger-api/apidom/issues/2303)) ([4fda4d8](https://github.com/swagger-api/apidom/commit/4fda4d85ed67e96d339b2cc5c20516e2ebcd862a)), closes [#2297](https://github.com/swagger-api/apidom/issues/2297)
+
 ## [0.56.3](https://github.com/swagger-api/apidom/compare/v0.56.2...v0.56.3) (2022-11-16)
 
 ### Bug Fixes

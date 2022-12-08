@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
+
+### Bug Fixes
+
+- **reference:** dereference OpenAPI 3.1 Schema Object indirections ([#2339](https://github.com/swagger-api/apidom/issues/2339)) ([7e42f0c](https://github.com/swagger-api/apidom/commit/7e42f0c6c4954e1298d5bd9b1c94326b041aa644)), closes [#2338](https://github.com/swagger-api/apidom/issues/2338)
+
+### Features
+
+- **reference:** add support for allowMetaPatches option ([#2337](https://github.com/swagger-api/apidom/issues/2337)) ([22c5c7c](https://github.com/swagger-api/apidom/commit/22c5c7cb29e794f90e343d7828d3c8f7b13fdbeb)), closes [#2336](https://github.com/swagger-api/apidom/issues/2336)
+- **reference:** add support for useCircularStructures option ([#2329](https://github.com/swagger-api/apidom/issues/2329)) ([de38ac3](https://github.com/swagger-api/apidom/commit/de38ac36dae3b1f5085fd68c12fb64c792099a64)), closes [#2328](https://github.com/swagger-api/apidom/issues/2328)
+- **reference:** add swagger-client OpenAPI 3.1 dereferene strategy ([#2326](https://github.com/swagger-api/apidom/issues/2326)) ([40dbf2a](https://github.com/swagger-api/apidom/commit/40dbf2a036517b6b8b23ea9c0a57618f033d6d3c)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+- **reference:** add SwaggerClient's HTTP Client resolver plugin ([#2303](https://github.com/swagger-api/apidom/issues/2303)) ([4fda4d8](https://github.com/swagger-api/apidom/commit/4fda4d85ed67e96d339b2cc5c20516e2ebcd862a)), closes [#2297](https://github.com/swagger-api/apidom/issues/2297)
+
 ## [0.56.2](https://github.com/swagger-api/apidom/compare/v0.56.1...v0.56.2) (2022-11-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

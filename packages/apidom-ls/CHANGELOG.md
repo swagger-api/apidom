@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
+
+### Bug Fixes
+
+- **ls:** add lint rule for Parameter example & examples exclusivity ([#2351](https://github.com/swagger-api/apidom/issues/2351)) ([7738b71](https://github.com/swagger-api/apidom/commit/7738b71fd98ef36b834363c3f89486d683ac8c14))
+- **ls:** fix completion rules for OpenAPI Media Type Object ([#2353](https://github.com/swagger-api/apidom/issues/2353)) ([5e68e0e](https://github.com/swagger-api/apidom/commit/5e68e0eefe1c41cae59e645195035968be8d2241))
+- **ls:** fix links in OpenAPI Server Variable completion & docs ([#2349](https://github.com/swagger-api/apidom/issues/2349)) ([511e8ea](https://github.com/swagger-api/apidom/commit/511e8eae5f98c7e674449d51de038ae72a22c7bc))
+- **ls:** fix linting of OpenAPI 3 Server Variable enum field ([#2348](https://github.com/swagger-api/apidom/issues/2348)) ([42ce28c](https://github.com/swagger-api/apidom/commit/42ce28caa02814a287413e7cba0e8774670dd792))
+
 ## [0.56.3](https://github.com/swagger-api/apidom/compare/v0.56.2...v0.56.3) (2022-11-16)
 
 ### Bug Fixes

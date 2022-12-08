@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
+
+### Features
+
+- **core:** add support for cycles in toValue function ([#2296](https://github.com/swagger-api/apidom/issues/2296)) ([d536ec5](https://github.com/swagger-api/apidom/commit/d536ec55a70187030afe764ef53c46f10f0cff8b)), closes [#2282](https://github.com/swagger-api/apidom/issues/2282)
+
 ## [0.56.2](https://github.com/swagger-api/apidom/compare/v0.56.1...v0.56.2) (2022-11-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

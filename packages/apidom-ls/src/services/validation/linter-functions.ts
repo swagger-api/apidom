@@ -432,6 +432,18 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintArrayEmpty',
+    function: (element: Element): boolean => {
+      if (element) {
+        const elValue = element.toValue();
+        if (Array.isArray(elValue) && elValue.length === 0) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintChildrenOfType',
     function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
       if (element && isObject(element)) {

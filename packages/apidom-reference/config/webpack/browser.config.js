@@ -92,7 +92,7 @@ const browserMin = {
 };
 
 const binaryParserReplacer = new webpack.NormalModuleReplacementPlugin(
-  /parse\/parsers\/apidom-reference-parser-binary\/index-node\.ts/,
+  /parse\/parsers\/binary\/index-node\.ts/,
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
     '..',
@@ -100,13 +100,13 @@ const binaryParserReplacer = new webpack.NormalModuleReplacementPlugin(
     'src',
     'parse',
     'parsers',
-    'apidom-reference-parser-binary',
+    'binary',
     'index-browser.ts',
   ),
 );
 
 const fileResolverReplacer = new webpack.NormalModuleReplacementPlugin(
-  /resolve\/resolvers\/FileResolver\/index-node\.ts/,
+  /resolve\/resolvers\/file\/index-node\.ts/,
   path.join(
     path.dirname(fileURLToPath(import.meta.url)),
     '..',
@@ -114,7 +114,7 @@ const fileResolverReplacer = new webpack.NormalModuleReplacementPlugin(
     'src',
     'resolve',
     'resolvers',
-    'FileResolver',
+    'file',
     'index-browser.ts',
   ),
 );

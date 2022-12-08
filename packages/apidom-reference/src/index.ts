@@ -23,9 +23,9 @@ export { default as JsonParser } from './parse/parsers/json';
 export { default as YamlParser } from './parse/parsers/yaml-1-2';
 export { default as BinaryParser } from './parse/parsers/binary/index-node';
 
-export { default as FileResolver } from './resolve/resolvers/FileResolver/index-node';
-export { default as HttpResolverAxios } from './resolve/resolvers/HttpResolverAxios';
-export { default as HttpResolverSwaggerClient } from './resolve/resolvers/HttpResolverSwaggerClient';
+export { default as FileResolver } from './resolve/resolvers/file/index-node';
+export { default as HttpResolverAxios } from './resolve/resolvers/http-axios';
+export { default as HttpResolverSwaggerClient } from './resolve/resolvers/http-swagger-client';
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 export { default as Resolver } from './resolve/resolvers/Resolver';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';

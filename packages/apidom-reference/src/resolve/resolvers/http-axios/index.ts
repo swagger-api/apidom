@@ -3,9 +3,9 @@ import { omit, pathOr } from 'ramda';
 import { ensureArray } from 'ramda-adjunct';
 import axios, { AxiosInstance } from 'axios';
 
-import ResolverError from '../../util/errors/ResolverError';
-import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
-import HttpResolver from './HttpResolver';
+import ResolverError from '../../../util/errors/ResolverError';
+import { HttpResolver as IHttpResolver, File as IFile } from '../../../types';
+import HttpResolver from '../HttpResolver';
 
 interface IHttpResolverAxios extends IHttpResolver {
   axiosConfig: { [key: string]: any };

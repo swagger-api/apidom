@@ -15,6 +15,7 @@ import explodeTypeLint from './explode--type';
 import allowReservedTypeLint from './allow-reserved--type';
 import schemaTypeLint from './schema--type';
 import examplesValuesTypeLint from './examples--values-type';
+import examplesMutuallyExclusiveLint from './examples--mutually-exclusive';
 import contentValuesTypeLint from './content--values-type';
 
 const lints = [
@@ -33,6 +34,7 @@ const lints = [
   allowReservedTypeLint,
   schemaTypeLint,
   examplesValuesTypeLint,
+  examplesMutuallyExclusiveLint,
   contentValuesTypeLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,

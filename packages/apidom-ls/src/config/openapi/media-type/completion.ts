@@ -57,6 +57,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'examples',
+    insertText: 'examples',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[ `string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nExamples of the media type.  Each example object SHOULD  match the media type and specified schema if present.  The `examples` field is mutually exclusive of the `example` field.  Furthermore, if referencing a `schema` which contains an example, the `examples` value SHALL _override_ the example provided by the schema.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     label: 'encoding',
     insertText: 'encoding',
     kind: 14,
@@ -74,6 +88,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.2' },
       { namespace: 'openapi', version: '3.0.3' },
     ],
+  },
+  {
+    label: 'encoding',
+    insertText: 'encoding',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#encodingObject)]\n\\\n\\\nA map between a property name and its encoding information. The key, being the property name, MUST exist in the schema as a property. The encoding object SHALL only apply to `requestBody` objects when the media type is `multipart` or `application/x-www-form-urlencoded`.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
 ];
 

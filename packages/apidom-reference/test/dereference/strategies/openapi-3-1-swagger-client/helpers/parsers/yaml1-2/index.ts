@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 // @ts-ignore
-import YAML from 'js-yaml'; // js-yaml comes with swagger-client
+import YAML, { JSON_SCHEMA } from 'js-yaml'; // js-yaml comes with swagger-client
 import { ParseResultElement, from } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
@@ -24,7 +24,7 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       if (hasSupportedMediaType) return true;
       if (!hasSupportedMediaType) {
         try {
-          YAML.load(file.toString());
+          YAML.load(file.toString(), { schema: JSON_SCHEMA });
           return true;
         } catch {
           return false;

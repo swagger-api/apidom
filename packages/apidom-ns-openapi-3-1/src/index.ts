@@ -19,6 +19,7 @@ export { default as mediaTypes, OpenAPIMediaTypes } from './media-types';
 export { default } from './namespace';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+export { default as refractorPluginNormalizeParameters } from './refractor/plugins/normalize-parameters';
 
 export {
   isCallbackElement,

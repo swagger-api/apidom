@@ -1,0 +1,1119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines additional parameter should merge with all parameters from closest Path Item 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (ArrayElement
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))))
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (ArrayElement
+                              (ParameterElement
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement))
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement)))))
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))))))))))))
+`;
+
+exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines identical parameter should replace parameter from closes Path Item 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "parameters"
+                        },
+                        "value": {
+                          "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "path-item-parameters"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "parameters"
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "parameter",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "name"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "param1"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "in"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "query"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "element": "parameter",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "name"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "param2"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "in"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "query"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "callbacks"
+                                },
+                                "value": {
+                                  "element": "object",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-callbacks"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "patterned-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "myCallback"
+                                        },
+                                        "value": {
+                                          "element": "callback",
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "patterned-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "{$url}"
+                                                },
+                                                "value": {
+                                                  "element": "pathItem",
+                                                  "meta": {
+                                                    "runtime-expression": {
+                                                      "element": "string",
+                                                      "content": "{$url}"
+                                                    }
+                                                  },
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "fixed-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "parameters"
+                                                        },
+                                                        "value": {
+                                                          "element": "array",
+                                                          "meta": {
+                                                            "classes": {
+                                                              "element": "array",
+                                                              "content": [
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "path-item-parameters"
+                                                                },
+                                                                {
+                                                                  "element": "string",
+                                                                  "content": "parameters"
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          "content": [
+                                                            {
+                                                              "element": "parameter",
+                                                              "content": [
+                                                                {
+                                                                  "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": {
+                                                                    "key": {
+                                                                      "element": "string",
+                                                                      "content": "name"
+                                                                    },
+                                                                    "value": {
+                                                                      "element": "string",
+                                                                      "content": "param3"
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": {
+                                                                    "key": {
+                                                                      "element": "string",
+                                                                      "content": "in"
+                                                                    },
+                                                                    "value": {
+                                                                      "element": "string",
+                                                                      "content": "query"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "element": "parameter",
+                                                              "content": [
+                                                                {
+                                                                  "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": {
+                                                                    "key": {
+                                                                      "element": "string",
+                                                                      "content": "name"
+                                                                    },
+                                                                    "value": {
+                                                                      "element": "string",
+                                                                      "content": "param4"
+                                                                    }
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "element": "member",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "fixed-field"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": {
+                                                                    "key": {
+                                                                      "element": "string",
+                                                                      "content": "in"
+                                                                    },
+                                                                    "value": {
+                                                                      "element": "string",
+                                                                      "content": "query"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "fixed-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "get"
+                                                        },
+                                                        "value": {
+                                                          "element": "operation",
+                                                          "meta": {
+                                                            "http-method": {
+                                                              "element": "string",
+                                                              "content": "GET"
+                                                            }
+                                                          },
+                                                          "content": [
+                                                            {
+                                                              "element": "member",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "fixed-field"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "parameters"
+                                                                },
+                                                                "value": {
+                                                                  "element": "array",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "operation-parameters"
+                                                                        },
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "parameters"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "parameter",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "name"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "param3"
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "in"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "query"
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "description"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "operation parameter"
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "element": "parameter",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "name"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "param4"
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "in"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "query"
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "parameters"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-parameters"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "parameters"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "param1"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "query"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "param2"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "query"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object doesn't define any parameters should inherit all parameters from closest Path Item 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (ArrayElement
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))))
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (ArrayElement
+                              (ParameterElement
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement))
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement)))))
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))))))))))))
+`;
+
+exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object doesn't defines empty parameters should inherit all parameters from closest Path Item 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (ArrayElement
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))
+              (ParameterElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement))
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))))
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (ArrayElement
+                              (ParameterElement
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement))
+                                (MemberElement
+                                  (StringElement)
+                                  (StringElement)))))
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))))))))))))
+`;

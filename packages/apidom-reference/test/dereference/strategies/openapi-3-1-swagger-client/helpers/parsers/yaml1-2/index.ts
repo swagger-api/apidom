@@ -41,7 +41,7 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       const source = file.toString();
 
       try {
-        const element = from(YAML.load(source));
+        const element = from(YAML.load(source, { schema: JSON_SCHEMA }));
         const parseResultElement = new ParseResultElement();
 
         element.classes.push('result');

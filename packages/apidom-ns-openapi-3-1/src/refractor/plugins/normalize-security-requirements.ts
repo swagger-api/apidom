@@ -44,7 +44,7 @@ const plugin = () => () => {
         ) {
           // skip visiting this Operation
           if (ancestors.some(isComponentsElement)) {
-            return undefined;
+            return false;
           }
 
           const missingOperationLevelSecurity = typeof operationElement.security === 'undefined';

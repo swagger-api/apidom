@@ -20,6 +20,7 @@ export { default } from './namespace';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
 export { default as refractorPluginNormalizeParameters } from './refractor/plugins/normalize-parameters';
+export { default as refractorPluginNormalizeSecurityRequirements } from './refractor/plugins/normalize-security-requirements';
 
 export {
   isCallbackElement,

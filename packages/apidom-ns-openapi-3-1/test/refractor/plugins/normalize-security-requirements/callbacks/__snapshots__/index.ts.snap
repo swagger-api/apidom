@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security contains single Security Requirement should not inherit Security Requirements from OpenAPI.security field 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (SecurityRequirementElement)))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SecurityRequirementElement
+                    (MemberElement
+                      (StringElement)
+                      (ArrayElement
+                        (StringElement)
+                        (StringElement)))))))))))))
+`;
+
+exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security is defined as empty list should not inherit Security Requirements from OpenAPI.security field 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SecurityRequirementElement
+                    (MemberElement
+                      (StringElement)
+                      (ArrayElement
+                        (StringElement)
+                        (StringElement)))))))))))))
+`;
+
+exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security is not defined should inherit Security Requirements from OpenAPI.security field 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (SecurityRequirementElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (ArrayElement
+                                        (StringElement)
+                                        (StringElement))))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SecurityRequirementElement
+                    (MemberElement
+                      (StringElement)
+                      (ArrayElement
+                        (StringElement)
+                        (StringElement)))))))))))))
+`;
+
+exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is not defined and Operation.security is defined should do nothing 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (SecurityRequirementElement))))))))))))))))))
+`;
+
+exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is not defined and Operation.security is not defined should do nothing 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (CallbackElement
+                      (MemberElement
+                        (StringElement)
+                        (PathItemElement
+                          (MemberElement
+                            (StringElement)
+                            (OperationElement)))))))))))))))
+`;

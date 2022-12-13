@@ -27,9 +27,9 @@ const parameterEquals = (parameter1: ParameterElement, parameter2: ParameterElem
 };
 
 /**
- * Duplication of Parameter Objects.
+ * Inheritance of Parameter Objects.
  *
- * OpenAPI 3.1 specification excerpt that defines the duplication behavior:
+ * OpenAPI 3.1 specification excerpt that defines the inheritance behavior:
  *
  * A list of parameters that are applicable for this operation. If a parameter is already defined at the Path Item,
  * the new definition will override it but can never remove it. The list MUST NOT include duplicated parameters.

@@ -122,5 +122,14 @@ describe('serializers', function () {
         assert.strictEqual(serialized[0], serialized[1]);
       });
     });
+
+    context('given primitive value', function () {
+      specify('should acts as identify function', function () {
+        assert.strictEqual(serializer(1 as any), 1);
+        assert.strictEqual(serializer('string' as any), 'string');
+        assert.isNull(serializer(null as any));
+        assert.isUndefined(serializer(undefined as any));
+      });
+    });
   });
 });

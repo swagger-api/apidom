@@ -1,0 +1,1453 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with missing operationId field should not normalize operationId 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with normalized operationId field should not normalize operationId 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getOperation"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with operationId field containing only empty spaces should construct normalized operationId from path and method 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/path/to/resource"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/path/to/resource"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": ""
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get_path_to_resource"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": ""
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with operationId field containing only special characters should normalize operationId 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/path/to/resource"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/path/to/resource"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "^%~ *@#"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "______"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "^%~ *@#"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with un-normalized operationId field and Link.operationId is pointing to that Operation should correct the Link.operationId field 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "components"
+        },
+        "value": {
+          "element": "components",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "links"
+                },
+                "value": {
+                  "element": "object",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "components-links"
+                        }
+                      ]
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "patterned-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "link1"
+                        },
+                        "value": {
+                          "element": "link",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
+                                }
+                              ]
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "get operation ^"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getoperation_"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get operation ^"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "get operation ^"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getoperation_"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get operation ^"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Object with un-normalized operationId field should normalize operationId 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "get operation ^"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getoperation_"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get operation ^"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor plugins normalize-operation-ids given Operation Objects with identical operationId fields should normalize operationId and append numeric suffix 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "/"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "get user"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getuser1"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get user"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "post"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "POST"
+                            },
+                            "originalOperationId": {
+                              "element": "string",
+                              "content": "get user"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "operationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "getuser2"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "__originalOperationId"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "get user"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;

@@ -22,6 +22,7 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 export { default as refractorPluginNormalizeParameters } from './refractor/plugins/normalize-parameters';
 export { default as refractorPluginNormalizeSecurityRequirements } from './refractor/plugins/normalize-security-requirements';
 export { default as refractorPluginNormalizeServers } from './refractor/plugins/normalize-servers';
+export { default as refractorPluginNormalizeOperationIds } from './refractor/plugins/normalize-operation-ids';
 
 export {
   isCallbackElement,

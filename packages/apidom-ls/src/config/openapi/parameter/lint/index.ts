@@ -19,6 +19,8 @@ import schemaMutuallyExclusiveLint from './schema--mutually-exclusive';
 import examplesValuesTypeLint from './examples--values-type';
 import examplesMutuallyExclusiveLint from './examples--mutually-exclusive';
 import contentValuesTypeLint from './content--values-type';
+import contentAllowedFields3_0Lint from './content--allowed-fields-3-0';
+import contentAllowedFields3_1Lint from './content--allowed-fields-3-1';
 
 const lints = [
   nameTypeLint,
@@ -39,6 +41,8 @@ const lints = [
   examplesValuesTypeLint,
   examplesMutuallyExclusiveLint,
   contentValuesTypeLint,
+  contentAllowedFields3_0Lint,
+  contentAllowedFields3_1Lint,
   requiredFieldsLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,

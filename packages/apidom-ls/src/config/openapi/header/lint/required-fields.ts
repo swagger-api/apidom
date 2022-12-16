@@ -4,7 +4,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 const requiredFieldsLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_HEADER_REQUIRED_FIELDS,
+  code: ApilintCodes.OPENAPI3_0_HEADER_REQUIRED_FIELDS,
   source: 'apilint',
   message: 'Header Object must contain one the following fields: content, schema',
   severity: DiagnosticSeverity.Error,

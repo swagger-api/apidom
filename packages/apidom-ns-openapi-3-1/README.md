@@ -163,7 +163,7 @@ openapi: 3.1.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
-const apenApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
   plugins: [refractorPluginReplaceEmptyElement()],
 });
 
@@ -184,6 +184,260 @@ const apenApiElement = OpenApi3_1Element.refract(apiDOM.result, {
 //   (MemberElement
 //     (StringElement)
 //     (StringElement)))
+```
+
+#### Normalize Operation.operationId fields plugin
+
+Existing `Operation.operationId` fields are normalized into snake case form.
+Operation Objects, that do not define operationId field, are left untouched.
+Original operationId is stored in meta and as new `__originalOperationId` field.
+This plugin also guarantees the uniqueness of all defined Operation.operationId fields,
+and make sure Link.operationId fields are pointing to correct and normalized Operation.operationId fields.
+
+```js
+import { toValue } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginNormalizeOperationIds, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+paths:
+  /:
+    get:
+      operationId: get operation ^
+`;
+const apiDOM = await parse(yamlDefinition);
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginNormalizeOperationIds()],
+});
+
+toValue(openApiElement);
+// =>
+// {
+//   "openapi": "3.1.0",
+//   "paths": {
+//     "/": {
+//       "get": {
+//         "operationId": "getoperation_"
+//       }
+//     }
+//   }
+// }
+```
+This plugin also accepts custom normalization function that will determine how normalized Operation.operationId fields
+should look like.
+
+```typescript
+import { toValue } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginNormalizeOperationIds, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+paths:
+  /:
+    get:
+      operationId: get operation ^
+`;
+const apiDOM = await parse(yamlDefinition);
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginNormalizeOperationIds({
+    operationIdNormalizer: (operationId: string, path: string, method: string): string => {
+      // operationId - value of Original.operationId field
+      // path - field pattern of Paths Object under which Path Item containing this Operation is registered
+      // method - name of HTTP method under which the Operation is registered in Path Item
+    },
+  })],
+});
+
+toValue(openApiElement);
+// =>
+// {
+//   "openapi": "3.1.0",
+//   "paths": {
+//     "/": {
+//       "get": {
+//         "operationId": "<normalized-operation-id>"
+//       }
+//     }
+//   }
+// }
+```
+
+#### Normalize Parameter Objects plugin
+
+Duplicates Parameters from Path Items to Operation Objects using following rules:
+
+- If a parameter is already defined at the Path Item, the new definition will override it but can never remove it
+- The list MUST NOT include duplicated parameters
+- A unique parameter is defined by a combination of a name and location.
+
+```js
+import { toValue } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginNormalizeParameters, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+paths:
+  /:
+    parameters:
+      - name: param1
+        in: query
+      - name: param2
+        in: query
+    get: {}
+`;
+const apiDOM = await parse(yamlDefinition);
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginNormalizeParameters()],
+});
+
+toValue(openApiElement);
+// =>
+// {
+//   "openapi": "3.1.0",
+//   "paths": {
+//   "/": {
+//     "parameters": [
+//       {
+//         "name": "param1",
+//         "in": "query"
+//       },
+//       {
+//         "name": "param2",
+//         "in": "query"
+//       }
+//     ],
+//     "get": {
+//       "parameters": [
+//          {
+//            "name": "param1",
+//            "in": "query"
+//          },
+//          {
+//            "name": "param2",
+//            "in": "query"
+//          }
+//        ],
+//      }
+//    }
+// }
+```
+
+#### Normalize Security Requirements Objects plugin
+
+`Operation.security` definition overrides any declared top-level security from OpenAPI.security field.
+If Operation.security field is not defined, this field will inherit security from OpenAPI.security field.
+
+```js
+import { toValue } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginNormalizeSecurityRequirements, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+security:
+  - petstore_auth:
+      - write:pets
+      - read:pets
+paths:
+  /:
+    get: {}
+`;
+const apiDOM = await parse(yamlDefinition);
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginNormalizeSecurityRequirements()],
+});
+
+toValue(openApiElement);
+// =>
+// {
+//   "openapi": "3.1.0",
+//   "security": [
+//     {
+//       "petstore_auth": [
+//         "write:pets",
+//         "read:pets"
+//       ]
+//     }
+//   ],
+//   "paths": {
+//     "/": {
+//       "get": {
+//         "security": [
+//           {
+//             "petstore_auth": [
+//               "write:pets",
+//               "read:pets"
+//             ]
+//           }
+//         ]
+//       }
+//     }
+//   }
+// }
+```
+
+#### Normalize Server Objects plugin
+
+List of Server Objects can be defined in OpenAPI 3.1 on multiple levels:
+
+- OpenAPI.servers
+- PathItem.servers
+- Operation.servers
+
+If an alternative server object is specified at the Path Item Object level, it will override OpenAPI.servers.
+If an alternative server object is specified at the Operation Object level, it will override PathItem.servers and OpenAPI.servers respectively.
+
+```js
+import { toValue } from '@swagger-api/apidom-core';
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginNormalizeServers, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+
+const yamlDefinition = `
+openapi: 3.1.0
+servers:
+ - url: https://example.com/
+   description: production server
+paths:
+  /:
+    get: {}
+`;
+const apiDOM = await parse(yamlDefinition);
+const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+  plugins: [refractorPluginNormalizeServers()],
+});
+
+toValue(openApiElement);
+// =>
+// {
+//   "openapi": "3.1.0",
+//   "servers": [
+//     {
+//       "url": "https://example.com/",
+//       "description": "production server"
+//     }
+//   ],
+//   "paths": {
+//     "/": {
+//       "servers": [
+//         {
+//           "url": "https://example.com/",
+//           "description": "production server"
+//         }
+//       ],
+//       "get": {
+//         "servers": [
+//           {
+//             "url": "https://example.com/",
+//             "description": "production server"
+//           }
+//         ]
+//       }
+//     }
+//   }
+// }
 ```
 
 ## Implementation progress

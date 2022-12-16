@@ -38,7 +38,7 @@ const normalizeOperationId = (operationId: string, path: string, method: string)
  *
  * Existing Operation.operationId fields are normalized into snake case form.
  *
- * For Operation Objects, that do not define operationId field, are left untouched.
+ * Operation Objects, that do not define operationId field, are left untouched.
  *
  * Original operationId is stored in meta and as new `__originalOperationId` field.
  *

@@ -3,9 +3,6 @@ import {
   ArrayElement,
   ObjectElement,
   StringElement,
-  isStringElement,
-  includesClasses,
-  isArrayElement,
 } from '@swagger-api/apidom-core';
 import {
   ServersElement,
@@ -78,6 +75,7 @@ import TagElement from '../../elements/Tag';
 import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems';
 import WebhooksElement from '../../elements/nces/Webhooks';
 import { getNodeType } from '../../traversal/visitor';
+import { Predicates } from '../toolbox';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs
@@ -112,9 +110,6 @@ import { getNodeType } from '../../traversal/visitor';
  *      (StringElement)
  *      (InfoElement))
  */
-
-const isEmptyElement = (element: any) =>
-  isStringElement(element) && includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
 const schema = {
   // concrete types handling (CTs)
@@ -676,58 +671,64 @@ const findElementFactory = (ancestor: any, keyName: string) => {
     : keyMapping[keyName];
 };
 
-const plugin = () => () => {
-  return {
-    visitor: {
-      MemberElement(element: MemberElement, ...rest: any) {
-        // no empty Element, continue with next one
-        if (!isEmptyElement(element.value)) return undefined;
+const plugin =
+  () =>
+  ({ predicates }: { predicates: Predicates }) => {
+    const isEmptyElement = (element: any) =>
+      predicates.isStringElement(element) &&
+      predicates.includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
-        const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
-        const elementFactory = findElementFactory(ancestor, element.key.toValue());
+    return {
+      visitor: {
+        MemberElement(element: MemberElement, ...rest: any) {
+          // no empty Element, continue with next one
+          if (!isEmptyElement(element.value)) return undefined;
 
-        // no element factory found
-        if (typeof elementFactory === 'undefined') return undefined;
+          const [, , , ancestors] = rest;
+          const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
+          const elementFactory = findElementFactory(ancestor, element.key.toValue());
 
-        const originalValue = element.value as StringElement;
+          // no element factory found
+          if (typeof elementFactory === 'undefined') return undefined;
 
-        return new MemberElement(
-          element.key,
-          elementFactory.call(
-            { context: ancestor },
+          const originalValue = element.value as StringElement;
+
+          return new MemberElement(
+            element.key,
+            elementFactory.call(
+              { context: ancestor },
+              undefined,
+              originalValue.meta.clone(),
+              originalValue.attributes.clone(),
+            ),
+            element.meta.clone(),
+            element.attributes.clone(),
+          );
+        },
+
+        StringElement(element: StringElement, ...rest: any) {
+          if (!isEmptyElement(element)) return undefined;
+
+          const [, , , ancestors] = rest;
+          const ancestor = ancestors[ancestors.length - 1];
+
+          // we're only interested in empty elements in ArrayElements
+          if (!predicates.isArrayElement(ancestor)) return undefined;
+
+          const elementFactory = findElementFactory(ancestor, '<*>');
+
+          // no element factory found
+          if (typeof elementFactory === 'undefined') return undefined;
+
+          return elementFactory.call(
+            { context: element },
             undefined,
-            originalValue.meta.clone(),
-            originalValue.attributes.clone(),
-          ),
-          element.meta.clone(),
-          element.attributes.clone(),
-        );
+            element.meta.clone(),
+            element.attributes.clone(),
+          );
+        },
       },
-
-      StringElement(element: StringElement, ...rest: any) {
-        if (!isEmptyElement(element)) return undefined;
-
-        const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1];
-
-        // we're only interested in empty elements in ArrayElements
-        if (!isArrayElement(ancestor)) return undefined;
-
-        const elementFactory = findElementFactory(ancestor, '<*>');
-
-        // no element factory found
-        if (typeof elementFactory === 'undefined') return undefined;
-
-        return elementFactory.call(
-          { context: element },
-          undefined,
-          element.meta.clone(),
-          element.attributes.clone(),
-        );
-      },
-    },
+    };
   };
-};
 
 export default plugin;

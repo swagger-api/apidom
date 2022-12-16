@@ -1,10 +1,9 @@
-import { isArrayElement, ArrayElement } from '@swagger-api/apidom-core';
+import { ArrayElement } from '@swagger-api/apidom-core';
 import { OperationSecurityElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OpenApi3_1Element from '../../elements/OpenApi3-1';
 import OperationElement from '../../elements/Operation';
-import { isComponentsElement } from '../../predicates';
-
+import { Predicates } from '../toolbox';
 /**
  * Override of Security Requirement Objects.
  *
@@ -17,49 +16,51 @@ import { isComponentsElement } from '../../predicates';
  */
 
 /* eslint-disable no-param-reassign */
-const plugin = () => () => {
-  let topLevelSecurity: ArrayElement | undefined;
+const plugin =
+  () =>
+  ({ predicates }: { predicates: Predicates }) => {
+    let topLevelSecurity: ArrayElement | undefined;
 
-  return {
-    visitor: {
-      OpenApi3_1Element: {
-        enter(openapiElement: OpenApi3_1Element) {
-          if (isArrayElement(openapiElement.security)) {
-            topLevelSecurity = openapiElement.security;
-            return undefined;
-          }
-          return false;
-        },
-        leave() {
-          topLevelSecurity = undefined;
-        },
-      },
-      OperationElement: {
-        leave(
-          operationElement: OperationElement,
-          key: any,
-          parent: any,
-          path: any,
-          ancestors: any[],
-        ) {
-          // skip visiting this Operation
-          if (ancestors.some(isComponentsElement)) {
+    return {
+      visitor: {
+        OpenApi3_1Element: {
+          enter(openapiElement: OpenApi3_1Element) {
+            if (predicates.isArrayElement(openapiElement.security)) {
+              topLevelSecurity = openapiElement.security;
+              return undefined;
+            }
             return false;
-          }
+          },
+          leave() {
+            topLevelSecurity = undefined;
+          },
+        },
+        OperationElement: {
+          leave(
+            operationElement: OperationElement,
+            key: any,
+            parent: any,
+            path: any,
+            ancestors: any[],
+          ) {
+            // skip visiting this Operation
+            if (ancestors.some(predicates.isComponentsElement)) {
+              return false;
+            }
 
-          const missingOperationLevelSecurity = typeof operationElement.security === 'undefined';
-          const hasTopLevelSecurity = typeof topLevelSecurity !== 'undefined';
+            const missingOperationLevelSecurity = typeof operationElement.security === 'undefined';
+            const hasTopLevelSecurity = typeof topLevelSecurity !== 'undefined';
 
-          if (missingOperationLevelSecurity && hasTopLevelSecurity) {
-            operationElement.security = new OperationSecurityElement(topLevelSecurity?.content);
-          }
+            if (missingOperationLevelSecurity && hasTopLevelSecurity) {
+              operationElement.security = new OperationSecurityElement(topLevelSecurity?.content);
+            }
 
-          return undefined;
+            return undefined;
+          },
         },
       },
-    },
+    };
   };
-};
 /* eslint-enable */
 
 export default plugin;

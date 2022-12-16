@@ -52,7 +52,7 @@ const plugin =
           ) {
             // skip visiting this Path Item
             if (ancestors.some(predicates.isComponentsElement)) {
-              return false;
+              return;
             }
 
             // duplicate OpenAPI.servers into this Path Item object
@@ -70,8 +70,6 @@ const plugin =
             } else {
               pathItemServers.push(undefined);
             }
-
-            return undefined;
           },
           leave() {
             pathItemServers.pop();

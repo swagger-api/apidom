@@ -27,9 +27,7 @@ const plugin =
           enter(openapiElement: OpenApi3_1Element) {
             if (predicates.isArrayElement(openapiElement.security)) {
               topLevelSecurity = openapiElement.security;
-              return undefined;
             }
-            return false;
           },
           leave() {
             topLevelSecurity = undefined;
@@ -45,7 +43,7 @@ const plugin =
           ) {
             // skip visiting this Operation
             if (ancestors.some(predicates.isComponentsElement)) {
-              return false;
+              return;
             }
 
             const missingOperationLevelSecurity = typeof operationElement.security === 'undefined';
@@ -54,8 +52,6 @@ const plugin =
             if (missingOperationLevelSecurity && hasTopLevelSecurity) {
               operationElement.security = new OperationSecurityElement(topLevelSecurity?.content);
             }
-
-            return undefined;
           },
         },
       },

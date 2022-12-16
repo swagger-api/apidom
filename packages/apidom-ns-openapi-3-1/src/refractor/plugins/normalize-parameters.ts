@@ -53,7 +53,7 @@ const plugin =
           ) {
             // skip visiting this Path Item
             if (ancestors.some(predicates.isComponentsElement)) {
-              return false;
+              return;
             }
 
             const { parameters } = pathItemElement;
@@ -63,8 +63,6 @@ const plugin =
             } else {
               pathItemParameters.push([]);
             }
-
-            return undefined;
           },
           leave() {
             pathItemParameters.pop();

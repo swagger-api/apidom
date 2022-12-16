@@ -1,5 +1,6 @@
 import allowedFields3_0Lint from './allowed-fields-3-0';
 import allowedFields3_1Lint from './allowed-fields-3-1';
+import requiredFieldsLint from './required-fields';
 import descriptionTypeLint from './description--type';
 import requiredTypeLint from './required--type';
 import deprecatedTypeLint from './deprecated--type';
@@ -26,6 +27,7 @@ const lints = [
   examplesValuesTypeLint,
   examplesMutuallyExclusiveLint,
   contentValuesTypeLint,
+  requiredFieldsLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
 ];

@@ -74,6 +74,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'openapi', version: '3.0.3' },
     ],
   },
+  {
+    label: 'externalValue',
+    insertText: 'externalValue',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'A URI that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value` field and `externalValue` field are mutually exclusive. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
 ];
 
 export default completion;

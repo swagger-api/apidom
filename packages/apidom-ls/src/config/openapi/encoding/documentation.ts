@@ -71,7 +71,7 @@ const documentation = [
   },
   {
     target: 'allowReserved',
-    docs: "Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'() * +,;=` to be included without percent-encoding. The default value is `false`. This property SHALL be ignored if the request body media type is not `application / x - www - form - urlencoded` or `multipart / form - data`. If a value is explicitly defined, then the value of [`contentType`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#encodingContentType) (implicit or explicit) SHALL be ignored.",
+    docs: "Determines whether the parameter value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'()*+,;=` to be included without percent-encoding. The default value is `false`. This property SHALL be ignored if the request body media type is not `application/x-www-form-urlencoded` or `multipart/form-data`. If a value is explicitly defined, then the value of [`contentType`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#encodingContentType) (implicit or explicit) SHALL be ignored.",
     targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   },
   {

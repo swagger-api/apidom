@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
+
+### Features
+
+- **ns-openapi-3-1:** add operationId normalization refractor plugin ([08ad7e4](https://github.com/swagger-api/apidom/commit/08ad7e420b4d8d0ec22c67dfab1cb14ff93c7c18)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+
 # [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
 
 ### Features

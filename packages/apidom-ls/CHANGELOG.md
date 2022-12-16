@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
+
+### Bug Fixes
+
+- **ls:** add lint rule for OpenAPI 3.x.y Header.content field ([#2388](https://github.com/swagger-api/apidom/issues/2388)) ([c169eb3](https://github.com/swagger-api/apidom/commit/c169eb3c5b00d2b2c6ecad34acb3304da7b3043d))
+- **ls:** add lint rule for OpenAPI 3.x.y Paramter.content field ([#2387](https://github.com/swagger-api/apidom/issues/2387)) ([fe23ea8](https://github.com/swagger-api/apidom/commit/fe23ea8719f6c7bfd2296fd11525c5931c63f32f))
+- **ls:** add OpenAPI 3.x lint rule for Header.examples field ([#2381](https://github.com/swagger-api/apidom/issues/2381)) ([f713710](https://github.com/swagger-api/apidom/commit/f7137104c69887d947c25167054f1b2a2cac578f))
+- **ls:** add OpenAPI 3.x lint rule for Header.schema field ([#2383](https://github.com/swagger-api/apidom/issues/2383)) ([2cf185d](https://github.com/swagger-api/apidom/commit/2cf185d37983d7abcba0bbc012d2c58085cdca1e))
+- **ls:** add OpenAPI 3.x lint rule for Link.operationRef field ([#2380](https://github.com/swagger-api/apidom/issues/2380)) ([10801a7](https://github.com/swagger-api/apidom/commit/10801a739b688c1a4e3e45e8c24970325390ae42))
+- **ls:** add OpenAPI 3.x lint rule for Paramter.schema field ([#2382](https://github.com/swagger-api/apidom/issues/2382)) ([a9d3032](https://github.com/swagger-api/apidom/commit/a9d3032ea8d80b24df9653903e9d9eb1bcdd61c8))
+- **ls:** add required fields lint for OpenAPI 3.x.y Header Object ([#2384](https://github.com/swagger-api/apidom/issues/2384)) ([b36c7ce](https://github.com/swagger-api/apidom/commit/b36c7ce2daff6f2d21066ed166f79a87ceedad6b))
+- **ls:** add required fields lint for OpenAPI 3.x.y Parameter Object ([#2385](https://github.com/swagger-api/apidom/issues/2385)) ([d64c4f4](https://github.com/swagger-api/apidom/commit/d64c4f4039ab9b9c2f398d331cb246593acf3b10))
+- **ls:** add required lint rule for SecurityScheme.type field ([#2386](https://github.com/swagger-api/apidom/issues/2386)) ([4c9e3dc](https://github.com/swagger-api/apidom/commit/4c9e3dcc56df67685da9fab8392d8664b730984f))
+- **ls:** fix Encoding.allowReserved field completion and docs ([#2378](https://github.com/swagger-api/apidom/issues/2378)) ([3c6fc25](https://github.com/swagger-api/apidom/commit/3c6fc250cd89b5fc32d7293c130ea584360c4b9f))
+- **ls:** fix Example.externalValue field completion ([#2379](https://github.com/swagger-api/apidom/issues/2379)) ([f7ea322](https://github.com/swagger-api/apidom/commit/f7ea322ac873a1d132a0d5821fa7392912a15e79))
+
 # [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
 
 ### Bug Fixes

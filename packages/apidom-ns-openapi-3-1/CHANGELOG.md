@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** avoid returning false in ractor plugins ([#2376](https://github.com/swagger-api/apidom/issues/2376)) ([d4ace47](https://github.com/swagger-api/apidom/commit/d4ace474a450d314d1489116971ec969b56c8d05))
+
+### Features
+
+- **ns-openapi-3-1:** add operationId normalization refractor plugin ([08ad7e4](https://github.com/swagger-api/apidom/commit/08ad7e420b4d8d0ec22c67dfab1cb14ff93c7c18)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** add parameters normalization refractor plugin ([#2363](https://github.com/swagger-api/apidom/issues/2363)) ([8b44455](https://github.com/swagger-api/apidom/commit/8b444556340750468dae0af924f25b5f19063b79)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** add security normalization refractor plugin ([#2368](https://github.com/swagger-api/apidom/issues/2368)) ([5ca21e3](https://github.com/swagger-api/apidom/commit/5ca21e392fc9e5e23cdb7d29b690df20476227c0)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** add servers normalization refractor plugin ([#2372](https://github.com/swagger-api/apidom/issues/2372)) ([3f7b8cc](https://github.com/swagger-api/apidom/commit/3f7b8cc783986adca6c7b613bec56fef0df43703)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+
 # [0.57.0](https://github.com/swagger-api/apidom/compare/v0.56.3...v0.57.0) (2022-12-08)
 
 ### Bug Fixes

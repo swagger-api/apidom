@@ -1,10 +1,10 @@
 import { last, defaultTo, groupBy } from 'ramda';
-import { toValue, StringElement } from '@swagger-api/apidom-core';
+import { toValue, StringElement, Namespace } from '@swagger-api/apidom-core';
 
-import { isLinkElement } from '../../predicates';
 import LinkElement from '../../elements/Link';
 import PathItemElement from '../../elements/PathItem';
 import OperationElement from '../../elements/Operation';
+import { Predicates } from '../toolbox';
 
 const removeSpaces = (operationId: string) => {
   return operationId.replace(/\s/g, '');
@@ -47,9 +47,10 @@ const normalizeOperationId = (operationId: string, path: string, method: string)
  *
  */
 /* eslint-disable no-param-reassign */
+
 const plugin =
   ({ operationIdNormalizer = normalizeOperationId } = {}) =>
-  () => {
+  ({ predicates, namespace }: { predicates: Predicates; namespace: Namespace }) => {
     const paths: string[] = [];
     const normalizedOperations: OperationElement[] = [];
     const links: LinkElement[] = [];
@@ -70,7 +71,10 @@ const plugin =
 
                 operationElements.forEach((operationElement, index) => {
                   const indexedNormalizedOperationId = `${normalizedOperationId}${index + 1}`;
-                  operationElement.operationId = new StringElement(indexedNormalizedOperationId);
+                  // @ts-ignore
+                  operationElement.operationId = new namespace.elements.String(
+                    indexedNormalizedOperationId,
+                  );
                 });
               },
             );
@@ -129,7 +133,8 @@ const plugin =
             // normalization is not necessary
             if (originalOperationId === normalizedOperationId) return;
 
-            operationElement.operationId = new StringElement(normalizedOperationId);
+            // @ts-ignore
+            operationElement.operationId = new namespace.elements.String(normalizedOperationId);
             operationElement.set('__originalOperationId', originalOperationId);
             operationElement.meta.set('originalOperationId', originalOperationId);
 
@@ -139,7 +144,7 @@ const plugin =
         LinkElement: {
           leave(linkElement: LinkElement) {
             // make sure this Link elements doesn't come from base namespace
-            if (!isLinkElement(linkElement)) return;
+            if (!predicates.isLinkElement(linkElement)) return;
             // ignore Link Objects with undefined operationId
             if (typeof linkElement.operationId === 'undefined') return;
 

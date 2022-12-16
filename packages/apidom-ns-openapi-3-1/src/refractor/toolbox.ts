@@ -1,11 +1,27 @@
-import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
+import {
+  createNamespace,
+  isStringElement,
+  isArrayElement,
+  includesClasses,
+} from '@swagger-api/apidom-core';
 
 import * as openApi3_1Predicates from '../predicates';
 import openApi3_1Namespace from '../namespace';
 
+export type Predicates = typeof openApi3_1Predicates & {
+  isStringElement: typeof isStringElement;
+  isArrayElement: typeof isArrayElement;
+  includesClasses: typeof includesClasses;
+};
+
 const createToolbox = () => {
   const namespace = createNamespace(openApi3_1Namespace);
-  const predicates = { ...openApi3_1Predicates, isStringElement };
+  const predicates: Predicates = {
+    ...openApi3_1Predicates,
+    isStringElement,
+    isArrayElement,
+    includesClasses,
+  };
 
   return { predicates, namespace };
 };

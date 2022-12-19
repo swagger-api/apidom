@@ -88,7 +88,7 @@
     "microtime": "=3.1.1",
     "mocha": "=10.2.0",
     "mocha-chai-jest-snapshot": "=1.1.3",
-    "node-gyp": "=9.3.0",
+    "node-gyp": "=9.3.1",
     "npm-run-all": "=4.1.5",
     "prettier": "=2.8.1",
     "rimraf": "=3.0.2",

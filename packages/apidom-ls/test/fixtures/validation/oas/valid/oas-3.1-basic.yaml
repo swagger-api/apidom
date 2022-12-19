@@ -41,6 +41,21 @@ components:
       in: query
       description: ID of the user
       required: true
+      schema:
+        type: 
+          - string
+          - integer
+    fooId:
+      name: fooId
+      in: query
+      description: ID of the foo
+      required: true
+      content:
+        application/json:
+          schema:
+            type:
+              - string
+              - integer 
     externalRef:
       $ref: ./ex.json#/externalParameter
       description: another ref

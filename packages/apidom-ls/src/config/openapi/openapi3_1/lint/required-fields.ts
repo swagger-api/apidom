@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const requiredFieldsLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_OPEN_API_REQUIRED_FIELDS,
   source: 'apilint',
-  message: 'OpenAPI Object must contain one the following fields: paths, components, webhooks',
+  message: 'OpenAPI Object must contain one of the following fields: paths, components, webhooks',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['paths'],

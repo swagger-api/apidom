@@ -1,14 +1,8 @@
 import stampit from 'stampit';
 import { defaultTo, propEq } from 'ramda';
 import { createNamespace, visit, Element } from '@swagger-api/apidom-core';
-import openApi3_1Namespace, {
-  getNodeType,
-  isOpenApi3_1Element,
-  keyMap,
-  mediaTypes,
-} from '@swagger-api/apidom-ns-openapi-3-1';
+import openApi3_1Namespace, { getNodeType, keyMap } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import DereferenceStrategy from '../DereferenceStrategy';
 import {
   DereferenceStrategy as IDereferenceStrategy,
   File as IFile,
@@ -16,7 +10,8 @@ import {
 } from '../../../types';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
-import OpenApi3_1DereferenceVisitor from './visitor';
+import OpenApi3_1SwaggerClientDereferenceVisitor from './visitor';
+import OpenApi3_1DereferenceStrategy from '../openapi-3-1';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -29,7 +24,7 @@ interface IOpenApi3_1SwaggerClientDereferenceStrategy extends IDereferenceStrate
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1SwaggerClientDereferenceStrategy> =
-  stampit(DereferenceStrategy, {
+  stampit(OpenApi3_1DereferenceStrategy, {
     props: {
       useCircularStructures: true,
       allowMetaPatches: false,
@@ -47,16 +42,6 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1Swagg
       this.allowMetaPatches = allowMetaPatches;
     },
     methods: {
-      canDereference(file: IFile): boolean {
-        // assert by media type
-        if (file.mediaType !== 'text/plain') {
-          return mediaTypes.includes(file.mediaType);
-        }
-
-        // assert by inspecting ApiDOM
-        return isOpenApi3_1Element(file.parseResult?.result);
-      },
-
       async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi3_1Namespace);
         const refSet = defaultTo(ReferenceSet(), options.dereference.refSet);
@@ -70,7 +55,7 @@ const OpenApi3_1SwaggerClientDereferenceStrategy: stampit.Stamp<IOpenApi3_1Swagg
           reference = refSet.find(propEq('uri', file.uri));
         }
 
-        const visitor = OpenApi3_1DereferenceVisitor({
+        const visitor = OpenApi3_1SwaggerClientDereferenceVisitor({
           reference,
           namespace,
           options,

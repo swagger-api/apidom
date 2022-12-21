@@ -27,7 +27,7 @@ import parse from '../../../parse';
 import Reference from '../../../Reference';
 import File from '../../../util/File';
 import { evaluate as uriEvaluate } from '../../../dereference/strategies/openapi-3-1/selectors/uri';
-import { maybeRefractToSchemaElement, resolveInherited$id } from './util';
+import { maybeRefractToSchemaElement, resolveSchema$refField } from './util';
 import {
   evaluate as $anchorEvaluate,
   isAnchor,
@@ -205,11 +205,13 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      // compute Reference object using rules around $id and $ref keywords
-      const baseURI = resolveInherited$id(this.reference.uri, schemaElement);
-      const file = File({ uri: baseURI });
+      // compute baseURI using rules around $id and $ref keywords
+      const retrieveURI = this.reference.uri;
+      const $refBaseURI = resolveSchema$refField(retrieveURI, schemaElement) as string;
+      const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
+      const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
-      const isExternal = this.reference.uri !== baseURI && !isUnknownURI;
+      const isExternal = !isUnknownURI && this.reference.uri !== $refBaseURIStrippedHash;
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && isExternal) {
@@ -219,8 +221,10 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = isUnknownURI ? this.reference : this.toReference(baseURI);
+      if (!has($refBaseURIStrippedHash, this.crawlingMap)) {
+        this.crawlingMap[$refBaseURIStrippedHash] = isUnknownURI
+          ? this.reference
+          : this.toReference($refBaseURIStrippedHash);
       }
       this.crawledElements.push(schemaElement);
 
@@ -320,17 +324,17 @@ const OpenApi3_1ResolveVisitor = stampit({
     },
 
     async crawlSchemaElement(referencingElement: SchemaElement) {
-      // compute Reference object using rules around $id and $ref keywords
-      const base$idURI = resolveInherited$id(this.reference.uri, referencingElement);
-      const baseURI = this.toBaseURI(base$idURI);
-      const file = File({ uri: baseURI });
+      // compute baseURI using rules around $id and $ref keywords
+      const retrieveURI = this.reference.uri;
+      const $refBaseURI = resolveSchema$refField(retrieveURI, referencingElement) as string;
+      const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
+      const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
 
       this.indirections.push(referencingElement);
 
       // determining reference, proper evaluation and selection mechanism
-      const $refValue = referencingElement.$ref?.toValue();
       let reference: IReference;
       let referencedElement;
 
@@ -338,25 +342,16 @@ const OpenApi3_1ResolveVisitor = stampit({
         if (isUnknownURI || isURL) {
           // we're dealing with canonical URI or URL with possible fragment
           reference = this.reference;
-          const selector = url.resolve(reference.uri, $refValue);
+          const selector = $refBaseURI;
           referencedElement = uriEvaluate(
-            selector,
-            // @ts-ignore
-            maybeRefractToSchemaElement(reference.value.result),
-          );
-        } else if (isAnchor(uriToAnchor($refValue))) {
-          // we're dealing with JSON Schema $anchor here
-          reference = await this.toReference(baseURI);
-          const selector = uriToAnchor($refValue);
-          referencedElement = $anchorEvaluate(
             selector,
             // @ts-ignore
             maybeRefractToSchemaElement(reference.value.result),
           );
         } else {
           // we're assuming here that we're dealing with JSON Pointer here
-          reference = await this.toReference(baseURI);
-          const selector = uriToPointer($refValue);
+          reference = await this.toReference(url.unsanitize($refBaseURI));
+          const selector = uriToPointer($refBaseURI);
           referencedElement = maybeRefractToSchemaElement(
             // @ts-ignore
             jsonPointerEvaluate(selector, reference.value.result),
@@ -368,10 +363,10 @@ const OpenApi3_1ResolveVisitor = stampit({
          * the URL and assume the returned response is a JSON Schema.
          */
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
-          if (isAnchor(uriToAnchor($refValue))) {
+          if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
-            reference = await this.toReference(baseURI);
-            const selector = uriToAnchor($refValue);
+            reference = await this.toReference(url.unsanitize($refBaseURI));
+            const selector = uriToAnchor($refBaseURI);
             referencedElement = $anchorEvaluate(
               selector,
               // @ts-ignore
@@ -379,8 +374,8 @@ const OpenApi3_1ResolveVisitor = stampit({
             );
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
-            reference = await this.toReference(baseURI);
-            const selector = uriToPointer($refValue);
+            reference = await this.toReference(url.unsanitize($refBaseURI));
+            const selector = uriToPointer($refBaseURI);
             referencedElement = maybeRefractToSchemaElement(
               // @ts-ignore
               jsonPointerEvaluate(selector, reference.value.result),

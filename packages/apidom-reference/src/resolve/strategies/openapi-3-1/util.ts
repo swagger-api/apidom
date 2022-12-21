@@ -4,19 +4,37 @@ import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
 
-/**
- * Folding of inherited$id list from left to right using
- * URL resolving mechanism.
- */
-export const resolveInherited$id = (baseURI: string, schemaElement: SchemaElement) => {
+export const resolveSchema$refField = (retrieveURI: string, schemaElement: SchemaElement) => {
+  if (typeof schemaElement.$ref === 'undefined') {
+    return undefined;
+  }
+
+  const hash = url.getHash(schemaElement.$ref.toValue());
+  const inherited$id = schemaElement.meta.get('inherited$id').toValue();
+  const $refBaseURI = reduce(
+    (acc: string, uri: string): string => {
+      return url.resolve(acc, url.sanitize(url.stripHash(uri)));
+    },
+    retrieveURI,
+    [...inherited$id, schemaElement.$ref.toValue()],
+  );
+
+  return `${$refBaseURI}${hash === '#' ? '' : hash}`;
+};
+
+export const resolveSchema$idField = (retrieveURI: string, schemaElement: SchemaElement) => {
+  if (typeof schemaElement.$id === 'undefined') {
+    return undefined;
+  }
+
   const inherited$id = schemaElement.meta.get('inherited$id').toValue();
 
   return reduce(
     (acc: string, $id: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
-    baseURI,
-    [...inherited$id, schemaElement.$ref?.toValue()],
+    retrieveURI,
+    [...inherited$id, schemaElement.$id.toValue()],
   );
 };
 

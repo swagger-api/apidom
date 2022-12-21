@@ -446,6 +446,23 @@ describe('dereference', function () {
         });
 
         context(
+          'given Schema Objects with $ref keyword containing relative references',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$ref-url-relative-reference');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          },
+        );
+
+        context(
           'given Schema Objects with $ref keyword containing URL and JSON Pointer fragment',
           function () {
             const fixturePath = path.join(rootFixturePath, '$ref-url-pointer');

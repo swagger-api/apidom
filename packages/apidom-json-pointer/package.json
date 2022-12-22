@@ -35,7 +35,7 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.20.6",
+    "@babel/runtime-corejs3": "=7.20.7",
     "@swagger-api/apidom-core": "^0.58.0",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0"

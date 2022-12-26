@@ -2,7 +2,8 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { resolve, resolveApiDOM, parse, FileResolver } from '../../src';
+import { resolve, resolveApiDOM, parse } from '../../src';
+import FileResolver from '../../src/resolve/resolvers/file/index-node';
 import { UnmatchedResolveStrategyError, ResolverError, ParserError } from '../../src/util/errors';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 

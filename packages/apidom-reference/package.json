@@ -6,18 +6,130 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
+  "sideEffects": [
+    "./es/configuration/complete.js",
+    "./cjs/configuration/complete.cjs"
+  ],
   "unpkg": "./dist/apidom-reference.browser.min.js",
   "browser": {
-    "./es/parse/parsers/binary/index-node.js": "./es/parse/parsers/binary/index-browser.js",
     "./cjs/parse/parsers/binary/index-node.cjs": "./cjs/parse/parsers/binary/index-browser.cjs",
     "./cjs/resolve/resolvers/file/index-node.cjs": "./cjs/resolve/resolvers/file/index-browser.cjs",
+    "./es/parse/parsers/binary/index-node.js": "./es/parse/parsers/binary/index-browser.js",
     "./es/resolve/resolvers/file/index-node.js": "./es/resolve/resolvers/file/index-browser.js"
   },
   "main": "./cjs/index.cjs",
   "exports": {
-    "types": "./types/dist.d.ts",
-    "import": "./es/index.js",
-    "require": "./cjs/index.cjs"
+    ".": {
+      "types": "./types/dist.d.ts",
+      "import": "./es/configuration/saturated.js",
+      "require": "./cjs/configuration/saturated.cjs"
+    },
+    "./configuration/saturated": {
+      "types": "./types/dist.d.ts",
+      "import": "./es/configuration/saturated.js",
+      "require": "./cjs/configuration/saturated.cjs"
+    },
+    "./configuration/empty": {
+      "types": "./types/dist.d.ts",
+      "import": "./es/configuration/empty.js",
+      "require": "./cjs/configuration/empty.cjs"
+    },
+    "./resolve/resolvers/file": {
+      "browser": {
+        "import": "./es/resolve/resolvers/file/index-browser.js",
+        "require": "./cjs/resolve/resolvers/file/index-browser.cjs"
+      },
+      "default": {
+        "import": "./es/resolve/resolvers/file/index-node.js",
+        "require": "./cjs/resolve/resolvers/file/index-node.cjs"
+      }
+    },
+    "./resolve/resolvers/http-axios": {
+      "import": "./es/resolve/resolvers/http-axios/index.js",
+      "require": "./cjs/resolve/resolvers/http-axios/index.cjs"
+    },
+    "./resolve/resolvers/http-swagger-client": {
+      "import": "./es/resolve/resolvers/http-swagger-client/index.js",
+      "require": "./cjs/resolve/resolvers/http-swagger-client/index.cjs"
+    },
+    "./resolve/strategies/asyncapi-2": {
+      "import": "./es/resolve/strategies/asyncapi-2/index.js",
+      "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs"
+    },
+    "./resolve/strategies/openapi-3-0": {
+      "import": "./es/resolve/strategies/openapi-3-0/index.js",
+      "require": "./cjs/resolve/strategies/openapi-3-0/index.cjs"
+    },
+    "./resolve/strategies/openapi-3-1": {
+      "import": "./es/resolve/strategies/openapi-3-1/index.js",
+      "require": "./cjs/resolve/strategies/openapi-3-1/index.cjs"
+    },
+    "./parse/parsers/api-design-systems-json": {
+      "import": "./es/parse/parsers/api-design-systems-json/index.js",
+      "require": "./cjs/parse/parsers/api-design-systems-json/index.cjs"
+    },
+    "./parse/parsers/api-design-systems-yaml": {
+      "import": "./es/parse/parsers/api-design-systems-yaml/index.js",
+      "require": "./cjs/parse/parsers/api-design-systems-yaml/index.cjs"
+    },
+    "./parse/parsers/asyncapi-json-2": {
+      "import": "./es/parse/parsers/asyncapi-json-2/index.js",
+      "require": "./cjs/parse/parsers/asyncapi-json-2/index.cjs"
+    },
+    "./parse/parsers/asyncapi-yaml-2": {
+      "import": "./es/parse/parsers/asyncapi-yaml-2/index.js",
+      "require": "./cjs/parse/parsers/asyncapi-yaml-2/index.cjs"
+    },
+    "./parse/parsers/binary": {
+      "browser": {
+        "import": "./es/parse/parsers/binary/index-browser.js",
+        "require": "./cjs/parse/parsers/binary/index-browser.cjs"
+      },
+      "default": {
+        "import": "./es/parse/parsers/binary/index-node.js",
+        "require": "./cjs/parse/parsers/binary/index-node.cjs"
+      }
+    },
+    "./parse/parsers/json": {
+      "import": "./es/parse/parsers/json/index.js",
+      "require": "./cjs/parse/parsers/json/index.cjs"
+    },
+    "./parse/parsers/openapi-json-3-0": {
+      "import": "./es/parse/parsers/openapi-json-3-0/index.js",
+      "require": "./cjs/parse/parsers/openapi-json-3-0/index.cjs"
+    },
+    "./parse/parsers/openapi-json-3-1": {
+      "import": "./es/parse/parsers/openapi-json-3-1/index.js",
+      "require": "./cjs/parse/parsers/openapi-json-3-1/index.cjs"
+    },
+    "./parse/parsers/openapi-yaml-3-0": {
+      "import": "./es/parse/parsers/openapi-yaml-3-0/index.js",
+      "require": "./cjs/parse/parsers/openapi-yaml-3-0/index.cjs"
+    },
+    "./parse/parsers/openapi-yaml-3-1": {
+      "import": "./es/parse/parsers/openapi-yaml-3-1/index.js",
+      "require": "./cjs/parse/parsers/openapi-yaml-3-1/index.cjs"
+    },
+    "./parse/parsers/yaml-1-2": {
+      "import": "./es/parse/parsers/yaml-1-2/index.js",
+      "require": "./cjs/parse/parsers/yaml-1-2/index.cjs"
+    },
+    "./dereference/strategies/asyncapi-2": {
+      "import": "./es/dereference/strategies/asyncapi-2/index.js",
+      "require": "./cjs/dereference/strategies/asyncapi-2/index.cjs"
+    },
+    "./dereference/strategies/openapi-3-0": {
+      "import": "./es/dereference/strategies/openapi-3-0/index.js",
+      "require": "./cjs/dereference/strategies/openapi-3-0/index.cjs"
+    },
+    "./dereference/strategies/openapi-3-1": {
+      "import": "./es/dereference/strategies/openapi-3-1/index.js",
+      "require": "./cjs/dereference/strategies/openapi-3-1/index.cjs"
+    },
+    "./dereference/strategies/openapi-3-1-swagger-client": {
+      "import": "./es/dereference/strategies/openapi-3-1-swagger-client/index.js",
+      "require": "./cjs/dereference/strategies/openapi-3-1-swagger-client/index.cjs"
+    }
   },
   "types": "./types/dist.d.ts",
   "scripts": {
@@ -42,7 +154,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.20.7",
-    "@swagger-api/apidom-ast": "^0.58.0",
     "@swagger-api/apidom-core": "^0.58.0",
     "@swagger-api/apidom-json-pointer": "^0.58.0",
     "@swagger-api/apidom-ns-asyncapi-2": "^0.58.0",

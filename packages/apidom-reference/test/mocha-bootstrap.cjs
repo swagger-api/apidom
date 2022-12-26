@@ -5,7 +5,7 @@ const { jestSnapshotPlugin, addSerializer } = require('mocha-chai-jest-snapshot'
 
 const jestApiDOMSerializer = require('../../../scripts/jest-serializer-apidom.cjs');
 const jestStringSerializer = require('../../../scripts/jest-serializer-string.cjs');
-const { options } = require('../src');
+const { options } = require('../src/configuration/saturated');
 
 // setup snapshot testing
 chai.use(jestSnapshotPlugin());

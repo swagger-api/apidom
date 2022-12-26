@@ -4,7 +4,7 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const $refNoSiblings3_0Lint: LinterMeta = {
+const $ref3_0NoSiblingsLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_REFERENCE_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
@@ -36,4 +36,4 @@ const $refNoSiblings3_0Lint: LinterMeta = {
   ],
 };
 
-export default $refNoSiblings3_0Lint;
+export default $ref3_0NoSiblingsLint;

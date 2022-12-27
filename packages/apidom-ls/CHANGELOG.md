@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.59.0](https://github.com/swagger-api/apidom/compare/v0.58.0...v0.59.0) (2022-12-27)
+
+### Bug Fixes
+
+- **ls:** add lint rules for OpenAPI 3.1 Reference Object ([#2408](https://github.com/swagger-api/apidom/issues/2408)) ([785a188](https://github.com/swagger-api/apidom/commit/785a188b1d6a664ce96824689f1a1c60f3b026df))
+
 # [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
 
 ### Bug Fixes

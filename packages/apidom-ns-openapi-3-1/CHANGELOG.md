@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.59.0](https://github.com/swagger-api/apidom/compare/v0.58.0...v0.59.0) (2022-12-27)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** add missing setters for SchemaElement ([#2400](https://github.com/swagger-api/apidom/issues/2400)) ([11ccd73](https://github.com/swagger-api/apidom/commit/11ccd73dd75d06e9fe9bd92aa9107d11f79e6534))
+
 # [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
 
 ### Bug Fixes

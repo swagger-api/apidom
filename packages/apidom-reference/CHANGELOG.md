@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.59.0](https://github.com/swagger-api/apidom/compare/v0.58.0...v0.59.0) (2022-12-27)
+
+### Bug Fixes
+
+- **reference:** fix main field ([#2415](https://github.com/swagger-api/apidom/issues/2415)) ([20566dc](https://github.com/swagger-api/apidom/commit/20566dc077d45354913e6bdf82b5f5f4c29f37a3)), closes [#2718](https://github.com/swagger-api/apidom/issues/2718)
+- **reference:** fix OpenAPI 3.1 Schema Object resolution ([#2398](https://github.com/swagger-api/apidom/issues/2398)) ([bc3b33a](https://github.com/swagger-api/apidom/commit/bc3b33a95d7d1afb6bfa06136d24cfd8aea8f235))
+
+### Features
+
+- **reference:** separate abstractions from configuration ([#2409](https://github.com/swagger-api/apidom/issues/2409)) ([0bcf972](https://github.com/swagger-api/apidom/commit/0bcf972cb1624cb507aa5a6d67281480b76d2921)), closes [#2718](https://github.com/swagger-api/apidom/issues/2718)
+
 # [0.58.0](https://github.com/swagger-api/apidom/compare/v0.57.0...v0.58.0) (2022-12-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

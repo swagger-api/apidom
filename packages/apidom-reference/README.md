@@ -1315,6 +1315,26 @@ Supported media types:
 ]
 ```
 
+##### [openapi-3-1-swagger-client](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1-swagger-client)
+
+Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) definitions with [swagger-client](https://github.com/swagger-api/swagger-js) flavour.
+This strategy support additional options:
+
+| Option                  | Description                                                                                                                                                                        |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `useCircularStructures` | `Boolean=true`. Prevents circular values from being constructed, unless you specifically want that to happen. If set to `false`, it will leave the circular references unresolved. |
+ | `allowMetaPatches`      | `Boolean=false`.  Allows adding meta patches, which include adding `$$refs` to the resolved definition. `$$ref` is a meta information created from the original JSON Reference.    |
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.1.0',
+  'application/vnd.oai.openapi+json;version=3.1.0',
+  'application/vnd.oai.openapi+yaml;version=3.1.0'
+]
+```
+
 ##### Dereference strategies execution order
 
 It's important to understand that default dereference strategies are run in specific order. The order is determined

@@ -1,9 +1,9 @@
 import path from 'node:path';
 import { assert } from 'chai';
 
-import FileResolver from '../../../src/resolve/resolvers/file/index-node';
-import { ResolverError } from '../../../src/util/errors';
-import File from '../../../src/util/File';
+import FileResolver from '../../../../src/resolve/resolvers/file/index-node';
+import { ResolverError } from '../../../../src/util/errors';
+import File from '../../../../src/util/File';
 
 describe('resolve', function () {
   context('resolvers', function () {
@@ -97,7 +97,7 @@ describe('resolve', function () {
         context('given valid local file system path without protocol', function () {
           specify('should read the file', async function () {
             const fileSystemPath = File({
-              uri: path.join(__dirname, 'fixtures', 'local-file.txt'),
+              uri: path.join(__dirname, '..', 'fixtures', 'local-file.txt'),
             });
             const content = await resolver.read(fileSystemPath);
 
@@ -109,7 +109,7 @@ describe('resolve', function () {
         context('given valid local file system path with protocol', function () {
           specify('should read the file', async function () {
             const fileSystemPath = File({
-              uri: `file://${path.join(__dirname, 'fixtures', 'local-file.txt')}`,
+              uri: `file://${path.join(__dirname, '..', 'fixtures', 'local-file.txt')}`,
             });
             const content = await resolver.read(fileSystemPath);
 

@@ -10,12 +10,11 @@ import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
 import { readFile as readFileFn } from './resolve/util';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 
-export { url };
+export { url, File };
 
 export { default as Parser } from './parse/parsers/Parser';
 
 export { default as Resolver } from './resolve/resolvers/Resolver';
-
 export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
 
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';

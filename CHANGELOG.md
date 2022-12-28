@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.60.0](https://github.com/swagger-api/apidom/compare/v0.59.0...v0.60.0) (2022-12-28)
+
+### Features
+
+- **reference:** expose File symbol as public API ([#2418](https://github.com/swagger-api/apidom/issues/2418)) ([e3965f4](https://github.com/swagger-api/apidom/commit/e3965f46999f64daefb4f31e0eed05aadd23cba4)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+- **reference:** expose HTTPResolver symbol as public API ([#2417](https://github.com/swagger-api/apidom/issues/2417)) ([e101a57](https://github.com/swagger-api/apidom/commit/e101a57efbf4237bce88448722c76f7c7595d71b)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+
 # [0.59.0](https://github.com/swagger-api/apidom/compare/v0.58.0...v0.59.0) (2022-12-27)
 
 ### Bug Fixes

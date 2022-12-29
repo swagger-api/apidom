@@ -18,120 +18,143 @@
     "./es/resolve/resolvers/file/index-node.js": "./es/resolve/resolvers/file/index-browser.js"
   },
   "main": "./cjs/configuration/saturated.cjs",
+  "types": "./types/dist.d.ts",
   "exports": {
     ".": {
-      "types": "./types/dist.d.ts",
       "import": "./es/configuration/saturated.js",
-      "require": "./cjs/configuration/saturated.cjs"
+      "require": "./cjs/configuration/saturated.cjs",
+      "types": "./types/dist.d.ts"
     },
     "./configuration/saturated": {
-      "types": "./types/dist.d.ts",
       "import": "./es/configuration/saturated.js",
-      "require": "./cjs/configuration/saturated.cjs"
+      "require": "./cjs/configuration/saturated.cjs",
+      "types": "./types/dist.d.ts"
     },
     "./configuration/empty": {
-      "types": "./types/dist.d.ts",
       "import": "./es/configuration/empty.js",
-      "require": "./cjs/configuration/empty.cjs"
+      "require": "./cjs/configuration/empty.cjs",
+      "types": "./types/dist.d.ts"
     },
     "./resolve/resolvers/file": {
       "browser": {
         "import": "./es/resolve/resolvers/file/index-browser.js",
-        "require": "./cjs/resolve/resolvers/file/index-browser.cjs"
+        "require": "./cjs/resolve/resolvers/file/index-browser.cjs",
+        "types": "./types/resolve/resolvers/file/index-browser.d.ts"
       },
       "default": {
         "import": "./es/resolve/resolvers/file/index-node.js",
-        "require": "./cjs/resolve/resolvers/file/index-node.cjs"
+        "require": "./cjs/resolve/resolvers/file/index-node.cjs",
+        "types": "./types/resolve/resolvers/file/index-node.d.ts"
       }
     },
     "./resolve/resolvers/http-axios": {
       "import": "./es/resolve/resolvers/http-axios/index.js",
-      "require": "./cjs/resolve/resolvers/http-axios/index.cjs"
+      "require": "./cjs/resolve/resolvers/http-axios/index.cjs",
+      "types": "./types/resolve/resolvers/http-axios/index.d.ts"
     },
     "./resolve/resolvers/http-swagger-client": {
       "import": "./es/resolve/resolvers/http-swagger-client/index.js",
-      "require": "./cjs/resolve/resolvers/http-swagger-client/index.cjs"
+      "require": "./cjs/resolve/resolvers/http-swagger-client/index.cjs",
+      "types": "./types/resolve/resolvers/http-swagger-client/index.d.ts"
     },
     "./resolve/strategies/asyncapi-2": {
       "import": "./es/resolve/strategies/asyncapi-2/index.js",
-      "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs"
+      "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs",
+      "types": "./types/resolve/strategies/asyncapi-2/index.d.ts"
     },
     "./resolve/strategies/openapi-3-0": {
       "import": "./es/resolve/strategies/openapi-3-0/index.js",
-      "require": "./cjs/resolve/strategies/openapi-3-0/index.cjs"
+      "require": "./cjs/resolve/strategies/openapi-3-0/index.cjs",
+      "types": "./types/resolve/strategies/openapi-3-0/index.d.ts"
     },
     "./resolve/strategies/openapi-3-1": {
       "import": "./es/resolve/strategies/openapi-3-1/index.js",
-      "require": "./cjs/resolve/strategies/openapi-3-1/index.cjs"
+      "require": "./cjs/resolve/strategies/openapi-3-1/index.cjs",
+      "types": "./types/resolve/strategies/openapi-3-1/index.d.ts"
     },
     "./parse/parsers/api-design-systems-json": {
       "import": "./es/parse/parsers/api-design-systems-json/index.js",
-      "require": "./cjs/parse/parsers/api-design-systems-json/index.cjs"
+      "require": "./cjs/parse/parsers/api-design-systems-json/index.cjs",
+      "types": "./types/parse/parsers/api-design-systems-json/index.d.ts"
     },
     "./parse/parsers/api-design-systems-yaml": {
       "import": "./es/parse/parsers/api-design-systems-yaml/index.js",
-      "require": "./cjs/parse/parsers/api-design-systems-yaml/index.cjs"
+      "require": "./cjs/parse/parsers/api-design-systems-yaml/index.cjs",
+      "types": "./types/parse/parsers/api-design-systems-yaml/index.d.ts"
     },
     "./parse/parsers/asyncapi-json-2": {
       "import": "./es/parse/parsers/asyncapi-json-2/index.js",
-      "require": "./cjs/parse/parsers/asyncapi-json-2/index.cjs"
+      "require": "./cjs/parse/parsers/asyncapi-json-2/index.cjs",
+      "types": "./types/parse/parsers/asyncapi-json-2/index.d.ts"
     },
     "./parse/parsers/asyncapi-yaml-2": {
       "import": "./es/parse/parsers/asyncapi-yaml-2/index.js",
-      "require": "./cjs/parse/parsers/asyncapi-yaml-2/index.cjs"
+      "require": "./cjs/parse/parsers/asyncapi-yaml-2/index.cjs",
+      "types": "./types/parse/parsers/asyncapi-yaml-2/index.d.ts"
     },
     "./parse/parsers/binary": {
       "browser": {
         "import": "./es/parse/parsers/binary/index-browser.js",
-        "require": "./cjs/parse/parsers/binary/index-browser.cjs"
+        "require": "./cjs/parse/parsers/binary/index-browser.cjs",
+        "types": "./types/parse/parsers/binary/index-browser.d.ts"
       },
       "default": {
         "import": "./es/parse/parsers/binary/index-node.js",
-        "require": "./cjs/parse/parsers/binary/index-node.cjs"
+        "require": "./cjs/parse/parsers/binary/index-node.cjs",
+        "types": "./types/parse/parsers/binary/index-node.d.ts"
       }
     },
     "./parse/parsers/json": {
       "import": "./es/parse/parsers/json/index.js",
-      "require": "./cjs/parse/parsers/json/index.cjs"
+      "require": "./cjs/parse/parsers/json/index.cjs",
+      "types": "./types/parse/parsers/json/index.d.ts"
     },
     "./parse/parsers/openapi-json-3-0": {
       "import": "./es/parse/parsers/openapi-json-3-0/index.js",
-      "require": "./cjs/parse/parsers/openapi-json-3-0/index.cjs"
+      "require": "./cjs/parse/parsers/openapi-json-3-0/index.cjs",
+      "types": "./types/parse/parsers/openapi-json-3-0/index.d.ts"
     },
     "./parse/parsers/openapi-json-3-1": {
       "import": "./es/parse/parsers/openapi-json-3-1/index.js",
-      "require": "./cjs/parse/parsers/openapi-json-3-1/index.cjs"
+      "require": "./cjs/parse/parsers/openapi-json-3-1/index.cjs",
+      "types": "./types/parse/parsers/openapi-json-3-1/index.d.ts"
     },
     "./parse/parsers/openapi-yaml-3-0": {
       "import": "./es/parse/parsers/openapi-yaml-3-0/index.js",
-      "require": "./cjs/parse/parsers/openapi-yaml-3-0/index.cjs"
+      "require": "./cjs/parse/parsers/openapi-yaml-3-0/index.cjs",
+      "types": "./types/parse/parsers/openapi-yaml-3-0/index.d.ts"
     },
     "./parse/parsers/openapi-yaml-3-1": {
       "import": "./es/parse/parsers/openapi-yaml-3-1/index.js",
-      "require": "./cjs/parse/parsers/openapi-yaml-3-1/index.cjs"
+      "require": "./cjs/parse/parsers/openapi-yaml-3-1/index.cjs",
+      "types": "./types/parse/parsers/openapi-yaml-3-1/index.d.ts"
     },
     "./parse/parsers/yaml-1-2": {
       "import": "./es/parse/parsers/yaml-1-2/index.js",
-      "require": "./cjs/parse/parsers/yaml-1-2/index.cjs"
+      "require": "./cjs/parse/parsers/yaml-1-2/index.cjs",
+      "types": "./types/parse/parsers/yaml-1-2/index.d.ts"
     },
     "./dereference/strategies/asyncapi-2": {
       "import": "./es/dereference/strategies/asyncapi-2/index.js",
-      "require": "./cjs/dereference/strategies/asyncapi-2/index.cjs"
+      "require": "./cjs/dereference/strategies/asyncapi-2/index.cjs",
+      "types": "./types/dereference/strategies/asyncapi-2/index.d.ts"
     },
     "./dereference/strategies/openapi-3-0": {
       "import": "./es/dereference/strategies/openapi-3-0/index.js",
-      "require": "./cjs/dereference/strategies/openapi-3-0/index.cjs"
+      "require": "./cjs/dereference/strategies/openapi-3-0/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-0/index.d.ts"
     },
     "./dereference/strategies/openapi-3-1": {
       "import": "./es/dereference/strategies/openapi-3-1/index.js",
-      "require": "./cjs/dereference/strategies/openapi-3-1/index.cjs"
+      "require": "./cjs/dereference/strategies/openapi-3-1/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/index.d.ts"
     },
     "./dereference/strategies/openapi-3-1-swagger-client": {
       "import": "./es/dereference/strategies/openapi-3-1-swagger-client/index.js",
-      "require": "./cjs/dereference/strategies/openapi-3-1-swagger-client/index.cjs"
+      "require": "./cjs/dereference/strategies/openapi-3-1-swagger-client/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1-swagger-client/index.d.ts"
     }
   },
-  "types": "./types/dist.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
@@ -185,7 +208,7 @@
     "cjs/",
     "dist/",
     "es/",
-    "types/dist.d.ts",
+    "types/",
     "LICENSES",
     "NOTICE",
     "README.md",

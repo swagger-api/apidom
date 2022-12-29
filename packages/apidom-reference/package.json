@@ -7,8 +7,8 @@
   },
   "type": "module",
   "sideEffects": [
-    "./es/configuration/complete.js",
-    "./cjs/configuration/complete.cjs"
+    "./es/configuration/saturated.js",
+    "./cjs/configuration/saturated.cjs"
   ],
   "unpkg": "./dist/apidom-reference.browser.min.js",
   "browser": {

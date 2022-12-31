@@ -45,3 +45,5 @@ export const evaluate = <T extends Element>(anchor: string, element: T): Element
   // @ts-ignore
   return result;
 };
+
+export { EvaluationJsonSchema$anchorError, InvalidJsonSchema$anchorError };

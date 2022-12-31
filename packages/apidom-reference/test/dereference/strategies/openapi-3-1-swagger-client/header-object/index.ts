@@ -19,7 +19,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Header Object', function () {
         context('given in components/headers field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-headers');

@@ -19,7 +19,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Security Scheme Object', function () {
         context('given in components/securitySchemes field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-security-schemes');

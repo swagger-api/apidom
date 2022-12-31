@@ -19,7 +19,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Response Object', function () {
         context('given in components/responses field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-responses');

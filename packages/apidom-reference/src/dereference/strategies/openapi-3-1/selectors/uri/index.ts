@@ -43,3 +43,5 @@ export const evaluate = <T extends Element>(uri: string, element: T): Element | 
   // @ts-ignore
   return fragmentEvaluate(selector, result);
 };
+
+export { EvaluationJsonSchemaUriError };

@@ -149,6 +149,16 @@
       "require": "./cjs/dereference/strategies/openapi-3-1/index.cjs",
       "types": "./types/dereference/strategies/openapi-3-1/index.d.ts"
     },
+    "./dereference/strategies/openapi-3-1/selectors/$anchor": {
+      "import": "./es/dereference/strategies/openapi-3-1/selectors/$anchor/index.js",
+      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/$anchor/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/$anchor/index.d.ts"
+    },
+    "./dereference/strategies/openapi-3-1/selectors/uri": {
+      "import": "./es/dereference/strategies/openapi-3-1/selectors/uri/index.js",
+      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/uri/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/uri/index.d.ts"
+    },
     "./dereference/strategies/openapi-3-1-swagger-client": {
       "import": "./es/dereference/strategies/openapi-3-1-swagger-client/index.js",
       "require": "./cjs/dereference/strategies/openapi-3-1-swagger-client/index.cjs",

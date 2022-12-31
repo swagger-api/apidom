@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.61.0](https://github.com/swagger-api/apidom/compare/v0.60.0...v0.61.0) (2022-12-31)
+
+### Bug Fixes
+
+- **reference:** fix values of sideEffects fields of package.json ([#2421](https://github.com/swagger-api/apidom/issues/2421)) ([726852f](https://github.com/swagger-api/apidom/commit/726852f07f055fa29d3d58d850b94e205bf1edd2)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+
+### Features
+
+- **reference:** export types for subpath exports in package.json ([#2420](https://github.com/swagger-api/apidom/issues/2420)) ([f5419ea](https://github.com/swagger-api/apidom/commit/f5419eafbd0da3c247ce9ce23441ad7a0307c37e)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+- **reference:** expose new symbols to compose dereference strategies ([#2424](https://github.com/swagger-api/apidom/issues/2424)) ([a5fe0da](https://github.com/swagger-api/apidom/commit/a5fe0da40418c1b2fcef8a0d1f24a36f5a8ecf80)), closes [#2289](https://github.com/swagger-api/apidom/issues/2289)
+
 # [0.60.0](https://github.com/swagger-api/apidom/compare/v0.59.0...v0.60.0) (2022-12-28)
 
 ### Features

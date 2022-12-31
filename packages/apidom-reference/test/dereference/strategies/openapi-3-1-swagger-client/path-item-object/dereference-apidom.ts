@@ -20,7 +20,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Path Item Object', function () {
         context('given single PathItemElement passed to dereferenceApiDOM', function () {
           const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'root.json');

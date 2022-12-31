@@ -191,7 +191,7 @@ describe('dereference', function () {
         });
 
         context('given operationId field', function () {
-          context('and OperationElement with operationId exists', async function () {
+          context('and OperationElement with operationId exists', function () {
             const fixturePath = path.join(rootFixturePath, 'operation-id');
             const rootFilePath = path.join(fixturePath, 'root.json');
 
@@ -217,7 +217,7 @@ describe('dereference', function () {
             );
           });
 
-          context("and OperationElement with operationId doesn't exist", async function () {
+          context("and OperationElement with operationId doesn't exist", function () {
             const fixturePath = path.join(rootFixturePath, 'operation-id-non-existent');
 
             specify('should throw error', async function () {

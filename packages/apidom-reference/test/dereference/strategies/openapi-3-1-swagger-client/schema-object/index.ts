@@ -29,7 +29,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Schema Object - $ref keyword from core vocabulary', function () {
         context('given Schema Objects pointing internally and externally', function () {
           const fixturePath = path.join(rootFixturePath, 'internal-external');

@@ -21,7 +21,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Path Item Object', function () {
         context('given in webhooks field', function () {
           const fixturePath = path.join(rootFixturePath, 'webhooks');

@@ -21,7 +21,7 @@ describe('dereference', function () {
   });
 
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Reference Object', function () {
         context('given single ReferenceElement passed to dereferenceApiDOM', function () {
           context('given dereferencing using local file system', function () {

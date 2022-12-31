@@ -10,10 +10,19 @@ import {
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
+import * as bootstrap from '../bootstrap';
 
 describe('dereference', function () {
+  before(function () {
+    bootstrap.before();
+  });
+
+  after(function () {
+    bootstrap.after();
+  });
+
   context('strategies', function () {
-    context('openapi-3-1swagger-client', function () {
+    context('openapi-3-1-swagger-client', function () {
       context('Link Object', function () {
         context('given single LinkElement passed to dereferenceApiDOM', function () {
           const fixturePath = path.join(

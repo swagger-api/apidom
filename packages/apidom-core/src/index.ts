@@ -8,8 +8,10 @@ import serializeValue from './serializers/value';
 import serializeJSON from './serializers/json';
 import serializeYAML from './serializers/yaml-1-2';
 
+export { dispatchPlugins as dispatchRefractorPlugins } from './refractor/plugins/utils';
 export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
 export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
+
 export { default as MediaTypes } from './media-types';
 
 export {

@@ -2,10 +2,9 @@ import {
   Element,
   visit,
   dereference,
-  mergeAllVisitors,
   refract as baseRefract,
+  dispatchRefractorPlugins,
 } from '@swagger-api/apidom-core';
-import { propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
 
 import specification from './specification';
@@ -29,27 +28,12 @@ const refract = <T extends Element>(
   visit(element, rootVisitor, { state: { specObj: resolvedSpec } });
 
   /**
-   * Run plugins only when necessary.
    * Running plugins visitors means extra single traversal === performance hit.
    */
-  if (plugins.length > 0) {
-    const toolbox = createToolbox();
-    const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
-    const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')), {
-      // @ts-ignore
-      nodeTypeGetter: getNodeType,
-    });
-    pluginsSpecs.forEach(invokeArgs(['pre'], []));
-    const newElement: any = visit(rootVisitor.element, pluginsVisitor, {
-      keyMap,
-      // @ts-ignore
-      nodeTypeGetter: getNodeType,
-    });
-    pluginsSpecs.forEach(invokeArgs(['post'], []));
-    return newElement;
-  }
-
-  return rootVisitor.element;
+  return dispatchRefractorPlugins(rootVisitor.element, plugins, {
+    toolboxCreator: createToolbox,
+    visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+  });
 };
 
 export const createRefractor =

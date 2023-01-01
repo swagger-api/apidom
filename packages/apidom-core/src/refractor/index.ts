@@ -1,8 +1,7 @@
 import { Element } from 'minim';
-import { propOr } from 'ramda';
-import { invokeArgs } from 'ramda-adjunct';
 
-import { visit, mergeAllVisitors, getNodeType } from '../traversal/visitor';
+import { dispatchPlugins } from './plugins/utils';
+import { getNodeType } from '../traversal/visitor';
 import createToolbox from './toolbox';
 
 type RefractOptions = {
@@ -20,22 +19,12 @@ const refract = (value: any, { Type, plugins = [] }: RefractOptions): Element =>
 
   /**
    * Run plugins only when necessary.
-   * Running plugins visitors means extra single traversal === peformance hit.
+   * Running plugins visitors means extra single traversal === performance hit.
    */
-  if (plugins.length > 0) {
-    const toolbox = createToolbox();
-    const pluginsSpecs = plugins.map((plugin: any) => plugin(toolbox));
-    const pluginsVisitor = mergeAllVisitors(pluginsSpecs.map(propOr({}, 'visitor')), {
-      // @ts-ignore
-      nodeTypeGetter: getNodeType,
-    });
-    pluginsSpecs.forEach(invokeArgs(['pre'], []));
-    const newElement = visit(element, pluginsVisitor);
-    pluginsSpecs.forEach(invokeArgs(['post'], []));
-    return newElement;
-  }
-
-  return element;
+  return dispatchPlugins(element, plugins, {
+    toolboxCreator: createToolbox,
+    visitorOptions: { nodeTypeGetter: getNodeType },
+  });
 };
 
 export const createRefractor =

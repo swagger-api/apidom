@@ -24,6 +24,7 @@ export { default as refractorPluginNormalizeSecurityRequirements } from './refra
 export { default as refractorPluginNormalizeServers } from './refractor/plugins/normalize-servers';
 export { default as refractorPluginNormalizeOperationIds } from './refractor/plugins/normalize-operation-ids';
 export { default as refractorPluginNormalizeParameterExamples } from './refractor/plugins/normalize-parameter-examples';
+export { default as refractorPluginNormalizeHeaderExamples } from './refractor/plugins/normalize-header-examples';
 
 export {
   isCallbackElement,

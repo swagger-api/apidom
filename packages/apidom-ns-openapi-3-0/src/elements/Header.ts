@@ -4,6 +4,7 @@ import {
   BooleanElement,
   Attributes,
   Meta,
+  Element,
 } from '@swagger-api/apidom-core';
 
 import SchemaElement from './Schema';

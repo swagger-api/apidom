@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.62.0](https://github.com/swagger-api/apidom/compare/v0.61.0...v0.62.0) (2023-01-03)
+
+### Features
+
+- **core:** expose refractor plugins dispatcher as public API ([#2427](https://github.com/swagger-api/apidom/issues/2427)) ([a909e76](https://github.com/swagger-api/apidom/commit/a909e76c78bc952f1b8f64691cd6b943b957a786)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** add Header.example(s) normalization ([#2429](https://github.com/swagger-api/apidom/issues/2429)) ([c8cd9d4](https://github.com/swagger-api/apidom/commit/c8cd9d447c7ccc740ff0bde638afb4e96a9a052c)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** add Parameter.example(s) normalization refractor plugin ([#2428](https://github.com/swagger-api/apidom/issues/2428)) ([2f58768](https://github.com/swagger-api/apidom/commit/2f5876895c5d4369acd3a852d2402f15767361b5)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+- **ns-openapi-3-1:** expose creatToolbox as public API ([#2435](https://github.com/swagger-api/apidom/issues/2435)) ([e2b2c39](https://github.com/swagger-api/apidom/commit/e2b2c39cc3be43fab9fd7d3a9ccbdae8664d168c)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+
 # [0.61.0](https://github.com/swagger-api/apidom/compare/v0.60.0...v0.61.0) (2022-12-31)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.62.0](https://github.com/swagger-api/apidom/compare/v0.61.0...v0.62.0) (2023-01-03)
+
+### Features
+
+- **core:** expose refractor plugins dispatcher as public API ([#2427](https://github.com/swagger-api/apidom/issues/2427)) ([a909e76](https://github.com/swagger-api/apidom/commit/a909e76c78bc952f1b8f64691cd6b943b957a786)), closes [#2362](https://github.com/swagger-api/apidom/issues/2362)
+
 # [0.61.0](https://github.com/swagger-api/apidom/compare/v0.60.0...v0.61.0) (2022-12-31)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-7

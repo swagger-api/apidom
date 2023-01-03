@@ -24,7 +24,6 @@ describe('refractor', function () {
                       examples:
                         example1:
                           value: 2
-
             `;
             const apiDOM = await parse(yamlDefinition);
             const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
@@ -50,7 +49,6 @@ describe('refractor', function () {
                       examples:
                         example1:
                           value: 2
-
             `;
             const apiDOM = await parse(yamlDefinition);
             const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {

@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { expect } from 'chai';
 import dedent from 'dedent';
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
@@ -27,17 +27,7 @@ describe('refractor', function () {
             plugins: [refractorPluginNormalizeParameterExamples()],
           }) as OpenApi3_1Element;
 
-          assert.strictEqual(
-            toValue(
-              openApiElement
-                .get('components')
-                .get('parameters')
-                .get('parameter1')
-                .get('schema')
-                .get('example'),
-            ),
-            1,
-          );
+          expect(toValue(openApiElement)).toMatchSnapshot();
         });
       });
 
@@ -63,19 +53,7 @@ describe('refractor', function () {
             plugins: [refractorPluginNormalizeParameterExamples()],
           }) as OpenApi3_1Element;
 
-          assert.strictEqual(
-            toValue(
-              openApiElement
-                .get('components')
-                .get('pathItems')
-                .get('pathItem1')
-                .get('parameters')
-                .get(0)
-                .get('schema')
-                .get('example'),
-            ),
-            1,
-          );
+          expect(toValue(openApiElement)).toMatchSnapshot();
         });
       });
     });

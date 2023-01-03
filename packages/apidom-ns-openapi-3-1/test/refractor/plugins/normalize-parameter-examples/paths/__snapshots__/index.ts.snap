@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 4,
+          examples: Object {
+            example1: Object {
+              value: 3,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            example: Array [
+              3,
+            ],
+            examples: Array [
+              3,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines example field should override Schema Object example field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 3,
+          examples: Object {
+            example1: Object {
+              value: 2,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            example: Array [
+              2,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines examples field should override Schema Object examples field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 3,
+          examples: Object {
+            example1: Object {
+              value: 2,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            examples: Array [
+              2,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 3,
+          in: query,
+          name: param1,
+          schema: Object {
+            example: 3,
+            examples: Array [
+              3,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines example field should override Schema Object example field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 2,
+          in: query,
+          name: param1,
+          schema: Object {
+            example: 2,
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines examples field should override Schema Object examples field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          example: 2,
+          in: query,
+          name: param1,
+          schema: Object {
+            examples: Array [
+              2,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          examples: Object {
+            example1: Object {
+              value: 3,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            example: Array [
+              3,
+            ],
+            examples: Array [
+              3,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines example field should override Schema Object example field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          examples: Object {
+            example1: Object {
+              value: 2,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            example: Array [
+              2,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines examples field should override Schema Object examples field 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      parameters: Array [
+        Object {
+          examples: Object {
+            example1: Object {
+              value: 2,
+            },
+          },
+          in: query,
+          name: param1,
+          schema: Object {
+            examples: Array [
+              2,
+            ],
+            type: number,
+          },
+        },
+      ],
+    },
+  },
+}
+`;

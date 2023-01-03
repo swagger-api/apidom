@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { expect } from 'chai';
 import dedent from 'dedent';
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
@@ -32,21 +32,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('examples'),
-              ),
-              [2],
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -73,21 +59,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('example'),
-              ),
-              [2],
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -117,36 +89,7 @@ describe('refractor', function () {
                 plugins: [refractorPluginNormalizeHeaderExamples()],
               }) as OpenApi3_1Element;
 
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('example'),
-                ),
-                [3],
-              );
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('examples'),
-                ),
-                [3],
-              );
+              expect(toValue(openApiElement)).toMatchSnapshot();
             },
           );
         });
@@ -175,21 +118,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('examples'),
-              ),
-              [2],
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -215,21 +144,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('example'),
-              ),
-              2,
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -258,36 +173,7 @@ describe('refractor', function () {
                 plugins: [refractorPluginNormalizeHeaderExamples()],
               }) as OpenApi3_1Element;
 
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('example'),
-                ),
-                3,
-              );
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('examples'),
-                ),
-                [3],
-              );
+              expect(toValue(openApiElement)).toMatchSnapshot();
             },
           );
         });
@@ -319,21 +205,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('examples'),
-              ),
-              [2],
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -362,21 +234,7 @@ describe('refractor', function () {
               plugins: [refractorPluginNormalizeHeaderExamples()],
             }) as OpenApi3_1Element;
 
-            assert.deepEqual(
-              toValue(
-                openApiElement
-                  .get('paths')
-                  .get('/')
-                  .get('get')
-                  .get('responses')
-                  .get('200')
-                  .get('headers')
-                  .get('content-type')
-                  .get('schema')
-                  .get('example'),
-              ),
-              [2],
-            );
+            expect(toValue(openApiElement)).toMatchSnapshot();
           });
         });
 
@@ -408,36 +266,7 @@ describe('refractor', function () {
                 plugins: [refractorPluginNormalizeHeaderExamples()],
               }) as OpenApi3_1Element;
 
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('example'),
-                ),
-                [3],
-              );
-              assert.deepEqual(
-                toValue(
-                  openApiElement
-                    .get('paths')
-                    .get('/')
-                    .get('get')
-                    .get('responses')
-                    .get('200')
-                    .get('headers')
-                    .get('content-type')
-                    .get('schema')
-                    .get('examples'),
-                ),
-                [3],
-              );
+              expect(toValue(openApiElement)).toMatchSnapshot();
             },
           );
         });

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-header-examples given Header Object is defined in Components.headers should skip the Header Object from normalization 1`] = `
+Object {
+  components: Object {
+    headers: Object {
+      header1: Object {
+        example: 2,
+        schema: Object {
+          example: 1,
+          type: number,
+        },
+      },
+    },
+  },
+  openapi: 3.1.0,
+}
+`;
+
+exports[`refractor plugins normalize-header-examples given Header Object is defined in Components.pathItems should skip the Header Object from normalization 1`] = `
+Object {
+  components: Object {
+    responses: Object {
+      response1: Object {
+        headers: Object {
+          content-type: Object {
+            examples: Object {
+              example1: Object {
+                value: 2,
+              },
+            },
+            schema: Object {
+              example: 1,
+              type: number,
+            },
+          },
+        },
+      },
+    },
+  },
+  openapi: 3.1.0,
+}
+`;

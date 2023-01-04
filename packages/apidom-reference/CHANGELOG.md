@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.63.0](https://github.com/swagger-api/apidom/compare/v0.62.1...v0.63.0) (2023-01-04)
+
+### Features
+
+- **reference:** add fallbacks for Node.js protocol imports ([#2441](https://github.com/swagger-api/apidom/issues/2441)) ([b8ce5e4](https://github.com/swagger-api/apidom/commit/b8ce5e42c6f4cde89652319323b242827509d605))
+
 ## [0.62.1](https://github.com/swagger-api/apidom/compare/v0.62.0...v0.62.1) (2023-01-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

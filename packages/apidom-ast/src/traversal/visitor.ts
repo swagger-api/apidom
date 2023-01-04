@@ -196,6 +196,7 @@ export const visit = (
     state = {},
     breakSymbol = BREAK,
     deleteNodeSymbol = null,
+    skipVisitingNodeSymbol = false,
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
@@ -296,7 +297,7 @@ export const visit = (
           break;
         }
 
-        if (result === false) {
+        if (result === skipVisitingNodeSymbol) {
           if (!isLeaving) {
             path.pop();
             continue;
@@ -354,6 +355,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     state = {},
     breakSymbol = BREAK,
     deleteNodeSymbol = null,
+    skipVisitingNodeSymbol = false,
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
@@ -450,7 +452,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           break;
         }
 
-        if (result === false) {
+        if (result === skipVisitingNodeSymbol) {
           if (!isLeaving) {
             path.pop();
             continue;

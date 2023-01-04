@@ -14,9 +14,11 @@ describe('serializers', function () {
   context('value', function () {
     context('given BooleanElement', function () {
       specify('should serialize to JavaScript value', function () {
-        const booleanElement = new BooleanElement(true);
+        const trueBooleanElement = new BooleanElement(true);
+        const falseBooleanElement = new BooleanElement(false);
 
-        assert.strictEqual(serializer(booleanElement), true);
+        assert.strictEqual(serializer(trueBooleanElement), true);
+        assert.strictEqual(serializer(falseBooleanElement), false);
       });
     });
 
@@ -46,9 +48,9 @@ describe('serializers', function () {
 
     context('given ObjectElement', function () {
       specify('should serialize to JavaScript value', function () {
-        const objectElement = new ObjectElement({ a: { b: { c: 'd' } } });
+        const objectElement = new ObjectElement({ a: { b: { c: 'd', e: true } } });
 
-        assert.deepEqual(serializer(objectElement), { a: { b: { c: 'd' } } });
+        assert.deepEqual(serializer(objectElement), { a: { b: { c: 'd', e: true } } });
       });
 
       context('and with cycle', function () {
@@ -120,6 +122,15 @@ describe('serializers', function () {
 
         assert.deepEqual(serialized, [{ a: 'b' }, { a: 'b' }]);
         assert.strictEqual(serialized[0], serialized[1]);
+      });
+    });
+
+    context('given ObjectElement with undefined value', function () {
+      specify('should serialize to JavaScript value', function () {
+        const object = new ObjectElement({ a: undefined });
+        const serialized = serializer(object);
+
+        assert.deepEqual(serialized, { a: undefined });
       });
     });
 

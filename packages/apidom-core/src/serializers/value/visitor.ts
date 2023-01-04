@@ -35,6 +35,7 @@ export const visit = (
     nodePredicate: stubTrue,
     detectCycles: false,
     deleteNodeSymbol: Symbol.for('delete-node'),
+    skipVisitingNodeSymbol: Symbol.for('skip-visiting-node'),
     ...rest,
   });
 };
@@ -51,6 +52,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     nodePredicate: stubTrue,
     detectCycles: false,
     deleteNodeSymbol: Symbol.for('delete-node'),
+    skipVisitingNodeSymbol: Symbol.for('skip-visiting-node'),
     ...rest,
   });
 };

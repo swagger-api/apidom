@@ -165,6 +165,29 @@
       "types": "./types/dereference/strategies/openapi-3-1-swagger-client/index.d.ts"
     }
   },
+  "imports": {
+    "#buffer": {
+      "node": {
+        "import": "./es/util/polyfills/buffer/protocol-import.js",
+        "require": "./cjs/util/polyfills/buffer/standard-import.cjs"
+      },
+      "default": "./cjs/util/polyfills/buffer/standard-import.cjs"
+    },
+    "#fs": {
+      "node": {
+        "import": "./es/util/polyfills/fs/protocol-import.js",
+        "require": "./cjs/util/polyfills/fs/standard-import.cjs"
+      },
+      "default": "./cjs/util/polyfills/fs/standard-import.cjs"
+    },
+    "#util": {
+      "node": {
+        "import": "./es/util/polyfills/util/protocol-import.js",
+        "require": "./cjs/util/polyfills/util/standard-import.cjs"
+      },
+      "default": "./cjs/util/polyfills/util/standard-import.cjs"
+    }
+  },
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",

@@ -1,4 +1,4 @@
-import { Buffer } from 'node:buffer';
+import { Buffer } from '#buffer'; // eslint-disable-line import/order
 import stampit from 'stampit';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 

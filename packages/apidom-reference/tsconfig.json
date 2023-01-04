@@ -1,5 +1,13 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#buffer": ["./src/util/polyfills/buffer/protocol-import"],
+      "#fs": ["./src/util/polyfills/fs/protocol-import"],
+      "#util": ["./src/util/polyfills/util/protocol-import"]
+    }
+  },
   "include": [
     "src/**/*",
     "test/**/*"

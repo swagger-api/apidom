@@ -276,6 +276,19 @@ describe('resolve', function () {
           });
         });
 
+        context('given Schema Objects with $ref keyword containing resolvable URL', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url-resolvable');
+
+          specify('should resolve', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 2);
+          });
+        });
+
         context(
           'given Schema Objects with $ref keyword containing Uniform Resource Name',
           function () {

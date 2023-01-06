@@ -211,6 +211,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
+      const isURL = !isUnknownURI;
       const isExternal = !isUnknownURI && this.reference.uri !== $refBaseURIStrippedHash;
 
       // ignore resolving external Reference Objects
@@ -222,9 +223,23 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       if (!has($refBaseURIStrippedHash, this.crawlingMap)) {
-        this.crawlingMap[$refBaseURIStrippedHash] = isUnknownURI
-          ? this.reference
-          : this.toReference($refBaseURIStrippedHash);
+        try {
+          if (isUnknownURI || isURL) {
+            this.crawlingMap[$refBaseURIStrippedHash] = this.reference;
+          } else {
+            this.crawlingMap[$refBaseURIStrippedHash] = this.toReference(
+              url.unsanitize($refBaseURI),
+            );
+          }
+        } catch (error) {
+          if (isURL && error instanceof EvaluationJsonSchemaUriError) {
+            this.crawlingMap[$refBaseURIStrippedHash] = this.toReference(
+              url.unsanitize($refBaseURI),
+            );
+          } else {
+            throw error;
+          }
+        }
       }
       this.crawledElements.push(schemaElement);
 

@@ -109,7 +109,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
     },
 
     async ReferenceElement(
-      referenceElement: ReferenceElement,
+      referencingElement: ReferenceElement,
       key: any,
       parent: any,
       path: any,
@@ -118,45 +118,44 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
 
       // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referenceElement))) {
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
         // skip processing this schema and all it's child schemas
         return false;
       }
 
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
+      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
         return false;
       }
 
-      // @ts-ignore
-      const reference = await this.toReference(referenceElement.$ref.toValue());
+      const reference = await this.toReference(referencingElement.$ref?.toValue());
       const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, referenceElement?.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
-      this.indirections.push(referenceElement);
+      this.indirections.push(referencingElement);
 
       const jsonPointer = uriToPointer($refBaseURI);
 
       // possibly non-semantic fragment
-      let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
+      let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
-      if (isPrimitiveElement(fragment)) {
-        const referencedElementType = referenceElement.meta.get('referenced-element').toValue();
+      if (isPrimitiveElement(referencedElement)) {
+        const referencedElementType = referencingElement.meta.get('referenced-element').toValue();
 
-        if (isReferenceLikeElement(fragment)) {
+        if (isReferenceLikeElement(referencedElement)) {
           // handling indirect references
-          fragment = ReferenceElement.refract(fragment);
-          fragment.setMetaProperty('referenced-element', referencedElementType);
+          referencedElement = ReferenceElement.refract(referencedElement);
+          referencedElement.setMetaProperty('referenced-element', referencedElementType);
         } else {
           // handling direct references
           const ElementClass = this.namespace.getElementClass(referencedElementType);
-          fragment = ElementClass.refract(fragment);
+          referencedElement = ElementClass.refract(referencedElement);
         }
       }
 
       // detect direct or indirect reference
-      if (this.indirections.includes(fragment)) {
+      if (this.indirections.includes(referencedElement)) {
         throw new Error('Recursive JSON Pointer detected');
       }
 
@@ -168,7 +167,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // append referencing schema to ancestors lineage
-      directAncestors.add(referenceElement);
+      directAncestors.add(referencingElement);
 
       // dive deep into the fragment
       const visitor: any = OpenApi3_1DereferenceVisitor({
@@ -178,45 +177,48 @@ const OpenApi3_1DereferenceVisitor = stampit({
         options: this.options,
         ancestors: ancestorsLineage,
       });
-      fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
+      referencedElement = await visitAsync(referencedElement, visitor, {
+        keyMap,
+        nodeTypeGetter: getNodeType,
+      });
 
       // remove referencing schema from ancestors lineage
-      directAncestors.delete(referenceElement);
+      directAncestors.delete(referencingElement);
 
       this.indirections.pop();
 
       // annotate fragment with info about original Reference element
-      fragment = fragment.clone();
-      fragment.setMetaProperty('ref-fields', {
-        $ref: referenceElement.$ref?.toValue(),
+      referencedElement = referencedElement.clone();
+      referencedElement.setMetaProperty('ref-fields', {
+        $ref: referencingElement.$ref?.toValue(),
         // @ts-ignore
-        description: referenceElement.description?.toValue(),
+        description: referencingElement.description?.toValue(),
         // @ts-ignore
-        summary: referenceElement.summary?.toValue(),
+        summary: referencingElement.summary?.toValue(),
       });
       // annotate fragment with info about origin
-      fragment.setMetaProperty('ref-origin', reference.uri);
+      referencedElement.setMetaProperty('ref-origin', reference.uri);
 
       // override description and summary (outer has higher priority then inner)
-      const hasDescription = pathSatisfies(isNotUndefined, ['description'], referenceElement);
-      const hasSummary = pathSatisfies(isNotUndefined, ['summary'], referenceElement);
-      if (hasDescription && hasIn('description', fragment)) {
+      const hasDescription = pathSatisfies(isNotUndefined, ['description'], referencingElement);
+      const hasSummary = pathSatisfies(isNotUndefined, ['summary'], referencingElement);
+      if (hasDescription && hasIn('description', referencedElement)) {
         // @ts-ignore
-        fragment.description = referenceElement.description;
+        referencedElement.description = referencingElement.description;
       }
-      if (hasSummary && hasIn('summary', fragment)) {
+      if (hasSummary && hasIn('summary', referencedElement)) {
         // @ts-ignore
-        fragment.summary = referenceElement.summary;
+        referencedElement.summary = referencingElement.summary;
       }
 
       this.indirections.pop();
 
       // transclude the element for a fragment
-      return fragment;
+      return referencedElement;
     },
 
     async PathItemElement(
-      pathItemElement: PathItemElement,
+      referencingElement: PathItemElement,
       key: any,
       parent: any,
       path: any,
@@ -225,26 +227,26 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
 
       // ignore PathItemElement without $ref field
-      if (!isStringElement(pathItemElement.$ref)) {
+      if (!isStringElement(referencingElement.$ref)) {
         return undefined;
       }
 
       // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(pathItemElement))) {
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
         // skip processing this schema and all it's child schemas
         return false;
       }
 
       // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
+      if (!this.options.resolve.external && isPathItemElementExternal(referencingElement)) {
         return undefined;
       }
 
-      const reference = await this.toReference(pathItemElement.$ref?.toValue());
+      const reference = await this.toReference(referencingElement.$ref?.toValue());
       const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, pathItemElement.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
-      this.indirections.push(pathItemElement);
+      this.indirections.push(referencingElement);
 
       const jsonPointer = uriToPointer($refBaseURI);
 
@@ -269,7 +271,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // append referencing schema to ancestors lineage
-      directAncestors.add(pathItemElement);
+      directAncestors.add(referencingElement);
 
       // dive deep into the referenced element
       const visitor: any = OpenApi3_1DereferenceVisitor({
@@ -285,7 +287,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       });
 
       // remove referencing schema from ancestors lineage
-      directAncestors.delete(pathItemElement);
+      directAncestors.delete(referencingElement);
 
       this.indirections.pop();
 
@@ -297,7 +299,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         referencedElement.attributes.clone(),
       );
       // existing keywords from referencing PathItemElement overrides ones from referenced element
-      pathItemElement.forEach((value: Element, keyElement: Element, item: Element) => {
+      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
         mergedResult.remove(keyElement.toValue());
         mergedResult.content.push(item);
       });
@@ -305,7 +307,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // annotate referenced element with info about original referencing element
       mergedResult.setMetaProperty('ref-fields', {
-        $ref: pathItemElement.$ref?.toValue(),
+        $ref: referencingElement.$ref?.toValue(),
       });
       // annotate referenced element with info about origin
       mergedResult.setMetaProperty('ref-origin', reference.uri);

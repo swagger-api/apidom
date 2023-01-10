@@ -25,25 +25,30 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 const AsyncApi2DereferenceVisitor = stampit({
   props: {
     indirections: [],
-    visited: null,
     namespace: null,
     reference: null,
     options: null,
+    ancestors: null,
   },
-  init({
-    indirections = [],
-    visited = { SchemaElement: new WeakSet(), ReferenceElement: new WeakSet() },
-    reference,
-    namespace,
-    options,
-  }) {
+  init({ indirections = [], reference, namespace, options, ancestors = [] }) {
     this.indirections = indirections;
-    this.visited = visited;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
+    this.ancestors = [...ancestors];
   },
   methods: {
+    toAncestorLineage(ancestors) {
+      /**
+       * Compute full ancestors lineage.
+       * Ancestors are flatten to unwrap all Element instances.
+       */
+      const directAncestors = new WeakSet(ancestors.flat());
+      const ancestorsLineage = [...this.ancestors, directAncestors];
+
+      return [ancestorsLineage, directAncestors];
+    },
+
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -78,29 +83,35 @@ const AsyncApi2DereferenceVisitor = stampit({
       return reference;
     },
 
-    async ReferenceElement(referencingElement: ReferenceElement) {
-      /**
-       * Skip traversal for already visited ReferenceElement.
-       * visit function detects cycles in path automatically.
-       */
-      if (this.visited.ReferenceElement.has(referencingElement)) {
-        return undefined;
+    async ReferenceElement(
+      referencingElement: ReferenceElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
+        // skip processing this schema and all it's child schemas
+        return false;
       }
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
-        // mark current referencing schema as visited
-        this.visited.ReferenceElement.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
 
       // @ts-ignore
       const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const retrievalURI = reference.uri;
+      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);
 
-      const jsonPointer = uriToPointer(referencingElement.$ref?.toValue());
+      const jsonPointer = uriToPointer($refBaseURI);
 
       // possibly non-semantic fragment
       let referencedElement = evaluate(jsonPointer, reference.value.result);
@@ -120,9 +131,6 @@ const AsyncApi2DereferenceVisitor = stampit({
         }
       }
 
-      // mark current ReferenceElement as visited
-      this.visited.ReferenceElement.add(referencingElement);
-
       // detect direct or circular reference
       if (this.indirections.includes(referencedElement)) {
         throw new Error('Recursive JSON Pointer detected');
@@ -135,19 +143,24 @@ const AsyncApi2DereferenceVisitor = stampit({
         );
       }
 
+      // append referencing reference to ancestors lineage
+      directAncestors.add(referencingElement);
+
       // dive deep into the fragment
       const visitor = AsyncApi2DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
-        // ReferenceElement must be reset for deep dive, as we want to dereference all indirections
-        visited: { SchemaElement: this.visited.SchemaElement, ReferenceElement: new WeakSet() },
+        ancestors: ancestorsLineage,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
         nodeTypeGetter: getNodeType,
       });
+
+      // remove referencing reference from ancestors lineage
+      directAncestors.delete(referencingElement);
 
       this.indirections.pop();
 
@@ -169,23 +182,38 @@ const AsyncApi2DereferenceVisitor = stampit({
       return referencedElement;
     },
 
-    async ChannelItemElement(channelItemElement: ChannelItemElement) {
+    async ChannelItemElement(
+      referencingElement: ChannelItemElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+
       // ignore ChannelItemElement without $ref field
-      if (!isStringElement(channelItemElement.$ref)) {
+      if (!isStringElement(referencingElement.$ref)) {
         return undefined;
+      }
+
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
+        // skip processing this schema and all it's child schemas
+        return false;
       }
 
       // ignore resolving external ChannelItem Elements
-      if (!this.options.resolve.external && isChannelItemElementExternal(channelItemElement)) {
+      if (!this.options.resolve.external && isChannelItemElementExternal(referencingElement)) {
         return undefined;
       }
 
-      // @ts-ignore
-      const reference = await this.toReference(channelItemElement.$ref?.toValue());
+      const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const retrievalURI = reference.uri;
+      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
-      this.indirections.push(channelItemElement);
+      this.indirections.push(referencingElement);
 
-      const jsonPointer = uriToPointer(channelItemElement.$ref?.toValue());
+      const jsonPointer = uriToPointer($refBaseURI);
 
       // possibly non-semantic referenced element
       let referencedElement = evaluate(jsonPointer, reference.value.result);
@@ -207,17 +235,24 @@ const AsyncApi2DereferenceVisitor = stampit({
         );
       }
 
+      // append referencing channel item to ancestors lineage
+      directAncestors.add(referencingElement);
+
       // dive deep into the referenced element
       const visitor: any = AsyncApi2DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        ancestors: ancestorsLineage,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
         nodeTypeGetter: getNodeType,
       });
+
+      // remove referencing channel item from ancestors lineage
+      directAncestors.delete(referencingElement);
 
       this.indirections.pop();
 
@@ -229,15 +264,15 @@ const AsyncApi2DereferenceVisitor = stampit({
         referencedElement.attributes.clone(),
       );
       // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
-      channelItemElement.forEach((value: Element, key: Element, item: Element) => {
-        mergedResult.remove(key.toValue());
+      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+        mergedResult.remove(keyElement.toValue());
         mergedResult.content.push(item);
       });
       mergedResult.remove('$ref');
 
       // annotate referenced element with info about original referencing element
       mergedResult.setMetaProperty('ref-fields', {
-        $ref: channelItemElement.$ref?.toValue(),
+        $ref: referencingElement.$ref?.toValue(),
       });
       // annotate referenced with info about origin
       mergedResult.setMetaProperty('ref-origin', reference.uri);
@@ -246,16 +281,20 @@ const AsyncApi2DereferenceVisitor = stampit({
       return mergedResult;
     },
 
-    async SchemaElement(schemaElement: SchemaElement) {
-      /**
-       * Skip traversal for already visited schemas and all their child schemas.
-       * visit function detects cycles in path automatically.
-       */
-      if (this.visited.SchemaElement.has(schemaElement)) {
+    async SchemaElement(
+      referencingElement: SchemaElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage] = this.toAncestorLineage(ancestors);
+
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
+        // skip processing this schema and all it's child schemas
         return false;
       }
-
-      this.visited.SchemaElement.add(schemaElement);
 
       return undefined;
     },

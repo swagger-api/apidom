@@ -166,7 +166,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      // append referencing schema to ancestors lineage
+      // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
 
       // dive deep into the fragment
@@ -182,7 +182,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         nodeTypeGetter: getNodeType,
       });
 
-      // remove referencing schema from ancestors lineage
+      // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);
 
       this.indirections.pop();
@@ -270,7 +270,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
-      // append referencing schema to ancestors lineage
+      // append referencing path item to ancestors lineage
       directAncestors.add(referencingElement);
 
       // dive deep into the referenced element
@@ -286,7 +286,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         nodeTypeGetter: getNodeType,
       });
 
-      // remove referencing schema from ancestors lineage
+      // remove referencing path item from ancestors lineage
       directAncestors.delete(referencingElement);
 
       this.indirections.pop();

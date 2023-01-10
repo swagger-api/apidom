@@ -47,27 +47,32 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 const OpenApi3_1DereferenceVisitor = stampit({
   props: {
     indirections: null,
-    visited: null,
     namespace: null,
     reference: null,
     options: null,
+    ancestors: null,
   },
-  init({
-    indirections = [],
-    visited = { SchemaElement: new WeakSet(), SchemaElementReference: new WeakSet() },
-    reference,
-    namespace,
-    options,
-  }) {
+  init({ indirections = [], reference, namespace, options, ancestors = [] }) {
     this.indirections = indirections;
-    this.visited = visited;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
+    this.ancestors = [...ancestors];
   },
   methods: {
     toBaseURI(uri: string): string {
       return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+    },
+
+    toAncestorLineage(ancestors) {
+      /**
+       * Compute full ancestors lineage.
+       * Ancestors are flatten to unwrap all Element instances.
+       */
+      const directAncestors = new WeakSet(ancestors.flat());
+      const ancestorsLineage = [...this.ancestors, directAncestors];
+
+      return [ancestorsLineage, directAncestors];
     },
 
     async toReference(uri: string): Promise<IReference> {
@@ -103,7 +108,21 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return reference;
     },
 
-    async ReferenceElement(referenceElement: ReferenceElement) {
+    async ReferenceElement(
+      referenceElement: ReferenceElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referenceElement))) {
+        // skip processing this schema and all it's child schemas
+        return false;
+      }
+
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
         return false;
@@ -111,10 +130,12 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // @ts-ignore
       const reference = await this.toReference(referenceElement.$ref.toValue());
+      const retrievalURI = reference.uri;
+      const $refBaseURI = url.resolve(retrievalURI, referenceElement?.$ref?.toValue());
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
+      const jsonPointer = uriToPointer($refBaseURI);
 
       // possibly non-semantic fragment
       let fragment = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -146,18 +167,26 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
+      // append referencing schema to ancestors lineage
+      directAncestors.add(referenceElement);
+
       // dive deep into the fragment
       const visitor: any = OpenApi3_1DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        ancestors: ancestorsLineage,
       });
       fragment = await visitAsync(fragment, visitor, { keyMap, nodeTypeGetter: getNodeType });
 
-      fragment = fragment.clone();
+      // remove referencing schema from ancestors lineage
+      directAncestors.delete(referenceElement);
+
+      this.indirections.pop();
 
       // annotate fragment with info about original Reference element
+      fragment = fragment.clone();
       fragment.setMetaProperty('ref-fields', {
         $ref: referenceElement.$ref?.toValue(),
         // @ts-ignore
@@ -186,10 +215,24 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return fragment;
     },
 
-    async PathItemElement(pathItemElement: PathItemElement) {
+    async PathItemElement(
+      pathItemElement: PathItemElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+
       // ignore PathItemElement without $ref field
       if (!isStringElement(pathItemElement.$ref)) {
         return undefined;
+      }
+
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(pathItemElement))) {
+        // skip processing this schema and all it's child schemas
+        return false;
       }
 
       // ignore resolving external Path Item Elements
@@ -197,12 +240,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // @ts-ignore
-      const reference = await this.toReference(pathItemElement.$ref.toValue());
+      const reference = await this.toReference(pathItemElement.$ref?.toValue());
+      const retrievalURI = reference.uri;
+      const $refBaseURI = url.resolve(retrievalURI, pathItemElement.$ref?.toValue());
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
+      const jsonPointer = uriToPointer($refBaseURI);
 
       // possibly non-semantic referenced element
       let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
@@ -224,17 +268,24 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
+      // append referencing schema to ancestors lineage
+      directAncestors.add(pathItemElement);
+
       // dive deep into the referenced element
       const visitor: any = OpenApi3_1DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
+        ancestors: ancestorsLineage,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
         nodeTypeGetter: getNodeType,
       });
+
+      // remove referencing schema from ancestors lineage
+      directAncestors.delete(pathItemElement);
 
       this.indirections.pop();
 
@@ -246,8 +297,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
         referencedElement.attributes.clone(),
       );
       // existing keywords from referencing PathItemElement overrides ones from referenced element
-      pathItemElement.forEach((value: Element, key: Element, item: Element) => {
-        mergedResult.remove(key.toValue());
+      pathItemElement.forEach((value: Element, keyElement: Element, item: Element) => {
+        mergedResult.remove(keyElement.toValue());
         mergedResult.content.push(item);
       });
       mergedResult.remove('$ref');
@@ -350,38 +401,39 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return undefined;
     },
 
-    async SchemaElement(referencingElement: SchemaElement) {
-      /**
-       * Skip traversal for already visited schemas and all their child schemas.
-       * visit function detects cycles in path automatically.
-       */
-      if (this.visited.SchemaElement.has(referencingElement)) {
-        return false;
-      }
-      if (this.visited.SchemaElementReference.has(referencingElement)) {
-        return undefined;
-      }
+    async SchemaElement(
+      referencingElement: SchemaElement,
+      key: any,
+      parent: any,
+      path: any,
+      ancestors: any[],
+    ) {
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+
       // skip current referencing schema as $ref keyword was not defined
       if (!isStringElement(referencingElement.$ref)) {
-        // mark current referencing schema as visited
-        this.visited.SchemaElement.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
 
+      // detect possible cycle in traversal and avoid it
+      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
+        // skip processing this schema and all it's child schemas
+        return false;
+      }
+
       // compute baseURI using rules around $id and $ref keywords
-      const retrieveURI = this.reference.uri;
-      const $refBaseURI = resolveSchema$refField(retrieveURI, referencingElement) as string;
+      let { reference } = this;
+      let { uri: retrievalURI } = reference;
+      const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      const isExternal = isURL && this.reference.uri !== $refBaseURIStrippedHash;
+      const isExternal = isURL && retrievalURI !== $refBaseURIStrippedHash;
 
       // ignore resolving external Schema Objects
       if (!this.options.resolve.external && isExternal) {
-        // mark current referencing schema as visited
-        this.visited.SchemaElementReference.add(referencingElement);
         // skip traversing this schema but traverse all it's child schemas
         return undefined;
       }
@@ -389,13 +441,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
       this.indirections.push(referencingElement);
 
       // determining reference, proper evaluation and selection mechanism
-      let reference: IReference;
       let referencedElement;
 
       try {
         if (isUnknownURI || isURL) {
           // we're dealing with canonical URI or URL with possible fragment
-          reference = this.reference;
           const selector = $refBaseURI;
           referencedElement = uriEvaluate(
             selector,
@@ -420,6 +470,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
             reference = await this.toReference(url.unsanitize($refBaseURI));
+            retrievalURI = reference.uri;
             const selector = uriToAnchor($refBaseURI);
             referencedElement = $anchorEvaluate(
               selector,
@@ -429,6 +480,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
             reference = await this.toReference(url.unsanitize($refBaseURI));
+            retrievalURI = reference.uri;
             const selector = uriToPointer($refBaseURI);
             referencedElement = maybeRefractToSchemaElement(
               // @ts-ignore
@@ -439,9 +491,6 @@ const OpenApi3_1DereferenceVisitor = stampit({
           throw error;
         }
       }
-
-      // mark current referencing schema as visited
-      this.visited.SchemaElementReference.add(referencingElement);
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
@@ -455,22 +504,24 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
       }
 
+      // append referencing schema to ancestors lineage
+      directAncestors.add(referencingElement);
+
       // dive deep into the fragment
       const visitor: any = OpenApi3_1DereferenceVisitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
         options: this.options,
-        // SchemaElementReference must be reset for deep dive, as we want to dereference all indirections
-        visited: {
-          SchemaElement: this.visited.SchemaElement,
-          SchemaElementReference: new WeakSet(),
-        },
+        ancestors: ancestorsLineage,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
         nodeTypeGetter: getNodeType,
       });
+
+      // remove referencing schema from ancestors lineage
+      directAncestors.delete(referencingElement);
 
       this.indirections.pop();
 
@@ -494,8 +545,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
         referencedElement.attributes.clone(),
       );
       // existing keywords from referencing schema overrides ones from referenced schema
-      referencingElement.forEach((value: Element, key: Element, item: Element) => {
-        mergedResult.remove(key.toValue());
+      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+        mergedResult.remove(keyElement.toValue());
         mergedResult.content.push(item);
       });
       mergedResult.remove('$ref');

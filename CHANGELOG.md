@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.63.1](https://github.com/swagger-api/apidom/compare/v0.63.0...v0.63.1) (2023-01-10)
+
+### Bug Fixes
+
+- **reference:** avoid infinite traversal in AsyncAPI 2.5 dereference ([d4235c9](https://github.com/swagger-api/apidom/commit/d4235c9c77d4783cc95a4d3004a41d788be6a114))
+- **reference:** avoid infinite traversal in OpenAPI 3.0 dereference ([9425a67](https://github.com/swagger-api/apidom/commit/9425a678142272e34b7d9794426a941125f5d99c))
+- **reference:** avoid infinite traversal in OpenAPI 3.1 dereference ([#2452](https://github.com/swagger-api/apidom/issues/2452)) ([68b4f6b](https://github.com/swagger-api/apidom/commit/68b4f6b6f04a87335093b9941b5a6b6c2492cc87))
+- **reference:** fix bug in OpenAPI 3.1.0 Schema Object resolving ([#2445](https://github.com/swagger-api/apidom/issues/2445)) ([5819ac9](https://github.com/swagger-api/apidom/commit/5819ac9c8502d37d3aca950efd83d7f06a68c94d))
+
 # [0.63.0](https://github.com/swagger-api/apidom/compare/v0.62.1...v0.63.0) (2023-01-04)
 
 ### Features

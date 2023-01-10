@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-reference",
-  "version": "0.63.0",
+  "version": "0.63.1",
   "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

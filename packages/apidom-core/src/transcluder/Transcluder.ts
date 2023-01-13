@@ -104,9 +104,16 @@ const transcludeChildOfArrayElement = (
 const Transcluder: stampit.Stamp<Transcluder> = stampit.init(function TranscluderConstructor({
   element,
 }) {
-  const edges = computeEdges(element);
+  let edges: WeakMap<Element, any>;
 
   this.transclude = function transclude(search: Element, replace: Element): Element | undefined {
+    // shortcut 1. - replacing entire ApiDOM tree
+    if (search === element) return replace;
+    // shortcut 2. - replacing nothing
+    if (search === replace) return element;
+
+    edges = edges ?? computeEdges(element);
+
     const parent = edges.get(search);
 
     if (isUndefined(parent)) {

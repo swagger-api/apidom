@@ -6,11 +6,25 @@ import { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';
 
 export { InvalidJsonPointerError, EvaluationJsonPointerError };
 
+/**
+ * decodeURIComponent can throw URIError in certain cases like 'c%d'.
+ * safeDecodeURIComponent is a safe variant of decodeURIComponent that never trows.
+ *
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Malformed_URI|More info about URIError}
+ */
+const safeDecodeURIComponent = (encodedURIComponent: string): string => {
+  try {
+    return decodeURIComponent(encodedURIComponent);
+  } catch {
+    return encodedURIComponent;
+  }
+};
+
 // escape :: String -> String
 export const escape = pipe(replace(/~/g, '~0'), replace(/\//g, '~1'), encodeURIComponent);
 
 // unescape :: String -> String
-export const unescape = pipe(replace(/~1/g, '/'), replace(/~0/g, '~'), decodeURIComponent);
+export const unescape = pipe(replace(/~1/g, '/'), replace(/~0/g, '~'), safeDecodeURIComponent);
 
 // parse :: String -> String[]
 export const parse = (pointer: string): string[] => {

@@ -9,6 +9,37 @@ import {
 } from '../src';
 
 context('apidom-json-pointer', function () {
+  context('RFC 6901 test', function () {
+    specify('should evaluate successfully', function () {
+      // https://www.rfc-editor.org/rfc/rfc6901#section-5
+      const objectElement = new ObjectElement({
+        foo: ['bar', 'baz'],
+        '': 0,
+        'a/b': 1,
+        'c%d': 2,
+        'e^f': 3,
+        'g|h': 4,
+        'i\\j': 5,
+        'k"l': 6,
+        ' ': 7,
+        'm~n': 8,
+      });
+
+      assert.strictEqual(evaluate('', objectElement), objectElement);
+      assert.strictEqual(evaluate('/foo', objectElement), objectElement.get('foo'));
+      assert.strictEqual(evaluate('/foo/0', objectElement), objectElement.get('foo').get(0));
+      assert.strictEqual(evaluate('/', objectElement), objectElement.get(''));
+      assert.strictEqual(evaluate('/a~1b', objectElement), objectElement.get('a/b'));
+      assert.strictEqual(evaluate('/c%d', objectElement), objectElement.get('c%d'));
+      assert.strictEqual(evaluate('/e^f', objectElement), objectElement.get('e^f'));
+      assert.strictEqual(evaluate('/g|h', objectElement), objectElement.get('g|h'));
+      assert.strictEqual(evaluate('/i\\j', objectElement), objectElement.get('i\\j'));
+      assert.strictEqual(evaluate('/k"l', objectElement), objectElement.get('k"l'));
+      assert.strictEqual(evaluate('/ ', objectElement), objectElement.get(' '));
+      assert.strictEqual(evaluate('/m~0n', objectElement), objectElement.get('m~n'));
+    });
+  });
+
   context('given valid JSON pointer', function () {
     context('and ObjectElement', function () {
       specify('should evaluate successfully', function () {

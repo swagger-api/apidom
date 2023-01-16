@@ -227,7 +227,7 @@
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.64.0",
     "@types/ramda": "=0.28.20",
     "axios": "=1.2.2",
-    "minimatch": "=5.1.2",
+    "minimatch": "=6.0.4",
     "process": "=0.11.10",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.64.0](https://github.com/swagger-api/apidom/compare/v0.63.1...v0.64.0) (2023-01-16)
+
+### Bug Fixes
+
+- **json-pointer:** fix JSON Pointer evaluation for % character ([#2461](https://github.com/swagger-api/apidom/issues/2461)) ([cc7167d](https://github.com/swagger-api/apidom/commit/cc7167d66844fde0b279d0dc063712acb622b615)), closes [/www.rfc-editor.org/rfc/rfc6901#section-5](https://github.com//www.rfc-editor.org/rfc/rfc6901/issues/section-5)
+
 # [0.63.0](https://github.com/swagger-api/apidom/compare/v0.62.1...v0.63.0) (2023-01-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-json-pointer

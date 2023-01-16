@@ -49,7 +49,7 @@
     "@babel/runtime-corejs3": "=7.20.7",
     "@swagger-api/apidom-ast": "^0.64.0",
     "@swagger-api/apidom-core": "^0.64.0",
-    "@types/ramda": "=0.28.20",
+    "@types/ramda": "=0.28.21",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0",
     "stampit": "=4.3.2",

@@ -20,6 +20,13 @@ exports[`refractor elements SchemaElement given embedded SchemaElements should r
           (SchemaElement))))))
 `;
 
+exports[`refractor elements SchemaElement given items keyword in form of object should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement)))
+`;
+
 exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree 1`] = `
 (SchemaElement
   (MemberElement

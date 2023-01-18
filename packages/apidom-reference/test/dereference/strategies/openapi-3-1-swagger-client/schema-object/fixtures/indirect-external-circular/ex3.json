@@ -1,7 +1,0 @@
-{
-  "$defs": {
-    "User": {
-      "$ref": "./root.json#/components/schemas/User"
-    }
-  }
-}

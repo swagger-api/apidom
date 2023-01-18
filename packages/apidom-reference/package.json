@@ -52,11 +52,6 @@
       "require": "./cjs/resolve/resolvers/http-axios/index.cjs",
       "types": "./types/resolve/resolvers/http-axios/index.d.ts"
     },
-    "./resolve/resolvers/http-swagger-client": {
-      "import": "./es/resolve/resolvers/http-swagger-client/index.js",
-      "require": "./cjs/resolve/resolvers/http-swagger-client/index.cjs",
-      "types": "./types/resolve/resolvers/http-swagger-client/index.d.ts"
-    },
     "./resolve/strategies/asyncapi-2": {
       "import": "./es/resolve/strategies/asyncapi-2/index.js",
       "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs",
@@ -158,11 +153,6 @@
       "import": "./es/dereference/strategies/openapi-3-1/selectors/uri/index.js",
       "require": "./cjs/dereference/strategies/openapi-3-1/selectors/uri/index.cjs",
       "types": "./types/dereference/strategies/openapi-3-1/selectors/uri/index.d.ts"
-    },
-    "./dereference/strategies/openapi-3-1-swagger-client": {
-      "import": "./es/dereference/strategies/openapi-3-1-swagger-client/index.js",
-      "require": "./cjs/dereference/strategies/openapi-3-1-swagger-client/index.cjs",
-      "types": "./types/dereference/strategies/openapi-3-1-swagger-client/index.d.ts"
     }
   },
   "imports": {
@@ -234,8 +224,7 @@
     "stampit": "=4.3.2"
   },
   "devDependencies": {
-    "axios-mock-adapter": "=1.21.2",
-    "swagger-client": "=3.18.5"
+    "axios-mock-adapter": "=1.21.2"
   },
   "files": [
     "cjs/",

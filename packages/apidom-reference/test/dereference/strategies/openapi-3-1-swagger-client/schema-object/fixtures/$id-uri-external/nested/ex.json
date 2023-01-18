@@ -1,8 +1,0 @@
-{
-  "$defs": {
-    "UserProfile": {
-      "$id": "./nested/",
-      "$ref": "./ex.json"
-    }
-  }
-}

@@ -637,38 +637,6 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 });
 ```
 
-##### [HttpResolverSwaggerClient](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/htt-swagger-client)
-
-This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
-It detects if the provided URI represents an HTTP(s) URL and if so,
-fetches the file and provides its content using [SwaggerClient's HTTP Client](https://github.com/swagger-api/swagger-js/blob/master/docs/usage/http-client.md).
-
-[SwaggerClient npm package](https://www.npmjs.com/package/swagger-client) needs to be installed explicitly before *HttpResolverSwaggerClient* is used.
-
-```sh
- $ npm install --save swagger-client
-```
-
-SwaggerClient's HTTP Client is then passed to resolver plugin explicitly.
-
-```js
-import { resolve, HttpResolverSwaggerClient } from '@swagger-api/apidom-reference';
-import SwaggerClient from 'swagger-client';
-
-await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
-  resolve: {
-    resolvers: [
-      HttpResolverSwaggerClient({ swaggerHTTPClient: SwaggerClient.http })
-    ],
-    resolverOpts: {
-      swaggerHTTPClientConfig: {
-        mode: 'cors',
-      },
-    },
-  },
-});
-```
-
 **File resolution on local filesystem path**:
 
 ```js
@@ -1304,26 +1272,6 @@ Supported media types:
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1)
 
 Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) definitions.
-
-Supported media types:
-
-```js
-[
-  'application/vnd.oai.openapi;version=3.1.0',
-  'application/vnd.oai.openapi+json;version=3.1.0',
-  'application/vnd.oai.openapi+yaml;version=3.1.0'
-]
-```
-
-##### [openapi-3-1-swagger-client](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1-swagger-client)
-
-Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) definitions with [swagger-client](https://github.com/swagger-api/swagger-js) flavour.
-This strategy support additional options:
-
-| Option                  | Description                                                                                                                                                                        |
-|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `useCircularStructures` | `Boolean=true`. Prevents circular values from being constructed, unless you specifically want that to happen. If set to `false`, it will leave the circular references unresolved. |
- | `allowMetaPatches`      | `Boolean=false`.  Allows adding meta patches, which include adding `$$refs` to the resolved definition. `$$ref` is a meta information created from the original JSON Reference.    |
 
 Supported media types:
 

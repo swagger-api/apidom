@@ -59,6 +59,16 @@ describe('refractor', function () {
         expect(sexprs(schemaElement)).toMatchSnapshot();
       });
 
+      context('given items keyword in form of object', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const schemaElement = SchemaElement.refract({
+            items: {},
+          });
+
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+      });
+
       context('given embedded SchemaElements', function () {
         specify('should refract to semantic ApiDOM tree', function () {
           const schemaElement = SchemaElement.refract({

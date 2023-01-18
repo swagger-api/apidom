@@ -1,5 +1,0 @@
-{
-  "indirection": {
-    "$ref": "./ex3.json#/$defs/externalSchema"
-  }
-}

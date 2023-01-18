@@ -1,8 +1,0 @@
-{
-  "$defs": {
-    "externalSchema": {
-      "description": "this is path item stored in external file",
-      "type": "object"
-    }
-  }
-}

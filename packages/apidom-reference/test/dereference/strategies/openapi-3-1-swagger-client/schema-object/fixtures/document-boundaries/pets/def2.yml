@@ -1,4 +1,0 @@
-components:
-  schemas:
-    Pet:
-      type: number

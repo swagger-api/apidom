@@ -1,4 +1,0 @@
-$defs:
-  Pet:
-    $anchor: Pet
-    type: number

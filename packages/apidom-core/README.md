@@ -104,6 +104,64 @@ const transcluder = Transcluder({ element });
 transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 ```
 
+## Deep merging
+
+`deepmerge` functions merged members of two or more ObjectElements deeply
+and handles deep merging of ArrayElements as well. This deep merge implementation
+is an option-less functional equivalent of [deepmerge](https://www.npmjs.com/package/deepmerge)
+that works equivalently on ApiDOM structures.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const x = new ObjectElement({
+  foo: { bar: 3 },
+  array: [
+    {
+      does: 'work',
+      too: [1, 2, 3],
+    },
+  ],
+});
+
+const y = new ObjectElement({
+  foo: { baz: 4 },
+  quux: 5,
+  array: [
+    {
+      does: 'work',
+      too: [4, 5, 6],
+    },
+    {
+      really: 'yes',
+    },
+  ],
+});
+
+const output = deepmerge(x, y);
+// =>
+// ObjectElement({
+//   foo: ObjectElement({
+//     bar: 3,
+//     baz: 4,
+//   }),
+//   array: ArrayElement([
+//     ObjectElement({
+//       does: 'work',
+//       too: [1, 2, 3],
+//     }),
+//     ObjectElement({
+//       does: 'work',
+//       too: [4, 5, 6],
+//     }),
+//     ObjectElement({
+//       really: 'yes',
+//     }),
+//   ]),
+//   quux: 5,
+// })
+```
+
 ## Refractors
 
 Refractor is a special layer inside the base namespace that can transform JavaScript structures

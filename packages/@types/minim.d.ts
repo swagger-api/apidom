@@ -116,6 +116,10 @@ declare module 'minim' {
 
     push(value: any): ArrayElement;
 
+    concat(value: ArrayElement): ArrayElement;
+
+    ['fantasy-land/map'](transform: any): ArrayElement;
+
     forEach(callback: (item: Element, index: number) => void, thisArg?: unknown): void;
 
     [Symbol.iterator](): IterableIterator<any>;

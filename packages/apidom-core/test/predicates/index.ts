@@ -359,7 +359,9 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        assert.isTrue(isArrayElement(new ObjectElement()));
+        class ArraySubElement extends ArrayElement {}
+
+        assert.isTrue(isArrayElement(new ArraySubElement()));
       });
     });
 
@@ -371,6 +373,7 @@ describe('predicates', function () {
         assert.isFalse(isArrayElement({}));
         assert.isFalse(isArrayElement([]));
         assert.isFalse(isArrayElement('string'));
+        assert.isFalse(isArrayElement(new ObjectElement()));
 
         assert.isFalse(isArrayElement(new StringElement()));
         assert.isFalse(isArrayElement(new BooleanElement()));

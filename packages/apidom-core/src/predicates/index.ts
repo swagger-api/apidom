@@ -49,19 +49,6 @@ export const isBooleanElement = createPredicate(({ hasBasicElementProps, primiti
     (hasBasicElementProps(element) && primitiveEq('boolean', element));
 });
 
-export const isArrayElement = createPredicate(
-  ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
-    return (element: any) =>
-      element instanceof ArrayElement ||
-      (hasBasicElementProps(element) &&
-        primitiveEq('array', element) &&
-        hasMethod('push', element) &&
-        hasMethod('unshift', element) &&
-        hasMethod('map', element) &&
-        hasMethod('reduce', element));
-  },
-);
-
 export const isObjectElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
     return (element: any) =>
@@ -71,6 +58,19 @@ export const isObjectElement = createPredicate(
         hasMethod('keys', element) &&
         hasMethod('values', element) &&
         hasMethod('items', element));
+  },
+);
+
+export const isArrayElement = createPredicate(
+  ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
+    return (element: any) =>
+      (element instanceof ArrayElement && !(element instanceof ObjectElement)) ||
+      (hasBasicElementProps(element) &&
+        primitiveEq('array', element) &&
+        hasMethod('push', element) &&
+        hasMethod('unshift', element) &&
+        hasMethod('map', element) &&
+        hasMethod('reduce', element));
   },
 );
 

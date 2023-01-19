@@ -129,3 +129,4 @@ export const toString = (
 };
 
 export { default as sexprs } from './sexprs';
+export { default as deepmerge } from './deepmerge';

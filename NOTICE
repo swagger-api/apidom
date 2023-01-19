@@ -11,7 +11,7 @@ Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
 
 graphql-js
 Copyright (c) GraphQL Contributors
-File packages/apidom-ast/src/visitor.ts (the file) was originally created under MIT license in https://github.com/graphql/graphql-js repository.
+File packages/apidom-ast/src/traversal/visitor.ts (the file) was originally created under MIT license in https://github.com/graphql/graphql-js repository.
 The file has been copied into this project and modified. All modifications are licensed under Apache 2.0 License.
 Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
 
@@ -32,6 +32,17 @@ Copyright (c) 2015 Apiary Inc.
 Specific texts in README.md (the file) were originally created under MIT license in https://github.com/refractproject/refract-spec repository.
 Specific texts have been copied into this project and modified. All modifications are licensed under Apache 2.0 License.
 Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
+
+deepmerge
+Copyright (c) 2012 James Halliday, Josh Duff, and other contributors
+- File packages/apidom-code/src/deepmerge.ts contains algorithms that we originally created
+  in https://github.com/TehShrike/deepmerge/blob/master/index.js to handle deep merging of JavaScript Objects and Arrays.
+  These algorithms have been reverse engineered and adapted to support deep merging of ApiDOM structures.
+- File packages/apidom-code/test/deepmerge.ts contains tests and fixtures that we originally created
+  in https://github.com/TehShrike/deepmerge/blob/master/test/merge.js to test deep merging of JavaScript Objects and Arrays.
+  These tests have been adapted to support testing deep merging of ApiDOM structures.
+Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
+All modifications are licensed under Apache 2.0 License.
 
 ---
 

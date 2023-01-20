@@ -1,6 +1,14 @@
 import { assert } from 'chai';
 
-import { deepmerge, toValue, ObjectElement, ArrayElement, StringElement } from '../src';
+import {
+  deepmerge,
+  toValue,
+  Element,
+  ObjectElement,
+  ArrayElement,
+  StringElement,
+  isObjectElement,
+} from '../src';
 
 describe('deepmerge', function () {
   it('should add keys in target that do not exist at the root', function () {
@@ -341,7 +349,101 @@ describe('deepmerge', function () {
     assert.strictEqual(merged.get(2), source.get(0), 'should not clone');
   });
 
-  it('should handle example from deepmerge README', function () {
+  context('deepmerge.all', function () {
+    const source = new ObjectElement({ key1: 'changed', key2: 'value2' });
+    const target = new ObjectElement({ key1: 'value1', key3: 'value3' });
+    const merged = deepmerge.all([target, source]);
+    const expected = {
+      key1: 'changed',
+      key2: 'value2',
+      key3: 'value3',
+    };
+
+    assert.deepEqual(
+      toValue(target),
+      { key1: 'value1', key3: 'value3' },
+      'merge should be immutable',
+    );
+    assert.deepEqual(toValue(merged), expected);
+  });
+
+  context('given arrayElementMerge option', function () {
+    specify('should allow custom merging of ArrayElements', function () {
+      const arrayElementMerge = (destination: ArrayElement, source: ArrayElement) => source;
+      const target = new ArrayElement([1, 2, 3]);
+      const source = new ArrayElement([3, 2, 1]);
+      const merged = deepmerge(target, source, { arrayElementMerge });
+
+      assert.deepEqual(toValue(merged), [3, 2, 1]);
+    });
+  });
+
+  context('given objectElementMerge option', function () {
+    specify('should allow custom merging of ObjectElements', function () {
+      const objectElementMerge = (destination: ObjectElement, source: ObjectElement) => source;
+      const target = new ObjectElement({ a: 1, b: 2 });
+      const source = new ObjectElement({ c: 3, d: 4 });
+      const merged = deepmerge(target, source, { objectElementMerge });
+
+      assert.deepEqual(toValue(merged), { c: 3, d: 4 });
+    });
+  });
+
+  context('given customMerge option', function () {
+    specify('should override default deepmerge behavior', function () {
+      const alex = new ObjectElement({
+        name: {
+          first: 'Alex',
+          last: 'Alexson',
+        },
+        pets: ['Cat', 'Parrot'],
+      });
+      const tony = new ObjectElement({
+        name: {
+          first: 'Tony',
+          last: 'Tonison',
+        },
+        pets: ['Dog'],
+      });
+      const mergeNames = (nameA: ObjectElement, nameB: ObjectElement) =>
+        new StringElement(`${toValue(nameA.get('first'))} and ${toValue(nameB.get('first'))}`);
+      const customMerge = (key: Element) => (toValue(key) === 'name' ? mergeNames : undefined);
+      // @ts-ignore
+      const merged = deepmerge(alex, tony, { customMerge }) as ObjectElement;
+
+      assert.strictEqual(toValue(merged.get('name')), 'Alex and Tony');
+      assert.deepEqual(toValue(merged.get('pets')), ['Cat', 'Parrot', 'Dog']);
+    });
+  });
+
+  context('given isMergeableElement option', function () {
+    specify('', function () {
+      class CustomObjectElement extends ObjectElement {
+        element = 'custom';
+      }
+      const instantiatedCustomObjectElement = new CustomObjectElement({ special: 'oh yeah' });
+
+      const target = new ObjectElement({
+        someProperty: {
+          cool: 'oh for sure',
+        },
+      });
+      const source = new ObjectElement({
+        someProperty: instantiatedCustomObjectElement,
+      });
+      const isMergeableElement = (element: Element) =>
+        isObjectElement(element) && !(element instanceof CustomObjectElement);
+      const merged = deepmerge(target, source, {
+        isMergeableElement,
+      }) as ObjectElement;
+
+      assert.instanceOf(merged.get('someProperty'), CustomObjectElement);
+      assert.isUndefined(merged.get('someProperty').get('cool'));
+      assert.strictEqual(merged.get('someProperty').get('special').toValue(), 'oh yeah');
+    });
+  });
+
+  it('should handle main example from deepmerge README', function () {
     // https://github.com/TehShrike/deepmerge/tree/master#example-usage
     const x = new ObjectElement({
       foo: { bar: 3 },

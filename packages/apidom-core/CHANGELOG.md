@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.65.0](https://github.com/swagger-api/apidom/compare/v0.64.0...v0.65.0) (2023-01-20)
+
+### Bug Fixes
+
+- **core:** fix isArrayElement predicate polymorhic characteristics ([#2484](https://github.com/swagger-api/apidom/issues/2484)) ([2b77629](https://github.com/swagger-api/apidom/commit/2b7762921cd42daeb0d3ba01f9f7c1d8c7876a4c))
+
+### Features
+
+- **core:** add options support for deepmerge function ([#2485](https://github.com/swagger-api/apidom/issues/2485)) ([764e392](https://github.com/swagger-api/apidom/commit/764e3928c60356d1b7ec5ba21f3e315b17f82aca))
+- **core:** addd support for deep merge algorithm ([#2483](https://github.com/swagger-api/apidom/issues/2483)) ([ad3ace5](https://github.com/swagger-api/apidom/commit/ad3ace5b1c5d307cbad079d146e42a36c31d5232))
+
 # [0.64.0](https://github.com/swagger-api/apidom/compare/v0.63.1...v0.64.0) (2023-01-16)
 
 ### Features

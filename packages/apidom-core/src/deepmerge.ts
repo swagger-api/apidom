@@ -6,6 +6,37 @@ import { isObjectElement, isArrayElement } from './predicates';
 
 type ObjectOrArrayElement = ObjectElement | ArrayElement;
 type AnyElement = ObjectElement | ArrayElement | Element;
+type DeepMerge = (
+  targetElement: ObjectOrArrayElement,
+  sourceElement: ObjectOrArrayElement,
+  options?: DeepMergeOptions,
+) => AnyElement;
+type CustomMerge = (keyElement: Element, options: DeepMergeOptions) => DeepMerge;
+type ArrayElementMerge = (
+  targetElement: ArrayElement,
+  sourceElement: ArrayElement,
+  options: DeepMergeOptions,
+) => ArrayElement;
+type ObjectElementMerge = (
+  targetElement: ObjectElement,
+  source: ObjectElement,
+  options: DeepMergeOptions,
+) => ObjectElement;
+type DeepMergeUserOptions = {
+  clone?: boolean;
+  isMergeableElement?: (element: Element) => boolean;
+  arrayElementMerge?: ArrayElementMerge;
+  objectElementMerge?: ObjectElementMerge;
+  customMerge?: CustomMerge;
+};
+
+type DeepMergeOptions = DeepMergeUserOptions & {
+  clone: boolean;
+  isMergeableElement: (element: Element) => boolean;
+  arrayElementMerge: ArrayElementMerge;
+  objectElementMerge: ObjectElementMerge;
+  customMerge: CustomMerge | undefined;
+};
 
 const emptyElement = (element: ObjectElement | ArrayElement) => {
   const meta = element.meta.clone();
@@ -23,21 +54,32 @@ const cloneMemberElement = (memberElement: MemberElement) =>
     memberElement.attributes.clone(),
   );
 
-const cloneUnlessOtherwiseSpecified = (element: AnyElement): AnyElement =>
-  isObjectElement(element) || isArrayElement(element)
-    ? deepmerge(emptyElement(element as ObjectOrArrayElement), element as ObjectOrArrayElement)
+const cloneUnlessOtherwiseSpecified = (
+  element: AnyElement,
+  options: DeepMergeOptions,
+): AnyElement =>
+  options.clone && options.isMergeableElement(element)
+    ? deepmerge(
+        emptyElement(element as ObjectOrArrayElement),
+        element as ObjectOrArrayElement,
+        options,
+      )
     : element;
 
-const mergeArrayElement = (
-  targetElement: ArrayElement,
-  sourceElement: ArrayElement,
-): ArrayElement =>
-  targetElement.concat(sourceElement)['fantasy-land/map'](cloneUnlessOtherwiseSpecified);
+const getMergeFunction = (keyElement: Element, options: DeepMergeOptions): DeepMerge => {
+  if (typeof options.customMerge !== 'function') {
+    return deepmerge;
+  }
+  const customMerge = options.customMerge(keyElement, options);
+  return typeof customMerge === 'function' ? customMerge : deepmerge;
+};
 
-const mergeObjectElement = (
-  targetElement: ObjectElement,
-  sourceElement: ObjectElement,
-): ObjectElement => {
+const mergeArrayElement: ArrayElementMerge = (targetElement, sourceElement, options) =>
+  targetElement
+    .concat(sourceElement)
+    ['fantasy-land/map']((item: Element) => cloneUnlessOtherwiseSpecified(item, options));
+
+const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, options) => {
   const destination = isObjectElement(targetElement)
     ? emptyElement(targetElement)
     : emptyElement(sourceElement);
@@ -45,7 +87,7 @@ const mergeObjectElement = (
   if (isObjectElement(targetElement)) {
     targetElement.forEach((value, key, member) => {
       const clonedMember = cloneMemberElement(member as MemberElement);
-      clonedMember.value = cloneUnlessOtherwiseSpecified(value);
+      clonedMember.value = cloneUnlessOtherwiseSpecified(value, options);
       destination.content.push(clonedMember);
     });
   }
@@ -57,14 +99,17 @@ const mergeObjectElement = (
     if (
       isObjectElement(targetElement) &&
       targetElement.hasKey(keyValue) &&
-      (isObjectElement(value) || isArrayElement(value))
+      options.isMergeableElement(value)
     ) {
       const targetValue = targetElement.get(keyValue);
       clonedMember = cloneMemberElement(member as MemberElement);
-      clonedMember.value = deepmerge(targetValue, value as ObjectOrArrayElement);
+      clonedMember.value = getMergeFunction(key, options)(
+        targetValue,
+        value as ObjectOrArrayElement,
+      );
     } else {
       clonedMember = cloneMemberElement(member as MemberElement);
-      clonedMember.value = cloneUnlessOtherwiseSpecified(value as AnyElement);
+      clonedMember.value = cloneUnlessOtherwiseSpecified(value as AnyElement, options);
     }
 
     destination.remove(keyValue);
@@ -77,19 +122,56 @@ const mergeObjectElement = (
 export default function deepmerge(
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
-) {
-  const sourceIsArrayElement = isArrayElement(sourceElement) && !isObjectElement(sourceElement);
-  const targetIsArrayElement = isArrayElement(targetElement) && !isObjectElement(targetElement);
+  options?: DeepMergeUserOptions,
+): AnyElement {
+  const defaultOptions: DeepMergeOptions = {
+    clone: true,
+    isMergeableElement: (element) => isObjectElement(element) || isArrayElement(element),
+    arrayElementMerge: mergeArrayElement,
+    objectElementMerge: mergeObjectElement,
+    customMerge: undefined,
+  };
+  const mergedOptions: DeepMergeOptions = { ...defaultOptions, ...options };
+  mergedOptions.isMergeableElement =
+    mergedOptions.isMergeableElement ?? defaultOptions.isMergeableElement;
+  mergedOptions.arrayElementMerge =
+    mergedOptions.arrayElementMerge ?? defaultOptions.arrayElementMerge;
+  mergedOptions.objectElementMerge =
+    mergedOptions.objectElementMerge ?? defaultOptions.objectElementMerge;
+
+  const sourceIsArrayElement = isArrayElement(sourceElement);
+  const targetIsArrayElement = isArrayElement(targetElement);
   const sourceAndTargetTypesMatch = sourceIsArrayElement === targetIsArrayElement;
 
   if (!sourceAndTargetTypesMatch) {
-    return cloneUnlessOtherwiseSpecified(sourceElement);
+    return cloneUnlessOtherwiseSpecified(sourceElement, mergedOptions);
   }
 
-  if (sourceIsArrayElement) {
-    return mergeArrayElement(targetElement as ArrayElement, sourceElement as ArrayElement);
+  if (sourceIsArrayElement && typeof mergedOptions.arrayElementMerge === 'function') {
+    return mergedOptions.arrayElementMerge(
+      targetElement as ArrayElement,
+      sourceElement as ArrayElement,
+      mergedOptions,
+    );
   }
 
-  return mergeObjectElement(targetElement as ObjectElement, sourceElement as ObjectElement);
+  return mergedOptions.objectElementMerge(
+    targetElement as ObjectElement,
+    sourceElement as ObjectElement,
+    mergedOptions,
+  );
 }
+
+deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeOptions) => {
+  if (!Array.isArray(list)) {
+    throw new Error('first argument should be an array');
+  }
+  if (list.length === 0) {
+    return new ObjectElement();
+  }
+
+  return list.reduce((target, source) => {
+    return deepmerge(target, source, options);
+  }, emptyElement(list[0]));
+};
 /* eslint-enable @typescript-eslint/no-use-before-define */

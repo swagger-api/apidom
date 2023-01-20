@@ -18,6 +18,8 @@ You can now install the package using `npm`:
  $ npm install @swagger-api/apidom-core
 ```
 
+---
+
 ## Base namespace
 
 Base namespace consists of [four higher order elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core/src/elements) implemented on top
@@ -47,6 +49,8 @@ const openApiElement = new namespace.elements.OpenApi3_1();
 When namespace instance is created in this way, it will extend the base namespace
 with the namespace provided as an argument.
 
+---
+
 ## Predicates
 
 This package exposes [predicates](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/predicates/index.ts)
@@ -74,6 +78,8 @@ const isMyElement = createPredicate(
   },
 );
 ```
+
+---
 
 ## Transcluder
 
@@ -104,12 +110,23 @@ const transcluder = Transcluder({ element });
 transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 ```
 
+---
+
 ## Deep merging
 
 `deepmerge` functions merged members of two or more ObjectElements deeply
 and handles deep merging of ArrayElements as well. This deep merge implementation
-is an option-less functional equivalent of [deepmerge](https://www.npmjs.com/package/deepmerge)
+is a functional equivalent of [deepmerge](https://www.npmjs.com/package/deepmerge)
 that works equivalently on ApiDOM structures.
+
+### API
+
+#### deepmerge(target, source, [options])
+
+Merge two ApiDOM elements target and source deeply, returning a new merged ApiDOM element with the elements
+from both target and source. If an element at the same key is present for both target and source,
+the value from source will appear in the result. Merging creates a new ApiDOM element,
+so that neither target nor source is modified (operation is immutable).
 
 ```js
 import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
@@ -161,6 +178,135 @@ const output = deepmerge(x, y);
 //   quux: 5,
 // })
 ```
+
+#### deepmerge.all([element1, element2, ...], [options])
+
+Merges any number of ApiDOM elements into a single ApiDOM element.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const foobar = new ObjectElement({ foo: { bar: 3 } });
+const foobaz = new ObjectElement({ foo: { baz: 4 } });
+const bar = new ObjectElement({ bar: 'yay!' });
+
+const output = deepmerge.all([ foobar, foobaz, bar ]);
+// => ObjectElement({ foo: { bar: 3, baz: 4 }, bar: 'yay!' })
+```
+
+### Options
+
+#### arrayElementMerge
+
+There are multiple ways to merge two ArrayElements, below are a few examples, but you can also create your own custom function.
+
+Your `arrayElementMerge` function will be called with three arguments: a `target` ArrayElement, the `source` ArrayElement,
+and an `options` object.
+
+```js
+import { deepmerge, ArrayElement } from '@swagger-api/apidom-core';
+
+const arrayElementMerge = (destination, source, options) => source;
+
+const target = new ArrayElement([1, 2, 3]);
+const source = new ArrayElement([3, 2, 1]);
+const output = deepmerge(target, source, { arrayElementMerge });
+// => ArrayElement([3, 2, 1]);
+```
+
+#### objectElementMerge
+
+There are multiple ways to merge two ObjectElements, below are a few examples, but you can also create your own custom function.
+
+Your `objectElementMerge` function will be called with three arguments: a `target` ObjectElement, the `source` ObjectElement,
+and an `options` object.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const objectElementMerge = (destination, source, options) => source;
+
+const target = new ObjectElement({a: 1, b: 2});
+const source = new ObjectElement({c: 3, d: 4});
+const output = deepmerge(target ,source, { objectElementMerge });
+// => ObjectElement({c: 3, d: 4});
+```
+
+#### isMergeableElement
+
+By default, deepmerge clones every member from ObjectElement and ArrayElement.
+You may not want this, if your ObjectElements are of special types,
+and you want to copy the whole ObjectElement instead of just copying its member.
+
+You can accomplish this by passing in a function for the `isMergeableElement` option.
+
+```js
+import { deepmerge, ObjectElement, isObjectElement } from '@swagger-api/apidom-core';
+
+class CustomObjectElement extends ObjectElement {
+  element = 'custom';
+}
+const instantiatedCustomObjectElement = new CustomObjectElement({ special: 'oh yeah' });
+
+const target = new ObjectElement({
+  someProperty: {
+    cool: 'oh for sure',
+  },
+});
+const source = new ObjectElement({
+  someProperty: instantiatedCustomObjectElement,
+});
+const isMergeableElement = (element: Element) => isObjectElement(element) && !(element instanceof CustomObjectElement);
+
+const output = deepmerge(target, source, {
+  isMergeableElement,
+});
+// output.get('someProperty').get('cool'); // => undefined
+// output.get('someProperty').get('special'); // => 'oh yeah'
+// output.get('someProperty') instanceof CustomObjectElement // => true
+```
+
+#### customMerge
+
+Specifies a function which can be used to override the default merge behavior for a member, based on the key name.
+The `customMerge` function will be passed the key for each member, and should return the function which should
+be used to merge the values for that member.
+It may also return undefined, in which case the default merge behaviour will be used.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const alex = new ObjectElement({
+	name: {
+		first: 'Alex',
+		last: 'Alexson'
+	},
+	pets: ['Cat', 'Parrot']
+});
+const tony = new ObjectElement({
+	name: {
+		first: 'Tony',
+		last: 'Tonison'
+	},
+	pets: ['Dog']
+});
+
+const mergeNames = (nameA: ObjectElement, nameB: ObjectElement) =>
+  new StringElement(`${toValue(nameA.get('first'))} and ${toValue(nameB.get('first'))}`);
+const customMerge = (key: Element) => (toValue(key) === 'name' ? mergeNames : undefined);
+
+const output = deepmerge(alex, tony, { customMerge });
+// output.get('name'); // => StrignElement('Alex and Tony')
+// output.get('pets'); // => ArrayElement(['Cat', 'Parrot', 'Dog'])
+```
+
+#### clone
+
+Defaults to `true`.
+
+If `clone` is false then child elements will be copied directly instead of being cloned.
+
+---
 
 ## Refractors
 
@@ -297,6 +443,8 @@ objectElement.getMember('info').key.id; // ''
 objectElement.getMember('info').value.id; // 'OnReGGrO7fMd9ztacvGfwGbOdGKuOFLiQQ1W'
 ```
 
+---
+
 ## Traversal
 
 `apidom` comes with its own traversal algorithm along with couple of convenient abstractions on top of it.
@@ -430,6 +578,8 @@ const objectElement = new ObjectElement({
 const parentEdges = parents(objectElement); // => WeakMap<childElement, parentElement>
 ```
 
+---
+
 ## Transformers
 
 Following functions transforms ApiDOM between its various forms. All transformers (except `toValue`) can accept
@@ -472,7 +622,7 @@ from(javascriptForm); // => NumberElement<1>
 ### toValue
 
 Transforms the ApiDOM into JavaScript POJO. This POJO would be the result of interpreting the ApiDOM
-into JavaScript structure.
+into JavaScript structure. This function can handle cycles in ApiDOM structure.
 
 ```js
 import { toValue, ObjectElement } from '@swagger-api/apidom-core';

@@ -23,6 +23,40 @@ You can now install the package using `npm`:
  $ npm install @swagger-api/apidom-reference
 ```
 
+## Configurations
+
+This package two main exports suitable for different use-cases. **Empty** configuration and **saturated** configuration.
+
+### Empty configuration
+
+```js
+import { parse } from '@swagger-api/apidom-reference/configuration/empty';
+import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+
+await parse('/home/user/oas.json', {
+  parse: {
+    mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+    parsers: [OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false })]
+  }
+});
+```
+
+When using this approach, `options` object is not configured with parsers, resolvers or strategies.
+This is suitable for creating **web bundles** and gives you total control of the contents of your bundles.
+
+### Saturated configuration
+
+```js
+import { parse } from '@swagger-api/apidom-reference';
+```
+or
+```js
+import { parse } from '@swagger-api/apidom-reference/configuration/saturaged';
+```
+
+Both of above imports are equivalent. This approach is suitable for **Node.js** environments.
+`options` object is pre-configured with all the parsers, resolvers and strategies.
+
 ## Parse component
 
 Parse component consists of implementation of default [parser plugins](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers).
@@ -39,7 +73,7 @@ await parse('/home/user/oas.json', {
 });
 ```
 
-**Parsing a HTTP(S) URL located on internet:**
+**Parsing an HTTP(S) URL located on internet:**
 
 ```js
 import { parse } from '@swagger-api/apidom-reference';
@@ -155,11 +189,13 @@ Supported media types are:
   'application/vnd.aai.asyncapi;version=2.2.0',
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.4.0',
+  'application/vnd.aai.asyncapi;version=2.5.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.1.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.4.0',
+  'application/vnd.aai.asyncapi+json;version=2.5.0',
 ]
 ```
 
@@ -178,11 +214,14 @@ Supported media types are:
   'application/vnd.aai.asyncapi;version=2.2.0',
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.3.0',
+  'application/vnd.aai.asyncapi;version=2.4.0',
+  'application/vnd.aai.asyncapi;version=2.5.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
   'application/vnd.aai.asyncapi+yaml;version=2.3.0',
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.5.0',
 ]
 ```
 
@@ -224,7 +263,9 @@ and is uniquely  identified by `json` name.
 Supported media types are:
 
 ```js
-['application/json']
+[
+  'application/json'
+]
 ```
 
 #### [yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/yaml-1-2)
@@ -236,7 +277,10 @@ and is uniquely  identified by `yaml-1-2` name.
 Supported media types are:
 
 ```js
-['text/yaml', 'application/yaml']
+[
+  'text/yaml',
+  'application/yaml'
+]
 ```
 
 #### [binary](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/binary)
@@ -250,7 +294,7 @@ This parser is uniquely identified by `binary` name.
 #### Parser plugins execution order
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
-by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L29) option.
+by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L22) option.
 Every plugin is pulled from `options.parse.parsers` option, and it's `canParse` method is called to determine
 whether the plugin can parse the URI. If `canParse` returns `true`, `parse` method of plugin is called
 and result from parsing is returned. No subsequent parser plugins are run. If `canParse` returns
@@ -259,6 +303,9 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
 
 ```js
 [
+  OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
+  OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
+  OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
@@ -275,20 +322,23 @@ Most specific parser plugins are listed first, most generic are listed last.
 It's possible to **change** the parser plugins **order globally** by mutating global `parse` options:
 
 ```js
-import {
-  options,
-  OpenApiJson3_1Parser,
-  OpenApiYaml3_1Parser,
-  AsyncApiJson2Parser,
-  AsyncApiYaml2Parser,
-  ApiDesignSystemsJsonParser,
-  ApiDesignSystemsYamlParser,
-  JsonParser,
-  YamlParser,
-  BinaryParser,
-} from '@swagger-api/apidom-reference';
+import { options } from '@swagger-api/apidom-reference';
+import { OpenApiJson3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import { OpenApiYaml3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import { OpenApiYaml3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import { AsyncApiJson2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import { AsyncApiYaml2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import { ApiDesignSystemsJsonParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import { ApiDesignSystemsYamlParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import { JsonParser } from '@swagger-api/apidom-reference/parse/parsers/json';
+import { YamlParser } from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import { BinaryParser } from '@swagger-api/apidom-reference/parse/parsers/binary';
+
 
 options.parse.parsers = [
+  OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
+  OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
@@ -304,18 +354,18 @@ options.parse.parsers = [
 To **change** the parser plugins **order** on ad-hoc basis:
 
 ```js
-import {
-  parse,
-  OpenApiJson3_1Parser,
-  OpenApiYaml3_1Parser,
-  AsyncApiJson2Parser,
-  AsyncApiYaml2Parser,
-  ApiDesignSystemsJsonParser,
-  ApiDesignSystemsYamlParser,
-  JsonParser,
-  YamlParser,
-  BinaryParser,
-} from '@swagger-api/apidom-reference';
+import { parse } from '@swagger-api/apidom-reference';
+import { OpenApiJson3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import { OpenApiYaml3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import { OpenApiYaml3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import { AsyncApiJson2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import { AsyncApiYaml2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import { ApiDesignSystemsJsonParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import { ApiDesignSystemsYamlParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import { JsonParser } from '@swagger-api/apidom-reference/parse/parsers/json';
+import { YamlParser } from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import { BinaryParser } from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 await parse('/home/user/oas.json', {
   parse: {
@@ -323,6 +373,8 @@ await parse('/home/user/oas.json', {
     parsers: [
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
       ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
@@ -492,7 +544,7 @@ import { parse, options } from '@swagger-api/apidom-reference';
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: options.parse.parsers.filter(parserPlugin => parserPlugin !== 'asyncapi-json-2'),
+    parsers: options.parse.parsers.filter(parserPlugin => parserPlugin.name !== 'asyncapi-json-2'),
   }
 });
 ```
@@ -531,7 +583,9 @@ File allow list can be provided **globally** as an option to `FileResolver` in f
 of array of *glob patterns* or *regular expressions*.
 
 ```js
-import { options, FileResolver, HttpResolverAxios } from '@swagger-api/apidom-reference';
+import { options } from '@swagger-api/apidom-reference';
+import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
   FileResolver({
@@ -665,8 +719,8 @@ const string = buffer.toString('utf-8');
 ##### Resolver plugins execution order
 
 It's important to understand that default resolver plugins are run in specific order. The order is determined
-by the [options.resolve.resolvers](https://github.com/swagger-api/apidom/blob/729a4aa604fb22bd737756ca49eccd6b011bf354/apidom/packages/apidom-reference/src/options/index.ts#L54) option.
-Every plugin is pulled from `options.resolve.resolvers` option and it's `canRead` method is called to determine
+by the [options.resolve.resolvers]https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L36) option.
+Every plugin is pulled from `options.resolve.resolvers` option, and it's `canRead` method is called to determine
 whether the plugin can resolve the URI. If `canRead` returns `true`, `read` method of plugin is called
 and result from reading the file is returned. No subsequent resolver plugins are run.
 If `canRead` returns `false`, next resolver plugin is pulled and this process is repeated until one
@@ -682,7 +736,9 @@ of the resolver plugins `canRead` method returns `true` or until entire list of 
 It's possible to **change** resolver plugins **order globally** by mutating global `resolve` option:
 
 ```js
-import { options, FileResolver, HttpResolverAxios } from '@swagger-api/apidom-reference';
+import { options } from '@swagger-api/apidom-reference';
+import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
   HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
@@ -693,7 +749,9 @@ options.resolve.resolvers = [
 To **change** resolver plugins **order** on ad-hoc basis:
 
 ```js
-import { readFile, FileResolver, HttpResolverAxios } from '@swagger-api/apidom-reference';
+import { readFile } from '@swagger-api/apidom-reference';
+import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 await readFile('/home/user/oas.json', {
   resolve: {
@@ -938,6 +996,9 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi+json;version=2.4.0',
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
+  'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi+json;version=2.5.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.5.0',
 ]
 ```
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-0)
@@ -980,7 +1041,7 @@ Supported media types:
 ##### External resolution strategies execution order
 
 It's important to understand that default external resolution strategies are run in specific order. The order is determined
-by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L60) option.
+by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L41) option.
 Every strategy is pulled from `options.resolve.strategies` option and its `canResolve` method is called to determine
 whether the strategy can externally resolve the URI. If `canResolve` returns `true`, `resolve` method of strategy is called
 and result from external resolution is returned. No subsequent strategies  are run. If `canResolve` returns
@@ -989,9 +1050,9 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
-  AsyncApi2ResolveStrategy(),
   OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
+  AsyncApi2ResolveStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -999,7 +1060,10 @@ Most specific strategies are listed first, most generic are listed last.
 It's possible to **change** strategies **order globally** by mutating global `resolve` option:
 
 ```js
-import { options, AsyncApi2ResolveStrategy, OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference';
+import { options } from '@swagger-api/apidom-reference';
+import { AsyncApi2ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import { OpenApi3_0ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import { OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 options.resolve.strategies = [
   OpenApi3_0ResolveStrategy(),
@@ -1011,7 +1075,11 @@ options.resolve.strategies = [
 To **change** the strategies **order** on ad-hoc basis:
 
 ```js
-import { resolve, AsyncApi2ResolveStrategy, OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference';
+import { resolve } from '@swagger-api/apidom-reference';
+import { AsyncApi2ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import { OpenApi3_0ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import { OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
+
 
 await resolve('/home/user/oas.json', {
   parse: {
@@ -1019,9 +1087,9 @@ await resolve('/home/user/oas.json', {
   },
   resolve: {
     strategies: [
+      AsyncApi2ResolveStrategy(),
       OpenApi3_0ResolveStrategy(),
       OpenApi3_1ResolveStrategy(),
-      AsyncApi2ResolveStrategy(),
     ]
   }
 });
@@ -1243,6 +1311,12 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.3.0',
   'application/vnd.aai.asyncapi+yaml;version=2.3.0',
+  'application/vnd.aai.asyncapi;version=2.4.0',
+  'application/vnd.aai.asyncapi+json;version=2.4.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.4.0',
+  'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi+json;version=2.5.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.5.0',
 ]
 ```
 
@@ -1305,7 +1379,10 @@ Most specific strategies are listed first, most generic are listed last.
 It's possible to **change** strategies **order globally** by mutating global `dereference` option:
 
 ```js
-import { options, AsyncApi2DereferenceStrategy, OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference';
+import { options } from '@swagger-api/apidom-reference';
+import { AsyncApi2DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
+import { OpenApi3_0DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
+import { OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
 
 options.dereference.strategies = [
   OpenApi3_0DereferenceStrategy(),
@@ -1317,7 +1394,10 @@ options.dereference.strategies = [
 To **change** the strategies **order** on ad-hoc basis:
 
 ```js
-import { dereference, AsyncApi2DereferenceStrategy, OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference';
+import { dereference } from '@swagger-api/apidom-reference';
+import { AsyncApi2DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
+import { OpenApi3_0DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
+import { OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
 
 await dereference('/home/user/oas.json', {
   parse: {
@@ -1441,7 +1521,7 @@ The total time of dereferencing is the sum of `traversing` + sum of `external re
 By having a huge number of external dependencies in your definition file, dereferencing can get quite slow.
 Fortunately there is solution for this by running an `external resolution` first,
 and passing its result to dereferencing via an option. External resolution is built on asynchronous parallel traversal (on single file),
-so it's theoretically always faster on huge amount of external dependencies than the dereference.
+so it's theoretically always faster on huge amount of external dependencies than the dereferencing.
 
 ```js
 import { resolve, dereference } from '@swagger-api/apidom-reference';

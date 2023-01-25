@@ -25,7 +25,7 @@ You can now install the package using `npm`:
 
 ## Configurations
 
-This package two main exports suitable for different use-cases. **Empty** configuration and **saturated** configuration.
+This package has two main exports suitable for different use-cases. **Empty** configuration and **saturated** configuration.
 
 ### Empty configuration
 

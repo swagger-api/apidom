@@ -2,7 +2,7 @@
   "packages": ["packages/*"],
   "npmClient": "npm",
   "useWorkspaces": true,
-  "version": "0.65.0",
+  "version": "0.66.0",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {

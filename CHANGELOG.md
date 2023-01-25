@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.66.0](https://github.com/swagger-api/apidom/compare/v0.65.0...v0.66.0) (2023-01-25)
+
+### Bug Fixes
+
+- **parser-adapter-json:** fix issues in JSON detection regexp ([#2502](https://github.com/swagger-api/apidom/issues/2502)) ([678b440](https://github.com/swagger-api/apidom/commit/678b44003c6241d7e97d36d5c440d2696de4e761)), closes [#2503](https://github.com/swagger-api/apidom/issues/2503)
+
+### Features
+
+- **reference:** export DereferenceStrategy symbol ([#2499](https://github.com/swagger-api/apidom/issues/2499)) ([3d6016d](https://github.com/swagger-api/apidom/commit/3d6016d909706a48f6e637c3fee3eec098f17c5e))
+
 # [0.65.0](https://github.com/swagger-api/apidom/compare/v0.64.0...v0.65.0) (2023-01-20)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-api-design-systems-json",
-  "version": "0.65.0",
+  "version": "0.66.0",
   "description": "Parser adapter for parsing JSON documents into API Design Systems namespace.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -36,9 +36,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "=7.20.7",
-    "@swagger-api/apidom-core": "^0.65.0",
-    "@swagger-api/apidom-ns-api-design-systems": "^0.65.0",
-    "@swagger-api/apidom-parser-adapter-json": "^0.65.0",
+    "@swagger-api/apidom-core": "^0.66.0",
+    "@swagger-api/apidom-ns-api-design-systems": "^0.66.0",
+    "@swagger-api/apidom-parser-adapter-json": "^0.66.0",
     "@types/ramda": "=0.28.21",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0"

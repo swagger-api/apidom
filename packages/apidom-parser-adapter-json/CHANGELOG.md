@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.66.0](https://github.com/swagger-api/apidom/compare/v0.65.0...v0.66.0) (2023-01-25)
+
+### Bug Fixes
+
+- **parser-adapter-json:** fix issues in JSON detection regexp ([#2502](https://github.com/swagger-api/apidom/issues/2502)) ([678b440](https://github.com/swagger-api/apidom/commit/678b44003c6241d7e97d36d5c440d2696de4e761)), closes [#2503](https://github.com/swagger-api/apidom/issues/2503)
+
 # [0.65.0](https://github.com/swagger-api/apidom/compare/v0.64.0...v0.65.0) (2023-01-20)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

@@ -145,7 +145,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       // detect direct or circular reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive JSON Pointer detected');
+        throw new Error('Recursive Reference Object detected');
       }
 
       // detect maximum depth of dereferencing
@@ -238,7 +238,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive JSON Pointer detected');
+        throw new Error('Recursive Path Item Object reference detected');
       }
 
       // detect maximum depth of dereferencing

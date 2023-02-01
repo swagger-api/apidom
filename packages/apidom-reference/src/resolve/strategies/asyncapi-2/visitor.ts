@@ -146,7 +146,7 @@ const AsyncApi2ResolveVisitor = stampit({
 
       // detect direct or circular reference
       if (this.indirections.includes(fragment)) {
-        throw new Error('Recursive JSON Pointer detected');
+        throw new Error('Recursive Reference Object detected');
       }
 
       // detect maximum depth of dereferencing
@@ -187,7 +187,7 @@ const AsyncApi2ResolveVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive JSON Pointer detected');
+        throw new Error('Recursive Channel Item Object reference detected');
       }
 
       // detect maximum depth of dereferencing

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  apidom:
+    container_name: apidom-dev
+    image: apidom:dev
+    volumes:
+      - .:/apidom
+    tty: true
+    stdin_open: true

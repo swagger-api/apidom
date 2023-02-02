@@ -1,6 +1,7 @@
 version: '3'
 services:
   apidom:
+    build: .
     container_name: apidom-dev
     image: apidom:dev
     volumes:

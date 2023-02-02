@@ -108,20 +108,53 @@ All the information necessary for working with monorepo can be found in this [ar
 
 ### Prerequisites
 
-[Node.js](https://nodejs.org/) >= 16.8.0 and `npm >= 7.21.0` are the minimum required versions that this repo runs on.
-We recommend using the latest version of Node.js@16 though. We're using [node-gyp](https://www.npmjs.com/package/node-gyp) to build some fragments that require [Python 3.x](https://www.python.org/downloads/).
-[emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed
-on your operating system. We strongly recommend going with a docker option.
+- [Node.js](https://nodejs.org/) `>=16.8.0` and `npm >=7.21.0` are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@16
+- [node-gyp](https://www.npmjs.com/package/node-gyp) with [Python 3.x](https://www.python.org/downloads/)
+- [GLIBC](https://www.gnu.org/software/libc/) `>=2.29`
+- [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed, we recommend going with a docker option
 
 ### Setting up
 
 Run the following commands to setup the repository for local development:
 
 ```shell
+ $ git clone https://github.com/swagger-api/apidom.git
+ $ cd apidom
  $ npm i
  $ npm run build
 ```
-> Note: monorepo needs to be build in order for monorepo package topology for work correctly.
+
+### Setting up via docker
+
+There are situations, when satisfying all the **prerequisites** of this repository on you local
+development machine is just not possible. In that case, you can use **docker** to get around it.
+Repository directory is mounted as volume inside a running container called `apidom-dev`.
+That way you can edit code locally on your development machine and run **npm scripts**
+inside the `apidom-dev` docker container.
+
+**Build the ApiDOM docker image:**
+
+```sh
+ $ git clone https://github.com/swagger-api/apidom.git
+ $ cd apidom
+ $ docker build -t apidom:dev .
+ $ docker-compose up
+```
+
+**Install dependencies and and build ApiDOM inside the docker container:**
+
+```sh
+$ docker exec -it apidom-dev npm i --verbose
+$ docker exec -it apidom-dev npm run build
+```
+
+**Run npm scripts inside the docker container:**
+
+```sh
+$ docker exec -it apidom-dev npm run test
+```
+
+> Note: monorepo needs to be build in order for monorepo package topology to work correctly.
 
 ### npm scripts
 

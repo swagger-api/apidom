@@ -137,11 +137,10 @@ inside the `apidom-dev` docker container.
 ```sh
  $ git clone https://github.com/swagger-api/apidom.git
  $ cd apidom
- $ docker build -t apidom:dev .
  $ docker-compose up
 ```
 
-**Install dependencies and and build ApiDOM inside the docker container:**
+**Install dependencies and build ApiDOM inside the docker container:**
 
 ```sh
 $ docker exec -it apidom-dev npm i --verbose

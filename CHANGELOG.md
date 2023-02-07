@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.67.0](https://github.com/swagger-api/apidom/compare/v0.66.0...v0.67.0) (2023-02-07)
+
+### Bug Fixes
+
+- **ls:** make IMBMQ Channel Bindings topic field always optional ([#2523](https://github.com/swagger-api/apidom/issues/2523)) ([f6704d9](https://github.com/swagger-api/apidom/commit/f6704d902c38000ce8f25c4ae62790dbc084a41b)), closes [#2522](https://github.com/swagger-api/apidom/issues/2522)
+
+### Features
+
+- **ls:** add support for AsyncAPI 2.6.0 ([#2538](https://github.com/swagger-api/apidom/issues/2538)) ([04fcc64](https://github.com/swagger-api/apidom/commit/04fcc6445fcc0901e224b9112586daa1b0e03710)), closes [#2520](https://github.com/swagger-api/apidom/issues/2520)
+- **ns-asyncapi-i-2:** add support for AsyncAPI 2.6.0 ([#2535](https://github.com/swagger-api/apidom/issues/2535)) ([35c7e8f](https://github.com/swagger-api/apidom/commit/35c7e8f0def90df480c44b580fa1bfe76ab41972)), closes [#2520](https://github.com/swagger-api/apidom/issues/2520)
+- **parser-adaptes:** add support for AsyncAPI 2.6.0 ([#2536](https://github.com/swagger-api/apidom/issues/2536)) ([c2d6439](https://github.com/swagger-api/apidom/commit/c2d643904d5835cec28af4327e477f36205388fc)), closes [#2520](https://github.com/swagger-api/apidom/issues/2520)
+- **reference:** add support for AsyncAPI 2.6.0 ([#2537](https://github.com/swagger-api/apidom/issues/2537)) ([36cbf2f](https://github.com/swagger-api/apidom/commit/36cbf2f730723996e61f111ca6cac1d76da26327)), closes [#2520](https://github.com/swagger-api/apidom/issues/2520)
+
 # [0.66.0](https://github.com/swagger-api/apidom/compare/v0.65.0...v0.66.0) (2023-01-25)
 
 ### Bug Fixes

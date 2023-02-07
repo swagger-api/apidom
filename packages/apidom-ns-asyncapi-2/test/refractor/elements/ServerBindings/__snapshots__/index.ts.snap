@@ -55,5 +55,8 @@ exports[`refractor elements ServerBindingsElement should refract to semantic Api
     (IbmmqServerBindingElement))
   (MemberElement
     (StringElement)
-    (GooglepubsubServerBindingElement)))
+    (GooglepubsubServerBindingElement))
+  (MemberElement
+    (StringElement)
+    (PulsarServerBindingElement)))
 `;

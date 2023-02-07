@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-ns-asyncapi-2` contains ApiDOM namespace supports following AsyncAPI specification versions:
 
+- [AsyncAPI 2.6.0 specification](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md)
 - [AsyncAPI 2.5.0 specification](https://github.com/asyncapi/spec/blob/v2.5.0/spec/asyncapi.md)
 - [AsyncAPI 2.4.0 specification](https://github.com/asyncapi/spec/blob/v2.4.0/spec/asyncapi.md)
 - [AsyncAPI 2.3.0 specification](https://github.com/asyncapi/spec/blob/v2.3.0/spec/asyncapi.md)
@@ -142,7 +143,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
   visitor: {
     InfoElement(infoElement) {
-      infoElement.version = '2.5.0';
+      infoElement.version = '2.6.0';
     },
   },
   post() {
@@ -150,7 +151,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
 });
 
-InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ title = 'my title', description = 'my description', version = '2.5.0' })
+InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ title = 'my title', description = 'my description', version = '2.6.0' })
 ```
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
@@ -167,7 +168,7 @@ import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const yamlDefinition = `
-asyncapi: 2.5.0
+asyncapi: 2.6f.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);

@@ -59,7 +59,7 @@ export {
 export { keyMap, getNodeType } from './traversal/visitor';
 
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 export { default as AsyncApi2Element } from './elements/AsyncApi2';
 export { default as AsyncApiVersionElement } from './elements/AsyncApiVersion';
@@ -160,6 +160,11 @@ export { default as NatsChannelBindingElement } from './elements/bindings/nats/N
 export { default as NatsMessageBindingElement } from './elements/bindings/nats/NatsMessageBinding';
 export { default as NatsOperationBindingElement } from './elements/bindings/nats/NatsOperationBinding';
 export { default as NatsServerBindingElement } from './elements/bindings/nats/NatsServerBinding';
+// Pulsar
+export { default as PulsarChannelBindingElement } from './elements/bindings/pulsar/PulsarChannelBinding';
+export { default as PulsarMessageBindingElement } from './elements/bindings/pulsar/PulsarMessageBinding';
+export { default as PulsarOperationBindingElement } from './elements/bindings/pulsar/PulsarOperationBinding';
+export { default as PulsarServerBindingElement } from './elements/bindings/pulsar/PulsarServerBinding';
 // Redis
 export { default as RedisChannelBindingElement } from './elements/bindings/redis/RedisChannelBinding';
 export { default as RedisMessageBindingElement } from './elements/bindings/redis/RedisMessageBinding';

@@ -1,7 +1,7 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -100,6 +100,11 @@ import NatsChannelBindingElement from './elements/bindings/nats/NatsChannelBindi
 import NatsMessageBindingElement from './elements/bindings/nats/NatsMessageBinding';
 import NatsOperationBindingElement from './elements/bindings/nats/NatsOperationBinding';
 import NatsServerBindingElement from './elements/bindings/nats/NatsServerBinding';
+// Pulsar
+import PulsarChannelBindingElement from './elements/bindings/pulsar/PulsarChannelBinding';
+import PulsarMessageBindingElement from './elements/bindings/pulsar/PulsarMessageBinding';
+import PulsarOperationBindingElement from './elements/bindings/pulsar/PulsarOperationBinding';
+import PulsarServerBindingElement from './elements/bindings/pulsar/PulsarServerBinding';
 // Redis
 import RedisChannelBindingElement from './elements/bindings/redis/RedisChannelBinding';
 import RedisMessageBindingElement from './elements/bindings/redis/RedisMessageBinding';
@@ -136,7 +141,7 @@ const asyncApi2 = {
     const { base } = options;
 
     /**
-     * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+     * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
      */
     base.register('asyncApi2', AsyncApi2Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
@@ -236,6 +241,11 @@ const asyncApi2 = {
     base.register('natsMessageBinding', NatsMessageBindingElement);
     base.register('natsOperationBinding', NatsOperationBindingElement);
     base.register('natsServerBinding', NatsServerBindingElement);
+    // Pulsar
+    base.register('pulsarChannelBinding', PulsarChannelBindingElement);
+    base.register('pulsarMessageBinding', PulsarMessageBindingElement);
+    base.register('pulsarOperationBinding', PulsarOperationBindingElement);
+    base.register('pulsarServerBinding', PulsarServerBindingElement);
     // Redis
     base.register('redisChannelBinding', RedisChannelBindingElement);
     base.register('redisMessageBinding', RedisMessageBindingElement);

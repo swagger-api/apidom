@@ -9,7 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const messageElement = MessageElement.refract({
           messageId: 'unique-id',
-          schemaFormat: 'application/vnd.aai.asyncapi;version=2.5.0',
+          schemaFormat: 'application/vnd.aai.asyncapi;version=2.6.0',
           contentType: 'application/json',
           name: 'message-name',
           title: 'message-title',
@@ -81,7 +81,7 @@ describe('refractor', function () {
       context('given payload field', function () {
         specify('should refract payload to SchemaElement', function () {
           const messageElement = MessageElement.refract({
-            schemaFormat: 'application/vnd.aai.asyncapi;version=2.5.0',
+            schemaFormat: 'application/vnd.aai.asyncapi;version=2.6.0',
             payload: {},
           });
 
@@ -92,7 +92,7 @@ describe('refractor', function () {
       context('given payload field of type ReferenceElement', function () {
         specify('should refract payload to ReferenceElement', function () {
           const messageElement = MessageElement.refract({
-            schemaFormat: 'application/vnd.aai.asyncapi;version=2.5.0',
+            schemaFormat: 'application/vnd.aai.asyncapi;version=2.6.0',
             payload: {
               $ref: '#/json-pointer',
             },

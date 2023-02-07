@@ -11,7 +11,7 @@ import {
 
 import mediaTypes from '../../media-types';
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion';
 import IdentifierElement from '../../elements/Identifier';
@@ -175,7 +175,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * asyncapi: 2.5.0
+ * asyncapi: 2.6.0
  * info:
  * ```
  * Refracting result without this plugin:

@@ -55,5 +55,8 @@ exports[`refractor elements OperationBindingsElement should refract to semantic 
     (GooglepubsubOperationBindingElement))
   (MemberElement
     (StringElement)
-    (IbmmqOperationBindingElement)))
+    (IbmmqOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (PulsarOperationBindingElement)))
 `;

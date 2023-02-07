@@ -10,7 +10,7 @@ const parser = ApiDOMParser();
 parser.use(asyncApiJsonAdapter);
 parser.use(asyncApiYamlAdapter);
 
-describe('given AsyncAPI 2.4 definition', function () {
+describe('given AsyncAPI 2.6 definition', function () {
   const sandbox = createSandbox();
 
   beforeEach(function () {
@@ -26,13 +26,13 @@ describe('given AsyncAPI 2.4 definition', function () {
     sandbox.spy();
 
     specify('should parse semantically', async function () {
-      const { result } = await parser.parse('{"asyncapi":"2.5.0"}');
+      const { result } = await parser.parse('{"asyncapi":"2.6.0"}');
 
       assert.isTrue(isAsyncApi2Element(result));
     });
 
     specify('should use asyncApiJsonAdapter', async function () {
-      await parser.parse('{"asyncapi":"2.5.0"}');
+      await parser.parse('{"asyncapi":"2.6.0"}');
 
       // @ts-ignore
       assert.isTrue(asyncApiJsonAdapter.parse.calledOnce);
@@ -43,13 +43,13 @@ describe('given AsyncAPI 2.4 definition', function () {
 
   context('given YAML 1.2 format', function () {
     specify('should parse semantically', async function () {
-      const { result } = await parser.parse('asyncapi: "2.5.0"');
+      const { result } = await parser.parse('asyncapi: "2.6.0"');
 
       assert.isTrue(isAsyncApi2Element(result));
     });
 
     specify('should use asyncApiYamlAdapter', async function () {
-      await parser.parse('asyncapi: "2.5.0"');
+      await parser.parse('asyncapi: "2.6.0"');
 
       // @ts-ignore
       assert.isTrue(asyncApiYamlAdapter.parse.calledOnce);

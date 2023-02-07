@@ -97,7 +97,7 @@ describe('parsers', function () {
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as AsyncAPI 2.5.0', function () {
+        context('and file data is buffer and can be detected as AsyncAPI 2.6.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = File({
@@ -110,7 +110,7 @@ describe('parsers', function () {
           });
         });
 
-        context('and file data is string and can be detected as AsyncAPI 2.5.0', function () {
+        context('and file data is string and can be detected as AsyncAPI 2.6.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = File({
@@ -126,7 +126,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 2.5.0 YAML data', function () {
+      context('given AsyncApi 2.6.0 YAML data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url).toString();
@@ -138,7 +138,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 2.5.0 YAML data as buffer', function () {
+      context('given AsyncApi 2.6.0 YAML data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(url);
@@ -150,7 +150,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 2.5.0 YAML data', function () {
+      context('given data that is not an AsyncApi 2.6.0 YAML data', function () {
         specify('should throw ParserError', async function () {
           const file = File({
             uri: '/path/to/file.yaml',

@@ -190,12 +190,14 @@ Supported media types are:
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.1.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.4.0',
   'application/vnd.aai.asyncapi+json;version=2.5.0',
+  'application/vnd.aai.asyncapi+json;version=2.6.0',
 ]
 ```
 
@@ -216,12 +218,14 @@ Supported media types are:
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
   'application/vnd.aai.asyncapi+yaml;version=2.3.0',
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
   'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.6.0',
 ]
 ```
 
@@ -999,6 +1003,9 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.5.0',
   'application/vnd.aai.asyncapi+json;version=2.5.0',
   'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
+  'application/vnd.aai.asyncapi+json;version=2.6.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.6.0',
 ]
 ```
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-0)
@@ -1317,6 +1324,9 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.5.0',
   'application/vnd.aai.asyncapi+json;version=2.5.0',
   'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
+  'application/vnd.aai.asyncapi+json;version=2.6.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.6.0',
 ]
 ```
 

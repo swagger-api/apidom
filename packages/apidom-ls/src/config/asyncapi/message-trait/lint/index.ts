@@ -1,5 +1,5 @@
 import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
-import allowedFields2_4__2_5Lint from './allowed-fields-2-4--2-5';
+import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6';
 import messageIdType from './message-id--type';
 import headersTypeLint from './headers--type';
 import correlationIdType from './correlation-id--type';
@@ -17,7 +17,7 @@ import examplesItemsTypeLint from './examples--items-type';
 
 const lints = [
   allowedFields2_0__2_3Lint,
-  allowedFields2_4__2_5Lint,
+  allowedFields2_4__2_6Lint,
   messageIdType,
   headersTypeLint,
   correlationIdType,

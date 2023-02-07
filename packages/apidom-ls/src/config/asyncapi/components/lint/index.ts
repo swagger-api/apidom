@@ -1,6 +1,6 @@
 import allowedFields2_0__2_2Lint from './allowed-fields-2-0--2-2';
 import allowedFields2_3Lint from './allowed-fields-2-3';
-import allowedFields2_4__2_5Lint from './allowed-fields-2-4--2-5';
+import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6';
 import schemasValuesTypeLint from './schemas--values-type';
 import serversValuesTypeLint from './servers--values-type';
 import serverVariablesValuesType from './server-variables--values-type';
@@ -20,7 +20,7 @@ import keysPatternLint from './keys--pattern';
 const lints = [
   allowedFields2_0__2_2Lint,
   allowedFields2_3Lint,
-  allowedFields2_4__2_5Lint,
+  allowedFields2_4__2_6Lint,
   schemasValuesTypeLint,
   serversValuesTypeLint,
   serverVariablesValuesType,

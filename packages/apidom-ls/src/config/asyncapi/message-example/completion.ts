@@ -15,11 +15,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "Map[string, any]\\\n\\\nThe value of this field MUST validate against the [Message Object's headers](https://www.asyncapi.com/docs/reference/specification/v2.5.0##messageObjectHeaders) field.",
+        "Map[string, any]\\\n\\\nThe value of this field MUST validate against the [Message Object's headers](https://www.asyncapi.com/docs/reference/specification/v2.6.0##messageObjectHeaders) field.",
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -32,7 +33,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "The value of this field MUST validate against the [Message Object's payload](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageObjectPayload) field.",
+        "The value of this field MUST validate against the [Message Object's payload](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageObjectPayload) field.",
     },
   },
   {

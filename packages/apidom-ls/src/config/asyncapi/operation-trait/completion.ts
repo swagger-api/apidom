@@ -53,11 +53,12 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms are associated with this operation. Only one of the security requirement objects MUST be satisfied to authorize an operation. In cases where Server Security also applies, it MUST also be satisfied.',
+        '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms are associated with this operation. Only one of the security requirement objects MUST be satisfied to authorize an operation. In cases where Server Security also applies, it MUST also be satisfied.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -81,7 +82,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#messageBindingsObject#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of operations.',
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageBindingsObject#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of operations.',
     },
   },
   {
@@ -94,7 +95,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this operation.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this operation.',
     },
   },
   {
@@ -107,7 +108,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the operation.',
+        '[Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the operation.',
     },
   },
 ];

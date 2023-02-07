@@ -73,6 +73,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -182,6 +183,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -241,6 +243,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -261,6 +264,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.3.0' },
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
   {
@@ -275,7 +279,24 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Google Cloud Pub/Sub Message Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub#message)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
+    ],
+  },
+  {
+    label: 'pulsar',
+    insertText: 'pulsar',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Pulsar Message Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#message-binding-fields)\n\\\n\\\n\tProtocol-specific information for a Pulsar message.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }],
   },
 ];
 

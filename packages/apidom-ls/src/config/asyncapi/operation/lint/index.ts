@@ -10,7 +10,7 @@ import traitsTypeLint from './traits--type';
 import traitsItemsTypeLint from './traits--items-type';
 import messageTypeLint from './message--type';
 import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3';
-import allowedFields2_4__2_5Lint from './allowed-fields-2-4--2-5';
+import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6';
 
 const lints = [
   operationIdTypeLint,
@@ -25,7 +25,7 @@ const lints = [
   traitsItemsTypeLint,
   messageTypeLint,
   allowedFields2_0__2_3Lint,
-  allowedFields2_4__2_5Lint,
+  allowedFields2_4__2_6Lint,
 ];
 
 export default lints;

@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-yaml-2` is a parser adapter for following AsyncAPI specification versions defined in [YAML format](https://yaml.org/spec/1.2/spec.html):
 
+- [AsyncAPI 2.6.0 specification](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md)
 - [AsyncAPI 2.5.0 specification](https://github.com/asyncapi/spec/blob/v2.5.0/spec/asyncapi.md)
 - [AsyncAPI 2.4.0 specification](https://github.com/asyncapi/spec/blob/v2.4.0/spec/asyncapi.md)
 - [AsyncAPI 2.3.0 specification](https://github.com/asyncapi/spec/blob/v2.3.0/spec/asyncapi.md)
@@ -46,12 +47,14 @@ Defines list of media types that this parser adapter recognizes.
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
   'application/vnd.aai.asyncapi+yaml;version=2.0.0',
   'application/vnd.aai.asyncapi+yaml;version=2.1.0',
   'application/vnd.aai.asyncapi+yaml;version=2.2.0',
   'application/vnd.aai.asyncapi+yaml;version=2.3.0',
   'application/vnd.aai.asyncapi+yaml;version=2.4.0',
   'application/vnd.aai.asyncapi+yaml;version=2.5.0',
+  'application/vnd.aai.asyncapi+yaml;version=2.6.0',
 ]
 ```
 
@@ -94,10 +97,11 @@ await detect('asyncapi: 2.2.0'); // => true
 await detect('asyncapi: 2.3.0'); // => true
 await detect('asyncapi: 2.4.0'); // => true
 await detect('asyncapi: 2.5.0'); // => true
+await detect('asyncapi: 2.6.0'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('asyncapi: 2.5.0', { sourceMap: true });
+const parseResult = await parse('asyncapi: 2.6.0', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -112,5 +116,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiYamlAdapter);
 
-const parseResult = await parser.parse('asyncapi: 2.5.0', { mediaType: asyncApiYamlAdapter.mediaTypes.latest('yaml') });
+const parseResult = await parser.parse('asyncapi: 2.6.0', { mediaType: asyncApiYamlAdapter.mediaTypes.latest('yaml') });
 ```

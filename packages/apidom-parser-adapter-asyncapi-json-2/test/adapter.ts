@@ -20,7 +20,7 @@ describe('adapter', function () {
     });
 
     specify('should detect patch version bump', async function () {
-      assert.isTrue(await adapter.detect('{"asyncapi": "2.5.1"}'));
+      assert.isTrue(await adapter.detect('{"asyncapi": "2.6.1"}'));
     });
 
     specify('should detect minor and patch version bump', async function () {
@@ -86,6 +86,8 @@ describe('adapter', function () {
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "2.4.1"'));
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "2.5.0"'));
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "2.5.1"'));
+      assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "2.6.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "2.6.1"'));
     });
 
     specify('should reject invalid version ranges', function () {

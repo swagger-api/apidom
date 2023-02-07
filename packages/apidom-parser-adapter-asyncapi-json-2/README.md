@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-json-2` is a parser adapter for following AsyncAPI specification versions defined in [JSON format](https://www.json.org/json-en.html):
 
+- [AsyncAPI 2.6.0 specification](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md)
 - [AsyncAPI 2.5.0 specification](https://github.com/asyncapi/spec/blob/v2.5.0/spec/asyncapi.md)
 - [AsyncAPI 2.4.0 specification](https://github.com/asyncapi/spec/blob/v2.4.0/spec/asyncapi.md)
 - [AsyncAPI 2.3.0 specification](https://github.com/asyncapi/spec/blob/v2.3.0/spec/asyncapi.md)
@@ -47,18 +48,20 @@ Defines list of media types that this parser adapter recognizes.
   'application/vnd.aai.asyncapi;version=2.3.0',
   'application/vnd.aai.asyncapi;version=2.4.0',
   'application/vnd.aai.asyncapi;version=2.5.0',
+  'application/vnd.aai.asyncapi;version=2.6.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.1.0',
   'application/vnd.aai.asyncapi+json;version=2.2.0',
   'application/vnd.aai.asyncapi+json;version=2.3.0',
   'application/vnd.aai.asyncapi+json;version=2.4.0',
   'application/vnd.aai.asyncapi+json;version=2.5.0',
+  'application/vnd.aai.asyncapi+json;version=2.6.0',
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.5.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.6.0 specification symbols in JSON format.
 
 ### namespace
 
@@ -95,10 +98,11 @@ await detect('{"asyncapi": "2.2.0"}'); // => true
 await detect('{"asyncapi": "2.3.0"}'); // => true
 await detect('{"asyncapi": "2.4.0"}'); // => true
 await detect('{"asyncapi": "2.5.0"}'); // => true
+await detect('{"asyncapi": "2.6.0"}'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('{"asyncapi": "2.5.0"}', { sourceMap: true });
+const parseResult = await parse('{"asyncapi": "2.6.0"}', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -113,5 +117,5 @@ const parser = ApiDOMParser();
 
 parser.use(asyncApiJsonAdapter);
 
-const parseResult = await parser.parse('{"asyncapi": "2.5.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
+const parseResult = await parser.parse('{"asyncapi": "2.6.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
 ```

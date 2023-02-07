@@ -37,7 +37,7 @@ describe('adapter', function () {
 
   context('given definition of unknown type', function () {
     specify('should detect proper media type', async function () {
-      assert.isFalse(await adapter.detect('"asyncapi": "2.5.0"'));
+      assert.isFalse(await adapter.detect('"asyncapi": "2.6.0"'));
     });
   });
 

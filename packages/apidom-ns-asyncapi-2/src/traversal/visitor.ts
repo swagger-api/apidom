@@ -10,7 +10,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 
 export const keyMap = {
   /**
-   * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+   * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
    */
   AsyncApi2Element: ['content'],
   AsyncApiVersionElement: [],
@@ -107,6 +107,11 @@ export const keyMap = {
   NatsMessageBindingElement: ['content'],
   NatsOperationBindingElement: ['content'],
   NatsServerBindingElement: ['content'],
+  // Pulsar
+  PulsarChannelBindingElement: ['content'],
+  PulsarMessageBindingElement: ['content'],
+  PulsarOperationBindingElement: ['content'],
+  PulsarServerBindingElement: ['content'],
   // Redis
   RedisChannelBindingElement: ['content'],
   RedisMessageBindingElement: ['content'],

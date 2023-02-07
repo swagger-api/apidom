@@ -1,6 +1,6 @@
 import { createRefractor } from './index';
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 import AsyncApi2Element from '../elements/AsyncApi2';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion';
@@ -99,6 +99,11 @@ import NatsChannelBindingElement from '../elements/bindings/nats/NatsChannelBind
 import NatsMessageBindingElement from '../elements/bindings/nats/NatsMessageBinding';
 import NatsOperationBindingElement from '../elements/bindings/nats/NatsOperationBinding';
 import NatsServerBindingElement from '../elements/bindings/nats/NatsServerBinding';
+// Pulsar
+import PulsarChannelBindingElement from '../elements/bindings/pulsar/PulsarChannelBinding';
+import PulsarMessageBindingElement from '../elements/bindings/pulsar/PulsarMessageBinding';
+import PulsarOperationBindingElement from '../elements/bindings/pulsar/PulsarOperationBinding';
+import PulsarServerBindingElement from '../elements/bindings/pulsar/PulsarServerBinding';
 // Redis
 import RedisChannelBindingElement from '../elements/bindings/redis/RedisChannelBinding';
 import RedisMessageBindingElement from '../elements/bindings/redis/RedisMessageBinding';
@@ -131,7 +136,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding';
 
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 AsyncApi2Element.refract = createRefractor([
   'visitors',
@@ -786,6 +791,43 @@ NatsServerBindingElement.refract = createRefractor([
   'objects',
   'bindings',
   'nats',
+  'ServerBinding',
+  '$visitor',
+]);
+// Pulsar
+PulsarChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'pulsar',
+  'ChannelBinding',
+  '$visitor',
+]);
+PulsarMessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'pulsar',
+  'MessageBinding',
+  '$visitor',
+]);
+PulsarOperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'pulsar',
+  'OperationBinding',
+  '$visitor',
+]);
+PulsarServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'pulsar',
   'ServerBinding',
   '$visitor',
 ]);

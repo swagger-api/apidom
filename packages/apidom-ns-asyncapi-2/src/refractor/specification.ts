@@ -3,7 +3,7 @@ import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
  */
 import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
@@ -213,6 +213,11 @@ import NatsChannelBindingVisitor from './visitors/async-api-2/bindings/nats/chan
 import NatsMessageBindingVisitor from './visitors/async-api-2/bindings/nats/message-binding';
 import NatsOperationBindingVisitor from './visitors/async-api-2/bindings/nats/operation-binding';
 import NatsServerBindingVisitor from './visitors/async-api-2/bindings/nats/server-binding';
+// Pulsar
+import PulsarChannelBindingVisitor from './visitors/async-api-2/bindings/pulsar/channel-binding';
+import PulsarMessageBindingVisitor from './visitors/async-api-2/bindings/pulsar/message-binding';
+import PulsarOperationBindingVisitor from './visitors/async-api-2/bindings/pulsar/operation-binding';
+import PulsarServerBindingVisitor from './visitors/async-api-2/bindings/pulsar/server-binding';
 // Redis
 import RedisChannelBindingVisitor from './visitors/async-api-2/bindings/redis/channel-binding';
 import RedisMessageBindingVisitor from './visitors/async-api-2/bindings/redis/message-binding';
@@ -292,7 +297,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * AsyncApi >= 2.0.0 <=2.5.0 specification elements.
+         * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,
@@ -647,6 +652,9 @@ const specification = {
             googlepubsub: {
               $ref: '#/visitors/document/objects/bindings/googlepubsub/ServerBinding',
             },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/ServerBinding',
+            },
           },
         },
         Parameters: {
@@ -717,6 +725,9 @@ const specification = {
             googlepubsub: {
               $ref: '#/visitors/document/objects/bindings/googlepubsub/ChannelBinding',
             },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/ChannelBinding',
+            },
           },
         },
         OperationBindings: {
@@ -776,6 +787,9 @@ const specification = {
             ibmmq: {
               $ref: '#/visitors/document/objects/bindings/ibmmq/OperationBinding',
             },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/OperationBinding',
+            },
           },
         },
         MessageBindings: {
@@ -834,6 +848,9 @@ const specification = {
             },
             googlepubsub: {
               $ref: '#/visitors/document/objects/bindings/googlepubsub/MessageBinding',
+            },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/MessageBinding',
             },
           },
         },
@@ -1162,6 +1179,54 @@ const specification = {
             },
             MessageBinding: {
               $visitor: NatsMessageBindingVisitor,
+            },
+          },
+          pulsar: {
+            ServerBinding: {
+              $visitor: PulsarServerBindingVisitor,
+              fixedFields: {
+                tenant: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: PulsarChannelBindingVisitor,
+              fixedFields: {
+                namespace: {
+                  $ref: '#/visitors/value',
+                },
+                persistence: {
+                  $ref: '#/visitors/value',
+                },
+                compaction: {
+                  $ref: '#/visitors/value',
+                },
+                'geo-replication': {
+                  $ref: '#/visitors/value',
+                },
+                retention: {
+                  $ref: '#/visitors/value',
+                },
+                ttl: {
+                  $ref: '#/visitors/value',
+                },
+                deduplication: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: PulsarOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: PulsarMessageBindingVisitor,
             },
           },
           jms: {

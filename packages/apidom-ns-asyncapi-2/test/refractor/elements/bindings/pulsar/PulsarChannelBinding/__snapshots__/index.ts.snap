@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements PulsarChannelBindingElement should refract to semantic ApiDOM tree 1`] = `
+(PulsarChannelBindingElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (StringElement)
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (NumberElement))
+      (MemberElement
+        (StringElement)
+        (NumberElement))))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

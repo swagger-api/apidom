@@ -1,5 +1,5 @@
 {
-  "asyncapi": "2.5.0",
+  "asyncapi": "2.6.0",
   "id": "urn:com:smartylighting:streetlights:server",
   "info": {
     "title": "AsyncAPI Sample App",
@@ -61,7 +61,11 @@
           "groupId": "PRODCLSTR1",
           "bindingVersion": "0.1.0"
         },
-        "googlepubsub": {}
+        "googlepubsub": {},
+        "pulsar": {
+          "tenant": "public",
+          "version": "0.1.0"
+        }
       }
     },
     "development": {
@@ -150,7 +154,8 @@
                 ]
               },
               "anypointmq": {},
-              "googlepubsub": {}
+              "googlepubsub": {},
+              "pulsar": {}
             }
           }
         ],
@@ -174,7 +179,7 @@
             "description": "correlation id description",
             "location": "http://asyncapi.com/"
           },
-          "schemaFormat": "application/vnd.aai.asyncapi;version=2.5.0",
+          "schemaFormat": "application/vnd.aai.asyncapi;version=2.3.0",
           "contentType": "application/json",
           "name": "name of the message",
           "title": "title of the message",
@@ -218,7 +223,8 @@
                 "name": "projects/your-project/schemas/message-avro",
                 "type": "avro"
               }
-            }
+            },
+            "pulsar": {}
           },
           "examples": [
             {
@@ -238,7 +244,7 @@
                 "description": "correlation id description",
                 "location": "http://asyncapi.com/"
               },
-              "schemaFormat": "application/vnd.aai.asyncapi;version=2.5.0",
+              "schemaFormat": "application/vnd.aai.asyncapi;version=2.3.0",
               "contentType": "application/json",
               "name": "name of the message trait",
               "title": "title of the message trait",
@@ -336,6 +342,10 @@
             "name": "projects/your-project/schemas/message-proto"
           },
           "topic": "projects/your-project/topics/topic-avro-schema"
+        },
+        "pulsar": {
+          "persistence": "persistent",
+          "ttl": 20
         }
       }
     },

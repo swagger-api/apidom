@@ -1,6 +1,6 @@
 [
   {
-    "asyncapi": "2.5.0",
+    "asyncapi": "2.6.0",
     "channels": {
       "user/signedup": {
         "subscribe": {

@@ -17,7 +17,7 @@ const documentation = [
   },
   {
     target: 'retention',
-    docs: '[Retention Definition Object](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#retention-definition-object)`\n\\\n\\\nTopic retention policy.',
+    docs: '[Retention Definition Object](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#retention-definition-object)\n\\\n\\\nTopic retention policy.',
   },
   {
     target: 'ttl',

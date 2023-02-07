@@ -107,6 +107,11 @@ import NatsChannelBindingElement from '../../elements/bindings/nats/NatsChannelB
 import NatsMessageBindingElement from '../../elements/bindings/nats/NatsMessageBinding';
 import NatsOperationBindingElement from '../../elements/bindings/nats/NatsOperationBinding';
 import NatsServerBindingElement from '../../elements/bindings/nats/NatsServerBinding';
+// Pulsar
+import PulsarChannelBindingElement from '../../elements/bindings/pulsar/PulsarChannelBinding';
+import PulsarMessageBindingElement from '../../elements/bindings/pulsar/PulsarMessageBinding';
+import PulsarOperationBindingElement from '../../elements/bindings/pulsar/PulsarOperationBinding';
+import PulsarServerBindingElement from '../../elements/bindings/pulsar/PulsarServerBinding';
 // Redis
 import RedisChannelBindingElement from '../../elements/bindings/redis/RedisChannelBinding';
 import RedisMessageBindingElement from '../../elements/bindings/redis/RedisMessageBinding';
@@ -517,6 +522,9 @@ const schema = {
     ibmmq(...args: any[]) {
       return new IbmmqOperationBindingElement(...args);
     },
+    pulsar(...args: any[]) {
+      return new PulsarOperationBindingElement(...args);
+    },
   },
   MessageBindingsElement: {
     http(...args: any[]) {
@@ -572,6 +580,9 @@ const schema = {
     },
     googlepubsub(...args: any[]) {
       return new GooglepubsubMessageBindingElement(...args);
+    },
+    pulsar(...args: any[]) {
+      return new PulsarMessageBindingElement(...args);
     },
   },
   ServerBindingsElement: {
@@ -629,6 +640,9 @@ const schema = {
     googlepubsub(...args: any[]) {
       return new GooglepubsubServerBindingElement(...args);
     },
+    pulsar(...args: any[]) {
+      return new PulsarServerBindingElement(...args);
+    },
   },
   ChannelBindingsElement: {
     http(...args: any[]) {
@@ -684,6 +698,9 @@ const schema = {
     },
     googlepubsub(...args: any[]) {
       return new GooglepubsubChannelBindingElement(...args);
+    },
+    pulsar(...args: any[]) {
+      return new PulsarChannelBindingElement(...args);
     },
   },
   SchemaElement: {
@@ -852,6 +869,14 @@ const schema = {
       return new ObjectElement(...args);
     },
     schema(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  PulsarChannelBindingElement: {
+    'geo-replication': function (...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    retention(...args: any[]) {
       return new ObjectElement(...args);
     },
   },

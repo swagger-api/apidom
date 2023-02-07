@@ -92,7 +92,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Retention Definition Object](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#retention-definition-object)`\n\\\n\\\nTopic retention policy.',
+        '[Retention Definition Object](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#retention-definition-object)\n\\\n\\\nTopic retention policy.',
     },
     conditions: [
       {

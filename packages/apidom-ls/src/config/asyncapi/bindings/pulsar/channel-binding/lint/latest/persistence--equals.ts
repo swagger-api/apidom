@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types';
 const persistenceEqualsLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_PULSAR_CHANNEL_BINDING_FIELD_PERSISTENCE_EQUALS,
   source: 'apilint',
-  message: "'destinationType' must be one of allowed values",
+  message: "'persistence' must be one of allowed values",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['persistent', 'non-persistent']],

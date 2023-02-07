@@ -284,6 +284,20 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.6.0' },
     ],
   },
+  {
+    label: 'pulsar',
+    insertText: 'pulsar',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Pulsar Server Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#server-binding-object)\n\\\n\\\nProtocol-specific information for a Pulsar server.',
+    },
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }],
+  },
 ];
 
 export default completion;

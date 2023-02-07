@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
     },
   },
   {
@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Protected Credentials flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Protected Credentials flow.',
     },
   },
   {
@@ -41,7 +41,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow.',
     },
   },
   {
@@ -54,7 +54,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow.',
     },
   },
 ];

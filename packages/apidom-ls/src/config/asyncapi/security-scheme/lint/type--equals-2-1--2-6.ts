@@ -4,8 +4,8 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const typeEqualsLint2_1__2_5Lint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_TYPE_EQUALS_2_2__2_5,
+const typeEqualsLint2_1__2_6Lint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_TYPE_EQUALS_2_2__2_6,
   source: 'apilint',
   message: 'type must be one of allowed values',
   severity: DiagnosticSeverity.Error,
@@ -110,7 +110,8 @@ const typeEqualsLint2_1__2_5Lint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.3.0' },
     { namespace: 'asyncapi', version: '2.4.0' },
     { namespace: 'asyncapi', version: '2.5.0' },
+    { namespace: 'asyncapi', version: '2.6.0' },
   ],
 };
 
-export default typeEqualsLint2_1__2_5Lint;
+export default typeEqualsLint2_1__2_6Lint;

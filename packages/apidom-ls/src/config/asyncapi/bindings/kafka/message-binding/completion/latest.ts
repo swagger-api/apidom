@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject) \\| [Reference object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject)\n\\\n\\\nThe message key.',
+        '[Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject) \\| [Reference object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nThe message key.',
     },
     conditions: [
       {

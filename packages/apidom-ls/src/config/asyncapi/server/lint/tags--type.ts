@@ -13,7 +13,10 @@ const tagsTypeLint: LinterMeta = {
   marker: 'key',
   target: 'tags',
   data: {},
-  targetSpecs: [{ namespace: 'asyncapi', version: '2.5.0' }],
+  targetSpecs: [
+    { namespace: 'asyncapi', version: '2.5.0' },
+    { namespace: 'asyncapi', version: '2.6.0' },
+  ],
 };
 
 export default tagsTypeLint;

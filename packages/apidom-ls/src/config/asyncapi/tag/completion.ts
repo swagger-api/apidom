@@ -40,7 +40,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
     },
   },
 ];

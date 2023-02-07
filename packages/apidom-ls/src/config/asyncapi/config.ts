@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../codes';
 /**
- * AsyncApi >= 2.0.0 <=2.5.0 specification metas.
+ * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
  */
 import asyncapi2Meta from './asyncapi2/meta';
 import asyncapiVersionMeta from './async-api-version/meta';
@@ -100,6 +100,11 @@ import natsChannelBindingMeta from './bindings/nats/channel-binding/meta';
 import natsMessageBindingMeta from './bindings/nats/message-binding/meta';
 import natsOperationBindingMeta from './bindings/nats/operation-binding/meta';
 import natsServerBindingMeta from './bindings/nats/server-binding/meta';
+// Pulsar
+import pulsarChannelBindingMeta from './bindings/pulsar/channel-binding/meta';
+import pulsarMessageBindingMeta from './bindings/pulsar/message-binding/meta';
+import pulsarOperationBindingMeta from './bindings/pulsar/operation-binding/meta';
+import pulsarServerBindingMeta from './bindings/pulsar/server-binding/meta';
 // Redis
 import redisChannelBindingMeta from './bindings/redis/channel-binding/meta';
 import redisMessageBindingMeta from './bindings/redis/message-binding/meta';
@@ -150,7 +155,7 @@ export default {
     ],
   },
   /**
-   * AsyncApi >= 2.0.0 <=2.5.0 specification metas.
+   * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
    */
   identifier: identifierMeta,
   defaultContentType: defaultContentTypeMeta,
@@ -248,6 +253,11 @@ export default {
   natsMessageBinding: natsMessageBindingMeta,
   natsOperationBinding: natsOperationBindingMeta,
   natsServerBinding: natsServerBindingMeta,
+  // Pulsar
+  pulsarChannelBinding: pulsarChannelBindingMeta,
+  pulsarMessageBinding: pulsarMessageBindingMeta,
+  pulsarOperationBinding: pulsarOperationBindingMeta,
+  pulsarServerBinding: pulsarServerBindingMeta,
   // Redis
   redisChannelBinding: redisChannelBindingMeta,
   redisMessageBinding: redisMessageBindingMeta,

@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#schemaObject) \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html)\n\\\n\\\n The message key. **NOTE**: You can also use the [reference object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#referenceObject) way.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject) \\| [AVRO Schema Object](https://avro.apache.org/docs/current/spec.html)\n\\\n\\\n The message key. **NOTE**: You can also use the [reference object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject) way.',
     },
   },
   {

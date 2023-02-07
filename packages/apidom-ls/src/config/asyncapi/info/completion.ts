@@ -66,7 +66,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
+        '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
     },
   },
   {
@@ -79,7 +79,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[License Object](https://www.asyncapi.com/docs/reference/specification/v2.5.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
+        '[License Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
     },
   },
 ];

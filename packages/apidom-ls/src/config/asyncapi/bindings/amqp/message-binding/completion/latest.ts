@@ -50,7 +50,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The version of this binding. If omitted, "latest" MUST be assumed.',
+      value: 'The version of this binding. If omitted, "0.2.0" MUST be assumed.',
     },
     conditions: [
       {

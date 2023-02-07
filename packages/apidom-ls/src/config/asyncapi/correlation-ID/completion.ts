@@ -28,7 +28,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED.** A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v2.5.0#runtimeExpression) that specifies the location of the correlation ID.',
+        '**REQUIRED.** A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v2.6.0#runtimeExpression) that specifies the location of the correlation ID.',
     },
   },
   {

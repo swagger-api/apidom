@@ -2,6 +2,7 @@ import allowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1';
 import allowedFields2_2Lint from './allowed-fields-2-2';
 import allowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4';
 import allowedFields2_5Lint from './allowed-fields-2-5';
+import allowedFields2_6Lint from './allowed-fields-2-6';
 import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
 import httpTypeLint from './http--type';
@@ -28,6 +29,7 @@ const lints = [
   allowedFields2_2Lint,
   allowedFields2_3__2_4Lint,
   allowedFields2_5Lint,
+  allowedFields2_6Lint,
   $refValidLint,
   $refNoSiblingsLint,
   httpTypeLint,

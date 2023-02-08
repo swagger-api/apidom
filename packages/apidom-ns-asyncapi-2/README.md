@@ -168,7 +168,7 @@ import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 const yamlDefinition = `
-asyncapi: 2.6f.0
+asyncapi: 2.6.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);

@@ -68,8 +68,6 @@ replacing TOKEN with your personal access token. Create a new *~/.npmrc* file if
 
 You can find more information about authenticating to GitHub Packages in [GitHub documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages).
 
-Include a line to the *.npmrc* file, specifying GitHub Packages URL and the namespace *(@swagger-api)* where the package is hosted.
-
 Last step is to include a line to the *.npmrc* file, specifying GitHub Packages URL and the namespace *(@swagger-api)* where the package is hosted.
 
 ```

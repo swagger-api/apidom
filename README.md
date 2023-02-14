@@ -24,6 +24,7 @@ and allows tool builders to consume one structure for all formats.
 ## Table of Contents
 
 - [Getting started](#getting-started)
+  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
   - [ApiDOM Playground](#apidom-playground)
@@ -45,14 +46,35 @@ and allows tool builders to consume one structure for all formats.
 
 ## Getting started
 
+### Prerequisites
+
+These prerequisites are required both for installing ApiDOM as a npm package and local development setup.
+
+- [node-gyp](https://www.npmjs.com/package/node-gyp) with [Python 3.x](https://www.python.org/downloads/)
+- [GLIBC](https://www.gnu.org/software/libc/) `>=2.29`
+- [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed, we recommend going with a docker option
+
 ### Installation
 
-ApiDOM is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
-For installing ApiDOM npm packages from GitHub packages registry, create `.npmrc` file in your current directory and add
-the following line to it:
+Assuming [prerequisites](#prerequisites) are already installed, ApiDOM npm packages are installable and works with `Node.js >= 12.22.0`.
+ApiDOM npm packages are currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
+
+You can authenticate to GitHub Packages with npm by either editing your per-user *~/.npmrc*
+file to include your personal access token (classic) or by logging in to npm on the command line using your username and personal access token.
+
+To authenticate by adding your personal access token (classic) to your *~/.npmrc* file,
+edit the *~/.npmrc* file for your project to include the following line,
+replacing TOKEN with your personal access token. Create a new *~/.npmrc* file if one doesn't exist.
+
+You can find more information about authenticating to GitHub Packages in [GitHub documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages).
+
+Include a line to the *.npmrc* file, specifying GitHub Packages URL and the namespace *(@swagger-api)* where the package is hosted.
+
+Last step is to include a line to the *.npmrc* file, specifying GitHub Packages URL and the namespace *(@swagger-api)* where the package is hosted.
 
 ```
 @swagger-api:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=TOKEN
 ```
 
 You can now install ApiDOM packages using `npm`:
@@ -106,12 +128,8 @@ ApiDOM Playground is available at [https://swagger-api.github.io/apidom/](https:
 This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
 All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) `>=16.8.0` and `npm >=7.21.0` are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@16
-- [node-gyp](https://www.npmjs.com/package/node-gyp) with [Python 3.x](https://www.python.org/downloads/)
-- [GLIBC](https://www.gnu.org/software/libc/) `>=2.29`
-- [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed, we recommend going with a docker option
+Assuming [prerequisites](#prerequisites) are already installed, [Node.js](https://nodejs.org/) `>=16.8.0` and `npm >=7.21.0`
+are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@16
 
 ### Setting up
 
@@ -427,7 +445,7 @@ This also goes for YAML, HTML, CSV, and many other formats. ApiDOM is a way to u
 Let's look at another example, this time refacting XML with ApiDOM.
 
 ```xml
-<person name="John Doe" email="john@example.com">
+<person name="John Doe" email="john@example.com"></person>
 ```
 
 This example in refracted form would look like the following snippet. Notice that we're using attributes in resulting ApiDOM structure.

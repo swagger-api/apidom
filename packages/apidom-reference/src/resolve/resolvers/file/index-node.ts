@@ -33,7 +33,7 @@ const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
       try {
         return await promisify(readFile)(fileSystemPath);
       } catch (error: any) {
-        throw new ResolverError(`Error opening file "${file.uri}"`, error);
+        throw new ResolverError(`Error opening file "${file.uri}"`, { cause: error });
       }
     },
   },

@@ -1,7 +1,8 @@
-class NotImplementedError extends Error {
+import CausedError from './CausedError';
+
+class NotImplementedError extends CausedError {
   constructor(message = 'Not Implemented', options?: { cause?: Error }) {
-    super(message);
-    this.cause = this.cause ?? options?.cause;
+    super(message, options);
   }
 }
 

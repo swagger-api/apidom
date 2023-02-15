@@ -1,8 +1,5 @@
-class ParserError extends Error {
-  constructor(message: string, options?: { cause?: Error }) {
-    super(message);
-    this.cause = this.cause ?? options?.cause;
-  }
-}
+import CausedError from './CausedError';
+
+class ParserError extends CausedError {}
 
 export default ParserError;

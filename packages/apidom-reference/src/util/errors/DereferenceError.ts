@@ -1,8 +1,5 @@
-class DereferenceError extends Error {
-  constructor(message: string, options?: { cause?: Error }) {
-    super(message, options);
-    this.cause = this.cause ?? options?.cause;
-  }
-}
+import CausedError from './CausedError';
+
+class DereferenceError extends CausedError {}
 
 export default DereferenceError;

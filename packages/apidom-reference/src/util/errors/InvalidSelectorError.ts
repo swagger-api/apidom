@@ -1,8 +1,5 @@
-class InvalidSelectorError extends Error {
-  constructor(message: string, options?: { cause?: Error }) {
-    super(message);
-    this.cause = this.cause ?? options?.cause;
-  }
-}
+import CausedError from './CausedError';
+
+class InvalidSelectorError extends CausedError {}
 
 export default InvalidSelectorError;

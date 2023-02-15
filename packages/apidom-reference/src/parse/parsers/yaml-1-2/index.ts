@@ -31,7 +31,7 @@ const YamlParser: stampit.Stamp<IParser> = stampit(Parser, {
       try {
         return await parse(source, { sourceMap: this.sourceMap });
       } catch (error: any) {
-        throw new ParserError(`Error parsing "${file.uri}"`, error);
+        throw new ParserError(`Error parsing "${file.uri}"`, { cause: error });
       }
     },
   },

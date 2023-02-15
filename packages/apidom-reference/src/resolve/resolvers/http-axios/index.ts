@@ -72,7 +72,7 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolverAxios> = stampit(HttpResolve
         const response = await client.get<Buffer>(file.uri);
         return response.data;
       } catch (error: any) {
-        throw new ResolverError(`Error downloading "${file.uri}"`, error);
+        throw new ResolverError(`Error downloading "${file.uri}"`, { cause: error });
       }
     };
   },

@@ -1,9 +1,7 @@
 class DereferenceError extends Error {
-  public cause: undefined | Error;
-
-  constructor(message: string, cause?: Error) {
-    super(message);
-    this.cause = cause;
+  constructor(message: string, options?: { cause?: Error }) {
+    super(message, options);
+    this.cause = this.cause ?? options?.cause;
   }
 }
 

@@ -36,7 +36,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
 
     return result;
   } catch (error: any) {
-    throw new ParserError(`Error while parsing file "${file.uri}"`, error);
+    throw new ParserError(`Error while parsing file "${file.uri}"`, { cause: error });
   }
 };
 

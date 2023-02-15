@@ -29,6 +29,6 @@ export const readFile = async (file: IFile, options: IReferenceOptions): Promise
     const { result } = await plugins.run('read', [file], resolvers);
     return result;
   } catch (error: any) {
-    throw new ResolverError(`Error while reading file "${file.uri}"`, error);
+    throw new ResolverError(`Error while reading file "${file.uri}"`, { cause: error });
   }
 };

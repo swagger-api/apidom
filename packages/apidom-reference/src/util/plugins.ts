@@ -33,7 +33,7 @@ export const run = async (method: string, parameters: any[], plugins: any[]): Pr
       const result = await plugin[method].call(plugin, ...parameters); // eslint-disable-line no-await-in-loop
       return { plugin, result };
     } catch (error: any) {
-      lastError = new PluginError('Error while running plugin', error, plugin);
+      lastError = new PluginError('Error while running plugin', { cause: error, plugin });
     }
   }
 

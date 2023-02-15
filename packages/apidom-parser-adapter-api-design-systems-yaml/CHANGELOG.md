@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.67.1](https://github.com/swagger-api/apidom/compare/v0.67.0...v0.67.1) (2023-02-15)
+
+### Bug Fixes
+
+- **deps:** relax @babel/runtime-corejs3 version ([#2563](https://github.com/swagger-api/apidom/issues/2563)) ([3523a14](https://github.com/swagger-api/apidom/commit/3523a145a8390bb85139d9a8c3919b0c4ef75962)), closes [#2562](https://github.com/swagger-api/apidom/issues/2562)
+
 # [0.67.0](https://github.com/swagger-api/apidom/compare/v0.66.0...v0.67.0) (2023-02-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-yaml

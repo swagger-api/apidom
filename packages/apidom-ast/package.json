@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "dependencies": {
-    "@babel/runtime-corejs3": "=7.20.7",
+    "@babel/runtime-corejs3": "^7.20.7",
     "@types/ramda": "=0.28.23",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0",

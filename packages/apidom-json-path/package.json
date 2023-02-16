@@ -6,6 +6,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
+  "sideEffects":  false,
   "unpkg": "./dist/apidom-json-path.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {

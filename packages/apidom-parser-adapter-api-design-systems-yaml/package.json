@@ -6,6 +6,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
+  "sideEffects": false,
   "unpkg": "./dist/apidom-parser-adapter-api-design-systems-yaml.browser.min.js",
   "main": "./cjs/adapter.cjs",
   "exports": {

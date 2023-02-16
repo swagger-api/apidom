@@ -7,6 +7,10 @@
   },
   "private": true,
   "type": "module",
+  "sideEffects": [
+    "./es/refractor/registration.js",
+    "./cjs/refractor/registration.cjs"
+  ],
   "unpkg": "./dist/apidom-ns-workflows-1.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {

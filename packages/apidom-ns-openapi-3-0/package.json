@@ -6,6 +6,10 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
+  "sideEffects": [
+    "./es/refractor/registration.js",
+    "./cjs/refractor/registration.cjs"
+  ],
   "unpkg": "./dist/apidom-ns-openapi-3-0.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {

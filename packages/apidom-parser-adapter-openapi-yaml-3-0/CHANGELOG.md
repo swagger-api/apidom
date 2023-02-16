@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.68.0](https://github.com/swagger-api/apidom/compare/v0.67.1...v0.68.0) (2023-02-16)
+
+### Features
+
+- **parser-openapi-yaml-3-0:** add sideEffects field to package.json ([d341d99](https://github.com/swagger-api/apidom/commit/d341d99c37983887323af319aba9d91e94bb7677)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+
 ## [0.67.1](https://github.com/swagger-api/apidom/compare/v0.67.0...v0.67.1) (2023-02-15)
 
 ### Bug Fixes

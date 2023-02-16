@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.68.0](https://github.com/swagger-api/apidom/compare/v0.67.1...v0.68.0) (2023-02-16)
+
+### Features
+
+- **ast:** add sideEffects field to package.json ([c2d8104](https://github.com/swagger-api/apidom/commit/c2d8104141465f5000e1ba1b659ab2ecaf374608)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **core:** add sideEffects field to package.json ([27a6eb5](https://github.com/swagger-api/apidom/commit/27a6eb5752e4a5b85214755a4b9e00cf70688cc9)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **json-path:** add sideEffects field to package.json ([1e6e75b](https://github.com/swagger-api/apidom/commit/1e6e75b948e8da6a65f94dc9a398f96d7cdad4fc)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **json-pointer:** add sideEffects field to package.json ([85d32e9](https://github.com/swagger-api/apidom/commit/85d32e9d01af4ba9d6598d3f9c4649390b4348f7)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-api-design-systems:** add sideEffects field to package.json ([24c0fe3](https://github.com/swagger-api/apidom/commit/24c0fe3e95f5866f2069d481ef30dcf2e0ea7fc9)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-asyncapi-2:** add sideEffects field to package.json ([6f740a3](https://github.com/swagger-api/apidom/commit/6f740a3edbaeacd3fd0028ef328af97dbe8d58c8)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-json-schema-draft-4:** add sideEffects field to package.json ([3b52219](https://github.com/swagger-api/apidom/commit/3b522191645bca55dafe07808c9801f723386eb6)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-json-schema-draft-6:** add sideEffects field to package.json ([aef6a49](https://github.com/swagger-api/apidom/commit/aef6a49312c1fe4fdf73af0ced13268443fc10d7)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-json-schema-draft-7:** add sideEffects field to package.json ([e9706ab](https://github.com/swagger-api/apidom/commit/e9706ab7677c8558d7959ea5760f0102ea8a9b9f)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-openapi-3-0:** add sideEffects field to package.json ([6dae3e0](https://github.com/swagger-api/apidom/commit/6dae3e0e95a788b0bbeffc24dd42d30a502e8bc9)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-openapi-3-1:** add sideEffects field to package.json ([585e0b6](https://github.com/swagger-api/apidom/commit/585e0b677ac3a09201ebdf3bb331437d7f806380)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **ns-workflows-1:** add sideEffects field to package.json ([faf7be0](https://github.com/swagger-api/apidom/commit/faf7be0c54847e8f400f106900f86918e5cbc461)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-adapter-ads-json:** add sideEffects field to package.json ([178a40e](https://github.com/swagger-api/apidom/commit/178a40ece875cd48bbd798f4b418dd62734bd272)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-adapter-ads-yaml:** add sideEffects field to package.json ([88c760a](https://github.com/swagger-api/apidom/commit/88c760a92b6d82cff52806d9d6178f9b7e491a2d)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-adapter-json:** add sideEffects field to package.json ([04283c4](https://github.com/swagger-api/apidom/commit/04283c4820ba58489fae72537200a229d6ae974b)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-adapter-yaml-1-2:** add sideEffects field to package.json ([8e27614](https://github.com/swagger-api/apidom/commit/8e276147128081f9001b2a637cf9a27cba30d6ee)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-asyncapi-json-2:** add sideEffects field to package.json ([c4908fc](https://github.com/swagger-api/apidom/commit/c4908fcf4b5f8c9e52a4362d48a139b1e0e1f70e)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-asyncapi-yaml-2:** add sideEffects field to package.json ([a4e0e29](https://github.com/swagger-api/apidom/commit/a4e0e299422531e270ec99e712a4921b99a6e3a0)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-openapi-json-3-0:** add sideEffects field to package.json ([7045c7b](https://github.com/swagger-api/apidom/commit/7045c7bd4c188f5e607ec660d26cc0c2853245bb)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-openapi-json-3-1:** add sideEffects field to package.json ([a5c9081](https://github.com/swagger-api/apidom/commit/a5c9081b46fd1fec15048da43b74cba97a729e5f)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-openapi-yaml-3-0:** add sideEffects field to package.json ([d341d99](https://github.com/swagger-api/apidom/commit/d341d99c37983887323af319aba9d91e94bb7677)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser-openapi-yaml-3-1:** add sideEffects field to package.json ([d8d0895](https://github.com/swagger-api/apidom/commit/d8d0895c696be7c3e5bccaae2b7e5a727f7d73f6)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+- **parser:** add sideEffects field to package.json ([3370121](https://github.com/swagger-api/apidom/commit/33701215479f63ba07128cd5c8b055cf17b2c474)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+
 ## [0.67.1](https://github.com/swagger-api/apidom/compare/v0.67.0...v0.67.1) (2023-02-15)
 
 ### Bug Fixes

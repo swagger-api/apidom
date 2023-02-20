@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.68.1](https://github.com/swagger-api/apidom/compare/v0.68.0...v0.68.1) (2023-02-20)
+
+### Bug Fixes
+
+- **build:** map all side effects within the packages ([#2574](https://github.com/swagger-api/apidom/issues/2574)) ([ed1dcf5](https://github.com/swagger-api/apidom/commit/ed1dcf5a17a801776eb93c1d4262024194a58fea)), closes [#2566](https://github.com/swagger-api/apidom/issues/2566)
+
 # [0.68.0](https://github.com/swagger-api/apidom/compare/v0.67.1...v0.68.0) (2023-02-16)
 
 ### Features

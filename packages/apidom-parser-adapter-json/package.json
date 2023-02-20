@@ -6,7 +6,10 @@
     "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "./es/lexical-analysis/browser-patch.js",
+    "./cjs/lexical-analysis/browser-patch.cjs"
+  ],
   "unpkg": "./dist/apidom-parser-apdater-json.browser.min.js",
   "main": "./cjs/adapter-node.cjs",
   "exports": {

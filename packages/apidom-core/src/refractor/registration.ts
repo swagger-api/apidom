@@ -28,3 +28,18 @@ AnnotationElement.refract = createRefractor(AnnotationElement);
 CommentElement.refract = createRefractor(CommentElement);
 ParseResultElement.refract = createRefractor(ParseResultElement);
 SourceMapElement.refract = createRefractor(SourceMapElement);
+
+export {
+  ObjectElement,
+  ArrayElement,
+  StringElement,
+  BooleanElement,
+  NullElement,
+  NumberElement,
+  LinkElement,
+  RefElement,
+  AnnotationElement,
+  CommentElement,
+  ParseResultElement,
+  SourceMapElement,
+};

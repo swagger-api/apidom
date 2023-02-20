@@ -2,7 +2,6 @@ import { has } from 'ramda';
 import { isPlainObject, isString } from 'ramda-adjunct';
 import { Element, Namespace as INamespace } from 'minim';
 
-import './refractor/registration';
 import defaultNamespaceInstance from './namespace';
 import serializeValue from './serializers/value';
 import serializeJSON from './serializers/json';
@@ -14,28 +13,24 @@ export { default as refractorPluginSemanticElementIdentity } from './refractor/p
 
 export { default as MediaTypes } from './media-types';
 
-export {
-  Element,
-  ObjectElement,
-  MemberElement,
-  ArrayElement,
-  BooleanElement,
-  StringElement,
-  NullElement,
-  NumberElement,
-  RefElement,
-  LinkElement,
-  KeyValuePair,
-  ObjectSlice,
-  ArraySlice,
-  refract,
-} from 'minim';
+export { Element, MemberElement, KeyValuePair, ObjectSlice, ArraySlice, refract } from 'minim';
 export type { NamespacePluginOptions, Attributes, Meta } from 'minim';
 export { default as namespace, Namespace, createNamespace } from './namespace';
-export { default as AnnotationElement } from './elements/Annotation';
-export { default as CommentElement } from './elements/Comment';
-export { default as ParseResultElement } from './elements/ParseResult';
-export { default as SourceMapElement } from './elements/SourceMap';
+
+export {
+  ObjectElement,
+  ArrayElement,
+  BooleanElement,
+  NullElement,
+  NumberElement,
+  StringElement,
+  LinkElement,
+  RefElement,
+  AnnotationElement,
+  CommentElement,
+  ParseResultElement,
+  SourceMapElement,
+} from './refractor/registration';
 
 export {
   isElement,

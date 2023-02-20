@@ -211,3 +211,38 @@ ServerVariableElement.refract = createRefractor([
 ]);
 TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
+
+export {
+  CallbackElement,
+  ComponentsElement,
+  ContactElement,
+  DiscriminatorElement,
+  EncodingElement,
+  ExampleElement,
+  ExternalDocumentationElement,
+  HeaderElement,
+  InfoElement,
+  JsonSchemaDialectElement,
+  LicenseElement,
+  LinkElement,
+  MediaTypeElement,
+  OAuthFlowElement,
+  OAuthFlowsElement,
+  OpenapiElement,
+  OpenApi3_1Element,
+  OperationElement,
+  ParameterElement,
+  PathItemElement,
+  PathsElement,
+  ReferenceElement,
+  RequestBodyElement,
+  ResponseElement,
+  ResponsesElement,
+  SchemaElement,
+  SecurityRequirementElement,
+  SecuritySchemeElement,
+  ServerElement,
+  ServerVariableElement,
+  TagElement,
+  XmlElement,
+};

@@ -1,5 +1,3 @@
-import './refractor/registration';
-
 export {
   isRefElement,
   isLinkElement,
@@ -45,6 +43,5 @@ export { keyMap, getNodeType } from './traversal/visitor';
 /**
  * JSON Schema Draft 7 specification elements.
  */
-export { default as JSONSchemaElement } from './elements/JSONSchema';
-export { default as LinkDescriptionElement } from './elements/LinkDescription';
+export { JSONSchemaElement, LinkDescriptionElement } from './refractor/registration';
 export { JSONReferenceElement } from '@swagger-api/apidom-ns-json-schema-draft-6';

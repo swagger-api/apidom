@@ -58,3 +58,14 @@ StandardIdentifierElement.refract = createRefractor([
   'StandardIdentifier',
   '$visitor',
 ]);
+
+export {
+  MainElement,
+  InfoElement,
+  PrincipleElement,
+  RequirementElement,
+  RequirementLevelElement,
+  ScenarioElement,
+  StandardElement,
+  StandardIdentifierElement,
+};

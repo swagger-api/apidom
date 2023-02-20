@@ -1,5 +1,3 @@
-import './refractor/registration';
-
 export {
   isRefElement,
   isLinkElement,
@@ -37,11 +35,13 @@ export { keyMap, getNodeType } from './traversal/visitor';
 /**
  * API Design Systems 2021-05-07 specification elements.
  */
-export { default as InfoElement } from './elements/Info';
-export { default as MainElement } from './elements/Main';
-export { default as PrincipleElement } from './elements/Principle';
-export { default as RequirementElement } from './elements/Requirement';
-export { default as RequirementLevelElement } from './elements/RequirementLevel';
-export { default as ScenarioElement } from './elements/Scenario';
-export { default as StandardElement } from './elements/Standard';
-export { default as StandardIdentifierElement } from './elements/StandardIdentifier';
+export {
+  MainElement,
+  InfoElement,
+  PrincipleElement,
+  RequirementElement,
+  RequirementLevelElement,
+  ScenarioElement,
+  StandardElement,
+  StandardIdentifierElement,
+} from './refractor/registration';

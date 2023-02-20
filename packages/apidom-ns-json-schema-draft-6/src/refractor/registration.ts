@@ -19,3 +19,5 @@ LinkDescriptionElement.refract = createRefractor([
   'LinkDescription',
   '$visitor',
 ]);
+
+export { JSONSchemaElement, LinkDescriptionElement };

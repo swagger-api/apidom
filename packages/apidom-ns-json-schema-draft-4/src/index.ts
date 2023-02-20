@@ -1,5 +1,3 @@
-import './refractor/registration';
-
 export {
   isRefElement,
   isLinkElement,
@@ -44,7 +42,9 @@ export { keyMap, getNodeType } from './traversal/visitor';
 /**
  * JSON Schema Draft 4 specification elements.
  */
-export { default as JSONSchemaElement } from './elements/JSONSchema';
-export { default as JSONReferenceElement } from './elements/JSONReference';
-export { default as LinkDescriptionElement } from './elements/LinkDescription';
-export { default as MediaElement } from './elements/Media';
+export {
+  JSONSchemaElement,
+  JSONReferenceElement,
+  MediaElement,
+  LinkDescriptionElement,
+} from './refractor/registration';

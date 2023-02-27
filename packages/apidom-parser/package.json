@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-parser",
   "version": "0.68.1",
   "description": "Parser consumes parser adapters and provides unified API for parsing.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-parser.browser.min.js",

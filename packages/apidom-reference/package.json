@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-reference",
   "version": "0.68.1",
   "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "type": "module",
   "sideEffects": [
     "./es/configuration/saturated.js",

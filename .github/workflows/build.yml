@@ -24,8 +24,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -51,8 +49,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -77,8 +73,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -105,8 +99,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16
-        registry-url: https://npm.pkg.github.com/
-        scope: "@swagger-api"
     - name: Cache npm cache files
       id: cache-npm-cache-files
       uses: actions/cache@v2

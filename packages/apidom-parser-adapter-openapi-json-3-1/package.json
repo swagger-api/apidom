@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-parser-adapter-openapi-json-3-1",
   "version": "0.68.1",
   "description": "Parser adapter for parsing JSON documents into OpenAPI 3.1.x namespace.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-parser-apdater-openapi-json-3-1.browser.min.js",

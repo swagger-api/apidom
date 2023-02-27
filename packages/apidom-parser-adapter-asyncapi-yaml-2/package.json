@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2",
   "version": "0.68.1",
   "description": "Parser adapter for parsing YAML documents into AsyncAPI 2.x.y namespace.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-parser-apdater-asyncapi-yaml-2.browser.min.js",

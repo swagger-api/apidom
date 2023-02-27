@@ -24,8 +24,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Install monorepo dependencies
         run: npm ci
         env:

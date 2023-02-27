@@ -7,6 +7,7 @@ ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/ap
 
 ## Installation
 
+[Prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#prerequisites) need to satisfied for installing this package.
 `@swagger-api/apidom-parser-adapter-yaml-1-2` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
 For installing `@swagger-api/apidom-parser-adapter-yaml-1-2` from GitHub packages registry, create `.npmrc` file in your current directory and add
 the following line to it:

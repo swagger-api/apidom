@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.69.0](https://github.com/swagger-api/apidom/compare/v0.68.1...v0.69.0) (2023-02-28)
+
+### Features
+
+- add support for publishing to npmjs.com ([#2597](https://github.com/swagger-api/apidom/issues/2597)) ([5ac3cd9](https://github.com/swagger-api/apidom/commit/5ac3cd9a83bbe3b4ce2fac732633fb179cd9747f)), closes [#2290](https://github.com/swagger-api/apidom/issues/2290)
+
 ## [0.68.1](https://github.com/swagger-api/apidom/compare/v0.68.0...v0.68.1) (2023-02-20)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-yaml-3-1

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.69.0](https://github.com/swagger-api/apidom/compare/v0.68.1...v0.69.0) (2023-02-28)
+
+### Features
+
+- add support for publishing to npmjs.com ([#2597](https://github.com/swagger-api/apidom/issues/2597)) ([5ac3cd9](https://github.com/swagger-api/apidom/commit/5ac3cd9a83bbe3b4ce2fac732633fb179cd9747f)), closes [#2290](https://github.com/swagger-api/apidom/issues/2290)
+- **reference:** mark the deps from saturated config as optional ([#2591](https://github.com/swagger-api/apidom/issues/2591)) ([28ff997](https://github.com/swagger-api/apidom/commit/28ff99776580c4a8f17218bdb8f02e838cd6c665)), closes [#2590](https://github.com/swagger-api/apidom/issues/2590)
+
+### Reverts
+
+- set next release version to 0.69.0 ([0037344](https://github.com/swagger-api/apidom/commit/0037344c81d6a190d6708ef1c1d6f560da22002b))
+
 ## [0.68.1](https://github.com/swagger-api/apidom/compare/v0.68.0...v0.68.1) (2023-02-20)
 
 ### Bug Fixes

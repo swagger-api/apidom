@@ -24,8 +24,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -34,8 +32,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Lint code
         run: npm run lint
       - name: Lint commit message
@@ -51,8 +47,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -61,8 +55,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate typescript declarations
         run: npm run typescript:declaration
       - name: Check TypeScript types
@@ -77,8 +69,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-          scope: "@swagger-api"
       - name: Cache npm cache files
         id: cache-npm-cache-files
         uses: actions/cache@v2
@@ -87,8 +77,6 @@ jobs:
           key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build monorepo for testing
         run: |
           npm run prebuild
@@ -105,8 +93,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16
-        registry-url: https://npm.pkg.github.com/
-        scope: "@swagger-api"
     - name: Cache npm cache files
       id: cache-npm-cache-files
       uses: actions/cache@v2
@@ -115,8 +101,6 @@ jobs:
         key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm ci
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build monorepo
       run: npm run build:es
     - name: Build ApiDOM Playground

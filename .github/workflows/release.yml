@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
@@ -37,7 +37,7 @@ jobs:
       - name: Execute tests in monorepo
         run: npm run test
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org

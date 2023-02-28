@@ -2,6 +2,10 @@
   "name": "@swagger-api/apidom-ls",
   "description": "ApiDOM based language service library.",
   "version": "0.68.1",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"

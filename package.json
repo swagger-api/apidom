@@ -2,8 +2,12 @@
   "name": "apidom-monorepo",
   "version": "0.0.0-ignore",
   "description": "ApiDOM Monorepo",
-  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=16.8.0",
     "npm": ">=7.21.0"

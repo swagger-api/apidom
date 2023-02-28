@@ -2,6 +2,10 @@
   "name": "@swagger-api/apidom-json-pointer",
   "version": "0.68.1",
   "description": "Evaluate JSON Pointer expressions against ApiDOM.",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-json-pointer.browser.min.js",

@@ -2,6 +2,10 @@
   "name": "@swagger-api/apidom-ns-workflows-1",
   "version": "0.68.1",
   "description": "Parser adapter for parsing JSON documents into Workflows 1.x.y namespace.",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "private": true,
   "type": "module",
   "sideEffects": [

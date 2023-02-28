@@ -2,6 +2,10 @@
   "name": "@swagger-api/apidom-ns-json-schema-draft-7",
   "version": "0.68.1",
   "description": "JSON Schema Draft 7 namespace for ApiDOM.",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "sideEffects": [
     "./es/refractor/registration.js",

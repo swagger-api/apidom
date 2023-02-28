@@ -2,6 +2,10 @@
   "name": "@swagger-api/apidom-parser-adapter-api-design-systems-json",
   "version": "0.68.1",
   "description": "Parser adapter for parsing JSON documents into API Design Systems namespace.",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-parser-adapter-api-design-systems-json.browser.min.js",

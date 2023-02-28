@@ -4,7 +4,7 @@
   "description": "Parser consumes parser adapters and provides unified API for parsing.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org"
   },
   "type": "module",
   "sideEffects": false,

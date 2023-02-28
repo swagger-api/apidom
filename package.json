@@ -4,7 +4,7 @@
   "description": "ApiDOM Monorepo",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org"
   },
   "private": true,
   "type": "module",

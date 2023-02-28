@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-ast",
   "version": "0.68.0",
   "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom.ast.min.js",

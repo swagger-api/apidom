@@ -9,16 +9,8 @@ This package is divided into three (3) main components:
 
 ## Installation
 
-[Prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#prerequisites) need to satisfied for installing this package.
-`@swagger-api/apidom-reference` is currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
-For installing `@swagger-api/apidom-reference` from GitHub packages registry, create `.npmrc` file in your current directory and add
-the following line to it:
-
-```
-@swagger-api:registry=https://npm.pkg.github.com
-```
-
-You can now install the package using `npm`:
+After [prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#prerequisites) for installing this package are satisfied, you can install it
+via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ```sh
  $ npm install @swagger-api/apidom-reference

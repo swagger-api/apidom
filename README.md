@@ -57,24 +57,8 @@ These prerequisites are required both for installing ApiDOM as a npm package and
 ### Installation
 
 Assuming [prerequisites](#prerequisites) are already installed, ApiDOM npm packages are installable and works with `Node.js >= 12.22.0`.
-ApiDOM npm packages are currently hosted on [GitHub packages registry](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
 
-You can authenticate to GitHub Packages with npm by either editing your per-user *~/.npmrc*
-file to include your personal access token (classic) or by logging in to npm on the command line using your username and personal access token.
-
-To authenticate by adding your personal access token (classic) to your *~/.npmrc* file,
-edit the *~/.npmrc* file for your project to include the following line,
-replacing TOKEN with your personal access token. Create a new *~/.npmrc* file if one doesn't exist.
-You can find more information about authenticating to GitHub Packages in [GitHub documentation](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages).
-
-Last step is to include a line to the *.npmrc* file, specifying GitHub Packages URL and the namespace *(@swagger-api)* where the package is hosted.
-
-```
-@swagger-api:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=TOKEN
-```
-
-You can now install ApiDOM packages using `npm`:
+You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
 
 ```sh
  $ npm install @swagger-api/apidom-ast
@@ -102,9 +86,6 @@ You can now install ApiDOM packages using `npm`:
  $ npm install @swagger-api/apidom-parser-adapter-yaml-1-2
  $ npm install @swagger-api/apidom-reference
 ```
-
-For more information about installing npm packages from GitHub packages registry please visit [Installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package)
-section in GitHub documentation.
 
 ### Usage
 

@@ -2,9 +2,6 @@
   "name": "@swagger-api/apidom-ns-workflows-1",
   "version": "0.66.0",
   "description": "Parser adapter for parsing JSON documents into Workflows 1.x.y namespace.",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "private": true,
   "type": "module",
   "sideEffects": [

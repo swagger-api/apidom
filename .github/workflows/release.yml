@@ -25,10 +25,10 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
-      - name: Install monorepo dependencies
-        run: npm ci
-      - name: Build monorepo
-        run: npm run build
+#      - name: Install monorepo dependencies
+#        run: npm ci
+#      - name: Build monorepo
+#        run: npm run build
 #      - name: Check TypeScript types
 #        run: npm run typescript:check-types
 #      - name: Execute tests in monorepo
@@ -42,6 +42,8 @@ jobs:
 #          GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
 #          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish monorepo npm packages
-        run: npx lerna publish from-package --no-private --yes
+#        run: npx lerna publish from-package --no-private --yes
+        run: npm publish
+        working-directory: ./packages/apidom-ast
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

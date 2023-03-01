@@ -43,7 +43,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.68.1",
+    "@swagger-api/apidom-core": "*",
     "@types/ramda": "=0.28.23",
     "ramda": "=0.28.0",
     "ramda-adjunct": "=3.4.0",

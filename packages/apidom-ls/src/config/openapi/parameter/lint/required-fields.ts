@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const requiredFieldsLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PARAMETER_REQUIRED_FIELDS,
   source: 'apilint',
-  message: 'Parameter Object must contain one the following fields: content, schema',
+  message: 'Parameter Object must contain one of the following fields: content, schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['content'],

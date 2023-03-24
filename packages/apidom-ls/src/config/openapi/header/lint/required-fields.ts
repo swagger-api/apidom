@@ -13,6 +13,10 @@ const requiredFieldsLint: LinterMeta = {
   marker: 'key',
   conditions: [
     {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+    {
       function: 'missingFields',
       params: [['content', 'schema']],
     },

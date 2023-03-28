@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.69.1](https://github.com/swagger-api/apidom/compare/v0.69.0...v0.69.1) (2023-03-28)
+
+### Bug Fixes
+
+- **ls:** fix OpenAPI Header Object required fields lint ([#2653](https://github.com/swagger-api/apidom/issues/2653)) ([141edb4](https://github.com/swagger-api/apidom/commit/141edb415690550e788df7f6cd36fa9b84616ba4)), closes [#2392](https://github.com/swagger-api/apidom/issues/2392)
+- **ls:** fix typos in lint messages ([#2652](https://github.com/swagger-api/apidom/issues/2652)) ([fee2e93](https://github.com/swagger-api/apidom/commit/fee2e9357cfa22709bc386f264b722e3625aea2c)), closes [#2392](https://github.com/swagger-api/apidom/issues/2392)
+- **ls:** serialize dereferenced ApiDOM to proper format ([#2663](https://github.com/swagger-api/apidom/issues/2663)) ([813b114](https://github.com/swagger-api/apidom/commit/813b114f7e6727efe43f94ba4b0fd65bcc177bbc)), closes [#2662](https://github.com/swagger-api/apidom/issues/2662)
+
 # [0.69.0](https://github.com/swagger-api/apidom/compare/v0.68.1...v0.69.0) (2023-02-28)
 
 ### Features

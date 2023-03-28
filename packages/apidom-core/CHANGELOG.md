@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.69.1](https://github.com/swagger-api/apidom/compare/v0.69.0...v0.69.1) (2023-03-28)
+
+### Bug Fixes
+
+- **ls:** serialize dereferenced ApiDOM to proper format ([#2663](https://github.com/swagger-api/apidom/issues/2663)) ([813b114](https://github.com/swagger-api/apidom/commit/813b114f7e6727efe43f94ba4b0fd65bcc177bbc)), closes [#2662](https://github.com/swagger-api/apidom/issues/2662)
+
 # [0.69.0](https://github.com/swagger-api/apidom/compare/v0.68.1...v0.69.0) (2023-02-28)
 
 ### Features

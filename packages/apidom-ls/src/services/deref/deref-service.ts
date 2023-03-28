@@ -7,8 +7,8 @@ import {
   filter,
   ObjectElement,
   toJSON,
-  toYAML,
   toString,
+  toYAML,
 } from '@swagger-api/apidom-core';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
@@ -75,7 +75,10 @@ export class DefaultDerefService implements DerefService {
       }
     }
     baseURI = isString(context?.baseURI) ? context?.baseURI : baseURI;
-    const format = isString(context?.format) ? context?.format : textFormat;
+    const format =
+      typeof context?.format !== 'undefined' && context.format in Format
+        ? context.format
+        : textFormat;
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {

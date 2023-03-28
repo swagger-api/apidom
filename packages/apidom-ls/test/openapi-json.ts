@@ -837,7 +837,7 @@ describe('apidom-ls', function () {
     });
   });
 
-  it('test deref', async function () {
+  it('should dereference into JSON', async function () {
     const doc: TextDocument = TextDocument.create('foo://bar/specDeref.json', 'json', 0, specDeref);
 
     const result = await languageService.doDeref(doc, {
@@ -848,6 +848,19 @@ describe('apidom-ls', function () {
     // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
     // const result = await languageService.doDeref(doc);
     assert.equal(result, specDereferenced.substr(0, specDereferenced.length - 1));
+  });
+
+  it('should dereference into YAML 1.2', async function () {
+    const doc: TextDocument = TextDocument.create('foo://bar/specDeref.json', 'json', 0, specDeref);
+
+    const result = await languageService.doDeref(doc, {
+      format: Format.YAML,
+      baseURI: derefBaseURI,
+    });
+
+    // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
+    // const result = await languageService.doDeref(doc);
+    assert.match(result, /^%YAML 1.2/);
   });
 
   it('test definition', async function () {

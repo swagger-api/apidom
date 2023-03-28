@@ -83,7 +83,7 @@ const YamlVisitor = stampit({
   },
 });
 
-const serializer = (element: Element): any => {
+const serializer = (element: Element): string => {
   const signature = '%YAML 1.2\n---\n';
   const visitor = YamlVisitor({ signature });
 

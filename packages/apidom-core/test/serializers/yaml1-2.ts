@@ -46,6 +46,16 @@ describe('serializers', function () {
 
         assert.strictEqual(serialized, expected);
       });
+
+      context('and is multiline', function () {
+        specify('should serialize to YAML 1.2', function () {
+          const apidom = from('test\n\ntest\n');
+          const serialized = serialize(apidom);
+          const expected = `%YAML 1.2\n---\n${String.raw`"test\n\ntest\n"`}`;
+
+          assert.strictEqual(serialized, expected);
+        });
+      });
     });
 
     context('given NullElement', function () {

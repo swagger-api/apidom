@@ -108,7 +108,7 @@ export const toYAML = serializeYAML;
 export const dehydrate = (
   element: Element,
   namespace: INamespace = defaultNamespaceInstance,
-): Record<string, any> => {
+): any => {
   return namespace.toRefract(element);
 };
 

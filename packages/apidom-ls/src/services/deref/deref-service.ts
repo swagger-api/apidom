@@ -1,7 +1,15 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { isString } from 'ramda-adjunct';
-import { ArraySlice, Element, filter, ObjectElement, toValue } from '@swagger-api/apidom-core';
+import {
+  ArraySlice,
+  Element,
+  filter,
+  ObjectElement,
+  toJSON,
+  toString,
+  toYAML,
+} from '@swagger-api/apidom-core';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
 import { parse } from '../../parser-factory';
@@ -67,7 +75,10 @@ export class DefaultDerefService implements DerefService {
       }
     }
     baseURI = isString(context?.baseURI) ? context?.baseURI : baseURI;
-    const format = isString(context?.format) ? context?.format : textFormat;
+    const format =
+      typeof context?.format !== 'undefined' && context.format in Format
+        ? context.format
+        : textFormat;
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {
@@ -78,12 +89,11 @@ export class DefaultDerefService implements DerefService {
         },
       },
     });
-    const dereferencedValue = toValue(dereferenced);
 
-    // TODO (francesco.tumanischvili@smartbear.com): transform/serialize to YAML if format `YAML` is passed
-    // @ts-ignore
-    return format === Format.YAML
-      ? JSON.stringify(dereferencedValue, null, 2) // serialize to YAML
-      : JSON.stringify(dereferencedValue, null, 2); // default to JSON
+    return format === Format.JSON
+      ? toJSON(dereferenced, undefined, 2)
+      : format === Format.YAML
+      ? toYAML(dereferenced)
+      : toString(dereferenced);
   }
 }

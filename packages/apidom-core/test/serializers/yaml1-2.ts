@@ -83,6 +83,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           - 1
           - true
           - "test"
@@ -100,6 +101,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           - 1
           -
             - true
@@ -118,6 +120,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           "a":
             - 1
         `;
@@ -145,6 +148,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           "a": 1
           "b": true
         `;
@@ -160,6 +164,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           "a": 1
           "b":
             "c": true
@@ -176,6 +181,7 @@ describe('serializers', function () {
         const expected = dedent`
           %YAML 1.2
           ---
+
           -
             "a": true
         `;

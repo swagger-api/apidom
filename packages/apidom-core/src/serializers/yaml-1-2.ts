@@ -17,10 +17,9 @@ const YamlVisitor = stampit({
     indent: 0,
     indentChar: '  ',
   },
-  init({ directive = false, indent = 0, indentChar = '  ' } = {}) {
+  init({ directive = false, indent = 0 } = {}) {
     this.result = directive ? '%YAML 1.2\n---\n' : '';
     this.indent = indent;
-    this.indentChar = indentChar;
   },
   methods: {
     NumberElement(element: NumberElement) {
@@ -50,11 +49,8 @@ const YamlVisitor = stampit({
         visit(item, visitor);
 
         const { result } = visitor;
-        const startChar = this.result.endsWith('\n') ? '' : '\n';
 
-        this.result += result.startsWith('\n')
-          ? `${startChar}${indent}-${result}`
-          : `${startChar}${indent}- ${result}`;
+        this.result += result.startsWith('\n') ? `\n${indent}-${result}` : `\n${indent}- ${result}`;
       });
 
       return false;
@@ -75,11 +71,10 @@ const YamlVisitor = stampit({
 
         const { result: keyResult } = keyVisitor;
         const { result: valueResult } = valueVisitor;
-        const startChar = this.result.endsWith('\n') ? '' : '\n';
 
         this.result += valueResult.startsWith('\n')
-          ? `${startChar}${indent}${keyResult}:${valueResult}`
-          : `${startChar}${indent}${keyResult}: ${valueResult}`;
+          ? `\n${indent}${keyResult}:${valueResult}`
+          : `\n${indent}${keyResult}: ${valueResult}`;
       });
 
       return false;
@@ -87,8 +82,8 @@ const YamlVisitor = stampit({
   },
 });
 
-const serializer = (element: Element, { directive = false, indentChar = '  ' } = {}): string => {
-  const visitor = YamlVisitor({ directive, indentChar });
+const serializer = (element: Element, { directive = false } = {}): string => {
+  const visitor = YamlVisitor({ directive });
 
   visit(element, visitor);
 

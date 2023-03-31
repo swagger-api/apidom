@@ -860,7 +860,7 @@ describe('apidom-ls', function () {
 
     // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
     // const result = await languageService.doDeref(doc);
-    assert.match(result, /^%YAML 1.2/);
+    assert.match(result, /^\n"openapi": "3.1.0"/);
   });
 
   it('test definition', async function () {

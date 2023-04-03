@@ -7,6 +7,7 @@ import {
   isStringElement,
   visit,
   find,
+  isElement,
 } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -90,7 +91,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
        * Compute full ancestors lineage.
        * Ancestors are flatten to unwrap all Element instances.
        */
-      const directAncestors = new WeakSet(ancestors.flat());
+      const directAncestors = new WeakSet(ancestors.filter(isElement));
       const ancestorsLineage = [...this.ancestors, directAncestors];
 
       return [ancestorsLineage, directAncestors];
@@ -103,7 +104,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       // detect possible cycle in traversal and avoid it
       if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
@@ -202,7 +203,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       // ignore PathItemElement without $ref field
       if (!isStringElement(referencingElement.$ref)) {
@@ -388,7 +389,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage] = this.toAncestorLineage([...ancestors, parent]);
 
       // detect possible cycle in traversal and avoid it
       if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {

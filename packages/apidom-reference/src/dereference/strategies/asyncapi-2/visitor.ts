@@ -1,6 +1,12 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
-import { isPrimitiveElement, isStringElement, visit, Element } from '@swagger-api/apidom-core';
+import {
+  isPrimitiveElement,
+  isStringElement,
+  visit,
+  Element,
+  isElement,
+} from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
@@ -43,7 +49,7 @@ const AsyncApi2DereferenceVisitor = stampit({
        * Compute full ancestors lineage.
        * Ancestors are flatten to unwrap all Element instances.
        */
-      const directAncestors = new WeakSet(ancestors.flat());
+      const directAncestors = new WeakSet(ancestors.filter(isElement));
       const ancestorsLineage = [...this.ancestors, directAncestors];
 
       return [ancestorsLineage, directAncestors];
@@ -90,7 +96,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       // detect possible cycle in traversal and avoid it
       if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
@@ -189,7 +195,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage, directAncestors] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       // ignore ChannelItemElement without $ref field
       if (!isStringElement(referencingElement.$ref)) {
@@ -288,7 +294,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       path: any,
       ancestors: any[],
     ) {
-      const [ancestorsLineage] = this.toAncestorLineage(ancestors);
+      const [ancestorsLineage] = this.toAncestorLineage([...ancestors, parent]);
 
       // detect possible cycle in traversal and avoid it
       if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {

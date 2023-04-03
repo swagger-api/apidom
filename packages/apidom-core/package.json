@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-core",
-  "version": "0.69.1",
+  "version": "0.69.2",
   "description": "Tools for manipulating ApiDOM structures.",
   "publishConfig": {
     "access": "public",

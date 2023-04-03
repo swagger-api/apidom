@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.69.2](https://github.com/swagger-api/apidom/compare/v0.69.1...v0.69.2) (2023-04-03)
+
+### Bug Fixes
+
+- **core:** fix issues in YAML 1.2 serialization ([#2669](https://github.com/swagger-api/apidom/issues/2669)) ([6cc91fb](https://github.com/swagger-api/apidom/commit/6cc91fb0edd6b47fe3e8656539f0f655a5f79c3f))
+
 ## [0.69.1](https://github.com/swagger-api/apidom/compare/v0.69.0...v0.69.1) (2023-03-28)
 
 ### Bug Fixes

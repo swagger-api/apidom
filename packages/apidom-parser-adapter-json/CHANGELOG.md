@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.69.2](https://github.com/swagger-api/apidom/compare/v0.69.1...v0.69.2) (2023-04-03)
+
+### Bug Fixes
+
+- **reference:** use parent in ancestors lineage ([#2675](https://github.com/swagger-api/apidom/issues/2675)) ([9498f41](https://github.com/swagger-api/apidom/commit/9498f414cc0ba011ad0214e118aeacbbc46251e5))
+
 ## [0.69.1](https://github.com/swagger-api/apidom/compare/v0.69.0...v0.69.1) (2023-03-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

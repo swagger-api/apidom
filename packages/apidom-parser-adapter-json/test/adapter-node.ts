@@ -10,7 +10,7 @@ const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json'
 describe('adapter-node', function () {
   context('given valid JSON', function () {
     specify('should detect proper media type', async function () {
-      assert.isFalse(await adapter.detect('spec'));
+      assert.isTrue(await adapter.detect('"string"'));
     });
   });
 

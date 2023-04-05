@@ -25,7 +25,7 @@
     "@emotion/react": "=11.10.6",
     "@emotion/styled": "=11.10.6",
     "@mui/icons-material": "=5.11.16",
-    "@mui/material": "=5.11.15",
+    "@mui/material": "=5.11.16",
     "@swagger-api/apidom-ast": "*",
     "@swagger-api/apidom-core": "*",
     "@swagger-api/apidom-ns-asyncapi-2": "*",

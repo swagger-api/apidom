@@ -44,12 +44,12 @@
     "classnames": "^2.3.2",
     "comlink": "^4.3.0",
     "prop-types": "^15.7.2",
-    "ramda": "^0.28.0",
-    "ramda-adjunct": "^3.0.0",
+    "ramda": "^0.29.0",
+    "ramda-adjunct": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "swagger-adjust": "^0.5.0",
+    "swagger-adjust": "^0.5.1",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {

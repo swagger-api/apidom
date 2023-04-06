@@ -62,7 +62,7 @@ export function getLineNumberForPath(yaml: any, path: any) {
           // access the array at the index in the path (example: grab the 2 in "tags[2]")
           const index = parseInt(path[0]?.replace(/~1/g, '/').match(/\[(.*)\]/)[1]);
           if (value.value.length === 1 && index !== 0 && !!index) {
-            var nextVal = rfind(propEq('value', String(index)), value.value[0]);
+            var nextVal = rfind(propEq(String(index), 'value'), value.value[0]);
           } else {
             // @ts-ignore
             var nextVal = value.value[index]; // eslint-disable no-redeclare

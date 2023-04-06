@@ -47,8 +47,8 @@
     "@swagger-api/apidom-ns-asyncapi-2": "^0.69.2",
     "@swagger-api/apidom-parser-adapter-json": "^0.69.2",
     "@types/ramda": "=0.28.23",
-    "ramda": "=0.28.0",
-    "ramda-adjunct": "=3.4.0"
+    "ramda": "=0.29.0",
+    "ramda-adjunct": "=4.0.0"
   },
   "files": [
     "cjs/",

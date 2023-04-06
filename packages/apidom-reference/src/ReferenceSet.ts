@@ -38,7 +38,7 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
 
     has(thing: string | IReference): boolean {
       const uri = isString(thing) ? thing : thing.uri;
-      return isNotUndefined(this.find(propEq('uri', uri)));
+      return isNotUndefined(this.find(propEq(uri, 'uri')));
     },
 
     find(callback): IReference | undefined {

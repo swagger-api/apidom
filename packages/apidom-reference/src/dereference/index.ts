@@ -75,7 +75,7 @@ const dereference = async (
   // if refSet was provided, use it to avoid unnecessary parsing
   if (refSet !== null && refSet.has(sanitizedURI)) {
     // @ts-ignore
-    ({ value: parseResult } = refSet.find(propEq('uri', sanitizedURI)));
+    ({ value: parseResult } = refSet.find(propEq(sanitizedURI, 'uri')));
   } else {
     parseResult = await parse(uri, options);
   }

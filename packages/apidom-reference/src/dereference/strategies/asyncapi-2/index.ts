@@ -48,7 +48,7 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
           refSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
-          reference = refSet.find(propEq('uri', file.uri));
+          reference = refSet.find(propEq(file.uri, 'uri'));
         }
 
         const visitor = AsyncApi2DereferenceVisitor({ reference, namespace, options });

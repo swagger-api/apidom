@@ -89,7 +89,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // we've already processed this Reference in past
       if (refSet.has(baseURI)) {
-        return refSet.find(propEq('uri', baseURI));
+        return refSet.find(propEq(baseURI, 'uri'));
       }
 
       const parseResult = await parse(url.unsanitize(baseURI), {

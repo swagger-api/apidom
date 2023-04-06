@@ -49,7 +49,7 @@ const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
           refSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
-          reference = refSet.find(propEq('uri', file.uri));
+          reference = refSet.find(propEq(file.uri, 'uri'));
         }
 
         const visitor = OpenApi3_1DereferenceVisitor({ reference, namespace, options });

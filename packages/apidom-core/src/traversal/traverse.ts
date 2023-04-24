@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { Element } from 'minim';
-import { curry, pathOr, Pred } from 'ramda';
+import { pathOr, Pred } from 'ramda';
 import { isFunction, noop } from 'ramda-adjunct';
 
 import { visit, PredicateVisitor } from './visitor';
@@ -32,25 +32,22 @@ export const CallbackVisitor = stampit(PredicateVisitor, {
 });
 
 // executes the callback on this element and all descendants
-// traverse :: Callback | { predicate: Pred, callback: Callback } -> Element -> Undefined
-const traverse = curry(
-  <T extends Element>(options: Callback | TraverseOptions, element: T): void => {
-    let callback;
-    let predicate;
+const traverse = <T extends Element>(options: Callback | TraverseOptions, element: T): void => {
+  let callback;
+  let predicate;
 
-    if (isFunction(options)) {
-      callback = options;
-      predicate = isElement;
-    } else {
-      callback = pathOr(noop, ['callback'], options);
-      predicate = pathOr(isElement, ['predicate'], options);
-    }
+  if (isFunction(options)) {
+    callback = options;
+    predicate = isElement;
+  } else {
+    callback = pathOr(noop, ['callback'], options);
+    predicate = pathOr(isElement, ['predicate'], options);
+  }
 
-    const visitor = CallbackVisitor({ callback, predicate });
+  const visitor = CallbackVisitor({ callback, predicate });
 
-    // @ts-ignore
-    visit(element, visitor);
-  },
-);
+  // @ts-ignore
+  visit(element, visitor);
+};
 
 export default traverse;

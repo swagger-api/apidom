@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { curry, last, pathOr } from 'ramda';
+import { last, pathOr } from 'ramda';
 import { isNumber } from 'ramda-adjunct';
 import { Element } from 'minim';
 
@@ -49,27 +49,26 @@ interface FindAtOffsetOptions {
 // Finds the most inner node at the given offset.
 // If includeRightBound is set, also finds nodes that end at the given offset.
 // findAtOffset :: Number -> Element -> Element | Undefined
-const findAtOffset = curry(
-  <T extends Element>(options: number | FindAtOffsetOptions, element: T): T | undefined => {
-    let offset: number;
-    let includeRightBound: boolean;
+const findAtOffset = <T extends Element>(
+  options: number | FindAtOffsetOptions,
+  element: T,
+): T | undefined => {
+  let offset: number;
+  let includeRightBound: boolean;
 
-    if (isNumber(options)) {
-      offset = options;
-      includeRightBound = false;
-    } else {
-      offset = pathOr(0, ['offset'], options);
-      includeRightBound = pathOr(false, ['includeRightBound'], options);
-    }
+  if (isNumber(options)) {
+    offset = options;
+    includeRightBound = false;
+  } else {
+    offset = pathOr(0, ['offset'], options);
+    includeRightBound = pathOr(false, ['includeRightBound'], options);
+  }
 
-    const visitor = Visitor({ offset, includeRightBound });
+  const visitor = Visitor({ offset, includeRightBound });
 
-    // @ts-ignore
-    visit(element, visitor);
+  visit(element, visitor);
 
-    // @ts-ignore
-    return last(visitor.result);
-  },
-);
+  return last<T>(visitor.result);
+};
 
 export default findAtOffset;

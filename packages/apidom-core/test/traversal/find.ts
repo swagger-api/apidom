@@ -14,6 +14,7 @@ describe('traversal', function () {
       specify('should return first match', function () {
         const predicate = (element: any): boolean =>
           isMemberElement(element) && element.key.equals('c');
+        // @ts-ignore
         const found = find(predicate, objElement) as MemberElement;
 
         assert.isTrue(isMemberElement(found));

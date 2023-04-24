@@ -61,10 +61,10 @@
     "stampit": "=4.3.2",
     "tree-sitter": "=0.20.1",
     "tree-sitter-json": "=0.20.0",
-    "web-tree-sitter": "=0.20.8"
+    "web-tree-sitter": "=0.20.7"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.20.8"
+    "tree-sitter-cli": "=0.20.7"
   },
   "files": [
     "cjs/",

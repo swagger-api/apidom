@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.69.3](https://github.com/swagger-api/apidom/compare/v0.69.2...v0.69.3) (2023-04-27)
+
+### Bug Fixes
+
+- **ls:** provide completion items with proper filtering ([#2734](https://github.com/swagger-api/apidom/issues/2734)) ([0c26b31](https://github.com/swagger-api/apidom/commit/0c26b319f86f6e51ca3e7479751f871873e9c18b))
+
 ## [0.69.2](https://github.com/swagger-api/apidom/compare/v0.69.1...v0.69.2) (2023-04-03)
 
 ### Bug Fixes

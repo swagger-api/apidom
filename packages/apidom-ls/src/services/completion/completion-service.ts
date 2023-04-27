@@ -781,7 +781,7 @@ export class DefaultCompletionService implements CompletionService {
             */
             item.filterText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset!);
 
-            if (word && word.length > 0 && unquotedOriginalInsertText?.startsWith(word)) {
+            if (word && word.length > 0 && unquotedOriginalInsertText?.includes(word)) {
               collector.add(item);
             } else if (!word) {
               collector.add(item);

@@ -72,7 +72,8 @@
     "vscode-languageserver-types": "^3.17.2",
     "yaml-js": "^0.3.0",
     "axios": "1.3.6",
-    "store": "2.0.12"
+    "store": "2.0.12",
+    "@types/store": "^2.0.2"
   },
   "files": [
     "cjs/",

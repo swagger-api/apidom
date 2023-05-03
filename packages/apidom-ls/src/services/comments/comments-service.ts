@@ -83,14 +83,14 @@ export class DefaultCommentsService implements CommentsService {
   }
 
   public configure(settings?: LanguageSettings): void {
-    store.set(
+    /*    store.set(
       'apidomComments-/servers/scram-connections/protocol',
       'Comment to /servers/scram-connections/protocol 1#value#549-12|Comment to /servers/scram-connections/protocol 2#value#549-12',
     );
     store.set(
       'apidomComments-/servers/scram-connections/url',
       'Comment to /servers/scram-connections/url 1#value#549-12|Comment to /servers/scram-connections/url 2#value#549-12',
-    );
+    ); */
     this.settings = settings;
     if (settings) {
       /*      if (settings.commentsProviders) {

@@ -24,6 +24,7 @@ import {
   findNamespace,
   debug,
 } from '../../utils/utils';
+import { CommentsService } from '../comments/comments-service';
 
 const CONTROL_CODES = '\\u0000-\\u0020\\u007f-\\u009f';
 const WEB_LINK_REGEX = new RegExp(
@@ -45,6 +46,12 @@ export class DefaultHoverService implements HoverService {
   private static _initialize: void = ((): void => {})();
 
   private hoverProviders: HoverProvider[] = [];
+
+  private commentsService: CommentsService | undefined;
+
+  public constructor(commentsService?: CommentsService) {
+    this.commentsService = commentsService;
+  }
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
@@ -112,7 +119,6 @@ export class DefaultHoverService implements HoverService {
     api.freeze(); // !! freeze and add parent !!
 
     const node = findAtOffset({ offset, includeRightBound: true }, api);
-
     if (node && node.parent && isMember(node.parent)) {
       const contents: string[] = [];
       let el: Element;
@@ -129,6 +135,24 @@ export class DefaultHoverService implements HoverService {
       }
 
       let hoverLine = '';
+      const smComments = getSourceMap(node);
+      // TODO solve must be the one on which is hovering
+      const posComments = {
+        line: smComments.line,
+        character: smComments.column + 1,
+      };
+      const comments = await this.commentsService!.getNodeComments(textDocument, posComments);
+      // @ts-ignore
+      if (
+        comments &&
+        ((comments.valueComments?.length && comments.valueComments?.length > 0) ||
+          (comments.keyComments?.length && comments.keyComments?.length > 0))
+      ) {
+        contents.push(`Comments for ${comments.jsonPointer}`);
+        for (const c of comments.valueComments!) {
+          contents.push(c.value);
+        }
+      }
       if (el.parent && isMember(el.parent)) {
         hoverLine = `***${(node.parent.key as Element).toValue()}***: `;
       }

@@ -14,6 +14,7 @@ import {
   CodeAction,
   Location,
   DocumentLink,
+  Range,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
@@ -435,6 +436,25 @@ export interface LinterFunctions {
   [index: string]: LinterFunction;
 }
 
+// TODO fix
+export interface Comments {
+  nodeType?: 'key' | 'value' | 'unknown';
+  keyComments?: Comment[];
+  valueComments?: Comment[];
+  jsonPointer: string;
+  range?: Range;
+}
+
+// TODO fix
+export interface Comment {
+  value: string;
+  date?: Date;
+  author?: string;
+  authorId?: string;
+  range?: Range;
+  jsonPointer?: string;
+}
+
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
   doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
@@ -490,4 +510,8 @@ export interface LanguageService {
   registerLinksProvider(linksProvider: LinksProvider): void;
 
   getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null>;
+
+  addNodeComment(textDocument: TextDocument, position: Position, value: string): Promise<void>;
+  loadComments(textDocument: TextDocument): Promise<Map<string, Comments>>;
+  getNodeComments(textDocument: TextDocument, position: Position): Promise<Comments>;
 }

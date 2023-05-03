@@ -30,7 +30,7 @@
     "build:es": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:cjs": "npm run build:wasm && npm run build:wasm:copy && BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
     "build:umd:browser": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=browser BROWSERSLIST_ENV=production webpack --config config/webpack/browser.config.js --progress",
-    "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-json/tree-sitter-json.wasm && exit 0 || cd ../../node_modules/tree-sitter-json && tree-sitter generate --abi=13 ./grammar.js && tree-sitter build-wasm && node-gyp rebuild",
+    "build:wasm": "exit 0",
     "build:wasm:copy": "copyfiles -u 4 ../../node_modules/tree-sitter-json/tree-sitter-json.wasm wasm",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",

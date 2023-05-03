@@ -23,6 +23,7 @@ import {
   perfStart,
   isJsonDoc,
 } from '../../utils/utils';
+import { CommentsService } from '../comments/comments-service';
 
 enum PerfLabels {
   START = 'computeSemanticTokens',
@@ -67,6 +68,12 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
     return bit;
   }
 
+  private commentsService: CommentsService | undefined;
+
+  public constructor(commentsService?: CommentsService) {
+    this.commentsService = commentsService;
+  }
+
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings?.metadata?.tokens) {
@@ -74,16 +81,14 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
     }
 
     this.tokenModifiers[SemanticTokenModifiers.declaration] = 1;
-    this.tokenModifiers[SemanticTokenModifiers.definition] = 2;
+    this.tokenModifiers.comment = 2;
     this.tokenModifiers[SemanticTokenModifiers.deprecated] = 4;
     this.tokenModifiers.reference = 8;
     this.tokenModifiers['httpMethod-GET'] = 16;
     this.tokenModifiers['httpMethod-POST'] = 32;
     this.tokenModifiers.string = 64;
     this.tokenModifiers.number = 128;
-
     const legendTokenModifiers = Object.keys(this.tokenModifiers);
-
     this.legend = {
       tokenTypes: this.tokens,
       tokenModifiers: legendTokenModifiers,
@@ -127,7 +132,6 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
         data: tokens.flat(),
       } as SemanticTokens;
     }
-
     const { api } = result;
     // if we cannot parse nothing to do
     if (api === undefined)
@@ -139,7 +143,6 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
     let lastColumn = 0;
 
     const processed: Element[] = [];
-
     const buildTokens = (element: Element) => {
       /*
 
@@ -153,7 +156,7 @@ console.log(
 */
       let foundClasses = false;
       let parentNode = false;
-
+      const hasComments = this.commentsService!.hasNodeComments(element, textDocument);
       // TODO (francesco.tumanischvili@smartbear.com) De-duplicate code
       let set: string[] = [];
       if (element.classes) {
@@ -183,7 +186,7 @@ console.log(
           isBooleanElement(element) ||
           parentNode
         ) {
-          const modifier = 0;
+          const modifier = hasComments ? 2 : 0;
           const token = [
             sm.line - lastLine,
             sm.line === lastLine ? sm.column - lastColumn : sm.column,
@@ -223,7 +226,7 @@ console.log(
           isBooleanElement(element) ||
           parentNode
         ) {
-          const modifier = 0;
+          const modifier = hasComments ? 2 : 0;
           const token = [
             sm.line - lastLine,
             sm.line === lastLine ? sm.column - lastColumn : sm.column,
@@ -279,6 +282,7 @@ console.log(
                   `httpMethod-${element.getMetaProperty('http-method', 'GET').toValue()}`,
                 ]);
               }
+              modifier = hasComments ? 2 : modifier;
               const token = [
                 sm.line - lastLine,
                 sm.line === lastLine ? sm.column - lastColumn : sm.column,
@@ -337,7 +341,9 @@ console.log(
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 sm.endOffset! - sm.offset,
                 this.getTokenType('value'),
-                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
+                hasComments
+                  ? 2
+                  : this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
               ];
 
               /*
@@ -369,7 +375,9 @@ console.log(
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 sm.endOffset! - sm.offset,
                 this.getTokenType('key'),
-                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
+                hasComments
+                  ? 2
+                  : this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
               ];
 
               /*
@@ -394,7 +402,6 @@ console.log(
         }
       }
     };
-
     traverse(buildTokens, api);
     perfEnd(PerfLabels.START);
     return {

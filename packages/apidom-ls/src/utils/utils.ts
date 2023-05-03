@@ -182,8 +182,8 @@ export function logJson(label: string, message: unknown): void {
   console.log(label, JSON.stringify(message, null, 2));
 }
 
-export function buildJsonPointer(path: string[]): string {
-  return `#/${path.join('/')}`;
+export function buildJsonPointer(path: string[], prefix: string): string {
+  return `${prefix}/${path.join('/')}`;
 }
 
 export function localReferencePointers(doc: Element, nodeElement: string): Pointer[] {
@@ -217,7 +217,7 @@ export function localReferencePointers(doc: Element, nodeElement: string): Point
   for (const foundNode of foundNodes) {
     nodePath = [];
     buildPointer(foundNode);
-    pointers.push({ node: foundNode, ref: buildJsonPointer(nodePath) });
+    pointers.push({ node: foundNode, ref: buildJsonPointer(nodePath, '#') });
   }
   // TODO better sorting, NS plugin..
   pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));

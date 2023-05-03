@@ -6,6 +6,7 @@ import {
   FormattingOptions,
   TextEdit,
   Position,
+  Range,
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
@@ -20,6 +21,7 @@ import {
 } from './apidom-language-types';
 import { DefaultValidationService } from './services/validation/validation-service';
 import { DefaultCompletionService } from './services/completion/completion-service';
+import { DefaultCommentsService } from './services/comments/comments-service';
 import { DefaultSymbolsService } from './services/symbols/symbols-service';
 import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
 import { DefaultHoverService } from './services/hover/hover-service';
@@ -39,8 +41,9 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService();
   const validationService = new DefaultValidationService();
-  const semanticTokensService = new DefaultSemanticTokensService();
-  const hoverService = new DefaultHoverService();
+  const commentsService = new DefaultCommentsService();
+  const hoverService = new DefaultHoverService(commentsService);
+  const semanticTokensService = new DefaultSemanticTokensService(commentsService);
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
   const linksService = new DefaultLinksService();
@@ -54,6 +57,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     derefService.configure(languageSettings);
     definitionService.configure(languageSettings);
     linksService.configure(languageSettings);
+    commentsService.configure(languageSettings);
   }
 
   let metadata = config();
@@ -100,6 +104,10 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
 
     doProvideDefinition: definitionService.doProvideDefinition.bind(definitionService),
     doProvideReferences: definitionService.doProvideReferences.bind(definitionService),
+
+    addNodeComment: commentsService.addNodeComment.bind(commentsService),
+    loadComments: commentsService.loadComments.bind(commentsService),
+    getNodeComments: commentsService.getNodeComments.bind(commentsService),
 
     getSemanticTokensLegend(): SemanticTokensLegend {
       return semanticTokensService.getLegend();

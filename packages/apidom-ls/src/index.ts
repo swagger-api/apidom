@@ -9,6 +9,7 @@ export {
   isElement,
   isNumberElement,
   isStringElement,
+  findAtOffset,
 } from '@swagger-api/apidom-core';
 
 export { default as getLanguageService } from './apidom-language-service';
@@ -21,6 +22,7 @@ export {
   isYamlDoc,
   getText,
   findNamespace,
+  getSourceMap,
 } from './utils/utils';
 
 export type {
@@ -63,3 +65,5 @@ export {
 } from './apidom-language-types';
 
 export { config } from './config/config';
+
+export { parse as parseToApiDOM } from './parser-factory';

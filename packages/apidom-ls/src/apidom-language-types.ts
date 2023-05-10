@@ -466,6 +466,7 @@ export interface Comments {
   valueComments?: Comment[];
   jsonPointer: string;
   range?: Range;
+  offset?: number;
 }
 
 // TODO fix
@@ -537,4 +538,6 @@ export interface LanguageService {
   addNodeComment(textDocument: TextDocument, position: Position, value: string): Promise<void>;
   loadComments(textDocument: TextDocument): Promise<Map<string, Comments>>;
   getNodeComments(textDocument: TextDocument, position: Position): Promise<Comments>;
+  testSync(textDocument: TextDocument, textDocumentNew: TextDocument): Promise<void>;
+  syncComments(textDocument: TextDocument, event: unknown): Promise<void>;
 }

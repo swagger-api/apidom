@@ -187,9 +187,9 @@ export function logJson(label: string, message: unknown): void {
   console.log(label, JSON.stringify(message, null, 2));
 }
 
-export function buildJsonPointer(path: string[]): string {
+export function buildJsonPointer(path: string[], prefix: string): string {
   const jsonPointer = compile(path);
-  return `#${jsonPointer}`;
+  return `${prefix}${jsonPointer}`;
 }
 
 interface FoundNode {
@@ -240,7 +240,7 @@ export function localReferencePointers(
     buildPointer(foundNode.element);
     pointers.push({
       node: foundNode.element,
-      ref: buildJsonPointer(nodePath),
+      ref: buildJsonPointer(nodePath, '#'),
       isRef: foundNode.isRef,
     });
   }

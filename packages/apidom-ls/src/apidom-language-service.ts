@@ -108,6 +108,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     addNodeComment: commentsService.addNodeComment.bind(commentsService),
     loadComments: commentsService.loadComments.bind(commentsService),
     getNodeComments: commentsService.getNodeComments.bind(commentsService),
+    testSync: commentsService.testSync.bind(commentsService),
+    syncComments: commentsService.syncComments.bind(commentsService),
 
     getSemanticTokensLegend(): SemanticTokensLegend {
       return semanticTokensService.getLegend();

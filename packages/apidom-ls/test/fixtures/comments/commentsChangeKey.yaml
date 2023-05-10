@@ -1,0 +1,14 @@
+asyncapi: 2.0.0
+id: urn:com:smartylighting:streetlights:server
+info:
+  title: AsyncAPI Sample App
+  description: This is a sample server.
+  versssion: 1.0.1
+  termsOfService: http://asyncapi.org/terms/
+  contact:
+    name: API Support
+    url: http://www.asyncapi.org/support
+    email: support@asyncapi.org
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html

@@ -135,13 +135,14 @@ export class DefaultHoverService implements HoverService {
       }
 
       let hoverLine = '';
-      const smComments = getSourceMap(node);
+      // const smComments = getSourceMap(node);
       // TODO solve must be the one on which is hovering
-      const posComments = {
+      /* const posComments = {
         line: smComments.line,
         character: smComments.column + 1,
-      };
-      const comments = await this.commentsService!.getNodeComments(textDocument, posComments);
+      }; */
+      // const comments = await this.commentsService!.getNodeComments(textDocument, posComments);
+      const comments = await this.commentsService!.getNodeCommentsNode(textDocument, node);
       // @ts-ignore
       if (
         comments &&
@@ -149,8 +150,15 @@ export class DefaultHoverService implements HoverService {
           (comments.keyComments?.length && comments.keyComments?.length > 0))
       ) {
         contents.push(`Comments for ${comments.jsonPointer}`);
-        for (const c of comments.valueComments!) {
-          contents.push(c.value);
+        if (comments.valueComments) {
+          for (const c of comments.valueComments!) {
+            contents.push(c.value);
+          }
+        }
+        if (comments.keyComments) {
+          for (const c of comments.keyComments!) {
+            contents.push(c.value);
+          }
         }
       }
       if (el.parent && isMember(el.parent)) {

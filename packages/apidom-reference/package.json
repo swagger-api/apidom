@@ -202,13 +202,13 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.69.3",
-    "@types/ramda": "=0.29.1",
-    "axios": "=1.4.0",
-    "minimatch": "=7.4.3",
-    "process": "=0.11.10",
-    "ramda": "=0.29.0",
-    "ramda-adjunct": "=4.0.0",
-    "stampit": "=4.3.2"
+    "@types/ramda": "~0.29.1",
+    "axios": "^1.4.0",
+    "minimatch": "^7.4.3",
+    "process": "^0.11.10",
+    "ramda": "~0.29.0",
+    "ramda-adjunct": "^4.0.0",
+    "stampit": "^4.3.2"
   },
   "optionalDependencies": {
     "@swagger-api/apidom-json-pointer": "^0.69.3",
@@ -241,7 +241,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "*",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "*",
-    "axios-mock-adapter": "=1.21.4"
+    "axios-mock-adapter": "^1.21.4"
   },
   "files": [
     "cjs/",

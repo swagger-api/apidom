@@ -40,7 +40,7 @@
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.69.3",
     "@swagger-api/apidom-json-pointer": "^0.69.3",
-    "jsonpath-plus": "=7.2.0"
+    "jsonpath-plus": "^7.2.0"
   },
   "files": [
     "cjs/",

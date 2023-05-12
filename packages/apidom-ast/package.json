@@ -42,11 +42,11 @@
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@types/ramda": "=0.29.1",
-    "ramda": "=0.29.0",
-    "ramda-adjunct": "=4.0.0",
-    "stampit": "=4.3.2",
-    "unraw": "=2.0.1"
+    "@types/ramda": "~0.29.1",
+    "ramda": "~0.29.0",
+    "ramda-adjunct": "^4.0.0",
+    "stampit": "^4.3.2",
+    "unraw": "^2.0.1"
   },
   "files": [
     "cjs/",

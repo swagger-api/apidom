@@ -43,12 +43,12 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-ast": "^0.69.3",
-    "@types/ramda": "=0.29.1",
-    "minim": "=0.23.8",
-    "ramda": "=0.29.0",
-    "ramda-adjunct": "=4.0.0",
-    "short-unique-id": "=4.4.4",
-    "stampit": "=4.3.2"
+    "@types/ramda": "~0.29.1",
+    "minim": "~0.23.8",
+    "ramda": "~0.29.0",
+    "ramda-adjunct": "^4.0.0",
+    "short-unique-id": "^4.4.4",
+    "stampit": "^4.3.2"
   },
   "files": [
     "cjs/",

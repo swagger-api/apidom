@@ -39,9 +39,9 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.69.3",
-    "@types/ramda": "=0.29.1",
-    "ramda": "=0.29.0",
-    "ramda-adjunct": "=4.0.0"
+    "@types/ramda": "~0.29.1",
+    "ramda": "~0.29.0",
+    "ramda-adjunct": "^4.0.0"
   },
   "files": [
     "cjs/",

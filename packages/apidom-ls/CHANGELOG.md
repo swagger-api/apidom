@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.70.0](https://github.com/swagger-api/apidom/compare/v0.69.3...v0.70.0) (2023-05-23)
+
+### Features
+
+- **apidom-ls:** update exports for JSON Schema validators ([99a21b7](https://github.com/swagger-api/apidom/commit/99a21b7139dafef17ecf2d0faba8280f44ad5de5))
+
 ## [0.69.3](https://github.com/swagger-api/apidom/compare/v0.69.2...v0.69.3) (2023-04-27)
 
 ### Bug Fixes

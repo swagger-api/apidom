@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-openapi-3-1",
-  "version": "0.69.3",
+  "version": "0.70.0",
   "description": "Parser adapter for parsing JSON documents into AsyncAPI 2.x.y namespace.",
   "publishConfig": {
     "access": "public",
@@ -45,8 +45,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.69.3",
-    "@swagger-api/apidom-ns-openapi-3-0": "^0.69.3",
+    "@swagger-api/apidom-core": "^0.70.0",
+    "@swagger-api/apidom-ns-openapi-3-0": "^0.70.0",
     "@types/ramda": "~0.29.1",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.0.0",

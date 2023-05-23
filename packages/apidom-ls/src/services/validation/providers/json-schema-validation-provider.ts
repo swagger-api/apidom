@@ -5,7 +5,7 @@ import jsonSourceMap from 'json-source-map';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element } from '@swagger-api/apidom-core';
 
-import { positionRangeForPath } from '../../../utils/ast';
+import { positionRangeForPath } from '../utils/ast';
 import {
   LanguageSettings,
   MergeStrategy,

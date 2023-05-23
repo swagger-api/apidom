@@ -112,16 +112,17 @@
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.69.3",
     "@swagger-api/apidom-reference": "^0.69.3",
     "@types/ramda": "~0.29.1",
+    "ramda": "~0.29.0",
+    "ramda-adjunct": "^4.0.0",
+    "vscode-languageserver-protocol": "^3.17.2",
+    "vscode-languageserver-textdocument": "^1.0.5",
+    "vscode-languageserver-types": "^3.17.2"
+  },
+  "optionalDependencies": {
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "json-source-map": "^0.6.1",
-    "ramda": "~0.29.0",
-    "ramda-adjunct": "^4.0.0",
-    "stampit": "^4.3.2",
-    "vscode-languageserver-protocol": "^3.17.2",
-    "vscode-languageserver-textdocument": "^1.0.5",
-    "vscode-languageserver-types": "^3.17.2",
     "yaml-js": "^0.3.0"
   },
   "files": [

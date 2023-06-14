@@ -1,7 +1,6 @@
 {
   "packages": ["packages/*"],
   "npmClient": "npm",
-  "useWorkspaces": true,
   "version": "0.70.0",
   "changelogPreset": "angular",
   "command": {
@@ -18,5 +17,6 @@
     "publish": {
       "registry": "https://registry.npmjs.org"
     }
-  }
+  },
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

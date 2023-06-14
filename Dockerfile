@@ -1,4 +1,4 @@
-FROM node:16.13.2-bullseye
+FROM node:18.16.0-bookworm
 
 # use bash as default shell
 SHELL ["/bin/bash", "-c"]

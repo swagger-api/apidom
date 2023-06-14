@@ -60,10 +60,10 @@
     "stampit": "^4.3.2",
     "tree-sitter": "=0.20.1",
     "tree-sitter-yaml": "=0.5.0",
-    "web-tree-sitter": "=0.20.7"
+    "web-tree-sitter": "=0.20.8"
   },
   "devDependencies": {
-    "tree-sitter-cli": "=0.20.7"
+    "tree-sitter-cli": "=0.20.8"
   },
   "files": [
     "cjs/",

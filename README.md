@@ -107,7 +107,7 @@ This is a monorepo for all ApiDOM packages. All the code is written in [TypeScri
 All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
 
 Assuming [prerequisites](#prerequisites) are already installed, [Node.js](https://nodejs.org/) `>=16.8.0` and `npm >=7.21.0`
-are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@16
+are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@18.
 
 ### Setting up
 

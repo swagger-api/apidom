@@ -13,3 +13,15 @@ updates:
       - dependency-name: "tree-sitter-cli"
       - dependency-name: "web-tree-sitter"
 
+  - package-ecosystem: "github-actions"
+    target-branch: "main"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "23:00"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    open-pull-requests-limit: 5
+
+

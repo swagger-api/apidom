@@ -9,9 +9,6 @@ updates:
       prefix: "chore"
       include: "scope"
     open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: "tree-sitter-cli"
-      - dependency-name: "web-tree-sitter"
 
   - package-ecosystem: "github-actions"
     target-branch: "main"

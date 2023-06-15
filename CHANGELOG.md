@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.1](https://github.com/swagger-api/apidom/compare/v0.70.0...v0.70.1) (2023-06-15)
+
+### Features
+
+- add support for Node.js@18 and Node.js@20 ([#2857](https://github.com/swagger-api/apidom/issues/2857)) ([d93f959](https://github.com/swagger-api/apidom/commit/d93f95958c63530aa1ccda1c016f9ae19d5d308a)), closes [#2851](https://github.com/swagger-api/apidom/issues/2851)
+
 # [0.70.0](https://github.com/swagger-api/apidom/compare/v0.69.3...v0.70.0) (2023-05-23)
 
 ### Features

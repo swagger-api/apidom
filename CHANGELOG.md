@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.2](https://github.com/swagger-api/apidom/compare/v0.70.1...v0.70.2) (2023-06-16)
+
+### Performance Improvements
+
+- **reference:** add caching capability for OpenAPI 3.1 uri selector ([#2869](https://github.com/swagger-api/apidom/issues/2869)) ([439764f](https://github.com/swagger-api/apidom/commit/439764f51efef4f810bf0f4a73c7c72278d4240a)), closes [#2867](https://github.com/swagger-api/apidom/issues/2867)
+
 ## [0.70.1](https://github.com/swagger-api/apidom/compare/v0.70.0...v0.70.1) (2023-06-15)
 
 ### Features

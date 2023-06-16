@@ -188,6 +188,8 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
+    "perf": "cross-env NODE_ENV=test  BABEL_ENV=cjs node ./test/perf/index.cjs",
+    "perf:openapi-3-1-dereference": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/openapi-3-1-dereference.cjs",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",

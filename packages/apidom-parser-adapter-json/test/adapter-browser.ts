@@ -8,6 +8,22 @@ import * as adapter from '../src/adapter-browser';
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json')).toString();
 
 describe('adapter-browser', function () {
+  /**
+   * We don't want web-tree-sitter to use `fetch` interface,
+   * we want to it to use `node:fs`, so we make the `fetch` unavailable.
+   */
+  let { fetch } = globalThis;
+
+  beforeEach(function () {
+    fetch = globalThis.fetch;
+    // @ts-ignore
+    delete globalThis.fetch;
+  });
+
+  afterEach(function () {
+    globalThis.fetch = fetch;
+  });
+
   context('given valid JSON', function () {
     specify('should detect proper media type', async function () {
       assert.isTrue(await adapter.detect(spec));

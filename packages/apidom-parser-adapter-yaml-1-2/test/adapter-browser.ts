@@ -8,6 +8,22 @@ import * as adapter from '../src/adapter-browser';
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.yaml')).toString();
 
 describe('adapter-browser', function () {
+  /**
+   * We don't want web-tree-sitter to use `fetch` interface,
+   * we want to it to use `node:fs`, so we make the `fetch` unavailable.
+   */
+  let { fetch } = globalThis;
+
+  beforeEach(function () {
+    fetch = globalThis.fetch;
+    // @ts-ignore
+    delete globalThis.fetch;
+  });
+
+  afterEach(function () {
+    globalThis.fetch = fetch;
+  });
+
   context('given valid YAML 1.2', function () {
     specify('should detect proper media type', async function () {
       assert.isTrue(await adapter.detect(spec));
@@ -17,6 +33,33 @@ describe('adapter-browser', function () {
   context('given non YAML 1.2', function () {
     specify('should detect proper media type', async function () {
       assert.isFalse(await adapter.detect('test : test : test'));
+    });
+  });
+
+  context('given invalid(1) YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(
+        await adapter.detect(`
+        openapi: 3.1.0
+        info:
+          summary: Update an existing pet
+          desc
+          title: test title
+      `),
+      );
+    });
+  });
+
+  context('given invalid(2) YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(
+        await adapter.detect(`
+        asyncapi: 2.4.0
+        info:
+          version: '1.0.0'
+           title: Something # Badly indented
+      `),
+      );
     });
   });
 

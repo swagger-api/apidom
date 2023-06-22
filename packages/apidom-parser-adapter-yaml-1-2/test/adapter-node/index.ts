@@ -20,6 +20,33 @@ describe('adapter-node', function () {
     });
   });
 
+  context('given invalid(1) YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(
+        await adapter.detect(`
+        openapi: 3.1.0
+        info:
+          summary: Update an existing pet
+          desc
+          title: test title
+      `),
+      );
+    });
+  });
+
+  context('given invalid(2) YAML 1.2', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(
+        await adapter.detect(`
+        asyncapi: 2.4.0
+        info:
+          version: '1.0.0'
+           title: Something # Badly indented
+      `),
+      );
+    });
+  });
+
   it('should parse', async function () {
     const parseResult = await adapter.parse(spec, {
       sourceMap: true,

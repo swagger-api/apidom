@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`syntactic-analysis PreOrderCursorChildrenIterator should create optimized CST 1`] = `
-(ParseResultElement
-  (ArrayElement
-    (NumberElement)
-    (NumberElement)))
-`;

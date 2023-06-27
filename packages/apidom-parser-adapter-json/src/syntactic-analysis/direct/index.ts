@@ -1,6 +1,6 @@
 import stampit from 'stampit';
-import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
-import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
+import { Tree as NodeTree } from 'tree-sitter';
+import { Tree as WebTree } from 'web-tree-sitter';
 import { visit, getNodeType as getCSTNodeType, isNode as isCSTNode } from '@swagger-api/apidom-ast';
 import {
   BooleanElement,
@@ -21,9 +21,10 @@ import {
   getNodeType as getNodeTypeApiDOM,
 } from '@swagger-api/apidom-core';
 
-/* eslint-disable no-underscore-dangle */
+import TreeCursorIterator from '../TreeCursorIterator';
+import TreeCursorSyntaxNode from '../TreeCursorSyntaxNode';
 
-type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
+/* eslint-disable no-underscore-dangle */
 
 const keyMap = {
   document: ['children'],
@@ -61,11 +62,7 @@ const Visitor = stampit({
 
     this.annotations = [];
 
-    const toPosition = (node: SyntaxNode | null): Array<ArrayElement> | null => {
-      if (node === null) {
-        return null;
-      }
-
+    const toPosition = (node: TreeCursorSyntaxNode): Array<ArrayElement> => {
       const start = new ArrayElement([
         node.startPosition.row,
         node.startPosition.column,
@@ -79,7 +76,7 @@ const Visitor = stampit({
       return [start, end];
     };
 
-    const maybeAddSourceMap = (node: SyntaxNode, element: Element): void => {
+    const maybeAddSourceMap = (node: TreeCursorSyntaxNode, element: Element): void => {
       if (!this.sourceMap) {
         return;
       }
@@ -97,28 +94,13 @@ const Visitor = stampit({
       element.meta.set('sourceMap', sourceMap);
     };
 
-    const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
-      return `${fieldName}Node` in node
-        ? // @ts-ignore
-          node[`${fieldName}Node`]
-        : 'childForFieldName' in node
-        ? node.childForFieldName?.(fieldName)
-        : null;
-    };
-
     /**
      * Public API.
      */
 
-    this.enter = function enter(node: SyntaxNode) {
+    this.enter = function enter(node: TreeCursorSyntaxNode) {
       // missing anonymous literals from CST transformed into AnnotationElements.
-      // WARNING: be aware that web-tree-sitter and tree-sitter node bindings have inconsistency
-      // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
-      // whether tree-sitter node binding has it defined as a boolean property.
-      if (
-        ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) &&
-        node.isMissing()
-      ) {
+      if (!node.isNamed && node.isMissing) {
         // collect annotations from missing literals
         const value = node.type || node.text;
         const message = `(Missing ${value})`;
@@ -132,7 +114,7 @@ const Visitor = stampit({
       return null; // remove everything unrecognized
     };
 
-    this.document = function document(node: SyntaxNode) {
+    this.document = function document(node: TreeCursorSyntaxNode) {
       const element = new ParseResultElement();
       // @ts-ignore
       element._content = node.children;
@@ -158,7 +140,7 @@ const Visitor = stampit({
       },
     };
 
-    this.object = function object(node: SyntaxNode) {
+    this.object = function object(node: TreeCursorSyntaxNode) {
       const element = new ObjectElement();
       // @ts-ignore
       element._content = node.children;
@@ -166,7 +148,7 @@ const Visitor = stampit({
       return element;
     };
 
-    this.array = function array(node: SyntaxNode) {
+    this.array = function array(node: TreeCursorSyntaxNode) {
       const element = new ArrayElement();
       // @ts-ignore
       element._content = node.children;
@@ -174,12 +156,12 @@ const Visitor = stampit({
       return element;
     };
 
-    this.pair = function pair(node: SyntaxNode) {
+    this.pair = function pair(node: TreeCursorSyntaxNode) {
       const element = new MemberElement();
       // @ts-ignore
-      element.content.key = getFieldFromNode('key', node);
+      element.content.key = node.keyNode;
       // @ts-ignore
-      element.content.value = getFieldFromNode('value', node);
+      element.content.value = node.valueNode;
       maybeAddSourceMap(node, element);
 
       /**
@@ -188,9 +170,8 @@ const Visitor = stampit({
        */
       if (node.children.length > 3) {
         node.children
-          // @ts-ignore
-          .filter((child: SyntaxNode) => child.type === 'ERROR')
-          .forEach((errorNode: SyntaxNode) => {
+          .filter((child) => child.type === 'ERROR')
+          .forEach((errorNode) => {
             this.ERROR(errorNode, node, [], [node]);
           });
       }
@@ -198,42 +179,47 @@ const Visitor = stampit({
       return element;
     };
 
-    this.string = function string(node: SyntaxNode) {
+    this.string = function string(node: TreeCursorSyntaxNode) {
       const element = new StringElement(node.text.slice(1, -1));
       maybeAddSourceMap(node, element);
       return element;
     };
 
-    this.number = function number(node: SyntaxNode) {
+    this.number = function number(node: TreeCursorSyntaxNode) {
       const element = new NumberElement(Number(node.text));
       maybeAddSourceMap(node, element);
       return element;
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.null = function _null(node: SyntaxNode) {
+    this.null = function _null(node: TreeCursorSyntaxNode) {
       const element = new NullElement();
       maybeAddSourceMap(node, element);
       return element;
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.true = function _true(node: SyntaxNode) {
+    this.true = function _true(node: TreeCursorSyntaxNode) {
       const element = new BooleanElement(true);
       maybeAddSourceMap(node, element);
       return element;
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.false = function _false(node: SyntaxNode) {
+    this.false = function _false(node: TreeCursorSyntaxNode) {
       const element = new BooleanElement(false);
       maybeAddSourceMap(node, element);
       return element;
     };
 
-    this.ERROR = function ERROR(node: SyntaxNode, key: any, parent: any, path: string[]) {
+    this.ERROR = function ERROR(
+      node: TreeCursorSyntaxNode,
+      key: any,
+      parent: TreeCursorSyntaxNode,
+      path: string[],
+    ) {
       // collect errors as annotations
-      const isUnexpected = !node.hasError();
+      const isUnexpected = !node.hasError;
       const value = node.text;
       const message = isUnexpected ? `(Unexpected ${value})` : `(Error ${value})`;
       const element = new AnnotationElement(message);
@@ -257,22 +243,30 @@ const Visitor = stampit({
 });
 
 /**
- * This version of syntactic analysis translates TreeSitter CTS into ApiDOM.
+ * This version of syntactic analysis translates TreeSitter CTS
+ * directly into ApiDOM.
+ *
+ * Transient transformation of TreeSitter CST is performed
+ * using TreeSitter cursor. TreeSitter cursor is a stateful object
+ * that allows us to walk syntax tree containing large number of nodes
+ * with maximum efficiency. Using this transient CST transformation
+ * gives us double the performance when syntactically analyzing
+ * CST into ApiDOM.
+ *
  * Single traversal pass is needed to get from CST to ApiDOM.
  */
-const analyze = (cst: { rootNode: unknown }, { sourceMap = false } = {}): ParseResultElement => {
+const analyze = (cst: NodeTree | WebTree, { sourceMap = false } = {}): ParseResultElement => {
   const visitor = Visitor();
+  const cursor = cst.walk();
+  const iterator = new TreeCursorIterator(cursor);
+  const rootNode = [...iterator].at(0) as TreeCursorSyntaxNode;
 
-  return visit(cst.rootNode, visitor, {
+  return visit(rootNode, visitor, {
     // @ts-ignore
     keyMap,
-    // @ts-ignore
     nodeTypeGetter: getNodeType,
-    // @ts-ignore
     nodePredicate: isNode,
-    state: {
-      sourceMap,
-    },
+    state: { sourceMap },
   });
 };
 

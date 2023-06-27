@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
+
+### Bug Fixes
+
+- **deps:** add missing @swagger-api/apidom-ast dep ([#2875](https://github.com/swagger-api/apidom/issues/2875)) ([a7f0d15](https://github.com/swagger-api/apidom/commit/a7f0d15847e40c2eac831190844dfa28d3881c8c)), closes [#2871](https://github.com/swagger-api/apidom/issues/2871)
+- **ls:** fix OpenAPI 3.x.y Server.url field linting ([#2876](https://github.com/swagger-api/apidom/issues/2876)) ([a8cc07f](https://github.com/swagger-api/apidom/commit/a8cc07f9abad786a0fecb4a474b9f84501978abf)), closes [#2858](https://github.com/swagger-api/apidom/issues/2858)
+- **parser-adapter-yaml-1-2:** enable maximum error recovery ([#2881](https://github.com/swagger-api/apidom/issues/2881)) ([b7d0803](https://github.com/swagger-api/apidom/commit/b7d080310d7c6b019414d12aadffc62dd4c28e8a)), closes [#194](https://github.com/swagger-api/apidom/issues/194)
+
 ## [0.70.2](https://github.com/swagger-api/apidom/compare/v0.70.1...v0.70.2) (2023-06-16)
 
 ### Performance Improvements

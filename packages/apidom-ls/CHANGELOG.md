@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
+
+### Bug Fixes
+
+- **ls:** fix OpenAPI 3.x.y Server.url field linting ([#2876](https://github.com/swagger-api/apidom/issues/2876)) ([a8cc07f](https://github.com/swagger-api/apidom/commit/a8cc07f9abad786a0fecb4a474b9f84501978abf)), closes [#2858](https://github.com/swagger-api/apidom/issues/2858)
+
 ## [0.70.2](https://github.com/swagger-api/apidom/compare/v0.70.1...v0.70.2) (2023-06-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

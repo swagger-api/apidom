@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** enable maximum error recovery ([#2881](https://github.com/swagger-api/apidom/issues/2881)) ([b7d0803](https://github.com/swagger-api/apidom/commit/b7d080310d7c6b019414d12aadffc62dd4c28e8a)), closes [#194](https://github.com/swagger-api/apidom/issues/194)
+
 ## [0.70.1](https://github.com/swagger-api/apidom/compare/v0.70.0...v0.70.1) (2023-06-15)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2

@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-json-schema-draft-4",
-  "version": "0.70.1",
+  "version": "0.70.3",
   "description": "JSON Schema Draft 4 namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",

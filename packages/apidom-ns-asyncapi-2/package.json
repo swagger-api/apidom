@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-asyncapi-2",
-  "version": "0.70.1",
+  "version": "0.70.3",
   "description": "AsyncAPI 2.x.y namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.70.1",
-    "@swagger-api/apidom-ns-json-schema-draft-7": "^0.70.1",
+    "@swagger-api/apidom-ns-json-schema-draft-7": "^0.70.3",
     "@types/ramda": "~0.29.1",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.0.0",

@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`syntactic-analysis TreeCursorIterator should create optimized CST 1`] = `
+TreeCursorSyntaxNode {
+  children: Array [
+    TreeCursorSyntaxNode {
+      children: Array [
+        TreeCursorSyntaxNode {
+          children: Array [],
+          endIndex: 1,
+          endPosition: Object {
+            column: 1,
+            row: 0,
+          },
+          hasError: false,
+          isMissing: false,
+          isNamed: false,
+          startIndex: 0,
+          startPosition: Object {
+            column: 0,
+            row: 0,
+          },
+          text: [,
+          type: [,
+        },
+        TreeCursorSyntaxNode {
+          children: Array [],
+          endIndex: 2,
+          endPosition: Object {
+            column: 2,
+            row: 0,
+          },
+          fieldName: undefined,
+          hasError: false,
+          isMissing: false,
+          isNamed: true,
+          startIndex: 1,
+          startPosition: Object {
+            column: 1,
+            row: 0,
+          },
+          text: 1,
+          type: number,
+        },
+        TreeCursorSyntaxNode {
+          children: Array [],
+          endIndex: 3,
+          endPosition: Object {
+            column: 3,
+            row: 0,
+          },
+          hasError: false,
+          isMissing: false,
+          isNamed: false,
+          startIndex: 2,
+          startPosition: Object {
+            column: 2,
+            row: 0,
+          },
+          text: ,,
+          type: ,,
+        },
+        TreeCursorSyntaxNode {
+          children: Array [],
+          endIndex: 5,
+          endPosition: Object {
+            column: 5,
+            row: 0,
+          },
+          fieldName: undefined,
+          hasError: false,
+          isMissing: false,
+          isNamed: true,
+          startIndex: 4,
+          startPosition: Object {
+            column: 4,
+            row: 0,
+          },
+          text: 2,
+          type: number,
+        },
+        TreeCursorSyntaxNode {
+          children: Array [],
+          endIndex: 6,
+          endPosition: Object {
+            column: 6,
+            row: 0,
+          },
+          hasError: false,
+          isMissing: false,
+          isNamed: false,
+          startIndex: 5,
+          startPosition: Object {
+            column: 5,
+            row: 0,
+          },
+          text: ],
+          type: ],
+        },
+      ],
+      endIndex: 6,
+      endPosition: Object {
+        column: 6,
+        row: 0,
+      },
+      fieldName: undefined,
+      hasError: false,
+      isMissing: false,
+      isNamed: true,
+      startIndex: 0,
+      startPosition: Object {
+        column: 0,
+        row: 0,
+      },
+      text: [1, 2],
+      type: array,
+    },
+  ],
+  endIndex: 6,
+  endPosition: Object {
+    column: 6,
+    row: 0,
+  },
+  hasError: false,
+  isMissing: false,
+  isNamed: true,
+  startIndex: 0,
+  startPosition: Object {
+    column: 0,
+    row: 0,
+  },
+  text: [1, 2],
+  type: document,
+}
+`;

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
+
+### Bug Fixes
+
+- **parser-adapter-json:** construct proper JavaScript string value ([#2896](https://github.com/swagger-api/apidom/issues/2896)) ([fcdd3d5](https://github.com/swagger-api/apidom/commit/fcdd3d5144fe74eb5a05af20a1f8ddb1c9411ae4)), closes [#2670](https://github.com/swagger-api/apidom/issues/2670)
+
+### Performance Improvements
+
+- **parser-adapter-json:** use tree-sitter cursor for CST traversal ([#2891](https://github.com/swagger-api/apidom/issues/2891)) ([13a8567](https://github.com/swagger-api/apidom/commit/13a85672e8ae158ce635d5b52b6828180876d21c)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+- **parser-adapter-json:** use tree-sitter cursor for CST traversal (indirect) ([#2895](https://github.com/swagger-api/apidom/issues/2895)) ([3f9c9a2](https://github.com/swagger-api/apidom/commit/3f9c9a2fbbfd4afdcf17cdce34523c0229444b15)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
 ## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
 
 ### Bug Fixes

@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
-import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
   JsonArray,
   JsonDocument,
@@ -20,6 +18,8 @@ import {
   Error,
 } from '@swagger-api/apidom-ast';
 
+import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
+
 export const keyMap = {
   document: ['children'],
   object: ['children'],
@@ -30,19 +30,13 @@ export const keyMap = {
   error: ['children'],
 };
 
-type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
-
 const CstVisitor = stampit({
   init() {
     /**
      * Private API.
      */
 
-    const toPosition = (node: SyntaxNode | null): Position | null => {
-      if (node === null) {
-        return null;
-      }
-
+    const toPosition = (node: TreeCursorSyntaxNode): Position => {
       const start = Point({
         row: node.startPosition.row,
         column: node.startPosition.column,
@@ -57,44 +51,31 @@ const CstVisitor = stampit({
       return Position({ start, end });
     };
 
-    const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
-      return `${fieldName}Node` in node
-        ? // @ts-ignore
-          node[`${fieldName}Node`]
-        : 'childForFieldName' in node
-        ? node.childForFieldName?.(fieldName)
-        : null;
-    };
-
     /**
      * Public API.
      */
 
-    this.enter = function enter(node: SyntaxNode) {
-      // missing anonymous literals from CST transformed into AST literal nodes
-      // WARNING: be aware that web-tree-sitter and tree-sitter node bindings have inconsistency
-      // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
-      // whether tree-sitter node binding has it defined as a boolean property.
-      // @ts-ignore
-      if ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) {
+    this.enter = function enter(node: TreeCursorSyntaxNode) {
+      // anonymous literals from CST transformed into AST literal nodes
+      if (node instanceof TreeCursorSyntaxNode && !node.isNamed) {
         const position = toPosition(node);
         const value = node.type || node.text;
-        const isMissing = node.isMissing();
+        const { isMissing } = node;
 
         return Literal({ value, position, isMissing });
       }
 
-      return undefined;
+      return null; // remove everything unrecognized
     };
 
     this.document = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
 
         return JsonDocument({
           children: node.children,
           position,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
       },
       leave(document: JsonDocument) {
@@ -102,76 +83,76 @@ const CstVisitor = stampit({
       },
     };
 
-    this.object = function object(node: SyntaxNode) {
+    this.object = function object(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
 
-      return JsonObject({ children: node.children, position, isMissing: node.isMissing() });
+      return JsonObject({ children: node.children, position, isMissing: node.isMissing });
     };
 
-    this.pair = function pair(node: SyntaxNode) {
+    this.pair = function pair(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const children = node.children.slice(1);
-      const keyNode = getFieldFromNode('key', node);
+      const { keyNode } = node;
       const key = JsonKey({
         children: keyNode?.children || [],
-        position: toPosition(keyNode),
-        isMissing: keyNode?.isMissing() || false,
+        position: keyNode != null ? toPosition(keyNode) : null,
+        isMissing: keyNode != null ? keyNode.isMissing : false,
       });
 
-      return JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing() });
+      return JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing });
     };
 
-    this.array = function array(node: SyntaxNode) {
+    this.array = function array(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
 
-      return JsonArray({ children: node.children, position, isMissing: node.isMissing() });
+      return JsonArray({ children: node.children, position, isMissing: node.isMissing });
     };
 
-    this.string = function string(node: SyntaxNode) {
+    this.string = function string(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const content = JsonStringContent({ value: node.text.slice(1, -1) });
 
-      return JsonString({ children: [content], position, isMissing: node.isMissing() });
+      return JsonString({ children: [content], position, isMissing: node.isMissing });
     };
 
-    this.number = function number(node: SyntaxNode) {
+    this.number = function number(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonNumber({ value, position, isMissing: node.isMissing() });
+      return JsonNumber({ value, position, isMissing: node.isMissing });
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.null = function _null(node: SyntaxNode) {
+    this.null = function _null(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonNull({ value, position, isMissing: node.isMissing() });
+      return JsonNull({ value, position, isMissing: node.isMissing });
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.true = function _true(node: SyntaxNode) {
+    this.true = function _true(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonTrue({ value, position, isMissing: node.isMissing() });
+      return JsonTrue({ value, position, isMissing: node.isMissing });
     };
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.false = function _false(node: SyntaxNode) {
+    this.false = function _false(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
       const value = node.text;
 
-      return JsonFalse({ value, position, isMissing: node.isMissing() });
+      return JsonFalse({ value, position, isMissing: node.isMissing });
     };
 
-    this.ERROR = function ERROR(node: SyntaxNode, key: any, parent: any, path: string[]) {
+    this.ERROR = function ERROR(node: TreeCursorSyntaxNode, key: any, parent: any, path: string[]) {
       const position = toPosition(node);
       const errorNode = Error({
         children: node.children,
         position,
-        isUnexpected: !node.hasError(),
-        isMissing: node.isMissing(),
+        isUnexpected: !node.hasError,
+        isMissing: node.isMissing,
         value: node.text,
       });
 

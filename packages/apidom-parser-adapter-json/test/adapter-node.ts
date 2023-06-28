@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { expect, assert } from 'chai';
-import { sexprs, isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
+import { sexprs, toJSON, isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
 
 import * as adapter from '../src/adapter-node';
 
@@ -32,6 +32,15 @@ describe('adapter-node', function () {
   });
 
   context('given direct syntactic analysis', function () {
+    specify('should parse', async function () {
+      const json = '"line1\\nline2"';
+      const { result } = await adapter.parse(json, {
+        syntacticAnalysis: 'direct',
+      });
+
+      assert.strictEqual(toJSON(result!), json);
+    });
+
     context('given zero byte empty file', function () {
       specify('should return empty parse result', async function () {
         const parseResult = await adapter.parse('', {
@@ -67,6 +76,17 @@ describe('adapter-node', function () {
   });
 
   context('given indirect syntactic analysis', function () {
+    context('given multi-line JSON string', function () {
+      specify('should parse', async function () {
+        const json = '"line1\\nline2"';
+        const { result } = await adapter.parse(json, {
+          syntacticAnalysis: 'indirect',
+        });
+
+        assert.strictEqual(toJSON(result!), json);
+      });
+    });
+
     context('given zero byte empty file', function () {
       specify('should return empty parse result', async function () {
         const parseResult = await adapter.parse('', {

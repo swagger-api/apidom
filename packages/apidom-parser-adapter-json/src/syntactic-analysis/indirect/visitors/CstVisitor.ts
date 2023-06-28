@@ -65,7 +65,7 @@ const CstVisitor = stampit({
         return Literal({ value, position, isMissing });
       }
 
-      return null; // remove everything unrecognized
+      return undefined;
     };
 
     this.document = {
@@ -110,7 +110,7 @@ const CstVisitor = stampit({
 
     this.string = function string(node: TreeCursorSyntaxNode) {
       const position = toPosition(node);
-      const content = JsonStringContent({ value: node.text.slice(1, -1) });
+      const content = JsonStringContent({ value: JSON.parse(node.text) });
 
       return JsonString({ children: [content], position, isMissing: node.isMissing });
     };

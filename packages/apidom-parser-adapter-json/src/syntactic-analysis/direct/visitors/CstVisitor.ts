@@ -148,7 +148,7 @@ const CstVisitor = stampit({
     };
 
     this.string = function string(node: TreeCursorSyntaxNode) {
-      const element = new StringElement(node.text.slice(1, -1));
+      const element = new StringElement(JSON.parse(node.text));
       maybeAddSourceMap(node, element);
       return element;
     };

@@ -13,7 +13,7 @@ const options = {
   name: 'parse-syntactic-analysis-indirect',
   defer: true,
   minSamples: 600,
-  expected: '19.87 ops/sec ±0.90% (650 runs sampled)',
+  expected: '17.63 ops/sec ±1.22% (675 runs sampled)',
   async fn(deferred) {
     await parse(source, { syntacticAnalysis: 'indirect' });
     deferred.resolve();

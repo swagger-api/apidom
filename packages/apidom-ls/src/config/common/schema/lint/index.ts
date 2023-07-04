@@ -59,6 +59,7 @@ import typeTypeLint from './type--type';
 import uniqueItemsNonArrayLint from './unique-items--non-array';
 import uniqueItemsTypeLint from './unique-items--type';
 import writeOnlyTypeLint from './write-only--type';
+import exampleDeprecatedLint from './example--deprecated';
 
 const schemaLints = [
   $idFormatURILint,
@@ -122,6 +123,7 @@ const schemaLints = [
   uniqueItemsNonArrayLint,
   uniqueItemsTypeLint,
   writeOnlyTypeLint,
+  exampleDeprecatedLint,
 ];
 
 export default schemaLints;

@@ -17,6 +17,7 @@ paths:
             application/json:
               schema:
                 type: object
+                example: 'foo'
               examples:
                 confirmation-success:
                   summary: short confirmation success
@@ -24,9 +25,9 @@ paths:
                   externalValue: outsideLink
                 confirmation-error:
                   summary: short confirmation success
-                  value: 
+                  value:
                     test: object
-                  externalValue: outsideLink                  
+                  externalValue: outsideLink
                 confirmation-errors:
                   summary: short confirmation success
                   value:

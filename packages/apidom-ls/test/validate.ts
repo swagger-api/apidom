@@ -2915,11 +2915,43 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 22,
+            line: 19,
+            character: 16,
+          },
+          end: {
+            line: 19,
+            character: 23,
+          },
+        },
+        message: 'property "example" is deprecated, use "examples" instead',
+        severity: 2,
+        code: 10069,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove example',
+              action: 'removeChild',
+              functionParams: ['example'],
+              target: 'parent',
+            },
+            {
+              message: "add 'examples' field",
+              action: 'addChild',
+              snippetYaml: 'examples: \n  ',
+              snippetJson: '"examples": ,\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: {
+            line: 23,
             character: 18,
           },
           end: {
-            line: 22,
+            line: 23,
             character: 23,
           },
         },
@@ -2931,11 +2963,11 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 26,
+            line: 27,
             character: 18,
           },
           end: {
-            line: 26,
+            line: 27,
             character: 23,
           },
         },
@@ -2947,11 +2979,11 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 31,
+            line: 32,
             character: 18,
           },
           end: {
-            line: 31,
+            line: 32,
             character: 23,
           },
         },

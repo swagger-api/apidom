@@ -618,7 +618,7 @@ const CstVisitor = stampit({
         position,
         isUnexpected: !node.hasError(),
         isMissing: node.isMissing(),
-        value: node.text,
+        value: 'YAML Syntax error',
       });
 
       if (path.length === 0) {

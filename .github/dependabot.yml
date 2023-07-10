@@ -12,6 +12,7 @@ updates:
     ignore:
       - dependency-name: "web-tree-sitter"
       - dependency-name: "tree-sitter-cli"
+      - dependency-name: "tree-sitter"
 
   - package-ecosystem: "github-actions"
     target-branch: "main"

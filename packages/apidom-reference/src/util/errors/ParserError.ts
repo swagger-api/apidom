@@ -1,5 +1,3 @@
-import CausedError from './CausedError';
-
-class ParserError extends CausedError {}
+class ParserError extends Error {}
 
 export default ParserError;

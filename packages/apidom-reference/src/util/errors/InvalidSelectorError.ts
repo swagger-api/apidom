@@ -1,5 +1,3 @@
-import CausedError from './CausedError';
-
-class InvalidSelectorError extends CausedError {}
+class InvalidSelectorError extends Error {}
 
 export default InvalidSelectorError;

@@ -1,5 +1,3 @@
-import CausedError from './CausedError';
-
-class DereferenceError extends CausedError {}
+class DereferenceError extends Error {}
 
 export default DereferenceError;

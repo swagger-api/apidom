@@ -67,6 +67,7 @@ const plugin =
             // append incremental numerical suffixes to identical operationIds
             Object.entries(normalizedOperationGroups).forEach(
               ([normalizedOperationId, operationElements]) => {
+                if (!Array.isArray(operationElements)) return;
                 if (operationElements.length <= 1) return;
 
                 operationElements.forEach((operationElement, index) => {

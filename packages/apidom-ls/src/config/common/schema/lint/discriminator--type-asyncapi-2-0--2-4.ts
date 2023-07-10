@@ -19,6 +19,8 @@ const discriminatorTypeLint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.2.0' },
     { namespace: 'asyncapi', version: '2.3.0' },
     { namespace: 'asyncapi', version: '2.4.0' },
+    { namespace: 'asyncapi', version: '2.5.0' },
+    { namespace: 'asyncapi', version: '2.6.0' },
   ],
 };
 

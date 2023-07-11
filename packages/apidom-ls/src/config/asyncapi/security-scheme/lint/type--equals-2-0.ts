@@ -7,7 +7,8 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const typeEqualsLint2_0: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_TYPE_EQUALS_2_2,
   source: 'apilint',
-  message: 'type must be one of allowed values',
+  message:
+    'type must be one of allowed values: userPassword, apiKey, X509, symmetricEncryption, asymmetricEncryption, httpApiKey, http, oauth2, openIdConnect',
   severity: DiagnosticSeverity.Error,
   targetSpecs: [{ namespace: 'asyncapi', version: '2.0.0' }],
   linterFunction: 'apilintValueOrArray',

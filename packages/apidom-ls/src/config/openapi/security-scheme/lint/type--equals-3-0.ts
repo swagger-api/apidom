@@ -7,7 +7,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const typeEquals3_0Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_TYPE_EQUALS,
   source: 'apilint',
-  message: 'type must be one of allowed values',
+  message: 'type must be one of allowed values: apiKey, http, oauth2, openIdConnect',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['apiKey', 'http', 'oauth2', 'openIdConnect']],

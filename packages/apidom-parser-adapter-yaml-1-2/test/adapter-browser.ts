@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert, expect } from 'chai';
-import { isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
+import { toValue, isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 
 import * as adapter from '../src/adapter-browser';
 
@@ -97,33 +97,33 @@ describe('adapter-browser', function () {
     });
   });
 
-  context('given YAML 1.2 containing a syntax error(1)', function () {
-    specify('return YAML Syntax error as an annotation in parsing result', async function () {
+  context('given invalid YAML 1.2 with indentation syntax error', function () {
+    specify('should produce syntax error annotation', async function () {
       const syntaxErrorSpec = `
         asyncapi: 2.4.0
         info:
           version: '1.0.0'
            title: Something # Badly indented
       `;
-
       const parseResult = await adapter.parse(syntaxErrorSpec, { sourceMap: true });
 
-      assert.isTrue(parseResult.errors.toValue()[0] === '(Error YAML syntax error)');
+      assert.isFalse(parseResult.isEmpty);
+      assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
     });
   });
 
-  context('given YAML 1.2 containing a syntax error(2)', function () {
-    specify('return YAML Syntax error as an annotation in parsing result', async function () {
+  context('given invalid YAML 1.2 with missing mapping syntax error', function () {
+    specify('should produce syntax error annotation', async function () {
       const syntaxErrorSpec = `
         asyncapi: 2.4.0
         info:
           version: '1.0.0'
           title Something # Missing mapping
       `;
-
       const parseResult = await adapter.parse(syntaxErrorSpec, { sourceMap: true });
 
-      assert.isTrue(parseResult.errors.toValue()[0] === '(Error YAML syntax error)');
+      assert.isFalse(parseResult.isEmpty);
+      assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
     });
   });
 });

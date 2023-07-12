@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert, expect } from 'chai';
-import { isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
+import { toValue, isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 
 import * as adapter from '../../src/adapter-node';
 
@@ -78,6 +78,36 @@ describe('adapter-node', function () {
       const parseResult = await adapter.parse(' %YAML x ', { sourceMap: true });
 
       assert.isTrue(parseResult.isEmpty);
+    });
+  });
+
+  context('given invalid YAML 1.2 with indentation syntax error', function () {
+    specify('should produce syntax error annotation', async function () {
+      const syntaxErrorSpec = `
+        asyncapi: 2.4.0
+        info:
+          version: '1.0.0'
+           title: Something # Badly indented
+      `;
+      const parseResult = await adapter.parse(syntaxErrorSpec, { sourceMap: true });
+
+      assert.isFalse(parseResult.isEmpty);
+      assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
+    });
+  });
+
+  context('given invalid YAML 1.2 with missing mapping syntax error', function () {
+    specify('should produce syntax error annotation', async function () {
+      const syntaxErrorSpec = `
+        asyncapi: 2.4.0
+        info:
+          version: '1.0.0'
+          title Something # Missing mapping
+      `;
+      const parseResult = await adapter.parse(syntaxErrorSpec, { sourceMap: true });
+
+      assert.isFalse(parseResult.isEmpty);
+      assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
     });
   });
 });

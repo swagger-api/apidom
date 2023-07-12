@@ -2800,7 +2800,7 @@ describe('apidom-ls-validate', function () {
             character: 9,
           },
         },
-        message: "(Error asyncapi: '2.2.0'\ninfo:\n  tit\n  version)",
+        message: '(Error YAML syntax error)',
         severity: 1,
         code: 0,
         source: 'syntax',

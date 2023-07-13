@@ -129,8 +129,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(referencingElement.$ref?.toValue());
-      const retrievalURI = reference.uri;
+      let reference = await this.toReference(this.reference.uri);
+      reference = await this.toReference(referencingElement.$ref?.toValue());
+      const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);

@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { mediaTypes, isSchemaElement, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
-import { parse, dereferenceApiDOM, Reference, ReferenceSet } from '../../../../../src';
+import { parse, dereferenceApiDOM } from '../../../../../src';
 
 describe('dereference', function () {
   context('strategies', function () {
@@ -22,11 +22,6 @@ describe('dereference', function () {
                 '/components/schemas/User/properties/profile',
                 parseResult.api as OpenApi3_1Element,
               );
-              const reference = Reference({ uri: fixturePath, parseResult });
-              const refSet = ReferenceSet({ refs: [reference] });
-              // @ts-ignore
-              refSet.rootRef = null;
-
               const dereferenced = await dereferenceApiDOM(schemaElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { baseURI: `${fixturePath}#/components/schemas/User/properties/profile` },
@@ -43,11 +38,6 @@ describe('dereference', function () {
                 '/components/schemas/User/properties/profile',
                 parseResult.api as OpenApi3_1Element,
               );
-              const reference = Reference({ uri: fixturePath, parseResult });
-              const refSet = ReferenceSet({ refs: [reference] });
-              // @ts-ignore
-              refSet.rootRef = null;
-
               const dereferenced = await dereferenceApiDOM(schemaElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { baseURI: `${fixturePath}#/components/schemas/User/properties/profile` },

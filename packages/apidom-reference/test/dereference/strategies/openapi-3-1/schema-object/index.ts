@@ -493,34 +493,6 @@ describe('dereference', function () {
           });
         });
 
-        // context('given Schema Objects with $ref keyword containing URL path override', function () {
-        //   const fixturePath = path.join(rootFixturePath, '$ref-url-path-override');
-        //
-        //   specify.only('should dereference', async function () {
-        //     const rootFilePath = path.join(fixturePath, 'test.yaml');
-        //     const parseResult = await parse(rootFilePath, {
-        //       parse: { mediaType: mediaTypes.latest('yaml') },
-        //     });
-        //     const uri =
-        //       'https://gist.githubusercontent.com/char0n/6c2dcc7b542967597fbf65930a953578/raw/68f7ee1fd0987e422a03c31b6754fe9371581b53/openapi.yaml';
-        //     const reference = Reference({ uri, value: parseResult });
-        //     const refSet = ReferenceSet({ refs: [reference] });
-        //
-        //     try {
-        //       const actual = await dereference(uri, {
-        //         dereference: { refSet },
-        //         parse: { mediaType: mediaTypes.latest('json') },
-        //       });
-        //
-        //       const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-        //
-        //       assert.deepEqual(toValue(actual), expected);
-        //     } catch (e) {
-        //       console.dir(e);
-        //     }
-        //   });
-        // });
-
         context('given Schema Objects with $ref keyword containing URL path override', function () {
           const fixturePath = path.join(rootFixturePath, '$ref-url-path-override');
 

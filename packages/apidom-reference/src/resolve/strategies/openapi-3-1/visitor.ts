@@ -206,8 +206,8 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      const retrieveURI = this.reference.uri;
-      const $refBaseURI = resolveSchema$refField(retrieveURI, schemaElement) as string;
+      const retrievalURI = this.reference.uri;
+      const $refBaseURI = resolveSchema$refField(retrievalURI, schemaElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
@@ -340,8 +340,8 @@ const OpenApi3_1ResolveVisitor = stampit({
 
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute baseURI using rules around $id and $ref keywords
-      const retrieveURI = this.reference.uri;
-      const $refBaseURI = resolveSchema$refField(retrieveURI, referencingElement) as string;
+      const retrievalURI = this.reference.uri;
+      const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);

@@ -4,7 +4,7 @@ import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
-import { dereference } from '../../../../../src';
+import { dereference, parse, Reference, ReferenceSet } from '../../../../../src';
 import {
   DereferenceError,
   MaximumDereferenceDepthError,
@@ -493,6 +493,57 @@ describe('dereference', function () {
           });
         });
 
+        // context('given Schema Objects with $ref keyword containing URL path override', function () {
+        //   const fixturePath = path.join(rootFixturePath, '$ref-url-path-override');
+        //
+        //   specify.only('should dereference', async function () {
+        //     const rootFilePath = path.join(fixturePath, 'test.yaml');
+        //     const parseResult = await parse(rootFilePath, {
+        //       parse: { mediaType: mediaTypes.latest('yaml') },
+        //     });
+        //     const uri =
+        //       'https://gist.githubusercontent.com/char0n/6c2dcc7b542967597fbf65930a953578/raw/68f7ee1fd0987e422a03c31b6754fe9371581b53/openapi.yaml';
+        //     const reference = Reference({ uri, value: parseResult });
+        //     const refSet = ReferenceSet({ refs: [reference] });
+        //
+        //     try {
+        //       const actual = await dereference(uri, {
+        //         dereference: { refSet },
+        //         parse: { mediaType: mediaTypes.latest('json') },
+        //       });
+        //
+        //       const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+        //
+        //       assert.deepEqual(toValue(actual), expected);
+        //     } catch (e) {
+        //       console.dir(e);
+        //     }
+        //   });
+        // });
+
+        context('given Schema Objects with $ref keyword containing URL path override', function () {
+          const fixturePath = path.join(rootFixturePath, '$ref-url-path-override');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const parseResult = await parse(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const uri = 'https://example.com/';
+            const reference = Reference({ uri, value: parseResult });
+            const refSet = ReferenceSet({ refs: [reference] });
+
+            const actual = await dereference(uri, {
+              dereference: { refSet },
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given Schema Objects with $ref keyword containing resolvable URL', function () {
           const fixturePath = path.join(rootFixturePath, '$ref-url-resolvable');
 
@@ -605,6 +656,32 @@ describe('dereference', function () {
               const actual = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          },
+        );
+
+        context(
+          'given Schema Objects with $anchor keyword after $id pointing to internal schema',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$anchor-internal-no-embedding');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const parseResult = await parse(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const uri = 'https://example.com/';
+              const reference = Reference({ uri, value: parseResult });
+              const refSet = ReferenceSet({ refs: [reference] });
+
+              const actual = await dereference(uri, {
+                dereference: { refSet },
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);

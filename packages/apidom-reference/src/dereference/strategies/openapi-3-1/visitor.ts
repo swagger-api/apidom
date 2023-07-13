@@ -357,9 +357,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
         linkElement.operationRef?.meta.set('operation', operationElement);
       } else if (isStringElement(linkElement.operationId)) {
         const operationId = linkElement.operationId?.toValue();
+        const reference = await this.toReference(url.unsanitize(this.reference.uri));
         operationElement = find(
           (e) => isOperationElement(e) && e.operationId.equals(operationId),
-          this.reference.value.result,
+          reference.value.result,
         );
         // OperationElement not found by its operationId
         if (isUndefined(operationElement)) {

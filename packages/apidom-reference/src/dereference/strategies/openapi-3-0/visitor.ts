@@ -119,7 +119,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
       }
 
       const reference = await this.toReference(referencingElement.$ref?.toValue());
-      const retrievalURI = reference.uri;
+      const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);
@@ -335,9 +335,10 @@ const OpenApi3_0DereferenceVisitor = stampit({
         linkElement.operationRef?.meta.set('operation', operationElement);
       } else if (isStringElement(linkElement.operationId)) {
         const operationId = linkElement.operationId?.toValue();
+        const reference = await this.toReference(url.unsanitize(this.reference.uri));
         operationElement = find(
           (e) => isOperationElement(e) && e.operationId.equals(operationId),
-          this.reference.value.result,
+          reference.value.result,
         );
         // OperationElement not found by its operationId
         if (isUndefined(operationElement)) {

@@ -4,7 +4,7 @@ import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
 
-export const resolveSchema$refField = (retrieveURI: string, schemaElement: SchemaElement) => {
+export const resolveSchema$refField = (retrievalURI: string, schemaElement: SchemaElement) => {
   if (typeof schemaElement.$ref === 'undefined') {
     return undefined;
   }
@@ -15,14 +15,14 @@ export const resolveSchema$refField = (retrieveURI: string, schemaElement: Schem
     (acc: string, uri: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash(uri)));
     },
-    retrieveURI,
+    retrievalURI,
     [...inherited$id, schemaElement.$ref.toValue()],
   );
 
   return `${$refBaseURI}${hash === '#' ? '' : hash}`;
 };
 
-export const resolveSchema$idField = (retrieveURI: string, schemaElement: SchemaElement) => {
+export const resolveSchema$idField = (retrievalURI: string, schemaElement: SchemaElement) => {
   if (typeof schemaElement.$id === 'undefined') {
     return undefined;
   }
@@ -33,7 +33,7 @@ export const resolveSchema$idField = (retrieveURI: string, schemaElement: Schema
     (acc: string, $id: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
-    retrieveURI,
+    retrievalURI,
     [...inherited$id, schemaElement.$id.toValue()],
   );
 };

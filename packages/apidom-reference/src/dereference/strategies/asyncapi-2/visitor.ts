@@ -110,9 +110,8 @@ const AsyncApi2DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // @ts-ignore
       const reference = await this.toReference(referencingElement.$ref?.toValue());
-      const retrievalURI = reference.uri;
+      const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
 
       this.indirections.push(referencingElement);

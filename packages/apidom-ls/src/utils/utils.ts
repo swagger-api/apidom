@@ -240,9 +240,8 @@ export function checkConditions(
       }
       const conditionFuncName = condition.function;
       // first check if it is a standard function and exists.
-      let conditionFunc = standardLinterfunctions.find(
-        (e) => e.functionName === conditionFuncName,
-      )?.function;
+      let conditionFunc = standardLinterfunctions.find((e) => e.functionName === conditionFuncName)
+        ?.function;
       // else get it from configuration
       if (!conditionFunc) {
         conditionFunc = settings?.metadata?.linterFunctions[docNs][conditionFuncName];

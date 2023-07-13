@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/no-redeclare': 'off', // we should enable this in future and fix all the reported issues
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 1,
   },
   plugins: ['@typescript-eslint', 'import'],
   extends: [

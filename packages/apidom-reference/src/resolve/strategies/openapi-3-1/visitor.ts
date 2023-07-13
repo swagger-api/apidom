@@ -206,7 +206,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      const reference = await this.toReference(this.reference.uri);
+      const reference = await this.toReference(url.unsanitize(this.reference.uri));
       const { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, schemaElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);

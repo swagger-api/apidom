@@ -203,7 +203,9 @@ const YamlAstVisitor = stampit({
     };
 
     this.error = function error(node: Error, key: any, parent: any, path: string[]) {
-      const message = node.isUnexpected ? `(Unexpected ${node.value})` : `(Error ${node.value})`;
+      const message = node.isUnexpected
+        ? '(Unexpected YAML syntax error)'
+        : '(Error YAML syntax error)';
       const element = new AnnotationElement(message);
 
       element.classes.push('error');

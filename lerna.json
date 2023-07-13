@@ -1,18 +1,24 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "npmClient": "npm",
-  "version": "0.70.4",
+  "version": "0.71.0",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {
       "hoist": true
     },
     "version": {
-      "allowBranch": ["main"],
+      "allowBranch": [
+        "main"
+      ],
       "conventionalCommits": true,
       "createRelease": "github",
       "message": "chore(release): cut the %s release [skip ci]",
-      "ignoreChanges": ["**/test/**"]
+      "ignoreChanges": [
+        "**/test/**"
+      ]
     },
     "publish": {
       "registry": "https://registry.npmjs.org"

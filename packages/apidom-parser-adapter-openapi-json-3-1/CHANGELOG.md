@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-json-3-1
+
+
+
+
+
 ## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-json-3-1

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
+
+
+### Bug Fixes
+
+* **apidom-ls:** add deprecated warning for example ([#2909](https://github.com/swagger-api/apidom/issues/2909)) ([564d185](https://github.com/swagger-api/apidom/commit/564d18561d2ebf8acc928de4f729234681fe7470))
+* **ls:** add support for AsyncAPI 2.5/2.6 to common Schema Object ([#2917](https://github.com/swagger-api/apidom/issues/2917)) ([34c8b1f](https://github.com/swagger-api/apidom/commit/34c8b1fa1f39e9a0f98653580d422c8a986e446f))
+* **ls:** remove duplicate linting codes ([#2946](https://github.com/swagger-api/apidom/issues/2946)) ([c5db0a8](https://github.com/swagger-api/apidom/commit/c5db0a8e47f88fbac6ad95eafbfbd03ec1b0ab46)), closes [#2982](https://github.com/swagger-api/apidom/issues/2982) [#2923](https://github.com/swagger-api/apidom/issues/2923)
+
+
+### Features
+
+* add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
+* **ls:** make lint messages more helpful ([#2930](https://github.com/swagger-api/apidom/issues/2930)) ([4504674](https://github.com/swagger-api/apidom/commit/450467419ab9234617ab1510cfab7b155741af3f))
+
+
+
+
+
 ## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

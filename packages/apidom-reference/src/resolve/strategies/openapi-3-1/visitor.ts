@@ -189,7 +189,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       return undefined;
     },
 
-    SchemaElement(schemaElement: SchemaElement) {
+    async SchemaElement(schemaElement: SchemaElement) {
       /**
        * Skip traversal for already visited schemas and all their child schemas.
        * visit function detects cycles in path automatically.
@@ -206,13 +206,14 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      const retrievalURI = this.reference.uri;
+      const reference = await this.toReference(this.reference.uri);
+      const { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, schemaElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      const isExternal = !isUnknownURI && this.reference.uri !== $refBaseURIStrippedHash;
+      const isExternal = !isUnknownURI && retrievalURI !== $refBaseURIStrippedHash;
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && isExternal) {
@@ -225,7 +226,7 @@ const OpenApi3_1ResolveVisitor = stampit({
       if (!has($refBaseURIStrippedHash, this.crawlingMap)) {
         try {
           if (isUnknownURI || isURL) {
-            this.crawlingMap[$refBaseURIStrippedHash] = this.reference;
+            this.crawlingMap[$refBaseURIStrippedHash] = reference;
           } else {
             this.crawlingMap[$refBaseURIStrippedHash] = this.toReference(
               url.unsanitize($refBaseURI),
@@ -340,7 +341,8 @@ const OpenApi3_1ResolveVisitor = stampit({
 
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute baseURI using rules around $id and $ref keywords
-      const retrievalURI = this.reference.uri;
+      let reference = await this.toReference(url.unsanitize(this.reference.uri));
+      const { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
@@ -350,13 +352,11 @@ const OpenApi3_1ResolveVisitor = stampit({
       this.indirections.push(referencingElement);
 
       // determining reference, proper evaluation and selection mechanism
-      let reference: IReference;
       let referencedElement;
 
       try {
         if (isUnknownURI || isURL) {
           // we're dealing with canonical URI or URL with possible fragment
-          reference = this.reference;
           const selector = $refBaseURI;
           referencedElement = uriEvaluate(
             selector,

@@ -426,7 +426,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       // compute baseURI using rules around $id and $ref keywords
-      let { reference } = this;
+      let reference = await this.toReference(url.unsanitize(this.reference.uri));
       let { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);

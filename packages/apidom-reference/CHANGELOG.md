@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.71.1](https://github.com/swagger-api/apidom/compare/v0.71.0...v0.71.1) (2023-07-14)
+
+
+### Reverts
+
+* use babel plugin to capture error causes ([#2951](https://github.com/swagger-api/apidom/issues/2951)) ([e31fcae](https://github.com/swagger-api/apidom/commit/e31fcaea4b0238cabc3c0f97bc2d610f75ad56a5))
+
+
+
+
+
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
 

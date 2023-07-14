@@ -71,7 +71,7 @@
     "copyfiles": "=2.4.1",
     "core-js": "=3.31.1",
     "cross-env": "=7.0.3",
-    "dedent": "=1.0.1",
+    "dedent": "=1.0.2",
     "eslint": "=8.44.0",
     "eslint-config-airbnb": "=19.0.4",
     "eslint-config-airbnb-base": "=15.0.0",

@@ -1,4 +1,6 @@
-class PluginError extends Error {
+import CausedError from './CausedError';
+
+class PluginError extends CausedError {
   public plugin: any;
 
   constructor(message: string, options: { cause?: Error; plugin: any }) {

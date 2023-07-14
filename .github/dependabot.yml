@@ -13,6 +13,7 @@ updates:
       - dependency-name: "web-tree-sitter"
       - dependency-name: "tree-sitter-cli"
       - dependency-name: "tree-sitter"
+      - dependency-name: "babel-plugin-native-error-extend"
 
   - package-ecosystem: "github-actions"
     target-branch: "main"

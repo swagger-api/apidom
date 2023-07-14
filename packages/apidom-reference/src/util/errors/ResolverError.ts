@@ -1,3 +1,5 @@
-class ResolverError extends Error {}
+import CausedError from './CausedError';
+
+class ResolverError extends CausedError {}
 
 export default ResolverError;

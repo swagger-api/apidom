@@ -277,6 +277,7 @@ export interface ValidationContext {
 
 export interface CompletionContext {
   maxNumberOfItems?: number;
+  enableLSPFilter?: boolean;
 }
 
 export interface DerefContext {

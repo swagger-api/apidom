@@ -1,7 +1,7 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import lexicalAnalysis from './lexical-analysis/browser';
-import syntacticAnalysis from './syntactic-analysis/index';
+import syntacticAnalysis from './syntactic-analysis/indirect/index';
 
 export { mediaTypes, namespace } from './adapter';
 export { lexicalAnalysis, syntacticAnalysis };

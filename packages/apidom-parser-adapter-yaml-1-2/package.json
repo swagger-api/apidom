@@ -39,8 +39,8 @@
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "perf": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/index.cjs",
-    "perf:parse": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/parse.cjs",
     "perf:lexical-analysis": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/lexical-analysis.cjs",
+    "perf:parse-syntactic-analysis-indirect": "cross-env NODE_ENV=test BABEL_ENV=cjs node ./test/perf/parse-syntactic-analysis-indirect.cjs",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },

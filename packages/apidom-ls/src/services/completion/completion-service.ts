@@ -169,7 +169,7 @@ export class DefaultCompletionService implements CompletionService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private resolveCaretContext(node: Element, offset: number): CaretContext {
+  private resolveCaretContext(node: Element, offset: number, textModified: boolean): CaretContext {
     let caretContext: CaretContext = CaretContext.UNDEFINED;
     if (node) {
       const sm = getSourceMap(node);
@@ -180,7 +180,11 @@ export class DefaultCompletionService implements CompletionService {
         if (offset > sm.offset && offset < sm.endOffset!) {
           caretContext = CaretContext.KEY_INNER;
         } else if (offset === sm.offset) {
-          caretContext = CaretContext.KEY_START;
+          if (sm.length === 0 && textModified) {
+            caretContext = CaretContext.KEY_END;
+          } else {
+            caretContext = CaretContext.KEY_START;
+          }
         } else {
           caretContext = CaretContext.KEY_END;
         }
@@ -251,6 +255,7 @@ export class DefaultCompletionService implements CompletionService {
   ): Promise<CompletionList> {
     perfStart(PerfLabels.START);
     const context = !completionContext ? this.settings?.completionContext : completionContext;
+    const enableFiltering = context?.enableLSPFilter;
     const completionList: CompletionList = {
       items: [],
       isIncomplete: false,
@@ -543,7 +548,7 @@ export class DefaultCompletionService implements CompletionService {
     // only if we have a node
     let completionNode: Element | undefined;
     if (node) {
-      const caretContext = this.resolveCaretContext(node, targetOffset);
+      const caretContext = this.resolveCaretContext(node, targetOffset, textModified);
       completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
 
@@ -707,7 +712,15 @@ export class DefaultCompletionService implements CompletionService {
           } else if (contentLanguage.format === 'YAML') {
             // item.insertText = `${item.insertText}\n`;
           }
-          collector.add(item);
+          if (word && word.length > 0) {
+            if (enableFiltering && item.insertText?.includes(word)) {
+              collector.add(item);
+            } else if (!enableFiltering) {
+              collector.add(item);
+            }
+          } else if (!word) {
+            collector.add(item);
+          }
         }
       } else if (
         // in a primitive value node
@@ -781,8 +794,12 @@ export class DefaultCompletionService implements CompletionService {
             */
             item.filterText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset!);
 
-            if (word && word.length > 0 && unquotedOriginalInsertText?.includes(word)) {
-              collector.add(item);
+            if (word && word.length > 0) {
+              if (enableFiltering && unquotedOriginalInsertText?.includes(word)) {
+                collector.add(item);
+              } else if (!enableFiltering) {
+                collector.add(item);
+              }
             } else if (!word) {
               collector.add(item);
             }

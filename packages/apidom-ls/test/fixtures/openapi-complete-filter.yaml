@@ -1,0 +1,6 @@
+openapi: 3.1.0
+paths:
+  /pet:
+    put:
+      se
+      summary: Update an existing pet

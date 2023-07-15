@@ -1243,4 +1243,84 @@ describe('apidom-ls-complete', function () {
       },
     ] as ApidomCompletionItem[]);
   });
+
+  it('openapi / yaml - test LSP provided filter', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+      enableLSPFilter: true,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'openapi-complete-filter.yaml'))
+      .toString();
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/penapi-complete-filter.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const pos = Position.create(4, 8);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: 'responses',
+        insertText: 'responses: \n  $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#responsesObject)\n\\\n\\\nThe list of possible responses as they are returned from executing this operation.',
+        },
+        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        filterText: 'se',
+        textEdit: {
+          range: { start: { line: 4, character: 6 }, end: { line: 4, character: 8 } },
+          newText: 'responses: \n  $1',
+        },
+      },
+      {
+        label: 'security',
+        insertText: 'security: \n  - $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nA declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. To make security optional, an empty security requirement (`{}`) can be included in the array. This definition overrides any declared top-level [`security`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oasSecurity). To remove a top-level security declaration, an empty array can be used.',
+        },
+        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        preselect: true,
+        filterText: 'se',
+        textEdit: {
+          range: { start: { line: 4, character: 6 }, end: { line: 4, character: 8 } },
+          newText: 'security: \n  - $1',
+        },
+      },
+      {
+        label: 'servers',
+        insertText: 'servers: \n  - $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: {
+          kind: 'markdown',
+          value:
+            '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn alternative `server` array to service this operation. If an alternative `server` object is specified at the Path Item Object or Root level, it will be overridden by this value.',
+        },
+        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        preselect: true,
+        filterText: 'se',
+        textEdit: {
+          range: { start: { line: 4, character: 6 }, end: { line: 4, character: 8 } },
+          newText: 'servers: \n  - $1',
+        },
+      },
+    ] as ApidomCompletionItem[]);
+  });
 });

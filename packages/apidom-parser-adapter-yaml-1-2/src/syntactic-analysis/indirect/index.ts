@@ -9,6 +9,8 @@ import YamlAstVisitor, {
   isNode as isAstNode,
   getNodeType as getAstNodeType,
 } from './visitors/YamlAstVisitor';
+import TreeCursorIterator from '../TreeCursorIterator';
+import TreeCursorSyntaxNode from '../TreeCursorSyntaxNode';
 
 type Tree = WebTree | NodeTree;
 
@@ -18,11 +20,14 @@ type Tree = WebTree | NodeTree;
  * Two traversals passes are needed to get from CST to ApiDOM.
  */
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
+  const cursor = cst.walk();
+  const iterator = new TreeCursorIterator(cursor);
+  const rootNode = [...iterator].at(0) as TreeCursorSyntaxNode;
   const cstVisitor = CstVisitor();
   const astVisitor = YamlAstVisitor();
   const schema = JsonSchema();
 
-  const yamlAst = visit(cst.rootNode, cstVisitor, {
+  const yamlAst = visit(rootNode, cstVisitor, {
     // @ts-ignore
     keyMap: cstKeyMap,
     nodePredicate: isCstNode,
@@ -35,9 +40,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   return visit(yamlAst.rootNode, astVisitor, {
     // @ts-ignore
     keyMap: astKeyMap,
-    // @ts-ignore
     nodeTypeGetter: getAstNodeType,
-    // @ts-ignore
     nodePredicate: isAstNode,
     state: {
       sourceMap,

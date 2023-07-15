@@ -4,18 +4,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Benchmark = require('benchmark');
 
-const { parse } = require('../../src/adapter-node');
+const { parse: parseSyntacticAnalysisIndirect } = require('../../src/adapter-node');
 
 const fixturePath = path.join(__dirname, 'fixtures/data.yaml');
 const source = fs.readFileSync(fixturePath).toString();
 
 const options = {
-  name: 'parse',
+  name: 'parse-syntactic-analysis-indirect',
   defer: true,
   minSamples: 600,
-  expected: '9.93 ops/sec ±1.11% (642 runs sampled)',
+  expected: '68.33 ops/sec ±0.29% (675 runs sampled)',
   async fn(deferred) {
-    await parse(source);
+    await parseSyntacticAnalysisIndirect(source);
     deferred.resolve();
   },
 };

@@ -1,6 +1,4 @@
 import stampit from 'stampit';
-import { SyntaxNode as NodeSyntaxNode } from 'tree-sitter';
-import { SyntaxNode as WebSyntaxNode } from 'web-tree-sitter';
 import {
   YamlDirective,
   YamlStream,
@@ -23,6 +21,8 @@ import {
   isNode as isCSTNode,
 } from '@swagger-api/apidom-ast';
 
+import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
+
 export const keyMap = {
   stream: ['children'],
   document: ['children'],
@@ -37,8 +37,6 @@ export const isNode = (node: any) => Array.isArray(node) || isCSTNode(node);
 
 /* eslint-disable no-param-reassign */
 
-type SyntaxNode = WebSyntaxNode | NodeSyntaxNode;
-
 const CstVisitor = stampit({
   props: {
     schema: null,
@@ -48,11 +46,7 @@ const CstVisitor = stampit({
      * Private API.
      */
 
-    const toPosition = (node: SyntaxNode | null): Position | null => {
-      if (node === null) {
-        return null;
-      }
-
+    const toPosition = (node: TreeCursorSyntaxNode): Position => {
       const start = Point({
         row: node.startPosition.row,
         column: node.startPosition.column,
@@ -67,14 +61,9 @@ const CstVisitor = stampit({
       return Position({ start, end });
     };
 
-    const kindNodeToYamlTag = (node: SyntaxNode) => {
-      let { previousSibling } = node;
-
-      while (previousSibling !== null && previousSibling.type !== 'tag') {
-        ({ previousSibling } = previousSibling);
-      }
-
-      const explicitName = previousSibling?.text || node.type === 'plain_scalar' ? '?' : '!';
+    const kindNodeToYamlTag = (node: TreeCursorSyntaxNode) => {
+      const { tag: tagNode } = node;
+      const explicitName = tagNode?.text || node.type === 'plain_scalar' ? '?' : '!';
 
       // eslint-disable-next-line no-nested-ternary
       const kind = node.type.endsWith('mapping')
@@ -82,76 +71,51 @@ const CstVisitor = stampit({
         : node.type.endsWith('sequence')
         ? YamlNodeKind.Sequence
         : YamlNodeKind.Scalar;
-      const position = toPosition(previousSibling);
+      const position = tagNode ? toPosition(tagNode) : null;
 
       return YamlTag({ explicitName, kind, position });
     };
 
-    const kindNodeToYamlAnchor = (node: SyntaxNode): YamlAnchor | null => {
-      let { previousSibling } = node;
+    const kindNodeToYamlAnchor = (node: TreeCursorSyntaxNode): YamlAnchor | null => {
+      const { anchor: anchorNode } = node;
 
-      while (previousSibling !== null && previousSibling.type !== 'anchor') {
-        ({ previousSibling } = previousSibling);
-      }
+      if (typeof anchorNode === 'undefined') return null;
 
-      if (previousSibling === null) {
-        return null;
-      }
-
-      return YamlAnchor({ name: previousSibling.text, position: toPosition(previousSibling) });
+      return YamlAnchor({ name: anchorNode.text, position: toPosition(anchorNode) });
     };
 
-    /**
-     * If web-tree-sitter will support keyNode and valueNode this can be further simplified.
-     */
     const isKind = (ending: string) => (node: any) =>
       typeof node?.type === 'string' && node.type.endsWith(ending);
     const isScalar = isKind('scalar');
     const isMapping = isKind('mapping');
     const isSequence = isKind('sequence');
 
-    const getFieldFromNode = (fieldName: string, node: SyntaxNode): SyntaxNode | null => {
-      return `${fieldName}Node` in node
-        ? // @ts-ignore
-          node[`${fieldName}Node`]
-        : 'childForFieldName' in node
-        ? node.childForFieldName?.(fieldName)
-        : null;
-    };
-
-    const hasKeyValuePairEmptyKey = (node: SyntaxNode) => {
+    const hasKeyValuePairEmptyKey = (node: TreeCursorSyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
-      const keyNode = getFieldFromNode('key', node);
-
       // keyNode was not explicitly provided; tag and anchor are missing too
-      return keyNode === null;
+      return typeof node.keyNode === 'undefined';
     };
 
-    const hasKeyValuePairEmptyValue = (node: SyntaxNode) => {
+    const hasKeyValuePairEmptyValue = (node: TreeCursorSyntaxNode) => {
       if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
         return false;
       }
-
-      const valueNode = getFieldFromNode('value', node);
-
       // valueNode was not explicitly provided; tag and anchor are missing too
-      return valueNode === null;
+      return typeof node.valueNode === 'undefined';
     };
 
-    const createKeyValuePairEmptyKey = (node: SyntaxNode) => {
+    const createKeyValuePairEmptyKey = (node: TreeCursorSyntaxNode) => {
       const emptyPoint = Point({
         row: node.startPosition.row,
         column: node.startPosition.column,
         char: node.startIndex,
       });
-      const keyNode = getFieldFromNode('key', node);
+      const { keyNode } = node;
       const children = keyNode?.children || [];
-      // @ts-ignore
-      const tagNode: any | undefined = children.find(isKind('tag'));
-      // @ts-ignore
-      const anchorNode: any | undefined = children.find(isKind('anchor'));
+      const tagNode = children.find(isKind('tag'));
+      const anchorNode = children.find(isKind('anchor'));
       const tag =
         typeof tagNode !== 'undefined'
           ? YamlTag({
@@ -178,18 +142,16 @@ const CstVisitor = stampit({
       });
     };
 
-    const createKeyValuePairEmptyValue = (node: SyntaxNode) => {
+    const createKeyValuePairEmptyValue = (node: TreeCursorSyntaxNode) => {
       const emptyPoint = Point({
         row: node.endPosition.row,
         column: node.endPosition.column,
         char: node.endIndex,
       });
-      const valueNode = getFieldFromNode('value', node);
+      const { valueNode } = node;
       const children = valueNode?.children || [];
-      // @ts-ignore
-      const tagNode: any | undefined = children.find(isKind('tag'));
-      // @ts-ignore
-      const anchorNode: any | undefined = children.find(isKind('anchor'));
+      const tagNode = children.find(isKind('tag'));
+      const anchorNode = children.find(isKind('anchor'));
       const tag =
         typeof tagNode !== 'undefined'
           ? YamlTag({
@@ -220,16 +182,12 @@ const CstVisitor = stampit({
      * Public API.
      */
 
-    this.enter = function enter(node: SyntaxNode) {
+    this.enter = function enter(node: TreeCursorSyntaxNode) {
       // missing anonymous literals from CST transformed into AST literal nodes
-      // WARNING: be aware that web-tree-sitter and tree-sitter node bindings have inconsistency
-      // in `SyntaxNode.isNamed` property. web-tree-sitter has it defined as method
-      // whether tree-sitter node binding has it defined as a boolean property.
-      // @ts-ignore
-      if ((typeof node.isNamed === 'function' && !node.isNamed()) || node.isNamed === false) {
+      if (node instanceof TreeCursorSyntaxNode && !node.isNamed) {
         const position = toPosition(node);
         const value = node.type || node.text;
-        const isMissing = node.isMissing();
+        const { isMissing } = node;
 
         return Literal({ value, position, isMissing });
       }
@@ -238,13 +196,13 @@ const CstVisitor = stampit({
     };
 
     this.stream = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
 
         return YamlStream({
           children: node.children,
           position,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
       },
       leave(stream: YamlStream) {
@@ -253,7 +211,7 @@ const CstVisitor = stampit({
     };
 
     this.yaml_directive = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const version = node?.firstNamedChild?.text || null;
 
@@ -268,10 +226,10 @@ const CstVisitor = stampit({
     };
 
     this.tag_directive = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
-        const tagHandleNode = node.child(0);
-        const tagPrefixNode = node.child(1);
+        const tagHandleNode = node.children[0];
+        const tagPrefixNode = node.children[1];
         const tagDirective = YamlDirective({
           position,
           name: '%TAG',
@@ -288,11 +246,11 @@ const CstVisitor = stampit({
     };
 
     this.reserved_directive = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
-        const directiveNameNode = node.child(0);
-        const directiveParameter1Node = node.child(1);
-        const directiveParameter2Node = node.child(2);
+        const directiveNameNode = node.children[0];
+        const directiveParameter1Node = node.children[1];
+        const directiveParameter2Node = node.children[2];
 
         return YamlDirective({
           position,
@@ -306,13 +264,13 @@ const CstVisitor = stampit({
     };
 
     this.document = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
 
         return YamlDocument({
           children: node.children,
           position,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
       },
       leave(node: YamlDocument) {
@@ -321,13 +279,13 @@ const CstVisitor = stampit({
     };
 
     this.block_node = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         return node.children;
       },
     };
 
     this.flow_node = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const [kindCandidate] = node.children.slice(-1);
 
         // kind node is present in flow node
@@ -367,7 +325,7 @@ const CstVisitor = stampit({
     };
 
     this.block_mapping = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -378,7 +336,7 @@ const CstVisitor = stampit({
           tag,
           styleGroup: YamlStyleGroup.Block,
           style: YamlStyle.NextLine,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
 
         return this.schema.resolve(mappingNode);
@@ -386,9 +344,9 @@ const CstVisitor = stampit({
     };
 
     this.block_mapping_pair = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
-        const children: Array<SyntaxNode | YamlScalar> = [...node.children];
+        const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
 
         if (hasKeyValuePairEmptyKey(node)) {
           const keyNode = createKeyValuePairEmptyKey(node);
@@ -403,13 +361,13 @@ const CstVisitor = stampit({
           children,
           position,
           styleGroup: YamlStyleGroup.Block,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
       },
     };
 
     this.flow_mapping = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -420,7 +378,7 @@ const CstVisitor = stampit({
           tag,
           styleGroup: YamlStyleGroup.Flow,
           style: YamlStyle.Explicit,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
 
         return this.schema.resolve(mappingNode);
@@ -428,9 +386,9 @@ const CstVisitor = stampit({
     };
 
     this.flow_pair = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
-        const children: Array<SyntaxNode | YamlScalar> = [...node.children];
+        const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
 
         if (hasKeyValuePairEmptyKey(node)) {
           const keyNode = createKeyValuePairEmptyKey(node);
@@ -445,7 +403,7 @@ const CstVisitor = stampit({
           children,
           position,
           styleGroup: YamlStyleGroup.Flow,
-          isMissing: node.isMissing(),
+          isMissing: node.isMissing,
         });
       },
     };
@@ -457,7 +415,7 @@ const CstVisitor = stampit({
     };
 
     this.block_sequence = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -475,7 +433,7 @@ const CstVisitor = stampit({
     };
 
     this.block_sequence_item = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         // flow or block node present; first node is always `-` literal
         if (node.children.length > 1) {
           return node.children;
@@ -504,7 +462,7 @@ const CstVisitor = stampit({
     };
 
     this.flow_sequence = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -528,7 +486,7 @@ const CstVisitor = stampit({
     };
 
     this.plain_scalar = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -546,7 +504,7 @@ const CstVisitor = stampit({
     };
 
     this.single_quote_scalar = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -564,7 +522,7 @@ const CstVisitor = stampit({
     };
 
     this.double_quote_scalar = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -582,7 +540,7 @@ const CstVisitor = stampit({
     };
 
     this.block_scalar = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
@@ -606,18 +564,18 @@ const CstVisitor = stampit({
     };
 
     this.comment = {
-      enter(node: SyntaxNode) {
+      enter(node: TreeCursorSyntaxNode) {
         return YamlComment({ content: node.text });
       },
     };
 
-    this.ERROR = function ERROR(node: SyntaxNode, key: any, parent: any, path: string[]) {
+    this.ERROR = function ERROR(node: TreeCursorSyntaxNode, key: any, parent: any, path: string[]) {
       const position = toPosition(node);
       const errorNode = Error({
         children: node.children,
         position,
-        isUnexpected: !node.hasError(),
-        isMissing: node.isMissing(),
+        isUnexpected: !node.hasError,
+        isMissing: node.isMissing,
         value: node.text,
       });
 

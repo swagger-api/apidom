@@ -25,6 +25,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'schema',
+    insertText: 'schema',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject) | [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)\n\\\n\\\nThe schema defining the content of the request, response, or parameter.',
+    },
+    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  },
+  {
     label: 'example',
     insertText: 'example',
     kind: 14,

@@ -13,13 +13,32 @@ env:
   CPU_CORES: 2
 
 jobs:
-  lint:
+  lint-commit-messages:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # necessary for linting commit messages
+          ref: ${{ github.event.pull_request.head.sha }} # necessary to check out pull request HEAD commit instead of merge commit
+      - name: Use Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint commit message
+        if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
+        run: |
+          npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
       - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
@@ -30,9 +49,6 @@ jobs:
         run: npm ci
       - name: Lint code
         run: npm run lint
-      - name: Lint commit message
-        if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
-        run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD
 
   check-typescript-types:
     runs-on: ubuntu-latest

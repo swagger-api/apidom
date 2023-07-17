@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
+
+
+### Performance Improvements
+
+* **parser-adapter-yaml-1-2:** use tree-sitter cursor for CST traversal ([#2955](https://github.com/swagger-api/apidom/issues/2955)) ([c46ae6a](https://github.com/swagger-api/apidom/commit/c46ae6a3b7eb511e38f7576bfc0bff1a8bf4e9ae)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
+
+
+
+
+
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
 

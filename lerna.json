@@ -3,7 +3,7 @@
     "packages/*"
   ],
   "npmClient": "npm",
-  "version": "0.71.1",
+  "version": "0.72.0",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {

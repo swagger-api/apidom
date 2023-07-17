@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
+
+
+### Bug Fixes
+
+* add 'schema' item to OAS3.1 mediaType completion ([d6f73a3](https://github.com/swagger-api/apidom/commit/d6f73a359e866cfc55560c2aa93624f02aecf144))
+
+
+### Features
+
+* allow apidom-ls strict filter ([9f92eaa](https://github.com/swagger-api/apidom/commit/9f92eaa5bb85e491e1b4b8854150d47db9806553))
+
+
+
+
+
 ## [0.71.1](https://github.com/swagger-api/apidom/compare/v0.71.0...v0.71.1) (2023-07-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

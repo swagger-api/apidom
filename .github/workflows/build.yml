@@ -32,7 +32,7 @@ jobs:
       - name: Lint commit message
         if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
         run: |
-          npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD --verbose
+          npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
   lint:
     runs-on: ubuntu-latest

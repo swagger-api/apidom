@@ -894,7 +894,7 @@ export class DefaultCompletionService implements CompletionService {
       refElementType && refElementType.length > 0 ? refElementType : node.parent?.parent?.element;
     if (!nodeElement) return result;
 
-    const pointers = localReferencePointers(doc, nodeElement);
+    const pointers = localReferencePointers(doc, nodeElement, false);
     // build completion item
     let i = 97;
     for (const p of pointers) {

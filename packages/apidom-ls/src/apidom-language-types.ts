@@ -56,6 +56,7 @@ export enum Format {
 export type Pointer = {
   node: Element;
   ref: string;
+  isRef: boolean;
 };
 
 export enum MergeStrategy {

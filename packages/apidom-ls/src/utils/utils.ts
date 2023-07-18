@@ -186,10 +186,19 @@ export function buildJsonPointer(path: string[]): string {
   return `#/${path.join('/')}`;
 }
 
-export function localReferencePointers(doc: Element, nodeElement: string): Pointer[] {
+interface FoundNode {
+  element: Element;
+  isRef: boolean;
+}
+
+export function localReferencePointers(
+  doc: Element,
+  nodeElement: string,
+  includeRefs: boolean,
+): Pointer[] {
   const pointers: Pointer[] = [];
   // traverse all doc to find nodes of the same type which are not a ref
-  const foundNodes: Element[] = [];
+  const foundNodes: FoundNode[] = [];
   let nodePath: string[] = [];
   function buildPointer(traverseNode: Element): void {
     if (!traverseNode) return;
@@ -201,7 +210,13 @@ export function localReferencePointers(doc: Element, nodeElement: string): Point
 
   // TODO check for reference-element class or type instead
   function findRefNodes(traversedNode: Element): void {
-    if (traversedNode.element === nodeElement) {
+    if (includeRefs) {
+      const isRef =
+        nodeElement === traversedNode.getMetaProperty('referenced-element', '').toValue();
+      if (isRef || traversedNode.element === nodeElement) {
+        foundNodes.push({ element: traversedNode, isRef });
+      }
+    } else if (traversedNode.element === nodeElement) {
       if (
         !(
           isObject(traversedNode) &&
@@ -209,15 +224,19 @@ export function localReferencePointers(doc: Element, nodeElement: string): Point
           traversedNode.get('$ref').toValue().length > 0
         )
       ) {
-        foundNodes.push(traversedNode);
+        foundNodes.push({ element: traversedNode, isRef: false });
       }
     }
   }
   traverse(findRefNodes, doc);
   for (const foundNode of foundNodes) {
     nodePath = [];
-    buildPointer(foundNode);
-    pointers.push({ node: foundNode, ref: buildJsonPointer(nodePath) });
+    buildPointer(foundNode.element);
+    pointers.push({
+      node: foundNode.element,
+      ref: buildJsonPointer(nodePath),
+      isRef: foundNode.isRef,
+    });
   }
   // TODO better sorting, NS plugin..
   pointers.sort((a, b) => (a.ref.split('/').length > b.ref.split('/').length ? 1 : -1));

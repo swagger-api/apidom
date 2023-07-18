@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
+
+
+### Bug Fixes
+
+* **ls:** fix validation for indirected local references ([60f9215](https://github.com/swagger-api/apidom/commit/60f9215b5ee5ae8e8c89c8e07ed3d643cd04e673))
+
+
+### Features
+
+* **ls:** add media type completion items ([3b44668](https://github.com/swagger-api/apidom/commit/3b44668b0e650330970d1a130f7c11147464f393))
+
+
+
+
+
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
 

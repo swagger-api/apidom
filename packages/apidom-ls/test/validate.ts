@@ -2997,4 +2997,48 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - test editor issue 3626 / inidrect ref', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue-editor-3626.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/issue-editor-3626.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 39, character: 12 }, end: { line: 39, character: 50 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'update to #/components/parameters/userIdRef',
+              action: 'updateValue',
+              functionParams: ['#/components/parameters/userIdRef'],
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

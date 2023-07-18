@@ -208,7 +208,6 @@ export class DefaultValidationService implements ValidationService {
     }
     if (!result) return diagnostics;
     const { api } = result;
-
     if (api === undefined) return diagnostics;
     const specVersion = getSpecVersion(api);
 
@@ -224,7 +223,7 @@ export class DefaultValidationService implements ValidationService {
       if (refValueElement.toValue().startsWith('#')) {
         let pointers = pointersMap[referencedElement];
         if (!pointers) {
-          pointers = localReferencePointers(doc, referencedElement);
+          pointers = localReferencePointers(doc, referencedElement, true);
           pointersMap[referencedElement] = pointers;
         }
         if (!pointers.some((p) => p.ref === refValueElement.toValue())) {
@@ -250,11 +249,13 @@ export class DefaultValidationService implements ValidationService {
           } as LinterMetaData;
           for (const p of pointers) {
             // @ts-ignore
-            diagnostic.data.quickFix.push({
-              message: `update to ${p.ref}`,
-              action: 'updateValue',
-              functionParams: [p.ref],
-            });
+            if (refValueElement !== p.ref && !p.isRef) {
+              diagnostic.data.quickFix.push({
+                message: `update to ${p.ref}`,
+                action: 'updateValue',
+                functionParams: [p.ref],
+              });
+            }
           }
           // @ts-ignore
           this.quickFixesMap[code] = diagnostic.data.quickFix;

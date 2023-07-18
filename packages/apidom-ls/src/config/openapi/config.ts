@@ -6,6 +6,7 @@ import openapi3_1Meta from './openapi3_1/meta';
 import callbackMeta from './callback/meta';
 import componentsMeta from './components/meta';
 import contactMeta from './contact/meta';
+import contentMeta from './content/meta';
 import discriminatorMeta from './discriminator/meta';
 import encodingMeta from './encoding/meta';
 import exampleMeta from './example/meta';
@@ -53,6 +54,7 @@ export default {
   callback: callbackMeta,
   components: componentsMeta,
   contact: contactMeta,
+  content: contentMeta,
   discriminator: discriminatorMeta,
   encoding: encodingMeta,
   example: exampleMeta,

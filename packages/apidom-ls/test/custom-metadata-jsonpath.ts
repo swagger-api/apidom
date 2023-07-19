@@ -1,6 +1,6 @@
 import { config } from '../src/config/config';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { LinterMeta, Metadata } from '../src/apidom-language-types';
+import { LinterGivenFormat, LinterMeta, Metadata } from '../src/apidom-language-types';
 import { deepCopyMetadata } from '../src/utils/utils';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -9,22 +9,17 @@ export function metadata(): Metadata {
 
   const camelCasesSchemaLint: LinterMeta = {
     name: 'SB-API-050-property-names',
-    description: 'property names must be camelCase and alphanumeric',
+    description: 'keys MUST follow camelCase',
     recommended: true,
     code: 20001,
     source: 'apilint',
-    message: 'properties MUST follow camelCase',
+    message: 'keys MUST follow camelCase',
+    given: ['$.components.schemas.*.properties.*', '$.components.parameters.*'],
+    givenFormat: LinterGivenFormat.JSONPATH,
     severity: 1,
     linterFunction: 'apilintKeyCasing',
     linterParams: ['camel'],
     marker: 'key',
-    conditions: [
-      {
-        targets: [{ path: 'parent' }],
-        function: 'apilintElementOrClass',
-        params: [['json-schema-properties']],
-      },
-    ],
     data: {},
   };
 
@@ -32,7 +27,8 @@ export function metadata(): Metadata {
     name: 'SB-API-050-query-parameter-names',
     description: 'query parameter names must be camelCase',
     recommended: true,
-    given: ['parameter'],
+    given: '$.components.parameters.*',
+    givenFormat: LinterGivenFormat.JSONPATH,
     code: 20002,
     source: 'apilint',
     message: 'parameter names MUST follow camelCase',
@@ -52,38 +48,25 @@ export function metadata(): Metadata {
     data: {},
   };
 
-  const camelCasesPathSegments: LinterMeta = {
-    name: 'SB-API-051-path-segments',
-    description: 'path segments must be kebab-case',
+  const camelCaseTitle: LinterMeta = {
+    name: 'SB-API-052-title',
+    description: 'title MUST follow camelCase',
     recommended: true,
-    code: 20003,
+    code: 20001,
     source: 'apilint',
-    message: 'path segments MUST follow kebab-case (lower case and separated with hyphens).',
+    message: 'title MUST follow camelCase',
+    given: '$.info.title',
+    givenFormat: LinterGivenFormat.JSONPATH,
     severity: 1,
-    linterFunction: 'apilintKeyRegex',
-    linterParams: ['^(/|[a-z0-9-.]+|{[a-zA-Z0-9_]+})+$'],
+    linterFunction: 'apilintValueCasing',
+    linterParams: ['camel'],
     marker: 'key',
-    conditions: [
-      {
-        targets: [{ path: 'parent' }],
-        function: 'apilintElementOrClass',
-        params: [['paths']],
-      },
-    ],
     data: {},
   };
-
-  customConfig.metadataMaps.openapi?.schema?.lint?.push(camelCasesSchemaLint);
-  /*  customConfig.metadataMaps.openapi.parameter = {
-    lint: [camelCasesQueryParamsLint],
-  }; */
   customConfig.rules = {
     openapi: {
-      lint: [camelCasesQueryParamsLint],
+      lint: [camelCasesQueryParamsLint, camelCasesSchemaLint, camelCaseTitle],
     },
-  };
-  customConfig.metadataMaps.openapi.pathItem = {
-    lint: [camelCasesPathSegments],
   };
 
   return customConfig;

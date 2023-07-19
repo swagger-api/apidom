@@ -414,295 +414,149 @@ describe('apidom-ls-yaml', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected = [
       {
-        range: {
-          start: {
-            line: 12,
-            character: 2,
-          },
-          end: {
-            line: 12,
-            character: 9,
-          },
-        },
+        range: { start: { line: 12, character: 2 }, end: { line: 12, character: 9 } },
         message: 'must match exactly one schema in oneOf',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 3,
-            character: 0,
-          },
-          end: {
-            line: 3,
-            character: 4,
-          },
-        },
+        range: { start: { line: 3, character: 0 }, end: { line: 3, character: 4 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 55,
-            character: 9,
-          },
-          end: {
-            line: 55,
-            character: 45,
-          },
-        },
+        range: { start: { line: 55, character: 9 }, end: { line: 55, character: 45 } },
         message: 'must match format "uri-reference"',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 127,
-            character: 4,
-          },
-          end: {
-            line: 127,
-            character: 14,
-          },
-        },
+        range: { start: { line: 127, character: 4 }, end: { line: 127, character: 14 } },
         message: 'must be array',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 78,
-            character: 6,
-          },
-          end: {
-            line: 78,
-            character: 16,
-          },
-        },
+        range: { start: { line: 78, character: 6 }, end: { line: 78, character: 16 } },
         message: 'must be array',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 85,
-            character: 6,
-          },
-          end: {
-            line: 85,
-            character: 15,
-          },
-        },
+        range: { start: { line: 85, character: 6 }, end: { line: 85, character: 15 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 25,
-            character: 4,
-          },
-          end: {
-            line: 25,
-            character: 11,
-          },
-        },
+        range: { start: { line: 25, character: 4 }, end: { line: 25, character: 11 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 25,
-            character: 4,
-          },
-          end: {
-            line: 25,
-            character: 11,
-          },
-        },
+        range: { start: { line: 25, character: 4 }, end: { line: 25, character: 11 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 30,
-            character: 4,
-          },
-          end: {
-            line: 30,
-            character: 8,
-          },
-        },
+        range: { start: { line: 30, character: 4 }, end: { line: 30, character: 8 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 30,
-            character: 4,
-          },
-          end: {
-            line: 30,
-            character: 8,
-          },
-        },
+        range: { start: { line: 30, character: 4 }, end: { line: 30, character: 8 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 41,
-            character: 4,
-          },
-          end: {
-            line: 41,
-            character: 15,
-          },
-        },
+        range: { start: { line: 41, character: 4 }, end: { line: 41, character: 15 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        range: {
-          start: {
-            line: 41,
-            character: 4,
-          },
-          end: {
-            line: 41,
-            character: 15,
-          },
-        },
+        range: { start: { line: 41, character: 4 }, end: { line: 41, character: 15 } },
         message: 'must NOT have unevaluated properties',
         severity: 1,
         code: 0,
         source: 'openapi schema',
       },
       {
-        code: 15000,
+        range: { start: { line: 3, character: 0 }, end: { line: 3, character: 4 } },
         message: 'Object includes not allowed fields',
-        range: {
-          end: {
-            character: 4,
-            line: 3,
-          },
-          start: {
-            character: 0,
-            line: 3,
-          },
-        },
         severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 7030101,
-        message: 'The identifier field and url field are mutually exclusive.',
-        range: {
-          end: {
-            character: 14,
-            line: 15,
-          },
-          start: {
-            character: 4,
-            line: 15,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130600,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 22,
-            line: 82,
-          },
-          start: {
-            character: 8,
-            line: 79,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130601,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 7,
-            line: 68,
-          },
-          start: {
-            character: 4,
-            line: 68,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5140001,
-        data: {},
-        message: 'Responses Object values must be of Response Object shape',
-        range: {
-          end: {
-            character: 15,
-            line: 85,
-          },
-          start: {
-            character: 6,
-            line: 85,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
         code: 15000,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 15, character: 4 }, end: { line: 15, character: 14 } },
+        message: 'The identifier field and url field are mutually exclusive.',
+        severity: 1,
+        code: 7030101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 128, character: 6 }, end: { line: 132, character: 0 } },
+        message: 'parameters must be an array',
+        severity: 1,
+        code: 5121300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 65, character: 2 }, end: { line: 65, character: 10 } },
+        message: 'parameters must be an array of Parameter Objects',
+        severity: 1,
+        code: 5121301,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 79, character: 8 }, end: { line: 82, character: 22 } },
+        message: 'parameters must be an array',
+        severity: 1,
+        code: 5130600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 68, character: 4 }, end: { line: 68, character: 7 } },
+        message: 'parameters must be an array of Parameter Objects',
+        severity: 1,
+        code: 5130601,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 85, character: 6 }, end: { line: 85, character: 15 } },
+        message: 'Responses Object values must be of Response Object shape',
+        severity: 1,
+        code: 5140001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 85, character: 6 }, end: { line: 85, character: 15 } },
         message:
           'Responses Object uses HTTP Status Codes outside of allowed IANA HTTP Status code registry',
-        range: {
-          end: {
-            character: 15,
-            line: 85,
-          },
-          start: {
-            character: 6,
-            line: 85,
-          },
-        },
         severity: 1,
+        code: 15000,
         source: 'apilint',
       },
     ];

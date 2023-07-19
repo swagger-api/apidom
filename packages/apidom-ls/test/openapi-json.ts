@@ -469,103 +469,65 @@ describe('apidom-ls', function () {
         source: 'syntax',
       },
       {
-        code: 15000,
+        range: { start: { line: 3, character: 2 }, end: { line: 3, character: 8 } },
         message: 'Object includes not allowed fields',
-        range: {
-          end: {
-            character: 8,
-            line: 3,
-          },
-          start: {
-            character: 2,
-            line: 3,
-          },
-        },
         severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 7030101,
-        message: 'The identifier field and url field are mutually exclusive.',
-        range: {
-          end: {
-            character: 18,
-            line: 14,
-          },
-          start: {
-            character: 6,
-            line: 14,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130600,
-        data: {},
-        message: 'parameters must be an array',
-        range: {
-          end: {
-            character: 9,
-            line: 109,
-          },
-          start: {
-            character: 22,
-            line: 104,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5130601,
-        data: {},
-        message: 'parameters must be an array of Parameter Objects',
-        range: {
-          end: {
-            character: 11,
-            line: 95,
-          },
-          start: {
-            character: 6,
-            line: 95,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
-        code: 5140001,
-        data: {},
-        message: 'Responses Object values must be of Response Object shape',
-        range: {
-          end: {
-            character: 19,
-            line: 113,
-          },
-          start: {
-            character: 8,
-            line: 113,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-      {
         code: 15000,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 14, character: 6 }, end: { line: 14, character: 18 } },
+        message: 'The identifier field and url field are mutually exclusive.',
+        severity: 1,
+        code: 7030101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 185, character: 20 }, end: { line: 190, character: 7 } },
+        message: 'parameters must be an array',
+        severity: 1,
+        code: 5121300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 92, character: 4 }, end: { line: 92, character: 12 } },
+        message: 'parameters must be an array of Parameter Objects',
+        severity: 1,
+        code: 5121301,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 104, character: 22 }, end: { line: 109, character: 9 } },
+        message: 'parameters must be an array',
+        severity: 1,
+        code: 5130600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 95, character: 6 }, end: { line: 95, character: 11 } },
+        message: 'parameters must be an array of Parameter Objects',
+        severity: 1,
+        code: 5130601,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 113, character: 8 }, end: { line: 113, character: 19 } },
+        message: 'Responses Object values must be of Response Object shape',
+        severity: 1,
+        code: 5140001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 113, character: 8 }, end: { line: 113, character: 19 } },
         message:
           'Responses Object uses HTTP Status Codes outside of allowed IANA HTTP Status code registry',
-        range: {
-          end: {
-            character: 19,
-            line: 113,
-          },
-          start: {
-            character: 8,
-            line: 113,
-          },
-        },
         severity: 1,
+        code: 15000,
         source: 'apilint',
       },
     ];

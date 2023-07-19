@@ -11,19 +11,18 @@ import {
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './custom-metadata';
+import { metadata as metadataJsonpath } from './custom-metadata-jsonpath';
 import { logPerformance, logLevel } from './test-utils';
 
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'custom-rules-simple.yaml'))
   .toString();
 
-describe('apidom-ls-validate-custom-rules', function () {
-  const context: LanguageServiceContext = {
-    metadata: metadata(),
-    performanceLogs: logPerformance,
-    logLevel,
-  };
+const specOpenapiJsonpath = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'custom-rules-jsonpath.yaml'))
+  .toString();
 
+describe('apidom-ls-validate-custom-rules', function () {
   // const metadataNoTitle = JSON.parse(JSON.stringify(metadata()));
   // metadataNoTitle.metadataMaps.asyncapi.info.lint.splice(3, 1);
 
@@ -32,6 +31,12 @@ describe('apidom-ls-validate-custom-rules', function () {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
       relatedInformation: false,
+    };
+
+    const context: LanguageServiceContext = {
+      metadata: metadata(),
+      performanceLogs: logPerformance,
+      logLevel,
     };
 
     // valid spec
@@ -158,6 +163,78 @@ describe('apidom-ls-validate-custom-rules', function () {
             },
           ],
         },
+      },
+    ];
+
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('test validation with custom rules with JSON Path', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const contextJsonpath: LanguageServiceContext = {
+      metadata: metadataJsonpath(),
+      performanceLogs: logPerformance,
+      logLevel,
+    };
+
+    // valid spec
+    const docOpenapi: TextDocument = TextDocument.create(
+      'foo://bar/openapi.yaml',
+      'yaml',
+      0,
+      specOpenapiJsonpath,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextJsonpath);
+
+    const result = await languageService.doValidation(docOpenapi, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 23, character: 6 }, end: { line: 23, character: 10 } },
+        message: 'parameter names MUST follow camelCase',
+        severity: 1,
+        code: 20002,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 32, character: 6 }, end: { line: 32, character: 10 } },
+        message: 'parameter names MUST follow camelCase',
+        severity: 1,
+        code: 20002,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 16, character: 8 }, end: { line: 16, character: 17 } },
+        message: 'keys MUST follow camelCase',
+        severity: 1,
+        code: 20001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 31, character: 4 }, end: { line: 31, character: 7 } },
+        message: 'keys MUST follow camelCase',
+        severity: 1,
+        code: 20001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 3, character: 2 }, end: { line: 3, character: 7 } },
+        message: 'title MUST follow camelCase',
+        severity: 1,
+        code: 20001,
+        source: 'apilint',
+        data: {},
       },
     ];
 

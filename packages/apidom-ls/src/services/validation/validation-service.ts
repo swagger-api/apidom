@@ -2,10 +2,12 @@ import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-langua
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
+import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
 
 import {
   APIDOM_LINTER,
   LanguageSettings,
+  LinterGivenFormat,
   LinterMeta,
   LinterMetaData,
   MergeStrategy,
@@ -29,6 +31,7 @@ import {
   perfEnd,
   perfStart,
   processPath,
+  SourceMap,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
 
@@ -89,9 +92,9 @@ export class DefaultValidationService implements ValidationService {
     }
   }
 
-  private getMetadataPropertyLint(doc: Element, metaId: string, docNs: string): LinterMeta[] {
+  private getLintingRulesSemantic(doc: Element, symbol: string, docNs: string): LinterMeta[] {
     let meta: LinterMeta[] = [];
-    const elementMeta = doc.meta.get('metadataMap')?.get(metaId)?.get('lint')?.toValue();
+    const elementMeta = doc.meta.get('metadataMap')?.get(symbol)?.get('lint')?.toValue();
     if (elementMeta) {
       meta = meta.concat(elementMeta);
       meta = meta.filter((r) => !r.given);
@@ -106,14 +109,26 @@ export class DefaultValidationService implements ValidationService {
         return meta;
       }
       meta = meta.concat(
-        rules[docNs]!.lint!.filter(
-          (r) => r.given && Array.isArray(r.given) && r.given.includes(metaId),
-        ),
+        rules[docNs]!.lint!.filter((r) => {
+          const matchesArray =
+            r.given !== undefined &&
+            Array.isArray(r.given) &&
+            r.given.includes(symbol) &&
+            (!r.givenFormat || r.givenFormat === LinterGivenFormat.SEMANTIC);
+          if (matchesArray) {
+            return true;
+          }
+          const matchesString =
+            r.given !== undefined &&
+            typeof r.given === 'string' &&
+            r.given === symbol &&
+            (!r.givenFormat || r.givenFormat === LinterGivenFormat.SEMANTIC);
+          return matchesString;
+        }),
       );
     } catch (e) {
-      console.log('error in retrieving ns rules', e);
+      console.log('error in retrieving semantic rules', e);
     }
-
     return meta;
   }
 
@@ -346,136 +361,80 @@ export class DefaultValidationService implements ValidationService {
 
         set.forEach((s) => {
           // get linter meta from meta
-          const linterMeta = this.getMetadataPropertyLint(api, s, docNs);
-          if (linterMeta && linterMeta.length > 0) {
-            for (const meta of linterMeta) {
-              if (
-                meta.targetSpecs &&
-                !meta.targetSpecs.some(
-                  (nsv) => nsv.namespace === docNs && nsv.version === specVersion,
-                )
-              ) {
-                // eslint-disable-next-line no-continue
-                continue;
-              }
-              const linterFuncName = meta.linterFunction;
-              if (linterFuncName) {
-                // first check if it is a standard function and exists.
-                let lintFunc = standardLinterfunctions.find(
-                  (e) => e.functionName === linterFuncName,
-                )?.function;
-                // else get it from configuration
-                if (!lintFunc) {
-                  lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];
-                }
-                if (lintFunc) {
-                  try {
-                    let lintRes = true;
-                    if (
-                      meta.target &&
-                      meta.target.length > 0 &&
-                      isObject(element) &&
-                      !element.hasKey(meta.target)
-                    ) {
-                      // eslint-disable-next-line no-continue
-                      continue;
-                    }
-                    const targetElement =
-                      meta.target && meta.target.length > 0 && isObject(element)
-                        ? element.hasKey(meta.target)
-                          ? element.get(meta.target)
-                          : element
-                        : element;
-
-                    const conditionsSuccess = checkConditions(
-                      meta,
-                      docNs,
-                      element,
-                      api,
-                      this.settings,
-                    );
-                    if (conditionsSuccess) {
-                      if (
-                        meta.linterParams &&
-                        Array.isArray(meta.linterParams) &&
-                        meta.linterParams.length > 0
-                      ) {
-                        const params = [targetElement].concat(meta.linterParams);
-                        lintRes = lintFunc(...params) as boolean;
-                      } else {
-                        lintRes = lintFunc(targetElement) as boolean;
-                      }
-                      if (meta.negate) lintRes = !lintRes;
-                      if (!lintRes) {
-                        // add to diagnostics
-                        let lintSm = sm;
-                        // check if root
-                        if (!element.parent || element.parent.element === 'parseResult') {
-                          // TODO use create
-                          lintSm = {
-                            offset: 0,
-                            endOffset:
-                              textDocument.getText().length < 6 ? textDocument.getText().length : 5,
-                            length:
-                              textDocument.getText().length < 6 ? textDocument.getText().length : 5,
-                            column: 0,
-                            endColumn: 0,
-                            endLine: 0,
-                            line: 0,
-                          };
-                        }
-                        if (meta.target) {
-                          if (isObject(element) && element.hasKey(meta.target)) {
-                            if (meta.marker === 'key') {
-                              lintSm = getSourceMap(element.getMember(meta.target).key as Element);
-                            } else if (meta.marker === 'value') {
-                              lintSm = getSourceMap(element.get(meta.target) as Element);
-                            }
-                          }
-                        }
-                        let markerElement = element;
-                        if (meta.markerTarget && meta.markerTarget.length > 0) {
-                          if (isObject(element) && element.hasKey(meta.markerTarget)) {
-                            markerElement = element.get(meta.markerTarget);
-                          }
-                        }
-                        if (meta.marker === 'key') {
-                          const { parent } = markerElement;
-                          if (parent && isMember(parent) && parent.key !== markerElement) {
-                            lintSm = getSourceMap(parent.key as Element);
-                          }
-                        }
-                        const location = { offset: lintSm.offset, length: lintSm.length };
-                        const range = Range.create(
-                          textDocument.positionAt(location.offset),
-                          textDocument.positionAt(location.offset + location.length),
-                        );
-                        const diagnostic = Diagnostic.create(
-                          range,
-                          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                          meta.message!,
-                          meta.severity,
-                          meta.code,
-                        );
-                        diagnostic.source = meta.source;
-                        if (meta.data) {
-                          diagnostic.data = meta.data;
-                        }
-                        diagnostics.push(diagnostic);
-                      }
-                    }
-                  } catch (e) {
-                    // eslint-disable-next-line no-console
-                    console.log('validation lint error', JSON.stringify(e), e);
-                  }
-                }
-              }
+          const semanticLintingRules = this.getLintingRulesSemantic(api, s, docNs);
+          if (semanticLintingRules && semanticLintingRules.length > 0) {
+            for (const meta of semanticLintingRules) {
+              this.processRule(
+                meta,
+                diagnostics,
+                textDocument,
+                api,
+                element,
+                sm,
+                docNs,
+                specVersion,
+              );
             }
           }
         });
       }
     };
     traverse(lint, api);
+    try {
+      const rules = this.settings?.metadata?.rules;
+      if (rules && rules[docNs]?.lint) {
+        for (const r of rules[docNs]!.lint!) {
+          if (r.givenFormat !== undefined && r.givenFormat === LinterGivenFormat.JSONPATH) {
+            const matchesArray = r.given !== undefined && Array.isArray(r.given);
+            if (matchesArray) {
+              const elementsTuples = evaluateMulti(r.given as string[], api);
+              if (elementsTuples && elementsTuples.length > 0) {
+                elementsTuples.forEach((tuple) => {
+                  // const tuplePath = tuple[0];
+                  const tupleElements = tuple[1];
+                  if (tupleElements) {
+                    tupleElements.forEach((el) => {
+                      const sm = getSourceMap(el);
+                      this.processRule(
+                        r,
+                        diagnostics,
+                        textDocument,
+                        api,
+                        el,
+                        sm,
+                        docNs,
+                        specVersion,
+                      );
+                    });
+                  }
+                });
+              }
+            }
+            const matchesString = r.given !== undefined && typeof r.given === 'string';
+            if (matchesString) {
+              const elements = evaluate(r.given as string, api);
+              if (elements && elements.length > 0) {
+                for (const ruleElement of elements) {
+                  const sm = getSourceMap(ruleElement);
+                  this.processRule(
+                    r,
+                    diagnostics,
+                    textDocument,
+                    api,
+                    ruleElement,
+                    sm,
+                    docNs,
+                    specVersion,
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.log('error in retrieving jsonpath rules', e);
+    }
     perfEnd(PerfLabels.START);
     if (!hasSyntaxErrors) {
       try {
@@ -527,6 +486,128 @@ export class DefaultValidationService implements ValidationService {
     }
 
     return diagnostics;
+  }
+
+  private processRule(
+    meta: LinterMeta,
+    diagnostics: Diagnostic[],
+    textDocument: TextDocument,
+    api: Element,
+    element: Element,
+    sm: SourceMap,
+    docNs: string,
+    specVersion: string,
+  ): void {
+    if (
+      meta.targetSpecs &&
+      !meta.targetSpecs.some((nsv) => nsv.namespace === docNs && nsv.version === specVersion)
+    ) {
+      // eslint-disable-next-line no-continue
+      return;
+    }
+    const linterFuncName = meta.linterFunction;
+    if (linterFuncName) {
+      // first check if it is a standard function and exists.
+      let lintFunc = standardLinterfunctions.find((e) => e.functionName === linterFuncName)
+        ?.function;
+      // else get it from configuration
+      if (!lintFunc) {
+        lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];
+      }
+      if (lintFunc) {
+        try {
+          let lintRes = true;
+          if (
+            meta.target &&
+            meta.target.length > 0 &&
+            isObject(element) &&
+            !element.hasKey(meta.target)
+          ) {
+            // eslint-disable-next-line no-continue
+            return;
+          }
+          const targetElement =
+            meta.target && meta.target.length > 0 && isObject(element)
+              ? element.hasKey(meta.target)
+                ? element.get(meta.target)
+                : element
+              : element;
+
+          const conditionsSuccess = checkConditions(meta, docNs, element, api, this.settings);
+          if (conditionsSuccess) {
+            if (
+              meta.linterParams &&
+              Array.isArray(meta.linterParams) &&
+              meta.linterParams.length > 0
+            ) {
+              const params = [targetElement].concat(meta.linterParams);
+              lintRes = lintFunc(...params) as boolean;
+            } else {
+              lintRes = lintFunc(targetElement) as boolean;
+            }
+            if (meta.negate) lintRes = !lintRes;
+            if (!lintRes) {
+              // add to diagnostics
+              let lintSm = sm;
+              // check if root
+              if (!element.parent || element.parent.element === 'parseResult') {
+                // TODO use create
+                lintSm = {
+                  offset: 0,
+                  endOffset: textDocument.getText().length < 6 ? textDocument.getText().length : 5,
+                  length: textDocument.getText().length < 6 ? textDocument.getText().length : 5,
+                  column: 0,
+                  endColumn: 0,
+                  endLine: 0,
+                  line: 0,
+                };
+              }
+              if (meta.target) {
+                if (isObject(element) && element.hasKey(meta.target)) {
+                  if (meta.marker === 'key') {
+                    lintSm = getSourceMap(element.getMember(meta.target).key as Element);
+                  } else if (meta.marker === 'value') {
+                    lintSm = getSourceMap(element.get(meta.target) as Element);
+                  }
+                }
+              }
+              let markerElement = element;
+              if (meta.markerTarget && meta.markerTarget.length > 0) {
+                if (isObject(element) && element.hasKey(meta.markerTarget)) {
+                  markerElement = element.get(meta.markerTarget);
+                }
+              }
+              if (meta.marker === 'key') {
+                const { parent } = markerElement;
+                if (parent && isMember(parent) && parent.key !== markerElement) {
+                  lintSm = getSourceMap(parent.key as Element);
+                }
+              }
+              const location = { offset: lintSm.offset, length: lintSm.length };
+              const range = Range.create(
+                textDocument.positionAt(location.offset),
+                textDocument.positionAt(location.offset + location.length),
+              );
+              const diagnostic = Diagnostic.create(
+                range,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                meta.message!,
+                meta.severity,
+                meta.code,
+              );
+              diagnostic.source = meta.source;
+              if (meta.data) {
+                diagnostic.data = meta.data;
+              }
+              diagnostics.push(diagnostic);
+            }
+          }
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.log('validation lint error', JSON.stringify(e), e);
+        }
+      }
+    }
   }
 
   // try to retrieve data from diagnostic from client, if not present use metadata

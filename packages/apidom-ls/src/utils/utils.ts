@@ -35,6 +35,7 @@ import {
   LanguageSettings,
   LinterMeta,
   LogLevel,
+  Metadata,
   MetadataMaps,
   Pointer,
 } from '../apidom-language-types';
@@ -733,6 +734,15 @@ export function perfEnd(label: string, force = false) {
   }
 }
 
+export function deepCopyMetadata(meta: Metadata): Metadata {
+  return {
+    metadataMaps: meta.metadataMaps ? JSON.parse(JSON.stringify(meta.metadataMaps)) : undefined,
+    rules: meta.rules ? JSON.parse(JSON.stringify(meta.rules)) : undefined,
+    tokens: meta.tokens ? JSON.parse(JSON.stringify(meta.tokens)) : undefined,
+    symbols: meta.symbols ? JSON.parse(JSON.stringify(meta.symbols)) : undefined,
+    linterFunctions: meta.linterFunctions,
+  };
+}
 export interface RegexMap {
   [key: string]: RegExp;
 }

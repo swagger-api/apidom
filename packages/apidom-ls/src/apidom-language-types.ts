@@ -358,6 +358,12 @@ export interface QuickFixData {
 export interface LinterMetaData {
   quickFix?: QuickFixData[];
 }
+
+export enum LinterGivenFormat {
+  SEMANTIC = 'SEMANTIC',
+  JSONPATH = 'JSONPATH',
+}
+
 export interface LinterMeta {
   code?: number;
   message?: string;
@@ -384,6 +390,7 @@ export interface LinterMeta {
   summary?: string;
   recommended?: boolean;
   given?: string[] | string;
+  givenFormat?: LinterGivenFormat;
 }
 
 export interface LinterCondition {

@@ -104,6 +104,7 @@ export interface ContentLanguage {
   namespace: string;
   format?: 'JSON' | 'YAML';
   version?: string;
+  admitsRefsSiblings?: boolean;
 }
 
 export interface ValidationProviderResult {
@@ -279,6 +280,7 @@ export interface ValidationContext {
 export interface CompletionContext {
   maxNumberOfItems?: number;
   enableLSPFilter?: boolean;
+  includeIndirectRefs?: boolean;
 }
 
 export interface DerefContext {

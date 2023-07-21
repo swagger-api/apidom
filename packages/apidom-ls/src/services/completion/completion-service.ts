@@ -757,6 +757,7 @@ export class DefaultCompletionService implements CompletionService {
             api,
             completionNode,
             docNs,
+            contentLanguage.admitsRefsSiblings !== undefined && contentLanguage.admitsRefsSiblings,
             specVersion,
             nodeValueFromText,
             completionParamsOrPosition,
@@ -877,6 +878,7 @@ export class DefaultCompletionService implements CompletionService {
     doc: Element,
     node: Element,
     docNs: string,
+    admitsRefsSiblings: boolean,
     specVersion: string,
     nodeValue: string,
     completionParamsOrPosition: CompletionParams | Position,
@@ -894,27 +896,37 @@ export class DefaultCompletionService implements CompletionService {
       refElementType && refElementType.length > 0 ? refElementType : node.parent?.parent?.element;
     if (!nodeElement) return result;
 
-    const pointers = localReferencePointers(doc, nodeElement, false);
+    const pointers = localReferencePointers(
+      doc,
+      nodeElement,
+      admitsRefsSiblings &&
+        completionContext !== undefined &&
+        completionContext?.includeIndirectRefs !== undefined &&
+        completionContext?.includeIndirectRefs,
+    );
     // build completion item
     let i = 97;
+
     for (const p of pointers) {
-      const valueQuotes = yaml ? "'" : '"';
-      const sm = getSourceMap(p.node);
-      const item: CompletionItem = {
-        label: p.ref,
-        insertText: `${valueQuotes}${p.ref}$1${valueQuotes}`,
-        kind: 18,
-        documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
-        // detail: 'DETAIL', // on top of right hand documentation panel
-        // labelDetails: {
-        // detail: 'LABELDETAILDETAIL', // right after label
-        // description: 'local', // right aligned in label panel
-        // },
-        insertTextFormat: 2,
-        sortText: `${String.fromCharCode(i)}`,
-      };
-      result.push(item);
-      i += 1;
+      if (p.node !== node.parent?.parent) {
+        const valueQuotes = yaml ? "'" : '"';
+        const sm = getSourceMap(p.node);
+        const item: CompletionItem = {
+          label: p.ref,
+          insertText: `${valueQuotes}${p.ref}$1${valueQuotes}`,
+          kind: 18,
+          documentation: textDocument.getText().substring(sm.offset, sm.endOffset),
+          // detail: 'DETAIL', // on top of right hand documentation panel
+          // labelDetails: {
+          // detail: 'LABELDETAILDETAIL', // right after label
+          // description: 'local', // right aligned in label panel
+          // },
+          insertTextFormat: 2,
+          sortText: `${String.fromCharCode(i)}`,
+        };
+        result.push(item);
+        i += 1;
+      }
     }
     // TODO also add to completion description target fragment so user can preview
     try {

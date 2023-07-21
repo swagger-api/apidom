@@ -478,12 +478,132 @@ describe('apidom-ls-completion-provider', function () {
           filterText: '',
         },
         {
-          label: '#/paths//users/get/responses/200/content/application/json...',
-          insertText: "'#/paths//users/get/responses/200/content/application/json/schema$1'",
+          label: 'http://example.com/#components/schemas/foo',
+          insertText: "'http://example.com/#components/schemas/foo$1'",
           kind: 18,
-          documentation: '"$ref":',
+          insertTextFormat: 2,
+          sortText: 'ĭ',
+          filterText: '',
+        },
+        {
+          label: 'http://example.com/#components/schemas/bar',
+          insertText: "'http://example.com/#components/schemas/bar$1'",
+          kind: 18,
+          insertTextFormat: 2,
+          sortText: 'Į',
+          filterText: '',
+        },
+      ] as CompletionItem[];
+
+      const resultAsync = await languageService.doCompletion(
+        docOpenapi,
+        { line: 13, character: 24 },
+        completionContext,
+      );
+      assert.deepEqual(resultAsync!.items, expected as CompletionItem[]);
+      languageService.terminate();
+      languageService = getLanguageService(contextRef);
+      const result = await languageService.doCompletion(
+        docOpenapi,
+        { line: 13, character: 24 },
+        completionContext,
+      );
+      assert.deepEqual(result!.items, expected as CompletionItem[]);
+    } finally {
+      languageService.terminate();
+    }
+  });
+
+  it('test completion ref provider with indirect', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+      includeIndirectRefs: true,
+    };
+    let languageService: LanguageService = getLanguageService(contextAsyncRef);
+
+    try {
+      // valid spec
+      const docOpenapi: TextDocument = TextDocument.create(
+        'foo://bar/openapi.yaml',
+        'specOpenapi',
+        0,
+        specOpenapi,
+      );
+
+      const expected = [
+        {
+          label: '#/components/schemas/UserProfile',
+          insertText: "'#/components/schemas/UserProfile$1'",
+          kind: 18,
+          documentation:
+            'type: object\n      properties:\n        email:\n          type: string\n          x-nullable: true\n',
+          insertTextFormat: 2,
+          sortText: 'a',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/User',
+          insertText: "'#/components/schemas/User$1'",
+          kind: 18,
+          documentation:
+            'type: object\n      properties:\n        id:\n          type: integer\n        name:\n          type: string\n        profile:\n          "$ref": "#/components/schemas/UserProfile"\n          summary: user profile reference summary\n          description: user profile reference description\n        profileExternalRef:\n          "$ref": "http://example.com/test.yaml#/components/schemas/UserProfile"',
+          insertTextFormat: 2,
+          sortText: 'b',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/UserProfile/properties/email',
+          insertText: "'#/components/schemas/UserProfile/properties/email$1'",
+          kind: 18,
+          documentation: 'type: string\n          x-nullable: true\n',
+          insertTextFormat: 2,
+          sortText: 'c',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/User/properties/profileExternalRef',
+          insertText: "'#/components/schemas/User/properties/profileExternalRef$1'",
+          kind: 18,
+          documentation: '"$ref": "http://example.com/test.yaml#/components/schemas/UserProfile"',
+          insertTextFormat: 2,
+          sortText: 'd',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/User/properties/profile',
+          insertText: "'#/components/schemas/User/properties/profile$1'",
+          kind: 18,
+          documentation:
+            '"$ref": "#/components/schemas/UserProfile"\n          summary: user profile reference summary\n          description: user profile reference description',
+          insertTextFormat: 2,
+          sortText: 'e',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/User/properties/name',
+          insertText: "'#/components/schemas/User/properties/name$1'",
+          kind: 18,
+          documentation: 'type: string',
           insertTextFormat: 2,
           sortText: 'f',
+          filterText: '',
+        },
+        {
+          label: '#/components/schemas/User/properties/id',
+          insertText: "'#/components/schemas/User/properties/id$1'",
+          kind: 18,
+          documentation: 'type: integer',
+          insertTextFormat: 2,
+          sortText: 'g',
+          filterText: '',
+        },
+        {
+          label: '#/paths/~1users/get/responses/201/content/application~1js...',
+          insertText: "'#/paths/~1users/get/responses/201/content/application~1json/schema$1'",
+          kind: 18,
+          documentation: '"$ref": "#/components/schemas/User"',
+          insertTextFormat: 2,
+          sortText: 'h',
           filterText: '',
         },
         {
@@ -509,7 +629,6 @@ describe('apidom-ls-completion-provider', function () {
         { line: 13, character: 24 },
         completionContext,
       );
-
       assert.deepEqual(resultAsync!.items, expected as CompletionItem[]);
       languageService.terminate();
       languageService = getLanguageService(contextRef);

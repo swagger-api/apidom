@@ -184,7 +184,8 @@ export function logJson(label: string, message: unknown): void {
 }
 
 export function buildJsonPointer(path: string[]): string {
-  return `#/${path.join('/')}`;
+  const jsonPointer = path.map((s) => s.replaceAll('/', '~1')).join('/');
+  return `#/${jsonPointer}`;
 }
 
 interface FoundNode {
@@ -818,6 +819,7 @@ export async function findNamespace(
       namespace: 'openapi',
       version: versionMatch?.groups?.version_json,
       format: 'JSON',
+      admitsRefsSiblings: true,
     };
   }
   if (await openapi3_1AdapterYaml.detect(text)) {
@@ -826,6 +828,7 @@ export async function findNamespace(
       namespace: 'openapi',
       version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
       format: 'YAML',
+      admitsRefsSiblings: true,
     };
   }
   if (await adsAdapterJson.detect(text)) {
@@ -846,6 +849,7 @@ export async function findNamespace(
           namespace: defaultContentLanguage.namespace,
           version: defaultContentLanguage.version,
           format: 'JSON',
+          admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
         }
       : {
           namespace: 'apidom',
@@ -858,6 +862,7 @@ export async function findNamespace(
           namespace: defaultContentLanguage.namespace,
           version: defaultContentLanguage.version,
           format: 'YAML',
+          admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
         }
       : {
           namespace: 'apidom',
@@ -869,6 +874,7 @@ export async function findNamespace(
         namespace: defaultContentLanguage.namespace,
         version: defaultContentLanguage.version,
         format: json ? 'JSON' : 'YAML',
+        admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
       }
     : {
         namespace: 'apidom',

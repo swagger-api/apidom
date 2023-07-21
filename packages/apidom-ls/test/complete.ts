@@ -507,12 +507,11 @@ describe('apidom-ls-complete', function () {
           },
         },
         {
-          label: '#/components/messages/userSignUp/headers/properties/appli...',
-          insertText:
-            "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
+          label: '#/channels/user~1signin/subscribe/message/payload',
+          insertText: "'#/channels/user~1signin/subscribe/message/payload$1'",
           kind: 18,
           documentation:
-            'description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
+            'type: object\n          properties:\n            user:\n              $ref: "#/components/schemas/Category"',
           insertTextFormat: 2,
           sortText: 'i',
           filterText: '"#/components/schemas/Category"',
@@ -527,16 +526,16 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText:
-              "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
+            newText: "'#/channels/user~1signin/subscribe/message/payload$1'",
           },
         },
         {
-          label: '#/channels/user/signin/subscribe/message/payload',
-          insertText: "'#/channels/user/signin/subscribe/message/payload$1'",
+          label: '#/components/messages/userSignUp/headers/properties/appli...',
+          insertText:
+            "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
           kind: 18,
           documentation:
-            'type: object\n          properties:\n            user:\n              $ref: "#/components/schemas/Category"',
+            'description: Unique identifier for a given instance of the publishing\n              application\n            type: string',
           insertTextFormat: 2,
           sortText: 'j',
           filterText: '"#/components/schemas/Category"',
@@ -551,7 +550,8 @@ describe('apidom-ls-complete', function () {
                 character: 51,
               },
             },
-            newText: "'#/channels/user/signin/subscribe/message/payload$1'",
+            newText:
+              "'#/components/messages/userSignUp/headers/properties/applicationInstanceId$1'",
           },
         },
       ],

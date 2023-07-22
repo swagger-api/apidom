@@ -544,6 +544,15 @@ describe('apidom-ls-yaml', function () {
         data: {},
       },
       {
+        range: { start: { line: 83, character: 6 }, end: { line: 83, character: 17 } },
+        message:
+          'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
+        severity: 2,
+        code: 5160500,
+        source: 'apilint',
+        data: {},
+      },
+      {
         range: { start: { line: 85, character: 6 }, end: { line: 85, character: 15 } },
         message: 'Responses Object values must be of Response Object shape',
         severity: 1,

@@ -16,6 +16,8 @@ import securityTypeLint from './security--type';
 import securityItemsTypeLint from './security--items-type';
 import serversTypeLint from './servers--type';
 import serversItemsTypeLint from '../../path-item/lint/servers--items-type';
+import requestBodyGetHeadDeleteLint from './request-body--get-head-delete';
+import requestBodyOptionsTraceLint from './request-body--options-trace';
 
 const lints = [
   tagsTypeLint,
@@ -36,6 +38,8 @@ const lints = [
   serversTypeLint,
   serversItemsTypeLint,
   allowedFieldsLint,
+  requestBodyOptionsTraceLint,
+  requestBodyGetHeadDeleteLint,
 ];
 
 export default lints;

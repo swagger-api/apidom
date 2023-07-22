@@ -957,4 +957,41 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintOperationRequestBody_GET_HEAD_DELETE',
+    function: (element: Element): boolean => {
+      const operationNode = element?.parent?.parent;
+      if (!operationNode || operationNode.element !== 'operation') {
+        return true;
+      }
+      const httpMethod = operationNode.getMetaProperty('http-method', '').toValue();
+      switch (httpMethod) {
+        case 'GET':
+        case 'HEAD':
+        case 'DELETE':
+          return false;
+        default:
+          return true;
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintOperationRequestBody_OPTIONS_TRACE',
+    function: (element: Element): boolean => {
+      const operationNode = element?.parent?.parent;
+      if (!operationNode || operationNode.element !== 'operation') {
+        return true;
+      }
+      const httpMethod = operationNode.getMetaProperty('http-method', '').toValue();
+      switch (httpMethod) {
+        case 'OPTIONS':
+        case 'TRACE':
+          return false;
+        default:
+          return true;
+      }
+      return true;
+    },
+  },
 ];

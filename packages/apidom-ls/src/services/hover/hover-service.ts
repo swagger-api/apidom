@@ -390,11 +390,22 @@ export class DefaultHoverService implements HoverService {
     if (map[key]?.documentation) {
       const keyDocsMeta: DocumentationMeta[] = map[key]?.documentation as DocumentationMeta[];
       if (keyDocsMeta) {
-        const rootDoc = keyDocsMeta.find((e) => !e.target);
-        if (rootDoc) return rootDoc.docs;
+        const rootDocs = keyDocsMeta.filter((e) => !e.target);
+        if (rootDocs) {
+          for (const rootDoc of rootDocs) {
+            if (
+              !rootDoc.targetSpecs ||
+              (rootDoc.targetSpecs &&
+                rootDoc.targetSpecs.some(
+                  (nsv) => nsv.namespace === ns && nsv.version === specVersion,
+                ))
+            ) {
+              return rootDoc.docs;
+            }
+          }
+        }
       }
     }
-
     return undefined;
   }
 }

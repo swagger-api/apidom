@@ -4,3 +4,4 @@ node_modules/
 *.iml
 .vscode/settings.json
 isolate-*.log
+.log*

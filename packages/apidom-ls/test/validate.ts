@@ -3041,4 +3041,99 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - test editor issue 3768 / request body', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue-editor-3768.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/issue-editor-3768.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 7, character: 6 }, end: { line: 7, character: 17 } },
+        message: "operationId' must be unique among all operations",
+        severity: 1,
+        code: 5130501,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 8, character: 6 }, end: { line: 8, character: 17 } },
+        message:
+          'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
+        severity: 2,
+        code: 5160500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 29, character: 6 }, end: { line: 29, character: 17 } },
+        message:
+          'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
+        severity: 2,
+        code: 5160500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 36, character: 6 }, end: { line: 36, character: 17 } },
+        message:
+          'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
+        severity: 2,
+        code: 5160500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 43, character: 6 }, end: { line: 43, character: 17 } },
+        message: 'requestBody is not allowed for OPTIONS and TRACE operations',
+        severity: 1,
+        code: 5160501,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 50, character: 6 }, end: { line: 50, character: 17 } },
+        message: 'requestBody is not allowed for OPTIONS and TRACE operations',
+        severity: 1,
+        code: 5160501,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 58, character: 6 }, end: { line: 58, character: 17 } },
+        message: "operationId' must be unique among all operations",
+        severity: 1,
+        code: 5130501,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 59, character: 6 }, end: { line: 59, character: 17 } },
+        message:
+          'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
+        severity: 2,
+        code: 5160500,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

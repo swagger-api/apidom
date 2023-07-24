@@ -3,32 +3,24 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
-const typeTypeLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const typeTypeOpenAPI3_0Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message: 'type must be one of allowed values',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
-  linterParams: [['null', 'boolean', 'object', 'array', 'number', 'string', 'integer'], true],
+  linterParams: [['boolean', 'object', 'array', 'number', 'string', 'integer'], true],
   marker: 'value',
   target: 'type',
   targetSpecs: [
-    { namespace: 'asyncapi', version: '2.0.0' },
-    { namespace: 'asyncapi', version: '2.1.0' },
-    { namespace: 'asyncapi', version: '2.2.0' },
-    { namespace: 'asyncapi', version: '2.3.0' },
-    { namespace: 'asyncapi', version: '2.4.0' },
-    { namespace: 'asyncapi', version: '2.5.0' },
-    { namespace: 'asyncapi', version: '2.6.0' },
-    { namespace: 'openapi', version: '3.1.0' },
+    { namespace: 'openapi', version: '3.0.0' },
+    { namespace: 'openapi', version: '3.0.1' },
+    { namespace: 'openapi', version: '3.0.2' },
+    { namespace: 'openapi', version: '3.0.3' },
   ],
   data: {
     quickFix: [
-      {
-        message: "update to 'null'",
-        action: 'updateValue',
-        functionParams: ['null'],
-      },
       {
         message: "update to 'boolean'",
         action: 'updateValue',
@@ -63,4 +55,4 @@ const typeTypeLint: LinterMeta = {
   },
 };
 
-export default typeTypeLint;
+export default typeTypeOpenAPI3_0Lint;

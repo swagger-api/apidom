@@ -3136,4 +3136,43 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - test nullable hint for openapi 3.1', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'nullable-oas31.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/nullable-oas31.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 6 }, end: { line: 12, character: 14 } },
+        message: 'nullable has no special meaning, if not set on purpose use `type="null"` instead',
+        severity: 4,
+        code: 10071,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove nullable',
+              action: 'removeChild',
+              functionParams: ['nullable'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

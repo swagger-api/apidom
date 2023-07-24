@@ -1,0 +1,13 @@
+openapi: 3.1.0
+info:
+  title: test
+  version: 1.0.0
+paths:
+  /a:
+    get:
+      operationId: aget
+components:
+  schemas:
+    foo:
+      type: string
+      nullable: true

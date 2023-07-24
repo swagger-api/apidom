@@ -1226,6 +1226,16 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [
+      { namespace: 'asyncapi', version: '2.0.0' },
+      { namespace: 'asyncapi', version: '2.1.0' },
+      { namespace: 'asyncapi', version: '2.2.0' },
+      { namespace: 'asyncapi', version: '2.3.0' },
+      { namespace: 'asyncapi', version: '2.4.0' },
+      { namespace: 'asyncapi', version: '2.5.0' },
+      { namespace: 'asyncapi', version: '2.6.0' },
+      { namespace: 'openapi', version: '3.1.0' },
+    ],
   },
   {
     target: 'type',

@@ -38,6 +38,7 @@ import minPropertiesTypeLint from './min-properties--type';
 import minimumPatternLint from './minimum--pattern';
 import multipleOfTypeLint from './multiple-of--type';
 import notTypeLint from './not--type';
+import nullableNotRecommendedLint from './nullable--not-recommended';
 import oneOfTypeLint from './one-of--type';
 import patternTypeLint from './pattern--type';
 import patternPropertiesKeysRegexpLint from './pattern-properties--keys-regexp';
@@ -56,6 +57,7 @@ import thenNonIfLint from './then--non-if';
 import thenTypeLint from './then--type';
 import titleTypeLint from './title--type';
 import typeTypeLint from './type--type';
+import typeTypeOpenAPI3_0Lint from './type--type-openapi-3-0';
 import uniqueItemsNonArrayLint from './unique-items--non-array';
 import uniqueItemsTypeLint from './unique-items--type';
 import writeOnlyTypeLint from './write-only--type';
@@ -102,6 +104,7 @@ const schemaLints = [
   minimumPatternLint,
   multipleOfTypeLint,
   notTypeLint,
+  nullableNotRecommendedLint,
   oneOfTypeLint,
   patternTypeLint,
   patternPropertiesKeysRegexpLint,
@@ -120,6 +123,7 @@ const schemaLints = [
   thenTypeLint,
   titleTypeLint,
   typeTypeLint,
+  typeTypeOpenAPI3_0Lint,
   uniqueItemsNonArrayLint,
   uniqueItemsTypeLint,
   writeOnlyTypeLint,

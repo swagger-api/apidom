@@ -6,7 +6,9 @@ import additionalItemsTypeLint from './additional-items--type';
 import additionalPropertiesNonObject from './additional-properties--non-object';
 import additionalPropertiesTypeLint from './additional-properties--type';
 import allOfTypeLint from './all-of--type';
+import allOfTypeOpenApi30Lint from './all-of--type-openapi-3-0';
 import anyOfTypeLint from './any-of--type';
+import anyOfTypeOpenApi30Lint from './any-of--type-openapi-3-0';
 import containsNonArrayLint from './contains--non-array';
 import containsTypeLint from './contains--type';
 import descriptionTypeLint from './description--type';
@@ -39,6 +41,7 @@ import minimumPatternLint from './minimum--pattern';
 import multipleOfTypeLint from './multiple-of--type';
 import notTypeLint from './not--type';
 import oneOfTypeLint from './one-of--type';
+import oneOfTypeOpenApi30Lint from './one-of--type-openapi-3-0';
 import patternTypeLint from './pattern--type';
 import patternPropertiesKeysRegexpLint from './pattern-properties--keys-regexp';
 import patternPropertiesNonObjectLint from './pattern-properties--non-object';
@@ -70,7 +73,9 @@ const schemaLints = [
   additionalPropertiesNonObject,
   additionalPropertiesTypeLint,
   allOfTypeLint,
+  allOfTypeOpenApi30Lint,
   anyOfTypeLint,
+  anyOfTypeOpenApi30Lint,
   containsNonArrayLint,
   containsTypeLint,
   descriptionTypeLint,
@@ -103,6 +108,7 @@ const schemaLints = [
   multipleOfTypeLint,
   notTypeLint,
   oneOfTypeLint,
+  oneOfTypeOpenApi30Lint,
   patternTypeLint,
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,

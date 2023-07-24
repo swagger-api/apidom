@@ -3136,4 +3136,30 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - test editor issue 3722 / false positive', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue-editor-3722.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/issue-editor-3722.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

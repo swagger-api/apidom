@@ -1,0 +1,22 @@
+openapi: 3.0.0
+info:
+  title: allOf with one subschema
+  version: 0.0.1
+paths: {}
+components:
+  schemas:
+    Foo:
+      type: object
+    BarAll:
+      allOf:
+        - $ref: '#/components/schemas/Foo'
+      description: something something
+    BarAny:
+      anyOf:
+        - $ref: '#/components/schemas/Foo'
+      description: something something
+    BarOne:
+      oneOf:
+        - $ref: '#/components/schemas/Foo'
+      description: something something
+    

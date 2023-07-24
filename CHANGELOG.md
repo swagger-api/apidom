@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
+
+
+### Features
+
+* **ls:** add rule for requestBody in operation depending on method ([122a03a](https://github.com/swagger-api/apidom/commit/122a03a77dd8083f6c3ab257e84de5f3d76c9fea))
+* **ls:** fix  completion paths, self and indirect refs ([b275efa](https://github.com/swagger-api/apidom/commit/b275efa3b53e7643af804a8ffc6c26acbd929e92))
+* **ls:** fix wrong docs links version in hover ([78ce094](https://github.com/swagger-api/apidom/commit/78ce094a6889273b01ff2aae24e5139b0656aed3))
+* **ls:** implement JSON Path support in linting rules ([d5aa517](https://github.com/swagger-api/apidom/commit/d5aa51770e8b6eafb68994948ddbec44e5fab634))
+
+
+
+
+
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
 

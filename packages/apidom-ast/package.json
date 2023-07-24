@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ast",
-  "version": "0.73.0",
+  "version": "0.74.0",
   "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
   "publishConfig": {
     "access": "public",

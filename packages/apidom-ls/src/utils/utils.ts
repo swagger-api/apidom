@@ -26,6 +26,7 @@ import {
   StringElement,
   traverse,
 } from '@swagger-api/apidom-core';
+import { compile } from '@swagger-api/apidom-json-pointer';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
 
@@ -184,8 +185,8 @@ export function logJson(label: string, message: unknown): void {
 }
 
 export function buildJsonPointer(path: string[]): string {
-  const jsonPointer = path.map((s) => s.replaceAll('/', '~1')).join('/');
-  return `#/${jsonPointer}`;
+  const jsonPointer = compile(path);
+  return `#${jsonPointer}`;
 }
 
 interface FoundNode {

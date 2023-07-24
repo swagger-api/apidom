@@ -519,7 +519,7 @@ describe('apidom-ls', function () {
         message:
           'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
         severity: 2,
-        code: 5160500,
+        code: 5130702,
         source: 'apilint',
         data: {},
       },

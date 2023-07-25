@@ -133,6 +133,23 @@ describe('refractor', function () {
         });
       });
 
+      context('given definitions keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          definitions: { def1: { $ref: '#/path/to/schema' } },
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.definitions?.get('def1');
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
       context('given dependencies keyword with reference', function () {
         const schemaElement = SchemaElement.refract({
           dependencies: { dep1: { $ref: '#/path/to/schema' } },

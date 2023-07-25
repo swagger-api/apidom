@@ -3076,7 +3076,7 @@ describe('apidom-ls-validate', function () {
         message:
           'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
         severity: 2,
-        code: 5160500,
+        code: 5130702,
         source: 'apilint',
         data: {},
       },
@@ -3085,7 +3085,7 @@ describe('apidom-ls-validate', function () {
         message:
           'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
         severity: 2,
-        code: 5160500,
+        code: 5130702,
         source: 'apilint',
         data: {},
       },
@@ -3094,7 +3094,7 @@ describe('apidom-ls-validate', function () {
         message:
           'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
         severity: 2,
-        code: 5160500,
+        code: 5130702,
         source: 'apilint',
         data: {},
       },
@@ -3102,7 +3102,7 @@ describe('apidom-ls-validate', function () {
         range: { start: { line: 43, character: 6 }, end: { line: 43, character: 17 } },
         message: 'requestBody is not allowed for OPTIONS and TRACE operations',
         severity: 1,
-        code: 5160501,
+        code: 5130701,
         source: 'apilint',
         data: {},
       },
@@ -3110,7 +3110,7 @@ describe('apidom-ls-validate', function () {
         range: { start: { line: 50, character: 6 }, end: { line: 50, character: 17 } },
         message: 'requestBody is not allowed for OPTIONS and TRACE operations',
         severity: 1,
-        code: 5160501,
+        code: 5130701,
         source: 'apilint',
         data: {},
       },
@@ -3127,7 +3127,7 @@ describe('apidom-ls-validate', function () {
         message:
           'requestBody does not have well-defined semantics for GET, HEAD and DELETE operations',
         severity: 2,
-        code: 5160500,
+        code: 5130702,
         source: 'apilint',
         data: {},
       },

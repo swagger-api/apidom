@@ -68,8 +68,13 @@ import HeaderExampleVisitor from './visitors/open-api-3-0/header/ExampleVisitor'
 import HeaderExamplesVisitor from './visitors/open-api-3-0/header/ExamplesVisitor';
 import HeaderContentVisitor from './visitors/open-api-3-0/header/ContentVisitor';
 import SchemaVisitor from './visitors/open-api-3-0/schema';
+import SchemaAllOfVisitor from './visitors/open-api-3-0/schema/AllOfVisitor';
+import SchemaAnyOfVisitor from './visitors/open-api-3-0/schema/AnyOfVisitor';
+import SchemaOneOfVisitor from './visitors/open-api-3-0/schema/OneOfVisitor';
+import SchemaDependenciesVisitor from './visitors/open-api-3-0/schema/DependenciesVisitor';
 import SchemaItemsVisitor from './visitors/open-api-3-0/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-0/schema/PropertiesVisitor';
+import SchemaPatternPropertiesVisitor from './visitors/open-api-3-0/schema/PatternPropertiesVisitor';
 import SchemaTypeVisitor from './visitors/open-api-3-0/schema/TypeVisitor';
 import SchemaNullableVisitor from './visitors/open-api-3-0/schema/NullableVisitor';
 import SchemaWriteOnlyVisitor from './visitors/open-api-3-0/schema/WriteOnlyVisitor';
@@ -178,10 +183,16 @@ const SchemaSpecification = {
   fixedFields: {
     ...schemaInheritedFixedFields,
     // validation vocabulary
+    // validation keywords for any instance type
+    allOf: SchemaAllOfVisitor,
+    anyOf: SchemaAnyOfVisitor,
+    oneOf: SchemaOneOfVisitor,
     // validation keywords for arrays
     items: SchemaItemsVisitor,
     // Validation keywords for objects
+    dependencies: SchemaDependenciesVisitor,
     properties: SchemaPropertiesVisitor,
+    patternProperties: SchemaPatternPropertiesVisitor,
     // validation keywords for any instance type
     type: SchemaTypeVisitor,
     // OpenAPI vocabulary

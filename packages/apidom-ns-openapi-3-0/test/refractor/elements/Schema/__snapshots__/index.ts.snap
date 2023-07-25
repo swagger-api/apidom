@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements SchemaElement given allOf keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ReferenceElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
+`;
+
+exports[`refractor elements SchemaElement given anyOf keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ReferenceElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
+`;
+
+exports[`refractor elements SchemaElement given dependencies keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ReferenceElement
+          (MemberElement
+            (StringElement)
+            (StringElement)))))))
+`;
+
 exports[`refractor elements SchemaElement given embedded SchemaElements should refract to semantic ApiDOM tree 1`] = `
 (SchemaElement
   (MemberElement
@@ -25,6 +60,43 @@ exports[`refractor elements SchemaElement given items keyword in form of object 
   (MemberElement
     (StringElement)
     (SchemaElement)))
+`;
+
+exports[`refractor elements SchemaElement given oneOf keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ReferenceElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
+`;
+
+exports[`refractor elements SchemaElement given patternProperties keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ReferenceElement
+          (MemberElement
+            (StringElement)
+            (StringElement)))))))
+`;
+
+exports[`refractor elements SchemaElement given properties keyword with reference should refract to semantic ApiDOM tree 1`] = `
+(SchemaElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ReferenceElement
+          (MemberElement
+            (StringElement)
+            (StringElement)))))))
 `;
 
 exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree 1`] = `

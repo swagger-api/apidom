@@ -71,6 +71,7 @@ import SchemaVisitor from './visitors/open-api-3-0/schema';
 import SchemaAllOfVisitor from './visitors/open-api-3-0/schema/AllOfVisitor';
 import SchemaAnyOfVisitor from './visitors/open-api-3-0/schema/AnyOfVisitor';
 import SchemaOneOfVisitor from './visitors/open-api-3-0/schema/OneOfVisitor';
+import SchemaDefinitionsVisitor from './visitors/open-api-3-0/schema/DefinitionsVisitor';
 import SchemaDependenciesVisitor from './visitors/open-api-3-0/schema/DependenciesVisitor';
 import SchemaItemsVisitor from './visitors/open-api-3-0/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-0/schema/PropertiesVisitor';
@@ -187,6 +188,7 @@ const SchemaSpecification = {
     allOf: SchemaAllOfVisitor,
     anyOf: SchemaAnyOfVisitor,
     oneOf: SchemaOneOfVisitor,
+    definitions: SchemaDefinitionsVisitor,
     // validation keywords for arrays
     items: SchemaItemsVisitor,
     // Validation keywords for objects

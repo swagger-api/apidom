@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
 import { SchemaElement } from '../../../../src';
@@ -79,6 +79,108 @@ describe('refractor', function () {
           });
 
           expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given allOf keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          allOf: [{ $ref: '#/path/to/schema' }],
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.allOf?.get(0);
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
+      context('given anyOf keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          anyOf: [{ $ref: '#/path/to/schema' }],
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.anyOf?.get(0);
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
+      context('given oneOf keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          oneOf: [{ $ref: '#/path/to/schema' }],
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.oneOf?.get(0);
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
+      context('given dependencies keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          dependencies: { dep1: { $ref: '#/path/to/schema' } },
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.dependencies?.get('dep1');
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
+      context('given properties keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          properties: { prop1: { $ref: '#/path/to/schema' } },
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.properties?.get('prop1');
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+        });
+      });
+
+      context('given patternProperties keyword with reference', function () {
+        const schemaElement = SchemaElement.refract({
+          patternProperties: { pattern: { $ref: '#/path/to/schema' } },
+        }) as SchemaElement;
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(schemaElement)).toMatchSnapshot();
+        });
+
+        specify('should contain referenced-element meta', function () {
+          const referenceElement = schemaElement.patternProperties?.get('pattern');
+          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
+
+          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
         });
       });
     });

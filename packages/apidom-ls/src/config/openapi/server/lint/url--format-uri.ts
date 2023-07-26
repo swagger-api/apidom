@@ -14,6 +14,7 @@ const urlFormatURILint: LinterMeta = {
   data: {},
   conditions: [
     {
+      targets: [{ path: 'url' }],
       function: 'apilintValueRegex',
       params: ['^(?!.*\\{\\S+?\\}).*$'], // validate as URI only if variables in brackets not present
     },

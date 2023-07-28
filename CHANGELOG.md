@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
+
+
+### Bug Fixes
+
+* **ls:** fix condition for server URL linting ([42f7575](https://github.com/swagger-api/apidom/commit/42f7575fbe6f94a28f35e7cfadc29c8929ca86a5))
+* **ls:** process schema 'null' / 'nullable' depending on spec version ([d053dca](https://github.com/swagger-api/apidom/commit/d053dcafb3a8df84162564bf6cc823c514af2fe9))
+* **ls:** replace legacy buildJsonPointer with apidom-json-pointer ([70a359f](https://github.com/swagger-api/apidom/commit/70a359f2d2485a9c85fc63de099358dcdbc42ddc))
+* **ns-openapi-3-0:** provide missing reference metadata ([#2987](https://github.com/swagger-api/apidom/issues/2987)) ([d7cc458](https://github.com/swagger-api/apidom/commit/d7cc458bd91b8ae26763d6c77370a39e0170a6a5)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
+* **ns-openapi-3-0:** provide missing reference metadata for Schema Object definitions keyword ([#2988](https://github.com/swagger-api/apidom/issues/2988)) ([5127577](https://github.com/swagger-api/apidom/commit/51275770869f747d7ca60799811f3f6f541fcd15)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
+
+
+
+
+
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
 

@@ -432,7 +432,7 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'apilintArrayEmpty',
+    functionName: 'apilintArrayNotEmpty',
     function: (element: Element): boolean => {
       if (element) {
         const elValue = element.toValue();
@@ -969,6 +969,25 @@ export const standardLinterfunctions: FunctionItem[] = [
         return false;
       }
 
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintIncludedInArray',
+    function: (element: Element, path: string, arrayMustExist: boolean): boolean => {
+      if (element && (isString(element) || isNumber(element))) {
+        const api = root(element);
+
+        const targetEl = processPath(element, path, api);
+        if (!targetEl) {
+          return !arrayMustExist;
+        }
+        const isIncluded =
+          (targetEl as ArrayElement).findElements((e) => e.toValue() === element.toValue(), {
+            recursive: false,
+          }).length > 0;
+        return isIncluded;
+      }
       return true;
     },
   },

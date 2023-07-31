@@ -1,0 +1,34 @@
+openapi: 3.0.2
+info:
+  title: test
+  version: 1.0.0
+servers:
+  - url: https://{host}:{port}/{basePath}/{otherPath}
+    description: Live Bookstore dynamic servers
+    variables:
+      host:
+        default: test.book.com
+        enum:
+          - test.book.com
+          - staging.book.com
+          - sandbox.book.com
+          - production.book.com
+      port:
+        default: '443'
+        enum: []
+      basePath:
+        default: v2.0
+        enum:
+          - v1.0
+          - v1.1
+          - v1.2
+          - v1.3
+      otherPath:
+        default: foo
+paths:
+  /a:
+    get:
+      operationId: aget
+      responses:
+        '200':
+          description: test

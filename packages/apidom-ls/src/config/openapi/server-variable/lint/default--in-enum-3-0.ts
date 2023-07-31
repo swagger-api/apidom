@@ -4,15 +4,15 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const enumNonEmpty3_0Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_O_SERVER_VARIABLE_FIELD_ENUM_NON_EMPTY,
+const defaultInEnum3_0Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_O_SERVER_VARIABLE_FIELD_DEFAULT_IN_ENUM,
   source: 'apilint',
-  message: "'enum' array should not be empty.",
+  message: "'default' value should exist in the enum's values.",
   severity: DiagnosticSeverity.Warning,
-  linterFunction: 'apilintArrayNotEmpty',
-  linterParams: [],
-  marker: 'key',
-  target: 'enum',
+  linterFunction: 'apilintIncludedInArray',
+  linterParams: ['parent.enum', false],
+  marker: 'value',
+  target: 'default',
   data: {},
   targetSpecs: [
     { namespace: 'openapi', version: '3.0.0' },
@@ -22,4 +22,4 @@ const enumNonEmpty3_0Lint: LinterMeta = {
   ],
 };
 
-export default enumNonEmpty3_0Lint;
+export default defaultInEnum3_0Lint;

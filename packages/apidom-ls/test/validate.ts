@@ -3203,4 +3203,108 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - test server variable default and enum', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'server-variables.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-variables.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 6 }, end: { line: 15, character: 10 } },
+        message: "'enum' must be a non-empty array of strings",
+        severity: 1,
+        code: 7060100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 16, character: 17 }, end: { line: 16, character: 22 } },
+        message: "'default' value must exist in the enum's values.",
+        severity: 1,
+        code: 7060101,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 19, character: 17 }, end: { line: 19, character: 21 } },
+        message: "'default' value must exist in the enum's values.",
+        severity: 1,
+        code: 7060101,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml - test server variable default and enum 3.0', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'server-variables-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-variables.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 6 }, end: { line: 15, character: 10 } },
+        message: "'enum' array should not be empty.",
+        severity: 2,
+        code: 5080101,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 16, character: 17 }, end: { line: 16, character: 22 } },
+        message: "'default' value should exist in the enum's values.",
+        severity: 2,
+        code: 5080202,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: { start: { line: 19, character: 17 }, end: { line: 19, character: 21 } },
+        message: "'default' value should exist in the enum's values.",
+        severity: 2,
+        code: 5080202,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

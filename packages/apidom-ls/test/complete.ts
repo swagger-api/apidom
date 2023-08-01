@@ -1333,4 +1333,123 @@ describe('apidom-ls-complete', function () {
       },
     ] as ApidomCompletionItem[]);
   });
+
+  it('openapi / yaml - test callback completion issue 2356', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'completion', 'oas', 'issue-2356.yaml'))
+      .toString();
+
+    const doc: TextDocument = TextDocument.create('foo://bar/issue-2356.yaml', 'yaml', 0, spec);
+
+    const pos = Position.create(7, 10);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    assert.deepEqual(result!.items, [
+      {
+        label: '$ref',
+        insertText: '\\$ref: $1',
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'A reference to a Callback.' },
+      },
+      {
+        label: '$url',
+        insertText: "'\\$url': \n  $1",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request URL' },
+      },
+      {
+        label: '$method',
+        insertText: "'\\$method': \n  $1",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'HTTP Method' },
+      },
+      {
+        label: '$statusCode',
+        insertText: "'\\$statusCode': \n  $1",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Status Code' },
+      },
+      {
+        label: '$request.path...',
+        insertText: "'\\$request.path.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request Path' },
+      },
+      {
+        label: '$request.query...',
+        insertText: "'\\$request.query.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request Query' },
+      },
+      {
+        label: '$request.header...',
+        insertText: "'\\$request.header.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request Header' },
+      },
+      {
+        label: '$request.body',
+        insertText: "'\\$request.body': \n  $1",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request Body' },
+      },
+      {
+        label: '$request.body#/...',
+        insertText: "'\\$request.body#/.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Request Body..' },
+      },
+      {
+        label: '$response.path...',
+        insertText: "'\\$response.path.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Response Path' },
+      },
+      {
+        label: '$response.query...',
+        insertText: "'\\$response.query.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Response Query' },
+      },
+      {
+        label: '$response.header...',
+        insertText: "'\\$response.header.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Response Header' },
+      },
+      {
+        label: '$response.body',
+        insertText: "'\\$response.body': \n  $1",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Response Body' },
+      },
+      {
+        label: '$response.body#/...',
+        insertText: "'\\$response.body#/.$1': ",
+        kind: 14,
+        insertTextFormat: 2,
+        documentation: { kind: 'markdown', value: 'Response Body..' },
+      },
+    ] as ApidomCompletionItem[]);
+  });
 });

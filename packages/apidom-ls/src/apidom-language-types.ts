@@ -324,6 +324,8 @@ export enum CompletionFormat {
   ARRAY,
   ARRAY_OBJECT,
   UNDEFINED,
+  PARTIAL_KEY,
+  PARTIAL_KEY_QUOTED,
 }
 
 export interface ApidomCompletionItem extends CompletionItem {

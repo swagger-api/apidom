@@ -1318,6 +1318,20 @@ export class DefaultCompletionService implements CompletionService {
               targetItem.insertText = `"${targetItem.insertText}": "$1"`;
             }
             break;
+          case CompletionFormat.PARTIAL_KEY:
+            if (yaml) {
+              targetItem.insertText = `${targetItem.insertText}$1: `;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}$1": `;
+            }
+            break;
+          case CompletionFormat.PARTIAL_KEY_QUOTED:
+            if (yaml) {
+              targetItem.insertText = `'${targetItem.insertText}$1': `;
+            } else {
+              targetItem.insertText = `"${targetItem.insertText}$1": `;
+            }
+            break;
           default:
           //
         }

@@ -8,7 +8,7 @@ import {
   InvalidJsonPointerError,
 } from '../src';
 
-context('apidom-json-pointer', function () {
+describe('apidom-json-pointer', function () {
   context('RFC 6901 test', function () {
     specify('should evaluate successfully', function () {
       // https://www.rfc-editor.org/rfc/rfc6901#section-5

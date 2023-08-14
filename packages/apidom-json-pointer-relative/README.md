@@ -1,4 +1,4 @@
-# @swagger-api/apidom-json-pointer
+# @swagger-api/apidom-json-pointer-relative
 
 `apidom-json-pointer-relative` is a package that evaluates [Relative JSON Pointer](https://datatracker.ietf.org/doc/html/draft-bhutton-relative-json-pointer-00) against ApiDOM.
 

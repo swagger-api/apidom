@@ -58,7 +58,7 @@
     "@testing-library/user-event": "^14.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "react-scripts": "=5.0.1",
-    "rewire": "^6.0.0",
+    "rewire": "^7.0.0",
     "sass": "^1.55.0"
   }
 }

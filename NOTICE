@@ -38,7 +38,7 @@ Copyright (c) 2012 James Halliday, Josh Duff, and other contributors
 - File packages/apidom-core/src/deepmerge.ts contains algorithms that we originally created
   in https://github.com/TehShrike/deepmerge/blob/master/index.js to handle deep merging of JavaScript Objects and Arrays.
   These algorithms have been reverse engineered and adapted to support deep merging of ApiDOM structures.
-- File packages/apidom-core/test/deepmerge.ts contains tests and fixtures that we originally created
+- File packages/apidom-core/test/deepmerge.ts contains tests and fixtures that were originally created
   in https://github.com/TehShrike/deepmerge/blob/master/test/merge.js to test deep merging of JavaScript Objects and Arrays.
   These tests have been adapted to support testing deep merging of ApiDOM structures.
 - File packages/apidom-core/README.md contains text fragments that were originally created

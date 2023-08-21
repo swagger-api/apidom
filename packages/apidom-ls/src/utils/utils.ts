@@ -784,64 +784,94 @@ export async function findNamespace(
   const json = await isJsonDoc(text);
   if (await asyncapi2AdapterJson.detect(text)) {
     const versionMatch = text.match(asyncapi2AdapterJson.detectionRegExp);
+    const version = versionMatch?.groups?.version_json
+      ? versionMatch?.groups?.version_json
+      : '2.6.0';
     return {
       namespace: 'asyncapi',
-      version: versionMatch?.groups?.version_json,
+      version,
       format: 'JSON',
+      mediaType: `application/vnd.aai.asyncapi+json;version=${version}`,
     };
   }
   if (await asyncapi2AdapterYaml.detect(text)) {
     const versionMatch = text.match(asyncapi2AdapterYaml.detectionRegExp);
+    const version = versionMatch?.groups?.version_yaml
+      ? versionMatch?.groups?.version_yaml
+      : '2.6.0';
     return {
       namespace: 'asyncapi',
-      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
+      version,
       format: 'YAML',
+      mediaType: `application/vnd.aai.asyncapi+yaml;version=${version}`,
     };
   }
   if (await openapi3_0AdapterJson.detect(text)) {
-    const versionMatch = text.match(openapi3_0AdapterYaml.detectionRegExp);
+    const versionMatch = text.match(openapi3_0AdapterJson.detectionRegExp);
+    const version = versionMatch?.groups?.version_json
+      ? versionMatch?.groups?.version_json
+      : '3.0.3';
     return {
       namespace: 'openapi',
-      version: versionMatch?.groups?.version_json,
+      version,
       format: 'JSON',
+      mediaType: `application/vnd.oai.openapi+json;version=${version}`,
     };
   }
   if (await openapi3_0AdapterYaml.detect(text)) {
     const versionMatch = text.match(openapi3_0AdapterYaml.detectionRegExp);
+    const version = versionMatch?.groups?.version_yaml
+      ? versionMatch?.groups?.version_yaml
+      : versionMatch?.groups?.version_json
+      ? versionMatch?.groups?.version_json
+      : '3.0.3';
     return {
       namespace: 'openapi',
-      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
+      version,
       format: 'YAML',
+      mediaType: `application/vnd.oai.openapi+yaml;version=${version}`,
     };
   }
   if (await openapi3_1AdapterJson.detect(text)) {
-    const versionMatch = text.match(openapi3_1AdapterYaml.detectionRegExp);
+    const versionMatch = text.match(openapi3_1AdapterJson.detectionRegExp);
+    const version = versionMatch?.groups?.version_json
+      ? versionMatch?.groups?.version_json
+      : '3.1.0';
     return {
       namespace: 'openapi',
-      version: versionMatch?.groups?.version_json,
+      version,
       format: 'JSON',
       admitsRefsSiblings: true,
+      mediaType: `application/vnd.oai.openapi+json;version=${version}`,
     };
   }
   if (await openapi3_1AdapterYaml.detect(text)) {
     const versionMatch = text.match(openapi3_1AdapterYaml.detectionRegExp);
+    const version = versionMatch?.groups?.version_yaml
+      ? versionMatch?.groups?.version_yaml
+      : versionMatch?.groups?.version_json
+      ? versionMatch?.groups?.version_json
+      : '3.1.0';
     return {
       namespace: 'openapi',
-      version: versionMatch?.groups?.version_yaml || versionMatch?.groups?.version_json,
+      version,
       format: 'YAML',
       admitsRefsSiblings: true,
+      mediaType: `application/vnd.oai.openapi+yaml;version=${version}`,
     };
   }
   if (await adsAdapterJson.detect(text)) {
     return {
       namespace: 'ads',
       format: 'JSON',
+      mediaType: 'application/vnd.aai.apidesignsystems+json;version=2021-05-07',
     };
   }
   if (await adsAdapterYaml.detect(text)) {
     return {
       namespace: 'ads',
       format: 'YAML',
+      mediaType: 'application/vnd.aai.apidesignsystems+yaml;version=2021-05-07',
     };
   }
   if (await adapterJson.detect(text)) {
@@ -851,10 +881,12 @@ export async function findNamespace(
           version: defaultContentLanguage.version,
           format: 'JSON',
           admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
+          mediaType: defaultContentLanguage.mediaType,
         }
       : {
           namespace: 'apidom',
           format: 'JSON',
+          mediaType: 'application/json',
         };
   }
   if (await adapterYaml.detect(text)) {
@@ -864,10 +896,12 @@ export async function findNamespace(
           version: defaultContentLanguage.version,
           format: 'YAML',
           admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
+          mediaType: defaultContentLanguage.mediaType,
         }
       : {
           namespace: 'apidom',
           format: 'YAML',
+          mediaType: 'application/yaml',
         };
   }
   return defaultContentLanguage
@@ -876,9 +910,11 @@ export async function findNamespace(
         version: defaultContentLanguage.version,
         format: json ? 'JSON' : 'YAML',
         admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
+        mediaType: defaultContentLanguage.mediaType,
       }
     : {
         namespace: 'apidom',
         format: json ? 'JSON' : 'YAML',
+        mediaType: json ? 'application/json' : 'application/yaml',
       };
 }

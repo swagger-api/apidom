@@ -12,7 +12,9 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
     if (isObjectElement(acc)) {
       // @ts-ignore
       if (!acc.hasKey(token)) {
-        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+        throw new EvaluationJsonPointerError(
+          `Evaluation failed on token: "${token}" for pointer "${pointer}"`,
+        );
       }
       // @ts-ignore
       return acc.get(token);
@@ -20,13 +22,17 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
 
     if (isArrayElement(acc)) {
       if (!(token in acc.content) || !isInteger(Number(token))) {
-        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+        throw new EvaluationJsonPointerError(
+          `Evaluation failed on token: "${token}" for pointer "${pointer}"`,
+        );
       }
       // @ts-ignore
       return acc.get(Number(token));
     }
 
-    throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+    throw new EvaluationJsonPointerError(
+      `Evaluation failed on token: "${token} for pointer "${pointer}""`,
+    );
   }, element);
 };
 

@@ -33,6 +33,7 @@ describe('apidom-ls-detect', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const contentLanguage: ContentLanguage = {
       namespace: 'asyncapi',
+      mediaType: 'application/vnd.aai.asyncapi+yaml',
     };
 
     // valid spec
@@ -123,6 +124,7 @@ describe('apidom-ls-detect', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const contentLanguage: ContentLanguage = {
       namespace: 'asyncapi',
+      mediaType: 'application/vnd.aai.asyncapi+yaml',
     };
 
     const doc: TextDocument = TextDocument.create(

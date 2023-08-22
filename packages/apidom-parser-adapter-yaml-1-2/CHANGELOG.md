@@ -3,51 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
-
-
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
 
-
-
-
-
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
 
-
-
-
-
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
-
 
 ### Performance Improvements
 
-* **parser-adapter-yaml-1-2:** use tree-sitter cursor for CST traversal ([#2955](https://github.com/swagger-api/apidom/issues/2955)) ([c46ae6a](https://github.com/swagger-api/apidom/commit/c46ae6a3b7eb511e38f7576bfc0bff1a8bf4e9ae)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
-
-
-
-
+- **parser-adapter-yaml-1-2:** use tree-sitter cursor for CST traversal ([#2955](https://github.com/swagger-api/apidom/issues/2955)) ([c46ae6a](https://github.com/swagger-api/apidom/commit/c46ae6a3b7eb511e38f7576bfc0bff1a8bf4e9ae)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
 
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
-
 ### Features
 
-* add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
-
-
-
-
+- add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
 
 ## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
 

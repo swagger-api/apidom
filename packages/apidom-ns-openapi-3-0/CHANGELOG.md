@@ -3,49 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
+**Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0
+
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
 ### Bug Fixes
 
-* **ns-openapi-3-0:** provide missing reference metadata ([#2987](https://github.com/swagger-api/apidom/issues/2987)) ([d7cc458](https://github.com/swagger-api/apidom/commit/d7cc458bd91b8ae26763d6c77370a39e0170a6a5)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
-* **ns-openapi-3-0:** provide missing reference metadata for Schema Object definitions keyword ([#2988](https://github.com/swagger-api/apidom/issues/2988)) ([5127577](https://github.com/swagger-api/apidom/commit/51275770869f747d7ca60799811f3f6f541fcd15)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
-
-
-
-
+- **ns-openapi-3-0:** provide missing reference metadata ([#2987](https://github.com/swagger-api/apidom/issues/2987)) ([d7cc458](https://github.com/swagger-api/apidom/commit/d7cc458bd91b8ae26763d6c77370a39e0170a6a5)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
+- **ns-openapi-3-0:** provide missing reference metadata for Schema Object definitions keyword ([#2988](https://github.com/swagger-api/apidom/issues/2988)) ([5127577](https://github.com/swagger-api/apidom/commit/51275770869f747d7ca60799811f3f6f541fcd15)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0
 
-
-
-
-
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0
-
-
-
-
 
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0
 
-
-
-
-
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0
-
-
-
-
 
 ## [0.70.3](https://github.com/swagger-api/apidom/compare/v0.70.2...v0.70.3) (2023-06-27)
 

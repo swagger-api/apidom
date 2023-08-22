@@ -3,91 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
-
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 ### Bug Fixes
 
-* **ls:** fix condition for server URL linting ([42f7575](https://github.com/swagger-api/apidom/commit/42f7575fbe6f94a28f35e7cfadc29c8929ca86a5))
-* **ls:** process schema 'null' / 'nullable' depending on spec version ([d053dca](https://github.com/swagger-api/apidom/commit/d053dcafb3a8df84162564bf6cc823c514af2fe9))
-* **ls:** replace legacy buildJsonPointer with apidom-json-pointer ([70a359f](https://github.com/swagger-api/apidom/commit/70a359f2d2485a9c85fc63de099358dcdbc42ddc))
+- **ls:** fix linting code consistency ([#3005](https://github.com/swagger-api/apidom/issues/3005)) ([4634867](https://github.com/swagger-api/apidom/commit/46348677ad82c4244eaf8108cbe8794eb75f9cab))
 
+### Features
 
+- **ls:** add completion for OAS callback patterned fields ([42af8e4](https://github.com/swagger-api/apidom/commit/42af8e411a9a8460f1e84ce17615aa580400415a)), closes [#2356](https://github.com/swagger-api/apidom/issues/2356)
+- **ls:** add linting rule for OAS server variable enum and default ([4e2b56b](https://github.com/swagger-api/apidom/commit/4e2b56bb0507b13bf31eee59df13c14949f7e81e)), closes [#2787](https://github.com/swagger-api/apidom/issues/2787) [#2788](https://github.com/swagger-api/apidom/issues/2788)
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
+### Bug Fixes
+
+- **ls:** fix condition for server URL linting ([42f7575](https://github.com/swagger-api/apidom/commit/42f7575fbe6f94a28f35e7cfadc29c8929ca86a5))
+- **ls:** process schema 'null' / 'nullable' depending on spec version ([d053dca](https://github.com/swagger-api/apidom/commit/d053dcafb3a8df84162564bf6cc823c514af2fe9))
+- **ls:** replace legacy buildJsonPointer with apidom-json-pointer ([70a359f](https://github.com/swagger-api/apidom/commit/70a359f2d2485a9c85fc63de099358dcdbc42ddc))
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
-
 ### Features
 
-* **ls:** add rule for requestBody in operation depending on method ([122a03a](https://github.com/swagger-api/apidom/commit/122a03a77dd8083f6c3ab257e84de5f3d76c9fea))
-* **ls:** fix  completion paths, self and indirect refs ([b275efa](https://github.com/swagger-api/apidom/commit/b275efa3b53e7643af804a8ffc6c26acbd929e92))
-* **ls:** fix wrong docs links version in hover ([78ce094](https://github.com/swagger-api/apidom/commit/78ce094a6889273b01ff2aae24e5139b0656aed3))
-* **ls:** implement JSON Path support in linting rules ([d5aa517](https://github.com/swagger-api/apidom/commit/d5aa51770e8b6eafb68994948ddbec44e5fab634))
-
-
-
-
+- **ls:** add rule for requestBody in operation depending on method ([122a03a](https://github.com/swagger-api/apidom/commit/122a03a77dd8083f6c3ab257e84de5f3d76c9fea))
+- **ls:** fix completion paths, self and indirect refs ([b275efa](https://github.com/swagger-api/apidom/commit/b275efa3b53e7643af804a8ffc6c26acbd929e92))
+- **ls:** fix wrong docs links version in hover ([78ce094](https://github.com/swagger-api/apidom/commit/78ce094a6889273b01ff2aae24e5139b0656aed3))
+- **ls:** implement JSON Path support in linting rules ([d5aa517](https://github.com/swagger-api/apidom/commit/d5aa51770e8b6eafb68994948ddbec44e5fab634))
 
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
-
 ### Bug Fixes
 
-* **ls:** fix validation for indirected local references ([60f9215](https://github.com/swagger-api/apidom/commit/60f9215b5ee5ae8e8c89c8e07ed3d643cd04e673))
-
+- **ls:** fix validation for indirected local references ([60f9215](https://github.com/swagger-api/apidom/commit/60f9215b5ee5ae8e8c89c8e07ed3d643cd04e673))
 
 ### Features
 
-* **ls:** add media type completion items ([3b44668](https://github.com/swagger-api/apidom/commit/3b44668b0e650330970d1a130f7c11147464f393))
-
-
-
-
+- **ls:** add media type completion items ([3b44668](https://github.com/swagger-api/apidom/commit/3b44668b0e650330970d1a130f7c11147464f393))
 
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
-
 ### Bug Fixes
 
-* add 'schema' item to OAS3.1 mediaType completion ([d6f73a3](https://github.com/swagger-api/apidom/commit/d6f73a359e866cfc55560c2aa93624f02aecf144))
-
+- add 'schema' item to OAS3.1 mediaType completion ([d6f73a3](https://github.com/swagger-api/apidom/commit/d6f73a359e866cfc55560c2aa93624f02aecf144))
 
 ### Features
 
-* allow apidom-ls strict filter ([9f92eaa](https://github.com/swagger-api/apidom/commit/9f92eaa5bb85e491e1b4b8854150d47db9806553))
-
-
-
-
+- allow apidom-ls strict filter ([9f92eaa](https://github.com/swagger-api/apidom/commit/9f92eaa5bb85e491e1b4b8854150d47db9806553))
 
 ## [0.71.1](https://github.com/swagger-api/apidom/compare/v0.71.0...v0.71.1) (2023-07-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls
 
-
-
-
-
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
-
 
 ### Bug Fixes
 
-* **apidom-ls:** add deprecated warning for example ([#2909](https://github.com/swagger-api/apidom/issues/2909)) ([564d185](https://github.com/swagger-api/apidom/commit/564d18561d2ebf8acc928de4f729234681fe7470))
-* **ls:** add support for AsyncAPI 2.5/2.6 to common Schema Object ([#2917](https://github.com/swagger-api/apidom/issues/2917)) ([34c8b1f](https://github.com/swagger-api/apidom/commit/34c8b1fa1f39e9a0f98653580d422c8a986e446f))
-* **ls:** remove duplicate linting codes ([#2946](https://github.com/swagger-api/apidom/issues/2946)) ([c5db0a8](https://github.com/swagger-api/apidom/commit/c5db0a8e47f88fbac6ad95eafbfbd03ec1b0ab46)), closes [#2982](https://github.com/swagger-api/apidom/issues/2982) [#2923](https://github.com/swagger-api/apidom/issues/2923)
-
+- **apidom-ls:** add deprecated warning for example ([#2909](https://github.com/swagger-api/apidom/issues/2909)) ([564d185](https://github.com/swagger-api/apidom/commit/564d18561d2ebf8acc928de4f729234681fe7470))
+- **ls:** add support for AsyncAPI 2.5/2.6 to common Schema Object ([#2917](https://github.com/swagger-api/apidom/issues/2917)) ([34c8b1f](https://github.com/swagger-api/apidom/commit/34c8b1fa1f39e9a0f98653580d422c8a986e446f))
+- **ls:** remove duplicate linting codes ([#2946](https://github.com/swagger-api/apidom/issues/2946)) ([c5db0a8](https://github.com/swagger-api/apidom/commit/c5db0a8e47f88fbac6ad95eafbfbd03ec1b0ab46)), closes [#2982](https://github.com/swagger-api/apidom/issues/2982) [#2923](https://github.com/swagger-api/apidom/issues/2923)
 
 ### Features
 
-* add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
-* **ls:** make lint messages more helpful ([#2930](https://github.com/swagger-api/apidom/issues/2930)) ([4504674](https://github.com/swagger-api/apidom/commit/450467419ab9234617ab1510cfab7b155741af3f))
-
-
-
-
+- add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
+- **ls:** make lint messages more helpful ([#2930](https://github.com/swagger-api/apidom/issues/2930)) ([4504674](https://github.com/swagger-api/apidom/commit/450467419ab9234617ab1510cfab7b155741af3f))
 
 ## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
 

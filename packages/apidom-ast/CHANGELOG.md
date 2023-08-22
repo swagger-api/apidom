@@ -3,45 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
-
-
+**Note:** Version bump only for package @swagger-api/apidom-ast
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast
 
-
-
-
-
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast
-
-
-
-
 
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast
 
-
-
-
-
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast
-
-
-
-
 
 # [0.70.0](https://github.com/swagger-api/apidom/compare/v0.69.3...v0.70.0) (2023-05-23)
 

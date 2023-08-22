@@ -3,62 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
-
-
+**Note:** Version bump only for package @swagger-api/apidom-reference
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference
 
-
-
-
-
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference
-
-
-
-
 
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference
 
-
-
-
-
 ## [0.71.1](https://github.com/swagger-api/apidom/compare/v0.71.0...v0.71.1) (2023-07-14)
-
 
 ### Reverts
 
-* use babel plugin to capture error causes ([#2951](https://github.com/swagger-api/apidom/issues/2951)) ([e31fcae](https://github.com/swagger-api/apidom/commit/e31fcaea4b0238cabc3c0f97bc2d610f75ad56a5))
-
-
-
-
+- use babel plugin to capture error causes ([#2951](https://github.com/swagger-api/apidom/issues/2951)) ([e31fcae](https://github.com/swagger-api/apidom/commit/e31fcaea4b0238cabc3c0f97bc2d610f75ad56a5))
 
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
-
 ### Features
 
-* **reference:** support native fragment deref/resolve - AsyncAPI 2.x ([#2945](https://github.com/swagger-api/apidom/issues/2945)) ([2b75f78](https://github.com/swagger-api/apidom/commit/2b75f785b21ff02605fb10d24865b876ffd4281a)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Path Item Object ([d7f82ee](https://github.com/swagger-api/apidom/commit/d7f82eec9ed80498f8d156a195042c5d6420027e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Reference Object ([#2942](https://github.com/swagger-api/apidom/issues/2942)) ([c5520ef](https://github.com/swagger-api/apidom/commit/c5520efec7eda8e7525afedc9ebd4a592fbafc9e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - Schema Object ([#2941](https://github.com/swagger-api/apidom/issues/2941)) ([689b63a](https://github.com/swagger-api/apidom/commit/689b63a92a6ec2268422db0af2da1edc4c57a592)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-
-
-
-
+- **reference:** support native fragment deref/resolve - AsyncAPI 2.x ([#2945](https://github.com/swagger-api/apidom/issues/2945)) ([2b75f78](https://github.com/swagger-api/apidom/commit/2b75f785b21ff02605fb10d24865b876ffd4281a)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Path Item Object ([d7f82ee](https://github.com/swagger-api/apidom/commit/d7f82eec9ed80498f8d156a195042c5d6420027e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Reference Object ([#2942](https://github.com/swagger-api/apidom/issues/2942)) ([c5520ef](https://github.com/swagger-api/apidom/commit/c5520efec7eda8e7525afedc9ebd4a592fbafc9e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - Schema Object ([#2941](https://github.com/swagger-api/apidom/issues/2941)) ([689b63a](https://github.com/swagger-api/apidom/commit/689b63a92a6ec2268422db0af2da1edc4c57a592)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
 
 ## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
 

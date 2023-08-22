@@ -3,105 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
-
+# [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 ### Bug Fixes
 
-* **ls:** fix condition for server URL linting ([42f7575](https://github.com/swagger-api/apidom/commit/42f7575fbe6f94a28f35e7cfadc29c8929ca86a5))
-* **ls:** process schema 'null' / 'nullable' depending on spec version ([d053dca](https://github.com/swagger-api/apidom/commit/d053dcafb3a8df84162564bf6cc823c514af2fe9))
-* **ls:** replace legacy buildJsonPointer with apidom-json-pointer ([70a359f](https://github.com/swagger-api/apidom/commit/70a359f2d2485a9c85fc63de099358dcdbc42ddc))
-* **ns-openapi-3-0:** provide missing reference metadata ([#2987](https://github.com/swagger-api/apidom/issues/2987)) ([d7cc458](https://github.com/swagger-api/apidom/commit/d7cc458bd91b8ae26763d6c77370a39e0170a6a5)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
-* **ns-openapi-3-0:** provide missing reference metadata for Schema Object definitions keyword ([#2988](https://github.com/swagger-api/apidom/issues/2988)) ([5127577](https://github.com/swagger-api/apidom/commit/51275770869f747d7ca60799811f3f6f541fcd15)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
+- **ls:** fix linting code consistency ([#3005](https://github.com/swagger-api/apidom/issues/3005)) ([4634867](https://github.com/swagger-api/apidom/commit/46348677ad82c4244eaf8108cbe8794eb75f9cab))
 
+### Features
 
+- add support for Relative JSON Pointer ([#3031](https://github.com/swagger-api/apidom/issues/3031)) ([f537584](https://github.com/swagger-api/apidom/commit/f537584adc4559f682e2a5995b2419b043ad71c5)), closes [#3030](https://github.com/swagger-api/apidom/issues/3030)
+- **ls:** add completion for OAS callback patterned fields ([42af8e4](https://github.com/swagger-api/apidom/commit/42af8e411a9a8460f1e84ce17615aa580400415a)), closes [#2356](https://github.com/swagger-api/apidom/issues/2356)
+- **ls:** add linting rule for OAS server variable enum and default ([4e2b56b](https://github.com/swagger-api/apidom/commit/4e2b56bb0507b13bf31eee59df13c14949f7e81e)), closes [#2787](https://github.com/swagger-api/apidom/issues/2787) [#2788](https://github.com/swagger-api/apidom/issues/2788)
 
+## [0.74.1](https://github.com/swagger-api/apidom/compare/v0.74.0...v0.74.1) (2023-07-28)
 
+### Bug Fixes
+
+- **ls:** fix condition for server URL linting ([42f7575](https://github.com/swagger-api/apidom/commit/42f7575fbe6f94a28f35e7cfadc29c8929ca86a5))
+- **ls:** process schema 'null' / 'nullable' depending on spec version ([d053dca](https://github.com/swagger-api/apidom/commit/d053dcafb3a8df84162564bf6cc823c514af2fe9))
+- **ls:** replace legacy buildJsonPointer with apidom-json-pointer ([70a359f](https://github.com/swagger-api/apidom/commit/70a359f2d2485a9c85fc63de099358dcdbc42ddc))
+- **ns-openapi-3-0:** provide missing reference metadata ([#2987](https://github.com/swagger-api/apidom/issues/2987)) ([d7cc458](https://github.com/swagger-api/apidom/commit/d7cc458bd91b8ae26763d6c77370a39e0170a6a5)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
+- **ns-openapi-3-0:** provide missing reference metadata for Schema Object definitions keyword ([#2988](https://github.com/swagger-api/apidom/issues/2988)) ([5127577](https://github.com/swagger-api/apidom/commit/51275770869f747d7ca60799811f3f6f541fcd15)), closes [#2980](https://github.com/swagger-api/apidom/issues/2980)
 
 # [0.74.0](https://github.com/swagger-api/apidom/compare/v0.73.0...v0.74.0) (2023-07-24)
 
-
 ### Features
 
-* **ls:** add rule for requestBody in operation depending on method ([122a03a](https://github.com/swagger-api/apidom/commit/122a03a77dd8083f6c3ab257e84de5f3d76c9fea))
-* **ls:** fix  completion paths, self and indirect refs ([b275efa](https://github.com/swagger-api/apidom/commit/b275efa3b53e7643af804a8ffc6c26acbd929e92))
-* **ls:** fix wrong docs links version in hover ([78ce094](https://github.com/swagger-api/apidom/commit/78ce094a6889273b01ff2aae24e5139b0656aed3))
-* **ls:** implement JSON Path support in linting rules ([d5aa517](https://github.com/swagger-api/apidom/commit/d5aa51770e8b6eafb68994948ddbec44e5fab634))
-
-
-
-
+- **ls:** add rule for requestBody in operation depending on method ([122a03a](https://github.com/swagger-api/apidom/commit/122a03a77dd8083f6c3ab257e84de5f3d76c9fea))
+- **ls:** fix completion paths, self and indirect refs ([b275efa](https://github.com/swagger-api/apidom/commit/b275efa3b53e7643af804a8ffc6c26acbd929e92))
+- **ls:** fix wrong docs links version in hover ([78ce094](https://github.com/swagger-api/apidom/commit/78ce094a6889273b01ff2aae24e5139b0656aed3))
+- **ls:** implement JSON Path support in linting rules ([d5aa517](https://github.com/swagger-api/apidom/commit/d5aa51770e8b6eafb68994948ddbec44e5fab634))
 
 # [0.73.0](https://github.com/swagger-api/apidom/compare/v0.72.0...v0.73.0) (2023-07-18)
 
-
 ### Bug Fixes
 
-* **ls:** fix validation for indirected local references ([60f9215](https://github.com/swagger-api/apidom/commit/60f9215b5ee5ae8e8c89c8e07ed3d643cd04e673))
-
+- **ls:** fix validation for indirected local references ([60f9215](https://github.com/swagger-api/apidom/commit/60f9215b5ee5ae8e8c89c8e07ed3d643cd04e673))
 
 ### Features
 
-* **ls:** add media type completion items ([3b44668](https://github.com/swagger-api/apidom/commit/3b44668b0e650330970d1a130f7c11147464f393))
-
-
-
-
+- **ls:** add media type completion items ([3b44668](https://github.com/swagger-api/apidom/commit/3b44668b0e650330970d1a130f7c11147464f393))
 
 # [0.72.0](https://github.com/swagger-api/apidom/compare/v0.71.1...v0.72.0) (2023-07-17)
 
-
 ### Bug Fixes
 
-* add 'schema' item to OAS3.1 mediaType completion ([d6f73a3](https://github.com/swagger-api/apidom/commit/d6f73a359e866cfc55560c2aa93624f02aecf144))
-
+- add 'schema' item to OAS3.1 mediaType completion ([d6f73a3](https://github.com/swagger-api/apidom/commit/d6f73a359e866cfc55560c2aa93624f02aecf144))
 
 ### Features
 
-* allow apidom-ls strict filter ([9f92eaa](https://github.com/swagger-api/apidom/commit/9f92eaa5bb85e491e1b4b8854150d47db9806553))
-
+- allow apidom-ls strict filter ([9f92eaa](https://github.com/swagger-api/apidom/commit/9f92eaa5bb85e491e1b4b8854150d47db9806553))
 
 ### Performance Improvements
 
-* **parser-adapter-yaml-1-2:** use tree-sitter cursor for CST traversal ([#2955](https://github.com/swagger-api/apidom/issues/2955)) ([c46ae6a](https://github.com/swagger-api/apidom/commit/c46ae6a3b7eb511e38f7576bfc0bff1a8bf4e9ae)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
-
-
-
-
+- **parser-adapter-yaml-1-2:** use tree-sitter cursor for CST traversal ([#2955](https://github.com/swagger-api/apidom/issues/2955)) ([c46ae6a](https://github.com/swagger-api/apidom/commit/c46ae6a3b7eb511e38f7576bfc0bff1a8bf4e9ae)), closes [#691](https://github.com/swagger-api/apidom/issues/691)
 
 ## [0.71.1](https://github.com/swagger-api/apidom/compare/v0.71.0...v0.71.1) (2023-07-14)
 
-
 ### Reverts
 
-* use babel plugin to capture error causes ([#2951](https://github.com/swagger-api/apidom/issues/2951)) ([e31fcae](https://github.com/swagger-api/apidom/commit/e31fcaea4b0238cabc3c0f97bc2d610f75ad56a5))
-
-
-
-
+- use babel plugin to capture error causes ([#2951](https://github.com/swagger-api/apidom/issues/2951)) ([e31fcae](https://github.com/swagger-api/apidom/commit/e31fcaea4b0238cabc3c0f97bc2d610f75ad56a5))
 
 # [0.71.0](https://github.com/swagger-api/apidom/compare/v0.70.4...v0.71.0) (2023-07-13)
 
-
 ### Bug Fixes
 
-* **apidom-ls:** add deprecated warning for example ([#2909](https://github.com/swagger-api/apidom/issues/2909)) ([564d185](https://github.com/swagger-api/apidom/commit/564d18561d2ebf8acc928de4f729234681fe7470))
-* **ls:** add support for AsyncAPI 2.5/2.6 to common Schema Object ([#2917](https://github.com/swagger-api/apidom/issues/2917)) ([34c8b1f](https://github.com/swagger-api/apidom/commit/34c8b1fa1f39e9a0f98653580d422c8a986e446f))
-* **ls:** remove duplicate linting codes ([#2946](https://github.com/swagger-api/apidom/issues/2946)) ([c5db0a8](https://github.com/swagger-api/apidom/commit/c5db0a8e47f88fbac6ad95eafbfbd03ec1b0ab46)), closes [#2982](https://github.com/swagger-api/apidom/issues/2982) [#2923](https://github.com/swagger-api/apidom/issues/2923)
-
+- **apidom-ls:** add deprecated warning for example ([#2909](https://github.com/swagger-api/apidom/issues/2909)) ([564d185](https://github.com/swagger-api/apidom/commit/564d18561d2ebf8acc928de4f729234681fe7470))
+- **ls:** add support for AsyncAPI 2.5/2.6 to common Schema Object ([#2917](https://github.com/swagger-api/apidom/issues/2917)) ([34c8b1f](https://github.com/swagger-api/apidom/commit/34c8b1fa1f39e9a0f98653580d422c8a986e446f))
+- **ls:** remove duplicate linting codes ([#2946](https://github.com/swagger-api/apidom/issues/2946)) ([c5db0a8](https://github.com/swagger-api/apidom/commit/c5db0a8e47f88fbac6ad95eafbfbd03ec1b0ab46)), closes [#2982](https://github.com/swagger-api/apidom/issues/2982) [#2923](https://github.com/swagger-api/apidom/issues/2923)
 
 ### Features
 
-* add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
-* **ls:** make lint messages more helpful ([#2930](https://github.com/swagger-api/apidom/issues/2930)) ([4504674](https://github.com/swagger-api/apidom/commit/450467419ab9234617ab1510cfab7b155741af3f))
-* **reference:** support native fragment deref/resolve - AsyncAPI 2.x ([#2945](https://github.com/swagger-api/apidom/issues/2945)) ([2b75f78](https://github.com/swagger-api/apidom/commit/2b75f785b21ff02605fb10d24865b876ffd4281a)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Path Item Object ([d7f82ee](https://github.com/swagger-api/apidom/commit/d7f82eec9ed80498f8d156a195042c5d6420027e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Reference Object ([#2942](https://github.com/swagger-api/apidom/issues/2942)) ([c5520ef](https://github.com/swagger-api/apidom/commit/c5520efec7eda8e7525afedc9ebd4a592fbafc9e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-* **reference:** support native fragment deref/resolve - Schema Object ([#2941](https://github.com/swagger-api/apidom/issues/2941)) ([689b63a](https://github.com/swagger-api/apidom/commit/689b63a92a6ec2268422db0af2da1edc4c57a592)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
-
-
-
-
+- add better YAML syntax error messages ([#2931](https://github.com/swagger-api/apidom/issues/2931)) ([5a1d14a](https://github.com/swagger-api/apidom/commit/5a1d14a179da60df666a18e6ae04155c1065bddd)), closes [#2914](https://github.com/swagger-api/apidom/issues/2914) [#2889](https://github.com/swagger-api/apidom/issues/2889)
+- **ls:** make lint messages more helpful ([#2930](https://github.com/swagger-api/apidom/issues/2930)) ([4504674](https://github.com/swagger-api/apidom/commit/450467419ab9234617ab1510cfab7b155741af3f))
+- **reference:** support native fragment deref/resolve - AsyncAPI 2.x ([#2945](https://github.com/swagger-api/apidom/issues/2945)) ([2b75f78](https://github.com/swagger-api/apidom/commit/2b75f785b21ff02605fb10d24865b876ffd4281a)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Path Item Object ([d7f82ee](https://github.com/swagger-api/apidom/commit/d7f82eec9ed80498f8d156a195042c5d6420027e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - OpenAPI 3.1 / Reference Object ([#2942](https://github.com/swagger-api/apidom/issues/2942)) ([c5520ef](https://github.com/swagger-api/apidom/commit/c5520efec7eda8e7525afedc9ebd4a592fbafc9e)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
+- **reference:** support native fragment deref/resolve - Schema Object ([#2941](https://github.com/swagger-api/apidom/issues/2941)) ([689b63a](https://github.com/swagger-api/apidom/commit/689b63a92a6ec2268422db0af2da1edc4c57a592)), closes [#2934](https://github.com/swagger-api/apidom/issues/2934)
 
 ## [0.70.4](https://github.com/swagger-api/apidom/compare/v0.70.3...v0.70.4) (2023-06-28)
 

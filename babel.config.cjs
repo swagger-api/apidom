@@ -2,6 +2,9 @@ const path = require('node:path');
 
 module.exports = {
   babelrcRoots: ['packages/*'],
+  ignore: [
+    '**/*.d.ts',
+  ],
   env: {
     cjs: {
       presets: [

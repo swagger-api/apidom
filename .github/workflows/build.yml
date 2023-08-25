@@ -47,8 +47,6 @@ jobs:
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
         run: npm ci
-      - name: Generate typescript declarations
-        run: npm run typescript:declaration
       - name: Lint code
         run: npm run lint
 

@@ -1,7 +1,7 @@
-import CausedError from './CausedError';
+import { ApiDOMError, ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-class NotImplementedError extends CausedError {
-  constructor(message = 'Not Implemented', options?: { cause?: Error }) {
+class NotImplementedError extends ApiDOMError {
+  constructor(message = 'Not Implemented', options?: ApiDOMErrorOptions) {
     super(message, options);
   }
 }

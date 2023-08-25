@@ -213,6 +213,7 @@
     "stampit": "^4.3.2"
   },
   "optionalDependencies": {
+    "@swagger-api/apidom-error": "^0.75.0",
     "@swagger-api/apidom-json-pointer": "^0.75.0",
     "@swagger-api/apidom-ns-asyncapi-2": "^0.75.0",
     "@swagger-api/apidom-ns-openapi-3-0": "^0.75.0",

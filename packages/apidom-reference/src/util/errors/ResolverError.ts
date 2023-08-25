@@ -1,5 +1,5 @@
-import CausedError from './CausedError';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
-class ResolverError extends CausedError {}
+class ResolverError extends ApiDOMError {}
 
 export default ResolverError;

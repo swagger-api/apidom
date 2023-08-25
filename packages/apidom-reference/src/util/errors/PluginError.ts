@@ -1,6 +1,6 @@
-import CausedError from './CausedError';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
-class PluginError extends CausedError {
+class PluginError extends ApiDOMError {
   public plugin: any;
 
   constructor(message: string, options: { cause?: Error; plugin: any }) {

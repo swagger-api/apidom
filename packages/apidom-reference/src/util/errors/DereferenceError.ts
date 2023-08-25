@@ -1,5 +1,5 @@
-import CausedError from './CausedError';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
-class DereferenceError extends CausedError {}
+class DereferenceError extends ApiDOMError {}
 
 export default DereferenceError;

@@ -49,6 +49,7 @@ jobs:
         run: npm ci
       - name: Generate typescript declarations
         run: npm run typescript:declaration
+        working-directory: ./packages/apidom-error
       - name: Lint code
         run: npm run lint
 
@@ -67,7 +68,6 @@ jobs:
         run: npm ci
       - name: Generate typescript declarations
         run: npm run typescript:declaration
-        working-directory: ./packages/apidom-error
       - name: Check TypeScript types
         run: npm run typescript:check-types
 

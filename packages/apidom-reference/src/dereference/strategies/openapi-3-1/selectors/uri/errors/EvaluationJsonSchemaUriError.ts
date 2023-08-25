@@ -1,1 +1,3 @@
-export default class EvaluationJsonSchemaUriError extends Error {}
+import { ApiDOMError } from '@swagger-api/apidom-error';
+
+export default class EvaluationJsonSchemaUriError extends ApiDOMError {}

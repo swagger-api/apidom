@@ -37,7 +37,6 @@ module.exports = {
             version: '^7',
           },
         ],
-        'babel-plugin-native-error-extend',
         process.env.NODE_ENV !== 'test'
           ? [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'cjs' }]
           : false
@@ -70,7 +69,6 @@ module.exports = {
             useESModules: true,
           },
         ],
-        'babel-plugin-native-error-extend',
         [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'js' }],
       ],
     },
@@ -98,7 +96,6 @@ module.exports = {
             useESModules: true,
           },
         ],
-        'babel-plugin-native-error-extend',
       ],
     },
   },

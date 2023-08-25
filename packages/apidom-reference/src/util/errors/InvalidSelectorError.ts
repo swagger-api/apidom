@@ -1,5 +1,5 @@
-import CausedError from './CausedError';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
-class InvalidSelectorError extends CausedError {}
+class InvalidSelectorError extends ApiDOMError {}
 
 export default InvalidSelectorError;

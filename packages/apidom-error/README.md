@@ -37,22 +37,22 @@ error2.prop2; // => 3
 ```
 
 Although structured error class gives convenience by assigning arbitrary properties
-it's highly recommended to extend `ApiDOMError` class and create public properties
+it's highly recommended to extend `ApiDOMStructuredError` class and create public properties
 explicitly.
 
 ```typescript
-import { ApiDOMError, ApiDOMErrorOptions } from '@swagger-api/apidom-error';
+import { ApiDOMStructuredError, ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-interface PropErrorOptions extends ApiDOMErrorOptions {
+interface StructuredErrorOptions extends ApiDOMErrorOptions {
   readonly prop1: string;
   readonly prop2: number;
 }
 
-class PropError extends ApiDOMError {
+class PropError extends ApiDOMStructuredError {
   public readonly  prop1: string;
   public readonly prop2: number;
 
-  constructor(message?: string, options?: PropErrorOptions) {
+  constructor(message?: string, options?: StructuredErrorOptions) {
     super(message, options)
     if (typeof options !== 'undefined') {
       this.prop1 = options.prop1;

@@ -1,4 +1,5 @@
 import stampit from 'stampit';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
 import YamlDirective from '../../nodes/YamlDirective';
 import { YamlNodeKind } from '../../nodes/YamlTag';
@@ -87,12 +88,12 @@ const FailsafeSchema = stampit({
 
       // mechanism for resolving node (tag implementation) not found
       if (typeof tag === 'undefined') {
-        throw new Error(`Tag "${specificTagName}" couldn't be resolved`);
+        throw new ApiDOMError(`Tag "${specificTagName}" couldn't be resolved`);
       }
 
       // node content is not compatible with resolving mechanism (tag implementation)
       if (!tag.test(canonicalNode)) {
-        throw new Error(`Node couldn't be resolved against tag "${specificTagName}"`);
+        throw new ApiDOMError(`Node couldn't be resolved against tag "${specificTagName}"`);
       }
 
       return tag.resolve(canonicalNode);

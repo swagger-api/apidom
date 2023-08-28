@@ -8,6 +8,11 @@ Error classes from `apidom-error` handle complexities of extending native Error 
 and support [error chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause)
 in backward and forward compatible way.
 
+## Base errors
+
+Base errors are meant to directly be thrown by ApiDOM code or to be extended
+to form custom error hierarchies.
+
 ### ApiDOMError
 
 Basic error class that can be easily extended and form error chains.
@@ -91,5 +96,25 @@ const aggregateError = new ApiDOMAggregateError([]);
 aggregateError instanceof ApiDOMError; // => true
 aggregateError instanceof AggregateError; // => true
 ```
+
+## Generic custom errors
+
+Generic custom errors represents custom errors that are generic enough
+to be used across ApiDOM monorepo packages and are not specific to any
+particular ApiDOM package.
+
+### UnsupportedOperationError
+
+Thrown to indicate that the requested operation is not supported.
+
+```js
+import {  } from '@swagger-api/apidom-error';
+```
+
+### NotImplementedError
+
+Error class that is based on `UnsupportedOperationError` and. It is thrown to indicate that a block
+of code has not been implemented. This exception provides a more semantically rich description
+of the problem than base `ApiDOMError`.
 
 

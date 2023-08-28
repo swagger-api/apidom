@@ -4,6 +4,7 @@ import { ApiDOMParserOptions } from '../types';
 
 interface ParserErrorOptions extends ApiDOMErrorOptions {
   readonly source: string;
+  readonly parserOptions: ApiDOMParserOptions;
 }
 
 class ParserError extends ApiDOMStructuredError {
@@ -16,7 +17,7 @@ class ParserError extends ApiDOMStructuredError {
 
     if (typeof structuredOptions !== 'undefined') {
       this.source = structuredOptions.source;
-      this.parserOptions = structuredOptions.parserOptions as ApiDOMParserOptions;
+      this.parserOptions = structuredOptions.parserOptions;
     }
   }
 }

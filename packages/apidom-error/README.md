@@ -105,10 +105,12 @@ particular ApiDOM package.
 
 ### UnsupportedOperationError
 
-Thrown to indicate that the requested operation is not supported.
+This error class that is based on `ApiDOMError`. Thrown to indicate that the requested operation is not supported.
 
 ```js
-import {  } from '@swagger-api/apidom-error';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
+
+const error = new UnsupportedOperationError('error message');
 ```
 
 ### NotImplementedError
@@ -116,5 +118,11 @@ import {  } from '@swagger-api/apidom-error';
 Error class that is based on `UnsupportedOperationError` and. It is thrown to indicate that a block
 of code has not been implemented. This exception provides a more semantically rich description
 of the problem than base `ApiDOMError`.
+
+```js
+import { NotImplementedError } from '@swagger-api/apidom-error';
+
+const error = new NotImplementedError('error message');
+```
 
 

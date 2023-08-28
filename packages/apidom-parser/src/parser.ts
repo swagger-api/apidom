@@ -1,31 +1,24 @@
 import stampit from 'stampit';
 import { head } from 'ramda';
 import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
-import { ParseResultElement, Namespace, MediaTypes } from '@swagger-api/apidom-core';
+import { MediaTypes } from '@swagger-api/apidom-core';
 
-interface ParserOptions extends Record<string, any> {
-  [key: string]: any;
-}
+import ParserError from './errors/ParserError';
+import {
+  ApiDOMParser as ApiDOMParserType,
+  ApiDOMParserOptions,
+  ApiDOMParserAdapter,
+} from './types';
 
-type Detect = (source: string) => boolean | Promise<boolean>;
-type Parse = (source: string, options?: ParserOptions) => Promise<ParseResultElement>;
+export type {
+  ApiDOMParser as ApiDOMParserShape,
+  ApiDOMParserOptions,
+  ApiDOMParserAdapter,
+} from './types';
 
-interface ApiDOMParserAdapter {
-  detectionRegExp?: RegExp;
-  detect?: Detect;
-  mediaTypes?: MediaTypes<string>;
-  parse: Parse;
-  namespace: Namespace;
-}
+export { ParserError };
 
-interface ApiDOMParser {
-  use(adapter: ApiDOMParserAdapter): ApiDOMParser;
-  findNamespace(source: string, options?: ParserOptions): Promise<Namespace>;
-  findMediaType(source: string): Promise<string>;
-  parse(source: string, options?: ParserOptions): Promise<ParseResultElement>;
-}
-
-const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(
+const ApiDOMParser: stampit.Stamp<ApiDOMParserType> = stampit().init(
   function ApiDOMParserConstructor() {
     const adapters: ApiDOMParserAdapter[] = [];
 
@@ -61,7 +54,10 @@ const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(
       return this;
     };
 
-    this.findNamespace = async function findNamespace(source: string, options: ParserOptions = {}) {
+    this.findNamespace = async function findNamespace(
+      source: string,
+      options: ApiDOMParserOptions = {},
+    ) {
       const adapter = await findAdapter(source, options.mediaType);
 
       return adapter?.namespace;
@@ -101,14 +97,38 @@ const ApiDOMParser: stampit.Stamp<ApiDOMParser> = stampit().init(
       return adapter.mediaTypes.findBy(version, format);
     };
 
-    this.parse = async function parse(source: string, options: ParserOptions = {}) {
-      const adapter = await findAdapter(source, options.mediaType);
+    this.parse = async function parse(source: string, options: ApiDOMParserOptions = {}) {
+      let adapter;
 
-      if (isUndefined(adapter)) {
-        throw new Error('Document did not match any registered parsers');
+      try {
+        adapter = await findAdapter(source, options.mediaType);
+      } catch (error: unknown) {
+        throw new ParserError(
+          'Encountered an unexpected error while matching parser adapters against the source.',
+          {
+            source,
+            parserOptions: options,
+            cause: error,
+          },
+        );
       }
 
-      return adapter.parse(source, options);
+      if (isUndefined(adapter)) {
+        throw new ParserError('Source did not match any registered parsers', {
+          source,
+          parserOptions: options,
+        });
+      }
+
+      try {
+        return adapter.parse(source, options);
+      } catch (error: unknown) {
+        throw new ParserError('Parsing encountered an unexpected error.', {
+          source,
+          parserOptions: options,
+          cause: error,
+        });
+      }
     };
   },
 );

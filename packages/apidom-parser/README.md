@@ -108,7 +108,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 
 const parser = ApiDOMParser();
 const parseResult = await parser.parse('{"prop", "value"}', { mediaType: 'application/json' });
-// => Error('Document did not match any registered parsers')
+// => ParserError('Source did not match any registered parsers')
 ```
 
 Along with this, if underlying parser adapter produces an error, this error is propagated to ApiDOM

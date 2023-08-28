@@ -1,4 +1,5 @@
 import { AnnotationElement, Element, isArrayElement } from '@swagger-api/apidom-core';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 import {
   OpenApi3_1Element,
   OperationElement,
@@ -26,7 +27,9 @@ const makeMessage = (
     return `"${primitiveValue}" not allowed for subject ${primitiveStandardIdentifier}`;
   }
 
-  throw new Error('Not Implemented');
+  throw new NotImplementedError(
+    '[Requirement levels] other than "may" are currently not implemented.',
+  );
 };
 
 // @ts-ignore

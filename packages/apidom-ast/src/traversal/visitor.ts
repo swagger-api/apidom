@@ -1,3 +1,5 @@
+import { ApiDOMError } from '@swagger-api/apidom-error';
+
 /**
  * SPDX-FileCopyrightText: Copyright (c) GraphQL Contributors
  *
@@ -276,7 +278,7 @@ export const visit = (
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
-        throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
+        throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {
@@ -431,7 +433,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
-        throw new Error(`Invalid AST Node:  ${JSON.stringify(node)}`);
+        throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {

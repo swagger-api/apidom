@@ -1,6 +1,7 @@
 import './browser-patch';
 
 import Parser, { Tree } from 'web-tree-sitter';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 
 // @ts-ignore
 import treeSitterJson from '../../wasm/tree-sitter-json.wasm';
@@ -34,7 +35,9 @@ const analyze = async (source: string): Promise<Tree> => {
     // await for lock to be released if there is one
     parser = await parserInitLock;
   } else if (parser === null) {
-    throw new Error('Error while initializing web-tree-sitter');
+    throw new ApiDOMError(
+      'Error while initializing web-tree-sitter and loading tree-sitter-json grammar.',
+    );
   }
 
   return parser.parse(source);

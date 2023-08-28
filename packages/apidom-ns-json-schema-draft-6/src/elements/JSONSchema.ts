@@ -7,6 +7,7 @@ import {
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import {
   JSONSchemaElement,
   JSONReferenceElement,
@@ -27,11 +28,11 @@ class JSONSchema extends JSONSchemaElement {
    */
 
   get idProp(): StringElement | undefined {
-    throw new Error('id keyword from Core vocabulary has been renamed to $id.');
+    throw new UnsupportedOperationError('id keyword from Core vocabulary has been renamed to $id.');
   }
 
   set idProp(id: StringElement | undefined) {
-    throw new Error('id keyword from Core vocabulary has been renamed to $id.');
+    throw new UnsupportedOperationError('id keyword from Core vocabulary has been renamed to $id.');
   }
 
   get $id(): StringElement | undefined {

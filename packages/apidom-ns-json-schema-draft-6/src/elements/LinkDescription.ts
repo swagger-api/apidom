@@ -1,4 +1,5 @@
 import { BooleanElement, StringElement } from '@swagger-api/apidom-core';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import {
   LinkDescriptionElement,
   JSONReferenceElement,
@@ -32,13 +33,13 @@ class LinkDescription extends LinkDescriptionElement {
   }
 
   get schema(): JSONSchema | JSONReferenceElement | undefined {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'schema keyword from Hyper-Schema vocabulary has been renamed to submissionSchema.',
     );
   }
 
   set schema(schema: JSONSchema | JSONReferenceElement | undefined) {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'schema keyword from Hyper-Schema vocabulary has been renamed to submissionSchema.',
     );
   }
@@ -54,21 +55,25 @@ class LinkDescription extends LinkDescriptionElement {
   }
 
   get method(): StringElement | undefined {
-    throw new Error('method keyword from Hyper-Schema vocabulary has been removed.');
+    throw new UnsupportedOperationError(
+      'method keyword from Hyper-Schema vocabulary has been removed.',
+    );
   }
 
   set method(method: StringElement | undefined) {
-    throw new Error('method keyword from Hyper-Schema vocabulary has been removed.');
+    throw new UnsupportedOperationError(
+      'method keyword from Hyper-Schema vocabulary has been removed.',
+    );
   }
 
   get encType(): StringElement | undefined {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'encType keyword from Hyper-Schema vocabulary has been renamed to submissionEncType.',
     );
   }
 
   set encType(encType: StringElement | undefined) {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'encType keyword from Hyper-Schema vocabulary has been renamed to submissionEncType.',
     );
   }

@@ -25,7 +25,7 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "copyfiles -u 1 'src/**/*.d.ts' ./types && tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
@@ -39,6 +39,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.75.0",
+    "@swagger-api/apidom-error": "^0.75.0",
     "@types/ramda": "~0.29.3",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",

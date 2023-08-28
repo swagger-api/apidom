@@ -1,4 +1,5 @@
 import { StringElement, BooleanElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import {
   JSONSchemaElement,
   JSONReferenceElement,
@@ -86,13 +87,13 @@ class JSONSchema extends JSONSchemaElement {
   }
 
   get media(): MediaElement | undefined {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'media keyword from Hyper-Schema vocabulary has been moved to validation vocabulary as "contentMediaType" / "contentEncoding"',
     );
   }
 
   set media(media: MediaElement | undefined) {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'media keyword from Hyper-Schema vocabulary has been moved to validation vocabulary as "contentMediaType" / "contentEncoding"',
     );
   }

@@ -1,4 +1,5 @@
 import { StringElement, ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import { LinkDescriptionElement } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
 /* eslint-disable class-methods-use-this */
@@ -59,13 +60,13 @@ class LinkDescription extends LinkDescriptionElement {
    */
 
   get mediaType(): StringElement | undefined {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'mediaType keyword from Hyper-Schema vocabulary has been renamed to targetMediaType.',
     );
   }
 
   set mediaType(mediaType: StringElement | undefined) {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'mediaType keyword from Hyper-Schema vocabulary has been renamed to targetMediaType.',
     );
   }
@@ -108,13 +109,13 @@ class LinkDescription extends LinkDescriptionElement {
    *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-hyperschema-01#section-6.6.4
    */
   get submissionEncType(): StringElement | undefined {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'submissionEncType keyword from Hyper-Schema vocabulary has been renamed to submissionMediaType.',
     );
   }
 
   set submissionEncType(submissionEncType: StringElement | undefined) {
-    throw new Error(
+    throw new UnsupportedOperationError(
       'submissionEncType keyword from Hyper-Schema vocabulary has been renamed to submissionMediaType.',
     );
   }

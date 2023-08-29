@@ -1,5 +1,4 @@
 import { ObjectElement, ArrayElement, MemberElement, Element } from 'minim';
-import { ApiDOMError } from '@swagger-api/apidom-error';
 
 import { isObjectElement, isArrayElement } from './predicates';
 
@@ -165,7 +164,7 @@ export default function deepmerge(
 
 deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeOptions) => {
   if (!Array.isArray(list)) {
-    throw new ApiDOMError('first argument should be an array');
+    throw new TypeError('First argument should be an array.');
   }
   if (list.length === 0) {
     return new ObjectElement();

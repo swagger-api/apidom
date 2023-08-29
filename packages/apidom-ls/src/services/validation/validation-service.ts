@@ -135,15 +135,9 @@ export class DefaultValidationService implements ValidationService {
     return meta;
   }
 
-  private static buildReferenceErrorMessage(
-    result: PromiseSettledResult<Element | { error: Error; refEl: Element }>,
-  ): string | boolean {
+  private static buildReferenceErrorMessage(ex: unknown): string | boolean {
     // @ts-ignore
-    if (!result.value) {
-      return false;
-    }
-    // @ts-ignore
-    let errorCause = result.value?.error.cause;
+    let errorCause = ex.cause;
     while (errorCause?.cause) {
       errorCause = errorCause.cause;
     }
@@ -168,41 +162,37 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
 
-    const derefPromises: Promise<Element | { error: Error; refEl: Element }>[] = [];
     const apiReference = Reference({ uri: baseURI, value: result });
+    let fragmentId = 0;
+    const refSet = ReferenceSet({ refs: [apiReference] });
     for (const refEl of refElements) {
-      const referenceElementReference = Reference({ uri: `${baseURI}#reference1`, value: refEl });
-      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+      // @ts-ignore
+      refSet.rootRef = null;
+      fragmentId += 1;
+      const referenceElementReference = Reference({
+        uri: `${baseURI}#reference${fragmentId}`,
+        value: refEl,
+      });
+      refSet.add(referenceElementReference);
       try {
-        const promise = dereferenceApiDOM(refEl, {
+        // eslint-disable-next-line no-await-in-loop
+        await dereferenceApiDOM(refEl, {
           resolve: {
-            baseURI: `${baseURI}#reference1`,
+            baseURI: `${baseURI}#reference${fragmentId}`,
             external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
           },
           dereference: { refSet },
-        }).catch((e: Error) => {
-          return { error: e, refEl };
         });
-        derefPromises.push(promise);
       } catch (ex) {
-        console.error('error preparing dereferencing', ex);
-      }
-    }
-    try {
-      const derefResults = await Promise.allSettled(derefPromises);
-      for (const derefResult of derefResults) {
-        const message = DefaultValidationService.buildReferenceErrorMessage(derefResult);
+        const message = DefaultValidationService.buildReferenceErrorMessage(ex);
         if (message) {
           // @ts-ignore
-          const refElement = derefResult.value?.refEl;
-          if (refElement as Element) {
-            const refValueElement = refElement.get('$ref');
-            const referencedElement = refElement
-              .getMetaProperty('referenced-element', '')
-              .toValue();
+          if (refEl as Element) {
+            const refValueElement = (refEl as ObjectElement).get('$ref');
+            const referencedElement = refEl.getMetaProperty('referenced-element', '').toValue();
             let pointers = pointersMap[referencedElement];
             if (!pointers) {
               pointers = localReferencePointers(doc, referencedElement, true);
@@ -244,8 +234,6 @@ export class DefaultValidationService implements ValidationService {
           }
         }
       }
-    } catch (ex) {
-      console.error('error dereferencing', ex);
     }
     return diagnostics;
   }

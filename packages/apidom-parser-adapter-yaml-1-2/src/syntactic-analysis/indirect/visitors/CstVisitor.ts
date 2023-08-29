@@ -63,7 +63,7 @@ const CstVisitor = stampit({
 
     const kindNodeToYamlTag = (node: TreeCursorSyntaxNode) => {
       const { tag: tagNode } = node;
-      const explicitName = tagNode?.text || node.type === 'plain_scalar' ? '?' : '!';
+      const explicitName = tagNode?.text || (node.type === 'plain_scalar' ? '?' : '!');
 
       // eslint-disable-next-line no-nested-ternary
       const kind = node.type.endsWith('mapping')

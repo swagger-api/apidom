@@ -55,6 +55,9 @@ export {
   isStream as isYamlStream,
   isTag as isYamlTag,
 } from './yaml/nodes/predicates';
+export { default as YamlSchemaError } from './yaml/errors/YamlSchemaError';
+export { default as YamlTagError } from './yaml/errors/YamlTagError';
+export type { YamlTagErrorOptions } from './yaml/errors/YamlTagError';
 // generic AST related exports
 export { default as Literal } from './Literal';
 export { Point, default as Position } from './Position';

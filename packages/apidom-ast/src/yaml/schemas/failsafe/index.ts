@@ -1,6 +1,7 @@
+import { clone } from 'ramda';
 import stampit from 'stampit';
-import { ApiDOMError } from '@swagger-api/apidom-error';
 
+import YamlTagError from '../../errors/YamlTagError';
 import YamlDirective from '../../nodes/YamlDirective';
 import { YamlNodeKind } from '../../nodes/YamlTag';
 import GenericMapping from './GenericMapping';
@@ -88,12 +89,23 @@ const FailsafeSchema = stampit({
 
       // mechanism for resolving node (tag implementation) not found
       if (typeof tag === 'undefined') {
-        throw new ApiDOMError(`Tag "${specificTagName}" couldn't be resolved`);
+        throw new YamlTagError(`Tag "${specificTagName}" was not recognized.`, {
+          specificTagName,
+          explicitTagName: node.tag.explicitName,
+          tagKind: node.tag.kind,
+          tagPosition: clone(node.tag.position),
+        });
       }
 
       // node content is not compatible with resolving mechanism (tag implementation)
       if (!tag.test(canonicalNode)) {
-        throw new ApiDOMError(`Node couldn't be resolved against tag "${specificTagName}"`);
+        throw new YamlTagError(`Node couldn't be resolved against the tag "${specificTagName}"`, {
+          specificTagName,
+          explicitTagName: node.tag.explicitName,
+          tagKind: node.tag.kind,
+          tagPosition: clone(node.tag.position),
+          nodeCanonicalContent: canonicalNode.content,
+        });
       }
 
       return tag.resolve(canonicalNode);

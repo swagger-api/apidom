@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert, expect } from 'chai';
+import { YamlTagError } from '@swagger-api/apidom-ast';
 import { toValue, isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 
 import * as adapter from '../../src/adapter-node';
@@ -108,6 +109,50 @@ describe('adapter-node', function () {
 
       assert.isFalse(parseResult.isEmpty);
       assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
+    });
+  });
+
+  context('given valid YAML 1.2 with unrecognized tag', function () {
+    specify('should throw error', async function () {
+      const unknownTagSpec = 'prop: !!unknowntag value';
+
+      try {
+        await adapter.parse(unknownTagSpec);
+        assert.fail('should throw YamlTagError');
+        // @ts-ignore
+      } catch (error: YamlTagError) {
+        assert.instanceOf(error, YamlTagError);
+        assert.include(error, {
+          specificTagName: 'tag:yaml.org,2002:unknowntag',
+          explicitTagName: '!!unknowntag',
+          tagKind: 'Scalar',
+          nodeCanonicalContent: undefined,
+        });
+        assert.include(error.tagPosition.start, { type: 'point', row: 0, column: 6, char: 6 });
+        assert.include(error.tagPosition.end, { type: 'point', row: 0, column: 18, char: 18 });
+      }
+    });
+  });
+
+  context('given valid YAML 1.2 with node content failing constraints imposed by tag', function () {
+    specify('should throw error', async function () {
+      const unknownTagSpec = 'prop: !!int value';
+
+      try {
+        await adapter.parse(unknownTagSpec);
+        assert.fail('should throw YamlTagError');
+        // @ts-ignore
+      } catch (error: YamlTagError) {
+        assert.instanceOf(error, YamlTagError);
+        assert.include(error, {
+          specificTagName: 'tag:yaml.org,2002:int',
+          explicitTagName: '!!int',
+          tagKind: 'Scalar',
+          nodeCanonicalContent: 'value',
+        });
+        assert.include(error.tagPosition.start, { type: 'point', row: 0, column: 6, char: 6 });
+        assert.include(error.tagPosition.end, { type: 'point', row: 0, column: 11, char: 11 });
+      }
     });
   });
 });

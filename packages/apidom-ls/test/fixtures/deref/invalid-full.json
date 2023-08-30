@@ -1,0 +1,104 @@
+
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sample API",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "http://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Returns a list of users.",
+        "description": "Optional extended description in CommonMark or HTML.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of user names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/invalid"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/example"
+                }
+              },
+              "application/foo": {
+                "schema": {
+                  "$ref": "https://gist.githubusercontent.com/frantuma/a88f82761f852cf0705a83bbed52b67d/raw/1482afb7179c809d692bb5070e16dc117058304c/petstore31-2.json#/components/schemas/Pet"
+                }
+              },
+              "application/bar": {
+                "schema": {
+                  "$ref": "https://gist.githubusercontent.com/frantuma/ec65f954bbacb660f1a3b910cb01f0d4/raw/d371f373c544fcac0d1d697b4e07ed26b5b3a693/petstore31.json#/components/schemas/PetInvalid"
+                }
+              },
+              "application/car": {
+                "schema": {
+                  "$ref": "https://petstore31.swagger.io/api/v31/openapi-invalid.json#/components/schemas/PetInvalid"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/exampleRef"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "example": {
+        "type": "object"
+      },
+      "exampleRef": {
+        "$ref": "https://petstore31.swagger.io/api/v31/openapi.json#/components/schemas/PetInvalid"
+      },
+      "a": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/e1aac0ce898985d3ceabbb40a41ff471/raw/441e54bd96d2da5ec8aca5120d5e136c4bf493bb/petstore31-3.json#/components/schemas/Pet"
+      },
+      "b": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/e1aac0ce898985d3ceabbb40a41ff471/raw/441e54bd96d2da5ec8aca5120d5e136c4bf493bb/petstore31-3.json#/components/schemas/Pet"
+      },
+      "c": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/e1aac0ce898985d3ceabbb40a41ff471/raw/441e54bd96d2da5ec8aca5120d5e136c4bf493bb/petstore31-3.json#/components/schemas/Pet"
+      },
+      "d": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/e1aac0ce898985d3ceabbb40a41ff471/raw/441e54bd96d2da5ec8aca5120d5e136c4bf493bb/petstore31-3.json#/components/schemas/Pet"
+      },
+      "r": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/e1aac0ce898985d3ceabbb40a41ff471/raw/441e54bd96d2da5ec8aca5120d5e136c4bf493bb/petstore31-3.json#/components/schemas/Tag"
+      },
+      "hh": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Pet"
+      },
+      "s": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Pet"
+      },
+      "rr": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Tag"
+      },
+      "ee": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Pet"
+      },
+      "ww": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Category"
+      },
+      "ss": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Pet"
+      },
+      "aaa": {
+        "$ref": "https://gist.githubusercontent.com/frantuma/c346d3bba892924285e094ce0e944cd0/raw/60cbfde114716a94bd5a8991858e9f11f6d897f8/petstore31-4.json#/components/schemas/Tag"
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import stampit from 'stampit';
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse, ObjectElement } from '@swagger-api/apidom-core';
@@ -135,25 +136,44 @@ export class DefaultValidationService implements ValidationService {
     return meta;
   }
 
-  private static buildReferenceErrorMessage(
+  private static buildReferenceErrorMessageFromResult(
     result: PromiseSettledResult<Element | { error: Error; refEl: Element }>,
   ): string | boolean {
+    // console.log('ERRR', JSON.stringify(result));
+    // console.log('ERRR', result);
     // @ts-ignore
     if (!result.value) {
       return false;
     }
     // @ts-ignore
     let errorCause = result.value?.error.cause;
+    // console.log('ERRR', JSON.stringify(errorCause));
+    while (errorCause?.cause) {
+      errorCause = errorCause.cause;
+      // console.log('ERRR', JSON.stringify(errorCause));
+    }
+    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
+    // @ts-ignore
+    if (errorCause.message) {
+      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
+    }
+    return errorCause.name + pointerString;
+  }
+
+  private static buildReferenceErrorMessageFromError(ex: unknown): string | boolean {
+    // @ts-ignore
+    let errorCause = ex.cause;
     while (errorCause?.cause) {
       errorCause = errorCause.cause;
     }
+    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
     if (errorCause.message) {
-      return `${errorCause.name}: ${errorCause.message}`;
+      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
     }
-    return errorCause.name;
+    return errorCause.name + pointerString;
   }
 
-  private async validateReferences(
+  private async validateReferencesConcurrent(
     refElements: Element[],
     result: Element,
     doc: Element,
@@ -161,6 +181,47 @@ export class DefaultValidationService implements ValidationService {
     nameSpace: ContentLanguage,
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
+    const SharedReferenceSet = stampit(ReferenceSet, {
+      statics: {
+        refs: [],
+        clean() {
+          // @ts-ignore
+          this.refs.forEach((ref) => {
+            ref.refSet = null; // eslint-disable-line no-param-reassign
+          });
+          // @ts-ignore
+          this.refs = [];
+        },
+      },
+      init({ refs }, { stamp }) {
+        this.rootRef = null;
+        this.refs = stamp.refs;
+
+        // @ts-ignore
+        refs.forEach((ref) => this.add(ref));
+      },
+      methods: {
+        add(reference) {
+          if (this.has(reference)) {
+            // @ts-ignore
+            const foundReference = this.find((ref) => ref.uri === reference.uri);
+            const foundReferenceIndex = this.refs.indexOf(foundReference);
+
+            this.refs[foundReferenceIndex] = reference;
+          } else {
+            this.rootRef = this.rootRef === null ? reference : this.rootRef;
+            this.refs.push(reference);
+          }
+          reference.refSet = this; // eslint-disable-line no-param-reassign
+
+          return this;
+        },
+        clean() {
+          throw new Error('Use static SharedReferenceSet.clean() instead.');
+        },
+      },
+    });
+
     const diagnostics: Diagnostic[] = [];
     const pointersMap: Record<string, Pointer[]> = {};
 
@@ -170,19 +231,25 @@ export class DefaultValidationService implements ValidationService {
 
     const derefPromises: Promise<Element | { error: Error; refEl: Element }>[] = [];
     const apiReference = Reference({ uri: baseURI, value: result });
+    let fragmentId = 0;
     for (const refEl of refElements) {
-      const referenceElementReference = Reference({ uri: `${baseURI}#reference1`, value: refEl });
-      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+      fragmentId += 1;
+      const referenceElementReference = Reference({
+        uri: `${baseURI}#reference${fragmentId}`,
+        value: refEl,
+      });
+      const sharedRefSet = SharedReferenceSet({ refs: [referenceElementReference, apiReference] });
+
       try {
         const promise = dereferenceApiDOM(refEl, {
           resolve: {
-            baseURI: `${baseURI}#reference1`,
+            baseURI: `${baseURI}#reference${fragmentId}`,
             external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
           },
-          dereference: { refSet },
+          dereference: { refSet: sharedRefSet },
         }).catch((e: Error) => {
           return { error: e, refEl };
         });
@@ -194,7 +261,7 @@ export class DefaultValidationService implements ValidationService {
     try {
       const derefResults = await Promise.allSettled(derefPromises);
       for (const derefResult of derefResults) {
-        const message = DefaultValidationService.buildReferenceErrorMessage(derefResult);
+        const message = DefaultValidationService.buildReferenceErrorMessageFromResult(derefResult);
         if (message) {
           // @ts-ignore
           const refElement = derefResult.value?.refEl;
@@ -238,7 +305,6 @@ export class DefaultValidationService implements ValidationService {
                 });
               }
             }
-            // @ts-ignore
             this.quickFixesMap[code] = diagnostic.data.quickFix;
             diagnostics.push(diagnostic);
           }
@@ -246,6 +312,99 @@ export class DefaultValidationService implements ValidationService {
       }
     } catch (ex) {
       console.error('error dereferencing', ex);
+    } finally {
+      // @ts-ignore
+      SharedReferenceSet.clean();
+    }
+    return diagnostics;
+  }
+
+  private async validateReferencesSequential(
+    refElements: Element[],
+    result: Element,
+    doc: Element,
+    textDocument: TextDocument,
+    nameSpace: ContentLanguage,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]> {
+    const diagnostics: Diagnostic[] = [];
+    const pointersMap: Record<string, Pointer[]> = {};
+
+    const baseURI = validationContext?.baseURI
+      ? validationContext?.baseURI
+      : 'https://smartbear.com/';
+
+    const apiReference = Reference({ uri: baseURI, value: result });
+    let fragmentId = 0;
+    const refSet = ReferenceSet({ refs: [apiReference] });
+    for (const refEl of refElements) {
+      // @ts-ignore
+      refSet.rootRef = null;
+      fragmentId += 1;
+      const referenceElementReference = Reference({
+        uri: `${baseURI}#reference${fragmentId}`,
+        value: refEl,
+      });
+      refSet.add(referenceElementReference);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await dereferenceApiDOM(refEl, {
+          resolve: {
+            baseURI: `${baseURI}#reference${fragmentId}`,
+            external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
+          },
+          parse: {
+            mediaType: nameSpace.mediaType,
+          },
+          dereference: { refSet },
+        });
+      } catch (ex) {
+        const message = DefaultValidationService.buildReferenceErrorMessageFromError(ex);
+        if (message) {
+          // @ts-ignore
+          if (refEl as Element) {
+            const refValueElement = (refEl as ObjectElement).get('$ref');
+            const referencedElement = refEl.getMetaProperty('referenced-element', '').toValue();
+            let pointers = pointersMap[referencedElement];
+            if (!pointers) {
+              pointers = localReferencePointers(doc, referencedElement, true);
+              // eslint-disable-next-line no-param-reassign
+              pointersMap[referencedElement] = pointers;
+            }
+            const lintSm = getSourceMap(refValueElement);
+            const location = { offset: lintSm.offset, length: lintSm.length };
+            const range = Range.create(
+              textDocument.positionAt(location.offset),
+              textDocument.positionAt(location.offset + location.length),
+            );
+            const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+            const diagnostic = Diagnostic.create(
+              range,
+              `Reference Error - ${message}`,
+              DiagnosticSeverity.Error,
+              code,
+              'apilint',
+            );
+
+            diagnostic.source = 'apilint';
+            diagnostic.data = {
+              quickFix: [],
+            } as LinterMetaData;
+            for (const p of pointers) {
+              // @ts-ignore
+              if (refValueElement !== p.ref && !p.isRef) {
+                diagnostic.data.quickFix.push({
+                  message: `update to ${p.ref}`,
+                  action: 'updateValue',
+                  functionParams: [p.ref],
+                });
+              }
+            }
+            this.quickFixesMap[code] = diagnostic.data.quickFix;
+            diagnostics.push(diagnostic);
+          }
+        }
+      }
     }
     return diagnostics;
   }
@@ -262,6 +421,10 @@ export class DefaultValidationService implements ValidationService {
         ? ReferenceValidationMode.LEGACY
         : // eslint-disable-next-line no-bitwise
           context.referenceValidationMode | ReferenceValidationMode.LEGACY;
+    const refValidationSerialProcessing =
+      !context || !context.referenceValidationSequentialProcessing
+        ? false
+        : context.referenceValidationSequentialProcessing;
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
@@ -398,7 +561,6 @@ export class DefaultValidationService implements ValidationService {
               });
             }
           }
-          // @ts-ignore
           this.quickFixesMap[code] = diagnostic.data.quickFix;
 
           refDiagnostics.push(diagnostic);
@@ -518,16 +680,29 @@ export class DefaultValidationService implements ValidationService {
     };
     traverse(lint, api);
     if (refValidationMode !== ReferenceValidationMode.LEGACY) {
-      diagnostics.push(
-        ...(await this.validateReferences(
-          refElements,
-          result,
-          api,
-          textDocument,
-          nameSpace,
-          context,
-        )),
-      );
+      if (refValidationSerialProcessing) {
+        diagnostics.push(
+          ...(await this.validateReferencesSequential(
+            refElements,
+            result,
+            api,
+            textDocument,
+            nameSpace,
+            context,
+          )),
+        );
+      } else {
+        diagnostics.push(
+          ...(await this.validateReferencesConcurrent(
+            refElements,
+            result,
+            api,
+            textDocument,
+            nameSpace,
+            context,
+          )),
+        );
+      }
     }
     try {
       const rules = this.settings?.metadata?.rules;

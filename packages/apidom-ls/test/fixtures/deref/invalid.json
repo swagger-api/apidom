@@ -62,7 +62,10 @@
       },
       "exampleRef": {
         "$ref": "https://petstore31.swagger.io/api/v31/openapi.json#/components/schemas/PetInvalid"
-      }
+      },
+      "petRef": {
+        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+      }      
     }
   }
 }

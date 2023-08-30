@@ -284,6 +284,7 @@ export interface ValidationContext {
   maxNumberOfProblems?: number;
   baseURI?: string;
   referenceValidationMode?: ReferenceValidationMode;
+  referenceValidationSequentialProcessing?: boolean;
 }
 
 export interface CompletionContext {

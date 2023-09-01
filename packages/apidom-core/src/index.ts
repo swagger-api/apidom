@@ -15,6 +15,7 @@ export { default as MediaTypes } from './media-types';
 
 export { Element, MemberElement, KeyValuePair, ObjectSlice, ArraySlice, refract } from 'minim';
 export type { NamespacePluginOptions, Attributes, Meta } from 'minim';
+export type { PositionRange, Position } from './elements/SourceMap';
 export { default as namespace, Namespace, createNamespace } from './namespace';
 
 export {

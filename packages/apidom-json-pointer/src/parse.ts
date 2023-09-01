@@ -2,7 +2,7 @@ import { map, pipe, split, startsWith, tail } from 'ramda';
 import { isEmptyString, trimCharsStart } from 'ramda-adjunct';
 
 import unescape from './unescape';
-import { InvalidJsonPointerError } from './errors';
+import InvalidJsonPointerError from './errors/InvalidJsonPointerError';
 
 // parse :: String -> String[]
 const parse = (pointer: string): string[] => {
@@ -11,12 +11,25 @@ const parse = (pointer: string): string[] => {
   }
 
   if (!startsWith('/', pointer)) {
-    throw new InvalidJsonPointerError(pointer);
+    throw new InvalidJsonPointerError(
+      `Invalid JSON Pointer "${pointer}". JSON Pointers must begin with "/"`,
+      {
+        pointer,
+      },
+    );
   }
 
-  const tokens = pipe(split('/'), map(unescape))(pointer);
-
-  return tail(tokens);
+  try {
+    const tokens = pipe(split('/'), map(unescape))(pointer);
+    return tail(tokens);
+  } catch (error: unknown) {
+    throw new InvalidJsonPointerError(
+      `JSON Pointer parsing of "${pointer}" encountered an error.`,
+      {
+        pointer,
+      },
+    );
+  }
 };
 
 /**

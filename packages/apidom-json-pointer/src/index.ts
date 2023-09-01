@@ -1,4 +1,10 @@
-export { InvalidJsonPointerError, EvaluationJsonPointerError } from './errors';
+export { default as JsonPointerError } from './errors/JsonPointerError';
+export { default as InvalidJsonPointerError } from './errors/InvalidJsonPointerError';
+export type { InvalidJsonPointerErrorOptions } from './errors/InvalidJsonPointerError';
+export { default as CompilationJsonPointerError } from './errors/CompilationJsonPointerError';
+export type { CompilationJsonPointerErrorOptions } from './errors/CompilationJsonPointerError';
+export { default as EvaluationJsonPointerError } from './errors/EvaluationJsonPointerError';
+export type { EvaluationJsonPointerErrorOptions } from './errors/EvaluationJsonPointerError';
 export { default as escape } from './escape';
 export { default as unescape } from './unescape';
 export { default as parse, uriToPointer } from './parse';

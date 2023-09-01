@@ -19,9 +19,6 @@ const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'deref', 'invalid.
 const specValid = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'deref', 'valid-same-ref.json'))
   .toString();
-const specFullExternal = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'deref', 'invalid-full.json'))
-  .toString();
 
 describe('reference validation', function () {
   const lsContext: LanguageServiceContext = {
@@ -358,64 +355,5 @@ describe('reference validation', function () {
         }) as Diagnostic[],
       );
     });
-  });
-  // measure performance of validation with concurrent and serial processing
-  // using external references as input, to be run manually kept here for reference
-  // eslint-disable-next-line mocha/no-skipped-tests
-  specify.skip('should measure validation performance', async function () {
-    const sleep = (delay: number | undefined) =>
-      new Promise((resolve) => {
-        setTimeout(resolve, delay);
-      });
-    this.timeout(50000);
-    const localLsContext: LanguageServiceContext = {
-      metadata: metadata(),
-      validatorProviders: [],
-      performanceLogs: true,
-      logLevel,
-    };
-
-    let validationContext: ValidationContext = {
-      comments: DiagnosticSeverity.Error,
-      maxNumberOfProblems: 100,
-      relatedInformation: false,
-      referenceValidationMode: ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
-      referenceValidationSequentialProcessing: true,
-    };
-
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/invalid.json',
-      'json',
-      0,
-      specFullExternal,
-    );
-    console.log('serial processing');
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 10; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await sleep(1000);
-      let localLanguageService: LanguageService | null = getLanguageService(localLsContext);
-      // eslint-disable-next-line no-await-in-loop
-      await localLanguageService.doValidation(doc, validationContext);
-      localLanguageService.terminate();
-      localLanguageService = null;
-    }
-    validationContext = {
-      comments: DiagnosticSeverity.Error,
-      maxNumberOfProblems: 100,
-      relatedInformation: false,
-      referenceValidationMode: ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
-    };
-    console.log('concurrent processing');
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 10; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await sleep(1000);
-      let localLanguageService: LanguageService | null = getLanguageService(localLsContext);
-      // eslint-disable-next-line no-await-in-loop
-      await localLanguageService.doValidation(doc, validationContext);
-      localLanguageService.terminate();
-      localLanguageService = null;
-    }
   });
 });

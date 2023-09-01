@@ -27,6 +27,7 @@ const parse = (pointer: string): string[] => {
       `JSON Pointer parsing of "${pointer}" encountered an error.`,
       {
         pointer,
+        cause: error,
       },
     );
   }

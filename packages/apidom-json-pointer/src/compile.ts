@@ -14,6 +14,7 @@ const compile = (tokens: string[]): string => {
       'JSON Pointer compilation of tokens encountered an error.',
       {
         tokens,
+        cause: error,
       },
     );
   }

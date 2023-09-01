@@ -1,12 +1,12 @@
 import { ArrayElement, Element, Attributes, Meta } from 'minim';
 
-interface Position {
+export interface Position {
   row: number;
   column: number;
   char: number;
 }
 
-interface PositionRange {
+export interface PositionRange {
   start: Position;
   end: Position;
 }

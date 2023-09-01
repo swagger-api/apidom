@@ -1,7 +1,21 @@
-import { ApiDOMError } from '@swagger-api/apidom-error';
+import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-export default class InvalidJsonPointerError extends ApiDOMError {
-  constructor(pointer: string) {
-    super(`Invalid JSON Pointer "${pointer}". Pointers must begin with "/"`);
+import JsonPointerError from './JsonPointerError';
+
+export interface InvalidJsonPointerErrorOptions extends ApiDOMErrorOptions {
+  readonly pointer: string;
+}
+
+class InvalidJsonPointerError extends JsonPointerError {
+  public readonly pointer!: string;
+
+  constructor(message?: string, structuredOptions?: InvalidJsonPointerErrorOptions) {
+    super(message, structuredOptions);
+
+    if (typeof structuredOptions !== 'undefined') {
+      this.pointer = structuredOptions.pointer;
+    }
   }
 }
+
+export default InvalidJsonPointerError;

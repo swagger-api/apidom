@@ -2,17 +2,38 @@ import { isInteger } from 'ramda-adjunct';
 import { Element, isObjectElement, isArrayElement } from '@swagger-api/apidom-core';
 
 import parse from './parse';
-import { EvaluationJsonPointerError } from './errors';
+import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError';
 
 // evaluates JSON Pointer against ApiDOM fragment
 const evaluate = <T extends Element>(pointer: string, element: T): Element => {
-  const tokens = parse(pointer);
+  let tokens: string[];
 
-  return tokens.reduce((acc, token) => {
+  try {
+    tokens = parse(pointer);
+  } catch (error: unknown) {
+    throw new EvaluationJsonPointerError(
+      `JSON Pointer evaluation failed while parsing the pointer "${pointer}".`,
+      {
+        pointer,
+        element,
+      },
+    );
+  }
+
+  return tokens.reduce((acc, token, tokenPosition) => {
     if (isObjectElement(acc)) {
       // @ts-ignore
       if (!acc.hasKey(token)) {
-        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+        throw new EvaluationJsonPointerError(
+          `JSON Pointer evaluation failed while evaluating token "${token}" against an ObjectElement`,
+          {
+            pointer,
+            tokens,
+            failedToken: token,
+            failedTokenPosition: tokenPosition,
+            element: acc,
+          },
+        );
       }
       // @ts-ignore
       return acc.get(token);
@@ -20,13 +41,25 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
 
     if (isArrayElement(acc)) {
       if (!(token in acc.content) || !isInteger(Number(token))) {
-        throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+        throw new EvaluationJsonPointerError(
+          `JSON Pointer evaluation failed while evaluating token "${token}" against an ArrayElement`,
+          { pointer, tokens, failedToken: token, failedTokenPosition: tokenPosition, element: acc },
+        );
       }
       // @ts-ignore
       return acc.get(Number(token));
     }
 
-    throw new EvaluationJsonPointerError(`Evaluation failed on token: "${token}"`);
+    throw new EvaluationJsonPointerError(
+      `JSON Pointer evaluation failed while evaluating token "${token}" against an unexpected Element`,
+      {
+        pointer,
+        tokens,
+        failedToken: token,
+        failedTokenPosition: tokenPosition,
+        element: acc,
+      },
+    );
   }, element);
 };
 

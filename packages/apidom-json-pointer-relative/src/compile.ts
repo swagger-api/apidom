@@ -1,28 +1,39 @@
 import { compile as compileJsonPointer } from '@swagger-api/apidom-json-pointer';
 
 import { RelativeJsonPointer } from './types';
+import CompilationRelativeJsonPointerError from './errors/CompilationRelativeJsonPointerError';
 
 // compile :: RelativeJSONPointer -> String
 const compile = (relativeJsonPointer: RelativeJsonPointer): string => {
-  let relativePointer = '';
+  try {
+    let relativePointer = '';
 
-  // non-negative-integer
-  relativePointer += String(relativeJsonPointer.nonNegativeIntegerPrefix);
+    // non-negative-integer
+    relativePointer += String(relativeJsonPointer.nonNegativeIntegerPrefix);
 
-  // index-manipulation
-  if (typeof relativeJsonPointer.indexManipulation === 'number') {
-    relativePointer += String(relativeJsonPointer.indexManipulation);
+    // index-manipulation
+    if (typeof relativeJsonPointer.indexManipulation === 'number') {
+      relativePointer += String(relativeJsonPointer.indexManipulation);
+    }
+
+    if (Array.isArray(relativeJsonPointer.jsonPointerTokens)) {
+      // <json-pointer>
+      relativePointer += compileJsonPointer(relativeJsonPointer.jsonPointerTokens);
+    } else if (relativeJsonPointer.hashCharacter) {
+      // "#"
+      relativePointer += '#';
+    }
+
+    return relativePointer;
+  } catch (error: unknown) {
+    throw new CompilationRelativeJsonPointerError(
+      'Relative JSON Pointer compilation encountered an error.',
+      {
+        relativePointer: relativeJsonPointer,
+        cause: error,
+      },
+    );
   }
-
-  if (Array.isArray(relativeJsonPointer.jsonPointerTokens)) {
-    // <json-pointer>
-    relativePointer += compileJsonPointer(relativeJsonPointer.jsonPointerTokens);
-  } else if (relativeJsonPointer.hashCharacter) {
-    // "#"
-    relativePointer += '#';
-  }
-
-  return relativePointer;
 };
 
 export default compile;

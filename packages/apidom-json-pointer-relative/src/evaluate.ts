@@ -15,8 +15,9 @@ import {
 } from '@swagger-api/apidom-json-pointer';
 import { last } from 'ramda';
 
-import { EvaluationRelativeJsonPointerError } from './errors';
+import EvaluationRelativeJsonPointerError from './errors/EvaluationRelativeJsonPointerError';
 import parse from './parse';
+import { RelativeJsonPointer } from './types';
 
 // evaluates Relative JSON Pointer against ApiDOM fragment
 const evaluate = <T extends Element, U extends Element>(
@@ -39,15 +40,43 @@ const evaluate = <T extends Element, U extends Element>(
 
   if (ancestorLineage.length === 0) {
     throw new EvaluationRelativeJsonPointerError(
-      'Current element not found inside the root element',
+      'Relative JSON Pointer evaluation failed. Current element not found inside the root element',
+      {
+        relativePointer,
+        currentElement,
+        rootElement,
+        cursorElement: cursor,
+      },
     );
   }
 
   if (last(ancestorLineage) === rootElement) {
-    throw new EvaluationRelativeJsonPointerError('Current element cannot be the root element');
+    throw new EvaluationRelativeJsonPointerError(
+      'Relative JSON Pointer evaluation failed. Current element cannot be the root element',
+      {
+        relativePointer,
+        currentElement,
+        rootElement,
+        cursorElement: cursor,
+      },
+    );
   }
 
-  const relativeJsonPointer = parse(relativePointer);
+  let relativeJsonPointer: RelativeJsonPointer;
+  try {
+    relativeJsonPointer = parse(relativePointer);
+  } catch (error: unknown) {
+    throw new EvaluationRelativeJsonPointerError(
+      'Relative JSON Pointer evaluation failed while parsing the pointer.',
+      {
+        relativePointer,
+        currentElement,
+        rootElement,
+        cursorElement: cursor,
+        cause: error,
+      },
+    );
+  }
 
   // non-negative-integer
   if (relativeJsonPointer.nonNegativeIntegerPrefix > 0) {
@@ -66,7 +95,13 @@ const evaluate = <T extends Element, U extends Element>(
 
     if (typeof cursor === 'undefined') {
       throw new EvaluationRelativeJsonPointerError(
-        `Evaluation failed on non-negative-integer prefix of "${relativeJsonPointer.nonNegativeIntegerPrefix}"`,
+        `Relative JSON Pointer evaluation failed on non-negative-integer prefix of "${relativeJsonPointer.nonNegativeIntegerPrefix}"`,
+        {
+          relativePointer,
+          currentElement,
+          rootElement,
+          cursorElement: cursor,
+        },
       );
     }
 
@@ -79,7 +114,13 @@ const evaluate = <T extends Element, U extends Element>(
 
     if (typeof containedArray === 'undefined' || !isArrayElement(containedArray)) {
       throw new EvaluationRelativeJsonPointerError(
-        `Evaluation failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
+        `Relative JSON Pointer evaluation failed failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
+        {
+          relativePointer,
+          currentElement,
+          rootElement,
+          cursorElement: cursor,
+        },
       );
     }
 
@@ -89,7 +130,13 @@ const evaluate = <T extends Element, U extends Element>(
 
     if (typeof cursor === 'undefined') {
       throw new EvaluationRelativeJsonPointerError(
-        `Evaluation failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
+        `Relative JSON Pointer evaluation failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
+        {
+          relativePointer,
+          currentElement,
+          rootElement,
+          cursorElement: cursor,
+        },
       );
     }
   }
@@ -102,7 +149,13 @@ const evaluate = <T extends Element, U extends Element>(
     // "#"
     if (cursor === rootElement) {
       throw new EvaluationRelativeJsonPointerError(
-        'Current element cannot be the root element to apply "#"',
+        'Relative JSON Pointer evaluation failed. Current element cannot be the root element to apply "#"',
+        {
+          relativePointer,
+          currentElement,
+          rootElement,
+          cursorElement: cursor,
+        },
       );
     }
 

@@ -1,4 +1,11 @@
+export { default as RelativeJsonPointerError } from './errors/RelativeJsonPointerError';
+export { default as InvalidRelativeJsonPointerError } from './errors/InvalidRelativeJsonPointerError';
+export type { InvalidRelativeJsonPointerErrorOptions } from './errors/InvalidRelativeJsonPointerError';
+export { default as EvaluationRelativeJsonPointerError } from './errors/EvaluationRelativeJsonPointerError';
+export type { EvaluationRelativeJsonPointerErrorOptions } from './errors/EvaluationRelativeJsonPointerError';
+export { default as CompilationRelativeJsonPointerError } from './errors/CompilationRelativeJsonPointerError';
+export type { CompilationRelativeJsonPointerErrorOptions } from './errors/CompilationRelativeJsonPointerError';
 export { default as parse, isRelativeJsonPointer } from './parse';
 export { default as compile } from './compile';
 export { default as evaluate } from './evaluate';
-export { InvalidRelativeJsonPointerError, EvaluationRelativeJsonPointerError } from './errors';
+export type { RelativeJsonPointer } from './types';

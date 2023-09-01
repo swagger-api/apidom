@@ -16,6 +16,7 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
       {
         pointer,
         element,
+        cause: error,
       },
     );
   }

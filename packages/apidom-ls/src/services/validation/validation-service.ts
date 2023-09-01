@@ -1,8 +1,10 @@
+import stampit from 'stampit';
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, findAtOffset, traverse } from '@swagger-api/apidom-core';
+import { Element, findAtOffset, traverse, ObjectElement } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
+import { dereferenceApiDOM, Reference, ReferenceSet } from '@swagger-api/apidom-reference';
 
 import {
   APIDOM_LINTER,
@@ -17,6 +19,8 @@ import {
   QuickFixData,
   ValidationContext,
   ValidationProvider,
+  ContentLanguage,
+  ReferenceValidationMode,
 } from '../../apidom-language-types';
 import {
   checkConditions,
@@ -132,6 +136,279 @@ export class DefaultValidationService implements ValidationService {
     return meta;
   }
 
+  private static buildReferenceErrorMessageFromResult(
+    result: PromiseSettledResult<Element | { error: Error; refEl: Element }>,
+  ): string | boolean {
+    // console.log('ERRR', JSON.stringify(result));
+    // console.log('ERRR', result);
+    // @ts-ignore
+    if (!result.value) {
+      return false;
+    }
+    // @ts-ignore
+    let errorCause = result.value?.error.cause;
+    // console.log('ERRR', JSON.stringify(errorCause));
+    while (errorCause?.cause) {
+      errorCause = errorCause.cause;
+      // console.log('ERRR', JSON.stringify(errorCause));
+    }
+    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
+    // @ts-ignore
+    if (errorCause.message) {
+      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
+    }
+    return errorCause.name + pointerString;
+  }
+
+  private static buildReferenceErrorMessageFromError(ex: unknown): string | boolean {
+    // @ts-ignore
+    let errorCause = ex.cause;
+    while (errorCause?.cause) {
+      errorCause = errorCause.cause;
+    }
+    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
+    if (errorCause.message) {
+      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
+    }
+    return errorCause.name + pointerString;
+  }
+
+  private async validateReferencesConcurrent(
+    refElements: Element[],
+    result: Element,
+    doc: Element,
+    textDocument: TextDocument,
+    nameSpace: ContentLanguage,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]> {
+    const SharedReferenceSet = stampit(ReferenceSet, {
+      statics: {
+        refs: [],
+        clean() {
+          // @ts-ignore
+          this.refs.forEach((ref) => {
+            ref.refSet = null; // eslint-disable-line no-param-reassign
+          });
+          // @ts-ignore
+          this.refs = [];
+        },
+      },
+      init({ refs }, { stamp }) {
+        this.rootRef = null;
+        this.refs = stamp.refs;
+
+        // @ts-ignore
+        refs.forEach((ref) => this.add(ref));
+      },
+      methods: {
+        add(reference) {
+          if (this.has(reference)) {
+            // @ts-ignore
+            const foundReference = this.find((ref) => ref.uri === reference.uri);
+            const foundReferenceIndex = this.refs.indexOf(foundReference);
+
+            this.refs[foundReferenceIndex] = reference;
+          } else {
+            this.rootRef = this.rootRef === null ? reference : this.rootRef;
+            this.refs.push(reference);
+          }
+          reference.refSet = this; // eslint-disable-line no-param-reassign
+
+          return this;
+        },
+        clean() {
+          throw new Error('Use static SharedReferenceSet.clean() instead.');
+        },
+      },
+    });
+
+    const diagnostics: Diagnostic[] = [];
+    const pointersMap: Record<string, Pointer[]> = {};
+
+    const baseURI = validationContext?.baseURI
+      ? validationContext?.baseURI
+      : 'https://smartbear.com/';
+
+    const derefPromises: Promise<Element | { error: Error; refEl: Element }>[] = [];
+    const apiReference = Reference({ uri: baseURI, value: result });
+    let fragmentId = 0;
+    for (const refEl of refElements) {
+      fragmentId += 1;
+      const referenceElementReference = Reference({
+        uri: `${baseURI}#reference${fragmentId}`,
+        value: refEl,
+      });
+      const sharedRefSet = SharedReferenceSet({ refs: [referenceElementReference, apiReference] });
+
+      try {
+        const promise = dereferenceApiDOM(refEl, {
+          resolve: {
+            baseURI: `${baseURI}#reference${fragmentId}`,
+            external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
+          },
+          parse: {
+            mediaType: nameSpace.mediaType,
+          },
+          dereference: { refSet: sharedRefSet },
+        }).catch((e: Error) => {
+          return { error: e, refEl };
+        });
+        derefPromises.push(promise);
+      } catch (ex) {
+        console.error('error preparing dereferencing', ex);
+      }
+    }
+    try {
+      const derefResults = await Promise.allSettled(derefPromises);
+      for (const derefResult of derefResults) {
+        const message = DefaultValidationService.buildReferenceErrorMessageFromResult(derefResult);
+        if (message) {
+          // @ts-ignore
+          const refElement = derefResult.value?.refEl;
+          if (refElement as Element) {
+            const refValueElement = refElement.get('$ref');
+            const referencedElement = refElement
+              .getMetaProperty('referenced-element', '')
+              .toValue();
+            let pointers = pointersMap[referencedElement];
+            if (!pointers) {
+              pointers = localReferencePointers(doc, referencedElement, true);
+              // eslint-disable-next-line no-param-reassign
+              pointersMap[referencedElement] = pointers;
+            }
+            const lintSm = getSourceMap(refValueElement);
+            const location = { offset: lintSm.offset, length: lintSm.length };
+            const range = Range.create(
+              textDocument.positionAt(location.offset),
+              textDocument.positionAt(location.offset + location.length),
+            );
+            const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+            const diagnostic = Diagnostic.create(
+              range,
+              `Reference Error - ${message}`,
+              DiagnosticSeverity.Error,
+              code,
+              'apilint',
+            );
+
+            diagnostic.source = 'apilint';
+            diagnostic.data = {
+              quickFix: [],
+            } as LinterMetaData;
+            for (const p of pointers) {
+              // @ts-ignore
+              if (refValueElement !== p.ref && !p.isRef) {
+                diagnostic.data.quickFix.push({
+                  message: `update to ${p.ref}`,
+                  action: 'updateValue',
+                  functionParams: [p.ref],
+                });
+              }
+            }
+            this.quickFixesMap[code] = diagnostic.data.quickFix;
+            diagnostics.push(diagnostic);
+          }
+        }
+      }
+    } catch (ex) {
+      console.error('error dereferencing', ex);
+    } finally {
+      // @ts-ignore
+      SharedReferenceSet.clean();
+    }
+    return diagnostics;
+  }
+
+  private async validateReferencesSequential(
+    refElements: Element[],
+    result: Element,
+    doc: Element,
+    textDocument: TextDocument,
+    nameSpace: ContentLanguage,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]> {
+    const diagnostics: Diagnostic[] = [];
+    const pointersMap: Record<string, Pointer[]> = {};
+
+    const baseURI = validationContext?.baseURI
+      ? validationContext?.baseURI
+      : 'https://smartbear.com/';
+
+    const apiReference = Reference({ uri: baseURI, value: result });
+    let fragmentId = 0;
+    const refSet = ReferenceSet({ refs: [apiReference] });
+    for (const refEl of refElements) {
+      // @ts-ignore
+      refSet.rootRef = null;
+      fragmentId += 1;
+      const referenceElementReference = Reference({
+        uri: `${baseURI}#reference${fragmentId}`,
+        value: refEl,
+      });
+      refSet.add(referenceElementReference);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await dereferenceApiDOM(refEl, {
+          resolve: {
+            baseURI: `${baseURI}#reference${fragmentId}`,
+            external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
+          },
+          parse: {
+            mediaType: nameSpace.mediaType,
+          },
+          dereference: { refSet },
+        });
+      } catch (ex) {
+        const message = DefaultValidationService.buildReferenceErrorMessageFromError(ex);
+        if (message) {
+          // @ts-ignore
+          if (refEl as Element) {
+            const refValueElement = (refEl as ObjectElement).get('$ref');
+            const referencedElement = refEl.getMetaProperty('referenced-element', '').toValue();
+            let pointers = pointersMap[referencedElement];
+            if (!pointers) {
+              pointers = localReferencePointers(doc, referencedElement, true);
+              // eslint-disable-next-line no-param-reassign
+              pointersMap[referencedElement] = pointers;
+            }
+            const lintSm = getSourceMap(refValueElement);
+            const location = { offset: lintSm.offset, length: lintSm.length };
+            const range = Range.create(
+              textDocument.positionAt(location.offset),
+              textDocument.positionAt(location.offset + location.length),
+            );
+            const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+            const diagnostic = Diagnostic.create(
+              range,
+              `Reference Error - ${message}`,
+              DiagnosticSeverity.Error,
+              code,
+              'apilint',
+            );
+
+            diagnostic.source = 'apilint';
+            diagnostic.data = {
+              quickFix: [],
+            } as LinterMetaData;
+            for (const p of pointers) {
+              // @ts-ignore
+              if (refValueElement !== p.ref && !p.isRef) {
+                diagnostic.data.quickFix.push({
+                  message: `update to ${p.ref}`,
+                  action: 'updateValue',
+                  functionParams: [p.ref],
+                });
+              }
+            }
+            this.quickFixesMap[code] = diagnostic.data.quickFix;
+            diagnostics.push(diagnostic);
+          }
+        }
+      }
+    }
+    return diagnostics;
+  }
+
   public async doValidation(
     textDocument: TextDocument,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -139,6 +416,15 @@ export class DefaultValidationService implements ValidationService {
   ): Promise<Diagnostic[]> {
     perfStart(PerfLabels.START);
     const context = !validationContext ? this.settings?.validationContext : validationContext;
+    const refValidationMode =
+      !context || !context.referenceValidationMode
+        ? ReferenceValidationMode.LEGACY
+        : // eslint-disable-next-line no-bitwise
+          context.referenceValidationMode | ReferenceValidationMode.LEGACY;
+    const refValidationSerialProcessing =
+      !context || !context.referenceValidationSequentialProcessing
+        ? false
+        : context.referenceValidationSequentialProcessing;
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
@@ -235,7 +521,10 @@ export class DefaultValidationService implements ValidationService {
       refValueElement: Element,
     ): Diagnostic[] => {
       const refDiagnostics: Diagnostic[] = [];
-      if (refValueElement.toValue().startsWith('#')) {
+      if (
+        refValidationMode === ReferenceValidationMode.LEGACY &&
+        refValueElement.toValue().startsWith('#')
+      ) {
         let pointers = pointersMap[referencedElement];
         if (!pointers) {
           pointers = localReferencePointers(doc, referencedElement, true);
@@ -272,7 +561,6 @@ export class DefaultValidationService implements ValidationService {
               });
             }
           }
-          // @ts-ignore
           this.quickFixesMap[code] = diagnostic.data.quickFix;
 
           refDiagnostics.push(diagnostic);
@@ -336,11 +624,22 @@ export class DefaultValidationService implements ValidationService {
       return refDiagnostics;
     };
 
+    const refElements: Element[] = [];
+
     const lint = (element: Element) => {
+      if (
+        element.getMetaProperty('referenced-element', '').toValue().length > 0 &&
+        isObject(element) &&
+        element.hasKey('$ref') &&
+        (refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL ||
+          element.get('$ref').toValue().startsWith('#'))
+      ) {
+        refElements.push(element);
+      }
       const sm = getSourceMap(element);
       const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
       if (referencedElement.length > 0) {
-        // lint local references
+        // legacy lint local references
         if (isObject(element) && element.hasKey('$ref')) {
           // TODO get ref value from metadata or in adapter
           diagnostics.push(...lintReference(api, referencedElement, element.get('$ref')));
@@ -380,6 +679,31 @@ export class DefaultValidationService implements ValidationService {
       }
     };
     traverse(lint, api);
+    if (refValidationMode !== ReferenceValidationMode.LEGACY) {
+      if (refValidationSerialProcessing) {
+        diagnostics.push(
+          ...(await this.validateReferencesSequential(
+            refElements,
+            result,
+            api,
+            textDocument,
+            nameSpace,
+            context,
+          )),
+        );
+      } else {
+        diagnostics.push(
+          ...(await this.validateReferencesConcurrent(
+            refElements,
+            result,
+            api,
+            textDocument,
+            nameSpace,
+            context,
+          )),
+        );
+      }
+    }
     try {
       const rules = this.settings?.metadata?.rules;
       if (rules && rules[docNs]?.lint) {

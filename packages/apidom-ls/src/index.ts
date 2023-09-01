@@ -55,6 +55,7 @@ export {
   SupportedLanguages,
   Format,
   CompletionType,
+  ReferenceValidationMode,
   CompletionFormat,
   LogLevel,
   MergeStrategy,

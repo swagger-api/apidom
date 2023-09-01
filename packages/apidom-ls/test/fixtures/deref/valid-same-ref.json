@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "test",
+    "version": "1.0"
+  },
+  "components": {
+    "schemas": {
+      "a": {
+        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+      },
+      "b": {
+        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+      }
+    }
+  }
+}

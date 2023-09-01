@@ -1,0 +1,71 @@
+
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Sample API",
+    "version": "0.1.9"
+  },
+  "servers": [
+    {
+      "url": "http://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Returns a list of users.",
+        "description": "Optional extended description in CommonMark or HTML.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of user names",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/invalid"
+                }
+              },
+              "application/yaml": {
+                "schema": {
+                  "$ref": "#/components/schemas/example"
+                }
+              },
+              "application/foo": {
+                "schema": {
+                  "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+                }
+              },
+              "application/bar": {
+                "schema": {
+                  "$ref": "http://localhost:8123/petstore31.json#/components/schemas/PetInvalid"
+                }
+              },
+              "application/car": {
+                "schema": {
+                  "$ref": "https://petstore31.swagger.io/api/v31/openapi-invalid.json#/components/schemas/PetInvalid"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/exampleRef"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "example": {
+        "type": "object"
+      },
+      "exampleRef": {
+        "$ref": "https://petstore31.swagger.io/api/v31/openapi.json#/components/schemas/PetInvalid"
+      },
+      "petRef": {
+        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+      }      
+    }
+  }
+}

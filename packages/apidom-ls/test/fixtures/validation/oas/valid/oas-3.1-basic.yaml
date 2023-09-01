@@ -41,6 +41,8 @@ components:
       in: query
       description: ID of the user
       required: true
+      schema:
+        type: string
     externalRef:
       $ref: ./ex.json#/externalParameter
       description: another ref

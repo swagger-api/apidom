@@ -101,6 +101,7 @@ export interface NamespaceVersion {
 }
 
 export interface ContentLanguage {
+  mediaType: string;
   namespace: string;
   format?: 'JSON' | 'YAML';
   version?: string;
@@ -271,10 +272,19 @@ export interface LanguageSettings {
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
 
+export enum ReferenceValidationMode {
+  LEGACY,
+  APIDOM_INDIRECT,
+  APIDOM_INDIRECT_EXTERNAL,
+}
+
 export interface ValidationContext {
   comments?: DiagnosticSeverity;
   relatedInformation?: boolean;
   maxNumberOfProblems?: number;
+  baseURI?: string;
+  referenceValidationMode?: ReferenceValidationMode;
+  referenceValidationSequentialProcessing?: boolean;
 }
 
 export interface CompletionContext {

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.76.0](https://github.com/swagger-api/apidom/compare/v0.75.0...v0.76.0) (2023-09-01)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** fix bug related to explicit tag resolution ([#3090](https://github.com/swagger-api/apidom/issues/3090)) ([8d8bdc4](https://github.com/swagger-api/apidom/commit/8d8bdc4168dfbb43614de2c4e89d11538647598c)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+
 # [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

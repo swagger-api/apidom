@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.76.0](https://github.com/swagger-api/apidom/compare/v0.75.0...v0.76.0) (2023-09-01)
+
+### Features
+
+- **json-path:** use error hierarchy and metadata when throwing errors ([#3107](https://github.com/swagger-api/apidom/issues/3107)) ([d55a846](https://github.com/swagger-api/apidom/commit/d55a8466de9814f19aedbacb48c55761f2f3fe38)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+
 # [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-json-path

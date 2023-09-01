@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.76.0](https://github.com/swagger-api/apidom/compare/v0.75.0...v0.76.0) (2023-09-01)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** fix bug related to explicit tag resolution ([#3090](https://github.com/swagger-api/apidom/issues/3090)) ([8d8bdc4](https://github.com/swagger-api/apidom/commit/8d8bdc4168dfbb43614de2c4e89d11538647598c)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+
+### Features
+
+- add apidom-error package ([#3067](https://github.com/swagger-api/apidom/issues/3067)) ([7432a09](https://github.com/swagger-api/apidom/commit/7432a091f2058a31ac046633b33ee10e91fe9e8a)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+- **error:** introduce generic custom errors ([#3077](https://github.com/swagger-api/apidom/issues/3077)) ([aba5434](https://github.com/swagger-api/apidom/commit/aba543498bcc841d4db06ba434af5cd029433b8c)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+- **json-path:** use error hierarchy and metadata when throwing errors ([#3107](https://github.com/swagger-api/apidom/issues/3107)) ([d55a846](https://github.com/swagger-api/apidom/commit/d55a8466de9814f19aedbacb48c55761f2f3fe38)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+- **json-pointer-relative:** use error hierarchy and metadata when trowing errors ([#3108](https://github.com/swagger-api/apidom/issues/3108)) ([deaed14](https://github.com/swagger-api/apidom/commit/deaed142acd9881062fc65156e1162b48a580751)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+- **json-pointer:** use error hierarchy and metadata when throwing errors ([#3106](https://github.com/swagger-api/apidom/issues/3106)) ([a17f250](https://github.com/swagger-api/apidom/commit/a17f25052db0d83f1ac3fcea94f2e58b50105df8)), closes [#3039](https://github.com/swagger-api/apidom/issues/3039)
+- **ls:** app option for apidom-reference based ref validation ([f97349b](https://github.com/swagger-api/apidom/commit/f97349b3e9baec47a2c0cb1531ff59fb7cd0b4d8))
+- **ls:** concurrent and serial ref validation with refSet re-use ([76fb5a1](https://github.com/swagger-api/apidom/commit/76fb5a1501e364da56876d52690d030aefebb6da))
+
 # [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 ### Bug Fixes

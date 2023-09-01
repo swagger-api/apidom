@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.76.0](https://github.com/swagger-api/apidom/compare/v0.75.0...v0.76.0) (2023-09-01)
+
+### Features
+
+- **ls:** app option for apidom-reference based ref validation ([f97349b](https://github.com/swagger-api/apidom/commit/f97349b3e9baec47a2c0cb1531ff59fb7cd0b4d8))
+- **ls:** concurrent and serial ref validation with refSet re-use ([76fb5a1](https://github.com/swagger-api/apidom/commit/76fb5a1501e364da56876d52690d030aefebb6da))
+
 # [0.75.0](https://github.com/swagger-api/apidom/compare/v0.74.1...v0.75.0) (2023-08-22)
 
 ### Bug Fixes

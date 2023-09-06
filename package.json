@@ -57,7 +57,7 @@
     "@babel/register": "=7.22.5",
     "@commitlint/cli": "=17.7.1",
     "@commitlint/config-conventional": "=17.7.0",
-    "@types/chai": "=4.3.5",
+    "@types/chai": "=4.3.6",
     "@types/dedent": "=0.7.0",
     "@types/mocha": "=10.0.1",
     "@types/node": "=20.5.9",

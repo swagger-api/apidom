@@ -1,11 +1,17 @@
 import { isPlainObject } from 'ramda-adjunct';
 import { hasIn } from 'ramda';
+// @ts-ignore
+import AggregateErrorPolyfill from '@babel/runtime-corejs3/core-js/aggregate-error';
 
 import ApiDOMErrorOptions from './ApiDOMErrorOptions';
 
-class ApiDOMAggregateError extends AggregateError {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(errors: Iterable<any>, message?: string, options?: ApiDOMErrorOptions) {
+/**
+ * ApiDOMAggregateError is using polyfill of AggregateError from core-js-pure
+ * in environments which don't support global AggregateError symbol.
+ */
+
+class ApiDOMAggregateError extends (globalThis.AggregateError ?? AggregateErrorPolyfill) {
+  constructor(errors: Iterable<unknown>, message?: string, options?: ApiDOMErrorOptions) {
     super(errors, message, options);
 
     this.name = this.constructor.name;

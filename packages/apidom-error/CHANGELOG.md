@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.76.1](https://github.com/swagger-api/apidom/compare/v0.76.0...v0.76.1) (2023-09-07)
+
+### Bug Fixes
+
+- **error:** polyfill AggregateError in older environments ([#3129](https://github.com/swagger-api/apidom/issues/3129)) ([484d9e6](https://github.com/swagger-api/apidom/commit/484d9e6c34534aa37c696a5154af72cfcc9de09c)), closes [#3128](https://github.com/swagger-api/apidom/issues/3128)
+
 # [0.76.0](https://github.com/swagger-api/apidom/compare/v0.75.0...v0.76.0) (2023-09-01)
 
 ### Features

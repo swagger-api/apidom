@@ -48,7 +48,7 @@
     "minim": "~0.23.8",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",
-    "short-unique-id": "^4.4.4",
+    "short-unique-id": "^5.0.2",
     "stampit": "^4.3.2"
   },
   "files": [

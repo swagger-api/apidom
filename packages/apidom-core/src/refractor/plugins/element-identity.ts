@@ -1,4 +1,3 @@
-// @ts-ignore
 import ShortUniqueId from 'short-unique-id';
 import { Element, StringElement } from 'minim';
 
@@ -18,7 +17,7 @@ const plugin =
       visitor: {
         enter<T extends Element>(element: T) {
           // eslint-disable-next-line no-param-reassign
-          element.id = new StringElement(uuid());
+          element.id = new StringElement(uuid.randomUUID());
         },
       },
       post() {

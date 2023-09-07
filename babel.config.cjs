@@ -12,7 +12,10 @@ module.exports = {
           '@babel/preset-env',
           {
             debug: false,
-            modules: false,
+            modules: "commonjs",
+            loose: true,
+            useBuiltIns: false,
+            corejs: 3,
             targets: {
               node: '12.22.0',
             },
@@ -25,15 +28,9 @@ module.exports = {
       ],
       plugins: [
         [
-          '@babel/plugin-transform-modules-commonjs',
-          {
-            loose: true,
-          },
-        ],
-        [
           '@babel/plugin-transform-runtime',
           {
-            corejs: 3,
+            corejs: { version: 3 },
             version: '^7',
           },
         ],
@@ -64,7 +61,7 @@ module.exports = {
         [
           '@babel/plugin-transform-runtime',
           {
-            corejs: 3,
+            corejs: { version: 3 },
             version: '^7',
             useESModules: true,
           },
@@ -91,7 +88,7 @@ module.exports = {
         [
           '@babel/plugin-transform-runtime',
           {
-            corejs: 3,
+            corejs: { version: 3 },
             version: '^7',
             useESModules: true,
           },

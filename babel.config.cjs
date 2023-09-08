@@ -7,6 +7,7 @@ module.exports = {
   ],
   env: {
     cjs: {
+      browserslistEnv: "isomorphic-production",
       presets: [
         [
           '@babel/preset-env',
@@ -15,12 +16,8 @@ module.exports = {
             modules: "commonjs",
             loose: true,
             useBuiltIns: false,
-            corejs: 3,
-            targets: {
-              node: '12.22.0',
-            },
             forceAllTransforms: false,
-            ignoreBrowserslistConfig: true,
+            ignoreBrowserslistConfig: false,
             exclude: ['transform-function-name'],
           },
         ],
@@ -30,8 +27,11 @@ module.exports = {
         [
           '@babel/plugin-transform-runtime',
           {
-            corejs: { version: 3 },
-            version: '^7',
+            corejs: { version: 3, proposals: false },
+            absoluteRuntime: false,
+            helpers: true,
+            regenerator: false,
+            version: '^7.22.15',
           },
         ],
         process.env.NODE_ENV !== 'test'
@@ -40,42 +40,15 @@ module.exports = {
       ].filter(Boolean),
     },
     es: {
+      browserslistEnv: "isomorphic-production",
       presets: [
         [
           '@babel/preset-env',
           {
             debug: false,
             modules: false,
-            targets: {
-              node: '12.22.0',
-            },
-            ignoreBrowserslistConfig: true,
-            exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
-          },
-        ],
-        '@babel/preset-typescript',
-      ],
-      plugins: [
-        '@babel/proposal-class-properties',
-        '@babel/proposal-object-rest-spread',
-        [
-          '@babel/plugin-transform-runtime',
-          {
-            corejs: { version: 3 },
-            version: '^7',
-            useESModules: true,
-          },
-        ],
-        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'js' }],
-      ],
-    },
-    browser: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            debug: false,
             useBuiltIns: false,
+            forceAllTransforms: false,
             ignoreBrowserslistConfig: false,
             exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
           },
@@ -83,17 +56,48 @@ module.exports = {
         '@babel/preset-typescript',
       ],
       plugins: [
-        '@babel/proposal-class-properties',
-        '@babel/proposal-object-rest-spread',
         [
           '@babel/plugin-transform-runtime',
           {
-            corejs: { version: 3 },
-            version: '^7',
+            corejs: { version: 3, proposals: false },
+            absoluteRuntime: false,
+            helpers: true,
+            regenerator: false,
             useESModules: true,
+            version: '^7.22.15',
           },
         ],
+        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'js' }],
       ],
+    },
+    browser: {
+      browserslistEnv: "browser-production",
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            debug: false,
+            modules: 'auto',
+            useBuiltIns: false,
+            forceAllTransforms: false,
+            ignoreBrowserslistConfig: false,
+            exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
+          },
+        ],
+        '@babel/preset-typescript',
+      ],
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: { version: 3, proposals: false },
+            absoluteRuntime: false,
+            helpers: true,
+            regenerator: false,
+            version: '^7.22.15',
+          },
+        ],
+      ]
     },
   },
 };

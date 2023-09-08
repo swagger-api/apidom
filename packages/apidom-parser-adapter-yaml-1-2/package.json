@@ -29,7 +29,7 @@
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
     "build:cjs": "npm run build:wasm && npm run build:wasm:copy && BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
-    "build:umd:browser": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=browser BROWSERSLIST_ENV=production webpack --config config/webpack/browser.config.js --progress",
+    "build:umd:browser": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
     "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-yaml/tree-sitter-yaml.wasm && exit 0 || cd ../../node_modules/tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate --abi=13 ./grammar.js && tree-sitter build-wasm && node-gyp rebuild",
     "build:wasm:copy": "copyfiles -u 4 ../../node_modules/tree-sitter-yaml/tree-sitter-yaml.wasm wasm",
     "lint": "eslint ./",

@@ -1,16 +1,8 @@
 import { isPlainObject } from 'ramda-adjunct';
 import { hasIn } from 'ramda';
-// @ts-ignore
-import AggregateErrorPolyfill from '@babel/runtime-corejs3/core-js/aggregate-error';
 
 import ApiDOMErrorOptions from './ApiDOMErrorOptions';
 
-const AggregateError: AggregateErrorConstructor =
-  globalThis.AggregateError ?? AggregateErrorPolyfill;
-/**
- * ApiDOMAggregateError is using polyfill of AggregateError from core-js-pure
- * in environments which don't support global AggregateError symbol.
- */
 class ApiDOMAggregateError extends AggregateError {
   constructor(errors: Iterable<unknown>, message?: string, options?: ApiDOMErrorOptions) {
     super(errors, message, options);

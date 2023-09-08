@@ -78,8 +78,7 @@ module.exports = {
           {
             debug: false,
             modules: 'auto',
-            useBuiltIns: "usage",
-            corejs: 3,
+            useBuiltIns: false,
             forceAllTransforms: false,
             ignoreBrowserslistConfig: false,
             exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
@@ -87,6 +86,18 @@ module.exports = {
         ],
         '@babel/preset-typescript',
       ],
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: { version: 3, proposals: false },
+            absoluteRuntime: false,
+            helpers: true,
+            regenerator: false,
+            version: '^7.22.15',
+          },
+        ],
+      ]
     },
   },
 };

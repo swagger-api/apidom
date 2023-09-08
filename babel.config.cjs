@@ -67,7 +67,7 @@ module.exports = {
             version: '^7.22.15',
           },
         ],
-        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'js' }],
+        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'mjs' }],
       ],
     },
     browser: {

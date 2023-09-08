@@ -8,20 +8,20 @@
   },
   "type": "module",
   "sideEffects": [
-    "./es/refractor/registration.js",
+    "./es/refractor/registration.mjs",
     "./cjs/refractor/registration.cjs"
   ],
   "unpkg": "./dist/apidom-ns-asyncapi-2.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
-    "import": "./es/index.js",
+    "import": "./es/index.mjs",
     "require": "./cjs/index.cjs"
   },
   "types": "./types/dist.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
     "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
     "lint": "eslint ./",

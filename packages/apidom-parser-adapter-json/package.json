@@ -8,7 +8,7 @@
   },
   "type": "module",
   "sideEffects": [
-    "./es/lexical-analysis/browser-patch.js",
+    "./es/lexical-analysis/browser-patch.mjs",
     "./cjs/lexical-analysis/browser-patch.cjs"
   ],
   "unpkg": "./dist/apidom-parser-apdater-json.browser.min.js",
@@ -16,18 +16,18 @@
   "exports": {
     "types": "./types/dist.d.ts",
     "node": {
-      "import": "./es/adapter-node.js",
+      "import": "./es/adapter-node.mjs",
       "require": "./cjs/adapter-node.cjs"
     },
     "browser": {
-      "import": "./es/adapter-browser.js"
+      "import": "./es/adapter-browser.mjs"
     },
     "default": "./cjs/adapter-node.cjs"
   },
   "types": "./types/dist.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
-    "build:es": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward'",
+    "build:es": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
     "build:cjs": "npm run build:wasm && npm run build:wasm:copy && BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
     "build:umd:browser": "npm run build:wasm && npm run build:wasm:copy && cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
     "build:wasm": "node ../../scripts/file-exists.js ../../node_modules/tree-sitter-json/tree-sitter-json.wasm && exit 0 || cd ../../node_modules/tree-sitter-json && tree-sitter generate --abi=13 ./grammar.js && tree-sitter build-wasm && node-gyp rebuild",

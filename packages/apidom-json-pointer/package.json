@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-json-pointer",
-  "version": "0.76.1",
+  "version": "0.76.2",
   "description": "Evaluate JSON Pointer expressions against ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -38,8 +38,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.76.1",
-    "@swagger-api/apidom-error": "^0.76.1",
+    "@swagger-api/apidom-core": "^0.76.2",
+    "@swagger-api/apidom-error": "^0.76.2",
     "@types/ramda": "~0.29.3",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.0.0"

@@ -2,7 +2,7 @@ import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import fs from 'node:fs';
 import { dereferenceApiDOM, Reference, ReferenceSet } from '@swagger-api/apidom-reference';
-import { ObjectElement } from 'minim';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import { parse } from '../src/parser-factory';
 
@@ -52,14 +52,14 @@ describe.only('reference issue demo', function () {
     fragmentId += 1;
     const referenceElementReference = Reference({
       uri: `${baseURI}#reference${fragmentId}`,
-      value: referenceElement1,
+      value: new ParseResultElement([referenceElement1]),
     });
     refSet.add(referenceElementReference);
     try {
       await dereferenceApiDOM(referenceElement1, {
         resolve: {
           baseURI: `${baseURI}#reference${fragmentId}`,
-          external: !(referenceElement1 as ObjectElement).get('$ref').toValue().startsWith('#'),
+          external: false,
         },
         parse: {
           mediaType: 'application/vnd.aai.asyncapi+yaml;version=2.6.0',

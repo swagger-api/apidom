@@ -74,6 +74,11 @@
       "import": "./es/services/validation/providers/ads-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/ads-validation-provider.cjs",
       "types": "./types/services/validation/providers/ads-validation-provider.d.ts"
+    },
+    "./services/validation/providers/spectral": {
+      "import": "./es/services/validation/providers/spectral-validation-provider.mjs",
+      "require": "./cjs/services/validation/providers/spectral-validation-provider.cjs",
+      "types": "./types/services/validation/providers/spectral-validation-provider.d.ts"
     }
   },
   "types": "./types/",
@@ -124,7 +129,14 @@
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "json-source-map": "^0.6.1",
-    "yaml-js": "^0.3.0"
+    "yaml-js": "^0.3.0",
+    "@stoplight/spectral-core": "^1.18.3",
+    "@stoplight/spectral-ruleset-bundler": "^1.5.2",
+    "@stoplight/spectral-runtime": "^1.1.2",
+    "@types/node-fetch": "^2.6.4"
+  },
+  "devDependencies": {
+    "@stoplight/spectral-rulesets": "^1.17.0"
   },
   "files": [
     "cjs/",

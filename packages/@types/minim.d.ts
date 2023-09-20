@@ -214,9 +214,21 @@ declare module 'minim' {
     [Symbol.iterator](): IterableIterator<any>;
 
     toValue(): any;
+
+    clone(): ArraySlice;
   }
 
-  export class ObjectSlice extends ArraySlice {}
+  export class ObjectSlice extends ArraySlice {
+    clone(): ObjectSlice;
+  }
 
-  export class KeyValuePair {}
+  export class KeyValuePair {
+    public key: Element | undefined;
+
+    public value: Element | undefined;
+
+    constructor(key?: Element, value?: Element);
+
+    clone(): KeyValuePair;
+  }
 }

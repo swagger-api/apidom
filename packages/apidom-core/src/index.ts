@@ -64,6 +64,7 @@ export {
 } from './traversal/visitor';
 export { transclude, default as Transcluder } from './transcluder/index';
 export { dereference } from './util';
+export { cloneShallow, cloneDeep } from './clone';
 
 /**
  * Transforms data to an Element from a particular namespace.

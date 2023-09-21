@@ -72,4 +72,5 @@ export {
   visit,
   getNodeType,
   isNode,
+  cloneNode,
 } from './traversal/visitor';

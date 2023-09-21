@@ -2,9 +2,15 @@ import stampit from 'stampit';
 import { Element } from 'minim';
 import { F as stubFalse, pipe } from 'ramda';
 import { isString } from 'ramda-adjunct';
-import { visit as astVisit, BREAK, mergeAllVisitors } from '@swagger-api/apidom-ast';
+import {
+  visit as astVisit,
+  BREAK,
+  mergeAllVisitors,
+  cloneNode as cloneNodeDefault,
+} from '@swagger-api/apidom-ast';
 
 import {
+  isElement,
   isMemberElement,
   isArrayElement,
   isStringElement,
@@ -15,6 +21,7 @@ import {
   isNullElement,
   isNumberElement,
 } from '../predicates';
+import { cloneShallow } from '../clone';
 
 export { BREAK, mergeAllVisitors };
 
@@ -48,6 +55,14 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
     ? 'RefElement'
     : undefined;
   /* eslint-enable */
+};
+
+// cloneNode :: a -> a
+export const cloneNode = <T>(node: T): T => {
+  if (isElement(node)) {
+    return cloneShallow(node as Element) as T;
+  }
+  return cloneNodeDefault(node);
 };
 
 // isNode :: Node -> Boolean
@@ -114,6 +129,7 @@ export const visit = (
     // @ts-ignore
     nodeTypeGetter: getNodeType,
     nodePredicate: isNode,
+    nodeCloneFn: cloneNode,
     ...rest,
   });
 };

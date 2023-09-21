@@ -8,7 +8,7 @@ class ApiDOMError extends Error {
   public static [Symbol.hasInstance](instance: unknown) {
     // we want to ApiDOMAggregateError to act as if ApiDOMError was its superclass
     return (
-      Function.prototype[Symbol.hasInstance].call(ApiDOMError, instance) ||
+      super[Symbol.hasInstance](instance) ||
       Function.prototype[Symbol.hasInstance].call(ApiDOMAggregateError, instance)
     );
   }

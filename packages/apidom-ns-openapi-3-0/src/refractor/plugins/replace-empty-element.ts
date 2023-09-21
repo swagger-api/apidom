@@ -6,6 +6,7 @@ import {
   isStringElement,
   includesClasses,
   isArrayElement,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 
 /**
@@ -629,11 +630,11 @@ const plugin = () => () => {
           elementFactory.call(
             { context: ancestor },
             undefined,
-            originalValue.meta.clone(),
-            originalValue.attributes.clone(),
+            cloneDeep(originalValue.meta),
+            cloneDeep(originalValue.attributes),
           ),
-          element.meta.clone(),
-          element.attributes.clone(),
+          cloneDeep(element.meta),
+          cloneDeep(element.attributes),
         );
       },
 
@@ -654,8 +655,8 @@ const plugin = () => () => {
         return elementFactory.call(
           { context: element },
           undefined,
-          element.meta.clone(),
-          element.attributes.clone(),
+          cloneDeep(element.meta),
+          cloneDeep(element.attributes),
         );
       },
     },

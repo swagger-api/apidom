@@ -12,8 +12,10 @@ import {
   KeyValuePair,
   cloneDeep,
   cloneShallow,
+  ShallowCloneError,
+  DeepCloneError,
   toValue,
-} from '../src';
+} from '../../src';
 
 describe('clone', function () {
   context('cloneShallow', function () {
@@ -99,6 +101,21 @@ describe('clone', function () {
       assert.strictEqual(clone.get(0), firstItemElement);
       assert.deepEqual([...clone], [...objectSlice]);
     });
+
+    specify('should throw error on invalid input', function () {
+      const thunk = () => cloneShallow('value' as any);
+
+      assert.throws(thunk, ShallowCloneError);
+    });
+
+    context('given safe variant', function () {
+      specify('should act as identity function', function () {
+        const object = {};
+        const clone = cloneShallow.safe(object as any);
+
+        assert.strictEqual(clone, object);
+      });
+    });
   });
 
   context('cloneDeep', function () {
@@ -183,6 +200,21 @@ describe('clone', function () {
       assert.notStrictEqual(clone, objectSlice);
       assert.notStrictEqual(clone.get(0), firstItemElement);
       assert.deepEqual([...clone].map(toValue), [...objectSlice].map(toValue));
+    });
+
+    specify('should throw error on invalid input', function () {
+      const thunk = () => cloneDeep('value' as any);
+
+      assert.throws(thunk, DeepCloneError);
+    });
+
+    context('given safe variant', function () {
+      specify('should act as identity function', function () {
+        const object = {};
+        const clone = cloneDeep.safe(object as any);
+
+        assert.strictEqual(clone, object);
+      });
     });
   });
 });

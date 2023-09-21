@@ -6,6 +6,8 @@ import {
   visit,
   Element,
   isElement,
+  cloneShallow,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -169,12 +171,7 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      // @ts-ignore
-      referencedElement = new referencedElement.constructor( // shallow clone of the referenced element
-        referencedElement.content,
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
-      );
+      referencedElement = cloneShallow(referencedElement);
 
       // annotate referenced element with info about original referencing element
       referencedElement.setMetaProperty('ref-fields', {
@@ -265,8 +262,8 @@ const AsyncApi2DereferenceVisitor = stampit({
       const mergedResult = new ChannelItemElement(
         // @ts-ignore
         [...referencedElement.content],
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
       );
       // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
       referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {

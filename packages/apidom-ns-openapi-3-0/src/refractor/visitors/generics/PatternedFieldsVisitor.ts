@@ -1,7 +1,14 @@
 import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
 import { noop } from 'ramda-adjunct';
-import { ObjectElement, Element, MemberElement, BREAK } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  Element,
+  MemberElement,
+  BREAK,
+  cloneDeep,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
@@ -43,17 +50,17 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           );
           this.element.content.push(extensionElement);
         } else if (
-          !this.ignoredFields.includes(key.toValue()) &&
-          this.fieldPatternPredicate(key.toValue())
+          !this.ignoredFields.includes(toValue(key)) &&
+          this.fieldPatternPredicate(toValue(key))
         ) {
           const specPath = this.specPath(value);
           const patternedFieldElement = this.toRefractedElement(specPath, value);
-          const newMemberElement = new MemberElement(key.clone(), patternedFieldElement);
+          const newMemberElement = new MemberElement(cloneDeep(key), patternedFieldElement);
           this.copyMetaAndAttributes(memberElement, newMemberElement);
           newMemberElement.classes.push('patterned-field');
           this.element.content.push(newMemberElement);
-        } else if (!this.ignoredFields.includes(key.toValue())) {
-          this.element.content.push(memberElement.clone());
+        } else if (!this.ignoredFields.includes(toValue(key))) {
+          this.element.content.push(cloneDeep(memberElement));
         }
       });
 

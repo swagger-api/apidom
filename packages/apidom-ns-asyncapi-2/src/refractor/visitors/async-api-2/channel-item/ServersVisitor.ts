@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, isStringElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, isStringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsServers';
 import SpecificationVisitor from '../../SpecificationVisitor';
@@ -12,7 +12,7 @@ const ServersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element) => {
-        const element = item.clone();
+        const element = cloneDeep(item);
 
         if (isStringElement(element)) {
           element.classes.push('server-name');

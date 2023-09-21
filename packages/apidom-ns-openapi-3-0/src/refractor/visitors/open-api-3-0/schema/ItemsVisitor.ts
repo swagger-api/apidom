@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, ObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, ObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import { isReferenceElement } from '../../../../predicates';
@@ -20,7 +20,7 @@ const ItemsVisitor = stampit(JSONSchemaItemsVisitor, {
       return result;
     },
     ArrayElement(arrayElement: ArrayElement) {
-      this.element = arrayElement.clone();
+      this.element = cloneDeep(arrayElement);
       return BREAK;
     },
   },

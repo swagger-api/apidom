@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import SecurityElement from '../../../elements/nces/Security';
 import SpecificationVisitor from '../SpecificationVisitor';
@@ -19,7 +19,7 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
           );
           this.element.push(element);
         } else {
-          this.element.push(item.clone());
+          this.element.push(cloneDeep(item));
         }
       });
 

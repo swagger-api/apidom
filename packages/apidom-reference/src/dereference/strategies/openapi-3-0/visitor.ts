@@ -8,6 +8,8 @@ import {
   visit,
   find,
   isElement,
+  cloneShallow,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -177,12 +179,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      // @ts-ignore
-      referencedElement = new referencedElement.constructor( // shallow clone of the referenced element
-        referencedElement.content,
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
-      );
+      referencedElement = cloneShallow(referencedElement);
 
       // annotate referenced element with info about original referencing element
       referencedElement.setMetaProperty('ref-fields', {
@@ -274,8 +271,8 @@ const OpenApi3_0DereferenceVisitor = stampit({
       const mergedResult = new PathItemElement(
         // @ts-ignore
         [...referencedElement.content],
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
       );
       // existing keywords from referencing PathItemElement overrides ones from referenced element
       referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
@@ -324,12 +321,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
           operationElement = OperationElement.refract(operationElement);
         }
         // create shallow clone to be able to annotate with metadata
-        operationElement = new OperationElement(
-          // @ts-ignore
-          [...operationElement.content],
-          operationElement.meta.clone(),
-          operationElement.attributes.clone(),
-        );
+        operationElement = cloneShallow(operationElement);
         // annotate operation element with info about origin
         operationElement.setMetaProperty('ref-origin', reference.uri);
         linkElement.operationRef?.meta.set('operation', operationElement);
@@ -369,11 +361,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
       const reference = await this.toReference(exampleElement.externalValue?.toValue());
 
       // shallow clone of the referenced element
-      const valueElement = new reference.value.result.constructor(
-        reference.value.result.content,
-        reference.value.result.meta.clone(),
-        reference.value.result.attributes.clone(),
-      );
+      const valueElement = cloneShallow(reference.value.result);
       // annotate operation element with info about origin
       valueElement.setMetaProperty('ref-origin', reference.uri);
 

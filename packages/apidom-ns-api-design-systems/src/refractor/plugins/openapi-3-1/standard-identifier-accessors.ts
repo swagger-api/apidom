@@ -1,4 +1,4 @@
-import { StringElement } from '@swagger-api/apidom-core';
+import { StringElement, toValue, cloneDeep } from '@swagger-api/apidom-core';
 import {
   PathItemElement,
   OperationElement,
@@ -17,8 +17,8 @@ const plugin = () => () => {
         const [, , , ancestors] = rest;
         const parentPathItem: PathItemElement = ancestors[ancestors.length - 2];
 
-        const httpMethod = element.meta.get('http-method').clone();
-        httpMethod.content = httpMethod.toValue().toLowerCase();
+        const httpMethod = cloneDeep(element.meta.get('http-method'));
+        httpMethod.content = toValue(httpMethod).toLowerCase();
 
         const standardIdentifiers = [
           {
@@ -40,15 +40,15 @@ const plugin = () => () => {
             if (
               isStringElement(parameter.in) &&
               isStringElement(parameter.name) &&
-              parameter.in?.toValue() === 'header'
+              toValue(parameter.in as any) === 'header'
             ) {
               standardIdentifiers.push({
                 subject: ['http', 'request', 'header'],
-                value: parameter.name?.clone(),
+                value: cloneDeep.safe(parameter.name),
               });
               standardIdentifiers.push({
                 subject: ['http', 'message', 'header'],
-                value: parameter.name?.clone(),
+                value: cloneDeep.safe(parameter.name),
               });
             }
           });
@@ -60,16 +60,16 @@ const plugin = () => () => {
         if (
           isStringElement(element.in) &&
           isStringElement(element.name) &&
-          element.in?.toValue() === 'header'
+          toValue(element.in as any) === 'header'
         ) {
           element.setMetaProperty('ads-a-standard-identifier', [
             {
               subject: ['http', 'request', 'header'],
-              value: element.name?.clone(),
+              value: cloneDeep.safe(element.name),
             },
             {
               subject: ['http', 'message', 'header'],
-              value: element.name?.clone(),
+              value: cloneDeep.safe(element.name),
             },
           ]);
         }
@@ -85,19 +85,19 @@ const plugin = () => () => {
           standardIdentifiers.push(
             {
               subject: ['http', 'request', 'header'],
-              value: new StringElement('Content-Type', key.meta.clone()),
+              value: new StringElement('Content-Type', cloneDeep(key.meta)),
             },
             {
               subject: ['http', 'message', 'header'],
-              value: new StringElement('Content-Type', key.meta.clone()),
+              value: new StringElement('Content-Type', cloneDeep(key.meta)),
             },
             {
               subject: ['http', 'request', 'header', 'Content-Type'],
-              value: key.clone(),
+              value: cloneDeep(key),
             },
             {
               subject: ['http', 'message', 'header', 'Content-Type'],
-              value: key.clone(),
+              value: cloneDeep(key),
             },
           );
         });
@@ -110,7 +110,7 @@ const plugin = () => () => {
         const standardIdentifiers = [
           {
             subject: ['http', 'response', 'status_code'],
-            value: element.meta.get('http-status-code').clone(),
+            value: cloneDeep(element.meta.get('http-status-code')),
           },
         ];
 

@@ -65,6 +65,9 @@ export {
 export { transclude, default as Transcluder } from './transcluder/index';
 export { dereference } from './util';
 export { cloneShallow, cloneDeep } from './clone';
+export { default as CloneError } from './clone/errors/CloneError';
+export { default as DeepCloneError } from './clone/errors/DeepCloneError';
+export { default as ShallowCloneError } from './clone/errors/ShallowCloneError';
 
 /**
  * Transforms data to an Element from a particular namespace.

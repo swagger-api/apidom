@@ -1,4 +1,10 @@
-import { AnnotationElement, Element, isArrayElement } from '@swagger-api/apidom-core';
+import {
+  AnnotationElement,
+  Element,
+  isArrayElement,
+  toValue,
+  cloneDeep,
+} from '@swagger-api/apidom-core';
 import { NotImplementedError } from '@swagger-api/apidom-error';
 import {
   OpenApi3_1Element,
@@ -20,10 +26,10 @@ const makeMessage = (
   requirementLevel: RequirementLevelElement,
   standardIdentifier: StandardIdentifier,
 ) => {
-  const primitiveValue = value.toValue();
-  const primitiveStandardIdentifier = JSON.stringify(standardIdentifier.toValue());
+  const primitiveValue = toValue(value);
+  const primitiveStandardIdentifier = JSON.stringify(toValue(standardIdentifier));
 
-  if (requirementLevel.toValue() === 'may') {
+  if (toValue(requirementLevel) === 'may') {
     return `"${primitiveValue}" not allowed for subject ${primitiveStandardIdentifier}`;
   }
 
@@ -36,8 +42,8 @@ const makeMessage = (
 const makeAnnotation = (message: string, value, level, standardIdentifier) => {
   const annotation = new AnnotationElement(message);
   annotation.classes.push(level);
-  annotation.attributes.set('value', value.clone());
-  annotation.attributes.set('standardIdentifier', standardIdentifier.clone());
+  annotation.attributes.set('value', cloneDeep(value));
+  annotation.attributes.set('standardIdentifier', cloneDeep(standardIdentifier));
   return annotation;
 };
 
@@ -47,8 +53,8 @@ const validateValue = (value: Element, requirement: RequirementElement) => {
 
   if (typeof requirement.values === 'undefined') return annotations;
 
-  if (requirement.level.toValue() === 'may') {
-    const isValid = may(value.toValue(), requirement.values.toValue());
+  if (toValue(requirement.level) === 'may') {
+    const isValid = may(toValue(value), toValue(requirement.values));
     if (!isValid) {
       const message = makeMessage(value, requirement.level, subject);
       const annotation = makeAnnotation(message, value, 'error', subject);

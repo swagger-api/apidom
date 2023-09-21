@@ -8,6 +8,8 @@ import {
   Element,
   find,
   isElement,
+  cloneShallow,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -189,7 +191,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       this.indirections.pop();
 
       // annotate fragment with info about original Reference element
-      referencedElement = referencedElement.clone();
+      referencedElement = cloneDeep(referencedElement);
       referencedElement.setMetaProperty('ref-fields', {
         $ref: referencingElement.$ref?.toValue(),
         // @ts-ignore
@@ -296,8 +298,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const mergedResult = new PathItemElement(
         // @ts-ignore
         [...referencedElement.content],
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
       );
       // existing keywords from referencing PathItemElement overrides ones from referenced element
       referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
@@ -346,12 +348,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
           operationElement = OperationElement.refract(operationElement);
         }
         // create shallow clone to be able to annotate with metadata
-        operationElement = new OperationElement(
-          // @ts-ignore
-          [...operationElement.content],
-          operationElement.meta.clone(),
-          operationElement.attributes.clone(),
-        );
+        operationElement = cloneShallow(operationElement);
         // annotate operation element with info about origin
         operationElement.setMetaProperty('ref-origin', reference.uri);
         linkElement.operationRef?.meta.set('operation', operationElement);
@@ -391,11 +388,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const reference = await this.toReference(exampleElement.externalValue?.toValue());
 
       // shallow clone of the referenced element
-      const valueElement = new reference.value.result.constructor(
-        reference.value.result.content,
-        reference.value.result.meta.clone(),
-        reference.value.result.attributes.clone(),
-      );
+      const valueElement = cloneShallow(reference.value.result);
       // annotate operation element with info about origin
       valueElement.setMetaProperty('ref-origin', reference.uri);
 
@@ -531,7 +524,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // Boolean JSON Schemas
       if (isBooleanJsonSchemaElement(referencedElement)) {
-        const referencedElementClone = referencedElement.clone();
+        const referencedElementClone = cloneDeep(referencedElement);
         // annotate referenced element with info about original referencing element
         referencedElementClone.setMetaProperty('ref-fields', {
           $ref: referencingElement.$ref?.toValue(),
@@ -545,8 +538,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const mergedResult = new SchemaElement(
         // @ts-ignore
         [...referencedElement.content],
-        referencedElement.meta.clone(),
-        referencedElement.attributes.clone(),
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
       );
       // existing keywords from referencing schema overrides ones from referenced schema
       referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {

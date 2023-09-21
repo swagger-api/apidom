@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { Element, BREAK } from '@swagger-api/apidom-core';
+import { Element, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import Visitor from './Visitor';
 
@@ -12,7 +12,7 @@ import Visitor from './Visitor';
 const FallbackVisitor = stampit(Visitor, {
   methods: {
     enter(element: Element) {
-      this.element = element.clone();
+      this.element = cloneDeep(element);
       return BREAK;
     },
   },

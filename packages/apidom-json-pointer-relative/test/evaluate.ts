@@ -1,11 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 
-import {
-  evaluate,
-  InvalidRelativeJsonPointerError,
-  EvaluationRelativeJsonPointerError,
-} from '../src';
+import { evaluate, EvaluationRelativeJsonPointerError } from '../src';
 
 describe('apidom-json-pointer-relative', function () {
   context('evaluate', function () {
@@ -156,7 +152,7 @@ describe('apidom-json-pointer-relative', function () {
       specify('should throw InvalidRelativeJsonPointerError', function () {
         const current = root.get('foo').get(1);
 
-        assert.throws(() => evaluate('-1', current, root), InvalidRelativeJsonPointerError);
+        assert.throws(() => evaluate('-1', current, root), EvaluationRelativeJsonPointerError);
       });
     });
   });

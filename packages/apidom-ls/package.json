@@ -1,7 +1,7 @@
 {
   "name": "@swagger-api/apidom-ls",
   "description": "ApiDOM based language service library.",
-  "version": "0.76.0",
+  "version": "0.76.2",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -22,56 +22,56 @@
   "exports": {
     ".": {
       "types": "./types/dist.d.ts",
-      "import": "./es/index.js",
+      "import": "./es/index.mjs",
       "require": "./cjs/index.cjs"
     },
     "./services/validation/providers/json-schema": {
-      "import": "./es/services/validation/providers/json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-20-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-20-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-20-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-20-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-20-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-21-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-21-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-21-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-21-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-22-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-22-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-22-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-22-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-22-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-22-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-23-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-23-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-23-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-23-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-23-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-24-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-24-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-24-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-24-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-24-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-25-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-25-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-25-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-25-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-25-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-26-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-26-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/asyncapi-26-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/asyncapi-26-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-26-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/openapi-31-json-schema": {
-      "import": "./es/services/validation/providers/openapi-31-json-schema-validation-provider.js",
+      "import": "./es/services/validation/providers/openapi-31-json-schema-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/openapi-31-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/openapi-31-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/ads": {
-      "import": "./es/services/validation/providers/ads-validation-provider.js",
+      "import": "./es/services/validation/providers/ads-validation-provider.mjs",
       "require": "./cjs/services/validation/providers/ads-validation-provider.cjs",
       "types": "./types/services/validation/providers/ads-validation-provider.d.ts"
     }
@@ -79,9 +79,9 @@
   "types": "./types/",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --root-mode 'upward' && copyfiles -u 1 ./src/**/*.json es",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && copyfiles -u 1 ./src/**/*.json es",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward' && copyfiles -u 1 ./src/**/*.json cjs",
-    "build:umd:browser": "cross-env BABEL_ENV=browser BROWSERSLIST_ENV=production webpack --config config/webpack/browser.config.js",
+    "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
@@ -93,25 +93,25 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.76.0",
-    "@swagger-api/apidom-json-path": "^0.76.0",
-    "@swagger-api/apidom-json-pointer": "^0.76.0",
-    "@swagger-api/apidom-ns-api-design-systems": "^0.76.0",
-    "@swagger-api/apidom-ns-asyncapi-2": "^0.76.0",
-    "@swagger-api/apidom-ns-openapi-3-0": "^0.76.0",
-    "@swagger-api/apidom-ns-openapi-3-1": "^0.76.0",
-    "@swagger-api/apidom-parser": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-json": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.76.0",
-    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.76.0",
-    "@swagger-api/apidom-reference": "^0.76.0",
+    "@swagger-api/apidom-core": "^0.76.2",
+    "@swagger-api/apidom-json-path": "^0.76.2",
+    "@swagger-api/apidom-json-pointer": "^0.76.2",
+    "@swagger-api/apidom-ns-api-design-systems": "^0.76.2",
+    "@swagger-api/apidom-ns-asyncapi-2": "^0.76.2",
+    "@swagger-api/apidom-ns-openapi-3-0": "^0.76.2",
+    "@swagger-api/apidom-ns-openapi-3-1": "^0.76.2",
+    "@swagger-api/apidom-parser": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-json": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.76.2",
+    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.76.2",
+    "@swagger-api/apidom-reference": "^0.76.2",
     "@types/ramda": "~0.29.3",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",

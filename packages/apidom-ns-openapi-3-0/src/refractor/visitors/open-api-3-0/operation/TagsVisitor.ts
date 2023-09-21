@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import OperationTagsElement from '../../../../elements/nces/OperationTags';
 import FallbackVisitor from '../../FallbackVisitor';
@@ -10,7 +10,7 @@ const TagsVisitor = stampit(FallbackVisitor, {
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
-      this.element = this.element.concat(arrayElement.clone());
+      this.element = this.element.concat(cloneDeep(arrayElement));
 
       return BREAK;
     },

@@ -3,7 +3,7 @@ import dedent from 'dedent';
 import { trim } from 'ramda';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { sexprs, ObjectElement } from '../src';
+import { sexprs, ObjectElement } from '../../src';
 
 describe('sexprs', function () {
   context('given generic ApiDOM', function () {

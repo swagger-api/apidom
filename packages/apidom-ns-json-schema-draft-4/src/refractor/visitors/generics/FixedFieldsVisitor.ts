@@ -1,6 +1,13 @@
 import stampit from 'stampit';
 import { noop } from 'ramda-adjunct';
-import { isStringElement, MemberElement, Element, BREAK } from '@swagger-api/apidom-core';
+import {
+  isStringElement,
+  MemberElement,
+  Element,
+  BREAK,
+  cloneDeep,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../SpecificationVisitor';
 
@@ -26,19 +33,19 @@ const FixedFieldsVisitor = stampit(SpecificationVisitor, {
       objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
         if (
           isStringElement(key) &&
-          fields.includes(key.toValue()) &&
-          !this.ignoredFields.includes(key.toValue())
+          fields.includes(toValue(key)) &&
+          !this.ignoredFields.includes(toValue(key))
         ) {
           const fixedFieldElement = this.toRefractedElement(
-            [...specPath, 'fixedFields', key.toValue()],
+            [...specPath, 'fixedFields', toValue(key)],
             value,
           );
-          const newMemberElement = new MemberElement(key.clone(), fixedFieldElement);
+          const newMemberElement = new MemberElement(cloneDeep(key), fixedFieldElement);
           this.copyMetaAndAttributes(memberElement, newMemberElement);
           newMemberElement.classes.push('fixed-field');
           this.element.content.push(newMemberElement);
-        } else if (!this.ignoredFields.includes(key.toValue())) {
-          this.element.content.push(memberElement.clone());
+        } else if (!this.ignoredFields.includes(toValue(key))) {
+          this.element.content.push(cloneDeep(memberElement));
         }
       });
 

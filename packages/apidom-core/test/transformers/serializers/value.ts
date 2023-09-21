@@ -7,8 +7,8 @@ import {
   NullElement,
   ObjectElement,
   ArrayElement,
-} from '../../src';
-import serializer from '../../src/serializers/value';
+} from '../../../src';
+import serializer from '../../../src/transformers/serializers/value';
 
 describe('serializers', function () {
   context('value', function () {

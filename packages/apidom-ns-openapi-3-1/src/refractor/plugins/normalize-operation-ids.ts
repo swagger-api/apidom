@@ -1,5 +1,5 @@
 import { last, defaultTo, groupBy } from 'ramda';
-import { toValue, StringElement, Namespace } from '@swagger-api/apidom-core';
+import { toValue, StringElement, Namespace, cloneDeep } from '@swagger-api/apidom-core';
 
 import LinkElement from '../../elements/Link';
 import PathItemElement from '../../elements/PathItem';
@@ -95,7 +95,7 @@ const plugin =
               // Link Object doesn't need to be rectified
               if (typeof operationElement === 'undefined') return;
 
-              linkElement.operationId = operationElement.operationId?.clone();
+              linkElement.operationId = cloneDeep.safe(operationElement.operationId);
               linkElement.meta.set('originalOperationId', linkOperationId);
               linkElement.set('__originalOperationId', linkOperationId);
             });

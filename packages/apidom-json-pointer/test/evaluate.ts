@@ -1,12 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
-import {
-  evaluate,
-  uriToPointer,
-  EvaluationJsonPointerError,
-  InvalidJsonPointerError,
-} from '../src';
+import { evaluate, uriToPointer, EvaluationJsonPointerError } from '../src';
 
 describe('apidom-json-pointer', function () {
   context('RFC 6901 test', function () {
@@ -111,7 +106,7 @@ describe('apidom-json-pointer', function () {
     specify('should throw InvalidJsonPointerError', function () {
       const element = new ObjectElement({ a: { b: 'c' } });
 
-      assert.throws(() => evaluate('a/b', element), InvalidJsonPointerError);
+      assert.throws(() => evaluate('a/b', element), EvaluationJsonPointerError);
     });
   });
 

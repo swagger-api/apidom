@@ -4,8 +4,7 @@ import { hasIn } from 'ramda';
 import ApiDOMErrorOptions from './ApiDOMErrorOptions';
 
 class ApiDOMAggregateError extends AggregateError {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(errors: Iterable<any>, message?: string, options?: ApiDOMErrorOptions) {
+  constructor(errors: Iterable<unknown>, message?: string, options?: ApiDOMErrorOptions) {
     super(errors, message, options);
 
     this.name = this.constructor.name;

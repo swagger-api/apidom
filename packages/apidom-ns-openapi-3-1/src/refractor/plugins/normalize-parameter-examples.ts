@@ -1,3 +1,5 @@
+import { cloneDeep } from '@swagger-api/apidom-core';
+
 import ParameterElement from '../../elements/Parameter';
 import ExampleElement from '../../elements/Example';
 import { Predicates } from '../toolbox';
@@ -58,7 +60,7 @@ const plugin =
             ) {
               // @ts-ignore
               const examples = parameterElement.examples.map((example: ExampleElement) => {
-                return example.value?.clone();
+                return cloneDeep.safe(example.value);
               });
 
               if (typeof parameterElement.schema.examples !== 'undefined') {
@@ -75,10 +77,10 @@ const plugin =
              */
             if (typeof parameterElement.example !== 'undefined') {
               if (typeof parameterElement.schema.examples !== 'undefined') {
-                parameterElement.schema.set('examples', [parameterElement.example.clone()]);
+                parameterElement.schema.set('examples', [cloneDeep(parameterElement.example)]);
               }
               if (typeof parameterElement.schema.example !== 'undefined') {
-                parameterElement.schema.set('example', parameterElement.example.clone());
+                parameterElement.schema.set('example', cloneDeep(parameterElement.example));
               }
             }
           },

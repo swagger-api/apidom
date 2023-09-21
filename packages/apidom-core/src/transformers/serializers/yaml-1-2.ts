@@ -8,7 +8,7 @@ import {
   ObjectElement,
 } from 'minim';
 
-import { visit } from '../traversal/visitor';
+import { visit } from '../../traversal/visitor';
 import serializeValue from './value';
 
 const YamlVisitor = stampit({

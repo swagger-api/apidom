@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
-import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, cloneDeep } from '@swagger-api/apidom-core';
 
 import PathsElement from '../../../../elements/Paths';
 import PathItemElement from '../../../../elements/PathItem';
@@ -26,7 +26,7 @@ const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
       this.element
         .filter(isPathItemElement)
         .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('path', key.clone());
+          pathItemElement.setMetaProperty('path', cloneDeep(key));
         });
 
       return result;

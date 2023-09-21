@@ -677,3 +677,30 @@ const numberElement = new NumberElement(1);
 
 toString(numberElement); // => '{"element":"number","content":1}'
 ```
+
+## Cloning
+
+Following functions provide mechanism for creating shallow and deep copies of ApiDOM elements.
+
+### Shallow cloning
+
+Creates shallow clone of ApiDOM element.
+
+```js
+import { cloneShallow, ObjectElement } from '@swagger-api/apidom-core';
+
+const objectElement = new ObjectElement({ a: 'b' });
+const objectElementShallowClone = cloneShallow(objectElement);
+```
+
+### Deep cloning
+
+Creates deep clone of ApiDOM Element.
+
+```js
+import { cloneDeep, ObjectElement } from '@swagger-api/apidom-core';
+
+const objectElement = new ObjectElement({ a: 'b' });
+const objectElementDeepClone = cloneDeep(objectElement);
+```
+

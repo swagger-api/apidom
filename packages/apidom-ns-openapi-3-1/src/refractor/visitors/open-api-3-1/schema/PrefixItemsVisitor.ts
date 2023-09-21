@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import { FallbackVisitor, SpecificationVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
@@ -20,7 +20,7 @@ const PrefixItemsVisitor = stampit(
             const schemaElement = this.toRefractedElement(['document', 'objects', 'Schema'], item);
             this.element.push(schemaElement);
           } else {
-            const element = item.clone();
+            const element = cloneDeep(item);
             this.element.push(element);
           }
         });

@@ -46,6 +46,10 @@ export const getNodeType = (node: any) => node?.type;
 // isNode :: Node -> Boolean
 export const isNode = (node: any) => typeof getNodeType(node) === 'string';
 
+// cloneNode :: a -> a
+export const cloneNode = (node: any) =>
+  Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
+
 /**
  * Creates a new visitor instance which delegates to many visitors to run in
  * parallel. Each visitor will be visited for each node before moving on.
@@ -202,6 +206,7 @@ export const visit = (
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
+    nodeCloneFn = cloneNode,
     detectCycles = true,
   } = {},
 ) => {
@@ -235,7 +240,7 @@ export const visit = (
           node = node.slice();
         } else {
           // creating clone
-          node = Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
+          node = nodeCloneFn(node);
         }
         let editOffset = 0;
         for (let ii = 0; ii < edits.length; ii += 1) {
@@ -361,6 +366,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     visitFnGetter = getVisitFn,
     nodeTypeGetter = getNodeType,
     nodePredicate = isNode,
+    nodeCloneFn = cloneNode,
     detectCycles = true,
   } = {},
 ) => {
@@ -394,7 +400,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           node = node.slice();
         } else {
           // creating clone
-          node = Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
+          node = nodeCloneFn(node);
         }
         let editOffset = 0;
         for (let ii = 0; ii < edits.length; ii += 1) {

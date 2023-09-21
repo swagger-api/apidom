@@ -51,6 +51,7 @@ export {
   BREAK,
   mergeAllVisitors,
   getNodeType,
+  cloneNode,
   keyMapDefault as keyMap,
 } from './traversal/visitor';
 export { transclude, default as Transcluder } from './transcluder/index';

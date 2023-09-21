@@ -1,12 +1,3 @@
-import { has } from 'ramda';
-import { isPlainObject, isString } from 'ramda-adjunct';
-import { Element, Namespace as INamespace } from 'minim';
-
-import defaultNamespaceInstance from './namespace';
-import serializeValue from './serializers/value';
-import serializeJSON from './serializers/json';
-import serializeYAML from './serializers/yaml-1-2';
-
 export { dispatchPlugins as dispatchRefractorPlugins } from './refractor/plugins/utils';
 export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
 export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
@@ -72,61 +63,36 @@ export { default as ShallowCloneError } from './clone/errors/ShallowCloneError';
 /**
  * Transforms data to an Element from a particular namespace.
  */
-export const from = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
-  if (isString(data)) {
-    // JSON serialized refract
-    try {
-      return namespace.fromRefract(JSON.parse(data));
-    } catch {
-      // noop
-    }
-  }
-  if (isPlainObject(data) && has('element', data)) {
-    // refract javascript structure
-    return namespace.fromRefract(data);
-  }
-
-  return namespace.toElement(data);
-};
+export { default as from } from './transformers/from';
 
 /**
  * Transforms the ApiDOM into JavaScript POJO.
  * This POJO would be the result of interpreting the ApiDOM
  * into JavaScript structure.
  */
-export const toValue = serializeValue;
+export { default as toValue } from './transformers/serializers/value';
 
 /**
  * Transforms the ApiDOM into JSON string.
  */
-export const toJSON = serializeJSON;
+export { default as toJSON } from './transformers/serializers/json';
 
 /**
  * Transforms the ApiDOM into YAML string.
  */
-export const toYAML = serializeYAML;
+export { default as toYAML } from './transformers/serializers/yaml-1-2';
 
 /**
  * Creates a refract representation of an Element.
  * https://github.com/refractproject/refract-spec
  */
-export const dehydrate = (
-  element: Element,
-  namespace: INamespace = defaultNamespaceInstance,
-): any => {
-  return namespace.toRefract(element);
-};
+export { default as dehydrate } from './transformers/dehydrate';
 
 /**
  * Create a refracted string representation of an Element.
  */
-export const toString = (
-  element: Element,
-  namespace: INamespace = defaultNamespaceInstance,
-): string => {
-  const refractStructure = dehydrate(element, namespace);
-  return JSON.stringify(refractStructure);
-};
+export { default as toString } from './transformers/to-string';
 
-export { default as sexprs } from './sexprs';
+export { default as sexprs } from './transformers/sexprs';
+
 export { default as deepmerge } from './deepmerge';

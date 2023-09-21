@@ -5,7 +5,7 @@ import {
   visit as astVisit,
   keyMapDefault as baseKeyMap,
   getNodeType as baseGetNodeType,
-} from '../../traversal/visitor';
+} from '../../../traversal/visitor';
 
 const nodeTypeGetter = (node: any): string | undefined => {
   if (typeof node?.type === 'string') {

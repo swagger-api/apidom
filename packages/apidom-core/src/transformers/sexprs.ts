@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { Element } from 'minim';
 
-import { visit } from './traversal/visitor';
+import { visit } from '../traversal/visitor';
 
 const SymbolicExpressionsVisitor = stampit({
   props: {

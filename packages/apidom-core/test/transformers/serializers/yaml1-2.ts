@@ -1,8 +1,8 @@
 import dedent from 'dedent';
 import { assert } from 'chai';
 
-import { from } from '../../src';
-import serialize from '../../src/serializers/yaml-1-2';
+import { from } from '../../../src';
+import serialize from '../../../src/transformers/serializers/yaml-1-2';
 
 describe('serializers', function () {
   context('yaml-1-2', function () {

@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ArrayElement, Element, isObjectElement, BREAK } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
@@ -17,7 +17,7 @@ const ExamplesVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
         if (isObjectElement(item)) {
           element = this.toRefractedElement(['document', 'objects', 'MessageExample'], item);
         } else {
-          element = item.clone();
+          element = cloneDeep(item);
         }
 
         this.element.push(element);

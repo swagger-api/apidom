@@ -1,5 +1,10 @@
 import { isEmpty } from 'ramda';
-import { Element, isParseResultElement, ParseResultElement } from '@swagger-api/apidom-core';
+import {
+  Element,
+  isParseResultElement,
+  ParseResultElement,
+  cloneShallow,
+} from '@swagger-api/apidom-core';
 
 import { merge as mergeOptions } from '../options/util';
 import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } from '../types';
@@ -22,12 +27,7 @@ export const resolveApiDOM = async <T extends Element>(
   // wrap element into parse result
   if (!isParseResultElement(element)) {
     // shallow clone of the element
-    // @ts-ignore
-    const elementClone = new element.constructor(
-      element.content,
-      element.meta.clone(),
-      element.attributes,
-    );
+    const elementClone = cloneShallow(element);
     elementClone.classes.push('result');
     parseResult = new ParseResultElement([elementClone]);
   }

@@ -7,6 +7,8 @@ import {
   BooleanElement,
   isStringElement,
   BREAK,
+  cloneDeep,
+  toValue,
 } from '@swagger-api/apidom-core';
 import { FallbackVisitor, FixedFieldsVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
@@ -38,14 +40,14 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
         this.openApiSemanticElement !== null &&
         isJsonSchemaDialectElement(this.openApiSemanticElement.jsonSchemaDialect)
       ) {
-        jsonSchemaDialect = this.openApiSemanticElement.jsonSchemaDialect.toValue();
+        jsonSchemaDialect = toValue(this.openApiSemanticElement.jsonSchemaDialect);
       } else if (
         this.openApiGenericElement !== null &&
         isStringElement(this.openApiGenericElement.get('jsonSchemaDialect'))
       ) {
-        jsonSchemaDialect = this.openApiGenericElement.get('jsonSchemaDialect').toValue();
+        jsonSchemaDialect = toValue(this.openApiGenericElement.get('jsonSchemaDialect'));
       } else {
-        jsonSchemaDialect = JsonSchemaDialect.default.toValue();
+        jsonSchemaDialect = toValue(JsonSchemaDialect.default);
       }
 
       return jsonSchemaDialect;
@@ -59,8 +61,8 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       } else if (isSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
         // parent is available and no $schema is defined, set parent $schema
         const inherited$schema = defaultTo(
-          this.parent.meta.get('inherited$schema')?.toValue(),
-          this.parent.$schema?.toValue(),
+          toValue(this.parent.meta.get('inherited$schema')),
+          toValue(this.parent.$schema),
         );
         this.element.setMetaProperty('inherited$schema', inherited$schema);
       }
@@ -71,7 +73,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       // fetch parent's inherited$id
       const inherited$id =
         this.parent !== null
-          ? this.parent.getMetaProperty('inherited$id', []).clone()
+          ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
           : new ArrayElement();
       // get current $id keyword
       const $id = objectElement.get('$id')?.toValue();
@@ -109,7 +111,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     this.BooleanElement = function _BooleanElement(booleanElement: BooleanElement) {
-      this.element = booleanElement.clone();
+      this.element = cloneDeep(booleanElement);
       this.element.classes.push('boolean-json-schema');
 
       return BREAK;

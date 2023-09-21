@@ -1,6 +1,7 @@
 import { ObjectElement, ArrayElement, MemberElement, Element } from 'minim';
 
 import { isObjectElement, isArrayElement } from './predicates';
+import { cloneDeep, cloneShallow } from './clone';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
@@ -39,20 +40,12 @@ type DeepMergeOptions = DeepMergeUserOptions & {
 };
 
 const emptyElement = (element: ObjectElement | ArrayElement) => {
-  const meta = element.meta.clone();
-  const attributes = element.attributes.clone();
+  const meta = cloneDeep(element.meta);
+  const attributes = cloneDeep(element.attributes);
 
   // @ts-ignore
   return new element.constructor(undefined, meta, attributes);
 };
-
-const cloneMemberElement = (memberElement: MemberElement) =>
-  new MemberElement(
-    memberElement.key,
-    memberElement.value,
-    memberElement.meta.clone(),
-    memberElement.attributes.clone(),
-  );
 
 const cloneUnlessOtherwiseSpecified = (
   element: AnyElement,
@@ -86,7 +79,7 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
 
   if (isObjectElement(targetElement)) {
     targetElement.forEach((value, key, member) => {
-      const clonedMember = cloneMemberElement(member as MemberElement);
+      const clonedMember = cloneShallow(member as MemberElement);
       clonedMember.value = cloneUnlessOtherwiseSpecified(value, options);
       destination.content.push(clonedMember);
     });
@@ -102,13 +95,13 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
       options.isMergeableElement(value)
     ) {
       const targetValue = targetElement.get(keyValue);
-      clonedMember = cloneMemberElement(member as MemberElement);
+      clonedMember = cloneShallow(member as MemberElement);
       clonedMember.value = getMergeFunction(key, options)(
         targetValue,
         value as ObjectOrArrayElement,
       );
     } else {
-      clonedMember = cloneMemberElement(member as MemberElement);
+      clonedMember = cloneShallow(member as MemberElement);
       clonedMember.value = cloneUnlessOtherwiseSpecified(value as AnyElement, options);
     }
 

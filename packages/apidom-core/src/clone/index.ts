@@ -1,9 +1,44 @@
 import { ArraySlice, ObjectSlice, KeyValuePair, Element } from 'minim';
-import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 
-import { isElement } from './predicates';
+import { isElement } from '../predicates';
+import DeepCloneError from './errors/DeepCloneError';
+import ShallowCloneError from './errors/ShallowCloneError';
 
 type FinalCloneTypes = KeyValuePair | ArraySlice | ObjectSlice;
+
+const invokeClone = <T extends Element | FinalCloneTypes>(value: T): T => {
+  if (typeof value?.clone === 'function') {
+    return value.clone() as T;
+  }
+  return value;
+};
+
+export const cloneDeep = <T extends Element | FinalCloneTypes>(value: T): T => {
+  if (value instanceof ObjectSlice) {
+    const items = [...(value as ObjectSlice)].map(invokeClone) as T[];
+    return new ObjectSlice(items) as T;
+  }
+
+  if (value instanceof ArraySlice) {
+    const items = [...(value as ArraySlice)].map(invokeClone) as T[];
+    return new ArraySlice(items) as T;
+  }
+
+  if (typeof value?.clone === 'function') {
+    return value.clone() as T;
+  }
+
+  throw new DeepCloneError("Value provided to cloneDeep function couldn't be cloned", {
+    value,
+  });
+};
+cloneDeep.safe = <T>(value: T): T => {
+  try {
+    return cloneDeep(value as any) as T;
+  } catch {
+    return value;
+  }
+};
 
 const cloneShallowKeyValuePair = (keyValuePair: KeyValuePair) => {
   const { key, value } = keyValuePair;
@@ -28,11 +63,11 @@ const cloneShallowElement = <T extends Element>(element: T): T => {
   copy.element = element.element;
 
   if (element.meta.length > 0) {
-    copy._meta = cloneShallowElement(element.meta);
+    copy._meta = cloneDeep(element.meta);
   }
 
   if (element.attributes.length > 0) {
-    copy._attributes = cloneShallowElement(element.attributes);
+    copy._attributes = cloneDeep(element.attributes);
   }
 
   if (isElement(element.content)) {
@@ -67,34 +102,14 @@ export const cloneShallow = <T extends Element | FinalCloneTypes>(value: T): T =
     return cloneShallowElement(value) as T;
   }
 
-  throw new ApiDOMStructuredError("Value provided to cloneShallow function couldn't be cloned", {
+  throw new ShallowCloneError("Value provided to cloneShallow function couldn't be cloned", {
     value,
   });
 };
-
-const invokeClone = <T extends Element | FinalCloneTypes>(value: T): T => {
-  if (typeof value?.clone === 'function') {
-    return value.clone() as T;
+cloneShallow.safe = <T>(value: T): T => {
+  try {
+    return cloneShallow(value as any) as T;
+  } catch {
+    return value;
   }
-  return value;
-};
-
-export const cloneDeep = <T extends Element | FinalCloneTypes>(value: T): T => {
-  if (value instanceof ObjectSlice) {
-    const items = [...value].map(invokeClone) as T[];
-    return new ObjectSlice(items) as T;
-  }
-
-  if (value instanceof ArraySlice) {
-    const items = [...value].map(invokeClone) as T[];
-    return new ArraySlice(items) as T;
-  }
-
-  if (typeof value?.clone === 'function') {
-    return value.clone() as T;
-  }
-
-  throw new ApiDOMStructuredError("Value provided to cloneDeep function couldn't be cloned", {
-    value,
-  });
 };

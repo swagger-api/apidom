@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { ObjectElement, BooleanElement, BREAK } from '@swagger-api/apidom-core';
+import { ObjectElement, BooleanElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import SchemaElement from '../../../../elements/Schema';
 import FallbackVisitor from '../../FallbackVisitor';
@@ -21,7 +21,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
     },
 
     BooleanElement(booleanElement: BooleanElement) {
-      this.element = booleanElement.clone();
+      this.element = cloneDeep(booleanElement);
       this.element.classes.push('boolean-json-schema');
 
       return BREAK;

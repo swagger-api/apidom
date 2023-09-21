@@ -175,7 +175,7 @@ const schema = {
 
 const findElementFactory = (ancestor: any, keyName: string) => {
   const elementType = getNodeType(ancestor); // @ts-ignore
-  const keyMapping = schema[elementType] || toValue(schema[ancestor.classes.first]);
+  const keyMapping = schema[elementType] || schema[toValue(ancestor.classes.first)];
 
   return typeof keyMapping === 'undefined'
     ? undefined

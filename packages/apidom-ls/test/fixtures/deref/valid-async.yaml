@@ -1,0 +1,33 @@
+asyncapi: '2.6.0'
+info: 
+  version: '1.0.0'
+  title: 'streetlights'
+channels:
+  test:
+    publish:
+      operationId: receiveLightMeasurement
+      message:
+        $ref: '#/components/messages/lightMeasured'
+components:
+  messages:
+    lightMeasured:
+      name: lightMeasured
+      title: Light measured
+      summary: Inform about environmental lighting conditions of a particular streetlight.
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/lightMeasuredPayload"
+  schemas:
+    lightMeasuredPayload:
+      type: object
+      properties:
+        lumens:
+          type: integer
+          minimum: 0
+          description: Light intensity measured in lumens.
+        sentAt:
+          $ref: "#/components/schemas/sentAt"
+    sentAt:
+      type: string
+      format: date-time
+      description: Date and time when the message was sent.

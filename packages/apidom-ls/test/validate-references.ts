@@ -19,6 +19,9 @@ const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'deref', 'invalid.
 const specValid = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'deref', 'valid-same-ref.json'))
   .toString();
+const specValidAsync = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'deref', 'valid-async.yaml'))
+  .toString();
 
 describe('reference validation', function () {
   const lsContext: LanguageServiceContext = {
@@ -30,7 +33,7 @@ describe('reference validation', function () {
 
   const languageService: LanguageService = getLanguageService(lsContext);
 
-  context('given doc with invalid references', function () {
+  context('given doc with references', function () {
     const httpPort = 8123;
     let httpServer: ServerTerminable;
 
@@ -342,6 +345,37 @@ describe('reference validation', function () {
           },
         },
       ];
+      assert.deepEqual(
+        valRes.map((value) => {
+          // eslint-disable-next-line no-param-reassign
+          value.code = 'test';
+          return value;
+        }),
+        exp.map((value) => {
+          // eslint-disable-next-line no-param-reassign
+          value.code = 'test';
+          return value;
+        }) as Diagnostic[],
+      );
+    });
+    specify('should validate valid async spec with apidom-reference', async function () {
+      this.timeout(10000);
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+        referenceValidationMode: ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
+      };
+
+      const doc: TextDocument = TextDocument.create(
+        'foo://bar/specValidAsync.json',
+        'json',
+        0,
+        specValidAsync,
+      );
+
+      const valRes = await languageService.doValidation(doc, validationContext);
+      const exp: Diagnostic[] = [];
       assert.deepEqual(
         valRes.map((value) => {
           // eslint-disable-next-line no-param-reassign

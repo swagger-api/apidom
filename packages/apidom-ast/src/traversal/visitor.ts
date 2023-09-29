@@ -241,7 +241,7 @@ export const visit = (
           let editOffset = 0;
           for (const [editKey, editValue] of edits) {
             const arrayKey = editKey - editOffset;
-            if (editValue === null) {
+            if (editValue === deleteNodeSymbol) {
               node.splice(arrayKey, 1);
               editOffset += 1;
             } else {
@@ -265,7 +265,7 @@ export const visit = (
       inArray = stack.inArray;
       // @ts-ignore
       stack = stack.prev;
-    } else if (parent != null) {
+    } else if (parent !== deleteNodeSymbol && parent !== undefined) {
       key = inArray ? index : keys[index];
       node = parent[key];
       if (node === deleteNodeSymbol || node === undefined) {
@@ -333,7 +333,7 @@ export const visit = (
       keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
       index = -1;
       edits = [];
-      if (parent != null) {
+      if (parent !== deleteNodeSymbol && parent !== undefined) {
         ancestors.push(parent);
       }
       parent = node;
@@ -400,7 +400,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           let editOffset = 0;
           for (const [editKey, editValue] of edits) {
             const arrayKey = editKey - editOffset;
-            if (editValue === null) {
+            if (editValue === deleteNodeSymbol) {
               node.splice(arrayKey, 1);
               editOffset += 1;
             } else {
@@ -424,7 +424,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       inArray = stack.inArray;
       // @ts-ignore
       stack = stack.prev;
-    } else if (parent != null) {
+    } else if (parent !== deleteNodeSymbol && parent !== undefined) {
       key = inArray ? index : keys[index];
       node = parent[key];
       if (node === deleteNodeSymbol || node === undefined) {
@@ -489,7 +489,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
       index = -1;
       edits = [];
-      if (parent != null) {
+      if (parent !== deleteNodeSymbol && parent !== undefined) {
         ancestors.push(parent);
       }
       parent = node;

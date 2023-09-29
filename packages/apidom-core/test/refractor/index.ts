@@ -254,7 +254,7 @@ describe('refractor', function () {
             },
           );
 
-          assert.strictEqual(objectElement.meta.get('metaKey').toValue(), 'metaValue');
+          assert.strictEqual(toValue(objectElement.meta.get('metaKey')), 'metaValue');
         });
       });
     });

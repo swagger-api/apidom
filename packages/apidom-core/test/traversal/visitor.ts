@@ -28,8 +28,7 @@ describe('traversal', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const visitor = {
         MemberElement(memberElement: MemberElement) {
-          // @ts-ignore
-          if (memberElement.key.toValue() === 'key1') {
+          if (toValue(memberElement.key) === 'key1') {
             return new MemberElement('key3', 'value3');
           }
           return undefined;
@@ -44,8 +43,7 @@ describe('traversal', function () {
       const objectElement = new ObjectElement({ key1: 'value1', key2: 'value2' });
       const visitor = {
         MemberElement(memberElement: MemberElement) {
-          // @ts-ignore
-          if (memberElement.key.toValue() === 'key1') {
+          if (toValue(memberElement.key) === 'key1') {
             return null;
           }
           return undefined;
@@ -60,7 +58,7 @@ describe('traversal', function () {
       const objectElement = new ObjectElement({ key: 'search' });
       const visitor = {
         StringElement(stringElement: StringElement) {
-          if (stringElement.toValue() === 'search') {
+          if (toValue(stringElement) === 'search') {
             return new StringElement('replace');
           }
           return undefined;

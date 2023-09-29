@@ -5,6 +5,7 @@ import { Element } from 'minim';
 
 import { hasElementSourceMap } from '../predicates';
 import { visit } from './visitor';
+import toValue from '../transformers/serializers/value';
 
 const Visitor = stampit({
   props: {
@@ -25,8 +26,8 @@ const Visitor = stampit({
       }
 
       const sourceMapElement = element.getMetaProperty('sourceMap');
-      const charStart = sourceMapElement.positionStart.get(2).toValue();
-      const charEnd = sourceMapElement.positionEnd.get(2).toValue();
+      const charStart = toValue(sourceMapElement.positionStart.get(2));
+      const charEnd = toValue(sourceMapElement.positionEnd.get(2));
       const isWithinOffsetRange =
         this.offset >= charStart &&
         (this.offset < charEnd || (this.includeRightBound && this.offset <= charEnd));

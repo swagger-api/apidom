@@ -439,7 +439,7 @@ describe('deepmerge', function () {
 
       assert.instanceOf(merged.get('someProperty'), CustomObjectElement);
       assert.isUndefined(merged.get('someProperty').get('cool'));
-      assert.strictEqual(merged.get('someProperty').get('special').toValue(), 'oh yeah');
+      assert.strictEqual(toValue(merged.get('someProperty').get('special')), 'oh yeah');
     });
   });
 

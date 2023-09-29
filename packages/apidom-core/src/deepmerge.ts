@@ -2,6 +2,7 @@ import { ObjectElement, ArrayElement, MemberElement, Element } from 'minim';
 
 import { isObjectElement, isArrayElement } from './predicates';
 import { cloneDeep, cloneShallow } from './clone';
+import toValue from './transformers/serializers/value';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
@@ -86,7 +87,7 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
   }
 
   sourceElement.forEach((value, key, member) => {
-    const keyValue = key.toValue();
+    const keyValue = toValue(key);
     let clonedMember;
 
     if (

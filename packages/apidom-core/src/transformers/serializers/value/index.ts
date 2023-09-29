@@ -12,6 +12,7 @@ import {
 import { visit } from './visitor';
 import EphemeralArray from './ast/ephemeral-array';
 import EphemeralObject from './ast/ephemeral-object';
+import { isElement } from '../../../predicates';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const Visitor = stampit.init(function _Visitor() {
@@ -71,8 +72,10 @@ const Visitor = stampit.init(function _Visitor() {
 });
 /* eslint-enable */
 
-const serializer = <T extends Element>(element: T): any => {
-  return visit(element, Visitor());
+const serializer = <T extends Element | unknown>(element: T): any => {
+  if (!isElement(element)) return element;
+
+  return visit(element as Exclude<T, unknown>, Visitor());
 };
 
 export default serializer;

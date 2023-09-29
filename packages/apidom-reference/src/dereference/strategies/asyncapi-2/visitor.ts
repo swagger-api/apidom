@@ -1,28 +1,29 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
 import {
+  cloneDeep,
+  cloneShallow,
+  Element,
+  isElement,
+  isMemberElement,
   isPrimitiveElement,
   isStringElement,
   visit,
-  Element,
-  isElement,
-  cloneShallow,
-  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
+  ChannelItemElement,
   getNodeType,
+  isChannelItemElementExternal,
+  isReferenceElementExternal,
   isReferenceLikeElement,
   keyMap,
   ReferenceElement,
-  ChannelItemElement,
-  SchemaElement,
-  isReferenceElementExternal,
-  isChannelItemElementExternal,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { Reference as IReference } from '../../../types';
 import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
+import { AncestorLineage } from '../../util';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
@@ -38,12 +39,12 @@ const AsyncApi2DereferenceVisitor = stampit({
     options: null,
     ancestors: null,
   },
-  init({ indirections = [], reference, namespace, options, ancestors = [] }) {
+  init({ indirections = [], reference, namespace, options, ancestors = new AncestorLineage() }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
-    this.ancestors = [...ancestors];
+    this.ancestors = new AncestorLineage(...ancestors);
   },
   methods: {
     toAncestorLineage(ancestors) {
@@ -52,7 +53,7 @@ const AsyncApi2DereferenceVisitor = stampit({
        * Ancestors are flatten to unwrap all Element instances.
        */
       const directAncestors = new WeakSet(ancestors.filter(isElement));
-      const ancestorsLineage = [...this.ancestors, directAncestors];
+      const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
 
       return [ancestorsLineage, directAncestors];
     },
@@ -101,8 +102,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
-        // skip processing this schema and all it's child schemas
+      if (ancestorsLineage.includesCycle(referencingElement)) {
         return false;
       }
 
@@ -171,17 +171,32 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      referencedElement = cloneShallow(referencedElement);
+      const mergeAndAnnotateReferencedElement = <T extends Element>(refedElement: T): T => {
+        const copy = cloneShallow(refedElement);
 
-      // annotate referenced element with info about original referencing element
-      referencedElement.setMetaProperty('ref-fields', {
-        $ref: referencingElement.$ref?.toValue(),
-      });
-      // annotate fragment with info about origin
-      referencedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate referenced element with info about original referencing element
+        copy.setMetaProperty('ref-fields', {
+          $ref: referencingElement.$ref?.toValue(),
+        });
+        // annotate fragment with info about origin
+        copy.setMetaProperty('ref-origin', reference.uri);
+
+        return copy;
+      };
+
+      // attempting to create cycle
+      if (ancestorsLineage.includes(referencedElement)) {
+        if (isMemberElement(parent)) {
+          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+        }
+
+        return false;
+      }
 
       // transclude referencing element with merged referenced element
-      return referencedElement;
+      return mergeAndAnnotateReferencedElement(referencedElement);
     },
 
     async ChannelItemElement(
@@ -199,8 +214,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
-        // skip processing this schema and all it's child schemas
+      if (ancestorsLineage.includesCycle(referencingElement)) {
         return false;
       }
 
@@ -258,47 +272,45 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      // merge fields from referenced Channel Item with referencing one
-      const mergedResult = new ChannelItemElement(
-        // @ts-ignore
-        [...referencedElement.content],
-        cloneDeep(referencedElement.meta),
-        cloneDeep(referencedElement.attributes),
-      );
-      // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
-      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-        mergedResult.remove(keyElement.toValue());
-        mergedResult.content.push(item);
-      });
-      mergedResult.remove('$ref');
+      const mergeAndAnnotateReferencedElement = <T extends Element>(
+        refedElement: T,
+      ): ChannelItemElement => {
+        // merge fields from referenced Channel Item with referencing one
+        const mergedElement = new ChannelItemElement(
+          [...refedElement.content] as any,
+          cloneDeep(refedElement.meta),
+          cloneDeep(refedElement.attributes),
+        );
+        // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
+        referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+          mergedElement.remove(keyElement.toValue());
+          mergedElement.content.push(item);
+        });
+        mergedElement.remove('$ref');
 
-      // annotate referenced element with info about original referencing element
-      mergedResult.setMetaProperty('ref-fields', {
-        $ref: referencingElement.$ref?.toValue(),
-      });
-      // annotate referenced with info about origin
-      mergedResult.setMetaProperty('ref-origin', reference.uri);
+        // annotate referenced element with info about original referencing element
+        mergedElement.setMetaProperty('ref-fields', {
+          $ref: referencingElement.$ref?.toValue(),
+        });
+        // annotate referenced with info about origin
+        mergedElement.setMetaProperty('ref-origin', reference.uri);
 
-      // transclude referencing element with merged referenced element
-      return mergedResult;
-    },
+        return mergedElement;
+      };
 
-    async SchemaElement(
-      referencingElement: SchemaElement,
-      key: any,
-      parent: any,
-      path: any,
-      ancestors: any[],
-    ) {
-      const [ancestorsLineage] = this.toAncestorLineage([...ancestors, parent]);
+      // attempting to create cycle
+      if (ancestorsLineage.includes(referencedElement)) {
+        if (isMemberElement(parent)) {
+          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+        }
 
-      // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.some((ancs: WeakSet<Element>) => ancs.has(referencingElement))) {
-        // skip processing this schema and all it's child schemas
         return false;
       }
 
-      return undefined;
+      // transclude referencing element with merged referenced element
+      return mergeAndAnnotateReferencedElement(referencedElement);
     },
   },
 });

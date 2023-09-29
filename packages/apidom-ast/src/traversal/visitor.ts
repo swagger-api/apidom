@@ -60,12 +60,12 @@ export const mergeAll = (
   visitors: any[],
   { visitFnGetter = getVisitFn, nodeTypeGetter = getNodeType } = {},
 ) => {
-  const skipping = new Array(visitors.length);
+  const skipping = new Array(visitors.length).fill(null);
 
   return {
     enter(node: any, ...rest: any[]) {
       for (let i = 0; i < visitors.length; i += 1) {
-        if (skipping[i] == null) {
+        if (skipping[i] === null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ false);
           if (typeof fn === 'function') {
             const result = fn.call(visitors[i], node, ...rest);
@@ -83,7 +83,7 @@ export const mergeAll = (
     },
     leave(node: any, ...rest: any[]) {
       for (let i = 0; i < visitors.length; i += 1) {
-        if (skipping[i] == null) {
+        if (skipping[i] === null) {
           const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ true);
           if (typeof fn === 'function') {
             const result = fn.call(visitors[i], node, ...rest);
@@ -218,16 +218,15 @@ export const visit = (
   let index = -1;
   let parent;
   let edits = [];
+  let node = root;
   const path: any[] = [];
   // @ts-ignore
   const ancestors: any[] = [];
-  let newRoot = root;
 
   do {
     index += 1;
     const isLeaving = index === keys.length;
     let key;
-    let node;
     const isEdited = isLeaving && edits.length !== 0;
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
@@ -236,23 +235,24 @@ export const visit = (
       parent = ancestors.pop();
       if (isEdited) {
         if (inArray) {
-          // @ts-ignore
+          // @ts-ignore; creating clone
           node = node.slice();
+
+          let editOffset = 0;
+          for (const [editKey, editValue] of edits) {
+            const arrayKey = editKey - editOffset;
+            if (editValue === null) {
+              node.splice(arrayKey, 1);
+              editOffset += 1;
+            } else {
+              node[arrayKey] = editValue;
+            }
+          }
         } else {
           // creating clone
           node = nodeCloneFn(node);
-        }
-        let editOffset = 0;
-        for (let ii = 0; ii < edits.length; ii += 1) {
-          let editKey = edits[ii][0];
-          const editValue = edits[ii][1];
-          if (inArray) {
-            editKey -= editOffset;
-          }
-          if (inArray && editValue === deleteNodeSymbol) {
-            node.splice(editKey, 1);
-            editOffset += 1;
-          } else {
+
+          for (const [editKey, editValue] of edits) {
             node[editKey] = editValue;
           }
         }
@@ -265,15 +265,13 @@ export const visit = (
       inArray = stack.inArray;
       // @ts-ignore
       stack = stack.prev;
-    } else {
-      key = parent ? (inArray ? index : keys[index]) : undefined;
-      node = parent ? parent[key] : newRoot;
+    } else if (parent != null) {
+      key = inArray ? index : keys[index];
+      node = parent[key];
       if (node === deleteNodeSymbol || node === undefined) {
         continue;
       }
-      if (parent) {
-        path.push(key);
-      }
+      path.push(key);
     }
 
     if (ancestors.includes(node)) {
@@ -298,27 +296,27 @@ export const visit = (
         for (const [stateKey, stateValue] of Object.entries(state)) {
           visitor[stateKey] = stateValue;
         }
-
+        // retrieve result
         result = visitFn.call(visitor, node, key, parent, path, ancestors);
+      }
 
-        if (result === breakSymbol) {
-          break;
+      if (result === breakSymbol) {
+        break;
+      }
+
+      if (result === skipVisitingNodeSymbol) {
+        if (!isLeaving) {
+          path.pop();
+          continue;
         }
-
-        if (result === skipVisitingNodeSymbol) {
-          if (!isLeaving) {
+      } else if (result !== undefined) {
+        edits.push([key, result]);
+        if (!isLeaving) {
+          if (nodePredicate(result)) {
+            node = result;
+          } else {
             path.pop();
             continue;
-          }
-        } else if (result !== undefined) {
-          edits.push([key, result]);
-          if (!isLeaving) {
-            if (nodePredicate(result)) {
-              node = result;
-            } else {
-              path.pop();
-              continue;
-            }
           }
         }
       }
@@ -332,10 +330,10 @@ export const visit = (
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
       // @ts-ignore
-      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] || [];
+      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
       index = -1;
       edits = [];
-      if (parent) {
+      if (parent != null) {
         ancestors.push(parent);
       }
       parent = node;
@@ -343,10 +341,10 @@ export const visit = (
   } while (stack !== undefined);
 
   if (edits.length !== 0) {
-    [, newRoot] = edits.at(-1);
+    return edits.at(-1)[1];
   }
 
-  return newRoot;
+  return root;
 };
 
 /**
@@ -379,16 +377,15 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   let index = -1;
   let parent;
   let edits = [];
+  let node: any = root;
   const path: any[] = [];
   // @ts-ignore
   const ancestors: any[] = [];
-  let newRoot = root;
 
   do {
     index += 1;
     const isLeaving = index === keys.length;
     let key;
-    let node;
     const isEdited = isLeaving && edits.length !== 0;
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
@@ -397,23 +394,24 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       parent = ancestors.pop();
       if (isEdited) {
         if (inArray) {
-          // @ts-ignore
+          // @ts-ignore; creating clone
           node = node.slice();
+
+          let editOffset = 0;
+          for (const [editKey, editValue] of edits) {
+            const arrayKey = editKey - editOffset;
+            if (editValue === null) {
+              node.splice(arrayKey, 1);
+              editOffset += 1;
+            } else {
+              node[arrayKey] = editValue;
+            }
+          }
         } else {
           // creating clone
           node = nodeCloneFn(node);
-        }
-        let editOffset = 0;
-        for (let ii = 0; ii < edits.length; ii += 1) {
-          let editKey = edits[ii][0];
-          const editValue = edits[ii][1];
-          if (inArray) {
-            editKey -= editOffset;
-          }
-          if (inArray && editValue === deleteNodeSymbol) {
-            node.splice(editKey, 1);
-            editOffset += 1;
-          } else {
+
+          for (const [editKey, editValue] of edits) {
             node[editKey] = editValue;
           }
         }
@@ -426,15 +424,13 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       inArray = stack.inArray;
       // @ts-ignore
       stack = stack.prev;
-    } else {
-      key = parent ? (inArray ? index : keys[index]) : undefined;
-      node = parent ? parent[key] : newRoot;
+    } else if (parent != null) {
+      key = inArray ? index : keys[index];
+      node = parent[key];
       if (node === deleteNodeSymbol || node === undefined) {
         continue;
       }
-      if (parent) {
-        path.push(key);
-      }
+      path.push(key);
     }
 
     let result;
@@ -456,27 +452,27 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           visitor[stateKey] = stateValue;
         }
 
-        // eslint-disable-next-line no-await-in-loop
-        result = await visitFn.call(visitor, node, key, parent, path, ancestors);
+        // retrieve result
+        result = await visitFn.call(visitor, node, key, parent, path, ancestors); // eslint-disable-line no-await-in-loop
+      }
 
-        if (result === breakSymbol) {
-          break;
+      if (result === breakSymbol) {
+        break;
+      }
+
+      if (result === skipVisitingNodeSymbol) {
+        if (!isLeaving) {
+          path.pop();
+          continue;
         }
-
-        if (result === skipVisitingNodeSymbol) {
-          if (!isLeaving) {
+      } else if (result !== undefined) {
+        edits.push([key, result]);
+        if (!isLeaving) {
+          if (nodePredicate(result)) {
+            node = result;
+          } else {
             path.pop();
             continue;
-          }
-        } else if (result !== undefined) {
-          edits.push([key, result]);
-          if (!isLeaving) {
-            if (nodePredicate(result)) {
-              node = result;
-            } else {
-              path.pop();
-              continue;
-            }
           }
         }
       }
@@ -490,10 +486,10 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
       // @ts-ignore
-      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] || [];
+      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
       index = -1;
       edits = [];
-      if (parent) {
+      if (parent != null) {
         ancestors.push(parent);
       }
       parent = node;
@@ -501,10 +497,10 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   } while (stack !== undefined);
 
   if (edits.length !== 0) {
-    [, newRoot] = edits[edits.length - 1];
+    return edits.at(-1)[1];
   }
 
-  return newRoot;
+  return root;
 };
 
 /* eslint-enable */

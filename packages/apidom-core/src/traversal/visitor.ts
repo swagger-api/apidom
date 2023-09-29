@@ -148,6 +148,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     // @ts-ignore
     nodeTypeGetter: getNodeType,
     nodePredicate: isNode,
+    nodeCloneFn: cloneNode,
     ...rest,
   });
 };

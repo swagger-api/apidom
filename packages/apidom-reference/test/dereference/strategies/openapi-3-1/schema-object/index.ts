@@ -110,6 +110,24 @@ describe('dereference', function () {
           });
         });
 
+        context('given Schema Objects with internal cycles in array', function () {
+          const fixturePath = path.join(rootFixturePath, 'cycle-internal-in-array');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
+            const cyclicParent = evaluate(
+              '/0/components/schemas/User/properties/parent/oneOf/0/properties/parent',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+        });
+
         context('given Schema Objects with external cycles', function () {
           const fixturePath = path.join(rootFixturePath, 'cycle-external');
 
@@ -139,6 +157,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
+
             const user = evaluate(
               '/0/components/schemas/User/properties/profile/properties/user',
               dereferenced,

@@ -285,6 +285,7 @@ export const visit = (
       if (!nodePredicate(node)) {
         throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
+
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {
         path.pop();
@@ -342,7 +343,7 @@ export const visit = (
   } while (stack !== undefined);
 
   if (edits.length !== 0) {
-    [, newRoot] = edits[edits.length - 1];
+    [, newRoot] = edits.at(-1);
   }
 
   return newRoot;
@@ -441,11 +442,13 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       if (!nodePredicate(node)) {
         throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
       }
+
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {
         path.pop();
         continue;
       }
+
       const visitFn = visitFnGetter(visitor, nodeTypeGetter(node), isLeaving);
       if (visitFn) {
         // assign state

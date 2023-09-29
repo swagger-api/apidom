@@ -52,7 +52,7 @@
     "@babel/preset-env": "=7.22.20",
     "@babel/preset-typescript": "=7.23.0",
     "@babel/register": "=7.22.15",
-    "@commitlint/cli": "=17.7.1",
+    "@commitlint/cli": "=17.7.2",
     "@commitlint/config-conventional": "=17.7.0",
     "@types/chai": "=4.3.6",
     "@types/dedent": "=0.7.0",

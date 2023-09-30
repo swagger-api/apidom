@@ -560,14 +560,35 @@ traverse({ callback: console.dir, predicate: isNumberElement }, arrayElement); /
 
 Computes upwards edges from every child to its parent.
 
+#### ObjectElement example
+
 ```js
-import { ObjectElement, parents } from '@swagger-api/apidom-core';
+import { parents, ObjectElement } from '@swagger-api/apidom-core';
 
-const objectElement = new ObjectElement({
-  a: [1, 2, { b: 'c', d: 'e' }],
-});
+const objectElement = new ObjectElement({ key: 'value' });
+const memberElement = objectElement.getMember('key');
+const { key: keyElement, value: valueElement } = memberElement;
 
-const parentEdges = parents(objectElement); // => WeakMap<childElement, parentElement>
+const parentEdges = parents(objectElement); // => WeakMap<ChildElement, ParentElement>
+
+parentEdges.get(memberElement) === objectElement; // => true
+parentEdges.get(keyElement) === memberElement; // => true
+parentEdges.get(valueElement) === memberElement; // => true
+```
+
+#### ArrayElement example
+
+```js
+import { parents, ArrayElement, StringElement } from '@swagger-api/apidom-core';
+
+const itemElement1 = new StringElement('item1');
+const itemElement2 = new StringElement('item2');
+const arrayElement = new ArrayElement([itemElement1, itemElement2]);
+
+const parentEdges = parents(arrayElement); // => WeakMap<ChildElement, ParentElement>
+
+parentEdges.get(itemElement1) === arrayElement; // => true
+parentEdges.get(itemElement2) === arrayElement; // => true
 ```
 
 ---

@@ -266,7 +266,7 @@ describe('refractor', function () {
           });
 
           // @ts-ignore
-          assert.strictEqual(mainElement.version.meta.get('metaKey').toValue(), 'metaValue');
+          assert.strictEqual(toValue(mainElement.version.meta.get('metaKey')), 'metaValue');
         });
       });
     });

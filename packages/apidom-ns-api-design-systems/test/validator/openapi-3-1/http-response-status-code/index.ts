@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
-import { AnnotationElement } from '@swagger-api/apidom-core';
+import { AnnotationElement, toValue } from '@swagger-api/apidom-core';
 import { parse as parseJSON } from '@swagger-api/apidom-parser-adapter-json';
 import { parse as parseYAML } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
@@ -47,7 +47,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
-        annotation.toValue() === '"201" not allowed for subject ["http","response","status_code"]'
+        toValue(annotation) === '"201" not allowed for subject ["http","response","status_code"]'
       );
     });
 
@@ -58,7 +58,7 @@ describe('given API Design Systems and OpenAPI 3.1 definitions', function () {
     const annotations = validateOpenAPI3_1(mainElement, openapiElement);
     const statusCodeAnnotation = annotations.find((annotation: AnnotationElement) => {
       return (
-        annotation.toValue() === '"305" not allowed for subject ["http","response","status_code"]'
+        toValue(annotation) === '"305" not allowed for subject ["http","response","status_code"]'
       );
     });
 

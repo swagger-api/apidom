@@ -1,5 +1,5 @@
 import { includes } from 'ramda';
-import { visit } from '@swagger-api/apidom-core';
+import { visit, toValue } from '@swagger-api/apidom-core';
 import {
   OperationElement,
   OpenApi3_1Element,
@@ -25,18 +25,18 @@ const select = (
     OperationElement(element: OperationElement) {
       if (!element.meta.hasKey('ads-s-standard-identifier')) return;
 
-      const standardIdentifiers = element.meta.get('ads-s-standard-identifier').toValue();
+      const standardIdentifiers = toValue(element.meta.get('ads-s-standard-identifier'));
 
-      if (includes(standardIdentifier.toValue(), standardIdentifiers)) {
+      if (includes(toValue(standardIdentifier), standardIdentifiers)) {
         selected.push(element);
       }
     },
     ResponseElement(element: ResponseElement) {
       if (!element.meta.hasKey('ads-s-standard-identifier')) return;
 
-      const standardIdentifiers = element.meta.get('ads-s-standard-identifier').toValue();
+      const standardIdentifiers = toValue(element.meta.get('ads-s-standard-identifier'));
 
-      if (includes(standardIdentifier.toValue(), standardIdentifiers)) {
+      if (includes(toValue(standardIdentifier), standardIdentifiers)) {
         selected.push(element);
       }
     },

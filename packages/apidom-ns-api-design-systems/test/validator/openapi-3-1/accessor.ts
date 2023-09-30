@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
+import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
@@ -38,7 +39,7 @@ describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied',
       const [operationElement] = select(openapiElement, selectorStandardIdentifier);
       const value = access(operationElement, accessorStandardIdentifier);
 
-      assert.deepEqual(value.toValue(), ['get']);
+      assert.deepEqual(toValue(value), ['get']);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { Element, visit, ArrayElement } from '@swagger-api/apidom-core';
+import { Element, visit, ArrayElement, toValue } from '@swagger-api/apidom-core';
 import {
   OperationElement,
   ResponseElement,
@@ -18,7 +18,7 @@ const access = (
   selected: OperationElement | ResponseElement,
   standardIdentifier: StandardIdentifierElement,
 ): ArrayElement => {
-  const strStandardIdentifier = String(standardIdentifier.toValue());
+  const strStandardIdentifier = String(toValue(standardIdentifier));
   const values = new ArrayElement();
   const visitor = {
     enter(element: Element) {
@@ -27,7 +27,7 @@ const access = (
       element.meta
         .get('ads-a-standard-identifier')
         .content.filter((accessorMapping: any) => {
-          return String(accessorMapping.get('subject').toValue()) === strStandardIdentifier;
+          return String(toValue(accessorMapping.get('subject'))) === strStandardIdentifier;
         })
         .forEach((accessorMapping: any) => {
           values.push(accessorMapping.get('value'));

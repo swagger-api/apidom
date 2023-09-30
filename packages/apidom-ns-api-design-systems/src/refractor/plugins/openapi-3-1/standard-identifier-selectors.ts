@@ -1,3 +1,4 @@
+import { toValue } from '@swagger-api/apidom-core';
 import {
   PathItemElement,
   ParameterElement,
@@ -23,9 +24,9 @@ const plugin = () => () => {
             ['http', 'transaction'],
             ['http', 'request'],
             ['http', 'request', 'url'],
-            ['http', 'request', 'url', parentPathItem.meta.get('path').toValue()],
+            ['http', 'request', 'url', toValue(parentPathItem.meta.get('path'))],
             ['http', 'request', 'method'],
-            ['http', 'request', 'method', element.meta.get('http-method').toValue().toLowerCase()],
+            ['http', 'request', 'method', toValue(element.meta.get('http-method')).toLowerCase()],
           );
 
           // fold PathItem.parameters to Operation.parameters
@@ -34,13 +35,13 @@ const plugin = () => () => {
             if (
               isStringElement(parameter.in) &&
               isStringElement(parameter.name) &&
-              parameter.in?.toValue() === 'header'
+              toValue(parameter.in) === 'header'
             ) {
               operationIdentifiers.push(
                 ['http', 'request', 'header'],
-                ['http', 'request', 'header', parameter.name?.toValue()],
+                ['http', 'request', 'header', toValue(parameter.name)],
                 ['http', 'message', 'header'],
-                ['http', 'message', 'header', parameter.name?.toValue()],
+                ['http', 'message', 'header', toValue(parameter.name)],
               );
             }
           });
@@ -54,13 +55,13 @@ const plugin = () => () => {
         if (
           isStringElement(element.in) &&
           isStringElement(element.name) &&
-          element.in?.toValue() === 'header'
+          toValue(element.in) === 'header'
         ) {
           operationIdentifiers.push(
             ['http', 'request', 'header'],
-            ['http', 'request', 'header', element.name?.toValue()],
+            ['http', 'request', 'header', toValue(element.name)],
             ['http', 'message', 'header'],
-            ['http', 'message', 'header', element.name?.toValue()],
+            ['http', 'message', 'header', toValue(element.name)],
           );
         }
       },
@@ -85,7 +86,7 @@ const plugin = () => () => {
           responseIdentifiers.push(['http', 'response']);
 
           if (element.meta.hasKey('http-status-code')) {
-            const statusCode = String(element.meta.get('http-status-code').toValue());
+            const statusCode = String(toValue(element.meta.get('http-status-code')));
             const statusCodeAlias = statusCode.startsWith('2')
               ? 'success'
               : statusCode.startsWith('3')
@@ -105,7 +106,7 @@ const plugin = () => () => {
 
           if (typeof element.headers !== 'undefined' && isObjectElement(element.headers)) {
             element.headers.forEach((value, key) => {
-              const headerName = key.toValue();
+              const headerName = toValue(key);
 
               responseIdentifiers.push(
                 ['http', 'response', 'header'],
@@ -119,7 +120,7 @@ const plugin = () => () => {
             responseIdentifiers.push(['http', 'response', 'body'], ['http', 'message', 'body']);
 
             element.contentProp.forEach((value, key) => {
-              const headerName = key.toValue();
+              const headerName = toValue(key);
 
               responseIdentifiers.push(
                 ['http', 'response', 'header'],

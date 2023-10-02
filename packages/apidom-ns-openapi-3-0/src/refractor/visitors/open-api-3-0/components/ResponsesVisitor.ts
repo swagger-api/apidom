@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, Element, StringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, Element, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsResponsesElement from '../../../../elements/nces/ComponentsResponses';
@@ -32,7 +32,7 @@ const ResponsesVisitor = stampit(MapVisitor, FallbackVisitor, {
 
       // decorate every ResponseElement with metadata about their status code
       this.element.filter(isResponseElement).forEach((value: Element, key: StringElement) => {
-        value.setMetaProperty('http-status-code', key.toValue());
+        value.setMetaProperty('http-status-code', toValue(key));
       });
 
       return result;

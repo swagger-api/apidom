@@ -1,6 +1,12 @@
 import stampit from 'stampit';
 import { test, always, range } from 'ramda';
-import { Element, ObjectElement, StringElement, cloneDeep } from '@swagger-api/apidom-core';
+import {
+  Element,
+  ObjectElement,
+  StringElement,
+  cloneDeep,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ResponsesElement from '../../../../elements/Responses';
@@ -36,7 +42,7 @@ const ResponsesVisitor = stampit(MixedFieldsVisitor, FallbackVisitor, {
       // decorate every ResponseElement with metadata about their status code
       this.element.filter(isResponseElement).forEach((value: Element, key: StringElement) => {
         const httpStatusCode = cloneDeep(key);
-        if (!this.fieldPatternPredicate(httpStatusCode.toValue())) return;
+        if (!this.fieldPatternPredicate(toValue(httpStatusCode))) return;
         value.setMetaProperty('http-status-code', httpStatusCode);
       });
 

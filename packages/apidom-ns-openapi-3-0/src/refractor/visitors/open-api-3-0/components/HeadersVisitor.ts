@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, Element, StringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, Element, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsHeadersElement from '../../../../elements/nces/ComponentsHeaders';
@@ -32,7 +32,7 @@ const HeadersVisitor = stampit(MapVisitor, FallbackVisitor, {
 
       // decorate every HeaderElement with metadata about their name
       this.element.filter(isHeaderElement).forEach((value: Element, key: StringElement) => {
-        value.setMetaProperty('header-name', key.toValue());
+        value.setMetaProperty('header-name', toValue(key));
       });
 
       return result;

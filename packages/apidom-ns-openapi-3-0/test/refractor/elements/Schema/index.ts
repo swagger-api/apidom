@@ -1,5 +1,5 @@
 import { expect, assert } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, toValue } from '@swagger-api/apidom-core';
 
 import { SchemaElement } from '../../../../src';
 
@@ -95,7 +95,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.allOf?.get(0);
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -112,7 +112,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.anyOf?.get(0);
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -129,7 +129,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.oneOf?.get(0);
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -146,7 +146,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.definitions?.get('def1');
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -163,7 +163,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.dependencies?.get('dep1');
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -180,7 +180,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.properties?.get('prop1');
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
 
@@ -197,7 +197,7 @@ describe('refractor', function () {
           const referenceElement = schemaElement.patternProperties?.get('pattern');
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
-          assert.strictEqual(referencedElementMeta.toValue(), 'schema');
+          assert.strictEqual(toValue(referencedElementMeta), 'schema');
         });
       });
     });

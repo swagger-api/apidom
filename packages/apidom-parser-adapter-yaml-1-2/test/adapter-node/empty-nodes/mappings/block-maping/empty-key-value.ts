@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { includesClasses, SourceMapElement } from '@swagger-api/apidom-core';
+import { includesClasses, toValue, SourceMapElement } from '@swagger-api/apidom-core';
 
 import * as adapter from '../../../../../src/adapter-node';
 
@@ -30,9 +30,9 @@ describe('given block mapping pair with empty key and value', function () {
     const emptyElement = await setupEmptyKeyElement();
     const sourceMapElement = emptyElement.meta.get('sourceMap');
     const [row, column, char] = [
-      sourceMapElement.positionStart.get(0).toValue(),
-      sourceMapElement.positionStart.get(1).toValue(),
-      sourceMapElement.positionStart.get(2).toValue(),
+      toValue(sourceMapElement.positionStart.get(0)),
+      toValue(sourceMapElement.positionStart.get(1)),
+      toValue(sourceMapElement.positionStart.get(2)),
     ];
 
     assert.strictEqual(row, 0);
@@ -44,9 +44,9 @@ describe('given block mapping pair with empty key and value', function () {
     const emptyElement = await setupEmptyKeyElement();
     const sourceMapElement = emptyElement.meta.get('sourceMap');
     const [row, column, char] = [
-      sourceMapElement.positionEnd.get(0).toValue(),
-      sourceMapElement.positionEnd.get(1).toValue(),
-      sourceMapElement.positionEnd.get(2).toValue(),
+      toValue(sourceMapElement.positionEnd.get(0)),
+      toValue(sourceMapElement.positionEnd.get(1)),
+      toValue(sourceMapElement.positionEnd.get(2)),
     ];
 
     assert.strictEqual(row, 0);
@@ -71,9 +71,9 @@ describe('given block mapping pair with empty key and value', function () {
     const emptyElement = await setupEmptyValueElement();
     const sourceMapElement = emptyElement.meta.get('sourceMap');
     const [row, column, char] = [
-      sourceMapElement.positionStart.get(0).toValue(),
-      sourceMapElement.positionStart.get(1).toValue(),
-      sourceMapElement.positionStart.get(2).toValue(),
+      toValue(sourceMapElement.positionStart.get(0)),
+      toValue(sourceMapElement.positionStart.get(1)),
+      toValue(sourceMapElement.positionStart.get(2)),
     ];
 
     assert.strictEqual(row, 0);
@@ -85,9 +85,9 @@ describe('given block mapping pair with empty key and value', function () {
     const emptyElement = await setupEmptyValueElement();
     const sourceMapElement = emptyElement.meta.get('sourceMap');
     const [row, column, char] = [
-      sourceMapElement.positionEnd.get(0).toValue(),
-      sourceMapElement.positionEnd.get(1).toValue(),
-      sourceMapElement.positionEnd.get(2).toValue(),
+      toValue(sourceMapElement.positionEnd.get(0)),
+      toValue(sourceMapElement.positionEnd.get(1)),
+      toValue(sourceMapElement.positionEnd.get(2)),
     ];
 
     assert.strictEqual(row, 0);

@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { isObjectElement, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { isObjectElement, ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import EncodingElement from '../../../../elements/Encoding';
 import HeaderElement from '../../../../elements/Header';
@@ -26,7 +26,7 @@ const EncodingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
         this.element.headers
           .filter(isHeaderElement)
           .forEach((headerElement: HeaderElement, key: StringElement) => {
-            headerElement.setMetaProperty('header-name', key.toValue());
+            headerElement.setMetaProperty('header-name', toValue(key));
           });
       }
 

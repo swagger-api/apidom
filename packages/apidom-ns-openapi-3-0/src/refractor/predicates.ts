@@ -1,5 +1,11 @@
-import { MemberElement, isStringElement, isObjectElement, Element } from '@swagger-api/apidom-core';
 import { startsWith } from 'ramda';
+import {
+  MemberElement,
+  isStringElement,
+  isObjectElement,
+  Element,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const isOpenApi3_0LikeElement = <T extends Element>(element: T): boolean => {
@@ -33,5 +39,5 @@ export const isTagLikeElement = isObjectElement;
 
 export const isOpenApiExtension = (element: MemberElement): boolean => {
   // @ts-ignore
-  return isStringElement(element.key) && startsWith('x-', element.key.toValue());
+  return isStringElement(element.key) && startsWith('x-', toValue(element.key));
 };

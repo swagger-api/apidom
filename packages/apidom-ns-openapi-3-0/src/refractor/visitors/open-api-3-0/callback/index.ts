@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { test, always } from 'ramda';
-import { ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import CallbackElement from '../../../../elements/Callback';
 import PathItemElement from '../../../../elements/PathItem';
@@ -27,7 +27,7 @@ const CallbackVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
       this.element
         .filter(isPathItemElement)
         .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('runtime-expression', key.toValue());
+          pathItemElement.setMetaProperty('runtime-expression', toValue(key));
         });
 
       return result;

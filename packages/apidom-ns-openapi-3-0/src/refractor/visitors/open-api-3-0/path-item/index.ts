@@ -1,6 +1,12 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { StringElement, ObjectElement, isStringElement, cloneDeep } from '@swagger-api/apidom-core';
+import {
+  StringElement,
+  ObjectElement,
+  isStringElement,
+  cloneDeep,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import PathItemElement from '../../../../elements/PathItem';
 import OperationElement from '../../../../elements/Operation';
@@ -25,7 +31,7 @@ const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
         .filter(isOperationElement)
         .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
           const httpMethodElementCS = cloneDeep(httpMethodElementCI);
-          httpMethodElementCS.content = httpMethodElementCS.toValue().toUpperCase();
+          httpMethodElementCS.content = toValue(httpMethodElementCS).toUpperCase();
           operationElement.setMetaProperty('http-method', httpMethodElementCS);
         });
 

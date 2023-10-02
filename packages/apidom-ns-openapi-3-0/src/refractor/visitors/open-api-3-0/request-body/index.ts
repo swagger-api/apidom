@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
-import { StringElement, ObjectElement, isObjectElement } from '@swagger-api/apidom-core';
+import { StringElement, ObjectElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import RequestBodyElement from '../../../../elements/RequestBody';
 import MediaTypeElement from '../../../../elements/MediaType';
@@ -25,7 +25,7 @@ const RequestBodyVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
         this.element.contentProp
           .filter(isMediaTypeElement)
           .forEach((mediaTypeElement: MediaTypeElement, key: StringElement) => {
-            mediaTypeElement.setMetaProperty('media-type', key.toValue());
+            mediaTypeElement.setMetaProperty('media-type', toValue(key));
           });
       }
 

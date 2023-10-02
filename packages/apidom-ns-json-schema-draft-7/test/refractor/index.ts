@@ -300,7 +300,7 @@ describe('refractor', function () {
 
           assert.strictEqual(
             // @ts-ignore
-            jsonSchemaElement.links.get(0).meta.get('metaKey').toValue(),
+            toValue(jsonSchemaElement.links.get(0).meta.get('metaKey')),
             'metaValue',
           );
         });

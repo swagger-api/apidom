@@ -76,7 +76,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
           ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
           : new ArrayElement();
       // get current $id keyword
-      const $id = objectElement.get('$id')?.toValue();
+      const $id = toValue(objectElement.get('$id'));
 
       // remember $id keyword if it's a non empty strings
       if (isNonEmptyString($id)) {

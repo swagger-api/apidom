@@ -1,4 +1,9 @@
-import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api/apidom-core';
+import {
+  createPredicate,
+  isBooleanElement,
+  isStringElement,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import CallbackElement from './elements/Callback';
 import ComponentsElement from './elements/Components';
@@ -134,7 +139,7 @@ export const isLinkElementExternal = (element: any): element is LinkElement => {
     return false;
   }
 
-  const value = element.operationRef.toValue();
+  const value = toValue(element.operationRef);
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
@@ -199,7 +204,7 @@ export const isPathItemElementExternal = (element: any): element is PathItemElem
     return false;
   }
 
-  const value = element.$ref.toValue();
+  const value = toValue(element.$ref);
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
@@ -232,7 +237,7 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
     return false;
   }
 
-  const value = element.$ref.toValue();
+  const value = toValue(element.$ref);
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };

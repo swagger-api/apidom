@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { propEq, values, has, pipe } from 'ramda';
 import { allP } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit } from '@swagger-api/apidom-core';
+import { isPrimitiveElement, isStringElement, visit, toValue } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
@@ -89,7 +89,7 @@ const OpenApi3_0ResolveVisitor = stampit({
         return false;
       }
 
-      const uri = referenceElement.$ref?.toValue();
+      const uri = toValue(referenceElement.$ref);
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -111,7 +111,7 @@ const OpenApi3_0ResolveVisitor = stampit({
         return undefined;
       }
 
-      const uri = pathItemElement.$ref?.toValue();
+      const uri = toValue(pathItemElement.$ref);
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -139,7 +139,7 @@ const OpenApi3_0ResolveVisitor = stampit({
       }
 
       if (isLinkElementExternal(linkElement)) {
-        const uri = linkElement.operationRef?.toValue();
+        const uri = toValue(linkElement.operationRef);
         const baseURI = this.toBaseURI(uri);
 
         if (!has(baseURI, this.crawlingMap)) {
@@ -166,7 +166,7 @@ const OpenApi3_0ResolveVisitor = stampit({
         throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
       }
 
-      const uri = exampleElement.externalValue?.toValue();
+      const uri = toValue(exampleElement.externalValue);
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -178,18 +178,18 @@ const OpenApi3_0ResolveVisitor = stampit({
 
     async crawlReferenceElement(referenceElement: ReferenceElement) {
       // @ts-ignore
-      const reference = await this.toReference(referenceElement.$ref.toValue());
+      const reference = await this.toReference(toValue(referenceElement.$ref));
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
+      const jsonPointer = uriToPointer(toValue(referenceElement.$ref));
 
       // possibly non-semantic fragment
       let fragment = evaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
       if (isPrimitiveElement(fragment)) {
-        const referencedElementType = referenceElement.meta.get('referenced-element').toValue();
+        const referencedElementType = toValue(referenceElement.meta.get('referenced-element'));
 
         if (isReferenceLikeElement(fragment)) {
           // handling indirect references
@@ -229,11 +229,11 @@ const OpenApi3_0ResolveVisitor = stampit({
 
     async crawlPathItemElement(pathItemElement: PathItemElement) {
       // @ts-ignore
-      const reference = await this.toReference(pathItemElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(pathItemElement.$ref));
 
       this.indirections.push(pathItemElement);
 
-      const jsonPointer = uriToPointer(pathItemElement.$ref?.toValue());
+      const jsonPointer = uriToPointer(toValue(pathItemElement.$ref));
 
       // possibly non-semantic fragment
       let referencedElement = evaluate(jsonPointer, reference.value.result);

@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
 import { assert } from 'chai';
-import { isParseResultElement } from '@swagger-api/apidom-core';
+import { isParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import defaultOptions from '../../src/options';
@@ -59,7 +59,7 @@ describe('parse', function () {
         const uri = path.join(__dirname, 'fixtures', 'unknown-extension.ext');
         const parseResult = await parse(uri, defaultOptions);
         const { result } = parseResult;
-        const actual = Buffer.from(result?.toValue(), 'base64').toString('utf8');
+        const actual = Buffer.from(toValue(result), 'base64').toString('utf8');
 
         assert.strictEqual(actual, 'possibly binary content\n');
       });

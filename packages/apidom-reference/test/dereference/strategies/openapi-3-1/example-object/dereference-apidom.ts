@@ -6,6 +6,7 @@ import {
   isExampleElement,
   OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
+import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
@@ -47,7 +48,7 @@ describe('dereference', function () {
             })) as ExampleElement;
 
             assert.match(
-              dereferenced.value?.meta.get('ref-origin').toValue(),
+              toValue(dereferenced.value?.meta.get('ref-origin')),
               /external-value-json\/ex\.json$/,
             );
           });

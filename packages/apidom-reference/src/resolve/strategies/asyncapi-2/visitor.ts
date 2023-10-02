@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { propEq, values, has, pipe } from 'ramda';
 import { allP } from 'ramda-adjunct';
-import { isPrimitiveElement, isStringElement, visit } from '@swagger-api/apidom-core';
+import { isPrimitiveElement, isStringElement, visit, toValue } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
@@ -85,7 +85,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return false;
       }
 
-      const uri = referenceElement.$ref?.toValue();
+      const uri = toValue(referenceElement.$ref);
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -107,7 +107,7 @@ const AsyncApi2ResolveVisitor = stampit({
         return undefined;
       }
 
-      const uri = channelItemElement.$ref?.toValue();
+      const uri = toValue(channelItemElement.$ref);
       const baseURI = this.toBaseURI(uri);
 
       if (!has(baseURI, this.crawlingMap)) {
@@ -120,18 +120,18 @@ const AsyncApi2ResolveVisitor = stampit({
 
     async crawlReferenceElement(referenceElement: ReferenceElement) {
       // @ts-ignore
-      const reference = await this.toReference(referenceElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(referenceElement.$ref));
 
       this.indirections.push(referenceElement);
 
-      const jsonPointer = uriToPointer(referenceElement.$ref?.toValue());
+      const jsonPointer = uriToPointer(toValue(referenceElement.$ref));
 
       // possibly non-semantic fragment
       let fragment = evaluate(jsonPointer, reference.value.result);
 
       // applying semantics to a fragment
       if (isPrimitiveElement(fragment)) {
-        const referencedElementType = referenceElement.meta.get('referenced-element').toValue();
+        const referencedElementType = toValue(referenceElement.meta.get('referenced-element'));
 
         if (isReferenceLikeElement(fragment)) {
           // handling indirect references
@@ -170,11 +170,11 @@ const AsyncApi2ResolveVisitor = stampit({
     },
 
     async crawlChannelItemElement(channelItemElement: ChannelItemElement) {
-      const reference = await this.toReference(channelItemElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(channelItemElement.$ref));
 
       this.indirections.push(channelItemElement);
 
-      const jsonPointer = uriToPointer(channelItemElement.$ref?.toValue());
+      const jsonPointer = uriToPointer(toValue(channelItemElement.$ref));
 
       // possibly non-semantic referenced element
       let referencedElement = evaluate(jsonPointer, reference.value.result);

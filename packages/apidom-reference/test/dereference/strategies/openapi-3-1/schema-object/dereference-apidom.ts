@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { assert } from 'chai';
+import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes, isSchemaElement, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
@@ -44,7 +45,7 @@ describe('dereference', function () {
               });
 
               assert.match(
-                dereferenced.meta.get('ref-origin').toValue(),
+                toValue(dereferenced.meta.get('ref-origin')),
                 /internal-only\/root\.json$/,
               );
             });
@@ -86,7 +87,7 @@ describe('dereference', function () {
               });
 
               assert.match(
-                dereferenced.meta.get('ref-origin').toValue(),
+                toValue(dereferenced.meta.get('ref-origin')),
                 /external-only\/ex\.json$/,
               );
             });

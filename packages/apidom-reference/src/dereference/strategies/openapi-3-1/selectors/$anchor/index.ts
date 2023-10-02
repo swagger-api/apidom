@@ -1,5 +1,5 @@
 import { trimCharsStart, isUndefined } from 'ramda-adjunct';
-import { Element, find } from '@swagger-api/apidom-core';
+import { Element, find, toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { getHash } from '../../../../../util/url';
@@ -36,7 +36,7 @@ export const evaluate = <T extends Element>(anchor: string, element: T): Element
   const token = parse(anchor);
 
   // @ts-ignore
-  const result = find((e) => isSchemaElement(e) && e.$anchor?.toValue() === token, element);
+  const result = find((e) => isSchemaElement(e) && toValue(e.$anchor) === token, element);
 
   if (isUndefined(result)) {
     throw new EvaluationJsonSchema$anchorError(`Evaluation failed on token: "${token}"`);

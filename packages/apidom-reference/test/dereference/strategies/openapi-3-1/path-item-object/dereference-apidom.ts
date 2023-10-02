@@ -5,6 +5,7 @@ import {
   isPathItemElement,
   OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
+import { toValue } from '@swagger-api/apidom-core';
 import { evaluate, compile } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
@@ -44,7 +45,7 @@ describe('dereference', function () {
               });
 
               assert.match(
-                dereferenced.meta.get('ref-origin').toValue(),
+                toValue(dereferenced.meta.get('ref-origin')),
                 /internal-only\/root\.json$/,
               );
             });
@@ -86,7 +87,7 @@ describe('dereference', function () {
               });
 
               assert.match(
-                dereferenced.meta.get('ref-origin').toValue(),
+                toValue(dereferenced.meta.get('ref-origin')),
                 /external-only\/ex\.json$/,
               );
             });

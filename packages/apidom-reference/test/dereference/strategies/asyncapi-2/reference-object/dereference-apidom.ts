@@ -5,6 +5,7 @@ import {
   isParameterElement,
   AsyncApi2Element,
 } from '@swagger-api/apidom-ns-asyncapi-2';
+import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
@@ -52,7 +53,7 @@ describe('dereference', function () {
                 });
 
                 assert.match(
-                  dereferenced.meta.get('ref-origin').toValue(),
+                  toValue(dereferenced.meta.get('ref-origin')),
                   /internal-only\/root\.json$/,
                 );
               });
@@ -105,7 +106,7 @@ describe('dereference', function () {
                   },
                 });
 
-                assert.match(dereferenced.meta.get('ref-origin').toValue(), /\/root\.json$/);
+                assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/root\.json$/);
               });
             });
           },
@@ -147,7 +148,7 @@ describe('dereference', function () {
                 });
 
                 assert.match(
-                  dereferenced.meta.get('ref-origin').toValue(),
+                  toValue(dereferenced.meta.get('ref-origin')),
                   /external-only\/ex\.json$/,
                 );
               });
@@ -196,7 +197,7 @@ describe('dereference', function () {
                   resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
                 });
 
-                assert.match(dereferenced.meta.get('ref-origin').toValue(), /\/ex\.json$/);
+                assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/ex\.json$/);
               });
             });
 
@@ -248,7 +249,7 @@ describe('dereference', function () {
                   resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
                 });
 
-                assert.match(dereferenced.meta.get('ref-origin').toValue(), /\/ex\.json$/);
+                assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/ex\.json$/);
               });
             });
           },

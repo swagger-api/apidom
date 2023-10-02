@@ -57,7 +57,7 @@ describe('dereference', function () {
               );
 
               assert.strictEqual(
-                fragment.meta.get('ref-fields').get('$ref').toValue(),
+                toValue(fragment.meta.get('ref-fields').get('$ref')),
                 '#/components/schemas/UserProfile',
               );
             },
@@ -292,7 +292,7 @@ describe('dereference', function () {
               );
 
               assert.strictEqual(
-                profile.meta.get('inherited$schema').toValue(),
+                toValue(profile.meta.get('inherited$schema')),
                 'https://spec.openapis.org/oas/3.1/dialect/base',
               );
             });
@@ -334,7 +334,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/User', dereferenced);
 
             assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
+              toValue(user.meta.get('inherited$schema')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -343,7 +343,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/User/properties/login', dereferenced);
 
             assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
+              toValue(user.meta.get('inherited$schema')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -352,7 +352,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/UserProfile', dereferenced);
 
             assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
+              toValue(user.meta.get('inherited$schema')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -364,7 +364,7 @@ describe('dereference', function () {
             );
 
             assert.strictEqual(
-              user.meta.get('inherited$schema').toValue(),
+              toValue(user.meta.get('inherited$schema')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });

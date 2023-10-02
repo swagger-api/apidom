@@ -5,6 +5,7 @@ import {
   isChannelItemElement,
   AsyncApi2Element,
 } from '@swagger-api/apidom-ns-asyncapi-2';
+import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
@@ -45,7 +46,7 @@ describe('dereference', function () {
               resolve: { baseURI: fixturePath },
             });
 
-            assert.match(dereferenced.meta.get('ref-origin').toValue(), /external-only\/ex\.json$/);
+            assert.match(toValue(dereferenced.meta.get('ref-origin')), /external-only\/ex\.json$/);
           });
         });
       });

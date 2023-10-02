@@ -1,5 +1,11 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, findAtOffset, ObjectElement, MemberElement } from '@swagger-api/apidom-core';
+import {
+  findAtOffset,
+  toValue,
+  Element,
+  ObjectElement,
+  MemberElement,
+} from '@swagger-api/apidom-core';
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
@@ -59,11 +65,11 @@ export class DefaultDefinitionService implements DefinitionService {
       } else {
         el = (<MemberElement>node.parent).key as ObjectElement;
       }
-      if (el?.toValue() !== '$ref') {
+      if (toValue(el) !== '$ref') {
         return null;
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const ref = node.toValue();
+      const ref = toValue(node);
       // TODO (francesco.tumanischvili@smartbear.com): handle by URL parsing
       if (!ref.startsWith('#') && node.parent?.parent) {
         try {
@@ -87,8 +93,8 @@ export class DefaultDefinitionService implements DefinitionService {
             'definitionService - go to external ref',
             `mediaType: ${mediaType}`,
             `textDocument.uri: ${textDocument.uri}`,
-            `node value: ${JSON.stringify(node.toValue())}`,
-            `parent value: ${JSON.stringify(node.parent.parent.toValue())}`,
+            `node value: ${JSON.stringify(toValue(node))}`,
+            `parent value: ${JSON.stringify(toValue(node.parent.parent))}`,
           );
           const dereferenced = await dereferenceApiDOM(node.parent.parent, {
             parse: { mediaType, parserOpts: { sourceMap: true } },
@@ -101,9 +107,9 @@ export class DefaultDefinitionService implements DefinitionService {
           });
           debug(
             'definitionService - go to external ref',
-            `dereferenced value: ${dereferenced.toValue()}`,
+            `dereferenced value: ${toValue(dereferenced)}`,
           );
-          const newUri = dereferenced.meta.get('ref-origin').toValue();
+          const newUri = toValue(dereferenced.meta.get('ref-origin'));
           debug('definitionService - go to external ref', `dereferenced file URI: ${newUri}`);
           const nodeSourceMap = getSourceMap(dereferenced);
           const range = Range.create(
@@ -163,11 +169,11 @@ export class DefaultDefinitionService implements DefinitionService {
       } else {
         el = (<MemberElement>node.parent).key as ObjectElement;
       }
-      if (el?.toValue() !== '$ref') {
+      if (toValue(el) !== '$ref') {
         return null;
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const ref = node.toValue();
+      const ref = toValue(node);
       // TODO (francesco.tumanischvili@smartbear.com): handle by URL parsing
       if (!ref.startsWith('#')) {
         return null;

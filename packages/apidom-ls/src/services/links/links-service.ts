@@ -1,6 +1,6 @@
 import { Range, DocumentLink } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, traverse } from '@swagger-api/apidom-core';
+import { Element, traverse, toValue } from '@swagger-api/apidom-core';
 
 import {
   LanguageSettings,
@@ -117,7 +117,7 @@ export class DefaultLinksService implements LinksService {
     debug('DefaultLinksService.doLinks ns', docNs, specVersion);
     const findLinks = (element: Element) => {
       const sm = getSourceMap(element);
-      const value = element.toValue();
+      const value = toValue(element);
       const trivialWebUrl = DefaultLinksService.isWebUrl(value);
       if (element.element !== 'string') {
         return;
@@ -125,7 +125,7 @@ export class DefaultLinksService implements LinksService {
       if (
         element.parent &&
         isMember(element.parent) &&
-        (element.parent.key as Element).toValue() === '$ref' &&
+        toValue(element.parent.key) === '$ref' &&
         element.parent.key !== element &&
         !value.startsWith('#')
       ) {

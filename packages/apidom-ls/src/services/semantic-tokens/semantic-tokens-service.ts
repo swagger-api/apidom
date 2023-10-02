@@ -11,6 +11,7 @@ import {
   isNumberElement,
   isStringElement,
   traverse,
+  toValue,
 } from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
@@ -148,7 +149,7 @@ console.log(
   '[buildTokens]',
   `[${smt.line}:${smt.column}]`,
   `[el:${element.element}]`,
-  `[val:${JSON.stringify(element.toValue())}]`,
+  `[val:${JSON.stringify(toValue(element)}]`,
 );
 */
       let foundClasses = false;
@@ -157,7 +158,7 @@ console.log(
       // TODO (francesco.tumanischvili@smartbear.com) De-duplicate code
       let set: string[] = [];
       if (element.classes) {
-        set = Array.from(new Set(element.classes.toValue()));
+        set = Array.from(new Set(toValue(element.classes)));
       }
       // add element value to the set (e.g. 'pathItem', 'operation')
       set.unshift(element.element);
@@ -276,7 +277,7 @@ console.log(
               if (s === 'operation') {
                 // check for httpMethod
                 modifier = this.getTokenModifiers([
-                  `httpMethod-${element.getMetaProperty('http-method', 'GET').toValue()}`,
+                  `httpMethod-${toValue(element.getMetaProperty('http-method', 'GET'))}`,
                 ]);
               }
               const token = [
@@ -314,7 +315,7 @@ console.log(
             const val = <Element>element.parent.value;
             let valueClasses: string[] = [];
             if (val.classes) {
-              valueClasses = Array.from(new Set(val.classes.toValue()));
+              valueClasses = Array.from(new Set(toValue(val.classes)));
             }
             // add element value to the set (e.g. 'pathItem', 'operation')
             valueClasses.unshift(val.element);

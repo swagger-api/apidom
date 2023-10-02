@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, findAtOffset, traverse, ObjectElement } from '@swagger-api/apidom-core';
+import { Element, findAtOffset, traverse, toValue, ObjectElement } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
 import { dereferenceApiDOM, Reference, ReferenceSet } from '@swagger-api/apidom-reference';
@@ -98,7 +98,7 @@ export class DefaultValidationService implements ValidationService {
 
   private getLintingRulesSemantic(doc: Element, symbol: string, docNs: string): LinterMeta[] {
     let meta: LinterMeta[] = [];
-    const elementMeta = doc.meta.get('metadataMap')?.get(symbol)?.get('lint')?.toValue();
+    const elementMeta = toValue(doc.meta.get('metadataMap')?.get(symbol)?.get('lint'));
     if (elementMeta) {
       meta = meta.concat(elementMeta);
       meta = meta.filter((r) => !r.given);
@@ -244,7 +244,7 @@ export class DefaultValidationService implements ValidationService {
         const promise = dereferenceApiDOM(refEl, {
           resolve: {
             baseURI: `${baseURI}#reference${fragmentId}`,
-            external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
+            external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
@@ -267,9 +267,7 @@ export class DefaultValidationService implements ValidationService {
           const refElement = derefResult.value?.refEl;
           if (refElement as Element) {
             const refValueElement = refElement.get('$ref');
-            const referencedElement = refElement
-              .getMetaProperty('referenced-element', '')
-              .toValue();
+            const referencedElement = toValue(refElement.getMetaProperty('referenced-element', ''));
             let pointers = pointersMap[referencedElement];
             if (!pointers) {
               pointers = localReferencePointers(doc, referencedElement, true);
@@ -351,7 +349,7 @@ export class DefaultValidationService implements ValidationService {
         await dereferenceApiDOM(refEl, {
           resolve: {
             baseURI: `${baseURI}#reference${fragmentId}`,
-            external: !(refEl as ObjectElement).get('$ref').toValue().startsWith('#'),
+            external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
@@ -364,7 +362,7 @@ export class DefaultValidationService implements ValidationService {
           // @ts-ignore
           if (refEl as Element) {
             const refValueElement = (refEl as ObjectElement).get('$ref');
-            const referencedElement = refEl.getMetaProperty('referenced-element', '').toValue();
+            const referencedElement = toValue(refEl.getMetaProperty('referenced-element', ''));
             let pointers = pointersMap[referencedElement];
             if (!pointers) {
               pointers = localReferencePointers(doc, referencedElement, true);
@@ -467,7 +465,7 @@ export class DefaultValidationService implements ValidationService {
           textDocument.positionAt(location.offset),
           textDocument.positionAt(location.offset + location.length),
         );
-        let message: string = annotation.toValue();
+        let message: string = toValue(annotation);
         if (
           message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
           message.length > 70
@@ -523,14 +521,14 @@ export class DefaultValidationService implements ValidationService {
       const refDiagnostics: Diagnostic[] = [];
       if (
         refValidationMode === ReferenceValidationMode.LEGACY &&
-        refValueElement.toValue().startsWith('#')
+        toValue(refValueElement).startsWith('#')
       ) {
         let pointers = pointersMap[referencedElement];
         if (!pointers) {
           pointers = localReferencePointers(doc, referencedElement, true);
           pointersMap[referencedElement] = pointers;
         }
-        if (!pointers.some((p) => p.ref === refValueElement.toValue())) {
+        if (!pointers.some((p) => p.ref === toValue(refValueElement))) {
           // local ref not found
           const lintSm = getSourceMap(refValueElement);
           const location = { offset: lintSm.offset, length: lintSm.length };
@@ -583,7 +581,7 @@ export class DefaultValidationService implements ValidationService {
               api,
               refValueElement,
               referencedElement,
-              refValueElement.toValue(),
+              toValue(refValueElement),
               refDiagnostics,
               context,
             );
@@ -628,16 +626,16 @@ export class DefaultValidationService implements ValidationService {
 
     const lint = (element: Element) => {
       if (
-        element.getMetaProperty('referenced-element', '').toValue().length > 0 &&
+        toValue(element.getMetaProperty('referenced-element', '')).length > 0 &&
         isObject(element) &&
         element.hasKey('$ref') &&
         (refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL ||
-          element.get('$ref').toValue().startsWith('#'))
+          toValue(element.get('$ref')).startsWith('#'))
       ) {
         refElements.push(element);
       }
       const sm = getSourceMap(element);
-      const referencedElement = element.getMetaProperty('referenced-element', '').toValue();
+      const referencedElement = toValue(element.getMetaProperty('referenced-element', ''));
       if (referencedElement.length > 0) {
         // legacy lint local references
         if (isObject(element) && element.hasKey('$ref')) {
@@ -646,7 +644,7 @@ export class DefaultValidationService implements ValidationService {
         }
       }
       if (element.classes) {
-        const set: string[] = Array.from(new Set(element.classes.toValue()));
+        const set: string[] = Array.from(new Set(toValue(element.classes)));
         // add element value to the set (e.g. 'pathItem', 'operation'
         if (!set.includes(element.element)) {
           set.unshift(element.element);

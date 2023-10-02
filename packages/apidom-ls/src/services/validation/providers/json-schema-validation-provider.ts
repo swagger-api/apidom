@@ -3,7 +3,7 @@ import Ajv from 'ajv';
 import { Diagnostic, DiagnosticSeverity, Position, Range } from 'vscode-languageserver-types';
 import jsonSourceMap from 'json-source-map';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element } from '@swagger-api/apidom-core';
+import { toValue, Element } from '@swagger-api/apidom-core';
 
 import { positionRangeForPath } from '../utils/ast';
 import {
@@ -51,7 +51,7 @@ export abstract class JsonSchemaValidationProvider implements ValidationProvider
       // get the serialized apidom JSON if doc is yaml
       let jsonText = text;
       if (isYaml) {
-        jsonText = JSON.stringify(api.toValue());
+        jsonText = JSON.stringify(toValue(api));
       }
       this.validate(jsonText, text, isYaml, diagnostics, validationContext);
       const result: ValidationProviderResult = {

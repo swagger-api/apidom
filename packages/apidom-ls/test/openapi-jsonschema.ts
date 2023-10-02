@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
-import { Element, traverse } from '@swagger-api/apidom-core';
+import { Element, toValue, traverse } from '@swagger-api/apidom-core';
 
 import { parse } from '../src/parser-factory';
 
@@ -30,7 +30,7 @@ describe('apidom-jsonschema-prototype-test', function () {
     const foundElements: string[] = [];
     function printAndCheckContent(node: Element): void {
       // eslint-disable-next-line no-console
-      console.log(node.element, node.toValue());
+      console.log(node.element, toValue(node));
       foundElements.push(node.element);
     }
 

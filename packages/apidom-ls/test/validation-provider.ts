@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
-import { Element } from '@swagger-api/apidom-core';
+import { toValue, Element } from '@swagger-api/apidom-core';
 import { isOpenApi3_1Element, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import getLanguageService from '../src/apidom-language-service';
@@ -232,7 +232,7 @@ class FullValidationProvider implements ValidationProvider {
     we can also semantically access elements in the apidom tree:
     */
     if (isOpenApi31(api)) {
-      const contactName = api.info?.contact?.name?.toValue();
+      const contactName = toValue(api.info?.contact?.name);
       // eslint-disable-next-line no-console
       console.log({ contactName });
     }

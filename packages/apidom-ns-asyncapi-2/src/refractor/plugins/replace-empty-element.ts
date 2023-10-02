@@ -8,6 +8,7 @@ import {
   includesClasses,
   isArrayElement,
   cloneDeep,
+  toValue,
 } from '@swagger-api/apidom-core';
 
 import mediaTypes from '../../media-types';
@@ -389,7 +390,7 @@ const schema = {
     payload(...args: any[]) {
       // @ts-ignore
       const { context: messageElement } = this;
-      const schemaFormat = defaultTo(mediaTypes.latest(), messageElement.schemaFormat?.toValue());
+      const schemaFormat = defaultTo(mediaTypes.latest(), toValue(messageElement.schemaFormat));
 
       if (mediaTypes.includes(schemaFormat)) {
         return new SchemaElement(...args);
@@ -1026,7 +1027,7 @@ const schema = {
 
 const findElementFactory = (ancestor: any, keyName: string) => {
   const elementType = getNodeType(ancestor); // @ts-ignore
-  const keyMapping = schema[elementType] || schema[ancestor.classes.first?.toValue?.()];
+  const keyMapping = schema[elementType] || schema[toValue(ancestor.classes.first)];
 
   return typeof keyMapping === 'undefined'
     ? undefined
@@ -1044,7 +1045,7 @@ const plugin = () => () => {
 
         const [, , , ancestors] = rest;
         const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
-        const elementFactory = findElementFactory(ancestor, element.key.toValue());
+        const elementFactory = findElementFactory(ancestor, toValue(element.key));
 
         // no element factory found
         if (typeof elementFactory === 'undefined') return undefined;

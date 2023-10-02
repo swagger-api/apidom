@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { StringElement, BREAK } from '@swagger-api/apidom-core';
+import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
@@ -8,7 +8,7 @@ import IdentifierElement from '../../../elements/Identifier';
 const IdentifierVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     StringElement(stringElement: StringElement) {
-      const identifierElement = new IdentifierElement(stringElement.toValue());
+      const identifierElement = new IdentifierElement(toValue(stringElement));
 
       this.copyMetaAndAttributes(stringElement, identifierElement);
 

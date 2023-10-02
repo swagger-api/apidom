@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { always, defaultTo } from 'ramda';
-import { ObjectElement, isObjectElement } from '@swagger-api/apidom-core';
+import { ObjectElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import mediaTypes from '../../../../media-types';
 import MessageElement from '../../../../elements/Message';
@@ -28,7 +28,7 @@ const MessageVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
       const payload = this.element.get('payload');
       const schemaFormat = defaultTo(
         mediaTypes.latest(),
-        objectElement.get('schemaFormat')?.toValue(),
+        toValue(objectElement.get('schemaFormat')),
       );
 
       if (mediaTypes.includes(schemaFormat) && isReferenceLikeElement(payload)) {

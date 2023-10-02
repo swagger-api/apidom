@@ -1,6 +1,6 @@
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element } from '@swagger-api/apidom-core';
+import { Element, toValue } from '@swagger-api/apidom-core';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 import {
   MainElement,
@@ -85,7 +85,7 @@ export class AdsValidationProvider implements ValidationProvider {
         );
         const diagnostic = Diagnostic.create(
           range,
-          annotation.toValue(),
+          toValue(annotation),
           DiagnosticSeverity.Error,
           0,
           'syntax',

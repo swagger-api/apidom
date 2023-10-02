@@ -22,6 +22,8 @@ describe('apidom-ls-validate', function () {
 
   // eslint-disable-next-line mocha/no-skipped-tests
   it('test validation of supposedly valid specs', async function () {
+    this.timeout(10000);
+
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,

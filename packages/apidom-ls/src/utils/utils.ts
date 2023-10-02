@@ -25,6 +25,7 @@ import {
   ParseResultElement,
   StringElement,
   traverse,
+  toValue,
 } from '@swagger-api/apidom-core';
 import { compile } from '@swagger-api/apidom-json-pointer';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -107,7 +108,7 @@ export class SourceMap {
 
 export function getSourceMap(element: Element): SourceMap {
   if (element && element.meta && element.meta.get('sourceMap')) {
-    const sourceMap: [][number] = element.meta.get('sourceMap').toValue() as [][number];
+    const sourceMap: [][number] = toValue(element.meta.get('sourceMap')) as [][number];
     const offset = sourceMap[0][2];
     const length = sourceMap[1][2] - sourceMap[0][2];
     const line = sourceMap[0][0];
@@ -164,8 +165,8 @@ export function setMetadataMap(
 }
 
 export function getSpecVersion(root: Element): string {
-  const el = find((e) => e.getMetaProperty('classes', []).toValue().includes('spec-version'), root);
-  return el ? el.toValue() : '';
+  const el = find((e) => toValue(e.getMetaProperty('classes', []).includes('spec-version')), root);
+  return el ? toValue(el) : '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -206,7 +207,7 @@ export function localReferencePointers(
   function buildPointer(traverseNode: Element): void {
     if (!traverseNode) return;
     if (traverseNode.parent && isMember(traverseNode.parent)) {
-      nodePath.unshift((traverseNode.parent.key as Element).toValue());
+      nodePath.unshift(toValue(traverseNode.parent.key as Element));
       buildPointer(traverseNode.parent?.parent);
     }
   }
@@ -215,7 +216,7 @@ export function localReferencePointers(
   function findRefNodes(traversedNode: Element): void {
     if (includeRefs) {
       const isRef =
-        nodeElement === traversedNode.getMetaProperty('referenced-element', '').toValue();
+        nodeElement === toValue(traversedNode.getMetaProperty('referenced-element', ''));
       if (isRef || traversedNode.element === nodeElement) {
         foundNodes.push({ element: traversedNode, isRef });
       }
@@ -224,7 +225,7 @@ export function localReferencePointers(
         !(
           isObject(traversedNode) &&
           traversedNode.get('$ref') &&
-          traversedNode.get('$ref').toValue().length > 0
+          toValue(traversedNode.get('$ref')).length > 0
         )
       ) {
         foundNodes.push({ element: traversedNode, isRef: false });
@@ -369,7 +370,7 @@ export function buildPath(element: Element): string {
 
     if (targetEl.parent && isMember(targetEl.parent)) {
       // @ts-ignore
-      path.unshift(targetEl.parent.key.toValue() as string);
+      path.unshift(toValue(targetEl.parent.key) as string);
     }
 
     while (targetEl.parent?.parent) {
@@ -380,7 +381,7 @@ export function buildPath(element: Element): string {
       }
       if (targetEl.parent && isMember(targetEl.parent)) {
         // @ts-ignore
-        path.unshift(targetEl.parent.key.toValue() as string);
+        path.unshift(toValue(targetEl.parent.key) as string);
       }
     }
     return `/${path.join('/')}`;

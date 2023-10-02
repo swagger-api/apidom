@@ -4,7 +4,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionItem, Position } from 'vscode-languageserver-types';
-import { Element } from '@swagger-api/apidom-core';
+import { toValue, Element } from '@swagger-api/apidom-core';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 
 import getLanguageService from '../src/apidom-language-service';
@@ -98,7 +98,7 @@ class RefCompletionProvider implements CompletionProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
   ): CompletionProviderResult {
-    console.log(element.toValue(), referencedElement, refValue);
+    console.log(toValue(element), referencedElement, refValue);
     // build completions
     const refs = this.legacyPotentialRefs(referencedElement);
     if (refs.length === 0) {
@@ -199,7 +199,7 @@ class AsyncRefCompletionProvider implements CompletionProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     completionContext?: CompletionContext,
   ): Promise<CompletionProviderResult> {
-    console.log(element.toValue(), referencedElement, refValue);
+    console.log(toValue(element), referencedElement, refValue);
     // build completions
     const refs = await this.legacyPotentialRefs(referencedElement);
     if (refs.length === 0) {

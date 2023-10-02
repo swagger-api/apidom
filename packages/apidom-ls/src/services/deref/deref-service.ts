@@ -1,5 +1,4 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { isString } from 'ramda-adjunct';
 import {
   ArraySlice,
@@ -9,7 +8,9 @@ import {
   toJSON,
   toString,
   toYAML,
+  toValue,
 } from '@swagger-api/apidom-core';
+import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
 import { parse } from '../../parser-factory';
@@ -56,12 +57,12 @@ export class DefaultDerefService implements DerefService {
     let baseURI: string | undefined = '/foo';
 
     const servers: ArraySlice = filter((el: Element) => {
-      return el.classes.toValue().includes('servers');
+      return toValue(el.classes).includes('servers');
     }, api);
 
     // TODO (francesco.tumanischvili@smartbear.com): this needs to be replaced by good metadata ('serverURL' to URLS and/or adapter/plugin
     if (servers && !servers.isEmpty) {
-      const serversValue = servers.first.toValue();
+      const serversValue = toValue(servers.first);
       // OAS
       if (Array.isArray(serversValue)) {
         if (!servers.isEmpty) {

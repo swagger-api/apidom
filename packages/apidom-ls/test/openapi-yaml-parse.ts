@@ -16,6 +16,7 @@ import {
   isStringElement,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   traverse,
+  toValue,
 } from '@swagger-api/apidom-core';
 
 import { parse } from '../src/parser-factory';
@@ -97,9 +98,9 @@ describe('apidom-parse-test', function () {
         // eslint-disable-next-line no-console
         console.log(
           node.element,
-          node.getMetaProperty('classes', []).toValue(),
+          toValue(node.getMetaProperty('classes', [])),
           `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
-          node.toValue(),
+          toValue(node),
         );
       }
 

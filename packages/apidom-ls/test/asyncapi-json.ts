@@ -10,7 +10,7 @@ import {
   Position,
   SymbolInformation,
 } from 'vscode-languageserver-types';
-import { Element, traverse } from '@swagger-api/apidom-core';
+import { Element, traverse, toValue } from '@swagger-api/apidom-core';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -635,10 +635,10 @@ describe('apidom-ls-async', function () {
       // eslint-disable-next-line no-console
       console.log(
         node.element,
-        node.getMetaProperty('classes', []).toValue(),
-        node.getMetaProperty('http-method', []).toValue(),
+        toValue(node.getMetaProperty('classes', [])),
+        toValue(node.getMetaProperty('http-method', [])),
         `[${sm.offset} / ${sm.line}:${sm.column} - ${sm.endLine}:${sm.endColumn}]`,
-        node.toValue(),
+        toValue(node),
       );
     }
 

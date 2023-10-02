@@ -1,6 +1,12 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Hover } from 'vscode-languageserver-protocol';
-import { findAtOffset, ObjectElement, MemberElement, Element } from '@swagger-api/apidom-core';
+import {
+  findAtOffset,
+  toValue,
+  ObjectElement,
+  MemberElement,
+  Element,
+} from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
@@ -123,14 +129,14 @@ export class DefaultHoverService implements HoverService {
       }
       let elementValue = el.element;
 
-      const referencedElement = el.getMetaProperty('referenced-element', '').toValue();
+      const referencedElement = toValue(el.getMetaProperty('referenced-element', ''));
       if (referencedElement.length > 0) {
         elementValue = referencedElement;
       }
 
       let hoverLine = '';
       if (el.parent && isMember(el.parent)) {
-        hoverLine = `***${(node.parent.key as Element).toValue()}***: `;
+        hoverLine = `***${toValue(node.parent.key)}***: `;
       }
       hoverLine = `${hoverLine}**${elementValue}**\n`;
 
@@ -148,7 +154,7 @@ export class DefaultHoverService implements HoverService {
           docs = this.getMetadataPropertyDocs(el, docNs, el.element, specVersion);
         }
         if (!docs) {
-          const classes = el.classes.toValue();
+          const classes = toValue(el.classes);
           for (const c of classes) {
             docs = this.getMetadataPropertyDocs(el, docNs, c, specVersion);
             if (docs) {
@@ -166,8 +172,8 @@ export class DefaultHoverService implements HoverService {
         } else {
           el = (<MemberElement>node.parent).key as ObjectElement;
         }
-        if (el?.toValue() === '$ref') {
-          const ref = node.toValue();
+        if (toValue(el) === '$ref') {
+          const ref = toValue(node);
           // TODO (francesco.tumanischvili@smartbear.com): handle by URL parsing
           if (!ref.startsWith('#') && node.parent?.parent) {
             try {
@@ -191,8 +197,8 @@ export class DefaultHoverService implements HoverService {
                 'hoverService - computeHover',
                 `mediaType: ${mediaType}`,
                 `textDocument.uri: ${textDocument.uri}`,
-                `node value: ${JSON.stringify(node.toValue())}`,
-                `parent value: ${JSON.stringify(node.parent.parent.toValue())}`,
+                `node value: ${JSON.stringify(toValue(node))}`,
+                `parent value: ${JSON.stringify(toValue(node.parent.parent))}`,
               );
               const dereferenced = await dereferenceApiDOM(node.parent.parent, {
                 parse: { mediaType, parserOpts: { sourceMap: true } },
@@ -206,9 +212,9 @@ export class DefaultHoverService implements HoverService {
               if (dereferenced) {
                 debug(
                   'hoverService - computeHover',
-                  `dereferenced value: ${dereferenced.toValue()}`,
+                  `dereferenced value: ${toValue(dereferenced)}`,
                 );
-                const targetVal = JSON.stringify(dereferenced.toValue(), null, 2);
+                const targetVal = JSON.stringify(toValue(dereferenced), null, 2);
                 contents.push(`\n\n\n\n\`\`\`json\n${targetVal}\n\`\`\``);
               }
             } catch (e) {
@@ -280,7 +286,7 @@ export class DefaultHoverService implements HoverService {
           }
         } else if (this.settings?.hoverFollowLinkEntry) {
           // check if we have a "URL like" value, and add a link in case
-          const nodeValue = node.toValue();
+          const nodeValue = toValue(node);
           // if (/^https?:\/\/[^\s]+.*/.test(nodeValue)) {
           if (WEB_LINK_REGEX.test(nodeValue)) {
             contents.push(`[follow link](${nodeValue})`);
@@ -360,10 +366,10 @@ export class DefaultHoverService implements HoverService {
     const map: MetadataMap = this.settings?.metadata?.metadataMaps[ns] || {};
     if (node.parent && isMember(node.parent)) {
       const containerNode = node.parent.parent;
-      const nodeKey = (node.parent.key as Element).toValue();
-      const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+      const nodeKey = toValue(node.parent.key);
+      const containerNodeSet: string[] = Array.from(new Set(toValue(containerNode.classes)));
       containerNodeSet.unshift(containerNode.element);
-      const referencedElement = containerNode.getMetaProperty('referenced-element', '').toValue();
+      const referencedElement = toValue(containerNode.getMetaProperty('referenced-element', ''));
       if (referencedElement.length > 0) {
         containerNodeSet.unshift(referencedElement);
       }

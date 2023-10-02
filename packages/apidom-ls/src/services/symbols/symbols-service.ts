@@ -1,6 +1,6 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
-import { ArraySlice, Element, filter, MemberElement } from '@swagger-api/apidom-core';
+import { ArraySlice, Element, filter, toValue, MemberElement } from '@swagger-api/apidom-core';
 import { SymbolKind } from 'vscode-languageserver-types';
 
 import { buildPath, getSourceMap, isMember, SourceMap } from '../../utils/utils';
@@ -48,7 +48,7 @@ export class DefaultSymbolsService implements SymbolsService {
 
     const res: ArraySlice = filter((el: Element) => {
       return (
-        el.classes.toValue().some((item: string) => this.isMeaningfulIdentifier(item)) ||
+        toValue(el.classes).some((item: string) => this.isMeaningfulIdentifier(item)) ||
         this.isMeaningfulIdentifier(el.element)
       );
     }, api);
@@ -56,7 +56,7 @@ export class DefaultSymbolsService implements SymbolsService {
     // eslint-disable-next-line no-plusplus
     for (let index = 0; index < res.length; ++index) {
       const e = res.get(index);
-      const set: string[] = Array.from(new Set(e.classes.toValue()));
+      const set: string[] = Array.from(new Set(toValue(e.classes)));
       // add element value to the set (e.g. 'pathItem', 'operation'
       if (!set.includes(e.element)) {
         set.unshift(e.element);
@@ -85,10 +85,10 @@ export class DefaultSymbolsService implements SymbolsService {
             // TODO solve this
             const superParent: MemberElement = e.parent.parent.parent as MemberElement;
             const keySuper = superParent.key as Element;
-            const keyValueSuper = keySuper.toValue() as string;
+            const keyValueSuper = toValue(keySuper) as string;
             const parent: MemberElement = e.parent as MemberElement;
             const key = parent.key as Element;
-            const keyValue = key.toValue() as string;
+            const keyValue = toValue(key) as string;
             si.containerName = `${keyValueSuper} -> ${keyValue}`;
             symbols.push(si);
           } else if (s === 'pathItem' || s === 'channelItem') {
@@ -100,7 +100,7 @@ export class DefaultSymbolsService implements SymbolsService {
             );
             const parent: MemberElement = e.parent as MemberElement;
             const key = parent.key as Element;
-            si.containerName = key.toValue() as string;
+            si.containerName = toValue(key) as string;
             symbols.push(si);
           } else {
             const si: SymbolInformation = SymbolInformation.create(

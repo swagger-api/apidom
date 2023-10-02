@@ -4,7 +4,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Position } from 'vscode-languageserver-types';
-import { Element } from '@swagger-api/apidom-core';
+import { toValue, Element } from '@swagger-api/apidom-core';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -88,7 +88,7 @@ class RefHoverProvider implements HoverProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     currentHoverItems: string[],
   ): HoverProviderResult {
-    console.log(element.toValue(), refValue);
+    console.log(toValue(element), refValue);
     // build completions
     const refs = this.legacyRefsHover(refValue);
     if (refs.length === 0) {
@@ -223,7 +223,7 @@ class AsyncRefHoverProvider implements HoverProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     currentHoverItems: string[],
   ): Promise<HoverProviderResult> {
-    console.log(element.toValue(), refValue);
+    console.log(toValue(element), refValue);
     // build completions
     const refs = await this.legacyRefsHover(refValue);
     if (refs.length === 0) {

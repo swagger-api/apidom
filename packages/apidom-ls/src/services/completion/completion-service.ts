@@ -20,6 +20,7 @@ import {
   isObjectElement,
   isStringElement,
   MemberElement,
+  toValue,
 } from '@swagger-api/apidom-core';
 
 import {
@@ -161,11 +162,11 @@ export class DefaultCompletionService implements CompletionService {
     // TODO move to NS adapter plugin
     // TODO replace this with checking metadata refObject in parent
     // assume it's a value node within a member
-    if (isMember(node) && (node.key as Element).toValue() === '$ref') {
+    if (isMember(node) && toValue(node.key) === '$ref') {
       return true;
     }
     const { parent } = node;
-    return parent && isMember(parent) && (parent.key as Element).toValue() === '$ref';
+    return parent && isMember(parent) && toValue(parent.key) === '$ref';
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -552,8 +553,8 @@ export class DefaultCompletionService implements CompletionService {
       completionNode = this.resolveCompletionNode(node, caretContext);
       const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
 
-      debug('doCompletion - node', node.element, node.toValue());
-      debug('doCompletion - completionNode', completionNode.element, completionNode.toValue());
+      debug('doCompletion - node', node.element, toValue(node));
+      debug('doCompletion - completionNode', completionNode.element, toValue(completionNode));
       debug('doCompletion - caretContext', caretContext);
       debug('doCompletion - completionNodeContext', completionNodeContext);
 
@@ -620,7 +621,7 @@ export class DefaultCompletionService implements CompletionService {
         debug('doCompletion - adding property');
         for (const p of completionNode) {
           if (!node.parent || node.parent !== p || emptyLine) {
-            proposed[p.key.toValue()] = CompletionItem.create('__');
+            proposed[toValue(p.key)] = CompletionItem.create('__');
           }
         }
         const nonEmptyContentRange = getNonEmptyContentRange(textDocument, offset);
@@ -737,7 +738,7 @@ export class DefaultCompletionService implements CompletionService {
           nodeValueFromText.charAt(0) === '"' || nodeValueFromText.charAt(0) === "'"
             ? nodeValueFromText.charAt(0)
             : undefined;
-        proposed[completionNode.toValue()] = CompletionItem.create('__');
+        proposed[toValue(completionNode)] = CompletionItem.create('__');
         proposed[nodeValueFromText] = CompletionItem.create('__');
         // if node is not empty we must replace text
         if (nodeValueFromText.length > 0) {
@@ -889,9 +890,7 @@ export class DefaultCompletionService implements CompletionService {
   ): Promise<CompletionItem[]> {
     const result: CompletionItem[] = [];
     // get type of node (element)
-    const refElementType = node.parent?.parent
-      ?.getMetaProperty('referenced-element', '')
-      ?.toValue();
+    const refElementType = toValue(node.parent?.parent?.getMetaProperty('referenced-element', ''));
     const nodeElement =
       refElementType && refElementType.length > 0 ? refElementType : node.parent?.parent?.element;
     if (!nodeElement) return result;
@@ -989,9 +988,9 @@ export class DefaultCompletionService implements CompletionService {
     const apidomCompletions: ApidomCompletionItem[] = [];
     let set: string[] = [];
     if (node.classes) {
-      set = Array.from(new Set(node.classes.toValue()));
+      set = Array.from(new Set(toValue(node.classes)));
     }
-    const referencedElement = node.getMetaProperty('referenced-element', '').toValue();
+    const referencedElement = toValue(node.getMetaProperty('referenced-element', ''));
     // TODO maybe move to adapter
     if (referencedElement.length > 0 && referencedElement === 'schema') {
       set.unshift('schema');
@@ -999,11 +998,9 @@ export class DefaultCompletionService implements CompletionService {
     set.unshift(node.element);
     set.forEach((s) => {
       debug('getMetadataPropertyCompletions - class', s);
-      const classCompletions: ApidomCompletionItem[] = doc.meta
-        .get('metadataMap')
-        ?.get(s)
-        ?.get('completion')
-        ?.toValue();
+      const classCompletions: ApidomCompletionItem[] = toValue(
+        doc.meta.get('metadataMap')?.get(s)?.get('completion'),
+      );
       if (classCompletions) {
         apidomCompletions.push(...classCompletions.filter((ci) => !ci.target));
       }
@@ -1012,16 +1009,14 @@ export class DefaultCompletionService implements CompletionService {
       // get parent
       if (node.parent && isMember(node.parent)) {
         const containerNode = node.parent.parent;
-        const key = (node.parent.key as Element).toValue();
+        const key = toValue(node.parent.key);
         // get metadata of parent with target
-        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        const containerNodeSet: string[] = Array.from(new Set(toValue(containerNode.classes)));
         containerNodeSet.unshift(containerNode.element);
         containerNodeSet.forEach((containerNodeSymbol) => {
-          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
-            .get('metadataMap')
-            ?.get(containerNodeSymbol)
-            ?.get('completion')
-            ?.toValue();
+          const containerNodeClassCompletions: ApidomCompletionItem[] = toValue(
+            doc.meta.get('metadataMap')?.get(containerNodeSymbol)?.get('completion'),
+          );
           if (containerNodeClassCompletions) {
             apidomCompletions.push(
               ...containerNodeClassCompletions.filter((ci) => ci.target === key && !ci.arrayMember),
@@ -1036,16 +1031,14 @@ export class DefaultCompletionService implements CompletionService {
       const arrayParent = node.parent;
       if (arrayParent.parent && isMember(arrayParent.parent)) {
         const containerNode = arrayParent.parent.parent;
-        const key = (arrayParent.parent.key as Element).toValue();
+        const key = toValue(arrayParent.parent.key);
         // get metadata of parent with target
-        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        const containerNodeSet: string[] = Array.from(new Set(toValue(containerNode.classes)));
         containerNodeSet.unshift(containerNode.element);
         containerNodeSet.forEach((containerNodeSymbol) => {
-          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
-            .get('metadataMap')
-            ?.get(containerNodeSymbol)
-            ?.get('completion')
-            ?.toValue();
+          const containerNodeClassCompletions: ApidomCompletionItem[] = toValue(
+            doc.meta.get('metadataMap')?.get(containerNodeSymbol)?.get('completion'),
+          );
           if (containerNodeClassCompletions) {
             apidomCompletions.push(
               ...containerNodeClassCompletions.filter((ci) => {
@@ -1076,16 +1069,14 @@ export class DefaultCompletionService implements CompletionService {
     if (!yaml && isArray(node)) {
       if (node.parent && isMember(node.parent)) {
         const containerNode = node.parent.parent;
-        const key = (node.parent.key as Element).toValue();
+        const key = toValue(node.parent.key);
         // get metadata of parent with target
-        const containerNodeSet: string[] = Array.from(new Set(containerNode.classes.toValue()));
+        const containerNodeSet: string[] = Array.from(new Set(toValue(containerNode.classes)));
         containerNodeSet.unshift(containerNode.element);
         containerNodeSet.forEach((containerNodeSymbol) => {
-          const containerNodeClassCompletions: ApidomCompletionItem[] = doc.meta
-            .get('metadataMap')
-            ?.get(containerNodeSymbol)
-            ?.get('completion')
-            ?.toValue();
+          const containerNodeClassCompletions: ApidomCompletionItem[] = toValue(
+            doc.meta.get('metadataMap')?.get(containerNodeSymbol)?.get('completion'),
+          );
           if (containerNodeClassCompletions) {
             apidomCompletions.push(
               ...containerNodeClassCompletions.filter((ci) => {

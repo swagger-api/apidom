@@ -7,6 +7,7 @@ import {
   isOperationElement,
   OpenApi3_0Element,
 } from '@swagger-api/apidom-ns-openapi-3-0';
+import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
@@ -54,7 +55,7 @@ describe('dereference', function () {
             })) as LinkElement;
 
             assert.match(
-              dereferenced.operationRef?.meta.get('operation').meta.get('ref-origin').toValue(),
+              toValue(dereferenced.operationRef?.meta.get('operation').meta.get('ref-origin')),
               /operation-ref-external\/ex\.json$/,
             );
           });

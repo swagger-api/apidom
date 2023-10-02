@@ -11,6 +11,7 @@ import {
   find,
   cloneShallow,
   cloneDeep,
+  toValue,
 } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -132,9 +133,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -145,7 +146,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // applying semantics to a fragment
       if (isPrimitiveElement(referencedElement)) {
-        const referencedElementType = referencingElement.meta.get('referenced-element').toValue();
+        const referencedElementType = toValue(referencingElement.meta.get('referenced-element'));
 
         if (isReferenceLikeElement(referencedElement)) {
           // handling indirect references
@@ -196,11 +197,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
         // annotate fragment with info about original Reference element
         copy.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
           // @ts-ignore
-          description: referencingElement.description?.toValue(),
+          description: toValue(referencingElement.description),
           // @ts-ignore
-          summary: referencingElement.summary?.toValue(),
+          summary: toValue(referencingElement.summary),
         });
         // annotate fragment with info about origin
         copy.setMetaProperty('ref-origin', reference.uri);
@@ -260,9 +261,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -320,14 +321,14 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
         // existing keywords from referencing PathItemElement overrides ones from referenced element
         referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-          mergedElement.remove(keyElement.toValue());
+          mergedElement.remove(toValue(keyElement));
           mergedElement.content.push(item);
         });
         mergedElement.remove('$ref');
 
         // annotate referenced element with info about original referencing element
         mergedElement.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
         });
         // annotate referenced element with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);
@@ -370,8 +371,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       if (isStringElement(linkElement.operationRef)) {
         // possibly non-semantic referenced element
-        const jsonPointer = uriToPointer(linkElement.operationRef?.toValue());
-        const reference = await this.toReference(linkElement.operationRef?.toValue());
+        const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
+        const reference = await this.toReference(toValue(linkElement.operationRef));
         operationElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
         if (isPrimitiveElement(operationElement)) {
@@ -388,7 +389,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       if (isStringElement(linkElement.operationId)) {
-        const operationId = linkElement.operationId?.toValue();
+        const operationId = toValue(linkElement.operationId);
         const reference = await this.toReference(url.unsanitize(this.reference.uri));
         operationElement = find(
           (e) => isOperationElement(e) && e.operationId.equals(operationId),
@@ -436,7 +437,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
       }
 
-      const reference = await this.toReference(exampleElement.externalValue?.toValue());
+      const reference = await this.toReference(toValue(exampleElement.externalValue));
 
       // shallow clone of the referenced element
       const valueElement = cloneShallow(reference.value.result);
@@ -576,7 +577,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         const booleanJsonSchemaElement = cloneDeep(referencedElement);
         // annotate referenced element with info about original referencing element
         booleanJsonSchemaElement.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
         });
         // annotate referenced element with info about origin
         booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
@@ -594,13 +595,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
         // existing keywords from referencing schema overrides ones from referenced schema
         referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-          mergedElement.remove(keyElement.toValue());
+          mergedElement.remove(toValue(keyElement));
           mergedElement.content.push(item);
         });
         mergedElement.remove('$ref');
         // annotate referenced element with info about original referencing element
         mergedElement.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
         });
         // annotate fragment with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);

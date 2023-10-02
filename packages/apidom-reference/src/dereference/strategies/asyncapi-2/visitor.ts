@@ -9,6 +9,7 @@ import {
   isPrimitiveElement,
   isStringElement,
   visit,
+  toValue,
 } from '@swagger-api/apidom-core';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -112,9 +113,9 @@ const AsyncApi2DereferenceVisitor = stampit({
         return undefined;
       }
 
-      const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -125,7 +126,7 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       // applying semantics to a fragment
       if (isPrimitiveElement(referencedElement)) {
-        const referencedElementType = referencingElement.meta.get('referenced-element').toValue();
+        const referencedElementType = toValue(referencingElement.meta.get('referenced-element'));
 
         if (isReferenceLikeElement(referencedElement)) {
           // handling indirect references
@@ -176,7 +177,7 @@ const AsyncApi2DereferenceVisitor = stampit({
 
         // annotate referenced element with info about original referencing element
         copy.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
         });
         // annotate fragment with info about origin
         copy.setMetaProperty('ref-origin', reference.uri);
@@ -223,9 +224,9 @@ const AsyncApi2DereferenceVisitor = stampit({
         return undefined;
       }
 
-      const reference = await this.toReference(referencingElement.$ref?.toValue());
+      const reference = await this.toReference(toValue(referencingElement.$ref));
       const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, referencingElement.$ref?.toValue());
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -283,14 +284,14 @@ const AsyncApi2DereferenceVisitor = stampit({
         );
         // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
         referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-          mergedElement.remove(keyElement.toValue());
+          mergedElement.remove(toValue(keyElement));
           mergedElement.content.push(item);
         });
         mergedElement.remove('$ref');
 
         // annotate referenced element with info about original referencing element
         mergedElement.setMetaProperty('ref-fields', {
-          $ref: referencingElement.$ref?.toValue(),
+          $ref: toValue(referencingElement.$ref),
         });
         // annotate referenced with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);

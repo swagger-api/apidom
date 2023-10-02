@@ -51,7 +51,7 @@ describe('dereference', function () {
               const fragment = evaluate('/0/components/parameters/userId', dereferenced);
 
               assert.strictEqual(
-                fragment.meta.get('ref-fields').get('$ref').toValue(),
+                toValue(fragment.meta.get('ref-fields').get('$ref')),
                 '#/components/parameters/indirection1',
               );
             },

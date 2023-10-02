@@ -1,5 +1,5 @@
 import { reduce } from 'ramda';
-import { Element, isPrimitiveElement } from '@swagger-api/apidom-core';
+import { Element, isPrimitiveElement, toValue } from '@swagger-api/apidom-core';
 import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url';
@@ -9,14 +9,14 @@ export const resolveSchema$refField = (retrievalURI: string, schemaElement: Sche
     return undefined;
   }
 
-  const hash = url.getHash(schemaElement.$ref.toValue());
-  const inherited$id = schemaElement.meta.get('inherited$id').toValue();
+  const hash = url.getHash(toValue(schemaElement.$ref));
+  const inherited$id = toValue(schemaElement.meta.get('inherited$id'));
   const $refBaseURI = reduce(
     (acc: string, uri: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash(uri)));
     },
     retrievalURI,
-    [...inherited$id, schemaElement.$ref.toValue()],
+    [...inherited$id, toValue(schemaElement.$ref)],
   );
 
   return `${$refBaseURI}${hash === '#' ? '' : hash}`;
@@ -27,14 +27,14 @@ export const resolveSchema$idField = (retrievalURI: string, schemaElement: Schem
     return undefined;
   }
 
-  const inherited$id = schemaElement.meta.get('inherited$id').toValue();
+  const inherited$id = toValue(schemaElement.meta.get('inherited$id'));
 
   return reduce(
     (acc: string, $id: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
     retrievalURI,
-    [...inherited$id, schemaElement.$id.toValue()],
+    [...inherited$id, toValue(schemaElement.$id)],
   );
 };
 

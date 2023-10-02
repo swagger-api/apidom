@@ -1,4 +1,9 @@
-import { createPredicate, isBooleanElement, isStringElement } from '@swagger-api/apidom-core';
+import {
+  createPredicate,
+  isBooleanElement,
+  isStringElement,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -70,7 +75,7 @@ export const isChannelItemElementExternal = (element: any): element is ChannelIt
     return false;
   }
 
-  const value = element.$ref.toValue();
+  const value = toValue(element.$ref);
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };
@@ -180,7 +185,7 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
     return false;
   }
 
-  const value = element.$ref.toValue();
+  const value = toValue(element.$ref);
 
   return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
 };

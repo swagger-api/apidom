@@ -50,8 +50,8 @@ const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
           );
           this.element.content.push(extensionElement);
         } else if (
-          !this.ignoredFields.includes(key.toValue()) &&
-          this.fieldPatternPredicate(key.toValue())
+          !this.ignoredFields.includes(toValue(key)) &&
+          this.fieldPatternPredicate(toValue(key))
         ) {
           const specPath = this.specPath(value);
           const patternedFieldElement = this.toRefractedElement(specPath, value);

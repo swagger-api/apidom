@@ -687,7 +687,7 @@ const plugin =
           if (!isEmptyElement(element.value)) return undefined;
 
           const [, , , ancestors] = rest;
-          const ancestor = ancestors[ancestors.length - 1]; // @ts-ignore
+          const ancestor = ancestors.at(-1);
           const elementFactory = findElementFactory(ancestor, toValue(element.key));
 
           // no element factory found
@@ -712,7 +712,7 @@ const plugin =
           if (!isEmptyElement(element)) return undefined;
 
           const [, , , ancestors] = rest;
-          const ancestor = ancestors[ancestors.length - 1];
+          const ancestor = ancestors.at(-1);
 
           // we're only interested in empty elements in ArrayElements
           if (!predicates.isArrayElement(ancestor)) return undefined;

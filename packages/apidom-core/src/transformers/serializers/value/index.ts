@@ -7,12 +7,19 @@ import {
   ArrayElement,
   ObjectElement,
   MemberElement,
+  NullElement,
 } from 'minim';
 
 import { visit } from './visitor';
 import EphemeralArray from './ast/ephemeral-array';
 import EphemeralObject from './ast/ephemeral-object';
-import { isElement } from '../../../predicates';
+import {
+  isElement,
+  isBooleanElement,
+  isNumberElement,
+  isStringElement,
+  isNullElement,
+} from '../../../predicates';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const Visitor = stampit.init(function _Visitor() {
@@ -72,8 +79,19 @@ const Visitor = stampit.init(function _Visitor() {
 });
 /* eslint-enable */
 
+type ShortCutElementTypes = StringElement | NumberElement | BooleanElement | NullElement;
 const serializer = <T extends Element | unknown>(element: T): any => {
   if (!isElement(element)) return element;
+
+  // shortcut optimization for certain element types
+  if (
+    isStringElement(element) ||
+    isNumberElement(element) ||
+    isBooleanElement(element) ||
+    isNullElement(element)
+  ) {
+    return (element as ShortCutElementTypes).toValue();
+  }
 
   return visit(element as Exclude<T, unknown>, Visitor());
 };

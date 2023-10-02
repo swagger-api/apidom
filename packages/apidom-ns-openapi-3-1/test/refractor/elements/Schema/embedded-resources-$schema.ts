@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, find } from '@swagger-api/apidom-core';
+import { ObjectElement, find, toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 
 import {
@@ -28,8 +28,8 @@ describe('refractor', function () {
             });
             const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
             const schemaElement = find((e) => isSchemaElement(e), openApiElement);
-            const actual = schemaElement?.meta.get('inherited$schema').toValue();
-            const expected = JsonSchemaDialectElement.default.toValue();
+            const actual = toValue(schemaElement?.meta.get('inherited$schema'));
+            const expected = toValue(JsonSchemaDialectElement.default);
 
             assert.strictEqual(actual, expected);
           });
@@ -43,8 +43,8 @@ describe('refractor', function () {
                 const genericObjectElement = { type: 'object' };
 
                 const schemaElement = SchemaElement.refract(genericObjectElement);
-                const actual = schemaElement.meta.get('inherited$schema').toValue();
-                const expected = JsonSchemaDialectElement.default.toValue();
+                const actual = toValue(schemaElement.meta.get('inherited$schema'));
+                const expected = toValue(JsonSchemaDialectElement.default);
 
                 assert.strictEqual(actual, expected);
               });
@@ -69,7 +69,7 @@ describe('refractor', function () {
             }`);
               const openApiElement = OpenApi3_1Element.refract(genericObjectElement.result);
               const schemaElement = find((e) => isSchemaElement(e), openApiElement);
-              const actual = schemaElement?.meta.get('inherited$schema').toValue();
+              const actual = toValue(schemaElement?.meta.get('inherited$schema'));
               const expected = 'https://arbitrary-schema-url.com/';
 
               assert.strictEqual(actual, expected);
@@ -94,7 +94,7 @@ describe('refractor', function () {
             }`);
               const openApiElement = OpenApi3_1Element.refract(genericObjectElement.result);
               const schemaElement = find((e) => isSchemaElement(e), openApiElement);
-              const actual = schemaElement?.meta.get('inherited$schema').toValue();
+              const actual = toValue(schemaElement?.meta.get('inherited$schema'));
               const expected = 'https://arbitrary-schema-url.com/';
 
               assert.strictEqual(actual, expected);
@@ -138,8 +138,8 @@ describe('refractor', function () {
               (e) => isSchemaElement(e) && e.$id.equals('1'),
               openApiElement,
             );
-            const actual = schemaElement?.meta.get('inherited$schema').toValue();
-            const expected = JsonSchemaDialectElement.default.toValue();
+            const actual = toValue(schemaElement?.meta.get('inherited$schema'));
+            const expected = toValue(JsonSchemaDialectElement.default);
 
             assert.strictEqual(actual, expected);
           });
@@ -150,7 +150,7 @@ describe('refractor', function () {
               openApiElement,
             );
             // @ts-ignore
-            const actual = schemaElement?.$schema.toValue();
+            const actual = toValue(schemaElement?.$schema);
             const expected = '$schema1';
 
             assert.strictEqual(actual, expected);
@@ -162,7 +162,7 @@ describe('refractor', function () {
               (e) => isSchemaElement(e) && e.$id.equals('3'),
               openApiElement,
             );
-            const actual = schemaElement?.meta.get('inherited$schema').toValue();
+            const actual = toValue(schemaElement?.meta.get('inherited$schema'));
             const expected = '$schema1';
 
             assert.strictEqual(actual, expected);
@@ -173,8 +173,8 @@ describe('refractor', function () {
               (e) => isSchemaElement(e) && e.$id.equals('4'),
               openApiElement,
             );
-            const actual = schemaElement?.meta.get('inherited$schema').toValue();
-            const expected = JsonSchemaDialectElement.default.toValue();
+            const actual = toValue(schemaElement?.meta.get('inherited$schema'));
+            const expected = toValue(JsonSchemaDialectElement.default);
 
             assert.strictEqual(actual, expected);
           });

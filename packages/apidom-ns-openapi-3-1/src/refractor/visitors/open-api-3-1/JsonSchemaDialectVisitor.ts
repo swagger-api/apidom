@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { StringElement, BREAK } from '@swagger-api/apidom-core';
+import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 import { FallbackVisitor, SpecificationVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect';
@@ -7,7 +7,7 @@ import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect';
 const JsonSchemaDialectVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   methods: {
     StringElement(stringElement: StringElement) {
-      const jsonSchemaDialectElement = new JsonSchemaDialectElement(stringElement.toValue());
+      const jsonSchemaDialectElement = new JsonSchemaDialectElement(toValue(stringElement));
 
       this.copyMetaAndAttributes(stringElement, jsonSchemaDialectElement);
 

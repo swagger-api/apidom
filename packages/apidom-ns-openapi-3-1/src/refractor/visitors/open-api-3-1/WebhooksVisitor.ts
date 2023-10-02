@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ObjectElement, StringElement, Element } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, Element, toValue } from '@swagger-api/apidom-core';
 import {
   isReferenceLikeElement,
   MapVisitor,
@@ -37,7 +37,7 @@ const WebhooksVisitor = stampit(MapVisitor, FallbackVisitor, {
       this.element
         .filter(isPathItemElement)
         .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('webhook-name', key.toValue());
+          pathItemElement.setMetaProperty('webhook-name', toValue(key));
         });
 
       return result;

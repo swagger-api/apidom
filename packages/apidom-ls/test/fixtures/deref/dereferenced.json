@@ -17,8 +17,8 @@
       "userId": {
         "name": "userId",
         "in": "query",
-        "description": "override",
-        "required": true
+        "required": true,
+        "description": "override"
       },
       "indirection1": {
         "name": "userId",
@@ -41,8 +41,8 @@
       "externalRef": {
         "name": "externalParameter",
         "in": "query",
-        "description": "another ref",
-        "required": true
+        "required": true,
+        "description": "another ref"
       }
     }
   }

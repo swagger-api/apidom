@@ -1,17 +1,18 @@
 import stampit from 'stampit';
-import { hasIn, pathSatisfies, propEq, none } from 'ramda';
-import { isUndefined, isNotUndefined } from 'ramda-adjunct';
+import { propEq, none } from 'ramda';
+import { isUndefined } from 'ramda-adjunct';
 import {
   isElement,
   isPrimitiveElement,
   isStringElement,
   isMemberElement,
+  isObjectElement,
   visit,
-  Element,
   find,
   cloneShallow,
   cloneDeep,
   toValue,
+  Element,
 } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
@@ -193,7 +194,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       this.indirections.pop();
 
       const mergeAndAnnotateReferencedElement = <T extends Element>(refedElement: T): T => {
-        const copy = cloneDeep(refedElement);
+        const copy = cloneShallow(refedElement);
 
         // annotate fragment with info about original Reference element
         copy.setMetaProperty('ref-fields', {
@@ -207,16 +208,19 @@ const OpenApi3_1DereferenceVisitor = stampit({
         copy.setMetaProperty('ref-origin', reference.uri);
 
         // override description and summary (outer has higher priority then inner)
-        const hasDescription = pathSatisfies(isNotUndefined, ['description'], referencingElement);
-        const hasSummary = pathSatisfies(isNotUndefined, ['summary'], referencingElement);
-
-        if (hasDescription && hasIn('description', refedElement)) {
-          // @ts-ignore
-          copy.description = referencingElement.description;
-        }
-        if (hasSummary && hasIn('summary', refedElement)) {
-          // @ts-ignore
-          copy.summary = referencingElement.summary;
+        if (isObjectElement(refedElement)) {
+          if (referencingElement.hasKey('description') && 'description' in refedElement) {
+            // @ts-ignore
+            copy.remove('description');
+            // @ts-ignore
+            copy.set('description', referencingElement.get('description'));
+          }
+          if (referencingElement.hasKey('summary') && 'summary' in refedElement) {
+            // @ts-ignore
+            copy.remove('summary');
+            // @ts-ignore
+            copy.set('summary', referencingElement.get('summary'));
+          }
         }
 
         return copy;

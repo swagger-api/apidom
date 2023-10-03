@@ -152,9 +152,9 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
+            const parent = evaluate('/0/components/parameters/param1/examples', dereferenced);
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/parent/properties/parent',
+              '/0/components/parameters/param1/examples/example1/examples',
               dereferenced,
             );
 

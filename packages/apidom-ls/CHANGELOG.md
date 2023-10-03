@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
+
+### Bug Fixes
+
+- **reference:** fix how OpenAPI 3.1.0 Reference Object is merged ([#3215](https://github.com/swagger-api/apidom/issues/3215)) ([77a6823](https://github.com/swagger-api/apidom/commit/77a68230035cbbdd5b1042b65f16733864868454))
+
 ## [0.76.2](https://github.com/swagger-api/apidom/compare/v0.76.1...v0.76.2) (2023-09-08)
 
 ### Bug Fixes

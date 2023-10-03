@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
+
+### Bug Fixes
+
+- **core:** always perform immutable async traversal ([#3164](https://github.com/swagger-api/apidom/issues/3164)) ([a47f870](https://github.com/swagger-api/apidom/commit/a47f87018fcca235bd1490e1f014bcdd2430b2d5)), closes [#3110](https://github.com/swagger-api/apidom/issues/3110)
+- **core:** always perform immutable traversal ([#3163](https://github.com/swagger-api/apidom/issues/3163)) ([f2fcab0](https://github.com/swagger-api/apidom/commit/f2fcab0c7a68ca0c39fae6165ff9b5fdf0f12e52)), closes [#3110](https://github.com/swagger-api/apidom/issues/3110)
+
+### Features
+
+- **ast:** apply upstream changes to core visitor/traversal mechanism ([#3187](https://github.com/swagger-api/apidom/issues/3187)) ([1f4306b](https://github.com/swagger-api/apidom/commit/1f4306be9e639d6d80373fec5dca02e57c24466e)), closes [/github.com/swagger-api/apidom/blob/79da9ab06385718dd780da811f6bc6a438d2ff07/NOTICE#L12-L14](https://github.com//github.com/swagger-api/apidom/blob/79da9ab06385718dd780da811f6bc6a438d2ff07/NOTICE/issues/L12-L14)
+
 ## [0.76.2](https://github.com/swagger-api/apidom/compare/v0.76.1...v0.76.2) (2023-09-08)
 
 ### Bug Fixes

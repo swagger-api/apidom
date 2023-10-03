@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-yaml
+
 ## [0.76.2](https://github.com/swagger-api/apidom/compare/v0.76.1...v0.76.2) (2023-09-08)
 
 ### Bug Fixes

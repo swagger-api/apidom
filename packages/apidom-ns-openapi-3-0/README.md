@@ -52,7 +52,7 @@ import { isOpenApi3_0Element, OpenApi3_0Element } from '@swagger-api/apidom-ns-o
 
 const openApiElement = new OpenApi3_0Element();
 
-OpenApi3_0Element(openApiElement); // => true
+isOpenApi3_0Element(openApiElement); // => true
 ```
 
 ## Traversal
@@ -160,7 +160,7 @@ openapi: 3.0.3
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
-const apenApiElement = OpenApi3_0Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_0Element.refract(apiDOM.result, {
   plugins: [refractorPluginReplaceEmptyElement()],
 });
 

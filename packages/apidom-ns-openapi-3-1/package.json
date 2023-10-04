@@ -1,7 +1,7 @@
 {
   "name": "@swagger-api/apidom-ns-openapi-3-1",
   "version": "0.77.0",
-  "description": "Parser adapter for parsing JSON documents into AsyncAPI 2.x.y namespace.",
+  "description": "OpenAPI 3.1.x namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"

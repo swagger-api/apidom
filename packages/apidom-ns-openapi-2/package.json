@@ -1,7 +1,7 @@
 {
-  "name": "@swagger-api/apidom-ns-workflows-1",
-  "version": "0.68.1",
-  "description": "Workflows Specification 1.0.0 namespace for ApiDOM.",
+  "name": "@swagger-api/apidom-ns-openapi-2",
+  "version": "0.77.0",
+  "description": "OpenAPI 2.0 namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -12,7 +12,7 @@
     "./es/refractor/registration.mjs",
     "./cjs/refractor/registration.cjs"
   ],
-  "unpkg": "./dist/apidom-ns-workflows-1.browser.min.js",
+  "unpkg": "./dist/apidom-ns-openapi-2.browser.min.js",
   "main": "./cjs/index.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
@@ -43,7 +43,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "*",
+    "@swagger-api/apidom-core": "^0.77.0",
+    "@swagger-api/apidom-ns-json-schema-draft-4": "^0.77.0",
     "@types/ramda": "~0.29.3",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",

@@ -24,7 +24,7 @@ import openApi2Namespace from '@swagger-api/apidom-ns-openapi-2';
 const namespace = createNamespace(openApi2Namespace);
 
 const objectElement = new namespace.elements.Object();
-const openApiElement = new namespace.elements.Swagger();
+const swaggerElement = new namespace.elements.Swagger();
 ```
 
 When namespace instance is created in this way, it will extend the base namespace
@@ -153,7 +153,7 @@ import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import { refractorPluginReplaceEmptyElement, SwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
 
 const yamlDefinition = `
-openapi: 2.0
+swagger: 2.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
@@ -165,7 +165,7 @@ const swaggerElement = SwaggerElement.refract(apiDOM.result, {
 // (SwaggerElement
 //   (MemberElement
 //     (StringElement)
-//     (OpenapiElement))
+//     (SwaggerVersionElement))
 //   (MemberElement
 //     (StringElement)
 //     (InfoElement)))
@@ -174,7 +174,7 @@ const swaggerElement = SwaggerElement.refract(apiDOM.result, {
 // (SwaggerElement
 //   (MemberElement
 //     (StringElement)
-//     (OpenapiElement))
+//     (SwaggerVersionElement))
 //   (MemberElement
 //     (StringElement)
 //     (StringElement)))

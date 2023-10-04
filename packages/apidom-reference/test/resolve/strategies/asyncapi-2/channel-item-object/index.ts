@@ -3,7 +3,8 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import { resolve } from '../../../../../src';
-import { ResolverError, MaximumDereferenceDepthError } from '../../../../../src/util/errors';
+import ResolverError from '../../../../../src/errors/ResolverError';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

@@ -2,7 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 
 import FileResolver from '../../../../src/resolve/resolvers/file/index-node';
-import { ResolverError } from '../../../../src/util/errors';
+import ResolverError from '../../../../src/errors/ResolverError';
 import File from '../../../../src/util/File';
 
 describe('resolve', function () {

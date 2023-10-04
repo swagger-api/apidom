@@ -2,7 +2,7 @@ import stampit from 'stampit';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { parse, mediaTypes, detect } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { ParserError } from '../../../util/errors';
+import ParserError from '../../../errors/ParserError';
 import { File as IFile, Parser as IParser } from '../../../types';
 import Parser from '../Parser';
 

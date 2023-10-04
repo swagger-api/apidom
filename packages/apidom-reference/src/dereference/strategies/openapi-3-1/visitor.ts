@@ -14,6 +14,7 @@ import {
   toValue,
   Element,
 } from '@swagger-api/apidom-core';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
@@ -35,7 +36,8 @@ import {
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { evaluate as uriEvaluate } from './selectors/uri';
 import { Reference as IReference, Resolver as IResolver } from '../../../types';
-import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
+import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../errors/MaximumResolverDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
@@ -45,7 +47,7 @@ import {
   maybeRefractToSchemaElement,
 } from '../../../resolve/strategies/openapi-3-1/util';
 import { AncestorLineage } from '../../util';
-import EvaluationJsonSchemaUriError from './selectors/uri/errors/EvaluationJsonSchemaUriError';
+import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -162,7 +164,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive Reference Object detected');
+        throw new ApiDOMError('Recursive Reference Object detected');
       }
 
       // detect maximum depth of dereferencing
@@ -283,7 +285,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive Path Item Object reference detected');
+        throw new ApiDOMError('Recursive Path Item Object reference detected');
       }
 
       // detect maximum depth of dereferencing
@@ -368,7 +370,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // operationRef and operationId fields are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
-        throw new Error('LinkElement operationRef and operationId fields are mutually exclusive.');
+        throw new ApiDOMError(
+          'LinkElement operationRef and operationId fields are mutually exclusive.',
+        );
       }
 
       let operationElement: any;
@@ -401,7 +405,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         );
         // OperationElement not found by its operationId
         if (isUndefined(operationElement)) {
-          throw new Error(`OperationElement(operationId=${operationId}) not found.`);
+          throw new ApiDOMError(`OperationElement(operationId=${operationId}) not found.`);
         }
 
         const linkElementCopy = cloneShallow(linkElement);
@@ -438,7 +442,9 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
-        throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
+        throw new ApiDOMError(
+          'ExampleElement value and externalValue fields are mutually exclusive.',
+        );
       }
 
       const reference = await this.toReference(toValue(exampleElement.externalValue));
@@ -545,7 +551,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive Schema Object reference detected');
+        throw new ApiDOMError('Recursive Schema Object reference detected');
       }
 
       // detect maximum depth of dereferencing

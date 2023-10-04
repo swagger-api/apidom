@@ -1,7 +1,7 @@
 import stampit from 'stampit';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 
 import { DereferenceStrategy as IDereferenceStrategy } from '../../types';
-import { NotImplementedError } from '../../util/errors';
 
 const DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit({
   props: {
@@ -13,7 +13,9 @@ const DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit({
     },
 
     async dereference(): Promise<never> {
-      throw new NotImplementedError();
+      throw new NotImplementedError(
+        'dereference method in DereferenceStrategy stamp is not yet implemented.',
+      );
     },
   },
 });

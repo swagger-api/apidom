@@ -1,8 +1,8 @@
 import stampit from 'stampit';
 import { ParseResultElement } from '@swagger-api/apidom-core';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 
 import { Parser as IParser } from '../../types';
-import { NotImplementedError } from '../../util/errors';
 
 const Parser: stampit.Stamp<IParser> = stampit({
   props: {
@@ -41,10 +41,10 @@ const Parser: stampit.Stamp<IParser> = stampit({
   },
   methods: {
     async canParse(): Promise<boolean> {
-      throw new NotImplementedError();
+      throw new NotImplementedError('canParse method in Parser stamp is not yet implemented.');
     },
     async parse(): Promise<ParseResultElement> {
-      throw new NotImplementedError();
+      throw new NotImplementedError('parse method in Parser stamp is not yet implemented.');
     },
   },
 });

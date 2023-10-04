@@ -1,6 +1,6 @@
 import stampit from 'stampit';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 
-import { NotImplementedError } from '../../util/errors';
 import { Resolver as IResolver } from '../../types';
 
 const Resolver: stampit.Stamp<IResolver> = stampit({
@@ -12,7 +12,7 @@ const Resolver: stampit.Stamp<IResolver> = stampit({
       return false;
     },
     async read(): Promise<never> {
-      throw new NotImplementedError();
+      throw new NotImplementedError('read method in Resolver stamp is not yet implemented.');
     },
   },
 });

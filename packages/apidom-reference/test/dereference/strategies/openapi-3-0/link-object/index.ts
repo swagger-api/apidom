@@ -6,7 +6,7 @@ import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
-import { DereferenceError } from '../../../../../src/util/errors';
+import DereferenceError from '../../../../../src/errors/DereferenceError';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

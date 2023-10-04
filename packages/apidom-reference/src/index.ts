@@ -27,19 +27,20 @@ export { merge as mergeOptions } from './options/util';
 export { default as Reference } from './Reference';
 export { default as ReferenceSet } from './ReferenceSet';
 
-export {
-  DereferenceError,
-  InvalidSelectorError,
-  MaximumDereferenceDepthError,
-  MaximumResolverDepthError,
-  NotImplementedError,
-  ParserError,
-  PluginError,
-  ResolverError,
-  UnmatchedDereferenceStrategyError,
-  UnmatchedResolveStrategyError,
-  UnmatchedResolverError,
-} from './util/errors';
+export { default as DereferenceError } from './errors/DereferenceError';
+export { default as EvaluationJsonSchema$anchorError } from './errors/EvaluationJsonSchema$anchorError';
+export { default as EvaluationJsonSchemaUriError } from './errors/EvaluationJsonSchemaUriError';
+export { default as InvalidJsonSchema$anchorError } from './errors/InvalidJsonSchema$anchorError';
+export { default as JsonSchema$anchorError } from './errors/JsonSchema$anchorError';
+export { default as JsonSchemaURIError } from './errors/JsonSchemaUriError';
+export { default as MaximumDereferenceDepthError } from './errors/MaximumDereferenceDepthError';
+export { default as MaximumResolverDepthError } from './errors/MaximumResolverDepthError';
+export { default as ParserError } from './errors/ParserError';
+export { default as PluginError } from './errors/PluginError';
+export { default as ResolverError } from './errors/ResolverError';
+export { default as UnmatchedDereferenceStrategyError } from './errors/UnmatchedDereferenceStrategyError';
+export { default as UnmatchedResolveStrategyError } from './errors/UnmatchedResolveStrategyError';
+export { default as UnmatchedResolverError } from './errors/UnmatchedResolverError';
 
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);

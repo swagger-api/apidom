@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { propEq, values, has, pipe } from 'ramda';
 import { allP } from 'ramda-adjunct';
 import { isPrimitiveElement, isStringElement, visit, toValue } from '@swagger-api/apidom-core';
+import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
@@ -19,7 +20,8 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { Reference as IReference } from '../../../types';
-import { MaximumDereferenceDepthError, MaximumResolverDepthError } from '../../../util/errors';
+import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../errors/MaximumResolverDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
@@ -135,7 +137,7 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       // operationRef and operationId are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
-        throw new Error('LinkElement operationRef and operationId are mutually exclusive.');
+        throw new ApiDOMError('LinkElement operationRef and operationId are mutually exclusive.');
       }
 
       if (isLinkElementExternal(linkElement)) {
@@ -163,7 +165,9 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
-        throw new Error('ExampleElement value and externalValue fields are mutually exclusive.');
+        throw new ApiDOMError(
+          'ExampleElement value and externalValue fields are mutually exclusive.',
+        );
       }
 
       const uri = toValue(exampleElement.externalValue);
@@ -204,7 +208,7 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       // detect direct or circular reference
       if (this.indirections.includes(fragment)) {
-        throw new Error('Recursive Reference Object detected');
+        throw new ApiDOMError('Recursive Reference Object detected');
       }
 
       // detect maximum depth of dereferencing
@@ -245,7 +249,7 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       // detect direct or indirect reference
       if (this.indirections.includes(referencedElement)) {
-        throw new Error('Recursive Path Item Object reference detected');
+        throw new ApiDOMError('Recursive Path Item Object reference detected');
       }
 
       // detect maximum depth of dereferencing

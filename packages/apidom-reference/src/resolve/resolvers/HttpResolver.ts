@@ -1,8 +1,8 @@
 import stampit from 'stampit';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 
 import Resolver from './Resolver';
 import * as url from '../../util/url';
-import NotImplementedError from '../../util/errors/NotImplementedError';
 import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
 
 interface HttpResolverConstructorParameters {
@@ -35,11 +35,13 @@ const HttpResolver: stampit.Stamp<IHttpResolver> = stampit(Resolver, {
     },
 
     async read(): Promise<never> {
-      throw new NotImplementedError();
+      throw new NotImplementedError('read method in HttpResolver stamp is not yet implemented.');
     },
 
     getHttpClient(): unknown {
-      throw new NotImplementedError();
+      throw new NotImplementedError(
+        'getHttpClient method in HttpResolver stamp is not yet implemented.',
+      );
     },
   },
 });

@@ -11,7 +11,8 @@ import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } 
 import parse from '../parse';
 import * as plugins from '../util/plugins';
 import File from '../util/File';
-import { ResolverError, UnmatchedResolveStrategyError } from '../util/errors';
+import ResolverError from '../errors/ResolverError';
+import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError';
 import * as url from '../util/url';
 
 /**

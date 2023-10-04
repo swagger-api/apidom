@@ -1,7 +1,7 @@
 import { invokeArgs } from 'ramda-adjunct';
 
 import { File as IFile } from '../types';
-import { PluginError } from './errors';
+import PluginError from '../errors/PluginError';
 
 /**
  * Filters the given plugins, returning only the ones return `true` for the given method.

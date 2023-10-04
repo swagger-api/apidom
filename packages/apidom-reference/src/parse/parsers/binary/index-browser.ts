@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 
-import { ParserError } from '../../../util/errors';
+import ParserError from '../../../errors/ParserError';
 import { Parser as IParser, File as IFile } from '../../../types';
 import Parser from '../Parser';
 

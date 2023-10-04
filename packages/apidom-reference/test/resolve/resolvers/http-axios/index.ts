@@ -6,7 +6,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { identity } from 'ramda';
 
 import HttpResolverAxios from '../../../../src/resolve/resolvers/http-axios';
-import { ResolverError } from '../../../../src/util/errors';
+import ResolverError from '../../../../src/errors/ResolverError';
 import File from '../../../../src/util/File';
 
 describe('resolve', function () {

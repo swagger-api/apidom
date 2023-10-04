@@ -2,7 +2,7 @@ import stampit from 'stampit';
 
 import { Resolver as IResolver } from '../../../types';
 import Resolver from '../Resolver';
-import { ResolverError } from '../../../util/errors';
+import ResolverError from '../../../errors/ResolverError';
 
 const FileResolver: stampit.Stamp<IResolver> = stampit(Resolver, {
   init() {

@@ -6,7 +6,7 @@ import minimatch from 'minimatch';
 import { FileResolver as IFileResolver, File as IFile } from '../../../types';
 import Resolver from '../Resolver';
 import * as url from '../../../util/url';
-import { ResolverError } from '../../../util/errors';
+import ResolverError from '../../../errors/ResolverError';
 
 const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
   props: {

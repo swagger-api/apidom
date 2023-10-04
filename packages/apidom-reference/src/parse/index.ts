@@ -5,7 +5,8 @@ import * as url from '../util/url';
 import File from '../util/File';
 import * as plugins from '../util/plugins';
 import { ReferenceOptions as IReferenceOptions, File as IFile, Parser as IParser } from '../types';
-import { ParserError, UnmatchedResolverError } from '../util/errors';
+import ParserError from '../errors/ParserError';
+import UnmatchedResolverError from '../errors/UnmatchedResolverError';
 import { readFile } from '../resolve/util';
 
 /**

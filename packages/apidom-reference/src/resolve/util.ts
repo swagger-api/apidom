@@ -6,7 +6,8 @@ import {
   Resolver as IResolver,
 } from '../types';
 import * as plugins from '../util/plugins';
-import { ResolverError, UnmatchedResolverError } from '../util/errors';
+import ResolverError from '../errors/ResolverError';
+import UnmatchedResolverError from '../errors/UnmatchedResolverError';
 
 /**
  * Reads the given file, using the configured resolver plugins.

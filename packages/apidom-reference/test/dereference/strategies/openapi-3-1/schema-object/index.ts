@@ -5,15 +5,13 @@ import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1'
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { dereference, parse, Reference, ReferenceSet } from '../../../../../src';
-import {
-  DereferenceError,
-  MaximumDereferenceDepthError,
-  MaximumResolverDepthError,
-  ResolverError,
-} from '../../../../../src/util/errors';
+import DereferenceError from '../../../../../src/errors/DereferenceError';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import ResolverError from '../../../../../src/errors/ResolverError';
+import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
+import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
 import { loadJsonFile } from '../../../../helpers';
-import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
-import { EvaluationJsonSchemaUriError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/uri/errors';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

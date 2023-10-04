@@ -4,7 +4,9 @@ import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { resolve, resolveApiDOM, parse } from '../../src';
 import FileResolver from '../../src/resolve/resolvers/file/index-node';
-import { UnmatchedResolveStrategyError, ResolverError, ParserError } from '../../src/util/errors';
+import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStrategyError';
+import ResolverError from '../../src/errors/ResolverError';
+import ParserError from '../../src/errors/ParserError';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 const fixturePath = path.join(

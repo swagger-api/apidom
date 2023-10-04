@@ -33,9 +33,7 @@ const makeMessage = (
     return `"${primitiveValue}" not allowed for subject ${primitiveStandardIdentifier}`;
   }
 
-  throw new NotImplementedError(
-    '[Requirement levels] other than "may" are currently not implemented.',
-  );
+  throw new NotImplementedError('[Requirement levels] other than "may" are not yet implemented.');
 };
 
 // @ts-ignore

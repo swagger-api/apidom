@@ -146,14 +146,14 @@
       "types": "./types/dereference/strategies/openapi-3-1/index.d.ts"
     },
     "./dereference/strategies/openapi-3-1/selectors/$anchor": {
-      "import": "./es/dereference/strategies/openapi-3-1/selectors/$anchor/index.mjs",
-      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/$anchor/index.cjs",
-      "types": "./types/dereference/strategies/openapi-3-1/selectors/$anchor/index.d.ts"
+      "import": "./es/dereference/strategies/openapi-3-1/selectors/$anchor.mjs",
+      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/$anchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/$anchor.d.ts"
     },
     "./dereference/strategies/openapi-3-1/selectors/uri": {
-      "import": "./es/dereference/strategies/openapi-3-1/selectors/uri/index.mjs",
-      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/uri/index.cjs",
-      "types": "./types/dereference/strategies/openapi-3-1/selectors/uri/index.d.ts"
+      "import": "./es/dereference/strategies/openapi-3-1/selectors/uri.mjs",
+      "require": "./cjs/dereference/strategies/openapi-3-1/selectors/uri.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/uri.d.ts"
     }
   },
   "imports": {

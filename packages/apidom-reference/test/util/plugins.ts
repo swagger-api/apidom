@@ -3,7 +3,7 @@ import { assert } from 'chai';
 
 import File from '../../src/util/File';
 import { filter, run } from '../../src/util/plugins';
-import { PluginError } from '../../src/util/errors';
+import PluginError from '../../src/errors/PluginError';
 import defaultOptions from '../../src/options';
 
 describe('util', function () {

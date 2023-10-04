@@ -3,12 +3,10 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { resolve } from '../../../../../src';
-import {
-  MaximumDereferenceDepthError,
-  MaximumResolverDepthError,
-  ResolverError,
-} from '../../../../../src/util/errors';
-import { EvaluationJsonSchema$anchorError } from '../../../../../src/dereference/strategies/openapi-3-1/selectors/$anchor/errors';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import ResolverError from '../../../../../src/errors/ResolverError';
+import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

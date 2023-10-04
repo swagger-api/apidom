@@ -8,8 +8,8 @@ import {
 
 import File from '../util/File';
 import * as plugins from '../util/plugins';
-import { UnmatchedDereferenceStrategyError } from '../util/errors';
-import DereferenceError from '../util/errors/DereferenceError';
+import UnmatchedDereferenceStrategyError from '../errors/UnmatchedDereferenceStrategyError';
+import DereferenceError from '../errors/DereferenceError';
 import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
 import { merge as mergeOptions } from '../options/util';

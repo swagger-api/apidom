@@ -3,7 +3,7 @@ import { pick } from 'ramda';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { parse, mediaTypes, detect } from '@swagger-api/apidom-parser-adapter-json';
 
-import { ParserError } from '../../../util/errors';
+import ParserError from '../../../errors/ParserError';
 import { Parser as IParser, File as IFile } from '../../../types';
 import Parser from '../Parser';
 

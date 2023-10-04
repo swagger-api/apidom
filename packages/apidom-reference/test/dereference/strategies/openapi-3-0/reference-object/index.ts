@@ -6,11 +6,9 @@ import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { resolve, dereference } from '../../../../../src';
-import {
-  DereferenceError,
-  MaximumDereferenceDepthError,
-  MaximumResolverDepthError,
-} from '../../../../../src/util/errors';
+import DereferenceError from '../../../../../src/errors/DereferenceError';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 

@@ -1,7 +1,7 @@
 import stampit from 'stampit';
+import { NotImplementedError } from '@swagger-api/apidom-error';
 
 import { ResolveStrategy as IResolveStrategy } from '../../types';
-import { NotImplementedError } from '../../util/errors';
 
 const ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit({
   props: {
@@ -12,7 +12,9 @@ const ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit({
       return false;
     },
     async resolve(): Promise<never> {
-      throw new NotImplementedError();
+      throw new NotImplementedError(
+        'resolve method in ResolveStrategy stamp is not yet implemented.',
+      );
     },
   },
 });

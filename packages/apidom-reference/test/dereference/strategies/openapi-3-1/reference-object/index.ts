@@ -6,11 +6,9 @@ import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, dereferenceApiDOM, resolve, parse } from '../../../../../src';
-import {
-  DereferenceError,
-  MaximumDereferenceDepthError,
-  MaximumResolverDepthError,
-} from '../../../../../src/util/errors';
+import DereferenceError from '../../../../../src/errors/DereferenceError';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
+import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
 import Reference from '../../../../../src/Reference';
 import ReferenceSet from '../../../../../src/ReferenceSet';
 

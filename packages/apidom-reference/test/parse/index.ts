@@ -7,7 +7,9 @@ import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';
 import parse from '../../src/parse';
-import { ParserError, ResolverError, UnmatchedResolverError } from '../../src/util/errors';
+import ParserError from '../../src/errors/ParserError';
+import ResolverError from '../../src/errors/ResolverError';
+import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 describe('parse', function () {

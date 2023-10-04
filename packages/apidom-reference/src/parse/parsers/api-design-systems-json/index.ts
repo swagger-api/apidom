@@ -7,7 +7,7 @@ import {
   detect,
 } from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 
-import { ParserError } from '../../../util/errors';
+import ParserError from '../../../errors/ParserError';
 import { File as IFile, Parser as IParser } from '../../../types';
 import Parser from '../Parser';
 

@@ -57,7 +57,7 @@
     "@types/chai": "=4.3.6",
     "@types/dedent": "=0.7.0",
     "@types/mocha": "=10.0.2",
-    "@types/node": "=20.7.2",
+    "@types/node": "=20.8.2",
     "@types/sinon": "=10.0.18",
     "@typescript-eslint/eslint-plugin": "=6.7.4",
     "@typescript-eslint/parser": "=6.7.4",

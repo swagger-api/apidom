@@ -1,4 +1,5 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
+import ScopesVisitor from './visitors/open-api-2/scopes';
 import SecurityRequirementVisitor from './visitors/open-api-2/security-requirement';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 
@@ -18,6 +19,9 @@ const specification = {
       objects: {
         SecurityRequirement: {
           $visitor: SecurityRequirementVisitor,
+        },
+        Scopes: {
+          $visitor: ScopesVisitor,
         },
       },
       extension: {

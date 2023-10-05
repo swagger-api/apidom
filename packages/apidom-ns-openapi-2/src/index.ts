@@ -19,10 +19,11 @@ export { default } from './namespace';
 export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
-export { isSecurityRequirementElement } from './predicates';
+export { isScopesElement, isSecurityRequirementElement } from './predicates';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 2.0 elements
+export { ScopesElement } from './refractor/registration';
 export { SecurityRequirementElement } from './refractor/registration';
 // NCE types

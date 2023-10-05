@@ -1,7 +1,7 @@
 import stampit from 'stampit';
 import { always } from 'ramda';
 
-import ScopesElement from '../../../../elements/ScopesElement';
+import ScopesElement from '../../../../elements/Scopes';
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 

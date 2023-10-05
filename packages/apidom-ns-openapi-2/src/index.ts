@@ -24,5 +24,6 @@ export { isSecurityRequirementElement } from './predicates';
 export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 2.0 elements
+export { ScopesElement } from './refractor/registration';
 export { SecurityRequirementElement } from './refractor/registration';
 // NCE types

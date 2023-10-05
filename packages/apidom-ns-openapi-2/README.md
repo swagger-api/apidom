@@ -209,6 +209,6 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Security Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-definitions-object)
 - [ ] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-scheme-object)
 - [ ] [Scopes Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-scopes-object)
-- [ ] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-requirement-object)
+- [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-requirement-object)
 - [ ] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-specification-extensions)
 

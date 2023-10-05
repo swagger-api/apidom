@@ -1,15 +1,74 @@
 import { assert } from 'chai';
 
 import {
+  SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isSecurityDefinitionsElement,
   isSecuritySchemeElement,
   isScopesElement,
   isSecurityRequirementElement,
 } from '../src';
 
 describe('predicates', function () {
+  context('isSecurityDefinitionsElement', function () {
+    context('given SecurityDefinitionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SecurityDefinitionsElement();
+
+        assert.isTrue(isSecurityDefinitionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class SecurityDefinitionsSubElement extends SecurityDefinitionsElement {}
+
+        assert.isTrue(isSecurityDefinitionsElement(new SecurityDefinitionsSubElement()));
+      });
+    });
+
+    context('given non SecurityDefinitionsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSecurityDefinitionsElement(1));
+        assert.isFalse(isSecurityDefinitionsElement(null));
+        assert.isFalse(isSecurityDefinitionsElement(undefined));
+        assert.isFalse(isSecurityDefinitionsElement({}));
+        assert.isFalse(isSecurityDefinitionsElement([]));
+        assert.isFalse(isSecurityDefinitionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const securityDefinitionsElementDuck = {
+        _storedElement: 'securityDefinitions',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const securityDefinitionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isSecurityDefinitionsElement(securityDefinitionsElementDuck));
+      assert.isFalse(isSecurityDefinitionsElement(securityDefinitionsElementSwan));
+    });
+  });
+
   context('isSecuritySchemeElement', function () {
     context('given SecuritySchemeElement instance value', function () {
       specify('should return true', function () {

@@ -1,4 +1,5 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
+import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
 import ScopesVisitor from './visitors/open-api-2/scopes';
 import SecurityRequirementVisitor from './visitors/open-api-2/security-requirement';
@@ -18,6 +19,9 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        SecurityDefinitions: {
+          $visitor: SecurityDefinitionsVisitor,
+        },
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {

@@ -1,9 +1,17 @@
+import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
 import SecuritySchemeElement from '../elements/SecurityScheme';
-import ScopesElement from '../elements/ScopesElement';
+import ScopesElement from '../elements/Scopes';
 import SecurityRequirementElement from '../elements/SecurityRequirement';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
+SecurityDefinitionsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SecurityDefinitions',
+  '$visitor',
+]);
 SecuritySchemeElement.refract = createRefractor([
   'visitors',
   'document',
@@ -20,4 +28,9 @@ SecurityRequirementElement.refract = createRefractor([
   '$visitor',
 ]);
 
-export { SecuritySchemeElement, ScopesElement, SecurityRequirementElement };
+export {
+  SecurityDefinitionsElement,
+  SecuritySchemeElement,
+  ScopesElement,
+  SecurityRequirementElement,
+};

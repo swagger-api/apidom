@@ -19,7 +19,7 @@ export { default } from './namespace';
 export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
-export { isSecurityRequirementElement } from './predicates';
+export { isScopesElement, isSecurityRequirementElement } from './predicates';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

@@ -1,9 +1,20 @@
 import { createPredicate } from '@swagger-api/apidom-core';
 
+import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ScopesElement from './elements/Scopes';
+
+export const isXmlElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: any) =>
+      element instanceof XmlElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('xml', element) &&
+        primitiveEq('object', element));
+  },
+);
 
 export const isSecurityDefinitionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

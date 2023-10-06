@@ -1,11 +1,13 @@
 import { assert } from 'chai';
 
 import {
+  ExternalDocumentationElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isExternalDocumentationElement,
   isXmlElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
@@ -14,6 +16,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isExternalDocumentationElement', function () {
+    context('given ExternalDocumentationElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ExternalDocumentationElement();
+
+        assert.isTrue(isExternalDocumentationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class ExternalDocumentationSubElement extends ExternalDocumentationElement {}
+
+        assert.isTrue(isExternalDocumentationElement(new ExternalDocumentationSubElement()));
+      });
+    });
+
+    context('given non ExternalDocumentationSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isExternalDocumentationElement(1));
+        assert.isFalse(isExternalDocumentationElement(null));
+        assert.isFalse(isExternalDocumentationElement(undefined));
+        assert.isFalse(isExternalDocumentationElement({}));
+        assert.isFalse(isExternalDocumentationElement([]));
+        assert.isFalse(isExternalDocumentationElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const externalDocumentationElementDuck = {
+        _storedElement: 'externalDocumentation',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const externalDocumentationElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isExternalDocumentationElement(externalDocumentationElementDuck));
+      assert.isFalse(isExternalDocumentationElement(externalDocumentationElementSwan));
+    });
+  });
+
   context('isXmlElement', function () {
     context('given XmlElement instance value', function () {
       specify('should return true', function () {

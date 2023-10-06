@@ -1,4 +1,5 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
+import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -20,6 +21,13 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        ExternalDocumentation: {
+          $visitor: ExternalDocumentationElement,
+          fixedFields: {
+            description: FallbackVisitor,
+            url: FallbackVisitor,
+          },
+        },
         XML: {
           $visitor: XmlVisitor,
           fixedFields: {

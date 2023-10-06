@@ -191,7 +191,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paths-object)
 - [ ] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-path-item-object)
 - [ ] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-operation-object)
-- [ ] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-external-documentation-object)
+- [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-external-documentation-object)
 - [ ] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-parameter-object)
 - [ ] [Items Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-items-object)
 - [ ] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-responses-object)

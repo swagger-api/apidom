@@ -1,3 +1,4 @@
+import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import XmlElement from '../elements/Xml';
 import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
 import SecuritySchemeElement from '../elements/SecurityScheme';
@@ -6,6 +7,13 @@ import SecurityRequirementElement from '../elements/SecurityRequirement';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
+ExternalDocumentationElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'ExternalDocumentation',
+  '$visitor',
+]);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
 SecurityDefinitionsElement.refract = createRefractor([
   'visitors',
@@ -31,6 +39,7 @@ SecurityRequirementElement.refract = createRefractor([
 ]);
 
 export {
+  ExternalDocumentationElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,

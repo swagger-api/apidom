@@ -1,5 +1,6 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
+import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
 import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
@@ -11,6 +12,7 @@ const openApi2 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
+    base.register('contact', ContactElement);
     base.register('externalDocumentation', ExternalDocumentation);
     base.register('xml', XmlElement);
     base.register('securityDefinitions', SecurityDefinitionsElement);

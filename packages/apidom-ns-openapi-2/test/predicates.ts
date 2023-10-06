@@ -1,12 +1,14 @@
 import { assert } from 'chai';
 
 import {
+  ContactElement,
   ExternalDocumentationElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isContactElement,
   isExternalDocumentationElement,
   isXmlElement,
   isSecurityDefinitionsElement,
@@ -16,6 +18,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isContactElement', function () {
+    context('given ContactElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ContactElement();
+
+        assert.isTrue(isContactElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class ContactSubElement extends ContactElement {}
+
+        assert.isTrue(isContactElement(new ContactSubElement()));
+      });
+    });
+
+    context('given non ContactSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isContactElement(1));
+        assert.isFalse(isContactElement(null));
+        assert.isFalse(isContactElement(undefined));
+        assert.isFalse(isContactElement({}));
+        assert.isFalse(isContactElement([]));
+        assert.isFalse(isContactElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const contactElementDuck = {
+        _storedElement: 'contact',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const contactElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isContactElement(contactElementDuck));
+      assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
   context('isExternalDocumentationElement', function () {
     context('given ExternalDocumentationElement instance value', function () {
       specify('should return true', function () {

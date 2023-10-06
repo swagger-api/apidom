@@ -20,6 +20,7 @@ export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
 export {
+  isXmlElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
   isScopesElement,
@@ -30,6 +31,7 @@ export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 2.0 elements
 export {
+  XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,

@@ -1,10 +1,12 @@
 import { assert } from 'chai';
 
 import {
+  XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isXmlElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
   isScopesElement,
@@ -12,6 +14,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isXmlElement', function () {
+    context('given XmlElement instance value', function () {
+      specify('should return true', function () {
+        const element = new XmlElement();
+
+        assert.isTrue(isXmlElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class XmlSubElement extends XmlElement {}
+
+        assert.isTrue(isXmlElement(new XmlSubElement()));
+      });
+    });
+
+    context('given non XmlSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isXmlElement(1));
+        assert.isFalse(isXmlElement(null));
+        assert.isFalse(isXmlElement(undefined));
+        assert.isFalse(isXmlElement({}));
+        assert.isFalse(isXmlElement([]));
+        assert.isFalse(isXmlElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const xmlElementDuck = {
+        _storedElement: 'xml',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const xmlElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isXmlElement(xmlElementDuck));
+      assert.isFalse(isXmlElement(xmlElementSwan));
+    });
+  });
+
   context('isSecurityDefinitionsElement', function () {
     context('given SecurityDefinitionsElement instance value', function () {
       specify('should return true', function () {

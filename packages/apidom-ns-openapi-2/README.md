@@ -202,7 +202,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-tag-object)
 - [ ] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-reference-object)
 - [ ] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-schema-object)
-- [ ] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-xml-object)
+- [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-xml-object)
 - [ ] [Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-definitions-object)
 - [ ] [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paramters-definitions-object)
 - [ ] [Responses Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-responses-definitions-object)

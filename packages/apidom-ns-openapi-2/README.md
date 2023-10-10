@@ -197,7 +197,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-responses-object)
 - [ ] [Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-response-object)
 - [ ] [Headers Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-headers-object)
-- [ ] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-example-object)
+- [x] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-example-object)
 - [ ] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-header-object)
 - [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-tag-object)
 - [ ] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-reference-object)

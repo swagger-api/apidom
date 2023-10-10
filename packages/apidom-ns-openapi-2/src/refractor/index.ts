@@ -12,7 +12,7 @@ import { keyMap, getNodeType } from '../traversal/visitor';
 import createToolbox from './toolbox';
 
 const refract = <T extends Element>(
-  value: any,
+  value: unknown,
   { specPath = ['visitors', 'document', 'objects', 'Swagger', '$visitor'], plugins = [] } = {},
 ): T => {
   const element = baseRefract(value);
@@ -38,7 +38,7 @@ const refract = <T extends Element>(
 
 export const createRefractor =
   (specPath: string[]) =>
-  (value: any, options = {}) =>
+  (value: unknown, options = {}) =>
     refract(value, { specPath, ...options });
 
 export default refract;

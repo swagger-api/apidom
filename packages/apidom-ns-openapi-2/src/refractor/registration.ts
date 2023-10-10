@@ -1,3 +1,4 @@
+import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
@@ -9,6 +10,7 @@ import SecurityRequirementElement from '../elements/SecurityRequirement';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
+InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
 LicenseElement.refract = createRefractor([
   'visitors',
   'document',
@@ -55,6 +57,7 @@ SecurityRequirementElement.refract = createRefractor([
 ]);
 
 export {
+  InfoElement,
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,

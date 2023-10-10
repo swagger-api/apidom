@@ -1,4 +1,6 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
+import InfoVisitor from './visitors/open-api-2/info';
+import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
@@ -23,6 +25,21 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        Info: {
+          $visitor: InfoVisitor,
+          fixedFields: {
+            title: FallbackVisitor,
+            description: FallbackVisitor,
+            termsOfService: FallbackVisitor,
+            contact: {
+              $ref: '#/visitors/document/objects/Contact',
+            },
+            license: {
+              $ref: '#/visitors/document/objects/License',
+            },
+            version: InfoVersionVisitor,
+          },
+        },
         License: {
           $visitor: LicenseVisitor,
           fixedFields: {

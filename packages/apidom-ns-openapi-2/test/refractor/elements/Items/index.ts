@@ -13,6 +13,11 @@ describe('refractor', function () {
             type: 'integer',
             minimum: 0,
             maximum: 63,
+            items: {
+              items: {
+                items: {},
+              },
+            },
           },
         });
 

@@ -16,5 +16,14 @@ exports[`refractor elements ItemsElement should refract to semantic ApiDOM tree 
         (NumberElement))
       (MemberElement
         (StringElement)
-        (NumberElement)))))
+        (NumberElement))
+      (MemberElement
+        (StringElement)
+        (ItemsElement
+          (MemberElement
+            (StringElement)
+            (ItemsElement
+              (MemberElement
+                (StringElement)
+                (ItemsElement)))))))))
 `;

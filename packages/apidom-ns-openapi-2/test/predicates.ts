@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 
 import {
+  InfoElement,
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
@@ -9,6 +10,7 @@ import {
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isInfoElement,
   isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
@@ -20,6 +22,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isInfoElement', function () {
+    context('given InfoElement instance value', function () {
+      specify('should return true', function () {
+        const element = new InfoElement();
+
+        assert.isTrue(isInfoElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class InfoSubElement extends InfoElement {}
+
+        assert.isTrue(isInfoElement(new InfoSubElement()));
+      });
+    });
+
+    context('given non InfoSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isInfoElement(1));
+        assert.isFalse(isInfoElement(null));
+        assert.isFalse(isInfoElement(undefined));
+        assert.isFalse(isInfoElement({}));
+        assert.isFalse(isInfoElement([]));
+        assert.isFalse(isInfoElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const infoElementDuck = {
+        _storedElement: 'info',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const infoElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isInfoElement(infoElementDuck));
+      assert.isFalse(isInfoElement(infoElementSwan));
+    });
+  });
+
   context('isLicenseElement', function () {
     context('given LicenseElement instance value', function () {
       specify('should return true', function () {

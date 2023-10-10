@@ -185,7 +185,7 @@ const swaggerElement = SwaggerElement.refract(apiDOM.result, {
 Only fully implemented specification objects should be checked here.
 
 - [ ] [Swagger Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-swagger-object)
-- [ ] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-info-object)
+- [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-info-object)
 - [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-contact-object)
 - [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-license-object)
 - [ ] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paths-object)

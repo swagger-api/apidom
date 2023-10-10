@@ -1,5 +1,6 @@
 import { createPredicate } from '@swagger-api/apidom-core';
 
+import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
@@ -8,6 +9,16 @@ import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ScopesElement from './elements/Scopes';
+
+export const isInfoElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: any) =>
+      element instanceof InfoElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('info', element) &&
+        primitiveEq('object', element));
+  },
+);
 
 export const isLicenseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

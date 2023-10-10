@@ -2,6 +2,7 @@ import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
+import TagElement from '../elements/Tag';
 import XmlElement from '../elements/Xml';
 import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
 import SecuritySchemeElement from '../elements/SecurityScheme';
@@ -32,6 +33,7 @@ ExternalDocumentationElement.refract = createRefractor([
   'ExternalDocumentation',
   '$visitor',
 ]);
+TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
 SecurityDefinitionsElement.refract = createRefractor([
   'visitors',
@@ -61,6 +63,7 @@ export {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  TagElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,

@@ -4,6 +4,7 @@ import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
+import TagVisitor from './visitors/open-api-2/tag';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -60,6 +61,16 @@ const specification = {
           fixedFields: {
             description: FallbackVisitor,
             url: FallbackVisitor,
+          },
+        },
+        Tag: {
+          $visitor: TagVisitor,
+          fixedFields: {
+            name: FallbackVisitor,
+            description: FallbackVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
           },
         },
         XML: {

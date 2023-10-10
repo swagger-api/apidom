@@ -1,9 +1,12 @@
+import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+
 import FallbackVisitor from './visitors/FallbackVisitor';
 import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
+import ItemsVisitor from './visitors/open-api-2/items';
 import ExampleVisitor from './visitors/open-api-2/example';
 import TagVisitor from './visitors/open-api-2/tag';
 import XmlVisitor from './visitors/open-api-2/xml';
@@ -21,6 +24,9 @@ import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisi
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
+
+const { fixedFields: jsonSchemaFixedFields } =
+  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema;
 
 const specification = {
   visitors: {
@@ -62,6 +68,30 @@ const specification = {
           fixedFields: {
             description: FallbackVisitor,
             url: FallbackVisitor,
+          },
+        },
+        Items: {
+          $visitor: ItemsVisitor,
+          fixedFields: {
+            type: jsonSchemaFixedFields.type,
+            format: jsonSchemaFixedFields.format,
+            items: {
+              $ref: '#/visitors/document/objects/Items',
+            },
+            collectionFormat: FallbackVisitor,
+            default: jsonSchemaFixedFields.default,
+            maximum: jsonSchemaFixedFields.maximum,
+            exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
+            minimum: jsonSchemaFixedFields.minimum,
+            exclusiveMinimum: jsonSchemaFixedFields.exclusiveMinimum,
+            maxLength: jsonSchemaFixedFields.maxLength,
+            minLength: jsonSchemaFixedFields.minLength,
+            pattern: jsonSchemaFixedFields.pattern,
+            maxItems: jsonSchemaFixedFields.maxItems,
+            minItems: jsonSchemaFixedFields.minItems,
+            uniqueItems: jsonSchemaFixedFields.uniqueItems,
+            enum: jsonSchemaFixedFields.enum,
+            multipleOf: jsonSchemaFixedFields.multipleOf,
           },
         },
         Example: {

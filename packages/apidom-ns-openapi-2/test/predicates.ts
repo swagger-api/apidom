@@ -5,6 +5,7 @@ import {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  ItemsElement,
   ExampleElement,
   TagElement,
   XmlElement,
@@ -16,6 +17,7 @@ import {
   isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
+  isItemsElement,
   isExampleElement,
   isTagElement,
   isXmlElement,
@@ -251,6 +253,63 @@ describe('predicates', function () {
 
       assert.isTrue(isExternalDocumentationElement(externalDocumentationElementDuck));
       assert.isFalse(isExternalDocumentationElement(externalDocumentationElementSwan));
+    });
+  });
+
+  context('isItemsElement', function () {
+    context('given ItemsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ItemsElement();
+
+        assert.isTrue(isItemsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class ItemsSubElement extends ItemsElement {}
+
+        assert.isTrue(isItemsElement(new ItemsSubElement()));
+      });
+    });
+
+    context('given non ItemsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isItemsElement(1));
+        assert.isFalse(isItemsElement(null));
+        assert.isFalse(isItemsElement(undefined));
+        assert.isFalse(isItemsElement({}));
+        assert.isFalse(isItemsElement([]));
+        assert.isFalse(isItemsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const itemsElementDuck = {
+        _storedElement: 'items',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const itemsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isItemsElement(itemsElementDuck));
+      assert.isFalse(isItemsElement(itemsElementSwan));
     });
   });
 

@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 
 import {
+  LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
   XmlElement,
@@ -8,6 +9,7 @@ import {
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
   isXmlElement,
@@ -18,6 +20,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isLicenseElement', function () {
+    context('given LicenseElement instance value', function () {
+      specify('should return true', function () {
+        const element = new LicenseElement();
+
+        assert.isTrue(isLicenseElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class LicenseSubElement extends LicenseElement {}
+
+        assert.isTrue(isLicenseElement(new LicenseSubElement()));
+      });
+    });
+
+    context('given non LicenseSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isLicenseElement(1));
+        assert.isFalse(isLicenseElement(null));
+        assert.isFalse(isLicenseElement(undefined));
+        assert.isFalse(isLicenseElement({}));
+        assert.isFalse(isLicenseElement([]));
+        assert.isFalse(isLicenseElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const licenseElementDuck = {
+        _storedElement: 'license',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const licenseElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isLicenseElement(licenseElementDuck));
+      assert.isFalse(isLicenseElement(licenseElementSwan));
+    });
+  });
+
   context('isContactElement', function () {
     context('given ContactElement instance value', function () {
       specify('should return true', function () {

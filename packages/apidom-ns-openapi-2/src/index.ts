@@ -20,6 +20,7 @@ export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
 export {
+  isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
   isXmlElement,
@@ -33,6 +34,7 @@ export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 2.0 elements
 export {
+  LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
   XmlElement,

@@ -4,6 +4,7 @@ import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
+import TagElement from './elements/Tag';
 import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
@@ -18,6 +19,7 @@ const openApi2 = {
     base.register('license', LicenseElement);
     base.register('contact', ContactElement);
     base.register('externalDocumentation', ExternalDocumentation);
+    base.register('tag', TagElement);
     base.register('xml', XmlElement);
     base.register('securityDefinitions', SecurityDefinitionsElement);
     base.register('securityScheme', SecuritySchemeElement);

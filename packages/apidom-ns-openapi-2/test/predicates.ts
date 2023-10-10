@@ -5,6 +5,7 @@ import {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  TagElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
@@ -14,6 +15,7 @@ import {
   isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
+  isTagElement,
   isXmlElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
@@ -22,6 +24,63 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isTagElement', function () {
+    context('given TagElement instance value', function () {
+      specify('should return true', function () {
+        const element = new TagElement();
+
+        assert.isTrue(isTagElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class TagSubElement extends TagElement {}
+
+        assert.isTrue(isTagElement(new TagSubElement()));
+      });
+    });
+
+    context('given non TagSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isTagElement(1));
+        assert.isFalse(isTagElement(null));
+        assert.isFalse(isTagElement(undefined));
+        assert.isFalse(isTagElement({}));
+        assert.isFalse(isTagElement([]));
+        assert.isFalse(isTagElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const tagElementDuck = {
+        _storedElement: 'tag',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const tagElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isTagElement(tagElementDuck));
+      assert.isFalse(isTagElement(tagElementSwan));
+    });
+  });
+
   context('isInfoElement', function () {
     context('given InfoElement instance value', function () {
       specify('should return true', function () {

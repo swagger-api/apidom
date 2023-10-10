@@ -4,6 +4,7 @@ import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import ItemsElement from '../elements/Items';
 import ExampleElement from '../elements/Example';
+import HeaderElement from '../elements/Header';
 import TagElement from '../elements/Tag';
 import XmlElement from '../elements/Xml';
 import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
@@ -43,6 +44,7 @@ ExampleElement.refract = createRefractor([
   'Example',
   '$visitor',
 ]);
+HeaderElement.refract = createRefractor(['visitors', 'document', 'objects', 'Header', '$visitor']);
 TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
 SecurityDefinitionsElement.refract = createRefractor([
@@ -75,6 +77,7 @@ export {
   ExternalDocumentationElement,
   ItemsElement,
   ExampleElement,
+  HeaderElement,
   TagElement,
   XmlElement,
   SecurityDefinitionsElement,

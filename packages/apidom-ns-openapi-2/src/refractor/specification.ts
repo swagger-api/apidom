@@ -8,6 +8,7 @@ import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ItemsVisitor from './visitors/open-api-2/items';
 import ExampleVisitor from './visitors/open-api-2/example';
+import HeaderVisitor from './visitors/open-api-2/header';
 import TagVisitor from './visitors/open-api-2/tag';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
@@ -96,6 +97,31 @@ const specification = {
         },
         Example: {
           $visitor: ExampleVisitor,
+        },
+        Header: {
+          $visitor: HeaderVisitor,
+          fixedFields: {
+            description: jsonSchemaFixedFields.description,
+            type: jsonSchemaFixedFields.type,
+            format: jsonSchemaFixedFields.format,
+            items: {
+              $ref: '#/visitors/document/objects/Items',
+            },
+            collectionFormat: FallbackVisitor,
+            default: jsonSchemaFixedFields.default,
+            maximum: jsonSchemaFixedFields.maximum,
+            exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
+            minimum: jsonSchemaFixedFields.minimum,
+            exclusiveMinimum: jsonSchemaFixedFields.exclusiveMinimum,
+            maxLength: jsonSchemaFixedFields.maxLength,
+            minLength: jsonSchemaFixedFields.minLength,
+            pattern: jsonSchemaFixedFields.pattern,
+            maxItems: jsonSchemaFixedFields.maxItems,
+            minItems: jsonSchemaFixedFields.minItems,
+            uniqueItems: jsonSchemaFixedFields.uniqueItems,
+            enum: jsonSchemaFixedFields.enum,
+            multipleOf: jsonSchemaFixedFields.multipleOf,
+          },
         },
         Tag: {
           $visitor: TagVisitor,

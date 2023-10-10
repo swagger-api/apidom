@@ -4,6 +4,7 @@ import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
+import ExampleVisitor from './visitors/open-api-2/example';
 import TagVisitor from './visitors/open-api-2/tag';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
@@ -62,6 +63,9 @@ const specification = {
             description: FallbackVisitor,
             url: FallbackVisitor,
           },
+        },
+        Example: {
+          $visitor: ExampleVisitor,
         },
         Tag: {
           $visitor: TagVisitor,

@@ -4,22 +4,13 @@ import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
+import ExampleElement from './elements/Example';
 import TagElement from './elements/Tag';
 import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ScopesElement from './elements/Scopes';
-
-export const isTagElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
-      element instanceof TagElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('tag', element) &&
-        primitiveEq('object', element));
-  },
-);
 
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -56,6 +47,26 @@ export const isExternalDocumentationElement = createPredicate(
       element instanceof ExternalDocumentation ||
       (hasBasicElementProps(element) &&
         isElementType('externalDocumentation', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isExampleElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: any) =>
+      element instanceof ExampleElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('example', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isTagElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: any) =>
+      element instanceof TagElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('tag', element) &&
         primitiveEq('object', element));
   },
 );

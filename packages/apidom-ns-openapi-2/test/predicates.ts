@@ -5,6 +5,7 @@ import {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  ExampleElement,
   TagElement,
   XmlElement,
   SecurityDefinitionsElement,
@@ -15,6 +16,7 @@ import {
   isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
+  isExampleElement,
   isTagElement,
   isXmlElement,
   isSecurityDefinitionsElement,
@@ -24,63 +26,6 @@ import {
 } from '../src';
 
 describe('predicates', function () {
-  context('isTagElement', function () {
-    context('given TagElement instance value', function () {
-      specify('should return true', function () {
-        const element = new TagElement();
-
-        assert.isTrue(isTagElement(element));
-      });
-    });
-
-    context('given subtype instance value', function () {
-      specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        class TagSubElement extends TagElement {}
-
-        assert.isTrue(isTagElement(new TagSubElement()));
-      });
-    });
-
-    context('given non TagSubElement instance value', function () {
-      specify('should return false', function () {
-        assert.isFalse(isTagElement(1));
-        assert.isFalse(isTagElement(null));
-        assert.isFalse(isTagElement(undefined));
-        assert.isFalse(isTagElement({}));
-        assert.isFalse(isTagElement([]));
-        assert.isFalse(isTagElement('string'));
-      });
-    });
-
-    specify('should support duck-typing', function () {
-      const tagElementDuck = {
-        _storedElement: 'tag',
-        _content: [],
-        primitive() {
-          return 'object';
-        },
-        get element() {
-          return this._storedElement;
-        },
-      };
-
-      const tagElementSwan = {
-        _storedElement: undefined,
-        _content: undefined,
-        primitive() {
-          return 'swan';
-        },
-        get length() {
-          return 0;
-        },
-      };
-
-      assert.isTrue(isTagElement(tagElementDuck));
-      assert.isFalse(isTagElement(tagElementSwan));
-    });
-  });
-
   context('isInfoElement', function () {
     context('given InfoElement instance value', function () {
       specify('should return true', function () {
@@ -306,6 +251,120 @@ describe('predicates', function () {
 
       assert.isTrue(isExternalDocumentationElement(externalDocumentationElementDuck));
       assert.isFalse(isExternalDocumentationElement(externalDocumentationElementSwan));
+    });
+  });
+
+  context('isExampleElement', function () {
+    context('given ExampleElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ExampleElement();
+
+        assert.isTrue(isExampleElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class ExampleSubElement extends ExampleElement {}
+
+        assert.isTrue(isExampleElement(new ExampleSubElement()));
+      });
+    });
+
+    context('given non ExampleSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isExampleElement(1));
+        assert.isFalse(isExampleElement(null));
+        assert.isFalse(isExampleElement(undefined));
+        assert.isFalse(isExampleElement({}));
+        assert.isFalse(isExampleElement([]));
+        assert.isFalse(isExampleElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const exampleElementDuck = {
+        _storedElement: 'example',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const exampleElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isExampleElement(exampleElementDuck));
+      assert.isFalse(isExampleElement(exampleElementSwan));
+    });
+  });
+
+  context('isTagElement', function () {
+    context('given TagElement instance value', function () {
+      specify('should return true', function () {
+        const element = new TagElement();
+
+        assert.isTrue(isTagElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class TagSubElement extends TagElement {}
+
+        assert.isTrue(isTagElement(new TagSubElement()));
+      });
+    });
+
+    context('given non TagSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isTagElement(1));
+        assert.isFalse(isTagElement(null));
+        assert.isFalse(isTagElement(undefined));
+        assert.isFalse(isTagElement({}));
+        assert.isFalse(isTagElement([]));
+        assert.isFalse(isTagElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const tagElementDuck = {
+        _storedElement: 'tag',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const tagElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isTagElement(tagElementDuck));
+      assert.isFalse(isTagElement(tagElementSwan));
     });
   });
 

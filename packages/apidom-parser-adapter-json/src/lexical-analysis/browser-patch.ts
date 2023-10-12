@@ -13,6 +13,6 @@ if (isFunction(realFetch)) {
       // @ts-ignore
       return realFetch.apply(globalThis, [treeSitterWasm, tail(args)]);
     }
-    return realFetch.apply(globalThis, args);
+    return realFetch.apply(globalThis, args as never);
   };
 }

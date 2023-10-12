@@ -6,6 +6,7 @@ import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
 import ItemsElement from './elements/Items';
 import ExampleElement from './elements/Example';
+import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
 import TagElement from './elements/Tag';
 import XmlElement from './elements/Xml';
@@ -59,6 +60,16 @@ export const isItemsElement = createPredicate(
       element instanceof ItemsElement ||
       (hasBasicElementProps(element) &&
         isElementType('items', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isHeadersElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown) =>
+      element instanceof HeadersElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('headers', element) &&
         primitiveEq('object', element));
   },
 );

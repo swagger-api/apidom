@@ -25,6 +25,7 @@ export const keyMap = {
   ExternalDocumentationElement: ['content'],
   ItemsElement: ['content'],
   ExampleElement: ['content'],
+  HeadersElement: ['content'],
   HeaderElement: ['content'],
   TagElement: ['content'],
   XmlElement: ['content'],

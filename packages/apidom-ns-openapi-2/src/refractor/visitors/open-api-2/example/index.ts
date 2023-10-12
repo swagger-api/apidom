@@ -3,11 +3,11 @@ import { always } from 'ramda';
 
 import ExampleElement from '../../../../elements/Example';
 import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import MapVisitor from '../../generics/MapVisitor';
 
-const ExampleVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const ExampleVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
-    specPath: always(['document', 'objects', 'Example']),
+    specPath: always(['value']),
     canSupportSpecificationExtensions: false,
   },
   init() {

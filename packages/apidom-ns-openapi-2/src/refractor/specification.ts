@@ -7,6 +7,7 @@ import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ItemsVisitor from './visitors/open-api-2/items';
+import HeadersVisitor from './visitors/open-api-2/headers';
 import ExampleVisitor from './visitors/open-api-2/example';
 import HeaderVisitor from './visitors/open-api-2/header';
 import TagVisitor from './visitors/open-api-2/tag';
@@ -94,6 +95,9 @@ const specification = {
             enum: jsonSchemaFixedFields.enum,
             multipleOf: jsonSchemaFixedFields.multipleOf,
           },
+        },
+        Headers: {
+          $visitor: HeadersVisitor,
         },
         Example: {
           $visitor: ExampleVisitor,

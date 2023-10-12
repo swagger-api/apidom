@@ -6,6 +6,7 @@ import {
   ContactElement,
   ExternalDocumentationElement,
   ItemsElement,
+  HeadersElement,
   ExampleElement,
   HeaderElement,
   TagElement,
@@ -19,6 +20,7 @@ import {
   isContactElement,
   isExternalDocumentationElement,
   isItemsElement,
+  isHeadersElement,
   isExampleElement,
   isHeaderElement,
   isTagElement,
@@ -41,7 +43,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class InfoSubElement extends InfoElement {}
 
         assert.isTrue(isInfoElement(new InfoSubElement()));
@@ -98,7 +99,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class LicenseSubElement extends LicenseElement {}
 
         assert.isTrue(isLicenseElement(new LicenseSubElement()));
@@ -155,7 +155,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ContactSubElement extends ContactElement {}
 
         assert.isTrue(isContactElement(new ContactSubElement()));
@@ -212,7 +211,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ExternalDocumentationSubElement extends ExternalDocumentationElement {}
 
         assert.isTrue(isExternalDocumentationElement(new ExternalDocumentationSubElement()));
@@ -269,7 +267,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ItemsSubElement extends ItemsElement {}
 
         assert.isTrue(isItemsElement(new ItemsSubElement()));
@@ -315,6 +312,62 @@ describe('predicates', function () {
     });
   });
 
+  context('isHeadersElement', function () {
+    context('given HeadersElement instance value', function () {
+      specify('should return true', function () {
+        const element = new HeadersElement();
+
+        assert.isTrue(isHeadersElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class HeadersSubElement extends HeadersElement {}
+
+        assert.isTrue(isHeadersElement(new HeadersSubElement()));
+      });
+    });
+
+    context('given non HeadersSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isHeadersElement(1));
+        assert.isFalse(isHeadersElement(null));
+        assert.isFalse(isHeadersElement(undefined));
+        assert.isFalse(isHeadersElement({}));
+        assert.isFalse(isHeadersElement([]));
+        assert.isFalse(isHeadersElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const headersElementDuck = {
+        _storedElement: 'headers',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const headersElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isHeadersElement(headersElementDuck));
+      assert.isFalse(isHeadersElement(headersElementSwan));
+    });
+  });
+
   context('isExampleElement', function () {
     context('given ExampleElement instance value', function () {
       specify('should return true', function () {
@@ -326,7 +379,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ExampleSubElement extends ExampleElement {}
 
         assert.isTrue(isExampleElement(new ExampleSubElement()));
@@ -383,7 +435,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class HeaderSubElement extends HeaderElement {}
 
         assert.isTrue(isHeaderElement(new HeaderSubElement()));
@@ -440,7 +491,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class TagSubElement extends TagElement {}
 
         assert.isTrue(isTagElement(new TagSubElement()));
@@ -497,7 +547,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class XmlSubElement extends XmlElement {}
 
         assert.isTrue(isXmlElement(new XmlSubElement()));
@@ -554,7 +603,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class SecurityDefinitionsSubElement extends SecurityDefinitionsElement {}
 
         assert.isTrue(isSecurityDefinitionsElement(new SecurityDefinitionsSubElement()));
@@ -611,7 +659,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class SecuritySchemeSubElement extends SecuritySchemeElement {}
 
         assert.isTrue(isSecuritySchemeElement(new SecuritySchemeSubElement()));
@@ -668,7 +715,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ScopesSubElement extends ScopesElement {}
 
         assert.isTrue(isScopesElement(new ScopesSubElement()));
@@ -725,7 +771,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class SecurityRequirementSubElement extends SecurityRequirementElement {}
 
         assert.isTrue(isSecurityRequirementElement(new SecurityRequirementSubElement()));

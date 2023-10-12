@@ -4,6 +4,7 @@ import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
 import ExternalDocumentation from './elements/ExternalDocumentation';
+import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
 import ExampleElement from './elements/Example';
 import HeadersElement from './elements/Headers';
@@ -50,6 +51,16 @@ export const isExternalDocumentationElement = createPredicate(
       element instanceof ExternalDocumentation ||
       (hasBasicElementProps(element) &&
         isElementType('externalDocumentation', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isParameterElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown) =>
+      element instanceof ParameterElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('parameter', element) &&
         primitiveEq('object', element));
   },
 );

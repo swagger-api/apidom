@@ -6,11 +6,13 @@ import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
+import ParameterVisitor from './visitors/open-api-2/parameter';
 import ItemsVisitor from './visitors/open-api-2/items';
 import HeadersVisitor from './visitors/open-api-2/headers';
 import ExampleVisitor from './visitors/open-api-2/example';
 import HeaderVisitor from './visitors/open-api-2/header';
 import TagVisitor from './visitors/open-api-2/tag';
+import SchemaVisitor from './visitors/open-api-2/schema';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -70,6 +72,37 @@ const specification = {
           fixedFields: {
             description: FallbackVisitor,
             url: FallbackVisitor,
+          },
+        },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            name: FallbackVisitor,
+            in: FallbackVisitor,
+            description: jsonSchemaFixedFields.description,
+            required: jsonSchemaFixedFields.required,
+            schema: {
+              $ref: '#/visitors/document/objects/Schema',
+            },
+            type: jsonSchemaFixedFields.type,
+            format: jsonSchemaFixedFields.format,
+            items: {
+              $ref: '#/visitors/document/objects/Items',
+            },
+            collectionFormat: FallbackVisitor,
+            default: jsonSchemaFixedFields.default,
+            maximum: jsonSchemaFixedFields.maximum,
+            exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
+            minimum: jsonSchemaFixedFields.minimum,
+            exclusiveMinimum: jsonSchemaFixedFields.exclusiveMinimum,
+            maxLength: jsonSchemaFixedFields.maxLength,
+            minLength: jsonSchemaFixedFields.minLength,
+            pattern: jsonSchemaFixedFields.pattern,
+            maxItems: jsonSchemaFixedFields.maxItems,
+            minItems: jsonSchemaFixedFields.minItems,
+            uniqueItems: jsonSchemaFixedFields.uniqueItems,
+            enum: jsonSchemaFixedFields.enum,
+            multipleOf: jsonSchemaFixedFields.multipleOf,
           },
         },
         Items: {
@@ -136,6 +169,9 @@ const specification = {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
           },
+        },
+        Schema: {
+          $visitor: SchemaVisitor,
         },
         XML: {
           $visitor: XmlVisitor,

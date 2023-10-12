@@ -5,6 +5,7 @@ import {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  ParameterElement,
   ItemsElement,
   HeadersElement,
   ExampleElement,
@@ -19,6 +20,7 @@ import {
   isLicenseElement,
   isContactElement,
   isExternalDocumentationElement,
+  isParameterElement,
   isItemsElement,
   isHeadersElement,
   isExampleElement,
@@ -253,6 +255,62 @@ describe('predicates', function () {
 
       assert.isTrue(isExternalDocumentationElement(externalDocumentationElementDuck));
       assert.isFalse(isExternalDocumentationElement(externalDocumentationElementSwan));
+    });
+  });
+
+  context('isParameterElement', function () {
+    context('given ParameterElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ParameterElement();
+
+        assert.isTrue(isParameterElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ParameterSubElement extends ParameterElement {}
+
+        assert.isTrue(isParameterElement(new ParameterSubElement()));
+      });
+    });
+
+    context('given non ParameterSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isParameterElement(1));
+        assert.isFalse(isParameterElement(null));
+        assert.isFalse(isParameterElement(undefined));
+        assert.isFalse(isParameterElement({}));
+        assert.isFalse(isParameterElement([]));
+        assert.isFalse(isParameterElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const parameterElementDuck = {
+        _storedElement: 'parameter',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const parameterElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isParameterElement(parameterElementDuck));
+      assert.isFalse(isParameterElement(parameterElementSwan));
     });
   });
 

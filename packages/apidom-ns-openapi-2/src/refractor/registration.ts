@@ -2,6 +2,7 @@ import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
+import ParameterElement from '../elements/Parameter';
 import ItemsElement from '../elements/Items';
 import HeadersElement from '../elements/Headers';
 import ExampleElement from '../elements/Example';
@@ -35,6 +36,13 @@ ExternalDocumentationElement.refract = createRefractor([
   'document',
   'objects',
   'ExternalDocumentation',
+  '$visitor',
+]);
+ParameterElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Parameter',
   '$visitor',
 ]);
 ItemsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Items', '$visitor']);
@@ -83,6 +91,7 @@ export {
   LicenseElement,
   ContactElement,
   ExternalDocumentationElement,
+  ParameterElement,
   ItemsElement,
   HeadersElement,
   ExampleElement,

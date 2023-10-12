@@ -6,6 +6,7 @@ import {
   ContactElement,
   ExternalDocumentationElement,
   ItemsElement,
+  HeadersElement,
   ExampleElement,
   HeaderElement,
   TagElement,
@@ -19,6 +20,7 @@ import {
   isContactElement,
   isExternalDocumentationElement,
   isItemsElement,
+  isHeadersElement,
   isExampleElement,
   isHeaderElement,
   isTagElement,
@@ -312,6 +314,63 @@ describe('predicates', function () {
 
       assert.isTrue(isItemsElement(itemsElementDuck));
       assert.isFalse(isItemsElement(itemsElementSwan));
+    });
+  });
+
+  context('isHeadersElement', function () {
+    context('given HeadersElement instance value', function () {
+      specify('should return true', function () {
+        const element = new HeadersElement();
+
+        assert.isTrue(isHeadersElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class HeadersSubElement extends HeadersElement {}
+
+        assert.isTrue(isHeadersElement(new HeadersSubElement()));
+      });
+    });
+
+    context('given non HeadersSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isHeadersElement(1));
+        assert.isFalse(isHeadersElement(null));
+        assert.isFalse(isHeadersElement(undefined));
+        assert.isFalse(isHeadersElement({}));
+        assert.isFalse(isHeadersElement([]));
+        assert.isFalse(isHeadersElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const headersElementDuck = {
+        _storedElement: 'headers',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const headersElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isHeadersElement(headersElementDuck));
+      assert.isFalse(isHeadersElement(headersElementSwan));
     });
   });
 

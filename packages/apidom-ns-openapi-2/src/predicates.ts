@@ -10,6 +10,7 @@ import ExampleElement from './elements/Example';
 import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
 import TagElement from './elements/Tag';
+import ReferenceElement from './elements/Reference';
 import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
@@ -111,6 +112,16 @@ export const isTagElement = createPredicate(
       element instanceof TagElement ||
       (hasBasicElementProps(element) &&
         isElementType('tag', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isReferenceElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown) =>
+      element instanceof ReferenceElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('reference', element) &&
         primitiveEq('object', element));
   },
 );

@@ -12,6 +12,8 @@ import HeadersVisitor from './visitors/open-api-2/headers';
 import ExampleVisitor from './visitors/open-api-2/example';
 import HeaderVisitor from './visitors/open-api-2/header';
 import TagVisitor from './visitors/open-api-2/tag';
+import ReferenceVisitor from './visitors/open-api-2/reference';
+import Reference$RefVisitor from './visitors/open-api-2/reference/$RefVisitor';
 import SchemaVisitor from './visitors/open-api-2/schema';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
@@ -168,6 +170,12 @@ const specification = {
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
+          },
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {
+            $ref: Reference$RefVisitor,
           },
         },
         Schema: {

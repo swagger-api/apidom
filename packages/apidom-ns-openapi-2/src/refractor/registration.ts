@@ -8,6 +8,7 @@ import HeadersElement from '../elements/Headers';
 import ExampleElement from '../elements/Example';
 import HeaderElement from '../elements/Header';
 import TagElement from '../elements/Tag';
+import ReferenceElement from '../elements/Reference';
 import XmlElement from '../elements/Xml';
 import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
 import SecuritySchemeElement from '../elements/SecurityScheme';
@@ -62,6 +63,13 @@ ExampleElement.refract = createRefractor([
 ]);
 HeaderElement.refract = createRefractor(['visitors', 'document', 'objects', 'Header', '$visitor']);
 TagElement.refract = createRefractor(['visitors', 'document', 'objects', 'Tag', '$visitor']);
+ReferenceElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Reference',
+  '$visitor',
+]);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
 SecurityDefinitionsElement.refract = createRefractor([
   'visitors',
@@ -97,6 +105,7 @@ export {
   ExampleElement,
   HeaderElement,
   TagElement,
+  ReferenceElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,

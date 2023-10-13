@@ -71,17 +71,14 @@ import SchemaVisitor from './visitors/open-api-3-0/schema';
 import SchemaAllOfVisitor from './visitors/open-api-3-0/schema/AllOfVisitor';
 import SchemaAnyOfVisitor from './visitors/open-api-3-0/schema/AnyOfVisitor';
 import SchemaOneOfVisitor from './visitors/open-api-3-0/schema/OneOfVisitor';
-import SchemaDefinitionsVisitor from './visitors/open-api-3-0/schema/DefinitionsVisitor';
-import SchemaDependenciesVisitor from './visitors/open-api-3-0/schema/DependenciesVisitor';
 import SchemaItemsVisitor from './visitors/open-api-3-0/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-0/schema/PropertiesVisitor';
-import SchemaPatternPropertiesVisitor from './visitors/open-api-3-0/schema/PatternPropertiesVisitor';
 import SchemaTypeVisitor from './visitors/open-api-3-0/schema/TypeVisitor';
 import SchemaNullableVisitor from './visitors/open-api-3-0/schema/NullableVisitor';
 import SchemaWriteOnlyVisitor from './visitors/open-api-3-0/schema/WriteOnlyVisitor';
 import SchemaExampleVisitor from './visitors/open-api-3-0/schema/ExampleVisitor';
 import SchemaDeprecatedVisitor from './visitors/open-api-3-0/schema/DeprecatedVisitor';
-import schemaInheritedFixedFields from './visitors/open-api-3-0/schema/inherited-fixed-fields';
+import SchemaOrReferenceVisitor from './visitors/open-api-3-0/schema/SchemaOrReferenceVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-0/distriminator';
 import DiscriminatorPropertyNameVisitor from './visitors/open-api-3-0/distriminator/PropertyNameVisitor';
 import DiscriminatorMappingVisitor from './visitors/open-api-3-0/distriminator/MappingVisitor';
@@ -172,47 +169,8 @@ import TagsVisitor from './visitors/open-api-3-0/TagsVisitor';
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
 
-const ReferenceSpecification = {
-  $visitor: ReferenceVisitor,
-  fixedFields: {
-    $ref: Reference$RefVisitor,
-  },
-};
-
-const SchemaSpecification = {
-  $visitor: SchemaVisitor,
-  fixedFields: {
-    ...schemaInheritedFixedFields,
-    // validation vocabulary
-    // validation keywords for any instance type
-    allOf: SchemaAllOfVisitor,
-    anyOf: SchemaAnyOfVisitor,
-    oneOf: SchemaOneOfVisitor,
-    definitions: SchemaDefinitionsVisitor,
-    // validation keywords for arrays
-    items: SchemaItemsVisitor,
-    // Validation keywords for objects
-    dependencies: SchemaDependenciesVisitor,
-    properties: SchemaPropertiesVisitor,
-    patternProperties: SchemaPatternPropertiesVisitor,
-    // validation keywords for any instance type
-    type: SchemaTypeVisitor,
-    // OpenAPI vocabulary
-    nullable: SchemaNullableVisitor,
-    discriminator: {
-      $ref: '#/visitors/document/objects/Discriminator',
-    },
-    writeOnly: SchemaWriteOnlyVisitor,
-    xml: {
-      $ref: '#/visitors/document/objects/XML',
-    },
-    externalDocs: {
-      $ref: '#/visitors/document/objects/ExternalDocumentation',
-    },
-    example: SchemaExampleVisitor,
-    deprecated: SchemaDeprecatedVisitor,
-  },
-};
+const { fixedFields: jsonSchemaFixedFields } =
+  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema;
 
 const specification = {
   visitors: {
@@ -476,12 +434,66 @@ const specification = {
             },
           },
         },
-        JSONReference: ReferenceSpecification,
-        Reference: ReferenceSpecification,
-        JSONSchema: SchemaSpecification,
-        Schema: SchemaSpecification,
-        LinkDescription: JSONSchemaDraft4Specification.visitors.document.objects.LinkDescription,
-        Media: JSONSchemaDraft4Specification.visitors.document.objects.Media,
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {
+            $ref: Reference$RefVisitor,
+          },
+        },
+        JSONSchema: {
+          $ref: '#/visitors/document/objects/Schema',
+        },
+        JSONReference: {
+          $ref: '#/visitors/document/objects/Reference',
+        },
+        Schema: {
+          $visitor: SchemaVisitor,
+          fixedFields: {
+            // the following properties are taken directly from the JSON Schema definition and follow the same specifications
+            title: jsonSchemaFixedFields.title,
+            multipleOf: jsonSchemaFixedFields.multipleOf,
+            maximum: jsonSchemaFixedFields.maximum,
+            exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
+            minimum: jsonSchemaFixedFields.minimum,
+            exclusiveMinimum: jsonSchemaFixedFields.exclusiveMinimum,
+            maxLength: jsonSchemaFixedFields.maxLength,
+            minLength: jsonSchemaFixedFields.minLength,
+            pattern: jsonSchemaFixedFields.pattern,
+            maxItems: jsonSchemaFixedFields.maxItems,
+            minItems: jsonSchemaFixedFields.minItems,
+            uniqueItems: jsonSchemaFixedFields.uniqueItems,
+            maxProperties: jsonSchemaFixedFields.maxProperties,
+            minProperties: jsonSchemaFixedFields.minProperties,
+            required: jsonSchemaFixedFields.required,
+            enum: jsonSchemaFixedFields.enum,
+            // the following properties are taken from the JSON Schema definition but their definitions were adjusted to the OpenAPI Specification
+            type: SchemaTypeVisitor,
+            allOf: SchemaAllOfVisitor,
+            anyOf: SchemaAnyOfVisitor,
+            oneOf: SchemaOneOfVisitor,
+            not: SchemaOrReferenceVisitor,
+            items: SchemaItemsVisitor,
+            properties: SchemaPropertiesVisitor,
+            additionalProperties: SchemaOrReferenceVisitor,
+            description: jsonSchemaFixedFields.description,
+            format: jsonSchemaFixedFields.format,
+            default: jsonSchemaFixedFields.default,
+            // OpenAPI vocabulary
+            nullable: SchemaNullableVisitor,
+            discriminator: {
+              $ref: '#/visitors/document/objects/Discriminator',
+            },
+            writeOnly: SchemaWriteOnlyVisitor,
+            xml: {
+              $ref: '#/visitors/document/objects/XML',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            example: SchemaExampleVisitor,
+            deprecated: SchemaDeprecatedVisitor,
+          },
+        },
         Discriminator: {
           $visitor: DiscriminatorVisitor,
           fixedFields: {

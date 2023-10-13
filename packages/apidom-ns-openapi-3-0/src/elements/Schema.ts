@@ -1,16 +1,47 @@
-import { StringElement, BooleanElement, Element, Attributes, Meta } from '@swagger-api/apidom-core';
-import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
+import {
+  StringElement,
+  BooleanElement,
+  Element,
+  Attributes,
+  Meta,
+  ObjectElement,
+  ArrayElement,
+} from '@swagger-api/apidom-core';
+import { JSONSchemaElement, MediaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import ReferenceElement from './Reference';
 import DiscriminatorElement from './Discriminator';
 import XmlElement from './Xml';
 import ExternalDocumentationElement from './ExternalDocumentation';
 
+/* eslint-disable class-methods-use-this */
 class Schema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'schema';
     this.classes.push('json-schema-draft-4');
+  }
+
+  /**
+   * Core vocabulary
+   *
+   * URI: https://tools.ietf.org/html/draft-wright-json-schema-00
+   */
+  get idProp(): StringElement | undefined {
+    throw new UnsupportedOperationError('idProp getter in Schema class is not not supported.');
+  }
+
+  set idProp(idProps: StringElement | undefined) {
+    throw new UnsupportedOperationError('idProp setter in Schema class is not not supported.');
+  }
+
+  get $schema(): StringElement | undefined {
+    throw new UnsupportedOperationError('$schema getter in Schema class is not not supported.');
+  }
+
+  set $schema($schema: StringElement | undefined) {
+    throw new UnsupportedOperationError('$schema setter in Schema class is not not supported.');
   }
 
   /**
@@ -47,6 +78,30 @@ class Schema extends JSONSchemaElement {
     this.set('additionalProperties', additionalProperties);
   }
 
+  get patternProperties(): ObjectElement | undefined {
+    throw new UnsupportedOperationError(
+      'patternProperties getter in Schema class is not not supported.',
+    );
+  }
+
+  set patternProperties(patternProperties: ObjectElement | undefined) {
+    throw new UnsupportedOperationError(
+      'patternProperties setter in Schema class is not not supported.',
+    );
+  }
+
+  get dependencies(): ObjectElement | undefined {
+    throw new UnsupportedOperationError(
+      'dependencies getter in Schema class is not not supported.',
+    );
+  }
+
+  set dependencies(dependencies: ObjectElement | undefined) {
+    throw new UnsupportedOperationError(
+      'dependencies setter in Schema class is not not supported.',
+    );
+  }
+
   /**
    *  Validation keywords for any instance type
    */
@@ -65,6 +120,44 @@ class Schema extends JSONSchemaElement {
 
   set not(not: this | ReferenceElement | undefined) {
     this.set('not', not);
+  }
+
+  get definitions(): ObjectElement | undefined {
+    throw new UnsupportedOperationError('definitions getter in Schema class is not not supported.');
+  }
+
+  set definitions(definitions: ObjectElement | undefined) {
+    throw new UnsupportedOperationError('definitions setter in Schema class is not not supported.');
+  }
+
+  /**
+   * JSON Hyper-Schema
+   *
+   * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00
+   */
+
+  get base(): StringElement | undefined {
+    throw new UnsupportedOperationError('base getter in Schema class is not not supported.');
+  }
+
+  set base(base: StringElement | undefined) {
+    throw new UnsupportedOperationError('base setter in Schema class is not not supported.');
+  }
+
+  get links(): ArrayElement | undefined {
+    throw new UnsupportedOperationError('links getter in Schema class is not not supported.');
+  }
+
+  set links(links: ArrayElement | undefined) {
+    throw new UnsupportedOperationError('links setter in Schema class is not not supported.');
+  }
+
+  get media(): MediaElement | undefined {
+    throw new UnsupportedOperationError('media getter in Schema class is not not supported.');
+  }
+
+  set media(media: MediaElement | undefined) {
+    throw new UnsupportedOperationError('media setter in Schema class is not not supported.');
   }
 
   /**
@@ -127,5 +220,6 @@ class Schema extends JSONSchemaElement {
     this.set('deprecated', deprecated);
   }
 }
+/* eslint-disable class-methods-use-this */
 
 export default Schema;

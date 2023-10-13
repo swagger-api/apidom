@@ -22,43 +22,8 @@ exports[`refractor elements SchemaElement given anyOf keyword with reference sho
           (StringElement))))))
 `;
 
-exports[`refractor elements SchemaElement given definitions keyword with reference should refract to semantic ApiDOM tree 1`] = `
-(SchemaElement
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ReferenceElement
-          (MemberElement
-            (StringElement)
-            (StringElement)))))))
-`;
-
-exports[`refractor elements SchemaElement given dependencies keyword with reference should refract to semantic ApiDOM tree 1`] = `
-(SchemaElement
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ReferenceElement
-          (MemberElement
-            (StringElement)
-            (StringElement)))))))
-`;
-
 exports[`refractor elements SchemaElement given embedded SchemaElements should refract to semantic ApiDOM tree 1`] = `
 (SchemaElement
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (SchemaElement
-          (MemberElement
-            (StringElement)
-            (SchemaElement))))))
   (MemberElement
     (StringElement)
     (ArrayElement
@@ -86,19 +51,6 @@ exports[`refractor elements SchemaElement given oneOf keyword with reference sho
           (StringElement))))))
 `;
 
-exports[`refractor elements SchemaElement given patternProperties keyword with reference should refract to semantic ApiDOM tree 1`] = `
-(SchemaElement
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ReferenceElement
-          (MemberElement
-            (StringElement)
-            (StringElement)))))))
-`;
-
 exports[`refractor elements SchemaElement given properties keyword with reference should refract to semantic ApiDOM tree 1`] = `
 (SchemaElement
   (MemberElement
@@ -119,9 +71,6 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
     (StringElement))
   (MemberElement
     (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
     (NumberElement))
   (MemberElement
     (StringElement)
@@ -144,13 +93,6 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
   (MemberElement
     (StringElement)
     (StringElement))
-  (MemberElement
-    (StringElement)
-    (SchemaElement))
-  (MemberElement
-    (StringElement)
-    (ArrayElement
-      (ObjectElement)))
   (MemberElement
     (StringElement)
     (NumberElement))
@@ -171,27 +113,6 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
     (ArrayElement
       (StringElement)
       (StringElement)))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (SchemaElement))))
-  (MemberElement
-    (StringElement)
-    (SchemaElement))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (SchemaElement))))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (SchemaElement))))
   (MemberElement
     (StringElement)
     (ArrayElement
@@ -218,10 +139,16 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
     (SchemaElement))
   (MemberElement
     (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
     (ObjectElement
       (MemberElement
         (StringElement)
         (SchemaElement))))
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
   (MemberElement
     (StringElement)
     (StringElement))
@@ -231,19 +158,6 @@ exports[`refractor elements SchemaElement should refract to semantic ApiDOM tree
   (MemberElement
     (StringElement)
     (NumberElement))
-  (MemberElement
-    (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
-    (ArrayElement
-      (LinkDescriptionElement)))
-  (MemberElement
-    (StringElement)
-    (MediaElement))
   (MemberElement
     (StringElement)
     (BooleanElement))

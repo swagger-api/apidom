@@ -8,9 +8,8 @@ describe('refractor', function () {
     context('SchemaElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const schemaElement = SchemaElement.refract({
-          // JSON Schema vocabulary
-          id: 'http://x.y.z/rootschema.json#',
-          $schema: 'http://json-schema.org/draft-04/schema#',
+          // the following properties are taken directly from the JSON Schema definition and follow the same specifications
+          title: 'title',
           multipleOf: 1,
           maximum: 2,
           exclusiveMaximum: true,
@@ -19,34 +18,27 @@ describe('refractor', function () {
           maxLength: 6,
           minLength: 7,
           pattern: '[a-z]+',
-          additionalItems: {},
-          items: [{}],
           maxItems: 8,
           minItems: 9,
           uniqueItems: true,
           maxProperties: 10,
           minProperties: 11,
           required: ['prop1', 'prop2'],
-          properties: { prop1: {} },
-          additionalProperties: {},
-          patternProperties: { '[a-z]+': {} },
-          dependencies: { dep1: {} },
           enum: [1, '2', null],
+          // the following properties are taken from the JSON Schema definition but their definitions were adjusted to the OpenAPI Specification
           type: 'string',
           allOf: [{}],
           anyOf: [{}],
           oneOf: [{}],
           not: {},
-          definitions: { def1: {} },
-          title: 'title',
+          items: {},
+          properties: { prop1: {} },
+          additionalProperties: {},
           description: 'description',
-          default: 3,
           format: 'url',
-          base: '/object/{id}',
-          links: [{}],
-          media: {},
+          default: 3,
           readOnly: false,
-          // OpenAPI vocabulary,
+          // OpenAPI vocabulary
           nullable: true,
           discriminator: {},
           writeOnly: false,
@@ -72,9 +64,6 @@ describe('refractor', function () {
       context('given embedded SchemaElements', function () {
         specify('should refract to semantic ApiDOM tree', function () {
           const schemaElement = SchemaElement.refract({
-            definitions: {
-              enabledToggle: { not: {} },
-            },
             allOf: [{ not: {} }],
           });
 
@@ -133,40 +122,6 @@ describe('refractor', function () {
         });
       });
 
-      context('given definitions keyword with reference', function () {
-        const schemaElement = SchemaElement.refract({
-          definitions: { def1: { $ref: '#/path/to/schema' } },
-        }) as SchemaElement;
-
-        specify('should refract to semantic ApiDOM tree', function () {
-          expect(sexprs(schemaElement)).toMatchSnapshot();
-        });
-
-        specify('should contain referenced-element meta', function () {
-          const referenceElement = schemaElement.definitions?.get('def1');
-          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
-
-          assert.strictEqual(toValue(referencedElementMeta), 'schema');
-        });
-      });
-
-      context('given dependencies keyword with reference', function () {
-        const schemaElement = SchemaElement.refract({
-          dependencies: { dep1: { $ref: '#/path/to/schema' } },
-        }) as SchemaElement;
-
-        specify('should refract to semantic ApiDOM tree', function () {
-          expect(sexprs(schemaElement)).toMatchSnapshot();
-        });
-
-        specify('should contain referenced-element meta', function () {
-          const referenceElement = schemaElement.dependencies?.get('dep1');
-          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
-
-          assert.strictEqual(toValue(referencedElementMeta), 'schema');
-        });
-      });
-
       context('given properties keyword with reference', function () {
         const schemaElement = SchemaElement.refract({
           properties: { prop1: { $ref: '#/path/to/schema' } },
@@ -178,23 +133,6 @@ describe('refractor', function () {
 
         specify('should contain referenced-element meta', function () {
           const referenceElement = schemaElement.properties?.get('prop1');
-          const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
-
-          assert.strictEqual(toValue(referencedElementMeta), 'schema');
-        });
-      });
-
-      context('given patternProperties keyword with reference', function () {
-        const schemaElement = SchemaElement.refract({
-          patternProperties: { pattern: { $ref: '#/path/to/schema' } },
-        }) as SchemaElement;
-
-        specify('should refract to semantic ApiDOM tree', function () {
-          expect(sexprs(schemaElement)).toMatchSnapshot();
-        });
-
-        specify('should contain referenced-element meta', function () {
-          const referenceElement = schemaElement.patternProperties?.get('pattern');
           const referencedElementMeta = referenceElement?.getMetaProperty('referenced-element');
 
           assert.strictEqual(toValue(referencedElementMeta), 'schema');

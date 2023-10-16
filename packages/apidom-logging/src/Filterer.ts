@@ -4,7 +4,7 @@ import { getLogRecordClass } from './LogRecord';
 
 type Filter = FilterFunction | FilterInstance;
 
-class Filterer {
+abstract class Filterer {
   protected readonly filters: Filter[] = [];
 
   public addFilter(filter: Filter) {

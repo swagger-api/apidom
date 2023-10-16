@@ -15,12 +15,13 @@ class StringTemplateStyle implements Style {
 
   public static readonly validationPattern = /\${(.*?)}/g;
 
-  protected fmt: Format;
+  public readonly fmt: Format;
 
-  protected defaults?: Defaults;
+  protected readonly defaults?: Defaults;
 
-  constructor(fmt: Format, defaults?: Defaults) {
-    this.fmt = fmt;
+  constructor(fmt?: Format, defaults?: Defaults) {
+    const self = this.constructor as unknown as typeof StringTemplateStyle;
+    this.fmt = fmt ?? self.defaultFormat;
     this.defaults = defaults;
   }
 

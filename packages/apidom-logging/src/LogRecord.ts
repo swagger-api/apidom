@@ -25,11 +25,11 @@ export interface LogRecordConstructor<T extends Error = Error> {
 class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
   public readonly name: string;
 
-  public readonly message: string;
-
   public readonly levelname: string;
 
   public readonly levelno: number;
+
+  public readonly message: string;
 
   public readonly process?: number;
 

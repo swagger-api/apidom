@@ -7,12 +7,15 @@ export type Format = (value: Record<string, unknown>) => string;
 type Defaults = Record<string, unknown>;
 
 class TemplateLiteralStyle implements Style {
-  protected fmt: Format;
+  public static readonly defaultFormat: Format = ({ message }) => `${message}`;
 
-  protected defaults?: Defaults;
+  public readonly fmt: Format;
 
-  constructor(fmt: Format, defaults?: Defaults) {
-    this.fmt = fmt;
+  protected readonly defaults?: Defaults;
+
+  constructor(fmt?: Format, defaults?: Defaults) {
+    const self = this.constructor as unknown as typeof TemplateLiteralStyle;
+    this.fmt = fmt ?? self.defaultFormat;
     this.defaults = defaults;
   }
 

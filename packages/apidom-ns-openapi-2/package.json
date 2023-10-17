@@ -43,9 +43,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.77.0",
-    "@swagger-api/apidom-error": "^0.77.0",
-    "@swagger-api/apidom-ns-json-schema-draft-4": "^0.77.0",
+    "@swagger-api/apidom-core": "^0.78.0",
+    "@swagger-api/apidom-error": "^0.78.0",
+    "@swagger-api/apidom-ns-json-schema-draft-4": "^0.78.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",

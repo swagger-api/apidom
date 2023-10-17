@@ -1,10 +1,13 @@
-import { pathOr, Pred } from 'ramda';
+import { pathOr } from 'ramda';
 import { Element } from 'minim';
 
 import { PredicateVisitor, BREAK, visit } from './visitor';
 
 // find first element that satisfies the provided predicate
-const find = <T extends Element>(predicate: Pred, element: T): T | undefined => {
+const find = <T extends Element>(
+  predicate: (element: any) => boolean,
+  element: T,
+): T | undefined => {
   const visitor = PredicateVisitor({ predicate, returnOnTrue: BREAK });
 
   visit(element, visitor);

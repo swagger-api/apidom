@@ -399,10 +399,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
       if (isStringElement(linkElement.operationId)) {
         const operationId = toValue(linkElement.operationId);
         const reference = await this.toReference(url.unsanitize(this.reference.uri));
-        operationElement = find(
-          (e) => isOperationElement(e) && e.operationId.equals(operationId),
-          reference.value.result,
-        );
+        operationElement = find((e) => {
+          if (!isOperationElement(e)) return false;
+          return toValue((e as OperationElement).operationId) === operationId;
+        }, reference.value.result);
         // OperationElement not found by its operationId
         if (isUndefined(operationElement)) {
           throw new ApiDOMError(`OperationElement(operationId=${operationId}) not found.`);

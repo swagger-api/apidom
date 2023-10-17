@@ -10,6 +10,7 @@ import ExampleElement from './elements/Example';
 import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
 import TagElement from './elements/Tag';
+import SchemaElement from './elements/Schema';
 import XmlElement from './elements/Xml';
 import ReferenceElement from './elements/Reference';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
@@ -32,6 +33,7 @@ const openApi2 = {
     base.register('header', HeaderElement);
     base.register('tag', TagElement);
     base.register('reference', ReferenceElement);
+    base.register('schema', SchemaElement);
     base.register('xml', XmlElement);
     base.register('securityDefinitions', SecurityDefinitionsElement);
     base.register('securityScheme', SecuritySchemeElement);

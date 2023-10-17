@@ -220,20 +220,6 @@ class Items extends JSONSchemaElement {
   }
 
   /**
-   * Semantic validation with "format"
-   *
-   * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-00#section-7
-   */
-
-  get format(): StringElement | undefined {
-    return this.get('format');
-  }
-
-  set format(format: StringElement | undefined) {
-    this.set('format', format);
-  }
-
-  /**
    * JSON Hyper-Schema
    *
    * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00

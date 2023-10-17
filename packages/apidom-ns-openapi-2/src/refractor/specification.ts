@@ -15,6 +15,10 @@ import TagVisitor from './visitors/open-api-2/tag';
 import ReferenceVisitor from './visitors/open-api-2/reference';
 import Reference$RefVisitor from './visitors/open-api-2/reference/$RefVisitor';
 import SchemaVisitor from './visitors/open-api-2/schema';
+import SchemaAllOfVisitor from './visitors/open-api-2/schema/AllOfVisitor';
+import SchemaItemsVisitor from './visitors/open-api-2/schema/ItemsVisitor';
+import SchemaPropertiesVisitor from './visitors/open-api-2/schema/PropertiesVisitor';
+import SchemaOrJSONReferenceVisitor from './visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor';
 import XmlVisitor from './visitors/open-api-2/xml';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -178,8 +182,50 @@ const specification = {
             $ref: Reference$RefVisitor,
           },
         },
+        JSONReference: JSONSchemaDraft4Specification.visitors.document.objects.JSONReference,
+        JSONSchema: {
+          $ref: '#/visitors/document/objects/Schema',
+        },
         Schema: {
           $visitor: SchemaVisitor,
+          fixedFields: {
+            // the following properties are taken directly from the JSON Schema definition and follow the same specifications
+            format: jsonSchemaFixedFields.format,
+            title: jsonSchemaFixedFields.title,
+            description: jsonSchemaFixedFields.description,
+            default: jsonSchemaFixedFields.default,
+            multipleOf: jsonSchemaFixedFields.multipleOf,
+            maximum: jsonSchemaFixedFields.maximum,
+            exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
+            minimum: jsonSchemaFixedFields.minimum,
+            exclusiveMinimum: jsonSchemaFixedFields.exclusiveMinimum,
+            maxLength: jsonSchemaFixedFields.maxLength,
+            minLength: jsonSchemaFixedFields.minLength,
+            pattern: jsonSchemaFixedFields.pattern,
+            maxItems: jsonSchemaFixedFields.maxItems,
+            minItems: jsonSchemaFixedFields.minItems,
+            uniqueItems: jsonSchemaFixedFields.uniqueItems,
+            maxProperties: jsonSchemaFixedFields.maxProperties,
+            minProperties: jsonSchemaFixedFields.minProperties,
+            required: jsonSchemaFixedFields.required,
+            enum: jsonSchemaFixedFields.enum,
+            type: jsonSchemaFixedFields.type,
+            readOnly: jsonSchemaFixedFields.readOnly,
+            // the following properties are taken from the JSON Schema definition but their definitions were adjusted to the Swagger Specification
+            items: SchemaItemsVisitor,
+            allOf: SchemaAllOfVisitor,
+            properties: SchemaPropertiesVisitor,
+            additionalProperties: SchemaOrJSONReferenceVisitor,
+            // OpenAPI vocabulary
+            discriminator: FallbackVisitor,
+            xml: {
+              $ref: '#/visitors/document/objects/XML',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            example: FallbackVisitor,
+          },
         },
         XML: {
           $visitor: XmlVisitor,

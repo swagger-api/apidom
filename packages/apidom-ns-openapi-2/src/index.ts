@@ -10,6 +10,10 @@ export {
   isNumberElement,
   isStringElement,
 } from '@swagger-api/apidom-core';
+export {
+  isJSONReferenceElement,
+  JSONReferenceElement,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 export { default as mediaTypes, OpenAPIMediaTypes } from './media-types';
 

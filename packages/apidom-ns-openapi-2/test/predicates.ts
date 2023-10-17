@@ -12,6 +12,7 @@ import {
   HeaderElement,
   TagElement,
   ReferenceElement,
+  SchemaElement,
   XmlElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
@@ -28,6 +29,7 @@ import {
   isHeaderElement,
   isTagElement,
   isReferenceElement,
+  isSchemaElement,
   isXmlElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
@@ -649,6 +651,62 @@ describe('predicates', function () {
 
       assert.isTrue(isReferenceElement(referenceElementDuck));
       assert.isFalse(isReferenceElement(referenceElementSwan));
+    });
+  });
+
+  context('isSchemaElement', function () {
+    context('given SchemaElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SchemaElement();
+
+        assert.isTrue(isSchemaElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SchemaSubElement extends SchemaElement {}
+
+        assert.isTrue(isSchemaElement(new SchemaSubElement()));
+      });
+    });
+
+    context('given non SchemaSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSchemaElement(1));
+        assert.isFalse(isSchemaElement(null));
+        assert.isFalse(isSchemaElement(undefined));
+        assert.isFalse(isSchemaElement({}));
+        assert.isFalse(isSchemaElement([]));
+        assert.isFalse(isSchemaElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const schemaElementDuck = {
+        _storedElement: 'schema',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const schemaElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isSchemaElement(schemaElementDuck));
+      assert.isFalse(isSchemaElement(schemaElementSwan));
     });
   });
 

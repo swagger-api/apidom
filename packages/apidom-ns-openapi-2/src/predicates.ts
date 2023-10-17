@@ -11,6 +11,7 @@ import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
 import TagElement from './elements/Tag';
 import ReferenceElement from './elements/Reference';
+import SchemaElement from './elements/Schema';
 import XmlElement from './elements/Xml';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
@@ -122,6 +123,16 @@ export const isReferenceElement = createPredicate(
       element instanceof ReferenceElement ||
       (hasBasicElementProps(element) &&
         isElementType('reference', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isSchemaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown) =>
+      element instanceof SchemaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('schema', element) &&
         primitiveEq('object', element));
   },
 );

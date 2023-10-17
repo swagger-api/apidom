@@ -5,7 +5,7 @@ import SchemaElement from '../../../../elements/Schema';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const ParameterVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
+const SchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Schema']),
     canSupportSpecificationExtensions: true,
@@ -15,4 +15,4 @@ const ParameterVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   },
 });
 
-export default ParameterVisitor;
+export default SchemaVisitor;

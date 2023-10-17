@@ -30,6 +30,7 @@ export const keyMap = {
   HeaderElement: ['content'],
   TagElement: ['content'],
   ReferenceElement: ['content'],
+  SchemaElement: ['content'],
   XmlElement: ['content'],
   SecurityDefinitionsElement: ['content'],
   SecuritySchemeElement: ['content'],

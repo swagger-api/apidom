@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.78.0](https://github.com/swagger-api/apidom/compare/v0.77.0...v0.78.0) (2023-10-17)
+
+### Bug Fixes
+
+- **ns-openapi-3:** support only subset of JSON Schema Draft 4/5 ([#3265](https://github.com/swagger-api/apidom/issues/3265)) ([e8a19d1](https://github.com/swagger-api/apidom/commit/e8a19d18ad43959a688a004e5d277553b0a171ac))
+- **reference:** avoid double encoding special characters in url.sanitize() ([#3271](https://github.com/swagger-api/apidom/issues/3271)) ([60eb1f4](https://github.com/swagger-api/apidom/commit/60eb1f41f522445fb44b8aa61d65edfbfc9f35bb)), closes [#3270](https://github.com/swagger-api/apidom/issues/3270)
+- **types:** fix regression in @types/ramda@0.29.6 ([#3281](https://github.com/swagger-api/apidom/issues/3281)) ([c6c279f](https://github.com/swagger-api/apidom/commit/c6c279f526e07b16221d8c00dd0041eeb93e1290)), closes [#3279](https://github.com/swagger-api/apidom/issues/3279)
+
+### Features
+
+- add initial implementation of ApiDOM logging facility ([#3233](https://github.com/swagger-api/apidom/issues/3233)) ([a3a96d1](https://github.com/swagger-api/apidom/commit/a3a96d1b9979f0e38433c7bad6d8f9eb265c5f60)), closes [#3197](https://github.com/swagger-api/apidom/issues/3197)
+- **logging:** add initial implementation of Formatter ([#3272](https://github.com/swagger-api/apidom/issues/3272)) ([eae432e](https://github.com/swagger-api/apidom/commit/eae432ef610fe012245cdb005e038ee4ada9f29a)), closes [#3197](https://github.com/swagger-api/apidom/issues/3197)
+- **ns-openapi-2:** add support for Contact Object ([#3236](https://github.com/swagger-api/apidom/issues/3236)) ([4f0c783](https://github.com/swagger-api/apidom/commit/4f0c783ff7910940d28f4fe3a166418d36c12357)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Example Object ([#3247](https://github.com/swagger-api/apidom/issues/3247)) ([e9d1e3e](https://github.com/swagger-api/apidom/commit/e9d1e3ebf83de9fee002e0442df37af4f7898e32)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for External Documentation Object ([#3235](https://github.com/swagger-api/apidom/issues/3235)) ([b12d915](https://github.com/swagger-api/apidom/commit/b12d915a8a56e46b7d7db4f516c595e442524f2f)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Header Object ([#3250](https://github.com/swagger-api/apidom/issues/3250)) ([67abec5](https://github.com/swagger-api/apidom/commit/67abec52a1d6427040b7c59118f8f5fb8b155bca)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Headers Object ([#3256](https://github.com/swagger-api/apidom/issues/3256)) ([a756102](https://github.com/swagger-api/apidom/commit/a7561027baf82c266119d7a28eb90496d88b6cff)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Info Object ([#3245](https://github.com/swagger-api/apidom/issues/3245)) ([219f96d](https://github.com/swagger-api/apidom/commit/219f96dc9295594020083abb3910ef8ad38ea6aa)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Items Object ([#3248](https://github.com/swagger-api/apidom/issues/3248)) ([cc239a0](https://github.com/swagger-api/apidom/commit/cc239a0952dfdb9786250c974a74050be3bd3403)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for License Object ([#3244](https://github.com/swagger-api/apidom/issues/3244)) ([a2737c5](https://github.com/swagger-api/apidom/commit/a2737c5a3cbe8bb3f3c3ae733084be288665db56)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Parameter Object ([#3257](https://github.com/swagger-api/apidom/issues/3257)) ([ae5e27d](https://github.com/swagger-api/apidom/commit/ae5e27d67974e4fd2a367bc8a70815ff52beb1d9)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Reference Object ([#3264](https://github.com/swagger-api/apidom/issues/3264)) ([637bcbe](https://github.com/swagger-api/apidom/commit/637bcbe398d65f48ac54c00f082abf1d88b7895d)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Schema Object ([#3273](https://github.com/swagger-api/apidom/issues/3273)) ([6e046ac](https://github.com/swagger-api/apidom/commit/6e046ac56400f7702e7b08450a33ce2fff4e720b)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Scopes Object ([#3226](https://github.com/swagger-api/apidom/issues/3226)) ([4226eab](https://github.com/swagger-api/apidom/commit/4226eab89e664c21951b08f974666ae89b17ec30)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Security Definitions Object ([#3228](https://github.com/swagger-api/apidom/issues/3228)) ([0219048](https://github.com/swagger-api/apidom/commit/02190483c1079885ceb78c3f1e68bcd7aaaeefc2)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Security Requirement Object ([#3225](https://github.com/swagger-api/apidom/issues/3225)) ([dab4908](https://github.com/swagger-api/apidom/commit/dab49083b4f9c45747a690a2c342a672a03adbdb)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Security Scheme Object ([#3227](https://github.com/swagger-api/apidom/issues/3227)) ([b3fc9d8](https://github.com/swagger-api/apidom/commit/b3fc9d8b333afab8a214a5101ded2840336fbe81)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for Tag Object ([#3246](https://github.com/swagger-api/apidom/issues/3246)) ([7adf623](https://github.com/swagger-api/apidom/commit/7adf6233a956bda44d3fb1aabcccb9645955ccf9)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- **ns-openapi-2:** add support for XML Object ([#3234](https://github.com/swagger-api/apidom/issues/3234)) ([9c0b4f5](https://github.com/swagger-api/apidom/commit/9c0b4f5d1c06bcb769b828306053acb26d963b78)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+- scaffold OpenAPI 2.0 namespace package ([#3218](https://github.com/swagger-api/apidom/issues/3218)) ([d949353](https://github.com/swagger-api/apidom/commit/d949353f7779690414fb74aafedff230ddf77cd3)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+
 # [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
 
 ### Bug Fixes

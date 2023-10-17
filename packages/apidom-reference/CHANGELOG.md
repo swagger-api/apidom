@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.78.0](https://github.com/swagger-api/apidom/compare/v0.77.0...v0.78.0) (2023-10-17)
+
+### Bug Fixes
+
+- **reference:** avoid double encoding special characters in url.sanitize() ([#3271](https://github.com/swagger-api/apidom/issues/3271)) ([60eb1f4](https://github.com/swagger-api/apidom/commit/60eb1f41f522445fb44b8aa61d65edfbfc9f35bb)), closes [#3270](https://github.com/swagger-api/apidom/issues/3270)
+- **types:** fix regression in @types/ramda@0.29.6 ([#3281](https://github.com/swagger-api/apidom/issues/3281)) ([c6c279f](https://github.com/swagger-api/apidom/commit/c6c279f526e07b16221d8c00dd0041eeb93e1290)), closes [#3279](https://github.com/swagger-api/apidom/issues/3279)
+
 # [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
 
 ### Bug Fixes

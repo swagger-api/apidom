@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.78.0](https://github.com/swagger-api/apidom/compare/v0.77.0...v0.78.0) (2023-10-17)
+
+### Bug Fixes
+
+- **types:** fix regression in @types/ramda@0.29.6 ([#3281](https://github.com/swagger-api/apidom/issues/3281)) ([c6c279f](https://github.com/swagger-api/apidom/commit/c6c279f526e07b16221d8c00dd0041eeb93e1290)), closes [#3279](https://github.com/swagger-api/apidom/issues/3279)
+
+### Features
+
+- scaffold OpenAPI 2.0 namespace package ([#3218](https://github.com/swagger-api/apidom/issues/3218)) ([d949353](https://github.com/swagger-api/apidom/commit/d949353f7779690414fb74aafedff230ddf77cd3)), closes [#3097](https://github.com/swagger-api/apidom/issues/3097)
+
 # [0.77.0](https://github.com/swagger-api/apidom/compare/v0.76.2...v0.77.0) (2023-10-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

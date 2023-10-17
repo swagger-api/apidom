@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { ifElse, always, Pred } from 'ramda';
+import { ifElse, always } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
 import { Element, BREAK } from '@swagger-api/apidom-core';
 
@@ -12,7 +12,7 @@ const AlternatingVisitor = stampit(SpecificationVisitor, {
   methods: {
     enter(element: Element) {
       const functions = this.alternator.map(
-        ({ predicate, specPath }: { predicate: Pred; specPath: string[] }) =>
+        ({ predicate, specPath }: { predicate: (element: any) => boolean; specPath: string[] }) =>
           ifElse(predicate, always(specPath), stubUndefined),
       );
       const specPath = dispatch(functions)(element);

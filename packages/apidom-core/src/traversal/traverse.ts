@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { Element } from 'minim';
-import { pathOr, Pred } from 'ramda';
+import { pathOr } from 'ramda';
 import { isFunction, noop } from 'ramda-adjunct';
 
 import { visit, PredicateVisitor } from './visitor';
@@ -9,7 +9,7 @@ import { isElement } from '../predicates';
 type Callback = <T extends Element>(element: T) => void;
 interface TraverseOptions {
   callback?: Callback;
-  predicate?: Pred;
+  predicate?: (element: any) => boolean;
 }
 
 export const CallbackVisitor = stampit(PredicateVisitor, {

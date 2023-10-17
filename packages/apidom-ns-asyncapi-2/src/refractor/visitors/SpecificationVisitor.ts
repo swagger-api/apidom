@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { pathSatisfies, path, pick, pipe, keys } from 'ramda';
+import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction, isUndefined } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
@@ -24,7 +24,11 @@ const SpecificationVisitor = stampit(Visitor, {
     },
 
     retrieveFixedFields(specPath) {
-      return pipe(path(['visitors', ...specPath, 'fixedFields']), keys)(this.specObj);
+      const fixedFields = path(['visitors', ...specPath, 'fixedFields'], this.specObj);
+      if (typeof fixedFields === 'object' && fixedFields !== null) {
+        return Object.keys(fixedFields);
+      }
+      return [];
     },
 
     retrieveVisitor(specPath) {

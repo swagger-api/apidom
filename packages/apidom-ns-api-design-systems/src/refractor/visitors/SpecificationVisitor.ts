@@ -24,6 +24,7 @@ const SpecificationVisitor = stampit(Visitor, {
     },
 
     retrieveFixedFields(specPath) {
+      // @ts-ignore
       return pipe(path(['visitors', ...specPath, 'fixedFields']), keys)(this.specObj);
     },
 

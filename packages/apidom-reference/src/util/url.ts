@@ -250,8 +250,12 @@ export const sanitize = (uri: string) => {
     return fromFileSystemPath(toFileSystemPath(uri));
   }
 
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI#encoding_for_ipv6
-  return encodeURI(decodeURI(uri)).replace(/%5B/g, '[').replace(/%5D/g, ']');
+  try {
+    return new URL(uri).toString();
+  } catch {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI#encoding_for_ipv6
+    return encodeURI(decodeURI(uri)).replace(/%5B/g, '[').replace(/%5D/g, ']');
+  }
 };
 
 /**

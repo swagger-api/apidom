@@ -291,13 +291,26 @@ describe('util', function () {
         });
       });
 
-      context('given percent encoded URL', function () {
-        specify('should not double percent encode the URL', function () {
-          const url = 'https://example.com/path%20with%20spaces/';
+      context('given ipv6 URL', function () {
+        specify('should return valid ipV6 URL', function () {
+          const url = 'http://[2001:db8::1]:81/path/file.html?q=wery';
           const sanitized = sanitize(url);
 
           assert.strictEqual(sanitized, url);
         });
+      });
+
+      context('given percent encoded URL', function () {
+        specify(
+          'should not double percent encode the URL including special characters ; / ? : @ & = + $ , #',
+          function () {
+            const url =
+              'https://example.com/path%20with%20spaces%2Fslashes%3Bsemicolons/?including=in%3Fparameters';
+            const sanitized = sanitize(url);
+
+            assert.strictEqual(sanitized, url);
+          },
+        );
       });
 
       context('given percent decoded file system path', function () {

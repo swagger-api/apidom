@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { F as stubFalse } from 'ramda';
 
-import { createNamespace, find, isMemberElement, MemberElement } from '../../src';
+import { createNamespace, find, isMemberElement, isElement, MemberElement } from '../../src';
 
 const namespace = createNamespace();
 
@@ -12,8 +12,8 @@ describe('traversal', function () {
       const objElement = new namespace.elements.Object({ a: 'b', c: 'd' });
 
       specify('should return first match', function () {
-        const predicate = (element: any): boolean =>
-          isMemberElement(element) && element.key.equals('c');
+        const predicate = (element: unknown): boolean =>
+          isMemberElement(element) && isElement(element.key) && element.key.equals('c');
         // @ts-ignore
         const found = find(predicate, objElement) as MemberElement;
 

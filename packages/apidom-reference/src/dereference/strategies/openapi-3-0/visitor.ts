@@ -368,7 +368,8 @@ const OpenApi3_0DereferenceVisitor = stampit({
         const operationId = toValue(linkElement.operationId);
         const reference = await this.toReference(url.unsanitize(this.reference.uri));
         operationElement = find(
-          (e) => isOperationElement(e) && e.operationId.equals(operationId),
+          (e) =>
+            isOperationElement(e) && isElement(e.operationId) && e.operationId.equals(operationId),
           reference.value.result,
         );
         // OperationElement not found by its operationId

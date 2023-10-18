@@ -1,9 +1,11 @@
 import {
+  BooleanElement,
   createPredicate,
   isBooleanElement,
   isStringElement,
   toValue,
 } from '@swagger-api/apidom-core';
+import type { ElementPredicate } from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from './elements/AsyncApi2';
 import AsyncApiVersionElement from './elements/AsyncApiVersion';
@@ -28,7 +30,7 @@ import ServerVariableElement from './elements/ServerVariable';
 
 export const isAsyncApi2Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: any) =>
+    return (element: unknown): element is AsyncApi2Element =>
       element instanceof AsyncApi2Element ||
       (hasBasicElementProps(element) &&
         isElementType('asyncApi2', element) &&
@@ -39,7 +41,7 @@ export const isAsyncApi2Element = createPredicate(
 
 export const isAsyncApiVersionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is AsyncApiVersionElement =>
       element instanceof AsyncApiVersionElement ||
       (hasBasicElementProps(element) &&
         isElementType('asyncApiVersion', element) &&
@@ -49,7 +51,7 @@ export const isAsyncApiVersionElement = createPredicate(
 
 export const isChannelBindingsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ChannelBindingsElement =>
       element instanceof ChannelBindingsElement ||
       (hasBasicElementProps(element) &&
         isElementType('channelBindings', element) &&
@@ -59,7 +61,7 @@ export const isChannelBindingsElement = createPredicate(
 
 export const isChannelItemElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ChannelItemElement =>
       element instanceof ChannelItemElement ||
       (hasBasicElementProps(element) &&
         isElementType('channelItem', element) &&
@@ -67,7 +69,9 @@ export const isChannelItemElement = createPredicate(
   },
 );
 
-export const isChannelItemElementExternal = (element: any): element is ChannelItemElement => {
+export const isChannelItemElementExternal: ElementPredicate<ChannelItemElement> = (
+  element: unknown,
+): element is ChannelItemElement => {
   if (!isChannelItemElement(element)) {
     return false;
   }
@@ -82,7 +86,7 @@ export const isChannelItemElementExternal = (element: any): element is ChannelIt
 
 export const isChannelsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ChannelsElement =>
       element instanceof ChannelsElement ||
       (hasBasicElementProps(element) &&
         isElementType('channels', element) &&
@@ -92,7 +96,7 @@ export const isChannelsElement = createPredicate(
 
 export const isComponentsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ComponentsElement =>
       element instanceof ComponentsElement ||
       (hasBasicElementProps(element) &&
         isElementType('components', element) &&
@@ -102,7 +106,7 @@ export const isComponentsElement = createPredicate(
 
 export const isContactElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ContactElement =>
       element instanceof ContactElement ||
       (hasBasicElementProps(element) &&
         isElementType('contact', element) &&
@@ -112,7 +116,7 @@ export const isContactElement = createPredicate(
 
 export const isIdentifierElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is IdentifierElement =>
       element instanceof IdentifierElement ||
       (hasBasicElementProps(element) &&
         isElementType('identifier', element) &&
@@ -122,7 +126,7 @@ export const isIdentifierElement = createPredicate(
 
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is InfoElement =>
       element instanceof InfoElement ||
       (hasBasicElementProps(element) &&
         isElementType('info', element) &&
@@ -132,7 +136,7 @@ export const isInfoElement = createPredicate(
 
 export const isLicenseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is LicenseElement =>
       element instanceof LicenseElement ||
       (hasBasicElementProps(element) &&
         isElementType('license', element) &&
@@ -142,7 +146,7 @@ export const isLicenseElement = createPredicate(
 
 export const isOperationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is OperationElement =>
       element instanceof OperationElement ||
       (hasBasicElementProps(element) &&
         isElementType('operation', element) &&
@@ -152,7 +156,7 @@ export const isOperationElement = createPredicate(
 
 export const isParameterElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ParameterElement =>
       element instanceof ParameterElement ||
       (hasBasicElementProps(element) &&
         isElementType('parameter', element) &&
@@ -162,7 +166,7 @@ export const isParameterElement = createPredicate(
 
 export const isParametersElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ParametersElement =>
       element instanceof ParametersElement ||
       (hasBasicElementProps(element) &&
         isElementType('parameters', element) &&
@@ -172,7 +176,7 @@ export const isParametersElement = createPredicate(
 
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ReferenceElement =>
       element instanceof ReferenceElement ||
       (hasBasicElementProps(element) &&
         isElementType('reference', element) &&
@@ -180,7 +184,9 @@ export const isReferenceElement = createPredicate(
   },
 );
 
-export const isReferenceElementExternal = (element: any): element is ReferenceElement => {
+export const isReferenceElementExternal: ElementPredicate<ReferenceElement> = (
+  element: unknown,
+): element is ReferenceElement => {
   if (!isReferenceElement(element)) {
     return false;
   }
@@ -192,7 +198,7 @@ export const isReferenceElementExternal = (element: any): element is ReferenceEl
 
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is SchemaElement =>
       element instanceof SchemaElement ||
       (hasBasicElementProps(element) &&
         isElementType('schema', element) &&
@@ -200,13 +206,15 @@ export const isSchemaElement = createPredicate(
   },
 );
 
-export const isBooleanJsonSchemaElement = (element: any) => {
+export const isBooleanJsonSchemaElement: ElementPredicate<BooleanElement> = (
+  element: unknown,
+): element is BooleanElement => {
   return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
 };
 
 export const isSecurityRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is SecurityRequirementElement =>
       element instanceof SecurityRequirementElement ||
       (hasBasicElementProps(element) &&
         isElementType('securityRequirement', element) &&
@@ -216,7 +224,7 @@ export const isSecurityRequirementElement = createPredicate(
 
 export const isServerElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ServerElement =>
       element instanceof ServerElement ||
       (hasBasicElementProps(element) &&
         isElementType('server', element) &&
@@ -226,7 +234,7 @@ export const isServerElement = createPredicate(
 
 export const isServerBindingsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ServerBindingsElement =>
       element instanceof ServerBindingsElement ||
       (hasBasicElementProps(element) &&
         isElementType('serverBindings', element) &&
@@ -236,7 +244,7 @@ export const isServerBindingsElement = createPredicate(
 
 export const isServersElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ServersElement =>
       element instanceof ServersElement ||
       (hasBasicElementProps(element) &&
         isElementType('servers', element) &&
@@ -246,7 +254,7 @@ export const isServersElement = createPredicate(
 
 export const isServerVariableElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ServerVariableElement =>
       element instanceof ServerVariableElement ||
       (hasBasicElementProps(element) &&
         isElementType('serverVariable', element) &&

@@ -1,6 +1,13 @@
 import { assert } from 'chai';
 
-import { filter, createNamespace, isMemberElement, ArraySlice, ObjectElement } from '../../src';
+import {
+  filter,
+  createNamespace,
+  isMemberElement,
+  isElement,
+  ArraySlice,
+  ObjectElement,
+} from '../../src';
 
 const namespace = createNamespace();
 
@@ -17,8 +24,8 @@ describe('traversal', function () {
       });
 
       specify('should find content matching the predicate', function () {
-        const predicate = (element: any): boolean =>
-          isMemberElement(element) && element.key.equals('a');
+        const predicate = (element: unknown): boolean =>
+          isMemberElement(element) && isElement(element.key) && element.key.equals('a');
         const filtered = filter(predicate, objElement);
 
         assert.lengthOf(filtered, 1);

@@ -7,7 +7,7 @@ export { isJSONReferenceElement } from '@swagger-api/apidom-ns-json-schema-draft
 
 export const isJSONSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is JSONSchemaElement =>
       element instanceof JSONSchemaElement ||
       (hasBasicElementProps(element) &&
         isElementType('JSONSchemaDraft7', element) &&
@@ -17,7 +17,7 @@ export const isJSONSchemaElement = createPredicate(
 
 export const isLinkDescriptionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is LinkDescriptionElement =>
       element instanceof LinkDescriptionElement ||
       (hasBasicElementProps(element) &&
         isElementType('linkDescription', element) &&

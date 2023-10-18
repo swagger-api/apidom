@@ -13,6 +13,7 @@ import TagElement from './elements/Tag';
 import SchemaElement from './elements/Schema';
 import XmlElement from './elements/Xml';
 import ReferenceElement from './elements/Reference';
+import ParametersDefinitionsElement from './elements/ParametersDefinitions';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import ScopesElement from './elements/Scopes';
@@ -35,6 +36,7 @@ const openApi2 = {
     base.register('reference', ReferenceElement);
     base.register('schema', SchemaElement);
     base.register('xml', XmlElement);
+    base.register('parametersDefinitions', ParametersDefinitionsElement);
     base.register('securityDefinitions', SecurityDefinitionsElement);
     base.register('securityScheme', SecuritySchemeElement);
     base.register('scopes', ScopesElement);

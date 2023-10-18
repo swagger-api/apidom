@@ -14,6 +14,7 @@ import {
   ReferenceElement,
   SchemaElement,
   XmlElement,
+  ParametersDefinitionsElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
@@ -31,6 +32,7 @@ import {
   isReferenceElement,
   isSchemaElement,
   isXmlElement,
+  isParametersDefinitionsElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
   isScopesElement,
@@ -763,6 +765,62 @@ describe('predicates', function () {
 
       assert.isTrue(isXmlElement(xmlElementDuck));
       assert.isFalse(isXmlElement(xmlElementSwan));
+    });
+  });
+
+  context('isParametersDefinitionsElement', function () {
+    context('given ParametersDefinitionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ParametersDefinitionsElement();
+
+        assert.isTrue(isParametersDefinitionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ParametersDefinitionsSubElement extends ParametersDefinitionsElement {}
+
+        assert.isTrue(isParametersDefinitionsElement(new ParametersDefinitionsSubElement()));
+      });
+    });
+
+    context('given non ParametersDefinitionsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isParametersDefinitionsElement(1));
+        assert.isFalse(isParametersDefinitionsElement(null));
+        assert.isFalse(isParametersDefinitionsElement(undefined));
+        assert.isFalse(isParametersDefinitionsElement({}));
+        assert.isFalse(isParametersDefinitionsElement([]));
+        assert.isFalse(isParametersDefinitionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const parametersDefinitionsElementDuck = {
+        _storedElement: 'parametersDefinitions',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const parametersDefinitionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isParametersDefinitionsElement(parametersDefinitionsElementDuck));
+      assert.isFalse(isParametersDefinitionsElement(parametersDefinitionsElementSwan));
     });
   });
 

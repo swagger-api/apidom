@@ -13,6 +13,7 @@ import TagElement from './elements/Tag';
 import ReferenceElement from './elements/Reference';
 import SchemaElement from './elements/Schema';
 import XmlElement from './elements/Xml';
+import ParametersDefinitionsElement from './elements/ParametersDefinitions';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
@@ -153,6 +154,16 @@ export const isSecurityDefinitionsElement = createPredicate(
       element instanceof SecurityDefinitionsElement ||
       (hasBasicElementProps(element) &&
         isElementType('securityDefinitions', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isParametersDefinitionsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ParametersDefinitionsElement =>
+      element instanceof ParametersDefinitionsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('parametersDefinitions', element) &&
         primitiveEq('object', element));
   },
 );

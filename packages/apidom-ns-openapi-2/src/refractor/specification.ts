@@ -20,6 +20,7 @@ import SchemaItemsVisitor from './visitors/open-api-2/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-2/schema/PropertiesVisitor';
 import SchemaOrJSONReferenceVisitor from './visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor';
 import XmlVisitor from './visitors/open-api-2/xml';
+import ParametersDefinitionsVisitor from './visitors/open-api-2/parameters-definitions';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
 import ScopesVisitor from './visitors/open-api-2/scopes';
@@ -236,6 +237,9 @@ const specification = {
             attribute: FallbackVisitor,
             wrapped: FallbackVisitor,
           },
+        },
+        ParametersDefinitions: {
+          $visitor: ParametersDefinitionsVisitor,
         },
         SecurityDefinitions: {
           $visitor: SecurityDefinitionsVisitor,

@@ -55,7 +55,7 @@
     "@commitlint/cli": "=17.8.0",
     "@commitlint/config-conventional": "=17.8.0",
     "@types/chai": "=4.3.8",
-    "@types/dedent": "=0.7.0",
+    "@types/dedent": "=0.7.1",
     "@types/mocha": "=10.0.2",
     "@types/node": "=20.8.5",
     "@types/sinon": "=10.0.19",

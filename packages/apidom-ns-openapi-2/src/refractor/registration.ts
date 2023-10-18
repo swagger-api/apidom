@@ -4,6 +4,7 @@ import ContactElement from '../elements/Contact';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import ParameterElement from '../elements/Parameter';
 import ItemsElement from '../elements/Items';
+import ResponseElement from '../elements/Response';
 import HeadersElement from '../elements/Headers';
 import ExampleElement from '../elements/Example';
 import HeaderElement from '../elements/Header';
@@ -50,6 +51,13 @@ ParameterElement.refract = createRefractor([
   '$visitor',
 ]);
 ItemsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Items', '$visitor']);
+ResponseElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Response',
+  '$visitor',
+]);
 HeadersElement.refract = createRefractor([
   'visitors',
   'document',
@@ -119,6 +127,7 @@ export {
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,
+  ResponseElement,
   HeadersElement,
   ExampleElement,
   HeaderElement,

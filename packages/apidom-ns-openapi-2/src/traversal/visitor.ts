@@ -26,6 +26,7 @@ export const keyMap = {
   ParameterElement: ['content'],
   ItemsElement: ['content'],
   ExampleElement: ['content'],
+  ResponseElement: ['content'],
   HeadersElement: ['content'],
   HeaderElement: ['content'],
   TagElement: ['content'],

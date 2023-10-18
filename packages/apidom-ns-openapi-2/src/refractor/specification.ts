@@ -8,6 +8,8 @@ import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ParameterVisitor from './visitors/open-api-2/parameter';
 import ItemsVisitor from './visitors/open-api-2/items';
+import ResponsesVisitor from './visitors/open-api-2/responses';
+import ResponsesDefaultVisitor from './visitors/open-api-2/responses/DefaultVisitor';
 import ResponseVisitor from './visitors/open-api-2/response';
 import HeadersVisitor from './visitors/open-api-2/headers';
 import ExampleVisitor from './visitors/open-api-2/example';
@@ -135,6 +137,12 @@ const specification = {
             uniqueItems: jsonSchemaFixedFields.uniqueItems,
             enum: jsonSchemaFixedFields.enum,
             multipleOf: jsonSchemaFixedFields.multipleOf,
+          },
+        },
+        Responses: {
+          $visitor: ResponsesVisitor,
+          fixedFields: {
+            default: ResponsesDefaultVisitor,
           },
         },
         Response: {

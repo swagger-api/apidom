@@ -8,22 +8,22 @@ interface PredicateHelpers {
   hasClass: typeof hasClass;
 }
 
-type BasicElementShape = {
+interface ElementBasicsTrait {
   _storedElement: string;
   _content: unknown;
-};
+}
 
-type PrimitiveShape = {
+interface ElementPrimitiveBehavior {
   primitive: () => unknown;
-};
+}
 
-type ElementShape<T = string> = {
+interface ElementTypeTrait<T = string> {
   element: T;
-};
+}
 
-type ElementClassesShape = {
+interface ElementClassesTrait {
   classes: ArrayElement | Array<string>;
-};
+}
 
 type PredicateCreator<T extends Element> = (helpers: PredicateHelpers) => ElementPredicate<T>;
 
@@ -41,21 +41,21 @@ const hasMethod = <T extends string>(
   );
 };
 
-const hasBasicElementProps = (element: unknown): element is BasicElementShape =>
+const hasBasicElementProps = (element: unknown): element is ElementBasicsTrait =>
   typeof element === 'object' &&
   element != null &&
   '_storedElement' in element &&
   typeof element._storedElement === 'string' && // eslint-disable-line no-underscore-dangle
   '_content' in element;
 
-const primitiveEq = (val: unknown, element: unknown): element is PrimitiveShape => {
+const primitiveEq = (val: unknown, element: unknown): element is ElementPrimitiveBehavior => {
   if (typeof element === 'object' && element !== null && 'primitive' in element) {
     return typeof element.primitive === 'function' && element.primitive() === val;
   }
   return false;
 };
 
-const hasClass = (cls: string, element: unknown): element is ElementClassesShape => {
+const hasClass = (cls: string, element: unknown): element is ElementClassesTrait => {
   return (
     typeof element === 'object' &&
     element !== null &&
@@ -65,7 +65,7 @@ const hasClass = (cls: string, element: unknown): element is ElementClassesShape
   );
 };
 
-export const isElementType = (name: string, element: unknown): element is ElementShape =>
+export const isElementType = (name: string, element: unknown): element is ElementTypeTrait =>
   typeof element === 'object' &&
   element !== null &&
   'element' in element &&

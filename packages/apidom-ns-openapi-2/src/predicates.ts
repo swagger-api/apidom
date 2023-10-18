@@ -7,6 +7,7 @@ import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
 import ExampleElement from './elements/Example';
+import ResponsesElement from './elements/Responses';
 import ResponseElement from './elements/Response';
 import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
@@ -77,6 +78,16 @@ export const isItemsElement = createPredicate(
       element instanceof ItemsElement ||
       (hasBasicElementProps(element) &&
         isElementType('items', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isResponsesElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ResponsesElement =>
+      element instanceof ResponsesElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('responses', element) &&
         primitiveEq('object', element));
   },
 );

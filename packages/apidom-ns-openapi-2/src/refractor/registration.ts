@@ -11,6 +11,7 @@ import TagElement from '../elements/Tag';
 import ReferenceElement from '../elements/Reference';
 import SchemaElement from '../elements/Schema';
 import XmlElement from '../elements/Xml';
+import DefinitionsElement from '../elements/Definitions';
 import ParametersDefinitionsElement from '../elements/ParametersDefinitions';
 import SecurityDefinitionsElement from '../elements/SecurityDefinitions';
 import SecuritySchemeElement from '../elements/SecurityScheme';
@@ -74,6 +75,13 @@ ReferenceElement.refract = createRefractor([
 ]);
 SchemaElement.refract = createRefractor(['visitors', 'document', 'objects', 'Schema', '$visitor']);
 XmlElement.refract = createRefractor(['visitors', 'document', 'objects', 'XML', '$visitor']);
+DefinitionsElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Definitions',
+  '$visitor',
+]);
 ParametersDefinitionsElement.refract = createRefractor([
   'visitors',
   'document',
@@ -118,6 +126,7 @@ export {
   ReferenceElement,
   SchemaElement,
   XmlElement,
+  DefinitionsElement,
   ParametersDefinitionsElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,

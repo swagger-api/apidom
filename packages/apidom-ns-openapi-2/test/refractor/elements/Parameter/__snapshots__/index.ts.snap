@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements ParameterElement given schema keyword in form of object with $ref property should refract to semantic ApiDOM tree 1`] = `
+(ParameterElement
+  (MemberElement
+    (StringElement)
+    (JSONReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
 exports[`refractor elements ParameterElement should refract to semantic ApiDOM tree 1`] = `
 (ParameterElement
   (MemberElement

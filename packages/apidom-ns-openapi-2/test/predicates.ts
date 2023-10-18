@@ -14,6 +14,7 @@ import {
   ReferenceElement,
   SchemaElement,
   XmlElement,
+  DefinitionsElement,
   ParametersDefinitionsElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
@@ -32,6 +33,7 @@ import {
   isReferenceElement,
   isSchemaElement,
   isXmlElement,
+  isDefinitionsElement,
   isParametersDefinitionsElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
@@ -765,6 +767,62 @@ describe('predicates', function () {
 
       assert.isTrue(isXmlElement(xmlElementDuck));
       assert.isFalse(isXmlElement(xmlElementSwan));
+    });
+  });
+
+  context('isDefinitionsElement', function () {
+    context('given DefinitionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new DefinitionsElement();
+
+        assert.isTrue(isDefinitionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class DefinitionsSubElement extends DefinitionsElement {}
+
+        assert.isTrue(isDefinitionsElement(new DefinitionsSubElement()));
+      });
+    });
+
+    context('given non DefinitionsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isDefinitionsElement(1));
+        assert.isFalse(isDefinitionsElement(null));
+        assert.isFalse(isDefinitionsElement(undefined));
+        assert.isFalse(isDefinitionsElement({}));
+        assert.isFalse(isDefinitionsElement([]));
+        assert.isFalse(isDefinitionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const definitionsElementDuck = {
+        _storedElement: 'definitions',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const definitionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isDefinitionsElement(definitionsElementDuck));
+      assert.isFalse(isDefinitionsElement(definitionsElementSwan));
     });
   });
 

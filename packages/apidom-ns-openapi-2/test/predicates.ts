@@ -7,6 +7,7 @@ import {
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,
+  ResponseElement,
   HeadersElement,
   ExampleElement,
   HeaderElement,
@@ -26,6 +27,7 @@ import {
   isExternalDocumentationElement,
   isParameterElement,
   isItemsElement,
+  isResponseElement,
   isHeadersElement,
   isExampleElement,
   isHeaderElement,
@@ -375,6 +377,62 @@ describe('predicates', function () {
 
       assert.isTrue(isItemsElement(itemsElementDuck));
       assert.isFalse(isItemsElement(itemsElementSwan));
+    });
+  });
+
+  context('isResponseElement', function () {
+    context('given ResponseElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ResponseElement();
+
+        assert.isTrue(isResponseElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ResponseSubElement extends ResponseElement {}
+
+        assert.isTrue(isResponseElement(new ResponseSubElement()));
+      });
+    });
+
+    context('given non ResponseSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isResponseElement(1));
+        assert.isFalse(isResponseElement(null));
+        assert.isFalse(isResponseElement(undefined));
+        assert.isFalse(isResponseElement({}));
+        assert.isFalse(isResponseElement([]));
+        assert.isFalse(isResponseElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const responseElementDuck = {
+        _storedElement: 'response',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const responseElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isResponseElement(responseElementDuck));
+      assert.isFalse(isResponseElement(responseElementSwan));
     });
   });
 

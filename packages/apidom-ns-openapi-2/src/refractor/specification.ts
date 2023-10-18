@@ -8,6 +8,7 @@ import ContactVisitor from './visitors/open-api-2/contact';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ParameterVisitor from './visitors/open-api-2/parameter';
 import ItemsVisitor from './visitors/open-api-2/items';
+import ResponseVisitor from './visitors/open-api-2/response';
 import HeadersVisitor from './visitors/open-api-2/headers';
 import ExampleVisitor from './visitors/open-api-2/example';
 import HeaderVisitor from './visitors/open-api-2/header';
@@ -133,6 +134,19 @@ const specification = {
             uniqueItems: jsonSchemaFixedFields.uniqueItems,
             enum: jsonSchemaFixedFields.enum,
             multipleOf: jsonSchemaFixedFields.multipleOf,
+          },
+        },
+        Response: {
+          $visitor: ResponseVisitor,
+          fixedFields: {
+            description: FallbackVisitor,
+            schema: SchemaOrJSONReferenceVisitor,
+            headers: {
+              $ref: '#/visitors/document/objects/Headers',
+            },
+            examples: {
+              $ref: '#/visitors/document/objects/Example',
+            },
           },
         },
         Headers: {

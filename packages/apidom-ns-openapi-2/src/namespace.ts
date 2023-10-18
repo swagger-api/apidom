@@ -7,6 +7,7 @@ import ExternalDocumentation from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
 import ExampleElement from './elements/Example';
+import ResponseElement from './elements/Response';
 import HeadersElement from './elements/Headers';
 import HeaderElement from './elements/Header';
 import TagElement from './elements/Tag';
@@ -30,6 +31,7 @@ const openApi2 = {
     base.register('externalDocumentation', ExternalDocumentation);
     base.register('parameter', ParameterElement);
     base.register('items', ItemsElement);
+    base.register('response', ResponseElement);
     base.register('headers', HeadersElement);
     base.register('example', ExampleElement);
     base.register('header', HeaderElement);

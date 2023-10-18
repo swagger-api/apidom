@@ -5,7 +5,7 @@ import { SecurityDefinitionsElement } from '../../../../src';
 
 describe('refractor', function () {
   context('elements', function () {
-    context('SecurityDefinitions', function () {
+    context('SecurityDefinitionsElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const securityDefinitionsElement = SecurityDefinitionsElement.refract({
           api_key: {},

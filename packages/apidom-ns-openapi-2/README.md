@@ -205,7 +205,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-schema-object)
 - [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-xml-object)
 - [ ] [Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-definitions-object)
-- [ ] [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paramters-definitions-object)
+- [x] [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paramters-definitions-object)
 - [ ] [Responses Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-responses-definitions-object)
 - [x] [Security Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-definitions-object)
 - [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-scheme-object)

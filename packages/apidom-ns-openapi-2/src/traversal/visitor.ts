@@ -33,6 +33,7 @@ export const keyMap = {
   JSONReferenceElement: ['content'],
   SchemaElement: ['content'],
   XmlElement: ['content'],
+  ParametersDefinitionsElement: ['content'],
   SecurityDefinitionsElement: ['content'],
   SecuritySchemeElement: ['content'],
   ScopesElement: ['content'],

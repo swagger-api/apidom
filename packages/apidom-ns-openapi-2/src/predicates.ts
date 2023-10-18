@@ -16,6 +16,7 @@ import SchemaElement from './elements/Schema';
 import XmlElement from './elements/Xml';
 import DefinitionsElement from './elements/Definitions';
 import ParametersDefinitionsElement from './elements/ParametersDefinitions';
+import ResponsesDefinitionsElement from './elements/ResponsesDefinitions';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
@@ -156,6 +157,16 @@ export const isXmlElement = createPredicate(
       element instanceof XmlElement ||
       (hasBasicElementProps(element) &&
         isElementType('xml', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isResponsesDefinitionsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ResponsesDefinitionsElement =>
+      element instanceof ResponsesDefinitionsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('responsesDefinitions', element) &&
         primitiveEq('object', element));
   },
 );

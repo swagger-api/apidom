@@ -20,6 +20,7 @@ import SchemaItemsVisitor from './visitors/open-api-2/schema/ItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-2/schema/PropertiesVisitor';
 import SchemaOrJSONReferenceVisitor from './visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor';
 import XmlVisitor from './visitors/open-api-2/xml';
+import DefinitionsVisitor from './visitors/open-api-2/definitions';
 import ParametersDefinitionsVisitor from './visitors/open-api-2/parameters-definitions';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -88,9 +89,7 @@ const specification = {
             in: FallbackVisitor,
             description: jsonSchemaFixedFields.description,
             required: jsonSchemaFixedFields.required,
-            schema: {
-              $ref: '#/visitors/document/objects/Schema',
-            },
+            schema: SchemaOrJSONReferenceVisitor,
             type: jsonSchemaFixedFields.type,
             format: jsonSchemaFixedFields.format,
             items: {
@@ -237,6 +236,9 @@ const specification = {
             attribute: FallbackVisitor,
             wrapped: FallbackVisitor,
           },
+        },
+        Definitions: {
+          $visitor: DefinitionsVisitor,
         },
         ParametersDefinitions: {
           $visitor: ParametersDefinitionsVisitor,

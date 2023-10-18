@@ -20,6 +20,16 @@ describe('refractor', function () {
         expect(sexprs(parameterElement)).toMatchSnapshot();
       });
 
+      context('given schema keyword in form of object with $ref property', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const parameterElement = ParameterElement.refract({
+            schema: { $ref: '#/pointer' },
+          });
+
+          expect(sexprs(parameterElement)).toMatchSnapshot();
+        });
+      });
+
       specify('should support specification extensions', function () {
         const parameterElement = ParameterElement.refract({
           type: 'array',

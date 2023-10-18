@@ -7,7 +7,7 @@ import {
   isObjectElement,
 } from '@swagger-api/apidom-core';
 
-interface ReferenceLikeElement extends ObjectElement {
+export interface ReferenceLikeElement extends ObjectElement {
   hasKey: (value: '$ref') => true;
 }
 

@@ -16,6 +16,7 @@ import XmlElement from './elements/Xml';
 import ReferenceElement from './elements/Reference';
 import DefinitionsElement from './elements/Definitions';
 import ParametersDefinitionsElement from './elements/ParametersDefinitions';
+import ResponsesDefinitionsElement from './elements/ResponsesDefinitions';
 import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import ScopesElement from './elements/Scopes';
@@ -41,6 +42,7 @@ const openApi2 = {
     base.register('xml', XmlElement);
     base.register('definitions', DefinitionsElement);
     base.register('parametersDefinitions', ParametersDefinitionsElement);
+    base.register('responsesDefinitions', ResponsesDefinitionsElement);
     base.register('securityDefinitions', SecurityDefinitionsElement);
     base.register('securityScheme', SecuritySchemeElement);
     base.register('scopes', ScopesElement);

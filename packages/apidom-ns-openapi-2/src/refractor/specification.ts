@@ -22,6 +22,7 @@ import SchemaPropertiesVisitor from './visitors/open-api-2/schema/PropertiesVisi
 import SchemaOrJSONReferenceVisitor from './visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor';
 import XmlVisitor from './visitors/open-api-2/xml';
 import DefinitionsVisitor from './visitors/open-api-2/definitions';
+import ResponsesDefinitionsVisitor from './visitors/open-api-2/responses-definitions';
 import ParametersDefinitionsVisitor from './visitors/open-api-2/parameters-definitions';
 import SecurityDefinitionsVisitor from './visitors/open-api-2/security-definitions';
 import SecuritySchemeVisitor from './visitors/open-api-2/security-scheme';
@@ -256,6 +257,9 @@ const specification = {
         },
         ParametersDefinitions: {
           $visitor: ParametersDefinitionsVisitor,
+        },
+        ResponsesDefinitions: {
+          $visitor: ResponsesDefinitionsVisitor,
         },
         SecurityDefinitions: {
           $visitor: SecurityDefinitionsVisitor,

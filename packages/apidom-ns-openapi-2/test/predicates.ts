@@ -17,6 +17,7 @@ import {
   XmlElement,
   DefinitionsElement,
   ParametersDefinitionsElement,
+  ResponsesDefinitionsElement,
   SecurityDefinitionsElement,
   SecuritySchemeElement,
   ScopesElement,
@@ -37,6 +38,7 @@ import {
   isXmlElement,
   isDefinitionsElement,
   isParametersDefinitionsElement,
+  isResponsesDefinitionsElement,
   isSecurityDefinitionsElement,
   isSecuritySchemeElement,
   isScopesElement,
@@ -937,6 +939,62 @@ describe('predicates', function () {
 
       assert.isTrue(isParametersDefinitionsElement(parametersDefinitionsElementDuck));
       assert.isFalse(isParametersDefinitionsElement(parametersDefinitionsElementSwan));
+    });
+  });
+
+  context('isResponsesDefinitionsElement', function () {
+    context('given ResponsesDefinitionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ResponsesDefinitionsElement();
+
+        assert.isTrue(isResponsesDefinitionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ResponsesDefinitionsSubElement extends ResponsesDefinitionsElement {}
+
+        assert.isTrue(isResponsesDefinitionsElement(new ResponsesDefinitionsSubElement()));
+      });
+    });
+
+    context('given non ResponsesDefinitionsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isResponsesDefinitionsElement(1));
+        assert.isFalse(isResponsesDefinitionsElement(null));
+        assert.isFalse(isResponsesDefinitionsElement(undefined));
+        assert.isFalse(isResponsesDefinitionsElement({}));
+        assert.isFalse(isResponsesDefinitionsElement([]));
+        assert.isFalse(isResponsesDefinitionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const responsesDefinitionsElementDuck = {
+        _storedElement: 'responsesDefinitions',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const responsesDefinitionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isResponsesDefinitionsElement(responsesDefinitionsElementDuck));
+      assert.isFalse(isResponsesDefinitionsElement(responsesDefinitionsElementSwan));
     });
   });
 

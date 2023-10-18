@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements ResponsesDefinitionsElement should refract to semantic ApiDOM tree 1`] = `
+(ResponsesDefinitionsElement
+  (MemberElement
+    (StringElement)
+    (ResponseElement))
+  (MemberElement
+    (StringElement)
+    (ResponseElement)))
+`;

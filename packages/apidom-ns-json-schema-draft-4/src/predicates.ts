@@ -7,7 +7,7 @@ import LinkDescriptionElement from './elements/LinkDescription';
 
 export const isJSONSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is JSONSchemaElement =>
       element instanceof JSONSchemaElement ||
       (hasBasicElementProps(element) &&
         isElementType('JSONSchemaDraft4', element) &&
@@ -17,7 +17,7 @@ export const isJSONSchemaElement = createPredicate(
 
 export const isJSONReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is JSONReferenceElement =>
       element instanceof JSONReferenceElement ||
       (hasBasicElementProps(element) &&
         isElementType('JSONReference', element) &&
@@ -27,7 +27,7 @@ export const isJSONReferenceElement = createPredicate(
 
 export const isMediaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is MediaElement =>
       element instanceof MediaElement ||
       (hasBasicElementProps(element) &&
         isElementType('media', element) &&
@@ -37,7 +37,7 @@ export const isMediaElement = createPredicate(
 
 export const isLinkDescriptionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is LinkDescriptionElement =>
       element instanceof LinkDescriptionElement ||
       (hasBasicElementProps(element) &&
         isElementType('linkDescription', element) &&

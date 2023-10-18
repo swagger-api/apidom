@@ -11,7 +11,7 @@ import StandardIdentifierElement from './elements/StandardIdentifier';
 
 export const isMainElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is MainElement =>
       element instanceof MainElement ||
       (hasBasicElementProps(element) &&
         isElementType('main', element) &&
@@ -21,7 +21,7 @@ export const isMainElement = createPredicate(
 
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is InfoElement =>
       element instanceof InfoElement ||
       (hasBasicElementProps(element) &&
         isElementType('info', element) &&
@@ -31,7 +31,7 @@ export const isInfoElement = createPredicate(
 
 export const isPrincipleElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is PrincipleElement =>
       element instanceof PrincipleElement ||
       (hasBasicElementProps(element) &&
         isElementType('principle', element) &&
@@ -41,7 +41,7 @@ export const isPrincipleElement = createPredicate(
 
 export const isRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is RequirementElement =>
       element instanceof RequirementElement ||
       (hasBasicElementProps(element) &&
         isElementType('requirement', element) &&
@@ -51,7 +51,7 @@ export const isRequirementElement = createPredicate(
 
 export const isRequirementLevelElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is RequirementLevelElement =>
       element instanceof RequirementLevelElement ||
       (hasBasicElementProps(element) &&
         isElementType('requirementLevel', element) &&
@@ -61,7 +61,7 @@ export const isRequirementLevelElement = createPredicate(
 
 export const isScenarioElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ScenarioElement =>
       element instanceof ScenarioElement ||
       (hasBasicElementProps(element) &&
         isElementType('scenario', element) &&
@@ -71,7 +71,7 @@ export const isScenarioElement = createPredicate(
 
 export const isStandardElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is StandardElement =>
       element instanceof StandardElement ||
       (hasBasicElementProps(element) &&
         isElementType('standard', element) &&
@@ -81,7 +81,7 @@ export const isStandardElement = createPredicate(
 
 export const isStandardIdentifierElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is StandardIdentifierElement =>
       element instanceof StandardIdentifierElement ||
       (hasBasicElementProps(element) &&
         isElementType('standardIdentifier', element) &&

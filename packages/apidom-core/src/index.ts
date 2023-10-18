@@ -43,6 +43,7 @@ export {
   includesSymbols,
   includesClasses,
 } from './predicates/index';
+export type { ElementPredicate } from './predicates/helpers';
 export { default as createPredicate } from './predicates/helpers';
 
 export { filter, reject, find, findAtOffset, some, traverse, parents } from './traversal/index';

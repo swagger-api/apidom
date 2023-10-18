@@ -18,40 +18,41 @@ import CommentElement from '../elements/Comment';
 import ParserResultElement from '../elements/ParseResult';
 import SourceMapElement from '../elements/SourceMap';
 import createPredicate, { isElementType as isElementTypeHelper } from './helpers';
+import type { ElementPredicate } from './helpers';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  return (element: any) =>
+  return (element: unknown): element is Element =>
     element instanceof Element ||
     (hasBasicElementProps(element) && primitiveEq(undefined, element));
 });
 
 export const isStringElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  return (element: any) =>
+  return (element: unknown): element is StringElement =>
     element instanceof StringElement ||
     (hasBasicElementProps(element) && primitiveEq('string', element));
 });
 
 export const isNumberElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  return (element: any) =>
+  return (element: unknown): element is NumberElement =>
     element instanceof NumberElement ||
     (hasBasicElementProps(element) && primitiveEq('number', element));
 });
 
 export const isNullElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  return (element: any) =>
+  return (element: unknown): element is NullElement =>
     element instanceof NullElement ||
     (hasBasicElementProps(element) && primitiveEq('null', element));
 });
 
 export const isBooleanElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
-  return (element: any) =>
+  return (element: unknown): element is BooleanElement =>
     element instanceof BooleanElement ||
     (hasBasicElementProps(element) && primitiveEq('boolean', element));
 });
 
 export const isObjectElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
-    return (element: any) =>
+    return (element: unknown): element is ObjectElement =>
       element instanceof ObjectElement ||
       (hasBasicElementProps(element) &&
         primitiveEq('object', element) &&
@@ -63,7 +64,7 @@ export const isObjectElement = createPredicate(
 
 export const isArrayElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
-    return (element: any) =>
+    return (element: unknown): element is ArrayElement =>
       (element instanceof ArrayElement && !(element instanceof ObjectElement)) ||
       (hasBasicElementProps(element) &&
         primitiveEq('array', element) &&
@@ -76,7 +77,7 @@ export const isArrayElement = createPredicate(
 
 export const isMemberElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is MemberElement =>
       element instanceof MemberElement ||
       (hasBasicElementProps(element) &&
         isElementType('member', element) &&
@@ -86,7 +87,7 @@ export const isMemberElement = createPredicate(
 
 export const isLinkElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is LinkElement =>
       element instanceof LinkElement ||
       (hasBasicElementProps(element) &&
         isElementType('link', element) &&
@@ -96,7 +97,7 @@ export const isLinkElement = createPredicate(
 
 export const isRefElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is RefElement =>
       element instanceof RefElement ||
       (hasBasicElementProps(element) &&
         isElementType('ref', element) &&
@@ -106,7 +107,7 @@ export const isRefElement = createPredicate(
 
 export const isAnnotationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is AnnotationElement =>
       element instanceof AnnotationElement ||
       (hasBasicElementProps(element) &&
         isElementType('annotation', element) &&
@@ -116,7 +117,7 @@ export const isAnnotationElement = createPredicate(
 
 export const isCommentElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is CommentElement =>
       element instanceof CommentElement ||
       (hasBasicElementProps(element) &&
         isElementType('comment', element) &&
@@ -126,7 +127,7 @@ export const isCommentElement = createPredicate(
 
 export const isParseResultElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is ParserResultElement =>
       element instanceof ParserResultElement ||
       (hasBasicElementProps(element) &&
         isElementType('parseResult', element) &&
@@ -136,7 +137,7 @@ export const isParseResultElement = createPredicate(
 
 export const isSourceMapElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: any) =>
+    return (element: unknown): element is SourceMapElement =>
       element instanceof SourceMapElement ||
       (hasBasicElementProps(element) &&
         isElementType('sourceMap', element) &&
@@ -144,7 +145,18 @@ export const isSourceMapElement = createPredicate(
   },
 );
 
-export const isPrimitiveElement = (element: any): boolean => {
+type PrimitiveElement =
+  | ObjectElement
+  | ArrayElement
+  | BooleanElement
+  | NumberElement
+  | StringElement
+  | NullElement
+  | MemberElement;
+
+export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
+  element: unknown,
+): element is PrimitiveElement => {
   return (
     isElementTypeHelper('object', element) ||
     isElementTypeHelper('array', element) ||
@@ -156,8 +168,8 @@ export const isPrimitiveElement = (element: any): boolean => {
   );
 };
 
-export const hasElementSourceMap = (element: any): boolean => {
-  return isSourceMapElement(element?.meta?.get?.('sourceMap'));
+export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
+  return isSourceMapElement(element.meta.get('sourceMap'));
 };
 
 export const includesSymbols = <T extends Element>(symbols: string[], element: T): boolean => {

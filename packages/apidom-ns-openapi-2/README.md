@@ -201,6 +201,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-header-object)
 - [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-tag-object)
 - [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-reference-object)
+- [x] [JSON Reference Object](https://datatracker.ietf.org/doc/html/draft-pbryan-zyp-json-ref-02)
 - [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-schema-object)
 - [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-xml-object)
 - [ ] [Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-definitions-object)

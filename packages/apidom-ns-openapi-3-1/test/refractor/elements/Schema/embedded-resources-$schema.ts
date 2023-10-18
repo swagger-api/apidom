@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, find, toValue } from '@swagger-api/apidom-core';
+import { ObjectElement, find, toValue, isElement } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 
 import {
@@ -135,7 +135,7 @@ describe('refractor', function () {
 
           specify('should annotate Schema Object($id=1) with appropriate dialect', function () {
             const schemaElement = find(
-              (e) => isSchemaElement(e) && e.$id.equals('1'),
+              (e) => isSchemaElement(e) && isElement(e.$id) && e.$id.equals('1'),
               openApiElement,
             );
             const actual = toValue(schemaElement?.meta.get('inherited$schema'));
@@ -146,7 +146,7 @@ describe('refractor', function () {
 
           specify('should not annotate Schema Object($id=2) with any dialect', function () {
             const schemaElement = find(
-              (e) => isSchemaElement(e) && e.$id.equals('2'),
+              (e) => isSchemaElement(e) && isElement(e.$id) && e.$id.equals('2'),
               openApiElement,
             );
             // @ts-ignore
@@ -159,7 +159,7 @@ describe('refractor', function () {
 
           specify('should annotate Schema Object($id=3) with appropriate dialect', function () {
             const schemaElement = find(
-              (e) => isSchemaElement(e) && e.$id.equals('3'),
+              (e) => isSchemaElement(e) && isElement(e.$id) && e.$id.equals('3'),
               openApiElement,
             );
             const actual = toValue(schemaElement?.meta.get('inherited$schema'));
@@ -170,7 +170,7 @@ describe('refractor', function () {
 
           specify('should annotate Schema Object($id=4) with appropriate dialect', function () {
             const schemaElement = find(
-              (e) => isSchemaElement(e) && e.$id.equals('4'),
+              (e) => isSchemaElement(e) && isElement(e.$id) && e.$id.equals('4'),
               openApiElement,
             );
             const actual = toValue(schemaElement?.meta.get('inherited$schema'));

@@ -63,7 +63,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const elementDuck = {
-        _storedElement: undefined,
+        _storedElement: 'element',
         _content: undefined,
         primitive() {
           return undefined;

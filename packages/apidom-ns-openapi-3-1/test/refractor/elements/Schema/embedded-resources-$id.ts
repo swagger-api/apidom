@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, find, toValue } from '@swagger-api/apidom-core';
+import { ObjectElement, find, toValue, isElement } from '@swagger-api/apidom-core';
 
 import { isSchemaElement, OpenApi3_1Element } from '../../../../src';
 
@@ -49,7 +49,7 @@ describe('refractor', function () {
               });
               const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
               const schemaElement = find(
-                (e) => isSchemaElement(e) && e.$anchor && e.$anchor.equals('1'),
+                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
                 openApiElement,
               );
               const actual = toValue(schemaElement?.meta.get('inherited$id'));
@@ -91,7 +91,7 @@ describe('refractor', function () {
 
             specify('should annotate Schema Object($anchor=1) with inherited$id', function () {
               const schemaElement = find(
-                (e) => isSchemaElement(e) && e.$anchor.equals('1'),
+                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
                 openApiElement,
               );
               const actual = toValue(schemaElement?.meta.get('inherited$id'));
@@ -101,7 +101,7 @@ describe('refractor', function () {
 
             specify('should annotate Schema Object($anchor=2) with inherited$id', function () {
               const schemaElement = find(
-                (e) => isSchemaElement(e) && e.$anchor.equals('2'),
+                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
                 openApiElement,
               );
               const actual = toValue(schemaElement?.meta.get('inherited$id'));
@@ -111,7 +111,7 @@ describe('refractor', function () {
 
             specify('should annotate Schema Object($anchor=3) with inherited$id', function () {
               const schemaElement = find(
-                (e) => isSchemaElement(e) && e.$anchor.equals('3'),
+                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
                 openApiElement,
               );
               const actual = toValue(schemaElement?.meta.get('inherited$id'));
@@ -121,7 +121,7 @@ describe('refractor', function () {
 
             specify('should not annotate Schema Object($anchor=4) with inherited$id', function () {
               const schemaElement = find(
-                (e) => isSchemaElement(e) && e.$anchor.equals('4'),
+                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('4'),
                 openApiElement,
               );
               const actual = toValue(schemaElement?.meta.get('inherited$id'));

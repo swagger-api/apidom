@@ -3,6 +3,7 @@ import { createPredicate } from '@swagger-api/apidom-core';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
+import OperationElement from './elements/Operation';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
@@ -52,6 +53,17 @@ export const isContactElement = createPredicate(
         primitiveEq('object', element));
   },
 );
+
+export const isOperationElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is OperationElement =>
+      element instanceof OperationElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('operation', element) &&
+        primitiveEq('object', element));
+  },
+);
+
 export const isExternalDocumentationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ExternalDocumentationElement =>

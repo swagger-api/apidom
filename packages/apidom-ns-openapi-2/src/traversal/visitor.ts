@@ -22,6 +22,7 @@ export const keyMap = {
   InfoElement: ['content'],
   LicenseElement: ['content'],
   ContactElement: ['content'],
+  PathItemElement: ['content'],
   OperationElement: ['content'],
   ExternalDocumentationElement: ['content'],
   ParameterElement: ['content'],

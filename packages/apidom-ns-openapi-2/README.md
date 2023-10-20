@@ -189,7 +189,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-contact-object)
 - [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-license-object)
 - [ ] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paths-object)
-- [ ] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-path-item-object)
+- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-path-item-object)
 - [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-operation-object)
 - [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-external-documentation-object)
 - [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-parameter-object)

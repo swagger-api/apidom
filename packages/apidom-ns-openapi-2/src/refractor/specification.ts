@@ -5,6 +5,9 @@ import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
+import PathItemVisitor from './visitors/open-api-2/path-item';
+import PathItem$RefVisitor from './visitors/open-api-2/path-item/$RefVisitor';
+import PathItemParametersVisitor from './visitors/open-api-2/path-item/ParametersVisitor';
 import OperationVisitor from './visitors/open-api-2/operation';
 import OperationTagsVisitor from './visitors/open-api-2/operation/TagsVisitor';
 import OperationConsumesVisitor from './visitors/open-api-2/operation/ConsumesVisitor';
@@ -90,6 +93,34 @@ const specification = {
             name: { $ref: '#/visitors/value' },
             url: { $ref: '#/visitors/value' },
             email: { $ref: '#/visitors/value' },
+          },
+        },
+        PathItem: {
+          $visitor: PathItemVisitor,
+          fixedFields: {
+            $ref: PathItem$RefVisitor,
+            get: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            put: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            post: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            delete: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            options: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            head: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            patch: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            parameters: PathItemParametersVisitor,
           },
         },
         Operation: {

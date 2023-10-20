@@ -3,6 +3,7 @@ import { createPredicate } from '@swagger-api/apidom-core';
 import InfoElement from './elements/Info';
 import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
+import PathItemElement from './elements/PathItem';
 import OperationElement from './elements/Operation';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
@@ -50,6 +51,16 @@ export const isContactElement = createPredicate(
       element instanceof ContactElement ||
       (hasBasicElementProps(element) &&
         isElementType('contact', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isPathItemElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is PathItemElement =>
+      element instanceof PathItemElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('pathItem', element) &&
         primitiveEq('object', element));
   },
 );

@@ -4,6 +4,7 @@ import {
   InfoElement,
   LicenseElement,
   ContactElement,
+  OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,
@@ -26,6 +27,7 @@ import {
   isInfoElement,
   isLicenseElement,
   isContactElement,
+  isOperationElement,
   isExternalDocumentationElement,
   isParameterElement,
   isItemsElement,
@@ -213,6 +215,62 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(contactElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isOperationElement', function () {
+    context("given OperationElement instance value with element 'get'", function () {
+      specify('should return true', function () {
+        const element = new OperationElement();
+
+        assert.isTrue(isOperationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class OperationSubElement extends OperationElement {}
+
+        assert.isTrue(isOperationElement(new OperationSubElement()));
+      });
+    });
+
+    context('given non OperationSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isOperationElement(1));
+        assert.isFalse(isOperationElement(null));
+        assert.isFalse(isOperationElement(undefined));
+        assert.isFalse(isOperationElement({}));
+        assert.isFalse(isOperationElement([]));
+        assert.isFalse(isOperationElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const operationElementDuck = {
+        _storedElement: 'operation',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const operationElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isOperationElement(operationElementDuck));
+      assert.isFalse(isOperationElement(operationElementSwan));
     });
   });
 

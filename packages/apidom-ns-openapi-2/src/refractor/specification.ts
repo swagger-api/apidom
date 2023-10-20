@@ -5,6 +5,13 @@ import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
+import OperationVisitor from './visitors/open-api-2/operation';
+import OperationTagsVisitor from './visitors/open-api-2/operation/TagsVisitor';
+import OperationConsumesVisitor from './visitors/open-api-2/operation/ConsumesVisitor';
+import OperationProducesVisitor from './visitors/open-api-2/operation/ProducesVisitor';
+import OperationParametersVisitor from './visitors/open-api-2/operation/ParametersVisitor';
+import OperationSchemesVisitor from './visitors/open-api-2/operation/SchemesVisitor';
+import OperationSecurityVisitor from './visitors/open-api-2/operation/SecurityVisitor';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ParameterVisitor from './visitors/open-api-2/parameter';
 import ItemsVisitor from './visitors/open-api-2/items';
@@ -77,6 +84,27 @@ const specification = {
             name: FallbackVisitor,
             url: FallbackVisitor,
             email: FallbackVisitor,
+          },
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fixedFields: {
+            tags: OperationTagsVisitor,
+            summary: FallbackVisitor,
+            description: FallbackVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            operationId: FallbackVisitor,
+            consumes: OperationConsumesVisitor,
+            produces: OperationProducesVisitor,
+            parameters: OperationParametersVisitor,
+            responses: {
+              $ref: '#/visitors/document/objects/Responses',
+            },
+            schemes: OperationSchemesVisitor,
+            deprecated: FallbackVisitor,
+            security: OperationSecurityVisitor,
           },
         },
         ExternalDocumentation: {

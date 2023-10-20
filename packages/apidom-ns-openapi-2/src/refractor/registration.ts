@@ -1,6 +1,7 @@
 import InfoElement from '../elements/Info';
 import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
+import OperationElement from '../elements/Operation';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import ParameterElement from '../elements/Parameter';
 import ItemsElement from '../elements/Items';
@@ -36,6 +37,13 @@ ContactElement.refract = createRefractor([
   'document',
   'objects',
   'Contact',
+  '$visitor',
+]);
+OperationElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Operation',
   '$visitor',
 ]);
 ExternalDocumentationElement.refract = createRefractor([
@@ -140,6 +148,7 @@ export {
   InfoElement,
   LicenseElement,
   ContactElement,
+  OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,

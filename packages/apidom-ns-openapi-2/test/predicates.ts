@@ -4,6 +4,7 @@ import {
   InfoElement,
   LicenseElement,
   ContactElement,
+  PathItemElement,
   OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
@@ -27,6 +28,7 @@ import {
   isInfoElement,
   isLicenseElement,
   isContactElement,
+  isPathItemElement,
   isOperationElement,
   isExternalDocumentationElement,
   isParameterElement,
@@ -215,6 +217,62 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(contactElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isPathItemElement', function () {
+    context('given PathItemElement instance value', function () {
+      specify('should return true', function () {
+        const element = new PathItemElement();
+
+        assert.isTrue(isPathItemElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class PathItemSubElement extends PathItemElement {}
+
+        assert.isTrue(isPathItemElement(new PathItemSubElement()));
+      });
+    });
+
+    context('given non PathItemSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isPathItemElement(1));
+        assert.isFalse(isPathItemElement(null));
+        assert.isFalse(isPathItemElement(undefined));
+        assert.isFalse(isPathItemElement({}));
+        assert.isFalse(isPathItemElement([]));
+        assert.isFalse(isPathItemElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const pathItemElementDuck = {
+        _storedElement: 'pathItem',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const pathItemElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isPathItemElement(pathItemElementDuck));
+      assert.isFalse(isPathItemElement(pathItemElementSwan));
     });
   });
 

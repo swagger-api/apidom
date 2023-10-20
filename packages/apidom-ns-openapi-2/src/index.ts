@@ -27,6 +27,7 @@ export {
   isInfoElement,
   isLicenseElement,
   isContactElement,
+  isPathItemElement,
   isOperationElement,
   isExternalDocumentationElement,
   isParameterElement,
@@ -56,6 +57,7 @@ export {
   InfoElement,
   LicenseElement,
   ContactElement,
+  PathItemElement,
   OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
@@ -78,3 +80,10 @@ export {
   SecurityRequirementElement,
 } from './refractor/registration';
 // NCE types
+export { default as OperationConsumesElement } from './elements/nces/OperationConsumes';
+export { default as OperationParametersElement } from './elements/nces/OperationParameters';
+export { default as OperationProducesElement } from './elements/nces/OperationProduces';
+export { default as OperationSchemesElement } from './elements/nces/OperationSchemes';
+export { default as OperationSecurityElement } from './elements/nces/OperationSecurity';
+export { default as OperationTagsElement } from './elements/nces/OperationTags';
+export { default as PathItemParametersElement } from './elements/nces/PathItemParameters';

@@ -24,6 +24,8 @@ export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
 export {
+  isSwaggerElement,
+  isSwaggerVersionElement,
   isInfoElement,
   isContactElement,
   isLicenseElement,
@@ -55,6 +57,8 @@ export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 2.0 elements
 export {
+  SwaggerElement,
+  SwaggerVersionElement,
   InfoElement,
   ContactElement,
   LicenseElement,
@@ -89,3 +93,8 @@ export { default as OperationSchemesElement } from './elements/nces/OperationSch
 export { default as OperationSecurityElement } from './elements/nces/OperationSecurity';
 export { default as OperationTagsElement } from './elements/nces/OperationTags';
 export { default as PathItemParametersElement } from './elements/nces/PathItemParameters';
+export { default as SwaggerSchemesElement } from './elements/nces/SwaggerSchemes';
+export { default as SwaggerConsumesElement } from './elements/nces/SwaggerConsumes';
+export { default as SwaggerProducesElement } from './elements/nces/SwaggerProduces';
+export { default as SwaggerSecurityElement } from './elements/nces/SwaggerSecurity';
+export { default as SwaggerTagsElement } from './elements/nces/SwaggerTags';

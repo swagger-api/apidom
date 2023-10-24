@@ -19,6 +19,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  */
 
 export const keyMap = {
+  SwaggerElement: ['content'],
   InfoElement: ['content'],
   ContactElement: ['content'],
   LicenseElement: ['content'],

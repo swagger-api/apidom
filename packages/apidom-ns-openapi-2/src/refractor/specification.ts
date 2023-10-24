@@ -1,6 +1,13 @@
 import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import FallbackVisitor from './visitors/FallbackVisitor';
+import SwaggerVisitor from './visitors/open-api-2';
+import SwaggerSwaggerVisitor from './visitors/open-api-2/SwaggerVisitor';
+import SwaggerSchemesVisitor from './visitors/open-api-2/SchemesVisitor';
+import SwaggerConsumesVisitor from './visitors/open-api-2/ConsumesVisitor';
+import SwaggerProducesVisitor from './visitors/open-api-2/ProducesVisitor';
+import SwaggerSecurityVisitor from './visitors/open-api-2/SecurityVisitor';
+import SwaggerTagsVisitor from './visitors/open-api-2/TagsVisitor';
 import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
 import ContactVisitor from './visitors/open-api-2/contact';
@@ -66,6 +73,40 @@ const specification = {
           $ref: '#/visitors/document/objects/Schema',
         },
         // OpenAPI 2 specific visitors
+        Swagger: {
+          $visitor: SwaggerVisitor,
+          fixedFields: {
+            swagger: SwaggerSwaggerVisitor,
+            info: {
+              $ref: '#/visitors/document/objects/Info',
+            },
+            host: { $ref: '#/visitors/value' },
+            basePath: { $ref: '#/visitors/value' },
+            schemes: SwaggerSchemesVisitor,
+            consumes: SwaggerConsumesVisitor,
+            produces: SwaggerProducesVisitor,
+            paths: {
+              $ref: '#/visitors/document/objects/Paths',
+            },
+            definitions: {
+              $ref: '#/visitors/document/objects/Definitions',
+            },
+            parameters: {
+              $ref: '#/visitors/document/objects/ParametersDefinitions',
+            },
+            responses: {
+              $ref: '#/visitors/document/objects/ResponsesDefinitions',
+            },
+            securityDefinitions: {
+              $ref: '#/visitors/document/objects/SecurityDefinitions',
+            },
+            security: SwaggerSecurityVisitor,
+            tags: SwaggerTagsVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+          },
+        },
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {

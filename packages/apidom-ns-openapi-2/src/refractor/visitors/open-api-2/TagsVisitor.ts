@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import OperationSecurityElement from '../../../../elements/nces/OperationSecurity';
-import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SwaggerTagsElement from '../../../elements/nces/SwaggerTags';
+import FallbackVisitor from '../FallbackVisitor';
+import SpecificationVisitor from '../SpecificationVisitor';
 
-const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
+const TagsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new OperationSecurityElement();
+    this.element = new SwaggerTagsElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element): void => {
-        const specPath = ['document', 'objects', 'SecurityRequirement'];
+        const specPath = ['document', 'objects', 'Tag'];
         const element = this.toRefractedElement(specPath, item);
         this.element.push(element);
       });
@@ -23,4 +23,4 @@ const SecurityVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   },
 });
 
-export default SecurityVisitor;
+export default TagsVisitor;

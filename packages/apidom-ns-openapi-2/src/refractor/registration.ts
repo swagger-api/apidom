@@ -1,3 +1,5 @@
+import SwaggerElement from '../elements/Swagger';
+import SwaggerVersionElement from '../elements/SwaggerVersion';
 import InfoElement from '../elements/Info';
 import ContactElement from '../elements/Contact';
 import LicenseElement from '../elements/License';
@@ -26,6 +28,20 @@ import SecurityRequirementElement from '../elements/SecurityRequirement';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
+SwaggerElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Swagger',
+  '$visitor',
+]);
+SwaggerVersionElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SwaggerVersion',
+  '$visitor',
+]);
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
 ContactElement.refract = createRefractor([
   'visitors',
@@ -155,6 +171,8 @@ SecurityRequirementElement.refract = createRefractor([
 ]);
 
 export {
+  SwaggerElement,
+  SwaggerVersionElement,
   InfoElement,
   ContactElement,
   LicenseElement,

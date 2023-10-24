@@ -1,6 +1,7 @@
 import InfoElement from '../elements/Info';
-import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
+import LicenseElement from '../elements/License';
+import PathsElement from '../elements/Paths';
 import PathItemElement from '../elements/PathItem';
 import OperationElement from '../elements/Operation';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
@@ -26,13 +27,6 @@ import { createRefractor } from './index';
 
 // register refractors specific to element types
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
-LicenseElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'License',
-  '$visitor',
-]);
 ContactElement.refract = createRefractor([
   'visitors',
   'document',
@@ -40,6 +34,14 @@ ContactElement.refract = createRefractor([
   'Contact',
   '$visitor',
 ]);
+LicenseElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'License',
+  '$visitor',
+]);
+PathsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
 PathItemElement.refract = createRefractor([
   'visitors',
   'document',
@@ -154,8 +156,9 @@ SecurityRequirementElement.refract = createRefractor([
 
 export {
   InfoElement,
-  LicenseElement,
   ContactElement,
+  LicenseElement,
+  PathsElement,
   PathItemElement,
   OperationElement,
   ExternalDocumentationElement,

@@ -25,8 +25,9 @@ export { default as specificationObj } from './refractor/specification';
 
 export {
   isInfoElement,
-  isLicenseElement,
   isContactElement,
+  isLicenseElement,
+  isPathsElement,
   isPathItemElement,
   isOperationElement,
   isExternalDocumentationElement,
@@ -55,8 +56,9 @@ export { keyMap, getNodeType } from './traversal/visitor';
 // OpenAPI 2.0 elements
 export {
   InfoElement,
-  LicenseElement,
   ContactElement,
+  LicenseElement,
+  PathsElement,
   PathItemElement,
   OperationElement,
   ExternalDocumentationElement,

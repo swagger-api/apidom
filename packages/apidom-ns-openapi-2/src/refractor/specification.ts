@@ -3,8 +3,9 @@ import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/
 import FallbackVisitor from './visitors/FallbackVisitor';
 import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
-import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
+import LicenseVisitor from './visitors/open-api-2/license';
+import PathsVisitor from './visitors/open-api-2/paths';
 import PathItemVisitor from './visitors/open-api-2/path-item';
 import PathItem$RefVisitor from './visitors/open-api-2/path-item/$RefVisitor';
 import PathItemParametersVisitor from './visitors/open-api-2/path-item/ParametersVisitor';
@@ -80,13 +81,6 @@ const specification = {
             version: InfoVersionVisitor,
           },
         },
-        License: {
-          $visitor: LicenseVisitor,
-          fixedFields: {
-            name: { $ref: '#/visitors/value' },
-            url: { $ref: '#/visitors/value' },
-          },
-        },
         Contact: {
           $visitor: ContactVisitor,
           fixedFields: {
@@ -94,6 +88,16 @@ const specification = {
             url: { $ref: '#/visitors/value' },
             email: { $ref: '#/visitors/value' },
           },
+        },
+        License: {
+          $visitor: LicenseVisitor,
+          fixedFields: {
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+          },
+        },
+        Paths: {
+          $visitor: PathsVisitor,
         },
         PathItem: {
           $visitor: PathItemVisitor,

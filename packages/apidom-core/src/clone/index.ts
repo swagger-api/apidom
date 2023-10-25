@@ -7,19 +7,19 @@ import ShallowCloneError from './errors/ShallowCloneError';
 type FinalCloneTypes = KeyValuePair | ArraySlice | ObjectSlice;
 
 type DeepCloneOptions<T extends Element | FinalCloneTypes> = {
-  memo?: WeakMap<T, T>;
+  visited?: WeakMap<T, T>;
 };
 
 export const cloneDeep = <T extends Element | FinalCloneTypes>(
   value: T,
   options: DeepCloneOptions<T> = {},
 ): T => {
-  const { memo = new WeakMap<T, T>() } = options;
-  const passThroughOptions = { ...options, memo };
+  const { visited = new WeakMap<T, T>() } = options;
+  const passThroughOptions = { ...options, visited };
 
   // detect cycle and return memoized value
-  if (memo.has(value)) {
-    return memo.get(value) as T;
+  if (visited.has(value)) {
+    return visited.get(value) as T;
   }
 
   if (value instanceof KeyValuePair) {
@@ -31,7 +31,7 @@ export const cloneDeep = <T extends Element | FinalCloneTypes>(
       ? cloneDeep(val, passThroughOptions as DeepCloneOptions<Element>)
       : val;
     const copy = new KeyValuePair(keyCopy, valueCopy) as T;
-    memo.set(value, copy);
+    visited.set(value, copy);
     return copy;
   }
 
@@ -39,7 +39,7 @@ export const cloneDeep = <T extends Element | FinalCloneTypes>(
     const mapper = (element: T) => cloneDeep(element, passThroughOptions);
     const items = [...(value as ObjectSlice)].map(mapper) as T[];
     const copy = new ObjectSlice(items) as T;
-    memo.set(value, copy);
+    visited.set(value, copy);
     return copy;
   }
 
@@ -47,14 +47,14 @@ export const cloneDeep = <T extends Element | FinalCloneTypes>(
     const mapper = (element: T) => cloneDeep(element, passThroughOptions);
     const items = [...(value as ArraySlice)].map(mapper) as T[];
     const copy = new ArraySlice(items) as T;
-    memo.set(value, copy);
+    visited.set(value, copy);
     return copy;
   }
 
   if (isElement(value)) {
     const copy = cloneShallow(value); // eslint-disable-line @typescript-eslint/no-use-before-define
 
-    memo.set(value, copy);
+    visited.set(value, copy);
 
     if (value.content) {
       if (isElement(value.content)) {

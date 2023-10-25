@@ -1,9 +1,14 @@
 import { assert } from 'chai';
 
 import {
+  SwaggerElement,
+  SwaggerVersionElement,
   InfoElement,
-  LicenseElement,
   ContactElement,
+  LicenseElement,
+  PathsElement,
+  PathItemElement,
+  OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,
@@ -23,9 +28,14 @@ import {
   SecuritySchemeElement,
   ScopesElement,
   SecurityRequirementElement,
+  isSwaggerElement,
+  isSwaggerVersionElement,
   isInfoElement,
-  isLicenseElement,
   isContactElement,
+  isLicenseElement,
+  isPathsElement,
+  isPathItemElement,
+  isOperationElement,
   isExternalDocumentationElement,
   isParameterElement,
   isItemsElement,
@@ -48,6 +58,118 @@ import {
 } from '../src';
 
 describe('predicates', function () {
+  context('isSwaggerElement', function () {
+    context('given SwaggerElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SwaggerElement();
+
+        assert.isTrue(isSwaggerElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SwaggerSubElement extends SwaggerElement {}
+
+        assert.isTrue(isSwaggerElement(new SwaggerSubElement()));
+      });
+    });
+
+    context('given non SwaggerSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSwaggerElement(1));
+        assert.isFalse(isSwaggerElement(null));
+        assert.isFalse(isSwaggerElement(undefined));
+        assert.isFalse(isSwaggerElement({}));
+        assert.isFalse(isSwaggerElement([]));
+        assert.isFalse(isSwaggerElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const swaggerElementDuck = {
+        _storedElement: 'swagger',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const swaggerElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isSwaggerElement(swaggerElementDuck));
+      assert.isFalse(isSwaggerElement(swaggerElementSwan));
+    });
+  });
+
+  context('isSwaggerVersionElement', function () {
+    context('given SwaggerVersionElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SwaggerVersionElement();
+
+        assert.isTrue(isSwaggerVersionElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SwaggerVersionSubElement extends SwaggerVersionElement {}
+
+        assert.isTrue(isSwaggerVersionElement(new SwaggerVersionSubElement()));
+      });
+    });
+
+    context('given non SwaggerVersionSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSwaggerVersionElement(1));
+        assert.isFalse(isSwaggerVersionElement(null));
+        assert.isFalse(isSwaggerVersionElement(undefined));
+        assert.isFalse(isSwaggerVersionElement({}));
+        assert.isFalse(isSwaggerVersionElement([]));
+        assert.isFalse(isSwaggerVersionElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const swaggerVersionElementDuck = {
+        _storedElement: 'swaggerVersion',
+        _content: [],
+        primitive() {
+          return 'string';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const swaggerVersionElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isSwaggerVersionElement(swaggerVersionElementDuck));
+      assert.isFalse(isSwaggerVersionElement(swaggerVersionElementSwan));
+    });
+  });
+
   context('isInfoElement', function () {
     context('given InfoElement instance value', function () {
       specify('should return true', function () {
@@ -213,6 +335,174 @@ describe('predicates', function () {
 
       assert.isTrue(isContactElement(contactElementDuck));
       assert.isFalse(isContactElement(contactElementSwan));
+    });
+  });
+
+  context('isPathsElement', function () {
+    context("given PathsElement instance value with element 'paths'", function () {
+      specify('should return true', function () {
+        const element = new PathsElement();
+
+        assert.isTrue(isPathsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class PathsSubElement extends PathsElement {}
+
+        assert.isTrue(isPathsElement(new PathsSubElement()));
+      });
+    });
+
+    context('given non PathsSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isPathsElement(1));
+        assert.isFalse(isPathsElement(null));
+        assert.isFalse(isPathsElement(undefined));
+        assert.isFalse(isPathsElement({}));
+        assert.isFalse(isPathsElement([]));
+        assert.isFalse(isPathsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const pathsElementDuck = {
+        _storedElement: 'paths',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const pathsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isPathsElement(pathsElementDuck));
+      assert.isFalse(isPathsElement(pathsElementSwan));
+    });
+  });
+
+  context('isPathItemElement', function () {
+    context('given PathItemElement instance value', function () {
+      specify('should return true', function () {
+        const element = new PathItemElement();
+
+        assert.isTrue(isPathItemElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class PathItemSubElement extends PathItemElement {}
+
+        assert.isTrue(isPathItemElement(new PathItemSubElement()));
+      });
+    });
+
+    context('given non PathItemSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isPathItemElement(1));
+        assert.isFalse(isPathItemElement(null));
+        assert.isFalse(isPathItemElement(undefined));
+        assert.isFalse(isPathItemElement({}));
+        assert.isFalse(isPathItemElement([]));
+        assert.isFalse(isPathItemElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const pathItemElementDuck = {
+        _storedElement: 'pathItem',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const pathItemElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isPathItemElement(pathItemElementDuck));
+      assert.isFalse(isPathItemElement(pathItemElementSwan));
+    });
+  });
+
+  context('isOperationElement', function () {
+    context("given OperationElement instance value with element 'get'", function () {
+      specify('should return true', function () {
+        const element = new OperationElement();
+
+        assert.isTrue(isOperationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class OperationSubElement extends OperationElement {}
+
+        assert.isTrue(isOperationElement(new OperationSubElement()));
+      });
+    });
+
+    context('given non OperationSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isOperationElement(1));
+        assert.isFalse(isOperationElement(null));
+        assert.isFalse(isOperationElement(undefined));
+        assert.isFalse(isOperationElement({}));
+        assert.isFalse(isOperationElement([]));
+        assert.isFalse(isOperationElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const operationElementDuck = {
+        _storedElement: 'operation',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const operationElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isOperationElement(operationElementDuck));
+      assert.isFalse(isOperationElement(operationElementSwan));
     });
   });
 

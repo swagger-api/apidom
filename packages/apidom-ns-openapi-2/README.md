@@ -184,13 +184,13 @@ const swaggerElement = SwaggerElement.refract(apiDOM.result, {
 
 Only fully implemented specification objects should be checked here.
 
-- [ ] [Swagger Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-swagger-object)
+- [x] [Swagger Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-swagger-object)
 - [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-info-object)
 - [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-contact-object)
 - [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-license-object)
-- [ ] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paths-object)
-- [ ] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-path-item-object)
-- [ ] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-operation-object)
+- [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paths-object)
+- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-path-item-object)
+- [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-operation-object)
 - [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-external-documentation-object)
 - [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-parameter-object)
 - [x] [Items Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-items-object)

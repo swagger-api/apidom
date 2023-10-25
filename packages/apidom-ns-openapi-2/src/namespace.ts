@@ -1,8 +1,13 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
+import SwaggerElement from './elements/Swagger';
+import SwaggerVersionElement from './elements/SwaggerVersion';
 import InfoElement from './elements/Info';
-import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
+import LicenseElement from './elements/License';
+import PathsElement from './elements/Paths';
+import PathItemElement from './elements/PathItem';
+import OperationElement from './elements/Operation';
 import ExternalDocumentation from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
@@ -27,9 +32,14 @@ const openApi2 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
+    base.register('swagger', SwaggerElement);
+    base.register('swaggerVersion', SwaggerVersionElement);
     base.register('info', InfoElement);
-    base.register('license', LicenseElement);
     base.register('contact', ContactElement);
+    base.register('license', LicenseElement);
+    base.register('paths', PathsElement);
+    base.register('pathItem', PathItemElement);
+    base.register('operation', OperationElement);
     base.register('externalDocumentation', ExternalDocumentation);
     base.register('parameter', ParameterElement);
     base.register('items', ItemsElement);

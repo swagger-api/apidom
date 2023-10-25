@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-core",
-  "version": "0.78.0",
+  "version": "0.79.0",
   "description": "Tools for manipulating ApiDOM structures.",
   "publishConfig": {
     "access": "public",
@@ -42,8 +42,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-ast": "^0.78.0",
-    "@swagger-api/apidom-error": "^0.78.0",
+    "@swagger-api/apidom-ast": "^0.79.0",
+    "@swagger-api/apidom-error": "^0.79.0",
     "@types/ramda": "~0.29.6",
     "minim": "~0.23.8",
     "ramda": "~0.29.0",

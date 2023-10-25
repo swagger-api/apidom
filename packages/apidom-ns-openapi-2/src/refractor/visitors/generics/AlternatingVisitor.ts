@@ -12,8 +12,13 @@ const AlternatingVisitor = stampit(SpecificationVisitor, {
   methods: {
     enter(element: Element) {
       const functions = this.alternator.map(
-        ({ predicate, specPath }: { predicate: (element: any) => boolean; specPath: string[] }) =>
-          ifElse(predicate, always(specPath), stubUndefined),
+        ({
+          predicate,
+          specPath,
+        }: {
+          predicate: (element: unknown) => boolean;
+          specPath: string[];
+        }) => ifElse(predicate, always(specPath), stubUndefined),
       );
       const specPath = dispatch(functions)(element);
 

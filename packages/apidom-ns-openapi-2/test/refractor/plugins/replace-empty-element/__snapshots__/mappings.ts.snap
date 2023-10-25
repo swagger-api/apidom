@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given OpenAPI definition with no empty values should do nothing 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement)))
+`;
+
+exports[`given empty value instead for Operation.parameters should replace empty value with semantic element 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (PathsElement
+      (MemberElement
+        (StringElement)
+        (PathItemElement
+          (MemberElement
+            (StringElement)
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement)))))))))
+`;
+
+exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (DefinitionsElement
+      (MemberElement
+        (StringElement)
+        (SchemaElement
+          (MemberElement
+            (StringElement)
+            (ObjectElement
+              (MemberElement
+                (StringElement)
+                (SchemaElement)))))))))
+`;
+
+exports[`given empty value instead for Swagger.definitions.Schema1 should replace empty value with semantic element 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (DefinitionsElement
+      (MemberElement
+        (StringElement)
+        (SchemaElement)))))
+`;
+
+exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement
+      (MemberElement
+        (StringElement)
+        (ContactElement)))))
+`;
+
+exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
+(SwaggerElement
+  (MemberElement
+    (StringElement)
+    (SwaggerVersionElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement)))
+`;

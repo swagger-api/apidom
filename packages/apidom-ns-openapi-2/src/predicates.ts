@@ -1,8 +1,13 @@
 import { createPredicate } from '@swagger-api/apidom-core';
 
+import SwaggerElement from './elements/Swagger';
+import SwaggerVersionElement from './elements/SwaggerVersion';
 import InfoElement from './elements/Info';
-import LicenseElement from './elements/License';
 import ContactElement from './elements/Contact';
+import LicenseElement from './elements/License';
+import PathsElement from './elements/Paths';
+import PathItemElement from './elements/PathItem';
+import OperationElement from './elements/Operation';
 import ExternalDocumentationElement from './elements/ExternalDocumentation';
 import ParameterElement from './elements/Parameter';
 import ItemsElement from './elements/Items';
@@ -22,6 +27,26 @@ import SecurityDefinitionsElement from './elements/SecurityDefinitions';
 import SecuritySchemeElement from './elements/SecurityScheme';
 import SecurityRequirementElement from './elements/SecurityRequirement';
 import ScopesElement from './elements/Scopes';
+
+export const isSwaggerElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is SwaggerElement =>
+      element instanceof SwaggerElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('swagger', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isSwaggerVersionElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is SwaggerVersionElement =>
+      element instanceof SwaggerVersionElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('swaggerVersion', element) &&
+        primitiveEq('string', element));
+  },
+);
 
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -52,6 +77,37 @@ export const isContactElement = createPredicate(
         primitiveEq('object', element));
   },
 );
+
+export const isPathsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is PathsElement =>
+      element instanceof PathsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('paths', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isPathItemElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is PathItemElement =>
+      element instanceof PathItemElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('pathItem', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isOperationElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is OperationElement =>
+      element instanceof OperationElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('operation', element) &&
+        primitiveEq('object', element));
+  },
+);
+
 export const isExternalDocumentationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ExternalDocumentationElement =>

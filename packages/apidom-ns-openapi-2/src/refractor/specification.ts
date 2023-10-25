@@ -1,10 +1,28 @@
 import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import FallbackVisitor from './visitors/FallbackVisitor';
+import SwaggerVisitor from './visitors/open-api-2';
+import SwaggerSwaggerVisitor from './visitors/open-api-2/SwaggerVisitor';
+import SwaggerSchemesVisitor from './visitors/open-api-2/SchemesVisitor';
+import SwaggerConsumesVisitor from './visitors/open-api-2/ConsumesVisitor';
+import SwaggerProducesVisitor from './visitors/open-api-2/ProducesVisitor';
+import SwaggerSecurityVisitor from './visitors/open-api-2/SecurityVisitor';
+import SwaggerTagsVisitor from './visitors/open-api-2/TagsVisitor';
 import InfoVisitor from './visitors/open-api-2/info';
 import InfoVersionVisitor from './visitors/open-api-2/info/VersionVisitor';
-import LicenseVisitor from './visitors/open-api-2/license';
 import ContactVisitor from './visitors/open-api-2/contact';
+import LicenseVisitor from './visitors/open-api-2/license';
+import PathsVisitor from './visitors/open-api-2/paths';
+import PathItemVisitor from './visitors/open-api-2/path-item';
+import PathItem$RefVisitor from './visitors/open-api-2/path-item/$RefVisitor';
+import PathItemParametersVisitor from './visitors/open-api-2/path-item/ParametersVisitor';
+import OperationVisitor from './visitors/open-api-2/operation';
+import OperationTagsVisitor from './visitors/open-api-2/operation/TagsVisitor';
+import OperationConsumesVisitor from './visitors/open-api-2/operation/ConsumesVisitor';
+import OperationProducesVisitor from './visitors/open-api-2/operation/ProducesVisitor';
+import OperationParametersVisitor from './visitors/open-api-2/operation/ParametersVisitor';
+import OperationSchemesVisitor from './visitors/open-api-2/operation/SchemesVisitor';
+import OperationSecurityVisitor from './visitors/open-api-2/operation/SecurityVisitor';
 import ExternalDocumentationElement from './visitors/open-api-2/external-documentation';
 import ParameterVisitor from './visitors/open-api-2/parameter';
 import ItemsVisitor from './visitors/open-api-2/items';
@@ -49,12 +67,52 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        // JSON Schema Draft 4/5 specific visitors
+        JSONReference: JSONSchemaDraft4Specification.visitors.document.objects.JSONReference,
+        JSONSchema: {
+          $ref: '#/visitors/document/objects/Schema',
+        },
+        // OpenAPI 2 specific visitors
+        Swagger: {
+          $visitor: SwaggerVisitor,
+          fixedFields: {
+            swagger: SwaggerSwaggerVisitor,
+            info: {
+              $ref: '#/visitors/document/objects/Info',
+            },
+            host: { $ref: '#/visitors/value' },
+            basePath: { $ref: '#/visitors/value' },
+            schemes: SwaggerSchemesVisitor,
+            consumes: SwaggerConsumesVisitor,
+            produces: SwaggerProducesVisitor,
+            paths: {
+              $ref: '#/visitors/document/objects/Paths',
+            },
+            definitions: {
+              $ref: '#/visitors/document/objects/Definitions',
+            },
+            parameters: {
+              $ref: '#/visitors/document/objects/ParametersDefinitions',
+            },
+            responses: {
+              $ref: '#/visitors/document/objects/ResponsesDefinitions',
+            },
+            securityDefinitions: {
+              $ref: '#/visitors/document/objects/SecurityDefinitions',
+            },
+            security: SwaggerSecurityVisitor,
+            tags: SwaggerTagsVisitor,
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+          },
+        },
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title: FallbackVisitor,
-            description: FallbackVisitor,
-            termsOfService: FallbackVisitor,
+            title: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            termsOfService: { $ref: '#/visitors/value' },
             contact: {
               $ref: '#/visitors/document/objects/Contact',
             },
@@ -64,33 +122,85 @@ const specification = {
             version: InfoVersionVisitor,
           },
         },
-        License: {
-          $visitor: LicenseVisitor,
-          fixedFields: {
-            name: FallbackVisitor,
-            url: FallbackVisitor,
-          },
-        },
         Contact: {
           $visitor: ContactVisitor,
           fixedFields: {
-            name: FallbackVisitor,
-            url: FallbackVisitor,
-            email: FallbackVisitor,
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+            email: { $ref: '#/visitors/value' },
+          },
+        },
+        License: {
+          $visitor: LicenseVisitor,
+          fixedFields: {
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+          },
+        },
+        Paths: {
+          $visitor: PathsVisitor,
+        },
+        PathItem: {
+          $visitor: PathItemVisitor,
+          fixedFields: {
+            $ref: PathItem$RefVisitor,
+            get: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            put: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            post: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            delete: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            options: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            head: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            patch: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
+            parameters: PathItemParametersVisitor,
+          },
+        },
+        Operation: {
+          $visitor: OperationVisitor,
+          fixedFields: {
+            tags: OperationTagsVisitor,
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            operationId: { $ref: '#/visitors/value' },
+            consumes: OperationConsumesVisitor,
+            produces: OperationProducesVisitor,
+            parameters: OperationParametersVisitor,
+            responses: {
+              $ref: '#/visitors/document/objects/Responses',
+            },
+            schemes: OperationSchemesVisitor,
+            deprecated: { $ref: '#/visitors/value' },
+            security: OperationSecurityVisitor,
           },
         },
         ExternalDocumentation: {
           $visitor: ExternalDocumentationElement,
           fixedFields: {
-            description: FallbackVisitor,
-            url: FallbackVisitor,
+            description: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
           },
         },
         Parameter: {
           $visitor: ParameterVisitor,
           fixedFields: {
-            name: FallbackVisitor,
-            in: FallbackVisitor,
+            name: { $ref: '#/visitors/value' },
+            in: { $ref: '#/visitors/value' },
             description: jsonSchemaFixedFields.description,
             required: jsonSchemaFixedFields.required,
             schema: SchemaOrJSONReferenceVisitor,
@@ -99,7 +209,7 @@ const specification = {
             items: {
               $ref: '#/visitors/document/objects/Items',
             },
-            collectionFormat: FallbackVisitor,
+            collectionFormat: { $ref: '#/visitors/value' },
             default: jsonSchemaFixedFields.default,
             maximum: jsonSchemaFixedFields.maximum,
             exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
@@ -123,7 +233,7 @@ const specification = {
             items: {
               $ref: '#/visitors/document/objects/Items',
             },
-            collectionFormat: FallbackVisitor,
+            collectionFormat: { $ref: '#/visitors/value' },
             default: jsonSchemaFixedFields.default,
             maximum: jsonSchemaFixedFields.maximum,
             exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
@@ -148,7 +258,7 @@ const specification = {
         Response: {
           $visitor: ResponseVisitor,
           fixedFields: {
-            description: FallbackVisitor,
+            description: { $ref: '#/visitors/value' },
             schema: SchemaOrJSONReferenceVisitor,
             headers: {
               $ref: '#/visitors/document/objects/Headers',
@@ -173,7 +283,7 @@ const specification = {
             items: {
               $ref: '#/visitors/document/objects/Items',
             },
-            collectionFormat: FallbackVisitor,
+            collectionFormat: { $ref: '#/visitors/value' },
             default: jsonSchemaFixedFields.default,
             maximum: jsonSchemaFixedFields.maximum,
             exclusiveMaximum: jsonSchemaFixedFields.exclusiveMaximum,
@@ -192,8 +302,8 @@ const specification = {
         Tag: {
           $visitor: TagVisitor,
           fixedFields: {
-            name: FallbackVisitor,
-            description: FallbackVisitor,
+            name: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
@@ -204,10 +314,6 @@ const specification = {
           fixedFields: {
             $ref: Reference$RefVisitor,
           },
-        },
-        JSONReference: JSONSchemaDraft4Specification.visitors.document.objects.JSONReference,
-        JSONSchema: {
-          $ref: '#/visitors/document/objects/Schema',
         },
         Schema: {
           $visitor: SchemaVisitor,
@@ -240,24 +346,24 @@ const specification = {
             properties: SchemaPropertiesVisitor,
             additionalProperties: SchemaOrJSONReferenceVisitor,
             // OpenAPI vocabulary
-            discriminator: FallbackVisitor,
+            discriminator: { $ref: '#/visitors/value' },
             xml: {
               $ref: '#/visitors/document/objects/XML',
             },
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
-            example: FallbackVisitor,
+            example: { $ref: '#/visitors/value' },
           },
         },
         XML: {
           $visitor: XmlVisitor,
           fixedFields: {
-            name: FallbackVisitor,
-            namespace: FallbackVisitor,
-            prefix: FallbackVisitor,
-            attribute: FallbackVisitor,
-            wrapped: FallbackVisitor,
+            name: { $ref: '#/visitors/value' },
+            namespace: { $ref: '#/visitors/value' },
+            prefix: { $ref: '#/visitors/value' },
+            attribute: { $ref: '#/visitors/value' },
+            wrapped: { $ref: '#/visitors/value' },
           },
         },
         Definitions: {
@@ -275,13 +381,13 @@ const specification = {
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {
-            type: FallbackVisitor,
-            description: FallbackVisitor,
-            name: FallbackVisitor,
-            in: FallbackVisitor,
-            flow: FallbackVisitor,
-            authorizationUrl: FallbackVisitor,
-            token: FallbackVisitor,
+            type: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            in: { $ref: '#/visitors/value' },
+            flow: { $ref: '#/visitors/value' },
+            authorizationUrl: { $ref: '#/visitors/value' },
+            token: { $ref: '#/visitors/value' },
             scopes: {
               $ref: '#/visitors/document/objects/Scopes',
             },

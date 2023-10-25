@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.79.0](https://github.com/swagger-api/apidom/compare/v0.78.0...v0.79.0) (2023-10-24)
+
+### Features
+
+- **predicates:** implement TypeScript type guards ([#3289](https://github.com/swagger-api/apidom/issues/3289)) ([0cae70a](https://github.com/swagger-api/apidom/commit/0cae70aa3edc17ecc628c21e30a6b2ac1e992372)), closes [#3280](https://github.com/swagger-api/apidom/issues/3280)
+
 # [0.78.0](https://github.com/swagger-api/apidom/compare/v0.77.0...v0.78.0) (2023-10-17)
 
 ### Bug Fixes

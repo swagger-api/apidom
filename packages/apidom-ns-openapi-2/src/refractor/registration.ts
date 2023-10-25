@@ -1,6 +1,11 @@
+import SwaggerElement from '../elements/Swagger';
+import SwaggerVersionElement from '../elements/SwaggerVersion';
 import InfoElement from '../elements/Info';
-import LicenseElement from '../elements/License';
 import ContactElement from '../elements/Contact';
+import LicenseElement from '../elements/License';
+import PathsElement from '../elements/Paths';
+import PathItemElement from '../elements/PathItem';
+import OperationElement from '../elements/Operation';
 import ExternalDocumentationElement from '../elements/ExternalDocumentation';
 import ParameterElement from '../elements/Parameter';
 import ItemsElement from '../elements/Items';
@@ -23,7 +28,28 @@ import SecurityRequirementElement from '../elements/SecurityRequirement';
 import { createRefractor } from './index';
 
 // register refractors specific to element types
+SwaggerElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Swagger',
+  '$visitor',
+]);
+SwaggerVersionElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SwaggerVersion',
+  '$visitor',
+]);
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
+ContactElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Contact',
+  '$visitor',
+]);
 LicenseElement.refract = createRefractor([
   'visitors',
   'document',
@@ -31,11 +57,19 @@ LicenseElement.refract = createRefractor([
   'License',
   '$visitor',
 ]);
-ContactElement.refract = createRefractor([
+PathsElement.refract = createRefractor(['visitors', 'document', 'objects', 'Paths', '$visitor']);
+PathItemElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'Contact',
+  'PathItem',
+  '$visitor',
+]);
+OperationElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Operation',
   '$visitor',
 ]);
 ExternalDocumentationElement.refract = createRefractor([
@@ -137,9 +171,14 @@ SecurityRequirementElement.refract = createRefractor([
 ]);
 
 export {
+  SwaggerElement,
+  SwaggerVersionElement,
   InfoElement,
-  LicenseElement,
   ContactElement,
+  LicenseElement,
+  PathsElement,
+  PathItemElement,
+  OperationElement,
   ExternalDocumentationElement,
   ParameterElement,
   ItemsElement,

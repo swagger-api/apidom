@@ -119,28 +119,48 @@ describe('clone', function () {
   });
 
   context('cloneDeep', function () {
-    specify('should deep clone ObjectElement', function () {
-      const valueElement = new ArrayElement([1]);
-      const objectElement = new ObjectElement({ a: valueElement });
-      const clone = cloneDeep(objectElement);
+    context('given ObjectElement', function () {
+      specify('should deep clone', function () {
+        const valueElement = new ArrayElement([1]);
+        const objectElement = new ObjectElement({ a: valueElement });
+        const clone = cloneDeep(objectElement);
 
-      objectElement.set('c', 'd');
-      valueElement.push(2);
+        objectElement.set('c', 'd');
+        valueElement.push(2);
 
-      assert.notStrictEqual(clone, objectElement);
-      assert.deepEqual(toValue(clone), { a: [1] });
+        assert.notStrictEqual(clone, objectElement);
+        assert.deepEqual(toValue(clone), { a: [1] });
+      });
+
+      specify('should deep clone with cycles', function () {
+        const objectElement = new ObjectElement({ a: 'b' });
+        objectElement.set('c', objectElement);
+        const clone = cloneDeep(objectElement);
+
+        assert.strictEqual(clone, clone.get('c'));
+      });
     });
 
-    specify('should deep clone ArrayElement', function () {
-      const firstItemElement = new ObjectElement({ a: 'b' });
-      const arrayElement = new ArrayElement([firstItemElement, 2, 3]);
-      const clone = cloneDeep(arrayElement);
+    context('given ArrayElement', function () {
+      specify('should deep clone', function () {
+        const firstItemElement = new ObjectElement({ a: 'b' });
+        const arrayElement = new ArrayElement([firstItemElement, 2, 3]);
+        const clone = cloneDeep(arrayElement);
 
-      arrayElement.push(4);
-      firstItemElement.set('a', 'c');
+        arrayElement.push(4);
+        firstItemElement.set('a', 'c');
 
-      assert.notStrictEqual(clone, arrayElement);
-      assert.deepEqual(toValue(clone), [{ a: 'b' }, 2, 3]);
+        assert.notStrictEqual(clone, arrayElement);
+        assert.deepEqual(toValue(clone), [{ a: 'b' }, 2, 3]);
+      });
+
+      specify('should deep clone with cycles', function () {
+        const arrayElement = new ArrayElement([1]);
+        arrayElement.push(arrayElement);
+        const clone = cloneDeep(arrayElement);
+
+        assert.strictEqual(clone, clone.get(1));
+      });
     });
 
     specify('should deep clone NumberElement', function () {

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.80.0](https://github.com/swagger-api/apidom/compare/v0.79.0...v0.80.0) (2023-10-26)
+
+### Features
+
+- **core:** support cycles in deep cloning ([#3322](https://github.com/swagger-api/apidom/issues/3322)) ([a9ba0a5](https://github.com/swagger-api/apidom/commit/a9ba0a5e2ad04395682cd9e7bb2feea2e4473fe3)), closes [#3290](https://github.com/swagger-api/apidom/issues/3290)
+
 # [0.79.0](https://github.com/swagger-api/apidom/compare/v0.78.0...v0.79.0) (2023-10-24)
 
 ### Bug Fixes

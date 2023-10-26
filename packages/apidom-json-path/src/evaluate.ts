@@ -1,5 +1,5 @@
 import { JSONPath } from 'jsonpath-plus';
-import { Element, toValue } from '@swagger-api/apidom-core';
+import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import EvaluationJsonPathError from './errors/EvaluationJsonPathError';
@@ -25,7 +25,7 @@ const evaluate: Evaluate = (path, element) => {
   } catch (error: unknown) {
     throw new EvaluationJsonPathError(
       `JSON Path evaluation failed while evaluating "${String(path)}".`,
-      { path, element, cause: error },
+      { path, element: cloneDeep(element), cause: error },
     );
   }
 };

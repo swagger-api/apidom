@@ -2,13 +2,15 @@ import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
 import YamlSchemaError from './YamlSchemaError';
 import Position from '../../Position';
+import Node from '../../Node';
 
-export interface YamlTagErrorOptions extends ApiDOMErrorOptions {
+export interface YamlTagErrorOptions<T extends Node = Node> extends ApiDOMErrorOptions {
   readonly specificTagName: string;
   readonly explicitTagName: string;
   readonly tagKind: string;
   readonly tagPosition?: Position;
   readonly nodeCanonicalContent?: string;
+  readonly node?: T;
 }
 
 class YamlTagError extends YamlSchemaError {
@@ -22,6 +24,8 @@ class YamlTagError extends YamlSchemaError {
 
   public readonly nodeCanonicalContent?: string;
 
+  public readonly node?: unknown;
+
   constructor(message?: string, structuredOptions?: YamlTagErrorOptions) {
     super(message, structuredOptions);
 
@@ -31,6 +35,7 @@ class YamlTagError extends YamlSchemaError {
       this.tagKind = structuredOptions.tagKind;
       this.tagPosition = structuredOptions.tagPosition;
       this.nodeCanonicalContent = structuredOptions.nodeCanonicalContent;
+      this.node = structuredOptions.node;
     }
   }
 }

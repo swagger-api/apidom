@@ -1,5 +1,5 @@
 import { JSONPath } from 'jsonpath-plus';
-import { Element, toValue } from '@swagger-api/apidom-core';
+import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError';
@@ -45,7 +45,7 @@ const evaluateMulti: EvaluateMulti = (paths, element) => {
       `JSON Path evaluation failed while multi-evaluating "${String(paths)}".`,
       {
         paths,
-        element,
+        element: cloneDeep(element),
         cause: error,
       },
     );

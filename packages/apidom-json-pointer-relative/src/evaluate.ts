@@ -1,6 +1,7 @@
 import {
   Element,
   visit,
+  cloneDeep,
   BREAK,
   isElement,
   isMemberElement,
@@ -43,9 +44,9 @@ const evaluate = <T extends Element, U extends Element>(
       'Relative JSON Pointer evaluation failed. Current element not found inside the root element',
       {
         relativePointer,
-        currentElement,
-        rootElement,
-        cursorElement: cursor,
+        currentElement: cloneDeep(currentElement),
+        rootElement: cloneDeep(rootElement),
+        cursorElement: cloneDeep.safe(cursor),
       },
     );
   }
@@ -70,9 +71,9 @@ const evaluate = <T extends Element, U extends Element>(
       'Relative JSON Pointer evaluation failed while parsing the pointer.',
       {
         relativePointer,
-        currentElement,
-        rootElement,
-        cursorElement: cursor,
+        currentElement: cloneDeep(currentElement),
+        rootElement: cloneDeep(currentElement),
+        cursorElement: cloneDeep.safe(cursor),
         cause: error,
       },
     );
@@ -98,9 +99,9 @@ const evaluate = <T extends Element, U extends Element>(
         `Relative JSON Pointer evaluation failed on non-negative-integer prefix of "${relativeJsonPointer.nonNegativeIntegerPrefix}"`,
         {
           relativePointer,
-          currentElement,
-          rootElement,
-          cursorElement: cursor,
+          currentElement: cloneDeep(currentElement),
+          rootElement: cloneDeep(rootElement),
+          cursorElement: cloneDeep.safe(cursor),
         },
       );
     }
@@ -117,9 +118,9 @@ const evaluate = <T extends Element, U extends Element>(
         `Relative JSON Pointer evaluation failed failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
         {
           relativePointer,
-          currentElement,
-          rootElement,
-          cursorElement: cursor,
+          currentElement: cloneDeep(currentElement),
+          rootElement: cloneDeep(rootElement),
+          cursorElement: cloneDeep.safe(cursor),
         },
       );
     }
@@ -133,9 +134,9 @@ const evaluate = <T extends Element, U extends Element>(
         `Relative JSON Pointer evaluation failed on index-manipulation "${relativeJsonPointer.indexManipulation}"`,
         {
           relativePointer,
-          currentElement,
-          rootElement,
-          cursorElement: cursor,
+          currentElement: cloneDeep(currentElement),
+          rootElement: cloneDeep(rootElement),
+          cursorElement: cloneDeep.safe(cursor),
         },
       );
     }
@@ -152,9 +153,9 @@ const evaluate = <T extends Element, U extends Element>(
         'Relative JSON Pointer evaluation failed. Current element cannot be the root element to apply "#"',
         {
           relativePointer,
-          currentElement,
-          rootElement,
-          cursorElement: cursor,
+          currentElement: cloneDeep(currentElement),
+          rootElement: cloneDeep(rootElement),
+          cursorElement: cloneDeep.safe(cursor),
         },
       );
     }

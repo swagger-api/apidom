@@ -1,4 +1,4 @@
-import { ApiDOMError } from '@swagger-api/apidom-error';
+import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 
 /**
  * SPDX-FileCopyrightText: Copyright (c) GraphQL Contributors
@@ -281,7 +281,9 @@ export const visit = (
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
-        throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
+        throw new ApiDOMStructuredError(`Invalid AST Node:  ${String(node)}`, {
+          node,
+        });
       }
 
       // cycle detected; skipping over a sub-tree to avoid recursion
@@ -436,7 +438,9 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {
-        throw new ApiDOMError(`Invalid AST Node:  ${JSON.stringify(node)}`);
+        throw new ApiDOMStructuredError(`Invalid AST Node: ${String(node)}`, {
+          node,
+        });
       }
 
       // cycle detected; skipping over a sub-tree to avoid recursion

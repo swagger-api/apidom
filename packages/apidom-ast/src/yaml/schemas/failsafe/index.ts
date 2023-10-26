@@ -94,6 +94,7 @@ const FailsafeSchema = stampit({
           explicitTagName: node.tag.explicitName,
           tagKind: node.tag.kind,
           tagPosition: clone(node.tag.position),
+          node: node.clone(),
         });
       }
 
@@ -105,6 +106,7 @@ const FailsafeSchema = stampit({
           tagKind: node.tag.kind,
           tagPosition: clone(node.tag.position),
           nodeCanonicalContent: canonicalNode.content,
+          node: node.clone(),
         });
       }
 

@@ -1,5 +1,5 @@
 import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
-import { Element, hasElementSourceMap, toValue } from '@swagger-api/apidom-core';
+import { Element } from '@swagger-api/apidom-core';
 
 import JsonPointerError from './JsonPointerError';
 
@@ -20,9 +20,7 @@ class EvaluationJsonPointerError<T extends Element> extends JsonPointerError {
 
   public readonly failedTokenPosition?: number;
 
-  public readonly element!: string;
-
-  public readonly elementSourceMap?: [[number, number, number], [number, number, number]];
+  public readonly element!: T;
 
   constructor(message?: string, structuredOptions?: EvaluationJsonPointerErrorOptions<T>) {
     super(message, structuredOptions);
@@ -34,10 +32,7 @@ class EvaluationJsonPointerError<T extends Element> extends JsonPointerError {
       }
       this.failedToken = structuredOptions.failedToken;
       this.failedTokenPosition = structuredOptions.failedTokenPosition;
-      this.element = structuredOptions.element.element;
-      if (hasElementSourceMap(structuredOptions.element)) {
-        this.elementSourceMap = toValue(structuredOptions.element.getMetaProperty('sourceMap'));
-      }
+      this.element = structuredOptions.element;
     }
   }
 }

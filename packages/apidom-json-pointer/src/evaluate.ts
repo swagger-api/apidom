@@ -1,5 +1,5 @@
 import { isInteger } from 'ramda-adjunct';
-import { Element, isObjectElement, isArrayElement } from '@swagger-api/apidom-core';
+import { Element, isObjectElement, isArrayElement, cloneDeep } from '@swagger-api/apidom-core';
 
 import parse from './parse';
 import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError';
@@ -15,7 +15,7 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
       `JSON Pointer evaluation failed while parsing the pointer "${pointer}".`,
       {
         pointer,
-        element,
+        element: cloneDeep(element),
         cause: error,
       },
     );
@@ -32,7 +32,7 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
             tokens,
             failedToken: token,
             failedTokenPosition: tokenPosition,
-            element: acc,
+            element: cloneDeep(acc),
           },
         );
       }
@@ -44,7 +44,13 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
       if (!(token in acc.content) || !isInteger(Number(token))) {
         throw new EvaluationJsonPointerError(
           `JSON Pointer evaluation failed while evaluating token "${token}" against an ArrayElement`,
-          { pointer, tokens, failedToken: token, failedTokenPosition: tokenPosition, element: acc },
+          {
+            pointer,
+            tokens,
+            failedToken: token,
+            failedTokenPosition: tokenPosition,
+            element: cloneDeep(acc),
+          },
         );
       }
       // @ts-ignore
@@ -58,7 +64,7 @@ const evaluate = <T extends Element>(pointer: string, element: T): Element => {
         tokens,
         failedToken: token,
         failedTokenPosition: tokenPosition,
-        element: acc,
+        element: cloneDeep(acc),
       },
     );
   }, element);

@@ -1,4 +1,4 @@
-import { Element, hasElementSourceMap, toValue } from '@swagger-api/apidom-core';
+import { Element } from '@swagger-api/apidom-core';
 import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
 import RelativeJsonPointerError from './RelativeJsonPointerError';
@@ -21,17 +21,11 @@ class EvaluationRelativeJsonPointerError<
 > extends RelativeJsonPointerError {
   public readonly relativePointer!: string;
 
-  public readonly currentElement!: string;
+  public readonly currentElement!: T;
 
-  public readonly currentElementSourceMap?: [[number, number, number], [number, number, number]];
+  public readonly rootElement!: U;
 
-  public readonly rootElement!: string;
-
-  public readonly rootElementSourceMap?: [[number, number, number], [number, number, number]];
-
-  public readonly cursorElement?: string;
-
-  public readonly cursorElementSourceMap?: [[number, number, number], [number, number, number]];
+  public readonly cursorElement?: V;
 
   constructor(
     message?: string,
@@ -41,29 +35,9 @@ class EvaluationRelativeJsonPointerError<
 
     if (typeof structuredOptions !== 'undefined') {
       this.relativePointer = structuredOptions.relativePointer;
-
-      this.currentElement = structuredOptions.currentElement.element;
-      if (hasElementSourceMap(structuredOptions.currentElement)) {
-        this.currentElementSourceMap = toValue(
-          structuredOptions.currentElement.getMetaProperty('sourceMap'),
-        );
-      }
-
-      this.rootElement = structuredOptions.rootElement.element;
-      if (hasElementSourceMap(structuredOptions.rootElement)) {
-        this.rootElementSourceMap = toValue(
-          structuredOptions.rootElement.getMetaProperty('sourceMap'),
-        );
-      }
-
-      if (typeof structuredOptions.cursorElement !== 'undefined') {
-        this.cursorElement = structuredOptions.cursorElement.element;
-        if (hasElementSourceMap(structuredOptions.cursorElement)) {
-          this.cursorElementSourceMap = toValue(
-            structuredOptions.cursorElement.getMetaProperty('sourceMap'),
-          );
-        }
-      }
+      this.currentElement = structuredOptions.currentElement;
+      this.rootElement = structuredOptions.rootElement;
+      this.cursorElement = structuredOptions.cursorElement;
     }
   }
 }

@@ -15,9 +15,9 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
  $ npm install @swagger-api/apidom-ns-openapi-3-0
 ```
 
-## OpenApi 3.0.x namespace
+## OpenAPI 3.0.x namespace
 
-OpenApi 3.0.x namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0/src/elements) implemented on top
+OpenAPI 3.0.x namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0/src/elements) implemented on top
 of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js

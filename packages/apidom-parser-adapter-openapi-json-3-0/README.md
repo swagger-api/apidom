@@ -1,9 +1,9 @@
 # @swagger-api/apidom-parser-adapter-openapi-json-3-0
 
-`@swagger-api/apidom-parser-adapter-openapi-json-3-0` is a parser adapter for the [OpenApi 3.0.x specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) in [JSON format](https://www.json.org/json-en.html).
+`@swagger-api/apidom-parser-adapter-openapi-json-3-0` is a parser adapter for the [OpenAPI 3.0.x specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
-which is then refracted with [OpenApi 3.0.x Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#refractors).
+which is then refracted with [OpenAPI 3.0.x Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#refractors).
 
 ## Installation
 
@@ -38,11 +38,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-json-3-0/src/adapter.ts#L13) is based on a regular expression matching required OpenApi 3.0.x specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-json-3-0/src/adapter.ts#L13) is based on a regular expression matching required OpenAPI 3.0.x specification symbols in JSON format.
 
 ### namespace
 
-This adapter exposes an instance of [OpenApi 3.0.x ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#openapi-30x-namespace).
+This adapter exposes an instance of [OpenAPI 3.0.x ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#openapi-30x-namespace).
 
 ### parse
 

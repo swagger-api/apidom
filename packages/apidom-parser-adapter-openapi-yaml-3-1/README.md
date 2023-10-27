@@ -1,9 +1,9 @@
 # @swagger-api/apidom-parser-adapter-openapi-yaml-3-1
 
-`@swagger-api/apidom-parser-adapter-openapi-yaml-3-1` is a parser adapter for the [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
+`@swagger-api/apidom-parser-adapter-openapi-yaml-3-1` is a parser adapter for the [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
 Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
-which is then refracted with [OpenApi 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).
+which is then refracted with [OpenAPI 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).
 
 ## Installation
 
@@ -32,11 +32,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-yaml-3-1/src/adapter.ts#L13) is based on a regular expression matching required OpenApi 3.1.0 specification symbols in YAML format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-yaml-3-1/src/adapter.ts#L13) is based on a regular expression matching required OpenAPI 3.1.0 specification symbols in YAML format.
 
 ### namespace
 
-This adapter exposes an instance of [OpenApi 3.1.0 ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace).
+This adapter exposes an instance of [OpenAPI 3.1.0 ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace).
 
 ### parse
 

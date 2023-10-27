@@ -1,9 +1,9 @@
-# @swagger-api/apidom-parser-adapter-openapi-yaml-3-0
+# @swagger-api/apidom-parser-adapter-openapi-json-2
 
-`@swagger-api/apidom-parser-adapter-openapi-yaml-3-0` is a parser adapter for the [OpenAPI 3.0.x specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
-Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
+`@swagger-api/apidom-parser-adapter-openapi-json-2` is a parser adapter for the [OpenAPI 2.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md) in [JSON format](https://www.json.org/json-en.html).
+Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
-which is then refracted with [OpenAPI 3.0.x Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#refractors).
+which is then refracted with [OpenAPI 2.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-2#refractors).
 
 ## Installation
 
@@ -11,7 +11,7 @@ After [prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#
 via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ```sh
- $ npm install @swagger-api/apidom-parser-adapter-openapi-yaml-3-0
+ $ npm install @swagger-api/apidom-parser-adapter-openapi-json-3-0
 ```
 
 ## Parser adapter API
@@ -26,19 +26,19 @@ Defines list of media types that this parser adapter recognizes.
 ```js
 [
   'application/vnd.oai.openapi;version=3.0.0',
-  'application/vnd.oai.openapi+yaml;version=3.0.0',
+  'application/vnd.oai.openapi+json;version=3.0.0',
   'application/vnd.oai.openapi;version=3.0.1',
-  'application/vnd.oai.openapi+yaml;version=3.0.1',
+  'application/vnd.oai.openapi+json;version=3.0.1',
   'application/vnd.oai.openapi;version=3.0.2',
-  'application/vnd.oai.openapi+yaml;version=3.0.2',
+  'application/vnd.oai.openapi+json;version=3.0.2',
   'application/vnd.oai.openapi;version=3.0.3',
-  'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi+json;version=3.0.3',
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-yaml-3-0/src/adapter.ts#L13) is based on a regular expression matching required OpenAPI 3.0.x specification symbols in YAML format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-openapi-json-3-0/src/adapter.ts#L13) is based on a regular expression matching required OpenAPI 3.0.x specification symbols in JSON format.
 
 ### namespace
 
@@ -50,7 +50,7 @@ This adapter exposes an instance of [OpenAPI 3.0.x ApiDOM namespace](https://git
 
 Option | Type | Default | Description
 --- | --- | --- | ---
-<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-0/src/refractor/specification.ts) | This specification object drives the YAML AST transformation to OpenAPI 3.0.x ApiDOM namespace.
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-0/src/refractor/specification.ts) | This specification object drives the JSON AST transformation to OpenAPI 3.0.x ApiDOM namespace.
 <a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
 <a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are [passed to refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#refractor-plugins) during refracting phase.
 
@@ -58,7 +58,7 @@ All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-This parser adapter can be used directly or indirectly via [apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser).
+This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser).
 
 ### Direct usage
 
@@ -66,14 +66,14 @@ During direct usage you don't need to provide `mediaType` as the `parse` functio
 with [supported media types](#mediatypes).
 
 ```js
-import { parse, detect } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
+import { parse, detect } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
 
 // detecting
-await detect('openapi: 3.0.3'); // => true
+await detect('{"openapi": "3.0.3"}'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('openapi: 3.0.0', { sourceMap: true });
+const parseResult = await parse('{"openapi": "3.0.3"}', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -82,11 +82,11 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';
-import * as openApiYamlAdapter from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
+import * as openApiJsonAdapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
 
 const parser = ApiDOMParser();
 
-parser.use(openApiYamlAdapter);
+parser.use(openApiJsonAdapter);
 
-const parseResult = await parser.parse('openapi: 3.0.3', { mediaType: openApiYamlAdapter.mediaTypes.latest('yaml') });
+const parseResult = await parser.parse('{"openapi": "3.0.3"}', { mediaType: openApiJsonAdapter.mediaTypes.latest('json') });
 ```

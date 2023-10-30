@@ -1,6 +1,8 @@
 import type LoggingLevel from './LoggingLevel';
 import { getLevelName } from './LoggingLevel';
 
+const startTime: number = Date.now();
+
 export interface LogRecordInstance<T extends Error = Error> {
   readonly name: string;
   readonly message: string;
@@ -31,6 +33,12 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
 
   public readonly message: string;
 
+  public readonly created: number;
+
+  public readonly msecs: number;
+
+  public readonly relativeCreated: number;
+
   public readonly process?: number;
 
   public readonly processName?: string;
@@ -46,11 +54,16 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
     error?: T,
     extra?: Record<string, unknown>,
   ) {
+    const created = Date.now();
+
     this.name = name;
     this.levelno = level;
     this.levelname = getLevelName(level);
     this.message = message;
     this.error = error;
+    this.created = Math.floor(created / 1000);
+    this.msecs = created - this.created * 1000;
+    this.relativeCreated = created - startTime;
 
     if (globalThis.process?.pid) {
       this.process = globalThis.process.pid;

@@ -67,7 +67,7 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
     this.message = message;
     this.error = error;
     this.created = created;
-    this.msecs = Math.floor(created / 1000) - this.created * 1000;
+    this.msecs = created % 1000;
     this.relativeCreated = created - startTime;
 
     if (globalThis.process?.pid) {

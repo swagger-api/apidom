@@ -6,11 +6,16 @@ const startTime: number = Date.now();
 export interface LogRecordInstance<T extends Error = Error> {
   readonly name: string;
   readonly message: string;
+  readonly created: number;
+  readonly msecs: number;
+  readonly relativeCreated: number;
+  asctime?: string;
   readonly levelname: string;
   readonly levelno: number;
   readonly process?: number;
   readonly processName?: string;
   readonly error?: T;
+  error_text?: string;
   [key: string]: unknown;
 }
 
@@ -39,11 +44,15 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
 
   public readonly relativeCreated: number;
 
+  public asctime?: string;
+
   public readonly process?: number;
 
   public readonly processName?: string;
 
   public readonly error?: T;
+
+  public error_text?: string;
 
   [key: string]: unknown;
 
@@ -61,8 +70,8 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
     this.levelname = getLevelName(level);
     this.message = message;
     this.error = error;
-    this.created = Math.floor(created / 1000);
-    this.msecs = created - this.created * 1000;
+    this.created = created;
+    this.msecs = created % 1000;
     this.relativeCreated = created - startTime;
 
     if (globalThis.process?.pid) {

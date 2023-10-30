@@ -9,11 +9,13 @@ export interface LogRecordInstance<T extends Error = Error> {
   readonly created: number;
   readonly msecs: number;
   readonly relativeCreated: number;
+  asctime?: string;
   readonly levelname: string;
   readonly levelno: number;
   readonly process?: number;
   readonly processName?: string;
   readonly error?: T;
+  error_text?: string;
   [key: string]: unknown;
 }
 
@@ -49,6 +51,8 @@ class LogRecord<T extends Error = Error> implements LogRecordInstance<T> {
   public readonly processName?: string;
 
   public readonly error?: T;
+
+  public error_text?: string;
 
   [key: string]: unknown;
 

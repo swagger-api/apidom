@@ -7,7 +7,6 @@ import ParserError from '../../../errors/ParserError';
 import { File as IFile, Parser as IParser } from '../../../types';
 import Parser from '../Parser';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApiJson2Parser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
     name: 'openapi-json-2',

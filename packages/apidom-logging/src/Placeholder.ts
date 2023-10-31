@@ -6,7 +6,7 @@ export interface PlaceholderInstance {
   readonly loggerMap: Map<LoggerHierarchyInstance, LoggerHierarchyInstance | null>;
   append(logger: LoggerHierarchyInstance): void;
 }
-class Placeholder {
+class Placeholder implements PlaceholderInstance {
   public readonly loggerMap: Map<LoggerHierarchyInstance, LoggerHierarchyInstance | null>;
 
   constructor(logger: LoggerHierarchyInstance) {

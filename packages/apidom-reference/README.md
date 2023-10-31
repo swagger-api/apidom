@@ -24,7 +24,7 @@ This package has two main exports suitable for different use-cases. **Empty** co
 
 ```js
 import { parse } from '@swagger-api/apidom-reference/configuration/empty';
-import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
 
 await parse('/home/user/oas.json', {
   parse: {
@@ -99,6 +99,20 @@ so providing it is always a better option.
 ### Parser plugins
 
 Parse component comes with number of default parser plugins.
+
+#### [openapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-2)
+
+Wraps [@swagger-api/apidom-parser-adapter-openapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-2) package
+and is uniquely  identified by `openapi-json-2` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.oai.openapi;version=2.0',
+  'application/vnd.oai.openapi+json;version=2.0',
+]
+```
 
 #### [openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-3-0)
 
@@ -300,6 +314,7 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
 
 ```js
 [
+  OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
@@ -320,20 +335,22 @@ It's possible to **change** the parser plugins **order globally** by mutating gl
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import { OpenApiJson3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
-import { OpenApiYaml3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
-import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
-import { OpenApiYaml3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
-import { AsyncApiJson2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
-import { AsyncApiYaml2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import { ApiDesignSystemsJsonParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import { ApiDesignSystemsYamlParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import { JsonParser } from '@swagger-api/apidom-reference/parse/parsers/json';
-import { YamlParser } from '@swagger-api/apidom-reference/parse/parsers/yaml';
-import { BinaryParser } from '@swagger-api/apidom-reference/parse/parsers/binary';
+import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
+import YamlParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 
 options.parse.parsers = [
+  OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
@@ -352,22 +369,24 @@ To **change** the parser plugins **order** on ad-hoc basis:
 
 ```js
 import { parse } from '@swagger-api/apidom-reference';
-import { OpenApiJson3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
-import { OpenApiYaml3_0Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
-import { OpenApiJson3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
-import { OpenApiYaml3_1Parser } from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
-import { AsyncApiJson2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
-import { AsyncApiYaml2Parser } from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import { ApiDesignSystemsJsonParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import { ApiDesignSystemsYamlParser } from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import { JsonParser } from '@swagger-api/apidom-reference/parse/parsers/json';
-import { YamlParser } from '@swagger-api/apidom-reference/parse/parsers/yaml';
-import { BinaryParser } from '@swagger-api/apidom-reference/parse/parsers/binary';
+import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
+import YamlParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
     parsers: [
+      OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),

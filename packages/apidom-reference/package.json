@@ -105,6 +105,11 @@
       "require": "./cjs/parse/parsers/json/index.cjs",
       "types": "./types/parse/parsers/json/index.d.ts"
     },
+    "./parse/parsers/openapi-json-2": {
+      "import": "./es/parse/parsers/openapi-json-2/index.mjs",
+      "require": "./cjs/parse/parsers/openapi-json-2/index.cjs",
+      "types": "./types/parse/parsers/openapi-json-2/index.d.ts"
+    },
     "./parse/parsers/openapi-json-3-0": {
       "import": "./es/parse/parsers/openapi-json-3-0/index.mjs",
       "require": "./cjs/parse/parsers/openapi-json-3-0/index.cjs",
@@ -216,6 +221,7 @@
     "@swagger-api/apidom-error": "^0.81.0",
     "@swagger-api/apidom-json-pointer": "^0.81.0",
     "@swagger-api/apidom-ns-asyncapi-2": "^0.81.0",
+    "@swagger-api/apidom-ns-openapi-2": "^0.81.0",
     "@swagger-api/apidom-ns-openapi-3-0": "^0.81.0",
     "@swagger-api/apidom-ns-openapi-3-1": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^0.81.0",
@@ -223,6 +229,7 @@
     "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-json": "^0.81.0",
+    "@swagger-api/apidom-parser-adapter-openapi-json-2": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^0.81.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.81.0",

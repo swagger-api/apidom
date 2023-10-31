@@ -2,13 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-2';
 
 import File from '../../../../src/util/File';
-import OpenApiJson3_0Parser from '../../../../src/parse/parsers/openapi-json-3-0';
+import OpenApiJson2Parser from '../../../../src/parse/parsers/openapi-json-2';
 
 describe('parsers', function () {
-  context('OpenApiJson3_0Parser', function () {
+  context('OpenApiJson2Parser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.json',
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = OpenApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.json',
               mediaType: 'application/vnd.aai.asyncapi+json;version=2.6.0',
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = OpenApiJson2Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi.yaml',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -59,34 +59,34 @@ describe('parsers', function () {
             uri: '/path/to/openapi',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as OpenAPI 3.0.x', function () {
+        context('and file data is buffer and can be detected as OpenAPI 2.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
               uri: '/path/to/open-api.json',
               data: fs.readFileSync(url),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = OpenApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
         });
 
-        context('and file data is string and can be detected as OpenAPI 3.0.x', function () {
+        context('and file data is string and can be detected as OpenAPI 2.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = File({
               uri: '/path/to/open-api.json',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = OpenApiJson2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -95,7 +95,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given OpenApi 3.0.x JSON data', function () {
+      context('given OpenApi 2.0 JSON data', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url).toString();
@@ -104,14 +104,14 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given OpenApi 3.0.x JSON data as buffer', function () {
+      context('given OpenApi 2.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
           const url = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(url);
@@ -120,21 +120,21 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
         });
       });
 
-      context('given data that is not an OpenApi 3.0.x JSON data', function () {
+      context('given data that is not an OpenApi 2.0 JSON data', function () {
         specify('should coerce to string and parse', async function () {
           const file = File({
             uri: '/path/to/file.json',
             data: 1,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
           const parseResult = await parser.parse(file);
           const numberElement: NumberElement = parseResult.get(0);
 
@@ -150,7 +150,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = OpenApiJson3_0Parser();
+          const parser = OpenApiJson2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -168,7 +168,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = OpenApiJson3_0Parser({ sourceMap: true });
+            const parser = OpenApiJson2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -184,7 +184,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = OpenApiJson3_0Parser();
+            const parser = OpenApiJson2Parser();
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

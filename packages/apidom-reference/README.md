@@ -134,6 +134,20 @@ Supported media types are:
 ]
 ```
 
+#### [openapi-yaml-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-yaml-2)
+
+Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-2) package
+and is uniquely  identified by `openapi-yaml-2` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.oai.openapi;version=2.0',
+  'application/vnd.oai.openapi+yaml;version=2.0',
+]
+```
+
 #### [openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-yaml-3-0)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0) package
@@ -315,6 +329,7 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
 ```js
 [
   OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+  OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
@@ -336,6 +351,7 @@ It's possible to **change** the parser plugins **order globally** by mutating gl
 ```js
 import { options } from '@swagger-api/apidom-reference';
 import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
 import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
 import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
 import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
@@ -351,6 +367,7 @@ import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 options.parse.parsers = [
   OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+  OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
@@ -370,6 +387,7 @@ To **change** the parser plugins **order** on ad-hoc basis:
 ```js
 import { parse } from '@swagger-api/apidom-reference';
 import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
 import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
 import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
 import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
@@ -387,6 +405,7 @@ await parse('/home/user/oas.json', {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
     parsers: [
       OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),

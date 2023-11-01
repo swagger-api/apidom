@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.82.0](https://github.com/swagger-api/apidom/compare/v0.81.0...v0.82.0) (2023-11-01)
+
+### Features
+
+- **reference:** add OpenAPI 2.0 JSON parser plugin ([#3343](https://github.com/swagger-api/apidom/issues/3343)) ([70f345d](https://github.com/swagger-api/apidom/commit/70f345d3836bde9ab6923e20a6f21ed80c9d2609)), closes [#3100](https://github.com/swagger-api/apidom/issues/3100)
+- **reference:** add OpenAPI 2.0 YAML parser plugin ([#3344](https://github.com/swagger-api/apidom/issues/3344)) ([ed60acc](https://github.com/swagger-api/apidom/commit/ed60accd16e5ce18f0a46f3a44c2e1b9e8196bba)), closes [#3100](https://github.com/swagger-api/apidom/issues/3100)
+
 # [0.81.0](https://github.com/swagger-api/apidom/compare/v0.80.0...v0.81.0) (2023-10-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

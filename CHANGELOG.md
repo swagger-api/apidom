@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.82.0](https://github.com/swagger-api/apidom/compare/v0.81.0...v0.82.0) (2023-11-01)
+
+### Features
+
+- **logging:** add Placeholder implementation ([#3345](https://github.com/swagger-api/apidom/issues/3345)) ([00febde](https://github.com/swagger-api/apidom/commit/00febde261e1b8dd121d49bbb54554355344dae0)), closes [#3197](https://github.com/swagger-api/apidom/issues/3197)
+- **logging:** finish Formatter implementation ([#3337](https://github.com/swagger-api/apidom/issues/3337)) ([8993d69](https://github.com/swagger-api/apidom/commit/8993d69c3f7da146e791e81d4aaab2cdab508120)), closes [#3197](https://github.com/swagger-api/apidom/issues/3197)
+- **logging:** track log record creation times ([#3336](https://github.com/swagger-api/apidom/issues/3336)) ([a4e2357](https://github.com/swagger-api/apidom/commit/a4e2357ba23e596fa00cc721b93cc7d8a3253042)), closes [#3197](https://github.com/swagger-api/apidom/issues/3197)
+- **playground:** add support for OpenAPI 2.0 parsing ([#3351](https://github.com/swagger-api/apidom/issues/3351)) ([ebb02ba](https://github.com/swagger-api/apidom/commit/ebb02ba566220e8a74f5ab07716a8dc05866b71f)), closes [#389](https://github.com/swagger-api/apidom/issues/389)
+- **reference:** add OpenAPI 2.0 JSON parser plugin ([#3343](https://github.com/swagger-api/apidom/issues/3343)) ([70f345d](https://github.com/swagger-api/apidom/commit/70f345d3836bde9ab6923e20a6f21ed80c9d2609)), closes [#3100](https://github.com/swagger-api/apidom/issues/3100)
+- **reference:** add OpenAPI 2.0 YAML parser plugin ([#3344](https://github.com/swagger-api/apidom/issues/3344)) ([ed60acc](https://github.com/swagger-api/apidom/commit/ed60accd16e5ce18f0a46f3a44c2e1b9e8196bba)), closes [#3100](https://github.com/swagger-api/apidom/issues/3100)
+
 # [0.81.0](https://github.com/swagger-api/apidom/compare/v0.80.0...v0.81.0) (2023-10-30)
 
 ### Features

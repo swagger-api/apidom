@@ -2,6 +2,9 @@ import { createSelector } from 'swagger-adjust';
 import { isEmptyString, isNonEmptyString, isNull } from 'ramda-adjunct';
 import { from, traverse, createNamespace, sexprs, toValue } from '@swagger-api/apidom-core';
 /* eslint-disable camelcase */
+import openApi2NsPlugin, {
+  mediaTypes as openApi2MediaTypes,
+} from '@swagger-api/apidom-ns-openapi-2';
 import openApi3_0NsPlugin, {
   mediaTypes as openApi3_0MediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-0';
@@ -35,6 +38,9 @@ export const selectIsLoading = (state) => state.isLoading;
 export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType) => {
   if (isEmptyString(mediaType)) {
     return null;
+  }
+  if (openApi2MediaTypes.includes(mediaType)) {
+    return createNamespace(openApi2NsPlugin);
   }
   if (openApi3_0MediaTypes.includes(mediaType)) {
     return createNamespace(openApi3_0NsPlugin);
@@ -115,6 +121,7 @@ export const selectMediaTypes = (() => {
   const allMediaTypes = [
     ...jsonMediaTypes,
     ...yamlMediaTypes,
+    ...openApi2MediaTypes,
     ...openApi3_0MediaTypes,
     ...openApi3_1MediaTypes,
     ...asyncApi2MediaTypes,

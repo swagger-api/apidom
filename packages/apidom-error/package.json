@@ -37,10 +37,7 @@
   "author": "Vladimír Gorej",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.20.7",
-    "@types/ramda": "~0.29.6",
-    "ramda": "~0.29.0",
-    "ramda-adjunct": "^4.0.0"
+    "@babel/runtime-corejs3": "^7.20.7"
   },
   "files": [
     "cjs/",

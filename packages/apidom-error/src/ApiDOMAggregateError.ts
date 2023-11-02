@@ -1,7 +1,4 @@
-import { isPlainObject } from 'ramda-adjunct';
-import { hasIn } from 'ramda';
-
-import ApiDOMErrorOptions from './ApiDOMErrorOptions';
+import type ApiDOMErrorOptions from './ApiDOMErrorOptions';
 
 class ApiDOMAggregateError extends AggregateError {
   constructor(errors: Iterable<unknown>, message?: string, options?: ApiDOMErrorOptions) {
@@ -19,13 +16,18 @@ class ApiDOMAggregateError extends AggregateError {
 
     /**
      * This needs to stay here until our minimum supported version of Node.js is >= 16.9.0.
-     * Node.js is >= 16.9.0 supports error causes natively.
+     * Node.js >= 16.9.0 supports error causes natively.
      */
-    if (isPlainObject(options) && hasIn('cause', options) && !hasIn('cause', this)) {
+    if (
+      options != null &&
+      typeof options === 'object' &&
+      Object.hasOwn(options, 'cause') &&
+      !('cause' in this)
+    ) {
       const { cause } = options;
       this.cause = cause;
-      if (cause instanceof Error && hasIn('stack', cause)) {
-        this.stack = `${this.stack}\nCAUSE: ${cause?.stack}`;
+      if (cause instanceof Error && 'stack' in cause) {
+        this.stack = `${this.stack}\nCAUSE: ${cause.stack}`;
       }
     }
   }

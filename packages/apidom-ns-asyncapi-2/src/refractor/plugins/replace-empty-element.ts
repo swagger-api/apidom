@@ -1044,7 +1044,7 @@ const plugin = () => () => {
         if (!isEmptyElement(element.value)) return undefined;
 
         const [, , , ancestors] = rest;
-        const ancestor = ancestors.at(-1);
+        const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
         const elementFactory = findElementFactory(ancestor, toValue(element.key));
 
         // no element factory found
@@ -1069,7 +1069,7 @@ const plugin = () => () => {
         if (!isEmptyElement(element)) return undefined;
 
         const [, , , ancestors] = rest;
-        const ancestor = ancestors.at(-1);
+        const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
 
         // we're only interested in empty elements in ArrayElements
         if (!isArrayElement(ancestor)) return undefined;

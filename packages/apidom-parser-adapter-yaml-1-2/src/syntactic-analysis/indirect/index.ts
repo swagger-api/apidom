@@ -22,7 +22,7 @@ type Tree = WebTree | NodeTree;
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
-  const rootNode = [...iterator].at(0) as TreeCursorSyntaxNode;
+  const rootNode = [...iterator][0] as TreeCursorSyntaxNode;
   const cstVisitor = CstVisitor();
   const astVisitor = YamlAstVisitor();
   const schema = JsonSchema();

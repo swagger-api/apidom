@@ -10,7 +10,7 @@ describe('syntactic-analysis', function () {
       const cursor = cst.walk();
       const iterator = new TreeCursorIterator(cursor);
 
-      expect([...iterator].at(0)).toMatchSnapshot();
+      expect(Array.from(iterator).at(0)).toMatchSnapshot();
     });
   });
 });

@@ -4,7 +4,6 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import { visit } from '@swagger-api/apidom-ast';
 
 import TreeCursorIterator from '../TreeCursorIterator';
-import TreeCursorSyntaxNode from '../TreeCursorSyntaxNode';
 import CstVisitor, { keyMap as cstKeyMap } from './visitors/CstVisitor';
 import JsonAstVisitor, {
   keyMap as astKeyMap,
@@ -32,7 +31,7 @@ type Tree = WebTree | NodeTree;
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
-  const rootNode = [...iterator][0] as TreeCursorSyntaxNode;
+  const [rootNode] = Array.from(iterator);
   const cstVisitor = CstVisitor();
   const astVisitor = JsonAstVisitor();
 

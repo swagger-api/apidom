@@ -1,14 +1,15 @@
-import { last } from 'ramda';
+import type { Namespace } from '@swagger-api/apidom-core';
 import {
   PathItemServersElement,
   OperationServersElement,
+  ServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OpenApi3_1Element from '../../elements/OpenApi3-1';
-import PathItemElement from '../../elements/PathItem';
-import ServerElement from '../../elements/Server';
-import OperationElement from '../../elements/Operation';
-import { Predicates } from '../toolbox';
+import type OpenApi3_1Element from '../../elements/OpenApi3-1';
+import type PathItemElement from '../../elements/PathItem';
+import type ServerElement from '../../elements/Server';
+import type OperationElement from '../../elements/Operation';
+import type { Predicates } from '../toolbox';
 
 /**
  * Override of Server Objects.
@@ -26,67 +27,81 @@ import { Predicates } from '../toolbox';
 /* eslint-disable no-param-reassign */
 const plugin =
   () =>
-  ({ predicates }: { predicates: Predicates }) => {
-    let openAPIServers: ServerElement[] | undefined;
-    const pathItemServers: (ServerElement[] | undefined)[] = [];
-
+  ({ predicates, namespace }: { predicates: Predicates; namespace: Namespace }) => {
     return {
       visitor: {
-        OpenApi3_1Element: {
-          enter(openapiElement: OpenApi3_1Element) {
-            if (predicates.isArrayElement(openapiElement.servers)) {
-              openAPIServers = openapiElement.servers?.content as ServerElement[];
-            }
-          },
-          leave() {
-            openAPIServers = undefined;
-          },
+        OpenApi3_1Element(openapiElement: OpenApi3_1Element) {
+          const isServersUndefined = typeof openapiElement.servers === 'undefined';
+          const isServersArrayElement = predicates.isArrayElement(openapiElement.servers);
+          const isServersEmpty = isServersArrayElement && openapiElement.servers!.length === 0;
+          // @ts-ignore
+          const defaultServer = namespace.elements.Server.refract({ url: '/' });
+
+          if (isServersUndefined || !isServersArrayElement) {
+            openapiElement.servers = new ServersElement([defaultServer]);
+          } else if (isServersArrayElement && isServersEmpty) {
+            openapiElement.servers!.push(defaultServer);
+          }
         },
-        PathItemElement: {
-          enter(
-            pathItemElement: PathItemElement,
-            key: any,
-            parent: any,
-            path: any,
-            ancestors: any[],
-          ) {
-            // skip visiting this Path Item
-            if (ancestors.some(predicates.isComponentsElement)) {
-              return;
-            }
+        PathItemElement(
+          pathItemElement: PathItemElement,
+          key: any,
+          parent: any,
+          path: any,
+          ancestors: any[],
+        ) {
+          // skip visiting this Path Item
+          if (ancestors.some(predicates.isComponentsElement)) return;
+          if (!ancestors.some(predicates.isOpenApi3_1Element)) return;
 
-            // duplicate OpenAPI.servers into this Path Item object
-            if (
-              typeof pathItemElement.servers === 'undefined' &&
-              typeof openAPIServers !== 'undefined'
-            ) {
-              pathItemElement.servers = new PathItemServersElement(openAPIServers);
-            }
+          const parentOpenapiElement = ancestors.find(predicates.isOpenApi3_1Element);
+          const isServersUndefined = typeof pathItemElement.servers === 'undefined';
+          const isServersArrayElement = predicates.isArrayElement(pathItemElement.servers);
+          const isServersEmpty = isServersArrayElement && pathItemElement.servers!.length === 0;
 
-            // prepare Server Objects for child Operation Objects
-            const { servers } = pathItemElement;
-            if (typeof servers !== 'undefined' && predicates.isArrayElement(servers)) {
-              pathItemServers.push([...servers.content] as ServerElement[]);
-            } else {
-              pathItemServers.push(undefined);
+          // duplicate OpenAPI.servers into this Path Item object
+          if (predicates.isOpenApi3_1Element(parentOpenapiElement)) {
+            const openapiServersContent = parentOpenapiElement.servers?.content;
+            const openapiServers = (openapiServersContent ?? []) as ServerElement[];
+
+            if (isServersUndefined || !isServersArrayElement) {
+              pathItemElement.servers = new PathItemServersElement(openapiServers);
+            } else if (isServersArrayElement && isServersEmpty) {
+              openapiServers.forEach((server) => {
+                pathItemElement.servers!.push(server);
+              });
             }
-          },
-          leave() {
-            pathItemServers.pop();
-          },
+          }
         },
-        OperationElement: {
-          enter(operationElement: OperationElement) {
-            const parentPathItemServers = last(pathItemServers);
+        OperationElement(
+          operationElement: OperationElement,
+          key: any,
+          parent: any,
+          path: any,
+          ancestors: any[],
+        ) {
+          // skip visiting this Operation
+          if (ancestors.some(predicates.isComponentsElement)) return;
+          if (!ancestors.some(predicates.isOpenApi3_1Element)) return;
 
-            // no Server Objects defined in parents
-            if (typeof parentPathItemServers === 'undefined') return;
-            // Server Objects are defined for this Operation Object
-            if (predicates.isArrayElement(operationElement.servers)) return;
+          const parentPathItemElement = ancestors.findLast(predicates.isPathItemElement);
+          const isServersUndefined = typeof operationElement.servers === 'undefined';
+          const isServersArrayElement = predicates.isArrayElement(operationElement.servers);
+          const isServersEmpty = isServersArrayElement && operationElement.servers!.length === 0;
 
-            // duplicate parent PathItem.servers into this Operation object
-            operationElement.servers = new OperationServersElement(parentPathItemServers);
-          },
+          if (predicates.isPathItemElement(parentPathItemElement)) {
+            const pathItemServersContent = parentPathItemElement.servers?.content;
+            const pathItemServers = (pathItemServersContent ?? []) as ServerElement[];
+
+            if (isServersUndefined || !isServersArrayElement) {
+              // duplicate parent PathItem.servers into this Operation object
+              operationElement.servers = new OperationServersElement(pathItemServers);
+            } else if (isServersArrayElement && isServersEmpty) {
+              pathItemServers.forEach((server) => {
+                operationElement.servers!.push(server);
+              });
+            }
+          }
         },
       },
     };

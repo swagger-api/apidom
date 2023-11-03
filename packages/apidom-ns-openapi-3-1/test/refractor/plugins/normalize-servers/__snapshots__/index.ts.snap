@@ -521,10 +521,17 @@ exports[`refractor plugins normalize-servers given PathItem.servers defined shou
                       (StringElement))
                     (MemberElement
                       (StringElement)
-                      (StringElement))))))))))))
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
 `;
 
-exports[`refractor plugins normalize-servers given no servers field is defined should not duplicate any Server Objects 1`] = `
+exports[`refractor plugins normalize-servers given no servers field is defined should create default Server Object and duplicate 1`] = `
 (OpenApi3_1Element
   (MemberElement
     (StringElement)
@@ -537,5 +544,26 @@ exports[`refractor plugins normalize-servers given no servers field is defined s
         (PathItemElement
           (MemberElement
             (StringElement)
-            (OperationElement)))))))
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ServerElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))
+          (MemberElement
+            (StringElement)
+            (ArrayElement
+              (ServerElement
+                (MemberElement
+                  (StringElement)
+                  (StringElement)))))))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
 `;

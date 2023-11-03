@@ -31,6 +31,8 @@ import SecurityRequirementElement from './elements/SecurityRequirement';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import MediaTypeElement from './elements/MediaType';
+// NCE types
+import ServersElement from './elements/nces/Servers';
 
 export const isCallbackElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -322,5 +324,16 @@ export const isMediaTypeElement = createPredicate(
       (hasBasicElementProps(element) &&
         isElementType('mediaType', element) &&
         primitiveEq('object', element));
+  },
+);
+
+export const isServersElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is ServersElement =>
+      element instanceof ServersElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('servers', element));
   },
 );

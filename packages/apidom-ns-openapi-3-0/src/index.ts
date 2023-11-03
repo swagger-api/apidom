@@ -49,6 +49,7 @@ export {
   isServerElement,
   isServerVariableElement,
   isMediaTypeElement,
+  isServersElement,
 } from './predicates';
 
 export {

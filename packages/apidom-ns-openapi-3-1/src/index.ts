@@ -63,6 +63,7 @@ export {
   isResponseLikeElement,
   isOpenApiExtension,
   isServerLikeElement,
+  isServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 export { keyMap, getNodeType } from './traversal/visitor';

@@ -11,7 +11,6 @@ import {
 
 import CstVisitor from './visitors/CstVisitor';
 import TreeCursorIterator from '../TreeCursorIterator';
-import TreeCursorSyntaxNode from '../TreeCursorSyntaxNode';
 
 const keyMap = {
   document: ['children'],
@@ -54,7 +53,7 @@ const analyze = (cst: NodeTree | WebTree, { sourceMap = false } = {}): ParseResu
   const visitor = CstVisitor();
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
-  const rootNode = [...iterator][0] as TreeCursorSyntaxNode;
+  const [rootNode] = Array.from(iterator);
 
   return visit(rootNode, visitor, {
     // @ts-ignore

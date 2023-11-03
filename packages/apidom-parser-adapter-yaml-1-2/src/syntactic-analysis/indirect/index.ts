@@ -10,7 +10,6 @@ import YamlAstVisitor, {
   getNodeType as getAstNodeType,
 } from './visitors/YamlAstVisitor';
 import TreeCursorIterator from '../TreeCursorIterator';
-import TreeCursorSyntaxNode from '../TreeCursorSyntaxNode';
 
 type Tree = WebTree | NodeTree;
 
@@ -22,7 +21,7 @@ type Tree = WebTree | NodeTree;
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
-  const rootNode = [...iterator][0] as TreeCursorSyntaxNode;
+  const [rootNode] = Array.from(iterator);
   const cstVisitor = CstVisitor();
   const astVisitor = YamlAstVisitor();
   const schema = JsonSchema();

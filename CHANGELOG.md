@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.82.1](https://github.com/swagger-api/apidom/compare/v0.82.0...v0.82.1) (2023-11-03)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** fix normalize-servers refractor plugin ([#3355](https://github.com/swagger-api/apidom/issues/3355)) ([9f80c27](https://github.com/swagger-api/apidom/commit/9f80c27612040130745824a17525fe9021ce19a9))
+
 # [0.82.0](https://github.com/swagger-api/apidom/compare/v0.81.0...v0.82.0) (2023-11-01)
 
 ### Features

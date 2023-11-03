@@ -5,6 +5,7 @@ import {
   isObjectElement,
   includesClasses,
 } from '@swagger-api/apidom-core';
+import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import * as openApi3_1Predicates from '../predicates';
 import openApi3_1Namespace from '../namespace';
@@ -13,6 +14,7 @@ export type Predicates = typeof openApi3_1Predicates & {
   isStringElement: typeof isStringElement;
   isArrayElement: typeof isArrayElement;
   isObjectElement: typeof isObjectElement;
+  isServersElement: typeof isServersElement;
   includesClasses: typeof includesClasses;
 };
 
@@ -23,6 +25,7 @@ const createToolbox = () => {
     isStringElement,
     isArrayElement,
     isObjectElement,
+    isServersElement,
     includesClasses,
   };
 

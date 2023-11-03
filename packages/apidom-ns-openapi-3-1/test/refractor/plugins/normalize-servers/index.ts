@@ -75,7 +75,7 @@ describe('refractor', function () {
       });
 
       context('given no servers field is defined', function () {
-        specify('should not duplicate any Server Objects', async function () {
+        specify('should create default Server Object and duplicate', async function () {
           const yamlDefinition = dedent`
               openapi: 3.1.0
               paths:

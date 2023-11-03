@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-openapi-3-1",
-  "version": "0.82.1",
+  "version": "0.82.2",
   "description": "OpenAPI 3.1.x namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -45,9 +45,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-ast": "^0.82.1",
-    "@swagger-api/apidom-core": "^0.82.1",
-    "@swagger-api/apidom-ns-openapi-3-0": "^0.82.1",
+    "@swagger-api/apidom-ast": "^0.82.2",
+    "@swagger-api/apidom-core": "^0.82.2",
+    "@swagger-api/apidom-ns-openapi-3-0": "^0.82.2",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.0",
     "ramda-adjunct": "^4.1.1",

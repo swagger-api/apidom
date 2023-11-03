@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.82.2](https://github.com/swagger-api/apidom/compare/v0.82.1...v0.82.2) (2023-11-03)
+
+### Bug Fixes
+
+- return support for Node.js >=12.20.0 ([#3356](https://github.com/swagger-api/apidom/issues/3356)) ([75528ec](https://github.com/swagger-api/apidom/commit/75528eca3cc54bfae2240d8482d0858f0f7dbef9))
+
 ## [0.82.1](https://github.com/swagger-api/apidom/compare/v0.82.0...v0.82.1) (2023-11-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-6

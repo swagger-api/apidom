@@ -84,7 +84,8 @@ const plugin =
           if (ancestors.some(predicates.isComponentsElement)) return;
           if (!ancestors.some(predicates.isOpenApi3_1Element)) return;
 
-          const parentPathItemElement = ancestors.findLast(predicates.isPathItemElement);
+          // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.findLast in future
+          const parentPathItemElement = [...ancestors].reverse().find(predicates.isPathItemElement);
           const isServersUndefined = typeof operationElement.servers === 'undefined';
           const isServersArrayElement = predicates.isArrayElement(operationElement.servers);
           const isServersEmpty = isServersArrayElement && operationElement.servers!.length === 0;

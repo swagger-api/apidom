@@ -54,7 +54,7 @@ const analyze = (cst: NodeTree | WebTree, { sourceMap = false } = {}): ParseResu
   const visitor = CstVisitor();
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
-  const rootNode = [...iterator].at(0) as TreeCursorSyntaxNode;
+  const rootNode = [...iterator][0] as TreeCursorSyntaxNode;
 
   return visit(rootNode, visitor, {
     // @ts-ignore

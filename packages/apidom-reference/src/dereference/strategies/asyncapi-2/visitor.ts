@@ -10,6 +10,7 @@ import {
   isStringElement,
   visit,
   toValue,
+  refractorPluginElementIdentity,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
@@ -19,6 +20,7 @@ import {
   isChannelItemElementExternal,
   isReferenceElementExternal,
   isReferenceLikeElement,
+  isBooleanJsonSchemaElement,
   keyMap,
   ReferenceElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
@@ -33,6 +35,24 @@ import Reference from '../../../Reference';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+
+/**
+ * Predicate for detecting if element was created by merging referencing
+ * element with particular element identity with a referenced element.
+ */
+const wasReferencedBy =
+  <T extends Element, U extends Element>(referencingElement: T) =>
+  (element: U) => {
+    // @ts-ignore
+    return (
+      element.meta.hasKey('ref-referencing-element-id') &&
+      element.meta.get('ref-referencing-element-id').equals(toValue(referencingElement.id))
+    );
+  };
+
+// initialize element identity plugin
+const elementIdentity = refractorPluginElementIdentity()();
+elementIdentity.pre();
 
 const AsyncApi2DereferenceVisitor = stampit({
   props: {
@@ -55,7 +75,7 @@ const AsyncApi2DereferenceVisitor = stampit({
        * Compute full ancestors lineage.
        * Ancestors are flatten to unwrap all Element instances.
        */
-      const directAncestors = new WeakSet(ancestors.filter(isElement));
+      const directAncestors = new Set<Element>(ancestors.filter(isElement));
       const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
 
       return [ancestorsLineage, directAncestors];
@@ -174,6 +194,24 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
+      // Boolean JSON Schemas
+      if (isBooleanJsonSchemaElement(referencedElement)) {
+        const booleanJsonSchemaElement = cloneDeep(referencedElement);
+        // annotate referenced element with info about original referencing element
+        booleanJsonSchemaElement.setMetaProperty('ref-fields', {
+          $ref: toValue(referencingElement.$ref),
+        });
+        // annotate referenced element with info about origin
+        booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        booleanJsonSchemaElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(referencingElement.id),
+        );
+
+        return booleanJsonSchemaElement;
+      }
+
       const mergeAndAnnotateReferencedElement = <T extends Element>(refedElement: T): T => {
         const copy = cloneShallow(refedElement);
 
@@ -187,14 +225,24 @@ const AsyncApi2DereferenceVisitor = stampit({
         return copy;
       };
 
-      // attempting to create cycle
-      if (ancestorsLineage.includes(referencedElement)) {
-        if (isMemberElement(parent)) {
-          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
-        }
+      // assigning element identity if not already assigned
+      if (referencingElement.id.equals('')) {
+        elementIdentity.visitor.enter(referencingElement);
+      }
 
+      // attempting to create cycle
+      if (
+        ancestorsLineage.includes(referencingElement) ||
+        ancestorsLineage.includes(referencedElement)
+      ) {
+        const replaceWith =
+          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
+          mergeAndAnnotateReferencedElement(referencedElement);
+        if (isMemberElement(parent)) {
+          parent.value = replaceWith; // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
+        }
         return false;
       }
 
@@ -301,14 +349,24 @@ const AsyncApi2DereferenceVisitor = stampit({
         return mergedElement;
       };
 
-      // attempting to create cycle
-      if (ancestorsLineage.includes(referencedElement)) {
-        if (isMemberElement(parent)) {
-          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
-        }
+      // assigning element identity if not already assigned
+      if (referencingElement.id.equals('')) {
+        elementIdentity.visitor.enter(referencingElement);
+      }
 
+      // attempting to create cycle
+      if (
+        ancestorsLineage.includes(referencingElement) ||
+        ancestorsLineage.includes(referencedElement)
+      ) {
+        const replaceWith =
+          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
+          mergeAndAnnotateReferencedElement(referencedElement);
+        if (isMemberElement(parent)) {
+          parent.value = replaceWith; // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
+        }
         return false;
       }
 

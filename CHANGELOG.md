@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
+
+### Bug Fixes
+
+- **reference:** fix handling cycles in all dereference strategies ([#3361](https://github.com/swagger-api/apidom/issues/3361)) ([d84397c](https://github.com/swagger-api/apidom/commit/d84397c5371cac7b255c6e8c751cd2c14a23f302))
+
+### Features
+
+- **core:** add support for formalized element identity management ([#3366](https://github.com/swagger-api/apidom/issues/3366)) ([65dcd0e](https://github.com/swagger-api/apidom/commit/65dcd0e8a96544773001560fe142a9768a2c3668))
+
 ## [0.82.2](https://github.com/swagger-api/apidom/compare/v0.82.1...v0.82.2) (2023-11-03)
 
 ### Bug Fixes

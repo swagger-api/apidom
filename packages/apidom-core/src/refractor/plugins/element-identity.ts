@@ -1,5 +1,6 @@
-import ShortUniqueId from 'short-unique-id';
 import { Element, StringElement } from 'minim';
+
+import { IdentityManager } from '../../identity';
 
 /**
  * Plugin for decorating every element in ApiDOM tree with UUID.
@@ -8,20 +9,19 @@ import { Element, StringElement } from 'minim';
 const plugin =
   ({ length = 6 } = {}) =>
   () => {
-    let uuid: any;
+    let identityManager: IdentityManager | null;
 
     return {
       pre() {
-        uuid = new ShortUniqueId({ length });
+        identityManager = IdentityManager({ length });
       },
       visitor: {
         enter<T extends Element>(element: T) {
-          // eslint-disable-next-line no-param-reassign
-          element.id = new StringElement(uuid.randomUUID());
+          element.id = new StringElement(identityManager!.generateId()); // eslint-disable-line no-param-reassign
         },
       },
       post() {
-        uuid = null;
+        identityManager = null;
       },
     };
   };

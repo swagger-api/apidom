@@ -1,16 +1,16 @@
 import stampit from 'stampit';
 import { propEq } from 'ramda';
 import {
-  cloneDeep,
-  cloneShallow,
-  Element,
   isElement,
   isMemberElement,
   isPrimitiveElement,
   isStringElement,
+  IdentityManager,
+  cloneDeep,
+  cloneShallow,
   visit,
   toValue,
-  refractorPluginElementIdentity,
+  Element,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
@@ -36,23 +36,20 @@ import Reference from '../../../Reference';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
+// initialize element identity manager
+const identityManager = IdentityManager();
+
 /**
  * Predicate for detecting if element was created by merging referencing
  * element with particular element identity with a referenced element.
  */
 const wasReferencedBy =
   <T extends Element, U extends Element>(referencingElement: T) =>
-  (element: U) => {
-    // @ts-ignore
-    return (
-      element.meta.hasKey('ref-referencing-element-id') &&
-      element.meta.get('ref-referencing-element-id').equals(toValue(referencingElement.id))
-    );
-  };
-
-// initialize element identity plugin
-const elementIdentity = refractorPluginElementIdentity()();
-elementIdentity.pre();
+  (element: U) =>
+    element.meta.hasKey('ref-referencing-element-id') &&
+    element.meta
+      .get('ref-referencing-element-id')
+      .equals(toValue(identityManager.identify(referencingElement)));
 
 const AsyncApi2DereferenceVisitor = stampit({
   props: {
@@ -206,7 +203,7 @@ const AsyncApi2DereferenceVisitor = stampit({
         // annotate fragment with info about referencing element
         booleanJsonSchemaElement.setMetaProperty(
           'ref-referencing-element-id',
-          cloneDeep(referencingElement.id),
+          cloneDeep(identityManager.identify(referencingElement)),
         );
 
         return booleanJsonSchemaElement;
@@ -221,14 +218,14 @@ const AsyncApi2DereferenceVisitor = stampit({
         });
         // annotate fragment with info about origin
         copy.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        copy.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return copy;
       };
-
-      // assigning element identity if not already assigned
-      if (referencingElement.id.equals('')) {
-        elementIdentity.visitor.enter(referencingElement);
-      }
 
       // attempting to create cycle
       if (
@@ -345,14 +342,14 @@ const AsyncApi2DereferenceVisitor = stampit({
         });
         // annotate referenced with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        mergedElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return mergedElement;
       };
-
-      // assigning element identity if not already assigned
-      if (referencingElement.id.equals('')) {
-        elementIdentity.visitor.enter(referencingElement);
-      }
 
       // attempting to create cycle
       if (

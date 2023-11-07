@@ -2,17 +2,17 @@ import stampit from 'stampit';
 import { propEq } from 'ramda';
 import { isUndefined } from 'ramda-adjunct';
 import {
-  Element,
   isPrimitiveElement,
   isStringElement,
+  isMemberElement,
+  isElement,
+  IdentityManager,
   visit,
   find,
-  isElement,
   cloneShallow,
   cloneDeep,
   toValue,
-  isMemberElement,
-  refractorPluginElementIdentity,
+  Element,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
@@ -42,23 +42,20 @@ import Reference from '../../../Reference';
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
+// initialize element identity manager
+const identityManager = IdentityManager();
+
 /**
  * Predicate for detecting if element was created by merging referencing
  * element with particular element identity with a referenced element.
  */
 const wasReferencedBy =
   <T extends Element, U extends Element>(referencingElement: T) =>
-  (element: U) => {
-    // @ts-ignore
-    return (
-      element.meta.hasKey('ref-referencing-element-id') &&
-      element.meta.get('ref-referencing-element-id').equals(toValue(referencingElement.id))
-    );
-  };
-
-// initialize element identity plugin
-const elementIdentity = refractorPluginElementIdentity()();
-elementIdentity.pre();
+  (element: U) =>
+    element.meta.hasKey('ref-referencing-element-id') &&
+    element.meta
+      .get('ref-referencing-element-id')
+      .equals(toValue(identityManager.identify(referencingElement)));
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_0DereferenceVisitor = stampit({
@@ -211,14 +208,14 @@ const OpenApi3_0DereferenceVisitor = stampit({
         });
         // annotate fragment with info about origin
         copy.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        copy.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return copy;
       };
-
-      // assigning element identity if not already assigned
-      if (referencingElement.id.equals('')) {
-        elementIdentity.visitor.enter(referencingElement);
-      }
 
       // attempting to create cycle
       if (
@@ -335,14 +332,14 @@ const OpenApi3_0DereferenceVisitor = stampit({
         });
         // annotate referenced element with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        mergedElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return mergedElement;
       };
-
-      // assigning element identity if not already assigned
-      if (referencingElement.id.equals('')) {
-        elementIdentity.visitor.enter(referencingElement);
-      }
 
       // attempting to create cycle
       if (

@@ -1,7 +1,6 @@
 import { Element, StringElement } from 'minim';
 
 import { IdentityManager } from '../../identity';
-import type { IdentityManagerInstance } from '../../identity';
 
 /**
  * Plugin for decorating every element in ApiDOM tree with UUID.
@@ -10,7 +9,7 @@ import type { IdentityManagerInstance } from '../../identity';
 const plugin =
   ({ length = 6 } = {}) =>
   () => {
-    let identityManager: IdentityManagerInstance | null;
+    let identityManager: IdentityManager | null;
 
     return {
       pre() {

@@ -66,7 +66,6 @@ export { default as DeepCloneError } from './clone/errors/DeepCloneError';
 export { default as ShallowCloneError } from './clone/errors/ShallowCloneError';
 
 export { defaultIdentityManager, IdentityManager } from './identity';
-export type { IdentityManagerInstance } from './identity';
 export { default as ElementIdentityError } from './identity/errors/ElementIdentityError';
 
 /**

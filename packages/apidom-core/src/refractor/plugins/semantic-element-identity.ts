@@ -1,7 +1,6 @@
 import { Element, StringElement } from 'minim';
 
 import { IdentityManager } from '../../identity';
-import type { IdentityManagerInstance } from '../../identity';
 import { isPrimitiveElement } from '../../predicates';
 
 /**
@@ -15,7 +14,7 @@ type Predicates = {
 const plugin =
   ({ length = 6 } = {}) =>
   ({ predicates }: { predicates: Predicates }) => {
-    let identityManager: IdentityManagerInstance | null;
+    let identityManager: IdentityManager | null;
 
     return {
       pre() {

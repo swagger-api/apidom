@@ -98,9 +98,33 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
-            const cyclicParent = evaluate(
+            const parent = evaluate(
               '/0/components/schemas/User/properties/parent/properties/parent',
+              dereferenced,
+            );
+            const cyclicParent = evaluate(
+              '/0/components/schemas/User/properties/parent/properties/parent/properties/parent/properties/parent',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+        });
+
+        context('given Schema Objects with advanced internal cycles', function () {
+          const fixturePath = path.join(rootFixturePath, 'cycle-internal-advanced');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate(
+              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items',
+              dereferenced,
+            );
+            const cyclicParent = evaluate(
+              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items/properties/children/items',
               dereferenced,
             );
 
@@ -134,12 +158,13 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
+
             const parent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent',
+              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent',
               dereferenced,
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent',
+              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent/properties/parent',
               dereferenced,
             );
 
@@ -155,13 +180,12 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-
             const user = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user',
+              '/0/components/schemas/User/properties/profile/properties/user/properties/profile',
               dereferenced,
             );
             const cyclicUserInProfile = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user/properties/profile/properties/user',
+              '/0/components/schemas/User/properties/profile/properties/user/properties/profile/properties/user/properties/profile',
               dereferenced,
             );
 

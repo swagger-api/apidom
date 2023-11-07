@@ -7,6 +7,7 @@ import {
   isStringElement,
   isMemberElement,
   isObjectElement,
+  IdentityManager,
   visit,
   find,
   cloneShallow,
@@ -51,6 +52,21 @@ import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUr
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+
+// initialize element identity manager
+const identityManager = IdentityManager();
+
+/**
+ * Predicate for detecting if element was created by merging referencing
+ * element with particular element identity with a referenced element.
+ */
+const wasReferencedBy =
+  <T extends Element, U extends Element>(referencingElement: T) =>
+  (element: U) =>
+    element.meta.hasKey('ref-referencing-element-id') &&
+    element.meta
+      .get('ref-referencing-element-id')
+      .equals(toValue(identityManager.identify(referencingElement)));
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1DereferenceVisitor = stampit({
@@ -111,7 +127,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
        * Compute full ancestors lineage.
        * Ancestors are flatten to unwrap all Element instances.
        */
-      const directAncestors = new WeakSet(ancestors.filter(isElement));
+      const directAncestors = new Set<Element>(ancestors.filter(isElement));
       const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
 
       return [ancestorsLineage, directAncestors];
@@ -208,6 +224,11 @@ const OpenApi3_1DereferenceVisitor = stampit({
         });
         // annotate fragment with info about origin
         copy.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        copy.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         // override description and summary (outer has higher priority then inner)
         if (isObjectElement(refedElement)) {
@@ -229,13 +250,18 @@ const OpenApi3_1DereferenceVisitor = stampit({
       };
 
       // attempting to create cycle
-      if (ancestorsLineage.includes(referencedElement)) {
+      if (
+        ancestorsLineage.includes(referencingElement) ||
+        ancestorsLineage.includes(referencedElement)
+      ) {
+        const replaceWith =
+          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
+          mergeAndAnnotateReferencedElement(referencedElement);
         if (isMemberElement(parent)) {
-          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent.value = replaceWith; // eslint-disable-line no-param-reassign
         } else if (Array.isArray(parent)) {
-          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
         }
-
         return false;
       }
 
@@ -338,18 +364,28 @@ const OpenApi3_1DereferenceVisitor = stampit({
         });
         // annotate referenced element with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        mergedElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return mergedElement;
       };
 
       // attempting to create cycle
-      if (ancestorsLineage.includes(referencedElement)) {
+      if (
+        ancestorsLineage.includes(referencingElement) ||
+        ancestorsLineage.includes(referencedElement)
+      ) {
+        const replaceWith =
+          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
+          mergeAndAnnotateReferencedElement(referencedElement);
         if (isMemberElement(parent)) {
-          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent.value = replaceWith; // eslint-disable-line no-param-reassign
         } else if (Array.isArray(parent)) {
-          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
         }
-
         return false;
       }
 
@@ -592,6 +628,12 @@ const OpenApi3_1DereferenceVisitor = stampit({
         });
         // annotate referenced element with info about origin
         booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        booleanJsonSchemaElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
+
         return booleanJsonSchemaElement;
       }
 
@@ -616,22 +658,31 @@ const OpenApi3_1DereferenceVisitor = stampit({
         });
         // annotate fragment with info about origin
         mergedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        mergedElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
 
         return mergedElement;
       };
 
       // attempting to create cycle
-      if (ancestorsLineage.includes(referencedElement)) {
+      if (
+        ancestorsLineage.includes(referencingElement) ||
+        ancestorsLineage.includes(referencedElement)
+      ) {
+        const replaceWith =
+          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
+          mergeAndAnnotateReferencedElement(referencedElement);
         if (isMemberElement(parent)) {
-          parent.value = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent.value = replaceWith; // eslint-disable-line no-param-reassign
         } else if (Array.isArray(parent)) {
-          parent[key] = mergeAndAnnotateReferencedElement(referencedElement); // eslint-disable-line no-param-reassign
+          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
         }
-
         return false;
       }
 
-      // transclude referencing element with merged referenced element
       return mergeAndAnnotateReferencedElement(referencedElement);
     },
   },

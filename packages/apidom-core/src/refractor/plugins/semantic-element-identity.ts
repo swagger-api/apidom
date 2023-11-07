@@ -1,33 +1,35 @@
-import ShortUniqueId from 'short-unique-id';
 import { Element, StringElement } from 'minim';
+
+import { IdentityManager } from '../../identity';
+import type { IdentityManagerInstance } from '../../identity';
+import { isPrimitiveElement } from '../../predicates';
 
 /**
  * Plugin for decorating every semantic element in ApiDOM tree with UUID.
  */
 
 type Predicates = {
-  isPrimitiveElement: (element: Element) => boolean;
+  isPrimitiveElement: typeof isPrimitiveElement;
 };
 
 const plugin =
   ({ length = 6 } = {}) =>
   ({ predicates }: { predicates: Predicates }) => {
-    let uuid: any;
+    let identityManager: IdentityManagerInstance | null;
 
     return {
       pre() {
-        uuid = new ShortUniqueId({ length });
+        identityManager = IdentityManager({ length });
       },
       visitor: {
         enter<T extends Element>(element: T) {
           if (!predicates.isPrimitiveElement(element)) {
-            // eslint-disable-next-line no-param-reassign
-            element.id = new StringElement(uuid.randomUUID());
+            (element as Element).id = new StringElement(identityManager!.generateId()); // eslint-disable-line no-param-reassign
           }
         },
       },
       post() {
-        uuid = null;
+        identityManager = null;
       },
     };
   };

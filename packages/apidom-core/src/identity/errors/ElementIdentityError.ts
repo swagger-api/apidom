@@ -1,14 +1,14 @@
 import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 import type { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-interface CloneErrorOptions extends ApiDOMErrorOptions {
+interface ElementIdentityErrorOptions extends ApiDOMErrorOptions {
   readonly value: unknown;
 }
 
-class CloneError extends ApiDOMStructuredError {
+class ElementIdentityError extends ApiDOMStructuredError {
   public readonly value: unknown;
 
-  constructor(message?: string, structuredOptions?: CloneErrorOptions) {
+  constructor(message?: string, structuredOptions?: ElementIdentityErrorOptions) {
     super(message, structuredOptions);
 
     if (typeof structuredOptions !== 'undefined') {
@@ -17,4 +17,4 @@ class CloneError extends ApiDOMStructuredError {
   }
 }
 
-export default CloneError;
+export default ElementIdentityError;

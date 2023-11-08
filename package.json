@@ -58,7 +58,7 @@
     "@types/dedent": "=0.7.2",
     "@types/mocha": "=10.0.4",
     "@types/node": "=20.8.10",
-    "@types/sinon": "=17.0.0",
+    "@types/sinon": "=17.0.1",
     "@typescript-eslint/eslint-plugin": "=6.10.0",
     "@typescript-eslint/parser": "=6.10.0",
     "babel-loader": "=9.1.3",

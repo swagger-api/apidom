@@ -1,6 +1,6 @@
 # @swagger-api/apidom-ns-workflows-1
 
-`@swagger-api/apidom-ns-workflows-1` contains ApiDOM namespace specific to [Workflows 1.0.0 specification](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md).
+`@swagger-api/apidom-ns-workflows-1` contains ApiDOM namespace specific to [Workflows 1.0.0 specification](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md).
 
 ## Installation
 
@@ -185,12 +185,15 @@ const workflowsElement = Workflows1Element.refract(apiDOM.result, {
 
 Only fully implemented specification objects should be checked here.
 
-- [ ] [Workflows Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#workflows-specification-object)
-- [ ] [Info Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#info-object)
-- [ ] [Source Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#source-object)
-- [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#workflow-object)
-- [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#step-object)
-- [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#parameter-object)
-- [ ] [Success Action Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#success-action-object)
-- [ ] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#failure-action-object)
-- [ ] [Specification extensions](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#specification-extensions)
+- [ ] [Workflows Specification Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflows-specification-object)
+- [ ] [Info Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#info-object)
+- [ ] [Source Description Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#source-description-object)
+- [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflow-object)
+- [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#step-object)
+- [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#parameter-object)
+- [ ] [Success Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#success-action-object)
+- [ ] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#failure-action-object)
+- [ ] [Component Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#component-object)
+- [ ] [Criterion Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#criterion-object)
+- [ ] [Reference Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#reference-object)
+- [ ] [Specification extensions](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#specification-extensions)

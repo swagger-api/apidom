@@ -11,5 +11,11 @@
         "parser": "typescript"
       }
     }
+  ],
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    }
   ]
 }

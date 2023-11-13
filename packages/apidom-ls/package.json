@@ -113,7 +113,7 @@
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.83.0",
     "@swagger-api/apidom-reference": "^0.83.0",
     "@types/ramda": "~0.29.6",
-    "ramda": "~0.29.0",
+    "ramda": "~0.29.1",
     "ramda-adjunct": "^4.1.1",
     "vscode-languageserver-protocol": "^3.17.2",
     "vscode-languageserver-textdocument": "^1.0.5",

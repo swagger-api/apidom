@@ -7,7 +7,7 @@ import InfoElement from './elements/Info';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: unknown): element is OpenapiElement =>
+    return (element: unknown): element is WorkflowsSpecElement =>
       element instanceof WorkflowsSpecElement ||
       (hasBasicElementProps(element) &&
         isElementType('workflowsSpec', element) &&

@@ -20,7 +20,11 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 export { default as refract, createRefractor } from './refractor';
 export { default as specificationObj } from './refractor/specification';
 
-export { isInfoElement } from './predicates';
+export {
+  isWorkflowsSpecElement,
+  isWorkflowsSpecificationElement,
+  isInfoElement,
+} from './predicates';
 
 export {
   isWorkflowsSpecificationLikeElement,

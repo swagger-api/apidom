@@ -15,7 +15,7 @@ class WorkflowsSpecification extends ObjectElement {
     return this.get('workflowsSpec');
   }
 
-  set workflowsSpec(workflowsSpec: workflowsSpecElement | undefined) {
+  set workflowsSpec(workflowsSpec: WorkflowsSpecElement | undefined) {
     this.set('workflowsSpec', workflowsSpec);
   }
 

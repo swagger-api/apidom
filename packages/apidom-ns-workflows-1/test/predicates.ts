@@ -1,5 +1,5 @@
-import { InfoElement } from '@swagger-api/apidom-ns-workflows-1';
 import { assert } from 'chai';
+import { ArrayElement } from '@swagger-api/apidom-core';
 
 // import { isInfoElement } from '../src/predicates';
 import {
@@ -15,7 +15,7 @@ describe('predicates', function () {
   context('isWorkflowsSpecificationElement', function () {
     context('given WorkflowsSpecificationElement instance value', function () {
       specify('should return true', function () {
-        const element = new WorkflowsSpecElement();
+        const element = new WorkflowsSpecificationElement();
 
         assert.isTrue(isWorkflowsSpecificationElement(element));
       });

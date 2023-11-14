@@ -687,6 +687,25 @@ const numberElement = new NumberElement(1);
 dehyrate(numberElement); // => { element: 'number', content: 1 }
 ```
 
+### S-Expression
+
+Transforms ApiDOM into [symbolic expression](https://en.wikipedia.org/wiki/S-expression).
+
+```js
+import { sexprs, ObjectElement } from '@swagger-api/apidom-core';
+
+const objectElement = new ObjectElement({ a: 1 });
+
+sexprs(objectElement);
+// =>
+// (ObjectElement
+//   (MemberElement
+//     (StringElement)
+//     (NumberElement)))
+
+
+```
+
 ### toString
 
 Create a [refracted string](https://github.com/refractproject/refract-spec) representation of an Element.

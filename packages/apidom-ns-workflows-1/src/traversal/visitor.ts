@@ -13,6 +13,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  */
 
 export const keyMap = {
+  WorkflowsSpecification1Element: ['content'],
   InfoElement: ['content'],
   ...keyMapBase,
 };

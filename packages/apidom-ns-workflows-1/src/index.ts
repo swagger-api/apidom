@@ -1,5 +1,6 @@
 export {
   isRefElement,
+  isLinkElement as isLinkPrimitiveElement,
   isMemberElement,
   isObjectElement,
   isArrayElement,
@@ -22,14 +23,11 @@ export { default as specificationObj } from './refractor/specification';
 
 export {
   isWorkflowsSpecElement,
-  isWorkflowsSpecificationElement,
+  isWorkflowsSpecification1Element,
   isInfoElement,
 } from './predicates';
 
-export {
-  isWorkflowsSpecificationLikeElement,
-  isWorkflowsSpecificationExtension,
-} from './refractor/predicates';
+export { isWorkflowsSpecificationExtension } from './refractor/predicates';
 
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
@@ -40,9 +38,9 @@ export { default as Visitor } from './refractor/visitors/Visitor';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 
-// OpenAPI 3.0.x elements
+// Workflows 1.0.0 elements
 export {
-  WorkflowsSpecificationElement,
+  WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
 } from './refractor/registration';

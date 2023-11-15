@@ -4,16 +4,15 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 
 import FixedFieldsVisitor from '../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import WorkflowsSpecificationElement from '../../../elements/WorkflowsSpecification';
+import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const WorkflowsSpecificationVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'WorkflowsSpecification']),
     canSupportSpecificationExtensions: true,
   },
   init() {
-    this.element = new WorkflowsSpecificationElement();
+    this.element = new WorkflowsSpecification1Element();
   },
   methods: {
     ObjectElement(objectElement: ObjectElement) {

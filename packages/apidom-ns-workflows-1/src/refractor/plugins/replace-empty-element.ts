@@ -24,7 +24,7 @@ import { getNodeType } from '../../traversal/visitor';
  * @example
  *
  * ```yaml
- * openapi: 1.0.0
+ * workflowsSpec: 1.0.0
  * info:
  * ```
  * Refracting result without this plugin:
@@ -48,12 +48,12 @@ import { getNodeType } from '../../traversal/visitor';
  *      (InfoElement))
  */
 
-const isEmptyElement = (element: any) =>
+const isEmptyElement = (element: unknown) =>
   isStringElement(element) && includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
 const schema = {
   // concrete types handling (CTs)
-  WorkflowsSpecificationElement: {
+  WorkflowsSpecification1Element: {
     info(...args: any[]) {
       return new InfoElement(...args);
     },

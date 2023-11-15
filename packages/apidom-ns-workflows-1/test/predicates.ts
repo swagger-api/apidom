@@ -1,12 +1,11 @@
 import { assert } from 'chai';
 import { ArrayElement } from '@swagger-api/apidom-core';
 
-// import { isInfoElement } from '../src/predicates';
 import {
-  isWorkflowsSpecificationElement,
+  isWorkflowsSpecification1Element,
   isWorkflowsSpecElement,
   isInfoElement,
-  WorkflowsSpecificationElement,
+  WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
 } from '../src';
@@ -15,37 +14,37 @@ describe('predicates', function () {
   context('isWorkflowsSpecificationElement', function () {
     context('given WorkflowsSpecificationElement instance value', function () {
       specify('should return true', function () {
-        const element = new WorkflowsSpecificationElement();
+        const element = new WorkflowsSpecification1Element();
 
-        assert.isTrue(isWorkflowsSpecificationElement(element));
+        assert.isTrue(isWorkflowsSpecification1Element(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        class WorkflowsSpecificationSubElement extends WorkflowsSpecificationElement {}
+        class WorkflowsSpecificationSubElement extends WorkflowsSpecification1Element {}
 
-        assert.isTrue(isWorkflowsSpecificationElement(new WorkflowsSpecificationSubElement()));
+        assert.isTrue(isWorkflowsSpecification1Element(new WorkflowsSpecificationSubElement()));
       });
     });
 
     context('given non isWorkflowsSpecificationElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isWorkflowsSpecificationElement(1));
-        assert.isFalse(isWorkflowsSpecificationElement(null));
-        assert.isFalse(isWorkflowsSpecificationElement(undefined));
-        assert.isFalse(isWorkflowsSpecificationElement({}));
-        assert.isFalse(isWorkflowsSpecificationElement([]));
-        assert.isFalse(isWorkflowsSpecificationElement('string'));
+        assert.isFalse(isWorkflowsSpecification1Element(1));
+        assert.isFalse(isWorkflowsSpecification1Element(null));
+        assert.isFalse(isWorkflowsSpecification1Element(undefined));
+        assert.isFalse(isWorkflowsSpecification1Element({}));
+        assert.isFalse(isWorkflowsSpecification1Element([]));
+        assert.isFalse(isWorkflowsSpecification1Element('string'));
       });
     });
 
     specify('should support duck-typing', function () {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const workflowsSpecificationElementDuck = {
-        _storedElement: 'workflowsSpecification',
-        classes: new ArrayElement(['workflow']),
+        _storedElement: 'workflowsSpecification1',
+        classes: new ArrayElement(['api']),
         _content: [],
         primitive() {
           return 'object';
@@ -55,7 +54,6 @@ describe('predicates', function () {
         },
       };
 
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       const workflowsSpecificationElementSwan = {
         _storedElement: undefined,
         _content: undefined,
@@ -67,8 +65,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isWorkflowsSpecificationElement(workflowsSpecificationElementDuck));
-      assert.isFalse(isWorkflowsSpecificationElement(workflowsSpecificationElementSwan));
+      assert.isTrue(isWorkflowsSpecification1Element(workflowsSpecificationElementDuck));
+      assert.isFalse(isWorkflowsSpecification1Element(workflowsSpecificationElementSwan));
     });
   });
 
@@ -104,6 +102,7 @@ describe('predicates', function () {
       const infoElementDuck = {
         _storedElement: 'info',
         _content: [],
+        classes: new ArrayElement(['info']),
         primitive() {
           return 'object';
         },

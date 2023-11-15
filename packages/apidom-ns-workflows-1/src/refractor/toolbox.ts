@@ -1,14 +1,14 @@
 import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
 
-import * as workflowsSpecificationPredicates from '../predicates';
+import * as workflowsPredicates from '../predicates';
 import * as refractorPredicates from './predicates';
-import workflowsSpecificationNamespace from '../namespace';
+import workflowsNamespace from '../namespace';
 
 const createToolbox = () => {
-  const namespace = createNamespace(workflowsSpecificationNamespace);
+  const namespace = createNamespace(workflowsNamespace);
   const predicates = {
     ...refractorPredicates,
-    ...workflowsSpecificationPredicates,
+    ...workflowsPredicates,
     isStringElement,
   };
 

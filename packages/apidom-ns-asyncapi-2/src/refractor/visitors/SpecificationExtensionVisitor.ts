@@ -8,6 +8,7 @@ const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
     MemberElement(memberElement: MemberElement) {
       this.element = cloneDeep(memberElement);
       this.element.classes.push('specification-extension');
+
       return BREAK;
     },
   },

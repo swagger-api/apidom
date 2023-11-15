@@ -1,6 +1,6 @@
 # @swagger-api/apidom-ns-workflows-1
 
-`@swagger-api/apidom-ns-workflows-1` contains ApiDOM namespace specific to [Workflows 1.0.0 specification](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md).
+`@swagger-api/apidom-ns-workflows-1` contains ApiDOM namespace specific to [Workflows 1.0.0 specification](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md).
 
 ## Installation
 
@@ -22,7 +22,7 @@ import workflows1Namespace from '@swagger-api/apidom-ns-workflows-1';
 const namespace = createNamespace(workflows1Namespace);
 
 const objectElement = new namespace.elements.Object();
-const workflowsElement = new namespace.elements.Workflows1();
+const workflowsElement = new namespace.elements.WorkflowsSpecification1();
 ```
 
 When namespace instance is created in this way, it will extend the base namespace
@@ -31,10 +31,10 @@ with the namespace provided as an argument.
 Elements from the namespace can also be used directly by importing them.
 
 ```js
-import { Workflows1Element, InfoElement } from '@swagger-api/apidom-ns-workflows-1';
+import { WorkflowsSpecification1Element, InfoElement } from '@swagger-api/apidom-ns-workflows-1';
 
 const infoElement = new InfoElement();
-const workflowsElement = new Workflows1Element();
+const workflowsElement = new WorkflowsSpecification1Element();
 ```
 
 ## Predicates
@@ -43,11 +43,11 @@ This package exposes [predicates](https://github.com/swagger-api/apidom/blob/mai
 for all higher order elements that are part of this namespace.
 
 ```js
-import { isWorkflows1Element, Workflows1Element } from '@swagger-api/apidom-ns-workflows-1';
+import { isWorkflowsSpecification1Element, WorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflows-1';
 
-const workflowsElement = new Workflows1Element();
+const workflowsElement = new WorkflowsSpecification1Element();
 
-isWorkflows1Element(workflowsElement); // => true
+isWorkflowsSpecification1Element(workflowsElement); // => true
 ```
 
 ## Traversal
@@ -58,12 +58,12 @@ To learn more about these `visit` configuration options please refer to [@swagge
 
 ```js
 import { visit } from '@swagger-api/apidom-core';
-import { Workflows1Element, keyMap, getNodeType } from '@swagger-api/apidom-ns-workflows-1';
+import { WorkflowsSpecification1Element, keyMap, getNodeType } from '@swagger-api/apidom-ns-workflows-1';
 
-const element = new Workflows1Element();
+const element = new WorkflowsSpecification1Element();
 
 const visitor = {
-  Workflows1Element(workflowsElement) {
+  WorkflowsSpecification1Element(workflowsElement) {
     console.dir(workflowsElement);
   },
 };
@@ -151,19 +151,19 @@ this missing value with the most appropriate semantic element type.
 
 ```js
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginReplaceEmptyElement, Workflows1Element } from '@swagger-api/apidom-ns-workflows-1';
+import { refractorPluginReplaceEmptyElement, WorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflows-1';
 
 const yamlDefinition = `
 workflows: 1.0.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
-const workflowsElement = Workflows1Element.refract(apiDOM.result, {
+const workflowsElement = WorkflowsSpecification1Element.refract(apiDOM.result, {
   plugins: [refractorPluginReplaceEmptyElement()],
 });
 
 // =>
-// (Workflows1Element
+// (WorkflowsSpecification1Element
 //   (MemberElement
 //     (StringElement)
 //     (StringElement))
@@ -172,7 +172,7 @@ const workflowsElement = Workflows1Element.refract(apiDOM.result, {
 //     (InfoElement)))
 
 // => without the plugin the result would be as follows:
-// (Workflows1Element
+// (WorkflowsSpecification1Element
 //   (MemberElement
 //     (StringElement)
 //     (StringElement))
@@ -185,12 +185,15 @@ const workflowsElement = Workflows1Element.refract(apiDOM.result, {
 
 Only fully implemented specification objects should be checked here.
 
-- [ ] [Workflows Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#workflows-specification-object)
-- [ ] [Info Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#info-object)
-- [ ] [Source Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#source-object)
-- [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#workflow-object)
-- [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#step-object)
-- [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#parameter-object)
-- [ ] [Success Action Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#success-action-object)
-- [ ] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#failure-action-object)
-- [ ] [Specification extensions](https://github.com/OAI/sig-workflows/blob/draft-version-minor-enrichment/versions/1.0.0.md#specification-extensions)
+- [ ] [Workflows Specification Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflows-specification-object)
+- [x] [Info Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#info-object)
+- [ ] [Source Description Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#source-description-object)
+- [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflow-object)
+- [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#step-object)
+- [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#parameter-object)
+- [ ] [Success Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#success-action-object)
+- [ ] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#failure-action-object)
+- [ ] [Component Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#component-object)
+- [ ] [Criterion Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#criterion-object)
+- [ ] [Reference Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#reference-object)
+- [x] [Specification extensions](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#specification-extensions)

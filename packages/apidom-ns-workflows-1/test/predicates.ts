@@ -44,7 +44,7 @@ describe('predicates', function () {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const workflowsSpecificationElementDuck = {
         _storedElement: 'workflowsSpecification1',
-        classes: new ArrayElement(['api']),
+        classes: new ArrayElement(['api', 'workflow']),
         _content: [],
         primitive() {
           return 'object';

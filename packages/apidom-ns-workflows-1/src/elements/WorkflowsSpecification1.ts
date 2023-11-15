@@ -8,6 +8,7 @@ class WorkflowsSpecification1 extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'workflowsSpecification1';
     this.classes.push('api');
+    this.classes.push('workflow');
   }
 
   get workflowsSpec(): WorkflowsSpecElement | undefined {

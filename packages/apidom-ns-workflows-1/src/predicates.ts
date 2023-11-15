@@ -21,7 +21,8 @@ export const isWorkflowsSpecification1Element = createPredicate(
       (hasBasicElementProps(element) &&
         isElementType('workflowsSpecification1', element) &&
         primitiveEq('object', element) &&
-        hasClass('api', element));
+        hasClass('api', element) &&
+        hasClass('workflow', element));
   },
 );
 

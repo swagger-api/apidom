@@ -1,15 +1,14 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
-import WorkflowsSpecificationElement from './elements/WorkflowsSpecification';
+import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const workflowsSpecification = {
+const workflows1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
-    base.register('workflowsSpecification', WorkflowsSpecificationElement);
+    base.register('workflowsSpecification1', WorkflowsSpecification1Element);
     base.register('workflowsSpec', WorkflowsSpecElement);
     base.register('info', InfoElement);
 
@@ -17,4 +16,4 @@ const workflowsSpecification = {
   },
 };
 
-export default workflowsSpecification;
+export default workflows1;

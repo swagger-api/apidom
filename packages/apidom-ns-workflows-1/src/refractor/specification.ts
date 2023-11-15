@@ -1,13 +1,9 @@
-// import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
-
 import WorkflowsSpecificationVisitor from './visitors/workflows-1/index';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor';
 import InfoVisitor from './visitors/workflows-1/info';
-import InfoTitleVisitor from './visitors/workflows-1/info/TitleVisitor';
-import InfoDescriptionVisitor from './visitors/workflows-1/info/DescriptionVisitor';
-import InfoSummaryVisitor from './visitors/workflows-1/info/SummaryVisitor';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -17,8 +13,6 @@ import FallbackVisitor from './visitors/FallbackVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
-
-// const { fixedFields: jsonSchemaFixedFields } = JSONSchemaDraft7Specification.visitors.document.objects.JSONSchema;
 
 const specification = {
   visitors: {
@@ -30,19 +24,22 @@ const specification = {
           fixedFields: {
             workflowSpec: WorkflowsSpecVisitor,
             info: {
-              $ref: '#/visitors/document/object/Info',
+              $ref: '#/visitors/document/objects/Info',
             },
           },
         },
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title: InfoTitleVisitor,
-            summary: InfoSummaryVisitor,
-            description: InfoDescriptionVisitor,
+            title: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             version: InfoVersionVisitor,
           },
         },
+      },
+      extension: {
+        $visitor: SpecificationExtensionVisitor,
       },
     },
   },

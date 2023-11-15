@@ -5,7 +5,6 @@ const Visitor = stampit({
   props: {
     element: null,
   },
-  // @ts-ignore
   methods: {
     copyMetaAndAttributes(from, to) {
       // copy sourcemaps

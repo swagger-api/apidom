@@ -3,12 +3,11 @@ import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 import WorkflowsSpecElement from './WorkflowsSpec';
 import InfoElement from './Info';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-class WorkflowsSpecification extends ObjectElement {
+class WorkflowsSpecification1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'workflowsSpecification';
-    this.classes.push('workflow');
+    this.element = 'workflowsSpecification1';
+    this.classes.push('api');
   }
 
   get workflowsSpec(): WorkflowsSpecElement | undefined {
@@ -28,4 +27,4 @@ class WorkflowsSpecification extends ObjectElement {
   }
 }
 
-export default WorkflowsSpecification;
+export default WorkflowsSpecification1;

@@ -4,18 +4,13 @@
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 100,
+  "endOfLine": "lf",
   "overrides": [
     {
       "files": "*.ts",
       "options": {
         "parser": "typescript"
       }
-    }
-  ],
-  "prettier/prettier": [
-    "error",
-    {
-      "endOfLine": "auto"
     }
   ]
 }

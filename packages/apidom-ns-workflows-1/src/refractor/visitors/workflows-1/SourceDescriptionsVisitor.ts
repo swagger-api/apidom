@@ -4,7 +4,6 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import SourceDescriptionsElement from '../../../elements/nces/SourceDescriptions';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
-import { isSourceDescriptionLikeElement } from '../../predicates';
 
 const SourceDescriptionsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
@@ -12,10 +11,8 @@ const SourceDescriptionsVisitor = stampit(SpecificationVisitor, FallbackVisitor,
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element) => {
-        const specPath = isSourceDescriptionLikeElement(item)
-          ? ['document', 'objects', 'SourceDescription']
-          : ['value'];
+      arrayElement.forEach((item: Element): void => {
+        const specPath = ['document', 'objects', 'SourceDescription'];
         const element = this.toRefractedElement(specPath, item);
 
         this.element.push(element);

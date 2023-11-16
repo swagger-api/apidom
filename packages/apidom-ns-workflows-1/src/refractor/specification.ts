@@ -2,9 +2,8 @@ import WorkflowsSpecificationVisitor from './visitors/workflows-1/index';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor';
 import InfoVisitor from './visitors/workflows-1/info';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';
-import SourceDescriptionVisitor from './visitors/workflows-1/sourceDescription';
-import SourceDescriptionUrlVisitor from './visitors/workflows-1/sourceDescription/UrlVisitor';
-import SourceDescriptionTypeVisitor from './visitors/workflows-1/sourceDescription/TypeVisitor';
+import SourceDescriptionVisitor from './visitors/workflows-1/source-description';
+import SourceDescriptionUrlVisitor from './visitors/workflows-1/source-description/UrlVisitor';
 import SourceDescriptionsVisitor from './visitors/workflows-1/SourceDescriptionsVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
@@ -45,9 +44,9 @@ const specification = {
         SourceDescription: {
           $visitor: SourceDescriptionVisitor,
           fixedFields: {
-            name: FallbackVisitor,
+            name: { $ref: '#/visitors/value' },
             url: SourceDescriptionUrlVisitor,
-            type: SourceDescriptionTypeVisitor,
+            type: { $ref: '#/visitors/value' },
           },
         },
       },

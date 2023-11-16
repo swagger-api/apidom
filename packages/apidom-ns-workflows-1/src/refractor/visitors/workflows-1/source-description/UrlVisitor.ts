@@ -7,7 +7,7 @@ const UrlVisitor = stampit(FallbackVisitor, {
   methods: {
     StringElement(stringElement: StringElement) {
       this.element = cloneDeep(stringElement);
-      this.element.classes.push('sourceDescription-url');
+      this.element.classes.push('source-description-url');
 
       return BREAK;
     },

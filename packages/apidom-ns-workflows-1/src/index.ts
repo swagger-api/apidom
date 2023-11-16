@@ -47,3 +47,5 @@ export {
   InfoElement,
   SourceDescriptionElement,
 } from './refractor/registration';
+// NCE types
+export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';

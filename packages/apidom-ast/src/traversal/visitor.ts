@@ -102,7 +102,7 @@ export const mergeAll = (
   };
 };
 
-/* eslint-disable no-continue, no-nested-ternary, no-param-reassign */
+/* eslint-disable no-continue, no-param-reassign */
 /**
  * visit() will walk through an AST using a preorder depth first traversal, calling
  * the visitor's enter function at each node in the traversal, and calling the

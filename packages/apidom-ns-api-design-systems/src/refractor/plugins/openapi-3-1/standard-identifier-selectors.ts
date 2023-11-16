@@ -90,12 +90,12 @@ const plugin = () => () => {
             const statusCodeAlias = statusCode.startsWith('2')
               ? 'success'
               : statusCode.startsWith('3')
-              ? 'redirect'
-              : statusCode.startsWith('4')
-              ? 'client_error'
-              : statusCode.startsWith('5')
-              ? 'sever_error'
-              : 'unknown';
+                ? 'redirect'
+                : statusCode.startsWith('4')
+                  ? 'client_error'
+                  : statusCode.startsWith('5')
+                    ? 'sever_error'
+                    : 'unknown';
 
             responseIdentifiers.push(
               ['http', 'response', 'status_code'],

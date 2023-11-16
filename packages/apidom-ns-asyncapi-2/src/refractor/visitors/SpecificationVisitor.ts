@@ -13,6 +13,7 @@ import Visitor from './Visitor';
 const SpecificationVisitor = stampit(Visitor, {
   props: {
     specObj: null,
+    passingOptionsNames: ['specObj'],
   },
   // @ts-ignore
   init({ specObj = this.specObj }) {
@@ -20,7 +21,7 @@ const SpecificationVisitor = stampit(Visitor, {
   },
   methods: {
     retrievePassingOptions() {
-      return pick(['namespace', 'specObj'], this);
+      return pick(this.passingOptionsNames, this);
     },
 
     retrieveFixedFields(specPath) {

@@ -64,13 +64,11 @@ const CstVisitor = stampit({
     const kindNodeToYamlTag = (node: TreeCursorSyntaxNode) => {
       const { tag: tagNode } = node;
       const explicitName = tagNode?.text || (node.type === 'plain_scalar' ? '?' : '!');
-
-      // eslint-disable-next-line no-nested-ternary
       const kind = node.type.endsWith('mapping')
         ? YamlNodeKind.Mapping
         : node.type.endsWith('sequence')
-        ? YamlNodeKind.Sequence
-        : YamlNodeKind.Scalar;
+          ? YamlNodeKind.Sequence
+          : YamlNodeKind.Scalar;
       const position = tagNode ? toPosition(tagNode) : null;
 
       return YamlTag({ explicitName, kind, position });
@@ -544,12 +542,11 @@ const CstVisitor = stampit({
         const position = toPosition(node);
         const tag = kindNodeToYamlTag(node);
         const anchor = kindNodeToYamlAnchor(node);
-        // eslint-disable-next-line no-nested-ternary
         const style = node.text.startsWith('|')
           ? YamlStyle.Literal
           : node.text.startsWith('>')
-          ? YamlStyle.Folded
-          : null;
+            ? YamlStyle.Folded
+            : null;
         const scalarNode = YamlScalar({
           content: node.text,
           anchor,

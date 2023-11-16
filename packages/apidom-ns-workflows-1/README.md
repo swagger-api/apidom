@@ -187,7 +187,7 @@ Only fully implemented specification objects should be checked here.
 
 - [ ] [Workflows Specification Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflows-specification-object)
 - [x] [Info Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#info-object)
-- [ ] [Source Description Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#source-description-object)
+- [x] [Source Description Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#source-description-object)
 - [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflow-object)
 - [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#step-object)
 - [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#parameter-object)

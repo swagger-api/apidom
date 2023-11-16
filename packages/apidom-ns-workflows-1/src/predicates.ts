@@ -3,6 +3,9 @@ import { createPredicate } from '@swagger-api/apidom-core';
 import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
+import SourceDescriptionElement from './elements/SourceDescription';
+// NCE types
+import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -34,5 +37,26 @@ export const isInfoElement = createPredicate(
         isElementType('info', element) &&
         primitiveEq('object', element) &&
         hasClass('info', element));
+  },
+);
+
+export const isSourceDescriptionElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is SourceDescriptionElement =>
+      element instanceof SourceDescriptionElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('sourceDescription', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isSourceDescriptionsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is SourceDescriptionsElement =>
+      element instanceof SourceDescriptionsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('sourceDescriptions', element));
   },
 );

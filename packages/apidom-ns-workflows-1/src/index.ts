@@ -25,6 +25,8 @@ export {
   isWorkflowsSpecElement,
   isWorkflowsSpecification1Element,
   isInfoElement,
+  isSourceDescriptionElement,
+  isSourceDescriptionsElement,
 } from './predicates';
 
 export { isWorkflowsSpecificationExtension } from './refractor/predicates';
@@ -43,4 +45,5 @@ export {
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
+  SourceDescriptionElement,
 } from './refractor/registration';

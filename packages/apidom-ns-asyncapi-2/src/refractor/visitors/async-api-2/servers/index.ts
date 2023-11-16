@@ -13,7 +13,6 @@ const ServersVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   props: {
     fieldPatternPredicate: test(/^[A-Za-z0-9_-]+$/),
     specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Server'];

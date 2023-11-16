@@ -824,8 +824,8 @@ export async function findNamespace(
     const version = versionMatch?.groups?.version_yaml
       ? versionMatch?.groups?.version_yaml
       : versionMatch?.groups?.version_json
-      ? versionMatch?.groups?.version_json
-      : '3.0.3';
+        ? versionMatch?.groups?.version_json
+        : '3.0.3';
     return {
       namespace: 'openapi',
       version,
@@ -851,8 +851,8 @@ export async function findNamespace(
     const version = versionMatch?.groups?.version_yaml
       ? versionMatch?.groups?.version_yaml
       : versionMatch?.groups?.version_json
-      ? versionMatch?.groups?.version_json
-      : '3.1.0';
+        ? versionMatch?.groups?.version_json
+        : '3.1.0';
     return {
       namespace: 'openapi',
       version,

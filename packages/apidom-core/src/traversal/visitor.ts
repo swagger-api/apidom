@@ -34,27 +34,25 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
    *
    * There is a problem with naming visitor methods described here: https://github.com/babel/babel/discussions/12874
    */
-  /* eslint-disable no-nested-ternary */
   return isObjectElement(element)
     ? 'ObjectElement'
     : isArrayElement(element)
-    ? 'ArrayElement'
-    : isMemberElement(element)
-    ? 'MemberElement'
-    : isStringElement(element)
-    ? 'StringElement'
-    : isBooleanElement(element)
-    ? 'BooleanElement'
-    : isNumberElement(element)
-    ? 'NumberElement'
-    : isNullElement(element)
-    ? 'NullElement'
-    : isLinkElement(element)
-    ? 'LinkElement'
-    : isRefElement(element)
-    ? 'RefElement'
-    : undefined;
-  /* eslint-enable */
+      ? 'ArrayElement'
+      : isMemberElement(element)
+        ? 'MemberElement'
+        : isStringElement(element)
+          ? 'StringElement'
+          : isBooleanElement(element)
+            ? 'BooleanElement'
+            : isNumberElement(element)
+              ? 'NumberElement'
+              : isNullElement(element)
+                ? 'NullElement'
+                : isLinkElement(element)
+                  ? 'LinkElement'
+                  : isRefElement(element)
+                    ? 'RefElement'
+                    : undefined;
 };
 
 // cloneNode :: a -> a

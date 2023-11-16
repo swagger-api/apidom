@@ -11,7 +11,6 @@ import { isReferenceElement, isResponseElement } from '../../../../predicates';
 const ResponsesVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
     specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Response'];

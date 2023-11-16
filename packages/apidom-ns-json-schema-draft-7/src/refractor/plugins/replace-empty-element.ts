@@ -208,8 +208,8 @@ const findElementFactory = (ancestor: any, keyName: string) => {
   return typeof keyMapping === 'undefined'
     ? undefined
     : Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
-    ? keyMapping['[key: *]']
-    : keyMapping[keyName];
+      ? keyMapping['[key: *]']
+      : keyMapping[keyName];
 };
 
 const plugin = () => () => {

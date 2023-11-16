@@ -14,7 +14,6 @@ import { isPathItemElement, isReferenceElement } from '../../../predicates';
 const WebhooksVisitor = stampit(MapVisitor, FallbackVisitor, {
   props: {
     specPath: (element: Element) => {
-      // eslint-disable-next-line no-nested-ternary
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'PathItem'];

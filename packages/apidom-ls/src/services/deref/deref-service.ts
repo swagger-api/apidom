@@ -94,7 +94,7 @@ export class DefaultDerefService implements DerefService {
     return format === Format.JSON
       ? toJSON(dereferenced, undefined, 2)
       : format === Format.YAML
-      ? toYAML(dereferenced)
-      : toString(dereferenced);
+        ? toYAML(dereferenced)
+        : toString(dereferenced);
   }
 }

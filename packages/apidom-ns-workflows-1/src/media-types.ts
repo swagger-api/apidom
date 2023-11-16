@@ -25,9 +25,9 @@ export class WorkflowsMediaTypes extends MediaTypes<string> {
 }
 
 const mediaTypes = new WorkflowsMediaTypes(
-  'application/vnd.oai.workflows;version=3.0.0',
-  'application/vnd.oai.workflows+json;version=3.0.0',
-  'application/vnd.oai.workflows+yaml;version=3.0.0',
+  'application/vnd.oai.workflows;version=1.0.0',
+  'application/vnd.oai.workflows+json;version=1.0.0',
+  'application/vnd.oai.workflows+yaml;version=1.0.0',
 );
 
 export default mediaTypes;

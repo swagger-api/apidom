@@ -56,7 +56,7 @@ export const isSourceDescriptionsElement = createPredicate(
     return (element: unknown): element is SourceDescriptionsElement =>
       element instanceof SourceDescriptionsElement ||
       (hasBasicElementProps(element) &&
-        isElementType('array', element) &&
+        isElementType('sourceDescriptions', element) &&
         primitiveEq('array', element) &&
         hasClass('sourceDescriptions', element));
   },

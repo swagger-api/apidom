@@ -6,11 +6,13 @@ import {
   isWorkflowsSpecElement,
   isInfoElement,
   isSourceDescriptionElement,
+  isSourceDescriptionsElement,
   isCriterionElement,
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
   SourceDescriptionElement,
+  SourceDescriptionsElement,
   CriterionElement,
 } from '../src';
 
@@ -231,6 +233,60 @@ describe('predicates', function () {
 
       assert.isTrue(isSourceDescriptionElement(SourceDescriptionElementDuck));
       assert.isFalse(isSourceDescriptionElement(SourceDescriptionElementSwan));
+    });
+  });
+
+  context('isSourceDescriptionsElement', function () {
+    context('given SourceDescriptionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SourceDescriptionsElement();
+
+        assert.isTrue(isSourceDescriptionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SourceDescriptionsSubElement extends SourceDescriptionsElement {}
+
+        assert.isTrue(isSourceDescriptionsElement(new SourceDescriptionsSubElement()));
+      });
+    });
+
+    context('given non SourceDescriptions instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSourceDescriptionsElement(1));
+        assert.isFalse(isSourceDescriptionsElement(null));
+        assert.isFalse(isSourceDescriptionsElement(undefined));
+        assert.isFalse(isSourceDescriptionsElement({}));
+        assert.isFalse(isSourceDescriptionsElement([]));
+        assert.isFalse(isSourceDescriptionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const sourceDescriptionsElementDuck = {
+        _storedElement: 'sourceDescriptions',
+        _content: [],
+        classes: new ArrayElement(['sourceDescriptions']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const sourceDescriptionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isSourceDescriptionsElement(sourceDescriptionsElementDuck));
+      assert.isFalse(isSourceDescriptionsElement(sourceDescriptionsElementSwan));
     });
   });
 

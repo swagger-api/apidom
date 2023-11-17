@@ -7,12 +7,16 @@ import {
   isInfoElement,
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
+  isSuccessActionElement,
+  isCriteriaElement,
   isCriterionElement,
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
   SourceDescriptionElement,
   SourceDescriptionsElement,
+  SuccessActionElement,
+  CriteriaElement,
   CriterionElement,
 } from '../src';
 
@@ -345,6 +349,118 @@ describe('predicates', function () {
 
       assert.isTrue(isCriterionElement(CriterionElementDuck));
       assert.isFalse(isCriterionElement(CriterionElementSwan));
+    });
+  });
+
+  context('isCriteriaElement', function () {
+    context('given CriteriaElement instance value', function () {
+      specify('should return true', function () {
+        const element = new CriteriaElement();
+
+        assert.isTrue(isCriteriaElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class CriteriaSubElement extends CriteriaElement {}
+
+        assert.isTrue(isCriteriaElement(new CriteriaSubElement()));
+      });
+    });
+
+    context('given non Criteria instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isCriteriaElement(1));
+        assert.isFalse(isCriteriaElement(null));
+        assert.isFalse(isCriteriaElement(undefined));
+        assert.isFalse(isCriteriaElement({}));
+        assert.isFalse(isCriteriaElement([]));
+        assert.isFalse(isCriteriaElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const criteriaElementDuck = {
+        _storedElement: 'criteria',
+        _content: [],
+        classes: new ArrayElement(['criteria']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const criteriaElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isCriteriaElement(criteriaElementDuck));
+      assert.isFalse(isCriteriaElement(criteriaElementSwan));
+    });
+  });
+
+  context('isSuccessActionElement', function () {
+    context('given SuccessActionElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SuccessActionElement();
+
+        assert.isTrue(isSuccessActionElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class SuccessActionSubElement extends SuccessActionElement {}
+
+        assert.isTrue(isSuccessActionElement(new SuccessActionSubElement()));
+      });
+    });
+
+    context('given non SuccessActionSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSuccessActionElement(1));
+        assert.isFalse(isSuccessActionElement(null));
+        assert.isFalse(isSuccessActionElement(undefined));
+        assert.isFalse(isSuccessActionElement({}));
+        assert.isFalse(isSuccessActionElement([]));
+        assert.isFalse(isSuccessActionElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const SuccessActionElementDuck = {
+        _storedElement: 'successAction',
+        _content: [],
+        classes: new ArrayElement(['successAction']),
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const SuccessActionElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isSuccessActionElement(SuccessActionElementDuck));
+      assert.isFalse(isSuccessActionElement(SuccessActionElementSwan));
     });
   });
 });

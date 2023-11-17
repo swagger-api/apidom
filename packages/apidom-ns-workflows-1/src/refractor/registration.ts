@@ -2,6 +2,7 @@ import WorkflowsSpecification1Element from '../elements/WorkflowsSpecification1'
 import WorkflowsSpecElement from '../elements/WorkflowsSpec';
 import InfoElement from '../elements/Info';
 import SourceDescriptionElement from '../elements/SourceDescription';
+import SuccessActionElement from '../elements/SuccessAction';
 import CriterionElement from '../elements/Criterion';
 import { createRefractor } from './index';
 
@@ -28,6 +29,13 @@ SourceDescriptionElement.refract = createRefractor([
   'SourceDescription',
   '$visitor',
 ]);
+SuccessActionElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'SuccessAction',
+  '$visitor',
+]);
 CriterionElement.refract = createRefractor([
   'visitors',
   'document',
@@ -41,5 +49,6 @@ export {
   WorkflowsSpecElement,
   InfoElement,
   SourceDescriptionElement,
+  SuccessActionElement,
   CriterionElement,
 };

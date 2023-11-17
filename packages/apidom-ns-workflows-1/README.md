@@ -191,7 +191,7 @@ Only fully implemented specification objects should be checked here.
 - [ ] [Workflow Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#workflow-object)
 - [ ] [Step Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#step-object)
 - [ ] [Parameter Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#parameter-object)
-- [ ] [Success Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#success-action-object)
+- [x] [Success Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#success-action-object)
 - [ ] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#failure-action-object)
 - [ ] [Component Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#component-object)
 - [ ] [Criterion Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#criterion-object)

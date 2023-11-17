@@ -4,9 +4,11 @@ import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
+import SuccessActionElement from './elements/SuccessAction';
 import CriterionElement from './elements/Criterion';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
+import CriteriaElement from './elements/nces/Criteria';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -62,6 +64,17 @@ export const isSourceDescriptionsElement = createPredicate(
   },
 );
 
+export const isSuccessActionElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is SuccessActionElement =>
+      element instanceof SuccessActionElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('successAction', element) &&
+        primitiveEq('object', element) &&
+        hasClass('successAction', element));
+  },
+);
+
 export const isCriterionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is CriterionElement =>
@@ -70,5 +83,16 @@ export const isCriterionElement = createPredicate(
         isElementType('criterion', element) &&
         primitiveEq('object', element) &&
         hasClass('criterion', element));
+  },
+);
+
+export const isCriteriaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is CriteriaElement =>
+      element instanceof CriteriaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('criteria', element) &&
+        primitiveEq('array', element) &&
+        hasClass('criteria', element));
   },
 );

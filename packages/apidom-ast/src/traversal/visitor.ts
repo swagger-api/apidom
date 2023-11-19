@@ -274,10 +274,6 @@ export const visit = (
       path.push(key);
     }
 
-    if (ancestors.includes(node)) {
-      continue;
-    }
-
     let result;
     if (!Array.isArray(node)) {
       if (!nodePredicate(node)) {

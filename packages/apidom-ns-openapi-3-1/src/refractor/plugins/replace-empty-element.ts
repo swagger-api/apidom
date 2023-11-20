@@ -1,5 +1,4 @@
 import {
-  MemberElement,
   ArrayElement,
   ObjectElement,
   StringElement,
@@ -682,48 +681,27 @@ const plugin =
 
     return {
       visitor: {
-        MemberElement(element: MemberElement, ...rest: any) {
-          // no empty Element, continue with next one
-          if (!isEmptyElement(element.value)) return undefined;
-
-          const [, , , ancestors] = rest;
-          const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
-          const elementFactory = findElementFactory(ancestor, toValue(element.key));
-
-          // no element factory found
-          if (typeof elementFactory === 'undefined') return undefined;
-
-          const originalValue = element.value as StringElement;
-
-          return new MemberElement(
-            element.key,
-            elementFactory.call(
-              { context: ancestor },
-              undefined,
-              cloneDeep(originalValue.meta),
-              cloneDeep(originalValue.attributes),
-            ),
-            cloneDeep(element.meta),
-            cloneDeep(element.attributes),
-          );
-        },
-
-        StringElement(element: StringElement, ...rest: any) {
+        StringElement(element: StringElement, key: any, parent: any, path: any, ancestors: any[]) {
           if (!isEmptyElement(element)) return undefined;
 
-          const [, , , ancestors] = rest;
-          const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+          const lineage = [...ancestors, parent].filter(predicates.isElement);
+          const parentElement = lineage[lineage.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+          let elementFactory;
+          let context;
 
-          // we're only interested in empty elements in ArrayElements
-          if (!predicates.isArrayElement(ancestor)) return undefined;
-
-          const elementFactory = findElementFactory(ancestor, '<*>');
+          if (predicates.isArrayElement(parentElement)) {
+            context = element;
+            elementFactory = findElementFactory(parentElement, '<*>');
+          } else if (predicates.isMemberElement(parentElement)) {
+            context = lineage[lineage.length - 2]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+            elementFactory = findElementFactory(context, toValue(parentElement.key));
+          }
 
           // no element factory found
-          if (typeof elementFactory === 'undefined') return undefined;
+          if (typeof elementFactory !== 'function') return undefined;
 
           return elementFactory.call(
-            { context: element },
+            { context },
             undefined,
             cloneDeep(element.meta),
             cloneDeep(element.attributes),

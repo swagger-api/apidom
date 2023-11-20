@@ -54,8 +54,8 @@ export const cloneNode = (node: any) =>
  * Creates a new visitor instance which delegates to many visitors to run in
  * parallel. Each visitor will be visited for each node before moving on.
  *
- * If a prior visitor edits a node, following visitors will see that node.
- * `exposeEdits=false` can be used to hide the edited node from the following visitors.
+ * If a prior visitor edits a node, no following visitors will see that node.
+ * `exposeEdits=true` can be used to exoise the edited node from the previous visitors.
  */
 export const mergeAll = (
   visitors: any[],

@@ -1,12 +1,13 @@
 import { defaultTo } from 'ramda';
 import {
-  MemberElement,
   StringElement,
   ObjectElement,
   ArrayElement,
   isStringElement,
-  includesClasses,
   isArrayElement,
+  isMemberElement,
+  isElement,
+  includesClasses,
   cloneDeep,
   toValue,
 } from '@swagger-api/apidom-core';
@@ -1036,58 +1037,35 @@ const findElementFactory = (ancestor: any, keyName: string) => {
       : keyMapping[keyName];
 };
 
-const plugin = () => () => {
-  return {
-    visitor: {
-      MemberElement(element: MemberElement, ...rest: any) {
-        // no empty Element, continue with next one
-        if (!isEmptyElement(element.value)) return undefined;
+const plugin = () => () => ({
+  visitor: {
+    StringElement(element: StringElement, key: any, parent: any, path: any, ancestors: any[]) {
+      if (!isEmptyElement(element)) return undefined;
 
-        const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
-        const elementFactory = findElementFactory(ancestor, toValue(element.key));
+      const lineage = [...ancestors, parent].filter(isElement);
+      const parentElement = lineage[lineage.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+      let elementFactory;
+      let context;
 
-        // no element factory found
-        if (typeof elementFactory === 'undefined') return undefined;
+      if (isArrayElement(parentElement)) {
+        context = element;
+        elementFactory = findElementFactory(parentElement, '<*>');
+      } else if (isMemberElement(parentElement)) {
+        context = lineage[lineage.length - 2]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+        elementFactory = findElementFactory(context, toValue(parentElement.key));
+      }
 
-        const originalValue = element.value as StringElement;
+      // no element factory found
+      if (typeof elementFactory !== 'function') return undefined;
 
-        return new MemberElement(
-          element.key,
-          elementFactory.call(
-            { context: ancestor },
-            undefined,
-            cloneDeep(originalValue.meta),
-            cloneDeep(originalValue.attributes),
-          ),
-          cloneDeep(element.meta),
-          cloneDeep(element.attributes),
-        );
-      },
-
-      StringElement(element: StringElement, ...rest: any) {
-        if (!isEmptyElement(element)) return undefined;
-
-        const [, , , ancestors] = rest;
-        const ancestor = ancestors[ancestors.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
-
-        // we're only interested in empty elements in ArrayElements
-        if (!isArrayElement(ancestor)) return undefined;
-
-        const elementFactory = findElementFactory(ancestor, '<*>');
-
-        // no element factory found
-        if (typeof elementFactory === 'undefined') return undefined;
-
-        return elementFactory.call(
-          { context: element },
-          undefined,
-          cloneDeep(element.meta),
-          cloneDeep(element.attributes),
-        );
-      },
+      return elementFactory.call(
+        { context },
+        undefined,
+        cloneDeep(element.meta),
+        cloneDeep(element.attributes),
+      );
     },
-  };
-};
+  },
+});
 
 export default plugin;

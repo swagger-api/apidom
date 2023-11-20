@@ -535,7 +535,7 @@ JSON string -> tree-sitter CST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM -> plugin
 ```
 ---
 
-This very closely reflects how [Babel](https://github.com/babel/babel) works.
+This very closely reflects how [Babel](https://github.com/babel/babel) works ([Babel Plugin Handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md)).
 Their transform phase is our refract phase. The only difference is that when plugins are involved, our transform phase
 requires 2 traversals instead of a single one. We can find a way in the future how to fold these 2 traversals into a single one.
 

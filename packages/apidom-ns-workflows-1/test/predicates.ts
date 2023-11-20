@@ -439,7 +439,6 @@ describe('predicates', function () {
       const SuccessActionElementDuck = {
         _storedElement: 'successAction',
         _content: [],
-        classes: new ArrayElement(['successAction']),
         primitive() {
           return 'object';
         },

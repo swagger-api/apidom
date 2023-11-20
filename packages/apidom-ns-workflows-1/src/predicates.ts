@@ -65,13 +65,12 @@ export const isSourceDescriptionsElement = createPredicate(
 );
 
 export const isSuccessActionElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SuccessActionElement =>
       element instanceof SuccessActionElement ||
       (hasBasicElementProps(element) &&
         isElementType('successAction', element) &&
-        primitiveEq('object', element) &&
-        hasClass('successAction', element));
+        primitiveEq('object', element));
   },
 );
 

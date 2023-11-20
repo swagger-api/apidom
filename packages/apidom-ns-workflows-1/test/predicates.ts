@@ -327,7 +327,6 @@ describe('predicates', function () {
       const CriterionElementDuck = {
         _storedElement: 'criterion',
         _content: [],
-        classes: new ArrayElement(['criterion']),
         primitive() {
           return 'object';
         },

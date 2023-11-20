@@ -16,6 +16,7 @@ const workflows1 = {
     base.register('info', InfoElement);
     base.register('sourceDescription', SourceDescriptionElement);
     base.register('successAction', SuccessActionElement);
+
     base.register('criterion', CriterionElement);
 
     return base;

@@ -4,7 +4,6 @@ class Criterion extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'criterion';
-    this.classes.push('criterion');
   }
 
   get context(): StringElement | undefined {

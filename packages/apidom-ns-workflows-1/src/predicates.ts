@@ -63,12 +63,11 @@ export const isSourceDescriptionsElement = createPredicate(
 );
 
 export const isCriterionElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is CriterionElement =>
       element instanceof CriterionElement ||
       (hasBasicElementProps(element) &&
         isElementType('criterion', element) &&
-        primitiveEq('object', element) &&
-        hasClass('criterion', element));
+        primitiveEq('object', element));
   },
 );

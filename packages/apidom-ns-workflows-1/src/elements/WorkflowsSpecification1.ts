@@ -1,4 +1,4 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import WorkflowsSpecElement from './WorkflowsSpec';
 import InfoElement from './Info';
@@ -25,6 +25,14 @@ class WorkflowsSpecification1 extends ObjectElement {
 
   set info(info: InfoElement | undefined) {
     this.set('info', info);
+  }
+
+  get sourceDescriptions(): ArrayElement | undefined {
+    return this.get('sourceDescriptions');
+  }
+
+  set sourceDescriptions(sourceDescriptions: ArrayElement | undefined) {
+    this.set('sourceDescriptions', sourceDescriptions);
   }
 }
 

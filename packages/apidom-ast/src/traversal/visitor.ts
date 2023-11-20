@@ -54,49 +54,73 @@ export const cloneNode = (node: any) =>
  * Creates a new visitor instance which delegates to many visitors to run in
  * parallel. Each visitor will be visited for each node before moving on.
  *
- * If a prior visitor edits a node, no following visitors will see that node.
+ * If a prior visitor edits a node, following visitors will see that node.
+ * `exposeEdits=false` can be used to hide the edited node from the following visitors.
  */
 export const mergeAll = (
   visitors: any[],
-  { visitFnGetter = getVisitFn, nodeTypeGetter = getNodeType } = {},
+  {
+    visitFnGetter = getVisitFn,
+    nodeTypeGetter = getNodeType,
+    breakSymbol = BREAK,
+    deleteNodeSymbol = null,
+    skipVisitingNodeSymbol = false,
+    exposeEdits = false,
+  } = {},
 ) => {
-  const skipping = new Array(visitors.length).fill(null);
+  const skipSymbol = Symbol('skip');
+  const skipping = new Array(visitors.length).fill(skipSymbol);
 
   return {
     enter(node: any, ...rest: any[]) {
+      let currentNode = node;
+      let hasChanged = false;
+
       for (let i = 0; i < visitors.length; i += 1) {
-        if (skipping[i] === null) {
-          const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ false);
-          if (typeof fn === 'function') {
-            const result = fn.call(visitors[i], node, ...rest);
-            if (result === false) {
+        if (skipping[i] === skipSymbol) {
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(currentNode), false);
+
+          if (typeof visitFn === 'function') {
+            const result: any = visitFn.call(visitors[i], currentNode, ...rest);
+
+            if (result === skipVisitingNodeSymbol) {
               skipping[i] = node;
-            } else if (result === BREAK) {
-              skipping[i] = BREAK;
-            } else if (result !== undefined) {
+            } else if (result === breakSymbol) {
+              skipping[i] = breakSymbol;
+            } else if (result === deleteNodeSymbol) {
               return result;
+            } else if (result !== undefined) {
+              if (exposeEdits) {
+                currentNode = result;
+                hasChanged = true;
+              } else {
+                return result;
+              }
             }
           }
         }
       }
-      return undefined;
+
+      return hasChanged ? currentNode : undefined;
     },
     leave(node: any, ...rest: any[]) {
       for (let i = 0; i < visitors.length; i += 1) {
-        if (skipping[i] === null) {
-          const fn = visitFnGetter(visitors[i], nodeTypeGetter(node), /* isLeaving */ true);
-          if (typeof fn === 'function') {
-            const result = fn.call(visitors[i], node, ...rest);
-            if (result === BREAK) {
-              skipping[i] = BREAK;
-            } else if (result !== undefined && result !== false) {
+        if (skipping[i] === skipSymbol) {
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(node), true);
+
+          if (typeof visitFn === 'function') {
+            const result = visitFn.call(visitors[i], node, ...rest);
+            if (result === breakSymbol) {
+              skipping[i] = breakSymbol;
+            } else if (result !== undefined && result !== skipVisitingNodeSymbol) {
               return result;
             }
           }
         } else if (skipping[i] === node) {
-          skipping[i] = null;
+          skipping[i] = skipSymbol;
         }
       }
+
       return undefined;
     },
   };

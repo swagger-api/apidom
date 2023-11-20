@@ -7,11 +7,13 @@ import {
   isInfoElement,
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
+  isCriterionElement,
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
   InfoElement,
   SourceDescriptionElement,
   SourceDescriptionsElement,
+  CriterionElement,
 } from '../src';
 
 describe('predicates', function () {
@@ -285,6 +287,63 @@ describe('predicates', function () {
 
       assert.isTrue(isSourceDescriptionsElement(sourceDescriptionsElementDuck));
       assert.isFalse(isSourceDescriptionsElement(sourceDescriptionsElementSwan));
+    });
+  });
+
+  context('isCriterionElement', function () {
+    context('given CriterionElement instance value', function () {
+      specify('should return true', function () {
+        const element = new CriterionElement();
+
+        assert.isTrue(isCriterionElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class CriterionSubElement extends CriterionElement {}
+
+        assert.isTrue(isCriterionElement(new CriterionSubElement()));
+      });
+    });
+
+    context('given non CriterionSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isCriterionElement(1));
+        assert.isFalse(isCriterionElement(null));
+        assert.isFalse(isCriterionElement(undefined));
+        assert.isFalse(isCriterionElement({}));
+        assert.isFalse(isCriterionElement([]));
+        assert.isFalse(isCriterionElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const CriterionElementDuck = {
+        _storedElement: 'criterion',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const CriterionElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isCriterionElement(CriterionElementDuck));
+      assert.isFalse(isCriterionElement(CriterionElementSwan));
     });
   });
 });

@@ -16,6 +16,7 @@ export const keyMap = {
   WorkflowsSpecification1Element: ['content'],
   InfoElement: ['content'],
   SourceDescriptionElement: ['content'],
+  SuccessActionElement: ['content'],
   CriterionElement: ['content'],
   ...keyMapBase,
 };

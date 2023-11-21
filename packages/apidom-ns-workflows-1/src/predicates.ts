@@ -4,9 +4,11 @@ import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
+import SuccessActionElement from './elements/SuccessAction';
 import CriterionElement from './elements/Criterion';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
+import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -62,6 +64,16 @@ export const isSourceDescriptionsElement = createPredicate(
   },
 );
 
+export const isSuccessActionElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is SuccessActionElement =>
+      element instanceof SuccessActionElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('successAction', element) &&
+        primitiveEq('object', element));
+  },
+);
+
 export const isCriterionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is CriterionElement =>
@@ -69,5 +81,17 @@ export const isCriterionElement = createPredicate(
       (hasBasicElementProps(element) &&
         isElementType('criterion', element) &&
         primitiveEq('object', element));
+  },
+);
+
+export const isSuccessActionCriteriaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is SuccessActionCriteriaElement =>
+      element instanceof SuccessActionCriteriaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('success-action-criteria', element) &&
+        hasClass('criteria', element));
   },
 );

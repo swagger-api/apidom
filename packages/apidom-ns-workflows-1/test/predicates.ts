@@ -381,7 +381,7 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       const criteriaElementDuck = {
-        _storedElement: 'criteria',
+        _storedElement: 'array',
         _content: [],
         classes: new ArrayElement(['criteria', 'success-action-criteria']),
         primitive() {

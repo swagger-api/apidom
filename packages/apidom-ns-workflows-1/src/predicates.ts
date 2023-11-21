@@ -89,7 +89,7 @@ export const isSuccessActionCriteriaElement = createPredicate(
     return (element: unknown): element is SuccessActionCriteriaElement =>
       element instanceof SuccessActionCriteriaElement ||
       (hasBasicElementProps(element) &&
-        isElementType('criteria', element) &&
+        isElementType('array', element) &&
         primitiveEq('array', element) &&
         hasClass('success-action-criteria', element));
   },

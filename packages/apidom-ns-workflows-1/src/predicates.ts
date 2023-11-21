@@ -91,6 +91,7 @@ export const isSuccessActionCriteriaElement = createPredicate(
       (hasBasicElementProps(element) &&
         isElementType('array', element) &&
         primitiveEq('array', element) &&
-        hasClass('success-action-criteria', element));
+        hasClass('success-action-criteria', element) &&
+        hasClass('criteria', element));
   },
 );

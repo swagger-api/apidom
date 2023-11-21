@@ -28,7 +28,7 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf ./es ./cjs ./dist ./types",
     "typescript:check-types": "tsc -p check-types.tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js && copyfiles -u 2 ../@types/minim.d.ts ./types && node ../../scripts/file-prepend-bof.js './types/dist.d.ts' '/// <reference path=\"./minim.d.ts\" />'",
+    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js && copyfiles -u 2 ../@types/minim.d.ts ./types && node ../../scripts/file-replace-bof.js './types/dist.d.ts' '/// <reference path=\"./minim.d.ts\" />'",
     "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",

@@ -5,6 +5,7 @@ import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
 import SuccessActionElement from './elements/SuccessAction';
+import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
 
 const workflows1 = {
@@ -16,6 +17,7 @@ const workflows1 = {
     base.register('info', InfoElement);
     base.register('sourceDescription', SourceDescriptionElement);
     base.register('successAction', SuccessActionElement);
+    base.register('failureAction', FailureActionElement);
     base.register('criterion', CriterionElement);
 
     return base;

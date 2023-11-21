@@ -1,13 +1,13 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import CriteriaElement from '../../../elements/nces/Criteria';
+import SuccessActionCriteriaElement from '../../../elements/nces/SuccessActionCriteria';
 import SpecificationVisitor from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 
-const CriteriaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
+const SuccessActionCriteriaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new CriteriaElement();
+    this.element = new SuccessActionCriteriaElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
@@ -25,4 +25,4 @@ const CriteriaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   },
 });
 
-export default CriteriaVisitor;
+export default SuccessActionCriteriaVisitor;

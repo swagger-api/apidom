@@ -9,7 +9,7 @@ import CriterionVisitor from './visitors/workflows-1/criterion';
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
-import CriteriaVisitor from './visitors/workflows-1/CriteriaVisitor';
+import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCriteriaVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -58,7 +58,7 @@ const specification = {
             type: { $ref: '#/visitors/value' },
             workflowId: { $ref: '#/visitors/value' },
             stepId: { $ref: '#/visitors/value' },
-            criteria: CriteriaVisitor,
+            criteria: SuccessActionCriteriaVisitor,
           },
         },
         Criterion: {

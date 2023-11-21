@@ -9,6 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const successActionElement = SuccessActionElement.refract({
           type: 'goto',
+          workflowId: 'uniqueWorkflowId',
           stepId: 'getPetStep',
           criteria: [
             {

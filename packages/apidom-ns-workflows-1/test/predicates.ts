@@ -8,7 +8,7 @@ import {
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
   isSuccessActionElement,
-  isCriteriaElement,
+  isSuccessActionCriteriaElement,
   isCriterionElement,
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
@@ -16,7 +16,7 @@ import {
   SourceDescriptionElement,
   SourceDescriptionsElement,
   SuccessActionElement,
-  CriteriaElement,
+  SuccessActionCriteriaElement,
   CriterionElement,
 } from '../src';
 
@@ -354,28 +354,28 @@ describe('predicates', function () {
   context('isCriteriaElement', function () {
     context('given CriteriaElement instance value', function () {
       specify('should return true', function () {
-        const element = new CriteriaElement();
+        const element = new SuccessActionCriteriaElement();
 
-        assert.isTrue(isCriteriaElement(element));
+        assert.isTrue(isSuccessActionCriteriaElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class CriteriaSubElement extends CriteriaElement {}
+        class SuccessActionCriteriaSubElement extends SuccessActionCriteriaElement {}
 
-        assert.isTrue(isCriteriaElement(new CriteriaSubElement()));
+        assert.isTrue(isSuccessActionCriteriaElement(new SuccessActionCriteriaSubElement()));
       });
     });
 
     context('given non Criteria instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isCriteriaElement(1));
-        assert.isFalse(isCriteriaElement(null));
-        assert.isFalse(isCriteriaElement(undefined));
-        assert.isFalse(isCriteriaElement({}));
-        assert.isFalse(isCriteriaElement([]));
-        assert.isFalse(isCriteriaElement('string'));
+        assert.isFalse(isSuccessActionCriteriaElement(1));
+        assert.isFalse(isSuccessActionCriteriaElement(null));
+        assert.isFalse(isSuccessActionCriteriaElement(undefined));
+        assert.isFalse(isSuccessActionCriteriaElement({}));
+        assert.isFalse(isSuccessActionCriteriaElement([]));
+        assert.isFalse(isSuccessActionCriteriaElement('string'));
       });
     });
 
@@ -383,7 +383,7 @@ describe('predicates', function () {
       const criteriaElementDuck = {
         _storedElement: 'criteria',
         _content: [],
-        classes: new ArrayElement(['criteria']),
+        classes: new ArrayElement(['criteria', 'success-action-criteria']),
         primitive() {
           return 'array';
         },
@@ -400,8 +400,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isCriteriaElement(criteriaElementDuck));
-      assert.isFalse(isCriteriaElement(criteriaElementSwan));
+      assert.isTrue(isSuccessActionCriteriaElement(criteriaElementDuck));
+      assert.isFalse(isSuccessActionCriteriaElement(criteriaElementSwan));
     });
   });
 

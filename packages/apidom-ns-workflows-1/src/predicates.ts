@@ -8,7 +8,7 @@ import SuccessActionElement from './elements/SuccessAction';
 import CriterionElement from './elements/Criterion';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
-import CriteriaElement from './elements/nces/Criteria';
+import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -84,13 +84,13 @@ export const isCriterionElement = createPredicate(
   },
 );
 
-export const isCriteriaElement = createPredicate(
+export const isSuccessActionCriteriaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is CriteriaElement =>
-      element instanceof CriteriaElement ||
+    return (element: unknown): element is SuccessActionCriteriaElement =>
+      element instanceof SuccessActionCriteriaElement ||
       (hasBasicElementProps(element) &&
         isElementType('criteria', element) &&
         primitiveEq('array', element) &&
-        hasClass('criteria', element));
+        hasClass('success-action-criteria', element));
   },
 );

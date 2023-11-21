@@ -28,7 +28,7 @@ export {
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
   isSuccessActionElement,
-  isCriteriaElement,
+  isSuccessActionCriteriaElement,
   isCriterionElement,
 } from './predicates';
 
@@ -54,4 +54,4 @@ export {
 } from './refractor/registration';
 // NCE types
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';
-export { default as CriteriaElement } from './elements/nces/Criteria';
+export { default as SuccessActionCriteriaElement } from './elements/nces/SuccessActionCriteria';

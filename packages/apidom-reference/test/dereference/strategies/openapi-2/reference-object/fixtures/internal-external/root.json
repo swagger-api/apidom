@@ -1,0 +1,25 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/userIdRef"
+        },
+        {
+          "$ref": "./ex.json#/externalParameter"
+        }
+      ]
+    }
+  },
+  "parameters": {
+    "userIdRef": {
+      "name": "skip",
+      "in": "query",
+      "description": "number of items to skip",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

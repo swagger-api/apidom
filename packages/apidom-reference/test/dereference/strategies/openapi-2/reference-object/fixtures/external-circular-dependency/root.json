@@ -1,0 +1,19 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "./ex.json#/paths/~1/parameters/0"
+        },
+        {
+          "name": "param2",
+          "in": "query"
+        },
+        {
+          "$ref": "./ex.json#/paths/~1/parameters/2"
+        }
+      ]
+    }
+  }
+}

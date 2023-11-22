@@ -12,6 +12,7 @@ export {
 } from '@swagger-api/apidom-core';
 export {
   isJSONReferenceElement,
+  isJSONReferenceLikeElement,
   JSONReferenceElement,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
@@ -33,6 +34,7 @@ export {
   isLicenseElement,
   isPathsElement,
   isPathItemElement,
+  isPathItemElementExternal,
   isOperationElement,
   isExternalDocumentationElement,
   isParameterElement,
@@ -44,7 +46,9 @@ export {
   isHeaderElement,
   isTagElement,
   isReferenceElement,
+  isReferenceElementExternal,
   isSchemaElement,
+  isJSONReferenceElementExternal,
   isXmlElement,
   isDefinitionsElement,
   isParametersDefinitionsElement,

@@ -1099,9 +1099,9 @@ It's possible to **change** strategies **order globally** by mutating global `re
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import { AsyncApi2ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
-import { OpenApi3_0ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
-import { OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
+import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 options.resolve.strategies = [
   OpenApi3_0ResolveStrategy(),
@@ -1114,9 +1114,9 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
-import { AsyncApi2ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
-import { OpenApi3_0ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
-import { OpenApi3_1ResolveStrategy } from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
+import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 
 await resolve('/home/user/oas.json', {
@@ -1361,6 +1361,20 @@ Supported media types:
 ]
 ```
 
+##### [openapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-2)
+
+Dereference strategy for dereferencing [OpenApi 2.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=2.0',
+  'application/vnd.oai.openapi+json;version=2.0',
+  'application/vnd.oai.openapi+yaml;version=2.0',
+]
+```
+
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-0)
 
 Dereference strategy for dereferencing [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
@@ -1410,6 +1424,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
+  OpenApi2DereferenceStrategy(),
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
@@ -1421,11 +1436,13 @@ It's possible to **change** strategies **order globally** by mutating global `de
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import { AsyncApi2DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
-import { OpenApi3_0DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
-import { OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
+import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
+import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2'
+import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
+import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
 
 options.dereference.strategies = [
+  OpenApi2DereferenceStrategy(),
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
@@ -1436,9 +1453,10 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
-import { AsyncApi2DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
-import { OpenApi3_0DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
-import { OpenApi3_1DereferenceStrategy } from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
+import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
+import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2'
+import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
+import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
 
 await dereference('/home/user/oas.json', {
   parse: {
@@ -1447,6 +1465,7 @@ await dereference('/home/user/oas.json', {
   dereference: {
     strategies: [
       AsyncApi2DereferenceStrategy(),
+      OpenApi2DereferenceStrategy(),
       OpenApi3_0DereferenceStrategy(),
       OpenApi3_1DereferenceStrategy(),
     ]

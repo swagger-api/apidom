@@ -1,0 +1,41 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID of the user",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID of the user",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID of the user",
+            "required": true
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "ID of the user",
+            "required": true
+          },
+          {
+            "name": "externalParameter",
+            "in": "query",
+            "description": "this is parameter stored in external file",
+            "required": true
+          }
+        ]
+      }
+    }
+  }
+]

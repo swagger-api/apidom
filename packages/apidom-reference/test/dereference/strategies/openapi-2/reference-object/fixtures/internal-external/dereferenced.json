@@ -1,0 +1,35 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/": {
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "number of items to skip",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "externalParameter",
+            "in": "query",
+            "description": "this is parameter stored in external file",
+            "required": true
+          }
+        ]
+      }
+    },
+    "parameters": {
+      "userIdRef": {
+        "name": "skip",
+        "in": "query",
+        "description": "number of items to skip",
+        "required": true,
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  }
+]

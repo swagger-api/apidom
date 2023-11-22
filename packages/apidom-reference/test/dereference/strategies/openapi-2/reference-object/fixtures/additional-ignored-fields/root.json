@@ -1,0 +1,40 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1/parameters/1",
+          "description": "description 1",
+          "prop1": "value1",
+          "prop2": "value2"
+        },
+        {
+          "$ref": "#/paths/~1/parameters/2",
+          "summary": "indirect summary 1",
+          "prop1": "value1",
+          "prop2": "value2"
+        },
+        {
+          "$ref": "#/paths/~1/parameters/3",
+          "description": "indirect description 1",
+          "summary": "indirect summary 2",
+          "prop1": "value1",
+          "prop2": "value2"
+        },
+        {
+          "name": "userId",
+          "in": "query",
+          "description": "ID of the user",
+          "required": true
+        },
+        {
+          "$ref": "./ex.json#/externalParameter",
+          "description": "pulled from external source",
+          "prop1": "value1",
+          "prop2": "value2"
+        }
+      ]
+    }
+  }
+}

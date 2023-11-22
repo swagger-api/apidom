@@ -145,6 +145,11 @@
       "require": "./cjs/dereference/strategies/asyncapi-2/index.cjs",
       "types": "./types/dereference/strategies/asyncapi-2/index.d.ts"
     },
+    "./dereference/strategies/openapi-2": {
+      "import": "./es/dereference/strategies/openapi-2/index.mjs",
+      "require": "./cjs/dereference/strategies/openapi-2/index.cjs",
+      "types": "./types/dereference/strategies/openapi-2/index.d.ts"
+    },
     "./dereference/strategies/openapi-3-0": {
       "import": "./es/dereference/strategies/openapi-3-0/index.mjs",
       "require": "./cjs/dereference/strategies/openapi-3-0/index.cjs",

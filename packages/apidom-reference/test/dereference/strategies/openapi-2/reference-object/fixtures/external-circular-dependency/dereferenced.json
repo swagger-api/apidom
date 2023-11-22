@@ -1,0 +1,23 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/": {
+        "parameters": [
+          {
+            "name": "param2",
+            "in": "query"
+          },
+          {
+            "name": "param2",
+            "in": "query"
+          },
+          {
+            "name": "ex-param3",
+            "in": "query"
+          }
+        ]
+      }
+    }
+  }
+]

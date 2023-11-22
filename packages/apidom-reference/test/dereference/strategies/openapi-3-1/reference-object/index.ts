@@ -346,7 +346,10 @@ describe('dereference', function () {
             const refSet = await resolve(uri, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const actual = await dereference(uri, { dereference: { refSet } });
+            const actual = await dereference(uri, {
+              dereference: { refSet },
+              resolve: { resolvers: [] },
+            });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);

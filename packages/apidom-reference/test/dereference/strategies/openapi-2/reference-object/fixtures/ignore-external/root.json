@@ -1,0 +1,27 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "#/paths/~1/parameters/1"
+        },
+        {
+          "$ref": "#/paths/~1/parameters/2"
+        },
+        {
+          "$ref": "#/paths/~1/parameters/3"
+        },
+        {
+          "name": "userId",
+          "in": "query",
+          "description": "ID of the user",
+          "required": true
+        },
+        {
+          "$ref": "./ex.json#/externalParameter"
+        }
+      ]
+    }
+  }
+}

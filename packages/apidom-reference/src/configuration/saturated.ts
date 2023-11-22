@@ -16,6 +16,7 @@ import AsyncApiYaml2Parser from '../parse/parsers/asyncapi-yaml-2';
 import JsonParser from '../parse/parsers/json';
 import YamlParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
+import OpenApi2DereferenceStrategy from '../dereference/strategies/openapi-2';
 import OpenApi3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
 import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
@@ -49,6 +50,7 @@ options.resolve.strategies = [
 ];
 
 options.dereference.strategies = [
+  OpenApi2DereferenceStrategy(),
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),

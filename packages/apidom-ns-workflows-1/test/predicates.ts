@@ -422,7 +422,6 @@ describe('predicates', function () {
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         class ParameterSubElement extends ParameterElement {}
 
         assert.isTrue(isParameterElement(new ParameterSubElement()));

@@ -17,6 +17,7 @@ export const keyMap = {
   InfoElement: ['content'],
   SourceDescriptionElement: ['content'],
   SuccessActionElement: ['content'],
+  FailureActionElement: ['content'],
   CriterionElement: ['content'],
   ...keyMapBase,
 };

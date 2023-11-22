@@ -5,10 +5,12 @@ import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
 import SuccessActionElement from './elements/SuccessAction';
+import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
+import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -92,6 +94,28 @@ export const isSuccessActionCriteriaElement = createPredicate(
         isElementType('array', element) &&
         primitiveEq('array', element) &&
         hasClass('success-action-criteria', element) &&
+        hasClass('criteria', element));
+  },
+);
+
+export const isFailureActionElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is FailureActionElement =>
+      element instanceof FailureActionElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('failureAction', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isFailureActionCriteriaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is FailureActionCriteriaElement =>
+      element instanceof FailureActionCriteriaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('failure-action-criteria', element) &&
         hasClass('criteria', element));
   },
 );

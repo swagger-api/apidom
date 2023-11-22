@@ -10,6 +10,8 @@ import FallbackVisitor from './visitors/FallbackVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
 import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCriteriaVisitor';
+import FailureActionVisitor from './visitors/workflows-1/failure-action';
+import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCriteriaVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -59,6 +61,17 @@ const specification = {
             workflowId: { $ref: '#/visitors/value' },
             stepId: { $ref: '#/visitors/value' },
             criteria: SuccessActionCriteriaVisitor,
+          },
+        },
+        FailureAction: {
+          $visitor: FailureActionVisitor,
+          fixedFields: {
+            type: { $ref: '#/visitors/value' },
+            workflowId: { $ref: '#/visitors/value' },
+            stepId: { $ref: '#/visitors/value' },
+            retryAfter: { $ref: '#/visitors/value' },
+            retryLimit: { $ref: '#/visitors/value' },
+            criteria: FailureActionCriteriaVisitor,
           },
         },
         Criterion: {

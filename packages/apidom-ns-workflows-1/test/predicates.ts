@@ -9,6 +9,8 @@ import {
   isSourceDescriptionsElement,
   isSuccessActionElement,
   isSuccessActionCriteriaElement,
+  isFailureActionElement,
+  isFailureActionCriteriaElement,
   isCriterionElement,
   WorkflowsSpecification1Element,
   WorkflowsSpecElement,
@@ -17,6 +19,8 @@ import {
   SourceDescriptionsElement,
   SuccessActionElement,
   SuccessActionCriteriaElement,
+  FailureActionElement,
+  FailureActionCriteriaElement,
   CriterionElement,
 } from '../src';
 
@@ -459,6 +463,117 @@ describe('predicates', function () {
 
       assert.isTrue(isSuccessActionElement(SuccessActionElementDuck));
       assert.isFalse(isSuccessActionElement(SuccessActionElementSwan));
+    });
+  });
+
+  context('isFailureActionCriteriaElement', function () {
+    context('given FailureActionCriteriaElement instance value', function () {
+      specify('should return true', function () {
+        const element = new FailureActionCriteriaElement();
+
+        assert.isTrue(isFailureActionCriteriaElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class FailureActionCriteriaSubElement extends FailureActionCriteriaElement {}
+
+        assert.isTrue(isFailureActionCriteriaElement(new FailureActionCriteriaSubElement()));
+      });
+    });
+
+    context('given non Criteria instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isFailureActionCriteriaElement(1));
+        assert.isFalse(isFailureActionCriteriaElement(null));
+        assert.isFalse(isFailureActionCriteriaElement(undefined));
+        assert.isFalse(isFailureActionCriteriaElement({}));
+        assert.isFalse(isFailureActionCriteriaElement([]));
+        assert.isFalse(isFailureActionCriteriaElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const criteriaElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['criteria', 'failure-action-criteria']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const criteriaElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isFailureActionCriteriaElement(criteriaElementDuck));
+      assert.isFalse(isFailureActionCriteriaElement(criteriaElementSwan));
+    });
+  });
+
+  context('isFailureActionElement', function () {
+    context('given FailureActionElement instance value', function () {
+      specify('should return true', function () {
+        const element = new FailureActionElement();
+
+        assert.isTrue(isFailureActionElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class FailureActionSubElement extends FailureActionElement {}
+
+        assert.isTrue(isFailureActionElement(new FailureActionSubElement()));
+      });
+    });
+
+    context('given non FailureActionSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isFailureActionElement(1));
+        assert.isFalse(isFailureActionElement(null));
+        assert.isFalse(isFailureActionElement(undefined));
+        assert.isFalse(isFailureActionElement({}));
+        assert.isFalse(isFailureActionElement([]));
+        assert.isFalse(isFailureActionElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const FailureActionElementDuck = {
+        _storedElement: 'failureAction',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const FailureActionElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isFailureActionElement(FailureActionElementDuck));
+      assert.isFalse(isFailureActionElement(FailureActionElementSwan));
     });
   });
 });

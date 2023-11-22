@@ -1,10 +1,6 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import {
-  mediaTypes,
-  isParameterElement,
-  OpenApi3_0Element,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+import { mediaTypes, isParameterElement, SwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
 import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
@@ -13,7 +9,7 @@ import { ServerTerminable, createHTTPServer } from '../../../../helpers';
 
 describe('dereference', function () {
   context('strategies', function () {
-    context('openapi-3-0', function () {
+    context('openapi-2', function () {
       context('Reference Object', function () {
         context(
           'given single ReferenceElement passed to dereferenceApiDOM with internal references',
@@ -26,13 +22,13 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/userId',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   resolve: {
-                    baseURI: `${fixturePath}#/components/parameters/userId`,
+                    baseURI: `${fixturePath}#/paths/~1/parameters/0`,
                   },
                 });
 
@@ -44,12 +40,12 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/userId',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
-                  resolve: { baseURI: `${fixturePath}#/components/parameters/userId` },
+                  resolve: { baseURI: `${fixturePath}#/paths/~1/parameters/0` },
                 });
 
                 assert.match(
@@ -78,13 +74,13 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/userId',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   resolve: {
-                    baseURI: `http://localhost:${httpPort}/root.json#/components/parameters/userId`,
+                    baseURI: `http://localhost:${httpPort}/root.json#/paths/~1/parameters/0`,
                   },
                 });
 
@@ -96,13 +92,13 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/userId',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   resolve: {
-                    baseURI: `http://localhost:${httpPort}/root.json#/components/parameters/userId`,
+                    baseURI: `http://localhost:${httpPort}/root.json#/paths/~1/parameters/0`,
                   },
                 });
 
@@ -123,8 +119,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -139,8 +135,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -173,8 +169,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -189,8 +185,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -225,8 +221,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -241,8 +237,8 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
-                  parseResult.api as OpenApi3_0Element,
+                  '/paths/~1/parameters/0',
+                  parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },

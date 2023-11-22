@@ -1,4 +1,13 @@
-import { createPredicate } from '@swagger-api/apidom-core';
+import {
+  createPredicate,
+  ElementPredicate,
+  isStringElement,
+  toValue,
+} from '@swagger-api/apidom-core';
+import {
+  isJSONReferenceElement,
+  JSONReferenceElement,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import SwaggerElement from './elements/Swagger';
 import SwaggerVersionElement from './elements/SwaggerVersion';
@@ -97,6 +106,21 @@ export const isPathItemElement = createPredicate(
         primitiveEq('object', element));
   },
 );
+
+export const isPathItemElementExternal: ElementPredicate<PathItemElement> = (
+  element: unknown,
+): element is PathItemElement => {
+  if (!isPathItemElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
+
+  const value = toValue(element.$ref);
+
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
+};
 
 export const isOperationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -208,6 +232,21 @@ export const isReferenceElement = createPredicate(
   },
 );
 
+export const isReferenceElementExternal: ElementPredicate<ReferenceElement> = (
+  element: unknown,
+): element is ReferenceElement => {
+  if (!isReferenceElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
+
+  const value = toValue(element.$ref);
+
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
+};
+
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SchemaElement =>
@@ -217,6 +256,21 @@ export const isSchemaElement = createPredicate(
         primitiveEq('object', element));
   },
 );
+
+export const isJSONReferenceElementExternal: ElementPredicate<JSONReferenceElement> = (
+  element: unknown,
+): element is PathItemElement => {
+  if (!isJSONReferenceElement(element)) {
+    return false;
+  }
+  if (!isStringElement(element.$ref)) {
+    return false;
+  }
+
+  const value = toValue(element.$ref);
+
+  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
+};
 
 export const isXmlElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

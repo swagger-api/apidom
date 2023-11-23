@@ -1,0 +1,23 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/path": {
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true
+          }
+        ]
+      }
+    },
+    "parameters": {
+      "param1": {
+        "name": "offset",
+        "in": "query",
+        "required": true
+      }
+    }
+  }
+]

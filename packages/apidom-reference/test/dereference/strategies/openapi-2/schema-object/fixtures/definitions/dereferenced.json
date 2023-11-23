@@ -1,0 +1,13 @@
+[
+  {
+    "swagger": "2.0",
+    "definitions": {
+      "schema1": {
+        "title": "title of schema 1"
+      },
+      "schema2": {
+        "title": "title of schema 1"
+      }
+    }
+  }
+]

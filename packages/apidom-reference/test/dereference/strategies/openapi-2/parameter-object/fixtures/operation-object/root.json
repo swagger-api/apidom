@@ -1,0 +1,21 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/path": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/param1"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "param1": {
+      "name": "offset",
+      "in": "query",
+      "required": true
+    }
+  }
+}

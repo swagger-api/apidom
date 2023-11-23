@@ -8,6 +8,7 @@ import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
+import ReferenceElement from './elements/Reference';
 
 const workflows1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -21,6 +22,7 @@ const workflows1 = {
     base.register('successAction', SuccessActionElement);
     base.register('failureAction', FailureActionElement);
     base.register('criterion', CriterionElement);
+    base.register('reference', ReferenceElement);
 
     return base;
   },

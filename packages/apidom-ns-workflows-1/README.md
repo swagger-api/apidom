@@ -195,5 +195,5 @@ Only fully implemented specification objects should be checked here.
 - [x] [Failure Action Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#failure-action-object)
 - [ ] [Component Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#component-object)
 - [x] [Criterion Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#criterion-object)
-- [ ] [Reference Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#reference-object)
+- [x] [Reference Object](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#reference-object)
 - [x] [Specification extensions](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md#specification-extensions)

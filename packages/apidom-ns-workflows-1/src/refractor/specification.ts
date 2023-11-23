@@ -11,6 +11,8 @@ import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCr
 import FailureActionVisitor from './visitors/workflows-1/failure-action';
 import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCriteriaVisitor';
 import CriterionVisitor from './visitors/workflows-1/criterion';
+import ReferenceVisitor from './visitors/workflows-1/reference';
+import Reference$RefVisitor from './visitors/workflows-1/reference/$RefVisitor';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
 
@@ -91,6 +93,13 @@ const specification = {
             context: { $ref: '#/visitors/value' },
             condition: { $ref: '#/visitors/value' },
             type: { $ref: '#/visitors/value' },
+          },
+        },
+        Reference: {
+          $visitor: ReferenceVisitor,
+          fixedFields: {
+            $ref: Reference$RefVisitor,
+            value: { $ref: '#/visitors/value' },
           },
         },
       },

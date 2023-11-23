@@ -33,6 +33,7 @@ export {
   isFailureActionElement,
   isFailureActionCriteriaElement,
   isCriterionElement,
+  isReferenceElement,
 } from './predicates';
 
 export { isWorkflowsSpecificationExtension } from './refractor/predicates';
@@ -56,6 +57,7 @@ export {
   SuccessActionElement,
   FailureActionElement,
   CriterionElement,
+  ReferenceElement,
 } from './refractor/registration';
 // NCE types
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';

@@ -14,16 +14,19 @@ import { FallbackVisitor, FixedFieldsVisitor } from '@swagger-api/apidom-ns-open
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
 import SchemaElement from '../../../../elements/Schema';
-import JsonSchemaDialect from '../../../../elements/JsonSchemaDialect';
+import JsonSchemaDialectElement from '../../../../elements/JsonSchemaDialect';
 import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
 
 const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
   props: {
     specPath: always(['document', 'objects', 'Schema']),
     canSupportSpecificationExtensions: true,
+    jsonSchemaDefaultDialect: JsonSchemaDialectElement.default,
   },
   // @ts-ignore
   init() {
+    this.element = new SchemaElement();
+
     /**
      * Private Api.
      */
@@ -47,7 +50,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       ) {
         jsonSchemaDialect = toValue(this.openApiGenericElement.get('jsonSchemaDialect'));
       } else {
-        jsonSchemaDialect = toValue(JsonSchemaDialect.default);
+        jsonSchemaDialect = toValue(this.jsonSchemaDefaultDialect);
       }
 
       return jsonSchemaDialect;
@@ -78,7 +81,7 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
       // get current $id keyword
       const $id = toValue(objectElement.get('$id'));
 
-      // remember $id keyword if it's a non empty strings
+      // remember $id keyword if it's a non-empty strings
       if (isNonEmptyString($id)) {
         inherited$id.push($id);
       }
@@ -91,7 +94,6 @@ const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, Fall
      */
     // eslint-disable-next-line @typescript-eslint/naming-convention
     this.ObjectElement = function _ObjectElement(objectElement: ObjectElement) {
-      this.element = new SchemaElement();
       handle$schema(objectElement);
       handle$id(objectElement);
 

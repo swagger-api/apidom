@@ -6,6 +6,7 @@ import ParameterElement from '../elements/Parameter';
 import SuccessActionElement from '../elements/SuccessAction';
 import FailureActionElement from '../elements/FailureAction';
 import CriterionElement from '../elements/Criterion';
+import JSONSchemaElement from '../elements/JSONSchema';
 import { createRefractor } from './index';
 
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);
@@ -59,6 +60,13 @@ CriterionElement.refract = createRefractor([
   'Criterion',
   '$visitor',
 ]);
+JSONSchemaElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'JSONSchema',
+  '$visitor',
+]);
 
 export {
   WorkflowsSpecification1Element,
@@ -69,4 +77,5 @@ export {
   SuccessActionElement,
   FailureActionElement,
   CriterionElement,
+  JSONSchemaElement,
 };

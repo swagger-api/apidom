@@ -1,3 +1,6 @@
+import { omit } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-1';
+
 import WorkflowsSpecificationVisitor from './visitors/workflows-1/index';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor';
 import InfoVisitor from './visitors/workflows-1/info';
@@ -11,6 +14,7 @@ import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCr
 import FailureActionVisitor from './visitors/workflows-1/failure-action';
 import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCriteriaVisitor';
 import CriterionVisitor from './visitors/workflows-1/criterion';
+import JSONSchemaVisitor from './visitors/workflows-1/json-schema';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
 
@@ -22,6 +26,12 @@ import FallbackVisitor from './visitors/FallbackVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
+
+const { fixedFields: schemaFixedFields } = OpenApi3_1Specification.visitors.document.objects.Schema;
+const jsonSchemaFixedFields = omit(
+  ['discriminator', 'xml', 'externalDocs', 'example'],
+  schemaFixedFields,
+); // getting rid of OAS base dialect keywords
 
 const specification = {
   visitors: {
@@ -92,6 +102,19 @@ const specification = {
             condition: { $ref: '#/visitors/value' },
             type: { $ref: '#/visitors/value' },
           },
+        },
+        Schema: {
+          /**
+           * Internally the fixed field visitors are using references to `/document/objects/Schema`.
+           * Schema spec make sure it's pointing to our JSONSchema visitor and basically acts like
+           * an alias for it.
+           */
+          $visitor: JSONSchemaVisitor,
+          fixedFields: jsonSchemaFixedFields,
+        },
+        JSONSchema: {
+          $visitor: JSONSchemaVisitor,
+          fixedFields: jsonSchemaFixedFields,
         },
       },
       extension: {

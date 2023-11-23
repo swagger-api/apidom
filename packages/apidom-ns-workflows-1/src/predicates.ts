@@ -4,6 +4,7 @@ import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
+import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
@@ -63,6 +64,16 @@ export const isSourceDescriptionsElement = createPredicate(
         isElementType('sourceDescriptions', element) &&
         primitiveEq('array', element) &&
         hasClass('sourceDescriptions', element));
+  },
+);
+
+export const isParameterElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ParameterElement =>
+      element instanceof ParameterElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('parameter', element) &&
+        primitiveEq('object', element));
   },
 );
 

@@ -4,14 +4,15 @@ import InfoVisitor from './visitors/workflows-1/info';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';
 import SourceDescriptionVisitor from './visitors/workflows-1/source-description';
 import SourceDescriptionUrlVisitor from './visitors/workflows-1/source-description/UrlVisitor';
+import ParameterVisitor from './visitors/workflows-1/parameter';
 import SourceDescriptionsVisitor from './visitors/workflows-1/SourceDescriptionsVisitor';
-import CriterionVisitor from './visitors/workflows-1/criterion';
-import FallbackVisitor from './visitors/FallbackVisitor';
-import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
 import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCriteriaVisitor';
 import FailureActionVisitor from './visitors/workflows-1/failure-action';
 import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCriteriaVisitor';
+import CriterionVisitor from './visitors/workflows-1/criterion';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
+import FallbackVisitor from './visitors/FallbackVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -52,6 +53,16 @@ const specification = {
             name: { $ref: '#/visitors/value' },
             url: SourceDescriptionUrlVisitor,
             type: { $ref: '#/visitors/value' },
+          },
+        },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            name: { $ref: '#/visitors/value' },
+            in: { $ref: '#/visitors/value' },
+            style: { $ref: '#/visitors/value' },
+            target: { $ref: '#/visitors/value' },
+            value: { $ref: '#/visitors/value' },
           },
         },
         SuccessAction: {

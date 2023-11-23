@@ -1,0 +1,34 @@
+{
+  "swagger": "2.0",
+  "definitions": {
+    "schema1": {
+      "$ref": "#/definitions/schema2",
+      "description": "description 1",
+      "prop1": "value1",
+      "prop2": "value2"
+    },
+    "schema2": {
+      "$ref": "#/definitions/schema3",
+      "summary": "indirect summary 1",
+      "prop1": "value1",
+      "prop2": "value2"
+    },
+    "schema3": {
+      "$ref": "#/definitions/schema4",
+      "description": "indirect description 1",
+      "summary": "indirect summary 2",
+      "prop1": "value1",
+      "prop2": "value2"
+    },
+    "schema4": {
+      "type": "object",
+      "description": "ID of the user"
+    },
+    "schema5": {
+      "$ref": "./ex.json#/definitions/externalSchema",
+      "description": "pulled from external source",
+      "prop1": "value1",
+      "prop2": "value2"
+    }
+  }
+}

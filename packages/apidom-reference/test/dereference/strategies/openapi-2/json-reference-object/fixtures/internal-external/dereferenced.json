@@ -1,0 +1,19 @@
+[
+  {
+    "swagger": "2.0",
+    "definitions": {
+      "schema1": {
+        "type": "object",
+        "description": "local schema 3"
+      },
+      "schema2": {
+        "type": "string",
+        "description": "external schema"
+      },
+      "schema3": {
+        "type": "object",
+        "description": "local schema 3"
+      }
+    }
+  }
+]

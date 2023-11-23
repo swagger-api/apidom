@@ -1,0 +1,15 @@
+{
+  "swagger": "2.0",
+  "definitions": {
+    "schema1": {
+      "$ref": "./ex.json#/definitions/externalSchema1"
+    },
+    "schema2": {
+      "type": "object",
+      "description": "schema2 description"
+    },
+    "schema3": {
+      "$ref": "./ex.json#/definitions/externalSchema3"
+    }
+  }
+}

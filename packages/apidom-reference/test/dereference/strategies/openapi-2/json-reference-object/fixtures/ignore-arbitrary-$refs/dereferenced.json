@@ -1,0 +1,12 @@
+[
+  {
+    "swagger": "2.0",
+    "definitions": {
+      "schema": {
+        "a": {
+          "$ref": "#/three"
+        }
+      }
+    }
+  }
+]

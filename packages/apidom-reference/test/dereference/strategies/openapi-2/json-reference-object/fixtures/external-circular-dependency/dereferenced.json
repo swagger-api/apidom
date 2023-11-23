@@ -1,0 +1,20 @@
+[
+  {
+    "swagger": "2.0",
+    "definitions": {
+      "schema1": {
+        "type": "object",
+        "description": "schema2 description"
+      },
+      "schema2": {
+        "type": "object",
+        "description": "schema2 description"
+      },
+      "schema3": {
+        "type": "string",
+        "description": "externalSchema3 description"
+      }
+    }
+  }
+
+]

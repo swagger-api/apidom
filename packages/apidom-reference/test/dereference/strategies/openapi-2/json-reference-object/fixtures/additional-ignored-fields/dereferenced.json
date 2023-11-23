@@ -1,0 +1,27 @@
+[
+  {
+    "swagger": "2.0",
+    "definitions": {
+      "schema1": {
+        "type": "object",
+        "description": "ID of the user"
+      },
+      "schema2": {
+        "type": "object",
+        "description": "ID of the user"
+      },
+      "schema3": {
+        "type": "object",
+        "description": "ID of the user"
+      },
+      "schema4": {
+        "type": "object",
+        "description": "ID of the user"
+      },
+      "schema5": {
+        "type": "number",
+        "description": "external schema"
+      }
+    }
+  }
+]

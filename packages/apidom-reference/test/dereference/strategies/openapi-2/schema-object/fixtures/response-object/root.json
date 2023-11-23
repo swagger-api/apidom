@@ -1,0 +1,17 @@
+{
+  "swagger": "2.0",
+  "responses": {
+    "response1": {
+      "description": "response1 description",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "response2": {
+      "description": "response2 description",
+      "schema": {
+        "$ref": "#/responses/response1/schema"
+      }
+    }
+  }
+}

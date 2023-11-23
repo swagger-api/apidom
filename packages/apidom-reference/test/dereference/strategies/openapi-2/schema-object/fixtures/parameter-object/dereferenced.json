@@ -1,0 +1,17 @@
+[
+  {
+    "swagger": "2.0",
+    "parameters": {
+      "parameter1": {
+        "schema": {
+          "title": "parameter1 schema title"
+        }
+      },
+      "parameter2": {
+        "schema": {
+          "title": "parameter1 schema title"
+        }
+      }
+    }
+  }
+]

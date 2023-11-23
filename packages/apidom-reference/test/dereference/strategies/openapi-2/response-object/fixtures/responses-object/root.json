@@ -1,0 +1,25 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/path": {
+      "get": {
+        "responses": {
+          "default": {
+            "$ref": "#/responses/default"
+          },
+          "200": {
+            "$ref": "#/responses/200"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "description": "first response object"
+    },
+    "200": {
+      "description": "second response object"
+    }
+  }
+}

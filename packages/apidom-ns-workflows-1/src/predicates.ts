@@ -9,6 +9,7 @@ import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
 import ReferenceElement from './elements/Reference';
+import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
@@ -139,5 +140,15 @@ export const isFailureActionCriteriaElement = createPredicate(
         primitiveEq('array', element) &&
         hasClass('failure-action-criteria', element) &&
         hasClass('criteria', element));
+  },
+);
+
+export const isJSONSchemaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is JSONSchemaElement =>
+      element instanceof JSONSchemaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('jSONSchemaDraft202012', element) &&
+        primitiveEq('object', element));
   },
 );

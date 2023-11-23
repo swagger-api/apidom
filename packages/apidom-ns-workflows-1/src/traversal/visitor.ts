@@ -21,5 +21,6 @@ export const keyMap = {
   FailureActionElement: ['content'],
   CriterionElement: ['content'],
   ReferenceElement: ['content'],
+  JSONSSchemaDraft202012Element: ['content'],
   ...keyMapBase,
 };

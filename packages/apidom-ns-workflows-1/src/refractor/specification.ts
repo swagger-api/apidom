@@ -1,3 +1,6 @@
+import { omit } from 'ramda';
+import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-1';
+
 import WorkflowsSpecificationVisitor from './visitors/workflows-1/index';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor';
 import InfoVisitor from './visitors/workflows-1/info';
@@ -13,6 +16,7 @@ import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCr
 import CriterionVisitor from './visitors/workflows-1/criterion';
 import ReferenceVisitor from './visitors/workflows-1/reference';
 import Reference$RefVisitor from './visitors/workflows-1/reference/$RefVisitor';
+import JSONSchemaVisitor from './visitors/workflows-1/json-schema';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor';
 import FallbackVisitor from './visitors/FallbackVisitor';
 
@@ -24,6 +28,12 @@ import FallbackVisitor from './visitors/FallbackVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
+
+const { fixedFields: schemaFixedFields } = OpenApi3_1Specification.visitors.document.objects.Schema;
+const jsonSchemaFixedFields = omit(
+  ['discriminator', 'xml', 'externalDocs', 'example'],
+  schemaFixedFields,
+); // getting rid of OAS base dialect keywords
 
 const specification = {
   visitors: {
@@ -101,6 +111,18 @@ const specification = {
             $ref: Reference$RefVisitor,
             value: { $ref: '#/visitors/value' },
           },
+        Schema: {
+          /**
+           * Internally the fixed field visitors are using references to `/document/objects/Schema`.
+           * Schema spec make sure it's pointing to our JSONSchema visitor and basically acts like
+           * an alias for it.
+           */
+          $visitor: JSONSchemaVisitor,
+          fixedFields: jsonSchemaFixedFields,
+        },
+        JSONSchema: {
+          $visitor: JSONSchemaVisitor,
+          fixedFields: jsonSchemaFixedFields,
         },
       },
       extension: {

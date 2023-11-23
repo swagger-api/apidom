@@ -584,6 +584,9 @@ class Schema extends ObjectElement {
     return this.get('example');
   }
 
+  /**
+   * @deprecated The example property has been deprecated in favor of the JSON Schema examples keyword. Use of example is discouraged, and later versions of this specification may remove it.
+   */
   set example(example: Element | undefined) {
     this.set('example', example);
   }

@@ -9,6 +9,7 @@ import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
 import ReferenceElement from './elements/Reference';
+import JSONSchemaElement from './elements/JSONSchema';
 
 const workflows1 = {
   namespace: (options: NamespacePluginOptions) => {
@@ -23,6 +24,7 @@ const workflows1 = {
     base.register('failureAction', FailureActionElement);
     base.register('criterion', CriterionElement);
     base.register('reference', ReferenceElement);
+    base.register('jSONSchemaDraft202012', JSONSchemaElement);
 
     return base;
   },

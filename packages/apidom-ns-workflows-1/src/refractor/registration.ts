@@ -66,6 +66,8 @@ ReferenceElement.refract = createRefractor([
   'document',
   'objects',
   'Reference',
+  '$visitor',
+]);
 JSONSchemaElement.refract = createRefractor([
   'visitors',
   'document',

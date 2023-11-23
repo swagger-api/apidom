@@ -111,6 +111,7 @@ const specification = {
             $ref: Reference$RefVisitor,
             value: { $ref: '#/visitors/value' },
           },
+        },
         Schema: {
           /**
            * Internally the fixed field visitors are using references to `/document/objects/Schema`.

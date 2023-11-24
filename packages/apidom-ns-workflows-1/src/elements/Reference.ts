@@ -4,7 +4,7 @@ class Reference extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'reference';
-    this.classes.push('workflowsSpec-reference');
+    this.classes.push('workflows-spec-reference');
   }
 
   get $ref(): StringElement | undefined {

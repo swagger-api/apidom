@@ -19,8 +19,9 @@ export const keyMap = {
   ParameterElement: ['content'],
   SuccessActionElement: ['content'],
   FailureActionElement: ['content'],
+  ComponentsElement: ['content'],
   CriterionElement: ['content'],
   ReferenceElement: ['content'],
-  JSONSSchemaDraft202012Element: ['content'],
+  JSONSchemaDraft202012Element: ['content'],
   ...keyMapBase,
 };

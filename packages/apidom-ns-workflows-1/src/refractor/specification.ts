@@ -13,6 +13,9 @@ import SuccessActionVisitor from './visitors/workflows-1/success-action';
 import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCriteriaVisitor';
 import FailureActionVisitor from './visitors/workflows-1/failure-action';
 import FailureActionCriteriaVisitor from './visitors/workflows-1/FailureActionCriteriaVisitor';
+import ComponentsVisitor from './visitors/workflows-1/components';
+import ComponentsInputsVisitor from './visitors/workflows-1/components/InputsVisitor';
+import ComponentsParametersVisitor from './visitors/workflows-1/components/ParametersVisitor';
 import CriterionVisitor from './visitors/workflows-1/criterion';
 import ReferenceVisitor from './visitors/workflows-1/reference';
 import Reference$RefVisitor from './visitors/workflows-1/reference/$RefVisitor';
@@ -95,6 +98,13 @@ const specification = {
             retryAfter: { $ref: '#/visitors/value' },
             retryLimit: { $ref: '#/visitors/value' },
             criteria: FailureActionCriteriaVisitor,
+          },
+        },
+        Components: {
+          $visitor: ComponentsVisitor,
+          fixedFields: {
+            inputs: ComponentsInputsVisitor,
+            parameters: ComponentsParametersVisitor,
           },
         },
         Criterion: {

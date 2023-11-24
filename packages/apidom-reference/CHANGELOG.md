@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
+
+### Features
+
+- **reference:** add OpenAPI 2.0 dereference strategy ([#3435](https://github.com/swagger-api/apidom/issues/3435)) ([aa3710b](https://github.com/swagger-api/apidom/commit/aa3710be00fef5ecc177c7d9e2ae570a077e8b68)), closes [#3102](https://github.com/swagger-api/apidom/issues/3102)
+
 # [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
 
 ### Bug Fixes

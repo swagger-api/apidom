@@ -17,8 +17,6 @@ import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   ChannelItemElement,
   getNodeType,
-  isChannelItemElementExternal,
-  isReferenceElementExternal,
   isReferenceLikeElement,
   isBooleanJsonSchemaElement,
   keyMap,
@@ -126,15 +124,15 @@ const AsyncApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this reference element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 
@@ -266,14 +264,15 @@ const AsyncApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external ChannelItem Elements
-      if (!this.options.resolve.external && isChannelItemElementExternal(referencingElement)) {
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const retrievalURI = reference.uri;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Channel Item Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this channel item but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 

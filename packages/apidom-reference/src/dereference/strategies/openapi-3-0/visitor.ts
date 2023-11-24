@@ -26,9 +26,6 @@ import {
   OperationElement,
   PathItemElement,
   isOperationElement,
-  isReferenceElementExternal,
-  isPathItemElementExternal,
-  isLinkElementExternal,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { Reference as IReference } from '../../../types';
@@ -133,15 +130,15 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this reference element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 
@@ -256,14 +253,15 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isPathItemElementExternal(referencingElement)) {
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const retrievalURI = reference.uri;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Path Item element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 
@@ -367,11 +365,6 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
-        return undefined;
-      }
-
       // operationRef and operationId fields are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
         throw new ApiDOMError(
@@ -385,6 +378,13 @@ const OpenApi3_0DereferenceVisitor = stampit({
         // possibly non-semantic referenced element
         const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
         const reference = await this.toReference(toValue(linkElement.operationRef));
+
+        // ignore resolving external Operation Object reference
+        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== reference.uri) {
+          // skip traversing this Link element but traverse all it's child elements
+          return undefined;
+        }
+
         operationElement = evaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
         if (isPrimitiveElement(operationElement)) {
@@ -440,11 +440,6 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving ExampleElement externalValue
-      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
-        return undefined;
-      }
-
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
         throw new ApiDOMError(
@@ -453,6 +448,12 @@ const OpenApi3_0DereferenceVisitor = stampit({
       }
 
       const reference = await this.toReference(toValue(exampleElement.externalValue));
+
+      // ignore resolving external Example Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== reference.uri) {
+        // skip traversing this Example element but traverse all it's child elements
+        return undefined;
+      }
 
       // shallow clone of the referenced element
       const valueElement = cloneShallow(reference.value.result);

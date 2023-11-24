@@ -22,9 +22,6 @@ import {
   ReferenceElement,
   PathItemElement,
   JSONReferenceElement,
-  isReferenceElementExternal,
-  isPathItemElementExternal,
-  isJSONReferenceElementExternal,
 } from '@swagger-api/apidom-ns-openapi-2';
 
 import { Reference as IReference } from '../../../types';
@@ -128,15 +125,15 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this reference element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 
@@ -251,14 +248,15 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isPathItemElementExternal(referencingElement)) {
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const retrievalURI = reference.uri;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Path Item element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 
@@ -370,15 +368,15 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isJSONReferenceElementExternal(referencingElement)) {
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
-
       const reference = await this.toReference(toValue(referencingElement.$ref));
       const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+
+      // ignore resolving external JSONReference Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this JSONReference element but traverse all it's child elements
+        return undefined;
+      }
 
       this.indirections.push(referencingElement);
 

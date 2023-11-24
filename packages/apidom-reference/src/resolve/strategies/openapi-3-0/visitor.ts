@@ -14,9 +14,6 @@ import {
   PathItemElement,
   LinkElement,
   ExampleElement,
-  isReferenceElementExternal,
-  isPathItemElementExternal,
-  isLinkElementExternal,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { Reference as IReference } from '../../../types';
@@ -86,13 +83,13 @@ const OpenApi3_0ResolveVisitor = stampit({
     },
 
     ReferenceElement(referenceElement: ReferenceElement) {
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
-        return false;
-      }
-
       const uri = toValue(referenceElement.$ref);
       const baseURI = this.toBaseURI(uri);
+
+      // ignore resolving external Reference Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+        return undefined;
+      }
 
       if (!has(baseURI, this.crawlingMap)) {
         this.crawlingMap[baseURI] = this.toReference(uri);
@@ -108,13 +105,13 @@ const OpenApi3_0ResolveVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
-        return undefined;
-      }
-
       const uri = toValue(pathItemElement.$ref);
       const baseURI = this.toBaseURI(uri);
+
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+        return undefined;
+      }
 
       if (!has(baseURI, this.crawlingMap)) {
         this.crawlingMap[baseURI] = this.toReference(uri);
@@ -130,19 +127,19 @@ const OpenApi3_0ResolveVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
-        return undefined;
-      }
-
       // operationRef and operationId are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
         throw new ApiDOMError('LinkElement operationRef and operationId are mutually exclusive.');
       }
 
-      if (isLinkElementExternal(linkElement)) {
+      if (isStringElement(linkElement.operationRef)) {
         const uri = toValue(linkElement.operationRef);
         const baseURI = this.toBaseURI(uri);
+
+        // ignore resolving LinkElement.operationRef
+        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+          return undefined;
+        }
 
         if (!has(baseURI, this.crawlingMap)) {
           this.crawlingMap[baseURI] = this.toReference(uri);
@@ -158,11 +155,6 @@ const OpenApi3_0ResolveVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving ExampleElement externalValue
-      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
-        return undefined;
-      }
-
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
         throw new ApiDOMError(
@@ -172,6 +164,11 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       const uri = toValue(exampleElement.externalValue);
       const baseURI = this.toBaseURI(uri);
+
+      // ignore resolving ExampleElement externalValue
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+        return undefined;
+      }
 
       if (!has(baseURI, this.crawlingMap)) {
         this.crawlingMap[baseURI] = this.toReference(uri);

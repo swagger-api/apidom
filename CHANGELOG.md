@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
+
+### Bug Fixes
+
+- **ast:** remove redundant cycle detection ([#3411](https://github.com/swagger-api/apidom/issues/3411)) ([a8106de](https://github.com/swagger-api/apidom/commit/a8106deef0d70e23daa878437a47e58eebd89e3f))
+- **ns-workflows-1:** use proper version in media types ([#3400](https://github.com/swagger-api/apidom/issues/3400)) ([f3faea6](https://github.com/swagger-api/apidom/commit/f3faea683afe861917590d8123fe99b3bb998b91)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+
+### Features
+
+- **ast:** see edits by the following merged visitors ([#3412](https://github.com/swagger-api/apidom/issues/3412)) ([6499557](https://github.com/swagger-api/apidom/commit/64995573f5df1f7f291c20833cf274173f6a7bac))
+- **ns-workflows-1:** add support for Criterion Object ([#3407](https://github.com/swagger-api/apidom/issues/3407)) ([f6b053e](https://github.com/swagger-api/apidom/commit/f6b053ef30d34c3f8d95a7fb78f57eaa50758957)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Failure Action Object ([#3429](https://github.com/swagger-api/apidom/issues/3429)) ([7cb6980](https://github.com/swagger-api/apidom/commit/7cb698068294858284eb6e3378e0eb9aaf9bf112)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Info Object ([#3393](https://github.com/swagger-api/apidom/issues/3393)) ([5508c54](https://github.com/swagger-api/apidom/commit/5508c5479844c4328867f84481f56c445ec13225)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for JSONSchema Object ([#3445](https://github.com/swagger-api/apidom/issues/3445)) ([5b504e5](https://github.com/swagger-api/apidom/commit/5b504e523c532a31aaf1b133a14ff3b76c126435)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Parameter Object ([#3436](https://github.com/swagger-api/apidom/issues/3436)) ([eed20ec](https://github.com/swagger-api/apidom/commit/eed20ec243d8432e3a13a33421c2d08fbc7b2167)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Reference Object ([#3446](https://github.com/swagger-api/apidom/issues/3446)) ([10ecaf7](https://github.com/swagger-api/apidom/commit/10ecaf78f487d913da6fdf4a596e5bfbe37d0bf1)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Source Description Object ([#3403](https://github.com/swagger-api/apidom/issues/3403)) ([893f125](https://github.com/swagger-api/apidom/commit/893f12505dce72804534da3997f29e5461528639)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Success Action Object ([#3408](https://github.com/swagger-api/apidom/issues/3408)) ([28b81ac](https://github.com/swagger-api/apidom/commit/28b81acc2aaee178ec5aaff4cc8e346a8dfa01b5)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **reference:** add OpenAPI 2.0 dereference strategy ([#3435](https://github.com/swagger-api/apidom/issues/3435)) ([aa3710b](https://github.com/swagger-api/apidom/commit/aa3710be00fef5ecc177c7d9e2ae570a077e8b68)), closes [#3102](https://github.com/swagger-api/apidom/issues/3102)
+
 # [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
 
 ### Bug Fixes

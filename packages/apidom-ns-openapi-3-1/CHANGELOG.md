@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
+
+### Features
+
+- **ns-workflows-1:** add support for JSONSchema Object ([#3445](https://github.com/swagger-api/apidom/issues/3445)) ([5b504e5](https://github.com/swagger-api/apidom/commit/5b504e523c532a31aaf1b133a14ff3b76c126435)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+
 # [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

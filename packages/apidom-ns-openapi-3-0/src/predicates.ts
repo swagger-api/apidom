@@ -1,10 +1,4 @@
-import {
-  BooleanElement,
-  createPredicate,
-  isBooleanElement,
-  isStringElement,
-  toValue,
-} from '@swagger-api/apidom-core';
+import { BooleanElement, createPredicate, isBooleanElement } from '@swagger-api/apidom-core';
 import type { ElementPredicate } from '@swagger-api/apidom-core';
 
 import CallbackElement from './elements/Callback';
@@ -124,21 +118,6 @@ export const isLinkElement = createPredicate(
   },
 );
 
-export const isLinkElementExternal: ElementPredicate<LinkElement> = (
-  element: unknown,
-): element is LinkElement => {
-  if (!isLinkElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.operationRef)) {
-    return false;
-  }
-
-  const value = toValue(element.operationRef);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
-
 export const isOpenapiElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is OpenapiElement =>
@@ -191,21 +170,6 @@ export const isPathItemElement = createPredicate(
   },
 );
 
-export const isPathItemElementExternal: ElementPredicate<PathItemElement> = (
-  element: unknown,
-): element is PathItemElement => {
-  if (!isPathItemElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.$ref)) {
-    return false;
-  }
-
-  const value = toValue(element.$ref);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
-
 export const isPathsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is PathsElement =>
@@ -225,21 +189,6 @@ export const isReferenceElement = createPredicate(
         primitiveEq('object', element));
   },
 );
-
-export const isReferenceElementExternal: ElementPredicate<ReferenceElement> = (
-  element: unknown,
-): element is ReferenceElement => {
-  if (!isReferenceElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.$ref)) {
-    return false;
-  }
-
-  const value = toValue(element.$ref);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
 
 export const isRequestBodyElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

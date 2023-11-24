@@ -6,6 +6,7 @@ import ParameterElement from '../elements/Parameter';
 import SuccessActionElement from '../elements/SuccessAction';
 import FailureActionElement from '../elements/FailureAction';
 import CriterionElement from '../elements/Criterion';
+import ReferenceElement from '../elements/Reference';
 import JSONSchemaElement from '../elements/JSONSchema';
 import { createRefractor } from './index';
 
@@ -60,6 +61,13 @@ CriterionElement.refract = createRefractor([
   'Criterion',
   '$visitor',
 ]);
+ReferenceElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'Reference',
+  '$visitor',
+]);
 JSONSchemaElement.refract = createRefractor([
   'visitors',
   'document',
@@ -77,5 +85,6 @@ export {
   SuccessActionElement,
   FailureActionElement,
   CriterionElement,
+  ReferenceElement,
   JSONSchemaElement,
 };

@@ -33,6 +33,7 @@ export {
   isFailureActionElement,
   isFailureActionCriteriaElement,
   isCriterionElement,
+  isReferenceElement,
   isJSONSchemaElement,
 } from './predicates';
 
@@ -57,6 +58,7 @@ export {
   SuccessActionElement,
   FailureActionElement,
   CriterionElement,
+  ReferenceElement,
   JSONSchemaElement,
 } from './refractor/registration';
 // NCE types

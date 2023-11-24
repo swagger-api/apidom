@@ -20,6 +20,7 @@ export const keyMap = {
   SuccessActionElement: ['content'],
   FailureActionElement: ['content'],
   CriterionElement: ['content'],
+  ReferenceElement: ['content'],
   JSONSSchemaDraft202012Element: ['content'],
   ...keyMapBase,
 };

@@ -8,6 +8,7 @@ import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
 import CriterionElement from './elements/Criterion';
+import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
@@ -94,6 +95,16 @@ export const isCriterionElement = createPredicate(
       element instanceof CriterionElement ||
       (hasBasicElementProps(element) &&
         isElementType('criterion', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isReferenceElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ReferenceElement =>
+      element instanceof ReferenceElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('reference', element) &&
         primitiveEq('object', element));
   },
 );

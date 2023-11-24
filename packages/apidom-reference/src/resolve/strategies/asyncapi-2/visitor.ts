@@ -83,7 +83,7 @@ const AsyncApi2ResolveVisitor = stampit({
       const uri = toValue(referenceElement.$ref);
       const baseURI = this.toBaseURI(uri);
 
-      // // ignore resolving external Reference Objects
+      // ignore resolving external Reference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
         return false;
       }

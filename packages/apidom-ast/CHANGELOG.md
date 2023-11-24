@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
+
+### Bug Fixes
+
+- **ast:** remove redundant cycle detection ([#3411](https://github.com/swagger-api/apidom/issues/3411)) ([a8106de](https://github.com/swagger-api/apidom/commit/a8106deef0d70e23daa878437a47e58eebd89e3f))
+
+### Features
+
+- **ast:** see edits by the following merged visitors ([#3412](https://github.com/swagger-api/apidom/issues/3412)) ([6499557](https://github.com/swagger-api/apidom/commit/64995573f5df1f7f291c20833cf274173f6a7bac))
+
 # [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

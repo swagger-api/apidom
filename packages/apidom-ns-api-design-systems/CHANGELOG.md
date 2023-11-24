@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-api-design-systems
+
 # [0.83.0](https://github.com/swagger-api/apidom/compare/v0.82.2...v0.83.0) (2023-11-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-api-design-systems

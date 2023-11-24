@@ -1,10 +1,4 @@
-import {
-  BooleanElement,
-  createPredicate,
-  isBooleanElement,
-  isStringElement,
-  toValue,
-} from '@swagger-api/apidom-core';
+import { BooleanElement, createPredicate, isBooleanElement } from '@swagger-api/apidom-core';
 import type { ElementPredicate } from '@swagger-api/apidom-core';
 
 import AsyncApi2Element from './elements/AsyncApi2';
@@ -68,21 +62,6 @@ export const isChannelItemElement = createPredicate(
         primitiveEq('object', element));
   },
 );
-
-export const isChannelItemElementExternal: ElementPredicate<ChannelItemElement> = (
-  element: unknown,
-): element is ChannelItemElement => {
-  if (!isChannelItemElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.$ref)) {
-    return false;
-  }
-
-  const value = toValue(element.$ref);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
 
 export const isChannelsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
@@ -183,18 +162,6 @@ export const isReferenceElement = createPredicate(
         primitiveEq('object', element));
   },
 );
-
-export const isReferenceElementExternal: ElementPredicate<ReferenceElement> = (
-  element: unknown,
-): element is ReferenceElement => {
-  if (!isReferenceElement(element)) {
-    return false;
-  }
-
-  const value = toValue(element.$ref);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
 
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

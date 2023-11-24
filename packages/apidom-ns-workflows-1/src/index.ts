@@ -32,6 +32,7 @@ export {
   isSuccessActionCriteriaElement,
   isFailureActionElement,
   isFailureActionCriteriaElement,
+  isComponentsElement,
   isCriterionElement,
   isReferenceElement,
   isJSONSchemaElement,
@@ -57,6 +58,7 @@ export {
   ParameterElement,
   SuccessActionElement,
   FailureActionElement,
+  ComponentsElement,
   CriterionElement,
   ReferenceElement,
   JSONSchemaElement,
@@ -65,3 +67,5 @@ export {
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';
 export { default as SuccessActionCriteriaElement } from './elements/nces/SuccessActionCriteria';
 export { default as FailureActionCriteriaElement } from './elements/nces/FailureActionCriteria';
+export { default as ComponentsSchemas } from './elements/nces/ComponentsInputs';
+export { default as ComponentsParameters } from './elements/nces/ComponentsParameters';

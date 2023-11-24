@@ -12,6 +12,7 @@ import {
   isSuccessActionCriteriaElement,
   isFailureActionElement,
   isFailureActionCriteriaElement,
+  isComponentsElement,
   isCriterionElement,
   isReferenceElement,
   WorkflowsSpecification1Element,
@@ -24,6 +25,7 @@ import {
   SuccessActionCriteriaElement,
   FailureActionElement,
   FailureActionCriteriaElement,
+  ComponentsElement,
   CriterionElement,
   ReferenceElement,
 } from '../src';
@@ -299,6 +301,59 @@ describe('predicates', function () {
 
       assert.isTrue(isSourceDescriptionsElement(sourceDescriptionsElementDuck));
       assert.isFalse(isSourceDescriptionsElement(sourceDescriptionsElementSwan));
+    });
+  });
+
+  context('isComponentsElement', function () {
+    context('given ComponentsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ComponentsElement();
+
+        assert.isTrue(isComponentsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ComponentsSubElement extends ComponentsElement {}
+
+        assert.isTrue(isComponentsElement(new ComponentsSubElement()));
+      });
+    });
+
+    context('given non ComponentsElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isComponentsElement(1));
+        assert.isFalse(isComponentsElement(null));
+        assert.isFalse(isComponentsElement(undefined));
+        assert.isFalse(isComponentsElement({}));
+        assert.isFalse(isComponentsElement([]));
+        assert.isFalse(isComponentsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const componentsElementDuck = {
+        _storedElement: 'components',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const componentsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isComponentsElement(componentsElementDuck));
+      assert.isFalse(isComponentsElement(componentsElementSwan));
     });
   });
 

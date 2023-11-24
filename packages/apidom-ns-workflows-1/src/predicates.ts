@@ -7,6 +7,7 @@ import SourceDescriptionElement from './elements/SourceDescription';
 import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
+import ComponentsElement from './elements/Components';
 import CriterionElement from './elements/Criterion';
 import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
@@ -85,6 +86,16 @@ export const isSuccessActionElement = createPredicate(
       element instanceof SuccessActionElement ||
       (hasBasicElementProps(element) &&
         isElementType('successAction', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isComponentsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is ComponentsElement =>
+      element instanceof ComponentsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('components', element) &&
         primitiveEq('object', element));
   },
 );

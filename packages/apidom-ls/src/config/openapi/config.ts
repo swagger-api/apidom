@@ -30,6 +30,7 @@ import securityRequirementMeta from './security-requirement/meta';
 import securitySchemeMeta from './security-scheme/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
+import swaggerMeta from './swagger/meta';
 import tagMeta from './tag/meta';
 import xmlMeta from './xml/meta';
 import schemaMeta from '../common/schema/meta';
@@ -78,6 +79,7 @@ export default {
   securityScheme: securitySchemeMeta,
   server: serverMeta,
   serverVariable: serverVariableMeta,
+  swagger: swaggerMeta,
   tag: tagMeta,
   xml: xmlMeta,
   schema: schemaMeta,

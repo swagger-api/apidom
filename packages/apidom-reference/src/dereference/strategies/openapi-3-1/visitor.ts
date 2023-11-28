@@ -148,8 +148,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
-        // skip traversing this reference element but traverse all it's child elements
-        return undefined;
+        // skip traversing this reference element and all it's child elements
+        return false;
       }
 
       const reference = await this.toReference(toValue(referencingElement.$ref));
@@ -550,8 +550,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
           );
         } else {
           // we're assuming here that we're dealing with JSON Pointer here
-          reference = await this.toReference(url.unsanitize($refBaseURI));
-          retrievalURI = reference.uri;
+          retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
           // ignore resolving external Schema Objects
           if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
@@ -559,6 +558,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
             return undefined;
           }
 
+          reference = await this.toReference(url.unsanitize($refBaseURI));
           const selector = uriToPointer($refBaseURI);
           referencedElement = maybeRefractToSchemaElement(
             // @ts-ignore
@@ -573,8 +573,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
-            reference = await this.toReference(url.unsanitize($refBaseURI));
-            retrievalURI = reference.uri;
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
             // ignore resolving external Schema Objects
             if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
@@ -582,6 +581,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
               return undefined;
             }
 
+            reference = await this.toReference(url.unsanitize($refBaseURI));
             const selector = uriToAnchor($refBaseURI);
             referencedElement = $anchorEvaluate(
               selector,
@@ -590,8 +590,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
             );
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
-            reference = await this.toReference(url.unsanitize($refBaseURI));
-            retrievalURI = reference.uri;
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
             // ignore resolving external Schema Objects
             if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
@@ -599,6 +598,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
               return undefined;
             }
 
+            reference = await this.toReference(url.unsanitize($refBaseURI));
             const selector = uriToPointer($refBaseURI);
             referencedElement = maybeRefractToSchemaElement(
               // @ts-ignore

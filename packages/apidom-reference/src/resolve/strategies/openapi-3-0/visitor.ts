@@ -84,15 +84,15 @@ const OpenApi3_0ResolveVisitor = stampit({
 
     ReferenceElement(referenceElement: ReferenceElement) {
       const uri = toValue(referenceElement.$ref);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
-        return undefined;
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        return false;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(referenceElement);
 
@@ -106,15 +106,15 @@ const OpenApi3_0ResolveVisitor = stampit({
       }
 
       const uri = toValue(pathItemElement.$ref);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
       // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         return undefined;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(pathItemElement);
 
@@ -134,15 +134,15 @@ const OpenApi3_0ResolveVisitor = stampit({
 
       if (isStringElement(linkElement.operationRef)) {
         const uri = toValue(linkElement.operationRef);
-        const baseURI = this.toBaseURI(uri);
+        const retrievalURI = this.toBaseURI(uri);
 
         // ignore resolving LinkElement.operationRef
-        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
           return undefined;
         }
 
-        if (!has(baseURI, this.crawlingMap)) {
-          this.crawlingMap[baseURI] = this.toReference(uri);
+        if (!has(retrievalURI, this.crawlingMap)) {
+          this.crawlingMap[retrievalURI] = this.toReference(uri);
         }
       }
 
@@ -163,15 +163,15 @@ const OpenApi3_0ResolveVisitor = stampit({
       }
 
       const uri = toValue(exampleElement.externalValue);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
       // ignore resolving ExampleElement externalValue
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         return undefined;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
 
       return undefined;

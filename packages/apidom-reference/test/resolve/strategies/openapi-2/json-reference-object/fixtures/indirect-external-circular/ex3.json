@@ -1,0 +1,7 @@
+{
+  "definitions": {
+    "indirection": {
+      "$ref": "./root.json#/definitions/schema"
+    }
+  }
+}

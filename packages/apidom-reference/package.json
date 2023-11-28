@@ -58,6 +58,11 @@
       "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs",
       "types": "./types/resolve/strategies/asyncapi-2/index.d.ts"
     },
+    "./resolve/strategies/openapi-2": {
+      "import": "./es/resolve/strategies/openapi-2/index.mjs",
+      "require": "./cjs/resolve/strategies/openapi-2/index.cjs",
+      "types": "./types/resolve/strategies/openapi-2/index.d.ts"
+    },
     "./resolve/strategies/openapi-3-0": {
       "import": "./es/resolve/strategies/openapi-3-0/index.mjs",
       "require": "./cjs/resolve/strategies/openapi-3-0/index.cjs",

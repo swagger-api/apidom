@@ -1,11 +1,11 @@
 import stampit from 'stampit';
 import { createNamespace, visit } from '@swagger-api/apidom-core';
-import openapi3_0Namespace, {
+import openapi2Namespace, {
   getNodeType,
-  isOpenApi3_0Element,
+  isSwaggerElement,
   keyMap,
   mediaTypes,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-2';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
@@ -15,15 +15,14 @@ import {
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
-import OpenApi3_0ResolveVisitor from './visitor';
+import OpenApi2ResolveVisitor from './visitor';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
+const OpenApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
   init() {
-    this.name = 'asyncapi-2';
+    this.name = 'openapi-2';
   },
   methods: {
     canResolve(file: IFile) {
@@ -33,13 +32,13 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
       }
 
       // assert by inspecting ApiDOM
-      return isOpenApi3_0Element(file.parseResult?.api);
+      return isSwaggerElement(file.parseResult?.api);
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const namespace = createNamespace(openapi3_0Namespace);
+      const namespace = createNamespace(openapi2Namespace);
       const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const visitor = OpenApi3_0ResolveVisitor({ reference, namespace, options });
+      const visitor = OpenApi2ResolveVisitor({ reference, namespace, options });
       const refSet = ReferenceSet();
       refSet.add(reference);
 
@@ -47,11 +46,10 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
         keyMap,
         nodeTypeGetter: getNodeType,
       });
-      await visitor.crawl();
 
       return refSet;
     },
   },
 });
 
-export default OpenApi3_0ResolveStrategy;
+export default OpenApi2ResolveStrategy;

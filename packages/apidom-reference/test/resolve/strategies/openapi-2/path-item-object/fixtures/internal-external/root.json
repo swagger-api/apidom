@@ -1,0 +1,14 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/path1": {
+      "$ref": "./ex.json#/~1path2"
+    },
+    "/path3": {
+      "$ref": "#/paths/~1path4"
+    },
+    "/path4": {
+      "get": {}
+    }
+  }
+}

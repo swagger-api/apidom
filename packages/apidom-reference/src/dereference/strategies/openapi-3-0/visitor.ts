@@ -71,6 +71,10 @@ const OpenApi3_0DereferenceVisitor = stampit({
     this.ancestors = new AncestorLineage(...ancestors);
   },
   methods: {
+    toBaseURI(uri: string): string {
+      return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+    },
+
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -79,8 +83,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
         );
       }
 
-      const baseURI = url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
-
+      const baseURI = this.toBaseURI(uri);
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -130,15 +133,16 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this reference element but traverse all it's child elements
         return undefined;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -253,15 +257,16 @@ const OpenApi3_0DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Path Item Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -377,13 +382,15 @@ const OpenApi3_0DereferenceVisitor = stampit({
       if (isStringElement(linkElement.operationRef)) {
         // possibly non-semantic referenced element
         const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
-        const reference = await this.toReference(toValue(linkElement.operationRef));
+        const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
 
         // ignore resolving external Operation Object reference
-        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== reference.uri) {
+        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
           // skip traversing this Link element but traverse all it's child elements
           return undefined;
         }
+
+        const reference = await this.toReference(toValue(linkElement.operationRef));
 
         operationElement = evaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
@@ -447,13 +454,15 @@ const OpenApi3_0DereferenceVisitor = stampit({
         );
       }
 
-      const reference = await this.toReference(toValue(exampleElement.externalValue));
+      const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
 
       // ignore resolving external Example Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== reference.uri) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this Example element but traverse all it's child elements
         return undefined;
       }
+
+      const reference = await this.toReference(toValue(exampleElement.externalValue));
 
       // shallow clone of the referenced element
       const valueElement = cloneShallow(reference.value.result);

@@ -66,6 +66,10 @@ const OpenApi2DereferenceVisitor = stampit({
     this.ancestors = new AncestorLineage(...ancestors);
   },
   methods: {
+    toBaseURI(uri: string): string {
+      return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+    },
+
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -74,8 +78,7 @@ const OpenApi2DereferenceVisitor = stampit({
         );
       }
 
-      const baseURI = url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
-
+      const baseURI = this.toBaseURI(uri);
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -125,15 +128,16 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
-        // skip traversing this reference element but traverse all it's child elements
-        return undefined;
+        // skip traversing this reference element and all it's child elements
+        return false;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -248,15 +252,16 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Path Item Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -368,15 +373,16 @@ const OpenApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external JSONReference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
-        // skip traversing this JSONReference element but traverse all it's child elements
-        return undefined;
+        // skip traversing this JSONReference element and all it's child elements
+        return false;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 

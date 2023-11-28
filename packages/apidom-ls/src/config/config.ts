@@ -1,6 +1,6 @@
-import configAsyncapi from './asyncapi/config';
-import configOpenapi from './openapi/config';
-import configAds from './ads/config';
+import configAsyncAPI from './asyncapi/config';
+import configOpenAPI from './openapi/config';
+import configADS from './ads/config';
 import { Metadata } from '../apidom-language-types';
 import symbols from './symbols';
 import tokens from './tokens';
@@ -9,9 +9,9 @@ import tokens from './tokens';
 export function config(): Metadata {
   return {
     metadataMaps: {
-      openapi: configOpenapi,
-      asyncapi: configAsyncapi,
-      ads: configAds,
+      openapi: configOpenAPI,
+      asyncapi: configAsyncAPI,
+      ads: configADS,
     },
     linterFunctions: {},
     symbols,

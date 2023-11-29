@@ -75,4 +75,9 @@ export default [
   'messageTraits',
   'operationTrait',
   'operationTraits',
+  'security',
+  'parametersDefinitions',
+  'responsesDefinitions',
+  'parametersDefinitions',
+  'definitions',
 ];

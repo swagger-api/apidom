@@ -27,6 +27,13 @@ export {
   isInfoElement,
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
+  isStepElement,
+  isStepParametersElement,
+  isStepDependenciesElement,
+  isStepSuccessCriteriaElement,
+  isStepSuccessActionsElement,
+  isStepFailureActionsElement,
+  isStepOutputsElement,
   isParameterElement,
   isSuccessActionElement,
   isSuccessActionCriteriaElement,
@@ -55,6 +62,7 @@ export {
   WorkflowsSpecElement,
   InfoElement,
   SourceDescriptionElement,
+  StepElement,
   ParameterElement,
   SuccessActionElement,
   FailureActionElement,
@@ -65,6 +73,12 @@ export {
 } from './refractor/registration';
 // NCE types
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';
+export { default as StepParametersElement } from './elements/nces/StepParameters';
+export { default as StepDependenciesElement } from './elements/nces/StepDependencies';
+export { default as StepSuccessCriteriaElement } from './elements/nces/StepSuccessCriteria';
+export { default as StepSuccessActionsElement } from './elements/nces/StepSuccessActions';
+export { default as StepFailureActionsElement } from './elements/nces/StepFailureActions';
+export { default as StepOutputsElement } from './elements/nces/StepOutputs';
 export { default as SuccessActionCriteriaElement } from './elements/nces/SuccessActionCriteria';
 export { default as FailureActionCriteriaElement } from './elements/nces/FailureActionCriteria';
 export { default as ComponentsSchemas } from './elements/nces/ComponentsInputs';

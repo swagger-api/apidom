@@ -7,6 +7,13 @@ import InfoVisitor from './visitors/workflows-1/info';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';
 import SourceDescriptionVisitor from './visitors/workflows-1/source-description';
 import SourceDescriptionUrlVisitor from './visitors/workflows-1/source-description/UrlVisitor';
+import StepVisitor from './visitors/workflows-1/step';
+import StepOutputsVisitor from './visitors/workflows-1/step/OutputsVisitor';
+import StepParametersVisitor from './visitors/workflows-1/step/ParametersVisitor';
+import StepDependsOnVisitor from './visitors/workflows-1/step/DependsOnVisitor';
+import StepSuccessCriteriaVisitor from './visitors/workflows-1/StepSuccessCriteriaVisitor';
+import StepSuccessActionsVisitor from './visitors/workflows-1/StepSuccessActionsVisitor';
+import StepFailureActionsVisitor from './visitors/workflows-1/StepFailureActionsVisitor';
 import ParameterVisitor from './visitors/workflows-1/parameter';
 import SourceDescriptionsVisitor from './visitors/workflows-1/SourceDescriptionsVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
@@ -68,6 +75,22 @@ const specification = {
             name: { $ref: '#/visitors/value' },
             url: SourceDescriptionUrlVisitor,
             type: { $ref: '#/visitors/value' },
+          },
+        },
+        Step: {
+          $visitor: StepVisitor,
+          fixedFields: {
+            description: { $ref: '#/visitors/value' },
+            stepId: { $ref: '#/visitors/value' },
+            operationId: { $ref: '#/visitors/value' },
+            operationRef: { $ref: '#/visitors/value' },
+            workflowId: { $ref: '#/visitors/value' },
+            parameters: StepParametersVisitor,
+            dependsOn: StepDependsOnVisitor,
+            successCriteria: StepSuccessCriteriaVisitor,
+            onSuccess: StepSuccessActionsVisitor,
+            onFailure: StepFailureActionsVisitor,
+            outputs: StepOutputsVisitor,
           },
         },
         Parameter: {

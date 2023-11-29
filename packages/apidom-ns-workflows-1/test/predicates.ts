@@ -8,6 +8,13 @@ import {
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
   isParameterElement,
+  isStepElement,
+  isStepParametersElement,
+  isStepDependenciesElement,
+  isStepSuccessCriteriaElement,
+  isStepSuccessActionsElement,
+  isStepFailureActionsElement,
+  isStepOutputsElement,
   isSuccessActionElement,
   isSuccessActionCriteriaElement,
   isFailureActionElement,
@@ -20,6 +27,13 @@ import {
   InfoElement,
   SourceDescriptionElement,
   SourceDescriptionsElement,
+  StepElement,
+  StepParametersElement,
+  StepDependenciesElement,
+  StepSuccessActionsElement,
+  StepFailureActionsElement,
+  StepOutputsElement,
+  StepSuccessCriteriaElement,
   ParameterElement,
   SuccessActionElement,
   SuccessActionCriteriaElement,
@@ -742,6 +756,387 @@ describe('predicates', function () {
 
       assert.isTrue(isReferenceElement(referenceElementDuck));
       assert.isFalse(isReferenceElement(referenceElementSwan));
+    });
+  });
+
+  context('isStepElement', function () {
+    context('given StepElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepElement();
+
+        assert.isTrue(isStepElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class StepSubElement extends StepElement {}
+
+        assert.isTrue(isStepElement(new StepSubElement()));
+      });
+    });
+
+    context('given non StepElementSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepElement(1));
+        assert.isFalse(isStepElement(null));
+        assert.isFalse(isStepElement(undefined));
+        assert.isFalse(isStepElement({}));
+        assert.isFalse(isStepElement([]));
+        assert.isFalse(isStepElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const StepElementDuck = {
+        _storedElement: 'step',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const StepElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isStepElement(StepElementDuck));
+      assert.isFalse(isStepElement(StepElementSwan));
+    });
+  });
+
+  context('isStepParametersElement', function () {
+    context('given StepParametersElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepParametersElement();
+
+        assert.isTrue(isStepParametersElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepParametersSubElement extends StepParametersElement {}
+
+        assert.isTrue(isStepParametersElement(new StepParametersSubElement()));
+      });
+    });
+
+    context('given non StepParameters instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepParametersElement(1));
+        assert.isFalse(isStepParametersElement(null));
+        assert.isFalse(isStepParametersElement(undefined));
+        assert.isFalse(isStepParametersElement({}));
+        assert.isFalse(isStepParametersElement([]));
+        assert.isFalse(isStepParametersElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepParametersElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['step-parameters']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepParametersElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepParametersElement(stepParametersElementDuck));
+      assert.isFalse(isStepParametersElement(stepParametersElementSwan));
+    });
+  });
+
+  context('isStepDependenciesElement', function () {
+    context('given StepDependenciesElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepDependenciesElement();
+
+        assert.isTrue(isStepDependenciesElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepDependenciesSubElement extends StepDependenciesElement {}
+
+        assert.isTrue(isStepDependenciesElement(new StepDependenciesSubElement()));
+      });
+    });
+
+    context('given non StepDependencies instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepDependenciesElement(1));
+        assert.isFalse(isStepDependenciesElement(null));
+        assert.isFalse(isStepDependenciesElement(undefined));
+        assert.isFalse(isStepDependenciesElement({}));
+        assert.isFalse(isStepDependenciesElement([]));
+        assert.isFalse(isStepDependenciesElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepDependenciesElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['step-dependencies']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepDependenciesElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepDependenciesElement(stepDependenciesElementDuck));
+      assert.isFalse(isStepDependenciesElement(stepDependenciesElementSwan));
+    });
+  });
+
+  context('isStepSuccessCriteriaElement', function () {
+    context('given StepSuccessCriteriaElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepSuccessCriteriaElement();
+
+        assert.isTrue(isStepSuccessCriteriaElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepSuccessCriteriaSubElement extends StepSuccessCriteriaElement {}
+
+        assert.isTrue(isStepSuccessCriteriaElement(new StepSuccessCriteriaSubElement()));
+      });
+    });
+
+    context('given non StepSuccessCriteria instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepSuccessCriteriaElement(1));
+        assert.isFalse(isStepSuccessCriteriaElement(null));
+        assert.isFalse(isStepSuccessCriteriaElement(undefined));
+        assert.isFalse(isStepSuccessCriteriaElement({}));
+        assert.isFalse(isStepSuccessCriteriaElement([]));
+        assert.isFalse(isStepSuccessCriteriaElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepSuccessCriteriaElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['criteria', 'step-success-criteria']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepSuccessCriteriaElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepSuccessCriteriaElement(stepSuccessCriteriaElementDuck));
+      assert.isFalse(isStepSuccessCriteriaElement(stepSuccessCriteriaElementSwan));
+    });
+  });
+
+  context('isStepSuccessActionsElement', function () {
+    context('given StepSuccessActionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepSuccessActionsElement();
+
+        assert.isTrue(isStepSuccessActionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepSuccessActionsSubElement extends StepSuccessActionsElement {}
+
+        assert.isTrue(isStepSuccessActionsElement(new StepSuccessActionsSubElement()));
+      });
+    });
+
+    context('given non StepSuccessActions instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepSuccessActionsElement(1));
+        assert.isFalse(isStepSuccessActionsElement(null));
+        assert.isFalse(isStepSuccessActionsElement(undefined));
+        assert.isFalse(isStepSuccessActionsElement({}));
+        assert.isFalse(isStepSuccessActionsElement([]));
+        assert.isFalse(isStepSuccessActionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepSuccessActionsElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['step-success-actions']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepSuccessActionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepSuccessActionsElement(stepSuccessActionsElementDuck));
+      assert.isFalse(isStepSuccessActionsElement(stepSuccessActionsElementSwan));
+    });
+  });
+
+  context('isStepFailureActionsElement', function () {
+    context('given StepFailureActionsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepFailureActionsElement();
+
+        assert.isTrue(isStepFailureActionsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepFailureActionsSubElement extends StepFailureActionsElement {}
+
+        assert.isTrue(isStepFailureActionsElement(new StepFailureActionsSubElement()));
+      });
+    });
+
+    context('given non StepFailureActions instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepFailureActionsElement(1));
+        assert.isFalse(isStepFailureActionsElement(null));
+        assert.isFalse(isStepFailureActionsElement(undefined));
+        assert.isFalse(isStepFailureActionsElement({}));
+        assert.isFalse(isStepFailureActionsElement([]));
+        assert.isFalse(isStepFailureActionsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepFailureActionsElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['step-failure-actions']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepFailureActionsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepFailureActionsElement(stepFailureActionsElementDuck));
+      assert.isFalse(isStepFailureActionsElement(stepFailureActionsElementSwan));
+    });
+  });
+
+  context('isStepOutputsElement', function () {
+    context('given StepOutputsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new StepOutputsElement();
+
+        assert.isTrue(isStepOutputsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class StepOutputsSubElement extends StepOutputsElement {}
+
+        assert.isTrue(isStepOutputsElement(new StepOutputsSubElement()));
+      });
+    });
+
+    context('given non StepOutputs instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isStepOutputsElement(1));
+        assert.isFalse(isStepOutputsElement(null));
+        assert.isFalse(isStepOutputsElement(undefined));
+        assert.isFalse(isStepOutputsElement({}));
+        assert.isFalse(isStepOutputsElement([]));
+        assert.isFalse(isStepOutputsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const stepOutputsElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['step-outputs']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const stepOutputsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isStepOutputsElement(stepOutputsElementDuck));
+      assert.isFalse(isStepOutputsElement(stepOutputsElementSwan));
     });
   });
 });

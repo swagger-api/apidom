@@ -183,9 +183,7 @@ export class DefaultHoverService implements HoverService {
                 textDocument.getText(),
                 this.settings?.defaultContentLanguage,
               );
-              // TODO atm only support and default to OAS 3.1
-              const nonStrictSpecVersion =
-                contentLanguage.namespace === 'openapi' ? '3.1.0' : getSpecVersion(api);
+              const nonStrictSpecVersion = getSpecVersion(api);
 
               const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
               const mediaTypePrefix =

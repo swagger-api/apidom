@@ -325,6 +325,17 @@ export class DefaultCompletionService implements CompletionService {
       oasItem.insertTextFormat = 2;
       oasItem.insertTextMode = 2;
       completionList.items.push(oasItem);
+      const swaggerItem = CompletionItem.create('swagger');
+      swaggerItem.insertText = `swagger: '2.0'${isEmpty ? '$1' : '\n$1'}`;
+      swaggerItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. Specifies the Swagger Specification version being used. It can be used by the Swagger UI and other clients to interpret the API listing. The value MUST be "2.0".',
+      };
+      swaggerItem.kind = CompletionItemKind.Keyword;
+      swaggerItem.insertTextFormat = 2;
+      swaggerItem.insertTextMode = 2;
+      completionList.items.push(swaggerItem);
       trace('doCompletion - no version', `completionList: ${JSON.stringify(completionList)}`);
     }
 

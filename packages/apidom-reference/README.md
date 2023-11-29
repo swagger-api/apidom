@@ -1039,6 +1039,21 @@ Supported media types:
   'application/vnd.aai.asyncapi+yaml;version=2.6.0',
 ]
 ```
+
+##### [openapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-2)
+
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 2.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=2.0',
+  'application/vnd.oai.openapi+json;version=2.0',
+  'application/vnd.oai.openapi+yaml;version=2.0',
+]
+```
+
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-0)
 
 External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
@@ -1088,6 +1103,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
+  OpenApi2ResolveStrategy(),
   OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
   AsyncApi2ResolveStrategy(),
@@ -1100,10 +1116,12 @@ It's possible to **change** strategies **order globally** by mutating global `re
 ```js
 import { options } from '@swagger-api/apidom-reference';
 import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 options.resolve.strategies = [
+  OpenApi2ResolveStrategy(),
   OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
   AsyncApi2ResolveStrategy(),
@@ -1115,6 +1133,7 @@ To **change** the strategies **order** on ad-hoc basis:
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
 import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
@@ -1126,6 +1145,7 @@ await resolve('/home/user/oas.json', {
   resolve: {
     strategies: [
       AsyncApi2ResolveStrategy(),
+      OpenApi2ResolveStrategy(),
       OpenApi3_0ResolveStrategy(),
       OpenApi3_1ResolveStrategy(),
     ]

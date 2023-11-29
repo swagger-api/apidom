@@ -27,9 +27,6 @@ import {
   OperationElement,
   ExampleElement,
   SchemaElement,
-  isReferenceElementExternal,
-  isPathItemElementExternal,
-  isLinkElementExternal,
   isOperationElement,
   isBooleanJsonSchemaElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
@@ -147,13 +144,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return false;
       }
 
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referencingElement)) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this reference element and all it's child elements
         return false;
       }
 
       const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
@@ -288,13 +287,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isPathItemElementExternal(referencingElement)) {
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
 
       const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
       const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
@@ -399,11 +400,6 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
-        return undefined;
-      }
-
       // operationRef and operationId fields are mutually exclusive
       if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
         throw new ApiDOMError(
@@ -416,7 +412,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
       if (isStringElement(linkElement.operationRef)) {
         // possibly non-semantic referenced element
         const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
+        const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
+
+        // ignore resolving external Operation Object reference
+        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+          // skip traversing this Link element but traverse all it's child elements
+          return undefined;
+        }
+
         const reference = await this.toReference(toValue(linkElement.operationRef));
+
         operationElement = jsonPointerEvaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
         if (isPrimitiveElement(operationElement)) {
@@ -472,16 +477,19 @@ const OpenApi3_1DereferenceVisitor = stampit({
         return false;
       }
 
-      // ignore resolving ExampleElement externalValue
-      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
-        return undefined;
-      }
-
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
         throw new ApiDOMError(
           'ExampleElement value and externalValue fields are mutually exclusive.',
         );
+      }
+
+      const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
+
+      // ignore resolving external Example Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Example element but traverse all it's child elements
+        return undefined;
       }
 
       const reference = await this.toReference(toValue(exampleElement.externalValue));
@@ -524,13 +532,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      const isExternal = isURL && retrievalURI !== $refBaseURIStrippedHash;
-
-      // ignore resolving external Schema Objects
-      if (!this.options.resolve.external && isExternal) {
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
+      const isExternalURL = (uri: string) => url.stripHash(this.reference.uri) !== uri;
 
       this.indirections.push(referencingElement);
 
@@ -548,6 +550,14 @@ const OpenApi3_1DereferenceVisitor = stampit({
           );
         } else {
           // we're assuming here that we're dealing with JSON Pointer here
+          retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+          // ignore resolving external Schema Objects
+          if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+            // skip traversing this schema element but traverse all it's child elements
+            return undefined;
+          }
+
           reference = await this.toReference(url.unsanitize($refBaseURI));
           const selector = uriToPointer($refBaseURI);
           referencedElement = maybeRefractToSchemaElement(
@@ -563,8 +573,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
+
             reference = await this.toReference(url.unsanitize($refBaseURI));
-            retrievalURI = reference.uri;
             const selector = uriToAnchor($refBaseURI);
             referencedElement = $anchorEvaluate(
               selector,
@@ -573,8 +590,15 @@ const OpenApi3_1DereferenceVisitor = stampit({
             );
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
+
             reference = await this.toReference(url.unsanitize($refBaseURI));
-            retrievalURI = reference.uri;
             const selector = uriToPointer($refBaseURI);
             referencedElement = maybeRefractToSchemaElement(
               // @ts-ignore

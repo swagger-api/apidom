@@ -1,6 +1,6 @@
 import stampit from 'stampit';
 import { createNamespace, visit } from '@swagger-api/apidom-core';
-import asyncApi2Namespace, {
+import openapi3_0Namespace, {
   getNodeType,
   isOpenApi3_0Element,
   keyMap,
@@ -37,7 +37,7 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const namespace = createNamespace(asyncApi2Namespace);
+      const namespace = createNamespace(openapi3_0Namespace);
       const reference = Reference({ uri: file.uri, value: file.parseResult });
       const visitor = OpenApi3_0ResolveVisitor({ reference, namespace, options });
       const refSet = ReferenceSet();

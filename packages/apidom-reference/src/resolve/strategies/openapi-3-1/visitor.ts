@@ -14,11 +14,8 @@ import {
   LinkElement,
   ExampleElement,
   SchemaElement,
-  isReferenceElementExternal,
   isSchemaElement,
   isPathItemElement,
-  isPathItemElementExternal,
-  isLinkElementExternal,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { Reference as IReference, Resolver as IResolver } from '../../../types';
@@ -99,16 +96,17 @@ const OpenApi3_1ResolveVisitor = stampit({
     },
 
     ReferenceElement(referenceElement: ReferenceElement) {
+      const uri = toValue(referenceElement.$ref);
+      const retrievalURI = this.toBaseURI(uri);
+
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isReferenceElementExternal(referenceElement)) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this reference element and all it's child elements
         return false;
       }
 
-      const uri = toValue(referenceElement.$ref);
-      const baseURI = this.toBaseURI(uri);
-
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(referenceElement);
 
@@ -121,16 +119,17 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
+      const uri = toValue(pathItemElement.$ref);
+      const retrievalURI = this.toBaseURI(uri);
+
       // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && isPathItemElementExternal(pathItemElement)) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
 
-      const uri = toValue(pathItemElement.$ref);
-      const baseURI = this.toBaseURI(uri);
-
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(pathItemElement);
 
@@ -143,8 +142,12 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
+      const uri = toValue(linkElement.operationRef);
+      const retrievalURI = this.toBaseURI(uri);
+
       // ignore resolving external Path Item Elements
-      if (!this.options.resolve.external && isLinkElementExternal(linkElement)) {
+      const isExternal = url.stripHash(this.reference.uri) !== retrievalURI;
+      if (!this.options.resolve.external && isExternal) {
         return undefined;
       }
 
@@ -153,12 +156,9 @@ const OpenApi3_1ResolveVisitor = stampit({
         throw new ApiDOMError('LinkElement operationRef and operationId are mutually exclusive.');
       }
 
-      if (isLinkElementExternal(linkElement)) {
-        const uri = toValue(linkElement.operationRef);
-        const baseURI = this.toBaseURI(uri);
-
-        if (!has(baseURI, this.crawlingMap)) {
-          this.crawlingMap[baseURI] = this.toReference(uri);
+      if (isExternal) {
+        if (!has(retrievalURI, this.crawlingMap)) {
+          this.crawlingMap[retrievalURI] = this.toReference(uri);
         }
       }
 
@@ -171,11 +171,6 @@ const OpenApi3_1ResolveVisitor = stampit({
         return undefined;
       }
 
-      // ignore resolving ExampleElement externalValue
-      if (!this.options.resolve.external && isStringElement(exampleElement.externalValue)) {
-        return undefined;
-      }
-
       // value and externalValue fields are mutually exclusive
       if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
         throw new ApiDOMError(
@@ -184,10 +179,16 @@ const OpenApi3_1ResolveVisitor = stampit({
       }
 
       const uri = toValue(exampleElement.externalValue);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      // ignore resolving external Example Objects
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        // skip traversing this Example element but traverse all it's child elements
+        return undefined;
+      }
+
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
 
       return undefined;
@@ -211,33 +212,43 @@ const OpenApi3_1ResolveVisitor = stampit({
 
       // compute baseURI using rules around $id and $ref keywords
       const reference = await this.toReference(url.unsanitize(this.reference.uri));
-      const { uri: retrievalURI } = reference;
+      let { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, schemaElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      const isExternal = !isUnknownURI && retrievalURI !== $refBaseURIStrippedHash;
-
-      // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && isExternal) {
-        // mark current referencing schema as visited
-        this.visited.add(schemaElement);
-        // skip traversing this schema but traverse all it's child schemas
-        return undefined;
-      }
+      const isExternalURL = (uri: string) => url.stripHash(this.reference.uri) !== uri;
 
       if (!has($refBaseURIStrippedHash, this.crawlingMap)) {
         try {
           if (isUnknownURI || isURL) {
             this.crawlingMap[$refBaseURIStrippedHash] = reference;
           } else {
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              this.visited.add(schemaElement);
+              return undefined;
+            }
+
             this.crawlingMap[$refBaseURIStrippedHash] = this.toReference(
               url.unsanitize($refBaseURI),
             );
           }
         } catch (error) {
           if (isURL && error instanceof EvaluationJsonSchemaUriError) {
+            retrievalURI = this.toBaseURI(url.unsanitize($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              this.visited.add(schemaElement);
+              return undefined;
+            }
+
             this.crawlingMap[$refBaseURIStrippedHash] = this.toReference(
               url.unsanitize($refBaseURI),
             );
@@ -346,12 +357,13 @@ const OpenApi3_1ResolveVisitor = stampit({
     async crawlSchemaElement(referencingElement: SchemaElement) {
       // compute baseURI using rules around $id and $ref keywords
       let reference = await this.toReference(url.unsanitize(this.reference.uri));
-      const { uri: retrievalURI } = reference;
+      let { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement) as string;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
+      const isExternalURL = (uri: string) => url.stripHash(this.reference.uri) !== uri;
 
       this.indirections.push(referencingElement);
 
@@ -369,6 +381,14 @@ const OpenApi3_1ResolveVisitor = stampit({
           );
         } else {
           // we're assuming here that we're dealing with JSON Pointer here
+          retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+          // ignore resolving external Schema Objects
+          if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+            // skip traversing this schema element but traverse all it's child elements
+            return undefined;
+          }
+
           reference = await this.toReference(url.unsanitize($refBaseURI));
           const selector = uriToPointer($refBaseURI);
           referencedElement = maybeRefractToSchemaElement(
@@ -384,6 +404,14 @@ const OpenApi3_1ResolveVisitor = stampit({
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
+
             reference = await this.toReference(url.unsanitize($refBaseURI));
             const selector = uriToAnchor($refBaseURI);
             referencedElement = $anchorEvaluate(
@@ -393,6 +421,14 @@ const OpenApi3_1ResolveVisitor = stampit({
             );
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
+            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+
+            // ignore resolving external Schema Objects
+            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
+
             reference = await this.toReference(url.unsanitize($refBaseURI));
             const selector = uriToPointer($refBaseURI);
             referencedElement = maybeRefractToSchemaElement(
@@ -435,6 +471,8 @@ const OpenApi3_1ResolveVisitor = stampit({
       await visitor.crawl();
 
       this.indirections.pop();
+
+      return undefined;
     },
 
     async crawl() {

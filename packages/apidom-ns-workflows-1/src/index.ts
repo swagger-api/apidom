@@ -29,10 +29,10 @@ export {
   isSourceDescriptionsElement,
   isStepElement,
   isStepParametersElement,
-  isStepDependenciesElement,
+  isStepDependsOnElement,
   isStepSuccessCriteriaElement,
-  isStepSuccessActionsElement,
-  isStepFailureActionsElement,
+  isStepOnSuccessElement,
+  isStepOnFailureElement,
   isStepOutputsElement,
   isParameterElement,
   isSuccessActionElement,
@@ -74,10 +74,10 @@ export {
 // NCE types
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';
 export { default as StepParametersElement } from './elements/nces/StepParameters';
-export { default as StepDependenciesElement } from './elements/nces/StepDependencies';
+export { default as StepDependsOnElement } from './elements/nces/StepDependsOn';
 export { default as StepSuccessCriteriaElement } from './elements/nces/StepSuccessCriteria';
-export { default as StepSuccessActionsElement } from './elements/nces/StepSuccessActions';
-export { default as StepFailureActionsElement } from './elements/nces/StepFailureActions';
+export { default as StepOnSuccessElement } from './elements/nces/StepOnSuccess';
+export { default as StepOnFailureElement } from './elements/nces/StepOnFailure';
 export { default as StepOutputsElement } from './elements/nces/StepOutputs';
 export { default as SuccessActionCriteriaElement } from './elements/nces/SuccessActionCriteria';
 export { default as FailureActionCriteriaElement } from './elements/nces/FailureActionCriteria';

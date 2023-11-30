@@ -12,8 +12,8 @@ import StepOutputsVisitor from './visitors/workflows-1/step/OutputsVisitor';
 import StepParametersVisitor from './visitors/workflows-1/step/ParametersVisitor';
 import StepDependsOnVisitor from './visitors/workflows-1/step/DependsOnVisitor';
 import StepSuccessCriteriaVisitor from './visitors/workflows-1/StepSuccessCriteriaVisitor';
-import StepSuccessActionsVisitor from './visitors/workflows-1/StepSuccessActionsVisitor';
-import StepFailureActionsVisitor from './visitors/workflows-1/StepFailureActionsVisitor';
+import StepOnSuccessVisitor from './visitors/workflows-1/StepOnSuccessVisitor';
+import StepOnFailureVisitor from './visitors/workflows-1/StepOnFailureVisitor';
 import ParameterVisitor from './visitors/workflows-1/parameter';
 import SourceDescriptionsVisitor from './visitors/workflows-1/SourceDescriptionsVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
@@ -88,8 +88,8 @@ const specification = {
             parameters: StepParametersVisitor,
             dependsOn: StepDependsOnVisitor,
             successCriteria: StepSuccessCriteriaVisitor,
-            onSuccess: StepSuccessActionsVisitor,
-            onFailure: StepFailureActionsVisitor,
+            onSuccess: StepOnSuccessVisitor,
+            onFailure: StepOnFailureVisitor,
             outputs: StepOutputsVisitor,
           },
         },

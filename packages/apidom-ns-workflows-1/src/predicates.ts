@@ -15,10 +15,10 @@ import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 import StepParametersElement from './elements/nces/StepParameters';
-import StepDependenciesElement from './elements/nces/StepDependencies';
+import StepDependsOnElement from './elements/nces/StepDependsOn';
 import StepSuccessCriteriaElement from './elements/nces/StepSuccessCriteria';
-import StepSuccessActionsElement from './elements/nces/StepSuccessActions';
-import StepFailureActionsElement from './elements/nces/StepFailureActions';
+import StepOnSuccessElement from './elements/nces/StepOnSuccess';
+import StepOnFailureElement from './elements/nces/StepOnFailure';
 import StepOutputsElement from './elements/nces/StepOutputs';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
 import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria';
@@ -77,25 +77,25 @@ export const isSourceDescriptionsElement = createPredicate(
   },
 );
 
-export const isStepSuccessActionsElement = createPredicate(
+export const isStepOnSuccessElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is StepSuccessActionsElement =>
-      element instanceof StepSuccessActionsElement ||
+    return (element: unknown): element is StepOnSuccessElement =>
+      element instanceof StepOnSuccessElement ||
       (hasBasicElementProps(element) &&
         isElementType('array', element) &&
         primitiveEq('array', element) &&
-        hasClass('step-success-actions', element));
+        hasClass('step-on-success', element));
   },
 );
 
-export const isStepFailureActionsElement = createPredicate(
+export const isStepOnFailureElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is StepFailureActionsElement =>
-      element instanceof StepFailureActionsElement ||
+    return (element: unknown): element is StepOnFailureElement =>
+      element instanceof StepOnFailureElement ||
       (hasBasicElementProps(element) &&
         isElementType('array', element) &&
         primitiveEq('array', element) &&
-        hasClass('step-failure-actions', element));
+        hasClass('step-on-failure', element));
   },
 );
 
@@ -131,14 +131,14 @@ export const isStepParametersElement = createPredicate(
   },
 );
 
-export const isStepDependenciesElement = createPredicate(
+export const isStepDependsOnElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is StepDependenciesElement =>
-      element instanceof StepDependenciesElement ||
+    return (element: unknown): element is StepDependsOnElement =>
+      element instanceof StepDependsOnElement ||
       (hasBasicElementProps(element) &&
         isElementType('array', element) &&
         primitiveEq('array', element) &&
-        hasClass('step-dependencies', element));
+        hasClass('step-depends-on', element));
   },
 );
 

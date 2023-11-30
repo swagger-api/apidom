@@ -10,10 +10,10 @@ import {
   isParameterElement,
   isStepElement,
   isStepParametersElement,
-  isStepDependenciesElement,
+  isStepDependsOnElement,
   isStepSuccessCriteriaElement,
-  isStepSuccessActionsElement,
-  isStepFailureActionsElement,
+  isStepOnSuccessElement,
+  isStepOnFailureElement,
   isStepOutputsElement,
   isSuccessActionElement,
   isSuccessActionCriteriaElement,
@@ -29,9 +29,9 @@ import {
   SourceDescriptionsElement,
   StepElement,
   StepParametersElement,
-  StepDependenciesElement,
-  StepSuccessActionsElement,
-  StepFailureActionsElement,
+  StepDependsOnElement,
+  StepOnSuccessElement,
+  StepOnFailureElement,
   StepOutputsElement,
   StepSuccessCriteriaElement,
   ParameterElement,
@@ -870,39 +870,39 @@ describe('predicates', function () {
     });
   });
 
-  context('isStepDependenciesElement', function () {
-    context('given StepDependenciesElement instance value', function () {
+  context('isStepDependsOnElement', function () {
+    context('given StepDependsOnElement instance value', function () {
       specify('should return true', function () {
-        const element = new StepDependenciesElement();
+        const element = new StepDependsOnElement();
 
-        assert.isTrue(isStepDependenciesElement(element));
+        assert.isTrue(isStepDependsOnElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class StepDependenciesSubElement extends StepDependenciesElement {}
+        class StepDependsOnSubElement extends StepDependsOnElement {}
 
-        assert.isTrue(isStepDependenciesElement(new StepDependenciesSubElement()));
+        assert.isTrue(isStepDependsOnElement(new StepDependsOnSubElement()));
       });
     });
 
-    context('given non StepDependencies instance value', function () {
+    context('given non StepDependsOn instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isStepDependenciesElement(1));
-        assert.isFalse(isStepDependenciesElement(null));
-        assert.isFalse(isStepDependenciesElement(undefined));
-        assert.isFalse(isStepDependenciesElement({}));
-        assert.isFalse(isStepDependenciesElement([]));
-        assert.isFalse(isStepDependenciesElement('string'));
+        assert.isFalse(isStepDependsOnElement(1));
+        assert.isFalse(isStepDependsOnElement(null));
+        assert.isFalse(isStepDependsOnElement(undefined));
+        assert.isFalse(isStepDependsOnElement({}));
+        assert.isFalse(isStepDependsOnElement([]));
+        assert.isFalse(isStepDependsOnElement('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const stepDependenciesElementDuck = {
+      const stepDependsOnElementDuck = {
         _storedElement: 'array',
         _content: [],
-        classes: new ArrayElement(['step-dependencies']),
+        classes: new ArrayElement(['step-depends-on']),
         primitive() {
           return 'array';
         },
@@ -911,7 +911,7 @@ describe('predicates', function () {
         },
       };
 
-      const stepDependenciesElementSwan = {
+      const stepDependsOnElementSwan = {
         _storedElement: undefined,
         _content: undefined,
         primitive() {
@@ -919,8 +919,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isStepDependenciesElement(stepDependenciesElementDuck));
-      assert.isFalse(isStepDependenciesElement(stepDependenciesElementSwan));
+      assert.isTrue(isStepDependsOnElement(stepDependsOnElementDuck));
+      assert.isFalse(isStepDependsOnElement(stepDependsOnElementSwan));
     });
   });
 
@@ -978,39 +978,39 @@ describe('predicates', function () {
     });
   });
 
-  context('isStepSuccessActionsElement', function () {
-    context('given StepSuccessActionsElement instance value', function () {
+  context('isStepOnSuccessElement', function () {
+    context('given StepOnSuccessElement instance value', function () {
       specify('should return true', function () {
-        const element = new StepSuccessActionsElement();
+        const element = new StepOnSuccessElement();
 
-        assert.isTrue(isStepSuccessActionsElement(element));
+        assert.isTrue(isStepOnSuccessElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class StepSuccessActionsSubElement extends StepSuccessActionsElement {}
+        class StepOnSuccessSubElement extends StepOnSuccessElement {}
 
-        assert.isTrue(isStepSuccessActionsElement(new StepSuccessActionsSubElement()));
+        assert.isTrue(isStepOnSuccessElement(new StepOnSuccessSubElement()));
       });
     });
 
-    context('given non StepSuccessActions instance value', function () {
+    context('given non StepOnSuccessElement instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isStepSuccessActionsElement(1));
-        assert.isFalse(isStepSuccessActionsElement(null));
-        assert.isFalse(isStepSuccessActionsElement(undefined));
-        assert.isFalse(isStepSuccessActionsElement({}));
-        assert.isFalse(isStepSuccessActionsElement([]));
-        assert.isFalse(isStepSuccessActionsElement('string'));
+        assert.isFalse(isStepOnSuccessElement(1));
+        assert.isFalse(isStepOnSuccessElement(null));
+        assert.isFalse(isStepOnSuccessElement(undefined));
+        assert.isFalse(isStepOnSuccessElement({}));
+        assert.isFalse(isStepOnSuccessElement([]));
+        assert.isFalse(isStepOnSuccessElement('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const stepSuccessActionsElementDuck = {
+      const stepOnSuccessElementDuck = {
         _storedElement: 'array',
         _content: [],
-        classes: new ArrayElement(['step-success-actions']),
+        classes: new ArrayElement(['step-on-success']),
         primitive() {
           return 'array';
         },
@@ -1019,7 +1019,7 @@ describe('predicates', function () {
         },
       };
 
-      const stepSuccessActionsElementSwan = {
+      const stepOnSuccessElementSwan = {
         _storedElement: undefined,
         _content: undefined,
         primitive() {
@@ -1027,44 +1027,44 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isStepSuccessActionsElement(stepSuccessActionsElementDuck));
-      assert.isFalse(isStepSuccessActionsElement(stepSuccessActionsElementSwan));
+      assert.isTrue(isStepOnSuccessElement(stepOnSuccessElementDuck));
+      assert.isFalse(isStepOnSuccessElement(stepOnSuccessElementSwan));
     });
   });
 
-  context('isStepFailureActionsElement', function () {
-    context('given StepFailureActionsElement instance value', function () {
+  context('isStepOnFailureElement', function () {
+    context('given StepOnFailureElement instance value', function () {
       specify('should return true', function () {
-        const element = new StepFailureActionsElement();
+        const element = new StepOnFailureElement();
 
-        assert.isTrue(isStepFailureActionsElement(element));
+        assert.isTrue(isStepOnFailureElement(element));
       });
     });
 
     context('given subtype instance value', function () {
       specify('should return true', function () {
-        class StepFailureActionsSubElement extends StepFailureActionsElement {}
+        class StepOnFailureSubElement extends StepOnFailureElement {}
 
-        assert.isTrue(isStepFailureActionsElement(new StepFailureActionsSubElement()));
+        assert.isTrue(isStepOnFailureElement(new StepOnFailureSubElement()));
       });
     });
 
-    context('given non StepFailureActions instance value', function () {
+    context('given non StepOnFailure instance value', function () {
       specify('should return false', function () {
-        assert.isFalse(isStepFailureActionsElement(1));
-        assert.isFalse(isStepFailureActionsElement(null));
-        assert.isFalse(isStepFailureActionsElement(undefined));
-        assert.isFalse(isStepFailureActionsElement({}));
-        assert.isFalse(isStepFailureActionsElement([]));
-        assert.isFalse(isStepFailureActionsElement('string'));
+        assert.isFalse(isStepOnFailureElement(1));
+        assert.isFalse(isStepOnFailureElement(null));
+        assert.isFalse(isStepOnFailureElement(undefined));
+        assert.isFalse(isStepOnFailureElement({}));
+        assert.isFalse(isStepOnFailureElement([]));
+        assert.isFalse(isStepOnFailureElement('string'));
       });
     });
 
     specify('should support duck-typing', function () {
-      const stepFailureActionsElementDuck = {
+      const stepOnFailureElementDuck = {
         _storedElement: 'array',
         _content: [],
-        classes: new ArrayElement(['step-failure-actions']),
+        classes: new ArrayElement(['step-on-failure']),
         primitive() {
           return 'array';
         },
@@ -1073,7 +1073,7 @@ describe('predicates', function () {
         },
       };
 
-      const stepFailureActionsElementSwan = {
+      const stepOnFailureElementSwan = {
         _storedElement: undefined,
         _content: undefined,
         primitive() {
@@ -1081,8 +1081,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isStepFailureActionsElement(stepFailureActionsElementDuck));
-      assert.isFalse(isStepFailureActionsElement(stepFailureActionsElementSwan));
+      assert.isTrue(isStepOnFailureElement(stepOnFailureElementDuck));
+      assert.isFalse(isStepOnFailureElement(stepOnFailureElementSwan));
     });
   });
 

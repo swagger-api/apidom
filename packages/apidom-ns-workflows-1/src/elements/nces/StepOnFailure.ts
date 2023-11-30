@@ -1,12 +1,12 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-class StepFailureActions extends ArrayElement {
-  static primaryClass = 'step-failure-actions';
+class StepOnFailure extends ArrayElement {
+  static primaryClass = 'step-on-failure';
 
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.classes.push(StepFailureActions.primaryClass);
+    this.classes.push(StepOnFailure.primaryClass);
   }
 }
 
-export default StepFailureActions;
+export default StepOnFailure;

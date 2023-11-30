@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
+
+### Bug Fixes
+
+- **reference:** fix internal/external URL determination for OpenAPI 3.0.x ([#3455](https://github.com/swagger-api/apidom/issues/3455)) ([bac4850](https://github.com/swagger-api/apidom/commit/bac4850abfe6c61c14eba2735fffab12ee7765bf)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+
 # [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0

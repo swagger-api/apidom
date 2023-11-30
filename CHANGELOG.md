@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
+
+### Bug Fixes
+
+- **reference:** fix internal/external URL determination for AsyncAPI 2.x ([#3453](https://github.com/swagger-api/apidom/issues/3453)) ([3cc0791](https://github.com/swagger-api/apidom/commit/3cc0791464ecc1f8e534aa7e6f19124ae8017b0d)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** fix internal/external URL determination for OpenAPI 2.0 ([#3454](https://github.com/swagger-api/apidom/issues/3454)) ([c720584](https://github.com/swagger-api/apidom/commit/c7205840e5ef1d107b3855ee1ef597cc5121d173)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** fix internal/external URL determination for OpenAPI 3.0.x ([#3455](https://github.com/swagger-api/apidom/issues/3455)) ([bac4850](https://github.com/swagger-api/apidom/commit/bac4850abfe6c61c14eba2735fffab12ee7765bf)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** fix internal/extrernal URL determ for OpenAPI 3.1.0 ([#3459](https://github.com/swagger-api/apidom/issues/3459)) ([2215480](https://github.com/swagger-api/apidom/commit/22154805c4906a08af5c06650bbdc0d80f9e3239)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** lazy fetch URLs only when needed ([#3464](https://github.com/swagger-api/apidom/issues/3464)) ([222e3f0](https://github.com/swagger-api/apidom/commit/222e3f03b1cda9ca187a8b8292af48f3572419d3)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+
+### Features
+
+- **ls:** add initial support for OpenAPI 2.0 ([#3470](https://github.com/swagger-api/apidom/issues/3470)) ([e47be92](https://github.com/swagger-api/apidom/commit/e47be9296a979302e5cf0b07f98d6be580bc5e1c)), closes [#3103](https://github.com/swagger-api/apidom/issues/3103) [#3466](https://github.com/swagger-api/apidom/issues/3466)
+- **ns-workflows-1:** add support for Components Object ([#3456](https://github.com/swagger-api/apidom/issues/3456)) ([14dd260](https://github.com/swagger-api/apidom/commit/14dd26038117dbb88d86d3627b7277f21fd6d848)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **reference:** add OpenAPI 2.0 resolve strategy ([#3465](https://github.com/swagger-api/apidom/issues/3465)) ([8d968ae](https://github.com/swagger-api/apidom/commit/8d968aef0bd3d6f2a166764dbcce43a0aa7c5ac2)), closes [#3101](https://github.com/swagger-api/apidom/issues/3101)
+
 # [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
 
 ### Bug Fixes

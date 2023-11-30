@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
+
+### Features
+
+- **ls:** add initial support for OpenAPI 2.0 ([#3470](https://github.com/swagger-api/apidom/issues/3470)) ([e47be92](https://github.com/swagger-api/apidom/commit/e47be9296a979302e5cf0b07f98d6be580bc5e1c)), closes [#3103](https://github.com/swagger-api/apidom/issues/3103) [#3466](https://github.com/swagger-api/apidom/issues/3466)
+
 # [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

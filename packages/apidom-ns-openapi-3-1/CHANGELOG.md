@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
+
+### Bug Fixes
+
+- **reference:** fix internal/extrernal URL determ for OpenAPI 3.1.0 ([#3459](https://github.com/swagger-api/apidom/issues/3459)) ([2215480](https://github.com/swagger-api/apidom/commit/22154805c4906a08af5c06650bbdc0d80f9e3239)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+
 # [0.84.0](https://github.com/swagger-api/apidom/compare/v0.83.0...v0.84.0) (2023-11-24)
 
 ### Features

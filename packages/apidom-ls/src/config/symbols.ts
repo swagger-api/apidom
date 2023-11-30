@@ -34,4 +34,9 @@ export default [
   'identifier',
   'license',
   'message',
+  'security',
+  'parametersDefinitions',
+  'responsesDefinitions',
+  'parametersDefinitions',
+  'definitions',
 ];

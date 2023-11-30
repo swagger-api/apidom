@@ -81,15 +81,15 @@ const AsyncApi2ResolveVisitor = stampit({
 
     ReferenceElement(referenceElement: ReferenceElement) {
       const uri = toValue(referenceElement.$ref);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         return false;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(referenceElement);
 
@@ -103,15 +103,15 @@ const AsyncApi2ResolveVisitor = stampit({
       }
 
       const uri = toValue(channelItemElement.$ref);
-      const baseURI = this.toBaseURI(uri);
+      const retrievalURI = this.toBaseURI(uri);
 
       // ignore resolving external Channel Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== baseURI) {
+      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         return undefined;
       }
 
-      if (!has(baseURI, this.crawlingMap)) {
-        this.crawlingMap[baseURI] = this.toReference(uri);
+      if (!has(retrievalURI, this.crawlingMap)) {
+        this.crawlingMap[retrievalURI] = this.toReference(uri);
       }
       this.crawledElements.push(channelItemElement);
 

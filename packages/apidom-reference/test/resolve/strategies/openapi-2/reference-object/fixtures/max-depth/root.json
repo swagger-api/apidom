@@ -1,0 +1,12 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "./ex1.json#/indirection"
+        }
+      ]
+    }
+  }
+}

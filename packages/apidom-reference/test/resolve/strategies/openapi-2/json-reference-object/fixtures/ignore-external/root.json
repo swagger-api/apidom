@@ -1,0 +1,21 @@
+{
+  "swagger": "2.0",
+  "definitions": {
+    "schema1": {
+      "$ref": "#/definitions/schema2"
+    },
+    "schema2": {
+      "$ref": "#/definitions/schema3"
+    },
+    "schema3": {
+      "$ref": "#/definitions/schema4"
+    },
+    "schema4":         {
+      "type": "number",
+      "description": "schema4 description"
+    },
+    "schema5": {
+      "$ref": "./ex.json#/definitions/externalSchema"
+    }
+  }
+}

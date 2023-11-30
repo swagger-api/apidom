@@ -52,7 +52,6 @@ export {
   isContactElement,
   isExampleElement,
   isLinkElement,
-  isLinkElementExternal,
   isRequestBodyElement,
   isPathsElement,
 } from './predicates';

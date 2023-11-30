@@ -65,15 +65,8 @@ const AsyncApi2DereferenceVisitor = stampit({
     this.ancestors = new AncestorLineage(...ancestors);
   },
   methods: {
-    toAncestorLineage(ancestors) {
-      /**
-       * Compute full ancestors lineage.
-       * Ancestors are flatten to unwrap all Element instances.
-       */
-      const directAncestors = new Set<Element>(ancestors.filter(isElement));
-      const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
-
-      return [ancestorsLineage, directAncestors];
+    toBaseURI(uri: string): string {
+      return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
     },
 
     async toReference(uri: string): Promise<IReference> {
@@ -84,8 +77,7 @@ const AsyncApi2DereferenceVisitor = stampit({
         );
       }
 
-      const baseURI = url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
-
+      const baseURI = this.toBaseURI(uri);
       const { refSet } = this.reference;
 
       // we've already processed this Reference in past
@@ -110,6 +102,17 @@ const AsyncApi2DereferenceVisitor = stampit({
       return reference;
     },
 
+    toAncestorLineage(ancestors) {
+      /**
+       * Compute full ancestors lineage.
+       * Ancestors are flatten to unwrap all Element instances.
+       */
+      const directAncestors = new Set<Element>(ancestors.filter(isElement));
+      const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
+
+      return [ancestorsLineage, directAncestors];
+    },
+
     async ReferenceElement(
       referencingElement: ReferenceElement,
       key: any,
@@ -124,15 +127,16 @@ const AsyncApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const { uri: retrievalURI } = reference;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Reference Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this reference element but traverse all it's child elements
-        return undefined;
+        return false;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 
@@ -264,15 +268,16 @@ const AsyncApi2DereferenceVisitor = stampit({
         return false;
       }
 
-      const reference = await this.toReference(toValue(referencingElement.$ref));
-      const retrievalURI = reference.uri;
-      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
+      const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
 
       // ignore resolving external Channel Item Objects
       if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
         // skip traversing this channel item but traverse all it's child elements
         return undefined;
       }
+
+      const reference = await this.toReference(toValue(referencingElement.$ref));
+      const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
       this.indirections.push(referencingElement);
 

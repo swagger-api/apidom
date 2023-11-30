@@ -1,0 +1,18 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "parameters": [
+        {
+          "$ref": "invalid-pointer"
+        },
+        {
+          "name": "userId",
+          "in": "query",
+          "description": "ID of the user",
+          "required": true
+        }
+      ]
+    }
+  }
+}

@@ -133,21 +133,6 @@ export const isLinkElement = createPredicate(
   },
 );
 
-export const isLinkElementExternal: ElementPredicate<LinkElement> = (
-  element: unknown,
-): element is LinkElement => {
-  if (!isLinkElement(element)) {
-    return false;
-  }
-  if (!isStringElement(element.operationRef)) {
-    return false;
-  }
-
-  const value = toValue(element.operationRef);
-
-  return typeof value === 'string' && value.length > 0 && !value.startsWith('#');
-};
-
 export const isOpenapiElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is OpenapiElement =>
@@ -200,6 +185,12 @@ export const isPathItemElement = createPredicate(
   },
 );
 
+/**
+ * @deprecated
+ * Determining whether a PathItemElement is external or internal is not possible by just looking
+ * at value of the $ref fixed field. The value of the $ref field needs to be resolved in runtime
+ * using the referring document as the Base URI.
+ */
 export const isPathItemElementExternal: ElementPredicate<PathItemElement> = (
   element: unknown,
 ): element is PathItemElement => {
@@ -235,6 +226,12 @@ export const isReferenceElement = createPredicate(
   },
 );
 
+/**
+ * @deprecated
+ * Determining whether a ReferenceElement is external or internal is not possible by just looking
+ * at value of the $ref fixed field. The value of the $ref field needs to be resolved in runtime
+ * using the referring document as the Base URI.
+ */
 export const isReferenceElementExternal: ElementPredicate<ReferenceElement> = (
   element: unknown,
 ): element is ReferenceElement => {

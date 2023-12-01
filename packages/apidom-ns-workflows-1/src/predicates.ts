@@ -4,6 +4,7 @@ import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
+import StepElement from './elements/Step';
 import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
 import FailureActionElement from './elements/FailureAction';
@@ -13,6 +14,12 @@ import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
+import StepParametersElement from './elements/nces/StepParameters';
+import StepDependsOnElement from './elements/nces/StepDependsOn';
+import StepSuccessCriteriaElement from './elements/nces/StepSuccessCriteria';
+import StepOnSuccessElement from './elements/nces/StepOnSuccess';
+import StepOnFailureElement from './elements/nces/StepOnFailure';
+import StepOutputsElement from './elements/nces/StepOutputs';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
 import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria';
 
@@ -67,6 +74,83 @@ export const isSourceDescriptionsElement = createPredicate(
         isElementType('sourceDescriptions', element) &&
         primitiveEq('array', element) &&
         hasClass('sourceDescriptions', element));
+  },
+);
+
+export const isStepOnSuccessElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepOnSuccessElement =>
+      element instanceof StepOnSuccessElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-on-success', element));
+  },
+);
+
+export const isStepOnFailureElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepOnFailureElement =>
+      element instanceof StepOnFailureElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-on-failure', element));
+  },
+);
+
+export const isStepOutputsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepOutputsElement =>
+      element instanceof StepOutputsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-outputs', element));
+  },
+);
+
+export const isStepElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is StepElement =>
+      element instanceof StepElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('step', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isStepParametersElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepParametersElement =>
+      element instanceof StepParametersElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-parameters', element));
+  },
+);
+
+export const isStepDependsOnElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepDependsOnElement =>
+      element instanceof StepDependsOnElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-depends-on', element));
+  },
+);
+
+export const isStepSuccessCriteriaElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is StepSuccessCriteriaElement =>
+      element instanceof StepSuccessCriteriaElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('step-success-criteria', element) &&
+        hasClass('criteria', element));
   },
 );
 

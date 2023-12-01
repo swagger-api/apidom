@@ -1,18 +1,18 @@
 import stampit from 'stampit';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import StepOnFailureElement from '../../../elements/nces/StepOnFailure';
-import SpecificationVisitor from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import StepSuccessCriteriaElement from '../../../../elements/nces/StepSuccessCriteria';
+import SpecificationVisitor from '../../SpecificationVisitor';
+import FallbackVisitor from '../../FallbackVisitor';
 
-const StepOnFailureVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
+const SuccessCriteriaVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   init() {
-    this.element = new StepOnFailureElement();
+    this.element = new StepSuccessCriteriaElement();
   },
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       arrayElement.forEach((item: Element): void => {
-        const specPath = ['document', 'objects', 'FailureAction'];
+        const specPath = ['document', 'objects', 'Criterion'];
         const element = this.toRefractedElement(specPath, item);
 
         this.element.push(element);
@@ -25,4 +25,4 @@ const StepOnFailureVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
   },
 });
 
-export default StepOnFailureVisitor;
+export default SuccessCriteriaVisitor;

@@ -6,7 +6,7 @@ import {
   Resolver as IResolver,
 } from '../types';
 import * as plugins from '../util/plugins';
-import ResolverError from '../errors/ResolverError';
+import ResolveError from '../errors/ResolveError';
 import UnmatchedResolverError from '../errors/UnmatchedResolverError';
 
 /**
@@ -30,6 +30,6 @@ export const readFile = async (file: IFile, options: IReferenceOptions): Promise
     const { result } = await plugins.run('read', [file], resolvers);
     return result;
   } catch (error: any) {
-    throw new ResolverError(`Error while reading file "${file.uri}"`, { cause: error });
+    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: error });
   }
 };

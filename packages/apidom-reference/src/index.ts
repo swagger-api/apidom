@@ -35,8 +35,10 @@ export { default as JsonSchema$anchorError } from './errors/JsonSchema$anchorErr
 export { default as JsonSchemaURIError } from './errors/JsonSchemaUriError';
 export { default as MaximumDereferenceDepthError } from './errors/MaximumDereferenceDepthError';
 export { default as MaximumResolverDepthError } from './errors/MaximumResolverDepthError';
+export { default as ParseError } from './errors/ParseError';
 export { default as ParserError } from './errors/ParserError';
 export { default as PluginError } from './errors/PluginError';
+export { default as ResolveError } from './errors/ResolveError';
 export { default as ResolverError } from './errors/ResolverError';
 export { default as UnmatchedDereferenceStrategyError } from './errors/UnmatchedDereferenceStrategyError';
 export { default as UnmatchedResolveStrategyError } from './errors/UnmatchedResolveStrategyError';

@@ -7,8 +7,8 @@ import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';
 import parse from '../../src/parse';
-import ParserError from '../../src/errors/ParserError';
-import ResolverError from '../../src/errors/ResolverError';
+import ParseError from '../../src/errors/ParseError';
+import ResolveError from '../../src/errors/ResolveError';
 import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
@@ -95,9 +95,9 @@ describe('parse', function () {
 
       try {
         await parse(uri, options);
-        assert.fail('Should throw ResolverError');
+        assert.fail('Should throw ResolveError');
       } catch (error) {
-        assert.instanceOf(error, ResolverError);
+        assert.instanceOf(error, ResolveError);
       }
     });
   });
@@ -116,7 +116,7 @@ describe('parse', function () {
         await parse(uri, options);
         assert.fail('Should throw ParserError');
       } catch (error: any) {
-        assert.instanceOf(error, ParserError);
+        assert.instanceOf(error, ParseError);
         assert.match(error.message, /File is empty\.$/);
       }
     });
@@ -145,9 +145,9 @@ describe('parse', function () {
 
       try {
         await parse(uri, options);
-        assert.fail('Should throw ParserError');
+        assert.fail('Should throw ParseError');
       } catch (error) {
-        assert.instanceOf(error, ParserError);
+        assert.instanceOf(error, ParseError);
       }
     });
   });

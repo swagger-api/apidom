@@ -1,5 +1,5 @@
-import ResolverError from './ResolverError';
+import ResolveError from './ResolveError';
 
-class MaximumResolverDepthError extends ResolverError {}
+class MaximumResolverDepthError extends ResolveError {}
 
 export default MaximumResolverDepthError;

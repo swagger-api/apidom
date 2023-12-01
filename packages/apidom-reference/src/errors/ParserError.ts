@@ -1,5 +1,5 @@
-import { ApiDOMError } from '@swagger-api/apidom-error';
+import ParseError from './ParseError';
 
-class ParserError extends ApiDOMError {}
+class ParserError extends ParseError {}
 
 export default ParserError;

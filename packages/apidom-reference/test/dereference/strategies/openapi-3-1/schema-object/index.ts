@@ -8,7 +8,7 @@ import { dereference, parse, Reference, ReferenceSet } from '../../../../../src'
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
-import ResolverError from '../../../../../src/errors/ResolverError';
+import ResolveError from '../../../../../src/errors/ResolveError';
 import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
 import { loadJsonFile } from '../../../../helpers';
@@ -466,7 +466,7 @@ describe('dereference', function () {
               assert.fail('should throw DereferenceError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
-              assert.instanceOf(error.cause.cause, ResolverError);
+              assert.instanceOf(error.cause.cause, ResolveError);
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
             }
           });
@@ -583,7 +583,7 @@ describe('dereference', function () {
               assert.fail('should throw DereferenceError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
-              assert.instanceOf(error.cause.cause, ResolverError);
+              assert.instanceOf(error.cause.cause, ResolveError);
             }
           });
         });

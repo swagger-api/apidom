@@ -5,6 +5,7 @@ import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { resolve } from '../../../../../src';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import ResolveError from '../../../../../src/errors/ResolveError';
 import ResolverError from '../../../../../src/errors/ResolverError';
 import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 
@@ -252,10 +253,10 @@ describe('resolve', function () {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              assert.fail('should throw ResolverError');
+              assert.fail('should throw ResolveError');
             } catch (error: any) {
-              assert.instanceOf(error, ResolverError);
-              assert.instanceOf(error.cause.cause, ResolverError);
+              assert.instanceOf(error, ResolveError);
+              assert.instanceOf(error.cause.cause, ResolveError);
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
             }
           });
@@ -542,9 +543,9 @@ describe('resolve', function () {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              assert.fail('should throw ResolverError');
+              assert.fail('should throw ResolveError');
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });

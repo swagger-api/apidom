@@ -20,6 +20,9 @@ describe('refractor', function () {
               in: 'query',
               value: 'available',
             },
+            {
+              $ref: '#/json/pointer',
+            },
           ],
           dependsOn: ['someStepId'],
           successCriteria: [

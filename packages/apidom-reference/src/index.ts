@@ -9,6 +9,7 @@ import parseFn from './parse';
 import resolveFn, { resolveApiDOM as resolveApiDOMFn } from './resolve';
 import { readFile as readFileFn } from './resolve/util';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
+import bundleFn from './bundle';
 
 export { url, File };
 
@@ -27,6 +28,9 @@ export { merge as mergeOptions } from './options/util';
 export { default as Reference } from './Reference';
 export { default as ReferenceSet } from './ReferenceSet';
 
+export { default as BundleError } from './errors/BundleError';
+export { default as MaximumBundleDepthError } from './errors/MaximumBundleDepthError';
+export { default as UnmatchedBundleStrategyError } from './errors/UnmatchedBundleStrategyError';
 export { default as DereferenceError } from './errors/DereferenceError';
 export { default as EvaluationJsonSchema$anchorError } from './errors/EvaluationJsonSchema$anchorError';
 export { default as EvaluationJsonSchemaUriError } from './errors/EvaluationJsonSchemaUriError';
@@ -34,7 +38,7 @@ export { default as InvalidJsonSchema$anchorError } from './errors/InvalidJsonSc
 export { default as JsonSchema$anchorError } from './errors/JsonSchema$anchorError';
 export { default as JsonSchemaURIError } from './errors/JsonSchemaUriError';
 export { default as MaximumDereferenceDepthError } from './errors/MaximumDereferenceDepthError';
-export { default as MaximumResolverDepthError } from './errors/MaximumResolverDepthError';
+export { default as MaximumResolveDepthError } from './errors/MaximumResolveDepthError';
 export { default as ParseError } from './errors/ParseError';
 export { default as ParserError } from './errors/ParserError';
 export { default as PluginError } from './errors/PluginError';
@@ -80,4 +84,9 @@ export const dereferenceApiDOM = async <T extends Element>(
 ): Promise<T> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return dereferenceApiDOMFn(element, mergedOptions);
+};
+
+export const bundle = async (uri: string, options = {}): Promise<ParseResultElement> => {
+  const mergedOptions = mergeOptions(defaultOptions, options);
+  return bundleFn(uri, mergedOptions);
 };

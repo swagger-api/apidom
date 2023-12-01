@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 
 import { resolve } from '../../../../../src';
-import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import ResolveError from '../../../../../src/errors/ResolveError';
 
@@ -226,10 +226,10 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { maxDepth: 2 },
               });
-              assert.fail('should throw MaximumResolverDepthError');
+              assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
               assert.instanceOf(error, ResolveError);
-              assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
+              assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

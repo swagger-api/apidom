@@ -21,6 +21,7 @@ import OpenApi2DereferenceStrategy from '../dereference/strategies/openapi-2';
 import OpenApi3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
 import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
+import OpenApi3_1BundleStrategy from '../bundle/strategies/openapi-3-1';
 import { options } from '../index';
 
 options.parse.parsers = [
@@ -57,5 +58,7 @@ options.dereference.strategies = [
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
 ];
+
+options.bundle.strategies = [OpenApi3_1BundleStrategy()];
 
 export * from '../index';

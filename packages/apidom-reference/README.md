@@ -3,9 +3,10 @@
 `@swagger-api/apidom-reference` package contains advanced algorithms for semantic ApiDOM manipulations.
 This package is divided into three (3) main components:
 
-- **Parse component**
-- **Resolve component**
-- **Dereference component**
+- **[Parse component](#parse-component)**
+- **[Resolve component](#resolve-component)**
+- **[Dereference component](#dereference-component)**
+- **[Bundle component](#bundle-component)**
 
 ## Installation
 
@@ -1263,7 +1264,7 @@ External resolution strategies can be added, removed, replaced or reordered. We'
 ## Dereference component
 
 Dereferencing is a process of transcluding referencing element (internal or external) with a referenced element
-using a specific [dereference strategy](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies).
+using a specific [dereference strategy](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies). Simply put, dereferencing is a process of reference removal.
 Dereferencing strategy is determined by asserting on `mediaType` option. [File Resolution](#file-resolution) (file content is read/fetched)
 and [Parse component](#parse-component) (file content is parsed) are used under the hood.
 
@@ -1273,11 +1274,11 @@ and [Parse component](#parse-component) (file content is parsed) are used under 
 import { dereference } from '@swagger-api/apidom-reference';
 
 await dereference('/home/user/oas.json', {
-  parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
-}); // Promise<Element>
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+}); // Promise<ParseResultElement>
 ```
 
-**Dereferencing a HTTP(S) URL located on an internet:**
+**Dereferencing an HTTP(S) URL located on an internet:**
 
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
@@ -1291,7 +1292,7 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
       },
     },
   },
-}); // Promise<ReferenceSet>
+}); // Promise<ParseResultElement>
 ```
 
 **Dereferencing an ApiDOM fragment:**
@@ -1347,7 +1348,7 @@ const dereferenced = await dereferenceApiDOM(apidom, {
 #### [Dereference strategies](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies)
 
 Dereference strategy determines how a document is internally or externally dereferenced. Depending on document `mediaType` option,
-every strategy differs significantly. `Dereference component` comes with two (2) default dereference strategies.
+every strategy differs significantly. `Dereference component` comes with four (4) default dereference strategies.
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/asyncapi-2)
 
@@ -1508,7 +1509,7 @@ must conform to the following interface/shape:
   },
 
   // this method actually dereferences the file
-  async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
+  async dereference(file: IFile, options: IReferenceOptions): Promise<ParseResultElement> {
     // ...implementation...
   }
 }
@@ -1596,7 +1597,7 @@ Dereference strategies can be added, removed, replaced or reordered. We've alrea
 
 ##### Increasing speed of dereference
 
-Our two default dereference strategies are built on asynchronous sequential traversing of ApiDOM.
+Our default dereference strategies are built on asynchronous sequential traversing of ApiDOM.
 The total time of dereferencing is the sum of `traversing` + sum of `external resolution per referencing element`.
 By having a huge number of external dependencies in your definition file, dereferencing can get quite slow.
 Fortunately there is solution for this by running an `external resolution` first,
@@ -1617,3 +1618,235 @@ const dereferenced = await dereference('/home/user/oas.json', {
 ```
 
 Total time of dereferencing is now the sum of `external resolution traversing` + `dereference traversing` + sum of `max external resolution per file`.
+
+
+## Bundle component
+
+Bundling is a convenient way to package up resources spread across multiple files in a single file
+(**Compound Document**) using a specific [bundle strategy](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies).
+
+The bundling process for creating a Compound Document is defined as taking references (such as "$ref")
+to an external Resource and embedding the referenced Resources within the referring document.
+Bundling SHOULD be done in such a way that all URIs (used for referencing) in the base document
+and any referenced/embedded documents do not require altering.
+
+Bundling strategy is determined by asserting on `mediaType` option. [File Resolution](#file-resolution) (file content is read/fetched)
+and [Parse component](#parse-component) (file content is parsed) are used under the hood.
+
+**Bundling a file localed on a local filesystem:**
+
+```js
+import { bundle } from '@swagger-api/apidom-reference';
+
+await bundle('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+}); // Promise<ParseResultElement>
+```
+
+**Bundling an HTTP(S) URL located on an internet:**
+
+```js
+import { bundle } from '@swagger-api/apidom-reference';
+
+await bundle('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  resolve: {
+    resolverOpts: {
+      axiosConfig: {
+        timeout: 10
+      },
+    },
+  },
+}); // Promise<ParseResultElement>
+```
+
+#### [Bundle strategies](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies)
+
+Bundle strategy determines how a document is bundled into a Compound Document. Depending on document `mediaType` option,
+every strategy differs significantly. `Bundle component` comes with single (1) default bundle strategy.
+
+##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/openapi-3-1)
+
+Bundle strategy for bundling [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.1.0',
+  'application/vnd.oai.openapi+json;version=3.1.0',
+  'application/vnd.oai.openapi+yaml;version=3.1.0'
+]
+```
+
+##### Bundle strategies execution order
+
+It's important to understand that default bundle strategies are run in specific order. The order is determined
+by the `options.bundle.strategies` option.
+Every strategy is pulled from `options.bundle.strategies` option, and it's `canBundle` method is called to determine
+whether the strategy can bundle the URI. If `canBundle` returns `true`, `bundle` method of strategy is called
+and result from bundling is returned. No subsequent strategies are run. If `canBundle` returns
+`false`, next strategy is pulled and this process is repeated until one of the strategy's `canBundle` method
+returns `true` or until entire list of strategies is exhausted (throws error).
+
+```js
+[
+  OpenApi3_1BundleStrategy(),
+]
+```
+Most specific strategies are listed first, most generic are listed last.
+
+It's possible to **change** strategies **order globally** by mutating global `bundle` option:
+
+```js
+import { options } from '@swagger-api/apidom-reference';
+import OpenApi3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
+
+options.dereference.strategies = [
+  OpenApi3_1DereferenceStrategy(),
+];
+```
+
+To **change** the strategies **order** on ad-hoc basis:
+
+```js
+import { bundle } from '@swagger-api/apidom-reference';
+import OpenApi3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
+
+await bundle('/home/user/oas.json', {
+  parse: {
+    mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
+  },
+  bundle: {
+    strategies: [
+      OpenApi3_1BundleStrategy(),
+    ]
+  }
+});
+```
+##### Creating new bundle strategy
+
+Bundle component can be extended by additional strategies. Every strategy is an object that
+must conform to the following interface/shape:
+
+```typescript
+{
+  // uniquely identifies this plugin
+  name: string,
+
+  // this method is called to determine whether the strategy can bundle the file
+  canBundle(file: IFile): boolean {
+    // ...implementation...
+  },
+
+  // this method actually bundles the file
+  async bundle(file: IFile, options: IReferenceOptions): Promise<ParseResultElement> {
+    // ...implementation...
+  }
+}
+```
+
+New strategy is then provided as an option to the `bundle` function:
+
+```js
+import { bundle, options } from '@swagger-api/apidom-reference';
+
+const myCustomBundleStrategy = {
+  name: 'myCustomByndleStrategy',
+  canBundle(file) {
+    return true;
+  },
+  async bundle(file, options: IReferenceOptions) {
+     // implementation of bundling
+  }
+};
+
+await bundle('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  bundle: {
+    strategies: [...options.bundle.strategies, myCustomBundleStrategy],
+  }
+});
+```
+
+In this particular example we're adding our custom strategy as the last strategy
+to the available default bundle strategy list, so there's a good chance that one of the
+default strategies detects that it can bundle the `/home/user/oas.json` file,
+bundles it and returns a bundled element.
+
+If you want to force execution of your strategy, add it as a first one:
+
+```js
+import { bundle, options } from '@swagger-api/apidom-reference';
+
+const myCustomBundleStrategy = {
+  name: 'myCustomBundleStrategy',
+  canBundle(file) {
+    return true;
+  },
+  async bundle(file, options: IReferenceOptions) {
+    // implementation of bundling
+  }
+};
+
+
+await bundle('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  bundle: {
+    strategies: [myCustomBundleStrategy, ...options.bundle.strategies],
+  }
+});
+```
+
+To override the default strategies entirely, set `myCustomBundleStrategy` strategy to be the only one available:
+
+```js
+import { bundle } from '@swagger-api/apidom-reference';
+
+const myCustomBundleStrategy = {
+  name: 'myCustomBundleStrategy',
+  canBundle(file) {
+    return true;
+  },
+  async bundle(file, options: IReferenceOptions) {
+    // implementation of bundling
+  }
+};
+
+await bundle('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  bundle: {
+    strategies: [myCustomBundleStrategy],
+  }
+});
+```
+
+New strategies can be based on a predefined stamp called [BundleStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/bundle/strategies/BundleStrategy.ts).
+
+##### Manipulating bundle strategies
+
+Bundle strategies can be added, removed, replaced or reordered. We've already covered these techniques in [Manipulating parser plugins section](#manipulating-parser-plugins).
+
+##### Increasing speed of bundling
+
+Our default bundling strategies are built on asynchronous sequential traversing of ApiDOM.
+The total time of bundling is the sum of `traversing` + sum of `external resolution per referencing element`.
+By having a huge number of external dependencies in your definition file, bundling can get quite slow.
+Fortunately there is solution for this by running an `external resolution` first,
+and passing its result to bundling via an option. External resolution is built on asynchronous parallel traversal (on single file),
+so it's theoretically always faster on huge amount of external dependencies than the bundling.
+
+```js
+import { resolve, bundle } from '@swagger-api/apidom-reference';
+
+const refSet = await resolve('/home/user/oas.json', {
+  parse: { mediType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+});
+
+const bundled = await bundle('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+  bundle: { refSet },
+});
+```
+
+Total time of bundling is now the sum of `external resolution traversing` + `bundle traversing` + sum of `max external resolution per file`.

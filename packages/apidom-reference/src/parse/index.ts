@@ -5,7 +5,7 @@ import * as url from '../util/url';
 import File from '../util/File';
 import * as plugins from '../util/plugins';
 import { ReferenceOptions as IReferenceOptions, File as IFile, Parser as IParser } from '../types';
-import ParserError from '../errors/ParserError';
+import ParseError from '../errors/ParseError';
 import UnmatchedResolverError from '../errors/UnmatchedResolverError';
 import { readFile } from '../resolve/util';
 
@@ -31,13 +31,13 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
     // empty files handling
     if (!plugin.allowEmpty && result.isEmpty) {
       return Promise.reject(
-        new ParserError(`Error while parsing file "${file.uri}". File is empty.`),
+        new ParseError(`Error while parsing file "${file.uri}". File is empty.`),
       );
     }
 
     return result;
   } catch (error: any) {
-    throw new ParserError(`Error while parsing file "${file.uri}"`, { cause: error });
+    throw new ParseError(`Error while parsing file "${file.uri}"`, { cause: error });
   }
 };
 

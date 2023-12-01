@@ -7,7 +7,7 @@ import { evaluate } from '@swagger-api/apidom-json-pointer';
 import { dereference, parse, Reference, ReferenceSet } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
 import ResolveError from '../../../../../src/errors/ResolveError';
 import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
@@ -795,10 +795,10 @@ describe('dereference', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { maxDepth: 2 },
               });
-              assert.fail('should throw MaximumResolverDepthError');
+              assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
-              assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
+              assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

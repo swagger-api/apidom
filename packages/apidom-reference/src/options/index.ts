@@ -93,6 +93,35 @@ const defaultOptions: IReferenceOptions = {
      */
     maxDepth: +Infinity,
   },
+  bundle: {
+    /**
+     * Determines strategies how ApiDOM is bundled.
+     * Strategy is determined by media type or by inspecting ApiDOM to be bundled.
+     *
+     * You can add additional bundle strategies of your own, replace an existing one with
+     * your own implementation, or remove any bundle strategy by removing it from the list.
+     */
+    strategies: [],
+    /**
+     * This option accepts an instance of pre-computed ReferenceSet.
+     * If provided it will speed up the bundling significantly as the external
+     * resolution doesn't need to happen anymore.
+     */
+    refSet: null,
+    /**
+     * Determines the maximum depth of bundling.
+     * By default, there is no limit.
+     *
+     * The maxDepth represents a number of references that needed to be followed
+     * before the eventual value was reached.
+     *
+     * It can be set to any positive integer number or zero (0).
+     *
+     * The bundling should throw MaximumBundleDepthError if bundling depth
+     * is exceeded by this option.
+     */
+    maxDepth: +Infinity,
+  },
 };
 
 export default defaultOptions;

@@ -60,7 +60,7 @@ export const resolveApiDOM = async <T extends Element>(
  */
 const resolve = async (uri: string, options: IReferenceOptions): Promise<IReferenceSet> => {
   const parseResult = await parse(uri, options);
-  const mergedOptions = mergeOptions(options, { resolve: { baseURI: uri } });
+  const mergedOptions = mergeOptions(options, { resolve: { baseURI: url.sanitize(uri) } });
 
   return resolveApiDOM(parseResult, mergedOptions);
 };

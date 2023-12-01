@@ -49,6 +49,11 @@ export interface DereferenceStrategy {
   dereference(file: File, options: ReferenceOptions): Promise<Element>;
 }
 
+export interface BundleStrategy {
+  canBundle(file: File): boolean;
+  bundle(file: File, options: ReferenceOptions): Promise<Element>;
+}
+
 export interface ComposableResolveStrategy extends ResolveStrategy {
   readonly strategies: Array<ResolveStrategy>;
 }
@@ -96,8 +101,15 @@ export interface ReferenceDereferenceOptions {
   maxDepth: number;
 }
 
+export interface ReferenceBundleOptions {
+  strategies: Array<BundleStrategy>;
+  refSet: null | ReferenceSet;
+  maxDepth: number;
+}
+
 export interface ReferenceOptions {
   readonly parse: ReferenceParserOptions;
   readonly resolve: ReferenceResolveOptions;
   readonly dereference: ReferenceDereferenceOptions;
+  readonly bundle: ReferenceBundleOptions;
 }

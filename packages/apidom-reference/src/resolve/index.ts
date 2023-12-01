@@ -11,7 +11,7 @@ import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } 
 import parse from '../parse';
 import * as plugins from '../util/plugins';
 import File from '../util/File';
-import ResolverError from '../errors/ResolverError';
+import ResolveError from '../errors/ResolverError';
 import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError';
 import * as url from '../util/url';
 
@@ -51,7 +51,7 @@ export const resolveApiDOM = async <T extends Element>(
     const { result } = await plugins.run('resolve', [file, options], resolveStrategies);
     return result;
   } catch (error: any) {
-    throw new ResolverError(`Error while resolving file "${file.uri}"`, { cause: error });
+    throw new ResolveError(`Error while resolving file "${file.uri}"`, { cause: error });
   }
 };
 
@@ -60,7 +60,7 @@ export const resolveApiDOM = async <T extends Element>(
  */
 const resolve = async (uri: string, options: IReferenceOptions): Promise<IReferenceSet> => {
   const parseResult = await parse(uri, options);
-  const mergedOptions = mergeOptions(options, { resolve: { baseURI: uri } });
+  const mergedOptions = mergeOptions(options, { resolve: { baseURI: url.sanitize(uri) } });
 
   return resolveApiDOM(parseResult, mergedOptions);
 };

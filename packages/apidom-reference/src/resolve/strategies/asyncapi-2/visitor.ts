@@ -16,7 +16,7 @@ import {
 
 import { Reference as IReference } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
-import MaximumResolverDepthError from '../../../errors/MaximumResolverDepthError';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
@@ -49,7 +49,7 @@ const AsyncApi2ResolveVisitor = stampit({
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
-        throw new MaximumResolverDepthError(
+        throw new MaximumResolveDepthError(
           `Maximum resolution depth of ${this.options.resolve.maxDepth} has been exceeded by file "${this.reference.uri}"`,
         );
       }

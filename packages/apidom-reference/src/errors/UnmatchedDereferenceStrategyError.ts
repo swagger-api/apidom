@@ -1,5 +1,5 @@
-import ParserError from './ParserError';
+import DereferenceError from './DereferenceError';
 
-class UnmatchedDereferenceStrategyError extends ParserError {}
+class UnmatchedDereferenceStrategyError extends DereferenceError {}
 
 export default UnmatchedDereferenceStrategyError;

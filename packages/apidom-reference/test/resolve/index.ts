@@ -5,8 +5,8 @@ import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { resolve, resolveApiDOM, parse } from '../../src';
 import FileResolver from '../../src/resolve/resolvers/file/index-node';
 import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStrategyError';
-import ResolverError from '../../src/errors/ResolverError';
-import ParserError from '../../src/errors/ParserError';
+import ResolveError from '../../src/errors/ResolveError';
+import ParseError from '../../src/errors/ParseError';
 import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 const fixturePath = path.join(
@@ -133,9 +133,9 @@ describe('resolve', function () {
 
       try {
         await resolve(uri, options);
-        assert.fail('Should throw ResolverError');
+        assert.fail('Should throw ResolveError');
       } catch (error) {
-        assert.instanceOf(error, ResolverError);
+        assert.instanceOf(error, ResolveError);
       }
     });
   });
@@ -177,9 +177,9 @@ describe('resolve', function () {
 
       try {
         await resolve(uri, options);
-        assert.fail('Should throw ParserError');
+        assert.fail('Should throw ParseError');
       } catch (error: any) {
-        assert.instanceOf(error, ParserError);
+        assert.instanceOf(error, ParseError);
         assert.match(error.message, /File is empty\.$/);
       }
     });
@@ -208,9 +208,9 @@ describe('resolve', function () {
 
       try {
         await resolve(uri, options);
-        assert.fail('Should throw ParserError');
+        assert.fail('Should throw ParseError');
       } catch (error) {
-        assert.instanceOf(error, ParserError);
+        assert.instanceOf(error, ParseError);
       }
     });
   });

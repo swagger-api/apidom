@@ -35,7 +35,7 @@ import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/
 import { evaluate as uriEvaluate } from './selectors/uri';
 import { Reference as IReference, Resolver as IResolver } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
-import MaximumResolverDepthError from '../../../errors/MaximumResolverDepthError';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
@@ -89,7 +89,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
     async toReference(uri: string): Promise<IReference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
-        throw new MaximumResolverDepthError(
+        throw new MaximumResolveDepthError(
           `Maximum resolution depth of ${this.options.resolve.maxDepth} has been exceeded by file "${this.reference.uri}"`,
         );
       }

@@ -3,9 +3,9 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 
 import { resolve } from '../../../../../src';
-import MaximumResolverDepthError from '../../../../../src/errors/MaximumResolverDepthError';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import ResolverError from '../../../../../src/errors/ResolverError';
+import ResolveError from '../../../../../src/errors/ResolveError';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
@@ -102,7 +102,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -117,7 +117,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -132,7 +132,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -147,7 +147,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -162,7 +162,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -177,7 +177,7 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
             } catch (e) {
-              assert.instanceOf(e, ResolverError);
+              assert.instanceOf(e, ResolveError);
             }
           });
         });
@@ -208,7 +208,7 @@ describe('resolve', function () {
               });
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
-              assert.instanceOf(error, ResolverError);
+              assert.instanceOf(error, ResolveError);
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
@@ -226,10 +226,10 @@ describe('resolve', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { maxDepth: 2 },
               });
-              assert.fail('should throw MaximumResolverDepthError');
+              assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
-              assert.instanceOf(error, ResolverError);
-              assert.instanceOf(error.cause.cause, MaximumResolverDepthError);
+              assert.instanceOf(error, ResolveError);
+              assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

@@ -1,5 +1,5 @@
-import ParserError from './ParserError';
+import ResolveError from './ResolveError';
 
-class UnmatchedResolveStrategyError extends ParserError {}
+class UnmatchedResolveStrategyError extends ResolveError {}
 
 export default UnmatchedResolveStrategyError;

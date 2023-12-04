@@ -22,6 +22,7 @@ import { metadata } from './metadata';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
 import { logLevel, logPerformance } from './test-utils';
 import testTokens from './test-tokens';
+import { OpenAPI31, OpenAPI3 } from '../src/config/openapi/target-specs';
 
 // eslint-disable-next-line import/prefer-default-export
 export function logj(e: unknown, label?: string): void {
@@ -81,12 +82,7 @@ const completionTestInput = [
             kind: 'markdown',
             value: 'A short summary of the API.',
           },
-          targetSpecs: [
-            {
-              namespace: 'openapi',
-              version: '3.1.0',
-            },
-          ],
+          targetSpecs: OpenAPI31,
         },
         {
           label: 'description',
@@ -98,6 +94,7 @@ const completionTestInput = [
             value:
               'A description of the API. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
           },
+          targetSpecs: OpenAPI3,
         },
         {
           label: 'termsOfService',
@@ -108,6 +105,7 @@ const completionTestInput = [
             kind: 'markdown',
             value: 'A URL to the Terms of Service for the API. This MUST be in the form of a URL.',
           },
+          targetSpecs: OpenAPI3,
         },
         {
           label: 'contact',
@@ -119,12 +117,7 @@ const completionTestInput = [
             value:
               '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
           },
-          targetSpecs: [
-            {
-              namespace: 'openapi',
-              version: '3.1.0',
-            },
-          ],
+          targetSpecs: OpenAPI31,
         },
         {
           label: 'license',
@@ -136,12 +129,7 @@ const completionTestInput = [
             value:
               '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
           },
-          targetSpecs: [
-            {
-              namespace: 'openapi',
-              version: '3.1.0',
-            },
-          ],
+          targetSpecs: OpenAPI31,
         },
       ],
       isIncomplete: false,

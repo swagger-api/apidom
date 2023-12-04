@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: '**REQUIRED**. The license name used for the API.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'identifier',
@@ -29,7 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'An [SPDX](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) license expression for the API. The `identifier` field is mutually exclusive of the `url` field.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'url',
@@ -42,12 +44,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A URL to the license used for the API. MUST be in the format of a URL.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'url',
@@ -61,7 +58,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A URL to the license used for the API. This MUST be in the form of a URL. The `url` field is mutually exclusive of the `identifier` field.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
 ];
 

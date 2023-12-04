@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const examplesMutuallyExclusiveLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_HEADER_FIELD_EXAMPLES_MUTUALLY_EXCLUSIVE,
@@ -18,6 +19,7 @@ const examplesMutuallyExclusiveLint: LinterMeta = {
       params: [['example']],
     },
   ],
+  targetSpecs: OpenAPI3,
 };
 
 export default examplesMutuallyExclusiveLint;

@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Header.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'description',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A brief description of the header. This could contain examples of use. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'required',
@@ -42,6 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Determines whether this header is mandatory. This property MAY be included and its default value is `false`.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'deprecated',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Specifies that a header is deprecated and SHOULD be transitioned out of usage. Default value is `false`.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'allowEmptyValue',
@@ -68,6 +73,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Doesn't apply for headers. Default value is `false`. Use of this property is NOT RECOMMENDED, as it is likely to be removed in a later revision.",
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'style',
@@ -80,6 +86,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Describes how the header value will be serialized. Default value: `simple`.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'explode',
@@ -93,6 +100,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'When this is true, header values of type array or object generate separate headers for each value of the array or key-value pair of the map. The default value is `false`.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'allowReserved',
@@ -106,6 +114,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Determines whether the header value SHOULD allow reserved characters, as defined by [RFC3986](https://tools.ietf.org/html/rfc3986#section-2.2) `:/?#[]@!$&'()*+,;=` to be included without percent - encoding. This property has no effect and the default value is `false`.",
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'schema',
@@ -119,12 +128,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject) | [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe schema defining the type used for the header.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'schema',
@@ -138,7 +142,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject)\n\\\n\\\nThe schema defining the type used for the header.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'example',
@@ -152,6 +156,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Example of the header's potential value. The example SHOULD match the specified schema and encoding properties if present. The `example` field is mutually exclusive of the `examples` field. Furthermore, if referencing a `schema` that contains an example, the `example` value SHALL *override* the example provided by the schema. To represent examples of media types that cannot naturally be represented in JSON or YAML, a string value can contain the example with escaping where necessary.",
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'examples',
@@ -165,12 +170,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nExamples of the header's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema.",
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'examples',
@@ -184,7 +184,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nExamples of the header's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema.",
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'content',
@@ -198,12 +198,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the header. The key is the media type and the value describes it. The map MUST only contain one entry.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'content',
@@ -217,7 +212,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the header. The key is the media type and the value describes it. The map MUST only contain one entry.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
 ];
 

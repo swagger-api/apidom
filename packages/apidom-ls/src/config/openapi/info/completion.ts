@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: '**REQUIRED.** The title of the API.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'summary',
@@ -28,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A short summary of the API.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'description',
@@ -42,6 +44,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A description of the API. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'termsOfService',
@@ -54,6 +57,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A URL to the Terms of Service for the API. This MUST be in the form of a URL.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'contact',
@@ -67,12 +71,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'contact',
@@ -86,7 +85,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'license',
@@ -100,12 +99,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'license',
@@ -119,7 +113,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'version',
@@ -133,12 +127,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The version of the OpenAPI document (which is distinct from the [OpenAPI Specification version](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oasVersion) or the API implementation version).',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'version',
@@ -152,7 +141,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The version of the OpenAPI document (which is distinct from the [OpenAPI Specification version](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oasVersion) or the API implementation version).',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
 ];
 

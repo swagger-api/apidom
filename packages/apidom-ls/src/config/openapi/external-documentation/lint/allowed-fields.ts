@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const allowedFieldsLint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
@@ -11,6 +12,7 @@ const allowedFieldsLint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [['description', 'url'], 'x-'],
   marker: 'key',
+  targetSpecs: OpenAPI3,
 };
 
 export default allowedFieldsLint;

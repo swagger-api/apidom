@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The name of the property in the payload that will hold the discriminator value.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'mapping',
@@ -30,6 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[string, string]\n\\\n\\\nAn object to hold mappings between payload values and schema names or references.',
     },
+    targetSpecs: OpenAPI3,
   },
 ];
 

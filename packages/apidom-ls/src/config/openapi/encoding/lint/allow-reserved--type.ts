@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const allowReservedTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_ENCODING_FIELD_ALLOW_RESERVED_TYPE,
@@ -13,6 +14,7 @@ const allowReservedTypeLint: LinterMeta = {
   marker: 'value',
   target: 'allowReserved',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default allowReservedTypeLint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI31 } from '../../target-specs';
 
 const summaryTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_INFO_FIELD_SUMMARY_TYPE,
@@ -13,7 +14,7 @@ const summaryTypeLint: LinterMeta = {
   marker: 'value',
   target: 'summary',
   data: {},
-  targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  targetSpecs: OpenAPI31,
 };
 
 export default summaryTypeLint;

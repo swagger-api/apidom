@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const operationRefMutuallyExclusiveLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_LINK_FIELD_OPERATION_REF_MUTUALLY_EXCLUSIVE,
@@ -18,6 +19,7 @@ const operationRefMutuallyExclusiveLint: LinterMeta = {
       params: [['operationRef']],
     },
   ],
+  targetSpecs: OpenAPI3,
 };
 
 export default operationRefMutuallyExclusiveLint;

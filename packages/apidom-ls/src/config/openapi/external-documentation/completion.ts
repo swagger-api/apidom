@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'url',
@@ -30,6 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The URL for the target documentation. This MUST be in the form of a URL.',
     },
+    targetSpecs: OpenAPI3,
   },
 ];
 

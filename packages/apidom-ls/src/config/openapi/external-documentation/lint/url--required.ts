@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const urlRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_EXTERNAL_DOCUMENTATION_FIELD_URL_REQUIRED,
@@ -21,6 +22,7 @@ const urlRequiredLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: OpenAPI3,
 };
 
 export default urlRequiredLint;

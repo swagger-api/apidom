@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -13,6 +14,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0001',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/xml',
@@ -22,6 +24,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0002',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/yaml',
@@ -31,6 +34,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0003',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/x-www-form-urlencoded',
@@ -40,6 +44,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0004',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/octet-stream',
@@ -49,6 +54,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0005',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/pdf',
@@ -58,6 +64,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0006',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/zip',
@@ -67,6 +74,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0007',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'application/gzip',
@@ -76,6 +84,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0008',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'multipart/form-data',
@@ -85,6 +94,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0009',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/plain',
@@ -94,6 +104,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0010',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/plain;charset=utf-8',
@@ -103,6 +114,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0011',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/html',
@@ -112,6 +124,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0011',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/xml',
@@ -121,6 +134,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0013',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/csv',
@@ -130,6 +144,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0014',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/javascript',
@@ -139,6 +154,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0015',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'text/css',
@@ -148,6 +164,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0016',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'image/png',
@@ -157,6 +174,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0017',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'image/jpeg',
@@ -166,6 +184,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0018',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'image/gif',
@@ -175,6 +194,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0019',
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'image/bmp',
@@ -184,6 +204,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     sortText: '0020',
+    targetSpecs: OpenAPI3,
   },
 ];
 

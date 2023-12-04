@@ -14,7 +14,7 @@ import CriterionElement from './elements/Criterion';
 import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
-import WorkflowWorkflowsElement from './elements/nces/Workflows';
+import WorkflowsElement from './elements/nces/Workflows';
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 import WorkflowStepsElement from './elements/nces/WorkflowSteps';
 import WorkflowOutputsElement from './elements/nces/WorkflowOutputs';

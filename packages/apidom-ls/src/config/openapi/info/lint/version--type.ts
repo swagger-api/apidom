@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const versionTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_INFO_FIELD_VERSION_TYPE,
@@ -13,6 +14,7 @@ const versionTypeLint: LinterMeta = {
   marker: 'value',
   target: 'version',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default versionTypeLint;

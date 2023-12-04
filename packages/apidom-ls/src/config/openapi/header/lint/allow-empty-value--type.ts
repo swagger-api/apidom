@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const allowEmptyValueTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_HEADER_FIELD_ALLOW_EMPTY_VALUE_TYPE,
@@ -13,6 +14,7 @@ const allowEmptyValueTypeLint: LinterMeta = {
   marker: 'value',
   target: 'allowEmptyValue',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default allowEmptyValueTypeLint;

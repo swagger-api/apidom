@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to an Example.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'summary',
@@ -28,6 +30,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Short description for the example.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'description',
@@ -41,6 +44,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Long description for the example. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'value',
@@ -54,6 +58,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Embedded literal example. The `value` field and `externalValue` field are mutually exclusive. To represent examples of media types that cannot naturally represented in JSON or YAML, use a string value to contain the example, escaping where necessary.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'externalValue',
@@ -67,12 +72,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A URI that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value` field and `externalValue` field are mutually exclusive.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'externalValue',
@@ -86,7 +86,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A URI that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value` field and `externalValue` field are mutually exclusive. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
 ];
 

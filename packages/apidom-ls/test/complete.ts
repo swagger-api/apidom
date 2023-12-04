@@ -14,6 +14,7 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
+import { OpenAPI3 } from '../src/config/openapi/target-specs';
 import { logPerformance, logLevel } from './test-utils';
 
 const specCompletion = fs
@@ -1358,6 +1359,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'A reference to a Callback.' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$url',
@@ -1365,6 +1367,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request URL' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$method',
@@ -1372,6 +1375,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'HTTP Method' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$statusCode',
@@ -1379,6 +1383,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Status Code' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$request.path...',
@@ -1386,6 +1391,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request Path' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$request.query...',
@@ -1393,6 +1399,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request Query' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$request.header...',
@@ -1400,6 +1407,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request Header' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$request.body',
@@ -1407,6 +1415,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request Body' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$request.body#/...',
@@ -1414,6 +1423,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Request Body..' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$response.path...',
@@ -1421,6 +1431,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Response Path' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$response.query...',
@@ -1428,6 +1439,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Response Query' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$response.header...',
@@ -1435,6 +1447,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Response Header' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$response.body',
@@ -1442,6 +1455,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Response Body' },
+        targetSpecs: OpenAPI3,
       },
       {
         label: '$response.body#/...',
@@ -1449,6 +1463,7 @@ describe('apidom-ls-complete', function () {
         kind: 14,
         insertTextFormat: 2,
         documentation: { kind: 'markdown', value: 'Response Body..' },
+        targetSpecs: OpenAPI3,
       },
     ] as ApidomCompletionItem[]);
   });

@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Callback.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$url',
@@ -28,6 +30,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request URL',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$method',
@@ -40,6 +43,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'HTTP Method',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$statusCode',
@@ -52,6 +56,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Status Code',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.path...',
@@ -64,6 +69,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Path',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.query...',
@@ -76,6 +82,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Query',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.header...',
@@ -88,6 +95,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Header',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.header...',
@@ -100,6 +108,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Header',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.body',
@@ -112,6 +121,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Body',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$request.body#/...',
@@ -124,6 +134,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Request Body..',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.path...',
@@ -136,6 +147,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Path',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.query...',
@@ -148,6 +160,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Query',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.header...',
@@ -160,6 +173,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Header',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.header...',
@@ -172,6 +186,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Header',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.body',
@@ -184,6 +199,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Body',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: '$response.body#/...',
@@ -196,6 +212,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'Response Body..',
     },
+    targetSpecs: OpenAPI3,
   },
 ];
 

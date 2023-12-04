@@ -2,6 +2,7 @@ import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apid
 
 import WorkflowsSpecElement from './WorkflowsSpec';
 import InfoElement from './Info';
+import ComponentsElement from './Components';
 
 class WorkflowsSpecification1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
@@ -33,6 +34,22 @@ class WorkflowsSpecification1 extends ObjectElement {
 
   set sourceDescriptions(sourceDescriptions: ArrayElement | undefined) {
     this.set('sourceDescriptions', sourceDescriptions);
+  }
+
+  get workflows(): ArrayElement | undefined {
+    return this.get('workflows');
+  }
+
+  set workflows(workflows: ArrayElement | undefined) {
+    this.set('workflows', workflows);
+  }
+
+  get components(): ComponentsElement | undefined {
+    return this.get('components');
+  }
+
+  set components(components: ComponentsElement | undefined) {
+    this.set('components', components);
   }
 }
 

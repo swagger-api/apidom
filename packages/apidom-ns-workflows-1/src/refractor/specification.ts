@@ -61,6 +61,8 @@ const specification = {
               $ref: '#/visitors/document/objects/Info',
             },
             sourceDescriptions: SourceDescriptionsVisitor,
+            workflows: WorkflowVisitor,
+            components: ComponentsVisitor,
           },
         },
         Info: {

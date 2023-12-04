@@ -6,6 +6,8 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
+import JSONSchemaElement from './JSONSchema';
+
 class Workflow extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
@@ -36,11 +38,11 @@ class Workflow extends ObjectElement {
     this.set('description', description);
   }
 
-  get inputs(): ObjectElement | undefined {
+  get inputs(): JSONSchemaElement | undefined {
     return this.get('inputs');
   }
 
-  set inputs(inputs: ObjectElement | undefined) {
+  set inputs(inputs: JSONSchemaElement | undefined) {
     this.set('inputs', inputs);
   }
 

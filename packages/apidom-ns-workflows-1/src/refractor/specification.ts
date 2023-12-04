@@ -7,6 +7,9 @@ import InfoVisitor from './visitors/workflows-1/info';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';
 import SourceDescriptionVisitor from './visitors/workflows-1/source-description';
 import SourceDescriptionUrlVisitor from './visitors/workflows-1/source-description/UrlVisitor';
+import WorkflowVisitor from './visitors/workflows-1/workflow';
+import WorkflowStepsVisitor from './visitors/workflows-1/workflow/StepsVisitor';
+import workflowOutputsVisitor from './visitors/workflows-1/workflow/OutputsVisitor';
 import StepVisitor from './visitors/workflows-1/step';
 import StepOutputsVisitor from './visitors/workflows-1/step/OutputsVisitor';
 import StepParametersVisitor from './visitors/workflows-1/step/ParametersVisitor';
@@ -75,6 +78,17 @@ const specification = {
             name: { $ref: '#/visitors/value' },
             url: SourceDescriptionUrlVisitor,
             type: { $ref: '#/visitors/value' },
+          },
+        },
+        Workflow: {
+          $visitor: WorkflowVisitor,
+          fixedFields: {
+            workflowId: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            inputs: JSONSchemaVisitor,
+            steps: WorkflowStepsVisitor,
+            outputs: workflowOutputsVisitor,
           },
         },
         Step: {

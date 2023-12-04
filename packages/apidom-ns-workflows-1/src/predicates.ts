@@ -4,6 +4,7 @@ import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
 import WorkflowsSpecElement from './elements/WorkflowsSpec';
 import InfoElement from './elements/Info';
 import SourceDescriptionElement from './elements/SourceDescription';
+import WorkflowElement from './elements/Workflow';
 import StepElement from './elements/Step';
 import ParameterElement from './elements/Parameter';
 import SuccessActionElement from './elements/SuccessAction';
@@ -14,6 +15,8 @@ import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
+import WorkflowStepsElement from './elements/nces/WorkflowSteps';
+import WorkflowOutputsElement from './elements/nces/WorkflowOutputs';
 import StepParametersElement from './elements/nces/StepParameters';
 import StepDependsOnElement from './elements/nces/StepDependsOn';
 import StepSuccessCriteriaElement from './elements/nces/StepSuccessCriteria';
@@ -74,6 +77,38 @@ export const isSourceDescriptionsElement = createPredicate(
         isElementType('sourceDescriptions', element) &&
         primitiveEq('array', element) &&
         hasClass('sourceDescriptions', element));
+  },
+);
+
+export const isWorkflowStepsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is WorkflowStepsElement =>
+      element instanceof WorkflowStepsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('workflow-steps', element));
+  },
+);
+
+export const isWorkflowOutputsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is WorkflowOutputsElement =>
+      element instanceof WorkflowOutputsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('array', element) &&
+        primitiveEq('array', element) &&
+        hasClass('workflow-outputs', element));
+  },
+);
+
+export const isWorkflowElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is WorkflowElement =>
+      element instanceof WorkflowElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('workflow', element) &&
+        primitiveEq('object', element));
   },
 );
 

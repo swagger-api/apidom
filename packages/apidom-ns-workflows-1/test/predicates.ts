@@ -7,6 +7,9 @@ import {
   isInfoElement,
   isSourceDescriptionElement,
   isSourceDescriptionsElement,
+  isWorkflowElement,
+  isWorkflowStepsElement,
+  isWorkflowOutputsElement,
   isParameterElement,
   isStepElement,
   isStepParametersElement,
@@ -27,6 +30,9 @@ import {
   InfoElement,
   SourceDescriptionElement,
   SourceDescriptionsElement,
+  WorkflowElement,
+  WorkflowStepsElement,
+  WorkflowOutputsElement,
   StepElement,
   StepParametersElement,
   StepDependsOnElement,
@@ -756,6 +762,171 @@ describe('predicates', function () {
 
       assert.isTrue(isReferenceElement(referenceElementDuck));
       assert.isFalse(isReferenceElement(referenceElementSwan));
+    });
+  });
+
+  context('isWorkflowElement', function () {
+    context('given WorkflowElement instance value', function () {
+      specify('should return true', function () {
+        const element = new WorkflowElement();
+
+        assert.isTrue(isWorkflowElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        class WorkflowSubElement extends WorkflowElement {}
+
+        assert.isTrue(isWorkflowElement(new WorkflowSubElement()));
+      });
+    });
+
+    context('given non WorkflowElementSubElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isWorkflowElement(1));
+        assert.isFalse(isWorkflowElement(null));
+        assert.isFalse(isWorkflowElement(undefined));
+        assert.isFalse(isWorkflowElement({}));
+        assert.isFalse(isWorkflowElement([]));
+        assert.isFalse(isWorkflowElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const workflowElementDuck = {
+        _storedElement: 'workflow',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const workflowElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+        get length() {
+          return 0;
+        },
+      };
+
+      assert.isTrue(isWorkflowElement(workflowElementDuck));
+      assert.isFalse(isWorkflowElement(workflowElementSwan));
+    });
+  });
+
+  context('isWorkflowStepsElement', function () {
+    context('given WorkflowStepsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new WorkflowStepsElement();
+
+        assert.isTrue(isWorkflowStepsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class WorkflowStepsSubElement extends WorkflowStepsElement {}
+
+        assert.isTrue(isWorkflowStepsElement(new WorkflowStepsSubElement()));
+      });
+    });
+
+    context('given non WorkflowSteps instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isWorkflowStepsElement(1));
+        assert.isFalse(isWorkflowStepsElement(null));
+        assert.isFalse(isWorkflowStepsElement(undefined));
+        assert.isFalse(isWorkflowStepsElement({}));
+        assert.isFalse(isWorkflowStepsElement([]));
+        assert.isFalse(isWorkflowStepsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const workflowStepsElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['workflow-steps']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const workflowStepsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isWorkflowStepsElement(workflowStepsElementDuck));
+      assert.isFalse(isWorkflowStepsElement(workflowStepsElementSwan));
+    });
+  });
+
+  context('isWorkflowOutputsElement', function () {
+    context('given WorkflowOutputsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new WorkflowOutputsElement();
+
+        assert.isTrue(isWorkflowOutputsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class WorkflowOutputsSubElement extends WorkflowOutputsElement {}
+
+        assert.isTrue(isWorkflowOutputsElement(new WorkflowOutputsSubElement()));
+      });
+    });
+
+    context('given non WorkflowOutputs instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isWorkflowOutputsElement(1));
+        assert.isFalse(isWorkflowOutputsElement(null));
+        assert.isFalse(isWorkflowOutputsElement(undefined));
+        assert.isFalse(isWorkflowOutputsElement({}));
+        assert.isFalse(isWorkflowOutputsElement([]));
+        assert.isFalse(isWorkflowOutputsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const workflowOutputsElementDuck = {
+        _storedElement: 'array',
+        _content: [],
+        classes: new ArrayElement(['workflow-outputs']),
+        primitive() {
+          return 'array';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const workflowOutputsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isWorkflowOutputsElement(workflowOutputsElementDuck));
+      assert.isFalse(isWorkflowOutputsElement(workflowOutputsElementSwan));
     });
   });
 

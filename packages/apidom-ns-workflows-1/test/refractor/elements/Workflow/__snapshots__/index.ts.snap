@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements WorkflowElement should refract to semantic ApiDOM tree 1`] = `
+(WorkflowElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchemaDraft202012Element))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (StepElement)))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;

@@ -62,7 +62,7 @@ describe('refractor', function () {
               ],
             },
           ],
-          outputs: [{ key: 'value' }],
+          outputs: { key: '$inputs.value' },
         });
 
         expect(sexprs(stepElement)).toMatchSnapshot();

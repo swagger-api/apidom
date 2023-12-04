@@ -84,7 +84,7 @@ export const isSourceDescriptionsElement = createPredicate(
 export const isWorkflowsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is WorkflowWorkflowsElement =>
-      element instanceof WorkflowWorkflowsElement ||
+      element instanceof WorkflowsElement ||
       (hasBasicElementProps(element) &&
         isElementType('workflows', element) &&
         primitiveEq('array', element) &&

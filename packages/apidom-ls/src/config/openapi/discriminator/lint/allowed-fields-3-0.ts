@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI30 } from '../../target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const allowedFields3_0Lint: LinterMeta = {
@@ -13,7 +13,7 @@ const allowedFields3_0Lint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [['propertyName', 'mapping']],
   marker: 'key',
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI30,
 };
 
 export default allowedFields3_0Lint;

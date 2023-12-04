@@ -14,6 +14,7 @@ import CriterionElement from './elements/Criterion';
 import ReferenceElement from './elements/Reference';
 import JSONSchemaElement from './elements/JSONSchema';
 // NCE types
+import WorkflowWorkflowsElement from './elements/nces/Workflows';
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
 import WorkflowStepsElement from './elements/nces/WorkflowSteps';
 import WorkflowOutputsElement from './elements/nces/WorkflowOutputs';
@@ -77,6 +78,17 @@ export const isSourceDescriptionsElement = createPredicate(
         isElementType('sourceDescriptions', element) &&
         primitiveEq('array', element) &&
         hasClass('sourceDescriptions', element));
+  },
+);
+
+export const isWorkflowWorkflowsElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is WorkflowWorkflowsElement =>
+      element instanceof WorkflowWorkflowsElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('workflows', element) &&
+        primitiveEq('array', element) &&
+        hasClass('workflows', element));
   },
 );
 

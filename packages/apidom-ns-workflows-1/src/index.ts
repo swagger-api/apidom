@@ -77,6 +77,7 @@ export {
 } from './refractor/registration';
 // NCE types
 export { default as SourceDescriptionsElement } from './elements/nces/SourceDescriptions';
+export { default as WorkflowsElement } from './elements/nces/Workflows';
 export { default as WorkflowStepsElement } from './elements/nces/WorkflowSteps';
 export { default as WorkflowOutputsElement } from './elements/nces/WorkflowOutputs';
 export { default as StepParametersElement } from './elements/nces/StepParameters';

@@ -15,7 +15,7 @@ exports[`refractor elements WorkflowsSpecification1Element should refract to sem
   (MemberElement
     (StringElement)
     (ArrayElement
-      (ObjectElement)))
+      (WorkflowElement)))
   (MemberElement
     (StringElement)
     (ComponentsElement)))

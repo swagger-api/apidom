@@ -19,6 +19,7 @@ import StepOnSuccessVisitor from './visitors/workflows-1/step/OnSuccessVisitor';
 import StepOnFailureVisitor from './visitors/workflows-1/step/OnFailureVisitor';
 import ParameterVisitor from './visitors/workflows-1/parameter';
 import SourceDescriptionsVisitor from './visitors/workflows-1/SourceDescriptionsVisitor';
+import WorkflowsVisitor from './visitors/workflows-1/WorkflowsVisitor';
 import SuccessActionVisitor from './visitors/workflows-1/success-action';
 import SuccessActionCriteriaVisitor from './visitors/workflows-1/SuccessActionCriteriaVisitor';
 import FailureActionVisitor from './visitors/workflows-1/failure-action';
@@ -61,8 +62,10 @@ const specification = {
               $ref: '#/visitors/document/objects/Info',
             },
             sourceDescriptions: SourceDescriptionsVisitor,
-            workflows: WorkflowVisitor,
-            components: ComponentsVisitor,
+            workflows: WorkflowsVisitor,
+            components: {
+              $ref: '#/visitors/document/objects/Components',
+            },
           },
         },
         Info: {

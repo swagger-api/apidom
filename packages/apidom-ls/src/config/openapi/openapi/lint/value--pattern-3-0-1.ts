@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI301 } from '../../target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const valuePattern3_0_1Lint: LinterMeta = {
@@ -12,7 +13,6 @@ const valuePattern3_0_1Lint: LinterMeta = {
   linterFunction: 'apilintValueRegex',
   linterParams: ['3\\.0\\.1'],
   marker: 'value',
-  targetSpecs: [{ namespace: 'openapi', version: '3.0.1' }],
   data: {
     quickFix: [
       {
@@ -22,6 +22,7 @@ const valuePattern3_0_1Lint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: OpenAPI301,
 };
 
 export default valuePattern3_0_1Lint;

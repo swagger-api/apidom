@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const clientCredentialsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OAUTH_FLOWS_FIELD_CLIENT_CREDENTIALS_TYPE,
@@ -13,6 +14,7 @@ const clientCredentialsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'clientCredentials',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default clientCredentialsTypeLint;

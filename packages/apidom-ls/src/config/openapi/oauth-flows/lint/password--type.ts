@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const passwordTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OAUTH_FLOWS_FIELD_PASSWORD_TYPE,
@@ -13,6 +14,7 @@ const passwordTypeLint: LinterMeta = {
   marker: 'value',
   target: 'password',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default passwordTypeLint;

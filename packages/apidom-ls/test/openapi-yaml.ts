@@ -151,6 +151,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'openapi',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -162,6 +163,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'jsonSchemaDialect',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -173,6 +175,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'servers',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -184,6 +187,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'paths',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -195,6 +199,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'webhooks',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -206,6 +211,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'components',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -217,6 +223,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'security',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -228,6 +235,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'tags',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -239,6 +247,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'externalDocs',
+          targetSpecs: OpenAPI31,
         },
       ],
       isIncomplete: false,
@@ -260,6 +269,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'info',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -271,6 +281,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'jsonSchemaDialect',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -282,6 +293,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'servers',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -293,6 +305,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'paths',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -304,6 +317,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'webhooks',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -315,6 +329,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'components',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -326,6 +341,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'security',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -337,6 +353,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'tags',
+          targetSpecs: OpenAPI31,
         },
         {
           documentation: {
@@ -348,6 +365,7 @@ const completionTestInput = [
           insertTextFormat: 2,
           kind: 14,
           label: 'externalDocs',
+          targetSpecs: OpenAPI31,
         },
       ],
       isIncomplete: false,

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const traceTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PATH_ITEM_FIELD_TRACE_TYPE,
@@ -13,6 +14,7 @@ const traceTypeLint: LinterMeta = {
   marker: 'value',
   target: 'trace',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default traceTypeLint;

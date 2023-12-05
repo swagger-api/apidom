@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const optionsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PATH_ITEM_FIELD_OPTIONS_TYPE,
@@ -13,6 +14,7 @@ const optionsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'options',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default optionsTypeLint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const securityItemsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_SECURITY_VALUES_TYPE,
@@ -13,6 +14,7 @@ const securityItemsTypeLint: LinterMeta = {
   marker: 'key',
   target: 'security',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default securityItemsTypeLint;

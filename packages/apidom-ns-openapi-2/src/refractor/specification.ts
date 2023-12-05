@@ -3,6 +3,8 @@ import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/
 import FallbackVisitor from './visitors/FallbackVisitor';
 import SwaggerVisitor from './visitors/open-api-2';
 import SwaggerSwaggerVisitor from './visitors/open-api-2/SwaggerVisitor';
+import SwaggerHostVisitor from './visitors/open-api-2/HostVisitor';
+import SwaggerBasePathVisitor from './visitors/open-api-2/BasePathVisitor';
 import SwaggerSchemesVisitor from './visitors/open-api-2/SchemesVisitor';
 import SwaggerConsumesVisitor from './visitors/open-api-2/ConsumesVisitor';
 import SwaggerProducesVisitor from './visitors/open-api-2/ProducesVisitor';
@@ -80,8 +82,8 @@ const specification = {
             info: {
               $ref: '#/visitors/document/objects/Info',
             },
-            host: { $ref: '#/visitors/value' },
-            basePath: { $ref: '#/visitors/value' },
+            host: SwaggerHostVisitor,
+            basePath: SwaggerBasePathVisitor,
             schemes: SwaggerSchemesVisitor,
             consumes: SwaggerConsumesVisitor,
             produces: SwaggerProducesVisitor,

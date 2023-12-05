@@ -343,6 +343,17 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
         },
         "value": {
           "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "swagger-host"
+                }
+              ]
+            }
+          },
           "content": "petstore.swagger.io"
         }
       }
@@ -367,6 +378,17 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
         },
         "value": {
           "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "swagger-base-path"
+                }
+              ]
+            }
+          },
           "content": "/v2"
         }
       }
@@ -858,6 +880,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -1854,6 +1880,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -2474,6 +2504,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -3235,6 +3269,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -4170,6 +4208,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -5057,6 +5099,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -5792,6 +5838,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -6682,6 +6732,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -7447,6 +7501,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -8150,6 +8208,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -8865,6 +8927,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -9453,6 +9519,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -10019,6 +10089,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -10659,6 +10733,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -11299,6 +11377,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -11942,6 +12024,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -12682,6 +12768,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -13222,6 +13312,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -14243,6 +14337,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }
@@ -14579,6 +14677,10 @@ exports[`refractor given generic ApiDOM object in OpenAPI 2.0 shape should refra
                                         {
                                           "element": "string",
                                           "content": "operation-tags"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "tags"
                                         }
                                       ]
                                     }

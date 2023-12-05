@@ -550,5 +550,6 @@ for declaring copyright and licensing for software projects.
 
 ## Software Bill Of Materials (SBOM)
 
-Software Bill Of materials is available in [apidom.spdx.yaml](https://github.com/swagger-api/apidom/blob/main/apidom.spdx.yaml) using [SPDX](https://spdx.dev/) language.
+Software Bill Of materials is available in this repository [dependency graph](https://github.com/swagger-api/apidom/network/dependencies).
+Click on `Export SBOM` button to download the SBOM in [SPDX format](https://spdx.dev/).
 

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.86.0](https://github.com/swagger-api/apidom/compare/v0.85.0...v0.86.0) (2023-12-05)
+
+### Features
+
+- **reference:** add code infrastructure for bundle feature ([#3488](https://github.com/swagger-api/apidom/issues/3488)) ([29a4d51](https://github.com/swagger-api/apidom/commit/29a4d51bbc5cc3563c07b7f2ed287f7e6b15102b)), closes [#692](https://github.com/swagger-api/apidom/issues/692)
+
 # [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
 
 ### Bug Fixes

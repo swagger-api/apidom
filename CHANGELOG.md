@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.86.0](https://github.com/swagger-api/apidom/compare/v0.85.0...v0.86.0) (2023-12-05)
+
+### Bug Fixes
+
+- **ls:** recognize OpenAPI 2.0 root element ([#3493](https://github.com/swagger-api/apidom/issues/3493)) ([c35931d](https://github.com/swagger-api/apidom/commit/c35931db893eaffe3702db58a0fd0a521587da66)), closes [#3480](https://github.com/swagger-api/apidom/issues/3480)
+
+### Features
+
+- **ls:** add missing OpenAPI 2.0 semantic tokens ([#3508](https://github.com/swagger-api/apidom/issues/3508)) ([4ffce6f](https://github.com/swagger-api/apidom/commit/4ffce6fb109e8d6c0bdd8e43f9185dba7e3518dc)), closes [#3477](https://github.com/swagger-api/apidom/issues/3477)
+- **ls:** add missing OpenAPI 2.0 symbols ([#3507](https://github.com/swagger-api/apidom/issues/3507)) ([c89dab3](https://github.com/swagger-api/apidom/commit/c89dab3b5479f75245a69a2abdd2008a904e5c55)), closes [#3479](https://github.com/swagger-api/apidom/issues/3479)
+- **ns-workflows-1:** add support for Step Object ([#3471](https://github.com/swagger-api/apidom/issues/3471)) ([c63021e](https://github.com/swagger-api/apidom/commit/c63021ed45158238dfd73e56bb66f3ee22ebb762)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support for Workflow Object ([#3492](https://github.com/swagger-api/apidom/issues/3492)) ([fce4096](https://github.com/swagger-api/apidom/commit/fce409646694f3f0102fc14cf550f8910c5e7245)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **ns-workflows-1:** add support Workflows Spec Object ([#3496](https://github.com/swagger-api/apidom/issues/3496)) ([4a467cb](https://github.com/swagger-api/apidom/commit/4a467cb29f9f5dd8197c4b85d0856996aa4bdf9d)), closes [#3392](https://github.com/swagger-api/apidom/issues/3392)
+- **reference:** add code infrastructure for bundle feature ([#3488](https://github.com/swagger-api/apidom/issues/3488)) ([29a4d51](https://github.com/swagger-api/apidom/commit/29a4d51bbc5cc3563c07b7f2ed287f7e6b15102b)), closes [#692](https://github.com/swagger-api/apidom/issues/692)
+
 # [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
 
 ### Bug Fixes

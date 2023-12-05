@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.86.0](https://github.com/swagger-api/apidom/compare/v0.85.0...v0.86.0) (2023-12-05)
+
+### Features
+
+- **ls:** add missing OpenAPI 2.0 semantic tokens ([#3508](https://github.com/swagger-api/apidom/issues/3508)) ([4ffce6f](https://github.com/swagger-api/apidom/commit/4ffce6fb109e8d6c0bdd8e43f9185dba7e3518dc)), closes [#3477](https://github.com/swagger-api/apidom/issues/3477)
+
 # [0.85.0](https://github.com/swagger-api/apidom/compare/v0.84.0...v0.85.0) (2023-11-30)
 
 ### Bug Fixes

@@ -3,6 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 /**
  * Validation here is based on IANA HTTP Status code registry: https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
@@ -22,6 +23,7 @@ const allowedFieldsLint: LinterMeta = {
     'x-',
   ],
   marker: 'key',
+  targetSpecs: OpenAPI3,
 };
 
 export default allowedFieldsLint;

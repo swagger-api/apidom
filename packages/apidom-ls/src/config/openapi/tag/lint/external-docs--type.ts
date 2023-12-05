@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const externalDocsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_TAG_FIELD_EXTERNAL_DOCS_TYPE,
@@ -13,6 +14,7 @@ const externalDocsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'externalDocs',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default externalDocsTypeLint;

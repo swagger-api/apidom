@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const defaultTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_O_SERVER_VARIABLE_FIELD_DEFAULT_TYPE,
@@ -13,6 +14,7 @@ const defaultTypeLint: LinterMeta = {
   marker: 'value',
   target: 'default',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default defaultTypeLint;

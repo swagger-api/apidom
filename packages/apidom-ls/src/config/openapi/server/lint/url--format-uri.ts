@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const urlFormatURILint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_O_SERVER_FIELD_URL_FORMAT_URI,
@@ -19,6 +20,7 @@ const urlFormatURILint: LinterMeta = {
       params: ['^(?!.*\\{\\S+?\\}).*$'], // validate as URI only if variables in brackets not present
     },
   ],
+  targetSpecs: OpenAPI3,
 };
 
 export default urlFormatURILint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const schemeTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_SCHEME_TYPE,
@@ -13,6 +14,7 @@ const schemeTypeLint: LinterMeta = {
   marker: 'value',
   target: 'scheme',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default schemeTypeLint;

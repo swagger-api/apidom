@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const openIdConnectUrlRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_OPEN_ID_CONNECT_URL_REQUIRED,
@@ -32,6 +33,7 @@ const openIdConnectUrlRequiredLint: LinterMeta = {
       params: ['$ref'],
     },
   ],
+  targetSpecs: OpenAPI3,
 };
 
 export default openIdConnectUrlRequiredLint;

@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31 } from '../target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const httpCode3_0CompletionItem = {
@@ -15,12 +16,7 @@ const httpCode3_0CompletionItem = {
     value:
       "[Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) can link to a response that the [OpenAPI Object's components/responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsResponses) section defines.",
   },
-  targetSpecs: [
-    { namespace: 'openapi', version: '3.0.0' },
-    { namespace: 'openapi', version: '3.0.1' },
-    { namespace: 'openapi', version: '3.0.2' },
-    { namespace: 'openapi', version: '3.0.3' },
-  ],
+  targetSpecs: OpenAPI30,
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -34,7 +30,7 @@ const httpCode3_1CompletionRule = {
     value:
       '[Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses.',
   },
-  targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+  targetSpecs: OpenAPI31,
 };
 
 const completion: ApidomCompletionItem[] = [

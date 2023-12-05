@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const flowsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_FLOWS_TYPE,
@@ -13,6 +14,7 @@ const flowsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'flows',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default flowsTypeLint;

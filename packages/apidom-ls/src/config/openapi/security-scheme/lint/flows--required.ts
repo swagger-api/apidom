@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const flowsRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_FLOWS_REQUIRED,
@@ -32,6 +33,7 @@ const flowsRequiredLint: LinterMeta = {
       params: ['$ref'],
     },
   ],
+  targetSpecs: OpenAPI3,
 };
 
 export default flowsRequiredLint;

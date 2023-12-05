@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Replaces the name of the element/attribute used for the described schema property. When defined within `items`, it will affect the name of the individual XML elements within the list. When defined alongside `type` being `array` (outside the `items`), it will affect the wrapping element and only if `wrapped` is `true`. If `wrapped` is `false`, it will be ignored.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'namespace',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'The URI of the namespace definition. This MUST be in the form of an absolute URI.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'prefix',
@@ -42,12 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#xmlName).',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'prefix',
@@ -61,7 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#xmlName).',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'attribute',
@@ -75,6 +73,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Declares whether the property definition translates to an attribute instead of an element. Default value is `false`.',
     },
+    targetSpecs: OpenAPI3,
   },
   {
     label: 'wrapped',
@@ -88,6 +87,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'MAY be used only for an array definition. Signifies whether the array is wrapped (for example, `<books><book/><book/></books>`) or unwrapped (`<book/><book/>`). Default value is `false`. The definition takes effect only when defined alongside `type` being `array` (outside the `items`).',
     },
+    targetSpecs: OpenAPI3,
   },
 ];
 

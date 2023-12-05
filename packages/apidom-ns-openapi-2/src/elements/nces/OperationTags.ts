@@ -6,6 +6,7 @@ class OperationTags extends ArrayElement {
   constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.classes.push(OperationTags.primaryClass);
+    this.classes.push('tags');
   }
 }
 

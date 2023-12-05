@@ -78,6 +78,7 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
  $ npm install @swagger-api/apidom-ns-openapi-2
  $ npm install @swagger-api/apidom-ns-openapi-3-0
  $ npm install @swagger-api/apidom-ns-openapi-3-1
+ $ npm install @swagger-api/apidom-ns-workflows-1
  $ npm install @swagger-api/apidom-parser
  $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-json
  $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-yaml

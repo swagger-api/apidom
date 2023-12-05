@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const requiredTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_REQUIRED_TYPE,
@@ -13,6 +14,7 @@ const requiredTypeLint: LinterMeta = {
   marker: 'value',
   target: 'required',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default requiredTypeLint;

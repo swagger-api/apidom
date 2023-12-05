@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI30 } from '../../target-specs';
 
 const tagsItemsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPEN_API_FIELD_TAGS_ITEMS_TYPE,
@@ -13,6 +14,7 @@ const tagsItemsTypeLint: LinterMeta = {
   marker: 'key',
   target: 'tags',
   data: {},
+  targetSpecs: OpenAPI30,
 };
 
 export default tagsItemsTypeLint;

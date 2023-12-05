@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI31 } from '../../target-specs';
 
 const webhooksLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_OPEN_API_FIELD_WEBHOOKS_VALUES_TYPE,
@@ -14,6 +15,7 @@ const webhooksLint: LinterMeta = {
   markerTarget: 'webhooks',
   target: 'webhooks',
   data: {},
+  targetSpecs: OpenAPI31,
 };
 
 export default webhooksLint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI3 } from '../../target-specs';
 
 const refreshUrlFormatURILint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OAUTH_FLOW_FIELD_REFRESH_URL_FORMAT_URI,
@@ -12,6 +13,7 @@ const refreshUrlFormatURILint: LinterMeta = {
   marker: 'value',
   target: 'refreshUrl',
   data: {},
+  targetSpecs: OpenAPI3,
 };
 
 export default refreshUrlFormatURILint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI30 } from '../../target-specs';
 
 const componentsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPEN_API_FIELD_COMPONENTS_TYPE,
@@ -13,6 +14,7 @@ const componentsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'components',
   data: {},
+  targetSpecs: OpenAPI30,
 };
 
 export default componentsTypeLint;

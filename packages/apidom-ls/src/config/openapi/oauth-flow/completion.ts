@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
+import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,12 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2` (`"implicit"`, `"authorizationCode"`). **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of a URL.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'authorizationUrl',
@@ -36,7 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2` (`"implicit"`, `"authorizationCode"`). **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'tokenUrl',
@@ -50,12 +46,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`). **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of a URL.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'tokenUrl',
@@ -69,7 +60,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`). **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'refreshUrl',
@@ -83,12 +74,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2`. The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL.',
     },
-    targetSpecs: [
-      { namespace: 'openapi', version: '3.0.0' },
-      { namespace: 'openapi', version: '3.0.1' },
-      { namespace: 'openapi', version: '3.0.2' },
-      { namespace: 'openapi', version: '3.0.3' },
-    ],
+    targetSpecs: OpenAPI30,
   },
   {
     label: 'refreshUrl',
@@ -102,7 +88,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Applies to `oauth2`. The URL to be used for obtaining refresh tokens. This MUST be in the form of a URL. The OAuth2 standard requires the use of TLS.',
     },
-    targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'scopes',
@@ -116,6 +102,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it. The map MAY be empty.',
     },
+    targetSpecs: OpenAPI3,
   },
 ];
 

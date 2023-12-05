@@ -1,42 +1,8 @@
-export default [
-  'parameter',
-  'api-version',
-  'spec-version',
-  'specVersion',
-  'info',
-  'operation',
-  'pathItem',
-  'components',
-  'components-parameters',
-  'components-schemas',
-  'paths',
-  'requestBody',
-  'response',
-  'responses',
-  'schema',
-  'server',
-  'servers',
-  'title',
-  'channelItem',
-  'channels',
-  'reference-element',
-  'reference-value',
-  'components-messages',
-  'principle',
-  'requirement',
-  'requirementLevel',
-  'scenario',
-  'standard',
-  'standardIdentifier',
-  'channel-binding',
-  'contact',
-  'httpMethod',
-  'identifier',
-  'license',
-  'message',
-  'security',
-  'parametersDefinitions',
-  'responsesDefinitions',
-  'parametersDefinitions',
-  'definitions',
-];
+import adsSymbols from './ads/symbols';
+import asyncapiSymbols from './asyncapi/symbols';
+import openapiSymbols from './openapi/symbols';
+
+// creating list of unique symbols
+const symbols = Array.from(new Set([...adsSymbols, ...asyncapiSymbols, openapiSymbols]));
+
+export default symbols;

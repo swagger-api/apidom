@@ -993,4 +993,41 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintPathsEveryParameterDefined',
+    function: (element: Element): boolean => {
+      const getTemplateExpressions = (path: string): string[] =>
+        path
+          .split('/')
+          .filter((v: string) => v.startsWith('{') && v.endsWith('}'))
+          .map((v) => v.slice(1, -1));
+
+      // @ts-ignore
+      const isEveryParameterDefined: boolean[] = element.children.map((pathItem) => {
+        const value = toValue(pathItem);
+        const path = value[0];
+        const responses = value[1];
+        const templateExpressions = getTemplateExpressions(path);
+
+        if (templateExpressions.length > 0 && Object.keys(responses).length > 0) {
+          const responsesToBooleans = Object.values(responses).map((response) => {
+            // @ts-ignore
+            if (response?.parameters?.length > 0) {
+              return templateExpressions.every((template) =>
+                // @ts-ignore
+                response.parameters.some((parameter) => parameter.name === template),
+              );
+            }
+            return true;
+          });
+          return responsesToBooleans.every(
+            (responseHasAllParametersDefined) => responseHasAllParametersDefined,
+          );
+        }
+        return true;
+      });
+
+      return isEveryParameterDefined.every((isDefined) => isDefined);
+    },
+  },
 ];

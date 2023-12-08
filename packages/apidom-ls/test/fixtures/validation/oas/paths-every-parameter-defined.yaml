@@ -1,0 +1,31 @@
+openapi: 3.0.2
+info:
+  title: Foo
+  version: 0.1.0
+paths:
+  /foo/bar/{baz}/test/{foo_id}/baz/{bar_id}:
+    delete:
+      summary: Delete foo bar baz
+      operationId: >-
+        deleteFooBarBaz
+      parameters:
+        - name: foo_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Foo Id
+        - name: bar_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Bar Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}

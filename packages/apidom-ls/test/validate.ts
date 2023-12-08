@@ -3344,4 +3344,42 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas / yaml - every template expression should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'paths-every-parameter-defined.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/paths-every-parameter-defined.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 4, character: 0 }, end: { line: 4, character: 5 } },
+        message:
+          'Each template expression in given path must have a corresponding parameter defined in the parameters section of the same path.',
+        severity: 1,
+        code: 5090003,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

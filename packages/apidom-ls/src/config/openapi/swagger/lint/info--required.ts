@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI30 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
 const infoRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_OPEN_API_FIELD_INFO_REQUIRED,
+  code: ApilintCodes.OPENAPI2_SWAGGER_FIELD_INFO_REQUIRED,
   source: 'apilint',
   message: "should always have a 'info' section",
   severity: DiagnosticSeverity.Error,
@@ -22,7 +22,7 @@ const infoRequiredLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI30,
+  targetSpecs: OpenAPI2,
 };
 
 export default infoRequiredLint;

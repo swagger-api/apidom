@@ -3323,20 +3323,54 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        code: 15000,
-        message: 'Object includes not allowed fields',
         range: {
-          end: {
-            character: 5,
-            line: 0,
-          },
-          start: {
-            character: 0,
-            line: 0,
-          },
+          start: { line: 0, character: 0 },
+          end: { line: 0, character: 5 },
         },
+        message: 'Object includes not allowed fields',
         severity: 1,
+        code: 15000,
         source: 'apilint',
+      },
+      {
+        range: {
+          start: { line: 0, character: 0 },
+          end: { line: 0, character: 5 },
+        },
+        message: "should always have a 'info' section",
+        severity: 1,
+        code: 3010101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'info' section",
+              action: 'addChild',
+              snippetYaml: 'info: \n  \n',
+              snippetJson: '"info": {\n  \n  },\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 0, character: 0 },
+          end: { line: 0, character: 5 },
+        },
+        message: "should always have a 'paths' section",
+        severity: 1,
+        code: 3010701,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'paths' section",
+              action: 'addChild',
+              snippetYaml: 'paths: \n  \n',
+              snippetJson: '"paths": {\n  \n  },\n',
+            },
+          ],
+        },
       },
     ];
 

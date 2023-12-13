@@ -38,7 +38,7 @@
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
-  "author": "Vladimir Gorej",
+  "author": "Frank Kilcommins",
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",

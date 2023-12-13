@@ -27,7 +27,6 @@ Defines list of media types that this parser adapter recognizes.
 [
   'application/vnd.oai.workflows;version=1.0.0',
   'application/vnd.oai.workflows+json;version=1.0.0',
-  'application/vnd.oai.workflows+yaml;version=1.0.0',
 ]
 ```
 

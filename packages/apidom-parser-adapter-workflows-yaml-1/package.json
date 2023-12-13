@@ -1,14 +1,14 @@
 {
-  "name": "@swagger-api/apidom-parser-adapter-workflows-json-1",
+  "name": "@swagger-api/apidom-parser-adapter-workflows-yaml-1",
   "version": "0.86.0",
-  "description": "Parser adapter for parsing JSON documents into Workflows 1.x.y namespace.",
+  "description": "Parser adapter for parsing YAML documents into Workflows 1.x.y namespace.",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "type": "module",
   "sideEffects": false,
-  "unpkg": "./dist/apidom-parser-adapter-workflows-json-1.browser.min.js",
+  "unpkg": "./dist/apidom-parser-adapter-workflows-yaml-1.browser.min.js",
   "main": "./cjs/adapter.cjs",
   "exports": {
     "types": "./types/dist.d.ts",
@@ -40,7 +40,7 @@
     "@babel/runtime-corejs3": "^7.20.7",
     "@swagger-api/apidom-core": "^0.87.0",
     "@swagger-api/apidom-ns-workflows-1": "^0.87.0",
-    "@swagger-api/apidom-parser-adapter-json": "^0.87.0",
+    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.87.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.1",
     "ramda-adjunct": "^4.0.0"

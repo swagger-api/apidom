@@ -1,4 +1,4 @@
-# @swagger-api/apidom-parser-adapter-workflows-json-1-0
+# @swagger-api/apidom-parser-adapter-workflows-json-1
 
 `@swagger-api/apidom-parser-adapter-workflows-json-1-0` is a parser adapter for the [Workflows 1.x.x specification](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
@@ -60,7 +60,7 @@ During direct usage you don't need to provide `mediaType` as the `parse` functio
 with [supported media types](#mediatypes).
 
 ```js
-import { parse, detect } from '@swagger-api/apidom-parser-adapter-workflows-1';
+import { parse, detect } from '@swagger-api/apidom-parser-adapter-workflows-json-1';
 
 // detecting
 await detect('{"workflowsSpec": "1.0.0"}'); // => true
@@ -76,7 +76,7 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';
-import * as workflowsJsonAdapter from '@swagger-api/apidom-parser-adapter-workflows-1';
+import * as workflowsJsonAdapter from '@swagger-api/apidom-parser-adapter-workflows-json-1';
 
 const parser = ApiDOMParser();
 

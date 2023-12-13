@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-workflows-yaml-1",
-  "version": "0.86.0",
+  "version": "0.87.0",
   "description": "Parser adapter for parsing YAML documents into Workflows 1.x.y namespace.",
   "publishConfig": {
     "access": "public",
@@ -34,7 +34,7 @@
     "type": "git",
     "url": "git+https://github.com/swagger-api/apidom.git"
   },
-  "author": "Vladimir Gorej",
+  "author": "Frank Kilcommins",
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",

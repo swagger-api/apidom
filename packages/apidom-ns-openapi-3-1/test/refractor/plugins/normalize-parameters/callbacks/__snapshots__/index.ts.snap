@@ -180,6 +180,21 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
               "content": {
                 "key": {
                   "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
                   "content": "/"
                 },
                 "value": {
@@ -187,6 +202,21 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                   "meta": {
                     "path": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
                       "content": "/"
                     }
                   },

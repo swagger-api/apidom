@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { test, always } from 'ramda';
+import { T as stubTrue, always } from 'ramda';
 import { ObjectElement, StringElement, cloneDeep } from '@swagger-api/apidom-core';
 
 import PathsElement from '../../../../elements/Paths';
@@ -10,7 +10,7 @@ import { isPathItemElement } from '../../../../predicates';
 
 const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
   props: {
-    fieldPatternPredicate: test(/^\/(?<path>.*)$/),
+    fieldPatternPredicate: stubTrue,
     specPath: always(['document', 'objects', 'PathItem']),
     canSupportSpecificationExtensions: true,
   },
@@ -26,6 +26,8 @@ const PathsVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
       this.element
         .filter(isPathItemElement)
         .forEach((pathItemElement: PathItemElement, key: StringElement) => {
+          key.classes.push('openapi-path-template');
+          key.classes.push('path-template');
           pathItemElement.setMetaProperty('path', cloneDeep(key));
         });
 

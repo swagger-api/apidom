@@ -33,6 +33,7 @@ import serverVariableMeta from './server-variable/meta';
 import swaggerMeta from './swagger/meta';
 import tagMeta from './tag/meta';
 import xmlMeta from './xml/meta';
+import pathTemplateMeta from './path-template/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -83,4 +84,5 @@ export default {
   tag: tagMeta,
   xml: xmlMeta,
   schema: schemaMeta,
+  'path-template': pathTemplateMeta,
 };

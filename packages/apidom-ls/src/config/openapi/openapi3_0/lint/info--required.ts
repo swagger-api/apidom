@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI30 } from '../../target-specs';
 
 const infoRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_OPEN_API_FIELD_INFO_TYPE_REQUIRED,
+  code: ApilintCodes.OPENAPI3_0_OPEN_API_FIELD_INFO_REQUIRED,
   source: 'apilint',
   message: "should always have a 'info' section",
   severity: DiagnosticSeverity.Error,

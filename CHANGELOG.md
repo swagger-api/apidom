@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.87.0](https://github.com/swagger-api/apidom/compare/v0.86.0...v0.87.0) (2023-12-12)
+
+### Features
+
+- **ls:** add rules for OpenAPI 2.0 Swagger Object ([#3527](https://github.com/swagger-api/apidom/issues/3527)) ([dfa91c2](https://github.com/swagger-api/apidom/commit/dfa91c2b5a8a9b41e05524db31d6e79d18994f0b)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+
 # [0.86.0](https://github.com/swagger-api/apidom/compare/v0.85.0...v0.86.0) (2023-12-05)
 
 ### Bug Fixes

@@ -91,6 +91,21 @@ exports[`given OpenAPI 3.1 definition should decorate with API Design Systems St
               "content": {
                 "key": {
                   "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
                   "content": "/path1"
                 },
                 "value": {
@@ -98,6 +113,21 @@ exports[`given OpenAPI 3.1 definition should decorate with API Design Systems St
                   "meta": {
                     "path": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
                       "content": "/path1"
                     }
                   },

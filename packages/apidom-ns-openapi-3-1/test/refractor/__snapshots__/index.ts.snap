@@ -726,6 +726,21 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
               "content": {
                 "key": {
                   "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
                   "content": "/path1"
                 },
                 "value": {
@@ -733,6 +748,21 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                   "meta": {
                     "path": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
                       "content": "/path1"
                     }
                   },
@@ -4475,6 +4505,21 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
               "content": {
                 "key": {
                   "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
                   "content": "/path2"
                 },
                 "value": {
@@ -4491,6 +4536,21 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                     },
                     "path": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
                       "content": "/path2"
                     }
                   },

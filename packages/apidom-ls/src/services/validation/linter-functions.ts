@@ -3,12 +3,14 @@ import {
   Element,
   ArrayElement,
   MemberElement,
+  isStringElement,
   filter,
   toValue,
   ArraySlice,
   ObjectElement,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
+import { test } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -989,6 +991,25 @@ export const standardLinterfunctions: FunctionItem[] = [
             recursive: false,
           }).length > 0;
         return isIncluded;
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIPathTemplateWellFormed',
+    function: (element: Element, strict = false) => {
+      if (isStringElement(element)) {
+        const pathTemplate = toValue(element);
+        return test(pathTemplate, { strict });
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIPathTemplateValid',
+    function: (element: Element) => {
+      if (isStringElement(element)) {
+        return true;
       }
       return true;
     },

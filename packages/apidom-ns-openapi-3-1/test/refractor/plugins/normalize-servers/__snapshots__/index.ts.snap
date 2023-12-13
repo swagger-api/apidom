@@ -237,6 +237,21 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
               "content": {
                 "key": {
                   "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
                   "content": "/"
                 },
                 "value": {
@@ -244,6 +259,21 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
                   "meta": {
                     "path": {
                       "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
                       "content": "/"
                     }
                   },

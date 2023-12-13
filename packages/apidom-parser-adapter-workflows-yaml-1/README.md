@@ -1,4 +1,4 @@
-# @swagger-api/apidom-parser-adapter-workflows-yaml-1-0
+# @swagger-api/apidom-parser-adapter-workflows-yaml-1
 
 `@swagger-api/apidom-parser-adapter-workflows-yaml-1-0` is a parser adapter for the [Workflows 1.x.x specification](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
 Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)

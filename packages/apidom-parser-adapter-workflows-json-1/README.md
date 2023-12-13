@@ -1,4 +1,4 @@
-# @swagger-api/apidom-parser-adapter-workflows-json-1-0
+# @swagger-api/apidom-parser-adapter-workflows-json-1
 
 `@swagger-api/apidom-parser-adapter-workflows-json-1-0` is a parser adapter for the [Workflows 1.x.x specification](https://github.com/OAI/sig-workflows/blob/main/versions/1.0.0.md) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)

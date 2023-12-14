@@ -10,7 +10,7 @@ import {
   ObjectElement,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test } from 'openapi-path-templating';
+import { test, parse } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1009,9 +1009,37 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintOpenAPIPathTemplateValid',
     function: (element: Element) => {
       if (isStringElement(element)) {
-        return true;
+        const parseResult = parse(toValue(element));
+        const parts: string[] = [];
+        parseResult.ast.translate(parts);
+
+        const templateExpressions = parts
+          .filter((part) => part[0] === 'template-expression')
+          .map((part) => part[1].slice(1, -1));
+
+        if (templateExpressions.length === 0) {
+          return true;
+        }
+
+        const httpVerbsWithParameters: {
+          [key: string]: {
+            parameters: {
+              name: string;
+            }[];
+          };
+        } = element.parent.toValue().value;
+
+        const allExpressionsHaveMatchingParameter = Object.values(httpVerbsWithParameters).every(
+          ({ parameters }) => {
+            return templateExpressions.every((expression) =>
+              parameters.find(({ name }) => name === expression),
+            );
+          },
+        );
+        return allExpressionsHaveMatchingParameter;
       }
-      return true;
+
+      return false;
     },
   },
 ];

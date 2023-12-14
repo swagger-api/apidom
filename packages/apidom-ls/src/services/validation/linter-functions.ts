@@ -1017,10 +1017,6 @@ export const standardLinterfunctions: FunctionItem[] = [
           .filter((part) => part[0] === 'template-expression')
           .map((part) => part[1].slice(1, -1));
 
-        if (templateExpressions.length === 0) {
-          return true;
-        }
-
         const httpVerbsWithParameters: {
           [key: string]: {
             parameters: {

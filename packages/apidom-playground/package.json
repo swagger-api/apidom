@@ -54,8 +54,8 @@
     "ramda-adjunct": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
-    "swagger-adjust": "^0.5.1",
+    "react-redux": "^9.0.4",
+    "swagger-adjust": "^0.6.1",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {

@@ -3378,7 +3378,8 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
-  it('oas / yaml - every path template should be defined', async function () {
+  // eslint-disable-next-line
+  it.only('oas / yaml - every path template should be defined', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,

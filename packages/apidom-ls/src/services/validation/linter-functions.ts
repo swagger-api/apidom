@@ -8,9 +8,15 @@ import {
   toValue,
   ArraySlice,
   ObjectElement,
+  isArrayElement,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test, parse } from 'openapi-path-templating';
+import { test, resolve } from 'openapi-path-templating';
+import {
+  OperationElement,
+  ParameterElement,
+  isParameterElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1009,30 +1015,40 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintOpenAPIPathTemplateValid',
     function: (element: Element) => {
       if (isStringElement(element)) {
-        const parseResult = parse(toValue(element));
-        const parts: string[] = [];
-        parseResult.ast.translate(parts);
+        const parameterElements: ParameterElement[] = [];
 
-        const templateExpressions = parts
-          .filter((part) => part[0] === 'template-expression')
-          .map((part) => part[1].slice(1, -1));
+        const pathItemElement = (element.parent as MemberElement).value as ObjectElement;
 
-        const httpVerbsWithParameters: {
-          [key: string]: {
-            parameters: {
-              name: string;
-            }[];
-          };
-        } = element.parent.toValue().value;
+        if (pathItemElement.length === 0) {
+          return true;
+        }
 
-        const allExpressionsHaveMatchingParameter = Object.values(httpVerbsWithParameters).every(
-          ({ parameters }) => {
-            return templateExpressions.every((expression) =>
-              parameters.find(({ name }) => name === expression),
-            );
+        pathItemElement.forEach((operation) => {
+          const parameters = (operation as OperationElement).get('parameters');
+          if (isArrayElement(parameters)) {
+            parameters.forEach((parameter) => {
+              if (isParameterElement(parameter)) {
+                const allowedLocation = ['path', 'query'];
+                if (allowedLocation.includes(toValue(parameter.in))) {
+                  parameterElements.push(parameter);
+                }
+              }
+            });
+          }
+        });
+
+        const pathTemplateResolveParams = parameterElements.reduce(
+          (params: { [key: string]: string }, parameterElement) => {
+            params[toValue(parameterElement.name) as string] = 'placeholder'; // eslint-disable-line no-param-reassign
+            return params;
           },
+          {},
         );
-        return allExpressionsHaveMatchingParameter;
+
+        const pathTemplate = toValue(element);
+        const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);
+
+        return !test(resolvedPathTemplate, { strict: true });
       }
 
       return false;

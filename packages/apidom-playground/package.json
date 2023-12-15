@@ -32,6 +32,7 @@
     "@swagger-api/apidom-ns-openapi-2": "*",
     "@swagger-api/apidom-ns-openapi-3-0": "*",
     "@swagger-api/apidom-ns-openapi-3-1": "*",
+    "@swagger-api/apidom-ns-workflows-1": "*",
     "@swagger-api/apidom-parser": "*",
     "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "*",
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "*",
@@ -42,6 +43,8 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "*",
+    "@swagger-api/apidom-parser-adapter-workflows-json-1": "*",
+    "@swagger-api/apidom-parser-adapter-workflows-yaml-1": "*",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "*",
     "@swagger-api/apidom-reference": "*",
     "classnames": "^2.3.2",
@@ -51,8 +54,8 @@
     "ramda-adjunct": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
-    "swagger-adjust": "^0.5.1",
+    "react-redux": "^9.0.4",
+    "swagger-adjust": "^0.6.1",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {

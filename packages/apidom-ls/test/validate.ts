@@ -3403,14 +3403,21 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 5, character: 2 }, end: { line: 5, character: 43 } },
+        range: { start: { line: 15, character: 2 }, end: { line: 15, character: 43 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
         source: 'apilint',
       },
       {
-        range: { start: { line: 31, character: 2 }, end: { line: 31, character: 25 } },
+        range: { start: { line: 40, character: 2 }, end: { line: 40, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 58, character: 2 }, end: { line: 58, character: 31 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,

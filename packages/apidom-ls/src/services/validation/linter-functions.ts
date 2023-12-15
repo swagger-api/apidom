@@ -12,11 +12,7 @@ import {
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 import { test, resolve } from 'openapi-path-templating';
-import {
-  OperationElement,
-  ParameterElement,
-  isParameterElement,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+import { OperationElement, isParameterElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1015,13 +1011,13 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintOpenAPIPathTemplateValid',
     function: (element: Element) => {
       if (isStringElement(element)) {
-        const parameterElements: ParameterElement[] = [];
-
         const pathItemElement = (element.parent as MemberElement).value as ObjectElement;
 
         if (pathItemElement.length === 0) {
           return true;
         }
+
+        const pathTemplateResolveParams: { [key: string]: string } = {};
 
         pathItemElement.forEach((operation) => {
           const parameters = (operation as OperationElement).get('parameters');
@@ -1030,20 +1026,12 @@ export const standardLinterfunctions: FunctionItem[] = [
               if (isParameterElement(parameter)) {
                 const allowedLocation = ['path', 'query'];
                 if (allowedLocation.includes(toValue(parameter.in))) {
-                  parameterElements.push(parameter);
+                  pathTemplateResolveParams[toValue(parameter.name) as string] = 'placeholder';
                 }
               }
             });
           }
         });
-
-        const pathTemplateResolveParams = parameterElements.reduce(
-          (params: { [key: string]: string }, parameterElement) => {
-            params[toValue(parameterElement.name) as string] = 'placeholder'; // eslint-disable-line no-param-reassign
-            return params;
-          },
-          {},
-        );
 
         const pathTemplate = toValue(element);
         const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);

@@ -1,7 +1,7 @@
 {
   "name": "@swagger-api/apidom-ns-api-design-systems",
   "description": "API Design Systems 2021-05-07 namespace for ApiDOM.",
-  "version": "0.87.0",
+  "version": "0.88.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -42,9 +42,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.87.0",
-    "@swagger-api/apidom-error": "^0.87.0",
-    "@swagger-api/apidom-ns-openapi-3-1": "^0.87.0",
+    "@swagger-api/apidom-core": "^0.88.0",
+    "@swagger-api/apidom-error": "^0.88.0",
+    "@swagger-api/apidom-ns-openapi-3-1": "^0.88.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.1",
     "ramda-adjunct": "^4.1.1",

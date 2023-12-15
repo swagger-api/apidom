@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.88.0](https://github.com/swagger-api/apidom/compare/v0.87.0...v0.88.0) (2023-12-15)
+
+### Features
+
+- allow linting OpenAPI path templates ([#3532](https://github.com/swagger-api/apidom/issues/3532)) ([b0b03a2](https://github.com/swagger-api/apidom/commit/b0b03a2d2549a68701248909d7b73ec5a1d51ae5)), closes [#3517](https://github.com/swagger-api/apidom/issues/3517)
+- **apidom-playground:** add Workflows Spec support ([#3535](https://github.com/swagger-api/apidom/issues/3535)) ([cd1b8f6](https://github.com/swagger-api/apidom/commit/cd1b8f61d09c9c4b7e151a3dee764ca5464e2c5c))
+- **workflows-1:** add JSON and YAML 1.2 parser adapters ([#3530](https://github.com/swagger-api/apidom/issues/3530)) ([08819a0](https://github.com/swagger-api/apidom/commit/08819a0ca7f7c28de6add290c1e39619714d1fcf))
+
 # [0.87.0](https://github.com/swagger-api/apidom/compare/v0.86.0...v0.87.0) (2023-12-12)
 
 ### Features

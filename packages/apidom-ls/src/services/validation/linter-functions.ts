@@ -1017,26 +1017,24 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         const parameterElements: Element[] = [];
-
-        const isParameterPolymorphicCheck = (el: Element): boolean => el.element === 'parameter';
+        const isParameterElement = (el: Element): boolean => el.element === 'parameter';
 
         pathItemElement.forEach((el) => {
           if (el.element === 'parameters') {
-            const parametersObject = pathItemElement.get('parameters');
-            if (isArrayElement(parametersObject)) {
-              parametersObject.forEach((parameter) => {
-                if (isParameterPolymorphicCheck(parameter)) {
+            const pathItemParameterElements = pathItemElement.get('parameters');
+            if (isArrayElement(pathItemParameterElements)) {
+              pathItemParameterElements.forEach((parameter) => {
+                if (isParameterElement(parameter)) {
                   parameterElements.push(parameter);
                 }
               });
             }
           }
           if (el.element === 'operation') {
-            // @ts-ignore
-            const parameters = el.get('parameters');
-            if (isArrayElement(parameters)) {
-              parameters.forEach((parameter) => {
-                if (isParameterPolymorphicCheck(parameter)) {
+            const operationParameterElements = (el as ObjectElement).get('parameters');
+            if (isArrayElement(operationParameterElements)) {
+              operationParameterElements.forEach((parameter) => {
+                if (isParameterElement(parameter)) {
                   parameterElements.push(parameter);
                 }
               });
@@ -1045,13 +1043,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         });
 
         const allowedLocation = ['path', 'query'];
-        const pathTemplateResolveParams: { [key: string]: string } = {};
+        const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
 
         parameterElements.forEach((parameter) => {
-          // @ts-ignore
-          if (allowedLocation.includes(toValue(parameter.in))) {
-            // @ts-ignore
-            pathTemplateResolveParams[toValue(parameter.name) as string] = 'placeholder';
+          if (allowedLocation.includes(toValue((parameter as ObjectElement).get('in')))) {
+            pathTemplateResolveParams[toValue((parameter as ObjectElement).get('name'))] =
+              'placeholder';
           }
         });
 

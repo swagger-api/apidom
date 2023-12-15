@@ -1019,17 +1019,16 @@ export const standardLinterfunctions: FunctionItem[] = [
         const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
 
-        pathItemElement.forEach((el) => {
-          if (el.element === 'parameters') {
-            const pathItemParameterElements = pathItemElement.get('parameters');
-            if (isArrayElement(pathItemParameterElements)) {
-              pathItemParameterElements.forEach((parameter) => {
-                if (isParameterElement(parameter)) {
-                  parameterElements.push(parameter);
-                }
-              });
+        const pathItemParameterElements = pathItemElement.get('parameters');
+        if (isArrayElement(pathItemParameterElements)) {
+          pathItemParameterElements.forEach((parameter) => {
+            if (isParameterElement(parameter)) {
+              parameterElements.push(parameter);
             }
-          }
+          });
+        }
+
+        pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
             const operationParameterElements = (el as ObjectElement).get('parameters');
             if (isArrayElement(operationParameterElements)) {

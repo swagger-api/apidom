@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: Foo
+  version: 0.1.0
+components:
+  parameters:
+    test_id:
+      name: test_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        title: Test Id
+paths:
+  /foo/bar/{baz}/test/{foo_id}/baz/{bar_id}:
+    delete:
+      summary: Delete foo bar test baz
+      operationId: deleteFooBarTestBaz
+      parameters:
+        - name: foo_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Foo Id
+        - name: bar_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Bar Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /test/{foo_id}/{bar_id}:
+    get:
+      summary: Get test foo bar
+      operationId: getTestFooBar
+      parameters:
+        - name: foo_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Foo Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /reference/{test_id}/{baz_id}:
+    get:
+      summary: Get test baz
+      operationId: getReferenceTestBaz
+      parameters:
+        - $ref: '#/components/parameters/test_id'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /just_parameters_object/{x_id}/{y_id}:
+    parameters:
+      - name: x_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: X Id
+  /both_parameters_and_operations_object/{a_id}/{b_id}/{c_id}:
+    get:
+      summary: Get both parameters and operations object a b c
+      operationId: getBothParametersAndOperationsObjectABC
+      parameters:
+        - name: b_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: B Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    parameters:
+      - name: a_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: A Id

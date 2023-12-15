@@ -1,9 +1,8 @@
-openapi: 3.0.0
+swagger: '2.0'
 info:
   title: Foo
   version: 0.1.0
-components:
-  parameters:
+parameters:
     test_id:
       name: test_id
       in: path
@@ -61,10 +60,45 @@ paths:
       summary: Get test baz
       operationId: getReferenceTestBaz
       parameters:
-        - $ref: '#/components/parameters/test_id'
+        - $ref: '#/parameters/test_id'
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema: {}
+  /just_parameters_object/{x_id}/{y_id}:
+    parameters:
+      - name: x_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: X Id
+  /both_parameters_and_operations_object/{a_id}/{b_id}/{c_id}:
+    get:
+      summary: Get both parameters and operations object a b c
+      operationId: getBothParametersAndOperationsObjectABC
+      parameters:
+        - name: b_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: B Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    parameters:
+      - name: a_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: A Id

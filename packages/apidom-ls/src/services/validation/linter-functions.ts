@@ -12,7 +12,6 @@ import {
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 import { test, resolve } from 'openapi-path-templating';
-import { OperationElement, isParameterElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1017,19 +1016,42 @@ export const standardLinterfunctions: FunctionItem[] = [
           return true;
         }
 
+        const parameterElements: Element[] = [];
+
+        const isParameterPolymorphicCheck = (el: Element): boolean => el.element === 'parameter';
+
+        pathItemElement.forEach((el) => {
+          if (el.element === 'parameters') {
+            const parametersObject = pathItemElement.get('parameters');
+            if (isArrayElement(parametersObject)) {
+              parametersObject.forEach((parameter) => {
+                if (isParameterPolymorphicCheck(parameter)) {
+                  parameterElements.push(parameter);
+                }
+              });
+            }
+          }
+          if (el.element === 'operation') {
+            // @ts-ignore
+            const parameters = el.get('parameters');
+            if (isArrayElement(parameters)) {
+              parameters.forEach((parameter) => {
+                if (isParameterPolymorphicCheck(parameter)) {
+                  parameterElements.push(parameter);
+                }
+              });
+            }
+          }
+        });
+
+        const allowedLocation = ['path', 'query'];
         const pathTemplateResolveParams: { [key: string]: string } = {};
 
-        pathItemElement.forEach((operation) => {
-          const parameters = (operation as OperationElement).get('parameters');
-          if (isArrayElement(parameters)) {
-            parameters.forEach((parameter) => {
-              if (isParameterElement(parameter)) {
-                const allowedLocation = ['path', 'query'];
-                if (allowedLocation.includes(toValue(parameter.in))) {
-                  pathTemplateResolveParams[toValue(parameter.name) as string] = 'placeholder';
-                }
-              }
-            });
+        parameterElements.forEach((parameter) => {
+          // @ts-ignore
+          if (allowedLocation.includes(toValue(parameter.in))) {
+            // @ts-ignore
+            pathTemplateResolveParams[toValue(parameter.name) as string] = 'placeholder';
           }
         });
 

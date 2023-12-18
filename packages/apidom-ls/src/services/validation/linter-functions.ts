@@ -1061,13 +1061,9 @@ export const standardLinterfunctions: FunctionItem[] = [
 
         const pathTemplate = toValue(element);
         const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);
+        const includesTemplateExpression = test(resolvedPathTemplate, { strict: true });
 
-        const resolveResult = !test(resolvedPathTemplate, { strict: true });
-
-        if (!resolveResult && oneOfParametersIsReferenceObject) {
-          return true;
-        }
-        return resolveResult;
+        return !includesTemplateExpression || oneOfParametersIsReferenceObject;
       }
 
       return true;

@@ -3,9 +3,22 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
+  {
+    label: 'name',
+    insertText: 'name',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '**Required**. The license name used for the API.',
+    },
+    targetSpecs: OpenAPI2,
+  },
   {
     label: 'name',
     insertText: 'name',
@@ -44,7 +57,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A URL to the license used for the API. MUST be in the format of a URL.',
     },
-    targetSpecs: OpenAPI30,
+    targetSpecs: [...OpenAPI2, ...OpenAPI30],
   },
   {
     label: 'url',

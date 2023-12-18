@@ -9,7 +9,7 @@ const thenTypeLint: LinterMeta = {
   message: '"then" must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'then',
   data: {},

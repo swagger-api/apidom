@@ -9,7 +9,7 @@ const clientIdTypeLint: LinterMeta = {
   message: 'clientId must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'clientId',
   data: {},

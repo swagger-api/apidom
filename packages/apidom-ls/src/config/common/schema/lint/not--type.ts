@@ -9,7 +9,7 @@ const notTypeLint: LinterMeta = {
   message: '"not" must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'not',
   data: {},

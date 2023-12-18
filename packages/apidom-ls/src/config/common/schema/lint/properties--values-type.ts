@@ -9,7 +9,7 @@ const propertiesValuesTypeLint: LinterMeta = {
   message: 'properties members must be schemas',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
-  linterParams: [['schema']],
+  linterParams: [['schema', 'boolean']],
   marker: 'key',
   markerTarget: 'properties',
   target: 'properties',

@@ -9,7 +9,7 @@ const anyOfTypeLint: LinterMeta = {
   message: 'anyOf must be a non-empty array of schemas',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
-  linterParams: [['schema'], true],
+  linterParams: [['schema', 'boolean'], true],
   marker: 'key',
   target: 'anyOf',
   data: {},

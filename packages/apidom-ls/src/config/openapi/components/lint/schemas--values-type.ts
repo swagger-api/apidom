@@ -10,7 +10,7 @@ const schemasValuesTypeLint: LinterMeta = {
   message: '"schemas" members must be Schema Object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
-  linterParams: [['schema']],
+  linterParams: [['schema', 'boolean']],
   marker: 'key',
   markerTarget: 'schemas',
   target: 'schemas',

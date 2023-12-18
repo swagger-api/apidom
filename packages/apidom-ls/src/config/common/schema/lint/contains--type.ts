@@ -9,7 +9,7 @@ const containsTypeLint: LinterMeta = {
   message: 'contains must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'contains',
   data: {},

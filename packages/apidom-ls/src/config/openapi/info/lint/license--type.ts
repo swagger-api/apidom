@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI } from '../../target-specs';
 
 const licenseTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_INFO_FIELD_LICENSE_TYPE,
+  code: ApilintCodes.OPENAPI2_INFO_FIELD_LICENSE_TYPE,
   source: 'apilint',
   message: 'license must be an object',
   severity: DiagnosticSeverity.Error,
@@ -14,7 +14,7 @@ const licenseTypeLint: LinterMeta = {
   marker: 'value',
   target: 'license',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI,
 };
 
 export default licenseTypeLint;

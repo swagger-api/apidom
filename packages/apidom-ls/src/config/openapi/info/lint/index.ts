@@ -1,9 +1,10 @@
-import allowedFields3_0Lint from './allowed-fields-3-0';
+import allowedFields2_0__3_0Lint from './allowed-fields-2-0--3-0';
 import allowedFields3_1Lint from './allowed-fields-3-1';
 import titleTypeLint from './title--type';
 import titleRequiredLint from './title--required';
 import summaryTypeLint from './summary--type';
 import descriptionTypeLint from './description--type';
+import termsOfServiceTypeLint from './terms-of-service--type';
 import termsOfServiceFormatURILint from './terms-of-service--format-uri';
 import contactTypeLint from './contact--type';
 import licenseTypeLint from './license--type';
@@ -15,12 +16,13 @@ const lints = [
   titleRequiredLint,
   summaryTypeLint,
   descriptionTypeLint,
+  termsOfServiceTypeLint,
   termsOfServiceFormatURILint,
   contactTypeLint,
   licenseTypeLint,
   versionTypeLint,
   versionRequiredLint,
-  allowedFields3_0Lint,
+  allowedFields2_0__3_0Lint,
   allowedFields3_1Lint,
 ];
 

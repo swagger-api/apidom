@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const titleTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_INFO_FIELD_TITLE_TYPE,
+const termsOfServiceTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_INFO_FIELD_TERMS_OF_SERVICE_TYPE,
   source: 'apilint',
-  message: 'title must be a string',
+  message: 'termsOfService must be a string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'title',
+  target: 'termsOfService',
   data: {},
-  targetSpecs: OpenAPI,
+  targetSpecs: OpenAPI2,
 };
 
-export default titleTypeLint;
+export default termsOfServiceTypeLint;

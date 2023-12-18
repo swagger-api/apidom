@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI } from '../../target-specs';
 
 const versionRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_INFO_FIELD_VERSION_REQUIRED,
+  code: ApilintCodes.OPENAPI2_INFO_FIELD_VERSION_REQUIRED,
   source: 'apilint',
   message: "should always have a 'version'",
   severity: DiagnosticSeverity.Error,
@@ -22,7 +22,7 @@ const versionRequiredLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI,
 };
 
 export default versionRequiredLint;

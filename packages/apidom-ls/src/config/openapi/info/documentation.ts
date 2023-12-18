@@ -1,4 +1,4 @@
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 /**
  * Omitted fixed fields:
@@ -14,6 +14,11 @@ import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 const documentation = [
   {
     target: 'title',
+    docs: '**Required.** The title of the application.',
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'title',
     docs: '**REQUIRED.** The title of the API.',
     targetSpecs: OpenAPI3,
   },
@@ -24,13 +29,28 @@ const documentation = [
   },
   {
     target: 'description',
+    docs: 'A short description of the application. [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) can be used for rich text representation.',
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'description',
     docs: 'A description of the API. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     targetSpecs: OpenAPI3,
   },
   {
     target: 'termsOfService',
+    docs: 'The Terms of Service for the API.',
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'termsOfService',
     docs: 'A URL to the Terms of Service for the API. This MUST be in the form of a URL.',
     targetSpecs: OpenAPI3,
+  },
+  {
+    target: 'version',
+    docs: '**Required** Provides the version of the application API (not to be confused with the specification version).',
+    targetSpecs: OpenAPI2,
   },
   {
     target: 'version',

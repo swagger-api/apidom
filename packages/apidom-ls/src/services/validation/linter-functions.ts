@@ -1070,7 +1070,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         return resolveResult;
       }
 
-      return false;
+      return true;
     },
   },
 ];

@@ -1,4 +1,4 @@
-import allowedFields3_0Lint from './allowed-fields-3-0';
+import allowedFields2_0__3_0Lint from './allowed-fields-2-0--3-0';
 import allowedFields3_1Lint from './allowed-fields-3-1';
 import nameTypeLint from './name--type';
 import nameRequiredLint from './name--required';
@@ -12,7 +12,7 @@ const lints = [
   identifierTypeLint,
   identifierMutuallyExclusiveLint,
   urlFormatURILint,
-  allowedFields3_0Lint,
+  allowedFields2_0__3_0Lint,
   allowedFields3_1Lint,
 ];
 

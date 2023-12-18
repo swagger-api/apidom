@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI3 } from '../../target-specs';
 
 const urlFormatURILint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_LICENSE_FIELD_URL_FORMAT_URI,
+  code: ApilintCodes.OPENAPI2_LICENSE_FIELD_URL_FORMAT_URI,
   source: 'apilint',
   message: "'url' value must be a valid URL",
   severity: DiagnosticSeverity.Error,

@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI } from '../../target-specs';
 
 const nameRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_LICENSE_FIELD_NAME_REQUIRED,
+  code: ApilintCodes.OPENAPI2_LICENSE_FIELD_NAME_REQUIRED,
   source: 'apilint',
   message: "should always have a 'name'",
   severity: DiagnosticSeverity.Error,
@@ -22,7 +22,7 @@ const nameRequiredLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI,
 };
 
 export default nameRequiredLint;

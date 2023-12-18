@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI, OpenAPI2, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,7 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'The identifying name of the contact person/organization.',
     },
-    targetSpecs: OpenAPI,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     label: 'url',

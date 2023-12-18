@@ -1016,12 +1016,17 @@ export const standardLinterfunctions: FunctionItem[] = [
           return true;
         }
 
+        let oneOfParametersIsReferenceObject = false;
         const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
+        const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
         const pathItemParameterElements = pathItemElement.get('parameters');
         if (isArrayElement(pathItemParameterElements)) {
           pathItemParameterElements.forEach((parameter) => {
+            if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
+              oneOfParametersIsReferenceObject = true;
+            }
             if (isParameterElement(parameter)) {
               parameterElements.push(parameter);
             }
@@ -1033,6 +1038,9 @@ export const standardLinterfunctions: FunctionItem[] = [
             const operationParameterElements = (el as ObjectElement).get('parameters');
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
+                if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
+                  oneOfParametersIsReferenceObject = true;
+                }
                 if (isParameterElement(parameter)) {
                   parameterElements.push(parameter);
                 }
@@ -1054,7 +1062,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         const pathTemplate = toValue(element);
         const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);
 
-        return !test(resolvedPathTemplate, { strict: true });
+        const resolveResult = !test(resolvedPathTemplate, { strict: true });
+
+        if (!resolveResult && oneOfParametersIsReferenceObject) {
+          return true;
+        }
+        return resolveResult;
       }
 
       return false;

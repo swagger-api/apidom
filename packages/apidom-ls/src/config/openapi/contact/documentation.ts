@@ -1,10 +1,10 @@
-import { OpenAPI, OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const documentation = [
   {
     target: 'name',
     docs: 'The identifying name of the contact person/organization.',
-    targetSpecs: OpenAPI,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     target: 'url',

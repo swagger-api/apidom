@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const nameTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_LICENSE_FIELD_NAME_TYPE,
@@ -14,7 +14,7 @@ const nameTypeLint: LinterMeta = {
   marker: 'value',
   target: 'name',
   data: {},
-  targetSpecs: OpenAPI,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default nameTypeLint;

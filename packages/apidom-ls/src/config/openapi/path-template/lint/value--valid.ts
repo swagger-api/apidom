@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const valueValidLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_PATH_TEMPLATE_VALUE_VALID,
@@ -11,7 +11,7 @@ const valueValidLint: LinterMeta = {
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintOpenAPIPathTemplateValid',
   marker: 'value',
-  targetSpecs: OpenAPI,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
   conditions: [
     {
       function: 'apilintOpenAPIPathTemplateWellFormed',

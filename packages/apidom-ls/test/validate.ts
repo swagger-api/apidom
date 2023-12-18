@@ -3378,4 +3378,175 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 2.0 / yaml - every path template should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'path-template-all-defined-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-all-defined-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 14, character: 2 }, end: { line: 14, character: 43 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 39, character: 2 }, end: { line: 39, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 69, character: 2 }, end: { line: 69, character: 39 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 78, character: 2 }, end: { line: 78, character: 61 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - every path template should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'path-template-all-defined-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-all-defined-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 2 }, end: { line: 15, character: 43 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 40, character: 2 }, end: { line: 40, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 70, character: 2 }, end: { line: 70, character: 39 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 79, character: 2 }, end: { line: 79, character: 61 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.1 / yaml - every path template should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'path-template-all-defined-3-1.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-all-defined-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 2 }, end: { line: 15, character: 43 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 40, character: 2 }, end: { line: 40, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 70, character: 2 }, end: { line: 70, character: 39 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 79, character: 2 }, end: { line: 79, character: 61 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
 });

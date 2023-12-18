@@ -8,9 +8,10 @@ import {
   toValue,
   ArraySlice,
   ObjectElement,
+  isArrayElement,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test } from 'openapi-path-templating';
+import { test, resolve } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1009,8 +1010,62 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintOpenAPIPathTemplateValid',
     function: (element: Element) => {
       if (isStringElement(element)) {
-        return true;
+        const pathItemElement = (element.parent as MemberElement).value as ObjectElement;
+
+        if (pathItemElement.length === 0) {
+          return true;
+        }
+
+        let oneOfParametersIsReferenceObject = false;
+        const parameterElements: Element[] = [];
+        const isParameterElement = (el: Element): boolean => el.element === 'parameter';
+        const isReferenceElement = (el: Element): boolean => el.element === 'reference';
+
+        const pathItemParameterElements = pathItemElement.get('parameters');
+        if (isArrayElement(pathItemParameterElements)) {
+          pathItemParameterElements.forEach((parameter) => {
+            if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
+              oneOfParametersIsReferenceObject = true;
+            }
+            if (isParameterElement(parameter)) {
+              parameterElements.push(parameter);
+            }
+          });
+        }
+
+        pathItemElement.forEach((el) => {
+          if (el.element === 'operation') {
+            const operationParameterElements = (el as ObjectElement).get('parameters');
+            if (isArrayElement(operationParameterElements)) {
+              operationParameterElements.forEach((parameter) => {
+                if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
+                  oneOfParametersIsReferenceObject = true;
+                }
+                if (isParameterElement(parameter)) {
+                  parameterElements.push(parameter);
+                }
+              });
+            }
+          }
+        });
+
+        const allowedLocation = ['path', 'query'];
+        const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
+
+        parameterElements.forEach((parameter) => {
+          if (allowedLocation.includes(toValue((parameter as ObjectElement).get('in')))) {
+            pathTemplateResolveParams[toValue((parameter as ObjectElement).get('name'))] =
+              'placeholder';
+          }
+        });
+
+        const pathTemplate = toValue(element);
+        const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);
+        const includesTemplateExpression = test(resolvedPathTemplate, { strict: true });
+
+        return !includesTemplateExpression || oneOfParametersIsReferenceObject;
       }
+
       return true;
     },
   },

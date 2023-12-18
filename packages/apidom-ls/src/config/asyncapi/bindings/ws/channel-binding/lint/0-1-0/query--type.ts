@@ -9,7 +9,7 @@ const queryTypeLint: LinterMeta = {
   message: 'query must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema', 'boolean'],
+  linterParams: ['schema'],
   marker: 'value',
   target: 'query',
   data: {},

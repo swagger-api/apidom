@@ -3,17 +3,20 @@ import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
 import additionalItemsNonArrayLint from './additional-items--non-array';
 import additionalItemsTypeLint from './additional-items--type';
+import additionalItemsTypeOpenAPI3_1_AsyncAPI2Lint from './additional-items--type-openapi-3-1-asyncapi-2';
 import additionalPropertiesNonObject from './additional-properties--non-object';
 import additionalPropertiesTypeLint from './additional-properties--type';
 import allOfTypeLint from './all-of--type';
 import anyOfTypeLint from './any-of--type';
 import containsNonArrayLint from './contains--non-array';
 import containsTypeLint from './contains--type';
+import containsTypeOpenAPI3_1_AsyncAPI2Lint from './contains--type-openapi-3-1-asyncapi-2';
 import descriptionTypeLint from './description--type';
 import discriminatorExistInRequiredLint from './discriminator--exist-in-required';
 import discriminatorTypeLint from './discriminator--type-asyncapi-2-0--2-4';
 import elseNonIfLint from './else--non-if';
 import elseTypeLint from './else--type';
+import elseTypeOpenAPI3_1_AsyncAPI2Lint from './else--type-openapi-3-1-asyncapi-2';
 import enumUniqueLint from './enum--unique';
 import examplesTypeLint from './examples--type';
 import exclusiveMaximumPatternLint from './exclusive-maximum--pattern';
@@ -22,6 +25,7 @@ import externalDocsTypeLint from './external-docs--type';
 import formatTypeLint from './format--type';
 import ifNonThenLint from './if--non-then';
 import ifTypeLint from './if--type';
+import ifTypeOpenAPI3_1_AsyncAPI2Lint from './if--type-openapi-3-1-asyncapi-2';
 import itemsNonArrayLint from './items--non-array';
 import itemsTypeLint from './items--type';
 import maxItemsNonArrayLint from './max-items--non-array';
@@ -36,8 +40,13 @@ import minLengthTypeLint from './min-length--type';
 import minPropertiesNonObjectLint from './min-properties--non-object';
 import minPropertiesTypeLint from './min-properties--type';
 import minimumPatternLint from './minimum--pattern';
+import missingCoreFieldsOpenAPI2_0Lint from './missing-core-fields-openapi-2-0';
+import missingCoreFieldsOpenAPI3_0Lint from './missing-core-fields-openapi-3-0';
+import missingCoreFieldsOpenAPI3_1Lint from './missing-core-fields-openapi-3-1';
+import missingCoreFieldsAsyncAPI2Lint from './missing-core-fields-asyncapi-2';
 import multipleOfTypeLint from './multiple-of--type';
 import notTypeLint from './not--type';
+import notTypeOpenAPI3_1_AsyncAPI2Lint from './not--type-openapi-3-1-asyncapi-2';
 import nullableNotRecommendedLint from './nullable--not-recommended';
 import oneOfTypeLint from './one-of--type';
 import patternTypeLint from './pattern--type';
@@ -49,12 +58,14 @@ import propertiesTypeLint from './properties--type';
 import propertiesValuesTypeLint from './properties--values-type';
 import propertyNamesNonObjectLint from './property-names--non-object';
 import propertyNamesTypeLint from './property-names--type';
+import propertyNamesTypeOpenAPI3_1_AsyncAPI2Lint from './property-names--type-openapi-3-1-asyncapi-2';
 import readOnlyTypeLint from './read-only--type';
 import requiredDefinedLint from './required--defined';
 import requiredNonObjectLint from './required--non-object';
 import requiredTypeLint from './required--type';
 import thenNonIfLint from './then--non-if';
 import thenTypeLint from './then--type';
+import thenTypeOpenAPI3_1_AsyncAPI2Lint from './then--type-openapi-3-1-asyncapi-2';
 import titleTypeLint from './title--type';
 import typeTypeLint from './type--type';
 import typeTypeOpenAPI3_0Lint from './type--type-openapi-3-0';
@@ -69,17 +80,20 @@ const schemaLints = [
   $refNoSiblingsLint,
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,
+  additionalItemsTypeOpenAPI3_1_AsyncAPI2Lint,
   additionalPropertiesNonObject,
   additionalPropertiesTypeLint,
   allOfTypeLint,
   anyOfTypeLint,
   containsNonArrayLint,
   containsTypeLint,
+  containsTypeOpenAPI3_1_AsyncAPI2Lint,
   descriptionTypeLint,
   discriminatorExistInRequiredLint,
   discriminatorTypeLint,
   elseNonIfLint,
   elseTypeLint,
+  elseTypeOpenAPI3_1_AsyncAPI2Lint,
   enumUniqueLint,
   examplesTypeLint,
   exclusiveMaximumPatternLint,
@@ -88,6 +102,7 @@ const schemaLints = [
   formatTypeLint,
   ifNonThenLint,
   ifTypeLint,
+  ifTypeOpenAPI3_1_AsyncAPI2Lint,
   itemsNonArrayLint,
   itemsTypeLint,
   maxItemsNonArrayLint,
@@ -102,8 +117,13 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumPatternLint,
+  missingCoreFieldsOpenAPI2_0Lint,
+  missingCoreFieldsOpenAPI3_0Lint,
+  missingCoreFieldsOpenAPI3_1Lint,
+  missingCoreFieldsAsyncAPI2Lint,
   multipleOfTypeLint,
   notTypeLint,
+  notTypeOpenAPI3_1_AsyncAPI2Lint,
   nullableNotRecommendedLint,
   oneOfTypeLint,
   patternTypeLint,
@@ -115,12 +135,14 @@ const schemaLints = [
   propertiesValuesTypeLint,
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
+  propertyNamesTypeOpenAPI3_1_AsyncAPI2Lint,
   readOnlyTypeLint,
   requiredDefinedLint,
   requiredNonObjectLint,
   requiredTypeLint,
   thenNonIfLint,
   thenTypeLint,
+  thenTypeOpenAPI3_1_AsyncAPI2Lint,
   titleTypeLint,
   typeTypeLint,
   typeTypeOpenAPI3_0Lint,

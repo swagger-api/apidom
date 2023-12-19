@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0",
-  "version": "0.88.0",
+  "version": "0.89.0",
   "description": "Parser adapter for parsing YAML documents into OpenAPI 3.0.x namespace.",
   "publishConfig": {
     "access": "public",
@@ -38,9 +38,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.88.0",
-    "@swagger-api/apidom-ns-openapi-3-0": "^0.88.0",
-    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.88.0",
+    "@swagger-api/apidom-core": "^0.89.0",
+    "@swagger-api/apidom-ns-openapi-3-0": "^0.89.0",
+    "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.89.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.1",
     "ramda-adjunct": "^4.0.0"

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.89.0](https://github.com/swagger-api/apidom/compare/v0.88.0...v0.89.0) (2023-12-19)
+
+### Bug Fixes
+
+- **ns-json-schema-draft-4:** fix schema keyword setter ([#3559](https://github.com/swagger-api/apidom/issues/3559)) ([d26cb00](https://github.com/swagger-api/apidom/commit/d26cb00c6f729ff216ee2575854fd9543c008032))
+
 # [0.88.0](https://github.com/swagger-api/apidom/compare/v0.87.0...v0.88.0) (2023-12-15)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-4

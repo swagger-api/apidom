@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.89.0](https://github.com/swagger-api/apidom/compare/v0.88.0...v0.89.0) (2023-12-19)
+
+### Bug Fixes
+
+- **ns-json-schema-draft-4:** fix schema keyword setter ([#3559](https://github.com/swagger-api/apidom/issues/3559)) ([d26cb00](https://github.com/swagger-api/apidom/commit/d26cb00c6f729ff216ee2575854fd9543c008032))
+
+### Features
+
+- **ls:** add doc rule for OpenAPI 2.0 Info Object ([#3548](https://github.com/swagger-api/apidom/issues/3548)) ([f97b7a8](https://github.com/swagger-api/apidom/commit/f97b7a838eda3e7fa759639333d14fd58d7e6c42)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add path template linting rule ([#3538](https://github.com/swagger-api/apidom/issues/3538)) ([0055a09](https://github.com/swagger-api/apidom/commit/0055a09368d60a07f2e708ae55bc1d9d6b4857d7)), closes [#3517](https://github.com/swagger-api/apidom/issues/3517)
+- **ls:** add rules for OpenAPI 2.0 Contact Object ([#3550](https://github.com/swagger-api/apidom/issues/3550)) ([cf4fd26](https://github.com/swagger-api/apidom/commit/cf4fd26378a1f748af1b981e01cd3fe23ba1a885)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 Info Object ([#3547](https://github.com/swagger-api/apidom/issues/3547)) ([cc11101](https://github.com/swagger-api/apidom/commit/cc11101743f4662c83ea7209c70518364c41ed1d)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 License Object ([#3551](https://github.com/swagger-api/apidom/issues/3551)) ([75c46f4](https://github.com/swagger-api/apidom/commit/75c46f401f8bbd8f4a9e2dcbe9abd2346d626133)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 Operation Object ([#3561](https://github.com/swagger-api/apidom/issues/3561)) ([5dac8ef](https://github.com/swagger-api/apidom/commit/5dac8ef2083c1d0bfe085c47d5dd49200a3fd382)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 Path Item Object ([#3560](https://github.com/swagger-api/apidom/issues/3560)) ([b515c5e](https://github.com/swagger-api/apidom/commit/b515c5efab9acd0b119b160f1128f42dd38ffa85)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 Paths Object ([#3553](https://github.com/swagger-api/apidom/issues/3553)) ([8feeeb3](https://github.com/swagger-api/apidom/commit/8feeeb3a1ad44bc6529b28b00a635563dd9dfc7f)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+
 # [0.88.0](https://github.com/swagger-api/apidom/compare/v0.87.0...v0.88.0) (2023-12-15)
 
 ### Features

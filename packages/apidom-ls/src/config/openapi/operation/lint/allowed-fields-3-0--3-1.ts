@@ -4,7 +4,8 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI3 } from '../../target-specs';
 
-const allowedFieldsLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const allowedFields3_0__3_1Lint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
@@ -31,4 +32,4 @@ const allowedFieldsLint: LinterMeta = {
   targetSpecs: OpenAPI3,
 };
 
-export default allowedFieldsLint;
+export default allowedFields3_0__3_1Lint;

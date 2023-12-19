@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const tagsTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_OPERATION_FIELD_TAGS_TYPE,
+const schemesTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_OPERATION_FIELD_SCHEMES_TYPE,
   source: 'apilint',
-  message: "'tags' must be an array of strings",
+  message: "'schemes' must be an array of strings",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfType',
   linterParams: ['string'],
   marker: 'key',
-  target: 'tags',
+  target: 'schemes',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI2,
 };
 
-export default tagsTypeLint;
+export default schemesTypeLint;

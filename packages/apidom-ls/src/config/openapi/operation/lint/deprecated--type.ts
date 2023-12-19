@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const deprecatedTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_DEPRECATED_TYPE,
+  code: ApilintCodes.OPENAPI2_OPERATION_FIELD_DEPRECATED_TYPE,
   source: 'apilint',
   message: 'deprecated must be a boolean',
   severity: DiagnosticSeverity.Error,
@@ -14,7 +14,7 @@ const deprecatedTypeLint: LinterMeta = {
   marker: 'value',
   target: 'deprecated',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default deprecatedTypeLint;

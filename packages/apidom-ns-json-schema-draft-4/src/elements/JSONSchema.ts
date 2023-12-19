@@ -37,7 +37,7 @@ class JSONSchema extends ObjectElement {
   }
 
   set $schema($schema: StringElement | undefined) {
-    this.set('idProp', $schema);
+    this.set('$schema', $schema);
   }
 
   /**

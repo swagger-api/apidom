@@ -4,17 +4,16 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
-const parametersTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PATH_ITEM_FIELD_PARAMETERS_TYPE,
+const $refFormatURILint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PATH_ITEM_FIELD_$REF_FORMAT_URI,
   source: 'apilint',
-  message: 'parameters must be an array',
+  message: "'$ref' value must be a valid URI-reference",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintElementOrClass',
-  linterParams: ['path-item-parameters'],
+  linterFunction: 'apilintValidURI',
   marker: 'value',
-  target: 'parameters',
+  target: '$ref',
   data: {},
   targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
-export default parametersTypeLint;
+export default $refFormatURILint;

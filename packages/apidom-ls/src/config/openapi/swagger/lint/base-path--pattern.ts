@@ -10,7 +10,7 @@ const basePathPatternLint: LinterMeta = {
   message: '"basePath" value MUST be a relative URI Referencing starting with a leading slash (/).',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueRegex',
-  linterParams: ['^/(?:[^/s][^s]*)?$'],
+  linterParams: ['^/(?:[^/\s][^\s]*)?$'],
   target: 'basePath',
   marker: 'value',
   data: {},

@@ -93,6 +93,11 @@
       "require": "./cjs/parse/parsers/asyncapi-yaml-2/index.cjs",
       "types": "./types/parse/parsers/asyncapi-yaml-2/index.d.ts"
     },
+    "./parse/parsers/workflows-json-1": {
+      "import": "./es/parse/parsers/workflows-json-1/index.mjs",
+      "require": "./cjs/parse/parsers/workflows-json-1/index.cjs",
+      "types": "./types/parse/parsers/workflows-json-1/index.d.ts"
+    },    
     "./parse/parsers/binary": {
       "browser": {
         "import": "./es/parse/parsers/binary/index-browser.mjs",
@@ -255,6 +260,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-2": "^0.89.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.89.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.89.0",
+    "@swagger-api/apidom-ns-workflows-1": "0.89.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.89.0"
   },
   "devDependencies": {
@@ -275,6 +281,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-2": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "*",
+    "@swagger-api/apidom-ns-workflows-1": "*",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "*",
     "axios-mock-adapter": "^1.21.4"
   },

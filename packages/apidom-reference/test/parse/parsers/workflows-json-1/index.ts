@@ -68,10 +68,10 @@ describe('parsers', function () {
       context('given file with supported extension', function () {
         context('and file data is buffer and can be detected as Workflows 1.0.0', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+            const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
             const file = File({
               uri: '/path/to/workflows.json',
-              data: fs.readFileSync(url),
+              data: fs.readFileSync(uri),
             });
             const parser = WorkflowsJson1Parser();
 
@@ -81,10 +81,10 @@ describe('parsers', function () {
 
         context('and file data is string and can be detected as Workflows 1.0.0', function () {
           specify('should return true', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+            const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
             const file = File({
               uri: '/path/to/workflows.json',
-              data: fs.readFileSync(url).toString(),
+              data: fs.readFileSync(uri).toString(),
             });
             const parser = WorkflowsJson1Parser();
 
@@ -97,10 +97,10 @@ describe('parsers', function () {
     context('parse', function () {
       context('given Workflows 1.0.0 JSON data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
-          const data = fs.readFileSync(url).toString();
+          const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+          const data = fs.readFileSync(uri).toString();
           const file = File({
-            url,
+            uri,
             data,
             mediaType: mediaTypes.latest('json'),
           });
@@ -113,10 +113,10 @@ describe('parsers', function () {
 
       context('given Workflows 1.0.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
-          const data = fs.readFileSync(url);
+          const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+          const data = fs.readFileSync(uri);
           const file = File({
-            url,
+            uri,
             data,
             mediaType: mediaTypes.latest('json'),
           });
@@ -161,10 +161,10 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest('json'),
             });
@@ -177,10 +177,10 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'sample-workflow.json');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest('json'),
             });

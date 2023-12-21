@@ -128,9 +128,9 @@ describe('parsers', function () {
     context('parse', function () {
       context('given API Design Systems YAML data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
-          const data = fs.readFileSync(url).toString();
-          const file = File({ url, data, mediaType: mediaTypes.latest() });
+          const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
+          const data = fs.readFileSync(uri).toString();
+          const file = File({ uri, data, mediaType: mediaTypes.latest() });
           const parser = ApiDesignSystemsYamlParser();
           const parseResult = await parser.parse(file);
 
@@ -140,9 +140,9 @@ describe('parsers', function () {
 
       context('given API Design Systems YAML data as buffer', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
-          const data = fs.readFileSync(url);
-          const file = File({ url, data, mediaType: mediaTypes.latest() });
+          const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
+          const data = fs.readFileSync(uri);
+          const file = File({ uri, data, mediaType: mediaTypes.latest() });
           const parser = ApiDesignSystemsYamlParser();
           const parseResult = await parser.parse(file);
 
@@ -184,10 +184,10 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest(),
             });
@@ -200,10 +200,10 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest(),
             });

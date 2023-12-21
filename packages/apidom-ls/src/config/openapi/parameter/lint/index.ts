@@ -21,6 +21,7 @@ import examplesMutuallyExclusiveLint from './examples--mutually-exclusive';
 import contentValuesTypeLint from './content--values-type';
 import contentAllowedFields3_0Lint from './content--allowed-fields-3-0';
 import contentAllowedFields3_1Lint from './content--allowed-fields-3-1';
+import isDefinedWithinPathTemplate from './is-defined-within-path-template';
 
 const lints = [
   nameTypeLint,
@@ -46,6 +47,7 @@ const lints = [
   requiredFieldsLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
+  isDefinedWithinPathTemplate,
 ];
 
 export default lints;

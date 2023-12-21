@@ -1069,4 +1069,30 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintOpenAPIParameterFieldIsDefinedWithinPathTemplate',
+    function: (element: Element) => {
+      if (element.element === 'parameter') {
+        const allowedLocations = ['path', 'query'];
+        const parameterName = toValue((element as ObjectElement).get('name'));
+        const parameterLocation = toValue((element as ObjectElement).get('in'));
+
+        const isAncestorOfOperationElement = (el: Element): boolean =>
+          el.parent.parent.parent.element === 'operation';
+
+        if (isAncestorOfOperationElement(element)) {
+          const pathTemplate: string = toValue(
+            (element.parent.parent.parent.parent.parent.parent as MemberElement).key,
+          );
+
+          return (
+            pathTemplate.includes(parameterName) && allowedLocations.includes(parameterLocation)
+          );
+
+          // TODO: handle when parameter is not ancestor of operation element
+        }
+      }
+      return true;
+    },
+  },
 ];

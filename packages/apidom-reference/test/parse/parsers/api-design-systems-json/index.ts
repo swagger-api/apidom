@@ -99,10 +99,10 @@ describe('parsers', function () {
     context('parse', function () {
       context('given API Design Systems JSON data', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'api-design-systems.json');
-          const data = fs.readFileSync(url).toString();
+          const uri = path.join(__dirname, 'fixtures', 'api-design-systems.json');
+          const data = fs.readFileSync(uri).toString();
           const file = File({
-            url,
+            uri,
             data,
             mediaType: mediaTypes.latest('json'),
           });
@@ -115,10 +115,10 @@ describe('parsers', function () {
 
       context('given API Design Systems JSON data as buffer', function () {
         specify('should return parse result', async function () {
-          const url = path.join(__dirname, 'fixtures', 'api-design-systems.json');
-          const data = fs.readFileSync(url);
+          const uri = path.join(__dirname, 'fixtures', 'api-design-systems.json');
+          const data = fs.readFileSync(uri);
           const file = File({
-            url,
+            uri,
             data,
             mediaType: mediaTypes.latest('json'),
           });
@@ -163,10 +163,10 @@ describe('parsers', function () {
       context('sourceMap', function () {
         context('given sourceMap enabled', function () {
           specify('should decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'api-design-systems.json');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'api-design-systems.json');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest(),
             });
@@ -179,10 +179,10 @@ describe('parsers', function () {
 
         context('given sourceMap disabled', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
-            const url = path.join(__dirname, 'fixtures', 'api-design-systems.json');
-            const data = fs.readFileSync(url).toString();
+            const uri = path.join(__dirname, 'fixtures', 'api-design-systems.json');
+            const data = fs.readFileSync(uri).toString();
             const file = File({
-              url,
+              uri,
               data,
               mediaType: mediaTypes.latest(),
             });

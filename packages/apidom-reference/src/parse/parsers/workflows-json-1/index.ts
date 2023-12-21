@@ -33,7 +33,6 @@ const WorkflowsJson1Parser: stampit.Stamp<IParser> = stampit(Parser, {
         const parserOpts = pick(['sourceMap', 'syntacticAnalysis', 'refractorOpts'], this);
         return await parse(source, parserOpts);
       } catch (error: any) {
-        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw new ParserError(`Error parsing "${file.uri}"`, { cause: error });
       }
     },

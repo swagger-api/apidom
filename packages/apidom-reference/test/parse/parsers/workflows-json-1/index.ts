@@ -66,7 +66,7 @@ describe('parsers', function () {
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as OpenAPI 2.0', function () {
+        context('and file data is buffer and can be detected as Workflows 1.0.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-workflow.json');
             const file = File({

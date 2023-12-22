@@ -1085,9 +1085,11 @@ export const standardLinterfunctions: FunctionItem[] = [
             (element.parent.parent.parent.parent.parent.parent as MemberElement).key,
           );
 
-          return (
-            pathTemplate.includes(parameterName) && allowedLocations.includes(parameterLocation)
-          );
+          if (!allowedLocations.includes(parameterLocation)) {
+            return true;
+          }
+
+          return pathTemplate.includes(parameterName);
 
           // TODO: handle when parameter is not ancestor of operation element
         }

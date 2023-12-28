@@ -1077,10 +1077,10 @@ export const standardLinterfunctions: FunctionItem[] = [
         const parameterName = toValue((element as ObjectElement).get('name'));
         const parameterLocation = toValue((element as ObjectElement).get('in'));
 
-        const isAncestorOfOperationElement = (el: Element): boolean =>
+        const isChildOfOperationElement = (el: Element): boolean =>
           el.parent.parent.parent.element === 'operation';
 
-        if (isAncestorOfOperationElement(element)) {
+        if (isChildOfOperationElement(element)) {
           const pathTemplate: string = toValue(
             (element.parent.parent.parent.parent.parent.parent as MemberElement).key,
           );
@@ -1091,7 +1091,7 @@ export const standardLinterfunctions: FunctionItem[] = [
 
           return pathTemplate.includes(parameterName);
 
-          // TODO: handle when parameter is not ancestor of operation element
+          // TODO: handle case when parameter is not child of operation element
         }
       }
       return true;

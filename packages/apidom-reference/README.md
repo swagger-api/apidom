@@ -251,6 +251,34 @@ Supported media types are:
 ]
 ```
 
+#### [workflows-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/workflows-json-1)
+
+Wraps [@swagger-api/apidom-parser-adapter-workflows-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-workflows-json-1) package
+and is uniquely identified by `workflows-json-1` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.oai.workflows;version=1.0.0',
+  'application/vnd.oai.workflows+json;version=1.0.0',
+]
+```
+
+#### [workflows-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/workflows-yaml-1)
+
+Wraps [@swagger-api/apidom-parser-adapter-workflows-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-workflows-yaml-1) package
+and is uniquely identified by `workflows-yaml-1` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.oai.workflows;version=1.0.0',
+  'application/vnd.oai.workflows+yaml;version=1.0.0',
+]
+```
+
 #### [api-design-systems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/api-design-systems-json)
 
 Wraps [@swagger-api/apidom-parser-adapter-api-design-systsems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) package
@@ -338,6 +366,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
@@ -359,6 +389,8 @@ import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
 import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
@@ -375,6 +407,8 @@ options.parse.parsers = [
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
@@ -395,6 +429,8 @@ import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
 import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
@@ -413,6 +449,8 @@ await parse('/home/user/oas.json', {
       OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+      WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
+      WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
       ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
       ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
       YamlParser({ allowEmpty: true, sourceMap: false }),

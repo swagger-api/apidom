@@ -14,6 +14,8 @@ import OpenApiJson3_1Parser from '../parse/parsers/openapi-json-3-1';
 import OpenApiYaml3_1Parser from '../parse/parsers/openapi-yaml-3-1';
 import AsyncApiJson2Parser from '../parse/parsers/asyncapi-json-2';
 import AsyncApiYaml2Parser from '../parse/parsers/asyncapi-yaml-2';
+import WorkflowsJson1Parser from '../parse/parsers/workflows-json-1';
+import WorkflowsYaml1Parser from '../parse/parsers/workflows-yaml-1';
 import JsonParser from '../parse/parsers/json';
 import YamlParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
@@ -33,6 +35,8 @@ options.parse.parsers = [
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),

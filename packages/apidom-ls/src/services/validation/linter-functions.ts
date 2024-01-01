@@ -1074,8 +1074,9 @@ export const standardLinterfunctions: FunctionItem[] = [
     function: (element: Element) => {
       if (element.element === 'parameter') {
         const allowedLocations = ['path', 'query'];
-        const parameterName = toValue((element as ObjectElement).get('name'));
-        const parameterLocation = toValue((element as ObjectElement).get('in'));
+        const parameterToValue: ObjectElement = toValue(element);
+        const parameterName = parameterToValue.get('name');
+        const parameterLocation = parameterToValue.get('in');
 
         const isChildOfOperationElement = (el: Element): boolean =>
           el.parent.parent.parent.element === 'operation';

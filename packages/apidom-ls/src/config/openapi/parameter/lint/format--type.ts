@@ -7,7 +7,7 @@ import { OpenAPI2 } from '../../target-specs';
 const formatTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_FORMAT_TYPE,
   source: 'apilint',
-  message: 'explode must be a string',
+  message: 'format must be a string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const inTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_IN_TYPE,
+const formatTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_FORMAT_TYPE,
   source: 'apilint',
-  message: 'in must be a string',
+  message: 'format must be a string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'in',
+  target: 'format',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI2,
 };
 
-export default inTypeLint;
+export default formatTypeLint;

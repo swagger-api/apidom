@@ -2,21 +2,21 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const requiredRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_REQUIRED_REQUIRED,
+const schemaRequiredLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_SCHEMA_REQUIRED,
   source: 'apilint',
-  message: "should always have a 'required'",
+  message: "should have a 'schema' if `in` is 'body'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
-  linterParams: ['required'],
+  linterParams: ['schema'],
   marker: 'key',
   conditions: [
     {
       targets: [{ path: 'in' }],
       function: 'apilintContainsValue',
-      params: ['path'],
+      params: ['body'],
     },
     {
       function: 'missingField',
@@ -26,14 +26,14 @@ const requiredRequiredLint: LinterMeta = {
   data: {
     quickFix: [
       {
-        message: "add 'required' field",
+        message: "add 'schema' field",
         action: 'addChild',
-        snippetYaml: 'required: \n  ',
-        snippetJson: '"required": ,\n    ',
+        snippetYaml: 'schema: \n  \n',
+        snippetJson: '"schema": {\n  \n  },\n',
       },
     ],
   },
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI2,
 };
 
-export default requiredRequiredLint;
+export default schemaRequiredLint;

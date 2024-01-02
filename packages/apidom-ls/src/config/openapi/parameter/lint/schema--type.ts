@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const schemaTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_SCHEMA_TYPE,
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_SCHEMA_TYPE,
   source: 'apilint',
   message: 'schema must be an object',
   severity: DiagnosticSeverity.Error,
@@ -14,7 +14,7 @@ const schemaTypeLint: LinterMeta = {
   marker: 'value',
   target: 'schema',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default schemaTypeLint;

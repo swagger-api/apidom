@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const requiredTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_REQUIRED_TYPE,
+const exclusiveMaximumTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_EXCLUSIVE_MAXIMUM_TYPE,
   source: 'apilint',
-  message: 'required must be a boolean',
+  message: 'exclusiveMaximum must be a boolean',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['boolean'],
   marker: 'value',
-  target: 'required',
+  target: 'exclusiveMaximum',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI2,
 };
 
-export default requiredTypeLint;
+export default exclusiveMaximumTypeLint;

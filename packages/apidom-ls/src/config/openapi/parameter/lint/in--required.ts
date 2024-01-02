@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const inRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_IN_REQUIRED,
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_IN_REQUIRED,
   source: 'apilint',
   message: "should always have an 'in'",
   severity: DiagnosticSeverity.Error,
@@ -28,7 +28,7 @@ const inRequiredLint: LinterMeta = {
       params: ['$ref'],
     },
   ],
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default inRequiredLint;

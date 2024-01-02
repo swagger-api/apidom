@@ -3,14 +3,12 @@ info:
   title: Foo
   version: 0.1.0
 parameters:
-    test_id:
-      name: test_id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        title: Test Id
+  test_id:
+    name: test_id
+    in: path
+    required: true
+    type: string
+    format: uuid
 paths:
   /foo/bar/{baz}/test/{foo_id}/baz/{bar_id}:
     delete:
@@ -20,17 +18,13 @@ paths:
         - name: foo_id
           in: path
           required: true
-          schema:
-            type: string
-            format: uuid
-            title: Foo Id
+          type: string
+          format: uuid
         - name: bar_id
           in: path
           required: true
-          schema:
-            type: string
-            format: uuid
-            title: Bar Id
+          type: string
+          format: uuid
       responses:
         '200':
           description: Successful Response
@@ -45,10 +39,8 @@ paths:
         - name: foo_id
           in: path
           required: true
-          schema:
-            type: string
-            format: uuid
-            title: Foo Id
+          type: string
+          format: uuid
       responses:
         '200':
           description: Successful Response
@@ -72,10 +64,8 @@ paths:
       - name: x_id
         in: path
         required: true
-        schema:
-          type: string
-          format: uuid
-          title: X Id
+        type: string
+        format: uuid
   /both_parameters_and_operations_object/{a_id}/{b_id}/{c_id}:
     get:
       summary: Get both parameters and operations object a b c
@@ -84,10 +74,8 @@ paths:
         - name: b_id
           in: path
           required: true
-          schema:
-            type: string
-            format: uuid
-            title: B Id
+          type: string
+          format: uuid
       responses:
         '200':
           description: Successful Response
@@ -98,7 +86,5 @@ paths:
       - name: a_id
         in: path
         required: true
-        schema:
-          type: string
-          format: uuid
-          title: A Id
+        type: string
+        format: uuid

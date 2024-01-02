@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const requiredEqualsLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_REQUIRED_EQUALS,
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_REQUIRED_EQUALS,
   source: 'apilint',
   message: "'required' must be true",
   severity: DiagnosticSeverity.Error,
@@ -21,7 +21,7 @@ const requiredEqualsLint: LinterMeta = {
     },
   ],
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default requiredEqualsLint;

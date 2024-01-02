@@ -2,21 +2,21 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const requiredRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_REQUIRED_REQUIRED,
+const itemsRequiredLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_ITEMS_REQUIRED,
   source: 'apilint',
-  message: "should always have a 'required'",
+  message: "should have an 'items' if 'type'=array",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
-  linterParams: ['required'],
+  linterParams: ['items'],
   marker: 'key',
   conditions: [
     {
-      targets: [{ path: 'in' }],
+      targets: [{ path: 'type' }],
       function: 'apilintContainsValue',
-      params: ['path'],
+      params: ['array'],
     },
     {
       function: 'missingField',
@@ -26,14 +26,14 @@ const requiredRequiredLint: LinterMeta = {
   data: {
     quickFix: [
       {
-        message: "add 'required' field",
+        message: "add 'items' field",
         action: 'addChild',
-        snippetYaml: 'required: \n  ',
-        snippetJson: '"required": ,\n    ',
+        snippetYaml: 'items: \n  \n',
+        snippetJson: '"items": {\n  \n  },\n',
       },
     ],
   },
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI2,
 };
 
-export default requiredRequiredLint;
+export default itemsRequiredLint;

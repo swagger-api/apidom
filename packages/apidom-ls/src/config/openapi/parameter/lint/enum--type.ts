@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const inTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_IN_TYPE,
+const enumTypeLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_ENUM_TYPE,
   source: 'apilint',
-  message: 'in must be a string',
+  message: 'enum must be an array',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterParams: ['array'],
   marker: 'value',
-  target: 'in',
+  target: 'enum',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI2,
 };
 
-export default inTypeLint;
+export default enumTypeLint;

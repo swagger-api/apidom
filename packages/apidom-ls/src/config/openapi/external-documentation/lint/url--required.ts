@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const urlRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_EXTERNAL_DOCUMENTATION_FIELD_URL_REQUIRED,
+  code: ApilintCodes.OPENAPI2_EXTERNAL_DOCUMENTATION_FIELD_URL_REQUIRED,
   source: 'apilint',
   message: "should always have an 'url'",
   severity: DiagnosticSeverity.Error,
@@ -22,7 +22,7 @@ const urlRequiredLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default urlRequiredLint;

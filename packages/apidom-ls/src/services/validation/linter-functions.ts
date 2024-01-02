@@ -1049,11 +1049,10 @@ export const standardLinterfunctions: FunctionItem[] = [
           }
         });
 
-        const allowedLocation = ['path', 'query'];
         const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
 
         parameterElements.forEach((parameter) => {
-          if (allowedLocation.includes(toValue((parameter as ObjectElement).get('in')))) {
+          if (toValue((parameter as ObjectElement).get('in')) === 'path') {
             pathTemplateResolveParams[toValue((parameter as ObjectElement).get('name'))] =
               'placeholder';
           }

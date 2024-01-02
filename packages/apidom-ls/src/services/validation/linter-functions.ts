@@ -9,9 +9,10 @@ import {
   ArraySlice,
   ObjectElement,
   isArrayElement,
+  includesClasses,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test, resolve } from 'openapi-path-templating';
+import { test, resolve, parse } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1072,27 +1073,30 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintOpenAPIParameterFieldIsDefinedWithinPathTemplate',
     function: (element: Element) => {
       if (element.element === 'parameter') {
-        const allowedLocations = ['path', 'query'];
-        const parameterToValue: ObjectElement = toValue(element);
-        const parameterName = parameterToValue.get('name');
-        const parameterLocation = parameterToValue.get('in');
+        const parameterName = toValue((element as ObjectElement).get('name'));
+        const parameterLocation = toValue((element as ObjectElement).get('in'));
+        const isInPathItemElement =
+          isArrayElement(element.parent) &&
+          includesClasses(['path-item-parameters'], element.parent);
 
-        const isChildOfOperationElement = (el: Element): boolean =>
-          el.parent.parent.parent.element === 'operation';
-
-        if (isChildOfOperationElement(element)) {
-          const pathTemplate: string = toValue(
-            (element.parent.parent.parent.parent.parent.parent as MemberElement).key,
-          );
-
-          if (!allowedLocations.includes(parameterLocation)) {
-            return true;
-          }
-
-          return pathTemplate.includes(parameterName);
-
-          // TODO: handle case when parameter is not child of operation element
+        if (parameterLocation !== 'path' || !isInPathItemElement) {
+          return true;
         }
+
+        const pathItemElement = element.parent.parent.parent;
+
+        const pathTemplateASTIncludesParameter = (ast: [string, string][]) =>
+          ast.findIndex(
+            ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
+          ) > -1;
+
+        const pathTemplate = toValue(pathItemElement.meta.get('path'));
+        const parseResult = parse(pathTemplate);
+        const parts: [string, string][] = [];
+
+        parseResult.ast.translate(parts);
+
+        return pathTemplateASTIncludesParameter(parts);
       }
       return true;
     },

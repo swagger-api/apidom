@@ -1078,25 +1078,41 @@ export const standardLinterfunctions: FunctionItem[] = [
         const isInPathItemElement =
           isArrayElement(element.parent) &&
           includesClasses(['path-item-parameters'], element.parent);
+        const isChildOfOperationElement = element.parent.parent.parent.element === 'operation';
 
-        if (parameterLocation !== 'path' || !isInPathItemElement) {
-          return true;
-        }
-
-        const pathItemElement = element.parent.parent.parent;
+        const getAST = (pathTemplate: string) => {
+          const parseResult = parse(pathTemplate);
+          const parts: [string, string][] = [];
+          parseResult.ast.translate(parts);
+          return parts;
+        };
 
         const pathTemplateASTIncludesParameter = (ast: [string, string][]) =>
           ast.findIndex(
             ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
           ) > -1;
 
-        const pathTemplate = toValue(pathItemElement.meta.get('path'));
-        const parseResult = parse(pathTemplate);
-        const parts: [string, string][] = [];
+        const getPathTemplate = (): string => {
+          if (isInPathItemElement) {
+            return toValue(element.parent.parent.parent.meta.get('path'));
+          }
+          if (isChildOfOperationElement) {
+            return toValue(
+              (element.parent.parent.parent.parent.parent.parent as MemberElement).key,
+            );
+          }
+          return '';
+        };
 
-        parseResult.ast.translate(parts);
+        if (parameterLocation !== 'path') {
+          return true;
+        }
 
-        return pathTemplateASTIncludesParameter(parts);
+        if (isInPathItemElement || isChildOfOperationElement) {
+          return pathTemplateASTIncludesParameter(getAST(getPathTemplate()));
+        }
+
+        return true;
       }
       return true;
     },

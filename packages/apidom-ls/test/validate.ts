@@ -3580,7 +3580,14 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 16, character: 8 }, end: { line: 23, character: 23 } },
+        range: { start: { line: 10, character: 8 }, end: { line: 17, character: 24 } },
+        message: 'parameter is not defined within path template',
+        severity: 1,
+        code: 3102000,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 25, character: 8 }, end: { line: 32, character: 23 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,
@@ -3622,7 +3629,14 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 16, character: 8 }, end: { line: 22, character: 23 } },
+        range: { start: { line: 10, character: 8 }, end: { line: 16, character: 24 } },
+        message: 'parameter is not defined within path template',
+        severity: 1,
+        code: 3102000,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 24, character: 8 }, end: { line: 30, character: 23 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,
@@ -3664,10 +3678,26 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 16, character: 8 }, end: { line: 22, character: 23 } },
+        range: { start: { line: 10, character: 8 }, end: { line: 16, character: 24 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,
+        source: 'apilint',
+      },
+      {
+        code: 3102000,
+        message: 'parameter is not defined within path template',
+        range: {
+          end: {
+            character: 23,
+            line: 30,
+          },
+          start: {
+            character: 8,
+            line: 24,
+          },
+        },
+        severity: 1,
         source: 'apilint',
       },
     ];

@@ -7,15 +7,6 @@ paths:
     delete:
       summary: Delete foo bar id
       operationId: deleteFooBar
-      parameters:
-      - name: test_id
-        in: path
-        required: true
-        type: string
-        schema:
-          type: string
-          format: uuid
-          title: Test Id
       responses:
         '200':
           description: Successful Response

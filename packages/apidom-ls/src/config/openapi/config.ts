@@ -34,6 +34,7 @@ import swaggerMeta from './swagger/meta';
 import tagMeta from './tag/meta';
 import xmlMeta from './xml/meta';
 import pathTemplateMeta from './path-template/meta';
+import itemsMeta from './items/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -83,6 +84,7 @@ export default {
   swagger: swaggerMeta,
   tag: tagMeta,
   xml: xmlMeta,
+  items: itemsMeta,
   schema: schemaMeta,
   'path-template': pathTemplateMeta,
 };

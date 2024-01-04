@@ -2887,7 +2887,7 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
-        code: 5290101,
+        code: 3120101,
         data: {
           quickFix: [
             {
@@ -3410,21 +3410,21 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
-        range: { start: { line: 33, character: 2 }, end: { line: 33, character: 25 } },
+        range: { start: { line: 30, character: 2 }, end: { line: 30, character: 25 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
         source: 'apilint',
       },
       {
-        range: { start: { line: 61, character: 2 }, end: { line: 61, character: 39 } },
+        range: { start: { line: 52, character: 2 }, end: { line: 52, character: 39 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
         source: 'apilint',
       },
       {
-        range: { start: { line: 68, character: 2 }, end: { line: 68, character: 61 } },
+        range: { start: { line: 59, character: 2 }, end: { line: 59, character: 61 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
@@ -3580,7 +3580,7 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 26, character: 8 }, end: { line: 33, character: 23 } },
+        range: { start: { line: 20, character: 8 }, end: { line: 24, character: 20 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,

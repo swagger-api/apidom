@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const descriptionRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_RESPONSE_FIELD_DESCRIPTION_REQUIRED,
+  code: ApilintCodes.OPENAPI2_RESPONSE_FIELD_DESCRIPTION_REQUIRED,
   source: 'apilint',
   message: "should always have a 'description'",
   severity: DiagnosticSeverity.Error,
@@ -28,7 +28,7 @@ const descriptionRequiredLint: LinterMeta = {
       params: ['$ref'],
     },
   ],
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default descriptionRequiredLint;

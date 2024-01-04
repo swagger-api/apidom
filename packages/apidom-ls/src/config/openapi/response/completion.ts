@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,7 +17,21 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Response.',
     },
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'description',
+    insertText: 'description',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**Required.** A short description of the response. [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) can be used for rich text representation.',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'description',
@@ -32,6 +46,34 @@ const completion: ApidomCompletionItem[] = [
         '**REQUIRED**. A description of the response. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
     targetSpecs: OpenAPI3,
+  },
+  {
+    label: 'schema',
+    insertText: 'schema',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject)\n\\\n\\\nA definition of the response structure. It can be a primitive, an array or an object. If this field does not exist, it means no content is returned as part of the response. As an extension to the [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#schemaObject), its root `type` value may also be `"file"`. This SHOULD be accompanied by a relevant `produces` mime-type.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'headers',
+    insertText: 'headers',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Headers Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#headersObject)\n\\\n\\\nA list of headers that are sent with the response.',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'headers',
@@ -60,6 +102,20 @@ const completion: ApidomCompletionItem[] = [
         'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#headerObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nMaps a header name to its definition. [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive. If a response header is defined with the name `"Content-Type"`, it SHALL be ignored.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'examples',
+    insertText: 'examples',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#exampleObject)\n\\\n\\\nAn example of the response message.',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'content',

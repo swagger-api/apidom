@@ -2,11 +2,21 @@ swagger: '2.0'
 info:
   title: Foo
   version: 0.1.0
+parameters:
+  test_id:
+    name: test_id
+    in: path
+    required: true
+    type: string
+    schema:
+      type: string
+      format: uuid
+      title: Test Id
 paths:
   /foo/{bar_id}:
     delete:
-      summary: Delete foo bar id
-      operationId: deleteFooBar
+      summary: Delete bar id
+      operationId: deleteBar
       responses:
         '200':
           description: Successful Response

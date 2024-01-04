@@ -8,10 +8,7 @@ parameters:
     in: path
     required: true
     type: string
-    schema:
-      type: string
-      format: uuid
-      title: Test Id
+    format: uuid
 paths:
   /foo/{bar_id}:
     delete:
@@ -20,23 +17,15 @@ paths:
       responses:
         '200':
           description: Successful Response
-          content:
-            application/json:
-              schema: {}
     parameters:
       - name: foo_id
         in: path
         required: true
         type: string
-        schema:
-          type: string
-          format: uuid
-          title: Foo Id
+        format: uuid
       - name: bar_id
         in: path
         required: true
         type: string
-        schema:
-          type: string
-          format: uuid
-          title: Foo Id
+        format: uuid
+  

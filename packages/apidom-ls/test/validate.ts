@@ -3580,7 +3580,7 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 26, character: 8 }, end: { line: 33, character: 23 } },
+        range: { start: { line: 20, character: 8 }, end: { line: 24, character: 20 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,

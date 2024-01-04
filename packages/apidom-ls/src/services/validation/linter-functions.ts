@@ -1087,15 +1087,11 @@ export const standardLinterfunctions: FunctionItem[] = [
 
         if (!isInPathItemElement && !isInOperationElement) return true;
 
-        let pathItemElement = {} as Element;
+        const pathItemElement: Element | undefined = isInOperationElement
+          ? element.parent?.parent?.parent?.parent?.parent
+          : element.parent?.parent?.parent;
 
-        if (isInOperationElement) {
-          pathItemElement = element.parent.parent.parent.parent.parent;
-        }
-
-        if (isInPathItemElement) {
-          pathItemElement = element.parent.parent.parent;
-        }
+        if (pathItemElement?.element !== 'pathItem') return true;
 
         const isPathItemPartOfPathTemplating = isStringElement(pathItemElement.meta.get('path'));
 

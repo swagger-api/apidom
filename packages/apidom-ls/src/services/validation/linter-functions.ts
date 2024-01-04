@@ -1081,9 +1081,22 @@ export const standardLinterfunctions: FunctionItem[] = [
           isArrayElement(element.parent) &&
           includesClasses(['path-item-parameters'], element.parent);
 
-        if (!isInPathItemElement) return true;
+        const isInOperationElement =
+          isArrayElement(element.parent) &&
+          includesClasses(['operation-parameters'], element.parent);
 
-        const pathItemElement = element.parent.parent.parent;
+        if (!isInPathItemElement && !isInOperationElement) return true;
+
+        let pathItemElement = {} as Element;
+
+        if (isInOperationElement) {
+          pathItemElement = element.parent.parent.parent.parent.parent;
+        }
+
+        if (isInPathItemElement) {
+          pathItemElement = element.parent.parent.parent;
+        }
+
         const isPathItemPartOfPathTemplating = isStringElement(pathItemElement.meta.get('path'));
 
         if (!isPathItemPartOfPathTemplating) return true;

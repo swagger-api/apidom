@@ -71,4 +71,21 @@ paths:
               responses:
                 '202':
                   description: "OK"
-
+  /test:
+    get:
+      summary: Get test
+      operationId: getTest
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      parameters:
+        - name: x_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: X Id

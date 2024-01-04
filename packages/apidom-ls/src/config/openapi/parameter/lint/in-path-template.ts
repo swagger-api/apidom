@@ -4,20 +4,14 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
-const isDefinedWithinPathTemplate: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_IS_DEFINED_WITHIN_PATH_TEMPLATE,
+const inPathTemplateLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_IN_PATH_TEMPLATE,
   source: 'apilint',
   message: 'parameter is not defined within path template',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintOpenAPIParameterFieldIsDefinedWithinPathTemplate',
+  linterFunction: 'apilintOpenAPIParameterInPathTemplate',
   marker: 'value',
   targetSpecs: [...OpenAPI2, ...OpenAPI3],
-  conditions: [
-    {
-      function: 'apilintOpenAPIPathTemplateWellFormed',
-      params: [true],
-    },
-  ],
 };
 
-export default isDefinedWithinPathTemplate;
+export default inPathTemplateLint;

@@ -1070,38 +1070,36 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'apilintOpenAPIParameterFieldIsDefinedWithinPathTemplate',
+    functionName: 'apilintOpenAPIParameterInPathTemplate',
     function: (element: Element) => {
       if (element.element === 'parameter') {
         const parameterLocation = toValue((element as ObjectElement).get('in'));
+
+        if (parameterLocation !== 'path') return true;
+
         const isInPathItemElement =
           isArrayElement(element.parent) &&
           includesClasses(['path-item-parameters'], element.parent);
 
-        if (!isInPathItemElement || parameterLocation !== 'path') {
-          return true;
-        }
+        if (!isInPathItemElement) return true;
 
         const pathItemElement = element.parent.parent.parent;
         const isPathItemPartOfPathTemplating = isStringElement(pathItemElement.meta.get('path'));
 
-        if (!isPathItemPartOfPathTemplating) {
-          return true;
-        }
+        if (!isPathItemPartOfPathTemplating) return true;
 
         const pathTemplate = toValue(pathItemElement.meta.get('path'));
         const parameterName = toValue((element as ObjectElement).get('name'));
 
         const parseResult = parse(pathTemplate);
+        if (!parseResult.result.success) return true;
+
         const parts: [string, string][] = [];
         parseResult.ast.translate(parts);
 
-        const pathTemplateASTIncludesParameter = (ast: [string, string][]) =>
-          ast.findIndex(
-            ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
-          ) > -1;
-
-        return pathTemplateASTIncludesParameter(parts);
+        return parts.some(
+          ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
+        );
       }
       return true;
     },

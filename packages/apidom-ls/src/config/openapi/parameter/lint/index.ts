@@ -40,7 +40,7 @@ import minLengthTypeLint from './min-length--type';
 import uniqueItemsTypeLint from './unique-items--type';
 import enumTypeLint from './enum--type';
 import multipleOfTypeLint from './multiple-of--type';
-import isDefinedWithinPathTemplate from './is-defined-within-path-template';
+import inPathTemplateLint from './in-path-template';
 
 const lints = [
   nameTypeLint,
@@ -85,7 +85,7 @@ const lints = [
   allowedFields2_0Lint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
-  isDefinedWithinPathTemplate,
+  inPathTemplateLint,
 ];
 
 export default lints;

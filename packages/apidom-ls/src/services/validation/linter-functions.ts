@@ -9,9 +9,10 @@ import {
   ArraySlice,
   ObjectElement,
   isArrayElement,
+  includesClasses,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test, resolve } from 'openapi-path-templating';
+import { test, resolve, parse } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1065,6 +1066,41 @@ export const standardLinterfunctions: FunctionItem[] = [
         return !includesTemplateExpression || oneOfParametersIsReferenceObject;
       }
 
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIParameterInPathTemplate',
+    function: (element: Element) => {
+      if (element.element === 'parameter') {
+        const parameterLocation = toValue((element as ObjectElement).get('in'));
+
+        if (parameterLocation !== 'path') return true;
+
+        const isInPathItemElement =
+          isArrayElement(element.parent) &&
+          includesClasses(['path-item-parameters'], element.parent);
+
+        if (!isInPathItemElement) return true;
+
+        const pathItemElement = element.parent.parent.parent;
+        const isPathItemPartOfPathTemplating = isStringElement(pathItemElement.meta.get('path'));
+
+        if (!isPathItemPartOfPathTemplating) return true;
+
+        const pathTemplate = toValue(pathItemElement.meta.get('path'));
+        const parameterName = toValue((element as ObjectElement).get('name'));
+
+        const parseResult = parse(pathTemplate);
+        if (!parseResult.result.success) return true;
+
+        const parts: [string, string][] = [];
+        parseResult.ast.translate(parts);
+
+        return parts.some(
+          ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
+        );
+      }
       return true;
     },
   },

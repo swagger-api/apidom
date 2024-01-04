@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.90.0](https://github.com/swagger-api/apidom/compare/v0.89.0...v0.90.0) (2024-01-04)
+
+### Bug Fixes
+
+- **ls:** fix path template parameter matching ([#3601](https://github.com/swagger-api/apidom/issues/3601)) ([7cf522d](https://github.com/swagger-api/apidom/commit/7cf522d65aa33f391fde7564fccec462f7c3bc47)), closes [#3517](https://github.com/swagger-api/apidom/issues/3517)
+- **ls:** Fix regex in Swagger 2.0 basePath linting rule ([e4cd7ae](https://github.com/swagger-api/apidom/commit/e4cd7ae13e2d0d56ca6b9ea6cee4a8b03693ea92))
+- **ls:** properly escape backslashes ([6f7e673](https://github.com/swagger-api/apidom/commit/6f7e673b6f72ce338277db8c8d8e361f2e5df755))
+
+### Features
+
+- **ls:** add completion rules for OpenAPI 2.0 Parameter Object ([#3594](https://github.com/swagger-api/apidom/issues/3594)) ([2f1f4a6](https://github.com/swagger-api/apidom/commit/2f1f4a640225c9d73f99e730c53397c93ec77fde)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add docs rules for OpenAPI 2.0 Parameter Object ([#3600](https://github.com/swagger-api/apidom/issues/3600)) ([fb3f70a](https://github.com/swagger-api/apidom/commit/fb3f70aca1299aaccb115ba28fbbdb0e0344205f)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add lint rule for OpenAPI Parameter defined in path template ([#3571](https://github.com/swagger-api/apidom/issues/3571)) ([2ab2840](https://github.com/swagger-api/apidom/commit/2ab2840e9ada525909693539dde21242ed68e4f6)), closes [#3546](https://github.com/swagger-api/apidom/issues/3546)
+- **ls:** add lint rules for OpenAPI 2.0 Parameter Object ([#3602](https://github.com/swagger-api/apidom/issues/3602)) ([88b79b6](https://github.com/swagger-api/apidom/commit/88b79b6743b3ec3a553e9726077274dbd762051b)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 External Documentation Object ([#3593](https://github.com/swagger-api/apidom/issues/3593)) ([423d5dc](https://github.com/swagger-api/apidom/commit/423d5dcd8e16c2d2f41b2d1e568d5c5f2a1673dc)), closes [#3104](https://github.com/swagger-api/apidom/issues/3104)
+- **ls:** add rules for OpenAPI 2.0 Items Object ([#3622](https://github.com/swagger-api/apidom/issues/3622)) ([3f213b5](https://github.com/swagger-api/apidom/commit/3f213b5c67e723413273a564838f11fdfd704c9f)), closes [#3605](https://github.com/swagger-api/apidom/issues/3605)
+- **ls:** add rules for OpenAPI 2.0 Response Object ([#3627](https://github.com/swagger-api/apidom/issues/3627)) ([2c591b6](https://github.com/swagger-api/apidom/commit/2c591b6001dbe9e0c777b3918f29981ccdeab904)), closes [#3607](https://github.com/swagger-api/apidom/issues/3607)
+
 # [0.89.0](https://github.com/swagger-api/apidom/compare/v0.88.0...v0.89.0) (2023-12-19)
 
 ### Features

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.90.0](https://github.com/swagger-api/apidom/compare/v0.89.0...v0.90.0) (2024-01-04)
+
+### Features
+
+- **reference:** add Workflows 1.0.0 JSON parser plugin ([#3568](https://github.com/swagger-api/apidom/issues/3568)) ([1b12b50](https://github.com/swagger-api/apidom/commit/1b12b50f833cc3e55691d378ef94dd4fd87d7bee)), closes [#3567](https://github.com/swagger-api/apidom/issues/3567)
+- **reference:** add Workflows 1.0.0 YAML parser plugin ([#3572](https://github.com/swagger-api/apidom/issues/3572)) ([7e4ba45](https://github.com/swagger-api/apidom/commit/7e4ba451a986f32edbe3ec3f8035685447c038eb))
+
 # [0.89.0](https://github.com/swagger-api/apidom/compare/v0.88.0...v0.89.0) (2023-12-19)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

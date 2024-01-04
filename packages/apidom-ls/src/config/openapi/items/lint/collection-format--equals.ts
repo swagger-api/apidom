@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI2 } from '../../target-specs';
 
-const typeEqualsLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PARAMETER_FIELD_TYPE_EQUALS,
+const collectionFormatEqualsLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_ITEMS_FIELD_COLLECTION_FORMAT_EQUALS,
   source: 'apilint',
-  message: "'type' must be one of allowed values: string, number, integer, boolean, array, file",
+  message: "'collectionFormat' must be one of allowed values: 'csv', 'ssv', 'tsv', 'pipes'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
-  linterParams: [['string', 'number', 'integer', 'boolean', 'array', 'file']],
+  linterParams: [['csv', 'ssv', 'tsv', 'pipes']],
   marker: 'value',
-  target: 'type',
+  target: 'collectionFormat',
   data: {},
   targetSpecs: OpenAPI2,
 };
 
-export default typeEqualsLint;
+export default collectionFormatEqualsLint;

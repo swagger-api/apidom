@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Foo
+  version: 0.1.0
+components:
+  parameters:
+    test_id:
+      name: test_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        title: Test Id
+paths:
+  /foo/{bar_id}:
+    delete:
+      summary: Delete bar id
+      operationId: deleteBar
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+    parameters:
+      - name: foo_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Foo Id
+      - name: bar_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Bar Id
+  /subscribe:
+    post:
+      description: subscribes a client
+      responses:
+        '201':
+          description: subscription successfully created
+          content:
+            application/json:
+              schema: {}
+      callbacks:
+        onData:
+          '{$request.query.callbackUrl}/data':
+            post:
+              requestBody:
+                description: subscription payload
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        userData:
+                          type: string
+              parameters:
+                - name: baz_id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                    format: uuid
+                    title: Baz Id
+              responses:
+                '202':
+                  description: "OK"
+

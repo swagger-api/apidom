@@ -120,7 +120,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [
@@ -140,7 +140,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [
@@ -160,7 +160,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [
@@ -180,7 +180,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [
@@ -200,7 +200,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [
@@ -220,7 +220,7 @@ describe('apidom-ls-ads-validation-provider', function () {
           },
           message: "should always have a 'description'",
           severity: 1,
-          code: 5290101,
+          code: 3120101,
           source: 'apilint',
           data: {
             quickFix: [

@@ -28,9 +28,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-          content:
-            application/json:
-              schema: {}
   /test/{foo_id}/{bar_id}:
     get:
       summary: Get test foo bar
@@ -44,9 +41,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-          content:
-            application/json:
-              schema: {}
   /reference/{test_id}/{baz_id}:
     get:
       summary: Get test baz
@@ -56,9 +50,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-          content:
-            application/json:
-              schema: {}
   /just_parameters_object/{x_id}/{y_id}:
     parameters:
       - name: x_id
@@ -79,9 +70,6 @@ paths:
       responses:
         '200':
           description: Successful Response
-          content:
-            application/json:
-              schema: {}
     parameters:
       - name: a_id
         in: path

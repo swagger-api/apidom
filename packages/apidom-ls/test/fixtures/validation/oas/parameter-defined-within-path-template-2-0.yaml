@@ -28,4 +28,19 @@ paths:
         required: true
         type: string
         format: uuid
-  
+  /test:
+    get:
+      summary: Get test
+      operationId: getTest
+      responses:
+        '200':
+          description: Successful Response
+      parameters:
+        - name: x_id
+          in: path
+          required: true
+          type: string
+          schema:
+            type: string
+            format: uuid
+            title: X Id

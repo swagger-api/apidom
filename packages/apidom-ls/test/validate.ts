@@ -3586,6 +3586,13 @@ describe('apidom-ls-validate', function () {
         code: 3102000,
         source: 'apilint',
       },
+      {
+        range: { start: { line: 38, character: 10 }, end: { line: 46, character: 0 } },
+        message: 'parameter is not defined within path template',
+        severity: 1,
+        code: 3102000,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 
@@ -3628,6 +3635,13 @@ describe('apidom-ls-validate', function () {
         code: 3102000,
         source: 'apilint',
       },
+      {
+        range: { start: { line: 84, character: 10 }, end: { line: 91, character: 0 } },
+        message: 'parameter is not defined within path template',
+        severity: 1,
+        code: 3102000,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 
@@ -3665,6 +3679,13 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: { start: { line: 45, character: 8 }, end: { line: 51, character: 23 } },
+        message: 'parameter is not defined within path template',
+        severity: 1,
+        code: 3102000,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 103, character: 10 }, end: { line: 110, character: 0 } },
         message: 'parameter is not defined within path template',
         severity: 1,
         code: 3102000,

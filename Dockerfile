@@ -10,7 +10,7 @@ WORKDIR emsdk
 RUN ./emsdk install 2.0.24
 RUN ./emsdk activate 2.0.24
 ENV PATH="/tmp/emsdk:/tmp/emsdk/upstream/emscripten:${PATH}"
-ENV EMSDK = /tmp/emsdk
+ENV EMSDK="/tmp/emsdk"
 
 # setting CWD
 WORKDIR /apidom

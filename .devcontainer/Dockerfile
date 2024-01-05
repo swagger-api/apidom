@@ -6,7 +6,7 @@ ARG EXTRA_NODE_VERSION="20.3.0"
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
 ## install emscripten
-WORKDIR /tmp
+WORKDIR /home/node
 RUN su node -c "git clone --depth 1 --branch 2.0.24 https://github.com/emscripten-core/emsdk.git"
 WORKDIR emsdk
 RUN su node -c "./emsdk install 2.0.24"

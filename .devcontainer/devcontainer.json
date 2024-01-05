@@ -1,5 +1,4 @@
 {
   "name": "ApiDOM Codespace",
-  "build": { "dockerfile": "Dockerfile" },
-  "postCreateCommand": "export PATH=\"/tmp/emsdk:/tmp/emsdk/upstream/emscripten:${PATH}\" && export EMSDK=\"/tmp/emsdk\""
+  "build": { "dockerfile": "Dockerfile" }
 }

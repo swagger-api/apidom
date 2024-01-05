@@ -1,7 +1,6 @@
 {
   "name": "ApiDOM Codespace",
   "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:1-20-bookworm",
-  "postCreateCommand": "npm install --verbose",
   "features": {
     "ghcr.io/devcontainers-contrib/features/jshint:2": {}
   }

@@ -161,6 +161,17 @@ $ docker exec -it apidom-dev npm run test
 
 > Note: monorepo needs to be build in order for monorepo package topology to work correctly.
 
+### Setting up via GitHub Codespaces
+
+This repository is [configured](https://github.com/swagger-api/apidom/tree/main/.devcontainer) to work with [GitHub Codespaces](https://github.com/codespaces).
+Create a new codespace by picking this repository from the list of available repositories.
+Once the codespace is created, run following commands inside the codespace terminal:
+
+```sh
+ $ npm i
+ $ npm run build
+```
+
 ### npm scripts
 
 Some npm scripts run in parallel. Default maximum parallelization is set `2`. This is due to the fact

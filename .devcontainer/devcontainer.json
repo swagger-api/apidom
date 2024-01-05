@@ -2,7 +2,8 @@
   "name": "ApiDOM Codespace",
   "build": { "dockerfile": "Dockerfile" },
   "remoteEnv": {
-    "PATH": "/tmp/emsdk:/tmp/emsdk/upstream/emscripten:${containerEnv:PATH}:",
-    "EMSDK": "/tmp/emsdk"
+    "PATH": "/home/node/emsdk:/home/node/emsdk/upstream/emscripten:${containerEnv:PATH}:",
+    "EMSDK": "/home/node/emsdk",
+    "CPU_CORES": "2"
   }
 }

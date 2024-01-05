@@ -31,6 +31,8 @@ and allows tool builders to consume one structure for all formats.
 - [Development](#development)
   - [Prerequisites](#prerequisites)
   - [Setting up](#setting-up)
+  - [Setting up via docker](#setting-up-via-docker)
+  - [Setting up via GitHub Codespaces](#setting-up-via-github-codespaces)
   - [npm scripts](#npm-scripts)
   - [Build artifacts](#build-artifacts)
   - [Using this monorepo as a local dev dependency](#using-this-monorepo-as-a-local-dev-dependency)

@@ -11,4 +11,4 @@ RUN git clone --depth 1 --branch 2.0.24 https://github.com/emscripten-core/emsdk
 WORKDIR emsdk
 RUN ./emsdk install 2.0.24
 RUN ./emsdk activate 2.0.24
-RUN su node -c "source /tmp/emsdk/emsdk_env.sh"
+RUN su node -c "source /workspaces/emsdk/emsdk_env.sh"

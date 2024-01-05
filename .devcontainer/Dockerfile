@@ -11,4 +11,3 @@ RUN su node -c "git clone --depth 1 --branch 2.0.24 https://github.com/emscripte
 WORKDIR emsdk
 RUN su node -c "./emsdk install 2.0.24"
 RUN su node -c "./emsdk activate 2.0.24"
-RUN su node -c "source /tmp/emsdk/emsdk_env.sh"

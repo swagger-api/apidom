@@ -1,4 +1,8 @@
 {
   "name": "ApiDOM Codespace",
-  "build": { "dockerfile": "Dockerfile" }
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteEnv": {
+    "PATH": "/tmp/emsdk:/tmp/emsdk/upstream/emscripten:${containerEnv:PATH}:",
+    "EMSDK": "/tmp/emsdk"
+  }
 }

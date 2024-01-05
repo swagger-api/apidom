@@ -7,9 +7,8 @@ RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_V
 
 ## install emscripten
 WORKDIR /tmp
-RUN git clone --depth 1 --branch 2.0.24 https://github.com/emscripten-core/emsdk.git
+RUN su node -c "git clone --depth 1 --branch 2.0.24 https://github.com/emscripten-core/emsdk.git"
 WORKDIR emsdk
-RUN chmod -R 777 ./emsdk
-RUN ./emsdk install 2.0.24
-RUN ./emsdk activate 2.0.24
+RUN su node -c "./emsdk install 2.0.24"
+RUN su node -c "./emsdk activate 2.0.24"
 RUN su node -c "source /tmp/emsdk/emsdk_env.sh"

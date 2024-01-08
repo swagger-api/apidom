@@ -1,6 +1,7 @@
 import allowedFields3_0Lint from './allowed-fields-3-0';
 import allowedFieldsLint3_1 from './allowed-fields-3-1';
 import schemasValuesTypeLint from './schemas--values-type';
+import schemasValuesTypeOpenAPI3_1_AsyncAPI2Lint from './schemas--values-type-openapi-3-1-asyncapi-2';
 import responsesValuesTypeLint from './responses--values-type';
 import parametersValuesTypeLint from './parameters--values-type';
 import examplesValuesTypeLint from './examples--values-type';
@@ -14,6 +15,7 @@ import pathItemsValuesTypeLint from './path-items--values-type';
 
 const lints = [
   schemasValuesTypeLint,
+  schemasValuesTypeOpenAPI3_1_AsyncAPI2Lint,
   responsesValuesTypeLint,
   parametersValuesTypeLint,
   examplesValuesTypeLint,

@@ -2,19 +2,21 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
-const containsTypeLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const containsTypeOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_CONTAINS,
   source: 'apilint',
   message: 'contains must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'contains',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI30],
+  targetSpecs: [...OpenAPI31, ...AsyncAPI2],
 };
 
-export default containsTypeLint;
+export default containsTypeOpenAPI3_1_AsyncAPI2Lint;

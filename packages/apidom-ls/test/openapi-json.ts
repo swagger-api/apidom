@@ -510,6 +510,13 @@ describe('apidom-ls', function () {
         source: 'apilint',
       },
       {
+        range: { start: { line: 30, character: 10 }, end: { line: 30, character: 14 } },
+        message: 'Schema does not include any Schema Object keywords',
+        severity: 4,
+        code: 10072,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 185, character: 20 }, end: { line: 190, character: 7 } },
         message: 'parameters must be an array',
         severity: 1,

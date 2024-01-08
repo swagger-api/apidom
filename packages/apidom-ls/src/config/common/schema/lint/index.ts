@@ -36,6 +36,10 @@ import minLengthTypeLint from './min-length--type';
 import minPropertiesNonObjectLint from './min-properties--non-object';
 import minPropertiesTypeLint from './min-properties--type';
 import minimumPatternLint from './minimum--pattern';
+import missingCoreFieldsOpenAPI2_0Lint from './missing-core-fields-openapi-2-0';
+import missingCoreFieldsOpenAPI3_0Lint from './missing-core-fields-openapi-3-0';
+import missingCoreFieldsOpenAPI3_1Lint from './missing-core-fields-openapi-3-1';
+import missingCoreFieldsAsyncAPI2Lint from './missing-core-fields-asyncapi-2';
 import multipleOfTypeLint from './multiple-of--type';
 import notTypeLint from './not--type';
 import nullableNotRecommendedLint from './nullable--not-recommended';
@@ -102,6 +106,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumPatternLint,
+  missingCoreFieldsOpenAPI2_0Lint,
+  missingCoreFieldsOpenAPI3_0Lint,
+  missingCoreFieldsOpenAPI3_1Lint,
+  missingCoreFieldsAsyncAPI2Lint,
   multipleOfTypeLint,
   notTypeLint,
   nullableNotRecommendedLint,

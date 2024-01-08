@@ -6,10 +6,10 @@ import { LinterMeta } from '../../../../../../../apidom-language-types';
 const clientIdTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_KAFKA_OPERATION_BINDING_FIELD_CLIENT_ID_TYPE,
   source: 'apilint',
-  message: 'clientId must be an object',
+  message: 'clientId must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'clientId',
   data: {},

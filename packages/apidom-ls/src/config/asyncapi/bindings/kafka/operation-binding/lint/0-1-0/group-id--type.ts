@@ -6,10 +6,10 @@ import { LinterMeta } from '../../../../../../../apidom-language-types';
 const groupIdTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_KAFKA_OPERATION_BINDING_FIELD_GROUP_ID_TYPE,
   source: 'apilint',
-  message: 'groupId must be an object',
+  message: 'groupId must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: ['schema', 'boolean'],
   marker: 'value',
   target: 'groupdId',
   data: {},

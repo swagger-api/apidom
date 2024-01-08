@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const headersTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MESSAGE_FIELD_HEADERS_TYPE,
   source: 'apilint',
-  message: "'headers' must be a schema",
+  message: "'headers' must be a schema object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['schema'],

@@ -2,9 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI30 } from '../../target-specs';
+import { OpenAPI31 } from '../../target-specs';
 
-const schemaMutuallyExclusiveLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const schemaMutuallyExclusiveOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_HEADER_FIELD_SCHEMA_MUTUALLY_EXCLUSIVE,
   source: 'apilint',
   message: 'The `schema` field and `content` field are mutually exclusive.',
@@ -19,7 +20,7 @@ const schemaMutuallyExclusiveLint: LinterMeta = {
       params: [['content']],
     },
   ],
-  targetSpecs: OpenAPI30,
+  targetSpecs: [...OpenAPI31],
 };
 
-export default schemaMutuallyExclusiveLint;
+export default schemaMutuallyExclusiveOpenAPI3_1_AsyncAPI2Lint;

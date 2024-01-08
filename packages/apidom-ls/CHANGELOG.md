@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.91.0](https://github.com/swagger-api/apidom/compare/v0.90.0...v0.91.0) (2024-01-08)
+
+### Features
+
+- **ls:** add lint rule for OpenAPI Operation Parameter defined in path template ([#3629](https://github.com/swagger-api/apidom/issues/3629)) ([98cdfad](https://github.com/swagger-api/apidom/commit/98cdfad3f8042a13ef9d376f211739ec57279b4c)), closes [#3546](https://github.com/swagger-api/apidom/issues/3546)
+
 # [0.90.0](https://github.com/swagger-api/apidom/compare/v0.89.0...v0.90.0) (2024-01-04)
 
 ### Bug Fixes

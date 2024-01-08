@@ -6,8 +6,14 @@ import defaultNamespaceInstance from '../namespace';
 
 /**
  * Transforms data to an Element from a particular namespace.
+ *
+ * The name of the function was originally `from`,
+ * but it was renamed to `fromFn` to avoid issues with Parcel.js:
+ *
+ * - https://github.com/parcel-bundler/parcel/issues/9473
+ * - https://github.com/swagger-api/swagger-ui/issues/9466#issuecomment-1881053410
  */
-const from = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
+const fromFn = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
   if (isString(data)) {
     // JSON serialized refract
     try {
@@ -24,4 +30,4 @@ const from = (data: any, namespace: INamespace = defaultNamespaceInstance): Elem
   return namespace.toElement(data);
 };
 
-export default from;
+export default fromFn;

@@ -42,8 +42,7 @@
     "@swagger-api/apidom-error": "^0.90.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.1",
-    "ramda-adjunct": "^4.1.1",
-    "stampit": "^4.3.2"
+    "ramda-adjunct": "^4.1.1"
   },
   "files": [
     "cjs/",

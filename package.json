@@ -78,7 +78,7 @@
     "eslint-plugin-prettier": "=5.1.2",
     "file-loader": "=6.2.0",
     "husky": "=8.0.3",
-    "jsdom": "=23.1.0",
+    "jsdom": "=23.2.0",
     "jsdom-global": "=3.0.2",
     "lerna": "=8.0.2",
     "lint-staged": "=15.2.0",

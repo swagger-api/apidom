@@ -78,7 +78,7 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as workflowsJsonAdapter from '@swagger-api/apidom-parser-adapter-workflows-json-1';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(workflowsJsonAdapter);
 

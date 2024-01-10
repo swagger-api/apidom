@@ -82,7 +82,7 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as apiDesignSystemsJsonAdapter from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(apiDesignSystemsJsonAdapter);
 

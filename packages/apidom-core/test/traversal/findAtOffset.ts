@@ -5,7 +5,7 @@ import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-j
 
 import { findAtOffset } from '../../src';
 
-const parser = ApiDOMParser().use(openapi3_1Adapter);
+const parser = new ApiDOMParser().use(openapi3_1Adapter);
 
 describe('traversal', function () {
   context('findAtOffset', function () {

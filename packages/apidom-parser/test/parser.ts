@@ -12,7 +12,7 @@ const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')
 
 describe('apidom-parser', function () {
   it('should parse', async function () {
-    const parser = ApiDOMParser().use(openapi3_1Adapter);
+    const parser = new ApiDOMParser().use(openapi3_1Adapter);
     const parseResult = await parser.parse(spec);
 
     assert.isTrue(apiDOM.isParseResultElement(parseResult));
@@ -21,7 +21,7 @@ describe('apidom-parser', function () {
 
   it('should throw error', async function () {
     const source = 'test: !!!test';
-    const parser = ApiDOMParser().use(yamlAdapter);
+    const parser = new ApiDOMParser().use(yamlAdapter);
 
     try {
       await parser.parse(source);

@@ -4,7 +4,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as apiDesignSystemsJsonAdapter from '../src/adapter';
 
 describe('given adapter is used in parser', function () {
-  const parser = ApiDOMParser().use(apiDesignSystemsJsonAdapter);
+  const parser = new ApiDOMParser().use(apiDesignSystemsJsonAdapter);
 
   context('given API Design Systems definition in JSON format', function () {
     specify('should find appropriate media type', async function () {

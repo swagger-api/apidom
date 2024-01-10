@@ -89,7 +89,7 @@ const parseResult = await parse('prop: value', { sourceMap: true });
 import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(yamlParserAdapter);
 

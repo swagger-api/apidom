@@ -7,7 +7,7 @@ import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-j
 
 import * as apiDOM from '../src';
 
-const parser = ApiDOMParser().use(openapi3_1Adapter);
+const parser = new ApiDOMParser().use(openapi3_1Adapter);
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 const namespace = apiDOM.createNamespace(openapi3_1);
 

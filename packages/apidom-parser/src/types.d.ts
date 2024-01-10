@@ -16,10 +16,3 @@ export interface ApiDOMParserAdapter {
   parse: Parse;
   namespace: Namespace;
 }
-
-export interface ApiDOMParser {
-  use(adapter: ApiDOMParserAdapter): ApiDOMParser;
-  findNamespace(source: string, options?: ApiDOMParserOptions): Promise<Namespace | undefined>;
-  findMediaType(source: string): Promise<string | void>;
-  parse(source: string, options?: ApiDOMParserOptions): Promise<ParseResultElement>;
-}

@@ -4,7 +4,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as openApiYAMLAdapter from '../src/adapter';
 
 describe('given adapter is used in parser', function () {
-  const parser = ApiDOMParser().use(openApiYAMLAdapter);
+  const parser = new ApiDOMParser().use(openApiYAMLAdapter);
 
   context('given OpenAPI 2.0 definition in YAML format', function () {
     context('and single quotes are used', function () {

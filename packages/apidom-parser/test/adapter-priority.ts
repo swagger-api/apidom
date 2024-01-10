@@ -6,7 +6,7 @@ import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ApiDOMParser from '../src/parser';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 parser.use(asyncApiJsonAdapter);
 parser.use(asyncApiYamlAdapter);
 

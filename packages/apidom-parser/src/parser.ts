@@ -3,24 +3,16 @@ import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
 import { MediaTypes, Namespace, ParseResultElement } from '@swagger-api/apidom-core';
 
 import ParserError from './errors/ParserError';
-import {
-  ApiDOMParser as ApiDOMParserType,
-  ApiDOMParserOptions,
-  ApiDOMParserAdapter,
-} from './types';
+import { ApiDOMParserOptions, ApiDOMParserAdapter } from './types';
 
-export type {
-  ApiDOMParser as ApiDOMParserShape,
-  ApiDOMParserOptions,
-  ApiDOMParserAdapter,
-} from './types';
+export type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types';
 
 export { ParserError };
 
-class ApiDOMParserClass implements ApiDOMParserType {
+class ApiDOMParser {
   private adapters: ApiDOMParserAdapter[] = [];
 
-  private async detectAdapterCandidates(source: string): Promise<ApiDOMParserAdapter[]> {
+  protected async detectAdapterCandidates(source: string): Promise<ApiDOMParserAdapter[]> {
     const candidates = [];
 
     for (const adapter of this.adapters) {
@@ -33,7 +25,7 @@ class ApiDOMParserClass implements ApiDOMParserType {
     return candidates;
   }
 
-  private async findAdapter(
+  protected async findAdapter(
     source: string,
     mediaType: string | undefined,
   ): Promise<ApiDOMParserAdapter | undefined> {
@@ -131,10 +123,6 @@ class ApiDOMParserClass implements ApiDOMParserType {
       });
     }
   }
-}
-
-function ApiDOMParser(): ApiDOMParserClass {
-  return new ApiDOMParserClass();
 }
 
 export default ApiDOMParser;

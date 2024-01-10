@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.91.0](https://github.com/swagger-api/apidom/compare/v0.90.0...v0.91.0) (2024-01-08)
+
+### Bug Fixes
+
+- **core:** allow Parcel.js to bundle the code ([#3639](https://github.com/swagger-api/apidom/issues/3639)) ([aa094b7](https://github.com/swagger-api/apidom/commit/aa094b733796eaea3855b5fc388a97661fbe510a)), closes [/github.com/swagger-api/swagger-ui/issues/9466#issuecomment-1881053410](https://github.com//github.com/swagger-api/swagger-ui/issues/9466/issues/issuecomment-1881053410)
+
 # [0.90.0](https://github.com/swagger-api/apidom/compare/v0.89.0...v0.90.0) (2024-01-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

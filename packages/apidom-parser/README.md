@@ -30,7 +30,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
 import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(jsonParserAdapter);
 parser.use(yamlParserAdapter);
@@ -46,7 +46,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
 import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(jsonParserAdapter);
 parser.use(yamlParserAdapter);
@@ -63,7 +63,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
 import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(jsonParserAdapter);
 parser.use(yamlParserAdapter);
@@ -82,7 +82,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as jsonParserAdapter from '@swagger-api/apidom-parser-adapter-json';
 import * as yamlParserAdapter from '@swagger-api/apidom-parser-adapter-yaml';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(jsonParserAdapter);
 parser.use(yamlParserAdapter);
@@ -106,7 +106,7 @@ If no parser adapter was mounted before the parsing, calling `parse` method will
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 const parseResult = await parser.parse('{"prop", "value"}', { mediaType: 'application/json' });
 // => ParserError('Source did not match any registered parsers')
 ```

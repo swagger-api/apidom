@@ -84,7 +84,7 @@ You can omit the `mediaType` option here, but please read [Word on detect vs med
 import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as openApiYamlAdapter from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 
-const parser = ApiDOMParser();
+const parser = new ApiDOMParser();
 
 parser.use(openApiYamlAdapter);
 

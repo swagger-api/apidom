@@ -12,6 +12,7 @@ import encodingMeta from './encoding/meta';
 import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
 import headerMeta from './header/meta';
+import headersMeta from './headers/meta';
 import infoMeta from './info/meta';
 import licenseMeta from './license/meta';
 import linkMeta from './link/meta';
@@ -63,6 +64,7 @@ export default {
   example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,
   header: headerMeta,
+  headers: headersMeta,
   info: infoMeta,
   license: licenseMeta,
   link: linkMeta,

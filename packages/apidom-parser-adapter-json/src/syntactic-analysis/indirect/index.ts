@@ -32,8 +32,8 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();
   const iterator = new TreeCursorIterator(cursor);
   const [rootNode] = Array.from(iterator);
-  const cstVisitor = CstVisitor();
-  const astVisitor = JsonAstVisitor();
+  const cstVisitor = new CstVisitor();
+  const astVisitor = new JsonAstVisitor();
 
   const jsonAst = visit(rootNode, cstVisitor, {
     // @ts-ignore

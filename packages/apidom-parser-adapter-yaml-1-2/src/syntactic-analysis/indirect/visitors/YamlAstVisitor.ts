@@ -53,11 +53,11 @@ export const isNode = (node: unknown) => isElement(node) || isCSTNode(node) || A
 class YamlAstVisitor {
   public sourceMap: boolean = false;
 
-  protected processedDocumentCount: number = 0;
-
   public annotations: AnnotationElement[];
 
   public namespace: Namespace;
+
+  protected processedDocumentCount: number = 0;
 
   public readonly stream = {
     leave: (node: YamlStream): ParseResultElement => {

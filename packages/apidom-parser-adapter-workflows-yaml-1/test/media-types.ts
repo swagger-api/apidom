@@ -4,7 +4,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as workflowsYamlAdapter from '../src/adapter';
 
 describe('given adapter is used in parser', function () {
-  const parser = ApiDOMParser().use(workflowsYamlAdapter);
+  const parser = new ApiDOMParser().use(workflowsYamlAdapter);
 
   context('given Workflows 1.0.0 definition in YAML format', function () {
     specify('should find appropriate media type', async function () {

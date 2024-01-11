@@ -4,7 +4,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import * as workflowsJsonAdapter from '../src/adapter';
 
 describe('given adapter is used in parser', function () {
-  const parser = ApiDOMParser().use(workflowsJsonAdapter);
+  const parser = new ApiDOMParser().use(workflowsJsonAdapter);
 
   context('given Workflows 1.0.0 definition in JSON format', function () {
     specify('should find appropriate media type', async function () {

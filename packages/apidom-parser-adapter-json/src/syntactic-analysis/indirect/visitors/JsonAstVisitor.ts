@@ -66,40 +66,11 @@ export const isNode = (element: unknown) => isElement(element) || isCSTNode(elem
 /* eslint-disable no-underscore-dangle */
 
 class JsonAstVisitor {
-  sourceMap: SourceMapElement | boolean = false;
+  public sourceMap: SourceMapElement | boolean;
 
-  annotations: AnnotationElement[] = [];
+  public annotations: AnnotationElement[];
 
-  /**
-   * Private API.
-   */
-
-  private maybeAddSourceMap(node: JsonNode, element: Element): void {
-    if (!this.sourceMap) {
-      return;
-    }
-
-    const sourceMap = new SourceMapElement();
-    // @ts-ignore
-    sourceMap.position = node.position;
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
-  }
-
-  /**
-   * Public API.
-   */
-
-  // eslint-disable-next-line class-methods-use-this
-  document(node: JsonDocument): ParseResultElement {
-    const element = new ParseResultElement();
-    // @ts-ignore
-    element._content = node.children;
-    return element;
-  }
-
-  ParseResultElement = {
+  public ParseResultElement = {
     leave: (element: ParseResultElement): void => {
       // mark first-non Annotation element as result
       // @ts-ignore
@@ -117,7 +88,20 @@ class JsonAstVisitor {
     },
   };
 
-  object(node: JsonObject): ObjectElement {
+  constructor() {
+    this.sourceMap = false;
+    this.annotations = [];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public document(node: JsonDocument): ParseResultElement {
+    const element = new ParseResultElement();
+    // @ts-ignore
+    element._content = node.children;
+    return element;
+  }
+
+  public object(node: JsonObject): ObjectElement {
     const element = new ObjectElement();
     // @ts-ignore
     element._content = node.children;
@@ -125,7 +109,7 @@ class JsonAstVisitor {
     return element;
   }
 
-  property(node: JsonProperty): MemberElement {
+  public property(node: JsonProperty): MemberElement {
     const element = new MemberElement();
 
     // @ts-ignore
@@ -151,13 +135,13 @@ class JsonAstVisitor {
     return element;
   }
 
-  key(node: JsonKey): StringElement {
+  public key(node: JsonKey): StringElement {
     const element = new StringElement(node.value);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
-  array(node: JsonArray): ArrayElement {
+  public array(node: JsonArray): ArrayElement {
     const element = new ArrayElement();
     // @ts-ignore
     element._content = node.children;
@@ -165,40 +149,40 @@ class JsonAstVisitor {
     return element;
   }
 
-  string(node: JsonString): StringElement {
+  public string(node: JsonString): StringElement {
     const element = new StringElement(node.value);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
-  number(node: JsonNumber): NumberElement {
+  public number(node: JsonNumber): NumberElement {
     const element = new NumberElement(Number(node.value));
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  null(node: JsonNull): NullElement {
+  public null(node: JsonNull): NullElement {
     const element = new NullElement();
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  true(node: JsonTrue): BooleanElement {
+  public true(node: JsonTrue): BooleanElement {
     const element = new BooleanElement(true);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  false(node: JsonFalse): BooleanElement {
+  public false(node: JsonFalse): BooleanElement {
     const element = new BooleanElement(false);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
-  literal(node: Literal): null {
+  public literal(node: Literal): null {
     if (node.isMissing) {
       const message = `(Missing ${node.value})`;
       const element = new AnnotationElement(message);
@@ -211,7 +195,7 @@ class JsonAstVisitor {
     return null;
   }
 
-  error(
+  public error(
     node: Error,
     key: unknown,
     parent: unknown,
@@ -233,6 +217,19 @@ class JsonAstVisitor {
     this.annotations.push(element);
 
     return null;
+  }
+
+  private maybeAddSourceMap(node: JsonNode, element: Element): void {
+    if (!this.sourceMap) {
+      return;
+    }
+
+    const sourceMap = new SourceMapElement();
+    // @ts-ignore
+    sourceMap.position = node.position;
+    // @ts-ignore
+    sourceMap.astNode = node;
+    element.meta.set('sourceMap', sourceMap);
   }
 }
 

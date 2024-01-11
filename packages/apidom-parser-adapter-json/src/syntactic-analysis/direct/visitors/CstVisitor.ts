@@ -18,16 +18,7 @@ import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
 /* eslint-disable no-underscore-dangle */
 
 class CstVisitor {
-  sourceMap: SourceMapElement | boolean = false;
-
-  annotations: AnnotationElement[] = [];
-
-  /**
-   * Private API.
-   */
-
-  // eslint-disable-next-line class-methods-use-this
-  private toPosition(node: TreeCursorSyntaxNode): Array<ArrayElement> {
+  private static toPosition(node: TreeCursorSyntaxNode): Array<ArrayElement> {
     const start = new ArrayElement([
       node.startPosition.row,
       node.startPosition.column,
@@ -41,53 +32,11 @@ class CstVisitor {
     return [start, end];
   }
 
-  private maybeAddSourceMap(node: TreeCursorSyntaxNode, element: Element): void {
-    if (!this.sourceMap) {
-      return;
-    }
+  public sourceMap: SourceMapElement | boolean;
 
-    const sourceMap = new SourceMapElement();
-    const position = this.toPosition(node);
+  public annotations: AnnotationElement[];
 
-    if (position !== null) {
-      const [start, end] = position;
-      sourceMap.push(start);
-      sourceMap.push(end);
-    }
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
-  }
-
-  /**
-   * Public API.
-   */
-
-  enter(node: TreeCursorSyntaxNode): null {
-    // missing anonymous literals from CST transformed into AnnotationElements.
-    if (node instanceof TreeCursorSyntaxNode && !node.isNamed && node.isMissing) {
-      // collect annotations from missing literals
-      const value = node.type || node.text;
-      const message = `(Missing ${value})`;
-      const element = new AnnotationElement(message);
-
-      element.classes.push('warning');
-      this.maybeAddSourceMap(node, element);
-      this.annotations.push(element);
-    }
-
-    return null; // remove everything unrecognized
-  }
-
-  document(node: TreeCursorSyntaxNode): ParseResultElement {
-    const element = new ParseResultElement();
-    // @ts-ignore
-    element._content = node.children;
-    this.maybeAddSourceMap(node, element);
-    return element;
-  }
-
-  ParseResultElement = {
+  public ParseResultElement = {
     leave: (element: ParseResultElement): void => {
       // mark first-non Annotation element as result
       // @ts-ignore
@@ -105,7 +54,36 @@ class CstVisitor {
     },
   };
 
-  object(node: TreeCursorSyntaxNode): ObjectElement {
+  constructor() {
+    this.sourceMap = false;
+    this.annotations = [];
+  }
+
+  public enter(node: TreeCursorSyntaxNode): null {
+    // missing anonymous literals from CST transformed into AnnotationElements.
+    if (node instanceof TreeCursorSyntaxNode && !node.isNamed && node.isMissing) {
+      // collect annotations from missing literals
+      const value = node.type || node.text;
+      const message = `(Missing ${value})`;
+      const element = new AnnotationElement(message);
+
+      element.classes.push('warning');
+      this.maybeAddSourceMap(node, element);
+      this.annotations.push(element);
+    }
+
+    return null; // remove everything unrecognized
+  }
+
+  public document(node: TreeCursorSyntaxNode): ParseResultElement {
+    const element = new ParseResultElement();
+    // @ts-ignore
+    element._content = node.children;
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
+
+  public object(node: TreeCursorSyntaxNode): ObjectElement {
     const element = new ObjectElement();
     // @ts-ignore
     element._content = node.children;
@@ -113,7 +91,7 @@ class CstVisitor {
     return element;
   }
 
-  array(node: TreeCursorSyntaxNode): ArrayElement {
+  public array(node: TreeCursorSyntaxNode): ArrayElement {
     const element = new ArrayElement();
     // @ts-ignore
     element._content = node.children;
@@ -121,7 +99,7 @@ class CstVisitor {
     return element;
   }
 
-  pair(node: TreeCursorSyntaxNode): MemberElement {
+  public pair(node: TreeCursorSyntaxNode): MemberElement {
     const element = new MemberElement();
     // @ts-ignore
     element.content.key = node.keyNode;
@@ -144,40 +122,40 @@ class CstVisitor {
     return element;
   }
 
-  string(node: TreeCursorSyntaxNode): StringElement {
+  public string(node: TreeCursorSyntaxNode): StringElement {
     const element = new StringElement(JSON.parse(node.text));
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
-  number(node: TreeCursorSyntaxNode): NumberElement {
+  public number(node: TreeCursorSyntaxNode): NumberElement {
     const element = new NumberElement(Number(node.text));
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  null(node: TreeCursorSyntaxNode): NullElement {
+  public null(node: TreeCursorSyntaxNode): NullElement {
     const element = new NullElement();
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  true(node: TreeCursorSyntaxNode): BooleanElement {
+  public true(node: TreeCursorSyntaxNode): BooleanElement {
     const element = new BooleanElement(true);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  false(node: TreeCursorSyntaxNode): BooleanElement {
+  public false(node: TreeCursorSyntaxNode): BooleanElement {
     const element = new BooleanElement(false);
     this.maybeAddSourceMap(node, element);
     return element;
   }
 
-  ERROR(
+  public ERROR(
     node: TreeCursorSyntaxNode,
     key: unknown,
     parent: TreeCursorSyntaxNode | never[],
@@ -203,6 +181,24 @@ class CstVisitor {
     this.annotations.push(element);
 
     return null;
+  }
+
+  private maybeAddSourceMap(node: TreeCursorSyntaxNode, element: Element): void {
+    if (!this.sourceMap) {
+      return;
+    }
+
+    const sourceMap = new SourceMapElement();
+    const position = CstVisitor.toPosition(node);
+
+    if (position !== null) {
+      const [start, end] = position;
+      sourceMap.push(start);
+      sourceMap.push(end);
+    }
+    // @ts-ignore
+    sourceMap.astNode = node;
+    element.meta.set('sourceMap', sourceMap);
   }
 }
 

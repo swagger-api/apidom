@@ -47,7 +47,7 @@ class CstVisitor {
     return Position({ start, end });
   }
 
-  public document = {
+  public readonly document = {
     enter: (node: TreeCursorSyntaxNode): JsonDocument => {
       const position = CstVisitor.toPosition(node);
 
@@ -57,7 +57,7 @@ class CstVisitor {
         isMissing: node.isMissing,
       });
     },
-    leave(document: JsonDocument): ParseResult {
+    leave: (document: JsonDocument): ParseResult => {
       return ParseResult({ children: [document] });
     },
   };

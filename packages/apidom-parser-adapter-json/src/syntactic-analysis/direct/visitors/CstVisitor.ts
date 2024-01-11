@@ -32,11 +32,11 @@ class CstVisitor {
     return [start, end];
   }
 
-  public sourceMap: SourceMapElement | boolean;
+  public sourceMap: boolean = false;
 
   public annotations: AnnotationElement[];
 
-  public ParseResultElement = {
+  public readonly ParseResultElement = {
     leave: (element: ParseResultElement): void => {
       // mark first-non Annotation element as result
       // @ts-ignore
@@ -55,7 +55,6 @@ class CstVisitor {
   };
 
   constructor() {
-    this.sourceMap = false;
     this.annotations = [];
   }
 

@@ -66,11 +66,11 @@ export const isNode = (element: unknown) => isElement(element) || isCSTNode(elem
 /* eslint-disable no-underscore-dangle */
 
 class JsonAstVisitor {
-  public sourceMap: SourceMapElement | boolean;
+  public sourceMap: boolean = false;
 
   public annotations: AnnotationElement[];
 
-  public ParseResultElement = {
+  public readonly ParseResultElement = {
     leave: (element: ParseResultElement): void => {
       // mark first-non Annotation element as result
       // @ts-ignore
@@ -89,7 +89,6 @@ class JsonAstVisitor {
   };
 
   constructor() {
-    this.sourceMap = false;
     this.annotations = [];
   }
 

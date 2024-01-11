@@ -59,7 +59,7 @@ class YamlAstVisitor {
 
   public namespace: Namespace;
 
-  public stream = {
+  public readonly stream = {
     leave: (node: YamlStream): ParseResultElement => {
       const element = new ParseResultElement();
       // @ts-ignore

@@ -178,7 +178,7 @@ class CstVisitor {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public schema!: any;
 
-  public stream = {
+  public readonly stream = {
     enter: (node: TreeCursorSyntaxNode): YamlStream => {
       const position = CstVisitor.toPosition(node);
 
@@ -188,12 +188,12 @@ class CstVisitor {
         isMissing: node.isMissing,
       });
     },
-    leave(stream: YamlStream): ParseResult {
+    leave: (stream: YamlStream): ParseResult => {
       return ParseResult({ children: [stream] });
     },
   };
 
-  public yaml_directive = {
+  public readonly yaml_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
       const position = CstVisitor.toPosition(node);
       const version = node?.firstNamedChild?.text || null;
@@ -208,7 +208,7 @@ class CstVisitor {
     },
   };
 
-  public tag_directive = {
+  public readonly tag_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
       const position = CstVisitor.toPosition(node);
       const tagHandleNode = node.children[0];
@@ -228,7 +228,7 @@ class CstVisitor {
     },
   };
 
-  public reserved_directive = {
+  public readonly reserved_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
       const position = CstVisitor.toPosition(node);
       const directiveNameNode = node.children[0];
@@ -246,7 +246,7 @@ class CstVisitor {
     },
   };
 
-  public document = {
+  public readonly document = {
     enter: (node: TreeCursorSyntaxNode): YamlDocument => {
       const position = CstVisitor.toPosition(node);
 
@@ -256,18 +256,18 @@ class CstVisitor {
         isMissing: node.isMissing,
       });
     },
-    leave(node: YamlDocument): void {
+    leave: (node: YamlDocument): void => {
       node.children = node.children.flat();
     },
   };
 
-  public block_node = {
-    enter(node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] {
+  public readonly block_node = {
+    enter: (node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] => {
       return node.children;
     },
   };
 
-  public flow_node = {
+  public readonly flow_node = {
     enter: (node: TreeCursorSyntaxNode): (TreeCursorSyntaxNode | YamlScalar)[] => {
       const [kindCandidate] = node.children.slice(-1);
 
@@ -299,19 +299,19 @@ class CstVisitor {
     },
   };
 
-  public tag = {
-    enter(): null {
+  public readonly tag = {
+    enter: (): null => {
       return null;
     },
   };
 
-  public anchor = {
-    enter(): null {
+  public readonly anchor = {
+    enter: (): null => {
       return null;
     },
   };
 
-  public block_mapping = {
+  public readonly block_mapping = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -330,7 +330,7 @@ class CstVisitor {
     },
   };
 
-  public block_mapping_pair = {
+  public readonly block_mapping_pair = {
     enter: (node: TreeCursorSyntaxNode): YamlKeyValuePair => {
       const position = CstVisitor.toPosition(node);
       const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
@@ -353,7 +353,7 @@ class CstVisitor {
     },
   };
 
-  public flow_mapping = {
+  public readonly flow_mapping = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -372,7 +372,7 @@ class CstVisitor {
     },
   };
 
-  public flow_pair = {
+  public readonly flow_pair = {
     enter: (node: TreeCursorSyntaxNode): YamlKeyValuePair => {
       const position = CstVisitor.toPosition(node);
       const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
@@ -395,13 +395,13 @@ class CstVisitor {
     },
   };
 
-  public keyValuePair = {
-    leave(node: YamlKeyValuePair): void {
+  public readonly keyValuePair = {
+    leave: (node: YamlKeyValuePair): void => {
       node.children = node.children.flat();
     },
   };
 
-  public block_sequence = {
+  public readonly block_sequence = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -419,8 +419,8 @@ class CstVisitor {
     },
   };
 
-  public block_sequence_item = {
-    enter(node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] | YamlScalar[] {
+  public readonly block_sequence_item = {
+    enter: (node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] | YamlScalar[] => {
       // flow or block node present; first node is always `-` literal
       if (node.children.length > 1) {
         return node.children;
@@ -448,7 +448,7 @@ class CstVisitor {
     },
   };
 
-  public flow_sequence = {
+  public readonly flow_sequence = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -466,13 +466,13 @@ class CstVisitor {
     },
   };
 
-  public sequence = {
-    leave(node: YamlSequence): void {
+  public readonly sequence = {
+    leave: (node: YamlSequence): void => {
       node.children = node.children.flat(+Infinity);
     },
   };
 
-  public plain_scalar = {
+  public readonly plain_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -490,7 +490,7 @@ class CstVisitor {
     },
   };
 
-  public single_quote_scalar = {
+  public readonly single_quote_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -508,7 +508,7 @@ class CstVisitor {
     },
   };
 
-  public double_quote_scalar = {
+  public readonly double_quote_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -526,7 +526,7 @@ class CstVisitor {
     },
   };
 
-  public block_scalar = {
+  public readonly block_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
@@ -549,8 +549,8 @@ class CstVisitor {
     },
   };
 
-  public comment = {
-    enter(node: TreeCursorSyntaxNode): YamlComment {
+  public readonly comment = {
+    enter: (node: TreeCursorSyntaxNode): YamlComment => {
       return YamlComment({ content: node.text });
     },
   };

@@ -43,8 +43,12 @@ class CstVisitor {
   private static isSequence = this.isKind('sequence');
 
   private static isKind(ending: string) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (node: any) => typeof node?.type === 'string' && node.type.endsWith(ending);
+    return (node: unknown) =>
+      node != null &&
+      typeof node === 'object' &&
+      'type' in node &&
+      typeof node.type === 'string' &&
+      node.type.endsWith(ending);
   }
 
   private static toPosition(node: TreeCursorSyntaxNode): Position {

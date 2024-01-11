@@ -51,9 +51,9 @@ export const isNode = (node: unknown) => isElement(node) || isCSTNode(node) || A
 /* eslint-disable no-underscore-dangle */
 
 class YamlAstVisitor {
-  public sourceMap: SourceMapElement | boolean;
+  public sourceMap: boolean = false;
 
-  public processedDocumentCount: number;
+  protected processedDocumentCount: number = 0;
 
   public annotations: AnnotationElement[];
 
@@ -84,8 +84,6 @@ class YamlAstVisitor {
   };
 
   constructor() {
-    this.sourceMap = false;
-    this.processedDocumentCount = 0;
     this.annotations = [];
     this.namespace = createNamespace();
   }

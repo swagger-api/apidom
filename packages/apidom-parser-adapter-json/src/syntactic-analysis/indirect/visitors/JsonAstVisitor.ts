@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import {
   JsonArray,
   JsonDocument,
@@ -52,7 +51,7 @@ export const keyMap = {
   ...keyMapApiDOM,
 };
 
-export const getNodeType = (node: any) => {
+export const getNodeType = (node: unknown) => {
   if (isParseResultElement(node)) {
     return 'ParseResultElement';
   }
@@ -62,175 +61,175 @@ export const getNodeType = (node: any) => {
   return getCSTNodeType(node);
 };
 
-export const isNode = (element: any) => isElement(element) || isCSTNode(element);
+export const isNode = (element: unknown) => isElement(element) || isCSTNode(element);
 
 /* eslint-disable no-underscore-dangle */
 
-const JsonAstVisitor = stampit({
-  props: {
-    sourceMap: false,
-    annotations: [],
-  },
-  init() {
-    /**
-     * Private API.
-     */
+class JsonAstVisitor {
+  public sourceMap: boolean = false;
 
-    this.annotation = [];
+  public annotations: AnnotationElement[];
 
-    const maybeAddSourceMap = (node: JsonNode, element: Element): void => {
-      if (!this.sourceMap) {
-        return;
+  public readonly ParseResultElement = {
+    leave: (element: ParseResultElement): void => {
+      // mark first-non Annotation element as result
+      // @ts-ignore
+      const elements = element.findElements(isPrimitiveElement);
+      if (elements.length > 0) {
+        const resultElement = elements[0];
+        resultElement.classes.push('result');
       }
 
-      const sourceMap = new SourceMapElement();
-      // @ts-ignore
-      sourceMap.position = node.position;
-      // @ts-ignore
-      sourceMap.astNode = node;
-      element.meta.set('sourceMap', sourceMap);
-    };
+      // provide annotations
+      this.annotations.forEach((annotationElement: AnnotationElement) => {
+        element.push(annotationElement);
+      });
+      this.annotations = [];
+    },
+  };
+
+  constructor() {
+    this.annotations = [];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public document(node: JsonDocument): ParseResultElement {
+    const element = new ParseResultElement();
+    // @ts-ignore
+    element._content = node.children;
+    return element;
+  }
+
+  public object(node: JsonObject): ObjectElement {
+    const element = new ObjectElement();
+    // @ts-ignore
+    element._content = node.children;
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
+
+  public property(node: JsonProperty): MemberElement {
+    const element = new MemberElement();
+
+    // @ts-ignore
+    element.content.key = node.key;
+    // @ts-ignore
+    element.content.value = node.value;
+    this.maybeAddSourceMap(node, element);
 
     /**
-     * Public API.
+     * Process possible errors here that may be present in pair node children as we're using direct field access.
+     * There are usually 3 children here found: "key", ":", "value".
      */
-
-    this.document = function document(node: JsonDocument) {
-      const element = new ParseResultElement();
-      // @ts-ignore
-      element._content = node.children;
-      return element;
-    };
-
-    this.ParseResultElement = {
-      leave(element: ParseResultElement) {
-        // mark first-non Annotation element as result
-        // @ts-ignore
-        const elements = element.findElements(isPrimitiveElement);
-        if (elements.length > 0) {
-          const resultElement = elements[0];
-          resultElement.classes.push('result');
-        }
-
-        // provide annotations
-        this.annotations.forEach((annotationElement: AnnotationElement) => {
-          element.push(annotationElement);
+    if (node.children.length > 3) {
+      node.children
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .filter((child: any) => child.type === 'error')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .forEach((errorNode: any) => {
+          this.error(errorNode, node, [], [node]);
         });
-        this.annotations = [];
-      },
-    };
+    }
 
-    this.object = function object(node: JsonObject) {
-      const element = new ObjectElement();
-      // @ts-ignore
-      element._content = node.children;
-      maybeAddSourceMap(node, element);
-      return element;
-    };
+    return element;
+  }
 
-    this.property = function property(node: JsonProperty) {
-      const element = new MemberElement();
+  public key(node: JsonKey): StringElement {
+    const element = new StringElement(node.value);
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-      // @ts-ignore
-      element.content.key = node.key;
-      // @ts-ignore
-      element.content.value = node.value;
-      maybeAddSourceMap(node, element);
+  public array(node: JsonArray): ArrayElement {
+    const element = new ArrayElement();
+    // @ts-ignore
+    element._content = node.children;
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-      /**
-       * Process possible errors here that may be present in pair node children as we're using direct field access.
-       * There are usually 3 children here found: "key", ":", "value".
-       */
-      if (node.children.length > 3) {
-        node.children
-          .filter((child: any) => child.type === 'error')
-          .forEach((errorNode: any) => {
-            this.error(errorNode, node, [], [node]);
-          });
-      }
+  public string(node: JsonString): StringElement {
+    const element = new StringElement(node.value);
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-      return element;
-    };
+  public number(node: JsonNumber): NumberElement {
+    const element = new NumberElement(Number(node.value));
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-    this.key = function key(node: JsonKey) {
-      const element = new StringElement(node.value);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  public null(node: JsonNull): NullElement {
+    const element = new NullElement();
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-    this.array = function array(node: JsonArray) {
-      const element = new ArrayElement();
-      // @ts-ignore
-      element._content = node.children;
-      maybeAddSourceMap(node, element);
-      return element;
-    };
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  public true(node: JsonTrue): BooleanElement {
+    const element = new BooleanElement(true);
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-    this.string = function string(node: JsonString) {
-      const element = new StringElement(node.value);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  public false(node: JsonFalse): BooleanElement {
+    const element = new BooleanElement(false);
+    this.maybeAddSourceMap(node, element);
+    return element;
+  }
 
-    this.number = function number(node: JsonNumber) {
-      const element = new NumberElement(Number(node.value));
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.null = function _null(node: JsonNull) {
-      const element = new NullElement();
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.true = function _true(node: JsonTrue) {
-      const element = new BooleanElement(true);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.false = function _false(node: JsonFalse) {
-      const element = new BooleanElement(false);
-      maybeAddSourceMap(node, element);
-      return element;
-    };
-
-    this.literal = function literal(node: Literal) {
-      if (node.isMissing) {
-        const message = `(Missing ${node.value})`;
-        const element = new AnnotationElement(message);
-
-        element.classes.push('warning');
-        maybeAddSourceMap(node, element);
-        this.annotations.push(element);
-      }
-
-      return null;
-    };
-
-    this.error = function error(node: Error, key: any, parent: any, path: string[]) {
-      const message = node.isUnexpected ? `(Unexpected ${node.value})` : `(Error ${node.value})`;
+  public literal(node: Literal): null {
+    if (node.isMissing) {
+      const message = `(Missing ${node.value})`;
       const element = new AnnotationElement(message);
 
-      element.classes.push('error');
-      maybeAddSourceMap(node, element);
-
-      if (path.length === 0) {
-        // no document to visit, only error is present in CST
-        const parseResultElement = new ParseResultElement();
-        parseResultElement.push(element);
-        return parseResultElement;
-      }
-
+      element.classes.push('warning');
+      this.maybeAddSourceMap(node, element);
       this.annotations.push(element);
+    }
 
-      return null;
-    };
-  },
-});
+    return null;
+  }
+
+  public error(
+    node: Error,
+    key: unknown,
+    parent: unknown,
+    path: string[] | JsonProperty[],
+  ): ParseResultElement | null {
+    const message = node.isUnexpected ? `(Unexpected ${node.value})` : `(Error ${node.value})`;
+    const element = new AnnotationElement(message);
+
+    element.classes.push('error');
+    this.maybeAddSourceMap(node, element);
+
+    if (path.length === 0) {
+      // no document to visit, only error is present in CST
+      const parseResultElement = new ParseResultElement();
+      parseResultElement.push(element);
+      return parseResultElement;
+    }
+
+    this.annotations.push(element);
+
+    return null;
+  }
+
+  private maybeAddSourceMap(node: JsonNode, element: Element): void {
+    if (!this.sourceMap) {
+      return;
+    }
+
+    const sourceMap = new SourceMapElement();
+    // @ts-ignore
+    sourceMap.position = node.position;
+    // @ts-ignore
+    sourceMap.astNode = node;
+    element.meta.set('sourceMap', sourceMap);
+  }
+}
 
 export default JsonAstVisitor;

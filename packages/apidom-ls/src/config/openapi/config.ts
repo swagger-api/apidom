@@ -8,6 +8,7 @@ import componentsMeta from './components/meta';
 import contactMeta from './contact/meta';
 import contentMeta from './content/meta';
 import discriminatorMeta from './discriminator/meta';
+import definitionsMeta from './definitions/meta';
 import encodingMeta from './encoding/meta';
 import exampleMeta from './example/meta';
 import externalDocumentationMeta from './external-documentation/meta';
@@ -60,6 +61,7 @@ export default {
   contact: contactMeta,
   content: contentMeta,
   discriminator: discriminatorMeta,
+  definitions: definitionsMeta,
   encoding: encodingMeta,
   example: exampleMeta,
   externalDocumentation: externalDocumentationMeta,

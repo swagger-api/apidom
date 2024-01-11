@@ -51,40 +51,15 @@ export const isNode = (node: unknown) => isElement(node) || isCSTNode(node) || A
 /* eslint-disable no-underscore-dangle */
 
 class YamlAstVisitor {
-  sourceMap: SourceMapElement | boolean = false;
+  public sourceMap: SourceMapElement | boolean;
 
-  processedDocumentCount: number = 0;
+  public processedDocumentCount: number;
 
-  annotations: AnnotationElement[] = [];
+  public annotations: AnnotationElement[];
 
-  namespace: Namespace;
+  public namespace: Namespace;
 
-  constructor() {
-    this.namespace = createNamespace();
-  }
-
-  /**
-   * Private API.
-   */
-
-  private maybeAddSourceMap(node: unknown, element: Element): void {
-    if (!this.sourceMap) {
-      return;
-    }
-
-    const sourceMap = new SourceMapElement();
-    // @ts-ignore
-    sourceMap.position = node.position;
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
-  }
-
-  /**
-   * Public API.
-   */
-
-  stream = {
+  public stream = {
     leave: (node: YamlStream): ParseResultElement => {
       const element = new ParseResultElement();
       // @ts-ignore
@@ -108,7 +83,14 @@ class YamlAstVisitor {
     },
   };
 
-  comment(node: YamlComment): CommentElement | null {
+  constructor() {
+    this.sourceMap = false;
+    this.processedDocumentCount = 0;
+    this.annotations = [];
+    this.namespace = createNamespace();
+  }
+
+  public comment(node: YamlComment): CommentElement | null {
     const isStreamComment = this.processedDocumentCount === 0;
 
     // we're only interested of stream comments before the first document
@@ -122,7 +104,7 @@ class YamlAstVisitor {
     return null;
   }
 
-  document(node: YamlDocument): unknown[] | null {
+  public document(node: YamlDocument): unknown[] | null {
     const shouldWarnAboutMoreDocuments = this.processedDocumentCount === 1;
     const shouldSkipVisitingMoreDocuments = this.processedDocumentCount >= 1;
 
@@ -144,7 +126,7 @@ class YamlAstVisitor {
     return node.children;
   }
 
-  mapping(node: YamlMapping): ObjectElement {
+  public mapping(node: YamlMapping): ObjectElement {
     const element = new ObjectElement();
     // @ts-ignore
     element._content = node.children;
@@ -152,7 +134,7 @@ class YamlAstVisitor {
     return element;
   }
 
-  keyValuePair(node: YamlKeyValuePair): MemberElement {
+  public keyValuePair(node: YamlKeyValuePair): MemberElement {
     const element = new MemberElement();
 
     // @ts-ignore
@@ -173,7 +155,7 @@ class YamlAstVisitor {
     return element;
   }
 
-  sequence(node: YamlSequence): ArrayElement {
+  public sequence(node: YamlSequence): ArrayElement {
     const element = new ArrayElement();
     // @ts-ignore
     element._content = node.children;
@@ -181,7 +163,7 @@ class YamlAstVisitor {
     return element;
   }
 
-  scalar(node: YamlScalar): Element {
+  public scalar(node: YamlScalar): Element {
     const element = this.namespace.toElement(node.content);
 
     // translate style information about empty nodes
@@ -194,7 +176,7 @@ class YamlAstVisitor {
     return element;
   }
 
-  literal(node: Literal): null {
+  public literal(node: Literal): null {
     if (node.isMissing) {
       const message = `(Missing ${node.value})`;
       const element = new AnnotationElement(message);
@@ -206,7 +188,7 @@ class YamlAstVisitor {
     return null;
   }
 
-  error(
+  public error(
     node: Error,
     key: unknown,
     parent: unknown,
@@ -230,6 +212,19 @@ class YamlAstVisitor {
     this.annotations.push(element);
 
     return null;
+  }
+
+  private maybeAddSourceMap(node: unknown, element: Element): void {
+    if (!this.sourceMap) {
+      return;
+    }
+
+    const sourceMap = new SourceMapElement();
+    // @ts-ignore
+    sourceMap.position = node.position;
+    // @ts-ignore
+    sourceMap.astNode = node;
+    element.meta.set('sourceMap', sourceMap);
   }
 }
 

@@ -36,15 +36,18 @@ export const isNode = (node: unknown) => Array.isArray(node) || isCSTNode(node);
 /* eslint-disable no-param-reassign */
 
 class CstVisitor {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  schema: any;
+  private static isScalar = this.isKind('scalar');
 
-  /**
-   * Private API.
-   */
+  private static isMapping = this.isKind('mapping');
 
-  // eslint-disable-next-line class-methods-use-this
-  private toPosition(node: TreeCursorSyntaxNode): Position {
+  private static isSequence = this.isKind('sequence');
+
+  private static isKind(ending: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (node: any) => typeof node?.type === 'string' && node.type.endsWith(ending);
+  }
+
+  private static toPosition(node: TreeCursorSyntaxNode): Position {
     const start = Point({
       row: node.startPosition.row,
       column: node.startPosition.column,
@@ -59,39 +62,7 @@ class CstVisitor {
     return Position({ start, end });
   }
 
-  private kindNodeToYamlTag(node: TreeCursorSyntaxNode): YamlTag {
-    const { tag: tagNode } = node;
-    const explicitName = tagNode?.text || (node.type === 'plain_scalar' ? '?' : '!');
-    const kind = node.type.endsWith('mapping')
-      ? YamlNodeKind.Mapping
-      : node.type.endsWith('sequence')
-        ? YamlNodeKind.Sequence
-        : YamlNodeKind.Scalar;
-    const position = tagNode ? this.toPosition(tagNode) : null;
-
-    return YamlTag({ explicitName, kind, position });
-  }
-
-  private kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | null {
-    const { anchor: anchorNode } = node;
-
-    if (typeof anchorNode === 'undefined') return null;
-
-    return YamlAnchor({ name: anchorNode.text, position: this.toPosition(anchorNode) });
-  }
-
-  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any
-  private isKind = (ending: string) => (node: any) =>
-    typeof node?.type === 'string' && node.type.endsWith(ending);
-
-  private isScalar = this.isKind('scalar');
-
-  private isMapping = this.isKind('mapping');
-
-  private isSequence = this.isKind('sequence');
-
-  // eslint-disable-next-line class-methods-use-this
-  private hasKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): boolean {
+  private static hasKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): boolean {
     if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
       return false;
     }
@@ -99,8 +70,7 @@ class CstVisitor {
     return typeof node.keyNode === 'undefined';
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  private hasKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): boolean {
+  private static hasKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): boolean {
     if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
       return false;
     }
@@ -108,7 +78,28 @@ class CstVisitor {
     return typeof node.valueNode === 'undefined';
   }
 
-  private createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
+  private static kindNodeToYamlTag(node: TreeCursorSyntaxNode): YamlTag {
+    const { tag: tagNode } = node;
+    const explicitName = tagNode?.text || (node.type === 'plain_scalar' ? '?' : '!');
+    const kind = node.type.endsWith('mapping')
+      ? YamlNodeKind.Mapping
+      : node.type.endsWith('sequence')
+        ? YamlNodeKind.Sequence
+        : YamlNodeKind.Scalar;
+    const position = tagNode ? CstVisitor.toPosition(tagNode) : null;
+
+    return YamlTag({ explicitName, kind, position });
+  }
+
+  private static kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | null {
+    const { anchor: anchorNode } = node;
+
+    if (typeof anchorNode === 'undefined') return null;
+
+    return YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) });
+  }
+
+  private static createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
     const emptyPoint = Point({
       row: node.startPosition.row,
       column: node.startPosition.column,
@@ -116,14 +107,14 @@ class CstVisitor {
     });
     const { keyNode } = node;
     const children = keyNode?.children || [];
-    const tagNode = children.find(this.isKind('tag'));
-    const anchorNode = children.find(this.isKind('anchor'));
+    const tagNode = children.find(CstVisitor.isKind('tag'));
+    const anchorNode = children.find(CstVisitor.isKind('anchor'));
     const tag =
       typeof tagNode !== 'undefined'
         ? YamlTag({
             explicitName: tagNode.text,
             kind: YamlNodeKind.Scalar,
-            position: this.toPosition(tagNode),
+            position: CstVisitor.toPosition(tagNode),
           })
         : YamlTag({
             explicitName: '?',
@@ -131,7 +122,7 @@ class CstVisitor {
           });
     const anchor =
       typeof anchorNode !== 'undefined'
-        ? YamlAnchor({ name: anchorNode.text, position: this.toPosition(anchorNode) })
+        ? YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : null;
 
     return YamlScalar({
@@ -144,7 +135,7 @@ class CstVisitor {
     });
   }
 
-  private createKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): YamlScalar {
+  private static createKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): YamlScalar {
     const emptyPoint = Point({
       row: node.endPosition.row,
       column: node.endPosition.column,
@@ -152,14 +143,14 @@ class CstVisitor {
     });
     const { valueNode } = node;
     const children = valueNode?.children || [];
-    const tagNode = children.find(this.isKind('tag'));
-    const anchorNode = children.find(this.isKind('anchor'));
+    const tagNode = children.find(CstVisitor.isKind('tag'));
+    const anchorNode = children.find(CstVisitor.isKind('anchor'));
     const tag =
       typeof tagNode !== 'undefined'
         ? YamlTag({
             explicitName: tagNode.text,
             kind: YamlNodeKind.Scalar,
-            position: this.toPosition(tagNode),
+            position: CstVisitor.toPosition(tagNode),
           })
         : YamlTag({
             explicitName: '?',
@@ -167,7 +158,7 @@ class CstVisitor {
           });
     const anchor =
       typeof anchorNode !== 'undefined'
-        ? YamlAnchor({ name: anchorNode.text, position: this.toPosition(anchorNode) })
+        ? YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : null;
 
     return YamlScalar({
@@ -180,26 +171,12 @@ class CstVisitor {
     });
   }
 
-  /**
-   * Public API.
-   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public schema!: any;
 
-  enter(node: TreeCursorSyntaxNode): Literal | undefined {
-    // missing anonymous literals from CST transformed into AST literal nodes
-    if (node instanceof TreeCursorSyntaxNode && !node.isNamed) {
-      const position = this.toPosition(node);
-      const value = node.type || node.text;
-      const { isMissing } = node;
-
-      return Literal({ value, position, isMissing });
-    }
-
-    return undefined;
-  }
-
-  stream = {
+  public stream = {
     enter: (node: TreeCursorSyntaxNode): YamlStream => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
 
       return YamlStream({
         children: node.children,
@@ -212,9 +189,9 @@ class CstVisitor {
     },
   };
 
-  yaml_directive = {
+  public yaml_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
       const version = node?.firstNamedChild?.text || null;
 
       return YamlDirective({
@@ -227,9 +204,9 @@ class CstVisitor {
     },
   };
 
-  tag_directive = {
+  public tag_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
       const tagHandleNode = node.children[0];
       const tagPrefixNode = node.children[1];
       const tagDirective = YamlDirective({
@@ -247,9 +224,9 @@ class CstVisitor {
     },
   };
 
-  reserved_directive = {
+  public reserved_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
       const directiveNameNode = node.children[0];
       const directiveParameter1Node = node.children[1];
       const directiveParameter2Node = node.children[2];
@@ -265,9 +242,9 @@ class CstVisitor {
     },
   };
 
-  document = {
+  public document = {
     enter: (node: TreeCursorSyntaxNode): YamlDocument => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
 
       return YamlDocument({
         children: node.children,
@@ -280,21 +257,21 @@ class CstVisitor {
     },
   };
 
-  block_node = {
+  public block_node = {
     enter(node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] {
       return node.children;
     },
   };
 
-  flow_node = {
+  public flow_node = {
     enter: (node: TreeCursorSyntaxNode): (TreeCursorSyntaxNode | YamlScalar)[] => {
       const [kindCandidate] = node.children.slice(-1);
 
       // kind node is present in flow node
       if (
-        this.isScalar(kindCandidate) ||
-        this.isMapping(kindCandidate) ||
-        this.isSequence(kindCandidate)
+        CstVisitor.isScalar(kindCandidate) ||
+        CstVisitor.isMapping(kindCandidate) ||
+        CstVisitor.isSequence(kindCandidate)
       ) {
         return node.children;
       }
@@ -307,8 +284,8 @@ class CstVisitor {
       });
       const emptyScalarNode = YamlScalar({
         content: '',
-        anchor: this.kindNodeToYamlAnchor(kindCandidate),
-        tag: this.kindNodeToYamlTag(kindCandidate),
+        anchor: CstVisitor.kindNodeToYamlAnchor(kindCandidate),
+        tag: CstVisitor.kindNodeToYamlTag(kindCandidate),
         position: Position({ start: emptyPoint, end: emptyPoint }),
         styleGroup: YamlStyleGroup.Flow,
         style: YamlStyle.Plain,
@@ -318,23 +295,23 @@ class CstVisitor {
     },
   };
 
-  tag = {
+  public tag = {
     enter(): null {
       return null;
     },
   };
 
-  anchor = {
+  public anchor = {
     enter(): null {
       return null;
     },
   };
 
-  block_mapping = {
+  public block_mapping = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = YamlMapping({
         children: node.children,
         position,
@@ -349,17 +326,17 @@ class CstVisitor {
     },
   };
 
-  block_mapping_pair = {
+  public block_mapping_pair = {
     enter: (node: TreeCursorSyntaxNode): YamlKeyValuePair => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
       const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
 
-      if (this.hasKeyValuePairEmptyKey(node)) {
-        const keyNode = this.createKeyValuePairEmptyKey(node);
+      if (CstVisitor.hasKeyValuePairEmptyKey(node)) {
+        const keyNode = CstVisitor.createKeyValuePairEmptyKey(node);
         children.unshift(keyNode);
       }
-      if (this.hasKeyValuePairEmptyValue(node)) {
-        const valueNode = this.createKeyValuePairEmptyValue(node);
+      if (CstVisitor.hasKeyValuePairEmptyValue(node)) {
+        const valueNode = CstVisitor.createKeyValuePairEmptyValue(node);
         children.push(valueNode);
       }
 
@@ -372,11 +349,11 @@ class CstVisitor {
     },
   };
 
-  flow_mapping = {
+  public flow_mapping = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = YamlMapping({
         children: node.children,
         position,
@@ -391,17 +368,17 @@ class CstVisitor {
     },
   };
 
-  flow_pair = {
+  public flow_pair = {
     enter: (node: TreeCursorSyntaxNode): YamlKeyValuePair => {
-      const position = this.toPosition(node);
+      const position = CstVisitor.toPosition(node);
       const children: Array<TreeCursorSyntaxNode | YamlScalar> = [...node.children];
 
-      if (this.hasKeyValuePairEmptyKey(node)) {
-        const keyNode = this.createKeyValuePairEmptyKey(node);
+      if (CstVisitor.hasKeyValuePairEmptyKey(node)) {
+        const keyNode = CstVisitor.createKeyValuePairEmptyKey(node);
         children.unshift(keyNode);
       }
-      if (this.hasKeyValuePairEmptyValue(node)) {
-        const valueNode = this.createKeyValuePairEmptyValue(node);
+      if (CstVisitor.hasKeyValuePairEmptyValue(node)) {
+        const valueNode = CstVisitor.createKeyValuePairEmptyValue(node);
         children.push(valueNode);
       }
 
@@ -414,17 +391,17 @@ class CstVisitor {
     },
   };
 
-  keyValuePair = {
+  public keyValuePair = {
     leave(node: YamlKeyValuePair): void {
       node.children = node.children.flat();
     },
   };
 
-  block_sequence = {
+  public block_sequence = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = YamlSequence({
         children: node.children,
         position,
@@ -438,7 +415,7 @@ class CstVisitor {
     },
   };
 
-  block_sequence_item = {
+  public block_sequence_item = {
     enter(node: TreeCursorSyntaxNode): TreeCursorSyntaxNode[] | YamlScalar[] {
       // flow or block node present; first node is always `-` literal
       if (node.children.length > 1) {
@@ -467,11 +444,11 @@ class CstVisitor {
     },
   };
 
-  flow_sequence = {
+  public flow_sequence = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = YamlSequence({
         children: node.children.flat(),
         position,
@@ -485,17 +462,17 @@ class CstVisitor {
     },
   };
 
-  sequence = {
+  public sequence = {
     leave(node: YamlSequence): void {
       node.children = node.children.flat(+Infinity);
     },
   };
 
-  plain_scalar = {
+  public plain_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = YamlScalar({
         content: node.text,
         anchor,
@@ -509,11 +486,11 @@ class CstVisitor {
     },
   };
 
-  single_quote_scalar = {
+  public single_quote_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = YamlScalar({
         content: node.text,
         anchor,
@@ -527,11 +504,11 @@ class CstVisitor {
     },
   };
 
-  double_quote_scalar = {
+  public double_quote_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = YamlScalar({
         content: node.text,
         anchor,
@@ -545,11 +522,11 @@ class CstVisitor {
     },
   };
 
-  block_scalar = {
+  public block_scalar = {
     enter: (node: TreeCursorSyntaxNode) => {
-      const position = this.toPosition(node);
-      const tag = this.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const position = CstVisitor.toPosition(node);
+      const tag = CstVisitor.kindNodeToYamlTag(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const style = node.text.startsWith('|')
         ? YamlStyle.Literal
         : node.text.startsWith('>')
@@ -568,19 +545,39 @@ class CstVisitor {
     },
   };
 
-  comment = {
+  public comment = {
     enter(node: TreeCursorSyntaxNode): YamlComment {
       return YamlComment({ content: node.text });
     },
   };
 
-  ERROR(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(schema?: any) {
+    this.schema = schema;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public enter(node: TreeCursorSyntaxNode): Literal | undefined {
+    // missing anonymous literals from CST transformed into AST literal nodes
+    if (node instanceof TreeCursorSyntaxNode && !node.isNamed) {
+      const position = CstVisitor.toPosition(node);
+      const value = node.type || node.text;
+      const { isMissing } = node;
+
+      return Literal({ value, position, isMissing });
+    }
+
+    return undefined;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public ERROR(
     node: TreeCursorSyntaxNode,
     key: unknown,
     parent: unknown,
     path: string[],
   ): Error | ParseResult {
-    const position = this.toPosition(node);
+    const position = CstVisitor.toPosition(node);
     const errorNode = Error({
       children: node.children,
       position,

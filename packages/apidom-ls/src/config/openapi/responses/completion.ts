@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI30, OpenAPI31 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31 } from '../target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const httpCode3_0CompletionItem = {
@@ -34,6 +34,20 @@ const httpCode3_1CompletionRule = {
 };
 
 const completion: ApidomCompletionItem[] = [
+  {
+    label: 'default',
+    insertText: 'default',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "[Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#referenceObject)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. It can be used to cover undeclared responses. [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#referenceObject) can be used to link to a response that is defined at the [Swagger Object's responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#swaggerResponses) section.",
+    },
+    targetSpecs: OpenAPI2,
+  },
   {
     label: 'default',
     insertText: 'default',

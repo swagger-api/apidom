@@ -32,6 +32,7 @@ import responsesMeta from './responses/meta';
 import responsesDefinitionsMeta from './responses-definitions/meta';
 import securityRequirementMeta from './security-requirement/meta';
 import securitySchemeMeta from './security-scheme/meta';
+import securityDefinitionsMeta from './security-definitions/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
 import swaggerMeta from './swagger/meta';
@@ -87,6 +88,7 @@ export default {
   responsesDefinitions: responsesDefinitionsMeta,
   securityRequirement: securityRequirementMeta,
   securityScheme: securitySchemeMeta,
+  securityDefinitions: securityDefinitionsMeta,
   server: serverMeta,
   serverVariable: serverVariableMeta,
   swagger: swaggerMeta,

@@ -31,7 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**Required.** The type of the security scheme. Valid values are `"basic"`, `"apiKey"` or `"oauth2"`.',
     },
-    targetSpecs: OpenAPI30,
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'type',

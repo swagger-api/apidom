@@ -1,19 +1,22 @@
 import stampit from 'stampit';
 
 import Node from '../../Node';
-import YamlStyleModel from './YamlStyle';
+import type { YamlStyleModel } from './YamlStyle';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates';
 import YamlScalar from './YamlScalar';
 
-interface YamlKeyValuePair extends Node, YamlStyleModel {
+interface YamlKeyValuePair extends Node, Omit<YamlStyleModel, 'style'> {
   type: 'keyValuePair';
   readonly key: YamlScalar;
   readonly value: any;
 }
 
-const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, YamlStyleModel, {
+const YamlKeyValuePair: stampit.Stamp<YamlKeyValuePair> = stampit(Node, {
   statics: {
     type: 'keyValuePair',
+  },
+  props: {
+    styleGroup: null,
   },
   propertyDescriptors: {
     key: {

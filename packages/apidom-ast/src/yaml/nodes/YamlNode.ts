@@ -3,13 +3,11 @@ import stampit from 'stampit';
 import Node from '../../Node';
 import YamlTag from './YamlTag';
 import YamlAnchor from './YamlAnchor';
-import { YamlStyle, YamlStyleGroup } from './YamlStyle';
+import type { YamlStyleModel } from './YamlStyle';
 
-interface YamlNode extends Node {
+interface YamlNode extends Node, YamlStyleModel {
   anchor: YamlAnchor | null;
   tag: YamlTag | null;
-  style: YamlStyle;
-  styleGroup: YamlStyleGroup;
 }
 
 const YamlNode: stampit.Stamp<YamlNode> = stampit(Node, {

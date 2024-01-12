@@ -2,12 +2,12 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const nameRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_SECURITY_SCHEME_FIELD_NAME_REQUIRED,
+  code: ApilintCodes.OPENAPI2_SECURITY_SCHEME_FIELD_NAME_REQUIRED,
   source: 'apilint',
-  message: "should always have a 'name'",
+  message: "should always have a 'name' when type='apiKey'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['name'],
@@ -33,7 +33,7 @@ const nameRequiredLint: LinterMeta = {
       params: ['$ref'],
     },
   ],
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default nameRequiredLint;

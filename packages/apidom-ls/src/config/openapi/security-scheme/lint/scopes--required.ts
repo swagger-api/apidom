@@ -2,23 +2,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import { OpenAPI2 } from '../../target-specs';
 
-const inRequiredLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_SECURITY_SCHEME_FIELD_IN_REQUIRED,
+const scopesRequiredLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI2_SECURITY_SCHEME_FIELD_SCOPES_REQUIRED,
   source: 'apilint',
-  message: "should always have a 'in' when type='apiKey'",
+  message: "should always have a 'scopes' when type='oauth2'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
-  linterParams: ['in'],
+  linterParams: ['scopes'],
   marker: 'key',
   data: {
     quickFix: [
       {
-        message: "add 'in' field",
+        message: "add 'scopes' field",
         action: 'addChild',
-        snippetYaml: 'in: \n  ',
-        snippetJson: '"in": "",\n    ',
+        snippetYaml: 'scopes: \n  \n',
+        snippetJson: '"scopes": {\n  \n  },\n',
       },
     ],
   },
@@ -26,10 +26,10 @@ const inRequiredLint: LinterMeta = {
     {
       targets: [{ path: 'type' }],
       function: 'apilintContainsValue',
-      params: ['apiKey'],
+      params: ['oauth2'],
     },
   ],
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI2,
 };
 
-export default inRequiredLint;
+export default scopesRequiredLint;

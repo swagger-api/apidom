@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const externalDocsTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_TAG_FIELD_EXTERNAL_DOCS_TYPE,
+  code: ApilintCodes.OPENAPI2_TAG_FIELD_EXTERNAL_DOCS_TYPE,
   source: 'apilint',
   message: 'externalDocs must be an object',
   severity: DiagnosticSeverity.Error,
@@ -14,7 +14,7 @@ const externalDocsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'externalDocs',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default externalDocsTypeLint;

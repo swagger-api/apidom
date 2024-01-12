@@ -10,4 +10,54 @@ const transform = (str) => {
   console.log(transformed);
 };
 
-transform(``);
+transform(`#### [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md)
+
+An object to hold parameters to be reused across operations. Parameter definitions can be referenced to the ones defined here.
+
+This does *not* define global operation parameters.
+
+##### Patterned Fields
+
+Field Pattern | Type | Description
+---|:---:|---
+{name} | [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterObject) | A single parameter definition, mapping a "name" to the parameter it defines.
+
+##### Parameters Definition Object Example
+
+\`\`\`js
+{
+  "skipParam": {
+    "name": "skip",
+    "in": "query",
+    "description": "number of items to skip",
+    "required": true,
+    "type": "integer",
+    "format": "int32"
+  },
+  "limitParam": {
+    "name": "limit",
+    "in": "query",
+    "description": "max records to return",
+    "required": true,
+    "type": "integer",
+    "format": "int32"
+  }
+}
+\`\`\`
+
+\`\`\`yaml
+skipParam:
+  name: skip
+  in: query
+  description: number of items to skip
+  required: true
+  type: integer
+  format: int32
+limitParam:
+  name: limit
+  in: query
+  description: max records to return
+  required: true
+  type: integer
+  format: int32
+\`\`\``);

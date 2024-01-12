@@ -23,6 +23,7 @@ import oauthFlowMeta from './oauth-flow/meta';
 import oauthFlowsMeta from './oauth-flows/meta';
 import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
+import parametersDefinitionsMeta from './parameters-definitions/meta';
 import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
 import requestBodyMeta from './request-body/meta';
@@ -76,6 +77,7 @@ export default {
   oAuthFlows: oauthFlowsMeta,
   operation: operationMeta,
   parameter: parameterMeta,
+  parametersDefinitions: parametersDefinitionsMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
   requestBody: requestBodyMeta,

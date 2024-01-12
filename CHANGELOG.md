@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.92.0](https://github.com/swagger-api/apidom/compare/v0.91.0...v0.92.0) (2024-01-12)
+
+### Features
+
+- **ls:** add rules for OpenAPI 2.0 Definitions Object ([#3658](https://github.com/swagger-api/apidom/issues/3658)) ([049186d](https://github.com/swagger-api/apidom/commit/049186dbd28d0478af78e08bb2710178aae4125a)), closes [#3615](https://github.com/swagger-api/apidom/issues/3615)
+- **ls:** add rules for OpenAPI 2.0 Example Object ([#3669](https://github.com/swagger-api/apidom/issues/3669)) ([37e773f](https://github.com/swagger-api/apidom/commit/37e773f797d10653cad8530dff12fbd175de9b88)), closes [#3609](https://github.com/swagger-api/apidom/issues/3609)
+- **ls:** add rules for OpenAPI 2.0 Headers Object ([#3653](https://github.com/swagger-api/apidom/issues/3653)) ([5a585f4](https://github.com/swagger-api/apidom/commit/5a585f49f06751df43829461a8d685308d814cce)), closes [#3608](https://github.com/swagger-api/apidom/issues/3608)
+- **ls:** add rules for OpenAPI 2.0 Parameters Definitions Object ([#3660](https://github.com/swagger-api/apidom/issues/3660)) ([12303d9](https://github.com/swagger-api/apidom/commit/12303d9c262269605ce01a2963a57cb0c8898afe)), closes [#3616](https://github.com/swagger-api/apidom/issues/3616)
+- **ls:** add rules for OpenAPI 2.0 Responses Definitions Object ([#3661](https://github.com/swagger-api/apidom/issues/3661)) ([8bb660a](https://github.com/swagger-api/apidom/commit/8bb660a250e79df1ab45d9ff00c860d788db2c9e)), closes [#3617](https://github.com/swagger-api/apidom/issues/3617)
+- **ls:** add rules for OpenAPI 2.0 Responses Object ([#3664](https://github.com/swagger-api/apidom/issues/3664)) ([8eb948a](https://github.com/swagger-api/apidom/commit/8eb948a6196daea5262e1a6703d493afe19f6cdc)), closes [#3606](https://github.com/swagger-api/apidom/issues/3606)
+- **ls:** add rules for OpenAPI 2.0 Scopes Object ([#3663](https://github.com/swagger-api/apidom/issues/3663)) ([b8e2b41](https://github.com/swagger-api/apidom/commit/b8e2b416067c5b2b4537f1950f040c8507ae9374)), closes [#3620](https://github.com/swagger-api/apidom/issues/3620)
+- **ls:** add rules for OpenAPI 2.0 Security Definitions Object ([#3662](https://github.com/swagger-api/apidom/issues/3662)) ([2323129](https://github.com/swagger-api/apidom/commit/2323129c9002218fcca83a6690a74e311221f26a)), closes [#3618](https://github.com/swagger-api/apidom/issues/3618)
+- **ls:** add rules for OpenAPI 2.0 Security Requirement Object ([#3667](https://github.com/swagger-api/apidom/issues/3667)) ([7cd71f6](https://github.com/swagger-api/apidom/commit/7cd71f60dd6a16f8b384811ced935fdcc577d71d)), closes [#3621](https://github.com/swagger-api/apidom/issues/3621)
+- **ls:** add rules for OpenAPI 2.0 Security Scheme Object ([#3670](https://github.com/swagger-api/apidom/issues/3670)) ([e8ba3bc](https://github.com/swagger-api/apidom/commit/e8ba3bc9d06ff0b29caabe8aa0f23fe9fbadd4a1)), closes [#3619](https://github.com/swagger-api/apidom/issues/3619)
+- **ls:** add rules for OpenAPI 2.0 Tag Object ([#3665](https://github.com/swagger-api/apidom/issues/3665)) ([8c86d48](https://github.com/swagger-api/apidom/commit/8c86d4816034c4474f5e35f51e55cd8986a1e19a)), closes [#3611](https://github.com/swagger-api/apidom/issues/3611)
+- **ls:** add rules for OpenAPI 2.0 XML Object ([#3666](https://github.com/swagger-api/apidom/issues/3666)) ([1f539a3](https://github.com/swagger-api/apidom/commit/1f539a3855d545bf6ee5d91f95ce72fa087494e0)), closes [#3614](https://github.com/swagger-api/apidom/issues/3614)
+
 # [0.91.0](https://github.com/swagger-api/apidom/compare/v0.90.0...v0.91.0) (2024-01-08)
 
 ### Bug Fixes

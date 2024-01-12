@@ -40,6 +40,7 @@ import tagMeta from './tag/meta';
 import xmlMeta from './xml/meta';
 import pathTemplateMeta from './path-template/meta';
 import itemsMeta from './items/meta';
+import scopesMeta from './scopes/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -95,6 +96,7 @@ export default {
   tag: tagMeta,
   xml: xmlMeta,
   items: itemsMeta,
+  scopes: scopesMeta,
   schema: schemaMeta,
   'path-template': pathTemplateMeta,
 };

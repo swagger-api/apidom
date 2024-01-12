@@ -29,6 +29,7 @@ import pathsMeta from './paths/meta';
 import requestBodyMeta from './request-body/meta';
 import responseMeta from './response/meta';
 import responsesMeta from './responses/meta';
+import responsesDefinitionsMeta from './responses-definitions/meta';
 import securityRequirementMeta from './security-requirement/meta';
 import securitySchemeMeta from './security-scheme/meta';
 import serverMeta from './server/meta';
@@ -83,6 +84,7 @@ export default {
   requestBody: requestBodyMeta,
   response: responseMeta,
   responses: responsesMeta,
+  responsesDefinitions: responsesDefinitionsMeta,
   securityRequirement: securityRequirementMeta,
   securityScheme: securitySchemeMeta,
   server: serverMeta,

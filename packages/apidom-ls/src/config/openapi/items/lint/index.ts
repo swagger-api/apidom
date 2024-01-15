@@ -11,6 +11,9 @@ import minimumTypeLint from './minimum--type';
 import exclusiveMinimumTypeLint from './exclusive-minimum--type';
 import maxLengthTypeLint from './max-length--type';
 import minLengthTypeLint from './min-length--type';
+import patternTypeLint from './pattern--type';
+import maxItemsTypeLint from './max-items--type';
+import minItemsTypeLint from './min-items--type';
 import uniqueItemsTypeLint from './unique-items--type';
 import enumTypeLint from './enum--type';
 import multipleOfTypeLint from './multiple-of--type';
@@ -28,6 +31,9 @@ const lints = [
   exclusiveMinimumTypeLint,
   maxLengthTypeLint,
   minLengthTypeLint,
+  patternTypeLint,
+  maxItemsTypeLint,
+  minItemsTypeLint,
   uniqueItemsTypeLint,
   enumTypeLint,
   multipleOfTypeLint,

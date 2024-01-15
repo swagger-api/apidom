@@ -30,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The extending format for the previously mentioned [`type`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterType). See [Data Type Formats](#dataTypeFormat) for further details.',
+        'The extending format for the previously mentioned [`type`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterType). See [Data Type Formats](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#dataTypeFormat) for further details.',
     },
     targetSpecs: OpenAPI2,
   },
@@ -44,7 +44,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Items Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#itemsObject)\n\\\n\\\n**Required if [`type`](#parameterType) is "array".** Describes the type of items in the array.',
+        '[Items Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#itemsObject)\n\\\n\\\n**Required if [`type`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#itemsType) is "array".** Describes the type of items in the array.',
     },
     targetSpecs: OpenAPI2,
   },

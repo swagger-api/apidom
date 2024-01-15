@@ -4,7 +4,6 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI2 } from '../../../openapi/target-specs';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const missingCoreFieldsOpenAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MISSING_CORE_FIELDS,
   source: 'apilint',
@@ -46,10 +45,15 @@ const missingCoreFieldsOpenAPI2Lint: LinterMeta = {
       'example',
     ],
     true,
-    'boolean',
   ],
   marker: 'key',
   targetSpecs: [...OpenAPI2],
+  conditions: [
+    {
+      function: 'apilintElementOrClass',
+      params: [['schema']],
+    },
+  ],
 };
 
 export default missingCoreFieldsOpenAPI2Lint;

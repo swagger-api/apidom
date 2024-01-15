@@ -9,10 +9,9 @@ import allowEmptyValueTypeLint from './allow-empty-value--type';
 import styleTypeLint from './style--type';
 import explodeTypeLint from './explode--type';
 import allowReservedTypeLint from './allow-reserved--type';
-import schemaTypeLint from './schema--type';
+import schemaTypeLint from './schema--type-3-0';
 import schemaTypeOpenAPI3_1Lint from './schema--type-openapi-3-1';
 import schemaMutuallyExclusiveLint from './schema--mutually-exclusive';
-import schemaMutuallyExclusiveOpenAPI3_1_AsyncAPI2Lint from './schema--mutually-exclusive-openapi-3-1-asyncapi-2';
 import examplesValuesTypeLint from './examples--values-type';
 import examplesMutuallyExclusiveLint from './examples--mutually-exclusive';
 import contentValuesTypeLint from './content--values-type';
@@ -48,7 +47,6 @@ const lints = [
   schemaTypeLint,
   schemaTypeOpenAPI3_1Lint,
   schemaMutuallyExclusiveLint,
-  schemaMutuallyExclusiveOpenAPI3_1_AsyncAPI2Lint,
   examplesValuesTypeLint,
   examplesMutuallyExclusiveLint,
   contentValuesTypeLint,

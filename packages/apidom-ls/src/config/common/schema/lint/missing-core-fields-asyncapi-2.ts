@@ -4,7 +4,6 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { AsyncAPI2 } from '../../../asyncapi/target-specs';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MISSING_CORE_FIELDS,
   source: 'apilint',
@@ -64,10 +63,15 @@ const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
       'deprecated',
     ],
     true,
-    'boolean',
   ],
   marker: 'key',
   targetSpecs: [...AsyncAPI2],
+  conditions: [
+    {
+      function: 'apilintElementOrClass',
+      params: [['schema']],
+    },
+  ],
 };
 
 export default missingCoreFieldsAsyncAPI2Lint;

@@ -52,10 +52,15 @@ const missingCoreFieldsOpenAPI3_0Lint: LinterMeta = {
       'deprecated',
     ],
     true,
-    'boolean',
   ],
   marker: 'key',
   targetSpecs: [...OpenAPI30],
+  conditions: [
+    {
+      function: 'apilintElementOrClass',
+      params: [['schema']],
+    },
+  ],
 };
 
 export default missingCoreFieldsOpenAPI3_0Lint;

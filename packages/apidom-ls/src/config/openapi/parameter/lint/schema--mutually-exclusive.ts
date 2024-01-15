@@ -10,7 +10,7 @@ const schemaMutuallyExclusiveLint: LinterMeta = {
   message: 'The `schema` field and `content` field are mutually exclusive.',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'missingFields',
-  linterParams: [['schema', 'boolean']],
+  linterParams: [['schema']],
   marker: 'key',
   markerTarget: 'schema',
   conditions: [

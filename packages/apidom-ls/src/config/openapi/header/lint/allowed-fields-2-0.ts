@@ -13,6 +13,7 @@ const allowedFields2_0Lint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [
     [
+      'description',
       'type',
       'format',
       'items',

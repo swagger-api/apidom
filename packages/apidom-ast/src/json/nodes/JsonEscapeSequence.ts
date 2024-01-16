@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonValue from './JsonValue';
 
-type JsonEscapeSequence = JsonValue;
-
-const JsonEscapeSequence: stampit.Stamp<JsonEscapeSequence> = stampit(JsonValue, {
-  statics: {
-    type: 'escapeSequence',
-  },
-});
+class JsonEscapeSequence extends JsonValue {
+  public readonly type: string = 'escapeSequence';
+}
 
 export default JsonEscapeSequence;

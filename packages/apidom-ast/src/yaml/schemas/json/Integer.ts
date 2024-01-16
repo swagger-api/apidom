@@ -1,28 +1,25 @@
-import stampit from 'stampit';
-
 import Tag from '../Tag';
 
-const Integer = stampit(Tag, {
-  statics: {
-    uri: 'tag:yaml.org,2002:int',
-  },
-  init(args, { stamp }) {
-    this.tag = stamp.uri;
-  },
-  methods: {
-    test(node) {
-      return /^-?(0|[1-9][0-9]*)$/.test(node.content);
-    },
+class Integer extends Tag {
+  public static uri: string = 'tag:yaml.org,2002:int';
 
-    resolve(node) {
-      const content = parseInt(node.content, 10);
-      const nodeClone = node.clone();
+  constructor() {
+    super();
+    this.tag = Integer.uri;
+  }
 
-      nodeClone.content = content;
+  public static test(node: any): boolean {
+    return /^-?(0|[1-9][0-9]*)$/.test(node.content);
+  }
 
-      return nodeClone;
-    },
-  },
-});
+  public static resolve(node: any): any {
+    const content = parseInt(node.content, 10);
+    const nodeClone = node.clone();
+
+    nodeClone.content = content;
+
+    return nodeClone;
+  }
+}
 
 export default Integer;

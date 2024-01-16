@@ -1,6 +1,4 @@
-import stampit from 'stampit';
-
-import Node from '../../Node';
+import Node, { NodeConstructor } from '../../Node';
 
 export enum YamlNodeKind {
   Scalar = 'Scalar',
@@ -8,24 +6,29 @@ export enum YamlNodeKind {
   Mapping = 'Mapping',
 }
 
-interface YamlTag extends Node {
-  type: 'tag';
-  explicitName: string; // eslint-disable-line
-  kind: YamlNodeKind;
+interface YamlTagConstructor extends NodeConstructor {
+  explicitName?: string;
+  kind?: YamlNodeKind | null;
 }
 
-const YamlTag: stampit.Stamp<YamlTag> = stampit(Node, {
-  statics: {
-    type: 'tag',
-  },
-  props: {
-    explicitName: '',
-    kind: null,
-  },
-  init(this: YamlTag, { explicitName, kind } = {}) {
+class YamlTag extends Node {
+  public readonly type: string = 'tag';
+
+  public explicitName: string;
+
+  public kind: YamlNodeKind | null;
+
+  constructor({
+    children = [],
+    position = null,
+    isMissing = false,
+    explicitName = '',
+    kind = null,
+  }: YamlTagConstructor = {}) {
+    super({ children, position, isMissing });
     this.explicitName = explicitName;
     this.kind = kind;
-  },
-});
+  }
+}
 
 export default YamlTag;

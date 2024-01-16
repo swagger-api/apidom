@@ -1,24 +1,31 @@
-import stampit from 'stampit';
+import YamlNode, { YamlNodeConstructor } from './YamlNode';
 
-import YamlNode from './YamlNode';
-
-interface YamlScalar extends YamlNode {
-  type: 'scalar';
-  format: string | null;
-  text: string;
-  readonly content: string | null;
+interface YamlScalarConstructor extends YamlNodeConstructor {
+  content?: string | null;
 }
 
-const YamlScalar: stampit.Stamp<YamlScalar> = stampit(YamlNode, {
-  statics: {
-    type: 'scalar',
-  },
-  props: {
-    content: '',
-  },
-  init({ content } = {}) {
+class YamlScalar extends YamlNode {
+  public readonly type: string = 'scalar';
+
+  public readonly content: string | null;
+
+  public format: string | null = null;
+
+  public text: string | null = null;
+
+  constructor({
+    children = [],
+    position = null,
+    isMissing = false,
+    anchor = null,
+    tag = null,
+    style = null,
+    styleGroup = null,
+    content = '',
+  }: YamlScalarConstructor = {}) {
+    super({ children, position, isMissing, anchor, tag, style, styleGroup });
     this.content = content;
-  },
-});
+  }
+}
 
 export default YamlScalar;

@@ -1,22 +1,23 @@
-import stampit from 'stampit';
+import Node, { NodeConstructor } from '../../Node';
 
-import Node from '../../Node';
-
-interface YamlAlias extends Node {
-  type: 'alias';
-  content: string | null;
+interface YamlAliasConstructor extends NodeConstructor {
+  content?: string | null;
 }
 
-const YamlAlias: stampit.Stamp<YamlAlias> = stampit(Node, {
-  statics: {
-    type: 'alias',
-  },
-  props: {
-    content: null,
-  },
-  init({ content = null } = {}) {
+class YamlAlias extends Node {
+  public readonly type: string = 'alias';
+
+  public content: string | null;
+
+  constructor({
+    children = [],
+    position = null,
+    isMissing = false,
+    content = null,
+  }: YamlAliasConstructor = {}) {
+    super({ children, position, isMissing });
     this.content = content;
-  },
-});
+  }
+}
 
 export default YamlAlias;

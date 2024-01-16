@@ -1,24 +1,28 @@
-import stampit from 'stampit';
+import Node, { NodeConstructor } from './Node';
 
-import Node from './Node';
-
-interface Error extends Node {
-  value: unknown;
-  isUnexpected: boolean;
+export interface ErrorConstructor extends NodeConstructor {
+  value?: unknown;
+  isUnexpected?: boolean;
 }
 
-const Error: stampit.Stamp<Error> = stampit(Node, {
-  statics: {
-    type: 'error',
-  },
-  props: {
-    value: null,
-    isUnexpected: false,
-  },
-  init({ value = null, isUnexpected = false } = {}) {
+class Error extends Node {
+  public readonly type: string = 'error';
+
+  public value: unknown;
+
+  public isUnexpected: boolean;
+
+  constructor({
+    children = [],
+    position = null,
+    isMissing = false,
+    value = null,
+    isUnexpected = false,
+  }: ErrorConstructor = {}) {
+    super({ children, position, isMissing });
     this.value = value;
     this.isUnexpected = isUnexpected;
-  },
-});
+  }
+}
 
 export default Error;

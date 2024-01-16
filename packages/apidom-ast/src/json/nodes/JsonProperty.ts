@@ -1,5 +1,3 @@
-import stampit from 'stampit';
-
 import JsonNode from './JsonNode';
 import JsonKey from './JsonKey';
 import {
@@ -13,36 +11,26 @@ import {
   isTrue,
 } from './predicates';
 
-interface JsonProperty extends JsonNode {
-  key: JsonKey;
-  value: unknown;
-}
+class JsonProperty extends JsonNode {
+  public readonly type: string = 'property';
 
-const JsonProperty: stampit.Stamp<JsonProperty> = stampit(JsonNode, {
-  statics: {
-    type: 'property',
-  },
-  methods: {
+  public get key(): JsonKey {
     // @ts-ignore
-    get key(): JsonKey {
-      // @ts-ignore
-      return this.children.find(isKey);
-    },
-    // @ts-ignore
-    get value(): unknown {
-      // @ts-ignore
-      return this.children.find(
-        (node: any) =>
-          isFalse(node) ||
-          isTrue(node) ||
-          isNull(node) ||
-          isNumber(node) ||
-          isString(node) ||
-          isArray(node) ||
-          isObject(node),
-      );
-    },
-  },
-});
+    return this.children.find(isKey);
+  }
+
+  public get value(): unknown {
+    return this.children.find(
+      (node: any) =>
+        isFalse(node) ||
+        isTrue(node) ||
+        isNull(node) ||
+        isNumber(node) ||
+        isString(node) ||
+        isArray(node) ||
+        isObject(node),
+    );
+  }
+}
 
 export default JsonProperty;

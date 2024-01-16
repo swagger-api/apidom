@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonString from './JsonString';
 
-type JsonKey = JsonString;
-
-const JsonKey: stampit.Stamp<JsonKey> = stampit(JsonString, {
-  statics: {
-    type: 'key',
-  },
-});
+class JsonKey extends JsonString {
+  public readonly type: string = 'key';
+}
 
 export default JsonKey;

@@ -1,22 +1,23 @@
-import stampit from 'stampit';
+import Node, { NodeConstructor } from '../../Node';
 
-import Node from '../../Node';
-
-interface YamlAnchor extends Node {
-  type: 'anchor';
-  name: string | null;
+interface YamlAnchorConstructor extends NodeConstructor {
+  name?: string | null;
 }
 
-const YamlAnchor: stampit.Stamp<YamlAnchor> = stampit(Node, {
-  statics: {
-    type: 'anchor',
-  },
-  props: {
-    name: null,
-  },
-  init({ name = null } = {}) {
+class YamlAnchor extends Node {
+  public readonly type: string = 'anchor';
+
+  public name: string | null;
+
+  constructor({
+    children = [],
+    position = null,
+    isMissing = false,
+    name = null,
+  }: YamlAnchorConstructor = {}) {
+    super({ children, position, isMissing });
     this.name = name;
-  },
-});
+  }
+}
 
 export default YamlAnchor;

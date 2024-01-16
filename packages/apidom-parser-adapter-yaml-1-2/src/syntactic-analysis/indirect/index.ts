@@ -24,7 +24,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const [rootNode] = Array.from(iterator);
   const cstVisitor = new CstVisitor();
   const astVisitor = new YamlAstVisitor();
-  const schema = JsonSchema();
+  const schema = new JsonSchema();
 
   const yamlAst = visit(rootNode, cstVisitor, {
     // @ts-ignore

@@ -1,24 +1,13 @@
-import stampit from 'stampit';
 import { head } from 'ramda';
 
 import Node from './Node';
 
-interface ParseResult extends Node {
-  type: 'parseResult';
-  rootNode: unknown;
-}
+class ParseResult extends Node {
+  public readonly type: string = 'parseResult';
 
-const ParseResult: stampit.Stamp<ParseResult> = stampit(Node, {
-  statics: {
-    type: 'parseResult',
-  },
-  methods: {
-    // @ts-ignore
-    get rootNode(): unknown {
-      // @ts-ignore
-      return head(this.children);
-    },
-  },
-});
+  public get rootNode(): unknown {
+    return head(this.children);
+  }
+}
 
 export default ParseResult;

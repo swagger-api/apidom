@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonValue from './JsonValue';
 
-type JsonFalse = JsonValue;
-
-const JsonFalse: stampit.Stamp<JsonFalse> = stampit(JsonValue, {
-  statics: {
-    type: 'false',
-  },
-});
+class JsonFalse extends JsonValue {
+  public readonly type: string = 'false';
+}
 
 export default JsonFalse;

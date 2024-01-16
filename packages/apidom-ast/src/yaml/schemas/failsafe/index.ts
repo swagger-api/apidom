@@ -21,7 +21,8 @@ class FailsafeSchema {
     this.registerTag(new GenericString());
   }
 
-  public static toSpecificTagName(node: any): string {
+  // eslint-disable-next-line class-methods-use-this
+  public toSpecificTagName(node: any): string {
     let specificTagName = node.tag.explicitName;
 
     if (node.tag.explicitName === '!') {
@@ -70,7 +71,7 @@ class FailsafeSchema {
   }
 
   public resolve(node: any): any {
-    const specificTagName = FailsafeSchema.toSpecificTagName(node);
+    const specificTagName = this.toSpecificTagName(node);
 
     // leave this node unresolved
     if (specificTagName === '?') {

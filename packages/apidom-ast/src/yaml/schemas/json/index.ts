@@ -19,9 +19,8 @@ class JsonSchema extends FailsafeSchema {
     this.registerTag(new Null(), true);
   }
 
-  public static toSpecificTagName(node: any): any {
-    // @ts-ignore
-    let specificTagName = FailsafeSchema.compose.methods.toSpecificTagName.call(this, node);
+  public toSpecificTagName(node: any): any {
+    let specificTagName = super.toSpecificTagName(node);
 
     if (specificTagName === '?') {
       if (node.tag.vkind === YamlNodeKind.Sequence) {
@@ -29,8 +28,7 @@ class JsonSchema extends FailsafeSchema {
       } else if (node.tag.kind === YamlNodeKind.Mapping) {
         specificTagName = GenericMapping.uri;
       } else if (node.tag.kind === YamlNodeKind.Scalar) {
-        // @ts-ignore
-        const foundTag = this.tags.find((tag) => tag.test(node));
+        const foundTag = this.tags.find((tag) => tag.constructor.test(node));
         specificTagName = foundTag?.tag || '?';
       }
     }

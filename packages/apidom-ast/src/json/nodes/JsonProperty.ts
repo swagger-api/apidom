@@ -10,18 +10,26 @@ import {
   isString,
   isTrue,
 } from './predicates';
+import type JsonString from './JsonString';
+import type JsonFalse from './JsonFalse';
+import type JsonTrue from './JsonTrue';
+import type JsonNull from './JsonNull';
+import type JsonNumber from './JsonNumber';
+import type JsonArray from './JsonArray';
+import type JsonObject from './JsonObject';
+
+type JsonValue = JsonFalse | JsonTrue | JsonNull | JsonNumber | JsonString | JsonArray | JsonObject;
 
 class JsonProperty extends JsonNode {
-  public static readonly type: string = 'property';
+  public static readonly type = 'property';
 
-  public get key(): JsonKey {
-    // @ts-ignore
+  public get key(): JsonKey | undefined {
     return this.children.find(isKey);
   }
 
-  public get value(): unknown {
+  public get value() {
     return this.children.find(
-      (node: any) =>
+      (node: unknown): node is JsonValue =>
         isFalse(node) ||
         isTrue(node) ||
         isNull(node) ||

@@ -6,7 +6,7 @@ export interface YamlAliasOptions extends NodeOptions {
 }
 
 class YamlAlias extends Node {
-  public static readonly type: string = 'alias';
+  public static readonly type = 'alias';
 
   public readonly content: string;
 

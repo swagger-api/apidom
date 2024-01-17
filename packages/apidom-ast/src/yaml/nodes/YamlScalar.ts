@@ -6,7 +6,7 @@ export interface YamlScalarOptions extends YamlNodeOptions {
 }
 
 class YamlScalar extends YamlNode {
-  public static readonly type: string = 'scalar';
+  public static readonly type = 'scalar';
 
   public readonly content: string;
 

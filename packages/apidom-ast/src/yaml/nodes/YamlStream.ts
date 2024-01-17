@@ -4,7 +4,7 @@ import YamlComment from './YamlComment';
 import { isComment, isDocument } from './predicates';
 
 class YamlStream extends Node {
-  public static readonly type: string = 'stream';
+  public static readonly type = 'stream';
 }
 
 Object.defineProperty(YamlStream.prototype, 'content', {

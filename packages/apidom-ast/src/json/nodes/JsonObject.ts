@@ -1,12 +1,11 @@
 import JsonNode from './JsonNode';
-import JsonProperty from './JsonProperty';
 import { isProperty } from './predicates';
+import type JsonProperty from './JsonProperty';
 
 class JsonObject extends JsonNode {
-  public static readonly type: string = 'object';
+  public static readonly type = 'object';
 
   public get properties(): Array<JsonProperty> {
-    // @ts-ignore
     return this.children.filter(isProperty);
   }
 }

@@ -6,7 +6,7 @@ export interface YamlAnchorOptions extends NodeOptions {
 }
 
 class YamlAnchor extends Node {
-  public static readonly type: string = 'anchor';
+  public static readonly type = 'anchor';
 
   public readonly name: string;
 

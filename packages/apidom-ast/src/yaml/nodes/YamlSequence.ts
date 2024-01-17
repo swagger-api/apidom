@@ -8,7 +8,7 @@ class YamlSequence extends YamlCollection {
   public static readonly type: string = 'sequence';
 }
 
-Object.defineProperty(YamlSequence, 'content', {
+Object.defineProperty(YamlSequence.prototype, 'content', {
   get(): Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias> {
     const { children } = this;
 

@@ -3,7 +3,7 @@ import JsonProperty from './JsonProperty';
 import { isProperty } from './predicates';
 
 class JsonObject extends JsonNode {
-  public readonly type: string = 'object';
+  public static readonly type: string = 'object';
 
   public get properties(): Array<JsonProperty> {
     // @ts-ignore

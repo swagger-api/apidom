@@ -1,27 +1,20 @@
 import Node from './Node';
-import Position from './Position';
+import type { NodeOptions } from './Node';
+
+export interface ErrorOptions extends NodeOptions {
+  value?: unknown;
+  isUnexpected?: boolean;
+}
 
 class Error extends Node {
-  public readonly type: string = 'error';
+  public static readonly type: string = 'error';
 
   public value: unknown;
 
   public isUnexpected: boolean;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    value = null,
-    isUnexpected = false,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    value?: unknown;
-    isUnexpected?: boolean;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ value = null, isUnexpected = false, ...rest }: ErrorOptions = {}) {
+    super({ ...rest });
     this.value = value;
     this.isUnexpected = isUnexpected;
   }

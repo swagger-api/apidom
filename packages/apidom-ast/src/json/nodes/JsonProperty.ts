@@ -12,7 +12,7 @@ import {
 } from './predicates';
 
 class JsonProperty extends JsonNode {
-  public readonly type: string = 'property';
+  public static readonly type: string = 'property';
 
   public get key(): JsonKey {
     // @ts-ignore

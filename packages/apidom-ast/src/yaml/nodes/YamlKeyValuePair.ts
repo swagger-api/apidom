@@ -1,26 +1,20 @@
 import Node from '../../Node';
-import Position from '../../Position';
+import type { NodeOptions } from '../../Node';
 import YamlScalar from './YamlScalar';
 import type { YamlStyleGroup } from './YamlStyle';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates';
 
+export interface YamlKeyValuePairOptions extends NodeOptions {
+  styleGroup?: YamlStyleGroup | null;
+}
+
 class YamlKeyValuePair extends Node {
-  public readonly type: string = 'keyValuePair';
+  public static readonly type: string = 'keyValuePair';
 
   public styleGroup: YamlStyleGroup | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    styleGroup = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    styleGroup?: YamlStyleGroup | null;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ styleGroup = null, ...rest }: YamlKeyValuePairOptions = {}) {
+    super({ ...rest });
     this.styleGroup = styleGroup;
   }
 }

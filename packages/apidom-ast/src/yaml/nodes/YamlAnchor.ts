@@ -1,23 +1,17 @@
 import Node from '../../Node';
-import Position from '../../Position';
+import type { NodeOptions } from '../../Node';
+
+export interface YamlAnchorOptions extends NodeOptions {
+  name?: string | null;
+}
 
 class YamlAnchor extends Node {
-  public readonly type: string = 'anchor';
+  public static readonly type: string = 'anchor';
 
   public name: string | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    name = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    name?: string | null;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ name = null, ...rest }: YamlAnchorOptions = {}) {
+    super({ ...rest });
     this.name = name;
   }
 }

@@ -4,7 +4,7 @@ import JsonEscapeSequence from './JsonEscapeSequence';
 import { isEscapeSequence, isStringContent } from './predicates';
 
 class JsonString extends JsonNode {
-  public readonly type: string = 'string';
+  public static readonly type: string = 'string';
 
   public get value(): string {
     if (this.children.length === 1) {

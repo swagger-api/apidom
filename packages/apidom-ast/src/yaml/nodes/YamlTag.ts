@@ -1,5 +1,5 @@
 import Node from '../../Node';
-import Position from '../../Position';
+import type { NodeOptions } from '../../Node';
 
 export enum YamlNodeKind {
   Scalar = 'Scalar',
@@ -7,27 +7,20 @@ export enum YamlNodeKind {
   Mapping = 'Mapping',
 }
 
+export interface YamlTagOptions extends NodeOptions {
+  explicitName?: string;
+  kind?: YamlNodeKind | null;
+}
+
 class YamlTag extends Node {
-  public readonly type: string = 'tag';
+  public static readonly type: string = 'tag';
 
   public explicitName: string;
 
   public kind: YamlNodeKind | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    explicitName = '',
-    kind = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    explicitName?: string;
-    kind?: YamlNodeKind | null;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ explicitName = '', kind = null, ...rest }: YamlTagOptions = {}) {
+    super({ ...rest });
     this.explicitName = explicitName;
     this.kind = kind;
   }

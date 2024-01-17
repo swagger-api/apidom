@@ -1,7 +1,15 @@
 import Position from './Position';
 
+export interface NodeOptions {
+  children?: unknown[];
+  position?: Position | null;
+  isMissing?: boolean;
+}
+
 class Node {
-  public readonly type: string | null = null;
+  public static readonly type: string = 'node';
+
+  public readonly type: string | null = 'node';
 
   public isMissing: boolean;
 
@@ -9,11 +17,8 @@ class Node {
 
   public position: Position | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-  }: { children?: unknown[]; position?: Position | null; isMissing?: boolean } = {}) {
+  constructor({ children = [], position = null, isMissing = false }: NodeOptions = {}) {
+    this.type = (this.constructor as unknown as Node).type;
     this.isMissing = isMissing;
     this.children = children;
     this.position = position;

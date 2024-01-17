@@ -5,7 +5,7 @@ import YamlAlias from './YamlAlias';
 import { isMapping, isScalar, isSequence, isAlias } from './predicates';
 
 class YamlSequence extends YamlCollection {
-  public readonly type: string = 'sequence';
+  public static readonly type: string = 'sequence';
 }
 
 Object.defineProperty(YamlSequence, 'content', {

@@ -1,23 +1,17 @@
 import Node from '../../Node';
-import Position from '../../Position';
+import type { NodeOptions } from '../../Node';
+
+export interface YamlCommentOptions extends NodeOptions {
+  content?: string | null;
+}
 
 class YamlComment extends Node {
-  public readonly type: string = 'comment';
+  public static readonly type: string = 'comment';
 
   public content: string | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    content = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    content?: string | null;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ content = null, ...rest }: YamlCommentOptions = {}) {
+    super({ ...rest });
     this.content = content;
   }
 }

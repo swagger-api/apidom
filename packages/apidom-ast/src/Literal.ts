@@ -1,23 +1,17 @@
 import Node from './Node';
-import Position from './Position';
+import type { NodeOptions } from './Node';
+
+export interface LiteralOptions extends NodeOptions {
+  value?: unknown;
+}
 
 class Literal extends Node {
-  public readonly type: string = 'literal';
+  public static readonly type: string = 'literal';
 
   public value: unknown;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    value = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    value?: unknown;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ value = null, ...rest }: LiteralOptions = {}) {
+    super({ ...rest });
     this.value = value;
   }
 }

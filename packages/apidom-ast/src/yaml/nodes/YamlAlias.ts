@@ -1,23 +1,17 @@
 import Node from '../../Node';
-import Position from '../../Position';
+import type { NodeOptions } from '../../Node';
+
+export interface YamlAliasOptions extends NodeOptions {
+  content?: string | null;
+}
 
 class YamlAlias extends Node {
-  public readonly type: string = 'alias';
+  public static readonly type: string = 'alias';
 
   public content: string | null;
 
-  constructor({
-    children = [],
-    position = null,
-    isMissing = false,
-    content = null,
-  }: {
-    children?: unknown[];
-    position?: Position | null;
-    isMissing?: boolean;
-    content?: string | null;
-  } = {}) {
-    super({ children, position, isMissing });
+  constructor({ content = null, ...rest }: YamlAliasOptions = {}) {
+    super({ ...rest });
     this.content = content;
   }
 }

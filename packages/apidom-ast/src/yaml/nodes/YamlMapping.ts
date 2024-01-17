@@ -3,7 +3,7 @@ import { isKeyValuePair } from './predicates';
 import YamlKeyValuePair from './YamlKeyValuePair';
 
 class YamlMapping extends YamlCollection {
-  public readonly type: string = 'mapping';
+  public static readonly type: string = 'mapping';
 }
 
 Object.defineProperty(YamlMapping.prototype, 'content', {

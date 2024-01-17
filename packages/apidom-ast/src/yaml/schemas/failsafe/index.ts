@@ -3,9 +3,9 @@ import { clone } from 'ramda';
 import YamlTagError from '../../errors/YamlTagError';
 import YamlDirective from '../../nodes/YamlDirective';
 import { YamlNodeKind } from '../../nodes/YamlTag';
-import GenericMapping from './GenericMapping';
-import GenericSequence from './GenericSequence';
-import GenericString from './GenericString';
+import GenericMappingTag from './GenericMapping';
+import GenericSequenceTag from './GenericSequence';
+import GenericStringTag from './GenericString';
 import ScalarTag from '../ScalarTag';
 
 class FailsafeSchema {
@@ -16,9 +16,9 @@ class FailsafeSchema {
   constructor() {
     this.tags = [];
     this.tagDirectives = [];
-    this.registerTag(new GenericMapping());
-    this.registerTag(new GenericSequence());
-    this.registerTag(new GenericString());
+    this.registerTag(new GenericMappingTag());
+    this.registerTag(new GenericSequenceTag());
+    this.registerTag(new GenericStringTag());
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -28,11 +28,11 @@ class FailsafeSchema {
     if (node.tag.explicitName === '!') {
       // non-specific tag; we assume tag by kind
       if (node.tag.kind === YamlNodeKind.Scalar) {
-        specificTagName = GenericString.uri;
+        specificTagName = GenericStringTag.uri;
       } else if (node.tag.kind === YamlNodeKind.Sequence) {
-        specificTagName = GenericSequence.uri;
+        specificTagName = GenericSequenceTag.uri;
       } else if (node.tag.kind === YamlNodeKind.Mapping) {
-        specificTagName = GenericMapping.uri;
+        specificTagName = GenericMappingTag.uri;
       }
     } else if (node.tag.explicitName.startsWith('!<')) {
       // verbatim form
@@ -80,7 +80,7 @@ class FailsafeSchema {
 
     // turn scalar nodes into canonical format before resolving
     let canonicalNode = node;
-    if (node.tag.kind === YamlNodeKind.Scalar) {
+    if (ScalarTag.test(node)) {
       canonicalNode = ScalarTag.canonicalFormat(node);
     }
 
@@ -98,7 +98,7 @@ class FailsafeSchema {
     }
 
     // node content is not compatible with resolving mechanism (tag implementation)
-    if (!tag.constructor.test(canonicalNode)) {
+    if (!tag.test(canonicalNode)) {
       throw new YamlTagError(`Node couldn't be resolved against the tag "${specificTagName}"`, {
         specificTagName,
         explicitTagName: node.tag.explicitName,
@@ -109,7 +109,7 @@ class FailsafeSchema {
       });
     }
 
-    return tag.constructor.resolve(canonicalNode);
+    return tag.resolve(canonicalNode);
   }
 }
 

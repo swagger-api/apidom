@@ -1,18 +1,14 @@
 import Tag from '../Tag';
 
+/* eslint-disable class-methods-use-this */
 class FloatingPoint extends Tag {
-  public static uri: string = 'tag:yaml.org,2002:float';
+  public static readonly uri: string = 'tag:yaml.org,2002:float';
 
-  constructor() {
-    super();
-    this.tag = FloatingPoint.uri;
-  }
-
-  public static test(node: any): boolean {
+  public test(node: any): boolean {
     return /^-?(0|[1-9][0-9]*)(\.[0-9]*)?([eE][-+]?[0-9]+)?$/.test(node.content);
   }
 
-  public static resolve(node: any): any {
+  public resolve(node: any): any {
     const content = parseFloat(node.content);
     const nodeClone = node.clone();
 
@@ -21,5 +17,6 @@ class FloatingPoint extends Tag {
     return nodeClone;
   }
 }
+/* eslint-enable class-methods-use-this */
 
 export default FloatingPoint;

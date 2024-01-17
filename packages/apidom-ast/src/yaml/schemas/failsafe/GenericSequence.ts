@@ -1,21 +1,14 @@
 import Tag from '../Tag';
 import { YamlNodeKind } from '../../nodes/YamlTag';
 
+/* eslint-disable class-methods-use-this */
 class GenericSequence extends Tag {
-  public static uri: string = 'tag:yaml.org,2002:seq';
+  public static readonly uri: string = 'tag:yaml.org,2002:seq';
 
-  constructor() {
-    super();
-    this.tag = GenericSequence.uri;
-  }
-
-  public static test(node: any): boolean {
+  public test(node: any): boolean {
     return node.tag.kind === YamlNodeKind.Sequence;
   }
-
-  public static resolve(node: any): any {
-    return node;
-  }
 }
+/* eslint-enable class-methods-use-this */
 
 export default GenericSequence;

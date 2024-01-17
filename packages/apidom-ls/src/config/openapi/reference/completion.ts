@@ -3,9 +3,35 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI31 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
+  {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '**Required**. The reference string.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '**REQUIRED**. The reference string.',
+    },
+    targetSpecs: OpenAPI30,
+  },
   {
     label: '$ref',
     insertText: '\\$ref',

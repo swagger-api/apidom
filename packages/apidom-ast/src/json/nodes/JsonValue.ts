@@ -1,7 +1,7 @@
 import JsonNode from './JsonNode';
-import type { JsonNodeOptions } from './JsonNode';
+import type { NodeOptions } from '../../Node';
 
-export interface JsonValueOptions extends JsonNodeOptions {
+export interface JsonValueOptions extends NodeOptions {
   value?: unknown;
 }
 

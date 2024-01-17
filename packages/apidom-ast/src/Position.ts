@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 
-interface PointOptions { 
-  row?: number | null; 
-  column?: number | null; 
-  char?: number | null 
+interface PointOptions {
+  row?: number | null;
+  column?: number | null;
+  char?: number | null;
 }
 
 export class Point {
@@ -25,8 +25,8 @@ export class Point {
 }
 
 interface PositionOptions {
-  start?: Point | null; 
-  end?: Point | null
+  start?: Point | null;
+  end?: Point | null;
 }
 
 class Position {

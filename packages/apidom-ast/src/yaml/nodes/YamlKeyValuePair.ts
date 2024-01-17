@@ -5,15 +5,15 @@ import type { YamlStyleGroup } from './YamlStyle';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates';
 
 export interface YamlKeyValuePairOptions extends NodeOptions {
-  styleGroup?: YamlStyleGroup | null;
+  readonly styleGroup: YamlStyleGroup;
 }
 
 class YamlKeyValuePair extends Node {
   public static readonly type: string = 'keyValuePair';
 
-  public styleGroup: YamlStyleGroup | null;
+  public readonly styleGroup: YamlStyleGroup;
 
-  constructor({ styleGroup = null, ...rest }: YamlKeyValuePairOptions = {}) {
+  constructor({ styleGroup, ...rest }: YamlKeyValuePairOptions) {
     super({ ...rest });
     this.styleGroup = styleGroup;
   }

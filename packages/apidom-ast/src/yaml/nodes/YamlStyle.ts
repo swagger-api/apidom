@@ -14,10 +14,3 @@ export enum YamlStyleGroup {
   Flow = 'Flow',
   Block = 'Block',
 }
-
-export interface YamlStyleModel {
-  styleGroup: YamlStyleGroup | null;
-  style: YamlStyle | null;
-}
-
-export default YamlStyleModel;

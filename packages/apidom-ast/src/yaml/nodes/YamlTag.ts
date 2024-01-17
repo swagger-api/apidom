@@ -8,18 +8,18 @@ export enum YamlNodeKind {
 }
 
 export interface YamlTagOptions extends NodeOptions {
-  explicitName?: string;
-  kind?: YamlNodeKind | null;
+  readonly explicitName: string;
+  readonly kind: YamlNodeKind;
 }
 
 class YamlTag extends Node {
   public static readonly type: string = 'tag';
 
-  public explicitName: string;
+  public readonly explicitName: string;
 
-  public kind: YamlNodeKind | null;
+  public readonly kind: YamlNodeKind;
 
-  constructor({ explicitName = '', kind = null, ...rest }: YamlTagOptions = {}) {
+  constructor({ explicitName, kind, ...rest }: YamlTagOptions) {
     super({ ...rest });
     this.explicitName = explicitName;
     this.kind = kind;

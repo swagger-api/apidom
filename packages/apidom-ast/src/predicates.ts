@@ -1,9 +1,14 @@
-export const isNodeType = (type: string, node: any): boolean => node?.type === type;
+import type Literal from './Literal';
+import Position, { Point } from './Position';
+import ParseResult from './ParseResult';
 
-export const isLiteral = isNodeType.bind(undefined, 'literal');
+export const isNodeType = (type: string, node: unknown): boolean =>
+  node != null && typeof node === 'object' && 'type' in node && node.type === type;
 
-export const isPosition = isNodeType.bind(undefined, 'position');
+export const isLiteral = (node: unknown): node is Literal => isNodeType('literal', node);
+export const isPosition = (node: unknown): node is Position => isNodeType('position', node);
 
-export const isPoint = isNodeType.bind(undefined, 'point');
+export const isPoint = (node: unknown): node is Point => isNodeType('point', node);
 
-export const isParseResult = isNodeType.bind(undefined, 'parseResult');
+export const isParseResult = (node: unknown): node is ParseResult =>
+  isNodeType('parseResult', node);

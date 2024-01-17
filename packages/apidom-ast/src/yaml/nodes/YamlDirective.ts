@@ -4,31 +4,31 @@ import Node from '../../Node';
 import type { NodeOptions } from '../../Node';
 
 interface YamlDirectiveParameters {
-  version: string | null;
-  handle: string | null;
-  prefix: string | null;
+  readonly version?: string;
+  readonly handle?: string;
+  readonly prefix?: string;
 }
 
 export interface YamlDirectiveOptions extends NodeOptions {
-  name?: string | null;
-  parameters?: YamlDirectiveParameters | object;
+  readonly name?: string;
+  readonly parameters: YamlDirectiveParameters;
 }
 
 class YamlDirective extends Node {
   public static readonly type: string = 'directive';
 
-  public name: string | null;
+  public readonly name?: string;
 
-  public parameters: YamlDirectiveParameters | null;
+  public readonly parameters: YamlDirectiveParameters;
 
-  constructor({ name = null, parameters = {}, ...rest }: YamlDirectiveOptions = {}) {
+  constructor({ name, parameters, ...rest }: YamlDirectiveOptions) {
     super({ ...rest });
     this.name = name;
     this.parameters = mergeRight(
       {
-        version: null,
-        handle: null,
-        prefix: null,
+        version: undefined,
+        handle: undefined,
+        prefix: undefined,
       },
       parameters,
     );

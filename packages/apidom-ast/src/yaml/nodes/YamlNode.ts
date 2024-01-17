@@ -5,28 +5,22 @@ import YamlAnchor from './YamlAnchor';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle';
 
 export interface YamlNodeOptions extends NodeOptions {
-  anchor?: YamlAnchor | null;
-  tag?: YamlTag | null;
-  style?: YamlStyle | null;
-  styleGroup?: YamlStyleGroup | null;
+  readonly anchor?: YamlAnchor;
+  readonly tag?: YamlTag;
+  readonly style: YamlStyle;
+  readonly styleGroup: YamlStyleGroup;
 }
 
 class YamlNode extends Node {
-  public anchor: YamlAnchor | null;
+  public readonly anchor?: YamlAnchor;
 
-  public tag: YamlTag | null;
+  public readonly tag?: YamlTag;
 
-  public style: YamlStyle | null;
+  public readonly style: YamlStyle;
 
-  public styleGroup: YamlStyleGroup | null;
+  public readonly styleGroup: YamlStyleGroup;
 
-  constructor({
-    anchor = null,
-    tag = null,
-    style = null,
-    styleGroup = null,
-    ...rest
-  }: YamlNodeOptions = {}) {
+  constructor({ anchor, tag, style, styleGroup, ...rest }: YamlNodeOptions) {
     super({ ...rest });
     this.anchor = anchor;
     this.tag = tag;

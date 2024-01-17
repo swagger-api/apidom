@@ -1,23 +1,23 @@
 import {
-  YamlDirective,
-  YamlStream,
-  YamlDocument,
-  YamlSequence,
-  YamlMapping,
-  YamlKeyValuePair,
-  YamlTag,
-  YamlAnchor,
-  YamlScalar,
-  YamlComment,
-  YamlStyle,
-  YamlStyleGroup,
-  YamlNodeKind,
-  ParseResult,
-  Position,
-  Point,
-  Literal,
   Error,
   isNode as isCSTNode,
+  Literal,
+  ParseResult,
+  Point,
+  Position,
+  YamlAnchor,
+  YamlComment,
+  YamlDirective,
+  YamlDocument,
+  YamlKeyValuePair,
+  YamlMapping,
+  YamlNodeKind,
+  YamlScalar,
+  YamlSequence,
+  YamlStream,
+  YamlStyle,
+  YamlStyleGroup,
+  YamlTag,
 } from '@swagger-api/apidom-ast';
 
 import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
@@ -95,10 +95,10 @@ class CstVisitor {
     return new YamlTag({ explicitName, kind, position });
   }
 
-  private static kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | null {
+  private static kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | undefined {
     const { anchor: anchorNode } = node;
 
-    if (typeof anchorNode === 'undefined') return null;
+    if (typeof anchorNode === 'undefined') return undefined;
 
     return new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) });
   }
@@ -127,7 +127,7 @@ class CstVisitor {
     const anchor =
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
-        : null;
+        : undefined;
 
     return new YamlScalar({
       content: '',
@@ -163,7 +163,7 @@ class CstVisitor {
     const anchor =
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
-        : null;
+        : undefined;
 
     return new YamlScalar({
       content: '',
@@ -196,7 +196,7 @@ class CstVisitor {
   public readonly yaml_directive = {
     enter: (node: TreeCursorSyntaxNode): YamlDirective => {
       const position = CstVisitor.toPosition(node);
-      const version = node?.firstNamedChild?.text || null;
+      const version = node?.firstNamedChild?.text;
 
       return new YamlDirective({
         position,
@@ -217,8 +217,8 @@ class CstVisitor {
         position,
         name: '%TAG',
         parameters: {
-          handle: tagHandleNode?.text || null,
-          prefix: tagPrefixNode?.text || null,
+          handle: tagHandleNode?.text,
+          prefix: tagPrefixNode?.text,
         },
       });
 
@@ -237,10 +237,10 @@ class CstVisitor {
 
       return new YamlDirective({
         position,
-        name: directiveNameNode?.text || null,
+        name: directiveNameNode?.text,
         parameters: {
-          handle: directiveParameter1Node?.text || null,
-          prefix: directiveParameter2Node?.text || null,
+          handle: directiveParameter1Node?.text,
+          prefix: directiveParameter2Node?.text,
         },
       });
     },
@@ -434,7 +434,6 @@ class CstVisitor {
       });
       const emptyScalarNode = new YamlScalar({
         content: '',
-        anchor: null,
         tag: new YamlTag({
           explicitName: '?',
           kind: YamlNodeKind.Scalar,
@@ -535,7 +534,7 @@ class CstVisitor {
         ? YamlStyle.Literal
         : node.text.startsWith('>')
           ? YamlStyle.Folded
-          : null;
+          : YamlStyle.Plain;
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,

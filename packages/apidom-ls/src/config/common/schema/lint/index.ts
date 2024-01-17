@@ -59,7 +59,7 @@ import patternPropertiesTypeLint from './pattern-properties--type';
 import patternPropertiesValuesTypeLint from './pattern-properties--values-type';
 import propertiesTypeLint from './properties--type';
 import propertiesValuesTypeLint from './properties--values-type';
-import propertiesValuesTypeOpenAPI3_1_AsyncAPI2Lint from './properties--values-type-openapi-3.1-asyncapi-2';
+import propertiesValuesTypeOpenAPI3_1_AsyncAPI2Lint from './properties--values-type-openapi-3-1-asyncapi-2';
 import propertyNamesNonObjectLint from './property-names--non-object';
 import propertyNamesTypeLint from './property-names--type';
 import propertyNamesTypeOpenAPI3_1_AsyncAPI2Lint from './property-names--type-openapi-3-1-asyncapi-2';

@@ -19,7 +19,7 @@ const schemaMutuallyExclusiveLint: LinterMeta = {
       params: [['content']],
     },
   ],
-  targetSpecs: OpenAPI30,
+  targetSpecs: OpenAPI3,
 };
 
 export default schemaMutuallyExclusiveLint;

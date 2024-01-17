@@ -2519,7 +2519,7 @@ describe('apidom-ls-validate', function () {
             character: 24,
           },
         },
-        message: 'additionalItems must be a schema',
+        message: 'additionalItems must be a schema object or a boolean JSON schema',
         severity: 1,
         code: 10020,
         source: 'apilint',

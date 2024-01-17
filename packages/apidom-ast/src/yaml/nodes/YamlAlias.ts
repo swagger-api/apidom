@@ -1,8 +1,5 @@
-import Node, { NodeConstructor } from '../../Node';
-
-interface YamlAliasConstructor extends NodeConstructor {
-  content?: string | null;
-}
+import Node from '../../Node';
+import Position from '../../Position';
 
 class YamlAlias extends Node {
   public readonly type: string = 'alias';
@@ -14,7 +11,12 @@ class YamlAlias extends Node {
     position = null,
     isMissing = false,
     content = null,
-  }: YamlAliasConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    content?: string | null;
+  } = {}) {
     super({ children, position, isMissing });
     this.content = content;
   }

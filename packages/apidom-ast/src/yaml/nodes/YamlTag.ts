@@ -1,14 +1,10 @@
-import Node, { NodeConstructor } from '../../Node';
+import Node from '../../Node';
+import Position from '../../Position';
 
 export enum YamlNodeKind {
   Scalar = 'Scalar',
   Sequence = 'Sequence',
   Mapping = 'Mapping',
-}
-
-interface YamlTagConstructor extends NodeConstructor {
-  explicitName?: string;
-  kind?: YamlNodeKind | null;
 }
 
 class YamlTag extends Node {
@@ -24,7 +20,13 @@ class YamlTag extends Node {
     isMissing = false,
     explicitName = '',
     kind = null,
-  }: YamlTagConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    explicitName?: string;
+    kind?: YamlNodeKind | null;
+  } = {}) {
     super({ children, position, isMissing });
     this.explicitName = explicitName;
     this.kind = kind;

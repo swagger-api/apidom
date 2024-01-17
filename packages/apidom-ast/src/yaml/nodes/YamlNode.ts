@@ -1,14 +1,8 @@
-import Node, { NodeConstructor } from '../../Node';
+import Node from '../../Node';
+import Position from '../../Position';
 import YamlTag from './YamlTag';
 import YamlAnchor from './YamlAnchor';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle';
-
-export interface YamlNodeConstructor extends NodeConstructor {
-  anchor?: YamlAnchor | null;
-  tag?: YamlTag | null;
-  style?: YamlStyle | null;
-  styleGroup?: YamlStyleGroup | null;
-}
 
 class YamlNode extends Node {
   public anchor: YamlAnchor | null;
@@ -27,7 +21,15 @@ class YamlNode extends Node {
     tag = null,
     style = null,
     styleGroup = null,
-  }: YamlNodeConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    anchor?: YamlAnchor | null;
+    tag?: YamlTag | null;
+    style?: YamlStyle | null;
+    styleGroup?: YamlStyleGroup | null;
+  } = {}) {
     super({ children, position, isMissing });
     this.anchor = anchor;
     this.tag = tag;

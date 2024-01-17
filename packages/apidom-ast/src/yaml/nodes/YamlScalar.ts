@@ -1,8 +1,8 @@
-import YamlNode, { YamlNodeConstructor } from './YamlNode';
-
-interface YamlScalarConstructor extends YamlNodeConstructor {
-  content?: string | null;
-}
+import YamlNode from './YamlNode';
+import Position from '../../Position';
+import YamlAnchor from './YamlAnchor';
+import YamlTag from './YamlTag';
+import { YamlStyle, YamlStyleGroup } from './YamlStyle';
 
 class YamlScalar extends YamlNode {
   public readonly type: string = 'scalar';
@@ -22,7 +22,16 @@ class YamlScalar extends YamlNode {
     style = null,
     styleGroup = null,
     content = '',
-  }: YamlScalarConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    anchor?: YamlAnchor | null;
+    tag?: YamlTag | null;
+    style?: YamlStyle | null;
+    styleGroup?: YamlStyleGroup | null;
+    content?: string | null;
+  } = {}) {
     super({ children, position, isMissing, anchor, tag, style, styleGroup });
     this.content = content;
   }

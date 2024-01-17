@@ -1,16 +1,12 @@
 import { mergeRight } from 'ramda';
 
-import Node, { NodeConstructor } from '../../Node';
+import Node from '../../Node';
+import Position from '../../Position';
 
 interface YamlDirectiveParameters {
   version: string | null;
   handle: string | null;
   prefix: string | null;
-}
-
-interface YamlDirectiveConstructor extends NodeConstructor {
-  name?: string | null;
-  parameters?: YamlDirectiveParameters | object;
 }
 
 class YamlDirective extends Node {
@@ -26,7 +22,13 @@ class YamlDirective extends Node {
     isMissing = false,
     name = null,
     parameters = {},
-  }: YamlDirectiveConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    name?: string | null;
+    parameters?: YamlDirectiveParameters | object;
+  } = {}) {
     super({ children, position, isMissing });
     this.name = name;
     this.parameters = mergeRight(

@@ -1,9 +1,5 @@
-import Node, { NodeConstructor } from './Node';
-
-export interface ErrorConstructor extends NodeConstructor {
-  value?: unknown;
-  isUnexpected?: boolean;
-}
+import Node from './Node';
+import Position from './Position';
 
 class Error extends Node {
   public readonly type: string = 'error';
@@ -18,7 +14,13 @@ class Error extends Node {
     isMissing = false,
     value = null,
     isUnexpected = false,
-  }: ErrorConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    value?: unknown;
+    isUnexpected?: boolean;
+  } = {}) {
     super({ children, position, isMissing });
     this.value = value;
     this.isUnexpected = isUnexpected;

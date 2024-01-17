@@ -1,8 +1,5 @@
-import Node, { NodeConstructor } from './Node';
-
-interface LiteralConstructor extends NodeConstructor {
-  value?: unknown;
-}
+import Node from './Node';
+import Position from './Position';
 
 class Literal extends Node {
   public readonly type: string = 'literal';
@@ -14,7 +11,12 @@ class Literal extends Node {
     position = null,
     isMissing = false,
     value = null,
-  }: LiteralConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    value?: unknown;
+  } = {}) {
     super({ children, position, isMissing });
     this.value = value;
   }

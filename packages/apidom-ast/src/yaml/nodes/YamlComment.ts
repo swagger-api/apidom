@@ -1,8 +1,5 @@
-import Node, { NodeConstructor } from '../../Node';
-
-interface YamlCommentConstructor extends NodeConstructor {
-  content?: string | null;
-}
+import Node from '../../Node';
+import Position from '../../Position';
 
 class YamlComment extends Node {
   public readonly type: string = 'comment';
@@ -14,7 +11,12 @@ class YamlComment extends Node {
     position = null,
     isMissing = false,
     content = null,
-  }: YamlCommentConstructor = {}) {
+  }: {
+    children?: unknown[];
+    position?: Position | null;
+    isMissing?: boolean;
+    content?: string | null;
+  } = {}) {
     super({ children, position, isMissing });
     this.content = content;
   }

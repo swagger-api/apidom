@@ -2,15 +2,15 @@ import JsonNode from './JsonNode';
 import type { NodeOptions } from '../../Node';
 
 export interface JsonValueOptions extends NodeOptions {
-  value?: unknown;
+  value: string;
 }
 
 class JsonValue extends JsonNode {
   public static readonly type: string = 'value';
 
-  public value: unknown;
+  public readonly value: string;
 
-  constructor({ value = null, ...rest }: JsonValueOptions = {}) {
+  constructor({ value, ...rest }: JsonValueOptions) {
     super({ ...rest });
     this.value = value;
   }

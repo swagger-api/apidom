@@ -13,7 +13,7 @@ export interface YamlTagOptions extends NodeOptions {
 }
 
 class YamlTag extends Node {
-  public static readonly type: string = 'tag';
+  public static readonly type = 'tag';
 
   public readonly explicitName: string;
 

@@ -6,7 +6,7 @@ export interface YamlCommentOptions extends NodeOptions {
 }
 
 class YamlComment extends Node {
-  public static readonly type: string = 'comment';
+  public static readonly type = 'comment';
 
   public readonly content: string;
 

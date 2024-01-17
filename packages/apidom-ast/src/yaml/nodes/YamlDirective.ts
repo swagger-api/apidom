@@ -15,7 +15,7 @@ export interface YamlDirectiveOptions extends NodeOptions {
 }
 
 class YamlDirective extends Node {
-  public static readonly type: string = 'directive';
+  public static readonly type = 'directive';
 
   public readonly name?: string;
 

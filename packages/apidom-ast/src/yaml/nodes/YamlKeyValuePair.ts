@@ -9,7 +9,7 @@ export interface YamlKeyValuePairOptions extends NodeOptions {
 }
 
 class YamlKeyValuePair extends Node {
-  public static readonly type: string = 'keyValuePair';
+  public static readonly type = 'keyValuePair';
 
   public readonly styleGroup: YamlStyleGroup;
 

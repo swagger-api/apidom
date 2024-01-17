@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI30 } from '../../target-specs';
+import { OpenAPI2, OpenAPI30 } from '../../target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const $ref3_0NoSiblingsLint: LinterMeta = {
+const $ref2_0__3_0NoSiblingsLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_REFERENCE_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
@@ -29,7 +29,7 @@ const $ref3_0NoSiblingsLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI30,
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
-export default $ref3_0NoSiblingsLint;
+export default $ref2_0__3_0NoSiblingsLint;

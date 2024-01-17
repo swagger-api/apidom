@@ -1,6 +1,16 @@
-import { OpenAPI31 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31 } from '../target-specs';
 
 const documentation = [
+  {
+    target: '$ref',
+    docs: '**Required**. The reference string.',
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: '$ref',
+    docs: '**REQUIRED**. The reference string.',
+    targetSpecs: OpenAPI30,
+  },
   {
     target: '$ref',
     docs: '**REQUIRED**. The reference identifier. This MUST be in the form of a URI.',

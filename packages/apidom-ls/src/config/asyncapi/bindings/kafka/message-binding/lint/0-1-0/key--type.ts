@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types';
 const keyTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_KAFKA_MESSAGE_BINDING_FIELD_KEY_TYPE,
   source: 'apilint',
-  message: 'key must be an object (Schema or AVRO Schema)',
+  message: 'key must be a schema object, a boolean JSON schema, or an AVRO Schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['schema', 'boolean'],

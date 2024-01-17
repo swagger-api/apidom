@@ -1,35 +1,24 @@
-import stampit from 'stampit';
-
 import YamlCollection from './YamlCollection';
 import YamlMapping from './YamlMapping';
 import YamlScalar from './YamlScalar';
 import YamlAlias from './YamlAlias';
 import { isMapping, isScalar, isSequence, isAlias } from './predicates';
 
-interface YamlSequence extends YamlCollection {
-  type: 'sequence';
-  readonly content: Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias>;
+class YamlSequence extends YamlCollection {
+  public static readonly type: string = 'sequence';
 }
 
-const YamlSequence: stampit.Stamp<YamlSequence> = stampit(YamlCollection, {
-  statics: {
-    type: 'sequence',
-  },
-  propertyDescriptors: {
-    content: {
-      get(): Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias> {
-        // @ts-ignore
-        const { children } = this;
+Object.defineProperty(YamlSequence.prototype, 'content', {
+  get(): Array<YamlSequence | YamlMapping | YamlScalar | YamlAlias> {
+    const { children } = this;
 
-        return Array.isArray(children)
-          ? children.filter(
-              (node: any) => isSequence(node) || isMapping(node) || isScalar(node) || isAlias(node),
-            )
-          : [];
-      },
-      enumerable: true,
-    },
+    return Array.isArray(children)
+      ? children.filter(
+          (node: unknown) => isSequence(node) || isMapping(node) || isScalar(node) || isAlias(node),
+        )
+      : [];
   },
+  enumerable: true,
 });
 
 export default YamlSequence;

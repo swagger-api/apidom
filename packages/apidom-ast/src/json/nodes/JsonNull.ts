@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonValue from './JsonValue';
 
-type JsonNull = JsonValue;
-
-const JsonNull: stampit.Stamp<JsonNull> = stampit(JsonValue, {
-  statics: {
-    type: 'null',
-  },
-});
+class JsonNull extends JsonValue {
+  public static readonly type: string = 'null';
+}
 
 export default JsonNull;

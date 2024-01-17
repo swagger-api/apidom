@@ -1,21 +1,19 @@
-import stampit from 'stampit';
-
 import JsonNode from './JsonNode';
+import type { NodeOptions } from '../../Node';
 
-interface JsonValue extends JsonNode {
-  value: unknown;
+export interface JsonValueOptions extends NodeOptions {
+  value?: unknown;
 }
 
-const JsonValue: stampit.Stamp<JsonValue> = stampit(JsonNode, {
-  statics: {
-    type: 'value',
-  },
-  props: {
-    value: null,
-  },
-  init({ value = null } = {}) {
+class JsonValue extends JsonNode {
+  public static readonly type: string = 'value';
+
+  public value: unknown;
+
+  constructor({ value = null, ...rest }: JsonValueOptions = {}) {
+    super({ ...rest });
     this.value = value;
-  },
-});
+  }
+}
 
 export default JsonValue;

@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonValue from './JsonValue';
 
-type JsonStringContent = JsonValue;
-
-const JsonStringContent: stampit.Stamp<JsonStringContent> = stampit(JsonValue, {
-  statics: {
-    type: 'stringContent',
-  },
-});
+class JsonStringContent extends JsonValue {
+  public static readonly type: string = 'stringContent';
+}
 
 export default JsonStringContent;

@@ -1,7 +1,7 @@
-import stampit from 'stampit';
 import { mergeRight } from 'ramda';
 
 import Node from '../../Node';
+import type { NodeOptions } from '../../Node';
 
 interface YamlDirectiveParameters {
   version: string | null;
@@ -9,21 +9,20 @@ interface YamlDirectiveParameters {
   prefix: string | null;
 }
 
-interface YamlDirective extends Node {
-  type: 'directive';
-  name: string | null;
-  parameters: YamlDirectiveParameters;
+export interface YamlDirectiveOptions extends NodeOptions {
+  name?: string | null;
+  parameters?: YamlDirectiveParameters | object;
 }
 
-const YamlDirective: stampit.Stamp<YamlDirective> = stampit(Node, {
-  statics: {
-    type: 'directive',
-  },
-  props: {
-    name: null,
-    parameters: null,
-  },
-  init({ name = null, parameters = {} } = {}) {
+class YamlDirective extends Node {
+  public static readonly type: string = 'directive';
+
+  public name: string | null;
+
+  public parameters: YamlDirectiveParameters | null;
+
+  constructor({ name = null, parameters = {}, ...rest }: YamlDirectiveOptions = {}) {
+    super({ ...rest });
     this.name = name;
     this.parameters = mergeRight(
       {
@@ -33,7 +32,7 @@ const YamlDirective: stampit.Stamp<YamlDirective> = stampit(Node, {
       },
       parameters,
     );
-  },
-});
+  }
+}
 
 export default YamlDirective;

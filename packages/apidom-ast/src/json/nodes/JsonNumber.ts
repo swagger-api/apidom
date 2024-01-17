@@ -1,13 +1,7 @@
-import stampit from 'stampit';
-
 import JsonValue from './JsonValue';
 
-type JsonNumber = JsonValue;
-
-const JsonNumber: stampit.Stamp<JsonNumber> = stampit(JsonValue, {
-  statics: {
-    type: 'number',
-  },
-});
+class JsonNumber extends JsonValue {
+  public static readonly type: string = 'number';
+}
 
 export default JsonNumber;

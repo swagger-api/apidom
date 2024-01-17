@@ -1,28 +1,25 @@
-import stampit from 'stampit';
-
 import Tag from '../Tag';
 
-const Boolean = stampit(Tag, {
-  statics: {
-    uri: 'tag:yaml.org,2002:bool',
-  },
-  init(args, { stamp }) {
-    this.tag = stamp.uri;
-  },
-  methods: {
-    test(node) {
-      return /^(true|false)$/.test(node.content);
-    },
+class Boolean extends Tag {
+  public static uri: string = 'tag:yaml.org,2002:bool';
 
-    resolve(node) {
-      const content = node.content === 'true';
-      const nodeClone = node.clone();
+  constructor() {
+    super();
+    this.tag = Boolean.uri;
+  }
 
-      nodeClone.content = content;
+  public static test(node: any): boolean {
+    return /^(true|false)$/.test(node.content);
+  }
 
-      return nodeClone;
-    },
-  },
-});
+  public static resolve(node: any): any {
+    const content = node.content === 'true';
+    const nodeClone = node.clone();
+
+    nodeClone.content = content;
+
+    return nodeClone;
+  }
+}
 
 export default Boolean;

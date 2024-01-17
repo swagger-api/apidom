@@ -1,19 +1,16 @@
-import stampit from 'stampit';
-
 import Tag from '../Tag';
 
-const GenericString = stampit(Tag, {
-  statics: {
-    uri: 'tag:yaml.org,2002:str',
-  },
-  init(args, { stamp }) {
-    this.tag = stamp.uri;
-  },
-  methods: {
-    resolve(node) {
-      return node;
-    },
-  },
-});
+class GenericString extends Tag {
+  public static uri: string = 'tag:yaml.org,2002:str';
+
+  constructor() {
+    super();
+    this.tag = GenericString.uri;
+  }
+
+  public static resolve(node: any): any {
+    return node;
+  }
+}
 
 export default GenericString;

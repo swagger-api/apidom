@@ -1,11 +1,7 @@
-import stampit from 'stampit';
-
 import ScalarTag from './ScalarTag';
 
-const Tag = stampit(ScalarTag, {
-  props: {
-    tag: '',
-  },
-});
+class Tag extends ScalarTag {
+  public tag: string = '';
+}
 
 export default Tag;

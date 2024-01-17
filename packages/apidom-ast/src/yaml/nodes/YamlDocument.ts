@@ -1,15 +1,7 @@
-import stampit from 'stampit';
-
 import Node from '../../Node';
 
-interface YamlDocument extends Node {
-  type: 'document';
+class YamlDocument extends Node {
+  public static readonly type: string = 'document';
 }
-
-const YamlDocument: stampit.Stamp<YamlDocument> = stampit(Node, {
-  statics: {
-    type: 'document',
-  },
-});
 
 export default YamlDocument;

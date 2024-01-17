@@ -33,32 +33,32 @@ export const keyMap = {
 
 class CstVisitor {
   private static toPosition(node: TreeCursorSyntaxNode): Position {
-    const start = Point({
+    const start = new Point({
       row: node.startPosition.row,
       column: node.startPosition.column,
       char: node.startIndex,
     });
-    const end = Point({
+    const end = new Point({
       row: node.endPosition.row,
       column: node.endPosition.column,
       char: node.endIndex,
     });
 
-    return Position({ start, end });
+    return new Position({ start, end });
   }
 
   public readonly document = {
     enter: (node: TreeCursorSyntaxNode): JsonDocument => {
       const position = CstVisitor.toPosition(node);
 
-      return JsonDocument({
+      return new JsonDocument({
         children: node.children,
         position,
         isMissing: node.isMissing,
       });
     },
     leave: (document: JsonDocument): ParseResult => {
-      return ParseResult({ children: [document] });
+      return new ParseResult({ children: [document] });
     },
   };
 
@@ -69,7 +69,7 @@ class CstVisitor {
       const value = node.type || node.text;
       const { isMissing } = node;
 
-      return Literal({ value, position, isMissing });
+      return new Literal({ value, position, isMissing });
     }
 
     return undefined;
@@ -78,40 +78,40 @@ class CstVisitor {
   public object(node: TreeCursorSyntaxNode): JsonObject {
     const position = CstVisitor.toPosition(node);
 
-    return JsonObject({ children: node.children, position, isMissing: node.isMissing });
+    return new JsonObject({ children: node.children, position, isMissing: node.isMissing });
   }
 
   public pair(node: TreeCursorSyntaxNode): JsonProperty {
     const position = CstVisitor.toPosition(node);
     const children = node.children.slice(1);
     const { keyNode } = node;
-    const key = JsonKey({
+    const key = new JsonKey({
       children: keyNode?.children || [],
       position: keyNode != null ? CstVisitor.toPosition(keyNode) : null,
       isMissing: keyNode != null ? keyNode.isMissing : false,
     });
 
-    return JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing });
+    return new JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing });
   }
 
   public array(node: TreeCursorSyntaxNode): JsonArray {
     const position = CstVisitor.toPosition(node);
 
-    return JsonArray({ children: node.children, position, isMissing: node.isMissing });
+    return new JsonArray({ children: node.children, position, isMissing: node.isMissing });
   }
 
   public string(node: TreeCursorSyntaxNode): JsonString {
     const position = CstVisitor.toPosition(node);
-    const content = JsonStringContent({ value: JSON.parse(node.text) });
+    const content = new JsonStringContent({ value: JSON.parse(node.text) });
 
-    return JsonString({ children: [content], position, isMissing: node.isMissing });
+    return new JsonString({ children: [content], position, isMissing: node.isMissing });
   }
 
   public number(node: TreeCursorSyntaxNode): JsonNumber {
     const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return JsonNumber({ value, position, isMissing: node.isMissing });
+    return new JsonNumber({ value, position, isMissing: node.isMissing });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -119,7 +119,7 @@ class CstVisitor {
     const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return JsonNull({ value, position, isMissing: node.isMissing });
+    return new JsonNull({ value, position, isMissing: node.isMissing });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -127,7 +127,7 @@ class CstVisitor {
     const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return JsonTrue({ value, position, isMissing: node.isMissing });
+    return new JsonTrue({ value, position, isMissing: node.isMissing });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -135,7 +135,7 @@ class CstVisitor {
     const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return JsonFalse({ value, position, isMissing: node.isMissing });
+    return new JsonFalse({ value, position, isMissing: node.isMissing });
   }
 
   public ERROR(
@@ -145,7 +145,7 @@ class CstVisitor {
     path: string[],
   ): ParseResult | Error {
     const position = CstVisitor.toPosition(node);
-    const errorNode = Error({
+    const errorNode = new Error({
       children: node.children,
       position,
       isUnexpected: !node.hasError,
@@ -154,7 +154,7 @@ class CstVisitor {
     });
 
     if (path.length === 0) {
-      return ParseResult({ children: [errorNode] });
+      return new ParseResult({ children: [errorNode] });
     }
 
     return errorNode;

@@ -1,22 +1,19 @@
-import stampit from 'stampit';
-
 import Node from './Node';
+import type { NodeOptions } from './Node';
 
-interface Literal extends Node {
-  type: 'literal';
-  value: unknown;
+export interface LiteralOptions extends NodeOptions {
+  value?: unknown;
 }
 
-const Literal: stampit.Stamp<Literal> = stampit(Node, {
-  statics: {
-    type: 'literal',
-  },
-  props: {
-    value: null,
-  },
-  init({ value = null } = {}) {
+class Literal extends Node {
+  public static readonly type: string = 'literal';
+
+  public value: unknown;
+
+  constructor({ value = null, ...rest }: LiteralOptions = {}) {
+    super({ ...rest });
     this.value = value;
-  },
-});
+  }
+}
 
 export default Literal;

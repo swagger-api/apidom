@@ -1,22 +1,19 @@
-import stampit from 'stampit';
-
 import Node from '../../Node';
+import type { NodeOptions } from '../../Node';
 
-interface YamlAnchor extends Node {
-  type: 'anchor';
-  name: string | null;
+export interface YamlAnchorOptions extends NodeOptions {
+  name?: string | null;
 }
 
-const YamlAnchor: stampit.Stamp<YamlAnchor> = stampit(Node, {
-  statics: {
-    type: 'anchor',
-  },
-  props: {
-    name: null,
-  },
-  init({ name = null } = {}) {
+class YamlAnchor extends Node {
+  public static readonly type: string = 'anchor';
+
+  public name: string | null;
+
+  constructor({ name = null, ...rest }: YamlAnchorOptions = {}) {
+    super({ ...rest });
     this.name = name;
-  },
-});
+  }
+}
 
 export default YamlAnchor;

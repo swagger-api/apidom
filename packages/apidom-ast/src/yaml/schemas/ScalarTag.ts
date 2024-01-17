@@ -1,5 +1,3 @@
-import stampit from 'stampit';
-
 import {
   formatFlowPlain,
   formatFlowSingleQuoted,
@@ -10,42 +8,35 @@ import {
 import { YamlStyle } from '../nodes/YamlStyle';
 import { YamlNodeKind } from '../nodes/YamlTag';
 
-const ScalarTag = stampit({
-  methods: {
-    test(node) {
-      return node.tag.kind === YamlNodeKind.Scalar && typeof node.content === 'string';
-    },
+class ScalarTag {
+  public static test(node: any): boolean {
+    return node.tag.kind === YamlNodeKind.Scalar && typeof node.content === 'string';
+  }
 
-    canonicalFormat(node) {
-      let canonicalForm = node.content;
-      const nodeClone = node.clone();
+  public static canonicalFormat(node: any): any {
+    let canonicalForm = node.content;
+    const nodeClone = node.clone();
 
-      if (node.style === YamlStyle.Plain) {
-        // @ts-ignore
-        canonicalForm = formatFlowPlain(node.content);
-      } else if (node.style === YamlStyle.SingleQuoted) {
-        // @ts-ignore
-        canonicalForm = formatFlowSingleQuoted(node.content);
-      } else if (node.style === YamlStyle.DoubleQuoted) {
-        // @ts-ignore
-        canonicalForm = formatFlowDoubleQuoted(node.content);
-      } else if (node.style === YamlStyle.Literal) {
-        // @ts-ignore
-        canonicalForm = formatBlockLiteral(node.content);
-      } else if (node.style === YamlStyle.Folded) {
-        // @ts-ignore
-        canonicalForm = formatBlockFolded(node.content);
-      }
+    if (node.style === YamlStyle.Plain) {
+      canonicalForm = formatFlowPlain(node.content);
+    } else if (node.style === YamlStyle.SingleQuoted) {
+      canonicalForm = formatFlowSingleQuoted(node.content);
+    } else if (node.style === YamlStyle.DoubleQuoted) {
+      canonicalForm = formatFlowDoubleQuoted(node.content);
+    } else if (node.style === YamlStyle.Literal) {
+      canonicalForm = formatBlockLiteral(node.content);
+    } else if (node.style === YamlStyle.Folded) {
+      canonicalForm = formatBlockFolded(node.content);
+    }
 
-      nodeClone.content = canonicalForm;
+    nodeClone.content = canonicalForm;
 
-      return nodeClone;
-    },
+    return nodeClone;
+  }
 
-    resolve(node) {
-      return node;
-    },
-  },
-});
+  public static resolve(node: any): any {
+    return node;
+  }
+}
 
 export default ScalarTag;

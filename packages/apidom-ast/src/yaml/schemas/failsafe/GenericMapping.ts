@@ -1,25 +1,21 @@
-import stampit from 'stampit';
-
 import Tag from '../Tag';
 import { YamlNodeKind } from '../../nodes/YamlTag';
 
-const GenericMapping = stampit(Tag, {
-  statics: {
-    uri: 'tag:yaml.org,2002:map',
-  },
-  init(args, { stamp }) {
-    this.tag = stamp.uri;
-  },
-  methods: {
-    test(node) {
-      // @ts-ignore
-      return node.tag.kind === YamlNodeKind.Mapping;
-    },
+class GenericMapping extends Tag {
+  public static uri: string = 'tag:yaml.org,2002:map';
 
-    resolve(node) {
-      return node;
-    },
-  },
-});
+  constructor() {
+    super();
+    this.tag = GenericMapping.uri;
+  }
+
+  public static test(node: any): boolean {
+    return node.tag.kind === YamlNodeKind.Mapping;
+  }
+
+  public static resolve(node: any): any {
+    return node;
+  }
+}
 
 export default GenericMapping;

@@ -1,27 +1,16 @@
-import stampit from 'stampit';
-
 import YamlCollection from './YamlCollection';
 import { isKeyValuePair } from './predicates';
 import YamlKeyValuePair from './YamlKeyValuePair';
 
-interface YamlMapping extends YamlCollection {
-  type: 'mapping';
-  readonly content: Array<YamlKeyValuePair>;
+class YamlMapping extends YamlCollection {
+  public static readonly type: string = 'mapping';
 }
 
-const YamlMapping: stampit.Stamp<YamlMapping> = stampit(YamlCollection, {
-  statics: {
-    type: 'mapping',
+Object.defineProperty(YamlMapping.prototype, 'content', {
+  get(): Array<YamlKeyValuePair> {
+    return Array.isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
   },
-  propertyDescriptors: {
-    content: {
-      get(): Array<YamlKeyValuePair> {
-        // @ts-ignore
-        return Array.isArray(this.children) ? this.children.filter(isKeyValuePair) : [];
-      },
-      enumerable: true,
-    },
-  },
+  enumerable: true,
 });
 
 export default YamlMapping;

@@ -1,23 +1,13 @@
-import stampit from 'stampit';
 import { head } from 'ramda';
 
 import JsonNode from './JsonNode';
 
-interface JsonDocument extends JsonNode {
-  child: unknown | null;
-}
+class JsonDocument extends JsonNode {
+  public static readonly type: string = 'document';
 
-const JsonDocument: stampit.Stamp<JsonDocument> = stampit(JsonNode, {
-  statics: {
-    type: 'document',
-  },
-  methods: {
-    // @ts-ignore
-    get child(): unknown {
-      // @ts-ignore
-      return head(this.children);
-    },
-  },
-});
+  public get child(): unknown {
+    return head(this.children);
+  }
+}
 
 export default JsonDocument;

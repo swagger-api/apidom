@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 
 interface PointOptions {
-  row?: number | null;
-  column?: number | null;
-  char?: number | null;
+  readonly row: number;
+  readonly column: number;
+  readonly char: number;
 }
 
 export class Point {
@@ -11,13 +11,13 @@ export class Point {
 
   public readonly type: string = Point.type;
 
-  public row: number | null;
+  public readonly row: number;
 
-  public column: number | null;
+  public readonly column: number;
 
-  public char: number | null;
+  public readonly char: number;
 
-  constructor({ row = null, column = null, char = null }: PointOptions = {}) {
+  constructor({ row, column, char }: PointOptions) {
     this.row = row;
     this.column = column;
     this.char = char;
@@ -25,8 +25,8 @@ export class Point {
 }
 
 interface PositionOptions {
-  start?: Point | null;
-  end?: Point | null;
+  readonly start: Point;
+  readonly end: Point;
 }
 
 class Position {
@@ -34,11 +34,11 @@ class Position {
 
   public readonly type: string = Position.type;
 
-  public start: Point | null;
+  public readonly start: Point;
 
-  public end: Point | null;
+  public readonly end: Point;
 
-  constructor({ start = null, end = null }: PositionOptions = {}) {
+  constructor({ start, end }: PositionOptions) {
     this.start = start;
     this.end = end;
   }

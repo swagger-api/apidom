@@ -2,15 +2,15 @@ import Node from './Node';
 import type { NodeOptions } from './Node';
 
 export interface LiteralOptions extends NodeOptions {
-  value?: unknown;
+  readonly value?: unknown;
 }
 
 class Literal extends Node {
   public static readonly type: string = 'literal';
 
-  public value: unknown;
+  public readonly value: unknown;
 
-  constructor({ value = null, ...rest }: LiteralOptions = {}) {
+  constructor({ value, ...rest }: LiteralOptions = {}) {
     super({ ...rest });
     this.value = value;
   }

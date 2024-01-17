@@ -87,7 +87,7 @@ class CstVisitor {
     const { keyNode } = node;
     const key = new JsonKey({
       children: keyNode?.children || [],
-      position: keyNode != null ? CstVisitor.toPosition(keyNode) : null,
+      position: keyNode != null ? CstVisitor.toPosition(keyNode) : undefined,
       isMissing: keyNode != null ? keyNode.isMissing : false,
     });
 

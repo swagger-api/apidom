@@ -34,11 +34,18 @@ describe('apidom-ls-validate', function () {
     const oasPath = path.join(__dirname, 'fixtures', 'validation', 'oas', 'valid');
     const asyncPath = path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'valid');
     let dir = await fs.promises.opendir(oasPath);
+
     try {
       for await (const dirent of dir) {
         console.log(`expecting ${path.join(dir.path, dirent.name)} to be valid`);
+        const pathToSpec = path.join(dir.path, dirent.name);
         const specString = fs.readFileSync(path.join(dir.path, dirent.name)).toString();
-        const doc: TextDocument = TextDocument.create('foo://bar/doc.json', 'yaml', 0, specString);
+        const doc: TextDocument = TextDocument.create(
+          `foo://bar/${pathToSpec}`,
+          'yaml',
+          0,
+          specString,
+        );
         const result = await languageService.doValidation(doc, validationContext);
         assert.deepEqual(result, [] as Diagnostic[]);
       }

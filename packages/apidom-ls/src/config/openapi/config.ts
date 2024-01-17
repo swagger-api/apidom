@@ -23,13 +23,16 @@ import oauthFlowMeta from './oauth-flow/meta';
 import oauthFlowsMeta from './oauth-flows/meta';
 import operationMeta from './operation/meta';
 import parameterMeta from './parameter/meta';
+import parametersDefinitionsMeta from './parameters-definitions/meta';
 import pathItemMeta from './path-item/meta';
 import pathsMeta from './paths/meta';
 import requestBodyMeta from './request-body/meta';
 import responseMeta from './response/meta';
 import responsesMeta from './responses/meta';
+import responsesDefinitionsMeta from './responses-definitions/meta';
 import securityRequirementMeta from './security-requirement/meta';
 import securitySchemeMeta from './security-scheme/meta';
+import securityDefinitionsMeta from './security-definitions/meta';
 import serverMeta from './server/meta';
 import serverVariableMeta from './server-variable/meta';
 import swaggerMeta from './swagger/meta';
@@ -37,6 +40,7 @@ import tagMeta from './tag/meta';
 import xmlMeta from './xml/meta';
 import pathTemplateMeta from './path-template/meta';
 import itemsMeta from './items/meta';
+import scopesMeta from './scopes/meta';
 import schemaMeta from '../common/schema/meta';
 import ApilintCodes from '../codes';
 
@@ -76,19 +80,23 @@ export default {
   oAuthFlows: oauthFlowsMeta,
   operation: operationMeta,
   parameter: parameterMeta,
+  parametersDefinitions: parametersDefinitionsMeta,
   pathItem: pathItemMeta,
   paths: pathsMeta,
   requestBody: requestBodyMeta,
   response: responseMeta,
   responses: responsesMeta,
+  responsesDefinitions: responsesDefinitionsMeta,
   securityRequirement: securityRequirementMeta,
   securityScheme: securitySchemeMeta,
+  securityDefinitions: securityDefinitionsMeta,
   server: serverMeta,
   serverVariable: serverVariableMeta,
   swagger: swaggerMeta,
   tag: tagMeta,
   xml: xmlMeta,
   items: itemsMeta,
+  scopes: scopesMeta,
   schema: schemaMeta,
   'path-template': pathTemplateMeta,
 };

@@ -2519,7 +2519,7 @@ describe('apidom-ls-validate', function () {
             character: 24,
           },
         },
-        message: 'additionalItems must be a schema',
+        message: 'additionalItems must be a schema object or a boolean JSON schema',
         severity: 1,
         code: 10020,
         source: 'apilint',
@@ -3692,6 +3692,65 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
     ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue3549.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/issue3549.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 16, character: 18 }, end: { line: 16, character: 23 } },
+        message: 'Schema does not include any Schema Object keywords',
+        severity: 4,
+        code: 10072,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'issue3549.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/issue3549.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 36, character: 8 }, end: { line: 36, character: 13 } },
+        message: 'Schema does not include any Schema Object keywords',
+        severity: 4,
+        code: 10072,
+        source: 'apilint',
+      },
+    ];
+    console.log(JSON.stringify(result, null, 2));
     assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs';
 
 const thenTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_THEN,
@@ -13,6 +14,7 @@ const thenTypeLint: LinterMeta = {
   marker: 'value',
   target: 'then',
   data: {},
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
 export default thenTypeLint;

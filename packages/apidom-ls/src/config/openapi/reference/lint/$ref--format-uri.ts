@@ -2,10 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const $refFormatURILint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_REFERENCE_FIELD_$REF_FORMAT_URI,
+  code: ApilintCodes.OPENAPI2_REFERENCE_FIELD_$REF_FORMAT_URI,
   source: 'apilint',
   message: "'$ref' value must be a valid URI-reference",
   severity: DiagnosticSeverity.Error,
@@ -13,7 +13,7 @@ const $refFormatURILint: LinterMeta = {
   marker: 'value',
   target: '$ref',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default $refFormatURILint;

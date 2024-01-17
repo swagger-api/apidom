@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs';
 
 const propertiesValuesTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PROPERTIES,
@@ -14,6 +15,7 @@ const propertiesValuesTypeLint: LinterMeta = {
   markerTarget: 'properties',
   target: 'properties',
   data: {},
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
 export default propertiesValuesTypeLint;

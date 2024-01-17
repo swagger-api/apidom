@@ -1,0 +1,77 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes';
+import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+
+const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_MISSING_CORE_FIELDS,
+  source: 'apilint',
+  message: 'Schema does not include any Schema Object keywords',
+  severity: DiagnosticSeverity.Hint,
+  linterFunction: 'existAnyOfFields',
+  linterParams: [
+    [
+      '$id',
+      '$schema',
+      '$comment',
+      '$ref',
+      'if',
+      'then',
+      'else',
+      'contentEncoding',
+      'contentMediaType',
+      'contains',
+      'propertyNames',
+      'const',
+      'examples',
+      'multipleOf',
+      'maximum',
+      'exclusiveMaximum',
+      'minimum',
+      'exclusiveMinimum',
+      'maxLength',
+      'minLength',
+      'pattern',
+      'additionalItems',
+      'items',
+      'maxItems',
+      'minItems',
+      'uniqueItems',
+      'patternProperties',
+      'dependencies',
+      'definitions',
+      'maxProperties',
+      'minProperties',
+      'required',
+      'properties',
+      'additionalProperties',
+      'enum',
+      'type',
+      'allOf',
+      'anyOf',
+      'oneOf',
+      'not',
+      'title',
+      'description',
+      'default',
+      'format',
+      'readOnly',
+      'writeOnly',
+      'discriminator',
+      'externalDocs',
+      'deprecated',
+    ],
+    true,
+  ],
+  marker: 'key',
+  targetSpecs: [...AsyncAPI2],
+  conditions: [
+    {
+      function: 'apilintElementOrClass',
+      params: [['schema']],
+    },
+  ],
+};
+
+export default missingCoreFieldsAsyncAPI2Lint;

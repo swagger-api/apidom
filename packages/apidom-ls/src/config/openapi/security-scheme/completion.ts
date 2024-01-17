@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types';
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,7 +17,21 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Security Scheme.',
     },
-    targetSpecs: OpenAPI3,
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'type',
+    insertText: 'type',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**Required.** The type of the security scheme. Valid values are `"basic"`, `"apiKey"` or `"oauth2"`.',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'type',
@@ -56,6 +70,19 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
+      value: 'A short description for security scheme.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'description',
+    insertText: 'description',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
       value:
         'A description for security scheme. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
     },
@@ -71,7 +98,21 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. Applies to `apiKey`. **REQUIRED**. The name of the header, query or cookie parameter to be used.',
+        'Valid for `apiKey`. **Required**. The name of the header or query parameter to be used.',
+    },
+    targetSpecs: OpenAPI3,
+  },
+  {
+    label: 'name',
+    insertText: 'name',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `apiKey`. **REQUIRED**. The name of the header, query or cookie parameter to be used.',
     },
     targetSpecs: OpenAPI3,
   },
@@ -85,7 +126,21 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. Applies to `apiKey`. **REQUIRED**. The location of the API key. Valid values are `"query"`, `"header"` or `"cookie"`.',
+        'Valid for `apiKey`. **Required**. The location of the API key. Valid values are `"query"` or `"header"`.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'in',
+    insertText: 'in',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `apiKey`. **REQUIRED**. The location of the API key. Valid values are `"query"`, `"header"` or `"cookie"`.',
     },
     targetSpecs: OpenAPI3,
   },
@@ -118,6 +173,20 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI3,
   },
   {
+    label: 'flow',
+    insertText: 'flow',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Valid for `oauth2`. **Required**. The flow used by the OAuth2 security scheme. Valid values are `"implicit"`, `"password"`, `"application"` or `"accessCode"`.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
     label: 'flows',
     insertText: 'flows',
     kind: 14,
@@ -146,6 +215,34 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI31,
   },
   {
+    label: 'authorizationUrl',
+    insertText: 'authorizationUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Valid for oauth2 (`"implicit"`, `"accessCode"`). **Required**. The authorization URL to be used for this flow. This SHOULD be in the form of a URL.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'tokenUrl',
+    insertText: 'tokenUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Valid for oauth2 (`"password"`, `"application"`, `"accessCode"`). **Required**. The token URL to be used for this flow. This SHOULD be in the form of a URL.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
     label: 'openIdConnectUrl',
     insertText: 'openIdConnectUrl',
     kind: 14,
@@ -155,7 +252,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL.',
+        'Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -169,9 +266,33 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
+        'Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'scopes',
+    insertText: 'scopes',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Scopes Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#scopes-object)\n\\\n\\\nValid for `oauth2`. **Required**. The available scopes for the OAuth2 security scheme.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'type',
+    label: 'basic',
+    insertText: 'basic',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: OpenAPI2,
   },
   {
     target: 'type',
@@ -181,7 +302,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     target: 'type',
@@ -201,7 +322,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     target: 'type',
@@ -221,7 +342,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     target: 'in',
@@ -231,7 +352,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
   {
     target: 'in',
@@ -242,6 +363,46 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     targetSpecs: OpenAPI3,
+  },
+  {
+    target: 'flow',
+    label: 'implicit',
+    insertText: 'implicit',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'flow',
+    label: 'password',
+    insertText: 'password',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'flow',
+    label: 'application',
+    insertText: 'application',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: OpenAPI2,
+  },
+  {
+    target: 'flow',
+    label: 'accessCode',
+    insertText: 'accessCode',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: OpenAPI2,
   },
 ];
 

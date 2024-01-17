@@ -173,6 +173,22 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'existAnyOfFields',
+    function: (element: Element, keys: string[], allowEmpty: boolean): boolean => {
+      if (element && isObject(element)) {
+        if (!element.keys() || element.keys().length === 0) {
+          return allowEmpty;
+        }
+        for (const key of keys) {
+          if (element.hasKey(key)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+  },
+  {
     functionName: 'allowedFields',
     function: (
       element: Element,

@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs';
 
 const valuesTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_RESPONSES_VALUES_TYPE,
@@ -13,7 +13,7 @@ const valuesTypeLint: LinterMeta = {
   linterParams: [['response']],
   marker: 'key',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI2, ...OpenAPI3],
 };
 
 export default valuesTypeLint;

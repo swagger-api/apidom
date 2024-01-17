@@ -2,7 +2,7 @@ import YamlNode from './YamlNode';
 import type { YamlNodeOptions } from './YamlNode';
 
 export interface YamlScalarOptions extends YamlNodeOptions {
-  content: string;
+  readonly content: string;
 }
 
 class YamlScalar extends YamlNode {

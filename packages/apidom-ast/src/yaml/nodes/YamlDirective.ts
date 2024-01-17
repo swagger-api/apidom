@@ -10,8 +10,8 @@ interface YamlDirectiveParameters {
 }
 
 export interface YamlDirectiveOptions extends NodeOptions {
-  name?: string;
-  parameters: YamlDirectiveParameters;
+  readonly name?: string;
+  readonly parameters: YamlDirectiveParameters;
 }
 
 class YamlDirective extends Node {

@@ -5,10 +5,10 @@ import YamlAnchor from './YamlAnchor';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle';
 
 export interface YamlNodeOptions extends NodeOptions {
-  anchor?: YamlAnchor;
-  tag?: YamlTag;
-  style: YamlStyle;
-  styleGroup: YamlStyleGroup;
+  readonly anchor?: YamlAnchor;
+  readonly tag?: YamlTag;
+  readonly style: YamlStyle;
+  readonly styleGroup: YamlStyleGroup;
 }
 
 class YamlNode extends Node {

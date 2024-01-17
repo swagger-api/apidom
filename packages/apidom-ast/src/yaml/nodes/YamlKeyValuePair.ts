@@ -5,7 +5,7 @@ import type { YamlStyleGroup } from './YamlStyle';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates';
 
 export interface YamlKeyValuePairOptions extends NodeOptions {
-  styleGroup: YamlStyleGroup;
+  readonly styleGroup: YamlStyleGroup;
 }
 
 class YamlKeyValuePair extends Node {

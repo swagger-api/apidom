@@ -2,7 +2,7 @@ import Node from '../../Node';
 import type { NodeOptions } from '../../Node';
 
 export interface YamlCommentOptions extends NodeOptions {
-  content: string;
+  readonly content: string;
 }
 
 class YamlComment extends Node {

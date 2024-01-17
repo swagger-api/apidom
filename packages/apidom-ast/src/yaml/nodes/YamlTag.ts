@@ -8,8 +8,8 @@ export enum YamlNodeKind {
 }
 
 export interface YamlTagOptions extends NodeOptions {
-  explicitName: string;
-  kind: YamlNodeKind;
+  readonly explicitName: string;
+  readonly kind: YamlNodeKind;
 }
 
 class YamlTag extends Node {

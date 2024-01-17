@@ -1,18 +1,14 @@
 import Tag from '../Tag';
 
+/* eslint-disable class-methods-use-this */
 class Integer extends Tag {
-  public static uri: string = 'tag:yaml.org,2002:int';
+  public static readonly uri: string = 'tag:yaml.org,2002:int';
 
-  constructor() {
-    super();
-    this.tag = Integer.uri;
-  }
-
-  public static test(node: any): boolean {
+  public test(node: any): boolean {
     return /^-?(0|[1-9][0-9]*)$/.test(node.content);
   }
 
-  public static resolve(node: any): any {
+  public resolve(node: any): any {
     const content = parseInt(node.content, 10);
     const nodeClone = node.clone();
 
@@ -21,5 +17,6 @@ class Integer extends Tag {
     return nodeClone;
   }
 }
+/* eslint-enable class-methods-use-this */
 
 export default Integer;

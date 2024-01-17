@@ -8,7 +8,7 @@ import { OpenAPI31 } from '../../target-specs';
 const schemaTypeOpenAPI3_1Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_MEDIA_TYPE_FIELD_SCHEMA_VALUES_TYPE,
   source: 'apilint',
-  message: 'schema must be a schema',
+  message: 'schema must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['schema', 'boolean'],

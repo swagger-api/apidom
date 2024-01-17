@@ -21,7 +21,7 @@ export class Point {
 }
 
 class Position {
-  public readonly type: string = 'position';
+  public static type: string = 'position';
 
   public start: Point | null;
 

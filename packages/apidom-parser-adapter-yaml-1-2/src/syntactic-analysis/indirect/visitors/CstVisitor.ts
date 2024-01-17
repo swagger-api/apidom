@@ -90,7 +90,7 @@ class CstVisitor {
       : node.type.endsWith('sequence')
         ? YamlNodeKind.Sequence
         : YamlNodeKind.Scalar;
-    const position = tagNode ? CstVisitor.toPosition(tagNode) : null;
+    const position = tagNode ? CstVisitor.toPosition(tagNode) : undefined;
 
     return new YamlTag({ explicitName, kind, position });
   }

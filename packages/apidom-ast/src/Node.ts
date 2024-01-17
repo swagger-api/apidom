@@ -1,23 +1,23 @@
 import Position from './Position';
 
 export interface NodeOptions {
-  children?: unknown[];
-  position?: Position | null;
-  isMissing?: boolean;
+  readonly children?: unknown[];
+  readonly position?: Position;
+  readonly isMissing?: boolean;
 }
 
 class Node {
   public static readonly type: string = 'node';
 
-  public readonly type: string | null = 'node';
+  public readonly type: string = 'node';
 
-  public isMissing: boolean;
+  public readonly isMissing: boolean;
 
   public children: unknown[];
 
-  public position: Position | null;
+  public position?: Position;
 
-  constructor({ children = [], position = null, isMissing = false }: NodeOptions = {}) {
+  constructor({ children = [], position, isMissing = false }: NodeOptions = {}) {
     this.type = (this.constructor as unknown as Node).type;
     this.isMissing = isMissing;
     this.children = children;

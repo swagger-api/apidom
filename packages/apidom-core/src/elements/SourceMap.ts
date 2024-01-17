@@ -25,8 +25,8 @@ class SourceMap extends ArrayElement {
     return this.children.filter((item) => item.classes.contains('position')).get(1);
   }
 
-  set position(position: PositionRange | null) {
-    if (position === null) {
+  set position(position: PositionRange | undefined) {
+    if (typeof position === 'undefined') {
       return;
     }
 

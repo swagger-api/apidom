@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../apidom-language-types';
 const patternPropertiesValuesTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PATTERNPROPERTIES,
   source: 'apilint',
-  message: 'patternProperties members must be schemas',
+  message: 'patternProperties members must be schema objects or boolean JSON schemas',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['schema', 'boolean']],

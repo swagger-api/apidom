@@ -9,7 +9,7 @@ import { OpenAPI31 } from '../../../openapi/target-specs';
 const notTypeOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_NOT,
   source: 'apilint',
-  message: '"not" must be a schema',
+  message: '"not" must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['schema', 'boolean'],

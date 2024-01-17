@@ -9,7 +9,7 @@ import { OpenAPI31 } from '../../../openapi/target-specs';
 const containsTypeOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_CONTAINS,
   source: 'apilint',
-  message: 'contains must be a schema',
+  message: 'contains must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: ['schema', 'boolean'],

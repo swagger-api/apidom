@@ -9,7 +9,7 @@ import { OpenAPI31 } from '../../../openapi/target-specs';
 const allOfTypeOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ALLOF,
   source: 'apilint',
-  message: 'allOf must be a non-empty array of schemas',
+  message: 'allOf must be a non-empty array of schema objects or boolean JSON schemas',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
   linterParams: [['schema', 'boolean'], true],

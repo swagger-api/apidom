@@ -38,6 +38,5 @@ class ScalarTag {
     return node;
   }
 }
-/* eslint-enable class-methods-use-this */
 
 export default ScalarTag;

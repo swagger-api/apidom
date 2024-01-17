@@ -830,8 +830,9 @@ export class DefaultValidationService implements ValidationService {
     const linterFuncName = meta.linterFunction;
     if (linterFuncName) {
       // first check if it is a standard function and exists.
-      let lintFunc = standardLinterfunctions.find((e) => e.functionName === linterFuncName)
-        ?.function;
+      let lintFunc = standardLinterfunctions.find(
+        (e) => e.functionName === linterFuncName,
+      )?.function;
       // else get it from configuration
       if (!lintFunc) {
         lintFunc = this.settings?.metadata?.linterFunctions[docNs][linterFuncName];

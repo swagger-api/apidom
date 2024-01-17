@@ -18,7 +18,7 @@ class Node {
   public position?: Position;
 
   constructor({ children = [], position, isMissing = false }: NodeOptions = {}) {
-    this.type = (this.constructor as unknown as Node).type;
+    this.type = (this.constructor as typeof Node).type;
     this.isMissing = isMissing;
     this.children = children;
     this.position = position;

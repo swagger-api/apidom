@@ -65,6 +65,7 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
 
 ```sh
  $ npm install @swagger-api/apidom-ast
+ $ npm install @swagger-api/apidom-converter
  $ npm install @swagger-api/apidom-core
  $ npm install @swagger-api/apidom-error
  $ npm install @swagger-api/apidom-json-path

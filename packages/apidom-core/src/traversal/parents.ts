@@ -1,45 +1,39 @@
-import stampit from 'stampit';
 import { Element, ObjectElement, ArrayElement, MemberElement } from 'minim';
 
 import { visit } from './visitor';
 
-/* eslint-disable no-param-reassign */
+class Visitor {
+  public parentEdges: WeakMap<Element, Element | null>;
 
-const Visitor = stampit({
-  props: {
-    parent: null,
-    parentEdges: null,
-  },
-  init() {
+  private parent: Element | null = null;
+
+  constructor() {
     this.parentEdges = new WeakMap();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.parentEdges.set(objectElement, this.parent);
-      this.parent = objectElement;
-    },
+  }
 
-    ArrayElement(arrayElement: ArrayElement) {
-      this.parentEdges.set(arrayElement, this.parent);
-      this.parent = arrayElement;
-    },
+  public ObjectElement(objectElement: ObjectElement): void {
+    this.parentEdges.set(objectElement, this.parent);
+    this.parent = objectElement;
+  }
 
-    MemberElement(memberElement: MemberElement) {
-      this.parentEdges.set(memberElement, this.parent);
-      this.parent = memberElement;
-    },
+  public ArrayElement(arrayElement: ArrayElement): void {
+    this.parentEdges.set(arrayElement, this.parent);
+    this.parent = arrayElement;
+  }
 
-    enter(element: Element) {
-      this.parentEdges.set(element, this.parent);
-    },
-  },
-});
+  public MemberElement(memberElement: MemberElement): void {
+    this.parentEdges.set(memberElement, this.parent);
+    this.parent = memberElement;
+  }
 
-/* eslint-enable */
+  public enter(element: Element): void {
+    this.parentEdges.set(element, this.parent);
+  }
+}
 
 // computes upwards edges from every child to its parent
-const parents = <T extends Element>(element: T): WeakMap<Element, Element> => {
-  const visitor = Visitor();
+const parents = <T extends Element>(element: T): WeakMap<Element, Element | null> => {
+  const visitor = new Visitor();
 
   visit(element, visitor);
 

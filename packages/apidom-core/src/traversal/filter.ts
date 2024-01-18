@@ -4,10 +4,10 @@ import { PredicateVisitor, visit } from './visitor';
 
 // finds all elements matching the predicate
 const filter = <T extends Element>(
-  predicate: (element: any) => boolean,
+  predicate: (element: unknown) => boolean,
   element: T,
 ): ArraySlice => {
-  const visitor = PredicateVisitor({ predicate });
+  const visitor = new PredicateVisitor({ predicate });
 
   visit(element, visitor);
 

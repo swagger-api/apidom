@@ -5,10 +5,10 @@ import { PredicateVisitor, BREAK, visit } from './visitor';
 
 // find first element that satisfies the provided predicate
 const find = <T extends Element>(
-  predicate: (element: any) => boolean,
+  predicate: (element: unknown) => boolean,
   element: T,
 ): T | undefined => {
-  const visitor = PredicateVisitor({ predicate, returnOnTrue: BREAK });
+  const visitor = new PredicateVisitor({ predicate, returnOnTrue: BREAK });
 
   visit(element, visitor);
 

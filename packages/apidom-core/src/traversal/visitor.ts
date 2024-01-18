@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { Element } from 'minim';
 import { F as stubFalse, pipe } from 'ramda';
 import { isString } from 'ramda-adjunct';
@@ -82,36 +81,40 @@ export const keyMapDefault = {
   SourceMap: ['content'],
 };
 
-export const PredicateVisitor = stampit({
-  props: {
-    result: [],
-    predicate: stubFalse,
-    returnOnTrue: undefined,
-    returnOnFalse: undefined,
-  },
-  init({
-    // @ts-ignore
-    predicate = this.predicate,
-    // @ts-ignore
-    returnOnTrue = this.returnOnTrue,
-    // @ts-ignore
-    returnOnFalse = this.returnOnFalse,
-  } = {}) {
+export interface PredicateVisitorOptions {
+  readonly predicate?: (element: unknown) => boolean;
+  readonly returnOnTrue?: unknown;
+  readonly returnOnFalse?: unknown;
+}
+
+export class PredicateVisitor {
+  public result: Element[];
+
+  protected readonly predicate: (element: unknown) => boolean;
+
+  protected readonly returnOnTrue: unknown;
+
+  protected readonly returnOnFalse: unknown;
+
+  constructor({
+    predicate = stubFalse,
+    returnOnTrue = undefined,
+    returnOnFalse = undefined,
+  }: PredicateVisitorOptions = {}) {
     this.result = [];
     this.predicate = predicate;
     this.returnOnTrue = returnOnTrue;
     this.returnOnFalse = returnOnFalse;
-  },
-  methods: {
-    enter(element: Element): undefined {
-      if (this.predicate(element)) {
-        this.result.push(element);
-        return this.returnOnTrue;
-      }
-      return this.returnOnFalse;
-    },
-  },
-});
+  }
+
+  public enter(element: Element): unknown {
+    if (this.predicate(element)) {
+      this.result.push(element);
+      return this.returnOnTrue;
+    }
+    return this.returnOnFalse;
+  }
+}
 
 // @ts-ignore
 export const visit = (

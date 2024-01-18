@@ -1,74 +1,64 @@
 import { Element, StringElement } from 'minim';
-import stampit from 'stampit';
 import ShortUniqueId from 'short-unique-id';
 
 import ElementIdentityError from './errors/ElementIdentityError';
 import { isElement, isStringElement } from '../predicates';
 
-export interface IdentityManager<T extends Element = Element> {
-  length: number;
-  uuid: ShortUniqueId;
-  identityMap: WeakMap<T, StringElement>;
-
-  identify(this: IdentityManager<T>, element: T): StringElement;
-  forget(this: IdentityManager<T>, element: T): boolean;
-  generateId(this: IdentityManager<T>): string;
+interface IdentityManagerOptions {
+  length?: number;
 }
 
-export const IdentityManager: stampit.Stamp<IdentityManager> = stampit({
-  props: {
-    uuid: null,
-    length: null,
-    identityMap: null,
-  },
-  init(this: IdentityManager, { length = 6 } = {}) {
-    this.length = 6;
+export class IdentityManager<T extends Element = Element> {
+  private readonly uuid: ShortUniqueId;
+
+  private identityMap: WeakMap<T, StringElement>;
+
+  constructor({ length = 6 }: IdentityManagerOptions = {}) {
     this.uuid = new ShortUniqueId({ length });
     this.identityMap = new WeakMap();
-  },
-  methods: {
-    identify<T extends Element>(this: IdentityManager, element: T): StringElement {
-      if (!isElement(element)) {
-        throw new ElementIdentityError(
-          'Cannot not identify the element. `element` is neither structurally compatible nor a subclass of an Element class.',
-          {
-            value: element,
-          },
-        );
-      }
+  }
 
-      // use already assigned identity
-      if (
-        element.meta.hasKey('id') &&
-        isStringElement(element.meta.id) &&
-        !element.meta.id.equals('')
-      ) {
-        return element.id;
-      }
+  public identify(element: T): StringElement {
+    if (!isElement(element)) {
+      throw new ElementIdentityError(
+        'Cannot not identify the element. `element` is neither structurally compatible nor a subclass of an Element class.',
+        {
+          value: element,
+        },
+      );
+    }
 
-      // assign identity in immutable way
-      if (this.identityMap.has(element)) {
-        return this.identityMap.get(element)!;
-      }
+    // use already assigned identity
+    if (
+      element.meta.hasKey('id') &&
+      isStringElement(element.meta.id) &&
+      !element.meta.id.equals('')
+    ) {
+      return element.id;
+    }
 
-      // return element identity
-      const id = new StringElement(this.generateId());
-      this.identityMap.set(element, id);
-      return id;
-    },
+    // assign identity in immutable way
+    if (this.identityMap.has(element)) {
+      return this.identityMap.get(element)!;
+    }
 
-    forget<T extends Element>(this: IdentityManager, element: T): boolean {
-      if (this.identityMap.has(element)) {
-        this.identityMap.delete(element);
-        return true;
-      }
-      return false;
-    },
+    // return element identity
+    const id = new StringElement(this.generateId());
+    this.identityMap.set(element, id);
+    return id;
+  }
 
-    generateId(this: IdentityManager): string {
-      return this.uuid.randomUUID();
-    },
-  },
-});
+  public forget(element: T): boolean {
+    if (this.identityMap.has(element)) {
+      this.identityMap.delete(element);
+      return true;
+    }
+    return false;
+  }
 
-export const defaultIdentityManager = IdentityManager({ length: 6 });
+  public generateId(): string {
+    return this.uuid.randomUUID();
+  }
+}
+
+export const defaultIdentityManager = new IdentityManager({ length: 6 });

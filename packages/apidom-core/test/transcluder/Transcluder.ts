@@ -18,7 +18,7 @@ describe('transcluder', function () {
           const element = from([1, 2, 3]) as ArrayElement;
           const search = element.get(1);
           const replace = new NumberElement(4);
-          const transcluder = Transcluder({ element });
+          const transcluder = new Transcluder({ element });
           const transcludedElement = transcluder.transclude(search, replace);
           // @ts-ignore
           const transcludedValue = toValue(transcludedElement);
@@ -32,7 +32,7 @@ describe('transcluder', function () {
           const element = from([1, { prop: 'value' }, 3]) as ArrayElement;
           const search = element.get(1).get('prop');
           const replace = new NumberElement(4);
-          const transcluder = Transcluder({ element });
+          const transcluder = new Transcluder({ element });
           const transcludedElement = transcluder.transclude(search, replace);
           // @ts-ignore
           const transcludedValue = toValue(transcludedElement);
@@ -49,7 +49,7 @@ describe('transcluder', function () {
             new StringElement('prop1'),
             new StringElement('value1'),
           );
-          const transcluder = Transcluder({ element });
+          const transcluder = new Transcluder({ element });
           const transcludedElement = transcluder.transclude(search, replace);
           // @ts-ignore
           const transcludedValue = toValue(transcludedElement);
@@ -68,7 +68,7 @@ describe('transcluder', function () {
           );
           const search2 = element.get(2);
           const replace2 = new NumberElement(4);
-          const transcluder = Transcluder({ element });
+          const transcluder = new Transcluder({ element });
 
           const transcludedElementV1 = transcluder.transclude(search1, replace1);
           // @ts-ignore
@@ -92,7 +92,7 @@ describe('transcluder', function () {
             new StringElement('prop1'),
             new StringElement('value1'),
           );
-          const transcluder = Transcluder({ element });
+          const transcluder = new Transcluder({ element });
 
           assert.throw(() => transcluder.transclude(search, replace), TypeError);
         });
@@ -104,7 +104,7 @@ describe('transcluder', function () {
             const search = new StringElement('test');
             const replace = new NumberElement(1);
             const element = search;
-            const transcluder = Transcluder({ element });
+            const transcluder = new Transcluder({ element });
             const transcluded = transcluder.transclude(search, replace);
 
             assert.strictEqual(transcluded, replace);
@@ -116,7 +116,7 @@ describe('transcluder', function () {
             const search = new StringElement('test');
             const replace = search;
             const element = new NumberElement(1);
-            const transcluder = Transcluder({ element });
+            const transcluder = new Transcluder({ element });
             const transcluded = transcluder.transclude(search, replace);
 
             assert.strictEqual(transcluded, element);

@@ -7,7 +7,7 @@ import Transcluder from './Transcluder';
  * clone in before passing it to this function.
  */
 export const transclude = (search: Element, replace: Element, element: Element) => {
-  const transcluder = Transcluder({ element });
+  const transcluder = new Transcluder({ element });
   return transcluder.transclude(search, replace);
 };
 

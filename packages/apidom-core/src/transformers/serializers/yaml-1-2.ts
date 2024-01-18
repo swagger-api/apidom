@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import {
   Element,
   BooleanElement,
@@ -11,79 +10,89 @@ import {
 import { visit } from '../../traversal/visitor';
 import serializeValue from './value';
 
-const YamlVisitor = stampit({
-  props: {
-    result: '',
-    indent: 0,
-    indentChar: '  ',
-  },
-  init({ directive = false, indent = 0 } = {}) {
+interface YamlVisitorOptions {
+  readonly directive?: boolean;
+  readonly indent?: number;
+}
+
+class YamlVisitor {
+  private static readonly indentChar = '  ';
+
+  public result: string = '';
+
+  private readonly indent: number;
+
+  constructor({ directive = false, indent = 0 }: YamlVisitorOptions = {}) {
     this.result = directive ? '%YAML 1.2\n---\n' : '';
     this.indent = indent;
-  },
-  methods: {
-    NumberElement(element: NumberElement) {
-      this.result += serializeValue(element);
-    },
-    BooleanElement(element: BooleanElement) {
-      const value = serializeValue(element);
-      this.result += value ? 'true' : 'false';
-    },
-    StringElement(element: StringElement) {
-      // for simplicity and avoiding ambiguity we always wrap strings in quotes
-      this.result += JSON.stringify(serializeValue(element));
-    },
-    NullElement() {
-      this.result += 'null';
-    },
-    ArrayElement(element: ArrayElement) {
-      if (element.length === 0) {
-        this.result += '[]';
-        return false;
-      }
+  }
 
-      element.forEach((item) => {
-        const visitor = YamlVisitor({ indent: this.indent + 1 });
-        const indent = this.indentChar.repeat(this.indent);
+  public NumberElement(element: NumberElement): void {
+    this.result += serializeValue(element);
+  }
 
-        visit(item, visitor);
+  public BooleanElement(element: BooleanElement): void {
+    const value = serializeValue(element);
+    this.result += value ? 'true' : 'false';
+  }
 
-        const { result } = visitor;
+  public StringElement(element: StringElement): void {
+    // for simplicity and avoiding ambiguity we always wrap strings in quotes
+    this.result += JSON.stringify(serializeValue(element));
+  }
 
-        this.result += result.startsWith('\n') ? `\n${indent}-${result}` : `\n${indent}- ${result}`;
-      });
+  public NullElement(): void {
+    this.result += 'null';
+  }
 
+  public ArrayElement(element: ArrayElement): false {
+    if (element.length === 0) {
+      this.result += '[]';
       return false;
-    },
-    ObjectElement(element: ObjectElement) {
-      if (element.length === 0) {
-        this.result += '{}';
-        return false;
-      }
+    }
 
-      element.forEach((value, key) => {
-        const keyVisitor = YamlVisitor({ indent: this.indent + 1 });
-        const valueVisitor = YamlVisitor({ indent: this.indent + 1 });
-        const indent = this.indentChar.repeat(this.indent);
+    element.forEach((item) => {
+      const visitor = new YamlVisitor({ indent: this.indent + 1 });
+      const indent = YamlVisitor.indentChar.repeat(this.indent);
 
-        visit(key, keyVisitor);
-        visit(value, valueVisitor);
+      visit(item, visitor);
 
-        const { result: keyResult } = keyVisitor;
-        const { result: valueResult } = valueVisitor;
+      const { result } = visitor;
 
-        this.result += valueResult.startsWith('\n')
-          ? `\n${indent}${keyResult}:${valueResult}`
-          : `\n${indent}${keyResult}: ${valueResult}`;
-      });
+      this.result += result.startsWith('\n') ? `\n${indent}-${result}` : `\n${indent}- ${result}`;
+    });
 
+    return false;
+  }
+
+  public ObjectElement(element: ObjectElement): false {
+    if (element.length === 0) {
+      this.result += '{}';
       return false;
-    },
-  },
-});
+    }
+
+    element.forEach((value, key) => {
+      const keyVisitor = new YamlVisitor({ indent: this.indent + 1 });
+      const valueVisitor = new YamlVisitor({ indent: this.indent + 1 });
+      const indent = YamlVisitor.indentChar.repeat(this.indent);
+
+      visit(key, keyVisitor);
+      visit(value, valueVisitor);
+
+      const { result: keyResult } = keyVisitor;
+      const { result: valueResult } = valueVisitor;
+
+      this.result += valueResult.startsWith('\n')
+        ? `\n${indent}${keyResult}:${valueResult}`
+        : `\n${indent}${keyResult}: ${valueResult}`;
+    });
+
+    return false;
+  }
+}
 
 const serializer = (element: Element, { directive = false } = {}): string => {
-  const visitor = YamlVisitor({ directive });
+  const visitor = new YamlVisitor({ directive });
 
   visit(element, visitor);
 

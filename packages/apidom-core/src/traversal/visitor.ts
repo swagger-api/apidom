@@ -82,7 +82,7 @@ export const keyMapDefault = {
 };
 
 export interface PredicateVisitorOptions {
-  readonly predicate?: (element: unknown) => boolean;
+  readonly predicate?: (element: any) => boolean;
   readonly returnOnTrue?: unknown;
   readonly returnOnFalse?: unknown;
 }
@@ -90,7 +90,7 @@ export interface PredicateVisitorOptions {
 export class PredicateVisitor {
   public result: Element[];
 
-  protected readonly predicate: (element: unknown) => boolean;
+  protected readonly predicate: (element: any) => boolean;
 
   protected readonly returnOnTrue: unknown;
 

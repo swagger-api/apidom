@@ -9,7 +9,7 @@ import { isElement } from '../predicates';
 type Callback = <T extends Element>(element: T) => void;
 interface TraverseOptions {
   callback?: Callback;
-  predicate?: (element: unknown) => boolean;
+  predicate?: (element: any) => boolean;
 }
 
 interface CallbackVisitorOptions extends PredicateVisitorOptions {

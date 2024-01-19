@@ -51,7 +51,7 @@ import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUr
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 // initialize element identity manager
-const identityManager = new IdentityManager();
+const identityManager = IdentityManager();
 
 /**
  * Predicate for detecting if element was created by merging referencing

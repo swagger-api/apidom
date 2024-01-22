@@ -16,7 +16,7 @@ describe('traversal', function () {
       });
 
       specify('should add empty parent property to root element', function () {
-        assert.isNull(parentEdges.get(data));
+        assert.isUndefined(parentEdges.get(data));
       });
 
       specify('should add parent property to #/a key', function () {
@@ -69,7 +69,7 @@ describe('traversal', function () {
       });
 
       specify('should add empty parent property to root element', function () {
-        assert.isNull(parentEdges.get(data));
+        assert.isUndefined(parentEdges.get(data));
       });
 
       specify('should add parent property to #/a key', function () {
@@ -97,7 +97,7 @@ describe('traversal', function () {
         const memberElement = data.getMember('cycle');
         const parent = parentEdges.get(memberElement.value);
 
-        assert.isNull(parent);
+        assert.isUndefined(parent);
       });
 
       specify('should add parent property to #/a/1', function () {

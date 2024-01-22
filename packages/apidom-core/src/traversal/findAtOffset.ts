@@ -11,12 +11,12 @@ interface VisitorOptions {
   readonly includeRightBound?: boolean;
 }
 
-class Visitor {
-  public result: any[];
+class Visitor<T> {
+  public result: T[];
 
-  private readonly offset: number;
+  protected readonly offset: number;
 
-  private readonly includeRightBound: boolean;
+  protected readonly includeRightBound: boolean;
 
   constructor({ offset = 0, includeRightBound = false }: VisitorOptions = {}) {
     this.result = [];
@@ -68,7 +68,7 @@ const findAtOffset = <T extends Element>(
     includeRightBound = pathOr(false, ['includeRightBound'], options);
   }
 
-  const visitor = new Visitor({ offset, includeRightBound });
+  const visitor = new Visitor<T>({ offset, includeRightBound });
 
   visit(element, visitor);
 

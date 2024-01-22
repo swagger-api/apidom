@@ -24,7 +24,7 @@ import {
 
 class Visitor {
   public readonly ObjectElement = {
-    enter: (element: ObjectElement): any => {
+    enter: (element: ObjectElement): EphemeralObject => {
       if (this.references.has(element)) {
         return this.references.get(element).toReference();
       }
@@ -36,13 +36,13 @@ class Visitor {
   };
 
   public readonly EphemeralObject = {
-    leave: (ephemeral: EphemeralObject): any => {
+    leave: (ephemeral: EphemeralObject): object => {
       return ephemeral.toObject();
     },
   };
 
   public readonly MemberElement = {
-    enter: (element: MemberElement): unknown[] => {
+    enter: (element: MemberElement): [unknown, unknown] => {
       return [element.key, element.value];
     },
   };
@@ -60,12 +60,12 @@ class Visitor {
   };
 
   public readonly EphemeralArray = {
-    leave: (ephemeral: EphemeralArray): any[] => {
+    leave: (ephemeral: EphemeralArray): unknown[] => {
       return ephemeral.toArray();
     },
   };
 
-  private references: WeakMap<Element, any> = new WeakMap();
+  protected references: WeakMap<Element, any> = new WeakMap();
 
   public BooleanElement(element: BooleanElement): boolean {
     return element.toValue();
@@ -79,7 +79,7 @@ class Visitor {
     return element.toValue();
   }
 
-  public NullElement(): null {
+  public NullElement() {
     return null;
   }
 }

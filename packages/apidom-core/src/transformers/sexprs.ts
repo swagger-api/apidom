@@ -5,7 +5,7 @@ import { visit } from '../traversal/visitor';
 class SymbolicExpressionsVisitor {
   public result: string = '';
 
-  private nestingLevel: number = 0;
+  protected nestingLevel: number = 0;
 
   public enter(element: Element): void {
     const { element: elementName } = element;

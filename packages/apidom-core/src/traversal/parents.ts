@@ -3,9 +3,9 @@ import { Element, ObjectElement, ArrayElement, MemberElement } from 'minim';
 import { visit } from './visitor';
 
 class Visitor {
-  public parentEdges: WeakMap<Element, Element | null>;
+  public parentEdges: WeakMap<Element, Element | undefined>;
 
-  private parent: Element | null = null;
+  private parent?: Element;
 
   constructor() {
     this.parentEdges = new WeakMap();
@@ -32,7 +32,7 @@ class Visitor {
 }
 
 // computes upwards edges from every child to its parent
-const parents = <T extends Element>(element: T): WeakMap<Element, Element | null> => {
+const parents = <T extends Element>(element: T): WeakMap<Element, Element | undefined> => {
   const visitor = new Visitor();
 
   visit(element, visitor);

@@ -1,3 +1,5 @@
+import allowedFieldsOpenAPI2_0Lint from './allowed-fields-openapi-2-0';
+import allowedFieldsOpenAPI3_0Lint from './allowed-fields-openapi-3-0';
 import $idFormatURILint from './$id--format-uri';
 import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
@@ -15,7 +17,7 @@ import containsTypeLint from './contains--type';
 import containsTypeOpenAPI3_1__AsyncAPI2Lint from './contains--type-openapi-3-1--asyncapi-2';
 import descriptionTypeLint from './description--type';
 import discriminatorExistInRequiredLint from './discriminator--exist-in-required';
-import discriminatorTypeOpenAPI2__AsyncAPI2Lint from './discriminator--type-openapi-2--asyncapi-2';
+import discriminatorTypeOpenAPI2_0__AsyncAPI2Lint from './discriminator--type-openapi-2-0--asyncapi-2';
 import discriminatorTypeOpenAPI3Lint from './discriminator--type-openapi-3';
 import elseNonIfLint from './else--non-if';
 import elseTypeLint from './else--type';
@@ -80,6 +82,8 @@ import writeOnlyTypeLint from './write-only--type';
 import exampleDeprecatedLint from './example--deprecated';
 
 const schemaLints = [
+  allowedFieldsOpenAPI2_0Lint,
+  allowedFieldsOpenAPI3_0Lint,
   $idFormatURILint,
   $refValidLint,
   $refNoSiblingsLint,
@@ -97,7 +101,7 @@ const schemaLints = [
   containsTypeOpenAPI3_1__AsyncAPI2Lint,
   descriptionTypeLint,
   discriminatorExistInRequiredLint,
-  discriminatorTypeOpenAPI2__AsyncAPI2Lint,
+  discriminatorTypeOpenAPI2_0__AsyncAPI2Lint,
   discriminatorTypeOpenAPI3Lint,
   elseNonIfLint,
   elseTypeLint,

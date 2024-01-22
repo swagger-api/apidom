@@ -48,7 +48,7 @@ StandardElement.refract = createRefractor([
   'visitors',
   'document',
   'objects',
-  'Standards',
+  'Standard',
   '$visitor',
 ]);
 StandardIdentifierElement.refract = createRefractor([

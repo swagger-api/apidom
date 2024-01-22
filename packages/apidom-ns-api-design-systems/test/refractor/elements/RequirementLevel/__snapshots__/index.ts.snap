@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements RequirementLevelElement should refract to semantic ApiDOM tree 1`] = `(RequirementLevelElement)`;

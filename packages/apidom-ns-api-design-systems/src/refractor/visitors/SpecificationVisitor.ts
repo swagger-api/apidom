@@ -1,77 +1,73 @@
-import stampit from 'stampit';
 import { pathSatisfies, path, pick } from 'ramda';
-import { isFunction, isUndefined } from 'ramda-adjunct';
+import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import { keyMap, getNodeType } from '../../traversal/visitor';
 import Visitor from './Visitor';
+import FallbackVisitor from './FallbackVisitor';
+import type specification from '../specification';
 
 /**
- * This is a base Type for every visitor that does
+ * This is a base class for every visitor that does
  * internal look-ups to retrieve other child visitors.
  */
-const SpecificationVisitor = stampit(Visitor, {
-  props: {
-    specObj: null,
-    passingOptionsNames: ['specObj'],
-  },
-  // @ts-ignore
-  init({ specObj = this.specObj }) {
-    this.specObj = specObj;
-  },
-  methods: {
-    retrievePassingOptions() {
-      return pick(this.passingOptionsNames, this);
-    },
+class SpecificationVisitor extends Visitor {
+  public readonly specObj!: typeof specification;
 
-    retrieveFixedFields(specPath) {
-      const fixedFields = path(['visitors', ...specPath, 'fixedFields'], this.specObj);
-      if (typeof fixedFields === 'object' && fixedFields !== null) {
-        return Object.keys(fixedFields);
-      }
-      return [];
-    },
+  public readonly passingOptionsNames = ['specObj'];
 
-    retrieveVisitor(specPath) {
-      if (pathSatisfies(isFunction, ['visitors', ...specPath], this.specObj)) {
-        return path(['visitors', ...specPath], this.specObj);
-      }
+  constructor(options = {}) {
+    super();
+    Object.assign(this, options);
+  }
 
-      return path(['visitors', ...specPath, '$visitor'], this.specObj);
-    },
+  retrievePassingOptions() {
+    return pick(this.passingOptionsNames as (keyof this)[], this);
+  }
 
-    retrieveVisitorInstance(specPath, options = {}) {
-      const passingOpts = this.retrievePassingOptions();
+  retrieveFixedFields(specPath: string[]) {
+    const fixedFields = path(['visitors', ...specPath, 'fixedFields'], this.specObj);
+    if (typeof fixedFields === 'object' && fixedFields !== null) {
+      return Object.keys(fixedFields);
+    }
+    return [];
+  }
 
-      return this.retrieveVisitor(specPath)({ ...passingOpts, ...options });
-    },
+  retrieveVisitor(specPath: string[]) {
+    if (pathSatisfies(isFunction, ['visitors', ...specPath], this.specObj)) {
+      return path(['visitors', ...specPath], this.specObj);
+    }
+    return path(['visitors', ...specPath, '$visitor'], this.specObj);
+  }
 
-    toRefractedElement(specPath: string[], element, options = {}) {
-      /**
-       * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
-       * it by basic node cloning.
-       *
-       * Visiting the element is equivalent to cloning it  if the prototype of a visitor
-       * is the same as the prototype of FallbackVisitor. If that's the case, we can avoid
-       * bootstrapping the traversal cycle for fields that don't require any special visiting.
-       */
-      const visitor = this.retrieveVisitorInstance(specPath, options);
-      const visitorPrototype = Object.getPrototypeOf(visitor);
+  retrieveVisitorInstance(specPath: string[], options = {}): Visitor {
+    const passingOpts = this.retrievePassingOptions();
+    const VisitorClz = this.retrieveVisitor(specPath) as typeof Visitor;
+    const visitorOpts = { ...passingOpts, ...options };
 
-      if (isUndefined(this.fallbackVisitorPrototype)) {
-        this.fallbackVisitorPrototype = Object.getPrototypeOf(
-          this.retrieveVisitorInstance(['value']),
-        );
-      }
-      if (this.fallbackVisitorPrototype === visitorPrototype) {
-        return cloneDeep(element);
-      }
+    // @ts-ignore
+    return new VisitorClz(visitorOpts as any);
+  }
 
-      // standard processing continues
-      visit(element, visitor, { keyMap, ...options, nodeTypeGetter: getNodeType });
-      return visitor.element;
-    },
-  },
-});
+  toRefractedElement(specPath: string[], element: any, options = {}) {
+    /**
+     * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+     * it by basic node cloning.
+     *
+     * Visiting the element is equivalent to cloning it  if the prototype of a visitor
+     * is the same as the prototype of FallbackVisitor. If that's the case, we can avoid
+     * bootstrapping the traversal cycle for fields that don't require any special visiting.
+     */
+    const visitor = this.retrieveVisitorInstance(specPath, options);
+
+    if (visitor instanceof FallbackVisitor && visitor?.constructor === FallbackVisitor) {
+      return cloneDeep(element);
+    }
+
+    // @ts-ignore
+    visit(element, visitor, { keyMap, ...options, nodeTypeGetter: getNodeType });
+    return visitor.element;
+  }
+}
 
 export default SpecificationVisitor;

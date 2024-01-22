@@ -1,12 +1,7 @@
-import stampit from 'stampit';
 import { ArrayElement, Element, MemberElement, ObjectElement } from 'minim';
 import { isUndefined } from 'ramda-adjunct';
 
 import { isObjectElement, isArrayElement, isMemberElement } from '../predicates';
-
-interface Transcluder {
-  transclude(search: Element, replace: Element): Element | undefined;
-}
 
 const computeEdges = (element: Element, edges = new WeakMap()): WeakMap<Element, any> => {
   if (isMemberElement(element)) {
@@ -101,20 +96,24 @@ const transcludeChildOfArrayElement = (
  * clone in before passing it to initializer of this stamp.
  */
 
-const Transcluder: stampit.Stamp<Transcluder> = stampit.init(function TranscluderConstructor({
-  element,
-}) {
-  let edges: WeakMap<Element, any>;
+class Transcluder {
+  protected element: Element;
 
-  this.transclude = function transclude(search: Element, replace: Element): Element | undefined {
+  protected edges!: WeakMap<Element, Element | undefined>;
+
+  constructor({ element }: { element: Element }) {
+    this.element = element;
+  }
+
+  public transclude(search: Element, replace: Element): Element | undefined {
     // shortcut 1. - replacing entire ApiDOM tree
-    if (search === element) return replace;
+    if (search === this.element) return replace;
     // shortcut 2. - replacing nothing
-    if (search === replace) return element;
+    if (search === replace) return this.element;
 
-    edges = edges ?? computeEdges(element);
+    this.edges = this.edges ?? computeEdges(this.element);
 
-    const parent = edges.get(search);
+    const parent = this.edges.get(search);
 
     if (isUndefined(parent)) {
       return undefined;
@@ -127,15 +126,15 @@ const Transcluder: stampit.Stamp<Transcluder> = stampit.init(function Transclude
      */
     if (isObjectElement(parent)) {
       // @ts-ignore
-      transcludeChildOfObjectElement(search, replace, edges);
+      transcludeChildOfObjectElement(search, replace, this.edges);
     } else if (isArrayElement(parent)) {
-      transcludeChildOfArrayElement(search, replace, edges);
+      transcludeChildOfArrayElement(search, replace, this.edges);
     } else if (isMemberElement(parent)) {
-      transcludeChildOfMemberElement(search, replace, edges);
+      transcludeChildOfMemberElement(search, replace, this.edges);
     }
 
-    return element;
-  };
-});
+    return this.element;
+  }
+}
 
 export default Transcluder;

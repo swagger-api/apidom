@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import {
   Element,
   BooleanElement,
@@ -21,63 +20,69 @@ import {
   isNullElement,
 } from '../../../predicates';
 
-/* eslint-disable @typescript-eslint/naming-convention */
-const Visitor = stampit.init(function _Visitor() {
-  const references = new WeakMap();
+/* eslint-disable class-methods-use-this */
 
-  this.BooleanElement = function _BooleanElement(element: BooleanElement) {
-    return element.toValue();
-  };
-  this.NumberElement = function _NumberElement(element: NumberElement) {
-    return element.toValue();
-  };
-  this.StringElement = function _StringElement(element: StringElement) {
-    return element.toValue();
-  };
-  this.NullElement = function _NullElement() {
-    return null;
-  };
-
-  this.ObjectElement = {
-    enter(element: ObjectElement) {
-      if (references.has(element)) {
-        return references.get(element).toReference();
+class Visitor {
+  public readonly ObjectElement = {
+    enter: (element: ObjectElement): EphemeralObject => {
+      if (this.references.has(element)) {
+        return this.references.get(element).toReference();
       }
 
       const ephemeral = new EphemeralObject(element.content);
-      references.set(element, ephemeral);
+      this.references.set(element, ephemeral);
       return ephemeral;
     },
   };
-  this.EphemeralObject = {
-    leave(ephemeral: EphemeralObject) {
+
+  public readonly EphemeralObject = {
+    leave: (ephemeral: EphemeralObject): object => {
       return ephemeral.toObject();
     },
   };
-  this.MemberElement = {
-    enter(element: MemberElement) {
+
+  public readonly MemberElement = {
+    enter: (element: MemberElement): [unknown, unknown] => {
       return [element.key, element.value];
     },
   };
 
-  this.ArrayElement = {
-    enter(element: ArrayElement) {
-      if (references.has(element)) {
-        return references.get(element).toReference();
+  public readonly ArrayElement = {
+    enter: (element: ArrayElement): any => {
+      if (this.references.has(element)) {
+        return this.references.get(element).toReference();
       }
 
       const ephemeral = new EphemeralArray(element.content);
-      references.set(element, ephemeral);
+      this.references.set(element, ephemeral);
       return ephemeral;
     },
   };
-  this.EphemeralArray = {
-    leave(ephemeral: EphemeralArray) {
+
+  public readonly EphemeralArray = {
+    leave: (ephemeral: EphemeralArray): unknown[] => {
       return ephemeral.toArray();
     },
   };
-});
-/* eslint-enable */
+
+  protected references: WeakMap<Element, any> = new WeakMap();
+
+  public BooleanElement(element: BooleanElement): boolean {
+    return element.toValue();
+  }
+
+  public NumberElement(element: NumberElement): number {
+    return element.toValue();
+  }
+
+  public StringElement(element: StringElement): string {
+    return element.toValue();
+  }
+
+  public NullElement() {
+    return null;
+  }
+}
 
 type ShortCutElementTypes = StringElement | NumberElement | BooleanElement | NullElement;
 const serializer = <T extends Element | unknown>(element: T): any => {
@@ -93,7 +98,7 @@ const serializer = <T extends Element | unknown>(element: T): any => {
     return (element as ShortCutElementTypes).toValue();
   }
 
-  return visit(element as Exclude<T, unknown>, Visitor());
+  return visit(element as Exclude<T, unknown>, new Visitor());
 };
 
 export default serializer;

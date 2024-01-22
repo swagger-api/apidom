@@ -8,7 +8,7 @@ const find = <T extends Element>(
   predicate: (element: any) => boolean,
   element: T,
 ): T | undefined => {
-  const visitor = PredicateVisitor({ predicate, returnOnTrue: BREAK });
+  const visitor = new PredicateVisitor({ predicate, returnOnTrue: BREAK });
 
   visit(element, visitor);
 

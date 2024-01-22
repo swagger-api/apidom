@@ -12,9 +12,9 @@ import type specification from '../specification';
  * internal look-ups to retrieve other child visitors.
  */
 class SpecificationVisitor extends Visitor {
-  public specObj!: typeof specification;
+  public readonly specObj!: typeof specification;
 
-  public passingOptionsNames = ['specObj'];
+  public readonly passingOptionsNames = ['specObj'];
 
   constructor(options = {}) {
     super();

@@ -27,6 +27,7 @@ import exclusiveMaximumPatternLint from './exclusive-maximum--pattern';
 import exclusiveMaximumTypeLint from './exclusive-maximum--type';
 import exclusiveMinimumPatternLint from './exclusive-minimum--pattern';
 import exclusiveMinimumTypeLint from './exclusive-minimum--type';
+import xmlTypeLint from './xml--type';
 import externalDocsTypeLint from './external-docs--type';
 import formatTypeLint from './format--type';
 import ifNonThenLint from './if--non-then';
@@ -111,6 +112,7 @@ const schemaLints = [
   exclusiveMaximumTypeLint,
   exclusiveMinimumPatternLint,
   exclusiveMinimumTypeLint,
+  xmlTypeLint,
   externalDocsTypeLint,
   formatTypeLint,
   ifNonThenLint,

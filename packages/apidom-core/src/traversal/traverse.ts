@@ -17,12 +17,10 @@ interface CallbackVisitorOptions extends PredicateVisitorOptions {
 }
 
 export class CallbackVisitor extends PredicateVisitor {
-  private readonly callback: Callback;
+  protected readonly callback: Callback;
 
   constructor({ callback = noop, ...rest }: CallbackVisitorOptions = {}) {
-    super({
-      ...rest,
-    });
+    super({ ...rest });
     this.callback = callback;
   }
 

@@ -97,10 +97,9 @@ const transcludeChildOfArrayElement = (
  */
 
 class Transcluder {
-  public element: Element;
+  protected element: Element;
 
-  // @ts-ignore
-  private edges: WeakMap<Element, any>;
+  protected edges!: WeakMap<Element, Element | undefined>;
 
   constructor({ element }: { element: Element }) {
     this.element = element;

@@ -16,11 +16,11 @@ interface YamlVisitorOptions {
 }
 
 class YamlVisitor {
-  private static readonly indentChar = '  ';
+  protected static readonly indentChar = '  ';
 
-  public result: string = '';
+  public result: string;
 
-  private readonly indent: number;
+  protected readonly indent: number;
 
   constructor({ directive = false, indent = 0 }: YamlVisitorOptions = {}) {
     this.result = directive ? '%YAML 1.2\n---\n' : '';

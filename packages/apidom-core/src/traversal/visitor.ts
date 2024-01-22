@@ -98,8 +98,8 @@ export class PredicateVisitor {
 
   constructor({
     predicate = stubFalse,
-    returnOnTrue = undefined,
-    returnOnFalse = undefined,
+    returnOnTrue,
+    returnOnFalse,
   }: PredicateVisitorOptions = {}) {
     this.result = [];
     this.predicate = predicate;
@@ -116,7 +116,6 @@ export class PredicateVisitor {
   }
 }
 
-// @ts-ignore
 export const visit = (
   root: Element,
   // @ts-ignore

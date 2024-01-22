@@ -2,6 +2,8 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI3 } from '../../../openapi/target-specs';
 
 const additionalItemsNonArrayLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ADDITIONALITEMS_NONARRAY,
@@ -30,6 +32,7 @@ const additionalItemsNonArrayLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...OpenAPI3],
 };
 
 export default additionalItemsNonArrayLint;

@@ -2,6 +2,8 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
 const patternPropertiesNonObjectLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PATTERNPROPERTIES_NONOBJECT,
@@ -30,6 +32,7 @@ const patternPropertiesNonObjectLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...OpenAPI31],
 };
 
 export default patternPropertiesNonObjectLint;

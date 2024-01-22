@@ -65,13 +65,13 @@ const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
     true,
   ],
   marker: 'key',
-  targetSpecs: [...AsyncAPI2],
   conditions: [
     {
       function: 'apilintElementOrClass',
       params: [['schema']],
     },
   ],
+  targetSpecs: AsyncAPI2,
 };
 
 export default missingCoreFieldsAsyncAPI2Lint;

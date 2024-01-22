@@ -2,6 +2,8 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
 const thenNonIfLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_THEN_NONIF,
@@ -28,6 +30,7 @@ const thenNonIfLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...OpenAPI31],
 };
 
 export default thenNonIfLint;

@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
 import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs';
 
-const typeTypeLint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_TYPE,
+const exclusiveMaximumTypeLint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_EXCLUSIVEMAXIMUM,
   source: 'apilint',
-  message: 'type must be a string',
+  message: 'exclusiveMaximum value must be a boolean',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterParams: ['boolean'],
   marker: 'value',
-  target: 'type',
+  target: 'exclusiveMaximum',
   data: {},
   targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
-export default typeTypeLint;
+export default exclusiveMaximumTypeLint;

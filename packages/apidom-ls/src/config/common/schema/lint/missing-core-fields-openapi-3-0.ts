@@ -54,13 +54,13 @@ const missingCoreFieldsOpenAPI3_0Lint: LinterMeta = {
     true,
   ],
   marker: 'key',
-  targetSpecs: OpenAPI30,
   conditions: [
     {
       function: 'apilintElementOrClass',
       params: [['schema']],
     },
   ],
+  targetSpecs: OpenAPI30,
 };
 
 export default missingCoreFieldsOpenAPI3_0Lint;

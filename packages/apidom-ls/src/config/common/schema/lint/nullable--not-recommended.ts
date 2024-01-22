@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
 const nullableNotRecommendedLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_NULLABLE_NOT_RECOMMENDED,
@@ -12,16 +13,6 @@ const nullableNotRecommendedLint: LinterMeta = {
   linterParams: ['nullable'],
   marker: 'key',
   markerTarget: 'nullable',
-  targetSpecs: [
-    { namespace: 'asyncapi', version: '2.0.0' },
-    { namespace: 'asyncapi', version: '2.1.0' },
-    { namespace: 'asyncapi', version: '2.2.0' },
-    { namespace: 'asyncapi', version: '2.3.0' },
-    { namespace: 'asyncapi', version: '2.4.0' },
-    { namespace: 'asyncapi', version: '2.5.0' },
-    { namespace: 'asyncapi', version: '2.6.0' },
-    { namespace: 'openapi', version: '3.1.0' },
-  ],
   data: {
     quickFix: [
       {
@@ -32,6 +23,7 @@ const nullableNotRecommendedLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: OpenAPI31,
 };
 
 export default nullableNotRecommendedLint;

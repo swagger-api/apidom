@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs';
+import { OpenAPI30 } from '../../../openapi/target-specs';
 
 const containsTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_CONTAINS,
@@ -14,7 +14,7 @@ const containsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'contains',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI30],
+  targetSpecs: OpenAPI30,
 };
 
 export default containsTypeLint;

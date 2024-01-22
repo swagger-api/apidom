@@ -2,20 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs';
 import { OpenAPI3 } from '../../../openapi/target-specs';
 
-const writeOnlyTypeLint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_WRITEONLY,
+const discriminatorTypeOpenAPI3Lint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_DISCRIMINATOR,
   source: 'apilint',
-  message: 'writeOnly must be a boolean',
+  message: "'discriminator' value must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['boolean'],
+  linterParams: ['discriminator'],
   marker: 'value',
-  target: 'writeOnly',
+  target: 'discriminator',
   data: {},
-  targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+  targetSpecs: OpenAPI3,
 };
 
-export default writeOnlyTypeLint;
+export default discriminatorTypeOpenAPI3Lint;

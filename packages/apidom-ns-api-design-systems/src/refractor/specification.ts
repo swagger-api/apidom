@@ -107,8 +107,12 @@ const specification = {
             follows: RequirementFollowsVisitor,
           },
         },
-        StandardIdentifier: StandardIdentifierVisitor,
-        RequirementLevel: RequirementLevelVisitor,
+        StandardIdentifier: {
+          $visitor: StandardIdentifierVisitor,
+        },
+        RequirementLevel: {
+          $visitor: RequirementLevelVisitor,
+        },
       },
     },
   },

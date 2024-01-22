@@ -20,6 +20,7 @@ import {
 } from './apidom-language-types';
 import { DefaultValidationService } from './services/validation/validation-service';
 import { DefaultCompletionService } from './services/completion/completion-service';
+import { DefaultCompletionServiceApidom } from './services/completion/completion-service-apidom';
 import { DefaultSymbolsService } from './services/symbols/symbols-service';
 import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
 import { DefaultHoverService } from './services/hover/hover-service';
@@ -38,6 +39,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   debug('getLanguageService', context);
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService();
+  const completionServiceApidom = new DefaultCompletionServiceApidom();
   const validationService = new DefaultValidationService();
   const semanticTokensService = new DefaultSemanticTokensService();
   const hoverService = new DefaultHoverService();
@@ -49,6 +51,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
     completionService.configure(languageSettings);
+    completionServiceApidom.configure(languageSettings);
     semanticTokensService.configure(languageSettings);
     hoverService.configure(languageSettings);
     derefService.configure(languageSettings);
@@ -92,6 +95,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     configure: (settings?: LanguageSettings): void => configureServices(settings),
     doValidation: validationService.doValidation.bind(validationService),
     doCompletion: completionService.doCompletion.bind(completionService),
+    doCompletionApidom: completionServiceApidom.doCompletion.bind(completionServiceApidom),
     doFindDocumentSymbols: symbolsService.doFindDocumentSymbols.bind(symbolsService),
     computeSemanticTokens: semanticTokensService.computeSemanticTokens.bind(semanticTokensService),
     doHover: hoverService.computeHover.bind(hoverService),
@@ -130,7 +134,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     terminate(): void {
       documentCache.dispose();
     },
-    registerCompletionProvider: completionService.registerProvider.bind(completionService),
+    registerCompletionProvider: completionServiceApidom.registerProvider.bind(completionServiceApidom),
     registerValidationProvider: validationService.registerProvider.bind(validationService),
     doLinks: linksService.doLinks.bind(linksService),
     registerLinksProvider: linksService.registerProvider.bind(linksService),

@@ -466,6 +466,11 @@ export interface LanguageService {
     completionParamsOrPosition: CompletionParams | Position,
     context?: CompletionContext,
   ): Promise<CompletionList | null>;
+  doCompletionApidom(
+    document: TextDocument,
+    completionParamsOrPosition: CompletionParams | Position,
+    context?: CompletionContext,
+  ): Promise<CompletionList | null>;
   doFindDocumentSymbols(
     textDocument: TextDocument,
     context?: SymbolsContext,

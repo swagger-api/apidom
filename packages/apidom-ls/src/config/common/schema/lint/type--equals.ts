@@ -10,7 +10,7 @@ const typeEqualsLint: LinterMeta = {
   message: 'type must be one of allowed values',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
-  linterParams: [['boolean', 'object', 'array', 'number', 'string', 'integer'], true],
+  linterParams: [['boolean', 'object', 'array', 'number', 'string', 'integer']],
   marker: 'value',
   target: 'type',
   data: {

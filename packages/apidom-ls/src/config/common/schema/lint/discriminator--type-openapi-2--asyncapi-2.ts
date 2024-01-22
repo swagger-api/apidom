@@ -2,8 +2,11 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI2 } from '../../../openapi/target-specs';
 
-const discriminatorTypeLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const discriminatorTypeOpenAPI2__AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_DISCRIMINATOR,
   source: 'apilint',
   message: "'discriminator' value must be a string",
@@ -13,15 +16,7 @@ const discriminatorTypeLint: LinterMeta = {
   marker: 'value',
   target: 'discriminator',
   data: {},
-  targetSpecs: [
-    { namespace: 'asyncapi', version: '2.0.0' },
-    { namespace: 'asyncapi', version: '2.1.0' },
-    { namespace: 'asyncapi', version: '2.2.0' },
-    { namespace: 'asyncapi', version: '2.3.0' },
-    { namespace: 'asyncapi', version: '2.4.0' },
-    { namespace: 'asyncapi', version: '2.5.0' },
-    { namespace: 'asyncapi', version: '2.6.0' },
-  ],
+  targetSpecs: [...AsyncAPI2, ...OpenAPI2],
 };
 
-export default discriminatorTypeLint;
+export default discriminatorTypeOpenAPI2__AsyncAPI2Lint;

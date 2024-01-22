@@ -2,6 +2,8 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs';
 
 const maxItemsNonArrayLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MAXITEMS_NONARRAY,
@@ -30,6 +32,7 @@ const maxItemsNonArrayLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
 };
 
 export default maxItemsNonArrayLint;

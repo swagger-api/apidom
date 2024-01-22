@@ -2,6 +2,8 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
 const patternPropertiesKeysRegexpLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PATTERNPROPERTIES_KEY,
@@ -13,6 +15,7 @@ const patternPropertiesKeysRegexpLint: LinterMeta = {
   target: 'patternProperties',
   markerTarget: 'patternProperties',
   data: {},
+  targetSpecs: [...AsyncAPI2, ...OpenAPI31],
 };
 
 export default patternPropertiesKeysRegexpLint;

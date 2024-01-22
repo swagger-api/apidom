@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes';
 import { LinterMeta } from '../../../../apidom-language-types';
+import { OpenAPI31 } from '../../../openapi/target-specs';
 
 const exampleDeprecatedLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_EXAMPLE_DEPRECATED,
@@ -12,7 +13,6 @@ const exampleDeprecatedLint: LinterMeta = {
   linterParams: ['example'],
   marker: 'key',
   markerTarget: 'example',
-  targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
   data: {
     quickFix: [
       {
@@ -29,6 +29,7 @@ const exampleDeprecatedLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: OpenAPI31,
 };
 
 export default exampleDeprecatedLint;

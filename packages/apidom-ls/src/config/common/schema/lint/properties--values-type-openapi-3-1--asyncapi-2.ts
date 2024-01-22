@@ -6,17 +6,18 @@ import { AsyncAPI2 } from '../../../asyncapi/target-specs';
 import { OpenAPI31 } from '../../../openapi/target-specs';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const containsTypeOpenAPI3_1_AsyncAPI2Lint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_CONTAINS,
+const propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_PROPERTIES,
   source: 'apilint',
-  message: 'contains must be a schema object or a boolean JSON schema',
+  message: 'properties members must be schemas',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema', 'boolean'],
-  marker: 'value',
-  target: 'contains',
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
+  linterParams: [['schema', 'boolean']],
+  marker: 'key',
+  markerTarget: 'properties',
+  target: 'properties',
   data: {},
   targetSpecs: [...OpenAPI31, ...AsyncAPI2],
 };
 
-export default containsTypeOpenAPI3_1_AsyncAPI2Lint;
+export default propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint;

@@ -15,6 +15,7 @@ export interface IdentityManager<T extends Element = Element> {
   generateId(this: IdentityManager<T>): string;
 }
 
+// @TODO(oliwia.rogala@smartbear.com): transforming this stamp to class will break backward compatibility
 export const IdentityManager: stampit.Stamp<IdentityManager> = stampit({
   props: {
     uuid: null,

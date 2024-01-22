@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { last, pathOr } from 'ramda';
 import { isNumber } from 'ramda-adjunct';
 import { Element } from 'minim';
@@ -7,40 +6,44 @@ import { hasElementSourceMap } from '../predicates';
 import { visit } from './visitor';
 import toValue from '../transformers/serializers/value';
 
-const Visitor = stampit({
-  props: {
-    result: [],
-    offset: 0,
-    includeRightBound: false,
-  },
-  // @ts-ignore
-  init({ offset = this.offset, includeRightBound = this.includeRightBound }) {
+interface VisitorOptions {
+  readonly offset?: number;
+  readonly includeRightBound?: boolean;
+}
+
+class Visitor<T> {
+  public result: T[];
+
+  protected readonly offset: number;
+
+  protected readonly includeRightBound: boolean;
+
+  constructor({ offset = 0, includeRightBound = false }: VisitorOptions = {}) {
     this.result = [];
     this.offset = offset;
     this.includeRightBound = includeRightBound;
-  },
-  methods: {
-    enter(element) {
-      if (!hasElementSourceMap(element)) {
-        return undefined; // dive in
-      }
+  }
 
-      const sourceMapElement = element.getMetaProperty('sourceMap');
-      const charStart = toValue(sourceMapElement.positionStart.get(2));
-      const charEnd = toValue(sourceMapElement.positionEnd.get(2));
-      const isWithinOffsetRange =
-        this.offset >= charStart &&
-        (this.offset < charEnd || (this.includeRightBound && this.offset <= charEnd));
+  public enter(element: any): false | undefined {
+    if (!hasElementSourceMap(element)) {
+      return undefined; // dive in
+    }
 
-      if (isWithinOffsetRange) {
-        this.result.push(element);
-        return undefined; // push to stack and dive in
-      }
+    const sourceMapElement = element.getMetaProperty('sourceMap');
+    const charStart = toValue(sourceMapElement.positionStart.get(2));
+    const charEnd = toValue(sourceMapElement.positionEnd.get(2));
+    const isWithinOffsetRange =
+      this.offset >= charStart &&
+      (this.offset < charEnd || (this.includeRightBound && this.offset <= charEnd));
 
-      return false; // skip entire sub-tree
-    },
-  },
-});
+    if (isWithinOffsetRange) {
+      this.result.push(element);
+      return undefined; // push to stack and dive in
+    }
+
+    return false; // skip entire sub-tree
+  }
+}
 
 interface FindAtOffsetOptions {
   offset: number;
@@ -65,7 +68,7 @@ const findAtOffset = <T extends Element>(
     includeRightBound = pathOr(false, ['includeRightBound'], options);
   }
 
-  const visitor = Visitor({ offset, includeRightBound });
+  const visitor = new Visitor<T>({ offset, includeRightBound });
 
   visit(element, visitor);
 

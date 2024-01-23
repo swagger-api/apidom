@@ -17,9 +17,37 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
+        'The value of this keyword **MUST** be a string. \n\n  ----  \n\nString values **MUST** be one of the five primitive types ("boolean", "object", "array", "number", or "string"), or "integer" which matches any number with a zero fractional part.\n\n  ----  \n\nAn instance matches successfully if its primitive type is one of the types defined by keyword. Recall: "number" includes "integer".',
+    },
+    targetSpecs: [...OpenAPI2, ...OpenAPI30],
+  },
+  {
+    label: 'type',
+    insertText: 'type',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
         'The value of this keyword **MUST** be either a string or an array. If it is an array, elements of the array **MUST** be strings and **MUST** be unique.\n\n  ----  \n\nString values **MUST** be one of the six primitive types ("null", "boolean", "object", "array", "number", or "string"), or "integer" which matches any number with a zero fractional part.\n\n  ----  \n\nAn instance validates if and only if the instance is in any of the sets listed for this keyword.\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI31],
+  },
+  {
+    label: 'enum',
+    insertText: 'enum',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "The value of this keyword **MUST** be an array. This array **SHOULD** have at least one element. Elements in the array **MUST** be unique. \n\n  ----  \n\nAn instance validates successfully against this keyword if its value is equal to one of the elements in this keyword's array value.\n\n  ----  \n\nElements in the array might be of any value, including null.\n\n  ----  \n\n",
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'enum',
@@ -33,7 +61,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "The value of this keyword **MUST** be an array. This array **SHOULD** have at least one element. Elements in the array **SHOULD** be unique.\n\n  ----  \n\nAn instance validates successfully against this keyword if its value is equal to one of the elements in this keyword's array value.\n\n  ----  \n\nElements in the array might be of any value, including null.\n\n  ----  \n\n",
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
   },
   {
     label: 'const',
@@ -75,7 +103,35 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of "maximum" **MUST** be a number, representing an inclusive upper limit for a numeric instance.\n\n  ----  \n\nIf the instance is a number, then this keyword validates only if the instance is less than or exactly equal to "maximum".\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'maximum',
+    insertText: 'maximum',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The value of "maximum" MUST be a JSON number.\n\n  ----  \n\nIf "exclusiveMaximum" is not present, or has boolean value false, then the instance is valid if it is lower than, or equal to, the value of "maximum".\n\n  ----  \n\nIf "exclusiveMaximum" has boolean value true, the instance is valid if it is strictly lower than the value of "maximum".',
+    },
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'exclusiveMaximum',
+    insertText: 'exclusiveMaximum',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The value of "exclusiveMaximum" MUST be a boolean. If "exclusiveMaximum" is present, "maximum" MUST also be present.\n\n  ----  \n\nIf "exclusiveMaximum" is has boolean value false, then the instance is valid if it is lower than, or equal to, the value of "maximum".\n\n  ----  \n\nIf "exclusiveMaximum" has boolean value true, the instance is valid if it is strictly lower than the value of "maximum".',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'exclusiveMaximum',
@@ -89,7 +145,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of "exclusiveMaximum" **MUST** be number, representing an exclusive upper limit for a numeric instance.\n\n  ----  \n\nIf the instance is a number, then the instance is valid only if it has a value strictly less than (not equal to) "exclusiveMaximum".\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'minimum',
+    insertText: 'minimum',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The value of "minimum" MUST be a JSON number.\n\n  ----  \n\nIf "exclusiveMinimum" is not present, or has boolean value false, then the instance is valid if it is greater than, or equal to, the value of "minimum.\n\n  ----  \n\nIf "exclusiveMinimum" is present and has boolean value true, the instance is valid if it is strictly greater than the value of "minimum".',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'minimum',
@@ -103,7 +173,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of "minimum" **MUST** be a number, representing an inclusive lower limit for a numeric instance.\n\n  ----  \n\nIf the instance is a number, then this keyword validates only if the instance is greater than or exactly equal to "minimum".\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'exclusiveMinimum',
+    insertText: 'exclusiveMinimum',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The value of "exclusiveMinimum" MUST be a boolean. If "exclusiveMinimum" is present, "minimum" MUST also be present.\n\n  ----  \n\nIf "exclusiveMinimum" is has boolean value false, then the instance is valid if it is greater than, or equal to, the value of "minimum.\n\n  ----  \n\nIf "exclusiveMinimum" is present and has boolean value true, the instance is valid if it is strictly greater than the value of "minimum".',
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'exclusiveMinimum',
@@ -117,7 +201,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of "exclusiveMinimum" **MUST** be number, representing an exclusive lower limit for a numeric instance.\n\n  ----  \n\nIf the instance is a number, then the instance is valid only if it has a value strictly greater than (not equal to) "exclusiveMinimum".\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
   },
   {
     label: 'maxLength',
@@ -283,9 +367,37 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
+        'Any time a subschema is expected, a schema may instead use an object containing a "$ref" property. The value of the $ref is a URI Reference. Resolved against the current URI base, it identifies the URI of a schema to use. All other properties in a "$ref" object MUST be ignored.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
         'The "$ref" keyword is used to reference a schema, and provides the ability to validate recursive structures through self-reference. \n\n  ----  \n\nAn object schema with a "$ref" property MUST be interpreted as a "$ref" reference. The value of the "$ref" property **MUST** be a URI Reference. \n\n  ----  \n\nResolved against the current URI base, it identifies the URI of a schema to use. All other properties in a "$ref" object **MUST** be ignored. \n\n  ----  \n\nThe URI is not a network locator, only an identifier. A schema need not be downloadable from the address if it is a network-addressable URL, and implementations **SHOULD NOT** assume they should perform a network operation when they encounter a network-addressable URI. \n\n  ----  \n\nA schema **MUST NOT** be run into an infinite loop against a schema. For example, if two schemas "#alice" and "#bob" both have an "allOf" property that refers to the other, a naive validator might get stuck in an infinite recursive loop trying to validate the instance. Schemas **SHOULD NOT** make use of infinite recursive nesting like this; the behavior is undefined.`.\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'required',
+    insertText: 'required',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "The value of this keyword MUST be an array. This array MUST have at least one element. Elements of this array MUST be strings, and MUST be unique.\n\n  ----  \n\nAn object instance is valid against this keyword if its property set contains all elements in this keyword's array value.",
+    },
+    targetSpecs: OpenAPI2,
   },
   {
     label: 'required',
@@ -299,9 +411,8 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of this keyword **MUST** be an array. Elements of this array, if any, **MUST** be strings, and **MUST** be unique.\n\n  ----  \n\nAn object instance is valid against this keyword if every item in the array is the name of a property in the instance.\n\n  ----  \n\nOmitting this keyword has the same behavior as an empty array.\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
   },
-
   {
     label: 'properties',
     insertText: 'properties',
@@ -340,9 +451,23 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
+        'The value of "additionalProperties" **MUST** be a boolean or an object. If it is an object, it MUST also be a valid JSON Schema.\n\n  ----  \n\nThis keyword determines how child instances validate for objects, and does not directly validate the immediate instance itself.\n\n  ----  \n\nValidation with "additionalProperties" applies only to the child values of instance names that do not match any names in "properties".\n\n  ----  \n\nFor all such properties, validation succeeds if the child instance validates against the "additionalProperties" schema.\n\n  ----  \n\nOmitting this keyword has the same behavior as an empty schema.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'additionalProperties',
+    insertText: 'additionalProperties',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
         'The value of "additionalProperties" **MUST** be a valid JSON Schema.\n\n  ----  \n\nThis keyword determines how child instances validate for objects, and does not directly validate the immediate instance itself.\n\n  ----  \n\nValidation with "additionalProperties" applies only to the child values of instance names that do not match any names in "properties", and do not match any regular expression in "patternProperties".\n\n  ----  \n\nFor all such properties, validation succeeds if the child instance validates against the "additionalProperties" schema.\n\n  ----  \n\nOmitting this keyword has the same behavior as an empty schema.\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
   },
   {
     label: 'propertyNames',
@@ -493,7 +618,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A free-form property to include an example of an instance for this schema.',
+      value:
+        'Any\n\\\n\\\nA free-form property to include an example of an instance for this schema.',
     },
     targetSpecs: OpenAPI2,
   },
@@ -507,7 +633,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A free-form property to include an example of an instance for this schema. To represent examples that cannot be naturally represented in JSON or YAML, a string value can be used to contain the example with escaping where necessary.',
+        'Any\n\\\n\\\nA free-form property to include an example of an instance for this schema. To represent examples that cannot be naturally represented in JSON or YAML, a string value can be used to contain the example with escaping where necessary.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -521,7 +647,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A free-form property to include an example of an instance for this schema. To represent examples that cannot be naturally represented in JSON or YAML, a string value can be used to contain the example with escaping where necessary.\n\n**Deprecated:** The `example` property has been deprecated in favor of the JSON Schema `examples` keyword. Use of `example` is discouraged, and later versions of this specification may remove it.',
+        'Any\n\\\n\\\nA free-form property to include an example of an instance for this schema. To represent examples that cannot be naturally represented in JSON or YAML, a string value can be used to contain the example with escaping where necessary.\n\\\n\\\n**Deprecated:** The `example` property has been deprecated in favor of the JSON Schema `examples` keyword. Use of `example` is discouraged, and later versions of this specification may remove it.',
     },
     targetSpecs: OpenAPI31,
   },
@@ -537,7 +663,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The value of this keyword **MUST** be an array. There are no restrictions placed on the values within the array. When multiple occurrences of this keyword are applicable to a single sub-instance, implementations **MUST** provide a flat array of all values rather than an array of arrays.\n\n  ----  \n\nThis keyword can be used to provide sample JSON values associated with a particular schema, for the purpose of illustrating usage.  It is RECOMMENDED that these values be valid against the associated schema.\n\n  ----  \n\nImplementations **MAY** use the value(s) of "default", if present, as an additional example.  If "examples" is absent, "default" **MAY** still be used in this manner.\n\n  ----  \n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI31],
   },
   {
     label: 'format',
@@ -647,9 +773,23 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
+        'The value of these keywords **MUST** be a boolean. Relevant only for Schema `"properties"` definitions. Declares the property as "read only". This means that it MAY be sent as part of a response but MUST NOT be sent as part of the request. Properties marked as `readOnly` being `true` SHOULD NOT be in the `required` list of the defined schema. Default value is `false`.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'readOnly',
+    insertText: 'readOnly',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
         'The value of these keywords **MUST** be a boolean.  When multiple occurrences of these keywords are applicable to a single sub-instance, the resulting value **MUST** be true if any occurrence specifies a true value, and **MUST** be false otherwise.\n\n  ----  \n\nIf "readOnly" has a value of boolean true, it indicates that the value of the instance is managed exclusively by the owning authority, and attempts by an application to modify the value of this property are expected to be ignored or rejected by that owning authority.\n\n  ----  \n\nAn instance document that is marked as "readOnly for the entire document **MAY** be ignored if sent to the owning authority, or **MAY** result in an error, at the authority \'s discretion.\n\n  ----  \n\nIf "writeOnly" has a value of boolean true, it indicates that the value is never present when the instance is retrieved from the owning authority.  It can be present when sent to the owning authority to update or create the document (or the resource it represents), but it will not be included in any updated or newly created version of the instance.\n\n  ----  \n\nAn instance document that is marked as "writeOnly" for the entire document **MAY** be returned as a blank document of some sort, or **MAY** produce an error upon retrieval, or have the retrieval request ignored, at the authority \'s discretion.\n\n  ----  \n\nFor example, "readOnly" would be used to mark a database-generated serial number as read-only, while "writeOnly" would be used to mark a password input field.\n\n  ----  \n\nThese keywords can be used to assist in user interface instance generation.  In particular, an application **MAY** choose to use a widget that hides input values as they are typed for write-only fields.\n\n  ----  \n\nOmitting these keywords has the same behavior as values of false.\n\n',
     },
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
   },
   {
     label: 'writeOnly',
@@ -1270,7 +1410,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaComposition) for more details.',
+        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminatorObject)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaComposition) for more details.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -1284,7 +1424,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Adds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaComposition) for more details.',
+        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#discriminatorObject)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaComposition) for more details.',
     },
     targetSpecs: OpenAPI31,
   },
@@ -1342,35 +1482,37 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'This MAY be used only on properties schemas. It has no effect on root schemas. Adds Additional metadata to describe the XML representation format of this property.',
+        '[XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#xmlObject)\n\\\n\\\nThis MAY be used only on properties schemas. It has no effect on root schemas. Adds Additional metadata to describe the XML representation format of this property.',
     },
-    targetSpecs: [...OpenAPI2, ...OpenAPI3],
+    targetSpecs: OpenAPI2,
   },
   {
-    label: 'externalDocs',
-    insertText: 'externalDocs',
+    label: 'xml',
+    insertText: 'xml',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Additional external documentation for this schema.',
+      value:
+        '[XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#xmlObject)\n\\\n\\\nThis MAY be used only on properties schemas. It has no effect on root schemas. Adds additional metadata to describe the XML representation of this property.',
     },
-    targetSpecs: [...OpenAPI2, ...OpenAPI3],
+    targetSpecs: OpenAPI30,
   },
   {
-    label: 'externalDocs',
-    insertText: 'externalDocs',
+    label: 'xml',
+    insertText: 'xml',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Additional external documentation for this schema.',
+      value:
+        '[XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#xmlObject)\n\\\n\\\nThis MAY be used only on properties schemas. It has no effect on root schemas. Adds additional metadata to describe the XML representation of this property.',
     },
-    targetSpecs: [...OpenAPI2, ...OpenAPI3],
+    targetSpecs: OpenAPI31,
   },
   {
     label: 'externalDocs',
@@ -1382,7 +1524,49 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Allows referencing an external resource for extended documentation. See [External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.6.0#externalDocumentationObject)\n',
+        'External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this schema.',
+    },
+    targetSpecs: OpenAPI2,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this schema.',
+    },
+    targetSpecs: OpenAPI30,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this schema.',
+    },
+    targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'External Documentation Object](https://www.asyncapi.com/docs/specifications/v2.6.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this schema.',
     },
     targetSpecs: AsyncAPI2,
   },

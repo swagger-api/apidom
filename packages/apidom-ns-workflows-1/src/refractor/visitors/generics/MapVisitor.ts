@@ -1,12 +1,12 @@
-import stampit from 'stampit';
 import { isNonEmptyString } from 'ramda-adjunct';
 
 import PatternedFieldsVisitor from './PatternedFieldsVisitor';
 
-const MapVisitor = stampit(PatternedFieldsVisitor, {
-  props: {
-    fieldPatternPredicate: isNonEmptyString,
-  },
-});
+class MapVisitor extends PatternedFieldsVisitor {
+  constructor(options = {}) {
+    super(options);
+    this.fieldPatternPredicate = isNonEmptyString;
+  }
+}
 
 export default MapVisitor;

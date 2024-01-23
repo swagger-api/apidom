@@ -1,18 +1,19 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import SourceDescriptionElement from '../../../../elements/SourceDescription';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const SourceDescriptionVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'SourceDescription']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class SourceDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public readonly element: SourceDescriptionElement;
+
+  constructor(options = {}) {
+    super(options);
     this.element = new SourceDescriptionElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'SourceDescription']);
+    this.canSupportSpecificationExtensions = true;
+  }
+}
 
 export default SourceDescriptionVisitor;

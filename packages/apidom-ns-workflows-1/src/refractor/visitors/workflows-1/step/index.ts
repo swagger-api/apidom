@@ -1,18 +1,19 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import StepElement from '../../../../elements/Step';
 import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const StepVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Step']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class StepVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public readonly element: StepElement;
+
+  constructor(options = {}) {
+    super(options);
     this.element = new StepElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'Step']);
+    this.canSupportSpecificationExtensions = true;
+  }
+}
 
 export default StepVisitor;

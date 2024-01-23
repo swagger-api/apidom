@@ -1,4 +1,4 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
@@ -7,30 +7,32 @@ import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import StepParametersElement from '../../../../elements/nces/StepParameters';
 
-const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  init() {
+class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public readonly element: StepParametersElement;
+
+  constructor(options = {}) {
+    super(options);
     this.element = new StepParametersElement();
-  },
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element): void => {
-        const specPath = isReferenceLikeElement(item)
-          ? ['document', 'objects', 'Reference']
-          : ['document', 'objects', 'Parameter'];
-        const element = this.toRefractedElement(specPath, item);
+  }
 
-        if (isReferenceElement(element)) {
-          element.setMetaProperty('referenced-element', 'parameter');
-        }
+  ArrayElement(arrayElement: ArrayElement) {
+    arrayElement.forEach((item: Element): void => {
+      const specPath = isReferenceLikeElement(item)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'Parameter'];
+      const element = this.toRefractedElement(specPath, item);
 
-        this.element.push(element);
-      });
+      if (isReferenceElement(element)) {
+        element.setMetaProperty('referenced-element', 'parameter');
+      }
 
-      this.copyMetaAndAttributes(arrayElement, this.element);
+      this.element.push(element);
+    });
 
-      return BREAK;
-    },
-  },
-});
+    this.copyMetaAndAttributes(arrayElement, this.element);
+
+    return BREAK;
+  }
+}
 
 export default ParametersVisitor;

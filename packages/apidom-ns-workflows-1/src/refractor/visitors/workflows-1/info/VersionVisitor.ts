@@ -1,18 +1,15 @@
-import stampit from 'stampit';
 import { StringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 
-const VersionVisitor = stampit(FallbackVisitor, {
-  methods: {
-    StringElement(stringElement: StringElement) {
-      this.element = cloneDeep(stringElement);
-      this.element.classes.push('workflow-version');
-      this.element.classes.push('version');
+class VersionVisitor extends FallbackVisitor {
+  StringElement(stringElement: StringElement) {
+    this.element = cloneDeep(stringElement);
+    this.element.classes.push('workflow-version');
+    this.element.classes.push('version');
 
-      return BREAK;
-    },
-  },
-});
+    return BREAK;
+  }
+}
 
 export default VersionVisitor;

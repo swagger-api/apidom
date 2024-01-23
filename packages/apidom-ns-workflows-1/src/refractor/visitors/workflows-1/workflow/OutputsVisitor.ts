@@ -1,17 +1,18 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import WorkflowOutputsElement from '../../../../elements/nces/WorkflowOutputs';
 
-const OutputsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['value']),
-  },
-  init() {
+class OutputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public readonly element: WorkflowOutputsElement;
+
+  constructor(options = {}) {
+    super(options);
     this.element = new WorkflowOutputsElement();
-  },
-});
+    this.specPath = always(['value']);
+  }
+}
 
 export default OutputsVisitor;

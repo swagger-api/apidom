@@ -12,6 +12,8 @@ export function parseMustacheTags(
   stack: MustacheTag[],
   rootTags: MustacheTag[],
 ): MustacheTag[] {
+  const tagsToAdjustClose: MustacheTag[] = [];
+
   const closeOpenSectionsUntilMatch = (
     tagName: string,
     endIndex: number,
@@ -33,6 +35,8 @@ export function parseMustacheTags(
             section.sectionCloseTag = tagSectionClose;
           }
           break;
+        } else {
+          tagsToAdjustClose.push(section);
         }
       }
     }
@@ -104,7 +108,6 @@ export function parseMustacheTags(
         }
         break;
     }
-
     const tag: MustacheTag = {
       type: tagType,
       tagName: tagName.trim(),
@@ -148,6 +151,11 @@ export function parseMustacheTags(
   if (stack.length > 0) {
     closeOpenSectionsUntilMatch('', documentText.length);
   }
+  for (const tag of tagsToAdjustClose) {
+    if (tag.parent && tag.parent.sectionCloseTag) {
+      tag.endIndex = tag.parent.sectionCloseTag.startIndex;
+    }
+  }
 
   return rootTags;
 }
@@ -165,6 +173,9 @@ export function getAllMustacheTags(tags: MustacheTag[], allTags: MustacheTag[]):
     }
     if (tagSectionClose) {
       allTags.push(tagSectionClose);
+    }
+    if (tagSectionOpen && !tagSectionClose) {
+      tagSectionOpen!.missingCloseTag = true;
     }
     if (tag.children && tag.children.length > 0) {
       getAllMustacheTags(tag.children, allTags);
@@ -240,6 +251,8 @@ export interface MustacheTag {
   parent?: MustacheTag;
   sectionOpenTag?: MustacheTag;
   sectionCloseTag?: MustacheTag;
+  overlap?: boolean;
+  missingCloseTag?: boolean;
 }
 
 export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void {
@@ -331,4 +344,113 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
     return Object.keys(currentNode);
   }
   return 'not object';
+}
+
+export function sortTags(tags: MustacheTag[]): MustacheTag[] {
+  return tags.sort((a, b) => {
+    if (a.startIndex !== b.startIndex) {
+      return (a.startIndex ?? 0) - (b.startIndex ?? 0);
+    }
+    return (a.endIndex ?? 0) - (b.endIndex ?? 0);
+  });
+}
+
+export function markOverlappingTags(tags: MustacheTag[]): void {
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < tags.length - 2; i++) {
+    // @ts-ignore
+    if (tags[i].endIndex > tags[i + 1].startIndex) {
+      // eslint-disable-next-line no-param-reassign
+      tags[i].overlap = true;
+    }
+  }
+}
+
+export function pathExists(bundle: AnyObject, path: string[]): boolean {
+  console.log('pathExists', path.join('.'));
+  let currentNode: AnyObject | undefined = bundle;
+  if (path.length === 1) {
+    return path[0] in currentNode;
+  }
+  const lastKey = path[path.length - 1];
+  console.log('lastKey', lastKey);
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < path.length - 1; i++) {
+    const key = path[i];
+    console.log('key', key);
+    // console.log('currentNode', currentNode);
+    // If current node is an array, use the first element
+    while (Array.isArray(currentNode)) {
+      currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+    }
+    // console.log('currentNode after array', currentNode);
+    // Check if the key exists in the current node
+
+    if (
+      currentNode !== undefined &&
+      currentNode !== null &&
+      typeof currentNode === 'object' &&
+      key in currentNode
+    ) {
+      currentNode = currentNode[key];
+    }
+    // console.log('currentNode end', currentNode);
+  }
+  if (currentNode === undefined || currentNode === null) {
+    console.log('currentNode is null');
+    return false;
+  }
+  if (
+    currentNode !== undefined &&
+    currentNode !== null &&
+    typeof currentNode === 'object' &&
+    lastKey in currentNode
+  ) {
+    console.log('lastKey exists');
+    return true;
+  }
+
+  currentNode = bundle;
+  console.log('lastKey 1', lastKey);
+  console.log('currentNode 1', currentNode);
+  if (
+    currentNode !== undefined &&
+    currentNode !== null &&
+    typeof currentNode === 'object' &&
+    lastKey in currentNode
+  ) {
+    console.log('lastKey exists');
+    return true;
+  }
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < path.length - 1; i++) {
+    const key = path[i];
+    console.log('key', key);
+    // If current node is an array, use the first element
+    // console.log('key', key);
+    // console.log('currentNode', currentNode);
+    // Check if the key exists in the current node
+    if (
+      currentNode !== undefined &&
+      currentNode !== null &&
+      typeof currentNode === 'object' &&
+      key in currentNode
+    ) {
+      currentNode = currentNode[key];
+    }
+    while (Array.isArray(currentNode)) {
+      currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+    }
+    console.log('currentNode 2', currentNode);
+    if (
+      currentNode !== undefined &&
+      currentNode !== null &&
+      typeof currentNode === 'object' &&
+      lastKey in currentNode
+    ) {
+      console.log('lastKey exists');
+      return true;
+    }
+  }
+  return false;
 }

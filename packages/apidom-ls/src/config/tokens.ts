@@ -4,7 +4,20 @@ import openapiTokens from './openapi/tokens';
 
 // creating list of unique tokens
 const tokens = Array.from(
-  new Set(['value', 'string', 'number', 'key', ...adsTokens, ...asyncapiTokens, ...openapiTokens]),
+  new Set([
+    'value',
+    'string',
+    'number',
+    'key',
+    ...adsTokens,
+    ...asyncapiTokens,
+    ...openapiTokens,
+    'section',
+    'variable',
+    'inverted',
+    'sectionOpen',
+    'sectionClose',
+  ]),
 );
 
 export default tokens;

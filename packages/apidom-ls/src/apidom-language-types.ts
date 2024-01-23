@@ -461,6 +461,7 @@ export interface LinterFunctions {
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
   doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
+  doValidationApidom(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
   doCompletion(
     document: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
@@ -479,6 +480,8 @@ export interface LanguageService {
   doResolveCompletionItem(item: CompletionItem): Promise<CompletionItem>;
 
   computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
+
+  computeSemanticTokensApidom(textDocument: TextDocument): Promise<SemanticTokens>;
 
   getSemanticTokensLegend(): SemanticTokensLegend;
 

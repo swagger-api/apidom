@@ -5,38 +5,27 @@ import {
   SemanticTokensLegend,
   SemanticTokenModifiers,
 } from 'vscode-languageserver-protocol';
-import {
-  Element,
-  isBooleanElement,
-  isNumberElement,
-  isStringElement,
-  traverse,
-  toValue,
-} from '@swagger-api/apidom-core';
 
 import { LanguageSettings } from '../../apidom-language-types';
 import {
-  SourceMap,
-  getSourceMap,
-  isMember,
-  correctPartialKeys,
   perfEnd,
   perfStart,
-  isJsonDoc,
+  // isJsonDoc,
 } from '../../utils/utils';
+import {
+  MustacheTag,
+  parseMustacheTags,
+  getAllMustacheTags,
+  markOverlappingTags,
+  sortTags,
+} from '../completion/utils';
+import { SemanticTokensService } from './semantic-tokens-service-apidom';
 
 enum PerfLabels {
   START = 'computeSemanticTokens',
 }
 
-export interface SemanticTokensService {
-  computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
-
-  configure(settings?: LanguageSettings): void;
-
-  getLegend(): SemanticTokensLegend;
-}
-
+// eslint-disable-next-line import/prefer-default-export
 export class DefaultSemanticTokensService implements SemanticTokensService {
   private settings: LanguageSettings | undefined;
 
@@ -101,302 +90,54 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
     perfStart(PerfLabels.START);
     const tokens: number[][] = [];
 
-    let result = await this.settings!.documentCache?.get(
-      textDocument,
-      undefined,
-      'computeSemanticTokens-parse-first',
-    );
-    if (!result) {
-      return {
-        data: tokens.flat(),
-      } as SemanticTokens;
-    }
-    const isJson = await isJsonDoc(textDocument);
-    let processedText;
-    if (result.annotations && !isJson) {
-      processedText = correctPartialKeys(result, textDocument, isJson);
-    }
-    if (processedText) {
-      result = await this.settings!.documentCache?.get(
-        textDocument,
-        processedText,
-        'computeSemanticTokens-parse-second',
-      );
-    }
-    if (!result) {
-      return {
-        data: tokens.flat(),
-      } as SemanticTokens;
-    }
+    const theStack: MustacheTag[] = [];
+    const theRootTags: MustacheTag[] = [];
+    const tags = parseMustacheTags(textDocument.getText(), theStack, theRootTags);
+    let allTags: MustacheTag[] = [];
+    getAllMustacheTags(tags, allTags);
+    allTags = sortTags(allTags);
+    markOverlappingTags(allTags);
 
-    const { api } = result;
-    // if we cannot parse nothing to do
-    if (api === undefined)
+    if (!allTags || allTags.length === 0) {
       return {
         data: tokens.flat(),
       } as SemanticTokens;
+    }
 
     let lastLine = 0;
     let lastColumn = 0;
 
-    const processed: Element[] = [];
+    const processed: MustacheTag[] = [];
 
-    const buildTokens = (element: Element) => {
-      /*
-
-const smt = getSourceMap(element);
-console.log(
-  '[buildTokens]',
-  `[${smt.line}:${smt.column}]`,
-  `[el:${element.element}]`,
-  `[val:${JSON.stringify(toValue(element)}]`,
-);
-*/
-      let foundClasses = false;
-      let parentNode = false;
-
-      // TODO (francesco.tumanischvili@smartbear.com) De-duplicate code
-      let set: string[] = [];
-      if (element.classes) {
-        set = Array.from(new Set(toValue(element.classes)));
+    for (const tag of allTags) {
+      const tagPosStart = textDocument.positionAt(tag.startIndex!);
+      const tagPosEnd = textDocument.positionAt(tag.endIndex!);
+      if (tagPosStart.line !== tagPosEnd.line) {
+        // eslint-disable-next-line no-continue
+        continue;
       }
-      // add element value to the set (e.g. 'pathItem', 'operation')
-      set.unshift(element.element);
-      // remove duplicates
-      set = Array.from(new Set(set));
-      // if it's a 'reference-element' or a `reference-value' process it first
-      if (set.includes('reference-element')) {
-        const clz = 'reference-element';
-        let sm: SourceMap;
-        if (element.parent && isMember(element.parent)) {
-          sm = getSourceMap(element.parent.key as Element);
-          parentNode = true;
-          processed.push(element.parent.key as Element);
-        } else {
-          sm = getSourceMap(element);
-          processed.push(element);
+      const s = tag.type;
+      if (this.isSemanticToken(tag.type) && !processed.includes(tag)) {
+        processed.push(tag);
+        let modifier = 0;
+        if (tag.missingCloseTag) {
+          modifier = this.getTokenModifiers(['deprecated']);
         }
-        // only process single line non objects/arrays until full multiline and overlapping supported by
-        // the client. Check client capabilities
-        if (
-          isStringElement(element) ||
-          isNumberElement(element) ||
-          isBooleanElement(element) ||
-          parentNode
-        ) {
-          const modifier = 0;
-          const token = [
-            sm.line - lastLine,
-            sm.line === lastLine ? sm.column - lastColumn : sm.column,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            sm.endOffset! - sm.offset,
-            this.tokens.indexOf(clz),
-            modifier,
-          ];
-
-          /*
-          console.log(
-            '[token]',
-            `[${sm.line}:${sm.column}]`,
-            `[el:${clz}]`,
-            `[lastLine:${lastLine}]`,
-            `[lastColumn:${lastColumn}]`,
-            `[+l:${token[0]}]`,
-            `[+c:${token[1]}]`,
-            `[len:${token[2]}]`,
-            `[id:${token[3]}]`,
-          );
-*/
-
-          tokens.push(token);
-          lastLine = sm.line;
-          lastColumn = sm.column;
-        }
-      } else if (set.includes('reference-value')) {
-        const clz = 'reference-value';
-        const sm = getSourceMap(element);
-        processed.push(element);
-        // only process single line non objects/arrays until full multiline and overlapping supported by
-        // the client. Check client capabilities
-        if (
-          isStringElement(element) ||
-          isNumberElement(element) ||
-          isBooleanElement(element) ||
-          parentNode
-        ) {
-          const modifier = 0;
-          const token = [
-            sm.line - lastLine,
-            sm.line === lastLine ? sm.column - lastColumn : sm.column,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            sm.endOffset! - sm.offset,
-            this.tokens.indexOf(clz),
-            modifier,
-          ];
-
-          /*
-          console.log(
-            '[token]',
-            `[${sm.line}:${sm.column}]`,
-            `[el:${clz}]`,
-            `[lastLine:${lastLine}]`,
-            `[lastColumn:${lastColumn}]`,
-            `[+l:${token[0]}]`,
-            `[+c:${token[1]}]`,
-            `[len:${token[2]}]`,
-            `[id:${token[3]}]`,
-          );
-*/
-
-          tokens.push(token);
-          lastLine = sm.line;
-          lastColumn = sm.column;
-        }
-      } else {
-        set.forEach((s) => {
-          if (this.isSemanticToken(s) && !processed.includes(element)) {
-            foundClasses = true;
-            let sm: SourceMap;
-            if (element.parent && isMember(element.parent)) {
-              sm = getSourceMap(element.parent.key as Element);
-              parentNode = true;
-              processed.push(element.parent.key as Element);
-            } else {
-              sm = getSourceMap(element);
-              processed.push(element);
-            }
-            // only process single line non objects/arrays until full multiline and overlapping supported by
-            // the client. Check client capabilities
-            if (
-              isStringElement(element) ||
-              isNumberElement(element) ||
-              isBooleanElement(element) ||
-              parentNode
-            ) {
-              let modifier = 0;
-              if (s === 'operation') {
-                // check for httpMethod
-                modifier = this.getTokenModifiers([
-                  `httpMethod-${toValue(element.getMetaProperty('http-method', 'GET'))}`,
-                ]);
-              }
-              const token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                this.getTokenType(s),
-                modifier,
-              ];
-
-              /*
-              console.log(
-                '[token]',
-                `[${sm.line}:${sm.column}]`,
-                `[el:${s}]`,
-                `[lastLine:${lastLine}]`,
-                `[lastColumn:${lastColumn}]`,
-                `[+l:${token[0]}]`,
-                `[+c:${token[1]}]`,
-                `[len:${token[2]}]`,
-                `[id:${token[3]}]`,
-              );
-*/
-
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-            }
-          }
-        });
-        if (!processed.includes(element) && (!foundClasses || parentNode)) {
-          let hasSignificantValue = false;
-          if (element.parent && isMember(element.parent)) {
-            const val = <Element>element.parent.value;
-            let valueClasses: string[] = [];
-            if (val.classes) {
-              valueClasses = Array.from(new Set(toValue(val.classes)));
-            }
-            // add element value to the set (e.g. 'pathItem', 'operation')
-            valueClasses.unshift(val.element);
-            valueClasses = Array.from(new Set(valueClasses));
-            for (const c of valueClasses) {
-              if (this.isSemanticToken(c)) {
-                hasSignificantValue = true;
-                break;
-              }
-            }
-          }
-          if (!hasSignificantValue && (isStringElement(element) || isNumberElement(element))) {
-            const sm: SourceMap = getSourceMap(element);
-            let token;
-            if (element.parent && isMember(element.parent) && element.parent.value === element) {
-              // this is a value
-              token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                this.getTokenType('value'),
-                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
-              ];
-
-              /*
-              console.log(
-                '[token el]',
-                `[${sm.line}:${sm.column}]`,
-                `[el:${isStringElement(element) ? 'string' : 'number'}]`,
-                `[lastLine:${lastLine}]`,
-                `[lastColumn:${lastColumn}]`,
-                `[+l:${token[0]}]`,
-                `[+c:${token[1]}]`,
-                `[len:${token[2]}]`,
-                `[id:${token[3]}]`,
-              );
-*/
-
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-            } else if (
-              element.parent &&
-              isMember(element.parent) &&
-              element.parent.key === element
-            ) {
-              // just a string or number
-              token = [
-                sm.line - lastLine,
-                sm.line === lastLine ? sm.column - lastColumn : sm.column,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                sm.endOffset! - sm.offset,
-                this.getTokenType('key'),
-                this.getTokenModifiers(isStringElement(element) ? ['string'] : ['number']),
-              ];
-
-              /*
-              console.log(
-                '[token KEY]',
-                `[${sm.line}:${sm.column}]`,
-                `[el:${isStringElement(element) ? 'string' : 'number'}]`,
-                `[lastLine:${lastLine}]`,
-                `[lastColumn:${lastColumn}]`,
-                `[+l:${token[0]}]`,
-                `[+c:${token[1]}]`,
-                `[len:${token[2]}]`,
-                `[id:${token[3]}]`,
-              );
-*/
-
-              tokens.push(token);
-              lastLine = sm.line;
-              lastColumn = sm.column;
-            }
-          }
-        }
+        const token = [
+          tagPosStart.line - lastLine,
+          tagPosStart.line === lastLine
+            ? tagPosStart.character - lastColumn
+            : tagPosStart.character,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          tag.endIndex! - tag.startIndex!,
+          this.getTokenType(s),
+          modifier,
+        ];
+        tokens.push(token);
+        lastLine = tagPosStart.line;
+        lastColumn = tagPosStart.character;
       }
-    };
-
-    traverse(buildTokens, api);
+    }
     perfEnd(PerfLabels.START);
     return {
       data: tokens.flat(),

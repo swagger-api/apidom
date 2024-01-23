@@ -12,14 +12,6 @@ import { CompletionParams } from 'vscode-languageserver-protocol';
 import {
   Element,
   // findAtOffset,
-  isArrayElement,
-  isBooleanElement,
-  isMemberElement,
-  isNullElement,
-  isNumberElement,
-  isObjectElement,
-  isStringElement,
-  MemberElement,
   toValue,
 } from '@swagger-api/apidom-core';
 
@@ -54,7 +46,8 @@ import {
   MustacheTag,
   findNestedPropertyKeys,
   parseMustacheTags,
-  getMustacheTagInfoAtPosition, getMustacheStrictTagInfoAtPosition,
+  getMustacheTagInfoAtPosition,
+  getMustacheStrictTagInfoAtPosition,
 } from './utils';
 import { context as codegenContext } from './context';
 
@@ -137,106 +130,6 @@ export class DefaultCompletionService implements CompletionService {
       if (provider.configure) {
         provider.configure(this.settings);
       }
-    }
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private resolveCompletionNode(node: Element, caretContext: CaretContext): Element {
-    switch (caretContext) {
-      case CaretContext.KEY_INNER:
-      case CaretContext.KEY_END:
-      case CaretContext.KEY_START:
-        return node.parent.parent;
-      case CaretContext.MEMBER:
-        return (node as MemberElement).value as Element;
-      default:
-        return node;
-    }
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private isReferenceValue(node: Element): boolean {
-    // TODO move to NS adapter plugin
-    // TODO replace this with checking metadata refObject in parent
-    // assume it's a value node within a member
-    if (isMember(node) && toValue(node.key) === '$ref') {
-      return true;
-    }
-    const { parent } = node;
-    return parent && isMember(parent) && toValue(parent.key) === '$ref';
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private resolveCaretContext(node: Element, offset: number, textModified: boolean): CaretContext {
-    let caretContext: CaretContext = CaretContext.UNDEFINED;
-    if (node) {
-      const sm = getSourceMap(node);
-      const { parent } = node;
-      if (parent && isMember(parent) && parent.key === node) {
-        // we are in a key node
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        if (offset > sm.offset && offset < sm.endOffset!) {
-          caretContext = CaretContext.KEY_INNER;
-        } else if (offset === sm.offset) {
-          if (sm.length === 0 && textModified) {
-            caretContext = CaretContext.KEY_END;
-          } else {
-            caretContext = CaretContext.KEY_START;
-          }
-        } else {
-          caretContext = CaretContext.KEY_END;
-        }
-        return caretContext;
-      }
-      if (
-        isStringElement(node) ||
-        isNumberElement(node) ||
-        isBooleanElement(node) ||
-        isNullElement(node)
-      ) {
-        // we must be in a value primitive node
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        if (offset > sm.offset && offset < sm.endOffset!) {
-          caretContext = CaretContext.PRIMITIVE_VALUE_INNER;
-        } else if (offset === sm.offset) {
-          caretContext = CaretContext.PRIMITIVE_VALUE_START;
-        } else {
-          caretContext = CaretContext.PRIMITIVE_VALUE_END;
-        }
-        return caretContext;
-      }
-      if (isMemberElement(node)) {
-        // we are right after the separator (`:`)
-        caretContext = CaretContext.MEMBER;
-        return caretContext;
-      }
-      if (isObjectElement(node) || isArrayElement(node)) {
-        // we are within an object or array
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        if (offset > sm.offset && offset < sm.endOffset!) {
-          caretContext = CaretContext.OBJECT_VALUE_INNER;
-        } else if (offset === sm.offset) {
-          caretContext = CaretContext.OBJECT_VALUE_START;
-        } else {
-          caretContext = CaretContext.OBJECT_VALUE_END;
-        }
-        return caretContext;
-      }
-    }
-    return caretContext;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private resolveCompletionNodeContext(caretContext: CaretContext): CompletionNodeContext {
-    switch (caretContext) {
-      case CaretContext.KEY_START:
-      case CaretContext.KEY_INNER:
-      case CaretContext.OBJECT_VALUE_INNER:
-      case CaretContext.OBJECT_VALUE_START:
-      case CaretContext.MEMBER:
-        return CompletionNodeContext.OBJECT;
-      default:
-        return CompletionNodeContext.UNDEFINED;
     }
   }
 

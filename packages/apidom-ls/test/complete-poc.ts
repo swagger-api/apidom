@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { assert } from 'chai';
+// import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { CompletionList, Position } from 'vscode-languageserver-types';
+import { Position } from 'vscode-languageserver-types';
 
 // @ts-ignore
 import getLanguageService from '../src/apidom-language-service';
@@ -32,7 +32,7 @@ describe('poc-ls-complete', function () {
     languageService.terminate();
   });
 
-  it.only('mustache markdown - test completion', async function () {
+  it('mustache markdown - test completion', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };

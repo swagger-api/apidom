@@ -6,6 +6,8 @@ import SpecificationVisitor from '../../SpecificationVisitor';
 import RequirementLevelElement from '../../../../elements/RequirementLevel';
 
 class RequirementLevelVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare element: RequirementLevelElement;
+
   StringElement(stringElement: StringElement) {
     const requirementLevelElement = new RequirementLevelElement(toValue(stringElement));
 

@@ -10,13 +10,15 @@ import {
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 
+export type SpecPath<T = string[]> = (element: unknown) => T;
+
 export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
-  readonly specPath: (element: Element) => string[];
+  readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
 }
 
 class FixedFieldsVisitor extends SpecificationVisitor {
-  protected specPath: (element: Element) => string[];
+  protected specPath: SpecPath;
 
   protected ignoredFields: string[];
 

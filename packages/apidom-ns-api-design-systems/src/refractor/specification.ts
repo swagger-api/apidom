@@ -5,24 +5,12 @@ import FallbackVisitor from './visitors/FallbackVisitor';
 import RequirementLevelVisitor from './visitors/api-design-systems/requirement-level';
 import StandardIdentifierVisitor from './visitors/api-design-systems/standard-identifier';
 import RequirementVisitor from './visitors/api-design-systems/requirement';
-import RequirementValuesVisitor from './visitors/api-design-systems/requirement/ValuesVisitor';
-import RequirementFollowsVisitor from './visitors/api-design-systems/requirement/FollowsVisitor';
 import ScenarioVisitor from './visitors/api-design-systems/scenario';
-import ScenarioDescriptionVisitor from './visitors/api-design-systems/scenario/DescriptionVisitor';
 import ScenarioThenVisitor from './visitors/api-design-systems/scenario/ThenVisitor';
 import StandardVisitor from './visitors/api-design-systems/standard';
-import StandardNameVisitor from './visitors/api-design-systems/standard/NameVisitor';
-import StandardDescriptionVisitor from './visitors/api-design-systems/standard/DescriptionVisitor';
-import StandardIriVisitor from './visitors/api-design-systems/standard/IriVisitor';
 import PrincipleVisitor from './visitors/api-design-systems/principle';
-import PrincipleNameVisitor from './visitors/api-design-systems/principle/NameVisitor';
-import PrincipleDescriptionVisitor from './visitors/api-design-systems/principle/DescriptionVisitor';
-import PrincipleIriVisitor from './visitors/api-design-systems/principle/IriVisitor';
 import InfoVisitor from './visitors/api-design-systems/info';
-import InfoTitleVisitor from './visitors/api-design-systems/info/TitleVisitor';
-import InfoDescriptionVisitor from './visitors/api-design-systems/info/DescriptionVisitor';
 import MainVisitor from './visitors/api-design-systems/main';
-import MainVersionVisitor from './visitors/api-design-systems/main/VersionVisitor';
 import MainPrinciplesVisitor from './visitors/api-design-systems/main/PrinciplesVisitor';
 import MainStandardsVisitor from './visitors/api-design-systems/main/StandardsVisitor';
 import MainScenariosVisitor from './visitors/api-design-systems/main/ScenariosVisitor';
@@ -46,7 +34,7 @@ const specification = {
         Main: {
           $visitor: MainVisitor,
           fixedFields: {
-            version: MainVersionVisitor,
+            version: { $ref: '#/visitors/value' },
             info: {
               $ref: '#/visitors/document/objects/Info',
             },
@@ -58,16 +46,16 @@ const specification = {
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title: InfoTitleVisitor,
-            description: InfoDescriptionVisitor,
+            title: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
           },
         },
         Principle: {
           $visitor: PrincipleVisitor,
           fixedFields: {
-            name: PrincipleNameVisitor,
-            description: PrincipleDescriptionVisitor,
-            iri: PrincipleIriVisitor,
+            name: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            iri: { $ref: '#/visitors/value' },
             level: {
               $ref: '#/visitors/document/objects/RequirementLevel',
             },
@@ -76,18 +64,18 @@ const specification = {
         Standard: {
           $visitor: StandardVisitor,
           fixedFields: {
-            name: StandardNameVisitor,
-            description: StandardDescriptionVisitor,
+            name: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             level: {
               $ref: '#/visitors/document/objects/RequirementLevel',
             },
-            iri: StandardIriVisitor,
+            iri: { $ref: '#/visitors/value' },
           },
         },
         Scenario: {
           $visitor: ScenarioVisitor,
           fixedFields: {
-            description: ScenarioDescriptionVisitor,
+            description: { $ref: '#/visitors/value' },
             when: {
               $ref: '#/visitors/document/objects/StandardIdentifier',
             },
@@ -103,8 +91,8 @@ const specification = {
             level: {
               $ref: '#/visitors/document/objects/RequirementLevel',
             },
-            values: RequirementValuesVisitor,
-            follows: RequirementFollowsVisitor,
+            values: { $ref: '#/visitors/value' },
+            follows: { $ref: '#/visitors/value' },
           },
         },
         StandardIdentifier: {

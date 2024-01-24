@@ -5,7 +5,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
 class PrinciplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: ArrayElement;
+  public declare readonly element: ArrayElement;
 
   constructor(options = {}) {
     super(options);

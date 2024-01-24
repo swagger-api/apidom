@@ -3750,7 +3750,6 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
     ];
-    console.log(JSON.stringify(result, null, 2));
     assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();

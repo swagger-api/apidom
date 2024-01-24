@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ast",
-  "version": "0.92.0",
+  "version": "0.93.0",
   "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
   "publishConfig": {
     "access": "public",
@@ -42,7 +42,7 @@
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-error": "^0.92.0",
+    "@swagger-api/apidom-error": "^0.93.0",
     "@types/ramda": "~0.29.6",
     "ramda": "~0.29.1",
     "ramda-adjunct": "^4.1.1",

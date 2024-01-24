@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1
+
 # [0.92.0](https://github.com/swagger-api/apidom/compare/v0.91.0...v0.92.0) (2024-01-12)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

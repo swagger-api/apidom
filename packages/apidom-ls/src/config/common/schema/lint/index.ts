@@ -1,3 +1,5 @@
+import allowedFieldsOpenAPI2_0Lint from './allowed-fields-openapi-2-0';
+import allowedFieldsOpenAPI3_0Lint from './allowed-fields-openapi-3-0';
 import $idFormatURILint from './$id--format-uri';
 import $refValidLint from './$ref--valid';
 import $refNoSiblingsLint from './$ref--no-siblings';
@@ -15,7 +17,7 @@ import containsTypeLint from './contains--type';
 import containsTypeOpenAPI3_1__AsyncAPI2Lint from './contains--type-openapi-3-1--asyncapi-2';
 import descriptionTypeLint from './description--type';
 import discriminatorExistInRequiredLint from './discriminator--exist-in-required';
-import discriminatorTypeOpenAPI2__AsyncAPI2Lint from './discriminator--type-openapi-2--asyncapi-2';
+import discriminatorTypeOpenAPI2_0__AsyncAPI2Lint from './discriminator--type-openapi-2-0--asyncapi-2';
 import discriminatorTypeOpenAPI3Lint from './discriminator--type-openapi-3';
 import elseNonIfLint from './else--non-if';
 import elseTypeLint from './else--type';
@@ -25,6 +27,7 @@ import exclusiveMaximumPatternLint from './exclusive-maximum--pattern';
 import exclusiveMaximumTypeLint from './exclusive-maximum--type';
 import exclusiveMinimumPatternLint from './exclusive-minimum--pattern';
 import exclusiveMinimumTypeLint from './exclusive-minimum--type';
+import xmlTypeLint from './xml--type';
 import externalDocsTypeLint from './external-docs--type';
 import formatTypeLint from './format--type';
 import ifNonThenLint from './if--non-then';
@@ -80,6 +83,8 @@ import writeOnlyTypeLint from './write-only--type';
 import exampleDeprecatedLint from './example--deprecated';
 
 const schemaLints = [
+  allowedFieldsOpenAPI2_0Lint,
+  allowedFieldsOpenAPI3_0Lint,
   $idFormatURILint,
   $refValidLint,
   $refNoSiblingsLint,
@@ -97,7 +102,7 @@ const schemaLints = [
   containsTypeOpenAPI3_1__AsyncAPI2Lint,
   descriptionTypeLint,
   discriminatorExistInRequiredLint,
-  discriminatorTypeOpenAPI2__AsyncAPI2Lint,
+  discriminatorTypeOpenAPI2_0__AsyncAPI2Lint,
   discriminatorTypeOpenAPI3Lint,
   elseNonIfLint,
   elseTypeLint,
@@ -107,6 +112,7 @@ const schemaLints = [
   exclusiveMaximumTypeLint,
   exclusiveMinimumPatternLint,
   exclusiveMinimumTypeLint,
+  xmlTypeLint,
   externalDocsTypeLint,
   formatTypeLint,
   ifNonThenLint,

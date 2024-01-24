@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
+
+### Bug Fixes
+
+- **ls:** fix allowed fiedls lint rule for OpenAPI 2.0 Header Object ([#3682](https://github.com/swagger-api/apidom/issues/3682)) ([adebd90](https://github.com/swagger-api/apidom/commit/adebd9047070897cccfe6f4952641313540b663f)), closes [#3610](https://github.com/swagger-api/apidom/issues/3610)
+- **ls:** fix file naming ([a435773](https://github.com/swagger-api/apidom/commit/a435773db04ff4d2a1d54e39c437aa83e3c9edea)), closes [#3549](https://github.com/swagger-api/apidom/issues/3549)
+- **ls:** fix file naming ([7671492](https://github.com/swagger-api/apidom/commit/76714923dcfaa1c7c8656c9188829be205cdd45a)), closes [#3549](https://github.com/swagger-api/apidom/issues/3549)
+
+### Features
+
+- **apidom-ls:** create schema rule for missing core keywords ([0e921ae](https://github.com/swagger-api/apidom/commit/0e921ae87b680f7b52dc120d82f346fb724777f2)), closes [#3549](https://github.com/swagger-api/apidom/issues/3549)
+- **apidom-ls:** fix schema rule for missing core keywords ([3890886](https://github.com/swagger-api/apidom/commit/3890886756673392d25911130ec9d73aa6ab926e))
+- **apidom-ls:** fix schema rule for missing core keywords ([db70831](https://github.com/swagger-api/apidom/commit/db70831f5a4205890f4aa13915c67c4308a7a9c2))
+- **apidom-ls:** fix schema rule for missing core keywords ([2aaedf3](https://github.com/swagger-api/apidom/commit/2aaedf349e08123e7b21b8a507952e7c18f53032))
+- **apidom-ls:** fix schema rules for boolean ([960f590](https://github.com/swagger-api/apidom/commit/960f59093d14aba620cee95b501337a93dc28a8b))
+- **ls:** add allowed fields lint rule for OpenAPI 2.0 Schema Object ([#3709](https://github.com/swagger-api/apidom/issues/3709)) ([f3c799f](https://github.com/swagger-api/apidom/commit/f3c799f706a47baaea36820259e8f595a04afbb9)), closes [#3613](https://github.com/swagger-api/apidom/issues/3613)
+- **ls:** add completion rules for OpenAPI 2.0 Schema Object ([#3712](https://github.com/swagger-api/apidom/issues/3712)) ([f49dd25](https://github.com/swagger-api/apidom/commit/f49dd259c12fc5c321cd601dc4211bcea1fbd24b)), closes [#3613](https://github.com/swagger-api/apidom/issues/3613)
+- **ls:** add docs rules for OpenAPI 2.0 Schema Object ([#3719](https://github.com/swagger-api/apidom/issues/3719)) ([bf959b6](https://github.com/swagger-api/apidom/commit/bf959b682a54fbb2e347406d48dc3ba714f7bb58)), closes [#3613](https://github.com/swagger-api/apidom/issues/3613)
+- **ls:** add lint rule for OpenAPI 3.x.y Schema Object xml field ([#3710](https://github.com/swagger-api/apidom/issues/3710)) ([5023a43](https://github.com/swagger-api/apidom/commit/5023a43e6ae2922ac5a77463fd3be387f5126410))
+- **ls:** add lint rules for OpenAPI 2.0 Schema Object ([#3706](https://github.com/swagger-api/apidom/issues/3706)) ([16fbfca](https://github.com/swagger-api/apidom/commit/16fbfca62b2e44708618484a892b6cd3031a8945)), closes [#3613](https://github.com/swagger-api/apidom/issues/3613)
+- **ls:** add rules for OpenAPI 2.0 Header Object ([#3676](https://github.com/swagger-api/apidom/issues/3676)) ([5c67192](https://github.com/swagger-api/apidom/commit/5c671926717c89c76d15c84016c86c7c2753ad73)), closes [#3610](https://github.com/swagger-api/apidom/issues/3610)
+- **ls:** add rules for OpenAPI 2.0 Reference Object ([#3685](https://github.com/swagger-api/apidom/issues/3685)) ([dbdb2a1](https://github.com/swagger-api/apidom/commit/dbdb2a10a12500ecfb0ebe450207acaf20ff7ffc)), closes [#3612](https://github.com/swagger-api/apidom/issues/3612)
+
 # [0.92.0](https://github.com/swagger-api/apidom/compare/v0.91.0...v0.92.0) (2024-01-12)
 
 ### Features

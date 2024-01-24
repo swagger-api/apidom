@@ -8,14 +8,25 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
+
+export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
+  readonly specPath: (element: Element) => string[];
+  readonly ignoredFields?: string[];
+}
 
 class FixedFieldsVisitor extends SpecificationVisitor {
-  public specPath!: (element: Element) => string[];
+  protected specPath: (element: Element) => string[];
 
-  public ignoredFields: string[] = [];
+  protected ignoredFields: string[];
 
-  public ObjectElement(objectElement: ObjectElement) {
+  constructor({ specPath, ignoredFields, ...rest }: FixedFieldsVisitorOptions) {
+    super({ ...rest });
+    this.specPath = specPath;
+    this.ignoredFields = ignoredFields || [];
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
     const specPath = this.specPath(objectElement);
     const fields = this.retrieveFixedFields(specPath);
 

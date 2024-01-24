@@ -3,12 +3,12 @@ import { Mixin } from 'ts-mixer';
 
 import StandardElement from '../../../../elements/Standard';
 import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, { FixedFieldsVisitorOptions } from '../../generics/FixedFieldsVisitor';
 
 class StandardVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public readonly element: StandardElement;
+  public declare readonly element: StandardElement;
 
-  constructor(options = {}) {
+  constructor(options: FixedFieldsVisitorOptions) {
     super(options);
     this.specPath = always(['document', 'objects', 'Standard']);
     this.element = new StandardElement();

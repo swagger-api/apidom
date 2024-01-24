@@ -3,13 +3,20 @@ import { always } from 'ramda';
 import { ObjectElement, isStringElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ReferenceElement;
 
-  constructor(options = {}) {
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Reference']>;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: FixedFieldsVisitorOptions) {
     super(options);
     this.element = new ReferenceElement();
     this.specPath = always(['document', 'objects', 'Reference']);

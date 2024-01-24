@@ -2,13 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import SuccessActionCriteriaElement from '../../../elements/nces/SuccessActionCriteria';
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 
 class SuccessActionCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: SuccessActionCriteriaElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new SuccessActionCriteriaElement();
   }

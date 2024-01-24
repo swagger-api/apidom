@@ -28,10 +28,9 @@ const refract = <T extends Element>(
    * Though we allow consumers to define their onw plugins on already transformed ApiDOM.
    */
   const RootVisitorClass = path(specPath, resolvedSpec) as typeof VisitorClass;
-  const rootVisitor = new RootVisitorClass();
+  const rootVisitor = new RootVisitorClass({ specObj: resolvedSpec });
 
-  // @ts-ignore
-  visit(element, rootVisitor, { state: { specObj: resolvedSpec } });
+  visit(element, rootVisitor);
 
   /**
    * Running plugins visitors means extra single traversal === performance hit.

@@ -3,10 +3,12 @@ import { always } from 'ramda';
 
 import ComponentsParametersElement from '../../../../elements/nces/ComponentsParameters';
 import FallbackVisitor from '../../FallbackVisitor';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { SpecPath } from '../../generics/MapVisitor';
 
 class ParametersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsParametersElement;
+
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
 
   constructor(options = {}) {
     super(options);

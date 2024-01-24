@@ -2,7 +2,7 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import StepParametersElement from '../../../../elements/nces/StepParameters';
@@ -10,7 +10,7 @@ import StepParametersElement from '../../../../elements/nces/StepParameters';
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepParametersElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new StepParametersElement();
   }

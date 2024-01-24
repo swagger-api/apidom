@@ -2,13 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import StepOnSuccessElement from '../../../../elements/nces/StepOnSuccess';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class OnSuccessVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepOnSuccessElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new StepOnSuccessElement();
   }

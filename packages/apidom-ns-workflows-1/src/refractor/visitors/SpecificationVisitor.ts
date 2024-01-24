@@ -41,7 +41,7 @@ class SpecificationVisitor extends Visitor {
     const VisitorClz = this.retrieveVisitor(specPath) as typeof Visitor;
     const visitorOpts = { ...passingOpts, ...options };
 
-    return new VisitorClz(visitorOpts as object);
+    return new VisitorClz(visitorOpts);
   }
 
   toRefractedElement(specPath: string[], element: any, options = {}) {

@@ -13,7 +13,7 @@ import { keyMap, getNodeType } from '../traversal/visitor';
 import createToolbox from './toolbox';
 
 const refract = <T extends Element>(
-  value: any,
+  value: unknown,
   { specPath = ['visitors', 'document', 'objects', 'Main', '$visitor'], plugins = [] } = {},
 ): T => {
   const element = baseRefract(value);
@@ -25,10 +25,9 @@ const refract = <T extends Element>(
    * Though we allow consumers to define their onw plugins on already transformed ApiDOM.
    */
   const RootVisitorClass = path(specPath, resolvedSpec) as typeof VisitorClass;
-  const rootVisitor = new RootVisitorClass();
+  const rootVisitor = new RootVisitorClass({ specObj: resolvedSpec });
 
-  // @ts-ignore
-  visit(element, rootVisitor, { state: { specObj: resolvedSpec } });
+  visit(element, rootVisitor);
 
   /**
    * Running plugins visitors means extra single traversal === performance hit.
@@ -41,7 +40,7 @@ const refract = <T extends Element>(
 
 export const createRefractor =
   (specPath: string[]) =>
-  (value: any, options = {}) =>
+  (value: unknown, options = {}) =>
     refract(value, { ...options, specPath });
 
 export default refract;

@@ -4,7 +4,7 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import FallbackVisitor from '../../FallbackVisitor';
 import SpecificationVisitor from '../../SpecificationVisitor';
 
-class StandardsVisitor extends Mixin(FallbackVisitor, SpecificationVisitor) {
+class StandardsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: ArrayElement;
 
   constructor(options = {}) {

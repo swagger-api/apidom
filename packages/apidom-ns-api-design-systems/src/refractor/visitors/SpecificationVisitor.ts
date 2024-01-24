@@ -3,7 +3,7 @@ import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import { keyMap, getNodeType } from '../../traversal/visitor';
-import Visitor from './Visitor';
+import Visitor, { VisitorOptions } from './Visitor';
 import FallbackVisitor from './FallbackVisitor';
 import type specification from '../specification';
 
@@ -11,14 +11,18 @@ import type specification from '../specification';
  * This is a base class for every visitor that does
  * internal look-ups to retrieve other child visitors.
  */
+export interface SpecificationVisitorOptions extends VisitorOptions {
+  readonly specObj: typeof specification;
+}
+
 class SpecificationVisitor extends Visitor {
-  public readonly specObj!: typeof specification;
+  protected readonly specObj!: typeof specification;
 
-  public readonly passingOptionsNames = ['specObj'];
+  protected readonly passingOptionsNames = ['specObj'];
 
-  constructor(options = {}) {
-    super();
-    Object.assign(this, options);
+  constructor({ specObj, ...rest }: SpecificationVisitorOptions) {
+    super({ ...rest });
+    this.specObj = specObj;
   }
 
   retrievePassingOptions() {
@@ -45,16 +49,15 @@ class SpecificationVisitor extends Visitor {
     const VisitorClz = this.retrieveVisitor(specPath) as typeof Visitor;
     const visitorOpts = { ...passingOpts, ...options };
 
-    // @ts-ignore
-    return new VisitorClz(visitorOpts as any);
+    return new VisitorClz(visitorOpts);
   }
 
   toRefractedElement(specPath: string[], element: any, options = {}) {
     /**
-     * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+     * This is `Visitor shortcut`: mechanism for short-circuiting the traversal and replacing
      * it by basic node cloning.
      *
-     * Visiting the element is equivalent to cloning it  if the prototype of a visitor
+     * Visiting the element is equivalent to cloning it if the prototype of a visitor
      * is the same as the prototype of FallbackVisitor. If that's the case, we can avoid
      * bootstrapping the traversal cycle for fields that don't require any special visiting.
      */

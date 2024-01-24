@@ -2,13 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, BREAK, Element } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
 import StandardIdentifierElement from '../../../../elements/StandardIdentifier';
 
 class StandardIdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: StandardIdentifierElement;
+  public declare readonly element: StandardIdentifierElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new StandardIdentifierElement();
   }

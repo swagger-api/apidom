@@ -1,13 +1,13 @@
 import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import StepDependsOnElement from '../../../../elements/nces/StepDependsOn';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
 class DependsOnVisitor extends FallbackVisitor {
   public declare element: StepDependsOnElement;
 
-  constructor() {
-    super();
+  constructor(options: FallbackVisitorOptions) {
+    super(options);
     this.element = new StepDependsOnElement();
   }
 

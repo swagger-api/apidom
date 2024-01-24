@@ -1,9 +1,11 @@
 import { hasElementSourceMap, Element } from '@swagger-api/apidom-core';
 
+export interface VisitorOptions {}
+
 class Visitor {
   public element!: Element;
 
-  constructor(options = {}) {
+  constructor(options: VisitorOptions = {}) {
     Object.assign(this, options);
   }
 

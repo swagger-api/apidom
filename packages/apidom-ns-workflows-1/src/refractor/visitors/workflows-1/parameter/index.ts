@@ -3,12 +3,19 @@ import { always } from 'ramda';
 
 import ParameterElement from '../../../../elements/Parameter';
 import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 
 class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ParameterElement;
 
-  constructor(options = {}) {
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
+
+  protected declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: FixedFieldsVisitorOptions) {
     super(options);
     this.element = new ParameterElement();
     this.specPath = always(['document', 'objects', 'Parameter']);

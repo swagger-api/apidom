@@ -2,14 +2,14 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: ArrayElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new ArrayElement();
     this.element.classes.push('parameters');

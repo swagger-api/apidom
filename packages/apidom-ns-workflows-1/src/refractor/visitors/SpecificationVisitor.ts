@@ -3,7 +3,7 @@ import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import { keyMap, getNodeType } from '../../traversal/visitor';
-import Visitor from './Visitor';
+import Visitor, { VisitorOptions } from './Visitor';
 import FallbackVisitor from './FallbackVisitor';
 import type specification from '../specification';
 
@@ -11,10 +11,19 @@ import type specification from '../specification';
  * This is a base Type for every visitor that does
  * internal look-ups to retrieve other child visitors.
  */
+export interface SpecificationVisitorOptions extends VisitorOptions {
+  readonly specObj: typeof specification;
+}
+
 class SpecificationVisitor extends Visitor {
   protected readonly specObj!: typeof specification;
 
   protected readonly passingOptionsNames = ['specObj'];
+
+  constructor({ specObj, ...rest }: SpecificationVisitorOptions) {
+    super({ ...rest });
+    this.specObj = specObj;
+  }
 
   retrievePassingOptions() {
     return pick(this.passingOptionsNames as (keyof this)[], this);

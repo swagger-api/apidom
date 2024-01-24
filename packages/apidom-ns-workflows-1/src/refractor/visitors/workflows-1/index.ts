@@ -2,14 +2,21 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import FixedFieldsVisitor from '../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1';
 
 class WorkflowsSpecificationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public readonly element: WorkflowsSpecification1Element;
 
-  constructor(options = {}) {
+  protected readonly specPath: SpecPath<['document', 'objects', 'WorkflowsSpecification']>;
+
+  protected readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: FixedFieldsVisitorOptions) {
     super(options);
     this.element = new WorkflowsSpecification1Element();
     this.specPath = always(['document', 'objects', 'WorkflowsSpecification']);

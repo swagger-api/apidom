@@ -8,19 +8,53 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import type { SpecPath } from './FixedFieldsVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import { isWorkflowsSpecificationExtension } from '../../predicates';
 
-class PatternedFieldsJsonObjectVisitor extends SpecificationVisitor {
-  protected fieldPatternPredicate: (...args: unknown[]) => boolean = stubFalse;
+export type { SpecPath };
 
-  protected specPath!: (element: Element) => string[];
+export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptions {
+  readonly specPath: SpecPath;
+  readonly ignoredFields?: string[];
+  readonly fieldPatternPredicate?: (...args: unknown[]) => boolean;
+  readonly canSupportSpecificationExtensions?: boolean;
+  readonly specificationExtensionPredicate?: typeof isWorkflowsSpecificationExtension;
+}
 
-  protected ignoredFields: string[] = [];
+class PatternedFieldsVisitor extends SpecificationVisitor {
+  protected specPath: SpecPath;
+
+  protected ignoredFields: string[];
+
+  protected fieldPatternPredicate: (value: unknown) => boolean = stubFalse;
 
   protected canSupportSpecificationExtensions: boolean = false;
 
   protected specificationExtensionPredicate = isWorkflowsSpecificationExtension;
+
+  constructor({
+    specPath,
+    ignoredFields,
+    fieldPatternPredicate,
+    canSupportSpecificationExtensions,
+    specificationExtensionPredicate,
+    ...rest
+  }: PatternedFieldsVisitorOptions) {
+    super({ ...rest });
+    this.specPath = specPath;
+    this.ignoredFields = ignoredFields || [];
+
+    if (typeof fieldPatternPredicate === 'function') {
+      this.fieldPatternPredicate = fieldPatternPredicate;
+    }
+    if (typeof canSupportSpecificationExtensions === 'boolean') {
+      this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
+    }
+    if (typeof specificationExtensionPredicate === 'function') {
+      this.specificationExtensionPredicate = specificationExtensionPredicate;
+    }
+  }
 
   ObjectElement(objectElement: ObjectElement) {
     // @ts-ignore
@@ -52,4 +86,4 @@ class PatternedFieldsJsonObjectVisitor extends SpecificationVisitor {
   }
 }
 
-export default PatternedFieldsJsonObjectVisitor;
+export default PatternedFieldsVisitor;

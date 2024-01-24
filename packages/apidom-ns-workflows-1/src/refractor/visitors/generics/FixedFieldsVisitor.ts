@@ -8,17 +8,45 @@ import {
   ObjectElement,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import { isWorkflowsSpecificationExtension } from '../../predicates';
 
+export type SpecPath<T = string[]> = (element: unknown) => T;
+
+export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
+  readonly specPath: SpecPath;
+  readonly ignoredFields?: string[];
+  readonly canSupportSpecificationExtensions?: boolean;
+  readonly specificationExtensionPredicate?: typeof isWorkflowsSpecificationExtension;
+}
+
 class FixedFieldsVisitor extends SpecificationVisitor {
-  protected specPath!: (element: Element) => string[];
+  protected specPath: SpecPath;
 
   protected ignoredFields: string[] = [];
 
   protected canSupportSpecificationExtensions: boolean = true;
 
   protected specificationExtensionPredicate = isWorkflowsSpecificationExtension;
+
+  constructor({
+    specPath,
+    ignoredFields,
+    canSupportSpecificationExtensions,
+    specificationExtensionPredicate,
+    ...rest
+  }: FixedFieldsVisitorOptions) {
+    super({ ...rest });
+    this.specPath = specPath;
+    this.ignoredFields = ignoredFields || [];
+
+    if (typeof canSupportSpecificationExtensions === 'boolean') {
+      this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
+    }
+    if (typeof specificationExtensionPredicate === 'function') {
+      this.specificationExtensionPredicate = specificationExtensionPredicate;
+    }
+  }
 
   ObjectElement(objectElement: ObjectElement) {
     const specPath = this.specPath(objectElement);

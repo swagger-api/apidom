@@ -2,13 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import WorkflowStepsElement from '../../../../elements/nces/WorkflowSteps';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class StepsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: WorkflowStepsElement;
 
-  constructor(options = {}) {
+  constructor(options: SpecificationVisitorOptions) {
     super(options);
     this.element = new WorkflowStepsElement();
   }

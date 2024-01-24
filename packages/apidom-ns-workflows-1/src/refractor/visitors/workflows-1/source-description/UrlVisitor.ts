@@ -1,13 +1,12 @@
-import { StringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 
 class UrlVisitor extends FallbackVisitor {
   StringElement(stringElement: StringElement) {
-    this.element = cloneDeep(stringElement);
+    const result = super.enter(stringElement);
     this.element.classes.push('source-description-url');
-
-    return BREAK;
+    return result;
   }
 }
 

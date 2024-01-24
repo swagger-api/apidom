@@ -12,14 +12,13 @@ import SpecificationVisitor from '../SpecificationVisitor';
 import { isWorkflowsSpecificationExtension } from '../../predicates';
 
 class FixedFieldsVisitor extends SpecificationVisitor {
-  public specPath!: (element: Element) => string[];
+  protected specPath!: (element: Element) => string[];
 
-  public ignoredFields: string[] = [];
+  protected ignoredFields: string[] = [];
 
-  public canSupportSpecificationExtensions: boolean = true;
+  protected canSupportSpecificationExtensions: boolean = true;
 
-  specificationExtensionPredicate: (element: MemberElement) => boolean =
-    isWorkflowsSpecificationExtension;
+  protected specificationExtensionPredicate = isWorkflowsSpecificationExtension;
 
   ObjectElement(objectElement: ObjectElement) {
     const specPath = this.specPath(objectElement);

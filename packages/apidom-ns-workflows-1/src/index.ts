@@ -50,13 +50,6 @@ export {
 
 export { isWorkflowsSpecificationExtension } from './refractor/predicates';
 
-export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
-export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
-export { default as MixedFieldsVisitor } from './refractor/visitors/generics/MixedFieldsVisitor';
-export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
-export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
-export { default as Visitor } from './refractor/visitors/Visitor';
-
 export { keyMap, getNodeType } from './traversal/visitor';
 
 // Workflows 1.0.0 elements

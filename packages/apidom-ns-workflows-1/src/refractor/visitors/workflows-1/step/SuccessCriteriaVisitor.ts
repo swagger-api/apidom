@@ -6,7 +6,7 @@ import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class SuccessCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: StepSuccessCriteriaElement;
+  public declare readonly element: StepSuccessCriteriaElement;
 
   constructor(options = {}) {
     super(options);

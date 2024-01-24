@@ -1,14 +1,17 @@
-import { StringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 
 class VersionVisitor extends FallbackVisitor {
+  public declare readonly element: StringElement;
+
   StringElement(stringElement: StringElement) {
-    this.element = cloneDeep(stringElement);
+    const result = super.enter(stringElement);
+
     this.element.classes.push('workflow-version');
     this.element.classes.push('version');
 
-    return BREAK;
+    return result;
   }
 }
 

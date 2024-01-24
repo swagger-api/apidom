@@ -6,7 +6,7 @@ import MapVisitor from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class InputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public readonly element: ComponentsInputsElement;
+  public declare readonly element: ComponentsInputsElement;
 
   constructor(options = {}) {
     super(options);

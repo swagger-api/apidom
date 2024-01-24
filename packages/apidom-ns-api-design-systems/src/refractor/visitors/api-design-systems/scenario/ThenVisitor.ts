@@ -13,7 +13,7 @@ class ThenVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
     this.element.classes.push('scenario-then');
   }
 
-  public ArrayElement(arrayElement: ArrayElement) {
+  ArrayElement(arrayElement: ArrayElement) {
     arrayElement.forEach((item: Element): void => {
       const specPath = ['document', 'objects', 'Requirement'];
       const element = this.toRefractedElement(specPath, item);

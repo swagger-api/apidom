@@ -21,7 +21,12 @@ module.exports = {
             exclude: ['transform-function-name'],
           },
         ],
-        '@babel/preset-typescript',
+        [
+          '@babel/preset-typescript',
+          {
+            allowDeclareFields: true,
+          }
+        ],
       ],
       plugins: [
         [
@@ -53,7 +58,12 @@ module.exports = {
             exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
           },
         ],
-        '@babel/preset-typescript',
+        [
+          '@babel/preset-typescript',
+          {
+            allowDeclareFields: true,
+          }
+        ],
       ],
       plugins: [
         [
@@ -84,7 +94,12 @@ module.exports = {
             exclude: ['transform-function-name'], // this is here because of https://github.com/babel/babel/discussions/12874
           },
         ],
-        '@babel/preset-typescript',
+        [
+          '@babel/preset-typescript',
+          {
+            allowDeclareFields: true,
+          }
+        ],
       ],
       plugins: [
         [

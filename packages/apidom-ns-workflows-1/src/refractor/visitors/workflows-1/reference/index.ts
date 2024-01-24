@@ -7,7 +7,7 @@ import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public readonly element: ReferenceElement;
+  public declare readonly element: ReferenceElement;
 
   constructor(options = {}) {
     super(options);
@@ -17,7 +17,7 @@ class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    const result = super.ObjectElement(objectElement);
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
     // mark this ReferenceElement with reference metadata
     if (isStringElement(this.element.$ref)) {

@@ -12,16 +12,15 @@ import SpecificationVisitor from '../SpecificationVisitor';
 import { isWorkflowsSpecificationExtension } from '../../predicates';
 
 class PatternedFieldsJsonObjectVisitor extends SpecificationVisitor {
-  public fieldPatternPredicate: (...args: any[]) => boolean = stubFalse;
+  protected fieldPatternPredicate: (...args: unknown[]) => boolean = stubFalse;
 
-  public specPath!: (element: Element) => string[];
+  protected specPath!: (element: Element) => string[];
 
-  public ignoredFields: string[] = [];
+  protected ignoredFields: string[] = [];
 
-  public canSupportSpecificationExtensions: boolean = false;
+  protected canSupportSpecificationExtensions: boolean = false;
 
-  public specificationExtensionPredicate: (element: MemberElement) => boolean =
-    isWorkflowsSpecificationExtension;
+  protected specificationExtensionPredicate = isWorkflowsSpecificationExtension;
 
   ObjectElement(objectElement: ObjectElement) {
     // @ts-ignore

@@ -6,7 +6,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
 class WorkflowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public readonly element: WorkflowElement;
+  public declare readonly element: WorkflowElement;
 
   constructor(options = {}) {
     super(options);

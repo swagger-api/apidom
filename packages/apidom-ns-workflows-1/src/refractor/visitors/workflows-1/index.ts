@@ -17,10 +17,7 @@ class WorkflowsSpecificationVisitor extends Mixin(FixedFieldsVisitor, FallbackVi
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    // @ts-ignore
-    this.unrefractedElement = objectElement;
-
-    return super.ObjectElement(objectElement);
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
   }
 }
 

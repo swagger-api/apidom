@@ -6,7 +6,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import WorkflowOutputsElement from '../../../../elements/nces/WorkflowOutputs';
 
 class OutputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public readonly element: WorkflowOutputsElement;
+  public declare readonly element: WorkflowOutputsElement;
 
   constructor(options = {}) {
     super(options);

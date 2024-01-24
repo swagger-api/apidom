@@ -6,7 +6,7 @@ import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class OnSuccessVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: StepOnSuccessElement;
+  public declare readonly element: StepOnSuccessElement;
 
   constructor(options = {}) {
     super(options);

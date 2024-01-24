@@ -6,7 +6,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
 class SuccessActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public readonly element: SuccessActionElement;
+  public declare readonly element: SuccessActionElement;
 
   constructor(options = {}) {
     super(options);

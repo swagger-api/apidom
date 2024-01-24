@@ -6,7 +6,7 @@ import FallbackVisitor from '../../FallbackVisitor';
 import StepOutputsElement from '../../../../elements/nces/StepOutputs';
 
 class OutputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public readonly element: StepOutputsElement;
+  public declare readonly element: StepOutputsElement;
 
   constructor(options = {}) {
     super(options);

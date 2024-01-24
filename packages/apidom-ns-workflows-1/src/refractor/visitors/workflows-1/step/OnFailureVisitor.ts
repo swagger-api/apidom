@@ -6,7 +6,7 @@ import SpecificationVisitor from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class OnFailureVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: StepOnFailureElement;
+  public declare readonly element: StepOnFailureElement;
 
   constructor(options = {}) {
     super(options);
@@ -18,7 +18,6 @@ class OnFailureVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
       const specPath = ['document', 'objects', 'FailureAction'];
       const element = this.toRefractedElement(specPath, item);
 
-      // @ts-ignore
       this.element.push(element);
     });
 

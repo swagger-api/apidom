@@ -1,13 +1,14 @@
-import { StringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../../FallbackVisitor';
 
 export class $RefVisitor extends FallbackVisitor {
-  StringElement(stringElement: StringElement) {
-    this.element = cloneDeep(stringElement);
-    this.element.classes.push('reference-value');
+  public declare readonly element: StringElement;
 
-    return BREAK;
+  StringElement(stringElement: StringElement) {
+    const result = super.enter(stringElement);
+    this.element.classes.push('reference-value');
+    return result;
   }
 }
 

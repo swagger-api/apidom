@@ -10,8 +10,8 @@ class WorkflowsSpecVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) 
     const workflowsSpecElement = new WorkflowsSpecElement(toValue(stringElement));
 
     this.copyMetaAndAttributes(stringElement, workflowsSpecElement);
-
     this.element = workflowsSpecElement;
+
     return BREAK;
   }
 }

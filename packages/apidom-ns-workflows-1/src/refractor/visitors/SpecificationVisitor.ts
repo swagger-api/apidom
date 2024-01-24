@@ -12,14 +12,9 @@ import type specification from '../specification';
  * internal look-ups to retrieve other child visitors.
  */
 class SpecificationVisitor extends Visitor {
-  public readonly specObj!: typeof specification;
+  protected readonly specObj!: typeof specification;
 
-  public readonly passingOptionsNames = ['specObj'];
-
-  constructor(options = {}) {
-    super();
-    Object.assign(this, options);
-  }
+  protected readonly passingOptionsNames = ['specObj'];
 
   retrievePassingOptions() {
     return pick(this.passingOptionsNames as (keyof this)[], this);
@@ -46,16 +41,15 @@ class SpecificationVisitor extends Visitor {
     const VisitorClz = this.retrieveVisitor(specPath) as typeof Visitor;
     const visitorOpts = { ...passingOpts, ...options };
 
-    // @ts-ignore
-    return new VisitorClz(visitorOpts as any);
+    return new VisitorClz(visitorOpts as object);
   }
 
   toRefractedElement(specPath: string[], element: any, options = {}) {
     /**
-     * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+     * This is `Visitor shortcut`: mechanism for short-circuiting the traversal and replacing
      * it by basic node cloning.
      *
-     * Visiting the element is equivalent to cloning it  if the prototype of a visitor
+     * Visiting the element is equivalent to cloning it if the prototype of a visitor
      * is the same as the prototype of FallbackVisitor. If that's the case, we can avoid
      * bootstrapping the traversal cycle for fields that don't require any special visiting.
      */

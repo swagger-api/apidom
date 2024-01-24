@@ -8,7 +8,7 @@ import { isReferenceElement } from '../../../../predicates';
 import StepParametersElement from '../../../../elements/nces/StepParameters';
 
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public readonly element: StepParametersElement;
+  public declare readonly element: StepParametersElement;
 
   constructor(options = {}) {
     super(options);

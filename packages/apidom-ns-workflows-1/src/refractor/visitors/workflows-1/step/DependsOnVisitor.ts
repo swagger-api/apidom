@@ -4,7 +4,7 @@ import StepDependsOnElement from '../../../../elements/nces/StepDependsOn';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class DependsOnVisitor extends FallbackVisitor {
-  public element: StepDependsOnElement;
+  public declare element: StepDependsOnElement;
 
   constructor() {
     super();

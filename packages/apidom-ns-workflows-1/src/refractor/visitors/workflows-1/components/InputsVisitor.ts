@@ -1,17 +1,20 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import ComponentsInputsElement from '../../../../elements/nces/ComponentsInputs';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const InputsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'JSONSchema']),
-  },
-  init() {
+class InputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsInputsElement;
+
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
     this.element = new ComponentsInputsElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'JSONSchema']);
+  }
+}
 
 export default InputsVisitor;

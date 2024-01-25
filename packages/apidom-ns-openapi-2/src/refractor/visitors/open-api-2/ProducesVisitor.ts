@@ -1,20 +1,21 @@
-import stampit from 'stampit';
 import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import SwaggerProducesElement from '../../../elements/nces/SwaggerProduces';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 
-const ProducesVisitor = stampit(FallbackVisitor, {
-  init() {
+class ProducesVisitor extends FallbackVisitor {
+  public declare element: SwaggerProducesElement;
+
+  constructor(options: FallbackVisitorOptions) {
+    super(options);
     this.element = new SwaggerProducesElement();
-  },
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = this.element.concat(cloneDeep(arrayElement));
+  }
 
-      return BREAK;
-    },
-  },
-});
+  ArrayElement(arrayElement: ArrayElement) {
+    this.element = this.element.concat(cloneDeep(arrayElement));
+
+    return BREAK;
+  }
+}
 
 export default ProducesVisitor;

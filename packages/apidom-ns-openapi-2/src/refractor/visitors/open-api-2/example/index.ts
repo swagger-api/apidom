@@ -1,18 +1,23 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import ExampleElement from '../../../../elements/Example';
 import FallbackVisitor from '../../FallbackVisitor';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 
-const ExampleVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['value']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+class ExampleVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ExampleElement;
+
+  protected declare readonly specPath: SpecPath<['value']>;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
     this.element = new ExampleElement();
-  },
-});
+    this.specPath = always(['value']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default ExampleVisitor;

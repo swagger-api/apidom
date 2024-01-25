@@ -1,40 +1,53 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { difference } from 'ramda';
-import { noop } from 'ramda-adjunct';
 import { ObjectElement, BREAK } from '@swagger-api/apidom-core';
 
-import FixedFieldsVisitor from './FixedFieldsVisitor';
-import PatternedFieldsVisitor from './PatternedFieldsVisitor';
+import FixedFieldsVisitor, { SpecPath } from './FixedFieldsVisitor';
+import PatternedFieldsVisitor, { PatternedFieldsVisitorOptions } from './PatternedFieldsVisitor';
 
-const MixedFieldsVisitor = stampit(FixedFieldsVisitor, PatternedFieldsVisitor, {
-  props: {
-    specPathFixedFields: noop,
-    specPathPatternedFields: noop,
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      const { specPath, ignoredFields } = this;
+export type { SpecPath };
 
-      try {
-        this.specPath = this.specPathFixedFields;
-        const fixedFields = this.retrieveFixedFields(this.specPath(objectElement));
-        // let FixedFieldsVisitor only process fixed fields and leave rest to PatternedFieldsVisitor
-        this.ignoredFields = [...ignoredFields, ...difference(objectElement.keys(), fixedFields)];
-        // @ts-ignore
-        FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+export interface MixedFieldsVisitorOptions extends PatternedFieldsVisitorOptions {
+  readonly specPathFixedFields: SpecPath;
+  readonly specPathPatternedFields: SpecPath;
+}
 
-        this.specPath = this.specPathPatternedFields;
-        this.ignoredFields = fixedFields;
-        // @ts-ignore
-        PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-      } catch (e) {
-        this.specPath = specPath;
-        throw e;
-      }
+class MixedFieldsVisitor extends Mixin(FixedFieldsVisitor, PatternedFieldsVisitor) {
+  protected readonly specPathFixedFields: SpecPath;
 
-      return BREAK;
-    },
-  },
-});
+  protected readonly specPathPatternedFields: SpecPath;
+
+  constructor({
+    specPathFixedFields,
+    specPathPatternedFields,
+    ...rest
+  }: MixedFieldsVisitorOptions) {
+    super({ ...rest });
+    this.specPathFixedFields = specPathFixedFields;
+    this.specPathPatternedFields = specPathPatternedFields;
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const { specPath, ignoredFields } = this;
+
+    try {
+      this.specPath = this.specPathFixedFields;
+      const fixedFields = this.retrieveFixedFields(this.specPath(objectElement));
+      // let FixedFieldsVisitor only process fixed fields and leave rest to PatternedFieldsVisitor
+      // @ts-ignore
+      this.ignoredFields = [...ignoredFields, ...difference(objectElement.keys(), fixedFields)];
+      FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+
+      this.specPath = this.specPathPatternedFields;
+      this.ignoredFields = fixedFields;
+      PatternedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+    } catch (e) {
+      this.specPath = specPath;
+      throw e;
+    }
+
+    return BREAK;
+  }
+}
 
 export default MixedFieldsVisitor;

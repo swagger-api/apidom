@@ -1,32 +1,34 @@
-import stampit from 'stampit';
 import { ifElse, always } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
 import { Element, BREAK } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 
-const AlternatingVisitor = stampit(SpecificationVisitor, {
-  props: {
-    alternator: [],
-  },
-  methods: {
-    enter(element: Element) {
-      const functions = this.alternator.map(
-        ({
-          predicate,
-          specPath,
-        }: {
-          predicate: (element: unknown) => boolean;
-          specPath: string[];
-        }) => ifElse(predicate, always(specPath), stubUndefined),
-      );
-      const specPath = dispatch(functions)(element);
+export type Alternator = { predicate: (element: unknown) => boolean; specPath: string[] };
 
-      this.element = this.toRefractedElement(specPath, element);
+export interface AlternatingVisitorOptions extends SpecificationVisitorOptions {
+  readonly alternator?: Alternator[];
+}
 
-      return BREAK;
-    },
-  },
-});
+class AlternatingVisitor extends SpecificationVisitor {
+  protected alternator: Alternator[];
+
+  constructor({ alternator, ...rest }: AlternatingVisitorOptions) {
+    super({ ...rest });
+    this.alternator = alternator || [];
+  }
+
+  enter(element: Element) {
+    const functions = this.alternator.map(
+      ({ predicate, specPath }: { predicate: (element: unknown) => boolean; specPath: string[] }) =>
+        ifElse(predicate, always(specPath), stubUndefined),
+    );
+    const specPath = dispatch(functions)(element);
+
+    this.element = this.toRefractedElement(specPath, element);
+
+    return BREAK;
+  }
+}
 
 export default AlternatingVisitor;

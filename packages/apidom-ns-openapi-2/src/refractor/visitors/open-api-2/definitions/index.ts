@@ -1,5 +1,5 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   isJSONReferenceLikeElement,
   isJSONReferenceElement,
@@ -7,35 +7,39 @@ import {
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import DefinitionsElement from '../../../../elements/Definitions';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const DefinitionsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: <T extends Element>(element: T) => {
+class DefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: DefinitionsElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'JSONReference'] | ['document', 'objects', 'Schema']
+  >;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
+    this.element = new DefinitionsElement();
+    this.specPath = (element: unknown) => {
       return isJSONReferenceLikeElement(element)
         ? ['document', 'objects', 'JSONReference']
         : ['document', 'objects', 'Schema'];
-    },
-  },
-  init() {
-    this.element = new DefinitionsElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
+    };
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // decorate every JSONReferenceElement with metadata about their referencing type
+    this.element
+      .filter(isJSONReferenceElement)
       // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      .forEach((referenceElement: JSONReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'schema');
+      });
 
-      // decorate every JSONReferenceElement with metadata about their referencing type
-      this.element
-        .filter(isJSONReferenceElement)
-        .forEach((referenceElement: JSONReferenceElement) => {
-          referenceElement.setMetaProperty('referenced-element', 'schema');
-        });
-
-      return result;
-    },
-  },
-});
+    return result;
+  }
+}
 
 export default DefinitionsVisitor;

@@ -12,8 +12,8 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
-import { pathExists } from '../src/services/completion/utils';
-import { context as codegenContext } from '../src/services/completion/context-short';
+import { pathExists } from '../src/utils/handlebars/utils';
+import { context as codegenContext } from '../src/utils/handlebars/context-short';
 
 const specMustache = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shorter.mustache'))
@@ -58,7 +58,7 @@ describe('apidom-ls-validate-handlebars', function () {
       ]),
     );
 
-    if (true) return;
+    // if (true) return;
 
     const languageService: LanguageService = getLanguageService(context);
 

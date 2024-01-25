@@ -15,7 +15,7 @@ import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
 const specCompletion = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shortest.mustache'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-simple.mustache'))
   .toString();
 
 describe('handlebars-ls-complete', function () {
@@ -48,7 +48,7 @@ describe('handlebars-ls-complete', function () {
     const completionTestInputValue = [
       'in empty variable tag',
       0,
-      70,
+      66,
       {
         items: [],
         isIncomplete: false,

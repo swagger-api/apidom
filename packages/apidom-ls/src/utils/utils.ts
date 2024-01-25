@@ -785,6 +785,14 @@ export async function findNamespace(
   defaultContentLanguage?: ContentLanguage,
 ): Promise<ContentLanguage> {
   const text = getText(document, true);
+  if (/^{{!\s*mustache\s*}}/.test(text)) {
+    return {
+      namespace: 'handlebars',
+      version: '1.0',
+      format: 'TEXT',
+      mediaType: 'application/vnd.aai.handlebars;version=1.0',
+    };
+  }
   const json = await isJsonDoc(text);
   if (await asyncapi2AdapterJson.detect(text)) {
     const versionMatch = text.match(asyncapi2AdapterJson.detectionRegExp);

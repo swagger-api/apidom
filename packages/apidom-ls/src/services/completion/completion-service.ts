@@ -11,7 +11,15 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import {
   Element,
-  // findAtOffset,
+  findAtOffset,
+  isArrayElement,
+  isBooleanElement,
+  isMemberElement,
+  isNullElement,
+  isNumberElement,
+  isObjectElement,
+  isStringElement,
+  MemberElement,
   toValue,
 } from '@swagger-api/apidom-core';
 
@@ -28,28 +36,31 @@ import {
 import {
   checkConditions,
   getSourceMap,
-  // getSpecVersion,
+  getSpecVersion,
   isMember,
   isObject,
   isArray,
   localReferencePointers,
-  // isPartialKey,
-  // getCurrentWord,
+  isPartialKey,
+  getCurrentWord,
+  getIndentation,
+  getPreviousLineOffset,
+  getNextLineOffset,
+  getLine,
+  isEmptyOrCommaValue,
+  getNonEmptyContentRange,
+  isEmptyLine,
+  getRightAfterColonOffset,
+  getRightAfterDashOffset,
+  correctPartialKeys,
   perfStart,
-  // perfEnd,
+  perfEnd,
   debug,
   trace,
-  // findNamespace,
+  findNamespace,
 } from '../../utils/utils';
 import { standardLinterfunctions } from '../validation/linter-functions';
-import {
-  MustacheTag,
-  findNestedPropertyKeys,
-  parseMustacheTags,
-  getMustacheTagInfoAtPosition,
-  getMustacheStrictTagInfoAtPosition,
-} from './utils';
-import { context as codegenContext } from './context';
+import completeHandlebars from './handlebars/handlebars-completion';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -133,6 +144,106 @@ export class DefaultCompletionService implements CompletionService {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCompletionNode(node: Element, caretContext: CaretContext): Element {
+    switch (caretContext) {
+      case CaretContext.KEY_INNER:
+      case CaretContext.KEY_END:
+      case CaretContext.KEY_START:
+        return node.parent.parent;
+      case CaretContext.MEMBER:
+        return (node as MemberElement).value as Element;
+      default:
+        return node;
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private isReferenceValue(node: Element): boolean {
+    // TODO move to NS adapter plugin
+    // TODO replace this with checking metadata refObject in parent
+    // assume it's a value node within a member
+    if (isMember(node) && toValue(node.key) === '$ref') {
+      return true;
+    }
+    const { parent } = node;
+    return parent && isMember(parent) && toValue(parent.key) === '$ref';
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCaretContext(node: Element, offset: number, textModified: boolean): CaretContext {
+    let caretContext: CaretContext = CaretContext.UNDEFINED;
+    if (node) {
+      const sm = getSourceMap(node);
+      const { parent } = node;
+      if (parent && isMember(parent) && parent.key === node) {
+        // we are in a key node
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.KEY_INNER;
+        } else if (offset === sm.offset) {
+          if (sm.length === 0 && textModified) {
+            caretContext = CaretContext.KEY_END;
+          } else {
+            caretContext = CaretContext.KEY_START;
+          }
+        } else {
+          caretContext = CaretContext.KEY_END;
+        }
+        return caretContext;
+      }
+      if (
+        isStringElement(node) ||
+        isNumberElement(node) ||
+        isBooleanElement(node) ||
+        isNullElement(node)
+      ) {
+        // we must be in a value primitive node
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.PRIMITIVE_VALUE_INNER;
+        } else if (offset === sm.offset) {
+          caretContext = CaretContext.PRIMITIVE_VALUE_START;
+        } else {
+          caretContext = CaretContext.PRIMITIVE_VALUE_END;
+        }
+        return caretContext;
+      }
+      if (isMemberElement(node)) {
+        // we are right after the separator (`:`)
+        caretContext = CaretContext.MEMBER;
+        return caretContext;
+      }
+      if (isObjectElement(node) || isArrayElement(node)) {
+        // we are within an object or array
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (offset > sm.offset && offset < sm.endOffset!) {
+          caretContext = CaretContext.OBJECT_VALUE_INNER;
+        } else if (offset === sm.offset) {
+          caretContext = CaretContext.OBJECT_VALUE_START;
+        } else {
+          caretContext = CaretContext.OBJECT_VALUE_END;
+        }
+        return caretContext;
+      }
+    }
+    return caretContext;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private resolveCompletionNodeContext(caretContext: CaretContext): CompletionNodeContext {
+    switch (caretContext) {
+      case CaretContext.KEY_START:
+      case CaretContext.KEY_INNER:
+      case CaretContext.OBJECT_VALUE_INNER:
+      case CaretContext.OBJECT_VALUE_START:
+      case CaretContext.MEMBER:
+        return CompletionNodeContext.OBJECT;
+      default:
+        return CompletionNodeContext.UNDEFINED;
+    }
+  }
+
   /*
     see also:
       https://github.com/microsoft/monaco-editor/issues/1889
@@ -158,68 +269,320 @@ export class DefaultCompletionService implements CompletionService {
         : completionParamsOrPosition;
 
     const text: string = textDocument.getText();
+    let contentLanguage = await findNamespace(textDocument, this.settings?.defaultContentLanguage);
+
+    // TODO frantuma, better handling of namespaces/providers
+    if (contentLanguage.namespace === 'handlebars') {
+      return completeHandlebars(textDocument, position, enableFiltering);
+    }
+
+    const schema = false;
 
     // commit chars for yaml
-    const valueCommitCharacters = ['}'];
-    const propertyCommitCharacters = ['}'];
+    let valueCommitCharacters = ['\n'];
+    let propertyCommitCharacters = [':'];
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const endObjectNodeChar = '}';
+    let endObjectNodeChar = '\n';
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const endArrayNodeChar = '}';
+    let endArrayNodeChar = '\n';
+
+    // TODO handle also yaml and others, with specific logic for the format
+    if (contentLanguage.format === 'JSON') {
+      // commit chars for json
+      valueCommitCharacters = [',', '}', ']'];
+      propertyCommitCharacters = [':'];
+      endObjectNodeChar = '}'; // eslint-disable-line @typescript-eslint/no-unused-vars
+      endArrayNodeChar = ']'; // eslint-disable-line @typescript-eslint/no-unused-vars
+    }
 
     const offset = textDocument.offsetAt(position);
     debug('doCompletion - position and offset', position, offset);
     trace('doCompletion - text', text);
 
-    const theStack: MustacheTag[] = [];
-    const theRootTags: MustacheTag[] = [];
-    const tags = parseMustacheTags(text, theStack, theRootTags);
-
-    const tagInfo = getMustacheTagInfoAtPosition(tags, offset);
-    const tagInfoStrict = getMustacheStrictTagInfoAtPosition(tags, offset);
-    if (!tagInfo || !tagInfoStrict) {
-      return completionList;
+    // if no spec version has been set, provide completion for it anyway
+    // TODO handle also JSON, must identify offset
+    // TODO move to adapter
+    if (
+      contentLanguage.namespace === 'apidom' &&
+      contentLanguage.format !== 'JSON' &&
+      textDocument.positionAt(offset).character === 0
+    ) {
+      const isEmpty = isEmptyLine(textDocument, offset);
+      trace('doCompletion - no version', { isEmpty });
+      const asyncItem = CompletionItem.create('asyncapi');
+      asyncItem.insertText = `asyncapi: '2.6.0$1'${isEmpty ? '' : '\n'}`;
+      asyncItem.documentation = {
+        kind: 'markdown',
+        value:
+          'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version.\nThe patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
+      };
+      asyncItem.kind = CompletionItemKind.Keyword;
+      asyncItem.insertTextFormat = 2;
+      asyncItem.insertTextMode = 2;
+      completionList.items.push(asyncItem);
+      const oasItem = CompletionItem.create('openapi');
+      oasItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
+      oasItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. This string MUST be the [version number](#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](#infoVersion) string.',
+      };
+      oasItem.kind = CompletionItemKind.Keyword;
+      oasItem.insertTextFormat = 2;
+      oasItem.insertTextMode = 2;
+      completionList.items.push(oasItem);
+      const swaggerItem = CompletionItem.create('swagger');
+      swaggerItem.insertText = `swagger: '2.0'${isEmpty ? '$1' : '\n$1'}`;
+      swaggerItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. Specifies the Swagger Specification version being used. It can be used by the Swagger UI and other clients to interpret the API listing. The value MUST be "2.0".',
+      };
+      swaggerItem.kind = CompletionItemKind.Keyword;
+      swaggerItem.insertTextFormat = 2;
+      swaggerItem.insertTextMode = 2;
+      completionList.items.push(swaggerItem);
+      trace('doCompletion - no version', `completionList: ${JSON.stringify(completionList)}`);
     }
-    // let pointer = tagInfo.tagName;
-    const pointer = [tagInfo.tagName];
-    let tagParent = tagInfo.parent;
-    while (tagParent) {
-      pointer.unshift(tagParent.tagName);
-      tagParent = tagParent.parent;
-    }
-    console.log(pointer.join('.'));
-    const rawSuggestions = findNestedPropertyKeys(codegenContext, pointer);
 
-    // let completionNode: Element | undefined;
-    if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
-      const apidomCompletions: CompletionItem[] = [];
-      for (const rawSuggestion of rawSuggestions) {
-        const item: CompletionItem = {
-          label: rawSuggestion,
-          insertText: rawSuggestion,
-          kind: CompletionItemKind.Keyword,
-          insertTextFormat: 2,
-        };
-        apidomCompletions.push(item);
+    /*
+     process errored YAML input badly handled by YAML parser (see https://github.com/swagger-api/apidom/issues/194)
+     similarly to what done in swagger-editor: check if we are in a partial "prefix" scenario, in this case add a `:`
+     to the line and parse that line instead.
+
+     ```
+     info:
+       foo<caret here>
+       ..
+     ```
+
+     */
+    let processedText;
+    let textModified = false;
+    if (contentLanguage.format !== 'JSON') {
+      if (isPartialKey(textDocument, offset)) {
+        debug('doCompletion - isPartialKey', { offset });
+        processedText = `${textDocument.getText().slice(0, offset - 1)}:${textDocument
+          .getText()
+          .slice(offset)}`;
+        textModified = true;
+      }
+    }
+    trace('doCompletion - processedText first', processedText);
+    perfStart(PerfLabels.PARSE_FIRST);
+    let result = await this.settings?.documentCache?.get(
+      textDocument,
+      processedText,
+      PerfLabels.PARSE_FIRST,
+    );
+    perfEnd(PerfLabels.PARSE_FIRST);
+    if (!result) return completionList;
+    if (processedText) {
+      contentLanguage = await findNamespace(processedText, this.settings?.defaultContentLanguage);
+    }
+    perfStart(PerfLabels.CORRECT_PARTIAL);
+    debug('doCompletion - correctPartialKeys');
+    processedText = correctPartialKeys(result, textDocument, contentLanguage.format === 'JSON');
+    trace('doCompletion - processedText second', processedText);
+    perfEnd(PerfLabels.CORRECT_PARTIAL);
+    if (processedText) {
+      contentLanguage = await findNamespace(processedText, this.settings?.defaultContentLanguage);
+      debug('doCompletion - parsing processedText');
+      perfStart(PerfLabels.PARSE_SECOND);
+      result = await this.settings!.documentCache?.get(
+        textDocument,
+        processedText,
+        PerfLabels.PARSE_SECOND,
+      );
+      perfEnd(PerfLabels.PARSE_SECOND);
+      textModified = true;
+    }
+    if (!result) return completionList;
+
+    const { api } = result;
+    // if we cannot parse nothing to do
+    if (api === undefined) return completionList;
+    const docNs: string = contentLanguage.namespace;
+    const specVersion = getSpecVersion(api);
+
+    let targetOffset = textModified ? offset - 1 : offset;
+    let emptyLine = false;
+
+    let handledTarget = false;
+    if (contentLanguage.format !== 'JSON' && position.character > 0) {
+      /*
+      This is a hack to handle empty nodes in YAML, e.g in a situation like:
+
+      contact:
+        name: test
+        <caret here>
+
+      in this case the parser doesn't set the sourceMap of the parent to contain the empty line(s)
+      Therefore we look for the  offset right after the colon of the parent.
+
+      This happens only if :
+      - the line is empty
+      - the caret is at the same indent position as the first non blank line above
+      - the indent position is not 0 (root)
+      */
+      if (isEmptyLine(textDocument, offset)) {
+        let alreadyInGoodNode = false;
+        let nextLineOffset = getNextLineOffset(textDocument, offset);
+        while (nextLineOffset !== -1 && isEmptyLine(textDocument, nextLineOffset)) {
+          nextLineOffset = getNextLineOffset(textDocument, nextLineOffset);
+        }
+        if (nextLineOffset !== -1) {
+          if (getIndentation(getLine(textDocument, nextLineOffset)) === position.character) {
+            // next non empty line has same indentation, which means we are inside the correct node
+            alreadyInGoodNode = true;
+          }
+        }
+        if (!alreadyInGoodNode) {
+          let prevLineOffset = getPreviousLineOffset(textDocument, offset);
+          let prevLineEmpty = isEmptyLine(textDocument, prevLineOffset);
+          let prevLineIndentation = prevLineEmpty
+            ? -1
+            : getIndentation(getLine(textDocument, prevLineOffset));
+          while (
+            prevLineOffset !== -1 &&
+            (prevLineEmpty || prevLineIndentation > position.character)
+            ) {
+            prevLineOffset = getPreviousLineOffset(textDocument, prevLineOffset);
+            prevLineEmpty = isEmptyLine(textDocument, prevLineOffset);
+            prevLineIndentation = prevLineEmpty
+              ? -1
+              : getIndentation(getLine(textDocument, prevLineOffset));
+          }
+          if (prevLineOffset !== -1) {
+            // get indent of that line and compare with the position.character
+            const prevLine = getLine(textDocument, prevLineOffset);
+            prevLineIndentation = getIndentation(prevLine);
+            if (prevLineIndentation === position.character) {
+              // set the target offset as that line
+              const pos = textDocument.positionAt(prevLineOffset);
+              targetOffset = textDocument.offsetAt(Position.create(pos.line, position.character));
+              emptyLine = true;
+              handledTarget = true;
+            } else if (prevLineIndentation < position.character) {
+              // check if line has empty value
+              // TODO shaky, better regex grouping, consider case with colon in key
+              // eslint-disable-next-line prefer-regex-literals
+              const regex = new RegExp('^.*\\:{1}\\s*$');
+              if (regex.test(prevLine)) {
+                // set the target offset to right after the colon (empty node)
+                const column = prevLine.indexOf(':') + 1;
+                const pos = textDocument.positionAt(prevLineOffset);
+                targetOffset = textDocument.offsetAt(Position.create(pos.line, column));
+                emptyLine = true;
+                handledTarget = true;
+              }
+            }
+          }
+        }
       }
 
-      // const caretContext = this.resolveCaretContext(node, targetOffset, textModified);
-      // completionNode = this.resolveCompletionNode(node, caretContext);
-      // const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
+      /*
+      This is a hack to handle empty nodes in YAML, e.g in a situation like:
 
-      // debug('doCompletion - node', node.element, toValue(node));
-      // debug('doCompletion - completionNode', completionNode.element, toValue(completionNode));
-      // debug('doCompletion - caretContext', caretContext);
-      // debug('doCompletion - completionNodeContext', completionNodeContext);
+      type: <caret here>
+
+      in this case the parser doesn't set the sourceMap of the empty value to be one space after the colon,
+      but it sets it right after the colon
+      TODO: check why this happens while e.g. for explicit empty strings `''` this doesn't happen.
+
+      Therefore we look for the offset right after the colon where we found and empty value
+       */
+      if (!handledTarget) {
+        const rightAfterColonOffset = getRightAfterColonOffset(textDocument, offset, true);
+        if (rightAfterColonOffset !== -1) {
+          if (position.character > getIndentation(getLine(textDocument, rightAfterColonOffset))) {
+            emptyLine = true;
+            targetOffset = rightAfterColonOffset;
+            handledTarget = true;
+          }
+        }
+      }
+    } else if (contentLanguage.format === 'JSON' && position.character > 0) {
+      /*
+        This is a hack to handle empty nodes in JSON, e.g in a situation like:
+
+        "type": <caret here>
+
+        in this case the parser doesn't set the sourceMap of the empty value to be one space after the colon,
+        but it sets it right after the colon
+        TODO: check why this happens while e.g. for explicit empty strings `''` this doesn't happen.
+
+        Therefore we look for the offset right after the colon where we found and empty value
+         */
+      // eslint-disable-next-line no-lonely-if
+      if (isEmptyOrCommaValue(textDocument, offset)) {
+        const rightAfterColonOffset = getRightAfterColonOffset(textDocument, offset, false);
+        if (rightAfterColonOffset !== -1) {
+          targetOffset = rightAfterColonOffset;
+          handledTarget = true;
+        }
+      }
+    }
+    /*
+      This is a hack to handle empty nodes in YAML array items, e.g in a situation like:
+
+      - <caret here>
+
+      in this case the parser doesn't set the sourceMap of the empty value to be one space after the dash,
+      but it sets it right after the dash
+      Therefore we look for the offset right after the dash where we found and empty value
+       */
+    if (!handledTarget && contentLanguage.format !== 'JSON' && position.character > 0) {
+      const rightAfterDashOffset = getRightAfterDashOffset(textDocument, offset, true);
+      if (rightAfterDashOffset !== -1) {
+        if (
+          position.character >
+          getIndentation(getLine(textDocument, rightAfterDashOffset), undefined, false)
+        ) {
+          emptyLine = true;
+          targetOffset = rightAfterDashOffset;
+        }
+      }
+    }
+    // check if we are at the end of text, get root node if that's the case
+    const endOfText =
+      contentLanguage.format !== 'JSON' &&
+      textDocument.getText().length > 0 &&
+      (targetOffset >= textDocument.getText().length ||
+        textDocument.getText().substring(offset, textDocument.getText().length).trim().length ===
+        0) &&
+      '\r\n'.indexOf(textDocument.getText().charAt(targetOffset - 1)) !== -1;
+
+    if (endOfText) {
+      targetOffset = 0;
+    }
+    trace('doCompletion - text', textDocument.getText());
+    debug('doCompletion - offset', offset, textDocument.positionAt(offset));
+    debug('doCompletion - targetOffset', targetOffset, textDocument.positionAt(targetOffset));
+    // find the current node
+    const node = endOfText
+      ? api
+      : findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
+    // only if we have a node
+    let completionNode: Element | undefined;
+    if (node) {
+      const caretContext = this.resolveCaretContext(node, targetOffset, textModified);
+      completionNode = this.resolveCompletionNode(node, caretContext);
+      const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
+
+      debug('doCompletion - node', node.element, toValue(node));
+      debug('doCompletion - completionNode', completionNode.element, toValue(completionNode));
+      debug('doCompletion - caretContext', caretContext);
+      debug('doCompletion - completionNodeContext', completionNodeContext);
 
       let overwriteRange: Range | undefined;
-      // let quotes: string | undefined;
+      let quotes: string | undefined;
 
       const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
 
       const proposed: { [key: string]: CompletionItem } = {};
 
-      // const nodeSourceMap = getSourceMap(completionNode);
+      const nodeSourceMap = getSourceMap(completionNode);
       const collector: CompletionsCollector = {
         add: (suggestion: CompletionItem) => {
           const item: CompletionItem = JSON.parse(JSON.stringify(suggestion));
@@ -258,72 +621,272 @@ export class DefaultCompletionService implements CompletionService {
         },
       };
 
-      // const word = getCurrentWord(textDocument, offset);
-      const word = tagInfoStrict.tagName.trim();
-      console.log('word', word);
-      // const nonEmptyContentRange = getNonEmptyContentRange(textDocument, offset);
-      // overwriteRange = undefined;
-      for (const item of apidomCompletions) {
-        trace('doCompletion - apidomCompletions item', item);
-        /*
-          see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
-          contrary to docs, range must start with the request offset. Workaround is providing
-          a filterText with the content of the target range
-        */
-        // item.filterText = text.substring(location.offset, location.
-        // offset + location.length);
-        if (word && word.length > 0 && item.insertText?.replace(/^['"]{1}/g, '').startsWith(word)) {
-          item.preselect = true;
-        }
-        // const filterTag = tagInfo.type === 'section' ? tagIn
-        if (word && word.length > 0) {
-          item.filterText = text.substring(
-            tagInfoStrict.tagNameStartIndex!,
-            tagInfoStrict.tagNameEndIndex!,
-          );
-        }
-
-        /*        if (overwriteRange) {
-          item.filterText = text.substring(
-            textDocument.offsetAt(overwriteRange.start),
-            textDocument.offsetAt(overwriteRange.end),
-          );
-        } */
-        if (word && word.length > 0) {
-          overwriteRange = Range.create(
-            textDocument.positionAt(tagInfoStrict.tagNameStartIndex!),
-            textDocument.positionAt(tagInfoStrict.tagNameEndIndex!),
-          );
-        }
-
-        if (overwriteRange) {
-          item.filterText = text.substring(
-            textDocument.offsetAt(overwriteRange.start),
-            textDocument.offsetAt(overwriteRange.end),
-          );
-        }
-        if (word && word.length > 0) {
-          if (enableFiltering && item.insertText?.includes(word)) {
-            collector.add(item);
-          } else if (!enableFiltering) {
-            collector.add(item);
+      const word = getCurrentWord(textDocument, offset);
+      if (
+        (isObject(completionNode) ||
+          (isArray(completionNode) && contentLanguage.format === 'JSON')) &&
+        (CompletionNodeContext.OBJECT === completionNodeContext ||
+          CompletionNodeContext.VALUE_OBJECT === completionNodeContext ||
+          textModified) &&
+        (caretContext === CaretContext.KEY_INNER ||
+          caretContext === CaretContext.KEY_START ||
+          caretContext === CaretContext.KEY_END ||
+          caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.OBJECT_VALUE_INNER ||
+          caretContext === CaretContext.OBJECT_VALUE_START)
+      ) {
+        debug('doCompletion - adding property');
+        for (const p of completionNode) {
+          if (!node.parent || node.parent !== p || emptyLine) {
+            proposed[toValue(p.key)] = CompletionItem.create('__');
           }
-        } else if (!word) {
-          collector.add(item);
         }
-      }
+        const nonEmptyContentRange = getNonEmptyContentRange(textDocument, offset);
+        let nextLineNonEmptyOffset = getNextLineOffset(textDocument, offset);
+        while (isEmptyLine(textDocument, nextLineNonEmptyOffset)) {
+          nextLineNonEmptyOffset = getNextLineOffset(textDocument, nextLineNonEmptyOffset);
+        }
+        const nextLineNonEmptyContentRange = getNonEmptyContentRange(
+          textDocument,
+          nextLineNonEmptyOffset,
+        );
+        const nextLineNonEmptyContent = nextLineNonEmptyContentRange
+          ? textDocument.getText(nextLineNonEmptyContentRange)
+          : '';
 
-      /*      if (apidomCompletions) {
+        if (
+          caretContext === CaretContext.KEY_INNER ||
+          caretContext === CaretContext.KEY_END ||
+          caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.OBJECT_VALUE_INNER
+        ) {
+          overwriteRange = nonEmptyContentRange;
+        } else {
+          overwriteRange = undefined;
+        }
+        trace('doCompletion - calling getMetadataPropertyCompletions');
+        const apidomCompletions = this.getMetadataPropertyCompletions(
+          api,
+          completionNode,
+          contentLanguage.format !== 'JSON',
+          docNs,
+          specVersion,
+          quotes,
+        );
         for (const item of apidomCompletions) {
-          /!*
+          trace('doCompletion - apidomCompletions item', item);
+          /*
             see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
             contrary to docs, range must start with the request offset. Workaround is providing
             a filterText with the content of the target range
-          *!/
-          item.filterText = text.substring(tagInfo.startIndex!, tagInfo.endIndex!);
-          collector.add(item);
+          */
+          // item.filterText = text.substring(location.offset, location.offset + location.length);
+          if (
+            word &&
+            word.length > 0 &&
+            item.insertText?.replace(/^['"]{1}/g, '').startsWith(word)
+          ) {
+            item.preselect = true;
+          }
+
+          if (overwriteRange) {
+            item.filterText = text.substring(
+              textDocument.offsetAt(overwriteRange.start),
+              textDocument.offsetAt(overwriteRange.end),
+            );
+          }
+          if (nonEmptyContentRange) {
+            if (caretContext === CaretContext.KEY_INNER || caretContext === CaretContext.KEY_END) {
+              if (contentLanguage.format === 'JSON') {
+                if (
+                  nextLineNonEmptyContent.length > 0 &&
+                  ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
+                ) {
+                  item.insertText = `${item.insertText},`;
+                }
+              } else {
+                // item.insertText = `${item.insertText}\n`;
+              }
+            } else if (contentLanguage.format === 'JSON') {
+              if (caretContext === CaretContext.OBJECT_VALUE_INNER) {
+                item.insertText = `${item.insertText},`;
+              } else {
+                item.insertText = `${item.insertText},\n`;
+              }
+            } else if (caretContext === CaretContext.OBJECT_VALUE_INNER) {
+              // item.insertText = `${item.insertText}\n`;
+            } else {
+              item.insertText = `${item.insertText}\n`;
+            }
+          } else if (contentLanguage.format === 'JSON') {
+            if (
+              nextLineNonEmptyContent.length > 0 &&
+              ']}'.indexOf(nextLineNonEmptyContent.charAt(0)) === -1
+            ) {
+              item.insertText = `${item.insertText},`;
+            } else {
+              item.insertText = `${item.insertText}`;
+            }
+          } else if (contentLanguage.format === 'YAML') {
+            // item.insertText = `${item.insertText}\n`;
+          }
+          if (word && word.length > 0) {
+            if (enableFiltering && item.insertText?.includes(word)) {
+              collector.add(item);
+            } else if (!enableFiltering) {
+              collector.add(item);
+            }
+          } else if (!word) {
+            collector.add(item);
+          }
         }
-      } */
+      } else if (
+        // in a primitive value node
+        !isObject(completionNode) &&
+        (caretContext === CaretContext.MEMBER ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_INNER ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_END ||
+          caretContext === CaretContext.PRIMITIVE_VALUE_START ||
+          caretContext === CaretContext.OBJECT_VALUE_START)
+      ) {
+        // TODO Apidom doesn't hold quotes in its content currently, therefore we must use text + offset
+        const nodeValueFromText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset);
+        quotes =
+          nodeValueFromText.charAt(0) === '"' || nodeValueFromText.charAt(0) === "'"
+            ? nodeValueFromText.charAt(0)
+            : undefined;
+        proposed[toValue(completionNode)] = CompletionItem.create('__');
+        proposed[nodeValueFromText] = CompletionItem.create('__');
+        // if node is not empty we must replace text
+        if (nodeValueFromText.length > 0) {
+          overwriteRange = Range.create(
+            textDocument.positionAt(nodeSourceMap.offset),
+            textDocument.positionAt(nodeSourceMap.endOffset!),
+          );
+        } else {
+          // node is empty
+          overwriteRange = undefined;
+        }
+        let apidomCompletions: CompletionItem[] | undefined;
+        // check if we are in a ref value, in this case build ref pointers
+        if (this.isReferenceValue(completionNode)) {
+          apidomCompletions = await this.findReferencePointers(
+            textDocument,
+            api,
+            completionNode,
+            docNs,
+            contentLanguage.admitsRefsSiblings !== undefined && contentLanguage.admitsRefsSiblings,
+            specVersion,
+            nodeValueFromText,
+            completionParamsOrPosition,
+            contentLanguage.format !== 'JSON',
+            context,
+          );
+        } else {
+          apidomCompletions = this.getMetadataPropertyCompletions(
+            api,
+            completionNode,
+            contentLanguage.format !== 'JSON',
+            docNs,
+            specVersion,
+            quotes,
+          );
+        }
+
+        if (apidomCompletions) {
+          for (const item of apidomCompletions) {
+            const completionTextQuotes =
+              item.insertText?.charAt(0) === '"' || item.insertText?.charAt(0) === "'"
+                ? item.insertText?.charAt(0)
+                : undefined;
+
+            const unquotedOriginalInsertText = !completionTextQuotes
+              ? item.insertText
+              : item.insertText?.substring(1, item.insertText.length);
+            if (!completionTextQuotes && quotes) {
+              item.insertText = quotes + item.insertText + quotes;
+            }
+            /*
+              see https://github.com/microsoft/monaco-editor/issues/1889#issuecomment-642809145
+              contrary to docs, range must start with the request offset. Workaround is providing
+              a filterText with the content of the target range
+            */
+            item.filterText = text.substring(nodeSourceMap.offset, nodeSourceMap.endOffset!);
+
+            if (word && word.length > 0) {
+              if (enableFiltering && unquotedOriginalInsertText?.includes(word)) {
+                collector.add(item);
+              } else if (!enableFiltering) {
+                collector.add(item);
+              }
+            } else if (!word) {
+              collector.add(item);
+            }
+          }
+        }
+      }
+
+      if (schema) {
+        // TODO complete schema based, see json language service and "lsp" branch
+        // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);
+      } else {
+        //
+      }
+    }
+
+    if (this.jsonSchemaCompletionService) {
+      this.jsonSchemaCompletionService
+        .doCompletion(textDocument, completionParamsOrPosition, context)
+        .then((schemaList) => {
+          completionList.items.push(...schemaList.items);
+        });
+    }
+    perfEnd(PerfLabels.START);
+    try {
+      // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+      for (const provider of this.completionProviders) {
+        if (
+          provider
+            .namespaces()
+            .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+          provider.doCompletion &&
+          (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
+        ) {
+          // eslint-disable-next-line no-await-in-loop
+          const completionProviderResult = await provider.doCompletion(
+            textDocument,
+            completionNode,
+            api,
+            completionParamsOrPosition,
+            completionList.items,
+            context,
+          );
+          switch (completionProviderResult.mergeStrategy) {
+            case MergeStrategy.APPEND:
+              completionList.items.push(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.PREPEND:
+              completionList.items.unshift(...completionProviderResult.completionList.items);
+              break;
+            case MergeStrategy.REPLACE:
+              completionList.items.splice(
+                0,
+                completionList.items.length,
+                ...completionProviderResult.completionList.items,
+              );
+              break;
+            case MergeStrategy.IGNORE:
+              break;
+            default:
+              completionList.items.push(...completionProviderResult.completionList.items);
+          }
+          if (provider.break()) {
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      console.log('error in validation provider');
     }
     return completionList;
   }
@@ -353,9 +916,9 @@ export class DefaultCompletionService implements CompletionService {
       doc,
       nodeElement,
       admitsRefsSiblings &&
-        completionContext !== undefined &&
-        completionContext?.includeIndirectRefs !== undefined &&
-        completionContext?.includeIndirectRefs,
+      completionContext !== undefined &&
+      completionContext?.includeIndirectRefs !== undefined &&
+      completionContext?.includeIndirectRefs,
     );
     // build completion item
     let i = 97;

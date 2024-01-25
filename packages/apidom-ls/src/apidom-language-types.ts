@@ -103,7 +103,7 @@ export interface NamespaceVersion {
 export interface ContentLanguage {
   mediaType: string;
   namespace: string;
-  format?: 'JSON' | 'YAML';
+  format?: 'JSON' | 'YAML' | 'TEXT';
   version?: string;
   admitsRefsSiblings?: boolean;
 }
@@ -461,13 +461,7 @@ export interface LinterFunctions {
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
   doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
-  doValidationApidom(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
   doCompletion(
-    document: TextDocument,
-    completionParamsOrPosition: CompletionParams | Position,
-    context?: CompletionContext,
-  ): Promise<CompletionList | null>;
-  doCompletionApidom(
     document: TextDocument,
     completionParamsOrPosition: CompletionParams | Position,
     context?: CompletionContext,
@@ -480,8 +474,6 @@ export interface LanguageService {
   doResolveCompletionItem(item: CompletionItem): Promise<CompletionItem>;
 
   computeSemanticTokens(textDocument: TextDocument): Promise<SemanticTokens>;
-
-  computeSemanticTokensApidom(textDocument: TextDocument): Promise<SemanticTokens>;
 
   getSemanticTokensLegend(): SemanticTokensLegend;
 

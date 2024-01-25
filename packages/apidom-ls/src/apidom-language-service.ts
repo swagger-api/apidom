@@ -19,12 +19,9 @@ import {
   LanguageSettings,
 } from './apidom-language-types';
 import { DefaultValidationService } from './services/validation/validation-service';
-import { DefaultValidationServiceApidom } from './services/validation/validation-service-apidom';
 import { DefaultCompletionService } from './services/completion/completion-service';
-import { DefaultCompletionServiceApidom } from './services/completion/completion-service-apidom';
 import { DefaultSymbolsService } from './services/symbols/symbols-service';
 import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
-import { DefaultSemanticTokensServiceApidom } from './services/semantic-tokens/semantic-tokens-service-apidom';
 import { DefaultHoverService } from './services/hover/hover-service';
 import { DefaultDerefService } from './services/deref/deref-service';
 import { DefaultDefinitionService } from './services/definition/definition-service';
@@ -41,11 +38,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   debug('getLanguageService', context);
   const symbolsService = new DefaultSymbolsService();
   const completionService = new DefaultCompletionService();
-  const completionServiceApidom = new DefaultCompletionServiceApidom();
   const validationService = new DefaultValidationService();
-  const validationServiceApidom = new DefaultValidationServiceApidom();
   const semanticTokensService = new DefaultSemanticTokensService();
-  const semanticTokensServiceApidom = new DefaultSemanticTokensServiceApidom();
   const hoverService = new DefaultHoverService();
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
@@ -54,11 +48,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   function configureServices(languageSettings?: LanguageSettings) {
     symbolsService.configure(languageSettings);
     validationService.configure(languageSettings);
-    validationServiceApidom.configure(languageSettings);
     completionService.configure(languageSettings);
-    completionServiceApidom.configure(languageSettings);
     semanticTokensService.configure(languageSettings);
-    semanticTokensServiceApidom.configure(languageSettings);
     hoverService.configure(languageSettings);
     derefService.configure(languageSettings);
     definitionService.configure(languageSettings);
@@ -100,14 +91,9 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     configure: (settings?: LanguageSettings): void => configureServices(settings),
     doValidation: validationService.doValidation.bind(validationService),
-    doValidationApidom: validationService.doValidation.bind(validationServiceApidom),
     doCompletion: completionService.doCompletion.bind(completionService),
-    doCompletionApidom: completionServiceApidom.doCompletion.bind(completionServiceApidom),
     doFindDocumentSymbols: symbolsService.doFindDocumentSymbols.bind(symbolsService),
     computeSemanticTokens: semanticTokensService.computeSemanticTokens.bind(semanticTokensService),
-    computeSemanticTokensApidom: semanticTokensServiceApidom.computeSemanticTokens.bind(
-      semanticTokensServiceApidom,
-    ),
     doHover: hoverService.computeHover.bind(hoverService),
     doCodeActions: validationService.doCodeActions.bind(validationService),
     doDeref: derefService.doDeref.bind(derefService),
@@ -144,8 +130,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     terminate(): void {
       documentCache.dispose();
     },
-    registerCompletionProvider:
-      completionServiceApidom.registerProvider.bind(completionServiceApidom),
+    registerCompletionProvider: completionService.registerProvider.bind(completionService),
     registerValidationProvider: validationService.registerProvider.bind(validationService),
     doLinks: linksService.doLinks.bind(linksService),
     registerLinksProvider: linksService.registerProvider.bind(linksService),

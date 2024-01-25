@@ -16,7 +16,7 @@ export interface SpecificationVisitorOptions extends VisitorOptions {
 }
 
 class SpecificationVisitor extends Visitor {
-  protected readonly specObj!: typeof specification;
+  protected readonly specObj: typeof specification;
 
   protected readonly passingOptionsNames = ['specObj'];
 

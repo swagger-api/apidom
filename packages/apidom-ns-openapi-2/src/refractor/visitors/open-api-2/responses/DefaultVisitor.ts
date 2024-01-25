@@ -11,7 +11,7 @@ import AlternatingVisitor, {
 import FallbackVisitor from '../../FallbackVisitor';
 
 class DefaultVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
-  public declare readonly alternator: Alternator[];
+  protected declare readonly alternator: Alternator[];
 
   constructor(options: AlternatingVisitorOptions) {
     super(options);

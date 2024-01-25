@@ -7,7 +7,7 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../Specificat
 export type Alternator = { predicate: (element: unknown) => boolean; specPath: string[] };
 
 export interface AlternatingVisitorOptions extends SpecificationVisitorOptions {
-  readonly alternator: Alternator[];
+  readonly alternator?: Alternator[];
 }
 
 class AlternatingVisitor extends SpecificationVisitor {

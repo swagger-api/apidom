@@ -181,6 +181,7 @@ export class DefaultValidationService implements ValidationService {
     nameSpace: ContentLanguage,
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
+    console.log('validateReferencesConcurrent');
     const SharedReferenceSet = stampit(ReferenceSet, {
       statics: {
         refs: [],
@@ -325,6 +326,7 @@ export class DefaultValidationService implements ValidationService {
     nameSpace: ContentLanguage,
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
+    console.log('validateReferencesSequential');
     const diagnostics: Diagnostic[] = [];
     const pointersMap: Record<string, Pointer[]> = {};
 

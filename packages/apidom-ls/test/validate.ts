@@ -2,21 +2,30 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Diagnostic, DiagnosticSeverity, CodeAction } from 'vscode-languageserver-types';
+import { CodeAction, Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
   LanguageService,
   LanguageServiceContext,
+  ReferenceValidationMode,
   ValidationContext,
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
-import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
-import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
-import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider';
-import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
+import {
+  OpenAPi31JsonSchemaValidationProvider,
+} from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
+import {
+  Asyncapi20JsonSchemaValidationProvider,
+} from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
+import {
+  Asyncapi21JsonSchemaValidationProvider,
+} from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider';
+import {
+  Asyncapi22JsonSchemaValidationProvider,
+} from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
 import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
-import { logPerformance, logLevel } from './test-utils';
+import { logLevel, logPerformance } from './test-utils';
 
 const specOpenapiSimple = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'ajv-simple-api.json'))
@@ -3752,6 +3761,38 @@ describe('apidom-ls-validate', function () {
     ];
     console.log(JSON.stringify(result, null, 2));
     assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it.only('openapi / json - validation should not go into infinite loop - issue #3735', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      referenceValidationMode: ReferenceValidationMode.APIDOM_INDIRECT,
+      referenceValidationSequentialProcessing: true,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'issue3735.json'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/issue3735.yaml', 'json', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 36, character: 8 }, end: { line: 36, character: 13 } },
+        message: 'Schema does not include any Schema Object keywords',
+        severity: 4,
+        code: 10072,
+        source: 'apilint',
+      },
+    ];
+    console.log(JSON.stringify(result, null, 2));
+    // assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();
   });

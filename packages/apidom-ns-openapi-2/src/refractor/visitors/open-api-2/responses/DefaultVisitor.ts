@@ -4,15 +4,10 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isResponseElement } from '../../../../predicates';
-import AlternatingVisitor, {
-  AlternatingVisitorOptions,
-  Alternator,
-} from '../../generics/AlternatingVisitor';
+import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
 class DefaultVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
-  protected declare readonly alternator: Alternator[];
-
   constructor(options: AlternatingVisitorOptions) {
     super(options);
     this.alternator = [

@@ -11,7 +11,7 @@ export interface AlternatingVisitorOptions extends SpecificationVisitorOptions {
 }
 
 class AlternatingVisitor extends SpecificationVisitor {
-  protected readonly alternator: Alternator[];
+  protected alternator: Alternator[];
 
   constructor({ alternator, ...rest }: AlternatingVisitorOptions) {
     super({ ...rest });

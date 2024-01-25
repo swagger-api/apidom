@@ -72,15 +72,12 @@ export class DefaultValidationService implements ValidationService {
   ): void {
     for (const tag of tags) {
       const pointer = [tag.tagName];
-      console.log('tagName', tag.tagName);
       let tagParent = tag.parent;
       while (tagParent) {
         pointer.unshift(tagParent.tagName);
         tagParent = tagParent.parent;
       }
-      console.log('pointer', pointer.join('.'));
       const exists = pathExists(codegenContext, pointer);
-      console.log('exists', exists, pointer.join('.'));
       if (!exists) {
         let location = { offset: tag.startIndex!, length: tag.endIndex! - tag.startIndex! };
         let range = Range.create(
@@ -125,7 +122,6 @@ export class DefaultValidationService implements ValidationService {
             diagnostics.push(diagnostic);
           }
         } else {
-          console.log('exists 2', exists, pointer.join('.'));
           const diagnostic = Diagnostic.create(
             range,
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -133,7 +129,6 @@ export class DefaultValidationService implements ValidationService {
             DiagnosticSeverity.Error,
             12345,
           );
-          console.log('exists 3', diagnostic);
           diagnostics.push(diagnostic);
         }
       }
@@ -180,7 +175,6 @@ export class DefaultValidationService implements ValidationService {
       // allTags = sortTags(allTags);
       DefaultValidationService.validateTags(textDocument, tags, diagnostics);
       perfEnd(PerfLabels.START);
-      console.log('diagnostics', diagnostics);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log('validation lint error', JSON.stringify(e), e);

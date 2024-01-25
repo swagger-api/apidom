@@ -189,10 +189,9 @@ export class DefaultCompletionService implements CompletionService {
     }
     console.log(pointer.join('.'));
     const rawSuggestions = findNestedPropertyKeys(codegenContext, pointer);
-    console.log(rawSuggestions);
 
     // let completionNode: Element | undefined;
-    if (rawSuggestions) {
+    if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
       const apidomCompletions: CompletionItem[] = [];
       for (const rawSuggestion of rawSuggestions) {
         const item: CompletionItem = {

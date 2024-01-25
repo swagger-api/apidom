@@ -15,10 +15,10 @@ import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
 const specCompletion = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'poc', 'test-template-short.mustache'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shortest.mustache'))
   .toString();
 
-describe('poc-ls-complete', function () {
+describe('handlebars-ls-complete', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     performanceLogs: logPerformance,
@@ -32,14 +32,14 @@ describe('poc-ls-complete', function () {
     languageService.terminate();
   });
 
-  it('mustache markdown - test completion', async function () {
+  it('handlebars markdown - test completion', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
     // valid spec
     const doc: TextDocument = TextDocument.create(
       'foo://bar/specCompletion.json',
-      'mustache',
+      'handlebars',
       0,
       specCompletion,
     );
@@ -47,8 +47,8 @@ describe('poc-ls-complete', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const completionTestInputValue = [
       'in empty variable tag',
-      2,
-      58,
+      0,
+      70,
       {
         items: [],
         isIncomplete: false,

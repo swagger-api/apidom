@@ -2,10 +2,25 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import { AnyObject } from './context';
 
-let delStart = '\\{\\{';
-let delEnd = '\\}\\}';
-let tagRegex = new RegExp(`${delStart}([#^\\/>=!]?)(.*?)${delEnd}`, 'g');
+let delStart = '\\{{2,3}';
+let delEnd = '\\}{2,3}';
+let tagRegex = new RegExp(`(${delStart})([#^\\/>=!]?)(.*?)(${delEnd})`, 'g');
 let processDelimeter = true;
+
+export function isObjectNode(node: AnyObject | undefined): boolean {
+  return node !== undefined && node !== null && typeof node === 'object' && !Array.isArray(node);
+}
+
+export function isNotObjectNode(node: AnyObject | undefined): boolean {
+  return node !== undefined && node !== null && typeof node !== 'object';
+}
+
+export function isArrayNode(node: AnyObject | undefined): boolean {
+  return node !== undefined && node !== null && Array.isArray(node);
+}
+export function isBooleanNode(node: AnyObject | undefined): boolean {
+  return node !== undefined && node !== null && typeof node === 'boolean';
+}
 
 export function parseMustacheTags(
   documentText: string,
@@ -45,10 +60,9 @@ export function parseMustacheTags(
   let match: RegExpExecArray | null;
   // eslint-disable-next-line no-cond-assign
   while ((match = tagRegex.exec(documentText)) !== null) {
-    const [wholeTag, tagSymbol, tagName] = match;
-    // console.log('1l', tagSymbol, tagName, wholeTag);
-    // console.log('tagName', tagName);
-    // console.log('wholeTag', match.index, wholeTag);
+    const [wholeTag, tagStartDelimeter, tagSymbol, tagName, tagEndDelimeter] = match;
+    const tagStartDelimeterLength = tagStartDelimeter.length;
+    const tagEndDelimeterLength = tagEndDelimeter.length;
     const startIndex = match.index;
     const endIndex = startIndex + wholeTag.length;
 
@@ -58,12 +72,20 @@ export function parseMustacheTags(
     // eslint-disable-next-line default-case
     switch (tagSymbol) {
       case '#':
+        if (tagName.trim().startsWith('@') || tagName.trim().startsWith('each')) {
+          // eslint-disable-next-line no-continue
+          continue;
+        }
         tagType = 'section';
         break;
       case '^':
         tagType = 'inverted';
         break;
       case '/':
+        if (tagName.trim().startsWith('@') || tagName.trim().startsWith('each')) {
+          // eslint-disable-next-line no-continue
+          continue;
+        }
         tagType = 'sectionClose';
         // eslint-disable-next-line no-case-declarations
         const tagSectionClose: MustacheTag = {
@@ -71,8 +93,8 @@ export function parseMustacheTags(
           tagName: tagName.trim(),
           startIndex,
           endIndex,
-          tagNameStartIndex: startIndex + 3,
-          tagNameEndIndex: endIndex - 2,
+          tagNameStartIndex: startIndex + tagStartDelimeterLength + 1,
+          tagNameEndIndex: endIndex - tagEndDelimeterLength,
           children: [],
         };
         closeOpenSectionsUntilMatch(tagName, endIndex, tagSectionClose);
@@ -89,7 +111,6 @@ export function parseMustacheTags(
           // eslint-disable-next-line no-continue
           continue;
         }
-        // console.log('delimeter change', wholeTag);
         processDelimeter = false;
         // eslint-disable-next-line no-case-declarations
         const regex = /=([^=]*) ([^=]*)=/;
@@ -101,8 +122,6 @@ export function parseMustacheTags(
           delStart = delMatch[1];
           // eslint-disable-next-line prefer-destructuring
           delEnd = delMatch[2];
-          // console.log("delStart value:", delStart);
-          // console.log("delEnd value:", delEnd);
           tagRegex = new RegExp(`${delStart}([#^\\/>=!]?)(.*?)${delEnd}`, 'g');
           delimeterChanged = true;
         }
@@ -116,11 +135,11 @@ export function parseMustacheTags(
       children: [],
     };
     if (tagType === 'variable') {
-      tag.tagNameStartIndex = startIndex + 2;
-      tag.tagNameEndIndex = endIndex - 2;
+      tag.tagNameStartIndex = startIndex + tagStartDelimeterLength;
+      tag.tagNameEndIndex = endIndex - tagEndDelimeterLength;
     } else {
-      tag.tagNameStartIndex = startIndex + 3;
-      tag.tagNameEndIndex = endIndex - 2;
+      tag.tagNameStartIndex = startIndex + tagStartDelimeterLength + 1;
+      tag.tagNameEndIndex = endIndex - tagEndDelimeterLength;
     }
     if (tagType === 'section' || tagType === 'inverted') {
       stack.push(tag);
@@ -209,12 +228,10 @@ export function getMustacheStrictTagInfoAtPosition(
   tags: MustacheTag[],
   position: number,
 ): MustacheTag | null {
-  console.log('getMustacheStrictTagInfoAtPosition', position);
   const allTags: MustacheTag[] = [];
   getAllMustacheTags(tags, allTags);
   let currentTag: MustacheTag | null = null;
   for (const tag of allTags) {
-    console.log('strictTag', tag.tagName, tag.startIndex, tag.endIndex);
     // @ts-ignore
     if (position >= tag.startIndex && position <= tag.endIndex) {
       if (!currentTag) {
@@ -223,7 +240,6 @@ export function getMustacheStrictTagInfoAtPosition(
         continue;
       }
       if (currentTag.startIndex! <= tag.startIndex! || currentTag.endIndex! >= tag.endIndex!) {
-        console.log('strictCurrentTag', tag.tagName, tag.startIndex, tag.endIndex);
         currentTag = tag;
       }
     }
@@ -303,15 +319,14 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
-
     // If current node is an array, use the first element
     if (Array.isArray(currentNode)) {
       currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
     }
-
     // Check if the key exists in the current node
-    if (currentNode && key in currentNode) {
-      currentNode = currentNode[key];
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    if (isObjectNode(currentNode) && key in currentNode!) {
+      currentNode = currentNode![key];
     } else {
       // If the key doesn't exist, search in ancestors
       let ancestor = bundle;
@@ -320,20 +335,18 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
         const ancestorKey = path[j];
         if (ancestorKey in ancestor) {
           ancestor = ancestor[ancestorKey];
-          if (key in ancestor) {
+          if (isObjectNode(ancestor) && key in ancestor) {
             currentNode = ancestor[key];
             break;
           }
         }
       }
-
       // If the key is not found in any ancestor, return "not object"
       if (!(key in ancestor)) {
         return 'not object';
       }
     }
   }
-
   // If the final node is an array, use the first element
   if (Array.isArray(currentNode)) {
     currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
@@ -367,37 +380,75 @@ export function markOverlappingTags(tags: MustacheTag[]): void {
 }
 
 export function pathExists(bundle: AnyObject, path: string[]): boolean {
-  console.log('pathExists', path.join('.'));
   let currentNode: AnyObject | undefined = bundle;
   if (path.length === 1) {
     return path[0] in currentNode;
   }
   const lastKey = path[path.length - 1];
-  console.log('lastKey', lastKey);
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
-    console.log('key', key);
-    // console.log('currentNode', currentNode);
     // If current node is an array, use the first element
     while (Array.isArray(currentNode)) {
       currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
     }
-    // console.log('currentNode after array', currentNode);
     // Check if the key exists in the current node
-
     if (
       currentNode !== undefined &&
       currentNode !== null &&
       typeof currentNode === 'object' &&
       key in currentNode
     ) {
-      currentNode = currentNode[key];
+      if (typeof currentNode[key] !== 'boolean') {
+        currentNode = currentNode[key];
+      }
+    } else if (
+      currentNode !== undefined &&
+      currentNode !== null &&
+      typeof currentNode === 'object' &&
+      !(key in currentNode)
+    ) {
+      // look if there is a boolean key in the ancestors
+      let ancestor = bundle;
+      let foundBooleanNodeInAncestors = false;
+      if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] === 'boolean') {
+        foundBooleanNodeInAncestors = true;
+      } else if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] !== 'boolean') {
+        ancestor = ancestor[key];
+      }
+      if (!foundBooleanNodeInAncestors) {
+        // eslint-disable-next-line no-plusplus
+        for (let j = 0; j < i; j++) {
+          const ancestorKey = path[j];
+          while (Array.isArray(ancestor)) {
+            ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+          }
+          if (
+            ancestor !== undefined &&
+            ancestor !== null &&
+            typeof ancestor === 'object' &&
+            ancestorKey in ancestor
+          ) {
+            if (typeof ancestor[ancestorKey] !== 'boolean') {
+              ancestor = ancestor[ancestorKey];
+            }
+            while (Array.isArray(ancestor)) {
+              ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+            }
+            // if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] === 'boolean') {
+            if (isObjectNode(ancestor) && key in ancestor) {
+              foundBooleanNodeInAncestors = true;
+              break;
+            }
+          }
+        }
+      }
+      if (!foundBooleanNodeInAncestors) {
+        return false;
+      }
     }
-    // console.log('currentNode end', currentNode);
   }
   if (currentNode === undefined || currentNode === null) {
-    console.log('currentNode is null');
     return false;
   }
   if (
@@ -406,29 +457,21 @@ export function pathExists(bundle: AnyObject, path: string[]): boolean {
     typeof currentNode === 'object' &&
     lastKey in currentNode
   ) {
-    console.log('lastKey exists');
     return true;
   }
 
   currentNode = bundle;
-  console.log('lastKey 1', lastKey);
-  console.log('currentNode 1', currentNode);
   if (
     currentNode !== undefined &&
     currentNode !== null &&
     typeof currentNode === 'object' &&
     lastKey in currentNode
   ) {
-    console.log('lastKey exists');
     return true;
   }
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];
-    console.log('key', key);
-    // If current node is an array, use the first element
-    // console.log('key', key);
-    // console.log('currentNode', currentNode);
     // Check if the key exists in the current node
     if (
       currentNode !== undefined &&
@@ -436,19 +479,20 @@ export function pathExists(bundle: AnyObject, path: string[]): boolean {
       typeof currentNode === 'object' &&
       key in currentNode
     ) {
-      currentNode = currentNode[key];
+      // currentNode = currentNode[key];
+      if (typeof currentNode[key] !== 'boolean') {
+        currentNode = currentNode[key];
+      }
     }
     while (Array.isArray(currentNode)) {
       currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
     }
-    console.log('currentNode 2', currentNode);
     if (
       currentNode !== undefined &&
       currentNode !== null &&
       typeof currentNode === 'object' &&
       lastKey in currentNode
     ) {
-      console.log('lastKey exists');
       return true;
     }
   }

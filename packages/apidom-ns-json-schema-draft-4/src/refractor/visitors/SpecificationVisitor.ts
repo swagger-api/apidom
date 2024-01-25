@@ -44,8 +44,11 @@ const SpecificationVisitor = stampit(Visitor, {
 
     retrieveVisitorInstance(specPath, options = {}) {
       const passingOpts = this.retrievePassingOptions();
+      const VisitorClz = this.retrieveVisitor(specPath) as typeof Visitor;
+      const visitorOpts = { ...passingOpts, ...options };
 
-      return this.retrieveVisitor(specPath)({ ...passingOpts, ...options });
+      // @ts-ignore
+      return new VisitorClz(visitorOpts);
     },
 
     toRefractedElement(specPath: string[], element, options = {}) {

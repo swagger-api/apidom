@@ -1,17 +1,16 @@
-import stampit from 'stampit';
-import { StringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
 
-const HostVisitor = stampit(FallbackVisitor, {
-  methods: {
-    StringElement(stringElement: StringElement) {
-      this.element = cloneDeep(stringElement);
-      this.element.classes.push('swagger-host');
+class HostVisitor extends FallbackVisitor {
+  public declare readonly element: StringElement;
 
-      return BREAK;
-    },
-  },
-});
+  StringElement(stringElement: StringElement) {
+    const result = super.enter(stringElement);
+    this.element.classes.push('swagger-host');
+
+    return result;
+  }
+}
 
 export default HostVisitor;

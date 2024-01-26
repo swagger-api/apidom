@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converter plugins spec-downgrade should downgrade OpenAPI specificaiton to 3.0.0 1`] = `
+Object {
+  openapi: 3.0.0,
+}
+`;

@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { always, defaultTo } from 'ramda';
-import { isNonEmptyString, isNull, isUndefined } from 'ramda-adjunct';
+import { isNonEmptyString, isUndefined } from 'ramda-adjunct';
 import {
   ObjectElement,
   ArrayElement,
@@ -98,10 +98,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
 
   private handle$schema(objectElement: ObjectElement): void {
     // handle $schema keyword in embedded resources
-    if (
-      (isNull(this.parent) || isUndefined(this.parent)) &&
-      !isStringElement(objectElement.get('$schema'))
-    ) {
+    if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // no parent available and no $schema is defined, set default jsonSchemaDialect
       this.element.setMetaProperty('inherited$schema', this.getJsonSchemaDialect());
     } else if (isSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
@@ -118,7 +115,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     // handle $id keyword in embedded resources
     // fetch parent's inherited$id
     const inherited$id =
-      this.parent !== null && this.parent !== undefined
+      this.parent !== undefined
         ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
         : new ArrayElement();
     // get current $id keyword

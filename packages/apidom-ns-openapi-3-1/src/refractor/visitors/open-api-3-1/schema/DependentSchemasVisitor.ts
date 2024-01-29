@@ -26,6 +26,7 @@ class DependentSchemasVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-dependentSchemas');
     this.specPath = always(['document', 'objects', 'Schema']);
+    this.passingOptionsNames.push('parent');
   }
 }
 

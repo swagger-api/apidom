@@ -26,7 +26,7 @@ class PropertiesVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, Fall
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-properties');
     this.specPath = always(['document', 'objects', 'Schema']);
-    console.log(this.specObj);
+    this.passingOptionsNames.push('parent');
   }
 }
 

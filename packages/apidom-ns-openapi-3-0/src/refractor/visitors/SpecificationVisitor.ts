@@ -43,7 +43,7 @@ class SpecificationVisitor extends Visitor {
   }
 
   retrievePassingOptions() {
-    return pick(this.passingOptionsNames as (keyof this)[], this);
+    return pick(this.passingOptionsNames as (keyof this)[], this) as unknown as string[];
   }
 
   retrieveFixedFields(specPath: string[]) {

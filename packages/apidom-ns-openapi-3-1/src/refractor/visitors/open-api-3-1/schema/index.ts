@@ -42,6 +42,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     this.specPath = always(['document', 'objects', 'Schema']);
     this.canSupportSpecificationExtensions = true;
     this.jsonSchemaDefaultDialect = JsonSchemaDialectElement.default;
+    this.passingOptionsNames.push('parent');
   }
 
   public ObjectElement(objectElement: ObjectElement) {

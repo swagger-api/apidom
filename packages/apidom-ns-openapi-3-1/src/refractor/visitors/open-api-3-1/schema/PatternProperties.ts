@@ -30,6 +30,7 @@ class PatternPropertiesVisitor extends Mixin(
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-patternProperties');
     this.specPath = always(['document', 'objects', 'Schema']);
+    this.passingOptionsNames.push('parent');
   }
 }
 

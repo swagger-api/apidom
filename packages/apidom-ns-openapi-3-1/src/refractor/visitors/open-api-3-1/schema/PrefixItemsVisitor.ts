@@ -25,6 +25,7 @@ class PrefixItemsVisitor extends Mixin(
     super(options);
     this.element = new ArrayElement();
     this.element.classes.push('json-schema-prefixItems');
+    this.passingOptionsNames.push('parent');
   }
 
   ArrayElement(arrayElement: ArrayElement) {

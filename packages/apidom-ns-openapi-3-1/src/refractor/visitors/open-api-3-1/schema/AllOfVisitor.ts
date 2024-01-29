@@ -21,6 +21,7 @@ class AllOfVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor,
     super(options);
     this.element = new ArrayElement();
     this.element.classes.push('json-schema-allOf');
+    this.passingOptionsNames.push('parent');
   }
 
   ArrayElement(arrayElement: ArrayElement) {

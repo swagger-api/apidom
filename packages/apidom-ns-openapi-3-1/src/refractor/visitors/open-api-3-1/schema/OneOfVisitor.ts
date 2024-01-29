@@ -21,6 +21,7 @@ class OneOfVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor,
     super(options);
     this.element = new ArrayElement();
     this.element.classes.push('json-schema-oneOf');
+    this.passingOptionsNames.push('parent');
   }
 
   ArrayElement(arrayElement: ArrayElement) {

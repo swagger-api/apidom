@@ -24,6 +24,7 @@ class $defsVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackV
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-$defs');
     this.specPath = always(['document', 'objects', 'Schema']);
+    this.passingOptionsNames.push('parent');
   }
 }
 

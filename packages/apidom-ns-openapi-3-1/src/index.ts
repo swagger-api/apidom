@@ -66,6 +66,8 @@ export {
   isServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
+export type { SchemaVisitorOptions } from './refractor/visitors/open-api-3-1/schema';
+
 export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 3.1.0 elements

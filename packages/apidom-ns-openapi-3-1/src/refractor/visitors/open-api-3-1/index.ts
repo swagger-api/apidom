@@ -1,28 +1,34 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  FixedFieldsVisitor,
+  FixedFieldsVisitorOptions,
+  FallbackVisitor,
+  SpecPath,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OpenApi3_1Element from '../../../elements/OpenApi3-1';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const OpenApi3_1Visitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'OpenApi']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
-    this.element = new OpenApi3_1Element();
-    this.openApiSemanticElement = this.element;
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.openApiGenericElement = objectElement;
+class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: OpenApi3_1Element;
 
-      // @ts-ignore
-      return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-    },
-  },
-});
+  public declare readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
+    this.element = new OpenApi3_1Element();
+    this.specPath = always(['document', 'objects', 'OpenApi']);
+    this.canSupportSpecificationExtensions = true;
+    this.openApiSemanticElement = this.element;
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    this.openApiGenericElement = objectElement;
+
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+  }
+}
 
 export default OpenApi3_1Visitor;

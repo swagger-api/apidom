@@ -1,38 +1,46 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { test, always } from 'ramda';
 import { ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import CallbackElement from '../../../../elements/Callback';
 import PathItemElement from '../../../../elements/PathItem';
-import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
+import PatternedFieldsVisitor, {
+  PatternedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
 import { isPathItemElement } from '../../../../predicates';
 
-const CallbackVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
-  props: {
-    fieldPatternPredicate: test(/{(?<expression>.*)}/),
-    specPath: always(['document', 'objects', 'PathItem']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: CallbackElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: PatternedFieldsVisitorOptions) {
+    super(options);
     this.element = new CallbackElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
+    this.specPath = always(['document', 'objects', 'PathItem']);
+    this.canSupportSpecificationExtensions = true;
+    // @ts-ignore
+    this.fieldPatternPredicate = test(/{(?<expression>.*)}/);
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // decorate every PathItemElement with Callback Object expression metadata
+    this.element
+      .filter(isPathItemElement)
       // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      .forEach((pathItemElement: PathItemElement, key: StringElement) => {
+        pathItemElement.setMetaProperty('runtime-expression', toValue(key));
+      });
 
-      // decorate every PathItemElement with Callback Object expression metadata
-      this.element
-        .filter(isPathItemElement)
-        .forEach((pathItemElement: PathItemElement, key: StringElement) => {
-          pathItemElement.setMetaProperty('runtime-expression', toValue(key));
-        });
-
-      return result;
-    },
-  },
-});
+    return result;
+  }
+}
 
 export default CallbackVisitor;

@@ -1,5 +1,3 @@
-import stampit from 'stampit';
-import { noop } from 'ramda-adjunct';
 import {
   isStringElement,
   MemberElement,
@@ -7,71 +5,84 @@ import {
   BREAK,
   cloneDeep,
   toValue,
+  ObjectElement,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import { isOpenApiExtension } from '../../predicates';
 
-const FixedFieldsVisitor = stampit(SpecificationVisitor, {
-  props: {
-    specPath: noop,
-    ignoredFields: [],
-    canSupportSpecificationExtensions: true,
-    specificationExtensionPredicate: isOpenApiExtension,
-  },
-  init({
-    // @ts-ignore
-    specPath = this.specPath,
-    // @ts-ignore
-    ignoredFields = this.ignoredFields,
-    // @ts-ignore
-    canSupportSpecificationExtensions = this.canSupportSpecificationExtensions,
-    // @ts-ignore
-    specificationExtensionPredicate = this.specificationExtensionPredicate,
-  } = {}) {
+export type SpecPath<T = string[]> = (element: unknown) => T;
+
+export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
+  readonly specPath: SpecPath;
+  readonly ignoredFields?: string[];
+  readonly canSupportSpecificationExtensions?: boolean;
+  readonly specificationExtensionPredicate?: typeof isOpenApiExtension;
+}
+
+class FixedFieldsVisitor extends SpecificationVisitor {
+  public specPath: SpecPath;
+
+  public ignoredFields: string[];
+
+  public canSupportSpecificationExtensions: boolean = true;
+
+  public specificationExtensionPredicate = isOpenApiExtension;
+
+  constructor({
+    specPath,
+    ignoredFields,
+    canSupportSpecificationExtensions,
+    specificationExtensionPredicate,
+    ...rest
+  }: FixedFieldsVisitorOptions) {
+    super({ ...rest });
     this.specPath = specPath;
-    this.ignoredFields = ignoredFields;
-    this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
-    this.specificationExtensionPredicate = specificationExtensionPredicate;
-  },
-  methods: {
-    ObjectElement(objectElement) {
-      const specPath = this.specPath(objectElement);
-      const fields = this.retrieveFixedFields(specPath);
+    this.ignoredFields = ignoredFields || [];
 
-      objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
-        if (
-          isStringElement(key) &&
-          fields.includes(toValue(key)) &&
-          !this.ignoredFields.includes(toValue(key))
-        ) {
-          const fixedFieldElement = this.toRefractedElement(
-            [...specPath, 'fixedFields', toValue(key)],
-            value,
-          );
-          const newMemberElement = new MemberElement(cloneDeep(key), fixedFieldElement);
-          this.copyMetaAndAttributes(memberElement, newMemberElement);
-          newMemberElement.classes.push('fixed-field');
-          this.element.content.push(newMemberElement);
-        } else if (
-          this.canSupportSpecificationExtensions &&
-          this.specificationExtensionPredicate(memberElement)
-        ) {
-          const extensionElement = this.toRefractedElement(
-            ['document', 'extension'],
-            memberElement,
-          );
-          this.element.content.push(extensionElement);
-        } else if (!this.ignoredFields.includes(toValue(key))) {
-          this.element.content.push(cloneDeep(memberElement));
-        }
-      });
+    if (typeof canSupportSpecificationExtensions === 'boolean') {
+      this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
+    }
 
-      this.copyMetaAndAttributes(objectElement, this.element);
+    if (typeof specificationExtensionPredicate === 'function') {
+      this.specificationExtensionPredicate = specificationExtensionPredicate;
+    }
+  }
 
-      return BREAK;
-    },
-  },
-});
+  ObjectElement(objectElement: ObjectElement) {
+    const specPath = this.specPath(objectElement);
+    const fields = this.retrieveFixedFields(specPath);
+
+    // @ts-ignore
+    objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
+      if (
+        isStringElement(key) &&
+        fields.includes(toValue(key)) &&
+        !this.ignoredFields.includes(toValue(key))
+      ) {
+        const fixedFieldElement = this.toRefractedElement(
+          [...specPath, 'fixedFields', toValue(key)],
+          value,
+        );
+        const newMemberElement = new MemberElement(cloneDeep(key), fixedFieldElement);
+        this.copyMetaAndAttributes(memberElement, newMemberElement);
+        newMemberElement.classes.push('fixed-field');
+        this.element.content.push(newMemberElement);
+      } else if (
+        this.canSupportSpecificationExtensions &&
+        this.specificationExtensionPredicate(memberElement)
+      ) {
+        const extensionElement = this.toRefractedElement(['document', 'extension'], memberElement);
+        this.element.content.push(extensionElement);
+      } else if (!this.ignoredFields.includes(toValue(key))) {
+        this.element.content.push(cloneDeep(memberElement));
+      }
+    });
+
+    this.copyMetaAndAttributes(objectElement, this.element);
+
+    return BREAK;
+  }
+}
 
 export default FixedFieldsVisitor;

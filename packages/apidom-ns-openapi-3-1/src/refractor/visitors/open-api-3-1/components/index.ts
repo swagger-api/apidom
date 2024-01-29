@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ComponentsElement from '../../../../elements/Components';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const ComponentsVisitor = stampit(BaseComponentsVisitor, {
-  init() {
+class ComponentsVisitor extends BaseComponentsVisitor {
+  public declare readonly element: ComponentsElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new ComponentsElement();
-  },
-});
+  }
+}
 
 export default ComponentsVisitor;

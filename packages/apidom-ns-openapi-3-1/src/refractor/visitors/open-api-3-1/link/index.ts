@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import LinkElement from '../../../../elements/Link';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const LinkVisitor = stampit(BaseLinkVisitor, {
-  init() {
+class LinkVisitor extends BaseLinkVisitor {
+  public declare readonly element: LinkElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new LinkElement();
-  },
-});
+  }
+}
 
 export default LinkVisitor;

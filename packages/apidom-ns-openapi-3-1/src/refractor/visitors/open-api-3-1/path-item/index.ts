@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import PathItemElement from '../../../../elements/PathItem';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const PathItemVisitor = stampit(BasePathItemVisitor, {
-  init() {
+class PathItemVisitor extends BasePathItemVisitor {
+  public declare readonly element: PathItemElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new PathItemElement();
-  },
-});
+  }
+}
 
 export default PathItemVisitor;

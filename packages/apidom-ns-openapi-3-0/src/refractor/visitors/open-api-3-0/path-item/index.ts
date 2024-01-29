@@ -1,4 +1,4 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import {
   StringElement,
@@ -11,38 +11,43 @@ import {
 import PathItemElement from '../../../../elements/PathItem';
 import OperationElement from '../../../../elements/Operation';
 import { isOperationElement } from '../../../../predicates';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const PathItemVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'PathItem']),
-  },
-  init() {
+class PathItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: PathItemElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new PathItemElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
+    this.specPath = always(['document', 'objects', 'PathItem']);
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // decorate Operation elements with HTTP method
+    this.element
+      .filter(isOperationElement)
       // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
+        const httpMethodElementCS = cloneDeep(httpMethodElementCI);
+        httpMethodElementCS.content = toValue(httpMethodElementCS).toUpperCase();
+        operationElement.setMetaProperty('http-method', httpMethodElementCS);
+      });
 
-      // decorate Operation elements with HTTP method
-      this.element
-        .filter(isOperationElement)
-        .forEach((operationElement: OperationElement, httpMethodElementCI: StringElement) => {
-          const httpMethodElementCS = cloneDeep(httpMethodElementCI);
-          httpMethodElementCS.content = toValue(httpMethodElementCS).toUpperCase();
-          operationElement.setMetaProperty('http-method', httpMethodElementCS);
-        });
+    // mark this PathItemElement with reference metadata
+    if (isStringElement(this.element.$ref)) {
+      this.element.classes.push('reference-element');
+    }
 
-      // mark this PathItemElement with reference metadata
-      if (isStringElement(this.element.$ref)) {
-        this.element.classes.push('reference-element');
-      }
-
-      return result;
-    },
-  },
-});
+    return result;
+  }
+}
 
 export default PathItemVisitor;

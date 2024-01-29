@@ -1,16 +1,15 @@
-import stampit from 'stampit';
-import { ObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 import { FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
 
-const $vocabularyVisitor = stampit(FallbackVisitor, {
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.element = cloneDeep(objectElement);
-      this.element.classes.push('json-schema-$vocabulary');
+class $vocabularyVisitor extends FallbackVisitor {
+  public declare readonly element: ObjectElement;
 
-      return BREAK;
-    },
-  },
-});
+  ObjectElement(objectElement: ObjectElement) {
+    const result = super.enter(objectElement);
+    this.element.classes.push('json-schema-$vocabulary');
+
+    return result;
+  }
+}
 
 export default $vocabularyVisitor;

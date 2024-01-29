@@ -1,36 +1,41 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsRequestBodiesElement from '../../../../elements/nces/ComponentsRequestBodies';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const RequestBodiesVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
+class RequestBodiesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsRequestBodiesElement;
+
+  public declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'RequestBody']
+  >;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
+    this.element = new ComponentsRequestBodiesElement();
+    this.specPath = (element: unknown) => {
+      // @ts-ignore
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'RequestBody'];
-    },
-  },
-  init() {
-    this.element = new ComponentsRequestBodiesElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'requestBody');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'requestBody');
+    });
+
+    return result;
+  }
+}
 
 export default RequestBodiesVisitor;

@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
 import PathItemServersElement from '../../../../elements/nces/PathItemServers';
-import BaseServersVisitor from '../ServersVisitor';
+import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor';
 
-const ServersVisitor = stampit(BaseServersVisitor, {
-  init() {
+class ServersVisitor extends BaseServersVisitor {
+  public declare readonly element: PathItemServersElement;
+
+  constructor(options: ServersVisitorOptions) {
+    super(options);
     this.element = new PathItemServersElement();
-  },
-});
+  }
+}
 
 export default ServersVisitor;

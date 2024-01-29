@@ -1,14 +1,19 @@
-import stampit from 'stampit';
+import { Element } from '@swagger-api/apidom-core';
 
-const ParentSchemaAwareVisitor = stampit({
-  props: {
-    parent: null,
-  },
-  // @ts-ignore
-  init({ parent = this.parent }) {
+export interface ParentSchemaAwareVisitorOptions {
+  readonly parent: Element;
+  readonly passingOptionsNames?: string[];
+}
+
+class ParentSchemaAwareVisitor {
+  public parent!: Element;
+
+  public passingOptionsNames: string[];
+
+  constructor({ parent, passingOptionsNames = [] }: ParentSchemaAwareVisitorOptions) {
     this.parent = parent;
-    this.passingOptionsNames = [...this.passingOptionsNames, 'parent'];
-  },
-});
+    this.passingOptionsNames = [...passingOptionsNames, 'parent'];
+  }
+}
 
 export default ParentSchemaAwareVisitor;

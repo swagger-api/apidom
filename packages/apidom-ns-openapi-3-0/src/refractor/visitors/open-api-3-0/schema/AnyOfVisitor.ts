@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { ArrayElement } from '@swagger-api/apidom-core';
 import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
@@ -8,7 +7,7 @@ import { isReferenceElement } from '../../../../predicates';
 const { anyOf: JSONSchemaAnyOfVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const AnyOfVisitor = stampit(JSONSchemaAnyOfVisitor, {
+const AnyOfVisitor = JSONSchemaAnyOfVisitor.compose({
   methods: {
     ArrayElement(arrayElement: ArrayElement) {
       // @ts-ignore

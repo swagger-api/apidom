@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
 import OperationParametersElement from '../../../../elements/nces/OperationParameters';
-import BaseParametersVisitor from '../ParametersVisitor';
+import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
 
-const ParametersVisitor = stampit(BaseParametersVisitor, {
-  init() {
+class ParametersVisitor extends BaseParametersVisitor {
+  public declare readonly element: OperationParametersElement;
+
+  constructor(options: ParametersVisitorOptions) {
+    super(options);
     this.element = new OperationParametersElement();
-  },
-});
+  }
+}
 
 export default ParametersVisitor;

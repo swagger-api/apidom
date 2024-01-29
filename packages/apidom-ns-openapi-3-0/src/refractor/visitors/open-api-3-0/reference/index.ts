@@ -1,32 +1,38 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { ObjectElement, isStringElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ReferenceVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Reference']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: ReferenceElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'Reference']>;
+
+  public declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new ReferenceElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    this.specPath = always(['document', 'objects', 'Reference']);
+    this.canSupportSpecificationExtensions = false;
+  }
 
-      // mark this ReferenceElement with reference metadata
-      if (isStringElement(this.element.$ref)) {
-        this.element.classes.push('reference-element');
-      }
+  ObjectElement(objectElement: ObjectElement) {
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // mark this ReferenceElement with reference metadata
+    if (isStringElement(this.element.$ref)) {
+      this.element.classes.push('reference-element');
+    }
+
+    return result;
+  }
+}
 
 export default ReferenceVisitor;

@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  MapVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import SecurityRequirementElement from '../../../../elements/SecurityRequirement';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const SecurityRequirementVisitor = stampit(BaseSecurityRequirementVisitor, {
-  init() {
+class SecurityRequirementVisitor extends BaseSecurityRequirementVisitor {
+  public declare readonly element: SecurityRequirementElement;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
     this.element = new SecurityRequirementElement();
-  },
-});
+  }
+}
 
 export default SecurityRequirementVisitor;

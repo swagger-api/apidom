@@ -69,6 +69,17 @@ export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor
 export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
 export { default as Visitor } from './refractor/visitors/Visitor';
 
+export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor';
+export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor';
+export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor';
+export type { MixedFieldsVisitorOptions } from './refractor/visitors/generics/MixedFieldsVisitor';
+export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor';
+export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
+export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
+export type { VisitorOptions } from './refractor/visitors/Visitor';
+
+export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor';
+
 export { keyMap, getNodeType } from './traversal/visitor';
 
 // OpenAPI 3.0.x elements

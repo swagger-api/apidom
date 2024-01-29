@@ -20,15 +20,9 @@ import ReferenceDescriptionVisitor from './visitors/open-api-3-1/reference/Descr
 import ParameterVisitor from './visitors/open-api-3-1/parameter';
 import HeaderVisitor from './visitors/open-api-3-1/header';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
-import Schema$schemaVisitor from './visitors/open-api-3-1/schema/$schemaVisitor';
 import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor';
-import Schema$idVisitor from './visitors/open-api-3-1/schema/$idVisitor';
-import Schema$anchorVisitor from './visitors/open-api-3-1/schema/$anchorVisitor';
-import Schema$dynamicAnchorVisitor from './visitors/open-api-3-1/schema/$dynamicAnchorVisitor';
-import Schema$dynamicRefVisitor from './visitors/open-api-3-1/schema/$dynamicRefVisitor';
 import Schema$refVisitor from './visitors/open-api-3-1/schema/$refVisitor';
 import Schema$defsVisitor from './visitors/open-api-3-1/schema/$defsVisitor';
-import Schema$commentVisitor from './visitors/open-api-3-1/schema/$commentVisitor';
 import SchemaAllOfVisitor from './visitors/open-api-3-1/schema/AllOfVisitor';
 import SchemaAnyOfVisitor from './visitors/open-api-3-1/schema/AnyOfVisitor';
 import SchemaOneOfVisitor from './visitors/open-api-3-1/schema/OneOfVisitor';
@@ -38,35 +32,8 @@ import SchemaPropertiesVisitor from './visitors/open-api-3-1/schema/PropertiesVi
 import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternProperties';
 import SchemaTypeVisitor from './visitors/open-api-3-1/schema/TypeVisitor';
 import SchemaEnumVisitor from './visitors/open-api-3-1/schema/EnumVisitor';
-import SchemaConstVisitor from './visitors/open-api-3-1/schema/ConstVisitor';
-import SchemaMultipleOfVisitor from './visitors/open-api-3-1/schema/MultipleOfVisitor';
-import SchemaMaximumVisitor from './visitors/open-api-3-1/schema/MaximumVisitor';
-import SchemaExclusiveMaximumVisitor from './visitors/open-api-3-1/schema/ExclusiveMaximumVisitor';
-import SchemaMinimumVisitor from './visitors/open-api-3-1/schema/MinimumVisitor';
-import SchemaExclusiveMinimumVisitor from './visitors/open-api-3-1/schema/ExclusiveMinimumVisitor';
-import SchemaMaxLengthVisitor from './visitors/open-api-3-1/schema/MaxLengthVisitor';
-import SchemaMinLengthVisitor from './visitors/open-api-3-1/schema/MinLengthVisitor';
-import SchemaPatternVisitor from './visitors/open-api-3-1/schema/PatternVisitor';
-import SchemaMaxItemsVisitor from './visitors/open-api-3-1/schema/MaxItemsVisitor';
-import SchemaMinItemsVisitor from './visitors/open-api-3-1/schema/MinItemsVisitor';
-import SchemaUniqueItemsVisitor from './visitors/open-api-3-1/schema/UniqueItemsVisitor';
-import SchemaMaxContainsVisitor from './visitors/open-api-3-1/schema/MaxContainsVisitor';
-import SchemaMinContainsVisitor from './visitors/open-api-3-1/schema/MinContainsVisitor';
-import SchemaMaxPropertiesVisitor from './visitors/open-api-3-1/schema/MaxPropertiesVisitor';
-import SchemaMinPropertiesVisitor from './visitors/open-api-3-1/schema/MinPropertiesVisitor';
-import SchemaRequiredVisitor from './visitors/open-api-3-1/schema/RequiredVisitor';
 import SchemaDependentRequiredVisitor from './visitors/open-api-3-1/schema/DependentRequiredVisitor';
-import SchemaTitleVisitor from './visitors/open-api-3-1/schema/TitleVisitor';
-import SchemaDescriptionVisitor from './visitors/open-api-3-1/schema/DescriptionVisitor';
-import SchemaDefaultVisitor from './visitors/open-api-3-1/schema/DefaultVisitor';
-import SchemaDeprecatedVisitor from './visitors/open-api-3-1/schema/DeprecatedVisitor';
-import SchemaReadOnlyVisitor from './visitors/open-api-3-1/schema/ReadOnlyVisitor';
-import SchemaWriteOnlyVisitor from './visitors/open-api-3-1/schema/WriteOnlyVisitor';
 import SchemaExamplesVisitor from './visitors/open-api-3-1/schema/ExamplesVisitor';
-import SchemaFormatVisitor from './visitors/open-api-3-1/schema/FormatVisitor';
-import SchemaContentEncodingVisitor from './visitors/open-api-3-1/schema/ContentEncodingVisitor';
-import SchemaContentMediaTypeVisitor from './visitors/open-api-3-1/schema/ContentMediaTypeVisitor';
-import SchemaExampleVisitor from './visitors/open-api-3-1/schema/ExampleVisitor';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator';
 import XmlVisitor from './visitors/open-api-3-1/xml';
 import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor';
@@ -94,7 +61,7 @@ import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
-const specification = {
+const specification: any = {
   visitors: {
     value: OpenApi3_0Specification.visitors.value,
     document: {
@@ -442,15 +409,15 @@ const specification = {
           $visitor: SchemaVisitor,
           fixedFields: {
             // core vocabulary
-            $schema: Schema$schemaVisitor,
+            $schema: { $ref: '#/visitors/value' },
             $vocabulary: Schema$vocabularyVisitor,
-            $id: Schema$idVisitor,
-            $anchor: Schema$anchorVisitor,
-            $dynamicAnchor: Schema$dynamicAnchorVisitor,
-            $dynamicRef: Schema$dynamicRefVisitor,
+            $id: { $ref: '#/visitors/value' },
+            $anchor: { $ref: '#/visitors/value' },
+            $dynamicAnchor: { $ref: '#/visitors/value' },
+            $dynamicRef: { $ref: '#/visitors/value' },
             $ref: Schema$refVisitor,
             $defs: Schema$defsVisitor,
-            $comment: Schema$commentVisitor,
+            $comment: { $ref: '#/visitors/value' },
             // applicator vocabulary
             allOf: SchemaAllOfVisitor,
             anyOf: SchemaAnyOfVisitor,
@@ -494,41 +461,41 @@ const specification = {
             // validation Keywords for Any Instance Type
             type: SchemaTypeVisitor,
             enum: SchemaEnumVisitor,
-            const: SchemaConstVisitor,
+            const: { $ref: '#/visitors/value' },
             // validation Keywords for Numeric Instances (number and integer)
-            multipleOf: SchemaMultipleOfVisitor,
-            maximum: SchemaMaximumVisitor,
-            exclusiveMaximum: SchemaExclusiveMaximumVisitor,
-            minimum: SchemaMinimumVisitor,
-            exclusiveMinimum: SchemaExclusiveMinimumVisitor,
+            multipleOf: { $ref: '#/visitors/value' },
+            maximum: { $ref: '#/visitors/value' },
+            exclusiveMaximum: { $ref: '#/visitors/value' },
+            minimum: { $ref: '#/visitors/value' },
+            exclusiveMinimum: { $ref: '#/visitors/value' },
             // validation Keywords for Strings
-            maxLength: SchemaMaxLengthVisitor,
-            minLength: SchemaMinLengthVisitor,
-            pattern: SchemaPatternVisitor,
+            maxLength: { $ref: '#/visitors/value' },
+            minLength: { $ref: '#/visitors/value' },
+            pattern: { $ref: '#/visitors/value' },
             // validation Keywords for Arrays
-            maxItems: SchemaMaxItemsVisitor,
-            minItems: SchemaMinItemsVisitor,
-            uniqueItems: SchemaUniqueItemsVisitor,
-            maxContains: SchemaMaxContainsVisitor,
-            minContains: SchemaMinContainsVisitor,
+            maxItems: { $ref: '#/visitors/value' },
+            minItems: { $ref: '#/visitors/value' },
+            uniqueItems: { $ref: '#/visitors/value' },
+            maxContains: { $ref: '#/visitors/value' },
+            minContains: { $ref: '#/visitors/value' },
             // validation Keywords for Objects
-            maxProperties: SchemaMaxPropertiesVisitor,
-            minProperties: SchemaMinPropertiesVisitor,
-            required: SchemaRequiredVisitor,
+            maxProperties: { $ref: '#/visitors/value' },
+            minProperties: { $ref: '#/visitors/value' },
+            required: { $ref: '#/visitors/value' },
             dependentRequired: SchemaDependentRequiredVisitor,
             // basic Meta-Data Annotations vocabulary
-            title: SchemaTitleVisitor,
-            description: SchemaDescriptionVisitor,
-            default: SchemaDefaultVisitor,
-            deprecated: SchemaDeprecatedVisitor,
-            readOnly: SchemaReadOnlyVisitor,
-            writeOnly: SchemaWriteOnlyVisitor,
+            title: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            default: { $ref: '#/visitors/value' },
+            deprecated: { $ref: '#/visitors/value' },
+            readOnly: { $ref: '#/visitors/value' },
+            writeOnly: { $ref: '#/visitors/value' },
             examples: SchemaExamplesVisitor,
             // semantic Content With "format" vocabulary
-            format: SchemaFormatVisitor,
+            format: { $ref: '#/visitors/value' },
             // contents of String-Encoded Data vocabulary
-            contentEncoding: SchemaContentEncodingVisitor,
-            contentMediaType: SchemaContentMediaTypeVisitor,
+            contentEncoding: { $ref: '#/visitors/value' },
+            contentMediaType: { $ref: '#/visitors/value' },
             contentSchema: {
               $ref: '#/visitors/document/objects/Schema',
             },
@@ -542,7 +509,7 @@ const specification = {
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
-            example: SchemaExampleVisitor,
+            example: { $ref: '#/visitors/value' },
           },
         },
         Discriminator: {

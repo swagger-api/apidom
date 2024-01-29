@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OAuthFlowElement from '../../../../elements/OAuthFlow';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const OAuthFlowVisitor = stampit(BaseOAuthFlowVisitor, {
-  init() {
+class OAuthFlowVisitor extends BaseOAuthFlowVisitor {
+  public declare readonly element: OAuthFlowElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new OAuthFlowElement();
-  },
-});
+  }
+}
 
 export default OAuthFlowVisitor;

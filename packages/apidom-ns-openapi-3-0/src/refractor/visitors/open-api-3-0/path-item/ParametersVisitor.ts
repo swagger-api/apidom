@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
 import PathItemParametersElement from '../../../../elements/nces/PathItemParameters';
-import BaseParametersVisitor from '../ParametersVisitor';
+import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
 
-const ParametersVisitor = stampit(BaseParametersVisitor, {
-  init() {
+class ParametersVisitor extends BaseParametersVisitor {
+  public declare readonly element: PathItemParametersElement;
+
+  constructor(options: ParametersVisitorOptions) {
+    super(options);
     this.element = new PathItemParametersElement();
-  },
-});
+  }
+}
 
 export default ParametersVisitor;

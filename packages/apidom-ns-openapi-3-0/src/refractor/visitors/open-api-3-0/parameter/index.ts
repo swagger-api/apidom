@@ -1,38 +1,45 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { isObjectElement, ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import ParameterElement from '../../../../elements/Parameter';
 import MediaTypeElement from '../../../../elements/MediaType';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isMediaTypeElement } from '../../../../predicates';
 
-const ParameterVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Parameter']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: ParameterElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
+
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new ParameterElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    this.specPath = always(['document', 'objects', 'Parameter']);
+    this.canSupportSpecificationExtensions = true;
+  }
 
-      // decorate every MediaTypeElement with media type metadata
-      if (isObjectElement(this.element.contentProp)) {
-        this.element.contentProp
-          .filter(isMediaTypeElement)
-          .forEach((mediaTypeElement: MediaTypeElement, key: StringElement) => {
-            mediaTypeElement.setMetaProperty('media-type', toValue(key));
-          });
-      }
+  ObjectElement(objectElement: ObjectElement) {
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // decorate every MediaTypeElement with media type metadata
+    if (isObjectElement(this.element.contentProp)) {
+      this.element.contentProp
+        .filter(isMediaTypeElement)
+        // @ts-ignore
+        .forEach((mediaTypeElement: MediaTypeElement, key: StringElement) => {
+          mediaTypeElement.setMetaProperty('media-type', toValue(key));
+        });
+    }
+
+    return result;
+  }
+}
 
 export default ParameterVisitor;

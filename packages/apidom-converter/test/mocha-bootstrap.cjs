@@ -1,6 +1,6 @@
 require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
 
-const { options } = require('@swagger-api/apidom-reference');
+const { options } = require('@swagger-api/apidom-reference'); // eslint-disable-line import/no-unresolved
 const chai = require('chai');
 const { jestSnapshotPlugin, addSerializer } = require('mocha-chai-jest-snapshot');
 

@@ -55,7 +55,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
-    "swagger-adjust": "^0.6.1",
+    "swagger-adjust": "^0.7.0",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {
@@ -64,6 +64,7 @@
     "@testing-library/user-event": "^14.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "react-scripts": "=5.0.1",
+    "react-dev-utils": "^3.0.2",
     "@babel/plugin-proposal-private-property-in-object": "=7.21.11",
     "rewire": "^7.0.0",
     "sass": "^1.55.0"

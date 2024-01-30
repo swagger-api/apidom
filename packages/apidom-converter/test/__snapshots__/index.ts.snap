@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`apidom-converter convert given URI should convert 1`] = `
+{
+  "openapi": "3.0.3"
+}
+`;
+
+exports[`apidom-converter convertApiDOM given ApiDOM data should convert 1`] = `
+{
+  "openapi": "3.0.3"
+}
+`;

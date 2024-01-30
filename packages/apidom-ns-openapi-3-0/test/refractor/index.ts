@@ -3,8 +3,17 @@ import path from 'node:path';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
+import {
+  InfoElement as Info31Element,
+  OpenApi3_1Element,
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { OpenApi3_0Element, OpenapiElement, isOpenapiElement } from '../../src';
+import {
+  OpenApi3_0Element,
+  OpenapiElement,
+  InfoElement as Info30Element,
+  isOpenapiElement,
+} from '../../src';
 import * as predicates from '../../src/predicates';
 
 describe('refractor', function () {
@@ -18,6 +27,17 @@ describe('refractor', function () {
       const openApiElement = OpenApi3_0Element.refract(genericObjectElement);
 
       expect(openApiElement).toMatchSnapshot();
+    });
+  });
+
+  context('given semantic ApiDOM object in OpenAPI 3.1.0 shape', function () {
+    specify('should refract to OpenApi 3.0', function () {
+      const openApi31Element = OpenApi3_1Element.refract({ openapi: '3.1.0', info: {} });
+      const openApi30Element = OpenApi3_0Element.refract(openApi31Element) as OpenApi3_0Element;
+
+      assert.isTrue(openApi30Element.info instanceof Info30Element);
+      assert.isTrue(openApi30Element.info instanceof Info30Element);
+      assert.isFalse(openApi30Element.info instanceof Info31Element);
     });
   });
 

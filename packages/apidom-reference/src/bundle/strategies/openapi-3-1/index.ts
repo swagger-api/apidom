@@ -1,8 +1,9 @@
 import stampit from 'stampit';
-import { NotImplementedError } from '@swagger-api/apidom-error';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { mediaTypes, isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import BundleStrategy from '../BundleStrategy';
-import { BundleStrategy as IBundleStrategy } from '../../../types';
+import { BundleStrategy as IBundleStrategy, File as IFile } from '../../../types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1BundleStrategy: stampit.Stamp<IBundleStrategy> = stampit(BundleStrategy, {
@@ -10,14 +11,18 @@ const OpenApi3_1BundleStrategy: stampit.Stamp<IBundleStrategy> = stampit(BundleS
     this.name = 'openapi-3-1';
   },
   methods: {
-    canBundle(): boolean {
-      return false;
+    canBundle(file: IFile): boolean {
+      // assert by media type
+      if (file.mediaType !== 'text/plain') {
+        return mediaTypes.includes(file.mediaType);
+      }
+
+      // assert by inspecting ApiDOM
+      return isOpenApi3_1Element(file.parseResult?.result);
     },
 
-    async bundle(): Promise<void> {
-      throw new NotImplementedError(
-        'bundle method in OpenApi3_1BundleStrategy stamp is not yet implemented.',
-      );
+    async bundle(file: IFile): Promise<ParseResultElement> {
+      return file.parseResult;
     },
   },
 });

@@ -22,6 +22,8 @@ export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy
 export { default as DereferenceStrategy } from './dereference/strategies/DereferenceStrategy';
 export { AncestorLineage as DereferenceAncestorLineage } from './dereference/util';
 
+export { default as BundleStrategy } from './bundle/strategies/BundleStrategy';
+
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';
 

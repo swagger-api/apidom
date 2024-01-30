@@ -80,7 +80,7 @@ export interface ReferenceSet {
   clean(): void;
 }
 
-export interface ReferenceParserOptions {
+export interface ReferenceParseOptions {
   mediaType: string;
   parsers: Array<Parser>;
   parserOpts: Record<string, any>;
@@ -108,7 +108,7 @@ export interface ReferenceBundleOptions {
 }
 
 export interface ReferenceOptions {
-  readonly parse: ReferenceParserOptions;
+  readonly parse: ReferenceParseOptions;
   readonly resolve: ReferenceResolveOptions;
   readonly dereference: ReferenceDereferenceOptions;
   readonly bundle: ReferenceBundleOptions;

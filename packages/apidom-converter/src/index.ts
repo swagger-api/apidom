@@ -1,15 +1,36 @@
-import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { ParseResultElement } from '@swagger-api/apidom-core';
+import { mergeOptions, bundle, File } from '@swagger-api/apidom-reference';
 
-import getOpenAPIRefractor from './get-refractor';
-import getPluginsBySpec from './plugins/get-plugins-by-spec';
+import defaultOptions, { ConverterOptions } from './options';
+import ConvertError from './errors/ConvertError';
+import UnmatchedConvertStrategyError from './errors/UnmatchedConvertStrategyError';
 
-const convert = async (yaml: string, from: string) => {
-  const apiDOM = await parse(yaml);
-  const refractor = getOpenAPIRefractor(from);
-  const openApiElement = refractor.refract(apiDOM.result, {
-    plugins: [...getPluginsBySpec(from)],
-  }) as unknown as typeof refractor;
-  return openApiElement;
+export { ConvertError, UnmatchedConvertStrategyError };
+
+/**
+ * `convertApiDOM` already assumes that the ApiDOM is bundled.
+ */
+export const convertApiDOM = async (element: ParseResultElement, options = {}) => {
+  const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
+  const file = File({
+    uri: mergedOptions.resolve.baseURI,
+    parseResult: element,
+    mediaType: mergedOptions.convert.sourceMediaType || mergedOptions.parse.mediaType,
+  });
+  const strategy = mergedOptions.convert.strategies.find((s) => s.canConvert(file, mergedOptions));
+
+  if (typeof strategy === 'undefined') {
+    throw new UnmatchedConvertStrategyError(file.uri);
+  }
+
+  return strategy.convert(file, mergedOptions);
+};
+
+const convert = async (uri: string, options = {}) => {
+  const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
+  const parseResult = await bundle(uri, mergedOptions);
+
+  return convertApiDOM(parseResult, mergedOptions);
 };
 
 export default convert;

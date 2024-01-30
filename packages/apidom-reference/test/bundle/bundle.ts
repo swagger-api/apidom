@@ -1,8 +1,9 @@
 import path from 'node:path';
 import { assert } from 'chai';
+import { isParseResultElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { bundle, UnmatchedBundleStrategyError } from '../../src';
+import { bundle } from '../../src';
 
 describe('bundle', function () {
   const fixturePath = path.join(
@@ -17,14 +18,11 @@ describe('bundle', function () {
 
   context('bundle', function () {
     specify('should bundle a file', async function () {
-      try {
-        await bundle(rootFilePath, {
-          parse: { mediaType: mediaTypes.latest('json') },
-        });
-        assert.fail('should throw UnmatchedBundleStrategyError');
-      } catch (error) {
-        assert.instanceOf(error, UnmatchedBundleStrategyError);
-      }
+      const bundled = await bundle(rootFilePath, {
+        parse: { mediaType: mediaTypes.latest('json') },
+      });
+
+      assert.isTrue(isParseResultElement(bundled));
     });
   });
 });

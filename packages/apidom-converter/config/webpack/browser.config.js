@@ -17,9 +17,18 @@ const browser = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+    },
   },
   module: {
     rules: [
+      {
+        test: /\.wasm$/,
+        loader: 'file-loader',
+        type: 'javascript/auto',
+      },
       {
         test: /\.(ts|js)?$/,
         exclude: /node_modules/,
@@ -48,9 +57,18 @@ const browserMin = {
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false,
+    },
   },
   module: {
     rules: [
+      {
+        test: /\.wasm$/,
+        loader: 'file-loader',
+        type: 'javascript/auto',
+      },
       {
         test: /\.(ts|js)?$/,
         exclude: /node_modules/,

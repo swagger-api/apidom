@@ -4,7 +4,6 @@ import { isFunction, isUndefined } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import Visitor from './Visitor';
-import { keyMap, getNodeType } from '../../traversal/visitor';
 
 /**
  * This is a base Type for every visitor that does
@@ -82,7 +81,7 @@ const SpecificationVisitor = stampit(Visitor, {
       }
 
       // standard processing continues
-      visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, ...options });
+      visit(element, visitor, { ...options });
       return visitor.element;
     },
   },

@@ -3,7 +3,7 @@ import { ReferenceOptions as IReferenceOptions } from '../types';
 const defaultOptions: IReferenceOptions = {
   parse: {
     /**
-     * This is media type that
+     * This is media type that will be used to parse the input.
      */
     mediaType: 'text/plain',
 

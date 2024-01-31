@@ -10,7 +10,7 @@ const scopesTypeLint: LinterMeta = {
   message: "'scopes' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['oauth-flow-scopes'],
+  linterParams: [['oauth-flow-scopes']],
   marker: 'value',
   target: 'scopes',
   data: {},

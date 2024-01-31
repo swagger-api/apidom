@@ -9,7 +9,7 @@ const jmsTypeLint: LinterMeta = {
   message: '"jms" must be a JMS Channel Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['httpChannelBinding'],
+  linterParams: [['httpChannelBinding']],
   marker: 'value',
   target: 'jms',
   data: {},

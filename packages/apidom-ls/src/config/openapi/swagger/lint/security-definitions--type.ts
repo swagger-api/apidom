@@ -10,7 +10,7 @@ const securityDefinitionsTypeLint: LinterMeta = {
   message: '"securityDefinitions" must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['securityDefinitions'],
+  linterParams: [['securityDefinitions']],
   marker: 'value',
   target: 'securityDefinitions',
   data: {},

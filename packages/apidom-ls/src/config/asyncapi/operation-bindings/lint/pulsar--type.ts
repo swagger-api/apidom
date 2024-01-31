@@ -9,7 +9,7 @@ const pulsarTypeLint: LinterMeta = {
   message: '"pulsar" must be a WebSockets Operation Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['pulsarOperationBinding'],
+  linterParams: [['pulsarOperationBinding']],
   marker: 'value',
   target: 'pulsar',
   data: {},

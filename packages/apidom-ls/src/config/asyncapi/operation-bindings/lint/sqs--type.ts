@@ -9,7 +9,7 @@ const sqsTypeLint: LinterMeta = {
   message: '"sqs" must be a SQS Operation Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['sqsOperationBinding'],
+  linterParams: [['sqsOperationBinding']],
   marker: 'value',
   target: 'sqs',
   data: {},

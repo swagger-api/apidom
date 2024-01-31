@@ -9,7 +9,7 @@ const wsTypeLint: LinterMeta = {
   message: '"ws" must be a WebSockets Channel Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['wsChannelBinding'],
+  linterParams: [['wsChannelBinding']],
   marker: 'value',
   target: 'ws',
   data: {},

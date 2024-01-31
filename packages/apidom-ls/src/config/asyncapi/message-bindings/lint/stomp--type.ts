@@ -9,7 +9,7 @@ const stompTypeLint: LinterMeta = {
   message: '"stomp" must be a STOMP Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['stompMessageBinding'],
+  linterParams: [['stompMessageBinding']],
   marker: 'value',
   target: 'stomp',
   data: {},

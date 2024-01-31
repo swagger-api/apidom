@@ -9,7 +9,7 @@ const snsTypeLint: LinterMeta = {
   message: '"sns" must be a SNS Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['snsMessageBinding'],
+  linterParams: [['snsMessageBinding']],
   marker: 'value',
   target: 'sns',
   data: {},

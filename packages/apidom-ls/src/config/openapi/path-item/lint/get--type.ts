@@ -10,7 +10,7 @@ const getTypeLint: LinterMeta = {
   message: '"get" must be in a shape of the Operation Object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation'],
+  linterParams: [['operation']],
   marker: 'value',
   target: 'get',
   data: {},

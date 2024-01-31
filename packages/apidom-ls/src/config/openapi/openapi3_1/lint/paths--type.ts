@@ -10,7 +10,7 @@ const pathsTypeLint: LinterMeta = {
   message: 'paths must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['paths'],
+  linterParams: [['paths']],
   marker: 'value',
   target: 'paths',
   data: {},

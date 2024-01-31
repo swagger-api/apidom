@@ -9,7 +9,7 @@ const wsTypeLint: LinterMeta = {
   message: '"ws" must be a WebSockets Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['wsServerBinding'],
+  linterParams: [['wsServerBinding']],
   marker: 'value',
   target: 'ws',
   data: {},

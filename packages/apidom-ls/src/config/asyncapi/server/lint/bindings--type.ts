@@ -9,7 +9,7 @@ const bindingsTypeLint: LinterMeta = {
   message: 'bindings must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['serverBindings'],
+  linterParams: [['serverBindings']],
   marker: 'value',
   target: 'bindings',
   data: {},

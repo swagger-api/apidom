@@ -10,7 +10,7 @@ const mappingTypeLint: LinterMeta = {
   message: "'mapping' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['discriminator-mapping'],
+  linterParams: [['discriminator-mapping']],
   marker: 'value',
   target: 'mapping',
   data: {},

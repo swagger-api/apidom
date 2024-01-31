@@ -10,7 +10,7 @@ const parametersTypeLint: LinterMeta = {
   message: '"parameters" must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['parametersDefinitions'],
+  linterParams: [['parametersDefinitions']],
   marker: 'value',
   target: 'parameters',
   data: {},

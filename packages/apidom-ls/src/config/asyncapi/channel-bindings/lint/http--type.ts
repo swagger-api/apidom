@@ -9,7 +9,7 @@ const httpTypeLint: LinterMeta = {
   message: '"http" must be a HTTP Channel Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['httpChannelBinding'],
+  linterParams: [['httpChannelBinding']],
   marker: 'value',
   target: 'http',
   data: {},

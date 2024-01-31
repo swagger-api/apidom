@@ -10,7 +10,7 @@ const serversTypeLint: LinterMeta = {
   message: 'servers must be an array',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation-servers'],
+  linterParams: [['operation-servers']],
   marker: 'value',
   target: 'servers',
   data: {},

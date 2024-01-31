@@ -9,7 +9,7 @@ const correlationIdTypeLint: LinterMeta = {
   message: "'correlationId' must be a Correlation ID",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['correlationID'],
+  linterParams: [['correlationID']],
   marker: 'value',
   target: 'correlationId',
   data: {},

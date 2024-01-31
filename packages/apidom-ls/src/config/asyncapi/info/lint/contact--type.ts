@@ -9,7 +9,7 @@ const contactTypeLint: LinterMeta = {
   message: 'contact must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['contact'],
+  linterParams: [['contact']],
   marker: 'value',
   target: 'contact',
   data: {},

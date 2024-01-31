@@ -10,7 +10,7 @@ const infoTypeLint: LinterMeta = {
   message: 'info must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['info'],
+  linterParams: [['info']],
   marker: 'value',
   target: 'info',
   data: {},

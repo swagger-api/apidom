@@ -9,7 +9,7 @@ const headersTypeLint: LinterMeta = {
   message: "'headers' must be a schema object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: [['schema']],
   marker: 'value',
   target: 'headers',
   data: {},

@@ -10,7 +10,7 @@ const responsesTypeLint: LinterMeta = {
   message: 'responses must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['responses'],
+  linterParams: [['responses']],
   marker: 'value',
   target: 'responses',
   data: {},

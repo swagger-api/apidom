@@ -9,7 +9,7 @@ const tagsTypeLint: LinterMeta = {
   message: 'tags must be an array',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['tags'],
+  linterParams: [['tags']],
   marker: 'key',
   markerTarget: 'tags',
   target: 'tags',

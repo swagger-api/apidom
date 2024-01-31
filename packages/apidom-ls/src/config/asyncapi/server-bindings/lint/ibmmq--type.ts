@@ -9,7 +9,7 @@ const ibmmqTypeLint: LinterMeta = {
   message: '"ibmmq" must be a IBM MQ Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['ibmmqServerBinding'],
+  linterParams: [['ibmmqServerBinding']],
   marker: 'value',
   target: 'ibmmq',
   data: {},

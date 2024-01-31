@@ -10,7 +10,7 @@ const examplesTypeLint: LinterMeta = {
   message: '"examples" must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['example'],
+  linterParams: [['example']],
   marker: 'key',
   markerTarget: 'examples',
   target: 'examples',

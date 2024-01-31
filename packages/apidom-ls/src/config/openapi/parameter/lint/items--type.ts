@@ -10,7 +10,7 @@ const itemsTypeLint: LinterMeta = {
   message: "'items' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['items'],
+  linterParams: [['items']],
   marker: 'value',
   target: 'items',
   data: {},

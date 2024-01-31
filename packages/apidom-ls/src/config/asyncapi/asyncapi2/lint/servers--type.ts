@@ -9,7 +9,7 @@ const serversTypeLint: LinterMeta = {
   message: 'servers must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['servers'],
+  linterParams: [['servers']],
   marker: 'value',
   target: 'servers',
   data: {},

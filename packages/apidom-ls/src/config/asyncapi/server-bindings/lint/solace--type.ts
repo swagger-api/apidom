@@ -9,7 +9,7 @@ const solaceTypeLint: LinterMeta = {
   message: '"solace" must be a Solace Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['solaceServerBinding'],
+  linterParams: [['solaceServerBinding']],
   marker: 'value',
   target: 'solace',
   data: {},

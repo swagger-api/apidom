@@ -10,7 +10,7 @@ const requestBodyTypeLint: LinterMeta = {
   message: 'requestBody must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['requestBody'],
+  linterParams: [['requestBody']],
   marker: 'value',
   target: 'requestBody',
   data: {},

@@ -39,8 +39,7 @@ class ResponsesVisitor extends Mixin(MixedFieldsVisitor, FallbackVisitor) {
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Response'];
     this.fieldPatternPredicate = (value) =>
-      typeof value === 'string' &&
-      new RegExp(`^(1XX|2XX|3XX|4XX|5XX|${range(100, 600).join('|')})$`).test(value);
+      new RegExp(`^(1XX|2XX|3XX|4XX|5XX|${range(100, 600).join('|')})$`).test(String(value));
   }
 
   ObjectElement(objectElement: ObjectElement) {

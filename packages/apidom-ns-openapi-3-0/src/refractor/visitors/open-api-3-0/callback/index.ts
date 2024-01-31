@@ -24,8 +24,7 @@ class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
     this.element = new CallbackElement();
     this.specPath = always(['document', 'objects', 'PathItem']);
     this.canSupportSpecificationExtensions = true;
-    this.fieldPatternPredicate = (value) =>
-      typeof value === 'string' && /{(?<expression>.*)}/.test(value);
+    this.fieldPatternPredicate = (value) => /{(?<expression>.*)}/.test(String(value));
   }
 
   ObjectElement(objectElement: ObjectElement) {

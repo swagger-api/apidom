@@ -10,7 +10,7 @@ const deleteTypeLint: LinterMeta = {
   message: '"delete" must be in a shape of the Operation Object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation'],
+  linterParams: [['operation']],
   marker: 'value',
   target: 'delete',
   data: {},

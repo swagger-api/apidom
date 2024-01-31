@@ -10,7 +10,7 @@ const additionalItemsTypeLint: LinterMeta = {
   message: 'additionalItems must be a schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: [['schema']],
   marker: 'value',
   target: 'additionalItems',
   data: {},

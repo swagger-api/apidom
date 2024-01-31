@@ -9,7 +9,7 @@ const authorizationCodeTypeLint: LinterMeta = {
   message: "'authorizationCode' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['oAuthFlow'],
+  linterParams: [['oAuthFlow']],
   marker: 'value',
   target: 'authorizationCode',
   data: {},

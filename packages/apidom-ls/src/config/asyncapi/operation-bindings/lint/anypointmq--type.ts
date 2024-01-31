@@ -9,7 +9,7 @@ const anypointmqTypeLint: LinterMeta = {
   message: '"anypointmq" must be a Anypoint MQ Operation Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['anypointmqOperationBinding'],
+  linterParams: [['anypointmqOperationBinding']],
   marker: 'value',
   target: 'anypointmq',
   data: {},

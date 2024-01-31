@@ -4,7 +4,6 @@ import { visit, cloneDeep, ObjectElement } from '@swagger-api/apidom-core';
 
 import OpenApi3_0Element from '../../elements/OpenApi3-0';
 import Visitor, { VisitorOptions } from './Visitor';
-import { keyMap, getNodeType } from '../../traversal/visitor';
 import type specification from '../specification';
 import FallbackVisitor from './FallbackVisitor';
 
@@ -86,8 +85,7 @@ class SpecificationVisitor extends Visitor {
       return cloneDeep(element);
     }
 
-    // @ts-ignore
-    visit(element, visitor, { keyMap, nodeTypeGetter: getNodeType, ...options });
+    visit(element, visitor, options);
     return visitor.element;
   }
 }

@@ -10,7 +10,7 @@ const definitionsTypeLint: LinterMeta = {
   message: '"definitions" must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['definitions'],
+  linterParams: [['definitions']],
   marker: 'value',
   target: 'definitions',
   data: {},

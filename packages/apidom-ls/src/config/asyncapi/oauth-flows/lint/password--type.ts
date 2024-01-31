@@ -9,7 +9,7 @@ const passwordTypeLint: LinterMeta = {
   message: "'password' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['oAuthFlow'],
+  linterParams: [['oAuthFlow']],
   marker: 'value',
   target: 'password',
   data: {},

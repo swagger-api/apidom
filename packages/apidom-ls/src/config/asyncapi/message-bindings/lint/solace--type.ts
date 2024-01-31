@@ -9,7 +9,7 @@ const solaceTypeLint: LinterMeta = {
   message: '"solace" must be a Solace Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['solaceMessageBinding'],
+  linterParams: [['solaceMessageBinding']],
   marker: 'value',
   target: 'solace',
   data: {},

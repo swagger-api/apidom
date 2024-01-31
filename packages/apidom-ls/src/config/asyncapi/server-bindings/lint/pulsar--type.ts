@@ -9,7 +9,7 @@ const pulsarTypeLint: LinterMeta = {
   message: '"pulsar" must be a Pulsar Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['pulsarServerBinding'],
+  linterParams: [['pulsarServerBinding']],
   marker: 'value',
   target: 'pulsar',
   data: {},

@@ -9,7 +9,7 @@ const publishTypeLint: LinterMeta = {
   message: '"publish" must be an operation',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation'],
+  linterParams: [['operation']],
   marker: 'value',
   target: 'publish',
   data: {},

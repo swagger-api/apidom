@@ -6,10 +6,10 @@ import { LinterMeta } from '../../../../../../../apidom-language-types';
 const queryTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_WEB_SOCKET_CHANNEL_BINDING_FIELD_QUERY_TYPE,
   source: 'apilint',
-  message: 'query must be an object',
+  message: 'query must be an object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema'],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
   target: 'query',
   data: {},

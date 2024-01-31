@@ -9,7 +9,7 @@ const componentsTypeLint: LinterMeta = {
   message: 'components must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['components'],
+  linterParams: [['components']],
   marker: 'value',
   target: 'components',
   data: {},

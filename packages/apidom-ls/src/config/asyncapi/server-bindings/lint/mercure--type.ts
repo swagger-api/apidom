@@ -9,7 +9,7 @@ const mercureTypeLint: LinterMeta = {
   message: '"mercure" must be a Mercure Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['mercureServerBinding'],
+  linterParams: [['mercureServerBinding']],
   marker: 'value',
   target: 'mercure',
   data: {},

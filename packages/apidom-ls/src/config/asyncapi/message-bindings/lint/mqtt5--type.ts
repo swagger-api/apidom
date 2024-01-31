@@ -9,7 +9,7 @@ const mqtt5TypeLint: LinterMeta = {
   message: '"mqtt5" must be a MQTT 5 Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['mqtt5MessageBinding'],
+  linterParams: [['mqtt5MessageBinding']],
   marker: 'value',
   target: 'mqtt5',
   data: {},

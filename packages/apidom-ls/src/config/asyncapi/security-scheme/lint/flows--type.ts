@@ -9,7 +9,7 @@ const flowsTypeLint: LinterMeta = {
   message: "'flows' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['oAuthFlows'],
+  linterParams: [['oAuthFlows']],
   marker: 'value',
   target: 'flows',
   data: {},

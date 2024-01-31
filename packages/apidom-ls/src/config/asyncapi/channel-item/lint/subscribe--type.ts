@@ -9,7 +9,7 @@ const subscribeTypeLint: LinterMeta = {
   message: '"subscribe" must be an operation',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation'],
+  linterParams: [['operation']],
   marker: 'value',
   target: 'subscribe',
   data: {},

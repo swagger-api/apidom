@@ -9,7 +9,7 @@ const natsTypeLint: LinterMeta = {
   message: '"nats" must be a NATS Operation Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['natsOperationBinding'],
+  linterParams: [['natsOperationBinding']],
   marker: 'value',
   target: 'nats',
   data: {},

@@ -9,7 +9,7 @@ const channelsTypeLint: LinterMeta = {
   message: 'channels must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['channels'],
+  linterParams: [['channels']],
   marker: 'value',
   target: 'channels',
   data: {},

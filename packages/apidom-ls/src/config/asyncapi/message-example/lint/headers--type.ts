@@ -9,7 +9,7 @@ const headersTypeLint: LinterMeta = {
   message: "'headers' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['object'],
+  linterParams: [['object']],
   marker: 'value',
   target: 'headers',
   data: {},

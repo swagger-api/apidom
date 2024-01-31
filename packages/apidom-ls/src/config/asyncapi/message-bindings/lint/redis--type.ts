@@ -9,7 +9,7 @@ const redisTypeLint: LinterMeta = {
   message: '"redis" must be a Redis Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['redisMessageBinding'],
+  linterParams: [['redisMessageBinding']],
   marker: 'value',
   target: 'redis',
   data: {},

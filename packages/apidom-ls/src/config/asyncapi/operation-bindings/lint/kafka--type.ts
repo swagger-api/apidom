@@ -9,7 +9,7 @@ const kafkaTypeLint: LinterMeta = {
   message: '"kafka" must be a Kafka Operation Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['kafkaOperationBinding'],
+  linterParams: [['kafkaOperationBinding']],
   marker: 'value',
   target: 'kafka',
   data: {},

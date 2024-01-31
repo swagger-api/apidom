@@ -9,7 +9,7 @@ const googlepubsubTypeLint: LinterMeta = {
   message: '"googlepubsub" must be a GooglePubSub Message Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['googlepubsubMessageBinding'],
+  linterParams: [['googlepubsubMessageBinding']],
   marker: 'value',
   target: 'googlepubsub',
   data: {},

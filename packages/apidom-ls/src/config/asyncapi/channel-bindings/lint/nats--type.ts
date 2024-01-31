@@ -9,7 +9,7 @@ const natsTypeLint: LinterMeta = {
   message: '"nats" must be a NATS Channel Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['natsChannelBinding'],
+  linterParams: [['natsChannelBinding']],
   marker: 'value',
   target: 'nats',
   data: {},

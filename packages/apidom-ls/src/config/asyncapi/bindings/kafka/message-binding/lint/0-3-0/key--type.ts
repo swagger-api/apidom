@@ -9,7 +9,7 @@ const keyTypeLint: LinterMeta = {
   message: 'key must be a schema object, a boolean JSON schema, or an AVRO Schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema', 'boolean'],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
   target: 'key',
   data: {},

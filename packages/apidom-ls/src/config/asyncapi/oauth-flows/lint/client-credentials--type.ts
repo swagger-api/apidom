@@ -9,7 +9,7 @@ const clientCredentialsTypeLint: LinterMeta = {
   message: "'clientCredentials' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['oAuthFlow'],
+  linterParams: [['oAuthFlow']],
   marker: 'value',
   target: 'clientCredentials',
   data: {},

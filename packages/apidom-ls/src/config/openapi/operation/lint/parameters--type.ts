@@ -10,7 +10,7 @@ const parametersTypeLint: LinterMeta = {
   message: 'parameters must be an array',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation-parameters'],
+  linterParams: [['operation-parameters']],
   marker: 'value',
   target: 'parameters',
   data: {},

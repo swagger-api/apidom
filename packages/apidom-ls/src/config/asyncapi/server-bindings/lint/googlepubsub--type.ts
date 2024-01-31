@@ -9,7 +9,7 @@ const googlepubsubTypeLint: LinterMeta = {
   message: '"googlepubsub" must be a IBM MQ Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['googlepubsubServerBinding'],
+  linterParams: [['googlepubsubServerBinding']],
   marker: 'value',
   target: 'googlepubsub',
   data: {},

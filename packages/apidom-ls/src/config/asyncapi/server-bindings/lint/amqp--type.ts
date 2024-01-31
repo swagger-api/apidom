@@ -9,7 +9,7 @@ const amqpTypeLint: LinterMeta = {
   message: '"amqp" must be a AMQP Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['amqpServerBinding'],
+  linterParams: [['amqpServerBinding']],
   marker: 'value',
   target: 'amqp',
   data: {},

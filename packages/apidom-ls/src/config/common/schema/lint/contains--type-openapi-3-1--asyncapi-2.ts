@@ -12,7 +12,7 @@ const containsTypeOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {
   message: 'contains must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['schema', 'boolean'],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
   target: 'contains',
   data: {},

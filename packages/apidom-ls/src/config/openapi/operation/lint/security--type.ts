@@ -10,7 +10,7 @@ const securityTypeLint: LinterMeta = {
   message: 'security must be an array',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['operation-security'],
+  linterParams: [['operation-security']],
   marker: 'value',
   target: 'security',
   data: {},

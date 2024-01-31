@@ -10,7 +10,7 @@ const xmlTypeLint: LinterMeta = {
   message: 'xml must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['xml'],
+  linterParams: [['xml']],
   marker: 'value',
   target: 'xml',
   data: {},

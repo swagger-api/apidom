@@ -11,7 +11,7 @@ const externalDocsTypeLint: LinterMeta = {
   message: 'externalDocs must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['externalDocumentation'],
+  linterParams: [['externalDocumentation']],
   marker: 'value',
   target: 'externalDocs',
   data: {},

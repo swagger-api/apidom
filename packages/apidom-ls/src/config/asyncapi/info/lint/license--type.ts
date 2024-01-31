@@ -9,7 +9,7 @@ const licenseTypeLint: LinterMeta = {
   message: 'license must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: ['license'],
+  linterParams: [['license']],
   marker: 'value',
   target: 'license',
   data: {},

@@ -9,7 +9,7 @@ const examplesTypeLint: LinterMeta = {
   message: "'examples' must be an array of Message Example Objects",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['message-examples']],
+  linterParams: ['message-trait-examples'],
   marker: 'key',
   target: 'examples',
   data: {},

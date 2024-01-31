@@ -29,7 +29,7 @@ import SchemaOneOfVisitor from './visitors/open-api-3-1/schema/OneOfVisitor';
 import SchemaDependantSchemasVisitor from './visitors/open-api-3-1/schema/DependentSchemasVisitor';
 import SchemaPrefixItemsVisitor from './visitors/open-api-3-1/schema/PrefixItemsVisitor';
 import SchemaPropertiesVisitor from './visitors/open-api-3-1/schema/PropertiesVisitor';
-import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternProperties';
+import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternPropertiesVisitor';
 import SchemaTypeVisitor from './visitors/open-api-3-1/schema/TypeVisitor';
 import SchemaEnumVisitor from './visitors/open-api-3-1/schema/EnumVisitor';
 import SchemaDependentRequiredVisitor from './visitors/open-api-3-1/schema/DependentRequiredVisitor';
@@ -61,10 +61,6 @@ import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
-type DeepReadonly<T> = {
-  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
-};
-
 interface Specification {
   visitors: {
     value: typeof OpenApi3_0Specification.visitors.value;
@@ -522,7 +518,7 @@ interface Specification {
   };
 }
 
-const specification: DeepReadonly<Specification> = {
+const specification: Specification = {
   visitors: {
     value: OpenApi3_0Specification.visitors.value,
     document: {
@@ -1054,6 +1050,6 @@ const specification: DeepReadonly<Specification> = {
       },
     },
   },
-};
+} as const;
 
 export default specification;

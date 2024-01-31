@@ -13,7 +13,6 @@ import {
   FallbackVisitor,
   FixedFieldsVisitor,
   FixedFieldsVisitorOptions,
-  SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
@@ -29,10 +28,6 @@ export interface SchemaVisitorOptions
 
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: SchemaElement;
-
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
-
-  public declare readonly canSupportSpecificationExtensions: true;
 
   public declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
 
@@ -74,7 +69,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
    * works even when no context is provided like when directly refracting generic Object Element
    * into Schema Element: SchemaElement.refract(new ObjectElement({ type: 'object' });
    */
-  private getJsonSchemaDialect(): JsonSchemaDialectElement {
+  getJsonSchemaDialect(): JsonSchemaDialectElement {
     let jsonSchemaDialect;
 
     if (
@@ -96,7 +91,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     return jsonSchemaDialect;
   }
 
-  private handle$schema(objectElement: ObjectElement): void {
+  handle$schema(objectElement: ObjectElement): void {
     // handle $schema keyword in embedded resources
     if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // no parent available and no $schema is defined, set default jsonSchemaDialect
@@ -111,7 +106,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     }
   }
 
-  private handle$id(objectElement: ObjectElement): void {
+  handle$id(objectElement: ObjectElement): void {
     // handle $id keyword in embedded resources
     // fetch parent's inherited$id
     const inherited$id =

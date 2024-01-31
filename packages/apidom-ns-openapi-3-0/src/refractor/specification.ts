@@ -487,6 +487,6 @@ const specification = {
       },
     },
   },
-};
+} as const;
 
 export default specification;

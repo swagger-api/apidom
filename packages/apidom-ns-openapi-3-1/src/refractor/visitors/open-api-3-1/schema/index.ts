@@ -1,124 +1,128 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always, defaultTo } from 'ramda';
-import { isNonEmptyString, isNull } from 'ramda-adjunct';
+import { isNonEmptyString, isUndefined } from 'ramda-adjunct';
 import {
   ObjectElement,
   ArrayElement,
   BooleanElement,
   isStringElement,
-  BREAK,
   cloneDeep,
   toValue,
 } from '@swagger-api/apidom-core';
-import { FallbackVisitor, FixedFieldsVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  FallbackVisitor,
+  FixedFieldsVisitor,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
 import SchemaElement from '../../../../elements/Schema';
 import JsonSchemaDialectElement from '../../../../elements/JsonSchemaDialect';
-import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
+import ParentSchemaAwareVisitor, {
+  ParentSchemaAwareVisitorOptions,
+} from './ParentSchemaAwareVisitor';
 
-const SchemaVisitor = stampit(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Schema']),
-    canSupportSpecificationExtensions: true,
-    jsonSchemaDefaultDialect: JsonSchemaDialectElement.default,
-  },
-  // @ts-ignore
-  init() {
+export interface SchemaVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    ParentSchemaAwareVisitorOptions {}
+
+class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
+  public declare readonly element: SchemaElement;
+
+  public declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
+
+  constructor(options: SchemaVisitorOptions) {
+    super(options);
     this.element = new SchemaElement();
+    this.specPath = always(['document', 'objects', 'Schema']);
+    this.canSupportSpecificationExtensions = true;
+    this.jsonSchemaDefaultDialect = JsonSchemaDialectElement.default;
+    this.passingOptionsNames.push('parent');
+  }
 
-    /**
-     * Private Api.
-     */
+  ObjectElement(objectElement: ObjectElement) {
+    this.handle$schema(objectElement);
+    this.handle$id(objectElement);
 
-    /**
-     * This function depends on some external context, so we need to make sure this function
-     * works even when no context is provided like when directly refracting generic Object Element
-     * into Schema Element: SchemaElement.refract(new ObjectElement({ type: 'object' });
-     */
-    const getJsonSchemaDialect = () => {
-      let jsonSchemaDialect;
+    // for further processing consider this Schema Element as parent for all embedded Schema Elements
+    this.parent = this.element;
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      if (
-        this.openApiSemanticElement !== null &&
-        isJsonSchemaDialectElement(this.openApiSemanticElement.jsonSchemaDialect)
-      ) {
-        jsonSchemaDialect = toValue(this.openApiSemanticElement.jsonSchemaDialect);
-      } else if (
-        this.openApiGenericElement !== null &&
-        isStringElement(this.openApiGenericElement.get('jsonSchemaDialect'))
-      ) {
-        jsonSchemaDialect = toValue(this.openApiGenericElement.get('jsonSchemaDialect'));
-      } else {
-        jsonSchemaDialect = toValue(this.jsonSchemaDefaultDialect);
-      }
+    // mark this SchemaElement with reference metadata
+    if (isStringElement(this.element.$ref)) {
+      this.element.classes.push('reference-element');
+      this.element.setMetaProperty('referenced-element', 'schema');
+    }
 
-      return jsonSchemaDialect;
-    };
+    return result;
+  }
 
-    const handle$schema = (objectElement: ObjectElement) => {
-      // handle $schema keyword in embedded resources
-      if (isNull(this.parent) && !isStringElement(objectElement.get('$schema'))) {
-        // no parent available and no $schema is defined, set default jsonSchemaDialect
-        this.element.setMetaProperty('inherited$schema', getJsonSchemaDialect());
-      } else if (isSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
-        // parent is available and no $schema is defined, set parent $schema
-        const inherited$schema = defaultTo(
-          toValue(this.parent.meta.get('inherited$schema')),
-          toValue(this.parent.$schema),
-        );
-        this.element.setMetaProperty('inherited$schema', inherited$schema);
-      }
-    };
+  BooleanElement(booleanElement: BooleanElement) {
+    const result = super.enter(booleanElement);
+    this.element.classes.push('boolean-json-schema');
 
-    const handle$id = (objectElement: ObjectElement) => {
-      // handle $id keyword in embedded resources
-      // fetch parent's inherited$id
-      const inherited$id =
-        this.parent !== null
-          ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
-          : new ArrayElement();
-      // get current $id keyword
-      const $id = toValue(objectElement.get('$id'));
+    return result;
+  }
 
-      // remember $id keyword if it's a non-empty strings
-      if (isNonEmptyString($id)) {
-        inherited$id.push($id);
-      }
+  /**
+   * This function depends on some external context, so we need to make sure this function
+   * works even when no context is provided like when directly refracting generic Object Element
+   * into Schema Element: SchemaElement.refract(new ObjectElement({ type: 'object' });
+   */
+  getJsonSchemaDialect(): JsonSchemaDialectElement {
+    let jsonSchemaDialect;
 
-      this.element.setMetaProperty('inherited$id', inherited$id);
-    };
-
-    /**
-     * Public Api.
-     */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.ObjectElement = function _ObjectElement(objectElement: ObjectElement) {
-      handle$schema(objectElement);
-      handle$id(objectElement);
-
-      // for further processing consider this Schema Element as parent for all embedded Schema Elements
-      this.parent = this.element;
+    if (
+      this.openApiSemanticElement !== undefined &&
       // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      isJsonSchemaDialectElement(this.openApiSemanticElement.jsonSchemaDialect)
+    ) {
+      // @ts-ignore
+      jsonSchemaDialect = toValue(this.openApiSemanticElement.jsonSchemaDialect);
+    } else if (
+      this.openApiGenericElement !== undefined &&
+      isStringElement(this.openApiGenericElement.get('jsonSchemaDialect'))
+    ) {
+      jsonSchemaDialect = toValue(this.openApiGenericElement.get('jsonSchemaDialect'));
+    } else {
+      jsonSchemaDialect = toValue(this.jsonSchemaDefaultDialect);
+    }
 
-      // mark this SchemaElement with reference metadata
-      if (isStringElement(this.element.$ref)) {
-        this.element.classes.push('reference-element');
-        this.element.setMetaProperty('referenced-element', 'schema');
-      }
+    return jsonSchemaDialect;
+  }
 
-      return result;
-    };
+  handle$schema(objectElement: ObjectElement): void {
+    // handle $schema keyword in embedded resources
+    if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
+      // no parent available and no $schema is defined, set default jsonSchemaDialect
+      this.element.setMetaProperty('inherited$schema', this.getJsonSchemaDialect());
+    } else if (isSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
+      // parent is available and no $schema is defined, set parent $schema
+      const inherited$schema = defaultTo(
+        toValue(this.parent.meta.get('inherited$schema')),
+        toValue(this.parent.$schema),
+      );
+      this.element.setMetaProperty('inherited$schema', inherited$schema);
+    }
+  }
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.BooleanElement = function _BooleanElement(booleanElement: BooleanElement) {
-      this.element = cloneDeep(booleanElement);
-      this.element.classes.push('boolean-json-schema');
+  handle$id(objectElement: ObjectElement): void {
+    // handle $id keyword in embedded resources
+    // fetch parent's inherited$id
+    const inherited$id =
+      this.parent !== undefined
+        ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
+        : new ArrayElement();
+    // get current $id keyword
+    const $id = toValue(objectElement.get('$id'));
 
-      return BREAK;
-    };
-  },
-});
+    // remember $id keyword if it's a non-empty strings
+    if (isNonEmptyString($id)) {
+      inherited$id.push($id);
+    }
+
+    this.element.setMetaProperty('inherited$id', inherited$id);
+  }
+}
 
 export default SchemaVisitor;

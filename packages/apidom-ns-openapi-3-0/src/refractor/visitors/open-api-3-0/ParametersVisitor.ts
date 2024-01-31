@@ -1,36 +1,40 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 
-const ParametersVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  init() {
+export type { SpecificationVisitorOptions as ParametersVisitorOptions };
+
+class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare readonly element: ArrayElement;
+
+  constructor(options: SpecificationVisitorOptions) {
+    super(options);
     this.element = new ArrayElement();
     this.element.classes.push('parameters');
-  },
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element): void => {
-        const specPath = isReferenceLikeElement(item)
-          ? ['document', 'objects', 'Reference']
-          : ['document', 'objects', 'Parameter'];
-        const element = this.toRefractedElement(specPath, item);
+  }
 
-        if (isReferenceElement(element)) {
-          element.setMetaProperty('referenced-element', 'parameter');
-        }
+  ArrayElement(arrayElement: ArrayElement) {
+    arrayElement.forEach((item: Element): void => {
+      const specPath = isReferenceLikeElement(item)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'Parameter'];
+      const element = this.toRefractedElement(specPath, item);
 
-        this.element.push(element);
-      });
+      if (isReferenceElement(element)) {
+        element.setMetaProperty('referenced-element', 'parameter');
+      }
 
-      this.copyMetaAndAttributes(arrayElement, this.element);
+      this.element.push(element);
+    });
 
-      return BREAK;
-    },
-  },
-});
+    this.copyMetaAndAttributes(arrayElement, this.element);
+
+    return BREAK;
+  }
+}
 
 export default ParametersVisitor;

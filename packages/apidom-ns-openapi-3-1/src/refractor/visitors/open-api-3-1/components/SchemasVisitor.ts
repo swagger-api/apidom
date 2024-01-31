@@ -1,18 +1,23 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import {
   ComponentsSchemasElement,
   MapVisitor,
+  MapVisitorOptions,
   FallbackVisitor,
+  SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-const SchemasVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Schema']),
-  },
-  init() {
+class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsSchemasElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
     this.element = new ComponentsSchemasElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'Schema']);
+  }
+}
 
 export default SchemasVisitor;

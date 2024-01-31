@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
-import BaseExamplesVisitor from '../ExamplesVisitor';
+import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
 import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples';
 
-const ExamplesVisitor = stampit(BaseExamplesVisitor, {
-  init() {
+class ExamplesVisitor extends BaseExamplesVisitor {
+  public declare readonly element: MediaTypeExamples;
+
+  constructor(options: ExamplesVisitorOptions) {
+    super(options);
     this.element = new MediaTypeExamples();
-  },
-});
+  }
+}
 
 export default ExamplesVisitor;

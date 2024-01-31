@@ -1,18 +1,26 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import HeaderElement from '../../../../elements/Header';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const HeaderVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Header']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class HeaderVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: HeaderElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'Header']>;
+
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new HeaderElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'Header']);
+    this.canSupportSpecificationExtensions = true;
+  }
+}
 
 export default HeaderVisitor;

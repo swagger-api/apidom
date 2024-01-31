@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
 import OperationServersElement from '../../../../elements/nces/OperationServers';
-import BaseServersVisitor from '../ServersVisitor';
+import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor';
 
-const ServersVisitor = stampit(BaseServersVisitor, {
-  init() {
+class ServersVisitor extends BaseServersVisitor {
+  public declare readonly element: OperationServersElement;
+
+  constructor(options: ServersVisitorOptions) {
+    super(options);
     this.element = new OperationServersElement();
-  },
-});
+  }
+}
 
 export default ServersVisitor;

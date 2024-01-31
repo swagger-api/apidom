@@ -1,12 +1,13 @@
-import stampit from 'stampit';
-
 import RequestBodyContentElement from '../../../../elements/nces/RequestBodyContent';
-import BaseContentVisitor from '../ContentVisitor';
+import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
 
-const ContentVisitor = stampit(BaseContentVisitor, {
-  init() {
+class ContentVisitor extends BaseContentVisitor {
+  public declare readonly element: RequestBodyContentElement;
+
+  constructor(options: ContentVisitorOptions) {
+    super(options);
     this.element = new RequestBodyContentElement();
-  },
-});
+  }
+}
 
 export default ContentVisitor;

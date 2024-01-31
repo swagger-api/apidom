@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import LicenseElement from '../../../../elements/License';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const LicenseVisitor = stampit(BaseLicenseVisitor, {
-  init() {
+class LicenseVisitor extends BaseLicenseVisitor {
+  public declare readonly element: LicenseElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new LicenseElement();
-  },
-});
+  }
+}
 
 export default LicenseVisitor;

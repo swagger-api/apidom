@@ -1,37 +1,42 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { StringElement, ObjectElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
 import RequestBodyElement from '../../../../elements/RequestBody';
 import MediaTypeElement from '../../../../elements/MediaType';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isMediaTypeElement } from '../../../../predicates';
 
-const RequestBodyVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'RequestBody']),
-  },
-  init() {
+class RequestBodyVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: RequestBodyElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'RequestBody']>;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new RequestBodyElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    this.specPath = always(['document', 'objects', 'RequestBody']);
+  }
 
-      // decorate every MediaTypeElement with media type metadata
-      if (isObjectElement(this.element.contentProp)) {
-        this.element.contentProp
-          .filter(isMediaTypeElement)
-          .forEach((mediaTypeElement: MediaTypeElement, key: StringElement) => {
-            mediaTypeElement.setMetaProperty('media-type', toValue(key));
-          });
-      }
+  ObjectElement(objectElement: ObjectElement) {
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // decorate every MediaTypeElement with media type metadata
+    if (isObjectElement(this.element.contentProp)) {
+      this.element.contentProp
+        .filter(isMediaTypeElement)
+        // @ts-ignore
+        .forEach((mediaTypeElement: MediaTypeElement, key: StringElement) => {
+          mediaTypeElement.setMetaProperty('media-type', toValue(key));
+        });
+    }
+
+    return result;
+  }
+}
 
 export default RequestBodyVisitor;

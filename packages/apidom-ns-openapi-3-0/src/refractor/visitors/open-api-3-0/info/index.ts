@@ -1,18 +1,26 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import InfoElement from '../../../../elements/Info';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
 
-const InfoVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Info']),
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+class InfoVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: InfoElement;
+
+  public declare readonly specPath: SpecPath<['document', 'objects', 'Info']>;
+
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new InfoElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'Info']);
+    this.canSupportSpecificationExtensions = true;
+  }
+}
 
 export default InfoVisitor;

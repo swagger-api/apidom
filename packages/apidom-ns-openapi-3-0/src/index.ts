@@ -51,24 +51,30 @@ export {
 } from './predicates';
 
 export {
-  isOpenApi3_0LikeElement,
-  isParameterLikeElement,
   isReferenceLikeElement,
-  isRequestBodyLikeElement,
-  isResponseLikeElement,
   isServerLikeElement,
   isTagLikeElement,
   isOpenApiExtension,
 } from './refractor/predicates';
 
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor';
+export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor';
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
+export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
+export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor';
 export { default as MixedFieldsVisitor } from './refractor/visitors/generics/MixedFieldsVisitor';
+export type { MixedFieldsVisitorOptions } from './refractor/visitors/generics/MixedFieldsVisitor';
 export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor';
+export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor';
 export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
+export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
 export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
+export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
 export { default as Visitor } from './refractor/visitors/Visitor';
+export type { VisitorOptions } from './refractor/visitors/Visitor';
+
+export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

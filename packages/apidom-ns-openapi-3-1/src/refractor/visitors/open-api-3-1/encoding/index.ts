@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  FixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import EncodingElement from '../../../../elements/Encoding';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const EncodingVisitor = stampit(BaseEncodingVisitor, {
-  init() {
+class EncodingVisitor extends BaseEncodingVisitor {
+  public declare readonly element: EncodingElement;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new EncodingElement();
-  },
-});
+  }
+}
 
 export default EncodingVisitor;

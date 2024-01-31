@@ -26,6 +26,16 @@ export { default as refractorPluginNormalizeHeaderExamples } from './refractor/p
 export { default as createToolbox } from './refractor/toolbox';
 export { default as specificationObj } from './refractor/specification';
 
+export type { SchemaVisitorOptions } from './refractor/visitors/open-api-3-1/schema';
+export type { PropertiesVisitorOptions } from './refractor/visitors/open-api-3-1/schema/PropertiesVisitor';
+export type { PrefixItemsVisitorOptions } from './refractor/visitors/open-api-3-1/schema/PrefixItemsVisitor';
+export type { OneOfVisitorOptions } from './refractor/visitors/open-api-3-1/schema/OneOfVisitor';
+export type { PatternPropertiesVisitorOptions } from './refractor/visitors/open-api-3-1/schema/PatternPropertiesVisitor';
+export type { DependentSchemasVisitorOptions } from './refractor/visitors/open-api-3-1/schema/DependentSchemasVisitor';
+export type { $defsVisitorOptions } from './refractor/visitors/open-api-3-1/schema/$defsVisitor';
+export type { AllOfVisitorOptions } from './refractor/visitors/open-api-3-1/schema/AllOfVisitor';
+export type { AnyOfVisitorOptions } from './refractor/visitors/open-api-3-1/schema/AnyOfVisitor';
+
 export {
   isCallbackElement,
   isComponentsElement,
@@ -56,11 +66,8 @@ export {
   isPathsElement,
 } from './predicates';
 
-export { isOpenApi3_1LikeElement } from './refractor/predicates';
 export {
-  isParameterLikeElement,
   isReferenceLikeElement,
-  isResponseLikeElement,
   isOpenApiExtension,
   isServerLikeElement,
   isServersElement,

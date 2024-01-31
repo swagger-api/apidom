@@ -1,36 +1,44 @@
-import stampit from 'stampit';
-import { Element, ObjectElement } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
-import MapVisitor from '../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor';
 import FallbackVisitor from '../FallbackVisitor';
 import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 import ReferenceElement from '../../../elements/Reference';
 
-const ExamplesVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) =>
-      isReferenceLikeElement(element)
-        ? ['document', 'objects', 'Reference']
-        : ['document', 'objects', 'Example'],
-    canSupportSpecificationExtensions: true,
-  },
-  init() {
+export type { MapVisitorOptions as ExamplesVisitorOptions };
+
+class ExamplesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ObjectElement;
+
+  public declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'Example']
+  >;
+
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
     this.element = new ObjectElement();
     this.element.classes.push('examples');
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'Example'];
+    this.canSupportSpecificationExtensions = true;
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'example');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'example');
+    });
+
+    return result;
+  }
+}
 
 export default ExamplesVisitor;

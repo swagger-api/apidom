@@ -12,22 +12,26 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor';
 
-export interface PropertiesVisitorOptions
+export interface PatternPropertiesVisitorOptions
   extends MapVisitorOptions,
     ParentSchemaAwareVisitorOptions {}
 
-class PropertiesVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
+class PatternPropertiesVisitor extends Mixin(
+  MapVisitor,
+  ParentSchemaAwareVisitor,
+  FallbackVisitor,
+) {
   public declare readonly element: ObjectElement;
 
   public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
-  constructor(options: PropertiesVisitorOptions) {
+  constructor(options: PatternPropertiesVisitorOptions) {
     super(options);
     this.element = new ObjectElement();
-    this.element.classes.push('json-schema-properties');
+    this.element.classes.push('json-schema-patternProperties');
     this.specPath = always(['document', 'objects', 'Schema']);
     this.passingOptionsNames.push('parent');
   }
 }
 
-export default PropertiesVisitor;
+export default PatternPropertiesVisitor;

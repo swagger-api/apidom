@@ -1,5 +1,7 @@
-import stampit from 'stampit';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  specificationObj as OpenApi3_1Specification,
+  MixedFieldsVisitorOptions,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ResponsesElement from '../../../../elements/Responses';
 
@@ -13,10 +15,13 @@ const {
   },
 } = OpenApi3_1Specification;
 
-const ResponsesVisitor = stampit(BaseResponsesVisitor, {
-  init() {
+class ResponsesVisitor extends BaseResponsesVisitor {
+  public declare readonly element: ResponsesElement;
+
+  constructor(options: MixedFieldsVisitorOptions) {
+    super(options);
     this.element = new ResponsesElement();
-  },
-});
+  }
+}
 
 export default ResponsesVisitor;

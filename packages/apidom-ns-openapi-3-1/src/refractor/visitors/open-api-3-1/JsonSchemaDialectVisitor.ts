@@ -5,6 +5,8 @@ import { FallbackVisitor, SpecificationVisitor } from '@swagger-api/apidom-ns-op
 import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect';
 
 class JsonSchemaDialectVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare element: JsonSchemaDialectElement;
+
   StringElement(stringElement: StringElement) {
     const jsonSchemaDialectElement = new JsonSchemaDialectElement(toValue(stringElement));
 

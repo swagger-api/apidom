@@ -45,7 +45,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     this.passingOptionsNames.push('parent');
   }
 
-  public ObjectElement(objectElement: ObjectElement) {
+  ObjectElement(objectElement: ObjectElement) {
     this.handle$schema(objectElement);
     this.handle$id(objectElement);
 
@@ -62,7 +62,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     return result;
   }
 
-  public BooleanElement(booleanElement: BooleanElement) {
+  BooleanElement(booleanElement: BooleanElement) {
     const result = super.enter(booleanElement);
     this.element.classes.push('boolean-json-schema');
 

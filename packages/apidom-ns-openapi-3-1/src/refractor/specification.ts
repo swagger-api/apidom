@@ -61,7 +61,468 @@ import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
-const specification: any = {
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
+
+interface Specification {
+  visitors: {
+    value: typeof OpenApi3_0Specification.visitors.value;
+    document: {
+      objects: {
+        OpenApi: {
+          $visitor: typeof OpenApi3_1Visitor;
+          fixedFields: {
+            openapi: typeof OpenApi3_0Specification.visitors.document.objects.OpenApi.fixedFields.openapi;
+            info: {
+              $ref: '#/visitors/document/objects/Info';
+            };
+            jsonSchemaDialect: typeof JsonSchemaDialectVisitor;
+            servers: typeof OpenApi3_0Specification.visitors.document.objects.OpenApi.fixedFields.servers;
+            paths: {
+              $ref: '#/visitors/document/objects/Paths';
+            };
+            webhooks: typeof WebhooksVisitor;
+            components: {
+              $ref: '#/visitors/document/objects/Components';
+            };
+            security: typeof OpenApi3_0Specification.visitors.document.objects.OpenApi.fixedFields.security;
+            tags: typeof OpenApi3_0Specification.visitors.document.objects.OpenApi.fixedFields.tags;
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation';
+            };
+          };
+        };
+        Info: {
+          $visitor: typeof InfoVisitor;
+          fixedFields: {
+            title: typeof OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.title;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.description;
+            summary: typeof InfoSummaryVisitor;
+            termsOfService: typeof OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.termsOfService;
+            contact: {
+              $ref: '#/visitors/document/objects/Contact';
+            };
+            license: {
+              $ref: '#/visitors/document/objects/License';
+            };
+            version: typeof OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.version;
+          };
+        };
+        Contact: {
+          $visitor: typeof ContactVisitor;
+          fixedFields: {
+            name: typeof OpenApi3_0Specification.visitors.document.objects.Contact.fixedFields.name;
+            url: typeof OpenApi3_0Specification.visitors.document.objects.Contact.fixedFields.url;
+            email: typeof OpenApi3_0Specification.visitors.document.objects.Contact.fixedFields.email;
+          };
+        };
+        License: {
+          $visitor: typeof LicenseVisitor;
+          fixedFields: {
+            name: typeof OpenApi3_0Specification.visitors.document.objects.License.fixedFields.name;
+            identifier: typeof LicenseIdentifierVisitor;
+            url: typeof OpenApi3_0Specification.visitors.document.objects.License.fixedFields.url;
+          };
+        };
+        Server: {
+          $visitor: typeof ServerVisitor;
+          fixedFields: {
+            url: typeof OpenApi3_0Specification.visitors.document.objects.Server.fixedFields.url;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Server.fixedFields.description;
+            variables: typeof OpenApi3_0Specification.visitors.document.objects.Server.fixedFields.variables;
+          };
+        };
+        ServerVariable: {
+          $visitor: typeof ServerVariableVisitor;
+          fixedFields: {
+            enum: typeof OpenApi3_0Specification.visitors.document.objects.ServerVariable.fixedFields.enum;
+            default: typeof OpenApi3_0Specification.visitors.document.objects.ServerVariable.fixedFields.default;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.ServerVariable.fixedFields.description;
+          };
+        };
+        Components: {
+          $visitor: typeof ComponentsVisitor;
+          fixedFields: {
+            schemas: typeof ComponentsSchemasVisitor;
+            responses: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.responses;
+            parameters: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.parameters;
+            examples: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.examples;
+            requestBodies: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.requestBodies;
+            headers: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.headers;
+            securitySchemes: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.securitySchemes;
+            links: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.links;
+            callbacks: typeof OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.callbacks;
+            pathItems: typeof ComponentsPathItemsVisitor;
+          };
+        };
+        Paths: {
+          $visitor: typeof PathsVisitor;
+        };
+        PathItem: {
+          $visitor: typeof PathItemVisitor;
+          fixedFields: {
+            $ref: typeof OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.$ref;
+            summary: typeof OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.summary;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.description;
+            get: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            put: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            post: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            delete: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            options: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            head: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            patch: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            trace: {
+              $ref: '#/visitors/document/objects/Operation';
+            };
+            servers: typeof OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.servers;
+            parameters: typeof OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.parameters;
+          };
+        };
+        Operation: {
+          $visitor: typeof OperationVisitor;
+          fixedFields: {
+            tags: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.tags;
+            summary: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.summary;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.description;
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation';
+            };
+            operationId: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.operationId;
+            parameters: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.parameters;
+            requestBody: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.requestBody;
+            responses: {
+              $ref: '#/visitors/document/objects/Responses';
+            };
+            callbacks: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.callbacks;
+            deprecated: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.deprecated;
+            security: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.security;
+            servers: typeof OpenApi3_0Specification.visitors.document.objects.Operation.fixedFields.servers;
+          };
+        };
+        ExternalDocumentation: {
+          $visitor: typeof ExternalDocumentationVisitor;
+          fixedFields: {
+            description: typeof OpenApi3_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields.description;
+            url: typeof OpenApi3_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields.url;
+          };
+        };
+        Parameter: {
+          $visitor: typeof ParameterVisitor;
+          fixedFields: {
+            name: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.name;
+            in: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.in;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.description;
+            required: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.required;
+            deprecated: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.deprecated;
+            allowEmptyValue: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.allowEmptyValue;
+            style: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.style;
+            explode: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.explode;
+            allowReserved: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.allowReserved;
+            schema: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            example: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.example;
+            examples: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.examples;
+            content: typeof OpenApi3_0Specification.visitors.document.objects.Parameter.fixedFields.content;
+          };
+        };
+        RequestBody: {
+          $visitor: typeof RequestBodyVisitor;
+          fixedFields: {
+            description: typeof OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.description;
+            content: typeof OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.content;
+            required: typeof OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.required;
+          };
+        };
+        MediaType: {
+          $visitor: typeof MediaTypeVisitor;
+          fixedFields: {
+            schema: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            example: typeof OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.example;
+            examples: typeof OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.examples;
+            encoding: typeof OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.encoding;
+          };
+        };
+        Encoding: {
+          $visitor: typeof EncodingVisitor;
+          fixedFields: {
+            contentType: typeof OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.contentType;
+            headers: typeof OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.headers;
+            style: typeof OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.style;
+            explode: typeof OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.explode;
+            allowReserved: typeof OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.allowReserved;
+          };
+        };
+        Responses: {
+          $visitor: typeof ResponsesVisitor;
+          fixedFields: {
+            default: typeof OpenApi3_0Specification.visitors.document.objects.Responses.fixedFields.default;
+          };
+        };
+        Response: {
+          $visitor: typeof ResponseVisitor;
+          fixedFields: {
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.description;
+            headers: typeof OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.headers;
+            content: typeof OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.content;
+            links: typeof OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.links;
+          };
+        };
+        Callback: {
+          $visitor: typeof CallbackVisitor;
+        };
+        Example: {
+          $visitor: typeof ExampleVisitor;
+          fixedFields: {
+            summary: typeof OpenApi3_0Specification.visitors.document.objects.Example.fixedFields.summary;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Example.fixedFields.description;
+            value: typeof OpenApi3_0Specification.visitors.document.objects.Example.fixedFields.value;
+            externalValue: typeof OpenApi3_0Specification.visitors.document.objects.Example.fixedFields.externalValue;
+          };
+        };
+        Link: {
+          $visitor: typeof LinkVisitor;
+          fixedFields: {
+            operationRef: typeof OpenApi3_0Specification.visitors.document.objects.Link.fixedFields.operationRef;
+            operationId: typeof OpenApi3_0Specification.visitors.document.objects.Link.fixedFields.operationId;
+            parameters: typeof OpenApi3_0Specification.visitors.document.objects.Link.fixedFields.parameters;
+            requestBody: typeof OpenApi3_0Specification.visitors.document.objects.Link.fixedFields.requestBody;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Link.fixedFields.description;
+            server: {
+              $ref: '#/visitors/document/objects/Server';
+            };
+          };
+        };
+        Header: {
+          $visitor: typeof HeaderVisitor;
+          fixedFields: {
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.description;
+            required: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.required;
+            deprecated: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.deprecated;
+            allowEmptyValue: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.allowEmptyValue;
+            style: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.style;
+            explode: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.explode;
+            allowReserved: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.allowReserved;
+            schema: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            example: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.example;
+            examples: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.examples;
+            content: typeof OpenApi3_0Specification.visitors.document.objects.Header.fixedFields.content;
+          };
+        };
+        Tag: {
+          $visitor: typeof TagVisitor;
+          fixedFields: {
+            name: typeof OpenApi3_0Specification.visitors.document.objects.Tag.fixedFields.name;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.Tag.fixedFields.description;
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation';
+            };
+          };
+        };
+        Reference: {
+          $visitor: typeof ReferenceVisitor;
+          fixedFields: {
+            $ref: typeof OpenApi3_0Specification.visitors.document.objects.Reference.fixedFields.$ref;
+            summary: typeof ReferenceSummaryVisitor;
+            description: typeof ReferenceDescriptionVisitor;
+          };
+        };
+        Schema: {
+          $visitor: typeof SchemaVisitor;
+          fixedFields: {
+            // core vocabulary
+            $schema: { $ref: '#/visitors/value' };
+            $vocabulary: typeof Schema$vocabularyVisitor;
+            $id: { $ref: '#/visitors/value' };
+            $anchor: { $ref: '#/visitors/value' };
+            $dynamicAnchor: { $ref: '#/visitors/value' };
+            $dynamicRef: { $ref: '#/visitors/value' };
+            $ref: typeof Schema$refVisitor;
+            $defs: typeof Schema$defsVisitor;
+            $comment: { $ref: '#/visitors/value' };
+            // applicator vocabulary
+            allOf: typeof SchemaAllOfVisitor;
+            anyOf: typeof SchemaAnyOfVisitor;
+            oneOf: typeof SchemaOneOfVisitor;
+            not: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            if: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            then: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            else: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            dependentSchemas: typeof SchemaDependantSchemasVisitor;
+            prefixItems: typeof SchemaPrefixItemsVisitor;
+            items: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            contains: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            properties: typeof SchemaPropertiesVisitor;
+            patternProperties: typeof SchemaPatternPropertiesVisitor;
+            additionalProperties: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            propertyNames: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            // unevaluated Locations vocabulary
+            unevaluatedItems: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            unevaluatedProperties: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            // validation vocabulary
+            // validation Keywords for Any Instance Type
+            type: typeof SchemaTypeVisitor;
+            enum: typeof SchemaEnumVisitor;
+            const: { $ref: '#/visitors/value' };
+            // validation Keywords for Numeric Instances (number and integer)
+            multipleOf: { $ref: '#/visitors/value' };
+            maximum: { $ref: '#/visitors/value' };
+            exclusiveMaximum: { $ref: '#/visitors/value' };
+            minimum: { $ref: '#/visitors/value' };
+            exclusiveMinimum: { $ref: '#/visitors/value' };
+            // validation Keywords for Strings
+            maxLength: { $ref: '#/visitors/value' };
+            minLength: { $ref: '#/visitors/value' };
+            pattern: { $ref: '#/visitors/value' };
+            // validation Keywords for Arrays
+            maxItems: { $ref: '#/visitors/value' };
+            minItems: { $ref: '#/visitors/value' };
+            uniqueItems: { $ref: '#/visitors/value' };
+            maxContains: { $ref: '#/visitors/value' };
+            minContains: { $ref: '#/visitors/value' };
+            // validation Keywords for Objects
+            maxProperties: { $ref: '#/visitors/value' };
+            minProperties: { $ref: '#/visitors/value' };
+            required: { $ref: '#/visitors/value' };
+            dependentRequired: typeof SchemaDependentRequiredVisitor;
+            // basic Meta-Data Annotations vocabulary
+            title: { $ref: '#/visitors/value' };
+            description: { $ref: '#/visitors/value' };
+            default: { $ref: '#/visitors/value' };
+            deprecated: { $ref: '#/visitors/value' };
+            readOnly: { $ref: '#/visitors/value' };
+            writeOnly: { $ref: '#/visitors/value' };
+            examples: typeof SchemaExamplesVisitor;
+            // semantic Content With "format" vocabulary
+            format: { $ref: '#/visitors/value' };
+            // contents of String-Encoded Data vocabulary
+            contentEncoding: { $ref: '#/visitors/value' };
+            contentMediaType: { $ref: '#/visitors/value' };
+            contentSchema: {
+              $ref: '#/visitors/document/objects/Schema';
+            };
+            // OAS base vocabulary
+            discriminator: {
+              $ref: '#/visitors/document/objects/Discriminator';
+            };
+            xml: {
+              $ref: '#/visitors/document/objects/XML';
+            };
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation';
+            };
+            example: { $ref: '#/visitors/value' };
+          };
+        };
+        Discriminator: {
+          $visitor: typeof DiscriminatorVisitor;
+          fixedFields: {
+            propertyName: typeof OpenApi3_0Specification.visitors.document.objects.Discriminator.fixedFields.propertyName;
+            mapping: typeof OpenApi3_0Specification.visitors.document.objects.Discriminator.fixedFields.mapping;
+          };
+        };
+        XML: {
+          $visitor: typeof XmlVisitor;
+          fixedFields: {
+            name: typeof OpenApi3_0Specification.visitors.document.objects.XML.fixedFields.name;
+            namespace: typeof OpenApi3_0Specification.visitors.document.objects.XML.fixedFields.namespace;
+            prefix: typeof OpenApi3_0Specification.visitors.document.objects.XML.fixedFields.prefix;
+            attribute: typeof OpenApi3_0Specification.visitors.document.objects.XML.fixedFields.attribute;
+            wrapped: typeof OpenApi3_0Specification.visitors.document.objects.XML.fixedFields.wrapped;
+          };
+        };
+        SecurityScheme: {
+          $visitor: typeof SecuritySchemeVisitor;
+          fixedFields: {
+            type: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.type;
+            description: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.description;
+            name: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.name;
+            in: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.in;
+            scheme: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.scheme;
+            bearerFormat: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.bearerFormat;
+            flows: {
+              $ref: '#/visitors/document/objects/OAuthFlows';
+            };
+            openIdConnectUrl: typeof OpenApi3_0Specification.visitors.document.objects.SecurityScheme.fixedFields.openIdConnectUrl;
+          };
+        };
+        OAuthFlows: {
+          $visitor: typeof OAuthFlowsVisitor;
+          fixedFields: {
+            implicit: {
+              $ref: '#/visitors/document/objects/OAuthFlow';
+            };
+            password: {
+              $ref: '#/visitors/document/objects/OAuthFlow';
+            };
+            clientCredentials: {
+              $ref: '#/visitors/document/objects/OAuthFlow';
+            };
+            authorizationCode: {
+              $ref: '#/visitors/document/objects/OAuthFlow';
+            };
+          };
+        };
+        OAuthFlow: {
+          $visitor: typeof OAuthFlowVisitor;
+          fixedFields: {
+            authorizationUrl: typeof OpenApi3_0Specification.visitors.document.objects.OAuthFlow.fixedFields.authorizationUrl;
+            tokenUrl: typeof OpenApi3_0Specification.visitors.document.objects.OAuthFlow.fixedFields.tokenUrl;
+            refreshUrl: typeof OpenApi3_0Specification.visitors.document.objects.OAuthFlow.fixedFields.refreshUrl;
+            scopes: typeof OpenApi3_0Specification.visitors.document.objects.OAuthFlow.fixedFields.scopes;
+          };
+        };
+        SecurityRequirement: {
+          $visitor: typeof SecurityRequirementVisitor;
+        };
+      };
+      extension: {
+        $visitor: typeof OpenApi3_0Specification.visitors.document.extension.$visitor;
+      };
+    };
+  };
+}
+
+const specification: DeepReadonly<Specification> = {
   visitors: {
     value: OpenApi3_0Specification.visitors.value,
     document: {

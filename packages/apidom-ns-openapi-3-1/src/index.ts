@@ -56,15 +56,12 @@ export {
   isPathsElement,
 } from './predicates';
 
-export { isOpenApi3_1LikeElement } from './refractor/predicates';
 export {
   isReferenceLikeElement,
   isOpenApiExtension,
   isServerLikeElement,
   isServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
-
-export type { SchemaVisitorOptions } from './refractor/visitors/open-api-3-1/schema';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

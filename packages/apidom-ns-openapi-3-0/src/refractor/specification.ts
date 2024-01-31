@@ -95,7 +95,6 @@ import TagsVisitor from './visitors/open-api-3-0/TagsVisitor';
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
-
 const { fixedFields: jsonSchemaFixedFields } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema;
 

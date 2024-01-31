@@ -16,6 +16,10 @@ class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   public declare readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
 
+  public declare readonly canSupportSpecificationExtensions: true;
+
+  public declare readonly openApiSemanticElement: OpenApi3_1Element;
+
   constructor(options: FixedFieldsVisitorOptions) {
     super(options);
     this.element = new OpenApi3_1Element();

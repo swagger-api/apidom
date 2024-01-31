@@ -16,12 +16,13 @@ class ExamplesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Example']
   >;
 
+  public declare readonly canSupportSpecificationExtensions: true;
+
   constructor(options: MapVisitorOptions) {
     super(options);
     this.element = new ObjectElement();
     this.element.classes.push('examples');
     this.specPath = (element: unknown) =>
-      // @ts-ignore
       isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Example'];

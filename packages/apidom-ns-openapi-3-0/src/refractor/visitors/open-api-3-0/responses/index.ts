@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { test, always, range } from 'ramda';
+import { always, range } from 'ramda';
 import {
   Element,
   ObjectElement,
@@ -34,16 +34,13 @@ class ResponsesVisitor extends Mixin(MixedFieldsVisitor, FallbackVisitor) {
     this.element = new ResponsesElement();
     this.specPathFixedFields = always(['document', 'objects', 'Responses']);
     this.canSupportSpecificationExtensions = true;
-    this.specPathPatternedFields = (element: unknown) => {
-      // @ts-ignore
-      return isReferenceLikeElement(element)
+    this.specPathPatternedFields = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Response'];
-    };
-    // @ts-ignore
-    this.fieldPatternPredicate = test(
-      new RegExp(`^(1XX|2XX|3XX|4XX|5XX|${range(100, 600).join('|')})$`),
-    );
+    this.fieldPatternPredicate = (value) =>
+      typeof value === 'string' &&
+      new RegExp(`^(1XX|2XX|3XX|4XX|5XX|${range(100, 600).join('|')})$`).test(value);
   }
 
   ObjectElement(objectElement: ObjectElement) {

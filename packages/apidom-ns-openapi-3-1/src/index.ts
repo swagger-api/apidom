@@ -58,9 +58,7 @@ export {
 
 export { isOpenApi3_1LikeElement } from './refractor/predicates';
 export {
-  isParameterLikeElement,
   isReferenceLikeElement,
-  isResponseLikeElement,
   isOpenApiExtension,
   isServerLikeElement,
   isServersElement,

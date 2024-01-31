@@ -13,7 +13,7 @@ class SecuritySchemeVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   public declare readonly specPath: SpecPath<['document', 'objects', 'SecurityScheme']>;
 
-  public declare readonly canSupportSpecificationExtensions: boolean;
+  public declare readonly canSupportSpecificationExtensions: true;
 
   constructor(options: FixedFieldsVisitorOptions) {
     super(options);

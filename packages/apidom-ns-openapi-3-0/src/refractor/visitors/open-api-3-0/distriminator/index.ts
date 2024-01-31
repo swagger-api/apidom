@@ -13,7 +13,7 @@ class DiscriminatorVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   public declare readonly specPath: SpecPath<['document', 'objects', 'Discriminator']>;
 
-  public declare readonly canSupportSpecificationExtensions: boolean;
+  public declare canSupportSpecificationExtensions: boolean;
 
   constructor(options: FixedFieldsVisitorOptions) {
     super(options);

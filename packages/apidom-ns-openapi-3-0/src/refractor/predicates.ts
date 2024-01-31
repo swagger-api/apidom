@@ -1,36 +1,13 @@
 import { startsWith } from 'ramda';
-import {
-  MemberElement,
-  isStringElement,
-  isObjectElement,
-  Element,
-  toValue,
-} from '@swagger-api/apidom-core';
+import { ObjectElement } from 'minim';
+import { MemberElement, isStringElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const isOpenApi3_0LikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('openapi') && element.hasKey('info');
-};
+export interface ReferenceLikeElement extends ObjectElement {
+  hasKey: (value: '$ref') => true;
+}
 
-export const isParameterLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('name') && element.hasKey('in');
-};
-
-export const isReferenceLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
+export const isReferenceLikeElement = (element: unknown): element is ReferenceLikeElement => {
   return isObjectElement(element) && element.hasKey('$ref');
-};
-
-export const isRequestBodyLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('content');
-};
-
-export const isResponseLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
-  return isObjectElement(element) && element.hasKey('description');
 };
 
 export const isServerLikeElement = isObjectElement;

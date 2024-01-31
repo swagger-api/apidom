@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { test, always } from 'ramda';
+import { always } from 'ramda';
 import { ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import CallbackElement from '../../../../elements/Callback';
@@ -15,7 +15,7 @@ import { isPathItemElement } from '../../../../predicates';
 class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: CallbackElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+  public declare readonly specPath: SpecPath;
 
   public declare readonly canSupportSpecificationExtensions: true;
 
@@ -24,8 +24,8 @@ class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
     this.element = new CallbackElement();
     this.specPath = always(['document', 'objects', 'PathItem']);
     this.canSupportSpecificationExtensions = true;
-    // @ts-ignore
-    this.fieldPatternPredicate = test(/{(?<expression>.*)}/);
+    this.fieldPatternPredicate = (value) =>
+      typeof value === 'string' && /{(?<expression>.*)}/.test(value);
   }
 
   ObjectElement(objectElement: ObjectElement) {

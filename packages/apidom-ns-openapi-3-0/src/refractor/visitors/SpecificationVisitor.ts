@@ -2,6 +2,7 @@ import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep, ObjectElement } from '@swagger-api/apidom-core';
 
+import OpenApi3_0Element from '../../elements/OpenApi3-0';
 import Visitor, { VisitorOptions } from './Visitor';
 import { keyMap, getNodeType } from '../../traversal/visitor';
 import type specification from '../specification';
@@ -14,7 +15,7 @@ import FallbackVisitor from './FallbackVisitor';
 export interface SpecificationVisitorOptions extends VisitorOptions {
   readonly specObj: typeof specification;
   readonly openApiGenericElement?: ObjectElement;
-  readonly openApiSemanticElement?: ObjectElement;
+  readonly openApiSemanticElement?: OpenApi3_0Element;
 }
 
 class SpecificationVisitor extends Visitor {
@@ -26,9 +27,9 @@ class SpecificationVisitor extends Visitor {
     'openApiSemanticElement',
   ];
 
-  public openApiGenericElement: ObjectElement | null;
+  public openApiGenericElement?: ObjectElement;
 
-  public openApiSemanticElement: ObjectElement | null;
+  public openApiSemanticElement?: OpenApi3_0Element;
 
   constructor({
     specObj,
@@ -38,8 +39,8 @@ class SpecificationVisitor extends Visitor {
   }: SpecificationVisitorOptions) {
     super({ ...rest });
     this.specObj = specObj;
-    this.openApiGenericElement = openApiGenericElement || null;
-    this.openApiSemanticElement = openApiSemanticElement || null;
+    this.openApiGenericElement = openApiGenericElement;
+    this.openApiSemanticElement = openApiSemanticElement;
   }
 
   retrievePassingOptions() {
@@ -72,7 +73,7 @@ class SpecificationVisitor extends Visitor {
 
   toRefractedElement(specPath: string[], element: any, options = {}) {
     /**
-     * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+     * This is `Visitor shortcut`: mechanism for short-circuiting the traversal and replacing
      * it by basic node cloning.
      *
      * Visiting the element is equivalent to cloning it  if the prototype of a visitor

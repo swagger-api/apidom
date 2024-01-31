@@ -78,14 +78,14 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     let jsonSchemaDialect;
 
     if (
-      this.openApiSemanticElement !== null &&
+      this.openApiSemanticElement !== undefined &&
       // @ts-ignore
       isJsonSchemaDialectElement(this.openApiSemanticElement.jsonSchemaDialect)
     ) {
       // @ts-ignore
       jsonSchemaDialect = toValue(this.openApiSemanticElement.jsonSchemaDialect);
     } else if (
-      this.openApiGenericElement !== null &&
+      this.openApiGenericElement !== undefined &&
       isStringElement(this.openApiGenericElement.get('jsonSchemaDialect'))
     ) {
       jsonSchemaDialect = toValue(this.openApiGenericElement.get('jsonSchemaDialect'));

@@ -9,7 +9,6 @@ class RequestBodyVisitor extends AlternatingVisitor {
   constructor(options: AlternatingVisitorOptions) {
     super(options);
     this.alternator = [
-      // @ts-ignore
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
       { predicate: stubTrue, specPath: ['document', 'objects', 'RequestBody'] },
     ];

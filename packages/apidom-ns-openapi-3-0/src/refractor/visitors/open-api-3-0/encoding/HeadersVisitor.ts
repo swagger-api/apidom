@@ -19,7 +19,6 @@ class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     super(options);
     this.element = new EncodingHeadersElement();
     this.specPath = (element: unknown) =>
-      // @ts-ignore
       isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Header'];

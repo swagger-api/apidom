@@ -6,6 +6,8 @@ import FallbackVisitor from '../FallbackVisitor';
 import OpenapiElement from '../../../elements/Openapi';
 
 class OpenapiVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare element: OpenapiElement;
+
   StringElement(stringElement: StringElement) {
     const openapiElement = new OpenapiElement(toValue(stringElement));
 

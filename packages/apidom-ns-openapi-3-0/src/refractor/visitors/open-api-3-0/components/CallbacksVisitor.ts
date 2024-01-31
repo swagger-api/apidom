@@ -18,12 +18,10 @@ class CallbacksElement extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: MapVisitorOptions) {
     super(options);
     this.element = new ComponentsCallbacksElement();
-    this.specPath = (element: unknown) => {
-      // @ts-ignore
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Callback'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

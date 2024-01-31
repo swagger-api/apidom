@@ -18,12 +18,10 @@ class ResponsesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: MapVisitorOptions) {
     super(options);
     this.element = new ComponentsResponsesElement();
-    this.specPath = (element: unknown) => {
-      // @ts-ignore
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Response'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

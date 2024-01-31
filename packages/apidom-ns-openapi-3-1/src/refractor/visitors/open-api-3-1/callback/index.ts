@@ -23,7 +23,6 @@ const {
 class CallbackVisitor extends BaseCallbackVisitor {
   public declare readonly element: CallbackElement;
 
-  // @ts-ignore
   public declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;

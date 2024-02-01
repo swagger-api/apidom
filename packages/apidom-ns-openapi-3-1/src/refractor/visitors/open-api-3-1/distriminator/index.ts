@@ -20,7 +20,7 @@ export type { DiscriminatorVisitorOptions };
 class DiscriminatorVisitor extends BaseDiscriminatorVisitor {
   public declare readonly element: DiscriminatorElement;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
   constructor(options: DiscriminatorVisitorOptions) {
     super(options);

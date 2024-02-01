@@ -14,7 +14,7 @@ export interface SchemasVisitorOptions extends MapVisitorOptions, FallbackVisito
 class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsSchemasElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
   constructor(options: SchemasVisitorOptions) {
     super(options);

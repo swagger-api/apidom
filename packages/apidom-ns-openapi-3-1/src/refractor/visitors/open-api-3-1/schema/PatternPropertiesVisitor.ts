@@ -25,7 +25,7 @@ class PatternPropertiesVisitor extends Mixin(
 ) {
   public declare readonly element: ObjectElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
   constructor(options: PatternPropertiesVisitorOptions) {
     super(options);

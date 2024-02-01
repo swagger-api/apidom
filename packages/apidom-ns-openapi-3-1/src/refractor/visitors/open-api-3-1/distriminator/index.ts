@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  DiscriminatorVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import DiscriminatorElement from '../../../../elements/Discriminator';
@@ -15,12 +15,14 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { DiscriminatorVisitorOptions };
+
 class DiscriminatorVisitor extends BaseDiscriminatorVisitor {
   public declare readonly element: DiscriminatorElement;
 
   public declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: DiscriminatorVisitorOptions) {
     super(options);
     this.element = new DiscriminatorElement();
     this.canSupportSpecificationExtensions = true;

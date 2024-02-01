@@ -2,6 +2,7 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import {
   FallbackVisitor,
+  FallbackVisitorOptions,
   SpecificationVisitor,
   SpecificationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
@@ -12,7 +13,8 @@ import ParentSchemaAwareVisitor, {
 
 export interface PrefixItemsVisitorOptions
   extends SpecificationVisitorOptions,
-    ParentSchemaAwareVisitorOptions {}
+    ParentSchemaAwareVisitorOptions,
+    FallbackVisitorOptions {}
 
 class PrefixItemsVisitor extends Mixin(
   SpecificationVisitor,

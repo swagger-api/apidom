@@ -6,16 +6,18 @@ import { isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
 import OperationCallbacksElement from '../../../../elements/nces/OperationCallbacks';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface CallbacksVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class CallbacksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public readonly element: OperationCallbacksElement;
+  public declare readonly element: OperationCallbacksElement;
 
-  public readonly specPath: SpecPath<
+  protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Callback']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: CallbacksVisitorOptions) {
     super(options);
     this.element = new OperationCallbacksElement();
     this.specPath = (element: unknown) =>

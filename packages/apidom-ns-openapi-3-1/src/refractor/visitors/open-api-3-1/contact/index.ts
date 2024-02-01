@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  ContactVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ContactElement from '../../../../elements/Contact';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ContactVisitorOptions };
+
 class ContactVisitor extends BaseContactVisitor {
   public declare readonly element: ContactElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ContactVisitorOptions) {
     super(options);
     this.element = new ContactElement();
   }

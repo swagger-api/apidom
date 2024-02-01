@@ -21,13 +21,13 @@ export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
 }
 
 class FixedFieldsVisitor extends SpecificationVisitor {
-  public specPath: SpecPath;
+  protected specPath: SpecPath;
 
-  public ignoredFields: string[];
+  protected ignoredFields: string[];
 
-  public canSupportSpecificationExtensions: boolean = true;
+  protected canSupportSpecificationExtensions: boolean = true;
 
-  public specificationExtensionPredicate = isOpenApiExtension;
+  protected specificationExtensionPredicate = isOpenApiExtension;
 
   constructor({
     specPath,

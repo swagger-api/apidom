@@ -15,14 +15,16 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface PathItemVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class PathItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: PathItemElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: PathItemVisitorOptions) {
     super(options);
     this.element = new PathItemElement();
     this.specPath = always(['document', 'objects', 'PathItem']);

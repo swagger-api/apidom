@@ -1,6 +1,8 @@
 import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
 import HeaderContentElement from '../../../../elements/nces/HeaderContent';
 
+export type { ContentVisitorOptions };
+
 class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: HeaderContentElement;
 

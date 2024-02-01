@@ -3,16 +3,16 @@ import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 
-export type { MapVisitorOptions as ContentVisitorOptions };
+export interface ContentVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class ContentVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'MediaType']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'MediaType']>;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: ContentVisitorOptions) {
     super(options);
     this.element = new ObjectElement();
     this.element.classes.push('content');

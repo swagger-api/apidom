@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  HeaderVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import HeaderElement from '../../../../elements/Header';
@@ -15,10 +15,11 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { HeaderVisitorOptions };
 class HeaderVisitor extends BaseHeaderVisitor {
   public declare readonly element: HeaderElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: HeaderVisitorOptions) {
     super(options);
     this.element = new HeaderElement();
   }

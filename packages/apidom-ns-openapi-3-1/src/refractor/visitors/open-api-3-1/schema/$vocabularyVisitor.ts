@@ -1,5 +1,7 @@
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
+import { FallbackVisitor, FallbackVisitorOptions } from '@swagger-api/apidom-ns-openapi-3-0';
+
+export type { FallbackVisitorOptions as $vocabularyVisitorOptions };
 
 class $vocabularyVisitor extends FallbackVisitor {
   public declare readonly element: ObjectElement;

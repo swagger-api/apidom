@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  OAuthFlowsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OAuthFlowsElement from '../../../../elements/OAuthFlows';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { OAuthFlowsVisitorOptions };
+
 class OAuthFlowsVisitor extends BaseOAuthFlowsVisitor {
   public declare readonly element: OAuthFlowsElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: OAuthFlowsVisitorOptions) {
     super(options);
     this.element = new OAuthFlowsElement();
   }

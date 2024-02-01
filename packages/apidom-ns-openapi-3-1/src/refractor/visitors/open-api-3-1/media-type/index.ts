@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  MediaTypeVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import MediaTypeElement from '../../../../elements/MediaType';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { MediaTypeVisitorOptions };
+
 class MediaTypeVisitor extends BaseMediaTypeVisitor {
   public declare readonly element: MediaTypeElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: MediaTypeVisitorOptions) {
     super(options);
     this.element = new MediaTypeElement();
   }

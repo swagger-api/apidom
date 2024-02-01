@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  ExternalDocumentationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ExternalDocumentationElement from '../../../../elements/ExternalDocumentation';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ExternalDocumentationVisitorOptions };
+
 class ExternalDocumentationVisitor extends BaseExternalDocumentationVisitor {
   public declare readonly element: ExternalDocumentationElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ExternalDocumentationVisitorOptions) {
     super(options);
     this.element = new ExternalDocumentationElement();
   }

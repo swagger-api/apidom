@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  ReferenceVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from '../../../../elements/Reference';
@@ -15,10 +15,11 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ReferenceVisitorOptions };
 class ReferenceVisitor extends BaseReferenceVisitor {
   public declare readonly element: ReferenceElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ReferenceVisitorOptions) {
     super(options);
     this.element = new ReferenceElement();
   }

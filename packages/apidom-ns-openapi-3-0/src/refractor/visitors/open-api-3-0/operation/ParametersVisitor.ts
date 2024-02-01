@@ -1,6 +1,8 @@
 import OperationParametersElement from '../../../../elements/nces/OperationParameters';
 import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
 
+export type { ParametersVisitorOptions };
+
 class ParametersVisitor extends BaseParametersVisitor {
   public declare readonly element: OperationParametersElement;
 

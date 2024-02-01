@@ -1,7 +1,9 @@
 import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
 import ParameterContentElement from '../../../../elements/nces/ParameterContent';
 
-class ExamplesVisitor extends BaseContentVisitor {
+export type { ContentVisitorOptions };
+
+class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: ParameterContentElement;
 
   constructor(options: ContentVisitorOptions) {
@@ -10,4 +12,4 @@ class ExamplesVisitor extends BaseContentVisitor {
   }
 }
 
-export default ExamplesVisitor;
+export default ContentVisitor;

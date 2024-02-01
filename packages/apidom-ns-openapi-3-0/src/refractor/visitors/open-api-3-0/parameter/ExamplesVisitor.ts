@@ -1,6 +1,8 @@
 import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
 import ParameterExamplesElement from '../../../../elements/nces/ParameterExamples';
 
+export type { ExamplesVisitorOptions };
+
 class ExamplesVisitor extends BaseExamplesVisitor {
   public declare readonly element: ParameterExamplesElement;
 

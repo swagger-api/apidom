@@ -23,15 +23,15 @@ export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptio
 }
 
 class PatternedFieldsVisitor extends SpecificationVisitor {
-  public specPath: SpecPath;
+  protected specPath: SpecPath;
 
-  public ignoredFields: string[];
+  protected ignoredFields: string[];
 
-  public fieldPatternPredicate: (value: unknown) => boolean = stubFalse;
+  protected fieldPatternPredicate: (value: unknown) => boolean = stubFalse;
 
-  public canSupportSpecificationExtensions: boolean = false;
+  protected canSupportSpecificationExtensions: boolean = false;
 
-  public specificationExtensionPredicate = isOpenApiExtension;
+  protected specificationExtensionPredicate = isOpenApiExtension;
 
   constructor({
     specPath,

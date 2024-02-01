@@ -4,9 +4,14 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceElement } from '../../../../predicates';
 import { isReferenceLikeElement } from '../../../predicates';
 import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
+import { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface RequestBodyVisitorOptions
+  extends AlternatingVisitorOptions,
+    FallbackVisitorOptions {}
 
 class RequestBodyVisitor extends AlternatingVisitor {
-  constructor(options: AlternatingVisitorOptions) {
+  constructor(options: RequestBodyVisitorOptions) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },

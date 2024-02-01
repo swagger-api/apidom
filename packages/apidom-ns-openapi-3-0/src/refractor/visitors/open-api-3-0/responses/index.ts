@@ -14,22 +14,26 @@ import MixedFieldsVisitor, {
   MixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/MixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isResponseElement } from '../../../../predicates';
+
+export interface ResponsesVisitorOptions
+  extends MixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ResponsesVisitor extends Mixin(MixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ResponsesElement;
 
-  public declare readonly specPathFixedFields: SpecPath<['document', 'objects', 'Responses']>;
+  protected declare readonly specPathFixedFields: SpecPath<['document', 'objects', 'Responses']>;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  public declare readonly specPathPatternedFields: SpecPath<
+  protected declare readonly specPathPatternedFields: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Response']
   >;
 
-  constructor(options: MixedFieldsVisitorOptions) {
+  constructor(options: ResponsesVisitorOptions) {
     super(options);
     this.element = new ResponsesElement();
     this.specPathFixedFields = always(['document', 'objects', 'Responses']);

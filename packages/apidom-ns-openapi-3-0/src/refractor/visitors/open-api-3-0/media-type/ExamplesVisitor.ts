@@ -1,6 +1,8 @@
 import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
 import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples';
 
+export type { ExamplesVisitorOptions };
+
 class ExamplesVisitor extends BaseExamplesVisitor {
   public declare readonly element: MediaTypeExamples;
 

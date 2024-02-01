@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  MixedFieldsVisitorOptions,
+  ResponsesVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ResponsesElement from '../../../../elements/Responses';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ResponsesVisitorOptions };
+
 class ResponsesVisitor extends BaseResponsesVisitor {
   public declare readonly element: ResponsesElement;
 
-  constructor(options: MixedFieldsVisitorOptions) {
+  constructor(options: ResponsesVisitorOptions) {
     super(options);
     this.element = new ResponsesElement();
   }

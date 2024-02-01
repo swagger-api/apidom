@@ -4,18 +4,20 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsRequestBodiesElement from '../../../../elements/nces/ComponentsRequestBodies';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface RequestBodiesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class RequestBodiesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsRequestBodiesElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'RequestBody']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: RequestBodiesVisitorOptions) {
     super(options);
     this.element = new ComponentsRequestBodiesElement();
     this.specPath = (element: unknown) =>

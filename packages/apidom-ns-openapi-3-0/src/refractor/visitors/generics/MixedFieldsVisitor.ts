@@ -13,9 +13,9 @@ export interface MixedFieldsVisitorOptions extends PatternedFieldsVisitorOptions
 }
 
 class MixedFieldsVisitor extends Mixin(FixedFieldsVisitor, PatternedFieldsVisitor) {
-  public specPathFixedFields: SpecPath;
+  protected specPathFixedFields: SpecPath;
 
-  public specPathPatternedFields: SpecPath;
+  protected specPathPatternedFields: SpecPath;
 
   constructor({
     specPathFixedFields,

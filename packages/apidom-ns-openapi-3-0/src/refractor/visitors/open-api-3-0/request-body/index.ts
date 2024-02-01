@@ -8,15 +8,19 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isMediaTypeElement } from '../../../../predicates';
+
+export interface RequestBodyVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class RequestBodyVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: RequestBodyElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'RequestBody']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'RequestBody']>;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: RequestBodyVisitorOptions) {
     super(options);
     this.element = new RequestBodyElement();
     this.specPath = always(['document', 'objects', 'RequestBody']);

@@ -1,6 +1,8 @@
 import { StringElement } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export type { FallbackVisitorOptions as OperationRefVisitorOptions };
 
 class OperationRefVisitor extends FallbackVisitor {
   public declare readonly element: StringElement;

@@ -4,18 +4,20 @@ import { ObjectElement, Element, StringElement, toValue } from '@swagger-api/api
 import ReferenceElement from '../../../../elements/Reference';
 import ResponseHeadersElement from '../../../../elements/nces/ResponseHeaders';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isHeaderElement, isReferenceElement } from '../../../../predicates';
+
+export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ResponseHeadersElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Header']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: HeadersVisitorOptions) {
     super(options);
     this.element = new ResponseHeadersElement();
     this.specPath = (element: unknown) =>

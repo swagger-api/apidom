@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  ComponentsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ComponentsElement from '../../../../elements/Components';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ComponentsVisitorOptions };
+
 class ComponentsVisitor extends BaseComponentsVisitor {
   public declare readonly element: ComponentsElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ComponentsVisitorOptions) {
     super(options);
     this.element = new ComponentsElement();
   }

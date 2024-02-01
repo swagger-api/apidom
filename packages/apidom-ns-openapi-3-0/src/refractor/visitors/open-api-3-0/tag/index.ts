@@ -6,16 +6,18 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface TagVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: TagElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Tag']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Tag']>;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: TagVisitorOptions) {
     super(options);
     this.element = new TagElement();
     this.specPath = always(['document', 'objects', 'Tag']);

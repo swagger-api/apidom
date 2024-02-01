@@ -6,11 +6,14 @@ import {
   MapVisitorOptions,
   FallbackVisitor,
   SpecPath,
+  FallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsPathItemsElement from '../../../../elements/nces/ComponentsPathItems';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface PathItemsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class PathItemsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsPathItemsElement;
@@ -19,7 +22,7 @@ class PathItemsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: PathItemsVisitorOptions) {
     super(options);
     this.element = new ComponentsPathItemsElement();
     this.specPath = (element: unknown) =>

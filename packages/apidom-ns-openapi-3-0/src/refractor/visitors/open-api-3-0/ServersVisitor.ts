@@ -3,15 +3,17 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import ServersElement from '../../../elements/nces/Servers';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 import { isServerLikeElement } from '../../predicates';
 
-export type { SpecificationVisitorOptions as ServersVisitorOptions };
+export interface ServersVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ServersElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: ServersVisitorOptions) {
     super(options);
     this.element = new ServersElement();
   }

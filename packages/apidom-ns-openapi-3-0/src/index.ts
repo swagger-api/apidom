@@ -290,7 +290,7 @@ export type {
 } from './refractor/visitors/open-api-3-0/paths';
 export type {
   default as Reference$RefVisitor,
-  $RefVisitorOptions,
+  $RefVisitorOptions as Reference$RefVisitorOptions,
 } from './refractor/visitors/open-api-3-0/reference/$RefVisitor';
 export type {
   default as ReferenceVisitor,

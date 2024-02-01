@@ -14,6 +14,7 @@ import { isMediaTypeElement } from '../../../../predicates';
 export interface RequestBodyVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
+
 class RequestBodyVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: RequestBodyElement;
 

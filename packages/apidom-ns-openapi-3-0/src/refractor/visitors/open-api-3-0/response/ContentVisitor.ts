@@ -1,6 +1,8 @@
 import ResponseContentElement from '../../../../elements/nces/ResponseContent';
 import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
 
+export type { ContentVisitorOptions };
+
 class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: ResponseContentElement;
 

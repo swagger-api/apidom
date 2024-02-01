@@ -2,20 +2,22 @@ import { Mixin } from 'ts-mixer';
 import { Element, ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isHeaderElement, isReferenceElement } from '../../../../predicates';
 import EncodingHeadersElement from '../../../../elements/nces/EncodingHeaders';
 import ReferenceElement from '../../../../elements/Reference';
 
+export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: EncodingHeadersElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Header']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: HeadersVisitorOptions) {
     super(options);
     this.element = new EncodingHeadersElement();
     this.specPath = (element: unknown) =>

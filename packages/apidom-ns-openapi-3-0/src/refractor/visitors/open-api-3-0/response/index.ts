@@ -9,15 +9,17 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isHeaderElement, isMediaTypeElement } from '../../../../predicates';
+
+export interface ResponseVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class ResponseVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ResponseElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Response']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Response']>;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ResponseVisitorOptions) {
     super(options);
     this.element = new ResponseElement();
     this.specPath = always(['document', 'objects', 'Response']);

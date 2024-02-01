@@ -1,6 +1,8 @@
 import PathItemParametersElement from '../../../../elements/nces/PathItemParameters';
 import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
 
+export type { ParametersVisitorOptions };
+
 class ParametersVisitor extends BaseParametersVisitor {
   public declare readonly element: PathItemParametersElement;
 

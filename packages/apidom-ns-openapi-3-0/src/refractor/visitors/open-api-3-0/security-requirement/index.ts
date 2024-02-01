@@ -3,14 +3,18 @@ import { always } from 'ramda';
 
 import SecurityRequirementElement from '../../../../elements/SecurityRequirement';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface SecurityRequirementVisitorOptions
+  extends MapVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SecurityRequirementVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: SecurityRequirementElement;
 
-  public declare readonly specPath: SpecPath<['value']>;
+  protected declare readonly specPath: SpecPath<['value']>;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: SecurityRequirementVisitorOptions) {
     super(options);
     this.element = new SecurityRequirementElement();
     this.specPath = always(['value']);

@@ -13,25 +13,27 @@ import FallbackVisitor from './FallbackVisitor';
  */
 export interface SpecificationVisitorOptions extends VisitorOptions {
   readonly specObj: typeof specification;
+  readonly passingOptionsNames?: string[];
   readonly openApiGenericElement?: ObjectElement;
   readonly openApiSemanticElement?: OpenApi3_0Element;
 }
 
 class SpecificationVisitor extends Visitor {
-  public readonly specObj: typeof specification;
+  protected readonly specObj: typeof specification;
 
-  public readonly passingOptionsNames = [
+  protected readonly passingOptionsNames: string[] = [
     'specObj',
     'openApiGenericElement',
     'openApiSemanticElement',
   ];
 
-  public openApiGenericElement?: ObjectElement;
+  protected openApiGenericElement?: ObjectElement;
 
-  public openApiSemanticElement?: OpenApi3_0Element;
+  protected openApiSemanticElement?: OpenApi3_0Element;
 
   constructor({
     specObj,
+    passingOptionsNames,
     openApiGenericElement,
     openApiSemanticElement,
     ...rest
@@ -40,6 +42,10 @@ class SpecificationVisitor extends Visitor {
     this.specObj = specObj;
     this.openApiGenericElement = openApiGenericElement;
     this.openApiSemanticElement = openApiSemanticElement;
+
+    if (Array.isArray(passingOptionsNames)) {
+      this.passingOptionsNames = passingOptionsNames;
+    }
   }
 
   retrievePassingOptions() {

@@ -3,10 +3,12 @@ import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import OperationTagsElement from '../../../../elements/nces/OperationTags';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
+export interface TagsVisitorOptions extends FallbackVisitorOptions {}
+
 class TagsVisitor extends FallbackVisitor {
   public declare element: OperationTagsElement;
 
-  constructor(options: FallbackVisitorOptions) {
+  constructor(options: TagsVisitorOptions) {
     super(options);
     this.element = new OperationTagsElement();
   }

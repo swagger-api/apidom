@@ -6,16 +6,20 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface DiscriminatorVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class DiscriminatorVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: DiscriminatorElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Discriminator']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Discriminator']>;
 
-  public declare canSupportSpecificationExtensions: boolean;
+  protected declare canSupportSpecificationExtensions: boolean;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: DiscriminatorVisitorOptions) {
     super(options);
     this.element = new DiscriminatorElement();
     this.specPath = always(['document', 'objects', 'Discriminator']);

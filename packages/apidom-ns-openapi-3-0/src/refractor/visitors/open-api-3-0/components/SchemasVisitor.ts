@@ -4,18 +4,20 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsSchemasElement from '../../../../elements/nces/ComponentsSchemas';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface SchemasVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsSchemasElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Schema']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: SchemasVisitorOptions) {
     super(options);
     this.element = new ComponentsSchemasElement();
     this.specPath = (element: unknown) =>

@@ -2,23 +2,23 @@ import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 import { isReferenceLikeElement } from '../../predicates';
 import { isReferenceElement } from '../../../predicates';
 import ReferenceElement from '../../../elements/Reference';
 
-export type { MapVisitorOptions as ExamplesVisitorOptions };
+export interface ExamplesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class ExamplesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Example']
   >;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: ExamplesVisitorOptions) {
     super(options);
     this.element = new ObjectElement();
     this.element.classes.push('examples');

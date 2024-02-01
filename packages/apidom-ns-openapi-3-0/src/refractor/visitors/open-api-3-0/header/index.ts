@@ -6,16 +6,18 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface HeaderVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class HeaderVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: HeaderElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Header']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Header']>;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: HeaderVisitorOptions) {
     super(options);
     this.element = new HeaderElement();
     this.specPath = always(['document', 'objects', 'Header']);

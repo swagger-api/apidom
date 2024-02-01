@@ -8,18 +8,22 @@ import PatternedFieldsVisitor, {
   PatternedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import MapVisitor from '../../generics/MapVisitor';
 import { isPathItemElement } from '../../../../predicates';
+
+export interface CallbackVisitorOptions
+  extends PatternedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: CallbackElement;
 
-  public declare readonly specPath: SpecPath;
+  protected declare readonly specPath: SpecPath;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: PatternedFieldsVisitorOptions) {
+  constructor(options: CallbackVisitorOptions) {
     super(options);
     this.element = new CallbackElement();
     this.specPath = always(['document', 'objects', 'PathItem']);

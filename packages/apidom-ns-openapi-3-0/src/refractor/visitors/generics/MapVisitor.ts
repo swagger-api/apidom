@@ -11,8 +11,7 @@ export interface MapVisitorOptions extends PatternedFieldsVisitorOptions {}
 
 class MapVisitor extends PatternedFieldsVisitor {
   constructor(options: MapVisitorOptions) {
-    super(options);
-    this.fieldPatternPredicate = isNonEmptyString;
+    super({ ...options, fieldPatternPredicate: isNonEmptyString });
   }
 }
 

@@ -3,12 +3,16 @@ import { ArrayElement, isObjectElement, BREAK, cloneDeep } from '@swagger-api/ap
 
 import SecurityElement from '../../../elements/nces/Security';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+
+export interface SecurityVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: SecurityElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: SecurityVisitorOptions) {
     super(options);
     this.element = new SecurityElement();
   }

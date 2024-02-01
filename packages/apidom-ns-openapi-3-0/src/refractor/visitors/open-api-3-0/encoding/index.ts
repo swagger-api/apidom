@@ -8,17 +8,18 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isHeaderElement } from '../../../../predicates';
 
+export interface EncodingVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 class EncodingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: EncodingElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: EncodingVisitorOptions) {
     super(options);
     this.element = new EncodingElement();
     this.specPath = always(['document', 'objects', 'Encoding']);

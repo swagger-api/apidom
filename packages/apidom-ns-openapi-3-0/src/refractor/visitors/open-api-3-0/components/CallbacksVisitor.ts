@@ -4,18 +4,20 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsCallbacksElement from '../../../../elements/nces/ComponentsCallbacks';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-class CallbacksElement extends Mixin(MapVisitor, FallbackVisitor) {
+export interface CallbackVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
+class CallbacksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsCallbacksElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Callback']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: CallbackVisitorOptions) {
     super(options);
     this.element = new ComponentsCallbacksElement();
     this.specPath = (element: unknown) =>
@@ -36,4 +38,4 @@ class CallbacksElement extends Mixin(MapVisitor, FallbackVisitor) {
   }
 }
 
-export default CallbacksElement;
+export default CallbacksVisitor;

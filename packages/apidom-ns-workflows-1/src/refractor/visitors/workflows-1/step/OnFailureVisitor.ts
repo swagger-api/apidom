@@ -3,12 +3,16 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import StepOnFailureElement from '../../../../elements/nces/StepOnFailure';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface OnFailureVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class OnFailureVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepOnFailureElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: OnFailureVisitorOptions) {
     super(options);
     this.element = new StepOnFailureElement();
   }

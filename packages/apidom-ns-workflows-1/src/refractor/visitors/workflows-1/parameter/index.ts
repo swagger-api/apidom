@@ -2,11 +2,15 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import ParameterElement from '../../../../elements/Parameter';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface ParameterVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ParameterElement;
@@ -15,7 +19,7 @@ class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ParameterVisitorOptions) {
     super(options);
     this.element = new ParameterElement();
     this.specPath = always(['document', 'objects', 'Parameter']);

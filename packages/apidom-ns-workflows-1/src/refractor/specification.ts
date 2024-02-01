@@ -1,7 +1,7 @@
 import { omit } from 'ramda';
 import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import WorkflowsSpecificationVisitor from './visitors/workflows-1/index';
+import WorkflowsSpecificationVisitor from './visitors/workflows-1';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor';
 import InfoVisitor from './visitors/workflows-1/info';
 import InfoVersionVisitor from './visitors/workflows-1/info/VersionVisitor';

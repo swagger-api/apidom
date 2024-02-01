@@ -6,9 +6,12 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1';
 
+export interface WorkflowsSpecificationVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 class WorkflowsSpecificationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public readonly element: WorkflowsSpecification1Element;
 
@@ -16,7 +19,7 @@ class WorkflowsSpecificationVisitor extends Mixin(FixedFieldsVisitor, FallbackVi
 
   protected readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: WorkflowsSpecificationVisitorOptions) {
     super(options);
     this.element = new WorkflowsSpecification1Element();
     this.specPath = always(['document', 'objects', 'WorkflowsSpecification']);

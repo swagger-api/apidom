@@ -2,7 +2,7 @@ import { StringElement } from '@swagger-api/apidom-core';
 
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
-export interface UrlVisitorOptions extends FallbackVisitorOptions {}
+export type { FallbackVisitorOptions as UrlVisitorOptions };
 
 class UrlVisitor extends FallbackVisitor {
   public declare readonly element: StringElement;

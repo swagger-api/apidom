@@ -3,12 +3,14 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import WorkflowStepsElement from '../../../../elements/nces/WorkflowSteps';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface StepsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
 class StepsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: WorkflowStepsElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: StepsVisitorOptions) {
     super(options);
     this.element = new WorkflowStepsElement();
   }

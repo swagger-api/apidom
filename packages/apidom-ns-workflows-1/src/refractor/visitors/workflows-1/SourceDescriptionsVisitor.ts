@@ -3,12 +3,16 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import SourceDescriptionsElement from '../../../elements/nces/SourceDescriptions';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+
+export interface SourceDescriptionsVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SourceDescriptionsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: SourceDescriptionsElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: SourceDescriptionsVisitorOptions) {
     super(options);
     this.element = new SourceDescriptionsElement();
   }

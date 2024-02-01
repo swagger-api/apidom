@@ -2,11 +2,15 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import SuccessActionElement from '../../../../elements/SuccessAction';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface SuccessActionVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SuccessActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SuccessActionElement;
@@ -15,7 +19,7 @@ class SuccessActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SuccessActionVisitorOptions) {
     super(options);
     this.element = new SuccessActionElement();
     this.specPath = always(['document', 'objects', 'SuccessAction']);

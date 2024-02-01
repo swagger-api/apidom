@@ -2,6 +2,7 @@ import { always } from 'ramda';
 import {
   JsonSchemaDialectElement,
   specificationObj as OpenApi3_1Specification,
+  SchemaVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import JSONSchemaElement from '../../../../elements/JSONSchema';
@@ -9,17 +10,19 @@ import { SpecPath } from '../../generics/FixedFieldsVisitor';
 
 const { $visitor: SchemaVisitor } = OpenApi3_1Specification.visitors.document.objects.Schema;
 
+export type JSONSchemaVisitorOptions = SchemaVisitorOptions;
+
 class JSONSchemaVisitor extends SchemaVisitor {
   public declare readonly element: JSONSchemaElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
-  public declare readonly canSupportSpecificationExtensions: false;
+  protected declare readonly canSupportSpecificationExtensions: false;
 
-  public declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
+  protected declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
 
-  constructor(...args: ConstructorParameters<typeof SchemaVisitor>) {
-    super(...args);
+  constructor(options: JSONSchemaVisitorOptions) {
+    super(options);
     this.element = new JSONSchemaElement();
     this.specPath = always(['document', 'objects', 'JSONSchema']);
     this.canSupportSpecificationExtensions = false;

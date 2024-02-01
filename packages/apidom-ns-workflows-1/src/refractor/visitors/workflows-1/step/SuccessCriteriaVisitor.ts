@@ -3,12 +3,16 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import StepSuccessCriteriaElement from '../../../../elements/nces/StepSuccessCriteria';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface SuccessCriteriaVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SuccessCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepSuccessCriteriaElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: SuccessCriteriaVisitorOptions) {
     super(options);
     this.element = new StepSuccessCriteriaElement();
   }

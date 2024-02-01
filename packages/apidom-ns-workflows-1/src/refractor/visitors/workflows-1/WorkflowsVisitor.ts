@@ -3,12 +3,16 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import WorkflowsElement from '../../../elements/nces/Workflows';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+
+export interface WorkflowsVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class WorkflowsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: WorkflowsElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: WorkflowsVisitorOptions) {
     super(options);
     this.element = new WorkflowsElement();
   }

@@ -2,11 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import WorkflowElement from '../../../../elements/Workflow';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface WorkflowVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class WorkflowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: WorkflowElement;
@@ -15,7 +17,7 @@ class WorkflowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: WorkflowVisitorOptions) {
     super(options);
     this.element = new WorkflowElement();
     this.specPath = always(['document', 'objects', 'Workflow']);

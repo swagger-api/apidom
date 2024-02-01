@@ -11,7 +11,7 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 export interface MediaTypeVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
-    
+
 class MediaTypeVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MediaTypeElement;
 

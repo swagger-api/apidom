@@ -69,6 +69,8 @@ export { default as PatternedFieldsVisitor } from './refractor/visitors/generics
 export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor';
 export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
 export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
+export { default as SpecificationExtensionVisitor } from './refractor/visitors/SpecificationExtensionVisitor';
+export type { SpecificationExtensionVisitorOptions } from './refractor/visitors/SpecificationExtensionVisitor';
 export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
 export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
 export { default as Visitor } from './refractor/visitors/Visitor';
@@ -302,6 +304,10 @@ export type {
   default as RequestBodyVisitor,
   RequestBodyVisitorOptions,
 } from './refractor/visitors/open-api-3-0/request-body';
+export type {
+  default as ResponseContentVisitor,
+  ContentVisitorOptions as ResponseContentVisitorOptions,
+} from './refractor/visitors/open-api-3-0/response/ContentVisitor';
 export type {
   default as ResponseHeadersVisitor,
   HeadersVisitorOptions as ResponseHeadersVisitorOptions,

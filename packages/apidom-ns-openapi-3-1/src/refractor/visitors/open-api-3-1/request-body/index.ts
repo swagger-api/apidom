@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  RequestBodyVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import RequestBodyElement from '../../../../elements/RequestBody';
@@ -15,10 +15,11 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { RequestBodyVisitorOptions };
 class RequestBodyVisitor extends BaseRequestBodyVisitor {
   public declare readonly element: RequestBodyElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: RequestBodyVisitorOptions) {
     super(options);
     this.element = new RequestBodyElement();
   }

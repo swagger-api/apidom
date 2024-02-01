@@ -5,6 +5,7 @@ import {
   MapVisitor,
   MapVisitorOptions,
   FallbackVisitor,
+  FallbackVisitorOptions,
   SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
@@ -13,6 +14,8 @@ import PathItemElement from '../../../elements/PathItem';
 import WebhooksElement from '../../../elements/nces/Webhooks';
 import { isPathItemElement, isReferenceElement } from '../../../predicates';
 
+export interface WebhooksVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
 class WebhooksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: WebhooksElement;
 
@@ -20,7 +23,7 @@ class WebhooksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: WebhooksVisitorOptions) {
     super(options);
     this.element = new WebhooksElement();
     this.specPath = (element: unknown) =>

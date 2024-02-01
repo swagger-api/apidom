@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  ServerVariableVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ServerVariableElement from '../../../../elements/ServerVariable';
@@ -15,10 +15,11 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { ServerVariableVisitorOptions };
 class ServerVariableVisitor extends BaseServerVariableVisitor {
   public declare readonly element: ServerVariableElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ServerVariableVisitorOptions) {
     super(options);
     this.element = new ServerVariableElement();
   }

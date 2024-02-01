@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  InfoVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import InfoElement from '../../../../elements/Info';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { InfoVisitorOptions };
+
 class InfoVisitor extends BaseInfoVisitor {
   public declare readonly element: InfoElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: InfoVisitorOptions) {
     super(options);
     this.element = new InfoElement();
   }

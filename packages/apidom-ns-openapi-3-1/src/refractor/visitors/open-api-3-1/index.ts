@@ -5,10 +5,16 @@ import {
   FixedFieldsVisitor,
   FixedFieldsVisitorOptions,
   FallbackVisitor,
+  FallbackVisitorOptions,
   SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OpenApi3_1Element from '../../../elements/OpenApi3-1';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export interface OpenApi3_1VisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
@@ -20,7 +26,7 @@ class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   public declare readonly openApiSemanticElement: OpenApi3_1Element;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: OpenApi3_1VisitorOptions) {
     super(options);
     this.element = new OpenApi3_1Element();
     this.specPath = always(['document', 'objects', 'OpenApi']);

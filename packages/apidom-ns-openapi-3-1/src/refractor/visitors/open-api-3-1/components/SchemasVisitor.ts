@@ -6,14 +6,17 @@ import {
   MapVisitorOptions,
   FallbackVisitor,
   SpecPath,
+  FallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
+
+export interface SchemasVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsSchemasElement;
 
   public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: SchemasVisitorOptions) {
     super(options);
     this.element = new ComponentsSchemasElement();
     this.specPath = always(['document', 'objects', 'Schema']);

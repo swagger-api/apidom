@@ -3,6 +3,7 @@ import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   FallbackVisitor,
+  FallbackVisitorOptions,
   MapVisitor,
   MapVisitorOptions,
   SpecPath,
@@ -14,7 +15,8 @@ import ParentSchemaAwareVisitor, {
 
 export interface DependentSchemasVisitorOptions
   extends MapVisitorOptions,
-    ParentSchemaAwareVisitorOptions {}
+    ParentSchemaAwareVisitorOptions,
+    FallbackVisitorOptions {}
 
 class DependentSchemasVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;

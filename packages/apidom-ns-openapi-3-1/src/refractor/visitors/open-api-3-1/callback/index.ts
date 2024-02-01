@@ -2,8 +2,8 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   isReferenceLikeElement,
   specificationObj as OpenApi3_1Specification,
-  PatternedFieldsVisitorOptions,
   SpecPath,
+  CallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from '../../../../elements/Callback';
@@ -20,6 +20,8 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { CallbackVisitorOptions };
+
 class CallbackVisitor extends BaseCallbackVisitor {
   public declare readonly element: CallbackElement;
 
@@ -27,7 +29,7 @@ class CallbackVisitor extends BaseCallbackVisitor {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 
-  constructor(options: PatternedFieldsVisitorOptions) {
+  constructor(options: CallbackVisitorOptions) {
     super(options);
     this.element = new CallbackElement();
     this.specPath = (element: unknown) => {

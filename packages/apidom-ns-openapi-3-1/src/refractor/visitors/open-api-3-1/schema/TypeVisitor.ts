@@ -1,5 +1,7 @@
 import { StringElement, ArrayElement } from '@swagger-api/apidom-core';
-import { FallbackVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
+import { FallbackVisitor, FallbackVisitorOptions } from '@swagger-api/apidom-ns-openapi-3-0';
+
+export type { FallbackVisitorOptions as TypeVisitorOptions };
 
 class TypeVisitor extends FallbackVisitor {
   public declare readonly element: StringElement | ArrayElement;

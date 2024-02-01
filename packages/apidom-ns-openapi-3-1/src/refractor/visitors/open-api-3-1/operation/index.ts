@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  OperationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OperationElement from '../../../../elements/Operation';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { OperationVisitorOptions };
+
 class OperationVisitor extends BaseOperationVisitor {
   public declare readonly element: OperationElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: OperationVisitorOptions) {
     super(options);
     this.element = new OperationElement();
   }

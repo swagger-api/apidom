@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  EncodingVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import EncodingElement from '../../../../elements/Encoding';
@@ -15,10 +15,12 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { EncodingVisitorOptions };
+
 class EncodingVisitor extends BaseEncodingVisitor {
   public declare readonly element: EncodingElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: EncodingVisitorOptions) {
     super(options);
     this.element = new EncodingElement();
   }

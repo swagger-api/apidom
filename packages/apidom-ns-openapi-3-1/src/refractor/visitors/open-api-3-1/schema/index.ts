@@ -11,6 +11,7 @@ import {
 } from '@swagger-api/apidom-core';
 import {
   FallbackVisitor,
+  FallbackVisitorOptions,
   FixedFieldsVisitor,
   FixedFieldsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
@@ -24,7 +25,8 @@ import ParentSchemaAwareVisitor, {
 
 export interface SchemaVisitorOptions
   extends FixedFieldsVisitorOptions,
-    ParentSchemaAwareVisitorOptions {}
+    ParentSchemaAwareVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: SchemaElement;

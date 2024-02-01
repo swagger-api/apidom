@@ -1,6 +1,6 @@
 import {
   specificationObj as OpenApi3_1Specification,
-  FixedFieldsVisitorOptions,
+  XmlVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import XmlElement from '../../../../elements/Xml';
@@ -15,10 +15,11 @@ const {
   },
 } = OpenApi3_1Specification;
 
+export type { XmlVisitorOptions };
 class XmlVisitor extends BaseXMLVisitor {
   public declare readonly element: XmlElement;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: XmlVisitorOptions) {
     super(options);
     this.element = new XmlElement();
   }

@@ -20,11 +20,11 @@ export interface OpenApi3_1VisitorOptions
 class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: OpenApi3_1Element;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
 
-  public declare readonly canSupportSpecificationExtensions: true;
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-  public declare readonly openApiSemanticElement: OpenApi3_1Element;
+  protected declare readonly openApiSemanticElement: OpenApi3_1Element;
 
   constructor(options: OpenApi3_1VisitorOptions) {
     super(options);

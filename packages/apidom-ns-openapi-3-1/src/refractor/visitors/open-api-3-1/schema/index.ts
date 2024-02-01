@@ -31,7 +31,7 @@ export interface SchemaVisitorOptions
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: SchemaElement;
 
-  public declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
+  protected declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
 
   constructor(options: SchemaVisitorOptions) {
     super(options);

@@ -18,7 +18,7 @@ export interface PathItemsVisitorOptions extends MapVisitorOptions, FallbackVisi
 class PathItemsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsPathItemsElement;
 
-  public declare readonly specPath: SpecPath<
+  protected declare readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 

@@ -21,7 +21,7 @@ export interface PropertiesVisitorOptions
 class PropertiesVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 
-  public declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
   constructor(options: PropertiesVisitorOptions) {
     super(options);

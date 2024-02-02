@@ -28,7 +28,7 @@ class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
     this.element = new CallbackElement();
     this.specPath = always(['document', 'objects', 'PathItem']);
     this.canSupportSpecificationExtensions = true;
-    this.fieldPatternPredicate = (value) => /{(?<expression>[^}]*)}/.test(String(value));
+    this.fieldPatternPredicate = (value) => /{(?<expression>[^}]{1,2083)}/.test(String(value)); // 2,083 characters is the maximum length of a URL in Chrome
   }
 
   ObjectElement(objectElement: ObjectElement) {

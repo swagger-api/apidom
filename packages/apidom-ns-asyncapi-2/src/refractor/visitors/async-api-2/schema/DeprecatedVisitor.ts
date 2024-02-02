@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const DeprecatedVisitor = FallbackVisitor;
+class DeprecatedVisitor extends FallbackVisitor {}
 
 export default DeprecatedVisitor;

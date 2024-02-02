@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
@@ -8,7 +7,7 @@ import { isReferenceElement } from '../../../../predicates';
 const { definitions: JSONSchemaDefinitionsVisitor } =
   JSONSchemaDraft7Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const DefinitionsVisitor = stampit(JSONSchemaDefinitionsVisitor, {
+const DefinitionsVisitor = JSONSchemaDefinitionsVisitor.compose({
   methods: {
     ObjectElement(objectElement: ObjectElement) {
       // @ts-ignore

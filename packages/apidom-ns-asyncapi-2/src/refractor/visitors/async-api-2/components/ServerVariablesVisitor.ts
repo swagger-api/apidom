@@ -1,36 +1,40 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsServerVariablesElement from '../../../../elements/nces/ComponentsServerVariables';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const ServerVariablesVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
+class ServerVariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsServerVariablesElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'ServerVariable']
+  >;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
+    this.element = new ComponentsServerVariablesElement();
+    this.specPath = (element: unknown) => {
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ServerVariable'];
-    },
-  },
-  init() {
-    this.element = new ComponentsServerVariablesElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'serverVariable');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'serverVariable');
+    });
+
+    return result;
+  }
+}
 
 export default ServerVariablesVisitor;

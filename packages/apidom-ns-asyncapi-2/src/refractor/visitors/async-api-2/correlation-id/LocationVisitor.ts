@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const LocationVisitor = FallbackVisitor;
+class LocationVisitor extends FallbackVisitor {}
 
 export default LocationVisitor;

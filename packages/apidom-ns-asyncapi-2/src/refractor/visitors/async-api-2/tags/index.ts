@@ -1,26 +1,28 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import TagsElement from '../../../../elements/Tags';
-import SpecificationVisitor from '../../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 
-const TagsVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  init() {
+class TagsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare readonly element: TagsElement;
+
+  constructor(options: SpecificationVisitorOptions) {
+    super(options);
     this.element = new TagsElement();
-  },
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element) => {
-        const tagElement = this.toRefractedElement(['document', 'objects', 'Tag'], item);
-        this.element.push(tagElement);
-      });
+  }
 
-      this.copyMetaAndAttributes(arrayElement, this.element);
+  ArrayElement(arrayElement: ArrayElement) {
+    arrayElement.forEach((item: Element) => {
+      const tagElement = this.toRefractedElement(['document', 'objects', 'Tag'], item);
+      this.element.push(tagElement);
+    });
 
-      return BREAK;
-    },
-  },
-});
+    this.copyMetaAndAttributes(arrayElement, this.element);
+
+    return BREAK;
+  }
+}
 
 export default TagsVisitor;

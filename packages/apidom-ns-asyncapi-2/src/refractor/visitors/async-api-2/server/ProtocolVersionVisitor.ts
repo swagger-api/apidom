@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ProtocolVersionVisitor = FallbackVisitor;
+class ProtocolVersionVisitor extends FallbackVisitor {}
 
 export default ProtocolVersionVisitor;

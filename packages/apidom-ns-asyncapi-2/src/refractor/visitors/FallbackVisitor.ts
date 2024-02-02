@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { Element, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import Visitor from './Visitor';
@@ -9,13 +8,11 @@ import Visitor from './Visitor';
  * different Element is provided FallBackVisitor is responsible to assigning
  * this Element as current element.
  */
-const FallbackVisitor = stampit(Visitor, {
-  methods: {
-    enter(element: Element) {
-      this.element = cloneDeep(element);
-      return BREAK;
-    },
-  },
-});
+class FallbackVisitor extends Visitor {
+  enter(element: Element) {
+    this.element = cloneDeep(element);
+    return BREAK;
+  }
+}
 
 export default FallbackVisitor;

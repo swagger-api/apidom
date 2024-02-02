@@ -1,36 +1,40 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsCorrelationIDsElement from '../../../../elements/nces/ComponentsCorrelationIDs';
-import MapVisitor from '../../generics/MapVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const CorrelationIdsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
+class CorrelationIdsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsCorrelationIDsElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'CorrelationID']
+  >;
+
+  constructor(options: MapVisitorOptions) {
+    super(options);
+    this.element = new ComponentsCorrelationIDsElement();
+    this.specPath = (element: unknown) => {
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'CorrelationID'];
-    },
-  },
-  init() {
-    this.element = new ComponentsCorrelationIDsElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'correlationID');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'correlationID');
+    });
+
+    return result;
+  }
+}
 
 export default CorrelationIdsVisitor;

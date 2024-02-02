@@ -1,21 +1,21 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
 import FallbackVisitor from '../FallbackVisitor';
 import SpecificationVisitor from '../SpecificationVisitor';
 import AsyncApiVersionElement from '../../../elements/AsyncApiVersion';
 
-const AsyncApiVersionVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  methods: {
-    StringElement(stringElement: StringElement) {
-      const asyncApiVersionElement = new AsyncApiVersionElement(toValue(stringElement));
+class AsyncApiVersionVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare element: AsyncApiVersionElement;
 
-      this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);
+  StringElement(stringElement: StringElement) {
+    const asyncApiVersionElement = new AsyncApiVersionElement(toValue(stringElement));
 
-      this.element = asyncApiVersionElement;
-      return BREAK;
-    },
-  },
-});
+    this.copyMetaAndAttributes(stringElement, asyncApiVersionElement);
+
+    this.element = asyncApiVersionElement;
+    return BREAK;
+  }
+}
 
 export default AsyncApiVersionVisitor;

@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const AuthorizationUrlVisitor = FallbackVisitor;
+class AuthorizationUrlVisitor extends FallbackVisitor {}
 
 export default AuthorizationUrlVisitor;

@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const SchemaFormatVisitor = FallbackVisitor;
+class SchemaFormatVisitor extends FallbackVisitor {}
 
 export default SchemaFormatVisitor;

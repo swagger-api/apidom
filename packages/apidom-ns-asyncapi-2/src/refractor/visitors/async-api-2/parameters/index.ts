@@ -1,41 +1,51 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { test } from 'ramda';
-import { Element, ObjectElement } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
-import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
+import PatternedFieldsVisitor, {
+  PatternedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor from '../../FallbackVisitor';
 import ParametersElement from '../../../../elements/Parameters';
 import { isReferenceLikeElement, isParameterLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
 
-const ParametersVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
-  props: {
-    fieldPatternPredicate: test(/^[A-Za-z0-9_-]+$/),
-    specPath: (element: Element) => {
+class ParametersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: ParametersElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'Parameter'] | ['value']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: PatternedFieldsVisitorOptions) {
+    super(options);
+    this.element = new ParametersElement();
+    this.specPath = (element: unknown) => {
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : isParameterLikeElement(element)
           ? ['document', 'objects', 'Parameter']
           : ['value'];
-    },
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
-    this.element = new ParametersElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+    this.canSupportSpecificationExtensions = false;
+    // @ts-ignore
+    this.fieldPatternPredicate = test(/^[A-Za-z0-9_-]+$/);
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'parameter');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = PatternedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'parameter');
+    });
+
+    return result;
+  }
+}
 
 export default ParametersVisitor;

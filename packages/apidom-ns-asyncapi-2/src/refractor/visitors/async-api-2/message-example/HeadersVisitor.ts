@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const HeadersVisitor = FallbackVisitor;
+class HeadersVisitor extends FallbackVisitor {}
 
 export default HeadersVisitor;

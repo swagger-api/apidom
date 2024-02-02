@@ -1,32 +1,39 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { ObjectElement, BooleanElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
 
 import SchemaElement from '../../../../elements/Schema';
 import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 
-const SchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Schema']),
-    canSupportSpecificationExtensions: true,
-  },
+class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare element: SchemaElement;
 
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.element = new SchemaElement();
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
-      // @ts-ignore
-      return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-    },
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-    BooleanElement(booleanElement: BooleanElement) {
-      this.element = cloneDeep(booleanElement);
-      this.element.classes.push('boolean-json-schema');
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
+    this.specPath = always(['document', 'objects', 'Schema']);
+    this.canSupportSpecificationExtensions = true;
+  }
 
-      return BREAK;
-    },
-  },
-});
+  ObjectElement(objectElement: ObjectElement) {
+    this.element = new SchemaElement();
+
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+  }
+
+  BooleanElement(booleanElement: BooleanElement) {
+    const result = super.enter(booleanElement);
+    this.element.classes.push('boolean-json-schema');
+
+    return result;
+  }
+}
 
 export default SchemaVisitor;

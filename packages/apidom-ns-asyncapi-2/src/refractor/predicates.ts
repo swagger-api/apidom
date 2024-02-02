@@ -6,6 +6,7 @@ import {
   Element,
   toValue,
 } from '@swagger-api/apidom-core';
+import { ObjectElement } from 'minim';
 
 export const isAsyncApi2LikeElement = <T extends Element>(element: T): boolean => {
   return (
@@ -19,13 +20,15 @@ export const isAsyncApi2LikeElement = <T extends Element>(element: T): boolean =
   );
 };
 
-export const isParameterLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
+export const isParameterLikeElement = (element: unknown): boolean => {
   return isObjectElement(element);
 };
 
-export const isReferenceLikeElement = <T extends Element>(element: T): boolean => {
-  // @ts-ignore
+export interface ReferenceLikeElement extends ObjectElement {
+  hasKey: (value: '$ref') => true;
+}
+
+export const isReferenceLikeElement = (element: unknown): element is ReferenceLikeElement => {
   return isObjectElement(element) && element.hasKey('$ref');
 };
 

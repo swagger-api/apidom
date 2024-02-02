@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const TermsOfServiceVisitor = FallbackVisitor;
+class TermsOfServiceVisitor extends FallbackVisitor {}
 
 export default TermsOfServiceVisitor;

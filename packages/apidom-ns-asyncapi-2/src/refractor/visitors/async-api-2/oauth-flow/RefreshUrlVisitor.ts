@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const RefreshUrlVisitor = FallbackVisitor;
+class RefreshUrlVisitor extends FallbackVisitor {}
 
 export default RefreshUrlVisitor;

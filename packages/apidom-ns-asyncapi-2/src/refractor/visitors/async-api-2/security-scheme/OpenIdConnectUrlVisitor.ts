@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const OpenIdConnectUrlVisitor = FallbackVisitor;
+class OpenIdConnectUrlVisitor extends FallbackVisitor {}
 
 export default OpenIdConnectUrlVisitor;

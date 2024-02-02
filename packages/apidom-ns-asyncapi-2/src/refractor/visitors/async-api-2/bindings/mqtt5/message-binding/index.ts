@@ -1,18 +1,28 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import Mqtt5MessageBindingElement from '../../../../../../elements/bindings/mqtt5/Mqtt5MessageBinding';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../../../FallbackVisitor';
-import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const Mqtt5MessageBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'bindings', 'mqtt5', 'MessageBinding']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+class Mqtt5MessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: Mqtt5MessageBindingElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'bindings', 'mqtt5', 'MessageBinding']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new Mqtt5MessageBindingElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'bindings', 'mqtt5', 'MessageBinding']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default Mqtt5MessageBindingVisitor;

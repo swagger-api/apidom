@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const PayloadVisitor = FallbackVisitor;
+class PayloadVisitor extends FallbackVisitor {}
 
 export default PayloadVisitor;

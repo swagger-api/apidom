@@ -1,18 +1,28 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import SolaceServerBindingElement from '../../../../../../elements/bindings/solace/SolaceServerBinding';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../../../generics/FixedFieldsVisitor';
 import FallbackVisitor from '../../../../FallbackVisitor';
-import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
 
-const SolaceServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'bindings', 'solace', 'ServerBinding']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+class SolaceServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: SolaceServerBindingElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'bindings', 'solace', 'ServerBinding']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: FixedFieldsVisitorOptions) {
+    super(options);
     this.element = new SolaceServerBindingElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'bindings', 'solace', 'ServerBinding']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default SolaceServerBindingVisitor;

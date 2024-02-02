@@ -44,6 +44,7 @@ export { default as YamlAnchor } from './yaml/nodes/YamlAnchor';
 export { YamlStyle, YamlStyleGroup } from './yaml/nodes/YamlStyle';
 export { default as YamlFailsafeSchema } from './yaml/schemas/failsafe/index';
 export { default as YamlJsonSchema } from './yaml/schemas/json/index';
+export { default as YamlReferenceManager } from './yaml/anchors-aliases/ReferenceManager';
 export {
   isAlias as isYamlAlias,
   isKeyValuePair as isYamlKeyValuePair,

@@ -5,6 +5,8 @@ import {
   ParseResult,
   Point,
   Position,
+  ReferenceManager,
+  YamlAlias,
   YamlAnchor,
   YamlComment,
   YamlDirective,
@@ -100,7 +102,13 @@ class CstVisitor {
 
     if (typeof anchorNode === 'undefined') return undefined;
 
-    return new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) });
+    const anchor = new YamlAnchor({
+      name: anchorNode.text,
+      position: CstVisitor.toPosition(anchorNode),
+    });
+    ReferenceManager.prototype.addAnchor(anchor);
+
+    return anchor;
   }
 
   private static createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
@@ -128,6 +136,10 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
+
+    if (anchor !== undefined) {
+      ReferenceManager.prototype.addAnchor(anchor);
+    }
 
     return new YamlScalar({
       content: '',
@@ -164,6 +176,10 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
+
+    if (anchor !== undefined) {
+      ReferenceManager.prototype.addAnchor(anchor);
+    }
 
     return new YamlScalar({
       content: '',
@@ -551,6 +567,14 @@ class CstVisitor {
   public readonly comment = {
     enter: (node: TreeCursorSyntaxNode): YamlComment => {
       return new YamlComment({ content: node.text });
+    },
+  };
+
+  public readonly alias = {
+    enter: (node: TreeCursorSyntaxNode) => {
+      const alias = new YamlAlias({ content: node.text });
+
+      return ReferenceManager.prototype.resolveAlias(alias);
     },
   };
 

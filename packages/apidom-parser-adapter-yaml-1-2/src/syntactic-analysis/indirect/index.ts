@@ -1,7 +1,7 @@
 import { Tree as NodeTree } from 'tree-sitter';
 import { Tree as WebTree } from 'web-tree-sitter';
 import { ParseResultElement } from '@swagger-api/apidom-core';
-import { visit, YamlJsonSchema as JsonSchema } from '@swagger-api/apidom-ast';
+import { visit, YamlJsonSchema as JsonSchema, YamlReferenceManager } from '@swagger-api/apidom-ast';
 
 import CstVisitor, { keyMap as cstKeyMap, isNode as isCstNode } from './visitors/CstVisitor';
 import YamlAstVisitor, {
@@ -25,6 +25,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cstVisitor = new CstVisitor();
   const astVisitor = new YamlAstVisitor();
   const schema = new JsonSchema();
+  const referenceManager = new YamlReferenceManager();
 
   const yamlAst = visit(rootNode, cstVisitor, {
     // @ts-ignore
@@ -33,6 +34,7 @@ const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
     state: {
       schema,
       sourceMap,
+      referenceManager,
     },
   });
 

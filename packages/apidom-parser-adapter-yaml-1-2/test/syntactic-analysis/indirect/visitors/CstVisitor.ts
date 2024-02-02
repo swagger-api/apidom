@@ -7,6 +7,7 @@ describe('syntactic-analysis', function () {
   context('CstVisitor', function () {
     specify('should analyze alias as string', async function () {
       const result = await parse('*alias');
+
       assert.isTrue(isStringElement(result.result));
     });
   });

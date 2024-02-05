@@ -852,7 +852,7 @@ describe('apidom-ls', function () {
 
     // calling with no baseURI, in this case deref service will try to use the first defined server URL as baseURI
     // const result = await languageService.doDeref(doc);
-    assert.equal(result, specDereferenced.substr(0, specDereferenced.length - 1));
+    assert.equal(result, specDereferenced.substring(0, specDereferenced.length - 1));
   });
 
   it('should dereference into YAML 1.2', async function () {

@@ -1,6 +1,8 @@
 import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export type { FallbackVisitorOptions as VersionVisitorOptions };
 
 class VersionVisitor extends FallbackVisitor {
   public declare element: StringElement;

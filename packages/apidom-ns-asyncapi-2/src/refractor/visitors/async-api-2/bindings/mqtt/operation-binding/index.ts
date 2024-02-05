@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface MqttOperationBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class MqttOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MqttOperationBindingElement;
@@ -17,7 +21,7 @@ class MqttOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisi
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: MqttOperationBindingVisitorOptions) {
     super(options);
     this.element = new MqttOperationBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'mqtt', 'OperationBinding']);

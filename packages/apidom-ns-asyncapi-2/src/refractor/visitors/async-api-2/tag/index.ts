@@ -2,11 +2,13 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import TagElement from '../../../../elements/Tag';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface TagVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: TagElement;
@@ -15,7 +17,7 @@ class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: TagVisitorOptions) {
     super(options);
     this.element = new TagElement();
     this.specPath = always(['document', 'objects', 'Tag']);

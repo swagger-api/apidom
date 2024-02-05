@@ -6,11 +6,15 @@ import PatternedFieldsVisitor, {
   PatternedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import ServersElement from '../../../../elements/Servers';
 import ReferenceElement from '../../../../elements/Reference';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface ServersVisitorOptions
+  extends PatternedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ServersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ServersElement;
@@ -21,7 +25,7 @@ class ServersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: PatternedFieldsVisitorOptions) {
+  constructor(options: ServersVisitorOptions) {
     super(options);
     this.element = new ServersElement();
     this.element.classes.push('servers');

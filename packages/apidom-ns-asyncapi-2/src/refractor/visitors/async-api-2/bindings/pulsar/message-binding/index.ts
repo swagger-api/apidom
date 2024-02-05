@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface PulsarMessageBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class PulsarMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: PulsarMessageBindingElement;
@@ -17,7 +21,7 @@ class PulsarMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisi
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: PulsarMessageBindingVisitorOptions) {
     super(options);
     this.element = new PulsarMessageBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'pulsar', 'MessageBinding']);

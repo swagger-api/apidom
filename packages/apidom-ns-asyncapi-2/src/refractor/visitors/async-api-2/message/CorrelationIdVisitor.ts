@@ -3,12 +3,16 @@ import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
 import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
+export interface CorrelationIdVisitorOptions
+  extends AlternatingVisitorOptions,
+    FallbackVisitorOptions {}
+
 class CorrelationIdVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
-  constructor(options: AlternatingVisitorOptions) {
+  constructor(options: CorrelationIdVisitorOptions) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },

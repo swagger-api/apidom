@@ -6,14 +6,18 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface OAuthFlowVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class OAuthFlowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: OAuthFlowElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'OAuthFlow']>;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: OAuthFlowVisitorOptions) {
     super(options);
     this.element = new OAuthFlowElement();
     this.specPath = always(['document', 'objects', 'OAuthFlow']);

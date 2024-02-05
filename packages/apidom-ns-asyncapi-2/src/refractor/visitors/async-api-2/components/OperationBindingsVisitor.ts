@@ -4,9 +4,13 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsOperationBindingsElement from '../../../../elements/nces/ComponentsOperationBindings';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface OperationBindingsVisitorOptions
+  extends MapVisitorOptions,
+    FallbackVisitorOptions {}
 
 class OperationBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsOperationBindingsElement;
@@ -15,7 +19,7 @@ class OperationBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'OperationBindings']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: OperationBindingsVisitorOptions) {
     super(options);
     this.element = new ComponentsOperationBindingsElement();
     this.specPath = (element: unknown) => {

@@ -3,11 +3,13 @@ import { always } from 'ramda';
 import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
 
 import SchemaElement from '../../../../elements/Schema';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface SchemaVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare element: SchemaElement;
@@ -16,7 +18,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SchemaVisitorOptions) {
     super(options);
     this.specPath = always(['document', 'objects', 'Schema']);
     this.canSupportSpecificationExtensions = true;

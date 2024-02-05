@@ -2,14 +2,18 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isSecurityRequirementLikeElement } from '../../../predicates';
 import OperationTraitSecurityElement from '../../../../elements/nces/OperationTraitSecurity';
+
+export interface SecurityVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: OperationTraitSecurityElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: SecurityVisitorOptions) {
     super(options);
     this.element = new OperationTraitSecurityElement();
   }

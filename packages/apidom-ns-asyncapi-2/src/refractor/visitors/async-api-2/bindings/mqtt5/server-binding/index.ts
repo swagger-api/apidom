@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface Mqtt5ServerBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class Mqtt5ServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: Mqtt5ServerBindingElement;
@@ -17,7 +21,7 @@ class Mqtt5ServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisito
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: Mqtt5ServerBindingVisitorOptions) {
     super(options);
     this.element = new Mqtt5ServerBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'mqtt5', 'ServerBinding']);

@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface WebSocketChannelBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class WebSocketChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: WebSocketChannelBindingElement;
@@ -17,7 +21,7 @@ class WebSocketChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackV
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: WebSocketChannelBindingVisitorOptions) {
     super(options);
     this.element = new WebSocketChannelBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'ws', 'ChannelBinding']);

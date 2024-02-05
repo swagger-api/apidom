@@ -5,8 +5,12 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 import AsyncApi2Element from '../../../elements/AsyncApi2';
+
+export interface AsyncApi2VisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class AsyncApi2Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: AsyncApi2Element;
@@ -15,7 +19,7 @@ class AsyncApi2Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: AsyncApi2VisitorOptions) {
     super(options);
     this.element = new AsyncApi2Element();
     this.specPath = always(['document', 'objects', 'AsyncApi']);

@@ -4,9 +4,11 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsCorrelationIDsElement from '../../../../elements/nces/ComponentsCorrelationIDs';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface CorrelationIdsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class CorrelationIdsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsCorrelationIDsElement;
@@ -15,7 +17,7 @@ class CorrelationIdsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'CorrelationID']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: CorrelationIdsVisitorOptions) {
     super(options);
     this.element = new ComponentsCorrelationIDsElement();
     this.specPath = (element: unknown) => {

@@ -3,12 +3,16 @@ import { ArrayElement, Element, isStringElement, BREAK, cloneDeep } from '@swagg
 
 import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsServers';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface ServersVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ChannelItemServersElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: ServersVisitorOptions) {
     super(options);
     this.element = new ChannelItemServersElement();
   }

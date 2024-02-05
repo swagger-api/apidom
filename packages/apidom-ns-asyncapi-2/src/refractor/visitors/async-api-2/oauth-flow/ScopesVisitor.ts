@@ -3,14 +3,16 @@ import { always } from 'ramda';
 
 import OAuthFlowScopesElement from '../../../../elements/nces/OAuthFlowScopes';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: OAuthFlowScopesElement;
 
   protected declare readonly specPath: SpecPath<['value']>;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: ScopesVisitorOptions) {
     super(options);
     this.element = new OAuthFlowScopesElement();
     this.specPath = always(['value']);

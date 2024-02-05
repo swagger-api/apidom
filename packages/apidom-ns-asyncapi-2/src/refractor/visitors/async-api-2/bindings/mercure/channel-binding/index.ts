@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface MercureChannelBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class MercureChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MercureChannelBindingElement;
@@ -17,7 +21,7 @@ class MercureChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVis
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: MercureChannelBindingVisitorOptions) {
     super(options);
     this.element = new MercureChannelBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'mercure', 'ChannelBinding']);

@@ -3,13 +3,15 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import OperationTraitsElement from '../../../../elements/nces/OperationTraits';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+
+export interface TraitsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
 class TraitsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: OperationTraitsElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: TraitsVisitorOptions) {
     super(options);
     this.element = new OperationTraitsElement();
   }

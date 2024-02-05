@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface StompOperationBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class StompOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: StompOperationBindingElement;
@@ -17,7 +21,7 @@ class StompOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVis
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: StompOperationBindingVisitorOptions) {
     super(options);
     this.element = new StompOperationBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'stomp', 'OperationBinding']);

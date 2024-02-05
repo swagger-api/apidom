@@ -8,13 +8,15 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 
 /**
  * Implementation of refracting according `schemaFormat` fixed field is now limited,
  * and currently only supports AsyncAPI Schema Object >= 2.0.0 <=2.6.0.
  */
+export interface MessageVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
+
 class MessageVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MessageElement;
 
@@ -22,7 +24,7 @@ class MessageVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: MessageVisitorOptions) {
     super(options);
     this.element = new MessageElement();
     this.specPath = always(['document', 'objects', 'Message']);

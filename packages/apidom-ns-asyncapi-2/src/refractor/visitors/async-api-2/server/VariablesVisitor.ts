@@ -2,8 +2,10 @@ import { Mixin } from 'ts-mixer';
 
 import ServerVariablesElement from '../../../../elements/nces/ServerVariables';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
+
+export interface VariablesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ServerVariablesElement;
@@ -12,7 +14,7 @@ class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'ServerVariable']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: VariablesVisitorOptions) {
     super(options);
     this.element = new ServerVariablesElement();
     this.specPath = (element: unknown) => {

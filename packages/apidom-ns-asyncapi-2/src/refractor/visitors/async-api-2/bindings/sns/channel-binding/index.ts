@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface SnsChannelBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SnsChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SnsChannelBindingElement;
@@ -17,7 +21,7 @@ class SnsChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SnsChannelBindingVisitorOptions) {
     super(options);
     this.element = new SnsChannelBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'sns', 'ChannelBinding']);

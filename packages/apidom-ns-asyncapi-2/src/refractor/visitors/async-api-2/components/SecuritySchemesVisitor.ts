@@ -4,9 +4,11 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsSecuritySchemesElement from '../../../../elements/nces/ComponentsSecuritySchemes';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
+
+export interface SecuritySchemesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class SecuritySchemesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare element: ComponentsSecuritySchemesElement;
@@ -15,7 +17,7 @@ class SecuritySchemesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'SecurityScheme']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: SecuritySchemesVisitorOptions) {
     super(options);
     this.element = new ComponentsSecuritySchemesElement();
     this.specPath = (element: unknown) => {

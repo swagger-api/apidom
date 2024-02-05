@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface IbmmqOperationBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class IbmmqOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: IbmmqOperationBindingElement;
@@ -17,7 +21,7 @@ class IbmmqOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVis
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: IbmmqOperationBindingVisitorOptions) {
     super(options);
     this.element = new IbmmqOperationBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'ibmmq', 'OperationBinding']);

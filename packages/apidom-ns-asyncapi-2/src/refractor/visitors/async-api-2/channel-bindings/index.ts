@@ -5,8 +5,12 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import ChannelBindingsElement from '../../../../elements/ChannelBindings';
+
+export interface ChannelBindingsVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ChannelBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ChannelBindingsElement;
@@ -15,7 +19,7 @@ class ChannelBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) 
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ChannelBindingsVisitorOptions) {
     super(options);
     this.element = new ChannelBindingsElement();
     this.specPath = always(['document', 'objects', 'ChannelBindings']);

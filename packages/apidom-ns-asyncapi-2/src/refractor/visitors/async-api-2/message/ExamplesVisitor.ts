@@ -2,13 +2,17 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import MessageExamplesElement from '../../../../elements/nces/MessageExamples';
+
+export interface ExamplesVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ExamplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: MessageExamplesElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: ExamplesVisitorOptions) {
     super(options);
     this.element = new MessageExamplesElement();
   }

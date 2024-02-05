@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface MessageBindingsVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class MessageBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MessageBindingsElement;
@@ -15,7 +19,7 @@ class MessageBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) 
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: MessageBindingsVisitorOptions) {
     super(options);
     this.element = new MessageBindingsElement();
     this.specPath = always(['document', 'objects', 'MessageBindings']);

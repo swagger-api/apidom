@@ -1,9 +1,13 @@
 import { Mixin } from 'ts-mixer';
 import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../FallbackVisitor';
-import SpecificationVisitor from '../SpecificationVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import IdentifierElement from '../../../elements/Identifier';
+
+export interface IdentifierVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class IdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: IdentifierElement;

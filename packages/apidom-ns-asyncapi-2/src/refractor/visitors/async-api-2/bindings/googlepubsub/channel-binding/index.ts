@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface GooglepubsubChannelBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class GooglepubsubChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: GooglepubsubChannelBindingElement;
@@ -17,7 +21,7 @@ class GooglepubsubChannelBindingVisitor extends Mixin(FixedFieldsVisitor, Fallba
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: GooglepubsubChannelBindingVisitorOptions) {
     super(options);
     this.element = new GooglepubsubChannelBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'googlepubsub', 'ChannelBinding']);

@@ -7,7 +7,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface ChannelItemVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ChannelItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ChannelItemElement;
@@ -16,7 +20,7 @@ class ChannelItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ChannelItemVisitorOptions) {
     super(options);
     this.element = new ChannelItemElement();
     this.specPath = always(['document', 'objects', 'ChannelItem']);

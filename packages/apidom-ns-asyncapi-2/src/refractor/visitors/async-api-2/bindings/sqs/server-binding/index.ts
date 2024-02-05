@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface SqsServerBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SqsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SqsServerBindingElement;
@@ -17,7 +21,7 @@ class SqsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor)
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SqsServerBindingVisitorOptions) {
     super(options);
     this.element = new SqsServerBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'sqs', 'ServerBinding']);

@@ -1,11 +1,15 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement, isArrayElement, BREAK } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import OperationMessageMapElement from '../../../../elements/nces/OperationMessageMap';
 import OperationMessageElement from '../../../../elements/nces/OperationMessage';
+
+export interface MessageVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class MessageVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: OperationMessageMapElement;

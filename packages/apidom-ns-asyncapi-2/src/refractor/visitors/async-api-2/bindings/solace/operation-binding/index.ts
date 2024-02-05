@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface SolaceOperationBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class SolaceOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SolaceOperationBindingElement;
@@ -17,7 +21,7 @@ class SolaceOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVi
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SolaceOperationBindingVisitorOptions) {
     super(options);
     this.element = new SolaceOperationBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'solace', 'OperationBinding']);

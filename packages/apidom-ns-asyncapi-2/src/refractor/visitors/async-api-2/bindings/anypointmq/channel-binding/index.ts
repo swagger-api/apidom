@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface AnypointmqChannelBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class AnypointmqChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: AnypointmqChannelBindingElement;
@@ -17,7 +21,7 @@ class AnypointmqChannelBindingVisitor extends Mixin(FixedFieldsVisitor, Fallback
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: AnypointmqChannelBindingVisitorOptions) {
     super(options);
     this.element = new AnypointmqChannelBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'anypointmq', 'ChannelBinding']);

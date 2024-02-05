@@ -6,7 +6,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+
+export interface JmsServerBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class JmsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: JmsServerBindingElement;
@@ -17,7 +21,7 @@ class JmsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor)
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: JmsServerBindingVisitorOptions) {
     super(options);
     this.element = new JmsServerBindingElement();
     this.specPath = always(['document', 'objects', 'bindings', 'jms', 'ServerBinding']);

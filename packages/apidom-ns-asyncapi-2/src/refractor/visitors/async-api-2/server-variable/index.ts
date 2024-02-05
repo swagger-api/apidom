@@ -2,11 +2,15 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import ServerVariableElement from '../../../../elements/ServerVariable';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
+
+export interface ServerVariableVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ServerVariableVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ServerVariableElement;
@@ -15,7 +19,7 @@ class ServerVariableVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ServerVariableVisitorOptions) {
     super(options);
     this.element = new ServerVariableElement();
     this.specPath = always(['document', 'objects', 'ServerVariable']);

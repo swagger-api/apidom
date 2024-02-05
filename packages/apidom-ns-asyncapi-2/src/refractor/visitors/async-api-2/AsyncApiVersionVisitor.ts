@@ -1,9 +1,13 @@
 import { Mixin } from 'ts-mixer';
 import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../FallbackVisitor';
-import SpecificationVisitor from '../SpecificationVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
 import AsyncApiVersionElement from '../../../elements/AsyncApiVersion';
+
+export interface AsyncApiVersionVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 class AsyncApiVersionVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: AsyncApiVersionElement;

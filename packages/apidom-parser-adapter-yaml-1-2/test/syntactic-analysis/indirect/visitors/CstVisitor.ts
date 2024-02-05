@@ -10,5 +10,15 @@ describe('syntactic-analysis', function () {
 
       assert.isTrue(isStringElement(result.result));
     });
+
+    specify('should parse empty single quote scalar as one space string', async function () {
+      const result = await parse("' '");
+      assert.strictEqual(result.toValue()[0], ' ');
+    });
+
+    specify('should parse empty double quote scalar as one space string', async function () {
+      const result = await parse('" "');
+      assert.strictEqual(result.toValue()[0], ' ');
+    });
   });
 });

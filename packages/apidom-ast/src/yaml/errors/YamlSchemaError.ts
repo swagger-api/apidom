@@ -1,5 +1,5 @@
-import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
+import YamlError from './YamlError';
 
-class YamlSchemaError extends ApiDOMStructuredError {}
+class YamlSchemaError extends YamlError {}
 
 export default YamlSchemaError;

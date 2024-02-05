@@ -44,8 +44,11 @@ export { default as YamlAnchor } from './yaml/nodes/YamlAnchor';
 export { YamlStyle, YamlStyleGroup } from './yaml/nodes/YamlStyle';
 export { default as YamlFailsafeSchema } from './yaml/schemas/failsafe/index';
 export { default as YamlJsonSchema } from './yaml/schemas/json/index';
+export { default as YamlReferenceManager } from './yaml/anchors-aliases/ReferenceManager';
 export {
   isAlias as isYamlAlias,
+  isAnchor as isYamlAnchor,
+  isComment as isYamlComment,
   isKeyValuePair as isYamlKeyValuePair,
   isDirective as isYamlDirective,
   isDocument as isYamlDocument,
@@ -55,6 +58,8 @@ export {
   isStream as isYamlStream,
   isTag as isYamlTag,
 } from './yaml/nodes/predicates';
+export { default as YamlError } from './yaml/errors/YamlError';
+export { default as YamlReferenceError } from './yaml/errors/YamlReferenceError';
 export { default as YamlSchemaError } from './yaml/errors/YamlSchemaError';
 export { default as YamlTagError } from './yaml/errors/YamlTagError';
 export type { YamlTagErrorOptions } from './yaml/errors/YamlTagError';

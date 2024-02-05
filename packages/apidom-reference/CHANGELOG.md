@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
+
+### Features
+
+- **converter:** add complete code infrastructure ([#3755](https://github.com/swagger-api/apidom/issues/3755)) ([f882828](https://github.com/swagger-api/apidom/commit/f8828281ab2e49394d365cc314448dc9164418ce)), closes [#3697](https://github.com/swagger-api/apidom/issues/3697) [#3743](https://github.com/swagger-api/apidom/issues/3743)
+
 # [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

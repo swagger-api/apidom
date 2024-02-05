@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
+
+### Features
+
+- **ns-openapi-3-1:** export new symbols and types ([#3775](https://github.com/swagger-api/apidom/issues/3775)) ([081161b](https://github.com/swagger-api/apidom/commit/081161bbe71389ca1add39cb55920e557cd37743))
+
 # [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

@@ -47,6 +47,8 @@ export { default as YamlJsonSchema } from './yaml/schemas/json/index';
 export { default as YamlReferenceManager } from './yaml/anchors-aliases/ReferenceManager';
 export {
   isAlias as isYamlAlias,
+  isAnchor as isYamlAnchor,
+  isComment as isYamlComment,
   isKeyValuePair as isYamlKeyValuePair,
   isDirective as isYamlDirective,
   isDocument as isYamlDocument,

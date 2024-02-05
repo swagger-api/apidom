@@ -5,6 +5,7 @@ import {
   ParseResult,
   Point,
   Position,
+  YamlNode,
   YamlAlias,
   YamlAnchor,
   YamlComment,
@@ -230,6 +231,10 @@ class CstVisitor {
         style: YamlStyle.Plain,
       });
 
+      if (emptyScalarNode.anchor !== undefined) {
+        this.referenceManager.addAnchor(emptyScalarNode);
+      }
+
       return [...node.children, emptyScalarNode];
     },
   };
@@ -260,6 +265,8 @@ class CstVisitor {
         style: YamlStyle.NextLine,
         isMissing: node.isMissing,
       });
+
+      this.registerAnchor(mappingNode);
 
       return this.schema.resolve(mappingNode);
     },
@@ -302,6 +309,8 @@ class CstVisitor {
         style: YamlStyle.Explicit,
         isMissing: node.isMissing,
       });
+
+      this.registerAnchor(mappingNode);
 
       return this.schema.resolve(mappingNode);
     },
@@ -350,6 +359,8 @@ class CstVisitor {
         style: YamlStyle.NextLine,
       });
 
+      this.registerAnchor(sequenceNode);
+
       return this.schema.resolve(sequenceNode);
     },
   };
@@ -396,6 +407,8 @@ class CstVisitor {
         style: YamlStyle.Explicit,
       });
 
+      this.registerAnchor(sequenceNode);
+
       return this.schema.resolve(sequenceNode);
     },
   };
@@ -420,6 +433,8 @@ class CstVisitor {
         style: YamlStyle.Plain,
       });
 
+      this.registerAnchor(scalarNode);
+
       return this.schema.resolve(scalarNode);
     },
   };
@@ -438,6 +453,8 @@ class CstVisitor {
         style: YamlStyle.SingleQuoted,
       });
 
+      this.registerAnchor(scalarNode);
+
       return this.schema.resolve(scalarNode);
     },
   };
@@ -455,6 +472,8 @@ class CstVisitor {
         styleGroup: YamlStyleGroup.Flow,
         style: YamlStyle.DoubleQuoted,
       });
+
+      this.registerAnchor(scalarNode);
 
       return this.schema.resolve(scalarNode);
     },
@@ -478,6 +497,8 @@ class CstVisitor {
         styleGroup: YamlStyleGroup.Block,
         style,
       });
+
+      this.registerAnchor(scalarNode);
 
       return this.schema.resolve(scalarNode);
     },
@@ -539,6 +560,12 @@ class CstVisitor {
     return errorNode;
   }
 
+  private registerAnchor<T extends YamlNode>(node: T) {
+    if (node.anchor !== undefined) {
+      this.referenceManager.addAnchor(node);
+    }
+  }
+
   private createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
     const emptyPoint = new Point({
       row: node.startPosition.row,
@@ -564,8 +591,7 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
-
-    const scalar = new YamlScalar({
+    const scalarNode = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -574,11 +600,9 @@ class CstVisitor {
       style: YamlStyle.Plain,
     });
 
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(scalar);
-    }
+    this.registerAnchor(scalarNode);
 
-    return scalar;
+    return scalarNode;
   }
 
   private createKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): YamlScalar {
@@ -606,8 +630,7 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
-
-    const scalar = new YamlScalar({
+    const scalarNode = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -616,11 +639,9 @@ class CstVisitor {
       style: YamlStyle.Plain,
     });
 
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(scalar);
-    }
+    this.registerAnchor(scalarNode);
 
-    return scalar;
+    return scalarNode;
   }
 }
 

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** add syntactic analysis for YAML aliases ([#3785](https://github.com/swagger-api/apidom/issues/3785)) ([e975718](https://github.com/swagger-api/apidom/commit/e97571823d1d3154fe3b13936260ed13230cf573)), closes [#3703](https://github.com/swagger-api/apidom/issues/3703)
+
 # [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

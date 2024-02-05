@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
+
+### Bug Fixes
+
+- **ls:** allow AsyncAPI 2.0 Schema Object to be Boolean JSON Schema ([#3766](https://github.com/swagger-api/apidom/issues/3766)) ([e3cbbe9](https://github.com/swagger-api/apidom/commit/e3cbbe9bcc2e592b2b11c19b6dddcb8abc8f332b)), closes [#3765](https://github.com/swagger-api/apidom/issues/3765)
+- **ls:** fix all rules using apilintElementOrClass linting function ([#3764](https://github.com/swagger-api/apidom/issues/3764)) ([e3a9ee9](https://github.com/swagger-api/apidom/commit/e3a9ee964d23607ab1c77b823b2fbb150a861768)), closes [#3763](https://github.com/swagger-api/apidom/issues/3763)
+- **ls:** fix linting rule for AsyncAPI 2.x MessageTrait.exammples field ([#3762](https://github.com/swagger-api/apidom/issues/3762)) ([a6ea256](https://github.com/swagger-api/apidom/commit/a6ea256d8b27075d876a137384bbb82c1cf76dc5)), closes [#3761](https://github.com/swagger-api/apidom/issues/3761)
+- **ns-openapi-3-0:** fix polynomial regular expression ([#3784](https://github.com/swagger-api/apidom/issues/3784)) ([c35c34a](https://github.com/swagger-api/apidom/commit/c35c34a4f673eab122bd201e6576dd98c6f17023))
+- **parser-adapter-yaml-1-2:** add syntactic analysis for YAML aliases ([#3785](https://github.com/swagger-api/apidom/issues/3785)) ([e975718](https://github.com/swagger-api/apidom/commit/e97571823d1d3154fe3b13936260ed13230cf573)), closes [#3703](https://github.com/swagger-api/apidom/issues/3703)
+
+### Features
+
+- **converter:** add complete code infrastructure ([#3755](https://github.com/swagger-api/apidom/issues/3755)) ([f882828](https://github.com/swagger-api/apidom/commit/f8828281ab2e49394d365cc314448dc9164418ce)), closes [#3697](https://github.com/swagger-api/apidom/issues/3697) [#3743](https://github.com/swagger-api/apidom/issues/3743)
+- **ns-openapi-3-1:** export new symbols and types ([#3775](https://github.com/swagger-api/apidom/issues/3775)) ([081161b](https://github.com/swagger-api/apidom/commit/081161bbe71389ca1add39cb55920e557cd37743))
+
 # [0.93.0](https://github.com/swagger-api/apidom/compare/v0.92.0...v0.93.0) (2024-01-23)
 
 ### Bug Fixes

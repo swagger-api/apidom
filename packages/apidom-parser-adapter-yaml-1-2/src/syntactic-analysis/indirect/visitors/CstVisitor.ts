@@ -231,9 +231,7 @@ class CstVisitor {
         style: YamlStyle.Plain,
       });
 
-      if (emptyScalarNode.anchor !== undefined) {
-        this.referenceManager.addAnchor(emptyScalarNode);
-      }
+      this.registerAnchor(emptyScalarNode);
 
       return [...node.children, emptyScalarNode];
     },

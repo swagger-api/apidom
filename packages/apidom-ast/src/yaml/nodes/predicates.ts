@@ -1,3 +1,4 @@
+import YamlAnchor from './YamlAnchor';
 import type YamlStream from './YamlStream';
 import type YamlDocument from './YamlDocument';
 import type YamlMapping from './YamlMapping';
@@ -22,6 +23,8 @@ export const isKeyValuePair = (node: unknown): node is YamlKeyValuePair =>
   isNodeType('keyValuePair', node);
 
 export const isTag = (node: unknown): node is YamlTag => isNodeType('tag', node);
+
+export const isAnchor = (node: unknown): node is YamlAnchor => isNodeType('anchor', node);
 
 export const isScalar = (node: unknown): node is YamlScalar => isNodeType('scalar', node);
 

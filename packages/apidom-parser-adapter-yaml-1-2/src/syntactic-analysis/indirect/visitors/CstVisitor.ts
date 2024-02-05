@@ -5,6 +5,7 @@ import {
   ParseResult,
   Point,
   Position,
+  YamlNode,
   YamlAlias,
   YamlAnchor,
   YamlComment,
@@ -66,6 +67,17 @@ class CstVisitor {
     });
 
     return new Position({ start, end });
+  }
+
+  private static kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | undefined {
+    const { anchor: anchorNode } = node;
+
+    if (typeof anchorNode === 'undefined') return undefined;
+
+    return new YamlAnchor({
+      name: anchorNode.text,
+      position: CstVisitor.toPosition(anchorNode),
+    });
   }
 
   private static hasKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): boolean {
@@ -212,12 +224,14 @@ class CstVisitor {
       });
       const emptyScalarNode = new YamlScalar({
         content: '',
-        anchor: this.kindNodeToYamlAnchor(kindCandidate),
+        anchor: CstVisitor.kindNodeToYamlAnchor(kindCandidate),
         tag: CstVisitor.kindNodeToYamlTag(kindCandidate),
         position: new Position({ start: emptyPoint, end: emptyPoint }),
         styleGroup: YamlStyleGroup.Flow,
         style: YamlStyle.Plain,
       });
+
+      this.registerAnchor(emptyScalarNode);
 
       return [...node.children, emptyScalarNode];
     },
@@ -239,7 +253,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = new YamlMapping({
         children: node.children,
         position,
@@ -249,6 +263,8 @@ class CstVisitor {
         style: YamlStyle.NextLine,
         isMissing: node.isMissing,
       });
+
+      this.registerAnchor(mappingNode);
 
       return this.schema.resolve(mappingNode);
     },
@@ -281,7 +297,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = new YamlMapping({
         children: node.children,
         position,
@@ -291,6 +307,8 @@ class CstVisitor {
         style: YamlStyle.Explicit,
         isMissing: node.isMissing,
       });
+
+      this.registerAnchor(mappingNode);
 
       return this.schema.resolve(mappingNode);
     },
@@ -329,7 +347,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = new YamlSequence({
         children: node.children,
         position,
@@ -338,6 +356,8 @@ class CstVisitor {
         styleGroup: YamlStyleGroup.Block,
         style: YamlStyle.NextLine,
       });
+
+      this.registerAnchor(sequenceNode);
 
       return this.schema.resolve(sequenceNode);
     },
@@ -375,7 +395,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = new YamlSequence({
         children: node.children.flat(),
         position,
@@ -384,6 +404,8 @@ class CstVisitor {
         styleGroup: YamlStyleGroup.Flow,
         style: YamlStyle.Explicit,
       });
+
+      this.registerAnchor(sequenceNode);
 
       return this.schema.resolve(sequenceNode);
     },
@@ -399,7 +421,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -409,6 +431,8 @@ class CstVisitor {
         style: YamlStyle.Plain,
       });
 
+      this.registerAnchor(scalarNode);
+
       return this.schema.resolve(scalarNode);
     },
   };
@@ -417,7 +441,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -427,6 +451,8 @@ class CstVisitor {
         style: YamlStyle.SingleQuoted,
       });
 
+      this.registerAnchor(scalarNode);
+
       return this.schema.resolve(scalarNode);
     },
   };
@@ -435,7 +461,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -445,6 +471,8 @@ class CstVisitor {
         style: YamlStyle.DoubleQuoted,
       });
 
+      this.registerAnchor(scalarNode);
+
       return this.schema.resolve(scalarNode);
     },
   };
@@ -453,7 +481,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const style = node.text.startsWith('|')
         ? YamlStyle.Literal
         : node.text.startsWith('>')
@@ -467,6 +495,8 @@ class CstVisitor {
         styleGroup: YamlStyleGroup.Block,
         style,
       });
+
+      this.registerAnchor(scalarNode);
 
       return this.schema.resolve(scalarNode);
     },
@@ -528,18 +558,10 @@ class CstVisitor {
     return errorNode;
   }
 
-  private kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | undefined {
-    const { anchor: anchorNode } = node;
-
-    if (typeof anchorNode === 'undefined') return undefined;
-
-    const anchor = new YamlAnchor({
-      name: anchorNode.text,
-      position: CstVisitor.toPosition(anchorNode),
-    });
-    this.referenceManager.addAnchor(anchor);
-
-    return anchor;
+  private registerAnchor<T extends YamlNode>(node: T) {
+    if (node.anchor !== undefined) {
+      this.referenceManager.addAnchor(node);
+    }
   }
 
   private createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
@@ -567,12 +589,7 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
-
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(anchor);
-    }
-
-    return new YamlScalar({
+    const scalarNode = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -580,6 +597,10 @@ class CstVisitor {
       styleGroup: YamlStyleGroup.Flow,
       style: YamlStyle.Plain,
     });
+
+    this.registerAnchor(scalarNode);
+
+    return scalarNode;
   }
 
   private createKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): YamlScalar {
@@ -607,12 +628,7 @@ class CstVisitor {
       typeof anchorNode !== 'undefined'
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
-
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(anchor);
-    }
-
-    return new YamlScalar({
+    const scalarNode = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -620,6 +636,10 @@ class CstVisitor {
       styleGroup: YamlStyleGroup.Flow,
       style: YamlStyle.Plain,
     });
+
+    this.registerAnchor(scalarNode);
+
+    return scalarNode;
   }
 }
 

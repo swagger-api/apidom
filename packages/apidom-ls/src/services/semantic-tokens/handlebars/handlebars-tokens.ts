@@ -15,30 +15,11 @@ export interface CompletionsCollector {
   getNumberOfProposals(): number;
 }
 
-function getTokenType(type: string, tokens: string[]): number {
-  return tokens.indexOf(type);
-}
-
-function getTokenModifiers(modifiers: string[], tokenModifiers: Record<string, number>): number {
-  let bit = 0;
-  for (const modifier of modifiers) {
-    // eslint-disable-next-line no-bitwise
-    bit |= tokenModifiers[modifier];
-  }
-  return bit;
-}
-
-function isSemanticToken(token: string, tokens: string[], primitives: string[]): boolean {
-  return tokens.indexOf(token) > -1 && !primitives.includes(token);
-}
 function tokenize(
   textDocument: TextDocument,
-  // isSemanticToken: (token: string) => boolean,
-  allTokens: string[],
-  // getTokenModifiers: (modifiers: string[]) => number,
-  tokenModifiers: Record<string, number>,
-  // getTokenType: (type: string) => number,
-  primitives: string[],
+  isSemanticToken: (token: string) => boolean,
+  getTokenModifiers: (modifiers: string[]) => number,
+  getTokenType: (type: string) => number,
 ): SemanticTokens {
   const tokens: number[][] = [];
 
@@ -70,11 +51,11 @@ function tokenize(
         continue;
       }
       const s = tag.type;
-      if (isSemanticToken(tag.type, allTokens, primitives) && !processed.includes(tag)) {
+      if (isSemanticToken(tag.type) && !processed.includes(tag)) {
         processed.push(tag);
         let modifier = 0;
         if (tag.missingCloseTag) {
-          modifier = getTokenModifiers(['deprecated'], tokenModifiers);
+          modifier = getTokenModifiers(['deprecated']);
         }
         const token = [
           tagPosStart.line - lastLine,
@@ -83,7 +64,7 @@ function tokenize(
             : tagPosStart.character,
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           tag.endIndex! - tag.startIndex!,
-          getTokenType(s, allTokens),
+          getTokenType(s),
           modifier,
         ];
         tokens.push(token);

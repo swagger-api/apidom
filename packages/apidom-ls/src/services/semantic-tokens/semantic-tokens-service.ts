@@ -108,9 +108,12 @@ export class DefaultSemanticTokensService implements SemanticTokensService {
     if (contentLanguage.namespace === 'handlebars') {
       return tokenizeHandlebars(
         textDocument,
-        this.isSemanticToken,
-        this.getTokenModifiers,
-        this.getTokenType,
+        this.tokens,
+        // this.isSemanticToken,
+        this.tokenModifiers,
+        // this.getTokenModifiers,
+        // this.getTokenType,
+        this.primitives,
       );
     }
 

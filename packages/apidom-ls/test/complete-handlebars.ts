@@ -15,7 +15,14 @@ import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
 const specCompletion = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-simple.mustache'))
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'handlebars',
+      'test-template-simple-with-boolean-ancestor.mustache',
+    ),
+  )
   .toString();
 
 describe('handlebars-ls-complete', function () {
@@ -35,6 +42,7 @@ describe('handlebars-ls-complete', function () {
   it('handlebars markdown - test completion', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
+      // enableLSPFilter: true,
     };
     // valid spec
     const doc: TextDocument = TextDocument.create(
@@ -48,7 +56,7 @@ describe('handlebars-ls-complete', function () {
     const completionTestInputValue = [
       'in empty variable tag',
       0,
-      66,
+      81,
       {
         items: [],
         isIncomplete: false,
@@ -64,6 +72,7 @@ describe('handlebars-ls-complete', function () {
       { textDocument: doc, position: pos },
       completionContext,
     );
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(result, null, 2));
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });

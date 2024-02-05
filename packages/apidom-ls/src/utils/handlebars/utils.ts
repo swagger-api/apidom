@@ -56,7 +56,6 @@ export function parseMustacheTags(
       }
     }
   };
-  console.log('parseMustacheTags');
   let match: RegExpExecArray | null;
   // eslint-disable-next-line no-cond-assign
   while ((match = tagRegex.exec(documentText)) !== null) {
@@ -302,6 +301,7 @@ export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void 
                 posTagEnd = textDoc.positionAt(sectionCloseTag.tagNameEndIndex || 0)
                 msg += `, close: ${sectionCloseTag.tagName}, ${posStart.line}:${posStart.character}-${posEnd.line}:${posEnd.character}, ${posTagStart.line}:${posTagStart.character}-${posTagEnd.line}:${posTagEnd.character}`;
             } */
+    // eslint-disable-next-line
     console.log(msg);
     // If the tag has children, recursively log their details
     if (tag.children) {
@@ -326,17 +326,24 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
     // Check if the key exists in the current node
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     if (isObjectNode(currentNode) && key in currentNode!) {
-      currentNode = currentNode![key];
+      if (typeof currentNode![key] !== 'boolean') {
+        currentNode = currentNode![key];
+      }
     } else {
       // If the key doesn't exist, search in ancestors
       let ancestor = bundle;
       // eslint-disable-next-line no-plusplus
-      for (let j = i - 1; j >= 0; j--) {
+      for (let j = 0; j < i; j++) {
         const ancestorKey = path[j];
         if (ancestorKey in ancestor) {
           ancestor = ancestor[ancestorKey];
+          if (Array.isArray(ancestor)) {
+            ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+          }
           if (isObjectNode(ancestor) && key in ancestor) {
-            currentNode = ancestor[key];
+            if (typeof ancestor![key] !== 'boolean') {
+              currentNode = ancestor[key];
+            }
             break;
           }
         }

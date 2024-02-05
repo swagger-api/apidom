@@ -36,7 +36,7 @@ export const hasProtocol = pipe(getProtocol, isNotUndefined);
 export const getExtension = (url: string): string => {
   const lastDotPosition = url.lastIndexOf('.');
   if (lastDotPosition >= 0) {
-    return url.substr(lastDotPosition).toLowerCase();
+    return url.substring(lastDotPosition).toLowerCase();
   }
   return '';
 };
@@ -107,14 +107,14 @@ export const toFileSystemPath = (uri: string, options?: ToFileSystemPathOptions)
 
   // Step 3: If it's a "file://" URL, then format it consistently
   // or convert it to a local filesystem path
-  let isFileUrl = path.substr(0, 7).toLowerCase() === 'file://';
+  let isFileUrl = path.substring(0, 7).toLowerCase() === 'file://';
   if (isFileUrl) {
     // Strip-off the protocol, and the initial "/", if there is one
-    path = path[7] === '/' ? path.substr(8) : path.substr(7);
+    path = path[7] === '/' ? path.substring(8) : path.substring(7);
 
     // insert a colon (":") after the drive letter on Windows
     if (isWindowsPredicate() && path[1] === '/') {
-      path = `${path[0]}:${path.substr(1)}`;
+      path = `${path[0]}:${path.substring(1)}`;
     }
 
     if (keepFileProtocol) {
@@ -135,8 +135,8 @@ export const toFileSystemPath = (uri: string, options?: ToFileSystemPathOptions)
     path = replaceAll('/', '\\', path);
 
     // Capitalize the drive letter
-    if (path.substr(1, 2) === ':\\') {
-      path = path[0].toUpperCase() + path.substr(1);
+    if (path.substring(1, 3) === ':\\') {
+      path = path[0].toUpperCase() + path.substring(1);
     }
   }
 
@@ -187,7 +187,7 @@ export const fromFileSystemPath = (uri: string): string => {
 export const getHash = (uri: string): string => {
   const hashIndex = uri.indexOf('#');
   if (hashIndex !== -1) {
-    return uri.substr(hashIndex);
+    return uri.substring(hashIndex);
   }
   return '#';
 };
@@ -199,7 +199,7 @@ export const stripHash = (uri: string): string => {
   const hashIndex = uri.indexOf('#');
   let hashStrippedUri = uri;
   if (hashIndex >= 0) {
-    hashStrippedUri = uri.substr(0, hashIndex);
+    hashStrippedUri = uri.substring(0, hashIndex);
   }
   return hashStrippedUri;
 };

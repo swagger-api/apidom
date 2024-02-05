@@ -56,6 +56,8 @@ export {
   isStream as isYamlStream,
   isTag as isYamlTag,
 } from './yaml/nodes/predicates';
+export { default as YamlError } from './yaml/errors/YamlError';
+export { default as YamlReferenceError } from './yaml/errors/YamlReferenceError';
 export { default as YamlSchemaError } from './yaml/errors/YamlSchemaError';
 export { default as YamlTagError } from './yaml/errors/YamlTagError';
 export type { YamlTagErrorOptions } from './yaml/errors/YamlTagError';

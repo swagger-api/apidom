@@ -1,13 +1,20 @@
 import YamlAlias from '../nodes/YamlAlias';
-import YamlAnchor from '../nodes/YamlAnchor';
+import YamlNode from '../nodes/YamlNode';
 import YamlScalar from '../nodes/YamlScalar';
+import YamlReferenceError from '../errors/YamlReferenceError';
+import { isAnchor } from '../nodes/predicates';
 import { YamlStyle, YamlStyleGroup } from '../nodes/YamlStyle';
 
+/* eslint-disable class-methods-use-this */
 class ReferenceManager {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-  addAnchor(anchor: YamlAnchor): void {}
+  addAnchor(node: YamlNode): void {
+    if (!isAnchor(node.anchor)) {
+      throw new YamlReferenceError('Expected YAML anchor to be attached the the YAML AST node.', {
+        node,
+      });
+    }
+  }
 
-  // eslint-disable-next-line class-methods-use-this
   resolveAlias(alias: YamlAlias): YamlScalar {
     return new YamlScalar({
       content: alias.content,
@@ -16,5 +23,6 @@ class ReferenceManager {
     });
   }
 }
+/* eslint-enable class-methods-use-this */
 
 export default ReferenceManager;

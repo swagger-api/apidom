@@ -68,6 +68,17 @@ class CstVisitor {
     return new Position({ start, end });
   }
 
+  private static kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | undefined {
+    const { anchor: anchorNode } = node;
+
+    if (typeof anchorNode === 'undefined') return undefined;
+
+    return new YamlAnchor({
+      name: anchorNode.text,
+      position: CstVisitor.toPosition(anchorNode),
+    });
+  }
+
   private static hasKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): boolean {
     if (node.type !== 'block_mapping_pair' && node.type !== 'flow_pair') {
       return false;
@@ -212,7 +223,7 @@ class CstVisitor {
       });
       const emptyScalarNode = new YamlScalar({
         content: '',
-        anchor: this.kindNodeToYamlAnchor(kindCandidate),
+        anchor: CstVisitor.kindNodeToYamlAnchor(kindCandidate),
         tag: CstVisitor.kindNodeToYamlTag(kindCandidate),
         position: new Position({ start: emptyPoint, end: emptyPoint }),
         styleGroup: YamlStyleGroup.Flow,
@@ -239,7 +250,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = new YamlMapping({
         children: node.children,
         position,
@@ -281,7 +292,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const mappingNode = new YamlMapping({
         children: node.children,
         position,
@@ -329,7 +340,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = new YamlSequence({
         children: node.children,
         position,
@@ -375,7 +386,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const sequenceNode = new YamlSequence({
         children: node.children.flat(),
         position,
@@ -399,7 +410,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -417,7 +428,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -435,7 +446,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const scalarNode = new YamlScalar({
         content: node.text,
         anchor,
@@ -453,7 +464,7 @@ class CstVisitor {
     enter: (node: TreeCursorSyntaxNode) => {
       const position = CstVisitor.toPosition(node);
       const tag = CstVisitor.kindNodeToYamlTag(node);
-      const anchor = this.kindNodeToYamlAnchor(node);
+      const anchor = CstVisitor.kindNodeToYamlAnchor(node);
       const style = node.text.startsWith('|')
         ? YamlStyle.Literal
         : node.text.startsWith('>')
@@ -528,20 +539,6 @@ class CstVisitor {
     return errorNode;
   }
 
-  private kindNodeToYamlAnchor(node: TreeCursorSyntaxNode): YamlAnchor | undefined {
-    const { anchor: anchorNode } = node;
-
-    if (typeof anchorNode === 'undefined') return undefined;
-
-    const anchor = new YamlAnchor({
-      name: anchorNode.text,
-      position: CstVisitor.toPosition(anchorNode),
-    });
-    this.referenceManager.addAnchor(anchor);
-
-    return anchor;
-  }
-
   private createKeyValuePairEmptyKey(node: TreeCursorSyntaxNode): YamlScalar {
     const emptyPoint = new Point({
       row: node.startPosition.row,
@@ -568,11 +565,7 @@ class CstVisitor {
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
 
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(anchor);
-    }
-
-    return new YamlScalar({
+    const scalar = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -580,6 +573,12 @@ class CstVisitor {
       styleGroup: YamlStyleGroup.Flow,
       style: YamlStyle.Plain,
     });
+
+    if (anchor !== undefined) {
+      this.referenceManager.addAnchor(scalar);
+    }
+
+    return scalar;
   }
 
   private createKeyValuePairEmptyValue(node: TreeCursorSyntaxNode): YamlScalar {
@@ -608,11 +607,7 @@ class CstVisitor {
         ? new YamlAnchor({ name: anchorNode.text, position: CstVisitor.toPosition(anchorNode) })
         : undefined;
 
-    if (anchor !== undefined) {
-      this.referenceManager.addAnchor(anchor);
-    }
-
-    return new YamlScalar({
+    const scalar = new YamlScalar({
       content: '',
       position: new Position({ start: emptyPoint, end: emptyPoint }),
       tag,
@@ -620,6 +615,12 @@ class CstVisitor {
       styleGroup: YamlStyleGroup.Flow,
       style: YamlStyle.Plain,
     });
+
+    if (anchor !== undefined) {
+      this.referenceManager.addAnchor(scalar);
+    }
+
+    return scalar;
   }
 }
 

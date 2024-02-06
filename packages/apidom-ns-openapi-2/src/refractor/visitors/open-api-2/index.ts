@@ -6,7 +6,9 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+
+export interface SwaggerVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class SwaggerVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SwaggerElement;
@@ -15,7 +17,7 @@ class SwaggerVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: SwaggerVisitorOptions) {
     super(options);
     this.element = new SwaggerElement();
     this.specPath = always(['document', 'objects', 'Swagger']);

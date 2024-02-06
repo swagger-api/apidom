@@ -5,10 +5,12 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement, isResponseElement } from '../../../../predicates';
 import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface DefaultVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 
 class DefaultVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
-  constructor(options: AlternatingVisitorOptions) {
+  constructor(options: DefaultVisitorOptions) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },

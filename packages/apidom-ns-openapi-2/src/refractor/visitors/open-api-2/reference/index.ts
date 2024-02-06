@@ -7,7 +7,11 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface ReferenceVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ReferenceElement;
@@ -16,7 +20,7 @@ class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: ReferenceVisitorOptions) {
     super(options);
     this.element = new ReferenceElement();
     this.specPath = always(['document', 'objects', 'Reference']);

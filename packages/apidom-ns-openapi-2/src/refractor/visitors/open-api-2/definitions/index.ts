@@ -8,7 +8,9 @@ import {
 
 import DefinitionsElement from '../../../../elements/Definitions';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface DefinitionsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class DefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: DefinitionsElement;
@@ -17,7 +19,7 @@ class DefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'JSONReference'] | ['document', 'objects', 'Schema']
   >;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: DefinitionsVisitorOptions) {
     super(options);
     this.element = new DefinitionsElement();
     this.specPath = (element: unknown) => {

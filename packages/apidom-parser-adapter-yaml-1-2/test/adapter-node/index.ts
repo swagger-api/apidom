@@ -2,7 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert, expect } from 'chai';
 import { YamlTagError } from '@swagger-api/apidom-ast';
-import { toValue, isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
+import {
+  toValue,
+  isObjectElement,
+  isParseResultElement,
+  sexprs,
+  isStringElement,
+} from '@swagger-api/apidom-core';
 
 import * as adapter from '../../src/adapter-node';
 
@@ -153,6 +159,27 @@ describe('adapter-node', function () {
         assert.include(error.tagPosition.start, { type: 'point', row: 0, column: 6, char: 6 });
         assert.include(error.tagPosition.end, { type: 'point', row: 0, column: 11, char: 11 });
       }
+    });
+  });
+
+  context('given an alias', function () {
+    specify('should analyze alias as string', async function () {
+      const result = await adapter.parse('*alias');
+      assert.isTrue(isStringElement(result.result));
+    });
+  });
+
+  context('given single-quote scalar containing only space characters', function () {
+    specify('should parse all space characters', async function () {
+      const result = await adapter.parse("' '");
+      assert.strictEqual(result.toValue()[0], ' ');
+    });
+  });
+
+  context('given double-quote scalar containing only space characters', function () {
+    specify('should parse all space characters', async function () {
+      const result = await adapter.parse('" "');
+      assert.strictEqual(result.toValue()[0], ' ');
     });
   });
 });

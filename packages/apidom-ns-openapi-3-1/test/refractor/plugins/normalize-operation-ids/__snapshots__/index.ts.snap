@@ -531,7 +531,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                             },
                             "originalOperationId": {
                               "element": "string",
-                              "content": ""
+                              "content": "   "
                             }
                           },
                           "content": [
@@ -568,7 +568,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                                 },
                                 "value": {
                                   "element": "string",
-                                  "content": ""
+                                  "content": "   "
                                 }
                               }
                             }

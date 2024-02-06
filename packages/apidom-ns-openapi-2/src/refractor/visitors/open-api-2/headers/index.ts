@@ -2,8 +2,10 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import HeadersElement from '../../../../elements/Headers';
+
+export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: HeadersElement;
@@ -12,7 +14,7 @@ class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: false;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: HeadersVisitorOptions) {
     super(options);
     this.element = new HeadersElement();
     this.specPath = always(['document', 'objects', 'Header']);

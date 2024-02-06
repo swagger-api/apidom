@@ -6,7 +6,9 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface XmlVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
 class XmlVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: XmlElement;
@@ -15,7 +17,7 @@ class XmlVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: FixedFieldsVisitorOptions) {
+  constructor(options: XmlVisitorOptions) {
     super(options);
     this.element = new XmlElement();
     this.specPath = always(['document', 'objects', 'XML']);

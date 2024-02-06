@@ -1,13 +1,15 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
+
+export interface ThenVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
 class ThenVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ArrayElement;
 
-  constructor(options: SpecificationVisitorOptions) {
+  constructor(options: ThenVisitorOptions) {
     super(options);
     this.element = new ArrayElement();
     this.element.classes.push('scenario-then');

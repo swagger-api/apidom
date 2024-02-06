@@ -2,7 +2,6 @@ import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
-import { keyMap, getNodeType } from '../../traversal/visitor';
 import Visitor, { VisitorOptions } from './Visitor';
 import FallbackVisitor from './FallbackVisitor';
 import type specification from '../specification';
@@ -67,8 +66,7 @@ class SpecificationVisitor extends Visitor {
       return cloneDeep(element);
     }
 
-    // @ts-ignore
-    visit(element, visitor, { keyMap, ...options, nodeTypeGetter: getNodeType });
+    visit(element, visitor, options);
     return visitor.element;
   }
 }

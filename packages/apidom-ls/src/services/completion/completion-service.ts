@@ -586,7 +586,7 @@ export class DefaultCompletionService implements CompletionService {
           if (!existing) {
             label = label.replace(/[\n]/g, '↵');
             if (label.length > 60) {
-              const shortenedLabel = `${label.substr(0, 57).trim()}...`;
+              const shortenedLabel = `${label.substring(0, 57).trim()}...`;
               if (!proposed[shortenedLabel]) {
                 label = shortenedLabel;
               }

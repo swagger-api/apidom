@@ -3,6 +3,8 @@ import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import OperationSchemesElement from '../../../../elements/nces/OperationSchemes';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
+export type { FallbackVisitorOptions as SchemesVisitorOptions };
+
 class SchemesVisitor extends FallbackVisitor {
   public declare element: OperationSchemesElement;
 

@@ -3,6 +3,8 @@ import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 import OperationTagsElement from '../../../../elements/nces/OperationTags';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
+export type { FallbackVisitorOptions as TagsVisitorOptions };
+
 class TagsVisitor extends FallbackVisitor {
   public declare element: OperationTagsElement;
 

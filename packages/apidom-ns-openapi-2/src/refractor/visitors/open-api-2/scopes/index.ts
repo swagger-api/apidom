@@ -3,7 +3,9 @@ import { always } from 'ramda';
 
 import ScopesElement from '../../../../elements/Scopes';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+
+export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ScopesElement;
@@ -12,7 +14,7 @@ class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
 
   protected declare readonly canSupportSpecificationExtensions: true;
 
-  constructor(options: MapVisitorOptions) {
+  constructor(options: ScopesVisitorOptions) {
     super(options);
     this.element = new ScopesElement();
     this.specPath = always(['value']);

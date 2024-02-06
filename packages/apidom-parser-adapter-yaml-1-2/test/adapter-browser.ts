@@ -1,7 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert, expect } from 'chai';
-import { toValue, isObjectElement, isParseResultElement, sexprs } from '@swagger-api/apidom-core';
+import {
+  toValue,
+  isObjectElement,
+  isParseResultElement,
+  sexprs,
+  isStringElement,
+} from '@swagger-api/apidom-core';
 
 import * as adapter from '../src/adapter-browser';
 
@@ -124,6 +130,27 @@ describe('adapter-browser', function () {
 
       assert.isFalse(parseResult.isEmpty);
       assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
+    });
+  });
+
+  context('given an alias', function () {
+    specify('should analyze alias as string', async function () {
+      const result = await adapter.parse('*alias');
+      assert.isTrue(isStringElement(result.result));
+    });
+  });
+
+  context('given single-quote scalar containing only space characters', function () {
+    specify('should parse all space characters', async function () {
+      const result = await adapter.parse("' '");
+      assert.strictEqual(result.toValue()[0], ' ');
+    });
+  });
+
+  context('given double-quote scalar containing only space characters', function () {
+    specify('should parse all space characters', async function () {
+      const result = await adapter.parse('" "');
+      assert.strictEqual(result.toValue()[0], ' ');
     });
   });
 });

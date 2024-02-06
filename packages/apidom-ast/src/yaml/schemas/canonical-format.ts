@@ -128,11 +128,11 @@ export const formatFlowPlain = pipe(
 export const formatFlowSingleQuoted = pipe(
   normalizeLineBreaks,
   trim,
-  removeQuotes("'"),
   collapseLineBreakToSpace,
   split('\n'),
   map(trimStart),
   join('\n'),
+  removeQuotes("'"),
 );
 
 /**
@@ -142,13 +142,13 @@ export const formatFlowSingleQuoted = pipe(
 export const formatFlowDoubleQuoted = pipe(
   normalizeLineBreaks,
   trim,
-  removeQuotes('"'),
   preventLineBreakCollapseToSpace,
   collapseLineBreakToSpace,
   unraw,
   split('\n'),
   map(trimStart),
   join('\n'),
+  removeQuotes('"'),
 );
 
 /**

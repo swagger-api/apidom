@@ -1,36 +1,41 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsServerBindingsElement from '../../../../elements/nces/ComponentsServerBindings';
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const ServerBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
-      return isReferenceLikeElement(element)
+export interface ServerBindingsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
+class ServerBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare element: ComponentsServerBindingsElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'ServerBindings']
+  >;
+
+  constructor(options: ServerBindingsVisitorOptions) {
+    super(options);
+    this.element = new ComponentsServerBindingsElement();
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ServerBindings'];
-    },
-  },
-  init() {
-    this.element = new ComponentsServerBindingsElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'serverBindings');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'serverBindings');
+    });
+
+    return result;
+  }
+}
 
 export default ServerBindingsVisitor;

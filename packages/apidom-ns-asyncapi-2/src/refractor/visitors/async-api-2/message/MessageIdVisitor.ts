@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const MessageIdVisitor = FallbackVisitor;
+class MessageIdVisitor extends FallbackVisitor {}
 
 export default MessageIdVisitor;

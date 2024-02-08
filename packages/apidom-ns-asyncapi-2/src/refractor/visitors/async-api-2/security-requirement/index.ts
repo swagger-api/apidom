@@ -1,17 +1,24 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import SecurityRequirementElement from '../../../../elements/SecurityRequirement';
 
-const SecurityRequirementVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['value']),
-  },
-  init() {
+export interface SecurityRequirementVisitorOptions
+  extends MapVisitorOptions,
+    FallbackVisitorOptions {}
+
+class SecurityRequirementVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: SecurityRequirementElement;
+
+  protected declare readonly specPath: SpecPath<['value']>;
+
+  constructor(options: SecurityRequirementVisitorOptions) {
+    super(options);
     this.element = new SecurityRequirementElement();
-  },
-});
+    this.specPath = always(['value']);
+  }
+}
 
 export default SecurityRequirementVisitor;

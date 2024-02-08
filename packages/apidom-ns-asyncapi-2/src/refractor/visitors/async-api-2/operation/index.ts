@@ -1,17 +1,27 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import OperationElement from '../../../../elements/Operation';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
-const OperationVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Operation']),
-  },
-  init() {
+export interface OperationVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class OperationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: OperationElement;
+
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Operation']>;
+
+  constructor(options: OperationVisitorOptions) {
+    super(options);
     this.element = new OperationElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'Operation']);
+  }
+}
 
 export default OperationVisitor;

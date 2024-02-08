@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const EnumVisitor = FallbackVisitor;
+class EnumVisitor extends FallbackVisitor {}
 
 export default EnumVisitor;

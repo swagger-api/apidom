@@ -1,22 +1,28 @@
-import stampit from 'stampit';
-import { Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
 
 import ServerVariablesElement from '../../../../elements/nces/ServerVariables';
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 
-const VariablesVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
+export interface VariablesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
+class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ServerVariablesElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'ServerVariable']
+  >;
+
+  constructor(options: VariablesVisitorOptions) {
+    super(options);
+    this.element = new ServerVariablesElement();
+    this.specPath = (element: unknown) => {
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ServerVariable'];
-    },
-  },
-  init() {
-    this.element = new ServerVariablesElement();
-  },
-});
+    };
+  }
+}
 
 export default VariablesVisitor;

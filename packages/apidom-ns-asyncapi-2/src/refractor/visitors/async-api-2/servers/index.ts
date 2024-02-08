@@ -1,40 +1,54 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { test } from 'ramda';
-import { Element, ObjectElement } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
-import PatternedFieldsVisitor from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import PatternedFieldsVisitor, {
+  PatternedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/PatternedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import ServersElement from '../../../../elements/Servers';
 import ReferenceElement from '../../../../elements/Reference';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const ServersVisitor = stampit(PatternedFieldsVisitor, FallbackVisitor, {
-  props: {
-    fieldPatternPredicate: test(/^[A-Za-z0-9_-]+$/),
-    specPath: (element: Element) => {
+export interface ServersVisitorOptions
+  extends PatternedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class ServersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: ServersElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'Server']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: ServersVisitorOptions) {
+    super(options);
+    this.element = new ServersElement();
+    this.element.classes.push('servers');
+    this.specPath = (element: unknown) => {
       return isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Server'];
-    },
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
-    this.element = new ServersElement();
-    this.element.classes.push('servers');
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = PatternedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+    };
+    this.canSupportSpecificationExtensions = false;
+    // @ts-ignore
+    this.fieldPatternPredicate = test(/^[A-Za-z0-9_-]+$/);
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'server');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = PatternedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'server');
+    });
+
+    return result;
+  }
+}
 
 export default ServersVisitor;

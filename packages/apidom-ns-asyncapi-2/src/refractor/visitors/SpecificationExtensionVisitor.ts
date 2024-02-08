@@ -1,17 +1,18 @@
-import stampit from 'stampit';
 import { MemberElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from './SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from './SpecificationVisitor';
 
-const SpecificationExtensionVisitor = stampit(SpecificationVisitor, {
-  methods: {
-    MemberElement(memberElement: MemberElement) {
-      this.element = cloneDeep(memberElement);
-      this.element.classes.push('specification-extension');
+export type { SpecificationVisitorOptions as SpecificationExtensionVisitorOptions };
 
-      return BREAK;
-    },
-  },
-});
+class SpecificationExtensionVisitor extends SpecificationVisitor {
+  public declare element: MemberElement;
+
+  MemberElement(memberElement: MemberElement) {
+    this.element = cloneDeep(memberElement);
+    this.element.classes.push('specification-extension');
+
+    return BREAK;
+  }
+}
 
 export default SpecificationExtensionVisitor;

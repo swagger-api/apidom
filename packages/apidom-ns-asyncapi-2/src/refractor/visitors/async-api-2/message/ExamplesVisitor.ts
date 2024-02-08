@@ -1,33 +1,36 @@
-import stampit from 'stampit';
-import { ArrayElement, Element, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../../SpecificationVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import MessageExamplesElement from '../../../../elements/nces/MessageExamples';
 
-const ExamplesVisitor = stampit(SpecificationVisitor, FallbackVisitor, {
-  init() {
+export interface ExamplesVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
+
+class ExamplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  public declare readonly element: MessageExamplesElement;
+
+  constructor(options: ExamplesVisitorOptions) {
+    super(options);
     this.element = new MessageExamplesElement();
-  },
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element) => {
-        let element;
+  }
 
-        if (isObjectElement(item)) {
-          element = this.toRefractedElement(['document', 'objects', 'MessageExample'], item);
-        } else {
-          element = cloneDeep(item);
-        }
+  ArrayElement(arrayElement: ArrayElement) {
+    arrayElement.forEach((item: Element) => {
+      const messageElement = this.toRefractedElement(
+        ['document', 'objects', 'MessageExample'],
+        item,
+      );
 
-        this.element.push(element);
-      });
+      this.element.push(messageElement);
+    });
 
-      this.copyMetaAndAttributes(arrayElement, this.element);
+    this.copyMetaAndAttributes(arrayElement, this.element);
 
-      return BREAK;
-    },
-  },
-});
+    return BREAK;
+  }
+}
 
 export default ExamplesVisitor;

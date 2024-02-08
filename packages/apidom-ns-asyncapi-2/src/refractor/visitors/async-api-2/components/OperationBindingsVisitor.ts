@@ -1,36 +1,43 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference';
 import ComponentsOperationBindingsElement from '../../../../elements/nces/ComponentsOperationBindings';
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 
-const OperationBindingsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) => {
-      return isReferenceLikeElement(element)
+export interface OperationBindingsVisitorOptions
+  extends MapVisitorOptions,
+    FallbackVisitorOptions {}
+
+class OperationBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsOperationBindingsElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'OperationBindings']
+  >;
+
+  constructor(options: OperationBindingsVisitorOptions) {
+    super(options);
+    this.element = new ComponentsOperationBindingsElement();
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'OperationBindings'];
-    },
-  },
-  init() {
-    this.element = new ComponentsOperationBindingsElement();
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = MapVisitor.compose.methods.ObjectElement.call(this, objectElement);
+  }
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'operationBindings');
-      });
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'operationBindings');
+    });
+
+    return result;
+  }
+}
 
 export default OperationBindingsVisitor;

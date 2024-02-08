@@ -1,18 +1,32 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import RedisMessageBindingElement from '../../../../../../elements/bindings/redis/RedisMessageBinding';
-import FallbackVisitor from '../../../../FallbackVisitor';
-import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../../../generics/FixedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
 
-const RedisMessageBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'bindings', 'redis', 'MessageBinding']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+export interface RedisMessageBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class RedisMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: RedisMessageBindingElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'bindings', 'redis', 'MessageBinding']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: RedisMessageBindingVisitorOptions) {
+    super(options);
     this.element = new RedisMessageBindingElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'bindings', 'redis', 'MessageBinding']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default RedisMessageBindingVisitor;

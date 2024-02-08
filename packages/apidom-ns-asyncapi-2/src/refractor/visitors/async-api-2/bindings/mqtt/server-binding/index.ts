@@ -1,18 +1,32 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import MqttServerBindingElement from '../../../../../../elements/bindings/mqtt/MqttServerBinding';
-import FallbackVisitor from '../../../../FallbackVisitor';
-import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../../../generics/FixedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
 
-const MqttServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'bindings', 'mqtt', 'ServerBinding']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+export interface MqttServerBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class MqttServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: MqttServerBindingElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'bindings', 'mqtt', 'ServerBinding']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: MqttServerBindingVisitorOptions) {
+    super(options);
     this.element = new MqttServerBindingElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'bindings', 'mqtt', 'ServerBinding']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default MqttServerBindingVisitor;

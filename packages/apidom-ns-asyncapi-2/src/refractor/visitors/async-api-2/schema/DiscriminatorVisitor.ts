@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const DiscriminatorVisitor = FallbackVisitor;
+class DiscriminatorVisitor extends FallbackVisitor {}
 
 export default DiscriminatorVisitor;

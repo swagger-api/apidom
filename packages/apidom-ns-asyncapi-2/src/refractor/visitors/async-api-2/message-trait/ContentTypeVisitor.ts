@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const ContentTypeVisitor = FallbackVisitor;
+class ContentTypeVisitor extends FallbackVisitor {}
 
 export default ContentTypeVisitor;

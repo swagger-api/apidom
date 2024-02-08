@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const OperationIdVisitor = FallbackVisitor;
+class OperationIdVisitor extends FallbackVisitor {}
 
 export default OperationIdVisitor;

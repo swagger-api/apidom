@@ -1,5 +1,5 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const BearerFormatVisitor = FallbackVisitor;
+class BearerFormatVisitor extends FallbackVisitor {}
 
 export default BearerFormatVisitor;

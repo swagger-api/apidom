@@ -1,4 +1,3 @@
-import stampit from 'stampit';
 import { Element } from '@swagger-api/apidom-core';
 import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
@@ -6,7 +5,7 @@ import { isReferenceElement } from '../../../../predicates';
 
 const { JSONSchemaOrJSONReferenceVisitor } = JSONSchemaDraft7Specification.visitors;
 
-const SchemaOrReferenceVisitor = stampit(JSONSchemaOrJSONReferenceVisitor, {
+const SchemaOrReferenceVisitor = JSONSchemaOrJSONReferenceVisitor.compose({
   methods: {
     enter(element: Element) {
       // @ts-ignore

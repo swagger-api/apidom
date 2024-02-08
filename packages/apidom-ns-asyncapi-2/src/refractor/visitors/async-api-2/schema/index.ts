@@ -1,32 +1,41 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { ObjectElement, BooleanElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
 
 import SchemaElement from '../../../../elements/Schema';
-import FallbackVisitor from '../../FallbackVisitor';
-import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../generics/FixedFieldsVisitor';
 
-const SchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'Schema']),
-    canSupportSpecificationExtensions: true,
-  },
+export interface SchemaVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.element = new SchemaElement();
+class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare element: SchemaElement;
 
-      // @ts-ignore
-      return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-    },
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
-    BooleanElement(booleanElement: BooleanElement) {
-      this.element = cloneDeep(booleanElement);
-      this.element.classes.push('boolean-json-schema');
+  protected declare readonly canSupportSpecificationExtensions: true;
 
-      return BREAK;
-    },
-  },
-});
+  constructor(options: SchemaVisitorOptions) {
+    super(options);
+    this.specPath = always(['document', 'objects', 'Schema']);
+    this.canSupportSpecificationExtensions = true;
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    this.element = new SchemaElement();
+
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+  }
+
+  BooleanElement(booleanElement: BooleanElement) {
+    const result = super.enter(booleanElement);
+    this.element.classes.push('boolean-json-schema');
+
+    return result;
+  }
+}
 
 export default SchemaVisitor;

@@ -1,17 +1,22 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import ComponentsChannelsElement from '../../../../elements/nces/ComponentsChannels';
-import MapVisitor from '../../generics/MapVisitor';
-import FallbackVisitor from '../../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 
-const ChannelsVisitor = stampit(MapVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'ChannelItem']),
-  },
-  init() {
+export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
+class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
+  public declare readonly element: ComponentsChannelsElement;
+
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'ChannelItem']>;
+
+  constructor(options: ChannelsVisitorOptions) {
+    super(options);
     this.element = new ComponentsChannelsElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'ChannelItem']);
+  }
+}
 
 export default ChannelsVisitor;

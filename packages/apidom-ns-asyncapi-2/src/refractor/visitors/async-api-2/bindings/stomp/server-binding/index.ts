@@ -1,18 +1,32 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
 import StompServerBindingElement from '../../../../../../elements/bindings/stomp/StompServerBinding';
-import FallbackVisitor from '../../../../FallbackVisitor';
-import FixedFieldsVisitor from '../../../../generics/FixedFieldsVisitor';
+import FixedFieldsVisitor, {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from '../../../../generics/FixedFieldsVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
 
-const StompServerBindingVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'bindings', 'stomp', 'ServerBinding']),
-    canSupportSpecificationExtensions: false,
-  },
-  init() {
+export interface StompServerBindingVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class StompServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: StompServerBindingElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'bindings', 'stomp', 'ServerBinding']
+  >;
+
+  protected declare readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: StompServerBindingVisitorOptions) {
+    super(options);
     this.element = new StompServerBindingElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'bindings', 'stomp', 'ServerBinding']);
+    this.canSupportSpecificationExtensions = false;
+  }
+}
 
 export default StompServerBindingVisitor;

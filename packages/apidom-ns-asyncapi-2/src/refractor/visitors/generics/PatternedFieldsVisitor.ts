@@ -1,6 +1,4 @@
-import stampit from 'stampit';
 import { F as stubFalse } from 'ramda';
-import { noop } from 'ramda-adjunct';
 import {
   ObjectElement,
   Element,
@@ -10,65 +8,84 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
+import { SpecPath } from './FixedFieldsVisitor';
 import { isAsyncApiExtension } from '../../predicates';
 
-const PatternedFieldsJsonObjectVisitor = stampit(SpecificationVisitor, {
-  props: {
-    fieldPatternPredicate: stubFalse,
-    specPath: noop,
-    ignoredFields: [],
-    canSupportSpecificationExtensions: false,
-    specificationExtensionPredicate: isAsyncApiExtension,
-  },
-  init({
-    // @ts-ignore
-    specPath = this.specPath,
-    // @ts-ignore
-    ignoredFields = this.ignoredFields,
-    // @ts-ignore
-    canSupportSpecificationExtensions = this.canSupportSpecificationExtensions,
-    // @ts-ignore
-    specificationExtensionPredicate = this.specificationExtensionPredicate,
-  } = {}) {
+export type { SpecPath };
+
+export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptions {
+  readonly specPath: SpecPath;
+  readonly ignoredFields?: string[];
+  readonly fieldPatternPredicate?: (...args: unknown[]) => boolean;
+  readonly canSupportSpecificationExtensions?: boolean;
+  readonly specificationExtensionPredicate?: typeof isAsyncApiExtension;
+}
+
+class PatternedFieldsVisitor extends SpecificationVisitor {
+  protected specPath: SpecPath;
+
+  protected ignoredFields: string[];
+
+  protected fieldPatternPredicate: (value: unknown) => boolean = stubFalse;
+
+  protected canSupportSpecificationExtensions: boolean = false;
+
+  protected specificationExtensionPredicate = isAsyncApiExtension;
+
+  constructor({
+    specPath,
+    ignoredFields,
+    fieldPatternPredicate,
+    canSupportSpecificationExtensions,
+    specificationExtensionPredicate,
+    ...rest
+  }: PatternedFieldsVisitorOptions) {
+    super({ ...rest });
     this.specPath = specPath;
-    this.ignoredFields = ignoredFields;
-    this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
-    this.specificationExtensionPredicate = specificationExtensionPredicate;
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
-        if (
-          this.canSupportSpecificationExtensions &&
-          this.specificationExtensionPredicate(memberElement)
-        ) {
-          const extensionElement = this.toRefractedElement(
-            ['document', 'extension'],
-            memberElement,
-          );
-          this.element.content.push(extensionElement);
-        } else if (
-          !this.ignoredFields.includes(toValue(key)) &&
-          this.fieldPatternPredicate(toValue(key))
-        ) {
-          const specPath = this.specPath(value);
-          const patternedFieldElement = this.toRefractedElement(specPath, value);
-          const newMemberElement = new MemberElement(cloneDeep(key), patternedFieldElement);
-          this.copyMetaAndAttributes(memberElement, newMemberElement);
-          newMemberElement.classes.push('patterned-field');
-          this.element.content.push(newMemberElement);
-        } else if (!this.ignoredFields.includes(toValue(key))) {
-          this.element.content.push(cloneDeep(memberElement));
-        }
-      });
+    this.ignoredFields = ignoredFields || [];
 
-      this.copyMetaAndAttributes(objectElement, this.element);
+    if (typeof fieldPatternPredicate === 'function') {
+      this.fieldPatternPredicate = fieldPatternPredicate;
+    }
 
-      return BREAK;
-    },
-  },
-});
+    if (typeof canSupportSpecificationExtensions === 'boolean') {
+      this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
+    }
 
-export default PatternedFieldsJsonObjectVisitor;
+    if (typeof specificationExtensionPredicate === 'function') {
+      this.specificationExtensionPredicate = specificationExtensionPredicate;
+    }
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    // @ts-ignore
+    objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
+      if (
+        this.canSupportSpecificationExtensions &&
+        this.specificationExtensionPredicate(memberElement)
+      ) {
+        const extensionElement = this.toRefractedElement(['document', 'extension'], memberElement);
+        this.element.content.push(extensionElement);
+      } else if (
+        !this.ignoredFields.includes(toValue(key)) &&
+        this.fieldPatternPredicate(toValue(key))
+      ) {
+        const specPath = this.specPath(value);
+        const patternedFieldElement = this.toRefractedElement(specPath, value);
+        const newMemberElement = new MemberElement(cloneDeep(key), patternedFieldElement);
+        this.copyMetaAndAttributes(memberElement, newMemberElement);
+        newMemberElement.classes.push('patterned-field');
+        this.element.content.push(newMemberElement);
+      } else if (!this.ignoredFields.includes(toValue(key))) {
+        this.element.content.push(cloneDeep(memberElement));
+      }
+    });
+
+    this.copyMetaAndAttributes(objectElement, this.element);
+
+    return BREAK;
+  }
+}
+
+export default PatternedFieldsVisitor;

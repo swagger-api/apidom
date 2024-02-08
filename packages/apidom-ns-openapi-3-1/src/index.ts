@@ -150,14 +150,6 @@ export type {
   InfoVersionVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 export type {
-  default as InfoSummaryVisitor,
-  SummaryVisitorOption as InfoSummaryVisitorOption,
-} from './refractor/visitors/open-api-3-1/info/SummaryVisitor';
-export type {
-  default as LicenseIdentifierVisitor,
-  IdentifierVisitorOption as LicenseIdentifierVisitorOption,
-} from './refractor/visitors/open-api-3-1/license/IdentifierVisitor';
-export type {
   default as LicenseVisitor,
   LicenseVisitorOptions,
 } from './refractor/visitors/open-api-3-1/license';

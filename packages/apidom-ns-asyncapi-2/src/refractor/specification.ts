@@ -9,57 +9,28 @@ import AsyncApi2Visitor from './visitors/async-api-2';
 import AsyncApiVersionVisitor from './visitors/async-api-2/AsyncApiVersionVisitor';
 import IdentifierVisitor from './visitors/async-api-2/IdentifierVisitor';
 import InfoVisitor from './visitors/async-api-2/info';
-import InfoTitleVisitor from './visitors/async-api-2/info/TitleVisitor';
-import InfoDescriptionVisitor from './visitors/async-api-2/info/DescriptionVisitor';
-import InfoTermsOfServiceVisitor from './visitors/async-api-2/info/TermsOfServiceVisitor';
 import InfoVersionVisitor from './visitors/async-api-2/info/VersionVisitor';
 import ContactVisitor from './visitors/async-api-2/contact';
-import ContactNameVisitor from './visitors/async-api-2/contact/NameVisitor';
-import ContactUrlVisitor from './visitors/async-api-2/contact/UrlVisitor';
-import ContactEmailVisitor from './visitors/async-api-2/contact/EmailVisitor';
 import CorrelationIDVisitor from './visitors/async-api-2/correlation-id';
-import CorrelationIDDescriptionVisitor from './visitors/async-api-2/correlation-id/DescriptionVisitor';
-import CorrelationIDLocationVisitor from './visitors/async-api-2/correlation-id/LocationVisitor';
 import DefaultContentTypeVisitor from './visitors/async-api-2/DefaultContentTypeVisitor';
 import LicenseVisitor from './visitors/async-api-2/license';
-import LicenseNameVisitor from './visitors/async-api-2/license/NameVisitor';
-import LicenseUrlVisitor from './visitors/async-api-2/license/UrlVisitor';
 import OAuthFlowsVisitor from './visitors/async-api-2/oauth-flows';
 import OAuthFlowVisitor from './visitors/async-api-2/oauth-flow';
-import OAuthFlowAuthorizationUrlVisitor from './visitors/async-api-2/oauth-flow/AuthorizationUrlVisitor';
-import OAuthFlowTokenUrlVisitor from './visitors/async-api-2/oauth-flow/TokenUrlVisitor';
-import OAuthFlowRefreshUrlVisitor from './visitors/async-api-2/oauth-flow/RefreshUrlVisitor';
 import OAuthFlowScopesVisitor from './visitors/async-api-2/oauth-flow/ScopesVisitor';
 import ServersVisitor from './visitors/async-api-2/servers';
 import ServerVisitor from './visitors/async-api-2/server';
 import ServerUrlVisitor from './visitors/async-api-2/server/UrlVisitor';
-import ServerProtocolVisitor from './visitors/async-api-2/server/ProtocolVisitor';
-import ServerProtocolVersionVisitor from './visitors/async-api-2/server/ProtocolVersionVisitor';
-import ServerDescriptionVisitor from './visitors/async-api-2/server/DescriptionVisitor';
 import ServerBindingsVisitor_ from './visitors/async-api-2/server/BindingsVisitor';
 import ServerVariablesVisitor from './visitors/async-api-2/server/VariablesVisitor';
 import ServerSecurityVisitor from './visitors/async-api-2/server/SecurityVisitor';
 import ServerVariableVisitor from './visitors/async-api-2/server-variable';
-import ServerVariableEnumVisitor from './visitors/async-api-2/server-variable/EnumVisitor';
-import ServerVariableDefaultVisitor from './visitors/async-api-2/server-variable/DefaultVisitor';
-import ServerVariableDescriptionVisitor from './visitors/async-api-2/server-variable/DescriptionVisitor';
-import ServerVariableExamplesVisitor from './visitors/async-api-2/server-variable/ExamplesVisitor';
 import ServerBindingsVisitor from './visitors/async-api-2/server-bindings';
 import SecuritySchemeVisitor from './visitors/async-api-2/security-scheme';
-import SecuritySchemeTypeVisitor from './visitors/async-api-2/security-scheme/TypeVisitor';
-import SecuritySchemeDescriptionVisitor from './visitors/async-api-2/security-scheme/DescriptionVisitor';
-import SecuritySchemeNameVisitor from './visitors/async-api-2/security-scheme/NameVisitor';
-import SecuritySchemeInVisitor from './visitors/async-api-2/security-scheme/InVisitor';
-import SecuritySchemeSchemeVisitor from './visitors/async-api-2/security-scheme/SchemeVisitor';
-import SecuritySchemeBearerFormatVisitor from './visitors/async-api-2/security-scheme/BearerFormatVisitor';
-import SecuritySchemeOpenIdConnectUrlVisitor from './visitors/async-api-2/security-scheme/OpenIdConnectUrlVisitor';
 import SecurityRequirementVisitor from './visitors/async-api-2/security-requirement';
 import ReferenceVisitor from './visitors/async-api-2/reference';
 import Reference$RefVisitor from './visitors/async-api-2/reference/$RefVisitor';
 import SchemaVisitor from './visitors/async-api-2/schema';
 import SchemaOrReferenceVisitor from './visitors/async-api-2/schema/SchemaOrReferenceVisitor';
-import SchemaDeprecatedVisitor from './visitors/async-api-2/schema/DeprecatedVisitor';
-import SchemaDiscriminatorVisitor from './visitors/async-api-2/schema/DiscriminatorVisitor';
 import SchemaAllOfVisitor from './visitors/async-api-2/schema/AllOfVisitor';
 import SchemaAnyOfVisitor from './visitors/async-api-2/schema/AnyOfVisitor';
 import SchemaOneOfVisitor from './visitors/async-api-2/schema/OneOfVisitor';
@@ -71,12 +42,8 @@ import SchemaPropertiesVisitor from './visitors/async-api-2/schema/PropertiesVis
 import schemaInheritedFixedFields from './visitors/async-api-2/schema/inherited-fixed-fields';
 import ParametersVisitor from './visitors/async-api-2/parameters';
 import ParameterVisitor from './visitors/async-api-2/parameter';
-import ParameterDescriptionVisitor from './visitors/async-api-2/parameter/DescriptionVisitor';
-import ParameterLocationVisitor from './visitors/async-api-2/parameter/LocationVisitor';
 import ParameterSchemaVisitor from './visitors/async-api-2/parameter/SchemaVisitor';
 import ExternalDocumentationVisitor from './visitors/async-api-2/external-documentation';
-import ExternalDocumentationDescriptionVisitor from './visitors/async-api-2/external-documentation/DescriptionVisitor';
-import ExternalDocumentationUrlVisitor from './visitors/async-api-2/external-documentation/UrlVisitor';
 import ComponentsVisitor from './visitors/async-api-2/components';
 import ComponentsSchemasVisitor from './visitors/async-api-2/components/SchemasVisitor';
 import ComponentsServersVisitor from './visitors/async-api-2/components/ServersVisitor';
@@ -93,61 +60,33 @@ import ComponentsChannelBindingsVisitor from './visitors/async-api-2/components/
 import ComponentsOperationBindingsVisitor from './visitors/async-api-2/components/OperationBindingsVisitor';
 import ComponentsMessageBindingsVisitor from './visitors/async-api-2/components/MessageBindingsVisitor';
 import OperationVisitor from './visitors/async-api-2/operation';
-import OperationOperationIdVisitor from './visitors/async-api-2/operation/OperationIdVisitor';
-import OperationSummaryVisitor from './visitors/async-api-2/operation/SummaryVisitor';
-import OperationDescriptionVisitor from './visitors/async-api-2/operation/DescriptionVisitor';
 import OperationSecurityVisitor from './visitors/async-api-2/operation/SecurityVisitor';
 import OperationBindingsVisitor_ from './visitors/async-api-2/operation/BindingsVisitor';
 import OperationTraitsVisitor from './visitors/async-api-2/operation/TraitsVisitor';
 import OperationMessageVisitor from './visitors/async-api-2/operation/MessageVisitor';
 import TagsVisitor from './visitors/async-api-2/tags';
 import TagVisitor from './visitors/async-api-2/tag';
-import TagNameVisitor from './visitors/async-api-2/tag/NameVisitor';
-import TagDescriptionVisitor from './visitors/async-api-2/tag/DescriptionVisitor';
 import ChannelsVisitor from './visitors/async-api-2/channels';
 import ChannelBindingsVisitor from './visitors/async-api-2/channel-bindings';
 import ChannelItemVisitor from './visitors/async-api-2/channel-item';
 import ChannelItem$RefVisitor from './visitors/async-api-2/channel-item/$RefVisitor';
-import ChannelItemDescriptionVisitor from './visitors/async-api-2/channel-item/DescriptionVisitor';
 import ChannelItemServersVisitor from './visitors/async-api-2/channel-item/ServersVisitor';
 import ChannelItemBindingsVisitor from './visitors/async-api-2/channel-item/BindingsVisitor';
 import MessageBindingsVisitor from './visitors/async-api-2/message-bindings';
 import MessageExampleVisitor from './visitors/async-api-2/message-example';
-import MessageExampleHeadersVisitor from './visitors/async-api-2/message-example/HeadersVisitor';
-import MessageExamplePayloadVisitor from './visitors/async-api-2/message-example/PayloadVisitor';
-import MessageExampleNameVisitor from './visitors/async-api-2/message-example/NameVisitor';
-import MessageExampleSummaryVisitor from './visitors/async-api-2/message-example/SummaryVisitor';
 import MessageTraitVisitor from './visitors/async-api-2/message-trait';
-import MessageTraitMessageIdVisitor from './visitors/async-api-2/message-trait/MessageIdVisitor';
 import MessageTraitHeadersVisitor from './visitors/async-api-2/message-trait/HeadersVisitor';
 import MessageTraitCorrelationIdVisitor from './visitors/async-api-2/message-trait/CorrelationIdVisitor';
-import MessageTraitSchemaFormatVisitor from './visitors/async-api-2/message-trait/SchemaFormatVisitor';
-import MessageTraitContentTypeVisitor from './visitors/async-api-2/message-trait/ContentTypeVisitor';
-import MessageTraitNameVisitor from './visitors/async-api-2/message-trait/NameVisitor';
-import MessageTraitTitleVisitor from './visitors/async-api-2/message-trait/TitleVisitor';
-import MessageTraitSummaryVisitor from './visitors/async-api-2/message-trait/SummaryVisitor';
-import MessageTraitDescriptionVisitor from './visitors/async-api-2/message-trait/DescriptionVisitor';
 import MessageTraitBindingsVisitor from './visitors/async-api-2/message-trait/BindingsVisitor';
 import MessageTraitExamplesVisitor from './visitors/async-api-2/message-trait/ExamplesVisitor';
 import MessageVisitor from './visitors/async-api-2/message';
-import MessageMessageIdVisitor from './visitors/async-api-2/message/MessageIdVisitor';
 import MessageHeadersVisitor from './visitors/async-api-2/message/HeadersVisitor';
-import MessagePayloadVisitor from './visitors/async-api-2/message/PayloadVisitor';
 import MessageCorrelationIdVisitor from './visitors/async-api-2/message/CorrelationIdVisitor';
-import MessageSchemaFormatVisitor from './visitors/async-api-2/message/SchemaFormatVisitor';
-import MessageContentTypeVisitor from './visitors/async-api-2/message/ContentTypeVisitor';
-import MessageNameVisitor from './visitors/async-api-2/message/NameVisitor';
-import MessageTitleVisitor from './visitors/async-api-2/message/TitleVisitor';
-import MessageSummaryVisitor from './visitors/async-api-2/message/SummaryVisitor';
-import MessageDescriptionVisitor from './visitors/async-api-2/message/DescriptionVisitor';
 import MessageBindingsVisitor_ from './visitors/async-api-2/message/BindingsVisitor';
 import MessageExamplesVisitor from './visitors/async-api-2/message/ExamplesVisitor';
 import MessageTraitsVisitor from './visitors/async-api-2/message/TraitsVisitor';
 import OperationBindingsVisitor from './visitors/async-api-2/operation-bindings';
 import OperationTraitVisitor from './visitors/async-api-2/operation-trait';
-import OperationTraitOperationIdVisitor from './visitors/async-api-2/operation-trait/OperationIdVisitor';
-import OperationTraitSummaryVisitor from './visitors/async-api-2/operation-trait/SummaryVisitor';
-import OperationTraitDescriptionVisitor from './visitors/async-api-2/operation-trait/DescriptionVisitor';
 import OperationTraitSecurityVisitor from './visitors/async-api-2/operation-trait/SecurityVisitor';
 import OperationTraitBindingsVisitor from './visitors/async-api-2/operation-trait/BindingsVisitor';
 /**
@@ -283,11 +222,11 @@ const SchemaSpecification = {
     // validation Vocabulary for Schema Re-Use With "definitions"
     definitions: SchemaDefinitionsVisitor,
     // AsyncAPI vocabulary
-    discriminator: SchemaDiscriminatorVisitor,
+    discriminator: { $ref: '#/visitors/value' },
     externalDocs: {
       $ref: '#/visitors/document/objects/ExternalDocumentation',
     },
-    deprecated: SchemaDeprecatedVisitor,
+    deprecated: { $ref: '#/visitors/value' },
   },
 };
 
@@ -340,9 +279,9 @@ const specification = {
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title: InfoTitleVisitor,
-            description: InfoDescriptionVisitor,
-            termsOfService: InfoTermsOfServiceVisitor,
+            title: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            termsOfService: { $ref: '#/visitors/value' },
             version: InfoVersionVisitor,
             contact: {
               $ref: '#/visitors/document/objects/Contact',
@@ -355,16 +294,16 @@ const specification = {
         Contact: {
           $visitor: ContactVisitor,
           fixedFields: {
-            name: ContactNameVisitor,
-            url: ContactUrlVisitor,
-            email: ContactEmailVisitor,
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+            email: { $ref: '#/visitors/value' },
           },
         },
         License: {
           $visitor: LicenseVisitor,
           fixedFields: {
-            name: LicenseNameVisitor,
-            url: LicenseUrlVisitor,
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
           },
         },
         Servers: {
@@ -374,9 +313,9 @@ const specification = {
           $visitor: ServerVisitor,
           fixedFields: {
             url: ServerUrlVisitor,
-            protocol: ServerProtocolVisitor,
-            protocolVersion: ServerProtocolVersionVisitor,
-            description: ServerDescriptionVisitor,
+            protocol: { $ref: '#/visitors/value' },
+            protocolVersion: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             variables: ServerVariablesVisitor,
             security: ServerSecurityVisitor,
             tags: {
@@ -388,10 +327,10 @@ const specification = {
         ServerVariable: {
           $visitor: ServerVariableVisitor,
           fixedFields: {
-            enum: ServerVariableEnumVisitor,
-            default: ServerVariableDefaultVisitor,
-            description: ServerVariableDescriptionVisitor,
-            examples: ServerVariableExamplesVisitor,
+            enum: { $ref: '#/visitors/value' },
+            default: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            examples: { $ref: '#/visitors/value' },
           },
         },
         DefaultContentType: {
@@ -404,7 +343,7 @@ const specification = {
           $visitor: ChannelItemVisitor,
           fixedFields: {
             $ref: ChannelItem$RefVisitor,
-            description: ChannelItemDescriptionVisitor,
+            description: { $ref: '#/visitors/value' },
             servers: ChannelItemServersVisitor,
             subscribe: {
               $ref: '#/visitors/document/objects/Operation',
@@ -421,9 +360,9 @@ const specification = {
         Operation: {
           $visitor: OperationVisitor,
           fixedFields: {
-            operationId: OperationOperationIdVisitor,
-            summary: OperationSummaryVisitor,
-            description: OperationDescriptionVisitor,
+            operationId: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             security: OperationSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
@@ -439,9 +378,9 @@ const specification = {
         OperationTrait: {
           $visitor: OperationTraitVisitor,
           fixedFields: {
-            operationId: OperationTraitOperationIdVisitor,
-            summary: OperationTraitSummaryVisitor,
-            description: OperationTraitDescriptionVisitor,
+            operationId: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             security: OperationTraitSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
@@ -455,16 +394,16 @@ const specification = {
         Message: {
           $visitor: MessageVisitor,
           fixedFields: {
-            messageId: MessageMessageIdVisitor,
+            messageId: { $ref: '#/visitors/value' },
             headers: MessageHeadersVisitor,
-            payload: MessagePayloadVisitor,
+            payload: { $ref: '#/visitors/value' },
             correlationId: MessageCorrelationIdVisitor,
-            schemaFormat: MessageSchemaFormatVisitor,
-            contentType: MessageContentTypeVisitor,
-            name: MessageNameVisitor,
-            title: MessageTitleVisitor,
-            summary: MessageSummaryVisitor,
-            description: MessageDescriptionVisitor,
+            schemaFormat: { $ref: '#/visitors/value' },
+            contentType: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            title: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -479,15 +418,15 @@ const specification = {
         MessageTrait: {
           $visitor: MessageTraitVisitor,
           fixedFields: {
-            messageId: MessageTraitMessageIdVisitor,
+            messageId: { $ref: '#/visitors/value' },
             headers: MessageTraitHeadersVisitor,
             correlationId: MessageTraitCorrelationIdVisitor,
-            schemaFormat: MessageTraitSchemaFormatVisitor,
-            contentType: MessageTraitContentTypeVisitor,
-            name: MessageTraitNameVisitor,
-            title: MessageTraitTitleVisitor,
-            summary: MessageTraitSummaryVisitor,
-            description: MessageTraitDescriptionVisitor,
+            schemaFormat: { $ref: '#/visitors/value' },
+            contentType: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            title: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -501,10 +440,10 @@ const specification = {
         MessageExample: {
           $visitor: MessageExampleVisitor,
           fixedFields: {
-            headers: MessageExampleHeadersVisitor,
-            payload: MessageExamplePayloadVisitor,
-            name: MessageExampleNameVisitor,
-            summary: MessageExampleSummaryVisitor,
+            headers: { $ref: '#/visitors/value' },
+            payload: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
           },
         },
         Tags: {
@@ -513,8 +452,8 @@ const specification = {
         Tag: {
           $visitor: TagVisitor,
           fixedFields: {
-            name: TagNameVisitor,
-            description: TagDescriptionVisitor,
+            name: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
             externalDocs: {
               $ref: '#/visitors/document/objects/ExternalDocumentation',
             },
@@ -523,8 +462,8 @@ const specification = {
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,
           fixedFields: {
-            description: ExternalDocumentationDescriptionVisitor,
-            url: ExternalDocumentationUrlVisitor,
+            description: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
           },
         },
         Components: {
@@ -554,16 +493,16 @@ const specification = {
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {
-            type: SecuritySchemeTypeVisitor,
-            description: SecuritySchemeDescriptionVisitor,
-            name: SecuritySchemeNameVisitor,
-            in: SecuritySchemeInVisitor,
-            scheme: SecuritySchemeSchemeVisitor,
-            bearerFormat: SecuritySchemeBearerFormatVisitor,
+            type: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            in: { $ref: '#/visitors/value' },
+            scheme: { $ref: '#/visitors/value' },
+            bearerFormat: { $ref: '#/visitors/value' },
             flows: {
               $ref: '#/visitors/document/objects/OAuthFlows',
             },
-            openIdConnectUrl: SecuritySchemeOpenIdConnectUrlVisitor,
+            openIdConnectUrl: { $ref: '#/visitors/value' },
           },
         },
         SecurityRequirement: {
@@ -589,9 +528,9 @@ const specification = {
         OAuthFlow: {
           $visitor: OAuthFlowVisitor,
           fixedFields: {
-            authorizationUrl: OAuthFlowAuthorizationUrlVisitor,
-            tokenUrl: OAuthFlowTokenUrlVisitor,
-            refreshUrl: OAuthFlowRefreshUrlVisitor,
+            authorizationUrl: { $ref: '#/visitors/value' },
+            tokenUrl: { $ref: '#/visitors/value' },
+            refreshUrl: { $ref: '#/visitors/value' },
             scopes: OAuthFlowScopesVisitor,
           },
         },
@@ -663,9 +602,9 @@ const specification = {
         Parameter: {
           $visitor: ParameterVisitor,
           fixedFields: {
-            description: ParameterDescriptionVisitor,
+            description: { $ref: '#/visitors/value' },
             schema: ParameterSchemaVisitor,
-            location: ParameterLocationVisitor,
+            location: { $ref: '#/visitors/value' },
           },
         },
         ChannelBindings: {
@@ -857,8 +796,8 @@ const specification = {
         CorrelationID: {
           $visitor: CorrelationIDVisitor,
           fixedFields: {
-            description: CorrelationIDDescriptionVisitor,
-            location: CorrelationIDLocationVisitor,
+            description: { $ref: '#/visitors/value' },
+            location: { $ref: '#/visitors/value' },
           },
         },
         bindings: {

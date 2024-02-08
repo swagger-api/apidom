@@ -2,10 +2,8 @@ import { specificationObj as OpenApi3_0Specification } from '@swagger-api/apidom
 
 import OpenApi3_1Visitor from './visitors/open-api-3-1';
 import InfoVisitor from './visitors/open-api-3-1/info';
-import InfoSummaryVisitor from './visitors/open-api-3-1/info/SummaryVisitor';
 import ContactVisitor from './visitors/open-api-3-1/contact';
 import LicenseVisitor from './visitors/open-api-3-1/license';
-import LicenseIdentifierVisitor from './visitors/open-api-3-1/license/IdentifierVisitor';
 import LinkVisitor from './visitors/open-api-3-1/link';
 import JsonSchemaDialectVisitor from './visitors/open-api-3-1/JsonSchemaDialectVisitor';
 import ServerVisitor from './visitors/open-api-3-1/server';
@@ -15,8 +13,6 @@ import SecurityRequirementVisitor from './visitors/open-api-3-1/security-require
 import ComponentsVisitor from './visitors/open-api-3-1/components';
 import TagVisitor from './visitors/open-api-3-1/tag';
 import ReferenceVisitor from './visitors/open-api-3-1/reference';
-import ReferenceSummaryVisitor from './visitors/open-api-3-1/reference/SummaryVisitor';
-import ReferenceDescriptionVisitor from './visitors/open-api-3-1/reference/DescriptionVisitor';
 import ParameterVisitor from './visitors/open-api-3-1/parameter';
 import HeaderVisitor from './visitors/open-api-3-1/header';
 import SchemaVisitor from './visitors/open-api-3-1/schema';
@@ -96,7 +92,7 @@ const specification = {
             title: OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.title,
             description:
               OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.description,
-            summary: InfoSummaryVisitor,
+            summary: { $ref: '#/visitors/value' },
             termsOfService:
               OpenApi3_0Specification.visitors.document.objects.Info.fixedFields.termsOfService,
             contact: {
@@ -120,7 +116,7 @@ const specification = {
           $visitor: LicenseVisitor,
           fixedFields: {
             name: OpenApi3_0Specification.visitors.document.objects.License.fixedFields.name,
-            identifier: LicenseIdentifierVisitor,
+            identifier: { $ref: '#/visitors/value' },
             url: OpenApi3_0Specification.visitors.document.objects.License.fixedFields.url,
           },
         },
@@ -401,8 +397,8 @@ const specification = {
           $visitor: ReferenceVisitor,
           fixedFields: {
             $ref: OpenApi3_0Specification.visitors.document.objects.Reference.fixedFields.$ref,
-            summary: ReferenceSummaryVisitor,
-            description: ReferenceDescriptionVisitor,
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
           },
         },
         Schema: {

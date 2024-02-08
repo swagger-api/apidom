@@ -22,11 +22,10 @@ class OperationBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: OperationBindingsVisitorOptions) {
     super(options);
     this.element = new ComponentsOperationBindingsElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'OperationBindings'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

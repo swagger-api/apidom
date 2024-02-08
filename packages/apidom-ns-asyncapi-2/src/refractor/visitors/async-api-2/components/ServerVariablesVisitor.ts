@@ -20,11 +20,10 @@ class ServerVariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: ServerVariablesVisitorOptions) {
     super(options);
     this.element = new ComponentsServerVariablesElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ServerVariable'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

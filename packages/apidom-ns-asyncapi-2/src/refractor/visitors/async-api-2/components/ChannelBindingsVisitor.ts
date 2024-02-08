@@ -20,11 +20,10 @@ class ChannelBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: ChannelBindingsVisitorOptions) {
     super(options);
     this.element = new ComponentsChannelBindingsElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ChannelBindings'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

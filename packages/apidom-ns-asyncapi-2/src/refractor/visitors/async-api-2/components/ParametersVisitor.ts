@@ -20,11 +20,10 @@ class ParametersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: ParametersVisitorOptions) {
     super(options);
     this.element = new ComponentsParametersElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Parameter'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

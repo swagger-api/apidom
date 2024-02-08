@@ -20,11 +20,10 @@ class MessagesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: MessagesVisitorOptions) {
     super(options);
     this.element = new ComponentsMessagesElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Message'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

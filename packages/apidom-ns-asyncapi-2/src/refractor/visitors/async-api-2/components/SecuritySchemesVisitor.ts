@@ -20,11 +20,10 @@ class SecuritySchemesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: SecuritySchemesVisitorOptions) {
     super(options);
     this.element = new ComponentsSecuritySchemesElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'SecurityScheme'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

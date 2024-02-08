@@ -42,15 +42,7 @@ export {
   isServerVariableElement,
 } from './predicates';
 
-export {
-  isAsyncApi2LikeElement,
-  isParameterLikeElement,
-  isReferenceLikeElement,
-  isSchemaLikeElement,
-  isSecurityRequirementLikeElement,
-  isServerLikeElement,
-  isAsyncApiExtension,
-} from './refractor/predicates';
+export { isReferenceLikeElement, isAsyncApiExtension } from './refractor/predicates';
 
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor';
 export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor';
@@ -488,8 +480,8 @@ export type {
   MessageVisitorOptions,
 } from './refractor/visitors/async-api-2/message';
 export type {
-  default as MessageBindingVisitor,
-  BindingsVisitorOptions as MessageBindingVisitorOptions,
+  default as MessageBindingsFieldVisitor,
+  BindingsVisitorOptions as MessageBindingsFieldVisitorOptions,
 } from './refractor/visitors/async-api-2/message/BindingsVisitor';
 export type {
   default as MessageCorrelationIdVisitor,
@@ -520,8 +512,8 @@ export type {
   MessageTraitVisitorOptions,
 } from './refractor/visitors/async-api-2/message-trait';
 export type {
-  default as MessageTraitBindingVisitor,
-  BindingsVisitorOptions as MessageTraitBindingVisitorOptions,
+  default as MessageTraitBindingsVisitor,
+  BindingsVisitorOptions as MessageTraitBindingsVisitorOptions,
 } from './refractor/visitors/async-api-2/message-trait/BindingsVisitor';
 export type {
   default as MessageTraitCorrelationIdVisitor,
@@ -552,8 +544,8 @@ export type {
   OperationVisitorOptions,
 } from './refractor/visitors/async-api-2/operation';
 export type {
-  default as OperationBindingVisitor,
-  BindingsVisitorOptions as OperationBindingVisitorOptions,
+  default as OperationBindingsFieldVisitor,
+  BindingsVisitorOptions as OperationBindingsFieldVisitorOptions,
 } from './refractor/visitors/async-api-2/operation/BindingsVisitor';
 export type {
   default as OperationMessageVisitor,
@@ -620,8 +612,8 @@ export type {
   ServerVisitorOptions,
 } from './refractor/visitors/async-api-2/server';
 export type {
-  default as ServerBindingVisitor,
-  BindingsVisitorOptions as ServerBindingVisitorOptions,
+  default as ServerBindingsFieldVisitor,
+  BindingsVisitorOptions as ServerBindingsFieldVisitorOptions,
 } from './refractor/visitors/async-api-2/server/BindingsVisitor';
 export type {
   default as ServerSecurityVisitor,

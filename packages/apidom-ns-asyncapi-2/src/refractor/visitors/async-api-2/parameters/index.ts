@@ -1,5 +1,4 @@
 import { Mixin } from 'ts-mixer';
-import { test } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
 import PatternedFieldsVisitor, {
@@ -8,7 +7,7 @@ import PatternedFieldsVisitor, {
 } from '../../generics/PatternedFieldsVisitor';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
 import ParametersElement from '../../../../elements/Parameters';
-import { isReferenceLikeElement, isParameterLikeElement } from '../../../predicates';
+import { isReferenceLikeElement } from '../../../predicates';
 import { isReferenceElement } from '../../../../predicates';
 import ReferenceElement from '../../../../elements/Reference';
 
@@ -28,16 +27,13 @@ class ParametersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   constructor(options: ParametersVisitorOptions) {
     super(options);
     this.element = new ParametersElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
-        : isParameterLikeElement(element)
-          ? ['document', 'objects', 'Parameter']
-          : ['value'];
-    };
+        : ['document', 'objects', 'Parameter'];
     this.canSupportSpecificationExtensions = false;
-    // @ts-ignore
-    this.fieldPatternPredicate = test(/^[A-Za-z0-9_-]+$/);
+    this.fieldPatternPredicate = (value: unknown) =>
+      typeof value === 'string' && /^[A-Za-z0-9_-]+$/.test(value);
   }
 
   ObjectElement(objectElement: ObjectElement) {

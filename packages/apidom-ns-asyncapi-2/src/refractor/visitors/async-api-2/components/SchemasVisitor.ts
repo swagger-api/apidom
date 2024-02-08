@@ -20,11 +20,10 @@ class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: SchemasVisitorOptions) {
     super(options);
     this.element = new ComponentsSchemasElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Schema'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

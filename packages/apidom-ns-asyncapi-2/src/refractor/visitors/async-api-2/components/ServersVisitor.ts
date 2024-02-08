@@ -20,11 +20,10 @@ class ServersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: ServersVisitorOptions) {
     super(options);
     this.element = new ComponentsServersElement();
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Server'];
-    };
   }
 
   ObjectElement(objectElement: ObjectElement) {

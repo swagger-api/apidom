@@ -44,6 +44,7 @@ export {
   isSchemaElement,
   isBooleanJsonSchemaElement,
   isSecurityRequirementElement,
+  isSecuritySchemeElement,
   isServerElement,
   isServerVariableElement,
   isMediaTypeElement,

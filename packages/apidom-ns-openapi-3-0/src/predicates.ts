@@ -22,6 +22,7 @@ import ResponseElement from './elements/Response';
 import ResponsesElement from './elements/Responses';
 import SchemaElement from './elements/Schema';
 import SecurityRequirementElement from './elements/SecurityRequirement';
+import SecuritySchemeElement from './elements/SecurityScheme';
 import ServerElement from './elements/Server';
 import ServerVariableElement from './elements/ServerVariable';
 import MediaTypeElement from './elements/MediaType';
@@ -242,6 +243,16 @@ export const isSecurityRequirementElement = createPredicate(
       element instanceof SecurityRequirementElement ||
       (hasBasicElementProps(element) &&
         isElementType('securityRequirement', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+export const isSecuritySchemeElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is SecuritySchemeElement =>
+      element instanceof SecuritySchemeElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('securityScheme', element) &&
         primitiveEq('object', element));
   },
 );

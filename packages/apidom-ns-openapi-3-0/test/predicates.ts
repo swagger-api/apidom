@@ -11,6 +11,7 @@ import {
   isOpenApi3_0Element,
   isServerElement,
   isServerVariableElement,
+  isSecuritySchemeElement,
   isPathsElement,
   isPathItemElement,
   isOperationElement,
@@ -23,6 +24,7 @@ import {
   ContactElement,
   ServerElement,
   ServerVariableElement,
+  SecuritySchemeElement,
   PathsElement,
   PathItemElement,
   OperationElement,
@@ -512,6 +514,59 @@ describe('predicates', function () {
 
       assert.isTrue(isServerVariableElement(serverVariableElementDuck));
       assert.isFalse(isServerVariableElement(serverVariableElementSwan));
+    });
+  });
+
+  context('isSecuritySchemeElement', function () {
+    context('given SecuritySchemeElement instance value', function () {
+      specify('should return true', function () {
+        const element = new SecuritySchemeElement();
+
+        assert.isTrue(isSecuritySchemeElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class SecuritySchemeSubElement extends SecuritySchemeElement {}
+
+        assert.isTrue(isSecuritySchemeElement(new SecuritySchemeSubElement()));
+      });
+    });
+
+    context('given non SecuritySchemeElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isSecuritySchemeElement(1));
+        assert.isFalse(isSecuritySchemeElement(null));
+        assert.isFalse(isSecuritySchemeElement(undefined));
+        assert.isFalse(isSecuritySchemeElement({}));
+        assert.isFalse(isSecuritySchemeElement([]));
+        assert.isFalse(isSecuritySchemeElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const securitySchemeElementDuck = {
+        _storedElement: 'securityScheme',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const securitySchemeElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isSecuritySchemeElement(securitySchemeElementDuck));
+      assert.isFalse(isSecuritySchemeElement(securitySchemeElementSwan));
     });
   });
 

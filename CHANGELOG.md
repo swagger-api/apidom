@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
+
+### Bug Fixes
+
+- allow refracting semantic ApiDOM ([#3798](https://github.com/swagger-api/apidom/issues/3798)) ([9d58bec](https://github.com/swagger-api/apidom/commit/9d58beccbaee4c7ff7eaccbb419be9a463cbc62e)), closes [#3756](https://github.com/swagger-api/apidom/issues/3756)
+- **parser-adapter-yaml-1-2:** fix canonical formatting of quoted scalars ([#3792](https://github.com/swagger-api/apidom/issues/3792)) ([3d9ff9f](https://github.com/swagger-api/apidom/commit/3d9ff9fd990f1ec0dd9618b6d3b135ccdb00a9ba)), closes [#3788](https://github.com/swagger-api/apidom/issues/3788)
+
+### Features
+
+- **ns-ads:** export new symbols and types ([#3801](https://github.com/swagger-api/apidom/issues/3801)) ([5f2f434](https://github.com/swagger-api/apidom/commit/5f2f434236c659d2f1c537c20606f618dad91f78)), closes [#3777](https://github.com/swagger-api/apidom/issues/3777)
+- **ns-openapi-2:** export new symbols and types ([#3800](https://github.com/swagger-api/apidom/issues/3800)) ([41bf5c3](https://github.com/swagger-api/apidom/commit/41bf5c34354dda9cdcc3a0f9114472b7822c33c6)), closes [#3776](https://github.com/swagger-api/apidom/issues/3776)
+
 # [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
 
 ### Bug Fixes

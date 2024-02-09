@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
+
+### Bug Fixes
+
+- allow refracting semantic ApiDOM ([#3798](https://github.com/swagger-api/apidom/issues/3798)) ([9d58bec](https://github.com/swagger-api/apidom/commit/9d58beccbaee4c7ff7eaccbb419be9a463cbc62e)), closes [#3756](https://github.com/swagger-api/apidom/issues/3756)
+
 # [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-4

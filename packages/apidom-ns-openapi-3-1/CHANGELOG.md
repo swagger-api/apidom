@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** fix canonical formatting of quoted scalars ([#3792](https://github.com/swagger-api/apidom/issues/3792)) ([3d9ff9f](https://github.com/swagger-api/apidom/commit/3d9ff9fd990f1ec0dd9618b6d3b135ccdb00a9ba)), closes [#3788](https://github.com/swagger-api/apidom/issues/3788)
+
 # [0.94.0](https://github.com/swagger-api/apidom/compare/v0.93.0...v0.94.0) (2024-02-05)
 
 ### Features

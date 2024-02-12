@@ -6,6 +6,7 @@ import {
   isMemberElement,
   createNamespace,
   includesClasses,
+  hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
@@ -20,6 +21,7 @@ export type Predicates = typeof openApi3_1Predicates & {
   isMemberElement: typeof isMemberElement;
   isServersElement: typeof isServersElement;
   includesClasses: typeof includesClasses;
+  hasElementSourceMap: typeof hasElementSourceMap;
 };
 
 const createToolbox = () => {
@@ -33,6 +35,7 @@ const createToolbox = () => {
     isMemberElement,
     isServersElement,
     includesClasses,
+    hasElementSourceMap,
   };
 
   return { predicates, namespace };

@@ -24,6 +24,7 @@ export { default as refractorPluginNormalizeOperationIds } from './refractor/plu
 export { default as refractorPluginNormalizeParameterExamples } from './refractor/plugins/normalize-parameter-examples';
 export { default as refractorPluginNormalizeHeaderExamples } from './refractor/plugins/normalize-header-examples';
 export { default as createToolbox } from './refractor/toolbox';
+export type { Predicates as ToolboxPredicates } from './refractor/toolbox';
 export { default as specificationObj } from './refractor/specification';
 
 export { AlternatingVisitor } from '@swagger-api/apidom-ns-openapi-3-0';

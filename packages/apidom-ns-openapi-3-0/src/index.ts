@@ -20,6 +20,7 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 
 export { default as refract, createRefractor } from './refractor';
 export { default as createToolbox } from './refractor/toolbox';
+export type { Predicates as ToolboxPredicates } from './refractor/toolbox';
 export { default as specificationObj } from './refractor/specification';
 
 export {

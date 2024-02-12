@@ -443,6 +443,7 @@ export {
   isMediaTypeElement,
   isServerElement,
   isSecurityRequirementElement,
+  isSecuritySchemeElement,
   isExternalDocumentationElement,
   isServerVariableElement,
   isContactElement,

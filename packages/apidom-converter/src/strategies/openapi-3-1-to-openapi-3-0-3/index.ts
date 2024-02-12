@@ -13,7 +13,7 @@ import {
   ParseResultElement,
   dispatchRefractorPlugins,
   AnnotationElement,
-  cloneShallow,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 
 import ConvertStrategy, { IFile } from '../ConvertStrategy';
@@ -53,10 +53,9 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
   }
 
   async convert(file: IFile): Promise<ParseResultElement> {
-    const parseResultElement = file.parseResult;
     const annotations: AnnotationElement[] = [];
-    const converted = dispatchRefractorPlugins(
-      parseResultElement,
+    const parseResultElement = dispatchRefractorPlugins(
+      cloneDeep(file.parseResult),
       [openAPIVersionRefractorPlugin(), webhooksRefractorPlugin({ annotations })],
       {
         toolboxCreator: createToolbox,
@@ -64,11 +63,10 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
       },
     );
 
-    const annotated = cloneShallow(converted);
-    annotations.forEach((a) => annotated.push(a));
-    annotated.replaceResult(OpenApi3_0Element.refract(converted.api));
+    annotations.forEach((a) => parseResultElement.push(a));
+    parseResultElement.replaceResult(OpenApi3_0Element.refract(parseResultElement.api));
 
-    return annotated;
+    return parseResultElement;
   }
 }
 /* eslint-enable class-methods-use-this */

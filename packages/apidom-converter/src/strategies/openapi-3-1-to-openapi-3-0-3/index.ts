@@ -18,6 +18,7 @@ import {
 import ConvertStrategy, { IFile } from '../ConvertStrategy';
 import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version';
 import webhooksRefractorPlugin from './refractor-plugins/webhooks';
+import securitySchemeTypeRefractorPlugin from './refractor-plugins/security-scheme-type';
 import type { ConverterOptions } from '../../options';
 import createToolbox from './toolbox';
 
@@ -56,7 +57,11 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
     const annotations: AnnotationElement[] = [];
     const parseResultElement = dispatchRefractorPlugins(
       cloneDeep(file.parseResult),
-      [openAPIVersionRefractorPlugin(), webhooksRefractorPlugin({ annotations })],
+      [
+        openAPIVersionRefractorPlugin(),
+        webhooksRefractorPlugin({ annotations }),
+        securitySchemeTypeRefractorPlugin({ annotations }),
+      ],
       {
         toolboxCreator: createToolbox,
         visitorOptions: { keyMap, nodeTypeGetter: getNodeType },

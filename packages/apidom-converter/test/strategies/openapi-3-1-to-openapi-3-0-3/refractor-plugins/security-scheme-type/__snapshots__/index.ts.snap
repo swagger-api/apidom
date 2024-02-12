@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type should remove SecurityScheme object if it has "mutualTLS" type 1`] = `
+{
+  "openapi": "3.0.3",
+  "paths": {
+    "/foo": {
+      "get": {
+        "summary": "foo",
+        "operationId": "foo",
+        "security": [
+          {},
+          {
+            "apiKey-scheme": [
+              "read",
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "foo"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey-scheme": {
+        "type": "apiKey",
+        "name": "apiKey-scheme",
+        "in": "header"
+      }
+    }
+  }
+}
+`;

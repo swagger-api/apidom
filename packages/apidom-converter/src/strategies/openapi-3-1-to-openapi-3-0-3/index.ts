@@ -5,7 +5,6 @@ import {
 import {
   isOpenApi3_1Element,
   mediaTypes as openAPI3_1MediaTypes,
-  createToolbox,
   keyMap,
   getNodeType,
 } from '@swagger-api/apidom-ns-openapi-3-1';
@@ -20,6 +19,7 @@ import ConvertStrategy, { IFile } from '../ConvertStrategy';
 import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version';
 import webhooksRefractorPlugin from './refractor-plugins/webhooks';
 import type { ConverterOptions } from '../../options';
+import createToolbox from './toolbox';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const openAPI3_0_3MediaTypes = [

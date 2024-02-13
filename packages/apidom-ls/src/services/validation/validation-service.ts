@@ -39,7 +39,7 @@ import {
   SourceMap,
 } from '../../utils/utils';
 import { standardLinterfunctions } from './linter-functions';
-import { refreshContext } from '../../utils/handlebars/context';
+// import { refreshContext } from '../../utils/handlebars/context';
 
 enum PerfLabels {
   START = 'doValidation',
@@ -430,7 +430,7 @@ export class DefaultValidationService implements ValidationService {
     // TODO frantuma, better handling of namespaces/providers
     if (nameSpace.namespace === 'handlebars') {
       // TODO REMOVE
-      await refreshContext('https://petstore3.swagger.io/api/v3/openapi.json');
+      // await refreshContext('https://petstore3.swagger.io/api/v3/openapi.json');
       return validateHandlebars(textDocument);
     }
     const diagnostics: Diagnostic[] = [];

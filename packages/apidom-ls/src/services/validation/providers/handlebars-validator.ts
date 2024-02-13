@@ -242,7 +242,7 @@ function validate(textDocument: TextDocument): Diagnostic[] {
     // getAllMustacheTags(tags, allTags);
     // allTags = sortTags(allTags);
     // validateTags(textDocument, tags, diagnostics);
-    validateTags(tags, new Context(getContext(), undefined), diagnostics, textDocument);
+    validateTags(tags, new Context(getContext(true), undefined), diagnostics, textDocument);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('validation lint error', JSON.stringify(e), e);

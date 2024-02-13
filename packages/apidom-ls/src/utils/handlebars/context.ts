@@ -7,6 +7,11 @@ import { AnyObject } from '../../apidom-language-types';
 // eslint-disable-next-line import/no-cycle
 import { defaultContext } from './default-context';
 
+interface CacheEntry {
+  context: AnyObject;
+  processedContext: AnyObject;
+}
+
 function deepMergeObjects(obj1: unknown, obj2: unknown): unknown {
   if (typeof obj1 === 'object' && obj1 !== null && typeof obj2 === 'object' && obj2 !== null) {
     if (Array.isArray(obj1) && Array.isArray(obj2)) {
@@ -49,20 +54,33 @@ function transformJson(input: AnyObject): AnyObject {
 }
 
 let currentContext: AnyObject = transformJson(defaultContext);
+let currentOriginalContext: AnyObject = defaultContext;
 
-const cache: Record<string, AnyObject> = {}; // replace with defaultContext
+const cache: Record<string, CacheEntry> = {}; // replace with defaultContext
 
-export function getContext(): AnyObject {
-  return currentContext;
+export function getContext(processed?: boolean): AnyObject {
+  return processed ? currentContext : currentOriginalContext;
 }
 
-export async function refreshContext(url: string | null): Promise<AnyObject | null> {
+export async function refreshContext(
+  url: string | null,
+  context?: AnyObject,
+): Promise<AnyObject | null> {
   const specUrl = url || 'https://petstore3.swagger.io/api/v3/openapi.json';
-  if (specUrl && cache[specUrl]) {
-    currentContext = cache[specUrl];
-    return currentContext;
+  if (context) {
+    currentContext = transformJson(context);
+    currentOriginalContext = context;
+    cache[specUrl] = {
+      context: currentOriginalContext,
+      processedContext: currentContext,
+    };
   }
-  let contextString = {};
+  if (specUrl && cache[specUrl]) {
+    currentContext = cache[specUrl].processedContext;
+    currentOriginalContext = cache[specUrl].context;
+    return currentOriginalContext;
+  }
+  let retrievedContext = {};
   // use axios to call generator3.swagger.io and get intermediate model for given string
   try {
     const axiosData = {
@@ -78,15 +96,18 @@ export async function refreshContext(url: string | null): Promise<AnyObject | nu
       },
     };
     const res = await axios.post('http://localhost:8081/api/model', axiosData, axiosConfig);
-    contextString = res.data;
-    currentContext = transformJson(contextString);
-    cache[specUrl] = currentContext;
-    // rendered = hb.compile(mustacheTemplate)(context);
+    retrievedContext = res.data;
+    currentContext = transformJson(retrievedContext);
+    currentOriginalContext = retrievedContext;
+    cache[specUrl] = {
+      context: retrievedContext,
+      processedContext: currentContext,
+    };
   } catch (err) {
     console.log('error loading contex', err);
     // isParseFailure = true;
   }
-  return currentContext;
+  return currentOriginalContext;
 }
 
 export function renderTemplate(template: string): string {

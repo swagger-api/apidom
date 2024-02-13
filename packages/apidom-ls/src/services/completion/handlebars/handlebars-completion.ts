@@ -77,7 +77,7 @@ function complete(
     pointer.unshift(tagParent.tagName);
     tagParent = tagParent.parent;
   }
-  const rawSuggestions = findNestedPropertyKeys(getContext(), pointer);
+  const rawSuggestions = findNestedPropertyKeys(getContext(true), pointer);
   // let completionNode: Element | undefined;
   if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
     const apidomCompletions: CompletionItem[] = [];

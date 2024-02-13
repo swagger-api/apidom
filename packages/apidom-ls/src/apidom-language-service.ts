@@ -162,12 +162,12 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
       }
     },
 
-    async refreshContext(url: string | null): Promise<AnyObject | null> {
-      return refreshContext(url);
+    async refreshContext(url: string | null, context?: AnyObject): Promise<AnyObject | null> {
+      return refreshContext(url, context);
     },
 
-    getContext(): AnyObject {
-      return getContext();
+    getContext(processed?: boolean): AnyObject {
+      return getContext(processed);
     },
 
     renderTemplate(template: string): string {

@@ -1,0 +1,21 @@
+{{!mustache}}
+{{#apiInfo}}
+  {{#apis}}
+    {{#@first}}
+      {{#operations}}
+        {{#operation}}
+          {{#contents}}
+            {{#@first}}
+              {{#hasModel}}import AA.*;{{/hasModel}}
+              {{#hasAuthMethods}}ApiClient defaultClient = Configuration.getDefaultApiClient();
+                {{#authMethods}}{{#isBasic}}test{{/isBasic}}
+                {{/authMethods}}
+              {{/hasAuthMethods}}
+            {{/@first}}
+          {{/contents}}
+        {{/operation}}
+      {{/operations}}
+    {{/@first}}
+  {{/apis}}
+{{/apiInfo}}
+

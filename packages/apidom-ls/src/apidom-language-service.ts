@@ -17,6 +17,7 @@ import {
   LanguageService,
   LanguageServiceContext,
   LanguageSettings,
+  AnyObject,
 } from './apidom-language-types';
 import { DefaultValidationService } from './services/validation/validation-service';
 import { DefaultCompletionService } from './services/completion/completion-service';
@@ -30,6 +31,7 @@ import { parse } from './parser-factory';
 import { config } from './config/config';
 import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils';
 import { DefaultLinksService } from './services/links/links-service';
+import { refreshContext, getContext, renderTemplate } from './utils/handlebars/context';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -159,5 +161,17 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
         return null;
       }
     },
+
+    async refreshContext(url: string | null): Promise<AnyObject | null> {
+      return refreshContext(url);
+    },
+
+    getContext(): AnyObject {
+      return getContext();
+    },
+
+    renderTemplate(template: string): string {
+      return renderTemplate(template);
+    }
   };
 }

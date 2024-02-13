@@ -14,6 +14,7 @@ import {
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
+/*
 const specCompletion = fs
   .readFileSync(
     path.join(
@@ -22,6 +23,13 @@ const specCompletion = fs
       'handlebars',
       'test-template-simple-with-boolean-ancestor.mustache',
     ),
+  )
+  .toString();
+*/
+
+const specCompletion = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-complete-nested.mustache'),
   )
   .toString();
 
@@ -55,8 +63,8 @@ describe('handlebars-ls-complete', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const completionTestInputValue = [
       'in empty variable tag',
-      0,
-      81,
+      2,
+      26,
       {
         items: [],
         isIncomplete: false,

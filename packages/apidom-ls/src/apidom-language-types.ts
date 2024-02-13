@@ -26,6 +26,7 @@ import {
   DefinitionParams,
   ReferenceParams,
 } from 'vscode-languageserver-protocol';
+
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
 export interface DocumentCache<T> {
@@ -310,6 +311,8 @@ export interface ColorsContext {
 
 export type LinksModifierFunction = ((value: string) => string) | undefined;
 
+export type AnyObject = { [key: string]: any };
+
 export interface LinksContext {
   maxNumberOfLinks?: number;
   enableTrivialLinkDiscovery?: boolean;
@@ -513,4 +516,8 @@ export interface LanguageService {
   registerLinksProvider(linksProvider: LinksProvider): void;
 
   getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null>;
+
+  refreshContext(url: string | null): Promise<AnyObject | null>;
+  getContext(): AnyObject;
+  renderTemplate(template: string): string;
 }

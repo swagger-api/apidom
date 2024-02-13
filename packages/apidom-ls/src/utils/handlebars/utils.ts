@@ -1,10 +1,10 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
-import { AnyObject } from './context';
+import { AnyObject } from '../../apidom-language-types';
 
 let delStart = '\\{{2,3}';
 let delEnd = '\\}{2,3}';
-let tagRegex = new RegExp(`(${delStart})([#^\\/>=!]?)(.*?)(${delEnd})`, 'g');
+let tagRegex = new RegExp(`(${delStart})([#^&\\/>=!]?)(.*?)(${delEnd})`, 'g');
 let processDelimeter = true;
 
 export function isObjectNode(node: AnyObject | undefined): boolean {
@@ -34,7 +34,7 @@ export function parseMustacheTags(
     endIndex: number,
     tagSectionClose?: MustacheTag,
   ) => {
-    while (stack.length > 0) {
+    if (stack.length > 0) {
       const section = stack.pop();
       if (section) {
         section.endIndex = endIndex;
@@ -49,8 +49,13 @@ export function parseMustacheTags(
           if (tagSectionClose) {
             section.sectionCloseTag = tagSectionClose;
           }
-          break;
+          // break;
         } else {
+          if (tagSectionClose) {
+            // eslint-disable-next-line no-param-reassign
+            tagSectionClose.lonelyCloseTag = true;
+            section.erroredSectionCloseTag = tagSectionClose;
+          }
           tagsToAdjustClose.push(section);
         }
       }
@@ -79,6 +84,9 @@ export function parseMustacheTags(
         break;
       case '^':
         tagType = 'inverted';
+        break;
+      case '&':
+        tagType = 'explicitVariable';
         break;
       case '/':
         if (tagName.trim().startsWith('@') || tagName.trim().startsWith('each')) {
@@ -186,11 +194,19 @@ export function getAllMustacheTags(tags: MustacheTag[], allTags: MustacheTag[]):
     }
     const tagSectionOpen = tag.sectionOpenTag;
     const tagSectionClose = tag.sectionCloseTag;
+    const erroredOpenTag = tag.erroredSectionOpenTag;
+    const erroredCloseTag = tag.erroredSectionCloseTag;
     if (tagSectionOpen) {
       allTags.push(tagSectionOpen);
     }
     if (tagSectionClose) {
       allTags.push(tagSectionClose);
+    }
+    if (erroredOpenTag) {
+      allTags.push(erroredOpenTag);
+    }
+    if (erroredCloseTag) {
+      allTags.push(erroredCloseTag);
     }
     if (tagSectionOpen && !tagSectionClose) {
       tagSectionOpen!.missingCloseTag = true;
@@ -248,6 +264,7 @@ export function getMustacheStrictTagInfoAtPosition(
 
 export type TagType =
   | 'variable'
+  | 'explicitVariable'
   | 'section'
   | 'inverted'
   | 'comment'
@@ -266,8 +283,11 @@ export interface MustacheTag {
   parent?: MustacheTag;
   sectionOpenTag?: MustacheTag;
   sectionCloseTag?: MustacheTag;
+  erroredSectionCloseTag?: MustacheTag;
+  erroredSectionOpenTag?: MustacheTag;
   overlap?: boolean;
   missingCloseTag?: boolean;
+  lonelyCloseTag?: boolean;
 }
 
 export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void {
@@ -285,22 +305,22 @@ export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void 
     if (parent) {
       msg += `, Parent:: ${parent.type}: ${parent.tagName}, ${parent.startIndex}-${parent.endIndex}`;
     }
-    /*        const sectionOpenTag = tag.sectionOpenTag;
-            if (sectionOpenTag) {
-                posStart = textDoc.positionAt(sectionOpenTag.startIndex || 0);
-                posEnd = textDoc.positionAt(sectionOpenTag.endIndex || 0);
-                posTagStart = textDoc.positionAt(sectionOpenTag.tagNameStartIndex || 0);
-                posTagEnd = textDoc.positionAt(sectionOpenTag.tagNameEndIndex || 0)
-                msg += `, open: ${sectionOpenTag.tagName}, ${posStart.line}:${posStart.character}-${posEnd.line}:${posEnd.character}, ${posTagStart.line}:${posTagStart.character}-${posTagEnd.line}:${posTagEnd.character}`;
-            }
-            const sectionCloseTag = tag.sectionCloseTag;
-            if (sectionCloseTag) {
-                posStart = textDoc.positionAt(sectionCloseTag.startIndex || 0);
-                posEnd = textDoc.positionAt(sectionCloseTag.endIndex || 0);
-                posTagStart = textDoc.positionAt(sectionCloseTag.tagNameStartIndex || 0);
-                posTagEnd = textDoc.positionAt(sectionCloseTag.tagNameEndIndex || 0)
-                msg += `, close: ${sectionCloseTag.tagName}, ${posStart.line}:${posStart.character}-${posEnd.line}:${posEnd.character}, ${posTagStart.line}:${posTagStart.character}-${posTagEnd.line}:${posTagEnd.character}`;
-            } */
+    const { sectionOpenTag } = tag;
+    if (sectionOpenTag) {
+      posStart = textDoc.positionAt(sectionOpenTag.startIndex || 0);
+      posEnd = textDoc.positionAt(sectionOpenTag.endIndex || 0);
+      posTagStart = textDoc.positionAt(sectionOpenTag.tagNameStartIndex || 0);
+      posTagEnd = textDoc.positionAt(sectionOpenTag.tagNameEndIndex || 0);
+      msg += `, open: ${sectionOpenTag.tagName}, ${posStart.line}:${posStart.character}-${posEnd.line}:${posEnd.character}, ${posTagStart.line}:${posTagStart.character}-${posTagEnd.line}:${posTagEnd.character}`;
+    }
+    const { sectionCloseTag } = tag;
+    if (sectionCloseTag) {
+      posStart = textDoc.positionAt(sectionCloseTag.startIndex || 0);
+      posEnd = textDoc.positionAt(sectionCloseTag.endIndex || 0);
+      posTagStart = textDoc.positionAt(sectionCloseTag.tagNameStartIndex || 0);
+      posTagEnd = textDoc.positionAt(sectionCloseTag.tagNameEndIndex || 0);
+      msg += `, close: ${sectionCloseTag.tagName}, ${posStart.line}:${posStart.character}-${posEnd.line}:${posEnd.character}, ${posTagStart.line}:${posTagStart.character}-${posTagEnd.line}:${posTagEnd.character}`;
+    }
     // eslint-disable-next-line
     console.log(msg);
     // If the tag has children, recursively log their details
@@ -386,122 +406,88 @@ export function markOverlappingTags(tags: MustacheTag[]): void {
   }
 }
 
-export function pathExists(bundle: AnyObject, path: string[]): boolean {
-  let currentNode: AnyObject | undefined = bundle;
-  if (path.length === 1) {
-    return path[0] in currentNode;
-  }
-  const lastKey = path[path.length - 1];
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i];
-    // If current node is an array, use the first element
-    while (Array.isArray(currentNode)) {
-      currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
-    }
-    // Check if the key exists in the current node
-    if (
-      currentNode !== undefined &&
-      currentNode !== null &&
-      typeof currentNode === 'object' &&
-      key in currentNode
-    ) {
-      if (typeof currentNode[key] !== 'boolean') {
-        currentNode = currentNode[key];
-      }
-    } else if (
-      currentNode !== undefined &&
-      currentNode !== null &&
-      typeof currentNode === 'object' &&
-      !(key in currentNode)
-    ) {
-      // look if there is a boolean key in the ancestors
-      let ancestor = bundle;
-      let foundBooleanNodeInAncestors = false;
-      if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] === 'boolean') {
-        foundBooleanNodeInAncestors = true;
-      } else if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] !== 'boolean') {
-        ancestor = ancestor[key];
-      }
-      if (!foundBooleanNodeInAncestors) {
-        // eslint-disable-next-line no-plusplus
-        for (let j = 0; j < i; j++) {
-          const ancestorKey = path[j];
-          while (Array.isArray(ancestor)) {
-            ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
-          }
-          if (
-            ancestor !== undefined &&
-            ancestor !== null &&
-            typeof ancestor === 'object' &&
-            ancestorKey in ancestor
-          ) {
-            if (typeof ancestor[ancestorKey] !== 'boolean') {
-              ancestor = ancestor[ancestorKey];
-            }
-            while (Array.isArray(ancestor)) {
-              ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
-            }
-            // if (isObjectNode(ancestor) && key in ancestor && typeof ancestor[key] === 'boolean') {
-            if (isObjectNode(ancestor) && key in ancestor) {
-              foundBooleanNodeInAncestors = true;
-              break;
-            }
-          }
-        }
-      }
-      if (!foundBooleanNodeInAncestors) {
-        return false;
-      }
-    }
-  }
-  if (currentNode === undefined || currentNode === null) {
-    return false;
-  }
-  if (
-    currentNode !== undefined &&
-    currentNode !== null &&
-    typeof currentNode === 'object' &&
-    lastKey in currentNode
-  ) {
-    return true;
+/**
+ * Null safe way of checking whether or not an object,
+ * including its prototype, has a given property
+ */
+function hasProperty(obj: unknown, propName: string) {
+  return obj != null && typeof obj === 'object' && propName in obj;
+}
+
+/**
+ * Safe way of detecting whether or not the given thing is a primitive and
+ * whether it has the given property
+ */
+function primitiveHasOwnProperty(primitive: unknown, propName: string) {
+  return (
+    primitive != null &&
+    typeof primitive !== 'object' &&
+    primitive.hasOwnProperty &&
+    Object.prototype.hasOwnProperty.call(primitive, propName)
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
+export class Context {
+  public view: AnyObject;
+
+  public cache: Record<string, AnyObject>;
+
+  public parentContext: Context | undefined = undefined;
+
+  constructor(contextView: AnyObject, parent: Context | undefined) {
+    this.view = contextView;
+    this.parentContext = parent;
+    this.cache = { '.': this.view };
   }
 
-  currentNode = bundle;
-  if (
-    currentNode !== undefined &&
-    currentNode !== null &&
-    typeof currentNode === 'object' &&
-    lastKey in currentNode
-  ) {
-    return true;
-  }
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i];
-    // Check if the key exists in the current node
-    if (
-      currentNode !== undefined &&
-      currentNode !== null &&
-      typeof currentNode === 'object' &&
-      key in currentNode
-    ) {
-      // currentNode = currentNode[key];
-      if (typeof currentNode[key] !== 'boolean') {
-        currentNode = currentNode[key];
+  public lookup(name: string): AnyObject {
+    const { cache } = this;
+    let value;
+    if (Object.prototype.hasOwnProperty.call(cache, name)) {
+      value = cache[name];
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      let context: Context | undefined = this;
+      let intermediateValue;
+      let names;
+      let index;
+      let lookupHit = false;
+
+      while (context) {
+        if (name.indexOf('.') > 0) {
+          intermediateValue = context.view;
+          names = name.split('.');
+          index = 0;
+
+          while (intermediateValue != null && index < names.length) {
+            if (index === names.length - 1)
+              lookupHit =
+                hasProperty(intermediateValue, names[index]) ||
+                primitiveHasOwnProperty(intermediateValue, names[index]);
+
+            // eslint-disable-next-line no-plusplus
+            intermediateValue = intermediateValue[names[index++]];
+          }
+        } else {
+          intermediateValue = context.view[name];
+          lookupHit = hasProperty(context.view, name);
+        }
+
+        if (lookupHit) {
+          value = intermediateValue;
+          break;
+        }
+
+        context = context.parentContext;
       }
+
+      cache[name] = value;
     }
-    while (Array.isArray(currentNode)) {
-      currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
-    }
-    if (
-      currentNode !== undefined &&
-      currentNode !== null &&
-      typeof currentNode === 'object' &&
-      lastKey in currentNode
-    ) {
-      return true;
-    }
+    return value;
   }
-  return false;
+
+  public push(value: AnyObject): Context {
+    return new Context(value, this);
+  }
 }

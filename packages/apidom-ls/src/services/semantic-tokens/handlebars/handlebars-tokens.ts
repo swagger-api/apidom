@@ -54,7 +54,7 @@ function tokenize(
       if (isSemanticToken(tag.type) && !processed.includes(tag)) {
         processed.push(tag);
         let modifier = 0;
-        if (tag.missingCloseTag) {
+        if (tag.missingCloseTag || tag.lonelyCloseTag) {
           modifier = getTokenModifiers(['deprecated']);
         }
         const token = [

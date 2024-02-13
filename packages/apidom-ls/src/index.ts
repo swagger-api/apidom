@@ -23,6 +23,8 @@ export {
   findNamespace,
 } from './utils/utils';
 
+export { getContext, refreshContext, renderTemplate } from './utils/handlebars/context';
+
 export type {
   LanguageService,
   LanguageSettings,
@@ -49,6 +51,7 @@ export type {
   HoverProviderResult,
   LinksProviderResult,
   ContentLanguage,
+  AnyObject,
 } from './apidom-language-types';
 
 export {

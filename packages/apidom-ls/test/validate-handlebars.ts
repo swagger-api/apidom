@@ -12,11 +12,20 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
-import { pathExists } from '../src/utils/handlebars/utils';
-import { context as codegenContext } from '../src/utils/handlebars/context-short';
+
+/* const specMustache = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shorter.mustache'))
+  .toString(); */
 
 const specMustache = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shorter.mustache'))
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'handlebars',
+      'test-template-simple-with-boolean-ancestor-basic-nofirst.mustache',
+    ),
+  )
   .toString();
 
 describe('apidom-ls-validate-handlebars', function () {
@@ -27,6 +36,7 @@ describe('apidom-ls-validate-handlebars', function () {
   };
 
   it('test validation for mustache', async function () {
+    this.timeout(10000);
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -45,7 +55,8 @@ describe('apidom-ls-validate-handlebars', function () {
     // allTags = sortTags(allTags);
     // markOverlappingTags(allTags);
 
-    console.log(
+    // console.log(JSON.stringify(codegenContext, null, 2));
+    /*    console.log(
       pathExists(codegenContext, [
         'apiInfo',
         'apis',
@@ -56,12 +67,13 @@ describe('apidom-ls-validate-handlebars', function () {
         'authMethods',
         'isBasic',
       ]),
-    );
+    ); */
 
     // if (true) return;
 
     const languageService: LanguageService = getLanguageService(context);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const result = await languageService.doValidation(doc, validationContext);
     // tslint:disable-next-line
     // const expected: Diagnostic[] = [];

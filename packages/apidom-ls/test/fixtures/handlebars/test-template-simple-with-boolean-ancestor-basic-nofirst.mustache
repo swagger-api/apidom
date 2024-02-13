@@ -1,0 +1,26 @@
+{{!mustache}}
+{{#apiInfo}}
+  {{#apis}}
+      {{#operations}}
+        {{#operation}}
+          {{#contents}}
+              {{#hasModel}}import AA.*;{{/hasModel}}
+              {{#hasModael}}import AA.*;{{/hasModael}}
+              {{#hasModel}}import HASMISS.*;
+              AA{{testBoolean3}}AA
+              BB{{testBoolean4}}BB
+              BB{{testObj.testObjVal}}BB
+              CC{{testObj.testObjVala}}CC
+              DD{{testObja.testObjVal}}DD
+
+              {{#hasAuthMethsods}}ApiClient defaultClient = Configuration.getDefaultApiClient();
+                {{#authMethods}}
+                  {{#isBasic}}test {{foo}}{{/isBasic}}
+                {{/authMethods}}
+              {{/hasAuthMethods}}
+          {{/contents}}
+        {{/operation}}
+      {{/operations}}
+  {{/apis}}
+{{/apiInfo}}
+

@@ -15,7 +15,7 @@ import {
   MustacheTag,
   parseMustacheTags,
 } from '../../../utils/handlebars/utils';
-import { context as codegenContext } from '../../../utils/handlebars/context';
+import { getContext } from '../../../utils/handlebars/context';
 import { debug, trace } from '../../../utils/utils';
 
 export interface CompletionsCollector {
@@ -56,23 +56,35 @@ function complete(
   if (!tagInfo || !tagInfoStrict) {
     return completionList;
   }
+  // const word = getCurrentWord(textDocument, offset);
+  const word = tagInfoStrict.tagName.trim();
   // let pointer = tagInfo.tagName;
-  const pointer = [tagInfo.tagName];
+  const pointer = [];
+  const isComplex = word && word.indexOf('.') > -1;
+  let complexPrefix = '';
+  if (isComplex) {
+    const props = word.split('.');
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < props.length; i++) {
+      pointer.push(props[i]);
+    }
+    complexPrefix = `${props.slice(0, props.length - 1).join('.')}.`;
+  } else {
+    pointer.push(tagInfo.tagName);
+  }
   let tagParent = tagInfo.parent;
   while (tagParent) {
     pointer.unshift(tagParent.tagName);
     tagParent = tagParent.parent;
   }
-  console.log(pointer.join('.'));
-  const rawSuggestions = findNestedPropertyKeys(codegenContext, pointer);
-
+  const rawSuggestions = findNestedPropertyKeys(getContext(), pointer);
   // let completionNode: Element | undefined;
   if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
     const apidomCompletions: CompletionItem[] = [];
     for (const rawSuggestion of rawSuggestions) {
       const item: CompletionItem = {
-        label: rawSuggestion,
-        insertText: rawSuggestion,
+        label: complexPrefix + rawSuggestion,
+        insertText: complexPrefix + rawSuggestion,
         kind: CompletionItemKind.Keyword,
         insertTextFormat: 2,
       };
@@ -134,9 +146,6 @@ function complete(
       },
     };
 
-    // const word = getCurrentWord(textDocument, offset);
-    const word = tagInfoStrict.tagName.trim();
-    console.log('word', word);
     // const nonEmptyContentRange = getNonEmptyContentRange(textDocument, offset);
     // overwriteRange = undefined;
     for (const item of apidomCompletions) {

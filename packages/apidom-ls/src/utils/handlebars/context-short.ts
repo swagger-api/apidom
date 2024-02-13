@@ -1,9 +1,14 @@
-export type AnyObject = { [key: string]: any };
+import { AnyObject } from '../../apidom-language-types';
 
 export const context: AnyObject = {
   apiFolder: 'io/swagger/client/api',
   developerEmail: 'apiteam@swagger.io',
   hasAuthMethods: true,
+  authMethods: [
+    {
+      isBasic: true,
+    },
+  ],
   apiInfo: {
     testBoolean: true,
     apis: [
@@ -21,10 +26,17 @@ export const context: AnyObject = {
                 },
               ],
               testBoolean3: true,
+              testObj: {
+                testObjVal: 'assa',
+                testObjInner: {
+                  testInnerVal: 'nnn',
+                },
+              },
               vendorExtensions: 'test as ss',
               contents: [
                 {
                   foo: 'bar',
+                  gddd: 'aaa',
                 },
               ],
             },

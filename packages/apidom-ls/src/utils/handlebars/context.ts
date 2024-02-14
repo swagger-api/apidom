@@ -12,6 +12,8 @@ interface CacheEntry {
   processedContext: AnyObject;
 }
 
+const GENERATOR_SERVICE_HOST = 'https://generator3.swagger.io'
+
 function deepMergeObjects(obj1: unknown, obj2: unknown): unknown {
   if (typeof obj1 === 'object' && obj1 !== null && typeof obj2 === 'object' && obj2 !== null) {
     if (Array.isArray(obj1) && Array.isArray(obj2)) {
@@ -95,7 +97,7 @@ export async function refreshContext(
         Accept: 'application/json',
       },
     };
-    const res = await axios.post('http://localhost:8081/api/model', axiosData, axiosConfig);
+    const res = await axios.post(`${GENERATOR_SERVICE_HOST}/api/model`, axiosData, axiosConfig);
     retrievedContext = res.data;
     currentContext = transformJson(retrievedContext);
     currentOriginalContext = retrievedContext;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type should remove SecurityScheme object if it has "mutualTLS" type 1`] = `
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-requirements-array should set SecurityRequirement object to an empty array if it has SecurityScheme object type other than "oauth2" and "openIdConnect" 1`] = `
 {
   "openapi": "3.0.3",
   "paths": {
@@ -9,12 +9,14 @@ exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type 
         "summary": "foo",
         "operationId": "foo",
         "security": [
-          {},
           {
             "oauth2-scheme": [
               "read",
               "write"
             ]
+          },
+          {
+            "apiKey-scheme": []
           }
         ],
         "responses": {
@@ -27,9 +29,14 @@ exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type 
   },
   "components": {
     "securitySchemes": {
-      "apiKey-scheme": {
+      "oauth2-scheme": {
         "type": "oauth2",
         "name": "oauth2-scheme",
+        "in": "header"
+      },
+      "apiKey-scheme": {
+        "type": "apiKey",
+        "name": "apiKey-scheme",
         "in": "header"
       }
     }

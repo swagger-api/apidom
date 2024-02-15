@@ -7,13 +7,13 @@
         "operationId": "foo",
         "security": [
           {
-            "mutualTLS-scheme": [
+            "oauth2-scheme": [
               "read",
               "write"
             ]
           },
           {
-            "oauth2-scheme": [
+            "apiKey-scheme": [
               "read",
               "write"
             ]
@@ -29,14 +29,14 @@
   },
   "components": {
     "securitySchemes": {
-      "mutualTLS-scheme": {
-        "type": "mutualTLS",
-        "name": "mutualTLS-scheme",
+      "oauth2-scheme": {
+        "type": "oauth2",
+        "name": "oauth2-scheme",
         "in": "header"
       },
       "apiKey-scheme": {
-        "type": "oauth2",
-        "name": "oauth2-scheme",
+        "type": "apiKey",
+        "name": "apiKey-scheme",
         "in": "header"
       }
     }

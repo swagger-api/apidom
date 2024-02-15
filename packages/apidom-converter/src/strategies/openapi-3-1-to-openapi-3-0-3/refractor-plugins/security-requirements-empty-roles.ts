@@ -13,7 +13,15 @@ type SecurityRequirementsArrayPluginOptions = {
   annotations: AnnotationElement[];
 };
 
-const securityRequirementsArrayRefractorPlugin =
+/*
+ * OpenAPI 3.0.3
+ * If the security scheme is of type "oauth2" or "openIdConnect", then the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope. For other security scheme types, the array MUST be empty.
+ *
+ * OpenAPI 3.1.0
+ * If the security scheme is of type "oauth2" or "openIdConnect", then the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope. For other security scheme types, the array MAY contain a list of role names which are required for the execution, but are not otherwise defined or exchanged in-band.
+ * This issue is conveying the fact that all other types than oauth2 or openIdConnect must have empty array [] as a value. In OpenAPI 3.1.0 the value MAY contain roles for other types.
+ */
+const securityRequirementsEmptyRolesRefractorPlugin =
   ({ annotations }: SecurityRequirementsArrayPluginOptions) =>
   (toolbox: Toolbox) => {
     const relevantSecuritySchemes: SecuritySchemeElement[] = [];
@@ -22,8 +30,8 @@ const securityRequirementsArrayRefractorPlugin =
       toolbox.createAnnotation.fromElement(
         element,
         'List of roles for Security Requirement Object  is not supported in OpenAPI 3.0.3 for Security Scheme Object types other than "oauth2" and "openIdConnect". As a result, all Security Requirement Objects with Security Scheme Object type other than "oauth2" and "openIdConnect" have been set to an empty array.',
-        { classes: ['error'] },
-        { code: 'security-requirements-array' },
+        { classes: ['warning'] },
+        { code: 'security-requirements-empty-roles' },
       );
 
     return {
@@ -32,10 +40,12 @@ const securityRequirementsArrayRefractorPlugin =
           if (!isComponentsElement(element.components)) return undefined;
           if (!isObjectElement(element.components.securitySchemes)) return undefined;
 
+          const nonEmptyRolesTypes = ['oauth2', 'openIdConnect'];
+
           element.components.securitySchemes.forEach((value) => {
             if (
               isSecuritySchemeElement(value) &&
-              !(toValue(value.type) === 'oauth2' || toValue(value.type) === 'openIdConnect')
+              !nonEmptyRolesTypes.includes(toValue(value.type))
             ) {
               relevantSecuritySchemes.push(value);
             }
@@ -46,7 +56,7 @@ const securityRequirementsArrayRefractorPlugin =
         SecurityRequirementElement(element: SecurityRequirementElement) {
           if (!relevantSecuritySchemes.length) return undefined;
 
-          const keysToAlternate: string[] = [];
+          const keysToEmpty: string[] = [];
 
           element.forEach((value, key) => {
             const relevantSecurityScheme = relevantSecuritySchemes.find(
@@ -54,14 +64,14 @@ const securityRequirementsArrayRefractorPlugin =
             );
 
             if (isSecuritySchemeElement(relevantSecurityScheme)) {
-              keysToAlternate.push(toValue(key));
+              keysToEmpty.push(toValue(key));
               annotations.push(createAnnotation(value));
             }
           });
 
-          if (!keysToAlternate.length) return undefined;
+          if (!keysToEmpty.length) return undefined;
 
-          keysToAlternate.forEach((key) => {
+          keysToEmpty.forEach((key) => {
             element.set(key, []);
           });
 
@@ -74,4 +84,4 @@ const securityRequirementsArrayRefractorPlugin =
     };
   };
 
-export default securityRequirementsArrayRefractorPlugin;
+export default securityRequirementsEmptyRolesRefractorPlugin;

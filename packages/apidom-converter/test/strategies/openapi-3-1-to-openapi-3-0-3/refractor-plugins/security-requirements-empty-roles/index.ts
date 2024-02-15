@@ -9,14 +9,14 @@ import convert from '../../../../../src';
 describe('converter', function () {
   context('strategies', function () {
     context('openapi-3-1-to-openapi-3-0-3', function () {
-      context('security-requirements-array', function () {
+      context('security-requirements-empty-roles', function () {
         specify(
           'should set SecurityRequirement object to an empty array if it has SecurityScheme object type other than "oauth2" and "openIdConnect"',
           async function () {
             const fixturePath = path.join(
               __dirname,
               'fixtures',
-              'security-requirements-array.json',
+              'security-requirements-empty-roles.json',
             );
             const convertedParseResult = await convert(fixturePath, {
               convert: {
@@ -29,8 +29,12 @@ describe('converter', function () {
           },
         );
 
-        specify('should create ERROR annotation', async function () {
-          const fixturePath = path.join(__dirname, 'fixtures', 'security-requirements-array.json');
+        specify('should create WARNING annotation', async function () {
+          const fixturePath = path.join(
+            __dirname,
+            'fixtures',
+            'security-requirements-empty-roles.json',
+          );
           const convertedParseResult = await convert(fixturePath, {
             convert: {
               sourceMediaType: openAPI31MediaTypes.findBy('3.1.0', 'json'),
@@ -39,16 +43,20 @@ describe('converter', function () {
           });
           const annotations = Array.from(convertedParseResult.annotations);
           const annotation = annotations.find((a: AnnotationElement) =>
-            a.code?.equals('security-requirements-array'),
+            a.code?.equals('security-requirements-empty-roles'),
           );
 
           assert.isDefined(annotation);
           assert.lengthOf(annotations, 1);
-          assert.isTrue(includesClasses(['error'], annotation));
+          assert.isTrue(includesClasses(['warning'], annotation));
         });
 
         specify('should attach source map to annotation', async function () {
-          const fixturePath = path.join(__dirname, 'fixtures', 'security-requirements-array.json');
+          const fixturePath = path.join(
+            __dirname,
+            'fixtures',
+            'security-requirements-empty-roles.json',
+          );
           const convertedParseResult = await convert(fixturePath, {
             parse: {
               parserOpts: { sourceMap: true },
@@ -60,7 +68,7 @@ describe('converter', function () {
           });
           const annotations = Array.from(convertedParseResult.annotations);
           const annotation: AnnotationElement = annotations.find((a: AnnotationElement) =>
-            a.code?.equals('security-requirements-array'),
+            a.code?.equals('security-requirements-empty-roles'),
           );
           const sourceMap = annotation.meta.get('sourceMap');
           const { positionStart, positionEnd } = sourceMap;

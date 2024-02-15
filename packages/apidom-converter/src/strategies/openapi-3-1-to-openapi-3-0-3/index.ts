@@ -19,7 +19,7 @@ import ConvertStrategy, { IFile } from '../ConvertStrategy';
 import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version';
 import webhooksRefractorPlugin from './refractor-plugins/webhooks';
 import securitySchemeTypeRefractorPlugin from './refractor-plugins/security-scheme-type';
-import securityRequirementsArrayRefractorPlugin from './refractor-plugins/security-requirements-array';
+import securityRequirementsEmptyRolesRefractorPlugin from './refractor-plugins/security-requirements-empty-roles';
 import type { ConverterOptions } from '../../options';
 import createToolbox from './toolbox';
 
@@ -62,7 +62,7 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
         openAPIVersionRefractorPlugin(),
         webhooksRefractorPlugin({ annotations }),
         securitySchemeTypeRefractorPlugin({ annotations }),
-        securityRequirementsArrayRefractorPlugin({ annotations }),
+        securityRequirementsEmptyRolesRefractorPlugin({ annotations }),
       ],
       {
         toolboxCreator: createToolbox,

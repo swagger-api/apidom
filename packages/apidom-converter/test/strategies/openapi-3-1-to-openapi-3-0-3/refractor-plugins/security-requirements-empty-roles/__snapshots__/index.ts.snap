@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-requirements-array should set SecurityRequirement object to an empty array if it has SecurityScheme object type other than "oauth2" and "openIdConnect" 1`] = `
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-requirements-empty-roles should set SecurityRequirement object to an empty array if it has SecurityScheme object type other than "oauth2" and "openIdConnect" 1`] = `
 {
   "openapi": "3.0.3",
   "paths": {

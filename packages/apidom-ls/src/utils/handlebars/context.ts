@@ -70,7 +70,8 @@ export async function refreshContext(
 ): Promise<AnyObject | null> {
   const specUrl = url || 'https://petstore3.swagger.io/api/v3/openapi.json';
   if (context) {
-    currentContext = transformJson(context);
+    const contextClone = JSON.parse(JSON.stringify(context));
+    currentContext = transformJson(contextClone);
     currentOriginalContext = context;
     cache[specUrl] = {
       context: currentOriginalContext,
@@ -99,14 +100,15 @@ export async function refreshContext(
     };
     const res = await axios.post(`${GENERATOR_SERVICE_HOST}/api/model`, axiosData, axiosConfig);
     retrievedContext = res.data;
-    currentContext = transformJson(retrievedContext);
+    const contextClone = JSON.parse(JSON.stringify(retrievedContext));
+    currentContext = transformJson(contextClone);
     currentOriginalContext = retrievedContext;
     cache[specUrl] = {
       context: retrievedContext,
       processedContext: currentContext,
     };
   } catch (err) {
-    console.log('error loading contex', err);
+    console.log('error loading context', err);
     // isParseFailure = true;
   }
   return currentOriginalContext;

@@ -461,13 +461,17 @@ export class Context {
           index = 0;
 
           while (intermediateValue != null && index < names.length) {
-            if (index === names.length - 1)
+            if (index === names.length - 1) {
               lookupHit =
                 hasProperty(intermediateValue, names[index]) ||
                 primitiveHasOwnProperty(intermediateValue, names[index]);
-
+            }
             // eslint-disable-next-line no-plusplus
             intermediateValue = intermediateValue[names[index++]];
+            if (isArrayNode(intermediateValue)) {
+              // eslint-disable-next-line prefer-destructuring
+              intermediateValue = intermediateValue[0];
+            }
           }
         } else {
           intermediateValue = context.view[name];

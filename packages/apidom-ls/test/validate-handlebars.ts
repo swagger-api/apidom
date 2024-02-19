@@ -13,11 +13,11 @@ import {
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
-/* const specMustache = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-shorter.mustache'))
-  .toString(); */
-
 const specMustache = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-array.mustache'))
+  .toString();
+
+/* const specMustache = fs
   .readFileSync(
     path.join(
       __dirname,
@@ -26,7 +26,7 @@ const specMustache = fs
       'test-template-simple-with-boolean-ancestor-basic-nofirst.mustache',
     ),
   )
-  .toString();
+  .toString(); */
 
 describe('apidom-ls-validate-handlebars', function () {
   const context: LanguageServiceContext = {

@@ -63,8 +63,8 @@ describe('handlebars-ls-complete', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const completionTestInputValue = [
       'in empty variable tag',
-      2,
-      26,
+      3,
+      19,
       {
         items: [],
         isIncomplete: false,

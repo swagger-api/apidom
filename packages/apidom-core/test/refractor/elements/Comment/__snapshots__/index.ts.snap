@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements Annotation should refract to generic ApiDOM tree 1`] = `(CommentElement)`;
+exports[`refractor elements Comment given JavaScript primitive should refract to semantic ApiDOM tree 1`] = `(CommentElement)`;
+
+exports[`refractor elements Comment given generic ApiDOM element should refract to semantic ApiDOM tree 1`] = `(CommentElement)`;

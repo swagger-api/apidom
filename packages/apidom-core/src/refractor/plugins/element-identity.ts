@@ -1,4 +1,4 @@
-import { Element, StringElement } from 'minim';
+import { Element } from 'minim';
 
 import { IdentityManager } from '../../identity';
 
@@ -17,7 +17,7 @@ const plugin =
       },
       visitor: {
         enter<T extends Element>(element: T) {
-          element.id = new StringElement(identityManager!.generateId()); // eslint-disable-line no-param-reassign
+          element.id = identityManager!.identify(element); // eslint-disable-line no-param-reassign
         },
       },
       post() {

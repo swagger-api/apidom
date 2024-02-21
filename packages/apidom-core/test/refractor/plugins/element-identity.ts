@@ -1,6 +1,11 @@
 import { assert } from 'chai';
 
-import { ObjectElement, refractorPluginElementIdentity } from '../../../src';
+import {
+  ObjectElement,
+  StringElement,
+  refractorPluginElementIdentity,
+  dispatchRefractorPlugins,
+} from '../../../src';
 
 describe('refractor', function () {
   context('plugins', function () {
@@ -31,6 +36,16 @@ describe('refractor', function () {
           assert.lengthOf(objectElement.getMember('a').value.id, length);
         },
       );
+
+      specify('should not add unique ID when already present', function () {
+        const objectElement = new ObjectElement({ id: '123' });
+        objectElement.id = new StringElement('unique-id');
+        const newObjectElement = dispatchRefractorPlugins(objectElement, [
+          refractorPluginElementIdentity(),
+        ]);
+
+        assert.isTrue(newObjectElement.id.equals('unique-id'));
+      });
     });
   });
 });

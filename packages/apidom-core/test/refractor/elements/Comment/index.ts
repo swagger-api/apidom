@@ -1,14 +1,39 @@
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 
-import { CommentElement, sexprs } from '../../../../src';
+import { CommentElement, StringElement, sexprs } from '../../../../src';
 
 describe('refractor', function () {
   context('elements', function () {
-    context('Annotation', function () {
-      specify('should refract to generic ApiDOM tree', function () {
-        const arrayElement = CommentElement.refract('comment');
+    context('Comment', function () {
+      context('given JavaScript primitive', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const commentElement = CommentElement.refract('comment');
 
-        expect(sexprs(arrayElement)).toMatchSnapshot();
+          expect(sexprs(commentElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given generic ApiDOM element', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const stringElement = new StringElement('comment');
+          const commentElement = CommentElement.refract(stringElement);
+
+          expect(sexprs(commentElement)).toMatchSnapshot();
+        });
+
+        specify('should retain attributes', function () {
+          const stringElement = new StringElement('comment', undefined, { attr: true });
+          const commentElement = CommentElement.refract(stringElement);
+
+          assert.isTrue(commentElement.attributes.get('attr').equals(true));
+        });
+
+        specify('should retain meta', function () {
+          const stringElement = new StringElement('comment', { meta: true }, undefined);
+          const commentElement = CommentElement.refract(stringElement);
+
+          assert.isTrue(commentElement.meta.get('meta').equals(true));
+        });
       });
     });
   });

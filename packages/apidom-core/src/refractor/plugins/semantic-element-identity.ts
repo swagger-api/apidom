@@ -1,4 +1,4 @@
-import { Element, StringElement } from 'minim';
+import { Element } from 'minim';
 
 import { IdentityManager } from '../../identity';
 import { isPrimitiveElement } from '../../predicates';
@@ -23,7 +23,7 @@ const plugin =
       visitor: {
         enter<T extends Element>(element: T) {
           if (!predicates.isPrimitiveElement(element)) {
-            (element as Element).id = new StringElement(identityManager!.generateId()); // eslint-disable-line no-param-reassign
+            (element as Element).id = identityManager!.identify(element); // eslint-disable-line no-param-reassign
           }
         },
       },

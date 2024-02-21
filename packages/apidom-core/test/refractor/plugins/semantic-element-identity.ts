@@ -1,7 +1,12 @@
 import { assert } from 'chai';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { ObjectElement, refractorPluginSemanticElementIdentity } from '../../../src';
+import {
+  ObjectElement,
+  StringElement,
+  dispatchRefractorPlugins,
+  refractorPluginSemanticElementIdentity,
+} from '../../../src';
 
 describe('refractor', function () {
   context('plugins', function () {
@@ -57,6 +62,20 @@ describe('refractor', function () {
           assert.lengthOf(objectElement.getMember('info').value.get('contact').id, length);
         },
       );
+
+      specify('should not add unique ID when already present', function () {
+        const infoElement = InfoElement.refract({
+          title: 'title',
+          summary: 'summary',
+          contact: { name: 'John Doe' },
+        });
+        infoElement.id = new StringElement('unique-id');
+        const newInfoElement = dispatchRefractorPlugins(infoElement, [
+          refractorPluginSemanticElementIdentity(),
+        ]);
+
+        assert.isTrue(newInfoElement.id.equals('unique-id'));
+      });
     });
   });
 });

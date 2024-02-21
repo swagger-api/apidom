@@ -41,8 +41,8 @@ export const IdentityManager: stampit.Stamp<IdentityManager> = stampit({
       // use already assigned identity
       if (
         element.meta.hasKey('id') &&
-        isStringElement(element.meta.id) &&
-        !element.meta.id.equals('')
+        isStringElement(element.meta.get('id')) &&
+        !element.meta.get('id').equals('')
       ) {
         return element.id;
       }

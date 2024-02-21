@@ -6,7 +6,7 @@ import toValue from './transformers/serializers/value';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-type ObjectOrArrayElement = ObjectElement | ArrayElement;
+export type ObjectOrArrayElement = ObjectElement | ArrayElement;
 type AnyElement = ObjectElement | ArrayElement | Element;
 type DeepMerge = (
   targetElement: ObjectOrArrayElement,
@@ -24,7 +24,7 @@ type ObjectElementMerge = (
   source: ObjectElement,
   options: DeepMergeOptions,
 ) => ObjectElement;
-type DeepMergeUserOptions = {
+export type DeepMergeUserOptions = {
   clone?: boolean;
   isMergeableElement?: (element: Element) => boolean;
   arrayElementMerge?: ArrayElementMerge;
@@ -40,7 +40,7 @@ type DeepMergeOptions = DeepMergeUserOptions & {
   customMerge: CustomMerge | undefined;
 };
 
-const emptyElement = (element: ObjectElement | ArrayElement) => {
+export const emptyElement = (element: ObjectElement | ArrayElement) => {
   const meta = cloneDeep(element.meta);
   const attributes = cloneDeep(element.attributes);
 
@@ -113,18 +113,19 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
   return destination;
 };
 
+export const defaultOptions: DeepMergeOptions = {
+  clone: true,
+  isMergeableElement: (element) => isObjectElement(element) || isArrayElement(element),
+  arrayElementMerge: mergeArrayElement,
+  objectElementMerge: mergeObjectElement,
+  customMerge: undefined,
+};
+
 export default function deepmerge(
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
   options?: DeepMergeUserOptions,
 ): AnyElement {
-  const defaultOptions: DeepMergeOptions = {
-    clone: true,
-    isMergeableElement: (element) => isObjectElement(element) || isArrayElement(element),
-    arrayElementMerge: mergeArrayElement,
-    objectElementMerge: mergeObjectElement,
-    customMerge: undefined,
-  };
   const mergedOptions: DeepMergeOptions = { ...defaultOptions, ...options };
   mergedOptions.isMergeableElement =
     mergedOptions.isMergeableElement ?? defaultOptions.isMergeableElement;
@@ -156,7 +157,7 @@ export default function deepmerge(
   );
 }
 
-deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeOptions) => {
+deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeUserOptions) => {
   if (!Array.isArray(list)) {
     throw new TypeError('First argument of deepmerge should be an array.');
   }

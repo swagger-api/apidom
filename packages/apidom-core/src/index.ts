@@ -104,3 +104,7 @@ export { default as toString } from './transformers/to-string';
 export { default as sexprs } from './transformers/sexprs';
 
 export { default as deepmerge } from './deepmerge';
+export type { DeepMergeUserOptions, ObjectOrArrayElement } from './deepmerge';
+
+export { default as mergeRight } from './merge/merge-right';
+export type { MergeRightOptions } from './merge/merge-right';

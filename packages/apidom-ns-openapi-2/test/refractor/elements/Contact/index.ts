@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-import { includesClasses, sexprs } from '@swagger-api/apidom-core';
+import { includesClasses, sexprs, ObjectElement } from '@swagger-api/apidom-core';
 
 import { ContactElement } from '../../../../src';
 
@@ -14,6 +14,36 @@ describe('refractor', function () {
         });
 
         expect(sexprs(contactElement)).toMatchSnapshot();
+      });
+
+      context('given generic ApiDOM element', function () {
+        let contactElement: ContactElement;
+
+        beforeEach(function () {
+          contactElement = ContactElement.refract(
+            new ObjectElement(
+              {
+                name: 'API Support',
+                url: 'https://www.example.com/support',
+                email: 'support@example.com',
+              },
+              { meta: true },
+              { attr: true },
+            ),
+          ) as ContactElement;
+        });
+
+        specify('should refract to semantic ApiDOM tree', function () {
+          expect(sexprs(contactElement)).toMatchSnapshot();
+        });
+
+        specify('should retain attributes', function () {
+          assert.isTrue(contactElement.attributes.get('attr').equals(true));
+        });
+
+        specify('should retain meta', function () {
+          assert.isTrue(contactElement.meta.get('meta').equals(true));
+        });
       });
 
       specify('should support specification extensions', function () {

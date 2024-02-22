@@ -31,7 +31,12 @@ import { parse } from './parser-factory';
 import { config } from './config/config';
 import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils';
 import { DefaultLinksService } from './services/links/links-service';
-import { refreshContext, getContext, renderTemplate } from './utils/handlebars/context';
+import {
+  refreshContext,
+  getContext,
+  renderTemplate,
+  renderTemplateThroughService,
+} from './utils/handlebars/context';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
@@ -162,8 +167,11 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
       }
     },
 
-    async refreshContext(url: string | null, context?: AnyObject): Promise<AnyObject | null> {
-      return refreshContext(url, context);
+    async refreshContext(
+      url: string | null,
+      mustacheContext?: AnyObject,
+    ): Promise<AnyObject | null> {
+      return refreshContext(url, mustacheContext);
     },
 
     getContext(processed?: boolean): AnyObject {
@@ -172,6 +180,10 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
 
     renderTemplate(template: string): string {
       return renderTemplate(template);
-    }
+    },
+
+    async renderTemplateThroughService(template: string): Promise<string> {
+      return renderTemplateThroughService(template);
+    },
   };
 }

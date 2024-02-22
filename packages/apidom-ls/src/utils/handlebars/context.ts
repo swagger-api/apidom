@@ -66,13 +66,13 @@ export function getContext(processed?: boolean): AnyObject {
 
 export async function refreshContext(
   url: string | null,
-  context?: AnyObject,
+  mustacheContext?: AnyObject,
 ): Promise<AnyObject | null> {
   const specUrl = url || 'https://petstore3.swagger.io/api/v3/openapi.json';
-  if (context) {
-    const contextClone = JSON.parse(JSON.stringify(context));
+  if (mustacheContext) {
+    const contextClone = JSON.parse(JSON.stringify(mustacheContext));
     currentContext = transformJson(contextClone);
-    currentOriginalContext = context;
+    currentOriginalContext = mustacheContext;
     cache[specUrl] = {
       context: currentOriginalContext,
       processedContext: currentContext,
@@ -116,4 +116,25 @@ export async function refreshContext(
 
 export function renderTemplate(template: string): string {
   return mustache.render(template, getContext());
+}
+
+export async function renderTemplateThroughService(template: string): Promise<string> {
+  try {
+    const axiosData = {
+      context: JSON.stringify(getContext()),
+      template,
+    };
+    const axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    };
+    const res = await axios.post(`${GENERATOR_SERVICE_HOST}/api/render`, axiosData, axiosConfig);
+    return res.data.value;
+  } catch (err) {
+    console.log('error rendering template', err);
+    // @ts-ignore
+    return `ERROR RENDERING: ${err.message}\n`;
+  }
 }

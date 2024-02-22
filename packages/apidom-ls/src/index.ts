@@ -23,7 +23,12 @@ export {
   findNamespace,
 } from './utils/utils';
 
-export { getContext, refreshContext, renderTemplate } from './utils/handlebars/context';
+export {
+  getContext,
+  refreshContext,
+  renderTemplate,
+  renderTemplateThroughService,
+} from './utils/handlebars/context';
 
 export type {
   LanguageService,

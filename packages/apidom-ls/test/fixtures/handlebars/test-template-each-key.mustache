@@ -1,0 +1,12 @@
+{{!mustache}}
+# {{artifactId}}
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}
+
+{{#each operation}}
+  {{@key}}
+  {{@index}}
+  {{classname}}.md#{{operationId}})
+{{/each}}
+
+{{/operations}}{{/apis}}{{/apiInfo}}

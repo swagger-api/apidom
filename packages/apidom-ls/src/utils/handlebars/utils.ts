@@ -4,7 +4,7 @@ import { AnyObject } from '../../apidom-language-types';
 
 let delStart = '\\{{2,3}';
 let delEnd = '\\}{2,3}';
-let tagRegex = new RegExp(`(${delStart})([#^&\\/>=!]?)(.*?)(${delEnd})`, 'g');
+let tagRegex = new RegExp(`(${delStart})([#^@&\\/>=!]?)(.*?)(${delEnd})`, 'g');
 let processDelimeter = true;
 
 export function isObjectNode(node: AnyObject | undefined): boolean {
@@ -50,6 +50,15 @@ export function parseMustacheTags(
             section.sectionCloseTag = tagSectionClose;
           }
           // break;
+        } else if (tagName === 'each' && section.each) {
+          if (tagSectionClose) {
+            // eslint-disable-next-line no-param-reassign
+            tagSectionClose.tagName = section.tagName;
+            // eslint-disable-next-line no-param-reassign
+            tagSectionClose.each = true;
+            section.sectionCloseTag = tagSectionClose;
+          }
+          // break;
         } else {
           if (tagSectionClose) {
             // eslint-disable-next-line no-param-reassign
@@ -72,11 +81,17 @@ export function parseMustacheTags(
 
     let tagType: TagType = 'variable';
     let delimeterChanged = false;
-
+    const trimmed = tagName.trim();
+    const keyWord = trimmed.split(' ')[0];
+    let tagValue = trimmed;
+    if (trimmed.split(' ').length > 1) {
+      tagValue = trimmed.substring(trimmed.indexOf(' ') + 1);
+    }
     // eslint-disable-next-line default-case
     switch (tagSymbol) {
       case '#':
-        if (tagName.trim().startsWith('@') || tagName.trim().startsWith('each')) {
+        if (keyWord === 'if' || keyWord === 'unless' || keyWord === 'with') {
+          // unsupported
           // eslint-disable-next-line no-continue
           continue;
         }
@@ -88,8 +103,16 @@ export function parseMustacheTags(
       case '&':
         tagType = 'explicitVariable';
         break;
+      case '@':
+        tagType = 'listKeyword';
+        break;
       case '/':
-        if (tagName.trim().startsWith('@') || tagName.trim().startsWith('each')) {
+        if (
+          trimmed.startsWith('if') ||
+          trimmed.startsWith('unless') ||
+          trimmed.startsWith('with')
+        ) {
+          // unsupported
           // eslint-disable-next-line no-continue
           continue;
         }
@@ -97,14 +120,14 @@ export function parseMustacheTags(
         // eslint-disable-next-line no-case-declarations
         const tagSectionClose: MustacheTag = {
           type: 'sectionClose',
-          tagName: tagName.trim(),
+          tagName: tagValue,
           startIndex,
           endIndex,
           tagNameStartIndex: startIndex + tagStartDelimeterLength + 1,
           tagNameEndIndex: endIndex - tagEndDelimeterLength,
           children: [],
         };
-        closeOpenSectionsUntilMatch(tagName, endIndex, tagSectionClose);
+        closeOpenSectionsUntilMatch(tagValue, endIndex, tagSectionClose);
         // eslint-disable-next-line no-continue,no-fallthrough
         continue;
       case '>':
@@ -136,7 +159,7 @@ export function parseMustacheTags(
     }
     const tag: MustacheTag = {
       type: tagType,
-      tagName: tagName.trim(),
+      tagName: tagValue,
       startIndex,
       endIndex,
       children: [],
@@ -152,13 +175,17 @@ export function parseMustacheTags(
       stack.push(tag);
       const tagSectionOpen: MustacheTag = {
         type: 'sectionOpen',
-        tagName: tagName.trim(),
+        tagName: tagValue,
         startIndex,
         endIndex,
         tagNameStartIndex: tag.tagNameStartIndex,
         tagNameEndIndex: tag.tagNameEndIndex,
         children: [],
       };
+      if (keyWord === 'each') {
+        tag.each = true;
+        tagSectionOpen.each = true;
+      }
       tag.sectionOpenTag = tagSectionOpen;
     } else {
       // eslint-disable-next-line
@@ -265,6 +292,7 @@ export function getMustacheStrictTagInfoAtPosition(
 export type TagType =
   | 'variable'
   | 'explicitVariable'
+  | 'listKeyword'
   | 'section'
   | 'inverted'
   | 'comment'
@@ -288,6 +316,7 @@ export interface MustacheTag {
   overlap?: boolean;
   missingCloseTag?: boolean;
   lonelyCloseTag?: boolean;
+  each?: boolean;
 }
 
 export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void {

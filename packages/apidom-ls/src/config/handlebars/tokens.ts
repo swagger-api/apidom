@@ -6,6 +6,7 @@ const tokens: string[] = [
   'sectionClose',
   'explicitVariable',
   'comment',
+  'listKeyword',
 ];
 
 export default tokens;

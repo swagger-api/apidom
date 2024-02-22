@@ -517,7 +517,8 @@ export interface LanguageService {
 
   getJsonPointerPosition(document: TextDocument, path: string): Promise<Position | null>;
 
-  refreshContext(url: string | null, context?: AnyObject): Promise<AnyObject | null>;
+  refreshContext(url: string | null, mustacheContext?: AnyObject): Promise<AnyObject | null>;
   getContext(processed?: boolean): AnyObject;
   renderTemplate(template: string): string;
+  renderTemplateThroughService(template: string): Promise<string>;
 }

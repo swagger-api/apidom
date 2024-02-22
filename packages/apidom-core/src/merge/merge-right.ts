@@ -1,7 +1,7 @@
 import { ObjectElement } from 'minim';
 
-import deepmerge, { defaultOptions as defaultDeepmergeOptions, emptyElement } from '../deepmerge';
-import type { ObjectOrArrayElement, DeepMergeUserOptions } from '../deepmerge';
+import deepmerge, { defaultOptions as defaultDeepmergeOptions, emptyElement } from './deepmerge';
+import type { ObjectOrArrayElement, DeepMergeUserOptions } from './deepmerge';
 
 export type MergeRightOptions = Omit<DeepMergeUserOptions, 'customMerge' | 'clone'>;
 

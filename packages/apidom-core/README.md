@@ -203,10 +203,6 @@ const output = mergeLeft.all([ foobar, foobaz, bar ]);
 
 `mergeRight` and `mergeLeft` take the same options as [deepmerge](#deepmerge-options), except for `customMerge` and `clone`.
 
-
-
-```js
-
 ## Deep merging
 
 `deepmerge` functions merged members of two or more ObjectElements deeply

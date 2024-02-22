@@ -105,6 +105,7 @@ export { default as sexprs } from './transformers/sexprs';
 
 export { default as deepmerge } from './deepmerge';
 export type { DeepMergeUserOptions, ObjectOrArrayElement } from './deepmerge';
-
 export { default as mergeRight } from './merge/merge-right';
 export type { MergeRightOptions } from './merge/merge-right';
+export { default as mergeLeft } from './merge/merge-left';
+export type { MergeRightOptions as MergeLeftOptions } from './merge/merge-right';

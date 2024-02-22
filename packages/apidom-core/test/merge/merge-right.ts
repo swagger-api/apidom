@@ -1,7 +1,6 @@
 import { assert } from 'chai';
 
 import {
-  deepmerge,
   toValue,
   Element,
   ObjectElement,
@@ -24,7 +23,7 @@ describe('mergeRight', function () {
   it('should merge existing simple keys in target at the roots', function () {
     const source = new ObjectElement({ key1: 'changed', key2: 'value2' });
     const target = new ObjectElement({ key1: 'value1', key3: 'value3' });
-    const merged = deepmerge(target, source);
+    const merged = mergeRight(target, source);
     const expected = {
       key1: 'changed',
       key2: 'value2',
@@ -117,7 +116,7 @@ describe('mergeRight', function () {
     assert.deepEqual(toValue(merged), expected);
   });
 
-  it('should clone source and target', function () {
+  it('should not clone source and target', function () {
     const source = new ObjectElement({
       b: {
         c: 'foo',
@@ -128,7 +127,7 @@ describe('mergeRight', function () {
         d: 'bar',
       },
     });
-    const merged = deepmerge(target, source) as ObjectElement;
+    const merged = mergeRight(target, source) as ObjectElement;
     const expected = {
       a: {
         d: 'bar',
@@ -139,8 +138,8 @@ describe('mergeRight', function () {
     };
 
     assert.deepEqual(toValue(merged), expected);
-    assert.notStrictEqual(merged.get('a'), target.get('a'));
-    assert.notStrictEqual(merged.get('b'), source.get('b'));
+    assert.strictEqual(merged.get('a'), target.get('a'));
+    assert.strictEqual(merged.get('b'), source.get('b'));
   });
 
   it('should replace object with simple key in target', function () {

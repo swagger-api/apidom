@@ -106,7 +106,7 @@ transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 
 ## Shallow merging
 
-`mergeRight` functions merged members of two or more ObjectElements shallowly
+`mergeRight` and `mergeLeft` functions merge members of two or more ObjectElements shallowly
 and handles shallow merging of ArrayElements as well.
 
 ### API
@@ -155,6 +155,53 @@ const output = mergeRight.all([ foobar, foobaz, bar ]);
 // => ObjectElement({ foo: { baz: 4 }, bar: 'yay!' })
 ```
 
+#### mergeLeft(source, target, [options])
+
+Merges two ApiDOM elements source and target shallowly, returning a new merged ApiDOM element with the elements
+from both target and source. If an element at the same key is present for both target and source,
+the value from source will appear in the result. Merging creates a new ApiDOM element,
+so that neither target nor source is modified (operation is immutable).
+
+```js
+import { mergeLeft, ObjectElement } from '@swagger-api/apidom-core';
+
+const x = new ObjectElement({
+  foo: { bar: 3 },
+});
+
+const y = new ObjectElement({
+  foo: { baz: 4 },
+  quux: 5,
+});
+
+const output = mergeLeft(x, y);
+// =>
+// ObjectElement({
+//   foo: ObjectElement({
+//     bar: 3,
+//   }),
+//   quux: 5,
+// })
+```
+
+#### mergeLeft.all([element1, element2, ...], [options])
+
+Merges shallowly any number of ApiDOM elements into a single ApiDOM element.
+
+```js
+import { mergeLeft, ObjectElement } from '@swagger-api/apidom-core';
+
+const foobar = new ObjectElement({ foo: { bar: 3 } });
+const foobaz = new ObjectElement({ foo: { baz: 4 } });
+const bar = new ObjectElement({ bar: 'yay!' });
+
+const output = mergeLeft.all([ foobar, foobaz, bar ]);
+// => ObjectElement({ foo: { baz: 3 }, bar: 'yay!' })
+```
+
+### Shallow merge Options
+
+`mergeRight` and `mergeLeft` take the same options as [deepmerge](#deepmerge-options), except for `customMerge` and `clone`.
 
 ## Deep merging
 
@@ -238,7 +285,7 @@ const output = deepmerge.all([ foobar, foobaz, bar ]);
 // => ObjectElement({ foo: { bar: 3, baz: 4 }, bar: 'yay!' })
 ```
 
-### Options
+### Deepmerge Options
 
 #### arrayElementMerge
 

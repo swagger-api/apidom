@@ -8,7 +8,7 @@ import {
   ArrayElement,
   StringElement,
   isObjectElement,
-} from '../src';
+} from '../../src';
 
 describe('deepmerge', function () {
   it('should add keys in target that do not exist at the root', function () {

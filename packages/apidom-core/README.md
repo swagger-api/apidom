@@ -412,7 +412,7 @@ const output = deepmerge(alex, tony, { customMetaMerge });
 #### customAttributesMerge
 
 Specifies a function which can be used to override the default attributes merge behavior.
-The `customAttributesMerge` function will be passed target and source metadata. If not specified,
+The `customAttributesMerge` function will be passed target and source attributes. If not specified,
 the default behavior is to deep copy attributes from target to new merged element.
 
 ```js

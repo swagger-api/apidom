@@ -391,6 +391,42 @@ const output = deepmerge(alex, tony, { customMerge });
 // output.get('pets'); // => ArrayElement(['Cat', 'Parrot', 'Dog'])
 ```
 
+#### customMetaMerge
+
+Specifies a function which can be used to override the default metadata merge behavior.
+The `customMetaMerge` function will be passed target and source metadata. If not specified,
+the default behavior is to deep copy metadata from target to new merged element.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const alex = new ObjectElement({ name: { first: 'Alex' } }, { metaKey: true });
+const tony = new ObjectElement({ name: { first: 'Tony' } }, { metaKey: false });
+
+const customMetaMerge = (targetMeta, sourceMeta) => deepmerge(targetMeta, sourceMeta);
+
+const output = deepmerge(alex, tony, { customMetaMerge });
+// output.meta.get('metaKey') // => BooleanElement(false)
+```
+
+#### customAttributesMerge
+
+Specifies a function which can be used to override the default attributes merge behavior.
+The `customAttributesMerge` function will be passed target and source metadata. If not specified,
+the default behavior is to deep copy attributes from target to new merged element.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const alex = new ObjectElement({ name: { first: 'Alex' } }, undefined, { attributeKey: true });
+const tony = new ObjectElement({ name: { first: 'Tony' } }, undefined, { attributeKey: false });
+
+const customAttributesMerge = (targetMeta, sourceMeta) => deepmerge(targetMeta, sourceMeta);
+
+const output = deepmerge(alex, tony, { customAttributesMerge });
+// output.attributs.get('attributeKey') // => BooleanElement(false)
+```
+
 #### clone
 
 Defaults to `true`.

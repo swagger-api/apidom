@@ -20,7 +20,7 @@ import {
   dereferenceApiDOM as derefereceApiDOMReferences,
 } from '@swagger-api/apidom-reference';
 
-const parser = ApiDOMParser()
+const parser = new ApiDOMParser()
   .use(jsonAdapter)
   .use(yamlAdapter)
   .use(openapi2AdapterJson)

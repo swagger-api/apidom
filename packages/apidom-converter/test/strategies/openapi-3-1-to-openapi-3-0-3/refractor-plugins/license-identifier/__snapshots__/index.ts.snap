@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 license-identifier should remove License.identifier field 1`] = `
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "foo",
+    "version": "1.0.0",
+    "license": {
+      "name": "Apache 2.0"
+    }
+  }
+}
+`;

@@ -1,12 +1,12 @@
 import { ObjectElement, ArrayElement, MemberElement, Element } from 'minim';
 
-import { isObjectElement, isArrayElement } from './predicates';
-import { cloneDeep, cloneShallow } from './clone';
-import toValue from './transformers/serializers/value';
+import { isObjectElement, isArrayElement } from '../predicates';
+import { cloneDeep, cloneShallow } from '../clone';
+import toValue from '../transformers/serializers/value';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-type ObjectOrArrayElement = ObjectElement | ArrayElement;
+export type ObjectOrArrayElement = ObjectElement | ArrayElement;
 type AnyElement = ObjectElement | ArrayElement | Element;
 type DeepMerge = (
   targetElement: ObjectOrArrayElement,
@@ -14,6 +14,14 @@ type DeepMerge = (
   options?: DeepMergeOptions,
 ) => AnyElement;
 type CustomMerge = (keyElement: Element, options: DeepMergeOptions) => DeepMerge;
+type CustomMetaMerge = (
+  targetElementMeta: ObjectElement,
+  sourceElementMeta: ObjectElement,
+) => ObjectElement;
+type CustomAttributesMerge = (
+  targetElementAttributes: ObjectElement,
+  sourceElementAttributes: ObjectElement,
+) => ObjectElement;
 type ArrayElementMerge = (
   targetElement: ArrayElement,
   sourceElement: ArrayElement,
@@ -24,12 +32,14 @@ type ObjectElementMerge = (
   source: ObjectElement,
   options: DeepMergeOptions,
 ) => ObjectElement;
-type DeepMergeUserOptions = {
+export type DeepMergeUserOptions = {
   clone?: boolean;
   isMergeableElement?: (element: Element) => boolean;
   arrayElementMerge?: ArrayElementMerge;
   objectElementMerge?: ObjectElementMerge;
   customMerge?: CustomMerge;
+  customMetaMerge?: CustomMetaMerge;
+  customAttributesMerge?: CustomAttributesMerge;
 };
 
 type DeepMergeOptions = DeepMergeUserOptions & {
@@ -38,11 +48,13 @@ type DeepMergeOptions = DeepMergeUserOptions & {
   arrayElementMerge: ArrayElementMerge;
   objectElementMerge: ObjectElementMerge;
   customMerge: CustomMerge | undefined;
+  customMetaMerge: CustomMetaMerge | undefined;
+  customAttributesMerge: CustomAttributesMerge | undefined;
 };
 
-const emptyElement = (element: ObjectElement | ArrayElement) => {
-  const meta = cloneDeep(element.meta);
-  const attributes = cloneDeep(element.attributes);
+export const emptyElement = (element: ObjectElement | ArrayElement) => {
+  const meta = element.meta.length > 0 ? cloneDeep(element.meta) : undefined;
+  const attributes = element.attributes.length > 0 ? cloneDeep(element.attributes) : undefined;
 
   // @ts-ignore
   return new element.constructor(undefined, meta, attributes);
@@ -66,6 +78,20 @@ const getMergeFunction = (keyElement: Element, options: DeepMergeOptions): DeepM
   }
   const customMerge = options.customMerge(keyElement, options);
   return typeof customMerge === 'function' ? customMerge : deepmerge;
+};
+
+const getMetaMergeFunction = (options: DeepMergeOptions): CustomMetaMerge => {
+  if (typeof options.customMetaMerge !== 'function') {
+    return (targetMeta) => cloneDeep(targetMeta);
+  }
+  return options.customMetaMerge;
+};
+
+const getAttributesMergeFunction = (options: DeepMergeOptions): CustomAttributesMerge => {
+  if (typeof options.customAttributesMerge !== 'function') {
+    return (targetAttributes) => cloneDeep(targetAttributes);
+  }
+  return options.customAttributesMerge;
 };
 
 const mergeArrayElement: ArrayElementMerge = (targetElement, sourceElement, options) =>
@@ -113,18 +139,21 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
   return destination;
 };
 
+export const defaultOptions: DeepMergeOptions = {
+  clone: true,
+  isMergeableElement: (element) => isObjectElement(element) || isArrayElement(element),
+  arrayElementMerge: mergeArrayElement,
+  objectElementMerge: mergeObjectElement,
+  customMerge: undefined,
+  customMetaMerge: undefined,
+  customAttributesMerge: undefined,
+};
+
 export default function deepmerge(
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
   options?: DeepMergeUserOptions,
 ): AnyElement {
-  const defaultOptions: DeepMergeOptions = {
-    clone: true,
-    isMergeableElement: (element) => isObjectElement(element) || isArrayElement(element),
-    arrayElementMerge: mergeArrayElement,
-    objectElementMerge: mergeObjectElement,
-    customMerge: undefined,
-  };
   const mergedOptions: DeepMergeOptions = { ...defaultOptions, ...options };
   mergedOptions.isMergeableElement =
     mergedOptions.isMergeableElement ?? defaultOptions.isMergeableElement;
@@ -141,22 +170,31 @@ export default function deepmerge(
     return cloneUnlessOtherwiseSpecified(sourceElement, mergedOptions);
   }
 
-  if (sourceIsArrayElement && typeof mergedOptions.arrayElementMerge === 'function') {
-    return mergedOptions.arrayElementMerge(
-      targetElement as ArrayElement,
-      sourceElement as ArrayElement,
-      mergedOptions,
-    );
-  }
+  // merging two elements
+  const mergedElement =
+    sourceIsArrayElement && typeof mergedOptions.arrayElementMerge === 'function'
+      ? mergedOptions.arrayElementMerge(
+          targetElement as ArrayElement,
+          sourceElement as ArrayElement,
+          mergedOptions,
+        )
+      : mergedOptions.objectElementMerge(
+          targetElement as ObjectElement,
+          sourceElement as ObjectElement,
+          mergedOptions,
+        );
 
-  return mergedOptions.objectElementMerge(
-    targetElement as ObjectElement,
-    sourceElement as ObjectElement,
-    mergedOptions,
+  // merging meta & attributes
+  mergedElement.meta = getMetaMergeFunction(mergedOptions)(targetElement.meta, sourceElement.meta);
+  mergedElement.attributes = getAttributesMergeFunction(mergedOptions)(
+    targetElement.attributes,
+    sourceElement.attributes,
   );
+
+  return mergedElement;
 }
 
-deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeOptions) => {
+deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeUserOptions) => {
   if (!Array.isArray(list)) {
     throw new TypeError('First argument of deepmerge should be an array.');
   }

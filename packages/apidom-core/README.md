@@ -104,6 +104,105 @@ transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 
 ---
 
+## Shallow merging
+
+`mergeRight` and `mergeLeft` functions merge members of two or more ObjectElements shallowly
+and handles shallow merging of ArrayElements as well.
+
+### API
+
+#### mergeRight(target, source, [options])
+
+Merges two ApiDOM elements target and source shallowly, returning a new merged ApiDOM element with the elements
+from both target and source. If an element at the same key is present for both target and source,
+the value from source will appear in the result. Merging creates a new ApiDOM element,
+so that neither target nor source is modified (operation is immutable).
+
+```js
+import { mergeRight, ObjectElement } from '@swagger-api/apidom-core';
+
+const x = new ObjectElement({
+  foo: { bar: 3 },
+});
+
+const y = new ObjectElement({
+  foo: { baz: 4 },
+  quux: 5,
+});
+
+const output = mergeRight(x, y);
+// =>
+// ObjectElement({
+//   foo: ObjectElement({
+//     baz: 4,
+//   }),
+//   quux: 5,
+// })
+```
+
+#### mergeRight.all([element1, element2, ...], [options])
+
+Merges shallowly any number of ApiDOM elements into a single ApiDOM element.
+
+```js
+import { mergeRight, ObjectElement } from '@swagger-api/apidom-core';
+
+const foobar = new ObjectElement({ foo: { bar: 3 } });
+const foobaz = new ObjectElement({ foo: { baz: 4 } });
+const bar = new ObjectElement({ bar: 'yay!' });
+
+const output = mergeRight.all([ foobar, foobaz, bar ]);
+// => ObjectElement({ foo: { baz: 4 }, bar: 'yay!' })
+```
+
+#### mergeLeft(source, target, [options])
+
+Merges two ApiDOM elements source and target shallowly, returning a new merged ApiDOM element with the elements
+from both target and source. If an element at the same key is present for both target and source,
+the value from source will appear in the result. Merging creates a new ApiDOM element,
+so that neither target nor source is modified (operation is immutable).
+
+```js
+import { mergeLeft, ObjectElement } from '@swagger-api/apidom-core';
+
+const x = new ObjectElement({
+  foo: { bar: 3 },
+});
+
+const y = new ObjectElement({
+  foo: { baz: 4 },
+  quux: 5,
+});
+
+const output = mergeLeft(x, y);
+// =>
+// ObjectElement({
+//   foo: ObjectElement({
+//     bar: 3,
+//   }),
+//   quux: 5,
+// })
+```
+
+#### mergeLeft.all([element1, element2, ...], [options])
+
+Merges shallowly any number of ApiDOM elements into a single ApiDOM element.
+
+```js
+import { mergeLeft, ObjectElement } from '@swagger-api/apidom-core';
+
+const foobar = new ObjectElement({ foo: { bar: 3 } });
+const foobaz = new ObjectElement({ foo: { baz: 4 } });
+const bar = new ObjectElement({ bar: 'yay!' });
+
+const output = mergeLeft.all([ foobar, foobaz, bar ]);
+// => ObjectElement({ foo: { baz: 3 }, bar: 'yay!' })
+```
+
+### Shallow merge Options
+
+`mergeRight` and `mergeLeft` take the same options as [deepmerge](#deepmerge-options), except for `customMerge` and `clone`.
+
 ## Deep merging
 
 `deepmerge` functions merged members of two or more ObjectElements deeply
@@ -115,7 +214,7 @@ that works equivalently on ApiDOM structures.
 
 #### deepmerge(target, source, [options])
 
-Merge two ApiDOM elements target and source deeply, returning a new merged ApiDOM element with the elements
+Merges two ApiDOM elements target and source deeply, returning a new merged ApiDOM element with the elements
 from both target and source. If an element at the same key is present for both target and source,
 the value from source will appear in the result. Merging creates a new ApiDOM element,
 so that neither target nor source is modified (operation is immutable).
@@ -173,7 +272,7 @@ const output = deepmerge(x, y);
 
 #### deepmerge.all([element1, element2, ...], [options])
 
-Merges any number of ApiDOM elements into a single ApiDOM element.
+Merges deeply any number of ApiDOM elements into a single ApiDOM element.
 
 ```js
 import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
@@ -186,7 +285,7 @@ const output = deepmerge.all([ foobar, foobaz, bar ]);
 // => ObjectElement({ foo: { bar: 3, baz: 4 }, bar: 'yay!' })
 ```
 
-### Options
+### Deepmerge Options
 
 #### arrayElementMerge
 
@@ -290,6 +389,42 @@ const customMerge = (key: Element) => (toValue(key) === 'name' ? mergeNames : un
 const output = deepmerge(alex, tony, { customMerge });
 // output.get('name'); // => StrignElement('Alex and Tony')
 // output.get('pets'); // => ArrayElement(['Cat', 'Parrot', 'Dog'])
+```
+
+#### customMetaMerge
+
+Specifies a function which can be used to override the default metadata merge behavior.
+The `customMetaMerge` function will be passed target and source metadata. If not specified,
+the default behavior is to deep copy metadata from target to new merged element.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const alex = new ObjectElement({ name: { first: 'Alex' } }, { metaKey: true });
+const tony = new ObjectElement({ name: { first: 'Tony' } }, { metaKey: false });
+
+const customMetaMerge = (targetMeta, sourceMeta) => deepmerge(targetMeta, sourceMeta);
+
+const output = deepmerge(alex, tony, { customMetaMerge });
+// output.meta.get('metaKey') // => BooleanElement(false)
+```
+
+#### customAttributesMerge
+
+Specifies a function which can be used to override the default attributes merge behavior.
+The `customAttributesMerge` function will be passed target and source attributes. If not specified,
+the default behavior is to deep copy attributes from target to new merged element.
+
+```js
+import { deepmerge, ObjectElement } from '@swagger-api/apidom-core';
+
+const alex = new ObjectElement({ name: { first: 'Alex' } }, undefined, { attributeKey: true });
+const tony = new ObjectElement({ name: { first: 'Tony' } }, undefined, { attributeKey: false });
+
+const customAttributesMerge = (targetMeta, sourceMeta) => deepmerge(targetMeta, sourceMeta);
+
+const output = deepmerge(alex, tony, { customAttributesMerge });
+// output.attributs.get('attributeKey') // => BooleanElement(false)
 ```
 
 #### clone

@@ -349,6 +349,17 @@ describe('deepmerge', function () {
     assert.strictEqual(merged.get(2), source.get(0), 'should not clone');
   });
 
+  it('should deep copy meta & attributes from target', function () {
+    const target = new ObjectElement({}, { metaKey: true }, { attributeKey: true });
+    const source = new ObjectElement({}, { metaKey: false }, { attributeKey: false });
+    const merged = deepmerge(target, source);
+
+    assert.deepEqual(toValue(merged.meta), { metaKey: true });
+    assert.deepEqual(toValue(merged.attributes), { attributeKey: true });
+    assert.notStrictEqual(merged.meta, target.meta);
+    assert.notStrictEqual(merged.attributes, target.attributes);
+  });
+
   specify('deepmerge.all', function () {
     const source = new ObjectElement({ key1: 'changed', key2: 'value2' });
     const target = new ObjectElement({ key1: 'value1', key3: 'value3' });
@@ -365,6 +376,36 @@ describe('deepmerge', function () {
       'merge should be immutable',
     );
     assert.deepEqual(toValue(merged), expected);
+  });
+
+  context('given customMetaMerge option', function () {
+    specify('should allow custom merging of meta', function () {
+      const customMetaMerge = (
+        targetMeta: ObjectElement,
+        sourceMeta: ObjectElement,
+      ): ObjectElement => deepmerge(targetMeta, sourceMeta) as ObjectElement;
+      const target = new ObjectElement({}, { metaKey: true });
+      const source = new ObjectElement({}, { metaKey: false });
+
+      const merged = deepmerge(target, source, { customMetaMerge });
+
+      assert.deepEqual(toValue(merged.meta), { metaKey: false });
+    });
+  });
+
+  context('given customAttributesMerge option', function () {
+    specify('should allow custom merging of meta', function () {
+      const customAttributesMerge = (
+        targetAttributes: ObjectElement,
+        sourceAttributes: ObjectElement,
+      ): ObjectElement => deepmerge(targetAttributes, sourceAttributes) as ObjectElement;
+      const target = new ObjectElement({}, undefined, { attributeKey: true });
+      const source = new ObjectElement({}, undefined, { attributeKey: false });
+
+      const merged = deepmerge(target, source, { customAttributesMerge });
+
+      assert.deepEqual(toValue(merged.attributes), { attributeKey: false });
+    });
   });
 
   context('given arrayElementMerge option', function () {

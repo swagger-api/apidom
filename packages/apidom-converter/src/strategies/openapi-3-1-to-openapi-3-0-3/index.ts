@@ -23,6 +23,7 @@ import securityRequirementsEmptyRolesRefractorPlugin from './refractor-plugins/s
 import type { ConverterOptions } from '../../options';
 import createToolbox from './toolbox';
 import infoSummaryRefractorPlugin from './refractor-plugins/info-summary';
+import licenseIdentifierRefractorPlugin from './refractor-plugins/license-identifier';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const openAPI3_0_3MediaTypes = [
@@ -65,6 +66,7 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
         securitySchemeTypeRefractorPlugin({ annotations }),
         securityRequirementsEmptyRolesRefractorPlugin({ annotations }),
         infoSummaryRefractorPlugin({ annotations }),
+        licenseIdentifierRefractorPlugin({ annotations }),
       ],
       {
         toolboxCreator: createToolbox,

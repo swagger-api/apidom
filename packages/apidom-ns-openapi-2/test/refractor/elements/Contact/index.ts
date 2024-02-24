@@ -37,11 +37,11 @@ describe('refractor', function () {
           expect(sexprs(contactElement)).toMatchSnapshot();
         });
 
-        specify('should retain attributes', function () {
+        specify('should deepmerge attributes', function () {
           assert.isTrue(contactElement.attributes.get('attr').equals(true));
         });
 
-        specify('should retain meta', function () {
+        specify('should deepmerge meta', function () {
           assert.isTrue(contactElement.meta.get('meta').equals(true));
         });
       });

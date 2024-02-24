@@ -24,8 +24,8 @@ const refract = <T extends Element>(
    * We don't allow consumers to hook into this translation.
    * Though we allow consumers to define their onw plugins on already transformed ApiDOM.
    */
-  const RootVistorClass = path(specPath, resolvedSpec) as typeof VisitorClass;
-  const rootVisitor = new RootVistorClass({ specObj: resolvedSpec });
+  const RootVisitorClass = path(specPath, resolvedSpec) as typeof VisitorClass;
+  const rootVisitor = new RootVisitorClass({ specObj: resolvedSpec });
 
   visit(element, rootVisitor);
 

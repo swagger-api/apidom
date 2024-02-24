@@ -10,6 +10,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with m
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -183,6 +187,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with n
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -382,6 +390,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -598,6 +610,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -814,6 +830,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -1168,6 +1188,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }
@@ -1384,6 +1408,10 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }

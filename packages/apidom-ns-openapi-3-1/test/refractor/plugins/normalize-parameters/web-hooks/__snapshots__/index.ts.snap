@@ -67,6 +67,10 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }

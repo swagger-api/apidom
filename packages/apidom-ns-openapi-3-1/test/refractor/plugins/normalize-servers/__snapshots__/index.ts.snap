@@ -56,6 +56,10 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }

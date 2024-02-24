@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { assert, expect } from 'chai';
+import { ObjectElement, sexprs, toValue } from '@swagger-api/apidom-core';
 
 import { JSONSchemaElement } from '../../../../src';
 
@@ -82,6 +82,31 @@ describe('refractor', function () {
         });
 
         expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+      });
+    });
+
+    context('given generic ApiDOM element', function () {
+      let jsonSchemaElement: JSONSchemaElement;
+
+      beforeEach(function () {
+        const propertiesKeyword = new ObjectElement({}, { classes: ['example'] }, { attr: true });
+        jsonSchemaElement = JSONSchemaElement.refract(
+          new ObjectElement({ properties: propertiesKeyword }),
+        ) as JSONSchemaElement;
+      });
+
+      specify('should refract to semantic ApiDOM tree', function () {
+        expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+      });
+
+      specify('should deepmerge meta', function () {
+        assert.deepEqual(toValue(jsonSchemaElement.properties!.meta), {
+          classes: ['json-schema-properties', 'example'],
+        });
+      });
+
+      specify('should deepmerge attributes', function () {
+        assert.isTrue(jsonSchemaElement.properties!.attributes.get('attr').equals(true));
       });
     });
   });

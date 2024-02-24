@@ -12,7 +12,8 @@ interface CacheEntry {
   processedContext: AnyObject;
 }
 
-const GENERATOR_SERVICE_HOST = 'https://generator3.swagger.io'
+const GENERATOR_SERVICE_HOST = 'https://generator3.swagger.io';
+// const GENERATOR_SERVICE_HOST = 'http://localhost:8081';
 
 function deepMergeObjects(obj1: unknown, obj2: unknown): unknown {
   if (typeof obj1 === 'object' && obj1 !== null && typeof obj2 === 'object' && obj2 !== null) {
@@ -135,6 +136,6 @@ export async function renderTemplateThroughService(template: string): Promise<st
   } catch (err) {
     console.log('error rendering template', err);
     // @ts-ignore
-    return `ERROR RENDERING: ${err.message}\n`;
+    return `ERROR RENDERING: ${err.message}\n\n\n${template}`;
   }
 }

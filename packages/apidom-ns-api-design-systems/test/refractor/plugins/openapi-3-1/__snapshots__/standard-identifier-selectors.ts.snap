@@ -10,6 +10,10 @@ exports[`given OpenAPI 3.1 definition should decorate with API Design Systems St
         {
           "element": "string",
           "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
         }
       ]
     }

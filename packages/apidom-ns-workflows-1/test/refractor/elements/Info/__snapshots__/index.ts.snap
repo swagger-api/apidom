@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements InfoElement given generic ApiDOM element should refract to semantic ApiDOM tree 1`] = `(InfoElement)`;
+
 exports[`refractor elements InfoElement should refract to semantic ApiDOM tree 1`] = `
 (InfoElement
   (MemberElement

@@ -29,7 +29,7 @@ const specCompletion = fs
 
 const specCompletion = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-complete-nested.mustache'),
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-each-key-simple.mustache'),
   )
   .toString();
 
@@ -63,8 +63,8 @@ describe('handlebars-ls-complete', function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const completionTestInputValue = [
       'in empty variable tag',
-      3,
-      19,
+      2,
+      14,
       {
         items: [],
         isIncomplete: false,

@@ -1,4 +1,5 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { mergeDeepLeft } from 'ramda';
 
 import { AnyObject } from '../../apidom-language-types';
 
@@ -362,12 +363,39 @@ export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void 
   tags.forEach((tag) => logDetails(tag));
 }
 
+export function deepMergeValues(objNode: object): object {
+  let result: object | null = null;
+  const keys = Object.keys(objNode);
+  if (keys.length < 2) {
+    return objNode;
+  }
+  let previousKey = keys[0];
+  // eslint-disable-next-line no-plusplus
+  for (let i = 1; i < keys.length; i++) {
+    const objKey = keys[i];
+    if (!result) {
+      // @ts-ignore
+      result = mergeDeepLeft(objNode[objKey], objNode[previousKey]);
+    } else {
+      // @ts-ignore
+      result = mergeDeepLeft(result, mergeDeepLeft(objNode[objKey], objNode[previousKey]));
+    }
+    previousKey = objKey;
+  }
+  return result!;
+}
+
 export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): string[] | string {
   let currentNode: AnyObject | undefined = bundle;
-
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i];
+    let key = path[i];
+    let inEach = false;
+    if (key.split(' ').length > 1) {
+      // eslint-disable-next-line prefer-destructuring
+      key = key.split(' ')[1];
+      inEach = true;
+    }
     // If current node is an array, use the first element
     if (Array.isArray(currentNode)) {
       currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
@@ -377,13 +405,24 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
     if (isObjectNode(currentNode) && key in currentNode!) {
       if (typeof currentNode![key] !== 'boolean') {
         currentNode = currentNode![key];
+        if (inEach) {
+          // deepMerge all properties of each key of currentNode
+          // @ts-ignore
+          currentNode = deepMergeValues(currentNode);
+        }
       }
     } else {
       // If the key doesn't exist, search in ancestors
       let ancestor = bundle;
       // eslint-disable-next-line no-plusplus
       for (let j = 0; j < i; j++) {
-        const ancestorKey = path[j];
+        let ancestorKey = path[i];
+        let ancestorInEach = false;
+        if (ancestorKey.split(' ').length > 1) {
+          // eslint-disable-next-line prefer-destructuring
+          ancestorKey = ancestorKey.split(' ')[1];
+          ancestorInEach = true;
+        }
         if (ancestorKey in ancestor) {
           ancestor = ancestor[ancestorKey];
           if (Array.isArray(ancestor)) {
@@ -392,6 +431,11 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
           if (isObjectNode(ancestor) && key in ancestor) {
             if (typeof ancestor![key] !== 'boolean') {
               currentNode = ancestor[key];
+              if (ancestorInEach) {
+                // deepMerge all properties of each key of currentNode
+                // @ts-ignore
+                currentNode = deepMergeValues(currentNode);
+              }
             }
             break;
           }

@@ -3,6 +3,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 
 import {
   Context,
+  deepMergeValues,
   // logTagDetails,
   MustacheTag,
   parseMustacheTags,
@@ -26,6 +27,11 @@ function validateSection(
   while (tagParent) {
     pointer.unshift(tagParent.tagName);
     tagParent = tagParent.parent;
+  }
+  if (tag.tagName === '@first' || tag.tagName === '@last') {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    validateTags(tag.children, context, diagnostics, textDocument);
+    return;
   }
   const value = context.lookup(tag.tagName);
   if (value === undefined || value === null) {
@@ -85,7 +91,15 @@ function validateSection(
   if (isArray(value) && value.length > 0) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     validateTags(tag.children, context.push(value[0]), diagnostics, textDocument);
-  } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
+  } else if (typeof value === 'object') {
+    if (tag.each) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      validateTags(tag.children, context.push(deepMergeValues(value)), diagnostics, textDocument);
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      validateTags(tag.children, context.push(value), diagnostics, textDocument);
+    }
+  } else if (typeof value === 'string' || typeof value === 'number') {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     validateTags(tag.children, context.push(value), diagnostics, textDocument);
   } else {
@@ -100,6 +114,14 @@ function validateVariable(
   diagnostics: Diagnostic[],
   textDocument: TextDocument,
 ): void {
+  if (
+    tag.tagName === '.' ||
+    tag.tagName === 'this' ||
+    tag.tagName === '@first' ||
+    tag.tagName === '@last'
+  ) {
+    return;
+  }
   const pointer = [tag.tagName];
   let tagParent = tag.parent;
   while (tagParent) {

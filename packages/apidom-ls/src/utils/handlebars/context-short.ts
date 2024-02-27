@@ -4,6 +4,23 @@ export const context: AnyObject = {
   apiFolder: 'io/swagger/client/api',
   developerEmail: 'apiteam@swagger.io',
   hasAuthMethods: true,
+  testObjEach: {
+    testObjEachInner1: {
+      testInnerVal: 'nnn',
+      testInnerVal2: 'vvv',
+      testInnerVal11: 'vvv',
+    },
+    testObjEachInner2: {
+      testInnerVal: 'nnn2',
+      testInnerVal2: 'vvv2',
+      testInnerVal12: 'vvv',
+    },
+    testObjEachInner3: {
+      testInnerVal: 'nnn3',
+      testInnerVal2: 'vvv3',
+      testInnerVal13: 'vvv',
+    },
+  },
   authMethods: [
     {
       isBasic: true,

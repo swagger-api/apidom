@@ -74,7 +74,11 @@ function complete(
   }
   let tagParent = tagInfo.parent;
   while (tagParent) {
-    pointer.unshift(tagParent.tagName);
+    if (tagParent.each) {
+      pointer.unshift(`each ${tagParent.tagName}`);
+    } else {
+      pointer.unshift(tagParent.tagName);
+    }
     tagParent = tagParent.parent;
   }
   const rawSuggestions = findNestedPropertyKeys(getContext(true), pointer);

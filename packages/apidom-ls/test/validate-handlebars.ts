@@ -14,7 +14,9 @@ import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 
 const specMustache = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-each-key.mustache'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-each-key-validate.mustache'),
+  )
   .toString();
 
 /* const specMustache = fs

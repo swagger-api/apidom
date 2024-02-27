@@ -70,23 +70,23 @@ export async function refreshContext(
   mustacheContext?: AnyObject,
 ): Promise<AnyObject | null> {
   const specUrl = url || 'https://petstore3.swagger.io/api/v3/openapi.json';
-  if (mustacheContext) {
-    const contextClone = JSON.parse(JSON.stringify(mustacheContext));
-    currentContext = transformJson(contextClone);
-    currentOriginalContext = mustacheContext;
-    cache[specUrl] = {
-      context: currentOriginalContext,
-      processedContext: currentContext,
-    };
-  }
-  if (specUrl && cache[specUrl]) {
-    currentContext = cache[specUrl].processedContext;
-    currentOriginalContext = cache[specUrl].context;
-    return currentOriginalContext;
-  }
-  let retrievedContext = {};
-  // use axios to call generator3.swagger.io and get intermediate model for given string
   try {
+    if (mustacheContext) {
+      const contextClone = JSON.parse(JSON.stringify(mustacheContext));
+      currentContext = transformJson(contextClone);
+      currentOriginalContext = mustacheContext;
+      cache[specUrl] = {
+        context: currentOriginalContext,
+        processedContext: currentContext,
+      };
+    }
+    if (specUrl && cache[specUrl]) {
+      currentContext = cache[specUrl].processedContext;
+      currentOriginalContext = cache[specUrl].context;
+      return currentOriginalContext;
+    }
+    let retrievedContext = {};
+    // use axios to call generator3.swagger.io and get intermediate model for given string
     const axiosData = {
       lang: 'java',
       type: 'CLIENT',
@@ -109,7 +109,7 @@ export async function refreshContext(
       processedContext: currentContext,
     };
   } catch (err) {
-    console.log('error loading context', err);
+    console.error('error loading context', err);
     // isParseFailure = true;
   }
   return currentOriginalContext;
@@ -134,7 +134,7 @@ export async function renderTemplateThroughService(template: string): Promise<st
     const res = await axios.post(`${GENERATOR_SERVICE_HOST}/api/render`, axiosData, axiosConfig);
     return res.data.value;
   } catch (err) {
-    console.log('error rendering template', err);
+    console.error('error rendering template', err);
     // @ts-ignore
     return `ERROR RENDERING: ${err.message}\n\n\n${template}`;
   }

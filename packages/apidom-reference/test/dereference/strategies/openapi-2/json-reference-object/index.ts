@@ -84,6 +84,24 @@ describe('dereference', function () {
           });
         });
 
+        context('given JSONReference Objects pointing to external cycles', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-cycle');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate('/0/definitions/schema/properties', dereferenced);
+            const cyclicParent = evaluate(
+              '/0/definitions/schema/properties/parent/properties',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+        });
+
         context('given JSONReference Objects pointing to external indirections', function () {
           const fixturePath = path.join(rootFixturePath, 'external-indirections');
 

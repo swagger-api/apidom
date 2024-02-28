@@ -1,0 +1,13 @@
+{
+  "definitions": {
+    "externalSchema": {
+      "type": "object",
+      "description": "external schema",
+      "properties": {
+        "parent": {
+          "$ref": "#/definitions/externalSchema"
+        }
+      }
+    }
+  }
+}

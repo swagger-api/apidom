@@ -62,13 +62,22 @@ const OpenApi3_0DereferenceVisitor = stampit({
     reference: null,
     options: null,
     ancestors: null,
+    refractCache: null,
   },
-  init({ indirections = [], reference, namespace, options, ancestors = new AncestorLineage() }) {
+  init({
+    indirections = [],
+    reference,
+    namespace,
+    options,
+    ancestors = new AncestorLineage(),
+    refractCache = new Map(),
+  }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
     this.ancestors = new AncestorLineage(...ancestors);
+    this.refractCache = refractCache;
   },
   methods: {
     toBaseURI(uri: string): string {
@@ -154,15 +163,20 @@ const OpenApi3_0DereferenceVisitor = stampit({
       // applying semantics to a fragment
       if (isPrimitiveElement(referencedElement)) {
         const referencedElementType = toValue(referencingElement.meta.get('referenced-element'));
+        const cacheKey = `${referencedElementType}-${toValue(identityManager.identify(referencedElement))}`;
 
-        if (isReferenceLikeElement(referencedElement)) {
+        if (this.refractCache.has(cacheKey)) {
+          referencedElement = this.refractCache.get(cacheKey);
+        } else if (isReferenceLikeElement(referencedElement)) {
           // handling indirect references
           referencedElement = ReferenceElement.refract(referencedElement);
           referencedElement.setMetaProperty('referenced-element', referencedElementType);
+          this.refractCache.set(cacheKey, referencedElement);
         } else {
           // handling direct references
           const ElementClass = this.namespace.getElementClass(referencedElementType);
           referencedElement = ElementClass.refract(referencedElement);
+          this.refractCache.set(cacheKey, referencedElement);
         }
       }
 
@@ -188,6 +202,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
         indirections: [...this.indirections],
         options: this.options,
         ancestors: ancestorsLineage,
+        refractCache: this.refractCache,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -277,7 +292,14 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       // applying semantics to a referenced element
       if (isPrimitiveElement(referencedElement)) {
-        referencedElement = PathItemElement.refract(referencedElement);
+        const cacheKey = `pathItem-${toValue(identityManager.identify(referencedElement))}`;
+
+        if (this.refractCache.has(cacheKey)) {
+          referencedElement = this.refractCache.get(cacheKey);
+        } else {
+          referencedElement = PathItemElement.refract(referencedElement);
+          this.refractCache.set(cacheKey, referencedElement);
+        }
       }
 
       // detect direct or indirect reference
@@ -302,6 +324,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
         indirections: [...this.indirections],
         options: this.options,
         ancestors: ancestorsLineage,
+        refractCache: this.refractCache,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,

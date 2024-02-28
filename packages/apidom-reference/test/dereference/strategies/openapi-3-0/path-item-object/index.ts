@@ -2,6 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
@@ -111,6 +112,24 @@ describe('dereference', function () {
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
               assert.deepEqual(toValue(actual), expected);
+            });
+          });
+
+          context('given $ref field pointing to external cycles', function () {
+            const fixturePath = path.join(rootFixturePath, 'external-cycle');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const parent = evaluate('/0/paths/~1path1/get', dereferenced);
+              const cyclicParent = evaluate(
+                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}/get',
+                dereferenced,
+              );
+
+              assert.strictEqual(parent, cyclicParent);
             });
           });
 

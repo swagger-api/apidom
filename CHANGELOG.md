@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
+
+### Bug Fixes
+
+- **core:** assign unique ID to elements only when missing ([#3841](https://github.com/swagger-api/apidom/issues/3841)) ([89af0a9](https://github.com/swagger-api/apidom/commit/89af0a95c1675706c1b8aec6f67a656f5d85f96b)), closes [#3840](https://github.com/swagger-api/apidom/issues/3840)
+- **core:** retain meta & attributes during refracting ([#3843](https://github.com/swagger-api/apidom/issues/3843)) ([a7aac32](https://github.com/swagger-api/apidom/commit/a7aac3217730cb058370f906c2d8cc333c8111ee)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-ads:** retain meta & attributes during refracting ([#3857](https://github.com/swagger-api/apidom/issues/3857)) ([333550e](https://github.com/swagger-api/apidom/commit/333550ea0e77d4bf363938902b2646ead56e332a)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-asyncapi-2:** retain meta & attributes during refracting ([#3858](https://github.com/swagger-api/apidom/issues/3858)) ([e3b1848](https://github.com/swagger-api/apidom/commit/e3b1848afe1c6c34568e692731e0a9633ba53368)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-json-schema:** retain meta & attributes during refracting ([#3862](https://github.com/swagger-api/apidom/issues/3862)) ([99c3eb8](https://github.com/swagger-api/apidom/commit/99c3eb813e41bb47b059545052363f8e6018123c)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-openapi-2:** retain meta & attributes during refracting ([#3844](https://github.com/swagger-api/apidom/issues/3844)) ([b243110](https://github.com/swagger-api/apidom/commit/b2431100adc7f8179a9ca0859ca757d8c7edc9e1)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-openapi-3-0:** retain meta & attributes during refracting ([#3859](https://github.com/swagger-api/apidom/issues/3859)) ([abefa88](https://github.com/swagger-api/apidom/commit/abefa884a0615479205c42fc81277b630dbaa02a)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-openapi-3-1:** retain meta & attributes during refracting ([#3861](https://github.com/swagger-api/apidom/issues/3861)) ([e960a76](https://github.com/swagger-api/apidom/commit/e960a7676d314885ab1758ac1a9e861664eb6de6)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-workflows-1:** retain meta & attributes during refracting ([#3860](https://github.com/swagger-api/apidom/issues/3860)) ([7e40336](https://github.com/swagger-api/apidom/commit/7e40336d31215bb8d9a62a84ff533a24548a5e6d)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **playground:** fix bug related to instantiating parser ([#3851](https://github.com/swagger-api/apidom/issues/3851)) ([9b23628](https://github.com/swagger-api/apidom/commit/9b23628d20dda075cb844d5eca0f1d63018de70b))
+- **reference:** add support for external cycles detection in AsyncAPI 2.x dereference strategy ([#3872](https://github.com/swagger-api/apidom/issues/3872)) ([910a974](https://github.com/swagger-api/apidom/commit/910a974acbfdb0e4dac28a4811304b17ae02754a)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 2.0 dereference strategy ([#3871](https://github.com/swagger-api/apidom/issues/3871)) ([5a2141d](https://github.com/swagger-api/apidom/commit/5a2141d230a6cda5b1cfddb0092799fdcd234219)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 3.0.x dereference strategy ([#3870](https://github.com/swagger-api/apidom/issues/3870)) ([0735471](https://github.com/swagger-api/apidom/commit/0735471a144303950bdb74ea1a7bba90145838ed)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 3.1.0 dereference strategy ([#3873](https://github.com/swagger-api/apidom/issues/3873)) ([9cd15ff](https://github.com/swagger-api/apidom/commit/9cd15ff864718f5687f71ef6e1f4dbf61e3c855b)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+
+### Features
+
+- **apidom-converter:** add infoSummaryRefractorPlugin ([#3848](https://github.com/swagger-api/apidom/issues/3848)) ([1f0a39c](https://github.com/swagger-api/apidom/commit/1f0a39c598aac3b33aee2fd12aa7cee3ff1e5ecf)), closes [#3697](https://github.com/swagger-api/apidom/issues/3697)
+- **apidom-converter:** add licenseIdentifierRefractorPlugin ([#3854](https://github.com/swagger-api/apidom/issues/3854)) ([b28cafb](https://github.com/swagger-api/apidom/commit/b28cafbff337e65c1a51effa0be3d15c0ce1a663)), closes [#3697](https://github.com/swagger-api/apidom/issues/3697)
+- **apidom-converter:** add securitySchemeTypeRefractorPlugin ([#3802](https://github.com/swagger-api/apidom/issues/3802)) ([2666194](https://github.com/swagger-api/apidom/commit/26661948278b73e7870f37ba12fc350718ed6a09))
+- **converter:** add convenient toolbox utils ([#3816](https://github.com/swagger-api/apidom/issues/3816)) ([ec8fa05](https://github.com/swagger-api/apidom/commit/ec8fa05e1597a53057bf38fc699c498bb8522d71))
+- **converter:** add securityRequirementsArrayRefractorPlugin ([88b9451](https://github.com/swagger-api/apidom/commit/88b9451ec4f3da738cc9ab5f7de203bcac144f54))
+- **core:** add mechanism for left shallow merge ([#3849](https://github.com/swagger-api/apidom/issues/3849)) ([3334c6b](https://github.com/swagger-api/apidom/commit/3334c6bd200adedf84c8215bb263ab9009b1d1de)), closes [#3845](https://github.com/swagger-api/apidom/issues/3845)
+- **core:** add mechanism for right shallow merge ([#3846](https://github.com/swagger-api/apidom/issues/3846)) ([2059f28](https://github.com/swagger-api/apidom/commit/2059f28b810c70159d6fa4ddec1115cb38fa330b)), closes [#3845](https://github.com/swagger-api/apidom/issues/3845)
+- **core:** customize meta & attributes merges for deepmerge function ([#3855](https://github.com/swagger-api/apidom/issues/3855)) ([1e94924](https://github.com/swagger-api/apidom/commit/1e94924ab474f4ce4773239f9a9b175d129602f0)), closes [#3853](https://github.com/swagger-api/apidom/issues/3853)
+- **ns-openapi-3-0:** add Security Schema Object predicate ([#3810](https://github.com/swagger-api/apidom/issues/3810)) ([9b09658](https://github.com/swagger-api/apidom/commit/9b09658baab5339bea68dc87ef6d0736af1030e1))
+- **ns-openapi-3-0:** include hasElementSourceMap in toolbox ([#3815](https://github.com/swagger-api/apidom/issues/3815)) ([e103eb4](https://github.com/swagger-api/apidom/commit/e103eb4dfb4313156d8fce83f637d4965942f348))
+- **ns-openapi-3-1:** add Security Schema Object predicate ([#3811](https://github.com/swagger-api/apidom/issues/3811)) ([bf6702a](https://github.com/swagger-api/apidom/commit/bf6702a1b5272f94d4ac5e5c6fbdc4f4b2de0620))
+- **ns-openapi-3-1:** include hasElementSourceMap in toolbox ([#3814](https://github.com/swagger-api/apidom/issues/3814)) ([3979541](https://github.com/swagger-api/apidom/commit/397954154c962e5db40147c810851a9c1dd3b184))
+
 # [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
 
 ### Bug Fixes

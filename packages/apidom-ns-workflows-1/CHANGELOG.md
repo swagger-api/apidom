@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
+
+### Bug Fixes
+
+- **ns-json-schema:** retain meta & attributes during refracting ([#3862](https://github.com/swagger-api/apidom/issues/3862)) ([99c3eb8](https://github.com/swagger-api/apidom/commit/99c3eb813e41bb47b059545052363f8e6018123c)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-workflows-1:** retain meta & attributes during refracting ([#3860](https://github.com/swagger-api/apidom/issues/3860)) ([7e40336](https://github.com/swagger-api/apidom/commit/7e40336d31215bb8d9a62a84ff533a24548a5e6d)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+
 # [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
 
 ### Bug Fixes

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
+
+### Bug Fixes
+
+- **ns-openapi-3-0:** retain meta & attributes during refracting ([#3859](https://github.com/swagger-api/apidom/issues/3859)) ([abefa88](https://github.com/swagger-api/apidom/commit/abefa884a0615479205c42fc81277b630dbaa02a)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **ns-openapi-3-1:** retain meta & attributes during refracting ([#3861](https://github.com/swagger-api/apidom/issues/3861)) ([e960a76](https://github.com/swagger-api/apidom/commit/e960a7676d314885ab1758ac1a9e861664eb6de6)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+
+### Features
+
+- **converter:** add convenient toolbox utils ([#3816](https://github.com/swagger-api/apidom/issues/3816)) ([ec8fa05](https://github.com/swagger-api/apidom/commit/ec8fa05e1597a53057bf38fc699c498bb8522d71))
+- **ns-openapi-3-1:** add Security Schema Object predicate ([#3811](https://github.com/swagger-api/apidom/issues/3811)) ([bf6702a](https://github.com/swagger-api/apidom/commit/bf6702a1b5272f94d4ac5e5c6fbdc4f4b2de0620))
+- **ns-openapi-3-1:** include hasElementSourceMap in toolbox ([#3814](https://github.com/swagger-api/apidom/issues/3814)) ([3979541](https://github.com/swagger-api/apidom/commit/397954154c962e5db40147c810851a9c1dd3b184))
+
 # [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
 
 ### Bug Fixes

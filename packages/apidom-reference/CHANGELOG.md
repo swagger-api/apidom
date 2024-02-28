@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
+
+### Bug Fixes
+
+- **reference:** add support for external cycles detection in AsyncAPI 2.x dereference strategy ([#3872](https://github.com/swagger-api/apidom/issues/3872)) ([910a974](https://github.com/swagger-api/apidom/commit/910a974acbfdb0e4dac28a4811304b17ae02754a)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 2.0 dereference strategy ([#3871](https://github.com/swagger-api/apidom/issues/3871)) ([5a2141d](https://github.com/swagger-api/apidom/commit/5a2141d230a6cda5b1cfddb0092799fdcd234219)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 3.0.x dereference strategy ([#3870](https://github.com/swagger-api/apidom/issues/3870)) ([0735471](https://github.com/swagger-api/apidom/commit/0735471a144303950bdb74ea1a7bba90145838ed)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+- **reference:** add support for external cycles detection in OpenAPI 3.1.0 dereference strategy ([#3873](https://github.com/swagger-api/apidom/issues/3873)) ([9cd15ff](https://github.com/swagger-api/apidom/commit/9cd15ff864718f5687f71ef6e1f4dbf61e3c855b)), closes [#3863](https://github.com/swagger-api/apidom/issues/3863)
+
 # [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

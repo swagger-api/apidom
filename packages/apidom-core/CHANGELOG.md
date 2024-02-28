@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
+
+### Bug Fixes
+
+- **core:** assign unique ID to elements only when missing ([#3841](https://github.com/swagger-api/apidom/issues/3841)) ([89af0a9](https://github.com/swagger-api/apidom/commit/89af0a95c1675706c1b8aec6f67a656f5d85f96b)), closes [#3840](https://github.com/swagger-api/apidom/issues/3840)
+- **core:** retain meta & attributes during refracting ([#3843](https://github.com/swagger-api/apidom/issues/3843)) ([a7aac32](https://github.com/swagger-api/apidom/commit/a7aac3217730cb058370f906c2d8cc333c8111ee)), closes [#3842](https://github.com/swagger-api/apidom/issues/3842)
+- **playground:** fix bug related to instantiating parser ([#3851](https://github.com/swagger-api/apidom/issues/3851)) ([9b23628](https://github.com/swagger-api/apidom/commit/9b23628d20dda075cb844d5eca0f1d63018de70b))
+
+### Features
+
+- **core:** add mechanism for left shallow merge ([#3849](https://github.com/swagger-api/apidom/issues/3849)) ([3334c6b](https://github.com/swagger-api/apidom/commit/3334c6bd200adedf84c8215bb263ab9009b1d1de)), closes [#3845](https://github.com/swagger-api/apidom/issues/3845)
+- **core:** add mechanism for right shallow merge ([#3846](https://github.com/swagger-api/apidom/issues/3846)) ([2059f28](https://github.com/swagger-api/apidom/commit/2059f28b810c70159d6fa4ddec1115cb38fa330b)), closes [#3845](https://github.com/swagger-api/apidom/issues/3845)
+- **core:** customize meta & attributes merges for deepmerge function ([#3855](https://github.com/swagger-api/apidom/issues/3855)) ([1e94924](https://github.com/swagger-api/apidom/commit/1e94924ab474f4ce4773239f9a9b175d129602f0)), closes [#3853](https://github.com/swagger-api/apidom/issues/3853)
+
 # [0.95.0](https://github.com/swagger-api/apidom/compare/v0.94.0...v0.95.0) (2024-02-09)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

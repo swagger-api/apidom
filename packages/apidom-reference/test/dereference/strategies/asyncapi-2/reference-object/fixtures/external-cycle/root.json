@@ -1,0 +1,10 @@
+{
+  "asyncapi": "2.6.0",
+  "components": {
+    "schemas": {
+      "externalSchema": {
+        "$ref": "./ex.json"
+      }
+    }
+  }
+}

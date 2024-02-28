@@ -90,6 +90,27 @@ describe('dereference', function () {
           });
         });
 
+        context('given Reference Objects pointing to external cycles', function () {
+          const fixturePath = path.join(rootFixturePath, 'external-cycle');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate(
+              '/0/components/schemas/externalSchema/properties',
+              dereferenced,
+            );
+            const cyclicParent = evaluate(
+              '/0/components/schemas/externalSchema/properties/parent/properties',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+        });
+
         context('given Reference Objects pointing to external indirections', function () {
           const fixturePath = path.join(rootFixturePath, 'external-indirections');
 

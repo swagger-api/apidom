@@ -1,0 +1,13 @@
+{
+  "summary": "path item summary",
+  "description": "path item description",
+  "get": {
+    "callbacks": {
+      "myCallback": {
+        "{$request.query.queryUrl}": {
+          "$ref": "#"
+        }
+      }
+    }
+  }
+}

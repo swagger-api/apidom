@@ -418,7 +418,14 @@ const OpenApi3_0DereferenceVisitor = stampit({
         operationElement = evaluate(jsonPointer, reference.value.result);
         // applying semantics to a referenced element
         if (isPrimitiveElement(operationElement)) {
-          operationElement = OperationElement.refract(operationElement);
+          const cacheKey = `operation-${toValue(identityManager.identify(operationElement))}`;
+
+          if (this.refractCache.has(cacheKey)) {
+            operationElement = this.refractCache.get(cacheKey);
+          } else {
+            operationElement = OperationElement.refract(operationElement);
+            this.refractCache.set(cacheKey, operationElement);
+          }
         }
         // create shallow clone to be able to annotate with metadata
         operationElement = cloneShallow(operationElement);

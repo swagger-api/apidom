@@ -1,0 +1,10 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+       "externalSchema": {
+        "$ref": "./ex.json"
+      }
+    }
+  }
+}

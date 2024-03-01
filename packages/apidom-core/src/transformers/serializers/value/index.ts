@@ -7,6 +7,8 @@ import {
   ObjectElement,
   MemberElement,
   NullElement,
+  RefElement,
+  LinkElement,
 } from 'minim';
 
 import { visit } from './visitor';
@@ -82,9 +84,21 @@ class Visitor {
   public NullElement() {
     return null;
   }
+
+  public RefElement(element: RefElement): unknown {
+    return element.toValue();
+  }
+
+  public LinkElement(element: LinkElement): string {
+    if (isStringElement(element.href)) {
+      return element.href.toValue();
+    }
+    return '';
+  }
 }
 
 type ShortCutElementTypes = StringElement | NumberElement | BooleanElement | NullElement;
+
 const serializer = <T extends Element | unknown>(element: T): any => {
   if (!isElement(element)) return element;
 

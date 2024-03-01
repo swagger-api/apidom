@@ -1,11 +1,14 @@
 import { assert } from 'chai';
+import sinon from 'sinon';
 
 import {
   ObjectElement,
   ArrayElement,
   StringElement,
-  visit,
   MemberElement,
+  RefElement,
+  LinkElement,
+  visit,
   toValue,
 } from '../../src';
 
@@ -91,6 +94,36 @@ describe('traversal', function () {
       const newArrayElement = visit(arrayElement, visitor);
 
       assert.deepEqual(toValue(newArrayElement), [1]);
+    });
+
+    context('given RefElement', function () {
+      specify('should call RefElement visitor hook', function () {
+        const objectElement = new ObjectElement({
+          ref: new RefElement('id'),
+        });
+        const visitor = {
+          RefElement: sinon.spy(),
+        };
+
+        visit(objectElement, visitor);
+
+        assert.isTrue(visitor.RefElement.calledOnce);
+      });
+    });
+
+    context('given LinkElement', function () {
+      specify('should call LinkElement visitor hook', function () {
+        const objectElement = new ObjectElement({
+          ref: new LinkElement(),
+        });
+        const visitor = {
+          LinkElement: sinon.spy(),
+        };
+
+        visit(objectElement, visitor);
+
+        assert.isTrue(visitor.LinkElement.calledOnce);
+      });
     });
   });
 });

@@ -169,23 +169,23 @@ declare module 'minim' {
   }
 
   export class LinkElement extends Element {
-    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content?: unknown, meta?: Meta, attributes?: Attributes);
 
-    get relation(): unknown;
+    get relation(): string;
 
-    set relation(relation: unknown);
+    set relation(relation: string);
 
-    get href(): unknown;
+    get href(): string;
 
-    set href(key: unknown);
+    set href(key: string);
   }
 
   export class RefElement extends Element {
-    constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes);
+    constructor(content?: unknown, meta?: Meta, attributes?: Attributes);
 
-    get path(): unknown;
+    get path(): string;
 
-    set path(path: unknown);
+    set path(path: string);
   }
 
   export class ArraySlice {

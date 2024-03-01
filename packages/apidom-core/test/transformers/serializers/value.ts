@@ -7,6 +7,8 @@ import {
   NullElement,
   ObjectElement,
   ArrayElement,
+  RefElement,
+  LinkElement,
 } from '../../../src';
 import serializer from '../../../src/transformers/serializers/value';
 
@@ -131,6 +133,46 @@ describe('serializers', function () {
         const serialized = serializer(object);
 
         assert.deepEqual(serialized, { a: undefined });
+      });
+    });
+
+    context('given RefElement', function () {
+      specify('should serialize to JavaScript value', function () {
+        const ref = new RefElement('id');
+        const serialized = serializer(ref);
+
+        assert.strictEqual(serialized, 'id');
+      });
+
+      context('and nested inside ObjectElement', function () {
+        specify('should serialize to JavaScript value', function () {
+          const object = new ObjectElement({
+            ref: new RefElement('id'),
+          });
+          const serialized = serializer(object);
+
+          assert.deepEqual(serialized, { ref: 'id' });
+        });
+      });
+    });
+
+    context('given LinkElement', function () {
+      specify('should serialize to JavaScript value', function () {
+        const ref = new LinkElement();
+        const serialized = serializer(ref);
+
+        assert.strictEqual(serialized, '');
+      });
+
+      context('and nested inside ObjectElement', function () {
+        specify('should serialize to JavaScript value', function () {
+          const object = new ObjectElement({
+            link: new LinkElement(undefined, undefined, { relation: 'foo', href: '/bar' }),
+          });
+          const serialized = serializer(object);
+
+          assert.deepEqual(serialized, { link: '/bar' });
+        });
       });
     });
 

@@ -80,7 +80,7 @@ const defaultOptions: IReferenceOptions = {
      */
     refSet: null,
     /**
-     * These options are merged with resolver plugin instance before the plugin is run.
+     * These options are merged with derecrence strategy plugin instance before the plugin is run.
      */
     dereferenceOpts: {},
     /**

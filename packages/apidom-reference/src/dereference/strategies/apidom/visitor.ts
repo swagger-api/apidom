@@ -90,8 +90,6 @@ const ApiDOMDereferenceVisitor = stampit({
       const retrievalURI = this.toBaseURI(refNormalizedURI);
       const isExternal = url.stripHash(this.reference.uri) !== retrievalURI;
 
-      console.dir(`RefURI: ${refURI}`);
-
       // ignore resolving external Ref Objects
       if (!this.options.resolve.external && isExternal) {
         // skip traversing this ref element

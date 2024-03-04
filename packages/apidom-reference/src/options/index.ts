@@ -80,6 +80,10 @@ const defaultOptions: IReferenceOptions = {
      */
     refSet: null,
     /**
+     * These options are merged with derecrence strategy plugin instance before the plugin is run.
+     */
+    dereferenceOpts: {},
+    /**
      * Determines the maximum depth of dereferencing.
      * By default, there is no limit.
      *

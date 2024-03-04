@@ -34,6 +34,7 @@ export { default as BundleError } from './errors/BundleError';
 export { default as MaximumBundleDepthError } from './errors/MaximumBundleDepthError';
 export { default as UnmatchedBundleStrategyError } from './errors/UnmatchedBundleStrategyError';
 export { default as DereferenceError } from './errors/DereferenceError';
+export { default as EvaluationElementIdError } from './errors/EvaluationElementIdError';
 export { default as EvaluationJsonSchema$anchorError } from './errors/EvaluationJsonSchema$anchorError';
 export { default as EvaluationJsonSchemaUriError } from './errors/EvaluationJsonSchemaUriError';
 export { default as InvalidJsonSchema$anchorError } from './errors/InvalidJsonSchema$anchorError';

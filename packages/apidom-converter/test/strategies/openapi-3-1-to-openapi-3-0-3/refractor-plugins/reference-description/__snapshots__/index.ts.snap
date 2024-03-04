@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 reference-description should remove Reference.description field 1`] = `
+{
+  "openapi": "3.0.3",
+  "paths": {
+    "/path": {
+      "get": {
+        "responses": {
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "default": {
+        "description": "first response object"
+      }
+    }
+  }
+}
+`;

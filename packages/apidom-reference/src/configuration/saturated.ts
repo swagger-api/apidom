@@ -4,6 +4,7 @@ import OpenApi2ResolveStrategy from '../resolve/strategies/openapi-2';
 import OpenApi3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
 import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
+import ApiDOMResolveStrategy from '../resolve/strategies/apidom';
 import ApiDesignSystemsJsonParser from '../parse/parsers/api-design-systems-json';
 import ApiDesignSystemsYamlParser from '../parse/parsers/api-design-systems-yaml';
 import OpenApiJson2Parser from '../parse/parsers/openapi-json-2';
@@ -55,6 +56,7 @@ options.resolve.strategies = [
   OpenApi3_0ResolveStrategy(),
   OpenApi3_1ResolveStrategy(),
   AsyncApi2ResolveStrategy(),
+  ApiDOMResolveStrategy(),
 ];
 
 options.dereference.strategies = [

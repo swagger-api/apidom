@@ -1047,6 +1047,18 @@ Every Reference object represents single external dependency.
 External resolution strategy determines how a document is externally resolved. Depending on document `mediaType`
 every strategy differs significantly. Resolve component comes with two (2) default external resolution strategies.
 
+##### [apidom](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/apidom)
+
+External resolution strategy for understanding and resolving remote elements referenced with [Ref Element](https://apielements.org/en/latest/element-definitions.html?highlight=referencing#ref-element).
+
+Supported media types:
+
+```js
+[
+  'application/vnd.apidom'
+]
+```
+
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
 External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
@@ -1551,6 +1563,36 @@ await dereference('/home/user/oas.json', {
   }
 });
 ```
+
+##### Dereference strategy plugin options
+
+Some dereference strategy plugins accept additional options. It's possible to **change** strategy plugin
+**options globally** by mutating global `dereference` options:
+
+```js
+import { options, readFile } from '@swagger-api/apidom-reference';
+
+options.dereference.strategyOpts = {
+  apidom: { clone: true },
+};
+
+await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
+```
+
+To **change** the dereference strategy plugins **options** on ad-hoc basis:
+
+```js
+import { readFile } from '@swagger-api/apidom-reference';
+
+await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  dereference: {
+    strategyOpts: {
+      apdom: { clone: 10000 },
+    },
+  },
+});
+```
+
 ##### Creating new dereference strategy
 
 Dereference component can be extended by additional strategies. Every strategy is an object that

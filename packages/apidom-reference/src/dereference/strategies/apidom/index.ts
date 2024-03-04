@@ -43,8 +43,8 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
 
         // clone reference set due the dereferencing process being mutable
         if (
-          typeof options.dereference.dereferenceOpts.apidom?.clone === 'undefined' ||
-          options.dereference.dereferenceOpts.apidom?.clone
+          typeof options.dereference.strategyOpts.apidom?.clone === 'undefined' ||
+          options.dereference.strategyOpts.apidom?.clone
         ) {
           const refsCopy = [...refSet.refs].map((ref) => {
             return Reference({ ...ref, value: cloneDeep(ref.value) });

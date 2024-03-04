@@ -118,7 +118,7 @@ describe('dereference', function () {
               });
               const actual = await dereferenceApiDOM(element, {
                 parse: { mediaType: 'application/vnd.apidom' },
-                dereference: { dereferenceOpts: { apidom: { clone: true } } },
+                dereference: { strategyOpts: { apidom: { clone: true } } },
               });
 
               assert.isTrue(isRefElement(element.get('ref')));
@@ -133,7 +133,7 @@ describe('dereference', function () {
             });
             const actual = await dereferenceApiDOM(element, {
               parse: { mediaType: 'application/vnd.apidom' },
-              dereference: { dereferenceOpts: { apidom: { clone: true } } },
+              dereference: { strategyOpts: { apidom: { clone: true } } },
             });
 
             assert.isTrue(isRefElement(element.get('ref')));
@@ -147,7 +147,7 @@ describe('dereference', function () {
             });
             const actual = await dereferenceApiDOM(element, {
               parse: { mediaType: 'application/vnd.apidom' },
-              dereference: { dereferenceOpts: { apidom: { clone: false } } },
+              dereference: { strategyOpts: { apidom: { clone: false } } },
             });
 
             assert.isFalse(isRefElement(element.get('ref')));

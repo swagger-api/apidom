@@ -74,15 +74,15 @@ const defaultOptions: IReferenceOptions = {
      */
     strategies: [],
     /**
+     * These options are merged with derecrence strategy plugin instance before the plugin is run.
+     */
+    strategyOpts: {},
+    /**
      * This option accepts an instance of pre-computed ReferenceSet.
      * If provided it will speed up the dereferencing significantly as the external
      * resolution doesn't need to happen anymore.
      */
     refSet: null,
-    /**
-     * These options are merged with derecrence strategy plugin instance before the plugin is run.
-     */
-    dereferenceOpts: {},
     /**
      * Determines the maximum depth of dereferencing.
      * By default, there is no limit.

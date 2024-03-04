@@ -1388,6 +1388,20 @@ const dereferenced = await dereferenceApiDOM(apidom, {
 Dereference strategy determines how a document is internally or externally dereferenced. Depending on document `mediaType` option,
 every strategy differs significantly. `Dereference component` comes with four (4) default dereference strategies.
 
+#### [apidom](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/apidom)
+
+Dereference strategy for dereferencing ApiDOM using [Ref Element](https://apielements.org/en/latest/element-definitions.html?highlight=referencing#ref-element).
+Ref Element MAY be used to reference elements in remote documents or elements in the local document.
+The ref element transcludes the contents of the element into the document in which it is referenced.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.apidom'
+]
+```
+
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/asyncapi-2)
 
 Dereference strategy for dereferencing [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
@@ -1487,6 +1501,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
+  ApiDOMDereferenceStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1495,16 +1510,18 @@ It's possible to **change** strategies **order globally** by mutating global `de
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
-import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2'
-import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
-import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
+import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
+import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
+import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
+import ApiDOMDereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/apidom';
 
 options.dereference.strategies = [
   OpenApi2DereferenceStrategy(),
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
+  ApiDOMDereferenceStrategy(),
 ];
 ```
 
@@ -1512,10 +1529,12 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
-import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2'
-import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2'
-import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0'
-import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1'
+import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
+import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
+import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
+import ApiDOMDereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/apidom';
+
 
 await dereference('/home/user/oas.json', {
   parse: {
@@ -1527,6 +1546,7 @@ await dereference('/home/user/oas.json', {
       OpenApi2DereferenceStrategy(),
       OpenApi3_0DereferenceStrategy(),
       OpenApi3_1DereferenceStrategy(),
+      ApiDOMDereferenceStrategy(),
     ]
   }
 });

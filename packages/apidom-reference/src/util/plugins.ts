@@ -29,7 +29,6 @@ export const run = async (method: string, parameters: any[], plugins: any[]): Pr
 
   for (const plugin of plugins) {
     try {
-      // @ts-ignore
       const result = await plugin[method].call(plugin, ...parameters); // eslint-disable-line no-await-in-loop
       return { plugin, result };
     } catch (error: any) {

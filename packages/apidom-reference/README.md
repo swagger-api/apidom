@@ -101,6 +101,20 @@ so providing it is always a better option.
 
 Parse component comes with number of default parser plugins.
 
+#### [apidom-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/apidom-json)
+
+Parses dehydrated ApiDOM structure and hydrates it.
+This parser plugin is uniquely identified by `apidom-json` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.apidom',
+  'application/vnd.apidom+json',
+]
+```
+
 #### [openapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-2)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-json-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-2) package
@@ -361,7 +375,6 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
   OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
   AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
@@ -370,6 +383,7 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
+  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -391,6 +405,7 @@ import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asy
 import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
 import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
 import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ApiDOMJsonParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
@@ -411,6 +426,7 @@ options.parse.parsers = [
   WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
+  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
@@ -431,6 +447,7 @@ import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asy
 import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
 import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
 import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ApiDOMJsonParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
@@ -443,18 +460,19 @@ await parse('/home/user/oas.json', {
     parsers: [
       OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
       OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
+      OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
       AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
       WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
       WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
       ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
       ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
-      YamlParser({ allowEmpty: true, sourceMap: false }),
+      ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
       JsonParser({ allowEmpty: true, sourceMap: false }),
+      YamlParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),
     ],
   },

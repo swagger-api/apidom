@@ -1,0 +1,12 @@
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": { "element": "string", "content": "a" },
+        "value": { "element": "string", "content": "b" }
+      }
+    }
+  ]
+}

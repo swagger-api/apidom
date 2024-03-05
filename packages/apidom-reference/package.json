@@ -103,6 +103,11 @@
       "require": "./cjs/parse/parsers/workflows-yaml-1/index.cjs",
       "types": "./types/parse/parsers/workflows-yaml-1/index.d.ts"
     },
+    "./parse/parsers/apidom-json": {
+      "import": "./es/parse/parsers/apidom-json/index.mjs",
+      "require": "./cjs/parse/parsers/apidom-json/index.cjs",
+      "types": "./types/parse/parsers/apidom-json/index.d.ts"
+    },
     "./parse/parsers/binary": {
       "browser": {
         "import": "./es/parse/parsers/binary/index-browser.mjs",

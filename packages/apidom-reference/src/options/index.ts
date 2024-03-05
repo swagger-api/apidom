@@ -46,6 +46,10 @@ const defaultOptions: IReferenceOptions = {
      */
     strategies: [],
     /**
+     * These options are available in resolver strategy `canResolve` and `resolve` methods.
+     */
+    strategyOpts: {},
+    /**
      * Determines whether external references will be resolved.
      * If this option is disabled, then none of above resolvers will be called.
      * Instead, external references will simply be ignored.
@@ -74,7 +78,7 @@ const defaultOptions: IReferenceOptions = {
      */
     strategies: [],
     /**
-     * These options are merged with derecrence strategy plugin instance before the plugin is run.
+     * These options are available in dereference strategy `canDereference` and `dereference` methods.
      */
     strategyOpts: {},
     /**

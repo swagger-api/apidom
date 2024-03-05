@@ -86,7 +86,7 @@ const ApiDOMDereferenceVisitor = stampit({
 
     async RefElement(refElement: RefElement, key: any, parent: any, path: any, ancestors: any[]) {
       const refURI = toValue(refElement);
-      const refNormalizedURI = url.isURI(refURI) ? refURI : `#${refURI}`;
+      const refNormalizedURI = refURI.includes('#') ? refURI : `#${refURI}`;
       const retrievalURI = this.toBaseURI(refNormalizedURI);
       const isExternal = url.stripHash(this.reference.uri) !== retrievalURI;
 

@@ -1073,7 +1073,8 @@ Supported media types:
 
 ```js
 [
-  'application/vnd.apidom'
+  'application/vnd.apidom',
+  'application/vnd.apidom+json'
 ]
 ```
 
@@ -1428,7 +1429,8 @@ Supported media types:
 
 ```js
 [
-  'application/vnd.apidom'
+  'application/vnd.apidom',
+  'application/vnd.apidom+json',
 ]
 ```
 

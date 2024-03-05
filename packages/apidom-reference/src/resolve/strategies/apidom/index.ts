@@ -1,5 +1,5 @@
 import stampit from 'stampit';
-import { isElement, visit } from '@swagger-api/apidom-core';
+import { isElement, visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
@@ -26,7 +26,10 @@ const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveSt
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const reference = Reference({ uri: file.uri, value: file.parseResult });
+      const referenceValue = options.resolve.strategyOpts.apidom?.clone
+        ? cloneDeep(file.parseResult)
+        : file.parseResult;
+      const reference = Reference({ uri: file.uri, value: referenceValue });
       const visitor = ApiDOMResolveVisitor({ reference, options });
       const refSet = ReferenceSet();
       refSet.add(reference);

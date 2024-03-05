@@ -42,7 +42,7 @@ export const dereferenceApiDOM = async <T extends Element>(
 
   const dereferenceStrategies = await plugins.filter(
     'canDereference',
-    file,
+    [file, options],
     options.dereference.strategies,
   );
 

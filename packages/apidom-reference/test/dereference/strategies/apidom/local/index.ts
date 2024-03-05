@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { assert } from 'chai';
 import {
   ObjectElement,
@@ -8,12 +9,35 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { dereferenceApiDOM, DereferenceError } from '../../../../../src';
+import { dereference, dereferenceApiDOM, DereferenceError } from '../../../../../src';
 
 describe('dereference', function () {
   context('strategies', function () {
     context('apidom', function () {
       context('local', function () {
+        context('given JSON in a file', function () {
+          specify('should dereference', async function () {
+            // NOTE: there are no RefElements as a plain JSON file cannot represent them
+            const uri = path.join(__dirname, 'fixtures', 'object.json');
+            const dereferenced = await dereference(uri, {
+              parse: { mediaType: 'application/vnd.apidom' },
+            });
+
+            assert.deepEqual(toValue(dereferenced), [{ a: 'b' }]);
+          });
+        });
+
+        context('given dehydrated ApiDOM in a file', async function () {
+          specify('should dereference', async function () {
+            const uri = path.join(__dirname, 'fixtures', 'apidom.json');
+            const dereferenced = await dereference(uri, {
+              parse: { mediaType: 'application/vnd.apidom' },
+            });
+
+            assert.deepEqual(toValue(dereferenced), [{ element: 'b', ref: 'b' }]);
+          });
+        });
+
         context(
           'given the RefElement is held by an ArrayElement and references an ArrayElement',
           function () {

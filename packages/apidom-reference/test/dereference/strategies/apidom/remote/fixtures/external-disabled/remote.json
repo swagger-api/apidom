@@ -1,0 +1,24 @@
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "element"
+        },
+        "value": {
+          "element": "string",
+          "meta": {
+            "id": {
+              "element": "string",
+              "content": "remote-id"
+            }
+          },
+          "content": "remote-string-value"
+        }
+      }
+    }
+  ]
+}

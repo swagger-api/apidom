@@ -1,6 +1,5 @@
 import { invokeArgs } from 'ramda-adjunct';
 
-import { File as IFile } from '../types';
 import PluginError from '../errors/PluginError';
 
 /**
@@ -8,10 +7,10 @@ import PluginError from '../errors/PluginError';
  */
 export const filter = async (
   method: string,
-  file: IFile,
+  parameters: any[],
   plugins: Array<any>,
 ): Promise<Array<any>> => {
-  const pluginResults = await Promise.all(plugins.map(invokeArgs([method], [file])));
+  const pluginResults = await Promise.all(plugins.map(invokeArgs([method], parameters)));
   return plugins.filter((plugin, index) => pluginResults[index]);
 };
 

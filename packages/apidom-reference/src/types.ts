@@ -98,6 +98,7 @@ export interface ReferenceResolveOptions {
 export interface ReferenceDereferenceOptions {
   strategies: Array<DereferenceStrategy>;
   refSet: null | ReferenceSet;
+  dereferenceOpts: Record<string, any>;
   maxDepth: number;
 }
 

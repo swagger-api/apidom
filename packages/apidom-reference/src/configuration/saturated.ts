@@ -19,6 +19,7 @@ import WorkflowsYaml1Parser from '../parse/parsers/workflows-yaml-1';
 import JsonParser from '../parse/parsers/json';
 import YamlParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
+import ApiDOMDereferenceStrategy from '../dereference/strategies/apidom';
 import OpenApi2DereferenceStrategy from '../dereference/strategies/openapi-2';
 import OpenApi3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
 import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
@@ -61,6 +62,7 @@ options.dereference.strategies = [
   OpenApi3_0DereferenceStrategy(),
   OpenApi3_1DereferenceStrategy(),
   AsyncApi2DereferenceStrategy(),
+  ApiDOMDereferenceStrategy(),
 ];
 
 options.bundle.strategies = [OpenApi3_1BundleStrategy()];

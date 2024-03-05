@@ -45,6 +45,8 @@ declare module 'minim' {
     clone(): Element;
 
     primitive(): string | undefined;
+
+    [key: string]: unknown;
   }
 
   interface Type<T> extends Element {

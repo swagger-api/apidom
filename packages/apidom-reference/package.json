@@ -155,6 +155,16 @@
       "require": "./cjs/parse/parsers/yaml-1-2/index.cjs",
       "types": "./types/parse/parsers/yaml-1-2/index.d.ts"
     },
+    "./dereference/strategies/apidom": {
+      "import": "./es/dereference/strategies/apidom/index.mjs",
+      "require": "./cjs/dereference/strategies/apidom/index.cjs",
+      "types": "./types/dereference/strategies/apidom/index.d.ts"
+    },
+    "./dereference/strategies/apidom/selectors/element-id": {
+      "import": "./es/dereference/strategies/apidom/selectors/element-id.mjs",
+      "require": "./cjs/dereference/strategies/apidom/selectors/element-id.cjs",
+      "types": "./types/dereference/strategies/apidom/selectors/element-id.d.ts"
+    },
     "./dereference/strategies/asyncapi-2": {
       "import": "./es/dereference/strategies/asyncapi-2/index.mjs",
       "require": "./cjs/dereference/strategies/asyncapi-2/index.cjs",

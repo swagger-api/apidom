@@ -892,6 +892,35 @@ Both of above examples will be using [HttpResolverAxios](https://github.com/swag
 (as we're trying to resolve HTTP(s) URL) and the `timeout` of resolution will increase from **default 3 seconds**
 to 10 seconds.
 
+##### Resolver strategy plugin options
+
+Some resolver strategy plugins accept additional options. It's possible to **change** strategy plugin
+**options globally** by mutating global `resolve` options:
+
+```js
+import { options, resolve } from '@swagger-api/apidom-reference';
+
+options.resolve.strategyOpts = {
+  apidom: { clone: true },
+};
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
+```
+
+To **change** the resolver strategy plugins **options** on ad-hoc basis:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    strategyOpts: {
+      apidom: { clone: true },
+    },
+  },
+});
+```
+
 ##### Creating new resolver plugin
 
 Resolve component can be extended by additional resolver plugins. Every resolver plugin is an object that
@@ -1590,7 +1619,7 @@ Some dereference strategy plugins accept additional options. It's possible to **
 **options globally** by mutating global `dereference` options:
 
 ```js
-import { options, readFile } from '@swagger-api/apidom-reference';
+import { options, dereference } from '@swagger-api/apidom-reference';
 
 options.dereference.strategyOpts = {
   apidom: { clone: true },
@@ -1602,12 +1631,12 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
 To **change** the dereference strategy plugins **options** on ad-hoc basis:
 
 ```js
-import { readFile } from '@swagger-api/apidom-reference';
+import { dereference } from '@swagger-api/apidom-reference';
 
-await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   dereference: {
     strategyOpts: {
-      apdom: { clone: 10000 },
+      apidom: { clone: true },
     },
   },
 });

@@ -16,6 +16,7 @@ import AsyncApiJson2Parser from '../parse/parsers/asyncapi-json-2';
 import AsyncApiYaml2Parser from '../parse/parsers/asyncapi-yaml-2';
 import WorkflowsJson1Parser from '../parse/parsers/workflows-json-1';
 import WorkflowsYaml1Parser from '../parse/parsers/workflows-yaml-1';
+import ApiDOMJsonParser from '../parse/parsers/apidom-json';
 import JsonParser from '../parse/parsers/json';
 import YamlParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
@@ -40,6 +41,7 @@ options.parse.parsers = [
   WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
   ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
+  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
   JsonParser({ allowEmpty: true, sourceMap: false }),
   YamlParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),

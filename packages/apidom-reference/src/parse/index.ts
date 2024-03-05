@@ -18,7 +18,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
     return Object.assign(clonedParser, options.parse.parserOpts);
   });
 
-  const parsers: IParser[] = await plugins.filter('canParse', file, optsBoundParsers);
+  const parsers: IParser[] = await plugins.filter('canParse', [file, options], optsBoundParsers);
 
   // we couldn't find any parser for this File
   if (isEmpty(parsers)) {
@@ -26,7 +26,7 @@ const parseFile = async (file: IFile, options: IReferenceOptions): Promise<Parse
   }
 
   try {
-    const { plugin, result } = await plugins.run('parse', [file], parsers);
+    const { plugin, result } = await plugins.run('parse', [file, options], parsers);
 
     // empty files handling
     if (!plugin.allowEmpty && result.isEmpty) {

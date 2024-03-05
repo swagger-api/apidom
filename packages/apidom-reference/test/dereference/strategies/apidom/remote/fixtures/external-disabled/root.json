@@ -1,0 +1,24 @@
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "ref"
+        },
+        "value": {
+          "element": "ref",
+          "attributes": {
+            "path": {
+              "element": "string",
+              "content": "element"
+            }
+          },
+          "content": "./remote.json#remote-id"
+        }
+      }
+    }
+  ]
+}

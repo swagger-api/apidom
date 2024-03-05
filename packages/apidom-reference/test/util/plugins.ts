@@ -13,7 +13,7 @@ describe('util', function () {
         specify('should find single file resolver plugin', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: '/path/to/file.json' });
-          const suitablePlugins = await filter('canRead', file, resolvers);
+          const suitablePlugins = await filter('canRead', [file], resolvers);
 
           assert.lengthOf(suitablePlugins, 1);
           assert.propertyVal(suitablePlugins[0], 'name', 'file');
@@ -24,7 +24,7 @@ describe('util', function () {
         specify('should find single http resolver plugin', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: 'http://swagger.io/file.json' });
-          const suitablePlugins = await filter('canRead', file, resolvers);
+          const suitablePlugins = await filter('canRead', [file], resolvers);
 
           assert.lengthOf(suitablePlugins, 1);
           assert.propertyVal(suitablePlugins[0], 'name', 'http-axios');
@@ -34,7 +34,7 @@ describe('util', function () {
       context('given no defined plugins', function () {
         specify('should not find any suitable plugin', async function () {
           const file = File({ uri: 'http://swagger.io/file.json' });
-          const suitablePlugins = await filter('canRead', file, []);
+          const suitablePlugins = await filter('canRead', [file], []);
 
           assert.lengthOf(suitablePlugins, 0);
         });
@@ -44,7 +44,7 @@ describe('util', function () {
         specify('should not find any suitable plugin', async function () {
           const plugins = [{}];
           const file = File({ uri: 'http://swagger.io/file.json' });
-          const suitablePlugins = await filter('canRead', file, plugins);
+          const suitablePlugins = await filter('canRead', [file], plugins);
 
           assert.lengthOf(suitablePlugins, 0);
         });
@@ -58,7 +58,7 @@ describe('util', function () {
         specify('should run `file` plugin successfully', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
-          const suitablePlugins = await filter('canRead', file, resolvers);
+          const suitablePlugins = await filter('canRead', [file], resolvers);
           const { plugin } = await run('read', [file], suitablePlugins);
 
           assert.propertyVal(plugin, 'name', 'file');
@@ -67,7 +67,7 @@ describe('util', function () {
         specify('should return file content', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
-          const suitablePlugins = await filter('canRead', file, resolvers);
+          const suitablePlugins = await filter('canRead', [file], resolvers);
           const { result } = await run('read', [file], suitablePlugins);
 
           assert.strictEqual(result.toString(), '{}\n');
@@ -77,7 +77,7 @@ describe('util', function () {
           specify('should still return file content', async function () {
             const { resolvers } = defaultOptions.resolve;
             const file = File({ uri: fileSystemPath });
-            const suitablePlugins = await filter('canRead', file, resolvers);
+            const suitablePlugins = await filter('canRead', [file], resolvers);
             const { result } = await run('read', [file], [{}, ...suitablePlugins]);
 
             assert.strictEqual(result.toString(), '{}\n');
@@ -91,7 +91,7 @@ describe('util', function () {
         specify('should reject with error', async function () {
           const { resolvers } = defaultOptions.resolve;
           const file = File({ uri: fileSystemPath });
-          const suitablePlugins = await filter('canRead', file, resolvers);
+          const suitablePlugins = await filter('canRead', [file], resolvers);
 
           try {
             await run('read', [file], suitablePlugins);

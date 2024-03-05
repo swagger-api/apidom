@@ -1,0 +1,35 @@
+{
+  "element": "object",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "result"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "element"
+        },
+        "value": {
+          "element": "string",
+          "meta": {
+            "id": {
+              "element": "string",
+              "content": "remote-id"
+            }
+          },
+          "content": "remote-string-value"
+        }
+      }
+    }
+  ]
+}

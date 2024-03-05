@@ -33,7 +33,11 @@ const bundle = async (uri: string, options: IReferenceOptions): Promise<ParseRes
     mediaType: mergedOptions.parse.mediaType,
   });
 
-  const bundleStrategies = await plugins.filter('canBundle', file, mergedOptions.bundle.strategies);
+  const bundleStrategies = await plugins.filter(
+    'canBundle',
+    [file, mergedOptions],
+    mergedOptions.bundle.strategies,
+  );
 
   // we couldn't find any bundle strategy for this File
   if (isEmpty(bundleStrategies)) {

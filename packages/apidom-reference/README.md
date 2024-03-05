@@ -892,6 +892,35 @@ Both of above examples will be using [HttpResolverAxios](https://github.com/swag
 (as we're trying to resolve HTTP(s) URL) and the `timeout` of resolution will increase from **default 3 seconds**
 to 10 seconds.
 
+##### Resolver strategy plugin options
+
+Some resolver strategy plugins accept additional options. It's possible to **change** strategy plugin
+**options globally** by mutating global `resolve` options:
+
+```js
+import { options, resolve } from '@swagger-api/apidom-reference';
+
+options.resolve.strategyOpts = {
+  apidom: { clone: true },
+};
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
+```
+
+To **change** the resolver strategy plugins **options** on ad-hoc basis:
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    strategyOpts: {
+      apidom: { clone: true },
+    },
+  },
+});
+```
+
 ##### Creating new resolver plugin
 
 Resolve component can be extended by additional resolver plugins. Every resolver plugin is an object that
@@ -1064,6 +1093,19 @@ Every Reference object represents single external dependency.
 
 External resolution strategy determines how a document is externally resolved. Depending on document `mediaType`
 every strategy differs significantly. Resolve component comes with two (2) default external resolution strategies.
+
+##### [apidom](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/apidom)
+
+External resolution strategy for understanding and resolving remote elements referenced with [Ref Element](https://apielements.org/en/latest/element-definitions.html?highlight=referencing#ref-element).
+
+Supported media types:
+
+```js
+[
+  'application/vnd.apidom',
+  'application/vnd.apidom+json'
+]
+```
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
@@ -1416,7 +1458,8 @@ Supported media types:
 
 ```js
 [
-  'application/vnd.apidom'
+  'application/vnd.apidom',
+  'application/vnd.apidom+json',
 ]
 ```
 
@@ -1569,6 +1612,36 @@ await dereference('/home/user/oas.json', {
   }
 });
 ```
+
+##### Dereference strategy plugin options
+
+Some dereference strategy plugins accept additional options. It's possible to **change** strategy plugin
+**options globally** by mutating global `dereference` options:
+
+```js
+import { options, dereference } from '@swagger-api/apidom-reference';
+
+options.dereference.strategyOpts = {
+  apidom: { clone: true },
+};
+
+await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json');
+```
+
+To **change** the dereference strategy plugins **options** on ad-hoc basis:
+
+```js
+import { dereference } from '@swagger-api/apidom-reference';
+
+await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  dereference: {
+    strategyOpts: {
+      apidom: { clone: true },
+    },
+  },
+});
+```
+
 ##### Creating new dereference strategy
 
 Dereference component can be extended by additional strategies. Every strategy is an object that

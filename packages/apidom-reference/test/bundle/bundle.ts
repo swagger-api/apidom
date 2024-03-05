@@ -16,13 +16,11 @@ describe('bundle', function () {
   );
   const rootFilePath = path.join(fixturePath, 'root.json');
 
-  context('bundle', function () {
-    specify('should bundle a file', async function () {
-      const bundled = await bundle(rootFilePath, {
-        parse: { mediaType: mediaTypes.latest('json') },
-      });
-
-      assert.isTrue(isParseResultElement(bundled));
+  specify('should bundle a file', async function () {
+    const bundled = await bundle(rootFilePath, {
+      parse: { mediaType: mediaTypes.latest('json') },
     });
+
+    assert.isTrue(isParseResultElement(bundled));
   });
 });

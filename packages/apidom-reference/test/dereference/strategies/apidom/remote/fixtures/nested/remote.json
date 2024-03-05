@@ -1,0 +1,63 @@
+{
+  "element": "object",
+  "content": [
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "element1"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "id": {
+              "element": "string",
+              "content": "remote-id"
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "nestedRef"
+                },
+                "value": {
+                  "element": "ref",
+                  "attributes": {
+                    "path": {
+                      "element": "string",
+                      "content": "element"
+                    }
+                  },
+                  "content": "#remote-nested-id"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "element2"
+        },
+        "value": {
+          "element": "string",
+          "meta": {
+            "id": {
+              "element": "string",
+              "content": "remote-nested-id"
+            }
+          },
+          "content": "string-element"
+        }
+      }
+    }
+  ]
+}

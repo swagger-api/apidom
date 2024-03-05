@@ -19,7 +19,11 @@ export const readFile = async (file: IFile, options: IReferenceOptions): Promise
     return Object.assign(clonedResolver, options.resolve.resolverOpts);
   });
 
-  const resolvers: IResolver[] = await plugins.filter('canRead', file, optsBoundResolvers);
+  const resolvers: IResolver[] = await plugins.filter(
+    'canRead',
+    [file, options],
+    optsBoundResolvers,
+  );
 
   // we couldn't find any resolver for this File
   if (isEmpty(resolvers)) {

@@ -53,6 +53,11 @@
       "require": "./cjs/resolve/resolvers/http-axios/index.cjs",
       "types": "./types/resolve/resolvers/http-axios/index.d.ts"
     },
+    "./resolve/strategies/apidom": {
+      "import": "./es/resolve/strategies/apidom/index.mjs",
+      "require": "./cjs/resolve/strategies/apidom/index.cjs",
+      "types": "./types/resolve/strategies/apidom/index.d.ts"
+    },
     "./resolve/strategies/asyncapi-2": {
       "import": "./es/resolve/strategies/asyncapi-2/index.mjs",
       "require": "./cjs/resolve/strategies/asyncapi-2/index.cjs",

@@ -91,14 +91,15 @@ export interface ReferenceResolveOptions {
   resolvers: Array<Resolver>;
   resolverOpts: Record<string, any>;
   strategies: Array<ResolveStrategy>;
+  strategyOpts: Record<string, any>;
   external: boolean;
   maxDepth: number;
 }
 
 export interface ReferenceDereferenceOptions {
   strategies: Array<DereferenceStrategy>;
+  strategyOpts: Record<string, any>;
   refSet: null | ReferenceSet;
-  dereferenceOpts: Record<string, any>;
   maxDepth: number;
 }
 

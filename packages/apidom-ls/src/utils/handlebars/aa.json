@@ -1,0 +1,142 @@
+{
+  "type": "object",
+  "properties": {
+    "foo": {
+      "type": "object",
+      "properties": {
+        "foo_foo": {
+          "type": "object",
+          "properties": {
+            "foo_foo_foo": {
+              "type": "string"
+            }
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_bar": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_tar": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_gar": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_anybar": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_anytar": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "foo_foo_anygar": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "patternProperties": {
+    "/.*": {
+      "type": "object",
+      "properties": {
+        "foo": {
+          "type": "object",
+          "properties": {
+            "foo_foo": {
+              "type": "object",
+              "properties": {
+                "pat_foo_foo_foo": {
+                  "type": "string"
+                }
+              },
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_bar": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_tar": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_gar": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ],
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_anybar": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_anytar": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "pat_foo_foo_anygar": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

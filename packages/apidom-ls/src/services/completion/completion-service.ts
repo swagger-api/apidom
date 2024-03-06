@@ -32,6 +32,8 @@ import {
   LanguageSettings,
   MergeStrategy,
   ProviderMode,
+  CompletionService,
+  CompletionsCollector,
 } from '../../apidom-language-types';
 import {
   checkConditions,
@@ -60,25 +62,7 @@ import {
   findNamespace,
 } from '../../utils/utils';
 import { standardLinterfunctions } from '../validation/linter-functions';
-import completeHandlebars from './handlebars/handlebars-completion';
-
-export interface CompletionsCollector {
-  add(suggestion: unknown): void;
-  setAsIncomplete(): void;
-  getNumberOfProposals(): number;
-}
-
-export interface CompletionService {
-  doCompletion(
-    textDocument: TextDocument,
-    completionParamsOrPosition: CompletionParams | Position,
-    completionContext?: CompletionContext,
-  ): Promise<CompletionList>;
-
-  configure(settings?: LanguageSettings): void;
-
-  registerProvider(provider: CompletionProvider): void;
-}
+import { HandlebarsCompletionService } from './handlebars/handlebars-completion-service';
 
 enum CaretContext {
   UNDEFINED,
@@ -108,12 +92,15 @@ enum PerfLabels {
   PARSE_SECOND = 'doCompletion-parse-second',
   CORRECT_PARTIAL = 'doCompletion-correctPartialKeys',
 }
+// eslint-disable-next-line import/prefer-default-export
 export class DefaultCompletionService implements CompletionService {
   private static DELETEME = 'deleteme';
 
   private settings: LanguageSettings | undefined;
 
   private jsonSchemaCompletionService: CompletionService | undefined;
+
+  private handlebarsCompletionService: CompletionService = new HandlebarsCompletionService();
 
   private completionProviders: CompletionProvider[] = [];
 
@@ -124,6 +111,10 @@ export class DefaultCompletionService implements CompletionService {
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings) {
+      this.handlebarsCompletionService.configure(settings);
+      if (this.jsonSchemaCompletionService) {
+        this.jsonSchemaCompletionService.configure(settings);
+      }
       if (settings.completionProviders) {
         this.completionProviders = settings.completionProviders;
       }
@@ -273,7 +264,11 @@ export class DefaultCompletionService implements CompletionService {
 
     // TODO frantuma, better handling of namespaces/providers
     if (contentLanguage.namespace === 'handlebars') {
-      return completeHandlebars(textDocument, position, enableFiltering);
+      return this.handlebarsCompletionService.doCompletion(
+        textDocument,
+        position,
+        completionContext,
+      );
     }
 
     const schema = false;
@@ -446,7 +441,7 @@ export class DefaultCompletionService implements CompletionService {
           while (
             prevLineOffset !== -1 &&
             (prevLineEmpty || prevLineIndentation > position.character)
-            ) {
+          ) {
             prevLineOffset = getPreviousLineOffset(textDocument, prevLineOffset);
             prevLineEmpty = isEmptyLine(textDocument, prevLineOffset);
             prevLineIndentation = prevLineEmpty
@@ -550,7 +545,7 @@ export class DefaultCompletionService implements CompletionService {
       textDocument.getText().length > 0 &&
       (targetOffset >= textDocument.getText().length ||
         textDocument.getText().substring(offset, textDocument.getText().length).trim().length ===
-        0) &&
+          0) &&
       '\r\n'.indexOf(textDocument.getText().charAt(targetOffset - 1)) !== -1;
 
     if (endOfText) {
@@ -916,9 +911,9 @@ export class DefaultCompletionService implements CompletionService {
       doc,
       nodeElement,
       admitsRefsSiblings &&
-      completionContext !== undefined &&
-      completionContext?.includeIndirectRefs !== undefined &&
-      completionContext?.includeIndirectRefs,
+        completionContext !== undefined &&
+        completionContext?.includeIndirectRefs !== undefined &&
+        completionContext?.includeIndirectRefs,
     );
     // build completion item
     let i = 97;

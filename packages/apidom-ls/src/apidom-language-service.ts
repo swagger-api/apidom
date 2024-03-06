@@ -34,6 +34,8 @@ import { DefaultLinksService } from './services/links/links-service';
 import {
   refreshContext,
   getContext,
+  refreshSchema,
+  getSchema,
   renderTemplate,
   renderTemplateThroughService,
 } from './utils/handlebars/context';
@@ -91,6 +93,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     symbolsContext: context.symbolsContext,
     colorsContext: context.colorsContext,
     linksContext: context.linksContext,
+    handlebarsJsonSchemaCompletion: context.handlebarsJsonSchemaCompletion,
   };
   configureServices(languageSettings);
 
@@ -184,6 +187,14 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
 
     async renderTemplateThroughService(template: string): Promise<string> {
       return renderTemplateThroughService(template);
+    },
+
+    async refreshSchema(url: string | null, schema?: AnyObject): Promise<AnyObject | null> {
+      return refreshSchema(url, schema);
+    },
+
+    getSchema(): AnyObject {
+      return getSchema();
     },
   };
 }

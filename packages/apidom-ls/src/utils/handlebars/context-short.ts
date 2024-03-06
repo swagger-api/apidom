@@ -1,4 +1,5 @@
 import { AnyObject } from '../../apidom-language-types';
+import { defaultSchema } from './default-schema';
 
 export const context: AnyObject = {
   apiFolder: 'io/swagger/client/api',
@@ -67,4 +68,8 @@ export const context: AnyObject = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getContext(processed: boolean): AnyObject {
   return context;
+}
+
+export function getSchema(): AnyObject {
+  return defaultSchema;
 }

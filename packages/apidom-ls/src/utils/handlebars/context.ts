@@ -6,6 +6,7 @@ import { AnyObject } from '../../apidom-language-types';
 
 // eslint-disable-next-line import/no-cycle
 import { defaultContext } from './default-context';
+import { defaultSchema } from './default-schema';
 
 interface CacheEntry {
   context: AnyObject;
@@ -58,11 +59,17 @@ function transformJson(input: AnyObject): AnyObject {
 
 let currentContext: AnyObject = transformJson(defaultContext);
 let currentOriginalContext: AnyObject = defaultContext;
+let currentSchema: AnyObject = defaultSchema;
 
 const cache: Record<string, CacheEntry> = {}; // replace with defaultContext
+const cacheSchema: Record<string, AnyObject> = {}; // replace with defaultContext
 
 export function getContext(processed?: boolean): AnyObject {
   return processed ? currentContext : currentOriginalContext;
+}
+
+export function getSchema(): AnyObject {
+  return currentSchema;
 }
 
 export async function refreshContext(
@@ -113,6 +120,38 @@ export async function refreshContext(
     // isParseFailure = true;
   }
   return currentOriginalContext;
+}
+
+export async function refreshSchema(
+  url: string | null,
+  schema?: AnyObject,
+): Promise<AnyObject | null> {
+  const specUrl = url || 'schema://openapi31';
+  try {
+    if (schema) {
+      currentSchema = schema;
+      cacheSchema[specUrl] = currentSchema;
+    }
+    if (specUrl && cacheSchema[specUrl]) {
+      currentSchema = cacheSchema[specUrl];
+      return currentSchema;
+    }
+    let retrievedSchema = {};
+    // use axios to call url expecting a json schema
+    const axiosConfig = {
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const res = await axios.get(specUrl, axiosConfig);
+    retrievedSchema = res.data;
+    currentSchema = retrievedSchema;
+    cacheSchema[specUrl] = currentSchema;
+  } catch (err) {
+    console.error('error loading schema', err);
+    // isParseFailure = true;
+  }
+  return currentSchema;
 }
 
 export function renderTemplate(template: string): string {

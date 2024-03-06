@@ -17,12 +17,7 @@ import {
 } from '../../../utils/handlebars/utils';
 import { getContext } from '../../../utils/handlebars/context';
 import { debug, trace } from '../../../utils/utils';
-
-export interface CompletionsCollector {
-  add(suggestion: unknown): void;
-  setAsIncomplete(): void;
-  getNumberOfProposals(): number;
-}
+import { CompletionsCollector } from '../../../apidom-language-types';
 
 function complete(
   textDocument: TextDocument,

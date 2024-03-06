@@ -94,6 +94,7 @@ export interface LanguageServiceContext {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  handlebarsJsonSchemaCompletion?: boolean;
 }
 
 export interface NamespaceVersion {
@@ -269,6 +270,7 @@ export interface LanguageSettings {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  handlebarsJsonSchemaCompletion?: boolean;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -292,6 +294,7 @@ export interface CompletionContext {
   maxNumberOfItems?: number;
   enableLSPFilter?: boolean;
   includeIndirectRefs?: boolean;
+  useJsonSchema?: boolean;
 }
 
 export interface DerefContext {
@@ -461,6 +464,24 @@ export interface LinterFunctions {
   [index: string]: LinterFunction;
 }
 
+export interface CompletionService {
+  doCompletion(
+    textDocument: TextDocument,
+    completionParamsOrPosition: CompletionParams | Position,
+    completionContext?: CompletionContext,
+  ): Promise<CompletionList>;
+
+  configure(settings?: LanguageSettings): void;
+
+  registerProvider(provider: CompletionProvider): void;
+}
+
+export interface CompletionsCollector {
+  add(suggestion: unknown): void;
+  setAsIncomplete(): void;
+  getNumberOfProposals(): number;
+}
+
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
   doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;
@@ -521,4 +542,6 @@ export interface LanguageService {
   getContext(processed?: boolean): AnyObject;
   renderTemplate(template: string): string;
   renderTemplateThroughService(template: string): Promise<string>;
+  refreshSchema(url: string | null, schema?: AnyObject): Promise<AnyObject | null>;
+  getSchema(): AnyObject;
 }

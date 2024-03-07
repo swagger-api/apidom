@@ -143,11 +143,18 @@ const OpenApi3_0DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Reference Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this reference element
+        return false;
+      }
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
-        // skip traversing this reference element but traverse all it's child elements
-        return undefined;
+      if (!this.options.resolve.external && isExternalReference) {
+        // skip traversing this reference element
+        return false;
       }
 
       const reference = await this.toReference(toValue(referencingElement.$ref));
@@ -273,9 +280,16 @@ const OpenApi3_0DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Path Item Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this Path Item element but traverse all it's child elements
+        return undefined;
+      }
       // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
@@ -406,9 +420,16 @@ const OpenApi3_0DereferenceVisitor = stampit({
         // possibly non-semantic referenced element
         const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
         const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
+        const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+        const isExternalReference = !isInternalReference;
 
+        // ignore resolving internal Operation Object reference
+        if (!this.options.resolve.internal && isInternalReference) {
+          // skip traversing this Link element but traverse all it's child elements
+          return undefined;
+        }
         // ignore resolving external Operation Object reference
-        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        if (!this.options.resolve.external && isExternalReference) {
           // skip traversing this Link element but traverse all it's child elements
           return undefined;
         }
@@ -485,9 +506,16 @@ const OpenApi3_0DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
       // ignore resolving external Example Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this Example element but traverse all it's child elements
+        return undefined;
+      }
+      // ignore resolving external Example Objects
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this Example element but traverse all it's child elements
         return undefined;
       }

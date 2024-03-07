@@ -154,9 +154,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Reference Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this reference element and all it's child elements
+        return false;
+      }
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this reference element and all it's child elements
         return false;
       }
@@ -303,9 +310,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
       // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this Path Item element but traverse all it's child elements
+        return undefined;
+      }
+      // ignore resolving external Path Item Objects
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
@@ -436,9 +450,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
         // possibly non-semantic referenced element
         const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
         const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
+        const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+        const isExternalReference = !isInternalReference;
 
+        // ignore resolving internal Operation Object reference
+        if (!this.options.resolve.internal && isInternalReference) {
+          // skip traversing this Link element but traverse all it's child elements
+          return undefined;
+        }
         // ignore resolving external Operation Object reference
-        if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+        if (!this.options.resolve.external && isExternalReference) {
           // skip traversing this Link element but traverse all it's child elements
           return undefined;
         }
@@ -515,9 +536,16 @@ const OpenApi3_1DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Example Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this Example element but traverse all it's child elements
+        return undefined;
+      }
       // ignore resolving external Example Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this Example element but traverse all it's child elements
         return undefined;
       }
@@ -562,7 +590,8 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      const isExternalURL = (uri: string) => url.stripHash(this.reference.uri) !== uri;
+      const isInternalReference = (uri: string) => url.stripHash(this.reference.uri) === uri;
+      const isExternalReference = (uri: string) => !isInternalReference(uri);
 
       this.indirections.push(referencingElement);
 
@@ -582,8 +611,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
           // we're assuming here that we're dealing with JSON Pointer here
           retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
+          // ignore resolving internal Schema Objects
+          if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {
+            // skip traversing this schema element but traverse all it's child elements
+            return undefined;
+          }
           // ignore resolving external Schema Objects
-          if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+          if (!this.options.resolve.external && isExternalReference(retrievalURI)) {
             // skip traversing this schema element but traverse all it's child elements
             return undefined;
           }
@@ -605,8 +639,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
             // we're dealing with JSON Schema $anchor here
             retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
+            // ignore resolving internal Schema Objects
+            if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
             // ignore resolving external Schema Objects
-            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+            if (!this.options.resolve.external && isExternalReference(retrievalURI)) {
               // skip traversing this schema element but traverse all it's child elements
               return undefined;
             }
@@ -622,8 +661,13 @@ const OpenApi3_1DereferenceVisitor = stampit({
             // we're assuming here that we're dealing with JSON Pointer here
             retrievalURI = this.toBaseURI(toValue($refBaseURI));
 
+            // ignore resolving internal Schema Objects
+            if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {
+              // skip traversing this schema element but traverse all it's child elements
+              return undefined;
+            }
             // ignore resolving external Schema Objects
-            if (!this.options.resolve.external && isExternalURL(retrievalURI)) {
+            if (!this.options.resolve.external && isExternalReference(retrievalURI)) {
               // skip traversing this schema element but traverse all it's child elements
               return undefined;
             }

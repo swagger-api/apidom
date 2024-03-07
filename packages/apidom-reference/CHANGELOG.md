@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.97.0](https://github.com/swagger-api/apidom/compare/v0.96.0...v0.97.0) (2024-03-07)
+
+### Features
+
+- **reference): eat(reference:** add support for skipping internal references in AsyncAPI 2.x dereference strategy ([#3905](https://github.com/swagger-api/apidom/issues/3905)) ([ad82680](https://github.com/swagger-api/apidom/commit/ad826800b08a2b1f799ace209b41eff7e5c617ea)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** add dereference strategy that handles abstract RefElement ([#3887](https://github.com/swagger-api/apidom/issues/3887)) ([a2eabb6](https://github.com/swagger-api/apidom/commit/a2eabb667e75b48e328c99cc48877d3526d7b353)), closes [#3881](https://github.com/swagger-api/apidom/issues/3881)
+- **reference:** add parser plugin for parsing dehydrated ApiDOM ([#3892](https://github.com/swagger-api/apidom/issues/3892)) ([6b97051](https://github.com/swagger-api/apidom/commit/6b970512e0ac9f688f1de748f40c8691c53c68e6)), closes [#3889](https://github.com/swagger-api/apidom/issues/3889)
+- **reference:** add resolver strategy that handles abstract RefElement ([#3893](https://github.com/swagger-api/apidom/issues/3893)) ([9db6d3e](https://github.com/swagger-api/apidom/commit/9db6d3ec383c9f66ce03ed1593548d9c046fe59f)), closes [#3888](https://github.com/swagger-api/apidom/issues/3888)
+- **reference:** add support for skipping internal references in OpenAPI 3.0.x dereference strategy ([#3904](https://github.com/swagger-api/apidom/issues/3904)) ([4da622a](https://github.com/swagger-api/apidom/commit/4da622a69ef2fd5ee4c7a12aabc151acff0e19d3)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** add support for skipping internal references in OpenAPI 3.1.0 dereference strategy ([#3906](https://github.com/swagger-api/apidom/issues/3906)) ([9d005db](https://github.com/swagger-api/apidom/commit/9d005dbb8d283465d77cc23377783b39549dadeb)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** skip processing internal refererences in apidom resolve strategy ([#3902](https://github.com/swagger-api/apidom/issues/3902)) ([0762e8b](https://github.com/swagger-api/apidom/commit/0762e8b13c32e87f4f447d5ee5e0c113c02ab2d7)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+- **reference:** skip processing internal refererences in OpenAPI 2.0 resolve strategy ([#3903](https://github.com/swagger-api/apidom/issues/3903)) ([dc787bf](https://github.com/swagger-api/apidom/commit/dc787bf26e07511430e74108677e67b742061f2b)), closes [#3451](https://github.com/swagger-api/apidom/issues/3451)
+
 # [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
 
 ### Bug Fixes

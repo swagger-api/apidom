@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.97.0](https://github.com/swagger-api/apidom/compare/v0.96.0...v0.97.0) (2024-03-07)
+
+### Features
+
+- **core:** add support for RefElement and LinkElement ([#3884](https://github.com/swagger-api/apidom/issues/3884)) ([342ee3f](https://github.com/swagger-api/apidom/commit/342ee3f653f492d3b07ac9b467eba55f0d02b3f9)), closes [#3882](https://github.com/swagger-api/apidom/issues/3882)
+- **core:** handle RefElement serialization in toValue serializer ([#3901](https://github.com/swagger-api/apidom/issues/3901)) ([f205211](https://github.com/swagger-api/apidom/commit/f205211722481004b9c81d6dbe8477adbdbbca2d)), closes [#3894](https://github.com/swagger-api/apidom/issues/3894)
+
 # [0.96.0](https://github.com/swagger-api/apidom/compare/v0.95.0...v0.96.0) (2024-02-28)
 
 ### Bug Fixes

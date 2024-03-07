@@ -138,9 +138,16 @@ const OpenApi2DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Reference Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this reference element and all it's child elements
+        return false;
+      }
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this reference element and all it's child elements
         return false;
       }
@@ -268,9 +275,16 @@ const OpenApi2DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Path Item Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this Path Item element but traverse all it's child elements
+        return undefined;
+      }
       // ignore resolving external Path Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this Path Item element but traverse all it's child elements
         return undefined;
       }
@@ -397,9 +411,16 @@ const OpenApi2DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal JSONReference Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this JSONReference element and all it's child elements
+        return false;
+      }
       // ignore resolving external JSONReference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this JSONReference element and all it's child elements
         return false;
       }

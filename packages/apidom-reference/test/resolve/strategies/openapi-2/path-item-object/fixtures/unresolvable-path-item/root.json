@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "paths": {
     "/path1": {
-      "$ref": "#/paths/invalid-pointer"
+      "$ref": "./ex.json#/paths/invalid-pointer"
     },
     "/path2": {
       "get": {}

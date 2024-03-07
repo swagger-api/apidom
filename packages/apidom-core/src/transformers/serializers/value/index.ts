@@ -85,8 +85,14 @@ class Visitor {
     return null;
   }
 
-  public RefElement(element: RefElement): unknown {
-    return element.toValue();
+  public RefElement(element: RefElement, ...rest: unknown[]) {
+    const ancestors = rest[3] as (Element | EphemeralArray | EphemeralObject)[];
+
+    if (ancestors[ancestors.length - 1]?.type === 'EphemeralObject') {
+      return Symbol.for('delete-node');
+    }
+
+    return String(element.toValue());
   }
 
   public LinkElement(element: LinkElement): string {

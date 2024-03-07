@@ -154,6 +154,18 @@ describe('serializers', function () {
           assert.deepEqual(serialized, { ref: 'id' });
         });
       });
+
+      context('and included instead of MemberElement', function () {
+        specify('should remove from serialization', function () {
+          const object = new ObjectElement({
+            a: 'b',
+          });
+          object.content.push(new RefElement('id'));
+          const serialized = serializer(object);
+
+          assert.deepEqual(serialized, { a: 'b' });
+        });
+      });
     });
 
     context('given LinkElement', function () {

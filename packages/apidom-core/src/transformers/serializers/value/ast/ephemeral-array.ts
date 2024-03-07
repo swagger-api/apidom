@@ -1,9 +1,9 @@
 class EphemeralArray {
-  type = 'EphemeralArray';
+  public readonly type = 'EphemeralArray';
 
-  content: any[] = [];
+  protected readonly content: any[] = [];
 
-  reference: any = undefined;
+  protected readonly reference: any = undefined;
 
   constructor(content: any[]) {
     this.content = content;

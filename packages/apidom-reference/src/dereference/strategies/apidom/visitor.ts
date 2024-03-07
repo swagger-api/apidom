@@ -88,10 +88,16 @@ const ApiDOMDereferenceVisitor = stampit({
       const refURI = toValue(refElement);
       const refNormalizedURI = refURI.includes('#') ? refURI : `#${refURI}`;
       const retrievalURI = this.toBaseURI(refNormalizedURI);
-      const isExternal = url.stripHash(this.reference.uri) !== retrievalURI;
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
-      // ignore resolving external Ref Objects
-      if (!this.options.resolve.external && isExternal) {
+      // ignore resolving internal RefElements
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this ref element
+        return false;
+      }
+      // ignore resolving external RefElements
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this ref element
         return false;
       }
@@ -116,7 +122,7 @@ const ApiDOMDereferenceVisitor = stampit({
         throw new ApiDOMError('RefElement cannot reference another RefElement');
       }
 
-      if (isExternal) {
+      if (isExternalReference) {
         // dive deep into the fragment
         const visitor = ApiDOMDereferenceVisitor({ reference, options: this.options });
         referencedElement = await visitAsync(referencedElement, visitor);

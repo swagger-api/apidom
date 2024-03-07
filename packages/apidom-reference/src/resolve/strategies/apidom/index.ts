@@ -10,6 +10,7 @@ import {
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
 import ApiDOMResolveVisitor from './visitor';
+import { merge as mergeOptions } from '../../../options/util';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -30,7 +31,8 @@ const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveSt
         ? cloneDeep(file.parseResult)
         : file.parseResult;
       const reference = Reference({ uri: file.uri, value: referenceValue });
-      const visitor = ApiDOMResolveVisitor({ reference, options });
+      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
+      const visitor = ApiDOMResolveVisitor({ reference, options: mergedOptions });
       const refSet = ReferenceSet();
       refSet.add(reference);
 

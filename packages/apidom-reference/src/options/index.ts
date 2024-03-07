@@ -50,6 +50,11 @@ const defaultOptions: IReferenceOptions = {
      */
     strategyOpts: {},
     /**
+     * Determines whether internal references will be resolved.
+     * Internal references will simply be ignored.
+     */
+    internal: true,
+    /**
      * Determines whether external references will be resolved.
      * If this option is disabled, then none of above resolvers will be called.
      * Instead, external references will simply be ignored.

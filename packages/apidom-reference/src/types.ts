@@ -92,6 +92,7 @@ export interface ReferenceResolveOptions {
   resolverOpts: Record<string, any>;
   strategies: Array<ResolveStrategy>;
   strategyOpts: Record<string, any>;
+  internal: boolean;
   external: boolean;
   maxDepth: number;
 }

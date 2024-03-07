@@ -137,10 +137,17 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Reference Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this reference and all it's child elements
+        return false;
+      }
       // ignore resolving external Reference Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
-        // skip traversing this reference element but traverse all it's child elements
+      if (!this.options.resolve.external && isExternalReference) {
+        // skip traversing this reference and all it's child elements
         return false;
       }
 
@@ -284,9 +291,16 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isExternalReference = !isInternalReference;
 
+      // ignore resolving internal Channel Item Objects
+      if (!this.options.resolve.internal && isInternalReference) {
+        // skip traversing this channel item but traverse all it's child elements
+        return undefined;
+      }
       // ignore resolving external Channel Item Objects
-      if (!this.options.resolve.external && url.stripHash(this.reference.uri) !== retrievalURI) {
+      if (!this.options.resolve.external && isExternalReference) {
         // skip traversing this channel item but traverse all it's child elements
         return undefined;
       }

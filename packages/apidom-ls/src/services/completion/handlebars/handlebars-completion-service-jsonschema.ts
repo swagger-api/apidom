@@ -9,7 +9,7 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionParams } from 'vscode-languageserver-protocol';
-import $RefParser from '@apidevtools/json-schema-ref-parser';
+// import $RefParser from '@apidevtools/json-schema-ref-parser';
 
 import {
   getMustacheStrictTagInfoAtPosition,
@@ -25,7 +25,7 @@ import {
   CompletionsCollector,
 } from '../../../apidom-language-types';
 import { perfStart, perfEnd, debug, trace } from '../../../utils/utils';
-import { getSchema } from '../../../utils/handlebars/context';
+// import { getSchema } from '../../../utils/handlebars/context';
 import { JSONSchema, JSONSchemaRef } from './jsonschema';
 
 enum PerfLabels {
@@ -304,21 +304,22 @@ export class HandlebarsCompletionServiceJsonSchema implements CompletionService 
         ? completionParamsOrPosition.position
         : completionParamsOrPosition;
 
-    const jsonSchema = getSchema();
+    // const jsonSchema = getSchema();
     // const ajv2020: boolean = jsonSchema.$schema === 'https://json-schema.org/draft/2020-12/schema';
 
-    const refParser = new $RefParser();
+    // const refParser = new $RefParser();
     /*    function onDereferenceIt(path: string, value: JSONSchemaObject): void {
       console.log('PATH', path, value);
     } */
-    const refParserSchema = await refParser.dereference(jsonSchema, {
+    /*    const refParserSchema = await refParser.dereference(jsonSchema, {
       dereference: {
         circular: true,
         // onDereference: (path: string, value: JSONSchemaObject) => console.log(path, value),
       },
-    });
+    }); */
     // refParser
-    const derefSchema = refParserSchema as JSONSchema;
+    // const derefSchema = refParserSchema as JSONSchema;
+    const derefSchema = {} as JSONSchema;
     if (false) {
       // TODO complete schema based, see json language service and "lsp" branch
       // DefaultCompletionService.getJsonSchemaPropertyCompletions(schema, api, node, addValue, separatorAfter, collector);

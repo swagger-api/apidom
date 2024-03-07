@@ -416,14 +416,14 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
       let ancestor = bundle;
       // eslint-disable-next-line no-plusplus
       for (let j = 0; j < i; j++) {
-        let ancestorKey = path[i];
+        let ancestorKey = path[j];
         let ancestorInEach = false;
         if (ancestorKey.split(' ').length > 1) {
           // eslint-disable-next-line prefer-destructuring
           ancestorKey = ancestorKey.split(' ')[1];
           ancestorInEach = true;
         }
-        if (ancestorKey in ancestor) {
+        if (isObjectNode(ancestor) && ancestorKey in ancestor) {
           ancestor = ancestor[ancestorKey];
           if (Array.isArray(ancestor)) {
             ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
@@ -442,7 +442,7 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
         }
       }
       // If the key is not found in any ancestor, return "not object"
-      if (!(key in ancestor)) {
+      if (!isObjectNode(ancestor) || !(key in ancestor)) {
         return 'not object';
       }
     }

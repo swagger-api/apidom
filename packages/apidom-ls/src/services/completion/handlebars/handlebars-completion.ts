@@ -59,23 +59,29 @@ function complete(
   let complexPrefix = '';
   if (isComplex) {
     const props = word.split('.');
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < props.length; i++) {
-      pointer.push(props[i]);
-    }
+    pointer.push(...props);
     complexPrefix = `${props.slice(0, props.length - 1).join('.')}.`;
   } else {
     pointer.push(tagInfo.tagName);
   }
   let tagParent = tagInfo.parent;
   while (tagParent) {
-    if (tagParent.each) {
-      pointer.unshift(`each ${tagParent.tagName}`);
+    const isComplexTagName = tagParent.tagName && tagParent.tagName.indexOf('.') > -1;
+    if (isComplexTagName) {
+      const props = tagParent.tagName.split('.');
+      pointer.unshift(props[props.length - 1]); // "simple" tag name
+      pointer.unshift(...props.slice(0, props.length - 1)); //
     } else {
-      pointer.unshift(tagParent.tagName);
+      // eslint-disable-next-line no-lonely-if
+      if (tagParent.each) {
+        pointer.unshift(`each ${tagParent.tagName}`);
+      } else {
+        pointer.unshift(tagParent.tagName);
+      }
     }
     tagParent = tagParent.parent;
   }
+  trace('doCompletion - pointer', pointer);
   const rawSuggestions = findNestedPropertyKeys(getContext(true), pointer);
   // let completionNode: Element | undefined;
   if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
@@ -83,24 +89,15 @@ function complete(
     for (const rawSuggestion of rawSuggestions) {
       const item: CompletionItem = {
         label: complexPrefix + rawSuggestion,
-        insertText: complexPrefix + rawSuggestion,
+        insertText: tagInfoStrict.each
+          ? `each ${complexPrefix}${rawSuggestion}`
+          : complexPrefix + rawSuggestion,
         kind: CompletionItemKind.Keyword,
         insertTextFormat: 2,
       };
       apidomCompletions.push(item);
     }
-
-    // const caretContext = this.resolveCaretContext(node, targetOffset, textModified);
-    // completionNode = this.resolveCompletionNode(node, caretContext);
-    // const completionNodeContext = this.resolveCompletionNodeContext(caretContext);
-
-    // debug('doCompletion - node', node.element, toValue(node));
-    // debug('doCompletion - completionNode', completionNode.element, toValue(completionNode));
-    // debug('doCompletion - caretContext', caretContext);
-    // debug('doCompletion - completionNodeContext', completionNodeContext);
-
     let overwriteRange: Range | undefined;
-    // let quotes: string | undefined;
 
     const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544
 
@@ -132,6 +129,7 @@ function complete(
           }
           item.label = label;
           proposed[label] = item;
+          trace('doCompletion - collector', label, item);
           completionList.items.push(item);
         } else if (!existing.documentation && item.documentation) {
           existing.documentation = item.documentation;
@@ -179,13 +177,15 @@ function complete(
           textDocument.positionAt(tagInfoStrict.tagNameEndIndex!),
         );
       }
-
+      trace('doCompletion - overwriteRange', overwriteRange);
       if (overwriteRange) {
         item.filterText = text.substring(
           textDocument.offsetAt(overwriteRange.start),
           textDocument.offsetAt(overwriteRange.end),
         );
       }
+      trace('doCompletion - filterText', item.filterText);
+      trace('doCompletion - word', word);
       if (word && word.length > 0) {
         if (enableFiltering && item.insertText?.includes(word)) {
           collector.add(item);

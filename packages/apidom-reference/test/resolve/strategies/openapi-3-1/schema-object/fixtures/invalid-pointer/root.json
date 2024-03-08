@@ -4,7 +4,7 @@
     "schemas": {
       "User": {
         "type": "object",
-        "$ref": "#/components/schemas/invalid-pointer"
+        "$ref": "./ex.json#/components/schemas/invalid-pointer"
       }
     }
   }

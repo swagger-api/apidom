@@ -40,10 +40,7 @@ import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
 import File from '../../../util/File';
-import {
-  resolveSchema$refField,
-  maybeRefractToSchemaElement,
-} from '../../../resolve/strategies/openapi-3-1/util';
+import { resolveSchema$refField, maybeRefractToSchemaElement } from './util';
 import { AncestorLineage } from '../../util';
 import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError';
 

@@ -15,6 +15,7 @@ import {
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
+import { merge as mergeOptions } from '../../../options/util';
 import OpenApi3_1ResolveVisitor from './visitor';
 
 // @ts-ignore
@@ -39,7 +40,8 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     async resolve(file: IFile, options: IReferenceOptions) {
       const namespace = createNamespace(openApi3_1Namespace);
       const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const visitor = OpenApi3_1ResolveVisitor({ reference, namespace, options });
+      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
+      const visitor = OpenApi3_1ResolveVisitor({ reference, namespace, options: mergedOptions });
       const refSet = ReferenceSet();
       refSet.add(reference);
 
@@ -47,7 +49,6 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
         keyMap,
         nodeTypeGetter: getNodeType,
       });
-      await visitor.crawl();
 
       return refSet;
     },

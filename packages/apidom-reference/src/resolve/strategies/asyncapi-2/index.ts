@@ -46,7 +46,6 @@ const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resolv
         keyMap,
         nodeTypeGetter: getNodeType,
       });
-      await visitor.crawl();
 
       return refSet;
     },

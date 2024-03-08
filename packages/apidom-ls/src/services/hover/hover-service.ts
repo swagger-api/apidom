@@ -30,6 +30,7 @@ import {
   findNamespace,
   debug,
 } from '../../utils/utils';
+import hoverHandlebars from './handlebars/handlebars-hover';
 
 const CONTROL_CODES = '\\u0000-\\u0020\\u007f-\\u009f';
 const WEB_LINK_REGEX = new RegExp(
@@ -83,6 +84,14 @@ export class DefaultHoverService implements HoverService {
     const text: string = textDocument.getText();
     const offset = textDocument.offsetAt(position);
 
+    const docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
+      .namespace;
+
+    // TODO frantuma, better handling of namespaces/providers
+    if (docNs === 'handlebars') {
+      return hoverHandlebars(textDocument, position);
+    }
+
     const hover: Hover = {
       contents: { kind: 'markdown', value: '' },
     };
@@ -111,8 +120,6 @@ export class DefaultHoverService implements HoverService {
     const { api } = result;
     // no API document has been parsed
     if (api === undefined) return undefined;
-    const docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
-      .namespace;
     const specVersion = getSpecVersion(api);
 
     api.freeze(); // !! freeze and add parent !!

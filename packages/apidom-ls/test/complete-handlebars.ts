@@ -98,7 +98,7 @@ describe('handlebars-ls-complete', function () {
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 
-  it('handlebars markdown - test completion each', async function () {
+  it.only('handlebars markdown - test completion each', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
       // enableLSPFilter: true,
@@ -134,6 +134,7 @@ describe('handlebars-ls-complete', function () {
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(result, null, 2));
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+    // console.log(JSON.stringify(getContext(false), null, 2));
   });
 
   it('handlebars markdown - test completion each with partial', async function () {

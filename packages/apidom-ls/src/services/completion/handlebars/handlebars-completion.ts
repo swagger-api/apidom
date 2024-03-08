@@ -84,17 +84,30 @@ function complete(
   trace('doCompletion - pointer', pointer);
   const rawSuggestions = findNestedPropertyKeys(getContext(true), pointer);
   // let completionNode: Element | undefined;
+  const isInEach =
+    tagInfoStrict.each ||
+    (word.startsWith('each') &&
+      (tagInfoStrict.type === 'section' ||
+        tagInfoStrict.type === 'inverted' ||
+        tagInfoStrict.type === 'sectionOpen'));
   if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
     const apidomCompletions: CompletionItem[] = [];
     for (const rawSuggestion of rawSuggestions) {
       const item: CompletionItem = {
         label: complexPrefix + rawSuggestion,
-        insertText: tagInfoStrict.each
-          ? `each ${complexPrefix}${rawSuggestion}`
-          : complexPrefix + rawSuggestion,
+        insertText:
+          isInEach && word.trim() !== 'each'
+            ? `each ${complexPrefix}${rawSuggestion}`
+            : complexPrefix + rawSuggestion,
         kind: CompletionItemKind.Keyword,
         insertTextFormat: 2,
       };
+      console.log(
+        'doCompletion - insert',
+        item.insertText,
+        `A${word.trim()}A`,
+        isInEach && word.trim() === 'each',
+      );
       apidomCompletions.push(item);
     }
     let overwriteRange: Range | undefined;
@@ -154,11 +167,19 @@ function complete(
       */
       // item.filterText = text.substring(location.offset, location.
       // offset + location.length);
-      if (word && word.length > 0 && item.insertText?.replace(/^['"]{1}/g, '').startsWith(word)) {
+      const strippedInsertText =
+        isInEach || item.insertText?.startsWith('each ')
+          ? item.insertText?.slice(5)
+          : item.insertText;
+      if (
+        word &&
+        word.length > 0 &&
+        strippedInsertText?.replace(/^['"]{1}/g, '').startsWith(word)
+      ) {
         item.preselect = true;
       }
       // const filterTag = tagInfo.type === 'section' ? tagIn
-      if (word && word.length > 0) {
+      if (word && word.length > 0 && word.trim() !== 'each') {
         item.filterText = text.substring(
           tagInfoStrict.tagNameStartIndex!,
           tagInfoStrict.tagNameEndIndex!,
@@ -171,7 +192,7 @@ function complete(
           textDocument.offsetAt(overwriteRange.end),
         );
       } */
-      if (word && word.length > 0) {
+      if (word && word.length > 0 && word.trim() !== 'each') {
         overwriteRange = Range.create(
           textDocument.positionAt(tagInfoStrict.tagNameStartIndex!),
           textDocument.positionAt(tagInfoStrict.tagNameEndIndex!),
@@ -187,7 +208,7 @@ function complete(
       trace('doCompletion - filterText', item.filterText);
       trace('doCompletion - word', word);
       if (word && word.length > 0) {
-        if (enableFiltering && item.insertText?.includes(word)) {
+        if (enableFiltering && item.insertText?.includes(word) && !(word?.trim() === 'each')) {
           collector.add(item);
         } else if (!enableFiltering) {
           collector.add(item);

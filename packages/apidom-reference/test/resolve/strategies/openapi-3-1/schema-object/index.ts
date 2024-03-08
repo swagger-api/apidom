@@ -460,16 +460,13 @@ describe('resolve', function () {
         context('given Schema Objects with infinite recursion', function () {
           const fixturePath = path.join(rootFixturePath, 'infinite-recursion');
 
-          specify('should throw error', async function () {
+          specify('should resolve as internal references are ignored', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await resolve(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.instanceOf(e, ResolverError);
-            }
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
@@ -492,16 +489,13 @@ describe('resolve', function () {
         context('given Schema Objects with direct circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
 
-          specify('should throw error', async function () {
+          specify('should resolve as internal references are ignored', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await resolve(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.instanceOf(e, ResolverError);
-            }
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 1);
           });
         });
 
@@ -537,16 +531,13 @@ describe('resolve', function () {
         context('given Reference Objects with indirect circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 
-          specify('should throw error', async function () {
+          specify('should resolve as internal references are ignored', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await resolve(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw ResolveError');
-            } catch (e) {
-              assert.instanceOf(e, ResolveError);
-            }
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 1);
           });
         });
       });

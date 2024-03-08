@@ -15,8 +15,8 @@ import {
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
-import OpenApi2ResolveVisitor from './visitor';
 import { merge as mergeOptions } from '../../../options/util';
+import OpenApi2ResolveVisitor from './visitor';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

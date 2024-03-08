@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "paths": {
     "/path1": {
-      "$ref": "#/paths/invalid-pointer"
+      "$ref": "./ex.json#/paths/invalid-pointer"
     },
     "/path2": {
       "summary": "path item summary",

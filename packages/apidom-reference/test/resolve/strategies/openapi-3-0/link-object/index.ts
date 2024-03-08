@@ -43,14 +43,16 @@ describe('resolve', function () {
         context('and with invalid JSON Pointer', function () {
           const fixturePath = path.join(rootFixturePath, 'operation-ref-invalid-pointer');
 
-          specify('should resolve', async function () {
-            // external resolution of Link Object is not concerned with validity of JSON Pointer (if defined)
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const refSet = await resolve(rootFilePath, {
-              parse: { mediaType: mediaTypes.latest('json') },
-            });
-
-            assert.strictEqual(refSet.size, 2);
+          specify('should throw error', async function () {
+            try {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              assert.fail('should throw ResolverError');
+            } catch (e) {
+              assert.instanceOf(e, ResolverError);
+            }
           });
         });
 
@@ -85,7 +87,7 @@ describe('resolve', function () {
             } catch (error: any) {
               assert.strictEqual(
                 error.cause.cause.message,
-                'LinkElement operationRef and operationId are mutually exclusive.',
+                'LinkElement operationRef and operationId fields are mutually exclusive.',
               );
               assert.instanceOf(error, ResolverError);
             }

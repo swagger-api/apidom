@@ -16,6 +16,7 @@ import {
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
 import OpenApi3_0ResolveVisitor from './visitor';
+import { merge as mergeOptions } from '../../../options/util';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -23,7 +24,7 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
   init() {
-    this.name = 'asyncapi-2';
+    this.name = 'openapi-3-0';
   },
   methods: {
     canResolve(file: IFile) {
@@ -39,7 +40,8 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     async resolve(file: IFile, options: IReferenceOptions) {
       const namespace = createNamespace(openapi3_0Namespace);
       const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const visitor = OpenApi3_0ResolveVisitor({ reference, namespace, options });
+      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
+      const visitor = OpenApi3_0ResolveVisitor({ reference, namespace, options: mergedOptions });
       const refSet = ReferenceSet();
       refSet.add(reference);
 
@@ -47,7 +49,6 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
         keyMap,
         nodeTypeGetter: getNodeType,
       });
-      await visitor.crawl();
 
       return refSet;
     },

@@ -1747,11 +1747,11 @@ Dereference strategies can be added, removed, replaced or reordered. We've alrea
 ##### Increasing speed of dereference
 
 Our default dereference strategies are built on asynchronous sequential traversing of ApiDOM.
-The total time of dereferencing is the sum of `traversing` + sum of `external resolution per referencing element`.
+The total time of dereferencing is the sum of `traversing` + sum of `external resolution per file`.
 By having a huge number of external dependencies in your definition file, dereferencing can get quite slow.
 Fortunately there is solution for this by running an `external resolution` first,
-and passing its result to dereferencing via an option. External resolution is built on asynchronous parallel traversal (on single file),
-so it's theoretically always faster on huge amount of external dependencies than the dereferencing.
+and passing its result to dereferencing via an option. External resolution ignores internal references,
+so it's theoretically always faster than the dereferencing.
 
 ```js
 import { resolve, dereference } from '@swagger-api/apidom-reference';
@@ -1765,9 +1765,6 @@ const dereferenced = await dereference('/home/user/oas.json', {
   dereference: { refSet },
 });
 ```
-
-Total time of dereferencing is now the sum of `external resolution traversing` + `dereference traversing` + sum of `max external resolution per file`.
-
 
 ## Bundle component
 

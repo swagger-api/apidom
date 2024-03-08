@@ -9,8 +9,8 @@ import {
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
-import ApiDOMResolveVisitor from './visitor';
 import { merge as mergeOptions } from '../../../options/util';
+import ApiDOMResolveVisitor from './visitor';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

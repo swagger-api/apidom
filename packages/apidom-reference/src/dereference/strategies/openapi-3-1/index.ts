@@ -73,9 +73,6 @@ const OpenApi3_1DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
 );
 
 export { OpenApi3_1DereferenceVisitor };
-export {
-  resolveSchema$refField,
-  maybeRefractToSchemaElement,
-} from '../../../resolve/strategies/openapi-3-1/util';
+export { resolveSchema$refField, resolveSchema$idField, maybeRefractToSchemaElement } from './util';
 
 export default OpenApi3_1DereferenceStrategy;

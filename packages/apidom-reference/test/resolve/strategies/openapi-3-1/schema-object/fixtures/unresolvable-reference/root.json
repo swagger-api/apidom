@@ -5,7 +5,7 @@
       "User": {
         "properties": {
           "profile": {
-            "$ref": "#/components/schemas/UserProfile"
+            "$ref": "./ex.json#/components/schemas/UserProfile"
           }
         }
       }

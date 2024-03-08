@@ -6,7 +6,7 @@ import { uriToPointer, evaluate as jsonPointerEvaluate } from '@swagger-api/apid
 import * as url from '../../../../util/url';
 import EvaluationJsonSchemaUriError from '../../../../errors/EvaluationJsonSchemaUriError';
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './$anchor';
-import { resolveSchema$idField } from '../../../../resolve/strategies/openapi-3-1/util';
+import { resolveSchema$idField } from '../util';
 
 /**
  * Evaluates JSON Schema $ref containing unknown URI against ApiDOM fragment.

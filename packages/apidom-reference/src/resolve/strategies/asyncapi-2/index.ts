@@ -15,6 +15,7 @@ import {
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
 import Reference from '../../../Reference';
+import { merge as mergeOptions } from '../../../options/util';
 import AsyncApi2ResolveVisitor from './visitor';
 
 // @ts-ignore
@@ -38,7 +39,8 @@ const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resolv
     async resolve(file: IFile, options: IReferenceOptions) {
       const namespace = createNamespace(asyncApi2Namespace);
       const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const visitor = AsyncApi2ResolveVisitor({ reference, namespace, options });
+      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
+      const visitor = AsyncApi2ResolveVisitor({ reference, namespace, options: mergedOptions });
       const refSet = ReferenceSet();
       refSet.add(reference);
 

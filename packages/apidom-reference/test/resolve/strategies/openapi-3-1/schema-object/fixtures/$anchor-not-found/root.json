@@ -12,7 +12,7 @@
             "type": "string"
           },
           "profile": {
-            "$ref": "#user-profile"
+            "$ref": "./ex.json#user-profile"
           }
         }
       }

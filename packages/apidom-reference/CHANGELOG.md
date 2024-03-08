@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.97.1](https://github.com/swagger-api/apidom/compare/v0.97.0...v0.97.1) (2024-03-08)
+
+### Bug Fixes
+
+- **reference:** base AsyncAPI 2.x resolver strategy on dereference strategy ([#3909](https://github.com/swagger-api/apidom/issues/3909)) ([98cb77f](https://github.com/swagger-api/apidom/commit/98cb77f922945302bbc9200a5bc6de185437afd3)), closes [#3452](https://github.com/swagger-api/apidom/issues/3452)
+- **reference:** base OpenAPI 3.0.x resolver strategy on dereference strategy ([#3908](https://github.com/swagger-api/apidom/issues/3908)) ([e1ae4d1](https://github.com/swagger-api/apidom/commit/e1ae4d1c01f457e989d87ff12868033a757d4e31)), closes [#3452](https://github.com/swagger-api/apidom/issues/3452)
+- **reference:** base OpenAPI 3.1.0 resolver strategy on dereference strategy ([#3910](https://github.com/swagger-api/apidom/issues/3910)) ([b21d7bf](https://github.com/swagger-api/apidom/commit/b21d7bfc4e626782c4a3fd483428d8fe42bdecbe)), closes [#3452](https://github.com/swagger-api/apidom/issues/3452)
+
 # [0.97.0](https://github.com/swagger-api/apidom/compare/v0.96.0...v0.97.0) (2024-03-07)
 
 ### Features

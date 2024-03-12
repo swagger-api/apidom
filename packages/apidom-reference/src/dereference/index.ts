@@ -79,7 +79,12 @@ const dereference = async (
     parseResult = await parse(uri, options);
   }
 
-  const mergedOptions = mergeOptions(options, { resolve: { baseURI: sanitizedURI } });
+  const mergedOptions = mergeOptions(options, {
+    resolve: { baseURI: sanitizedURI },
+    dereference: {
+      immutable: refSet !== null, // if refSet was node provided, then we can work in mutable mode
+    },
+  });
 
   return dereferenceApiDOM(parseResult, mergedOptions);
 };

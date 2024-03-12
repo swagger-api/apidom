@@ -93,11 +93,11 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const parent = evaluate(
-              '/0/components/schemas/externalSchema/properties',
+              '/0/components/schemas/externalSchema/properties/parent',
               dereferenced,
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/externalSchema/properties/parent/properties',
+              '/0/components/schemas/externalSchema/properties/parent/properties/parent',
               dereferenced,
             );
 

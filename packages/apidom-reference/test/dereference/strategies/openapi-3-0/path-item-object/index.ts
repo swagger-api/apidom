@@ -123,9 +123,13 @@ describe('dereference', function () {
               const dereferenced = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const parent = evaluate('/0/paths/~1path1/get', dereferenced);
+
+              const parent = evaluate(
+                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}',
+                dereferenced,
+              );
               const cyclicParent = evaluate(
-                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}/get',
+                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}/get/callbacks/myCallback/{$request.query.queryUrl}',
                 dereferenced,
               );
 

@@ -1,4 +1,4 @@
-import { ParseResultElement, Element } from '@swagger-api/apidom-core';
+import { Element, ParseResultElement, RefElement } from '@swagger-api/apidom-core';
 
 export interface File {
   uri: string;
@@ -45,7 +45,7 @@ export interface ResolveStrategy {
 }
 
 export interface DereferenceStrategy {
-  canDereference(file: File): boolean;
+  canDereference(file: File, options: ReferenceOptions): boolean;
   dereference(file: File, options: ReferenceOptions): Promise<Element>;
 }
 
@@ -102,6 +102,9 @@ export interface ReferenceDereferenceOptions {
   strategyOpts: Record<string, any>;
   refSet: null | ReferenceSet;
   maxDepth: number;
+  circular: 'ignore' | 'replace' | 'error';
+  circularReplacer: (ref: RefElement) => unknown;
+  immutable: boolean;
 }
 
 export interface ReferenceBundleOptions {

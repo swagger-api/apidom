@@ -13,46 +13,36 @@ import {
   cloneDeep,
   toValue,
   Element,
+  RefElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
 import {
   getNodeType,
-  isReferenceLikeElement,
   keyMap,
   ReferenceElement,
   ExampleElement,
   LinkElement,
   OperationElement,
   PathItemElement,
+  isReferenceElement,
   isOperationElement,
+  isReferenceLikeElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { Reference as IReference } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
-import { AncestorLineage } from '../../util';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
+import { AncestorLineage } from '../../util';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 // initialize element identity manager
 const identityManager = IdentityManager();
-
-/**
- * Predicate for detecting if element was created by merging referencing
- * element with particular element identity with a referenced element.
- */
-const wasReferencedBy =
-  <T extends Element, U extends Element>(referencingElement: T) =>
-  (element: U) =>
-    element.meta.hasKey('ref-referencing-element-id') &&
-    element.meta
-      .get('ref-referencing-element-id')
-      .equals(toValue(identityManager.identify(referencingElement)));
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_0DereferenceVisitor = stampit({
@@ -61,23 +51,23 @@ const OpenApi3_0DereferenceVisitor = stampit({
     namespace: null,
     reference: null,
     options: null,
-    ancestors: null,
     refractCache: null,
+    ancestors: null,
   },
   init({
     indirections = [],
     reference,
     namespace,
     options,
-    ancestors = new AncestorLineage(),
     refractCache = new Map(),
+    ancestors = new AncestorLineage(),
   }) {
     this.indirections = indirections;
     this.namespace = namespace;
     this.reference = reference;
     this.options = options;
-    this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
+    this.ancestors = ancestors;
   },
   methods: {
     toBaseURI(uri: string): string {
@@ -105,19 +95,28 @@ const OpenApi3_0DereferenceVisitor = stampit({
         parse: { ...this.options.parse, mediaType: 'text/plain' },
       });
 
-      // register new Reference with ReferenceSet
-      const reference = Reference({
+      // register new mutable reference with a refSet
+      const mutableReference = Reference({
         uri: baseURI,
-        value: parseResult,
+        value: cloneDeep(parseResult),
         depth: this.reference.depth + 1,
       });
+      refSet.add(mutableReference);
 
-      refSet.add(reference);
+      if (this.options.dereference.immutable) {
+        // register new immutable reference with a refSet
+        const immutableReference = Reference({
+          uri: `immutable://${baseURI}`,
+          value: parseResult,
+          depth: this.reference.depth + 1,
+        });
+        refSet.add(immutableReference);
+      }
 
-      return reference;
+      return mutableReference;
     },
 
-    toAncestorLineage(ancestors) {
+    toAncestorLineage(ancestors: [Element | Element[]]) {
       /**
        * Compute full ancestors lineage.
        * Ancestors are flatten to unwrap all Element instances.
@@ -130,17 +129,12 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
     async ReferenceElement(
       referencingElement: ReferenceElement,
-      key: any,
-      parent: any,
-      path: any,
-      ancestors: any[],
+      key: string | number,
+      parent: Element | undefined,
+      path: (string | number)[],
+      ancestors: [Element | Element[]],
     ) {
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
-
-      // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.includesCycle(referencingElement)) {
-        return false;
-      }
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
       const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
@@ -166,8 +160,11 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       // possibly non-semantic fragment
       let referencedElement = evaluate(jsonPointer, reference.value.result);
+      referencedElement.id = identityManager.identify(referencedElement);
 
-      // applying semantics to a fragment
+      /**
+       * Applying semantics to a referenced element if semantics are missing.
+       */
       if (isPrimitiveElement(referencedElement)) {
         const referencedElementType = toValue(referencingElement.meta.get('referenced-element'));
         const cacheKey = `${referencedElementType}-${toValue(identityManager.identify(referencedElement))}`;
@@ -199,85 +196,115 @@ const OpenApi3_0DereferenceVisitor = stampit({
         );
       }
 
-      // append referencing reference to ancestors lineage
-      directAncestors.add(referencingElement);
+      // detect second deep dive into the same fragment and avoid it
+      if (ancestorsLineage.includes(referencedElement)) {
+        if (this.options.dereference.circular === 'error') {
+          throw new ApiDOMError('Circular reference detected');
+        } else if (this.options.dereference.circular !== 'ignore') {
+          const refElement = new RefElement(referencedElement.id, {
+            type: 'reference',
+            uri: reference.uri,
+            $ref: toValue(referencingElement.$ref),
+          });
+          const replacer =
+            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ||
+            this.options.dereference.circularReplacer;
+          const replacement = replacer(refElement);
 
-      // dive deep into the fragment
-      const visitor = OpenApi3_0DereferenceVisitor({
-        reference,
-        namespace: this.namespace,
-        indirections: [...this.indirections],
-        options: this.options,
-        ancestors: ancestorsLineage,
-        refractCache: this.refractCache,
-      });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
+          if (isMemberElement(parent)) {
+            parent.value = replacement; // eslint-disable-line no-param-reassign
+          } else if (Array.isArray(parent)) {
+            parent[key] = replacement; // eslint-disable-line no-param-reassign
+          }
 
-      // remove referencing reference from ancestors lineage
-      directAncestors.delete(referencingElement);
+          reference.refSet.circular = true;
+
+          return !parent ? replacement : false;
+        }
+      }
+
+      /**
+       * Dive deep into the fragment.
+       *
+       * Cases to consider:
+       *  1. We're crossing document boundary
+       *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
+       *  3. We are dereferencing the fragment lazily
+       */
+      if (
+        isExternalReference ||
+        isReferenceElement(referencedElement) ||
+        ['error', 'replace'].includes(this.options.dereference.circular)
+      ) {
+        // append referencing reference to ancestors lineage
+        directAncestors.add(referencingElement);
+
+        const visitor = OpenApi3_0DereferenceVisitor({
+          reference,
+          namespace: this.namespace,
+          indirections: [...this.indirections],
+          options: this.options,
+          refractCache: this.refractCache,
+          ancestors: ancestorsLineage,
+        });
+        referencedElement.setMetaProperty('traversed', true);
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+
+        // remove referencing reference from ancestors lineage
+        directAncestors.delete(referencingElement);
+      }
 
       this.indirections.pop();
 
-      const mergeAndAnnotateReferencedElement = <T extends Element>(refedElement: T): T => {
-        const copy = cloneShallow(refedElement);
+      /**
+       * Creating a new version of referenced element to avoid modifying the original one.
+       */
+      const mergedElement = cloneShallow(referencedElement);
+      // assign unique id to merged element
+      mergedElement.setMetaProperty('id', identityManager.generateId());
+      // annotate referenced element with info about original referencing element
+      mergedElement.setMetaProperty('ref-fields', {
+        $ref: toValue(referencingElement.$ref),
+      });
+      // annotate fragment with info about origin
+      mergedElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate fragment with info about referencing element
+      mergedElement.setMetaProperty(
+        'ref-referencing-element-id',
+        cloneDeep(identityManager.identify(referencingElement)),
+      );
 
-        // annotate referenced element with info about original referencing element
-        copy.setMetaProperty('ref-fields', {
-          // @ts-ignore
-          $ref: toValue(referencingElement.$ref),
-        });
-        // annotate fragment with info about origin
-        copy.setMetaProperty('ref-origin', reference.uri);
-        // annotate fragment with info about referencing element
-        copy.setMetaProperty(
-          'ref-referencing-element-id',
-          cloneDeep(identityManager.identify(referencingElement)),
-        );
-
-        return copy;
-      };
-
-      // attempting to create cycle
-      if (
-        ancestorsLineage.includes(referencingElement) ||
-        ancestorsLineage.includes(referencedElement)
-      ) {
-        const replaceWith =
-          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
-          mergeAndAnnotateReferencedElement(referencedElement);
-        if (isMemberElement(parent)) {
-          parent.value = replaceWith; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
-        }
-        return false;
+      /**
+       * Transclude referencing element with merged referenced element.
+       */
+      if (isMemberElement(parent)) {
+        parent.value = mergedElement; // eslint-disable-line no-param-reassign
+      } else if (Array.isArray(parent)) {
+        parent[key] = mergedElement; // eslint-disable-line no-param-reassign
       }
 
-      // transclude referencing element with merged referenced element
-      return mergeAndAnnotateReferencedElement(referencedElement);
+      /**
+       * We're at the root of the tree, so we're just replacing the entire tree.
+       */
+      return !parent ? mergedElement : false;
     },
 
     async PathItemElement(
       referencingElement: PathItemElement,
-      key: any,
-      parent: any,
-      path: any,
-      ancestors: any[],
+      key: string | number,
+      parent: Element | undefined,
+      path: (string | number)[],
+      ancestors: [Element | Element[]],
     ) {
-      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
-
       // ignore PathItemElement without $ref field
       if (!isStringElement(referencingElement.$ref)) {
         return undefined;
       }
 
-      // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.includesCycle(referencingElement)) {
-        return false;
-      }
+      const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
       const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
@@ -303,8 +330,11 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       // possibly non-semantic referenced element
       let referencedElement = evaluate(jsonPointer, reference.value.result);
+      referencedElement.id = identityManager.identify(referencedElement);
 
-      // applying semantics to a referenced element
+      /**
+       * Applying semantics to a referenced element if semantics are missing.
+       */
       if (isPrimitiveElement(referencedElement)) {
         const cacheKey = `pathItem-${toValue(identityManager.identify(referencedElement))}`;
 
@@ -328,80 +358,114 @@ const OpenApi3_0DereferenceVisitor = stampit({
         );
       }
 
-      // append referencing path item to ancestors lineage
-      directAncestors.add(referencingElement);
+      // detect second deep dive into the same fragment and avoid it
+      if (ancestorsLineage.includes(referencedElement)) {
+        if (this.options.dereference.circular === 'error') {
+          throw new ApiDOMError('Circular reference detected');
+        } else if (this.options.dereference.circular !== 'ignore') {
+          const refElement = new RefElement(referencedElement.id, {
+            type: 'path-item',
+            uri: reference.uri,
+            $ref: toValue(referencingElement.$ref),
+          });
+          const replacer =
+            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ||
+            this.options.dereference.circularReplacer;
+          const replacement = replacer(refElement);
 
-      // dive deep into the referenced element
-      const visitor: any = OpenApi3_0DereferenceVisitor({
-        reference,
-        namespace: this.namespace,
-        indirections: [...this.indirections],
-        options: this.options,
-        ancestors: ancestorsLineage,
-        refractCache: this.refractCache,
-      });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
+          if (isMemberElement(parent)) {
+            parent.value = replacement; // eslint-disable-line no-param-reassign
+          } else if (Array.isArray(parent)) {
+            parent[key] = replacement; // eslint-disable-line no-param-reassign
+          }
 
-      // remove referencing path item from ancestors lineage
-      directAncestors.delete(referencingElement);
+          reference.refSet.circular = true;
+
+          return !parent ? replacement : false;
+        }
+      }
+
+      /**
+       * Dive deep into the fragment.
+       *
+       * Cases to consider:
+       *  1. We're crossing document boundary
+       *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
+       *  3. We are dereferencing the fragment lazily
+       */
+      if (
+        isExternalReference ||
+        isStringElement(referencedElement.$ref) ||
+        ['error', 'replace'].includes(this.options.dereference.circular)
+      ) {
+        // append referencing reference to ancestors lineage
+        directAncestors.add(referencingElement);
+
+        const visitor = OpenApi3_0DereferenceVisitor({
+          reference,
+          namespace: this.namespace,
+          indirections: [...this.indirections],
+          options: this.options,
+          refractCache: this.refractCache,
+          ancestors: ancestorsLineage,
+        });
+        referencedElement.setMetaProperty('traversed', true);
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+
+        // remove referencing reference from ancestors lineage
+        directAncestors.delete(referencingElement);
+      }
 
       this.indirections.pop();
 
-      const mergeAndAnnotateReferencedElement = <T extends Element>(
-        refedElement: T,
-      ): PathItemElement => {
-        // merge fields from referenced Path Item with referencing one
-        const mergedElement = new PathItemElement(
-          [...refedElement.content] as any,
-          cloneDeep(referencedElement.meta),
-          cloneDeep(referencedElement.attributes),
-        );
-        // existing keywords from referencing PathItemElement overrides ones from referenced element
-        referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-          mergedElement.remove(toValue(keyElement));
-          mergedElement.content.push(item);
-        });
-        mergedElement.remove('$ref');
+      /**
+       * Creating a new version of Path Item by mergeing fields from referenced Path Item with referencing one.
+       */
+      const mergedElement = new PathItemElement(
+        [...referencedElement.content] as any,
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
+      );
+      // assign unique id to merged element
+      mergedElement.setMetaProperty('id', identityManager.generateId());
+      // existing keywords from referencing PathItemElement overrides ones from referenced element
+      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+        mergedElement.remove(toValue(keyElement));
+        mergedElement.content.push(item);
+      });
+      mergedElement.remove('$ref');
 
-        // annotate referenced element with info about original referencing element
-        mergedElement.setMetaProperty('ref-fields', {
-          $ref: toValue(referencingElement.$ref),
-        });
-        // annotate referenced element with info about origin
-        mergedElement.setMetaProperty('ref-origin', reference.uri);
-        // annotate fragment with info about referencing element
-        mergedElement.setMetaProperty(
-          'ref-referencing-element-id',
-          cloneDeep(identityManager.identify(referencingElement)),
-        );
+      // annotate referenced element with info about original referencing element
+      mergedElement.setMetaProperty('ref-fields', {
+        $ref: toValue(referencingElement.$ref),
+      });
+      // annotate referenced element with info about origin
+      mergedElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate fragment with info about referencing element
+      mergedElement.setMetaProperty(
+        'ref-referencing-element-id',
+        cloneDeep(identityManager.identify(referencingElement)),
+      );
 
-        return mergedElement;
-      };
-
-      // attempting to create cycle
-      if (
-        ancestorsLineage.includes(referencingElement) ||
-        ancestorsLineage.includes(referencedElement)
-      ) {
-        const replaceWith =
-          ancestorsLineage.findItem(wasReferencedBy(referencingElement)) ??
-          mergeAndAnnotateReferencedElement(referencedElement);
-        if (isMemberElement(parent)) {
-          parent.value = replaceWith; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replaceWith; // eslint-disable-line no-param-reassign
-        }
-        return false;
+      /**
+       * Transclude referencing element with merged referenced element.
+       */
+      if (isMemberElement(parent)) {
+        parent.value = mergedElement; // eslint-disable-line no-param-reassign
+      } else if (Array.isArray(parent)) {
+        parent[key] = mergedElement; // eslint-disable-line no-param-reassign
       }
 
-      // transclude referencing element with merged referenced element
-      return mergeAndAnnotateReferencedElement(referencedElement);
+      /**
+       * We're at the root of the tree, so we're just replacing the entire tree.
+       */
+      return !parent ? mergedElement : undefined;
     },
 
-    async LinkElement(linkElement: LinkElement) {
+    async LinkElement(linkElement: LinkElement, key: string | number, parent: Element | undefined) {
       // ignore LinkElement without operationRef or operationId field
       if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
         return undefined;
@@ -455,7 +519,20 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
         const linkElementCopy = cloneShallow(linkElement);
         linkElementCopy.operationRef?.meta.set('operation', operationElement);
-        return linkElementCopy;
+
+        /**
+         * Transclude Link Object containing Operation Object in its meta.
+         */
+        if (isMemberElement(parent)) {
+          parent.value = linkElementCopy; // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = linkElementCopy; // eslint-disable-line no-param-reassign
+        }
+
+        /**
+         * We're at the root of the tree, so we're just replacing the entire tree.
+         */
+        return !parent ? linkElementCopy : undefined;
       }
 
       if (isStringElement(linkElement.operationId)) {
@@ -473,7 +550,20 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
         const linkElementCopy = cloneShallow(linkElement);
         linkElementCopy.operationId?.meta.set('operation', operationElement);
-        return linkElementCopy;
+
+        /**
+         * Transclude Link Object containing Operation Object in its meta.
+         */
+        if (isMemberElement(parent)) {
+          parent.value = linkElementCopy; // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = linkElementCopy; // eslint-disable-line no-param-reassign
+        }
+
+        /**
+         * We're at the root of the tree, so we're just replacing the entire tree.
+         */
+        return !parent ? linkElementCopy : undefined;
       }
 
       return undefined;
@@ -481,21 +571,12 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
     async ExampleElement(
       exampleElement: ExampleElement,
-      key: any,
-      parent: any,
-      path: any,
-      ancestors: any[],
+      key: string | number,
+      parent: Element | undefined,
     ) {
-      const [ancestorsLineage] = this.toAncestorLineage([...ancestors, parent]);
-
       // ignore ExampleElement without externalValue field
       if (!isStringElement(exampleElement.externalValue)) {
         return undefined;
-      }
-
-      // detect possible cycle in traversal and avoid it
-      if (ancestorsLineage.includesCycle(exampleElement)) {
-        return false;
       }
 
       // value and externalValue fields are mutually exclusive
@@ -529,7 +610,20 @@ const OpenApi3_0DereferenceVisitor = stampit({
 
       const exampleElementCopy = cloneShallow(exampleElement);
       exampleElementCopy.value = valueElement;
-      return exampleElementCopy;
+
+      /**
+       * Transclude Example Object containing external value.
+       */
+      if (isMemberElement(parent)) {
+        parent.value = exampleElementCopy; // eslint-disable-line no-param-reassign
+      } else if (Array.isArray(parent)) {
+        parent[key] = exampleElementCopy; // eslint-disable-line no-param-reassign
+      }
+
+      /**
+       * We're at the root of the tree, so we're just replacing the entire tree.
+       */
+      return !parent ? exampleElementCopy : undefined;
     },
   },
 });

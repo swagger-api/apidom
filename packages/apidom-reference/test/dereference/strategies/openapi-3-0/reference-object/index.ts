@@ -1,6 +1,8 @@
 import path from 'node:path';
+import sinon from 'sinon';
 import { assert } from 'chai';
-import { toValue } from '@swagger-api/apidom-core';
+import { identity } from 'ramda';
+import { toValue, isRefElement, isParseResultElement } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
@@ -158,6 +160,108 @@ describe('dereference', function () {
             );
 
             assert.strictEqual(parent, cyclicParent);
+          });
+
+          context('given circular=ignore', function () {
+            specify('should dereference and create cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: { circular: 'ignore' },
+              });
+
+              assert.throws(() => JSON.stringify(toValue(dereferenced)));
+            });
+          });
+
+          context('given circular=replace', function () {
+            specify('should dereference and eliminate all cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: { circular: 'replace' },
+              });
+
+              assert.doesNotThrow(() => JSON.stringify(toValue(dereferenced)));
+            });
+          });
+
+          context('given circular=replace and custom replacer is provided', function () {
+            specify('should dereference and eliminate all cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const circularReplacer = sinon.spy(identity);
+
+              await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  circular: 'replace',
+                  circularReplacer,
+                },
+              });
+
+              assert.isTrue(circularReplacer.calledOnce);
+              assert.isTrue(isRefElement(circularReplacer.getCall(0).args[0]));
+              assert.isTrue(isRefElement(circularReplacer.getCall(0).returnValue));
+            });
+          });
+
+          context('given circular=error', function () {
+            specify('should dereference and throw on first detected cycle', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: { circular: 'error' },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
+          });
+
+          context('given immutable=true', function () {
+            specify('should dereference frozen ApiDOM tree', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              refSet.refs.forEach((ref) => ref.value.freeze());
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { baseURI: rootFilePath },
+                dereference: {
+                  refSet,
+                  immutable: true,
+                },
+              });
+
+              assert.isTrue(isParseResultElement(dereferenced));
+            });
+          });
+
+          context('given immutable=false', function () {
+            specify('should throw', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              refSet.refs.forEach((ref) => ref.value.freeze());
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { baseURI: rootFilePath },
+                  dereference: {
+                    refSet,
+                    immutable: false,
+                  },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
           });
         });
 

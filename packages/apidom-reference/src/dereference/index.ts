@@ -82,7 +82,8 @@ const dereference = async (
   const mergedOptions = mergeOptions(options, {
     resolve: { baseURI: sanitizedURI },
     dereference: {
-      immutable: refSet !== null, // if refSet was node provided, then we can work in mutable mode
+      // if refSet was not provided, then we can work in mutable mode
+      immutable: options.dereference.immutable && refSet !== null,
     },
   });
 

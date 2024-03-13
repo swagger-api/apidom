@@ -229,7 +229,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
        * Cases to consider:
        *  1. We're crossing document boundary
        *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
-       *  3. We are dereferencing the fragment lazily
+       *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
         isExternalReference ||
@@ -391,7 +391,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
        * Cases to consider:
        *  1. We're crossing document boundary
        *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
-       *  3. We are dereferencing the fragment lazily
+       *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
         isExternalReference ||

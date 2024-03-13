@@ -1,11 +1,4 @@
 import stampit from 'stampit';
-import { createNamespace, visit } from '@swagger-api/apidom-core';
-import openapi3_0Namespace, {
-  getNodeType,
-  isOpenApi3_0Element,
-  keyMap,
-  mediaTypes,
-} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
@@ -14,12 +7,8 @@ import {
   ResolveStrategy as IResolveStrategy,
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
-import Reference from '../../../Reference';
 import { merge as mergeOptions } from '../../../options/util';
-import OpenApi3_0ResolveVisitor from './visitor';
-
-// @ts-ignore
-const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
@@ -27,28 +16,36 @@ const OpenApi3_0ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     this.name = 'openapi-3-0';
   },
   methods: {
-    canResolve(file: IFile) {
-      // assert by media type
-      if (file.mediaType !== 'text/plain') {
-        return mediaTypes.includes(file.mediaType);
+    canResolve(file: IFile, options: IReferenceOptions): boolean {
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'openapi-3-0',
+      );
+
+      if (dereferenceStrategy === undefined) {
+        return false;
       }
 
-      // assert by inspecting ApiDOM
-      return isOpenApi3_0Element(file.parseResult?.api);
+      return dereferenceStrategy.canDereference(file, options);
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const namespace = createNamespace(openapi3_0Namespace);
-      const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
-      const visitor = OpenApi3_0ResolveVisitor({ reference, namespace, options: mergedOptions });
-      const refSet = ReferenceSet();
-      refSet.add(reference);
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'openapi-3-0',
+      );
 
-      await visitAsync(refSet.rootRef.value, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
+      if (dereferenceStrategy === undefined) {
+        throw new UnmatchedDereferenceStrategyError(
+          '"openapi-3-0" dereference strategy is not available.',
+        );
+      }
+
+      const refSet = ReferenceSet();
+      const mergedOptions = mergeOptions(options, {
+        resolve: { internal: false },
+        dereference: { refSet },
       });
+
+      await dereferenceStrategy.dereference(file, mergedOptions);
 
       return refSet;
     },

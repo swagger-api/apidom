@@ -207,16 +207,12 @@ describe('dereference', function () {
             specify(
               'should set Operation Object as metadata of Link.operationId field',
               async function () {
-                try {
-                  const dereferenced = await dereference(rootFilePath, {
-                    parse: { mediaType: mediaTypes.latest('json') },
-                  });
-                  const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+                const dereferenced = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
 
-                  assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
-                } catch (e) {
-                  console.dir(e);
-                }
+                assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               },
             );
           });

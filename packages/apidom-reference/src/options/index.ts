@@ -1,3 +1,5 @@
+import { identity } from 'ramda';
+
 import { ReferenceOptions as IReferenceOptions } from '../types';
 
 const defaultOptions: IReferenceOptions = {
@@ -105,6 +107,28 @@ const defaultOptions: IReferenceOptions = {
      * is exceeded by this option.
      */
     maxDepth: +Infinity,
+    /**
+     * Determines how circular references are handled.
+     *
+     * "ignore" - circular reference are allowed
+     * "replace" - circular references are not allowed and are translated to RefElement
+     * "error" - circular references are not allowed and will throw an error
+     */
+    circular: 'ignore',
+    /**
+     * This function is used to replace circular references when `circular` option is set to "replace".
+     * By default, it's an identity function. It means that circular references are replaced with RefElement.
+     */
+    circularReplacer: identity,
+    /**
+     * Determines whether the dereferencing process will be immutable.
+     * By default, the dereferencing process is immutable, which means that the original
+     * ApiDOM passed to the dereference process is NOT modified.
+     *
+     * true - the dereferencing process will be immutable (deep cloning of ApiDOM is involved)
+     * false - the dereferencing process will be mutable
+     */
+    immutable: true,
   },
   bundle: {
     /**

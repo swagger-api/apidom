@@ -15,12 +15,12 @@ import {
   MustacheTag,
   parseMustacheTags,
 } from '../../../utils/handlebars/utils';
-import { getContext } from '../../../utils/handlebars/context';
 import { debug, trace } from '../../../utils/utils';
-import { CompletionsCollector } from '../../../apidom-language-types';
+import { CompletionsCollector, AnyObject } from '../../../apidom-language-types';
 
 function complete(
   textDocument: TextDocument,
+  templateContext: AnyObject,
   position: Position,
   enableFiltering: boolean | undefined,
 ): CompletionList {
@@ -66,10 +66,19 @@ function complete(
   }
   let tagParent = tagInfo.parent;
   while (tagParent) {
+    if (tagParent.tagName.trim() === '@first' || tagParent.tagName.trim() === '@last') {
+      tagParent = tagParent.parent;
+      // eslint-disable-next-line no-continue
+      continue;
+    }
     const isComplexTagName = tagParent.tagName && tagParent.tagName.indexOf('.') > -1;
     if (isComplexTagName) {
       const props = tagParent.tagName.split('.');
-      pointer.unshift(props[props.length - 1]); // "simple" tag name
+      if (tagParent.each) {
+        pointer.unshift(`each ${props[props.length - 1]}`); // "simple" tag name with each
+      } else {
+        pointer.unshift(props[props.length - 1]); // "simple" tag name
+      }
       pointer.unshift(...props.slice(0, props.length - 1)); //
     } else {
       // eslint-disable-next-line no-lonely-if
@@ -82,7 +91,8 @@ function complete(
     tagParent = tagParent.parent;
   }
   trace('doCompletion - pointer', pointer);
-  const rawSuggestions = findNestedPropertyKeys(getContext(true), pointer);
+  const rawSuggestions = findNestedPropertyKeys(templateContext, pointer);
+  debug('doCompletion - rawSuggestions', rawSuggestions);
   // let completionNode: Element | undefined;
   const isInEach =
     tagInfoStrict.each ||
@@ -102,7 +112,7 @@ function complete(
         kind: CompletionItemKind.Keyword,
         insertTextFormat: 2,
       };
-      console.log(
+      debug(
         'doCompletion - insert',
         item.insertText,
         `A${word.trim()}A`,

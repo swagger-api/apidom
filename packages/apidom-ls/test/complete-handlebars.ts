@@ -98,7 +98,7 @@ describe('handlebars-ls-complete', function () {
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 
-  it.only('handlebars markdown - test completion each', async function () {
+  it('handlebars markdown - test completion each', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
       // enableLSPFilter: true,

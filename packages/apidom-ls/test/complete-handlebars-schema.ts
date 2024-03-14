@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 // import { assert } from 'chai';
-
 // @ts-ignore
+import { TextDocument } from 'vscode-languageserver-textdocument';
+import { Position } from 'vscode-languageserver-types';
+
 import getLanguageService from '../src/apidom-language-service';
 import {
-  // CompletionContext,
+  CompletionContext,
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types';
@@ -28,7 +30,7 @@ const specCompletion = fs
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const specCompletion = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-completion-schema.mustache'),
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-completion-each.mustache'),
   )
   .toString();
 
@@ -38,6 +40,7 @@ describe('handlebars-ls-complete-schema', function () {
     performanceLogs: logPerformance,
     logLevel,
     handlebarsJsonSchemaCompletion: true,
+    handlebarsJsonSchemaCompletionImplementation: 'faker',
   };
 
   const languageService: LanguageService = getLanguageService(context);
@@ -48,7 +51,7 @@ describe('handlebars-ls-complete-schema', function () {
   });
 
   it('handlebars markdown - test completion with schema', async function () {
-    /* const completionContext: CompletionContext = {
+    const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
       // enableLSPFilter: true,
     };
@@ -82,6 +85,6 @@ describe('handlebars-ls-complete-schema', function () {
     );
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(result, null, 2));
-    // assert.deepEqual(result, completionTestInputValue[3] as CompletionList); */
+    // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 });

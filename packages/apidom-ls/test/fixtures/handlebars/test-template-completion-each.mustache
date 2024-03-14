@@ -1,0 +1,14 @@
+{{!mustache}}
+{{#components}}
+  {{#each schemas}}
+    {{ty}}
+  {{/each}}
+{{/components}}
+{{#each components.schemas}}
+  {{ty}}
+{{/each}}
+{{#components}}
+  {{#schemas}}
+    {{}}
+  {{/schemas}}
+{{/components}}

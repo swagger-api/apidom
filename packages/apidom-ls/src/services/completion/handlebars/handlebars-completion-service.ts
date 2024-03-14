@@ -2,6 +2,8 @@
 import { CompletionList, Position } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionParams } from 'vscode-languageserver-protocol';
+import { Draft07 } from 'json-schema-library';
+// import { JSONSchemaFaker } from 'json-schema-faker';
 
 import {
   CompletionContext,
@@ -12,6 +14,7 @@ import {
 import { perfStart, perfEnd, findNamespace } from '../../../utils/utils';
 import completeHandlebars from './handlebars-completion';
 import { HandlebarsCompletionServiceJsonSchema } from './handlebars-completion-service-jsonschema';
+import { getContext, getSchema } from '../../../utils/handlebars/context';
 
 enum PerfLabels {
   START = 'doCompletion',
@@ -29,12 +32,19 @@ export class HandlebarsCompletionService implements CompletionService {
 
   private jsonSchemaCompletion: boolean = false;
 
+  private jsonSchemaCompletionLibrary: 'faker' | 'library' | 'refParser' = 'faker';
+
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
     if (settings) {
       if (settings.handlebarsJsonSchemaCompletion) {
         this.jsonSchemaCompletion = true;
-        this.jsonSchemaCompletionService = new HandlebarsCompletionServiceJsonSchema();
+        if (settings.handlebarsJsonSchemaCompletionImplementation) {
+          this.jsonSchemaCompletionLibrary = settings.handlebarsJsonSchemaCompletionImplementation;
+        }
+        if (this.jsonSchemaCompletionLibrary === 'refParser') {
+          this.jsonSchemaCompletionService = new HandlebarsCompletionServiceJsonSchema();
+        }
       }
       if (settings.completionProviders) {
         this.completionProviders = settings.completionProviders;
@@ -75,6 +85,12 @@ export class HandlebarsCompletionService implements CompletionService {
       isIncomplete: false,
     };
 
+    const jsonSchemaCompletion = context?.handlebarsJsonSchemaCompletion
+      ? true
+      : this.jsonSchemaCompletion;
+    const jsonSchemaCompletionLibrary = context?.handlebarsJsonSchemaCompletionImplementation
+      ? context?.handlebarsJsonSchemaCompletionImplementation
+      : this.jsonSchemaCompletionLibrary;
     const position =
       'position' in completionParamsOrPosition
         ? completionParamsOrPosition.position
@@ -86,15 +102,56 @@ export class HandlebarsCompletionService implements CompletionService {
     );
 
     // TODO frantuma, better handling of namespaces/providers
-    if (contentLanguage.namespace === 'handlebars' && !this.jsonSchemaCompletion) {
-      return completeHandlebars(textDocument, position, enableFiltering);
+    if (contentLanguage.namespace === 'handlebars' && !jsonSchemaCompletion) {
+      const templateContext = getContext(true);
+      return completeHandlebars(textDocument, templateContext, position, enableFiltering);
     }
-    if (contentLanguage.namespace === 'handlebars' && this.jsonSchemaCompletionService) {
-      return this.jsonSchemaCompletionService.doCompletion(
+    if (
+      contentLanguage.namespace === 'handlebars' &&
+      jsonSchemaCompletion &&
+      jsonSchemaCompletionLibrary === 'refParser'
+    ) {
+      return this.jsonSchemaCompletionService!.doCompletion(
         textDocument,
         completionParamsOrPosition,
         context,
       );
+    }
+    if (
+      contentLanguage.namespace === 'handlebars' &&
+      jsonSchemaCompletion &&
+      jsonSchemaCompletionLibrary === 'faker'
+    ) {
+      // const templateSchema = getSchema();
+      const templateContext = getContext(true);
+      /* JSONSchemaFaker.option('alwaysFakeOptionals', true);
+      JSONSchemaFaker.option('useExamplesValue', true);
+      JSONSchemaFaker.option('useDefaultValue', true);
+      JSONSchemaFaker.option('minItems', 1);
+      JSONSchemaFaker.option('minLength', 1);
+      JSONSchemaFaker.option('refDepthMin', 3);
+      JSONSchemaFaker.option('refDepthMax', 7);
+      JSONSchemaFaker.option('resolveJsonPath', true);
+      JSONSchemaFaker.option('sortProperties', true);
+      JSONSchemaFaker.option('refDepthMax', 7);
+      const templateContext = JSONSchemaFaker.resolve(templateSchema);
+      console.log('Faker templateContext', templateContext); */
+      return completeHandlebars(textDocument, templateContext, position, enableFiltering);
+    }
+    if (
+      contentLanguage.namespace === 'handlebars' &&
+      jsonSchemaCompletion &&
+      jsonSchemaCompletionLibrary === 'library'
+    ) {
+      const templateSchema = getSchema();
+      // const templateContext = getContext(true);
+      const jsonSchema7 = new Draft07(templateSchema);
+      const templateContext = jsonSchema7.getTemplate({}, jsonSchema7.getSchema(), {
+        addOptionalProps: true,
+        removeInvalidData: false,
+      });
+      console.log('Library templateContext', templateContext);
+      return completeHandlebars(textDocument, templateContext, position, enableFiltering);
     }
     perfEnd(PerfLabels.START);
     return completionList;

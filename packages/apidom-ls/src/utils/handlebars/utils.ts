@@ -2,6 +2,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { mergeDeepLeft } from 'ramda';
 
 import { AnyObject } from '../../apidom-language-types';
+import { trace } from '../utils';
 
 let delStart = '\\{{2,3}';
 let delEnd = '\\}{2,3}';
@@ -390,12 +391,14 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
     let key = path[i];
+    trace('findNestedPropertyKeys - key', key);
     let inEach = false;
     if (key.split(' ').length > 1) {
       // eslint-disable-next-line prefer-destructuring
       key = key.split(' ')[1];
       inEach = true;
     }
+    trace('findNestedPropertyKeys - inEach', inEach);
     // If current node is an array, use the first element
     if (Array.isArray(currentNode)) {
       currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
@@ -403,9 +406,11 @@ export function findNestedPropertyKeys(bundle: AnyObject, path: string[]): strin
     // Check if the key exists in the current node
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     if (isObjectNode(currentNode) && key in currentNode!) {
+      trace('findNestedPropertyKeys - key in current node');
       if (typeof currentNode![key] !== 'boolean') {
         currentNode = currentNode![key];
         if (inEach) {
+          trace('findNestedPropertyKeys - key in current node with each');
           // deepMerge all properties of each key of currentNode
           // @ts-ignore
           currentNode = deepMergeValues(currentNode);

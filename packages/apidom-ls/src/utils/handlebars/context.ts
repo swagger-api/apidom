@@ -7,6 +7,7 @@ import { AnyObject } from '../../apidom-language-types';
 // eslint-disable-next-line import/no-cycle
 import { defaultContext } from './default-context';
 import { defaultSchema } from './default-schema';
+import { debug } from '../utils';
 
 interface CacheEntry {
   context: AnyObject;
@@ -57,25 +58,35 @@ function transformJson(input: AnyObject): AnyObject {
   return input;
 }
 
-let currentContext: AnyObject = transformJson(defaultContext);
-let currentOriginalContext: AnyObject = defaultContext;
-let currentSchema: AnyObject = defaultSchema;
+let currentContext: AnyObject | undefined;
+let currentOriginalContext: AnyObject | undefined;
+let currentSchema: AnyObject | undefined;
 
 const cache: Record<string, CacheEntry> = {}; // replace with defaultContext
 const cacheSchema: Record<string, AnyObject> = {}; // replace with defaultContext
 
 export function getContext(processed?: boolean): AnyObject {
-  return processed ? currentContext : currentOriginalContext;
+  if (currentContext === undefined) {
+    debug('Context - USING defaultContext');
+    currentContext = transformJson(defaultContext);
+    currentOriginalContext = defaultContext;
+  }
+  return processed ? currentContext! : currentOriginalContext!;
 }
 
 export function getSchema(): AnyObject {
-  return currentSchema;
+  if (currentSchema === undefined) {
+    debug('Context - USING defaultSchema');
+    currentSchema = defaultSchema;
+  }
+  return currentSchema!;
 }
 
 export async function refreshContext(
   url: string | null,
   mustacheContext?: AnyObject,
 ): Promise<AnyObject | null> {
+  debug('Context - refreshContext', url, mustacheContext !== undefined, mustacheContext !== null);
   const specUrl = url || 'https://petstore3.swagger.io/api/v3/openapi.json';
   try {
     if (mustacheContext) {
@@ -119,6 +130,11 @@ export async function refreshContext(
     console.error('error loading context', err);
     // isParseFailure = true;
   }
+  if (currentOriginalContext === undefined) {
+    debug('Context - orig undefined, USING defaultContext');
+    currentContext = transformJson(defaultContext);
+    currentOriginalContext = defaultContext;
+  }
   return currentOriginalContext;
 }
 
@@ -150,6 +166,10 @@ export async function refreshSchema(
   } catch (err) {
     console.error('error loading schema', err);
     // isParseFailure = true;
+  }
+  if (currentSchema === undefined) {
+    debug('Context - default undefined, USING defaultSchema');
+    currentSchema = defaultSchema;
   }
   return currentSchema;
 }

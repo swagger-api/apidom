@@ -6,4 +6,4 @@ export function printJson(json: unknown) {
 }
 
 export const logPerformance = false;
-export const logLevel = LogLevel.WARN;
+export const logLevel = LogLevel.TRACE;

@@ -2,6 +2,7 @@ import stampit from 'stampit';
 import { propEq } from 'ramda';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import {
+  Element,
   RefElement,
   isElement,
   isMemberElement,
@@ -11,6 +12,7 @@ import {
   toValue,
   refract,
   visit,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { uriToPointer as uriToElementID } from '@swagger-api/apidom-json-pointer';
 
@@ -72,19 +74,34 @@ const ApiDOMDereferenceVisitor = stampit({
         parse: { ...this.options.parse, mediaType: 'text/plain' },
       });
 
-      // register new Reference with ReferenceSet
-      const reference = Reference({
+      // register new mutable reference with a refSet
+      const mutableReference = Reference({
         uri: baseURI,
-        value: parseResult,
+        value: cloneDeep(parseResult),
         depth: this.reference.depth + 1,
       });
+      refSet.add(mutableReference);
 
-      refSet.add(reference);
+      if (this.options.dereference.immutable) {
+        // register new immutable reference with a refSet
+        const immutableReference = Reference({
+          uri: `immutable://${baseURI}`,
+          value: parseResult,
+          depth: this.reference.depth + 1,
+        });
+        refSet.add(immutableReference);
+      }
 
-      return reference;
+      return mutableReference;
     },
 
-    async RefElement(refElement: RefElement, key: any, parent: any, path: any, ancestors: any[]) {
+    async RefElement(
+      refElement: RefElement,
+      key: string | number,
+      parent: Element | undefined,
+      path: (string | number)[],
+      ancestors: [Element | Element[]],
+    ) {
       const refURI = toValue(refElement);
       const refNormalizedURI = refURI.includes('#') ? refURI : `#${refURI}`;
       const retrievalURI = this.toBaseURI(refNormalizedURI);
@@ -139,13 +156,22 @@ const ApiDOMDereferenceVisitor = stampit({
       /**
        * Transclusion of a Ref Element SHALL be defined in the if/else block below.
        */
-      if (isObjectElement(referencedElement) && isObjectElement(ancestors[ancestors.length - 1])) {
+      if (
+        isObjectElement(referencedElement) &&
+        isObjectElement(ancestors[ancestors.length - 1]) &&
+        Array.isArray(parent) &&
+        typeof key === 'number'
+      ) {
         /**
          * If the Ref Element is held by an Object Element and references an Object Element,
          * its content entries SHALL be inserted in place of the Ref Element.
          */
         parent.splice(key, 1, ...referencedElement.content);
-      } else if (isArrayElement(referencedElement) && Array.isArray(parent)) {
+      } else if (
+        isArrayElement(referencedElement) &&
+        Array.isArray(parent) &&
+        typeof key === 'number'
+      ) {
         /**
          * If the Ref Element is held by an Array Element and references an Array Element,
          * its content entries SHALL be inserted in place of the Ref Element.
@@ -163,7 +189,7 @@ const ApiDOMDereferenceVisitor = stampit({
         parent[key] = referencedElement; // eslint-disable-line no-param-reassign
       }
 
-      return false;
+      return !parent ? referencedElement : false;
     },
   },
 });

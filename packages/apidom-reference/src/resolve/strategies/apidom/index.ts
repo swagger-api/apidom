@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { isElement, visit, cloneDeep } from '@swagger-api/apidom-core';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
@@ -8,35 +7,44 @@ import {
   ResolveStrategy as IResolveStrategy,
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
-import Reference from '../../../Reference';
 import { merge as mergeOptions } from '../../../options/util';
-import ApiDOMResolveVisitor from './visitor';
-
-// @ts-ignore
-const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
 
 const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
   init() {
     this.name = 'apidom';
   },
   methods: {
-    canResolve(file: IFile) {
-      return (
-        file.mediaType.startsWith('application/vnd.apidom') && isElement(file.parseResult?.result)
+    canResolve(file: IFile, options: IReferenceOptions): boolean {
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'apidom',
       );
+
+      if (dereferenceStrategy === undefined) {
+        return false;
+      }
+
+      return dereferenceStrategy.canDereference(file, options);
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const referenceValue = options.resolve.strategyOpts.apidom?.clone
-        ? cloneDeep(file.parseResult)
-        : file.parseResult;
-      const reference = Reference({ uri: file.uri, value: referenceValue });
-      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
-      const visitor = ApiDOMResolveVisitor({ reference, options: mergedOptions });
-      const refSet = ReferenceSet();
-      refSet.add(reference);
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'apidom',
+      );
 
-      await visitAsync(refSet.rootRef.value, visitor);
+      if (dereferenceStrategy === undefined) {
+        throw new UnmatchedDereferenceStrategyError(
+          '"apidom" dereference strategy is not available.',
+        );
+      }
+
+      const refSet = ReferenceSet();
+      const mergedOptions = mergeOptions(options, {
+        resolve: { internal: false },
+        dereference: { refSet },
+      });
+
+      await dereferenceStrategy.dereference(file, mergedOptions);
 
       return refSet;
     },

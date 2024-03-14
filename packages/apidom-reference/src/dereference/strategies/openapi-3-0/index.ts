@@ -43,6 +43,7 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
         const refSet = options.dereference.refSet ?? ReferenceSet();
         let reference;
 
+        // determine the initial reference
         if (!refSet.has(file.uri)) {
           reference = Reference({ uri: file.uri, value: file.parseResult });
           refSet.add(reference);
@@ -72,7 +73,6 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
           refSet.clean();
           mutableRefs.forEach((ref) => refSet.add(ref));
           immutableRefs.forEach((ref) => refSet.add(ref));
-
           reference = refSet.find((ref) => ref.uri === file.uri);
         }
 
@@ -82,18 +82,16 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
           nodeTypeGetter: getNodeType,
         });
 
-        /**
-         * Release all memory if this refSet was not provided as a configuration option.
-         * If provided as configuration option, then provider is responsible for cleanup.
-         */
         if (options.dereference.refSet === null) {
+          /**
+           * Release all memory if this refSet was not provided as a configuration option.
+           * If provided as configuration option, then provider is responsible for cleanup.
+           */
           refSet.clean();
-        }
-
-        /**
-         * If immutable option is set, then we need to remove mutable refs from the refSet.
-         */
-        if (options.dereference.immutable) {
+        } else if (options.dereference.immutable) {
+          /**
+           * If immutable option is set, then we need to remove mutable refs from the refSet.
+           */
           const immutableRefs = refSet.refs
             .filter((ref) => ref.uri.startsWith('immutable://'))
             .map((ref) =>

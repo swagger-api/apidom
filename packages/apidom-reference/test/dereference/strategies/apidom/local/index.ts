@@ -132,46 +132,32 @@ describe('dereference', function () {
           assert.strictEqual(expected.level1, expected.level1.level2a.level3.ref2);
         });
 
-        context('given clone option', function () {
-          specify(
-            'should not mutate the original element when clone options is not specified',
-            async function () {
-              const element = new ObjectElement({
-                element: new StringElement('test', { id: 'unique-id' }),
-                ref: new RefElement('unique-id'),
-              });
-              const actual = await dereferenceApiDOM(element, {
-                parse: { mediaType: 'application/vnd.apidom' },
-                dereference: { strategyOpts: { apidom: { clone: true } } },
-              });
-
-              assert.isTrue(isRefElement(element.get('ref')));
-              assert.isFalse(isRefElement(actual.get('ref')));
-            },
-          );
-
-          specify('should not mutate the original element when clone=true', async function () {
+        context('given immutable=true', function () {
+          specify('should not mutate original ApiDOM tree', async function () {
             const element = new ObjectElement({
               element: new StringElement('test', { id: 'unique-id' }),
               ref: new RefElement('unique-id'),
             });
+            element.freeze();
             const actual = await dereferenceApiDOM(element, {
               parse: { mediaType: 'application/vnd.apidom' },
-              dereference: { strategyOpts: { apidom: { clone: true } } },
+              dereference: { immutable: true },
             });
 
             assert.isTrue(isRefElement(element.get('ref')));
             assert.isFalse(isRefElement(actual.get('ref')));
           });
+        });
 
-          specify('should mutate the original element on clone=false', async function () {
+        context('given immutable=false', function () {
+          specify('should mutate original ApiDOM tree', async function () {
             const element = new ObjectElement({
               element: new StringElement('test', { id: 'unique-id' }),
               ref: new RefElement('unique-id'),
             });
             const actual = await dereferenceApiDOM(element, {
               parse: { mediaType: 'application/vnd.apidom' },
-              dereference: { strategyOpts: { apidom: { clone: false } } },
+              dereference: { immutable: false },
             });
 
             assert.isFalse(isRefElement(element.get('ref')));

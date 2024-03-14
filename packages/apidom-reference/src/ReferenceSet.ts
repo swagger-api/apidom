@@ -51,9 +51,9 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
 
     clean() {
       this.refs.forEach((ref: IReference) => {
-        // eslint-disable-next-line no-param-reassign
-        ref.refSet = null;
+        ref.refSet = null; // eslint-disable-line no-param-reassign
       });
+      this.rootRef = null;
       this.refs = [];
     },
   },

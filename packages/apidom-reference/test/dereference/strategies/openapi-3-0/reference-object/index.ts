@@ -222,7 +222,7 @@ describe('dereference', function () {
           });
 
           context('given immutable=true', function () {
-            specify('should dereference frozen ApiDOM tree', async function () {
+            specify('should not mutate original ApiDOM tree', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -242,7 +242,7 @@ describe('dereference', function () {
           });
 
           context('given immutable=false', function () {
-            specify('should throw', async function () {
+            specify('should mutate original ApiDOM tree', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },

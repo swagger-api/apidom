@@ -1,5 +1,4 @@
 import stampit from 'stampit';
-import { propEq } from 'ramda';
 import { Element, isElement, cloneDeep, visit } from '@swagger-api/apidom-core';
 
 import DereferenceStrategy from '../DereferenceStrategy';
@@ -38,7 +37,7 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
           refSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
-          reference = refSet.find(propEq(file.uri, 'uri'));
+          reference = refSet.find((ref) => ref.uri === file.uri);
         }
 
         /**

@@ -207,7 +207,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
             $ref: toValue(referencingElement.$ref),
           });
           const replacer =
-            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ||
+            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ??
             this.options.dereference.circularReplacer;
           const replacement = replacer(refElement);
 
@@ -247,7 +247,6 @@ const OpenApi3_0DereferenceVisitor = stampit({
           refractCache: this.refractCache,
           ancestors: ancestorsLineage,
         });
-        referencedElement.setMetaProperty('traversed', true);
         referencedElement = await visitAsync(referencedElement, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
@@ -369,7 +368,7 @@ const OpenApi3_0DereferenceVisitor = stampit({
             $ref: toValue(referencingElement.$ref),
           });
           const replacer =
-            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ||
+            this.options.dereference.strategyOpts['openapi-3-0']?.circularReplacer ??
             this.options.dereference.circularReplacer;
           const replacement = replacer(refElement);
 
@@ -409,7 +408,6 @@ const OpenApi3_0DereferenceVisitor = stampit({
           refractCache: this.refractCache,
           ancestors: ancestorsLineage,
         });
-        referencedElement.setMetaProperty('traversed', true);
         referencedElement = await visitAsync(referencedElement, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,

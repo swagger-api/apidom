@@ -1,11 +1,13 @@
 import path from 'node:path';
+import sinon from 'sinon';
 import { assert } from 'chai';
-import { toValue } from '@swagger-api/apidom-core';
+import { identity } from 'ramda';
+import { isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
 import { loadJsonFile } from '../../../../helpers';
-import { parse, dereference, Reference, ReferenceSet } from '../../../../../src';
+import { parse, dereference, Reference, ReferenceSet, resolve } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
@@ -67,6 +69,126 @@ describe('dereference', function () {
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
             assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given JSONReference Objects with internal cycles', function () {
+          const fixturePath = path.join(rootFixturePath, 'cycle-internal');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const dereferenced = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const parent = evaluate('/0/definitions/schema/properties/parent', dereferenced);
+            const cyclicParent = evaluate(
+              '/0/definitions/schema/properties/parent/properties/parent',
+              dereferenced,
+            );
+
+            assert.strictEqual(parent, cyclicParent);
+          });
+
+          context('given circular=ignore', function () {
+            specify('should dereference and create cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: { circular: 'ignore' },
+              });
+
+              assert.throws(() => JSON.stringify(toValue(dereferenced)));
+            });
+          });
+
+          context('given circular=replace', function () {
+            specify('should dereference and eliminate all cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: { circular: 'replace' },
+              });
+
+              assert.doesNotThrow(() => JSON.stringify(toValue(dereferenced)));
+            });
+          });
+
+          context('given circular=replace and custom replacer is provided', function () {
+            specify('should dereference and eliminate all cycles', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const circularReplacer = sinon.spy(identity);
+
+              await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  circular: 'replace',
+                  circularReplacer,
+                },
+              });
+
+              assert.isTrue(circularReplacer.calledOnce);
+              assert.isTrue(isRefElement(circularReplacer.getCall(0).args[0]));
+              assert.isTrue(isRefElement(circularReplacer.getCall(0).returnValue));
+            });
+          });
+
+          context('given circular=error', function () {
+            specify('should dereference and throw on first detected cycle', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: { circular: 'error' },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
+          });
+
+          context('given immutable=true', function () {
+            specify('should not mutate original ApiDOM tree', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              refSet.refs.forEach((ref) => ref.value.freeze());
+              const dereferenced = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { baseURI: rootFilePath },
+                dereference: {
+                  refSet,
+                  immutable: true,
+                },
+              });
+
+              assert.isTrue(isParseResultElement(dereferenced));
+            });
+          });
+
+          context('given immutable=false', function () {
+            specify('should mutate original ApiDOM tree', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              refSet.refs.forEach((ref) => ref.value.freeze());
+              try {
+                await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { baseURI: rootFilePath },
+                  dereference: {
+                    refSet,
+                    immutable: false,
+                  },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
           });
         });
 

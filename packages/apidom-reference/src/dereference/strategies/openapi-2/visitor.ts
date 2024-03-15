@@ -533,7 +533,7 @@ const OpenApi2DereferenceVisitor = stampit({
           throw new ApiDOMError('Circular reference detected');
         } else if (this.options.dereference.circular !== 'ignore') {
           const refElement = new RefElement(referencedElement.id, {
-            type: 'reference',
+            type: 'json-reference',
             uri: reference.uri,
             $ref: toValue(referencingElement.$ref),
           });

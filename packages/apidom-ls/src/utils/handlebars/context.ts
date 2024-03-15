@@ -6,8 +6,8 @@ import { AnyObject } from '../../apidom-language-types';
 
 // eslint-disable-next-line import/no-cycle
 import { defaultContext } from './default-context';
-import { defaultSchema } from './default-schema';
-import { debug } from '../utils';
+import { defaultSchema } from './simple-schema';
+import { debug, trace } from '../utils';
 
 interface CacheEntry {
   context: AnyObject;
@@ -71,6 +71,7 @@ export function getContext(processed?: boolean): AnyObject {
     currentContext = transformJson(defaultContext);
     currentOriginalContext = defaultContext;
   }
+  trace('Context - getContext', processed, currentOriginalContext);
   return processed ? currentContext! : currentOriginalContext!;
 }
 
@@ -135,6 +136,7 @@ export async function refreshContext(
     currentContext = transformJson(defaultContext);
     currentOriginalContext = defaultContext;
   }
+  trace('Context - currentOriginalContext', currentOriginalContext);
   return currentOriginalContext;
 }
 

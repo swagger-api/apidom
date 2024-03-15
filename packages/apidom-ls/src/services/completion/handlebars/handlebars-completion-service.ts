@@ -11,9 +11,11 @@ import {
   LanguageSettings,
   CompletionService,
 } from '../../../apidom-language-types';
-import { perfStart, perfEnd, findNamespace } from '../../../utils/utils';
+import { perfStart, perfEnd, findNamespace, debug } from '../../../utils/utils';
 import completeHandlebars from './handlebars-completion';
 import { HandlebarsCompletionServiceJsonSchema } from './handlebars-completion-service-jsonschema';
+// import { getContext } from '../../../utils/handlebars/context-openapi';
+// import { getSchema } from '../../../utils/handlebars/context';
 import { getContext, getSchema } from '../../../utils/handlebars/context';
 
 enum PerfLabels {
@@ -55,6 +57,11 @@ export class HandlebarsCompletionService implements CompletionService {
         }
       }
     }
+    debug(
+      'HandlebarsCompletionService - configure',
+      this.jsonSchemaCompletion,
+      this.jsonSchemaCompletionLibrary,
+    );
   }
 
   public registerProvider(provider: CompletionProvider): void {
@@ -150,7 +157,7 @@ export class HandlebarsCompletionService implements CompletionService {
         addOptionalProps: true,
         removeInvalidData: false,
       });
-      console.log('Library templateContext', templateContext);
+      debug('Library templateContext', templateContext.components.schemas.key);
       return completeHandlebars(textDocument, templateContext, position, enableFiltering);
     }
     perfEnd(PerfLabels.START);

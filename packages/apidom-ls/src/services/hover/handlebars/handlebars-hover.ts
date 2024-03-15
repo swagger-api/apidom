@@ -67,7 +67,7 @@ async function hoverHandlebars(
     hoverLine = `${hoverLine}(each)`;
   }
   contents.push(hoverLine);
-  contents.push(`\n**Path**: ${pointer.join('.')}`);
+  contents.push(`\n**Path**: ${pointer.join(' > ')}`);
   (<MarkupContent>hover.contents).value = contents.join('\n');
   hover.range = Range.create(
     textDocument.positionAt(tagInfoStrict.startIndex || 0),

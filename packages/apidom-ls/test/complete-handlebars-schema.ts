@@ -40,9 +40,8 @@ describe('handlebars-ls-complete-schema', function () {
     performanceLogs: logPerformance,
     logLevel,
     handlebarsJsonSchemaCompletion: true,
-    handlebarsJsonSchemaCompletionImplementation: 'faker',
+    handlebarsJsonSchemaCompletionImplementation: 'library',
   };
-
   const languageService: LanguageService = getLanguageService(context);
 
   // eslint-disable-next-line mocha/no-hooks-for-single-case

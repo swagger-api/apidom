@@ -109,6 +109,11 @@ export class DefaultCompletionService implements CompletionService {
   }
 
   public configure(settings?: LanguageSettings): void {
+    debug(
+      'CompletionService - configure',
+      settings?.handlebarsJsonSchemaCompletion,
+      settings?.handlebarsJsonSchemaCompletionImplementation,
+    );
     this.settings = settings;
     if (settings) {
       this.handlebarsCompletionService.configure(settings);

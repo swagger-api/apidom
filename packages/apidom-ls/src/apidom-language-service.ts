@@ -94,7 +94,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     colorsContext: context.colorsContext,
     linksContext: context.linksContext,
     handlebarsJsonSchemaCompletion: context.handlebarsJsonSchemaCompletion,
-    handlebarsJsonSchemaCompletionImplementation: context.handlebarsJsonSchemaCompletionImplementation,
+    handlebarsJsonSchemaCompletionImplementation:
+      context.handlebarsJsonSchemaCompletionImplementation,
   };
   configureServices(languageSettings);
 

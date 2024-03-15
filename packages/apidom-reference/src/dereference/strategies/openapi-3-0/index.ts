@@ -40,16 +40,18 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
 
       async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi3_0Namespace);
-        const refSet = options.dereference.refSet ?? ReferenceSet();
+        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
+        const mutableRefsSet = ReferenceSet();
+        let refSet = immutableRefSet;
         let reference;
 
         // determine the initial reference
-        if (!refSet.has(file.uri)) {
+        if (!immutableRefSet.has(file.uri)) {
           reference = Reference({ uri: file.uri, value: file.parseResult });
-          refSet.add(reference);
+          immutableRefSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
-          reference = refSet.find((ref) => ref.uri === file.uri);
+          reference = immutableRefSet.find((ref) => ref.uri === file.uri);
         }
 
         /**
@@ -57,23 +59,16 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
          * We don't want to mutate the original refSet and the references.
          */
         if (options.dereference.immutable) {
-          const immutableRefs = refSet.refs.map((ref) =>
-            Reference({
-              ...ref,
-              uri: `immutable://${ref.uri}`,
-            }),
-          );
-          const mutableRefs = refSet.refs.map((ref) =>
-            Reference({
-              ...ref,
-              value: cloneDeep(ref.value),
-            }),
-          );
-
-          refSet.clean();
-          mutableRefs.forEach((ref) => refSet.add(ref));
-          immutableRefs.forEach((ref) => refSet.add(ref));
-          reference = refSet.find((ref) => ref.uri === file.uri);
+          immutableRefSet.refs
+            .map((ref) =>
+              Reference({
+                ...ref,
+                value: cloneDeep(ref.value),
+              }),
+            )
+            .forEach((ref) => mutableRefsSet.add(ref));
+          reference = mutableRefsSet.find((ref) => ref.uri === file.uri);
+          refSet = mutableRefsSet;
         }
 
         const visitor = OpenApi3_0DereferenceVisitor({ reference, namespace, options });
@@ -82,27 +77,29 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
           nodeTypeGetter: getNodeType,
         });
 
-        if (options.dereference.refSet === null) {
-          /**
-           * Release all memory if this refSet was not provided as a configuration option.
-           * If provided as configuration option, then provider is responsible for cleanup.
-           */
-          refSet.clean();
-        } else if (options.dereference.immutable) {
-          /**
-           * If immutable option is set, then we need to remove mutable refs from the refSet.
-           */
-          const immutableRefs = refSet.refs
+        /**
+         * If immutable option is set, replay refs from the refSet.
+         */
+        if (options.dereference.immutable) {
+          mutableRefsSet.refs
             .filter((ref) => ref.uri.startsWith('immutable://'))
             .map((ref) =>
               Reference({
                 ...ref,
                 uri: ref.uri.replace(/^immutable:\/\//, ''),
               }),
-            );
+            )
+            .forEach((ref) => immutableRefSet.add(ref));
+          reference = immutableRefSet.find((ref) => ref.uri === file.uri);
+          refSet = immutableRefSet;
+        }
 
-          refSet.clean();
-          immutableRefs.forEach((ref) => refSet.add(ref));
+        /**
+         * Release all memory if this refSet was not provided as a configuration option.
+         * If provided as configuration option, then provider is responsible for cleanup.
+         */
+        if (options.dereference.refSet === null) {
+          immutableRefSet.clean();
         }
 
         return dereferencedElement;

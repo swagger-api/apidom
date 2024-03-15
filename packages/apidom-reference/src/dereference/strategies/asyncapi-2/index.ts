@@ -1,6 +1,5 @@
 import stampit from 'stampit';
-import { defaultTo, propEq } from 'ramda';
-import { createNamespace, visit, Element } from '@swagger-api/apidom-core';
+import { createNamespace, visit, Element, cloneDeep } from '@swagger-api/apidom-core';
 import asyncApi2Namespace, {
   getNodeType,
   isAsyncApi2Element,
@@ -40,15 +39,34 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
 
       async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(asyncApi2Namespace);
-        const refSet = defaultTo(ReferenceSet(), options.dereference.refSet);
+        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
+        const mutableRefsSet = ReferenceSet();
+        let refSet = immutableRefSet;
         let reference;
 
-        if (!refSet.has(file.uri)) {
+        if (!immutableRefSet.has(file.uri)) {
           reference = Reference({ uri: file.uri, value: file.parseResult });
-          refSet.add(reference);
+          immutableRefSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
-          reference = refSet.find(propEq(file.uri, 'uri'));
+          reference = immutableRefSet.find((ref) => ref.uri === file.uri);
+        }
+
+        /**
+         * Clone refSet due the dereferencing process being mutable.
+         * We don't want to mutate the original refSet and the references.
+         */
+        if (options.dereference.immutable) {
+          immutableRefSet.refs
+            .map((ref) =>
+              Reference({
+                ...ref,
+                value: cloneDeep(ref.value),
+              }),
+            )
+            .forEach((ref) => mutableRefsSet.add(ref));
+          reference = mutableRefsSet.find((ref) => ref.uri === file.uri);
+          refSet = mutableRefsSet;
         }
 
         const visitor = AsyncApi2DereferenceVisitor({ reference, namespace, options });
@@ -58,11 +76,28 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
         });
 
         /**
-         * Release all memory if this refSet was not provided as an configuration option.
+         * If immutable option is set, replay refs from the refSet.
+         */
+        if (options.dereference.immutable) {
+          mutableRefsSet.refs
+            .filter((ref) => ref.uri.startsWith('immutable://'))
+            .map((ref) =>
+              Reference({
+                ...ref,
+                uri: ref.uri.replace(/^immutable:\/\//, ''),
+              }),
+            )
+            .forEach((ref) => immutableRefSet.add(ref));
+          reference = immutableRefSet.find((ref) => ref.uri === file.uri);
+          refSet = immutableRefSet;
+        }
+
+        /**
+         * Release all memory if this refSet was not provided as a configuration option.
          * If provided as configuration option, then provider is responsible for cleanup.
          */
         if (options.dereference.refSet === null) {
-          refSet.clean();
+          immutableRefSet.clean();
         }
 
         return dereferencedElement;

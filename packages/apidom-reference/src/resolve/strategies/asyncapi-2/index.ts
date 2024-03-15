@@ -1,11 +1,4 @@
 import stampit from 'stampit';
-import { createNamespace, visit } from '@swagger-api/apidom-core';
-import asyncApi2Namespace, {
-  getNodeType,
-  isAsyncApi2Element,
-  keyMap,
-  mediaTypes,
-} from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
@@ -14,40 +7,44 @@ import {
   ResolveStrategy as IResolveStrategy,
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
-import Reference from '../../../Reference';
 import { merge as mergeOptions } from '../../../options/util';
-import AsyncApi2ResolveVisitor from './visitor';
-
-// @ts-ignore
-const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
 
 const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
   init() {
     this.name = 'asyncapi-2';
   },
   methods: {
-    canResolve(file: IFile) {
-      // assert by media type
-      if (file.mediaType !== 'text/plain') {
-        return mediaTypes.includes(file.mediaType);
+    canResolve(file: IFile, options: IReferenceOptions) {
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'asyncapi-2',
+      );
+
+      if (dereferenceStrategy === undefined) {
+        return false;
       }
 
-      // assert by inspecting ApiDOM
-      return isAsyncApi2Element(file.parseResult?.api);
+      return dereferenceStrategy.canDereference(file, options);
     },
 
     async resolve(file: IFile, options: IReferenceOptions) {
-      const namespace = createNamespace(asyncApi2Namespace);
-      const reference = Reference({ uri: file.uri, value: file.parseResult });
-      const mergedOptions = mergeOptions(options, { resolve: { internal: false } });
-      const visitor = AsyncApi2ResolveVisitor({ reference, namespace, options: mergedOptions });
-      const refSet = ReferenceSet();
-      refSet.add(reference);
+      const dereferenceStrategy = options.dereference.strategies.find(
+        (strategy: any) => strategy.name === 'asyncapi-2',
+      );
 
-      await visitAsync(refSet.rootRef.value, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
+      if (dereferenceStrategy === undefined) {
+        throw new UnmatchedDereferenceStrategyError(
+          '"asyncapi-2" dereference strategy is not available.',
+        );
+      }
+
+      const refSet = ReferenceSet();
+      const mergedOptions = mergeOptions(options, {
+        resolve: { internal: false },
+        dereference: { refSet },
       });
+
+      await dereferenceStrategy.dereference(file, mergedOptions);
 
       return refSet;
     },

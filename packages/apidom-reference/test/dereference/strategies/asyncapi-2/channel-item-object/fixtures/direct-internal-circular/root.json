@@ -2,10 +2,12 @@
   "asyncapi": "2.6.0",
   "channels": {
     "channelItem1": {
-      "$ref": "#/channels/channelItem2"
+      "$ref": "#/channels/channelItem2",
+      "description": "desc 1"
     },
     "channelItem2": {
-      "$ref": "#/channels/channelItem1"
+      "$ref": "#/channels/channelItem1",
+      "description": "desc 2"
     }
   }
 }

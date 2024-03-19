@@ -168,22 +168,39 @@ describe('dereference', function () {
             });
           });
 
-          context('given $ref field with with direct circular internal reference', function () {
+          context('given $ref field with direct circular internal reference', function () {
             const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
 
-            specify('should throw error', async function () {
+            specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              try {
-                await dereference(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw DereferenceError');
-              } catch (e) {
-                assert.instanceOf(e, DereferenceError);
-              }
+              assert.deepEqual(toValue(actual), expected);
             });
           });
+
+          context(
+            'given $ref field with direct circular internal reference to itself',
+            function () {
+              const fixturePath = path.join(rootFixturePath, 'direct-self-circular');
+
+              specify('should throw error', async function () {
+                const rootFilePath = path.join(fixturePath, 'root.json');
+
+                try {
+                  await dereference(rootFilePath, {
+                    parse: { mediaType: mediaTypes.latest('json') },
+                  });
+                  assert.fail('should throw DereferenceError');
+                } catch (e) {
+                  assert.instanceOf(e, DereferenceError);
+                }
+              });
+            },
+          );
 
           context('given Channel Item Objects with external circular dependency', function () {
             const fixturePath = path.join(rootFixturePath, 'external-circular-dependency');
@@ -199,54 +216,45 @@ describe('dereference', function () {
             });
           });
 
-          context('given $ref field with with indirect circular internal reference', function () {
+          context('given $ref field with indirect circular internal reference', function () {
             const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 
-            specify('should throw error', async function () {
+            specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              try {
-                await dereference(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw DereferenceError');
-              } catch (e) {
-                assert.instanceOf(e, DereferenceError);
-              }
+              assert.deepEqual(toValue(actual), expected);
             });
           });
 
-          context('given $ref field with with direct circular external reference', function () {
+          context('given $ref field with direct circular external reference', function () {
             const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
 
-            specify('should throw error', async function () {
+            specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              try {
-                await dereference(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw DereferenceError');
-              } catch (e) {
-                assert.instanceOf(e, DereferenceError);
-              }
+              assert.deepEqual(toValue(actual), expected);
             });
           });
 
-          context('given $ref field with with indirect circular external reference', function () {
+          context('given $ref field with indirect circular external reference', function () {
             const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 
-            specify('should throw error', async function () {
+            specify('should dereference', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
 
-              try {
-                await dereference(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw DereferenceError');
-              } catch (e) {
-                assert.instanceOf(e, DereferenceError);
-              }
+              assert.deepEqual(toValue(actual), expected);
             });
           });
         });

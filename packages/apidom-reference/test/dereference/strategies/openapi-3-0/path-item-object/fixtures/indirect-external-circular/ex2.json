@@ -1,3 +1,4 @@
 {
-  "$ref": "./root.json#/paths/~1path1"
+  "$ref": "./root.json#/paths/~1path1",
+  "description": "ex2 desc"
 }

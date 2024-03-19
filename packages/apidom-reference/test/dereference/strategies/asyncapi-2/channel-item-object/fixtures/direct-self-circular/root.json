@@ -1,0 +1,8 @@
+{
+  "asyncapi": "2.6.0",
+  "channels": {
+    "channelItem1": {
+      "$ref": "#/channels/channelItem1"
+    }
+  }
+}

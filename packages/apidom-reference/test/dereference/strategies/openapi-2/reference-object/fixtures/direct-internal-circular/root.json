@@ -4,6 +4,9 @@
     "/": {
       "parameters": [
         {
+          "$ref": "#/paths/~1/parameters/1"
+        },
+        {
           "$ref": "#/paths/~1/parameters/0"
         }
       ]

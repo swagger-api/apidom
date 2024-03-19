@@ -1,0 +1,10 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/path1": {
+        "description": "ex2 desc"
+      }
+    }
+  }
+]

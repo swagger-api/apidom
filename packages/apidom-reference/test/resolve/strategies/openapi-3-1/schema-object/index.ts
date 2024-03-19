@@ -473,16 +473,13 @@ describe('resolve', function () {
         context('given Schema Objects with direct circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
 
-          specify('should throw error', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await resolve(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.instanceOf(e, ResolverError);
-            }
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 2);
           });
         });
 
@@ -515,16 +512,13 @@ describe('resolve', function () {
         context('given Reference Objects with indirect circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 
-          specify('should throw error', async function () {
+          specify('should resolve', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await resolve(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw ResolverError');
-            } catch (e) {
-              assert.instanceOf(e, ResolverError);
-            }
+            const refSet = await resolve(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+
+            assert.strictEqual(refSet.size, 4);
           });
         });
 

@@ -297,12 +297,28 @@ describe('dereference', function () {
         context('given Reference Objects with direct circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
 
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = [loadJsonFile(rootFilePath)];
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given $ref field with direct circular internal reference to itself', function () {
+          const fixturePath = path.join(rootFixturePath, 'direct-self-circular');
+
           specify('should throw error', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
+
             try {
               await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
+              assert.fail('should throw DereferenceError');
             } catch (e) {
               assert.instanceOf(e, DereferenceError);
             }

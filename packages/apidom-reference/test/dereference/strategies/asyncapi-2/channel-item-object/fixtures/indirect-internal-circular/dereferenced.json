@@ -1,0 +1,13 @@
+[
+  {
+    "asyncapi": "2.6.0",
+    "channels": {
+      "channelItem1": {
+      },
+      "channelItem2": {
+      },
+      "channelItem3": {
+      }
+    }
+  }
+]

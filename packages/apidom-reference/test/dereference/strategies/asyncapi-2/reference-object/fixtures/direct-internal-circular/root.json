@@ -3,6 +3,9 @@
   "components": {
     "parameters": {
       "userId": {
+        "$ref": "#/components/parameters/userProfileId"
+      },
+      "userProfileId": {
         "$ref": "#/components/parameters/userId"
       }
     }

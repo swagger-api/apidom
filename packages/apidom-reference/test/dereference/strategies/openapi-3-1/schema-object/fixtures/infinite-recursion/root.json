@@ -3,12 +3,12 @@
   "components": {
     "schemas": {
       "User": {
-        "type": "object",
-        "$ref": "#/components/schemas/UserProfile"
+        "$ref": "#/components/schemas/UserProfile",
+        "type": "object"
       },
       "UserProfile": {
-        "type": "object",
-        "$ref": "#/components/schemas/User"
+        "$ref": "#/components/schemas/User",
+        "type": "object"
       }
     }
   }

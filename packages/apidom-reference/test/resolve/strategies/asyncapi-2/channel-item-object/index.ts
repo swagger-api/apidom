@@ -136,34 +136,26 @@ describe('resolve', function () {
           context('given $ref field with with direct circular external reference', function () {
             const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
 
-            specify('should throw error', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
 
-              try {
-                await resolve(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw ResolverError');
-              } catch (e) {
-                assert.instanceOf(e, ResolverError);
-              }
+              assert.strictEqual(refSet.size, 2);
             });
           });
 
           context('given $ref field with with indirect circular external reference', function () {
             const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 
-            specify('should throw error', async function () {
+            specify('should resolve', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
+              const refSet = await resolve(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
 
-              try {
-                await resolve(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw ResolverError');
-              } catch (e) {
-                assert.instanceOf(e, ResolverError);
-              }
+              assert.strictEqual(refSet.size, 2);
             });
           });
         });

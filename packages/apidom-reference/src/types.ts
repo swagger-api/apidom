@@ -5,6 +5,7 @@ export interface File {
   mediaType: string;
   data: Buffer | DataView | ArrayBuffer | string;
   parseResult: ParseResultElement;
+  readonly extension: string;
 }
 
 export interface Resolver {

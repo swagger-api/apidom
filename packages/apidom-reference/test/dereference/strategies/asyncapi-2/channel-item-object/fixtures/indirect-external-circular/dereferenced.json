@@ -1,0 +1,10 @@
+[
+  {
+    "asyncapi": "2.6.0",
+    "channels": {
+      "channelItem1": {
+        "description": "ex2 desc"
+      }
+    }
+  }
+]

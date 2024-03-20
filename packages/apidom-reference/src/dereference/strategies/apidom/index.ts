@@ -87,6 +87,8 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
           immutableRefSet.clean();
         }
 
+        mutableRefsSet.clean();
+
         return dereferencedElement;
       },
     },

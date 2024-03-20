@@ -839,32 +839,28 @@ describe('dereference', function () {
         context('given Schema Objects with infinite recursion', function () {
           const fixturePath = path.join(rootFixturePath, 'infinite-recursion');
 
-          specify('should throw error', async function () {
+          specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await dereference(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw DereferenceError');
-            } catch (e) {
-              assert.instanceOf(e, DereferenceError);
-            }
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
           });
         });
 
         context('given Schema Objects with direct circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
 
-          specify('should throw error', async function () {
+          specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await dereference(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw DereferenceError');
-            } catch (e) {
-              assert.instanceOf(e, DereferenceError);
-            }
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
           });
         });
 
@@ -887,32 +883,28 @@ describe('dereference', function () {
         context('given Schema Objects with indirect circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
 
-          specify('should throw error', async function () {
+          specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await dereference(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw DereferenceError');
-            } catch (e) {
-              assert.instanceOf(e, DereferenceError);
-            }
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
           });
         });
 
         context('given Schema Objects with indirect circular internal reference', function () {
           const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
 
-          specify('should throw error', async function () {
+          specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
-            try {
-              await dereference(rootFilePath, {
-                parse: { mediaType: mediaTypes.latest('json') },
-              });
-              assert.fail('should throw DereferenceError');
-            } catch (e) {
-              assert.instanceOf(e, DereferenceError);
-            }
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
           });
         });
       });

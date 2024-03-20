@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.3",
+  "paths": {
+    "/uri": {
+      "get": {
+        "callbacks": {
+          "myCallback": {
+            "{$request.query.queryUrl}": {
+              "$ref": "./ex1.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,10 +2,12 @@
   "swagger": "2.0",
   "paths": {
     "/path1": {
-      "$ref": "#/paths/~1path2"
+      "$ref": "#/paths/~1path2",
+      "description": "1"
     },
     "/path2": {
-      "$ref": "#/paths/~1path1"
+      "$ref": "#/paths/~1path1",
+      "description": "2"
     }
   }
 }

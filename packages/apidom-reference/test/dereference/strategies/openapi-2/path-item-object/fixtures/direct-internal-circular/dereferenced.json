@@ -1,0 +1,9 @@
+[
+  {
+    "swagger": "2.0",
+    "paths": {
+      "/path1": { "description": "1" },
+      "/path2": { "description": "2" }
+    }
+  }
+]

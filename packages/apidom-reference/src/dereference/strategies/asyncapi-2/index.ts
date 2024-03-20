@@ -100,6 +100,8 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
           immutableRefSet.clean();
         }
 
+        mutableRefsSet.clean();
+
         return dereferencedElement;
       },
     },

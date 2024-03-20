@@ -21,6 +21,7 @@ import {
   getNodeType,
   isReferenceLikeElement,
   isBooleanJsonSchemaElement,
+  isChannelItemElement,
   isReferenceElement,
   keyMap,
   ReferenceElement,
@@ -180,7 +181,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // detect direct or circular reference
-      if (this.indirections.includes(referencedElement)) {
+      if (referencingElement === referencedElement) {
         throw new ApiDOMError('Recursive Reference Object detected');
       }
 
@@ -193,9 +194,11 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       // detect second deep dive into the same fragment and avoid it
       if (ancestorsLineage.includes(referencedElement)) {
+        reference.refSet.circular = true;
+
         if (this.options.dereference.circular === 'error') {
           throw new ApiDOMError('Circular reference detected');
-        } else if (this.options.dereference.circular !== 'ignore') {
+        } else if (this.options.dereference.circular === 'replace') {
           const refElement = new RefElement(referencedElement.id, {
             type: 'reference',
             uri: reference.uri,
@@ -212,8 +215,6 @@ const AsyncApi2DereferenceVisitor = stampit({
             parent[key] = replacement; // eslint-disable-line no-param-reassign
           }
 
-          reference.refSet.circular = true;
-
           return !parent ? replacement : false;
         }
       }
@@ -227,9 +228,10 @@ const AsyncApi2DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        isExternalReference ||
-        isReferenceElement(referencedElement) ||
-        ['error', 'replace'].includes(this.options.dereference.circular)
+        !ancestorsLineage.includesCycle(referencedElement) &&
+        (isExternalReference ||
+          isReferenceElement(referencedElement) ||
+          ['error', 'replace'].includes(this.options.dereference.circular))
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -256,6 +258,8 @@ const AsyncApi2DereferenceVisitor = stampit({
       // Boolean JSON Schemas
       if (isBooleanJsonSchemaElement(referencedElement as unknown)) {
         const booleanJsonSchemaElement: BooleanElement = cloneDeep(referencedElement);
+        // assign unique id to merged element
+        booleanJsonSchemaElement.setMetaProperty('id', identityManager.generateId());
         // annotate referenced element with info about original referencing element
         booleanJsonSchemaElement.setMetaProperty('ref-fields', {
           $ref: toValue(referencingElement.$ref),
@@ -268,13 +272,21 @@ const AsyncApi2DereferenceVisitor = stampit({
           cloneDeep(identityManager.identify(referencingElement)),
         );
 
-        return booleanJsonSchemaElement;
+        if (isMemberElement(parent)) {
+          parent.value = booleanJsonSchemaElement; // eslint-disable-line no-param-reassign
+        } else if (Array.isArray(parent)) {
+          parent[key] = booleanJsonSchemaElement; // eslint-disable-line no-param-reassign
+        }
+
+        return !parent ? booleanJsonSchemaElement : false;
       }
 
+      /**
+       * Creating a new version of referenced element to avoid modifying the original one.
+       */
       const mergedElement = cloneShallow(referencedElement);
       // assign unique id to merged element
       mergedElement.setMetaProperty('id', identityManager.generateId());
-
       // annotate referenced element with info about original referencing element
       mergedElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
@@ -346,7 +358,7 @@ const AsyncApi2DereferenceVisitor = stampit({
        * Applying semantics to a referenced element if semantics are missing.
        */
       if (isPrimitiveElement(referencedElement)) {
-        const cacheKey = `channel-${toValue(identityManager.identify(referencedElement))}`;
+        const cacheKey = `channel-item-${toValue(identityManager.identify(referencedElement))}`;
 
         if (this.refractCache.has(cacheKey)) {
           referencedElement = this.refractCache.get(cacheKey);
@@ -357,7 +369,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       }
 
       // detect direct or indirect reference
-      if (this.indirections.includes(referencedElement)) {
+      if (referencingElement === referencedElement) {
         throw new ApiDOMError('Recursive Channel Item Object reference detected');
       }
 
@@ -370,9 +382,11 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       // detect second deep dive into the same fragment and avoid it
       if (ancestorsLineage.includes(referencedElement)) {
+        reference.refSet.circular = true;
+
         if (this.options.dereference.circular === 'error') {
           throw new ApiDOMError('Circular reference detected');
-        } else if (this.options.dereference.circular !== 'ignore') {
+        } else if (this.options.dereference.circular === 'replace') {
           const refElement = new RefElement(referencedElement.id, {
             type: 'channel-item',
             uri: reference.uri,
@@ -389,9 +403,7 @@ const AsyncApi2DereferenceVisitor = stampit({
             parent[key] = replacement; // eslint-disable-line no-param-reassign
           }
 
-          reference.refSet.circular = true;
-
-          return !parent ? replacement : false;
+          return !parent ? replacement : undefined;
         }
       }
 
@@ -400,13 +412,14 @@ const AsyncApi2DereferenceVisitor = stampit({
        *
        * Cases to consider:
        *  1. We're crossing document boundary
-       *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
+       *  2. Fragment is a Channel Item Object with $ref field. We need to follow it to get the eventual value
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        isExternalReference ||
-        isStringElement(referencedElement.$ref) ||
-        ['error', 'replace'].includes(this.options.dereference.circular)
+        !ancestorsLineage.includesCycle(referencedElement) &&
+        (isExternalReference ||
+          (isChannelItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
+          ['error', 'replace'].includes(this.options.dereference.circular))
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -430,67 +443,52 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       this.indirections.pop();
 
-      // dive deep into the referenced element
-      const visitor: any = AsyncApi2DereferenceVisitor({
-        reference,
-        namespace: this.namespace,
-        indirections: [...this.indirections],
-        options: this.options,
-        ancestors: ancestorsLineage,
-        refractCache: this.refractCache,
-      });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
-
-      // remove referencing channel item from ancestors lineage
-      directAncestors.delete(referencingElement);
-
-      this.indirections.pop();
-
       /**
        * Creating a new version of Channel Item by merging fields from referenced Channel Item with referencing one.
        */
-      const mergedElement = new ChannelItemElement(
-        [...referencedElement.content] as any,
-        cloneDeep(referencedElement.meta),
-        cloneDeep(referencedElement.attributes),
-      );
-      // assign unique id to merged element
-      mergedElement.setMetaProperty('id', identityManager.generateId());
-      // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
-      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
-        mergedElement.remove(toValue(keyElement));
-        mergedElement.content.push(item);
-      });
-      mergedElement.remove('$ref');
+      if (isChannelItemElement(referencedElement)) {
+        const mergedElement = new ChannelItemElement(
+          [...referencedElement.content] as any,
+          cloneDeep(referencedElement.meta),
+          cloneDeep(referencedElement.attributes),
+        );
+        // assign unique id to merged element
+        mergedElement.setMetaProperty('id', identityManager.generateId());
+        // existing keywords from referencing ChannelItemElement overrides ones from referenced ChannelItemElement
+        referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+          mergedElement.remove(toValue(keyElement));
+          mergedElement.content.push(item);
+        });
+        mergedElement.remove('$ref');
 
-      // annotate referenced element with info about original referencing element
-      mergedElement.setMetaProperty('ref-fields', {
-        $ref: toValue(referencingElement.$ref),
-      });
-      // annotate referenced with info about origin
-      mergedElement.setMetaProperty('ref-origin', reference.uri);
-      // annotate fragment with info about referencing element
-      mergedElement.setMetaProperty(
-        'ref-referencing-element-id',
-        cloneDeep(identityManager.identify(referencingElement)),
-      );
+        // annotate referenced element with info about original referencing element
+        mergedElement.setMetaProperty('ref-fields', {
+          $ref: toValue(referencingElement.$ref),
+        });
+        // annotate referenced with info about origin
+        mergedElement.setMetaProperty('ref-origin', reference.uri);
+        // annotate fragment with info about referencing element
+        mergedElement.setMetaProperty(
+          'ref-referencing-element-id',
+          cloneDeep(identityManager.identify(referencingElement)),
+        );
+
+        referencedElement = mergedElement;
+      }
 
       /**
        * Transclude referencing element with merged referenced element.
        */
       if (isMemberElement(parent)) {
-        parent.value = mergedElement; // eslint-disable-line no-param-reassign
+        parent.value = referencedElement; // eslint-disable-line no-param-reassign
       } else if (Array.isArray(parent)) {
-        parent[key] = mergedElement; // eslint-disable-line no-param-reassign
+        parent[key] = referencedElement; // eslint-disable-line no-param-reassign
       }
 
       /**
        * We're at the root of the tree, so we're just replacing the entire tree.
        */
-      return !parent ? mergedElement : undefined;
+      return !parent ? referencedElement : undefined;
     },
   },
 });

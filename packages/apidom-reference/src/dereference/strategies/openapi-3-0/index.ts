@@ -102,6 +102,8 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
           immutableRefSet.clean();
         }
 
+        mutableRefsSet.clean();
+
         return dereferencedElement;
       },
     },

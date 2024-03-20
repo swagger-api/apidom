@@ -100,6 +100,8 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
           immutableRefSet.clean();
         }
 
+        mutableRefsSet.clean();
+
         return dereferencedElement;
       },
     },

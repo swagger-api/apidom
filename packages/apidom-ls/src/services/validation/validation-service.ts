@@ -1,6 +1,13 @@
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element, findAtOffset, traverse, toValue, ObjectElement } from '@swagger-api/apidom-core';
+import {
+  Element,
+  ObjectElement,
+  ParseResultElement,
+  findAtOffset,
+  traverse,
+  toValue,
+} from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
 import { dereferenceApiDOM, Reference, ReferenceSet, options } from '@swagger-api/apidom-reference';
@@ -71,20 +78,43 @@ export class DefaultValidationService implements ValidationService {
     this.commentSeverity = undefined;
   }
 
-  private static createCachedResolver(resolver: any) {
-    const cachedResolver = Object.create(resolver);
+  private static createCachedParser(parser: any) {
+    const cachedParser = Object.create(parser);
 
-    cachedResolver.cache = new Map();
-    cachedResolver.read = async function read(file: { uri: string }): Promise<Buffer> {
-      if (this.cache.has(file.uri)) {
-        return this.cache.get(file.uri);
+    cachedParser.cache = new Map();
+    cachedParser.parse = async function parse(
+      file: {
+        uri: string;
+        mediaType: string;
+      },
+      ...rest: unknown[]
+    ): Promise<ParseResultElement> {
+      const cacheKey = `${file.uri}-${file.mediaType}`;
+
+      // cache hit
+      if (this.cache.has(cacheKey)) {
+        return this.cache.get(cacheKey);
       }
-      const resolved = await resolver.read(file);
-      this.cache.set(file.uri, resolved);
-      return resolved;
+
+      // preparing deferred and setting to cache
+      let resolve: (value: ParseResultElement | PromiseLike<ParseResultElement>) => void;
+      let reject: (reason?: any) => void;
+      const deferred = new Promise<ParseResultElement>((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+      this.cache.set(cacheKey, deferred);
+
+      // parsing and settling deferred
+      parser
+        .parse(file, ...rest)
+        .then(resolve!)
+        .catch(reject!);
+
+      return deferred;
     };
 
-    return cachedResolver;
+    return cachedParser;
   }
 
   public registerProvider(provider: ValidationProvider): void {
@@ -204,6 +234,7 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
     const apiReference = Reference({ uri: baseURI, value: result });
+    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = Reference({
@@ -211,18 +242,15 @@ export class DefaultValidationService implements ValidationService {
         value: refEl,
       });
       const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
-      const cachedResolvers = options.resolve.resolvers.map(
-        DefaultValidationService.createCachedResolver,
-      );
 
       try {
         const promise = dereferenceApiDOM(refEl, {
           resolve: {
-            resolvers: cachedResolvers,
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
+            parsers: cachedParsers,
             mediaType: nameSpace.mediaType,
           },
           dereference: { refSet },
@@ -305,6 +333,7 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
     const apiReference = Reference({ uri: baseURI, value: result });
+    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = Reference({
@@ -317,12 +346,12 @@ export class DefaultValidationService implements ValidationService {
         // eslint-disable-next-line no-await-in-loop
         await dereferenceApiDOM(refEl, {
           resolve: {
-            resolvers: options.resolve.resolvers.map(DefaultValidationService.createCachedResolver),
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
+            parsers: cachedParsers,
           },
           dereference: { refSet },
         });

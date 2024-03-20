@@ -158,7 +158,6 @@ describe('reference validation', function () {
         const doc: TextDocument = TextDocument.create('foo://bar/invalid.json', 'json', 0, spec);
 
         const valRes = await languageService.doValidation(doc, validationContext);
-        console.dir(valRes, { depth: null });
 
         const exp = [
           {

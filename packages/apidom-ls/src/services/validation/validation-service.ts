@@ -1,10 +1,9 @@
-import stampit from 'stampit';
 import { CodeAction, Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Element, findAtOffset, traverse, toValue, ObjectElement } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
-import { dereferenceApiDOM, Reference, ReferenceSet } from '@swagger-api/apidom-reference';
+import { dereferenceApiDOM, Reference, ReferenceSet, options } from '@swagger-api/apidom-reference';
 
 import {
   APIDOM_LINTER,
@@ -70,6 +69,22 @@ export class DefaultValidationService implements ValidationService {
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
+  }
+
+  private static createCachedResolver(resolver: any) {
+    const cachedResolver = Object.create(resolver);
+
+    cachedResolver.cache = new Map();
+    cachedResolver.read = async function read(file: { uri: string }): Promise<Buffer> {
+      if (this.cache.has(file.uri)) {
+        return this.cache.get(file.uri);
+      }
+      const resolved = await resolver.read(file);
+      this.cache.set(file.uri, resolved);
+      return resolved;
+    };
+
+    return cachedResolver;
   }
 
   public registerProvider(provider: ValidationProvider): void {
@@ -181,75 +196,36 @@ export class DefaultValidationService implements ValidationService {
     nameSpace: ContentLanguage,
     validationContext?: ValidationContext,
   ): Promise<Diagnostic[]> {
-    const SharedReferenceSet = stampit(ReferenceSet, {
-      statics: {
-        refs: [],
-        clean() {
-          // @ts-ignore
-          this.refs.forEach((ref) => {
-            ref.refSet = null; // eslint-disable-line no-param-reassign
-          });
-          // @ts-ignore
-          this.refs = [];
-        },
-      },
-      init({ refs }, { stamp }) {
-        this.rootRef = null;
-        this.refs = stamp.refs;
-
-        // @ts-ignore
-        refs.forEach((ref) => this.add(ref));
-      },
-      methods: {
-        add(reference) {
-          if (this.has(reference)) {
-            // @ts-ignore
-            const foundReference = this.find((ref) => ref.uri === reference.uri);
-            const foundReferenceIndex = this.refs.indexOf(foundReference);
-
-            this.refs[foundReferenceIndex] = reference;
-          } else {
-            this.rootRef = this.rootRef === null ? reference : this.rootRef;
-            this.refs.push(reference);
-          }
-          reference.refSet = this; // eslint-disable-line no-param-reassign
-
-          return this;
-        },
-        clean() {
-          throw new Error('Use static SharedReferenceSet.clean() instead.');
-        },
-      },
-    });
-
     const diagnostics: Diagnostic[] = [];
     const pointersMap: Record<string, Pointer[]> = {};
+    const derefPromises: Promise<Element | { error: Error; refEl: Element }>[] = [];
 
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-
-    const derefPromises: Promise<Element | { error: Error; refEl: Element }>[] = [];
     const apiReference = Reference({ uri: baseURI, value: result });
-    let fragmentId = 0;
-    for (const refEl of refElements) {
-      fragmentId += 1;
+
+    for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = Reference({
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });
-      const sharedRefSet = SharedReferenceSet({ refs: [referenceElementReference, apiReference] });
+      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+      const cachedResolvers = options.resolve.resolvers.map(
+        DefaultValidationService.createCachedResolver,
+      );
 
       try {
         const promise = dereferenceApiDOM(refEl, {
           resolve: {
+            resolvers: cachedResolvers,
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
             mediaType: nameSpace.mediaType,
           },
-          dereference: { refSet: sharedRefSet },
+          dereference: { refSet },
         }).catch((e: Error) => {
           return { error: e, refEl };
         });
@@ -310,9 +286,6 @@ export class DefaultValidationService implements ValidationService {
       }
     } catch (ex) {
       console.error('error dereferencing', ex);
-    } finally {
-      // @ts-ignore
-      SharedReferenceSet.clean();
     }
     return diagnostics;
   }
@@ -331,23 +304,20 @@ export class DefaultValidationService implements ValidationService {
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-
     const apiReference = Reference({ uri: baseURI, value: result });
-    let fragmentId = 0;
-    const refSet = ReferenceSet({ refs: [apiReference] });
-    for (const refEl of refElements) {
-      // @ts-ignore
-      refSet.rootRef = null;
-      fragmentId += 1;
+
+    for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = Reference({
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });
-      refSet.add(referenceElementReference);
+      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+
       try {
         // eslint-disable-next-line no-await-in-loop
         await dereferenceApiDOM(refEl, {
           resolve: {
+            resolvers: options.resolve.resolvers.map(DefaultValidationService.createCachedResolver),
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },

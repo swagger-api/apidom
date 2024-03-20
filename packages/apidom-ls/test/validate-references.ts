@@ -37,13 +37,11 @@ describe('reference validation', function () {
     const httpPort = 8123;
     let httpServer: ServerTerminable;
 
-    // eslint-disable-next-line mocha/no-hooks-for-single-case
     beforeEach(function () {
       const cwd = path.join(__dirname, 'fixtures', 'deref');
       httpServer = createHTTPServer({ port: httpPort, cwd });
     });
 
-    // eslint-disable-next-line mocha/no-hooks-for-single-case
     afterEach(async function () {
       languageService.terminate();
       await httpServer.terminate();
@@ -143,6 +141,7 @@ describe('reference validation', function () {
         }) as Diagnostic[],
       );
     });
+
     specify(
       'should validate with apidom-reference including external refs with serial processing',
       async function () {
@@ -159,6 +158,8 @@ describe('reference validation', function () {
         const doc: TextDocument = TextDocument.create('foo://bar/invalid.json', 'json', 0, spec);
 
         const valRes = await languageService.doValidation(doc, validationContext);
+        console.dir(valRes, { depth: null });
+
         const exp = [
           {
             range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
@@ -272,6 +273,7 @@ describe('reference validation', function () {
         );
       },
     );
+
     specify('should validate with apidom-reference excluding external refs', async function () {
       this.timeout(10000);
       const validationContext: ValidationContext = {
@@ -316,6 +318,7 @@ describe('reference validation', function () {
         }) as Diagnostic[],
       );
     });
+
     specify('should validate with legacy logic', async function () {
       this.timeout(10000);
       const validationContext: ValidationContext = {

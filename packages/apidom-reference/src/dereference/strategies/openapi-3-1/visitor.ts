@@ -688,14 +688,22 @@ const OpenApi3_1DereferenceVisitor = stampit({
       try {
         if (isUnknownURI || isURL) {
           // we're dealing with canonical URI or URL with possible fragment
+          retrievalURI = this.toBaseURI($refBaseURI);
+
           const selector = $refBaseURI;
           const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result);
           referencedElement = uriEvaluate(selector, referenceAsSchema);
           referencedElement = maybeRefractToSchemaElement(referencedElement);
           referencedElement.id = identityManager.identify(referencedElement);
+
+          // ignore resolving internal Schema Objects
+          if (!this.options.resolve.internal) {
+            // skip traversing this schema element but traverse all it's child elements
+            return undefined;
+          }
         } else {
           // we're assuming here that we're dealing with JSON Pointer here
-          retrievalURI = this.toBaseURI(toValue($refBaseURI));
+          retrievalURI = this.toBaseURI($refBaseURI);
 
           // ignore resolving internal Schema Objects
           if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {
@@ -723,7 +731,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
-            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+            retrievalURI = this.toBaseURI($refBaseURI);
 
             // ignore resolving internal Schema Objects
             if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {
@@ -744,7 +752,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
             referencedElement.id = identityManager.identify(referencedElement);
           } else {
             // we're assuming here that we're dealing with JSON Pointer here
-            retrievalURI = this.toBaseURI(toValue($refBaseURI));
+            retrievalURI = this.toBaseURI($refBaseURI);
 
             // ignore resolving internal Schema Objects
             if (!this.options.resolve.internal && isInternalReference(retrievalURI)) {

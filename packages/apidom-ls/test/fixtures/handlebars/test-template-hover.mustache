@@ -1,0 +1,28 @@
+{{!mustache}}
+{{#info}}
+  {{title}}
+  {{description}}
+  {{#contact}}
+    {{name}}
+  {{/contact}}
+{{/info}}
+{{#components}}
+  {{#each schemas}}
+    {{ty}}
+  {{/each}}
+{{/components}}
+{{#each components.schemas}}
+  {{ty}}
+{{/each}}
+{{#components}}
+  {{#schemas}}
+    {{}}
+  {{/schemas}}
+{{/components}}
+{{#components}}
+  {{#schemas}}
+    {{#key}}
+      {{}}
+    {{/key}}
+  {{/schemas}}
+{{/components}}

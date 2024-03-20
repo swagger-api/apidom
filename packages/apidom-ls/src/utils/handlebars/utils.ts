@@ -473,6 +473,89 @@ export function sortTags(tags: MustacheTag[]): MustacheTag[] {
   });
 }
 
+export function findNode(bundle: AnyObject, path: string[]): AnyObject | AnyObject[]{
+  let currentNode: AnyObject | undefined = bundle;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < path.length - 1; i++) {
+    let key = path[i];
+    trace('findNode - key', key);
+    let inEach = false;
+    if (key.split(' ').length > 1) {
+      // eslint-disable-next-line prefer-destructuring
+      key = key.split(' ')[1];
+      inEach = true;
+    }
+    trace('findNode - inEach', inEach);
+    // If current node is an array, use the first element
+    if (Array.isArray(currentNode)) {
+      currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+    }
+    // Check if the key exists in the current node
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    if (isObjectNode(currentNode) && key in currentNode!) {
+      trace('findNode - key in current node');
+      if (typeof currentNode![key] !== 'boolean') {
+        currentNode = currentNode![key];
+        if (inEach) {
+          trace('findNode - key in current node with each');
+          // deepMerge all properties of each key of currentNode
+          // @ts-ignore
+          currentNode = deepMergeValues(currentNode);
+        }
+      }
+    } else {
+      // If the key doesn't exist, search in ancestors
+      let ancestor = bundle;
+      // eslint-disable-next-line no-plusplus
+      for (let j = 0; j < i; j++) {
+        let ancestorKey = path[j];
+        let ancestorInEach = false;
+        if (ancestorKey.split(' ').length > 1) {
+          // eslint-disable-next-line prefer-destructuring
+          ancestorKey = ancestorKey.split(' ')[1];
+          ancestorInEach = true;
+        }
+        if (isObjectNode(ancestor) && ancestorKey in ancestor) {
+          ancestor = ancestor[ancestorKey];
+          if (Array.isArray(ancestor)) {
+            ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+          }
+          if (isObjectNode(ancestor) && key in ancestor) {
+            if (typeof ancestor![key] !== 'boolean') {
+              currentNode = ancestor[key];
+              if (ancestorInEach) {
+                // deepMerge all properties of each key of currentNode
+                // @ts-ignore
+                currentNode = deepMergeValues(currentNode);
+              }
+            }
+            break;
+          }
+        }
+      }
+      // If the key is not found in any ancestor, return "not object"
+      if (!isObjectNode(ancestor) || !(key in ancestor)) {
+        return {};
+      }
+    }
+  }
+  // If the final node is an array, use the first element
+  if (Array.isArray(currentNode)) {
+    currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+  }
+
+  // Check if the final node is an object and return its keys
+  trace(path[path.length - 1], currentNode);
+  if (
+    currentNode &&
+    typeof currentNode === 'object' &&
+    currentNode[path[path.length - 1]] !== undefined
+  ) {
+    return currentNode[path[path.length - 1]];
+  }
+  return {};
+}
+
 export function markOverlappingTags(tags: MustacheTag[]): void {
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < tags.length - 2; i++) {

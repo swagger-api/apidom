@@ -5,3 +5,4 @@ node_modules/
 .vscode/settings.json
 isolate-*.log
 .log*
+ti*.log

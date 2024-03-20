@@ -34,6 +34,12 @@ const specCompletion = fs
   )
   .toString();
 
+const specHover = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-hover.mustache'),
+  )
+  .toString();
+
 const specCompletionEach = fs
   .readFileSync(
     path.join(__dirname, 'fixtures', 'handlebars', 'test-template-each-complete.mustache'),
@@ -93,6 +99,36 @@ describe('handlebars-ls-complete', function () {
       { textDocument: doc, position: pos },
       completionContext,
     );
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(result, null, 2));
+    // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+  });
+
+  it('handlebars markdown - test hover', async function () {
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'handlebars',
+      0,
+      specHover,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const completionTestInputValue = [
+      'in empty variable tag',
+      2, // 2,
+      7, // 14,
+      {
+        items: [],
+        isIncomplete: false,
+      },
+    ];
+
+    const pos = Position.create(
+      completionTestInputValue[1] as number,
+      completionTestInputValue[2] as number,
+    );
+    const result = await languageService.doHover(doc, pos);
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(result, null, 2));
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);

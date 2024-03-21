@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
+
+### Bug Fixes
+
+- **reference:** fix regression in nested paths dereferencing ([#3960](https://github.com/swagger-api/apidom/issues/3960)) ([8435ee1](https://github.com/swagger-api/apidom/commit/8435ee1cfde37394e2ab0e4a4b805f4b59dcf737)), closes [#3959](https://github.com/swagger-api/apidom/issues/3959)
+
+### Features
+
+- **reference:** apply dereferencing architecture 2.0 to ApiDOM ([#3930](https://github.com/swagger-api/apidom/issues/3930)) ([bbb9a25](https://github.com/swagger-api/apidom/commit/bbb9a25eb85f6753c7c3a1b0060013da7666fae6))
+- **reference:** apply dereferencing architecture 2.0 to AsyncAPI 2.x ([#3933](https://github.com/swagger-api/apidom/issues/3933)) ([856dc5c](https://github.com/swagger-api/apidom/commit/856dc5c4b53726c040c55a17635d9c0143c49379)), closes [#3932](https://github.com/swagger-api/apidom/issues/3932)
+- **reference:** apply dereferencing architecture 2.0 to OpenAPI 2.0 ([#3931](https://github.com/swagger-api/apidom/issues/3931)) ([63a41d4](https://github.com/swagger-api/apidom/commit/63a41d40d63c09717cb6dfa4116ba90f78fce0e8)), closes [#3924](https://github.com/swagger-api/apidom/issues/3924)
+- **reference:** apply dereferencing architecture 2.0 to OpenAPI 3.0.x ([#3917](https://github.com/swagger-api/apidom/issues/3917)) ([cc3a970](https://github.com/swagger-api/apidom/commit/cc3a9707b26bb87a911f2bc353d59406f61dc50b)), closes [#3916](https://github.com/swagger-api/apidom/issues/3916)
+- **reference:** apply dereferencing architecture 2.0 to OpenAPI 3.1.0 ([#3942](https://github.com/swagger-api/apidom/issues/3942)) ([d57c318](https://github.com/swagger-api/apidom/commit/d57c318e3832ca2d13ddba1507c27647aa2d7c7e)), closes [#3941](https://github.com/swagger-api/apidom/issues/3941)
+
 ## [0.97.1](https://github.com/swagger-api/apidom/compare/v0.97.0...v0.97.1) (2024-03-08)
 
 ### Bug Fixes

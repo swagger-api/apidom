@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
+
+**Note:** Version bump only for package @swagger-api/apidom-error
+
 # [0.97.0](https://github.com/swagger-api/apidom/compare/v0.96.0...v0.97.0) (2024-03-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-error

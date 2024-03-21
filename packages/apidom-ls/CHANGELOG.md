@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
+
+### Features
+
+- **reference:** apply dereferencing architecture 2.0 to OpenAPI 3.1.0 ([#3942](https://github.com/swagger-api/apidom/issues/3942)) ([d57c318](https://github.com/swagger-api/apidom/commit/d57c318e3832ca2d13ddba1507c27647aa2d7c7e)), closes [#3941](https://github.com/swagger-api/apidom/issues/3941)
+
 ## [0.97.1](https://github.com/swagger-api/apidom/compare/v0.97.0...v0.97.1) (2024-03-08)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

@@ -130,6 +130,11 @@ const AsyncApi2DereferenceVisitor = stampit({
       path: (string | number)[],
       ancestors: [Element | Element[]],
     ) {
+      // skip current referencing element as it's already been access
+      if (this.indirections.includes(referencingElement)) {
+        return false;
+      }
+
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
@@ -324,6 +329,11 @@ const AsyncApi2DereferenceVisitor = stampit({
       // ignore ChannelItemElement without $ref field
       if (!isStringElement(referencingElement.$ref)) {
         return undefined;
+      }
+
+      // skip current referencing element as it's already been access
+      if (this.indirections.includes(referencingElement)) {
+        return false;
       }
 
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);

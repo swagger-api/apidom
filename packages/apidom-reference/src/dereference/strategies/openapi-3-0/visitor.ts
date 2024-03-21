@@ -135,6 +135,11 @@ const OpenApi3_0DereferenceVisitor = stampit({
       path: (string | number)[],
       ancestors: [Element | Element[]],
     ) {
+      // skip current referencing element as it's already been access
+      if (this.indirections.includes(referencingElement)) {
+        return false;
+      }
+
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
       const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
@@ -233,10 +238,10 @@ const OpenApi3_0DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           isReferenceElement(referencedElement) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -303,6 +308,11 @@ const OpenApi3_0DereferenceVisitor = stampit({
       // ignore PathItemElement without $ref field
       if (!isStringElement(referencingElement.$ref)) {
         return undefined;
+      }
+
+      // skip current referencing element as it's already been access
+      if (this.indirections.includes(referencingElement)) {
+        return false;
       }
 
       const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
@@ -395,10 +405,10 @@ const OpenApi3_0DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);

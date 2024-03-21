@@ -1,4 +1,5 @@
 import path from 'node:path';
+import util from 'node:util';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
@@ -11,7 +12,7 @@ import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDe
 import ResolveError from '../../../../../src/errors/ResolveError';
 import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
-import { loadJsonFile } from '../../../../helpers';
+import { loadFile, loadJsonFile } from '../../../../helpers';
 
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
@@ -453,6 +454,24 @@ describe('dereference', function () {
             assert.deepEqual(toValue(actual), expected);
           });
         });
+
+        context(
+          'given Schema Objects with $id keyword pointing to external files and containing cycle',
+          function () {
+            const fixturePath = path.join(rootFixturePath, '$id-uri-external-circular-structures');
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const actualAsString = util.inspect(toValue(actual), { depth: null });
+              const expected = loadFile(path.join(fixturePath, 'dereferenced.txt')).trimEnd();
+
+              assert.strictEqual(actualAsString, expected);
+            });
+          },
+        );
 
         context('given Schema Objects with unresolvable $id values', function () {
           const fixturePath = path.join(rootFixturePath, '$id-unresolvable');

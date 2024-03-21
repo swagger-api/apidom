@@ -246,10 +246,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           isReferenceElement(referencedElement) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -429,10 +429,10 @@ const OpenApi3_1DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -692,7 +692,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const file = File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
-      let isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      let isInternalReference = url.stripHash(this.reference.uri) === $refBaseURI;
       let isExternalReference = !isInternalReference;
 
       this.indirections.push(referencingElement);
@@ -703,17 +703,20 @@ const OpenApi3_1DereferenceVisitor = stampit({
       try {
         if (isUnknownURI || isURL) {
           // we're dealing with canonical URI or URL with possible fragment
+          retrievalURI = this.toBaseURI($refBaseURI);
           const selector = $refBaseURI;
           const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result);
-
           referencedElement = uriEvaluate(selector, referenceAsSchema);
           referencedElement = maybeRefractToSchemaElement(referencedElement);
           referencedElement.id = identityManager.identify(referencedElement);
-          isInternalReference = true;
-          isExternalReference = false;
 
           // ignore resolving internal Schema Objects
           if (!this.options.resolve.internal && isInternalReference) {
+            // skip traversing this schema element but traverse all it's child elements
+            return undefined;
+          }
+          // ignore resolving external Schema Objects
+          if (!this.options.resolve.external && isExternalReference) {
             // skip traversing this schema element but traverse all it's child elements
             return undefined;
           }
@@ -749,7 +752,6 @@ const OpenApi3_1DereferenceVisitor = stampit({
         if (isURL && error instanceof EvaluationJsonSchemaUriError) {
           if (isAnchor(uriToAnchor($refBaseURI))) {
             // we're dealing with JSON Schema $anchor here
-            retrievalURI = this.toBaseURI($refBaseURI);
             isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
             isExternalReference = !isInternalReference;
 
@@ -943,7 +945,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       /**
        * We're at the root of the tree, so we're just replacing the entire tree.
        */
-      return !parent ? referencedElement : false;
+      return !parent ? referencedElement : undefined;
     },
   },
 });

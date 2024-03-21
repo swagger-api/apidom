@@ -234,10 +234,10 @@ const OpenApi2DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           isReferenceElement(referencedElement) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -402,10 +402,10 @@ const OpenApi2DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);
@@ -585,10 +585,10 @@ const OpenApi2DereferenceVisitor = stampit({
        *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
       if (
-        !ancestorsLineage.includesCycle(referencedElement) &&
         (isExternalReference ||
           isJSONReferenceElement(referencedElement) ||
-          ['error', 'replace'].includes(this.options.dereference.circular))
+          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+        !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
         directAncestors.add(referencingElement);

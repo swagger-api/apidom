@@ -114,20 +114,43 @@ async function hoverHandlebars(
   trace('hover - contextPointer', contextPointer);
   const templateContext = getContext(true);
   const node = findNode(templateContext, contextPointer);
-  let nodeContent = '';
-  if (node && JSON.stringify(node) !== '{}') {
-    nodeContent = `\`\`\`\n\n\n${YAML.dump(node).substring(0, 1000)}\n\n\`\`\``;
-    trace('hover - nodeContent', nodeContent);
-    // nodeContent = JSON.stringify(node, null, 2).substring(0, 1000);
+  let nodeType = null;
+  trace('hover - typeof node', typeof node);
+  if (Array.isArray(node)) {
+    nodeType = 'array';
+    // node = node.length > 0 ? node[0] : undefined;
+  } else if (typeof node === 'object') {
+    nodeType = 'object';
+  } else if (typeof node === 'string') {
+    nodeType = 'string';
+  } else if (typeof node === 'boolean') {
+    nodeType = 'boolean';
+  } else if (typeof node === 'number') {
+    nodeType = 'number';
   }
+  trace('hover - nodeType', nodeType);
   const contents: string[] = [];
+  const addTagDetails =
+    tagInfoStrict?.type !== 'sectionClose' &&
+    tagInfoStrict?.type !== 'listKeyword' &&
+    tagInfoStrict?.type !== 'comment';
+  trace('hover - addTagDetails', addTagDetails, tagInfoStrict !== undefined, tagInfoStrict?.type);
   let hoverLine = `***${tagInfoStrict.tagName}***: ${tagInfoStrict.type}`;
+  if (nodeType !== '' && addTagDetails) {
+    hoverLine = `${hoverLine} (${nodeType})`;
+  }
   if (tagInfo.each) {
     hoverLine = `${hoverLine}(each)`;
   }
   contents.push(hoverLine);
   contents.push(`\n**Path**: ${fullPointer.join(' > ')}`);
-  contents.push(`\n----\n${nodeContent}`);
+  if (node && JSON.stringify(node) !== '{}' && addTagDetails) {
+    const nodeContent = `\`\`\`\n\n${YAML.dump(node).substring(0, 1000)}\n\n\`\`\``;
+    trace('hover - nodeContent', nodeContent);
+    // nodeContent = JSON.stringify(node, null, 2).substring(0, 1000);
+    contents.push('----');
+    contents.push(nodeContent);
+  }
   (<MarkupContent>hover.contents).value = contents.join('\n');
   hover.range = Range.create(
     textDocument.positionAt(tagInfoStrict.startIndex || 0),

@@ -8,6 +8,7 @@ import {
   parseMustacheTags,
   sortTags,
 } from '../../../utils/handlebars/utils';
+import { trace } from '../../../utils/utils';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;
@@ -76,6 +77,7 @@ function tokenize(
     // eslint-disable-next-line no-console
     console.error('semantic tokens - error', e);
   }
+  trace('semantic tokens', tokens.flat());
   return {
     data: tokens.flat(),
   } as SemanticTokens;

@@ -36,8 +36,12 @@ const specCompletion = fs
 
 const specHover = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-hover.mustache'),
+    path.join(__dirname, 'fixtures', 'handlebars', 'test-template-completion-type.mustache'),
   )
+  .toString();
+
+const specHoverFull = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-hover-full.mustache'))
   .toString();
 
 const specCompletionEach = fs
@@ -110,14 +114,14 @@ describe('handlebars-ls-complete', function () {
       'foo://bar/specCompletion.json',
       'handlebars',
       0,
-      specHover,
+      specHoverFull,
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const completionTestInputValue = [
       'in empty variable tag',
-      2, // 2,
-      7, // 14,
+      130, // 2,
+      84, // 14,
       {
         items: [],
         isIncomplete: false,

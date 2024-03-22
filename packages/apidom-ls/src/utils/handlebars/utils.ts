@@ -494,7 +494,7 @@ export function findNode(bundle: AnyObject, path: string[]): AnyObject | AnyObje
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     if (isObjectNode(currentNode) && key in currentNode!) {
       trace('findNode - key in current node');
-      if (typeof currentNode![key] !== 'boolean') {
+      if (Array.isArray(currentNode) || typeof currentNode![key] === 'object') {
         currentNode = currentNode![key];
         if (inEach) {
           trace('findNode - key in current node with each');
@@ -545,12 +545,13 @@ export function findNode(bundle: AnyObject, path: string[]): AnyObject | AnyObje
   }
 
   // Check if the final node is an object and return its keys
-  trace(path[path.length - 1], currentNode);
+  trace('findNode', path[path.length - 1], currentNode);
   if (
     currentNode &&
     typeof currentNode === 'object' &&
     currentNode[path[path.length - 1]] !== undefined
   ) {
+    trace('findNode returning', path[path.length - 1], currentNode[path[path.length - 1]]);
     return currentNode[path[path.length - 1]];
   }
   return {};

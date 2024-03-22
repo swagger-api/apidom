@@ -1,0 +1,35 @@
+{{!mustache}}
+{{#info}}
+{{title}}
+{{#contact}}
+{{email}}
+{{/contact}}
+{{contact.email}}
+{{/info}}
+{{#servers}}
+  {{url}}
+{{/servers}}
+{{#components}}
+  {{#each schemas}}
+    {{type}}
+  {{/each}}
+{{/components}}
+{{#each components.schemas}}
+  {{@key}}
+  {{#@first}}
+  {{type}}
+  {{/@first}}
+{{/each}}
+{{#components}}
+  {{#schemas}}
+    {{}}
+  {{/schemas}}
+{{/components}}
+{{#components}}
+  {{#schemas}}
+    {{#key}}
+      {{}}
+    {{/key}}
+  {{/schemas}}
+{{/components}}
+{{artifactId}}

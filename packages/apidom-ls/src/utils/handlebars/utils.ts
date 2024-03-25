@@ -49,6 +49,8 @@ export function parseMustacheTags(
         }
         if (section.tagName === tagName.trim()) {
           if (tagSectionClose) {
+            // eslint-disable-next-line no-param-reassign
+            tagSectionClose.openOrCloseRelatedSection = section;
             section.sectionCloseTag = tagSectionClose;
           }
           // break;
@@ -58,6 +60,8 @@ export function parseMustacheTags(
             tagSectionClose.tagName = section.tagName;
             // eslint-disable-next-line no-param-reassign
             tagSectionClose.each = true;
+            // eslint-disable-next-line no-param-reassign
+            tagSectionClose.openOrCloseRelatedSection = section;
             section.sectionCloseTag = tagSectionClose;
           }
           // break;
@@ -188,6 +192,8 @@ export function parseMustacheTags(
         tag.each = true;
         tagSectionOpen.each = true;
       }
+      // eslint-disable-next-line no-param-reassign
+      tagSectionOpen.openOrCloseRelatedSection = tag;
       tag.sectionOpenTag = tagSectionOpen;
     } else {
       // eslint-disable-next-line
@@ -319,6 +325,7 @@ export interface MustacheTag {
   missingCloseTag?: boolean;
   lonelyCloseTag?: boolean;
   each?: boolean;
+  openOrCloseRelatedSection?: MustacheTag;
 }
 
 export function logTagDetails(tags: MustacheTag[], textDoc: TextDocument): void {

@@ -24,6 +24,7 @@ import { DefaultCompletionService } from './services/completion/completion-servi
 import { DefaultSymbolsService } from './services/symbols/symbols-service';
 import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
 import { DefaultHoverService } from './services/hover/hover-service';
+import { DefaultDocumentHighlightService } from './services/document-highlight/document-highlight-service';
 import { DefaultDerefService } from './services/deref/deref-service';
 import { DefaultDefinitionService } from './services/definition/definition-service';
 import { getDocumentCache } from './document-cache';
@@ -50,6 +51,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
   const validationService = new DefaultValidationService();
   const semanticTokensService = new DefaultSemanticTokensService();
   const hoverService = new DefaultHoverService();
+  const documentHighlightService = new DefaultDocumentHighlightService();
   const derefService = new DefaultDerefService();
   const definitionService = new DefaultDefinitionService();
   const linksService = new DefaultLinksService();
@@ -60,6 +62,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     completionService.configure(languageSettings);
     semanticTokensService.configure(languageSettings);
     hoverService.configure(languageSettings);
+    documentHighlightService.configure(languageSettings);
     derefService.configure(languageSettings);
     definitionService.configure(languageSettings);
     linksService.configure(languageSettings);
@@ -107,6 +110,8 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     doFindDocumentSymbols: symbolsService.doFindDocumentSymbols.bind(symbolsService),
     computeSemanticTokens: semanticTokensService.computeSemanticTokens.bind(semanticTokensService),
     doHover: hoverService.computeHover.bind(hoverService),
+    provideDocumentHighlights:
+      documentHighlightService.provideDocumentHighlights.bind(documentHighlightService),
     doCodeActions: validationService.doCodeActions.bind(validationService),
     doDeref: derefService.doDeref.bind(derefService),
 

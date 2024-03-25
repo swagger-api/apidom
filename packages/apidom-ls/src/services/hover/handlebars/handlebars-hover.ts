@@ -148,8 +148,10 @@ async function hoverHandlebars(
     const nodeContent = `\`\`\`\n\n${YAML.dump(node).substring(0, 1000)}\n\n\`\`\``;
     trace('hover - nodeContent', nodeContent);
     // nodeContent = JSON.stringify(node, null, 2).substring(0, 1000);
-    contents.push('----');
+    contents.push('\n----');
+    contents.push('\n');
     contents.push(nodeContent);
+    contents.push('\n');
   }
   (<MarkupContent>hover.contents).value = contents.join('\n');
   hover.range = Range.create(

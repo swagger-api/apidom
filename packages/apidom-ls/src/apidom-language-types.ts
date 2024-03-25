@@ -25,8 +25,9 @@ import {
   CodeActionParams,
   DefinitionParams,
   ReferenceParams,
+  DocumentHighlight,
+  CancellationToken,
 } from 'vscode-languageserver-protocol';
-
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
 export interface DocumentCache<T> {
@@ -505,6 +506,12 @@ export interface LanguageService {
   getSemanticTokensLegend(): SemanticTokensLegend;
 
   doHover(document: TextDocument, position: Position): Promise<Hover | undefined>;
+
+  provideDocumentHighlights(
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+  ): Promise<DocumentHighlight[] | undefined>;
 
   doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
 

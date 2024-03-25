@@ -138,6 +138,37 @@ describe('handlebars-ls-complete', function () {
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 
+  it('handlebars markdown - test highlight', async function () {
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'handlebars',
+      0,
+      specHoverFull,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const completionTestInputValue = [
+      'in empty variable tag',
+      82, // 2,
+      10, // 14,
+      {
+        items: [],
+        isIncomplete: false,
+      },
+    ];
+
+    const pos = Position.create(
+      completionTestInputValue[1] as number,
+      completionTestInputValue[2] as number,
+    );
+    // @ts-ignore
+    const result = await languageService.provideDocumentHighlights(doc, pos, {});
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(result, null, 2));
+    // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+  });
+
   it('handlebars markdown - test completion each', async function () {
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,

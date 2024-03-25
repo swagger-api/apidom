@@ -378,18 +378,28 @@ export function deepMergeValues(objNode: object): object {
     return objNode;
   }
   let previousKey = keys[0];
+  trace('deepMergeValues - keys', keys);
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i < keys.length; i++) {
     const objKey = keys[i];
+    // @ts-ignore
+    trace('deepMergeValues - objKey', objKey, objNode[objKey], objNode[previousKey]);
+    // @ts-ignore
+    const keyNode = objNode[objKey];
+    // @ts-ignore
+    const previousNode = objNode[previousKey];
     if (!result) {
-      // @ts-ignore
-      result = mergeDeepLeft(objNode[objKey], objNode[previousKey]);
+      if (typeof keyNode === 'object' && typeof previousNode === 'object') {
+        result = mergeDeepLeft(keyNode, previousNode);
+      }
     } else {
-      // @ts-ignore
-      result = mergeDeepLeft(result, mergeDeepLeft(objNode[objKey], objNode[previousKey]));
+      if (typeof keyNode === 'object' && typeof previousNode === 'object') {
+        result = mergeDeepLeft(result, mergeDeepLeft(keyNode, previousNode));
+      }
     }
     previousKey = objKey;
   }
+  trace('deepMergeValues - result', result);
   return result!;
 }
 

@@ -158,6 +158,8 @@ function complete(
       );
       apidomCompletions.push(item);
     }
+  }
+  if (apidomCompletions.length > 0) {
     let overwriteRange: Range | undefined;
 
     const supportsCommitCharacters = false; // this.doesSupportsCommitCharacters(); disabled for now, waiting for new API: https://github.com/microsoft/vscode/issues/42544

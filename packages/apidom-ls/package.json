@@ -1,7 +1,7 @@
 {
   "name": "@swagger-api/apidom-ls",
   "description": "ApiDOM based language service library.",
-  "version": "0.98.0",
+  "version": "0.98.1",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.98.1](https://github.com/swagger-api/apidom/compare/v0.98.0...v0.98.1) (2024-03-25)
+
+### Performance Improvements
+
+- **ls:** apply perfomanze optimization for reference validation ([#3966](https://github.com/swagger-api/apidom/issues/3966)) ([ef9f2ba](https://github.com/swagger-api/apidom/commit/ef9f2ba3939cee34b3db5451cf35c69db6c5b316)), closes [#3965](https://github.com/swagger-api/apidom/issues/3965)
+
 # [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
 
 ### Bug Fixes

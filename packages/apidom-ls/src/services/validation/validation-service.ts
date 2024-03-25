@@ -7,6 +7,7 @@ import {
   findAtOffset,
   traverse,
   toValue,
+  cloneDeep,
 } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
@@ -233,7 +234,7 @@ export class DefaultValidationService implements ValidationService {
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-    const apiReference = Reference({ uri: baseURI, value: result });
+    const apiReference = Reference({ uri: baseURI, value: cloneDeep(result) });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
@@ -253,7 +254,10 @@ export class DefaultValidationService implements ValidationService {
             parsers: cachedParsers,
             mediaType: nameSpace.mediaType,
           },
-          dereference: { refSet },
+          dereference: {
+            refSet,
+            immutable: false,
+          },
         }).catch((e: Error) => {
           return { error: e, refEl };
         });
@@ -332,7 +336,7 @@ export class DefaultValidationService implements ValidationService {
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-    const apiReference = Reference({ uri: baseURI, value: result });
+    const apiReference = Reference({ uri: baseURI, value: cloneDeep(result) });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
@@ -353,7 +357,10 @@ export class DefaultValidationService implements ValidationService {
             mediaType: nameSpace.mediaType,
             parsers: cachedParsers,
           },
-          dereference: { refSet },
+          dereference: {
+            refSet,
+            immutable: false,
+          },
         });
       } catch (ex) {
         const message = DefaultValidationService.buildReferenceErrorMessageFromError(ex);

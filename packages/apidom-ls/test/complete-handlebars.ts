@@ -56,6 +56,10 @@ const specCompletionFinalBoolean = fs
   )
   .toString();
 
+const specCompletionKeywords = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'handlebars', 'test-template-keywords.mustache'))
+  .toString();
+
 describe('handlebars-ls-complete', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -303,6 +307,45 @@ describe('handlebars-ls-complete', function () {
       'in each section tag',
       9,
       10,
+      {
+        items: [],
+        isIncomplete: false,
+      },
+    ];
+
+    const pos = Position.create(
+      completionTestInputValue[1] as number,
+      completionTestInputValue[2] as number,
+    );
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(result, null, 2));
+    // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
+    // console.log(JSON.stringify(getContext(false), null, 2));
+  });
+
+  it('handlebars markdown - test completion keywords', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+      // enableLSPFilter: true,
+    };
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specCompletion.json',
+      'handlebars',
+      0,
+      specCompletionKeywords,
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const completionTestInputValue = [
+      'in each section tag',
+      4,
+      4,
       {
         items: [],
         isIncomplete: false,

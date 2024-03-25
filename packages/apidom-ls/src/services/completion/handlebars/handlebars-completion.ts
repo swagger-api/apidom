@@ -48,9 +48,48 @@ function complete(
 
   const tagInfo = getMustacheTagInfoAtPosition(tags, offset);
   const tagInfoStrict = getMustacheStrictTagInfoAtPosition(tags, offset);
+  debug(
+    'doCompletion - tagInfo and tagInfoStrict',
+    tagInfo?.tagName,
+    tagInfo?.type,
+    tagInfoStrict?.tagName,
+    tagInfoStrict?.type,
+  );
+  debug(
+    'doCompletion - tagInfo and tagInfoStrict parents',
+    tagInfo?.parent?.tagName,
+    tagInfo?.parent?.type,
+    tagInfoStrict?.parent?.tagName,
+    tagInfoStrict?.parent?.type,
+  );
   if (!tagInfo || !tagInfoStrict) {
     return completionList;
   }
+  const apidomCompletions: CompletionItem[] = [];
+  if (tagInfo?.parent?.type === 'section' || tagInfo?.parent?.type === 'inverted') {
+    if (!tagInfo.parent.sectionCloseTag) {
+      const itemValue = tagInfo?.parent?.each ? '/each' : `/${tagInfo.parent.tagName}`;
+      const item: CompletionItem = {
+        label: itemValue,
+        insertText: itemValue,
+        kind: CompletionItemKind.Property,
+        insertTextFormat: 2,
+      };
+      apidomCompletions.push(item);
+    }
+    if (tagInfo?.parent?.each) {
+      ['@index', '@key', '@first', '@last'].forEach((itemValue) => {
+        const item: CompletionItem = {
+          label: itemValue,
+          insertText: itemValue,
+          kind: CompletionItemKind.Property,
+          insertTextFormat: 2,
+        };
+        apidomCompletions.push(item);
+      });
+    }
+  }
+
   // const word = getCurrentWord(textDocument, offset);
   const word = tagInfoStrict.tagName.trim();
   // let pointer = tagInfo.tagName;
@@ -101,7 +140,6 @@ function complete(
         tagInfoStrict.type === 'inverted' ||
         tagInfoStrict.type === 'sectionOpen'));
   if (rawSuggestions && Array.isArray(rawSuggestions) && rawSuggestions.length > 0) {
-    const apidomCompletions: CompletionItem[] = [];
     for (const rawSuggestion of rawSuggestions) {
       const item: CompletionItem = {
         label: complexPrefix + rawSuggestion,

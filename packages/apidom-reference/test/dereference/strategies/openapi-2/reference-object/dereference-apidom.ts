@@ -1,6 +1,11 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import { mediaTypes, isParameterElement, SwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
+import {
+  mediaTypes,
+  isParameterElement,
+  isSchemaElement,
+  SwaggerElement,
+} from '@swagger-api/apidom-ns-openapi-2';
 import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 
@@ -119,7 +124,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/paths/~1/parameters/0',
+                  '/definitions/externalSchema',
                   parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -127,7 +132,7 @@ describe('dereference', function () {
                   resolve: { baseURI: fixturePath },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {
@@ -135,7 +140,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/paths/~1/parameters/0',
+                  '/definitions/externalSchema',
                   parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -169,7 +174,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/paths/~1/parameters/0',
+                  '/definitions/externalSchema',
                   parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -177,7 +182,7 @@ describe('dereference', function () {
                   resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {
@@ -185,7 +190,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/paths/~1/parameters/0',
+                  '/definitions/externalSchema',
                   parseResult.api as SwaggerElement,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {

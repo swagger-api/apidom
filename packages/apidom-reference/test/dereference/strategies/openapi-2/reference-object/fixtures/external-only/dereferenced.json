@@ -1,16 +1,16 @@
 [
   {
     "swagger": "2.0",
-    "paths": {
-      "/": {
-        "parameters": [
-          {
-            "name": "externalParameter",
-            "in": "query",
-            "description": "this is parameter stored in external file",
-            "required": true
+    "definitions": {
+      "externalSchema": {
+        "type": "object",
+        "properties": {
+          "sentAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the message was sent."
           }
-        ]
+        }
       }
     }
   }

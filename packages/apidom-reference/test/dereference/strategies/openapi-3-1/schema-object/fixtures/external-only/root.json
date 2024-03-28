@@ -6,7 +6,7 @@
         "type": "object",
         "properties": {
           "profile": {
-            "$ref": "./ex.json#/$defs/UserProfile"
+            "$ref": "./ex.json#/$defs/schema1"
           }
         }
       }

@@ -1,7 +1,7 @@
 {
   "name": "@swagger-api/apidom-ls",
   "description": "ApiDOM based language service library.",
-  "version": "0.98.1",
+  "version": "0.98.2",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -114,7 +114,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^0.98.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.98.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.98.0",
-    "@swagger-api/apidom-reference": "^0.98.0",
+    "@swagger-api/apidom-reference": "^0.98.2",
     "@types/ramda": "~0.29.6",
     "openapi-path-templating": "^1.4.0",
     "ramda": "~0.29.1",

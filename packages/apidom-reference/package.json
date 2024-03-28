@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-reference",
-  "version": "0.98.0",
+  "version": "0.98.2",
   "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
   "publishConfig": {
     "access": "public",

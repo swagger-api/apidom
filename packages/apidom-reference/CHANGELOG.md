@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.98.2](https://github.com/swagger-api/apidom/compare/v0.98.1...v0.98.2) (2024-03-28)
+
+### Bug Fixes
+
+- **reference:** fix regression in AsyncAPI 2.x dereferencing ([#3975](https://github.com/swagger-api/apidom/issues/3975)) ([6e8d9a0](https://github.com/swagger-api/apidom/commit/6e8d9a014682a263dac44724df33c3b360502f0f)), closes [#3974](https://github.com/swagger-api/apidom/issues/3974)
+- **reference:** fix regression in OpenAPI 2.0 derferencing ([#3976](https://github.com/swagger-api/apidom/issues/3976)) ([2e4d15a](https://github.com/swagger-api/apidom/commit/2e4d15a43a7c2160729d4adcf0be766481308131)), closes [#3974](https://github.com/swagger-api/apidom/issues/3974)
+- **reference:** fix regression in OpenAPI 3.0.x dereferencing ([#3977](https://github.com/swagger-api/apidom/issues/3977)) ([45d706f](https://github.com/swagger-api/apidom/commit/45d706fd736112a1a33e416ddccfe498bbbff72d)), closes [#3974](https://github.com/swagger-api/apidom/issues/3974)
+- **reference:** fix regression in OpenAPI 3.1.0 dereferencing ([#3978](https://github.com/swagger-api/apidom/issues/3978)) ([ff039fe](https://github.com/swagger-api/apidom/commit/ff039feb6a0f3356053720952039e7650df7b84f)), closes [#3974](https://github.com/swagger-api/apidom/issues/3974)
+
 # [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
 
 ### Bug Fixes

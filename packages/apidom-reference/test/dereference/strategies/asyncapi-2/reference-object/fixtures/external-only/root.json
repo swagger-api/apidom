@@ -1,9 +1,18 @@
 {
   "asyncapi": "2.6.0",
+  "channels": {
+    "c": {
+      "publish": {
+        "message": {
+          "$ref": "./ex.json#/components/messages/someMessage"
+        }
+      }
+    }
+  },
   "components": {
     "parameters": {
       "externalRef": {
-        "$ref": "./ex.json#/externalParameter"
+        "$ref": "./ex.json#/components/schemas/somePayload"
       }
     }
   }

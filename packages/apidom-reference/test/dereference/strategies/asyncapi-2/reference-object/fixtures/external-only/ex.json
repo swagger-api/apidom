@@ -1,8 +1,33 @@
 {
-  "externalParameter": {
-    "description": "external parameter",
-    "schema": {
-      "type": "string"
+  "asyncapi": "2.6.0",
+  "info": {
+    "title": "Components",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "components": {
+    "messages": {
+      "someMessage": {
+        "contentType": "application/json",
+        "payload": {
+          "$ref": "#/components/schemas/somePayload"
+        }
+      }
+    },
+    "schemas": {
+      "somePayload": {
+        "type": "object",
+        "properties": {
+          "sentAt": {
+            "$ref": "#/components/schemas/sentAt"
+          }
+        }
+      },
+      "sentAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Date and time when the message was sent."
+      }
     }
   }
 }

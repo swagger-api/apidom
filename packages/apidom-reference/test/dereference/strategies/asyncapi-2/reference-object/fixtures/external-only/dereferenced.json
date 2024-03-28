@@ -1,12 +1,35 @@
 [
   {
     "asyncapi": "2.6.0",
+    "channels": {
+      "c": {
+        "publish": {
+          "message": {
+            "contentType": "application/json",
+            "payload": {
+              "type": "object",
+              "properties": {
+                "sentAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date and time when the message was sent."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "components": {
       "parameters": {
         "externalRef": {
-          "description": "external parameter",
-          "schema": {
-            "type": "string"
+          "type": "object",
+          "properties": {
+            "sentAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date and time when the message was sent."
+            }
           }
         }
       }

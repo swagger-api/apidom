@@ -2,6 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import {
   mediaTypes,
+  isSchemaElement,
   isParameterElement,
   AsyncApi2Element,
 } from '@swagger-api/apidom-ns-asyncapi-2';
@@ -131,7 +132,7 @@ describe('dereference', function () {
                   resolve: { baseURI: fixturePath },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {
@@ -181,7 +182,7 @@ describe('dereference', function () {
                   resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {

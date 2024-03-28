@@ -1,16 +1,21 @@
 {
   "type": "object",
   "$defs": {
-    "UserProfile": {
+    "schema1": {
+      "$ref": "#/$defs/somePayload"
+    },
+    "somePayload": {
       "type": "object",
       "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
+        "sentAt": {
+          "$ref": "#/$defs/sentAt"
         }
       }
+    },
+    "sentAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the message was sent."
     }
   }
 }

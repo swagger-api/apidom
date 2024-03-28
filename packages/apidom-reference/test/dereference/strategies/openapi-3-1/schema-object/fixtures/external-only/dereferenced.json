@@ -9,11 +9,10 @@
             "profile": {
               "type": "object",
               "properties": {
-                "firstName": {
-                  "type": "string"
-                },
-                "lastName": {
-                  "type": "string"
+                "sentAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date and time when the message was sent."
                 }
               }
             }

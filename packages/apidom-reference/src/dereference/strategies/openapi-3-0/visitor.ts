@@ -234,13 +234,17 @@ const OpenApi3_0DereferenceVisitor = stampit({
        *
        * Cases to consider:
        *  1. We're crossing document boundary
-       *  2. Fragment is a Reference Object. We need to follow it to get the eventual value
-       *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
+       *  2. Fragment is from non-root document
+       *  3. Fragment is a Reference Object. We need to follow it to get the eventual value
+       *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
+      const isNonRootDocument = reference.refSet.rootRef.uri !== reference.uri;
+      const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
       if (
         (isExternalReference ||
+          isNonRootDocument ||
           isReferenceElement(referencedElement) ||
-          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+          shouldDetectCircular) &&
         !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage
@@ -401,13 +405,17 @@ const OpenApi3_0DereferenceVisitor = stampit({
        *
        * Cases to consider:
        *  1. We're crossing document boundary
-       *  2. Fragment is a Path Item Object with $ref field. We need to follow it to get the eventual value
-       *  3. We are dereferencing the fragment lazily/eagerly depending on circular mode
+       *  2. Fragment is from non-root document
+       *  3. Fragment is a Path Item Object with $ref field. We need to follow it to get the eventual value
+       *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
+      const isNonRootDocument = reference.refSet.rootRef.uri !== reference.uri;
+      const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
       if (
         (isExternalReference ||
+          isNonRootDocument ||
           (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-          ['error', 'replace'].includes(this.options.dereference.circular)) &&
+          shouldDetectCircular) &&
         !ancestorsLineage.includesCycle(referencedElement)
       ) {
         // append referencing reference to ancestors lineage

@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import {
   mediaTypes,
   isParameterElement,
+  isSchemaElement,
   OpenApi3_0Element,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { toValue } from '@swagger-api/apidom-core';
@@ -123,7 +124,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
+                  '/components/schemas/externalSchema',
                   parseResult.api as OpenApi3_0Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -131,7 +132,7 @@ describe('dereference', function () {
                   resolve: { baseURI: fixturePath },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {
@@ -139,7 +140,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
+                  '/components/schemas/externalSchema',
                   parseResult.api as OpenApi3_0Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -173,7 +174,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
+                  '/components/schemas/externalSchema',
                   parseResult.api as OpenApi3_0Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
@@ -181,7 +182,7 @@ describe('dereference', function () {
                   resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
                 });
 
-                assert.isTrue(isParameterElement(dereferenced));
+                assert.isTrue(isSchemaElement(dereferenced));
               });
 
               specify('should dereference and contain metadata about origin', async function () {
@@ -189,7 +190,7 @@ describe('dereference', function () {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const referenceElement = evaluate(
-                  '/components/parameters/externalRef',
+                  '/components/schemas/externalSchema',
                   parseResult.api as OpenApi3_0Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {

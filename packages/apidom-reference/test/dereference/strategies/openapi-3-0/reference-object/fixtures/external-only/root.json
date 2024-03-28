@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "components": {
-    "parameters": {
-       "externalRef": {
-        "$ref": "./ex.json#/externalParameter"
+    "schemas": {
+       "externalSchema": {
+        "$ref": "./ex.json#/components/schemas"
       }
     }
   }

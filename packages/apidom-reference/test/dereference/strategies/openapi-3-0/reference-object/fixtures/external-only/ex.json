@@ -1,8 +1,23 @@
 {
-  "externalParameter": {
-    "name": "externalParameter",
-    "in": "query",
-    "description": "this is parameter stored in external file",
-    "required": true
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "schema1": {
+        "$ref": "#/components/schemas/somePayload"
+      },
+      "somePayload": {
+        "type": "object",
+        "properties": {
+          "sentAt": {
+            "$ref": "#/components/schemas/sentAt"
+          }
+        }
+      },
+      "sentAt": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Date and time when the message was sent."
+      }
+    }
   }
 }

@@ -1,12 +1,8 @@
 {
   "swagger": "2.0",
-  "paths": {
-    "/": {
-      "parameters": [
-        {
-          "$ref": "./ex.json#/externalParameter"
-        }
-      ]
+  "definitions": {
+    "externalSchema": {
+      "$ref": "./ex.json#/definitions/schema1"
     }
   }
 }

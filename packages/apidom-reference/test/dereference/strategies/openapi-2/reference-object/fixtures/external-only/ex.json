@@ -1,8 +1,21 @@
 {
-  "externalParameter": {
-    "name": "externalParameter",
-    "in": "query",
-    "description": "this is parameter stored in external file",
-    "required": true
+  "openapi": "2.0",
+  "definitions": {
+    "schema1": {
+      "$ref": "#/definitions/somePayload"
+    },
+    "somePayload": {
+      "type": "object",
+      "properties": {
+        "sentAt": {
+          "$ref": "#/definitions/sentAt"
+        }
+      }
+    },
+    "sentAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the message was sent."
+    }
   }
 }

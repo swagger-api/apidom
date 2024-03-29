@@ -246,7 +246,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
        *  3. Fragment is a Reference Object. We need to follow it to get the eventual value
        *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
-      const isNonRootDocument = reference.refSet.rootRef.uri !== reference.uri;
+      const isNonRootDocument = url.stripHash(reference.refSet.rootRef.uri) !== reference.uri;
       const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
       if (
         (isExternalReference ||
@@ -433,7 +433,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
        *  3. Fragment is a Path Item Object with $ref field. We need to follow it to get the eventual value
        *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
-      const isNonRootDocument = reference.refSet.rootRef.uri !== reference.uri;
+      const isNonRootDocument = url.stripHash(reference.refSet.rootRef.uri) !== reference.uri;
       const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
       if (
         (isExternalReference ||
@@ -857,7 +857,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
        *  3. Fragment is a Schema Object with $ref field. We need to follow it to get the eventual value
        *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
        */
-      const isNonRootDocument = reference.refSet.rootRef.uri !== reference.uri;
+      const isNonRootDocument = url.stripHash(reference.refSet.rootRef.uri) !== reference.uri;
       const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
       if (
         (isExternalReference ||

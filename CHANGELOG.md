@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.98.3](https://github.com/swagger-api/apidom/compare/v0.98.2...v0.98.3) (2024-03-29)
+
+### Performance Improvements
+
+- **reference:** dereference fragments as quick as possible ([#3981](https://github.com/swagger-api/apidom/issues/3981)) ([48b4eb4](https://github.com/swagger-api/apidom/commit/48b4eb4d99c198802431af9fcf75b706534853a4)), closes [#3974](https://github.com/swagger-api/apidom/issues/3974)
+
 ## [0.98.2](https://github.com/swagger-api/apidom/compare/v0.98.1...v0.98.2) (2024-03-28)
 
 ### Bug Fixes

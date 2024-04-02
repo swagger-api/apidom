@@ -1,4 +1,10 @@
-export { dispatchPlugins as dispatchRefractorPlugins } from './refractor/plugins/utils';
+export { dispatchPluginsSync as dispatchRefractorPlugins } from './refractor/plugins/utils';
+export type {
+  DispatchPluginsSync,
+  DispatchPluginsAsync,
+  DispatchPluginsOptions,
+} from './refractor/plugins/utils';
+
 export { default as refractorPluginElementIdentity } from './refractor/plugins/element-identity';
 export { default as refractorPluginSemanticElementIdentity } from './refractor/plugins/semantic-element-identity';
 

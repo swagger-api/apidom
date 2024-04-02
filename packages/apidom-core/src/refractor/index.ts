@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import { dispatchPlugins } from './plugins/utils';
+import { dispatchPluginsSync } from './plugins/dispatcher';
 import { getNodeType } from '../traversal/visitor';
 import { cloneDeep } from '../clone';
 import { isElement } from '../predicates';
@@ -32,7 +32,7 @@ const refract = (value: any, { Type, plugins = [] }: RefractOptions): Element =>
    * Run plugins only when necessary.
    * Running plugins visitors means extra single traversal === performance hit.
    */
-  return dispatchPlugins(element, plugins, {
+  return dispatchPluginsSync(element, plugins, {
     toolboxCreator: createToolbox,
     visitorOptions: { nodeTypeGetter: getNodeType },
   });

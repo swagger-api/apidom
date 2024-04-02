@@ -6,8 +6,6 @@ import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
  * SPDX-License-Identifier: MIT
  */
 
-export const customPromisifySymbol: unique symbol = Symbol.for('nodejs.util.promisify.custom');
-
 // getVisitFn :: (Visitor, String, Boolean) -> Function
 export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
   const typeVisitor = visitor[type];
@@ -60,7 +58,7 @@ export const cloneNode = (node: any) =>
  * `exposeEdits=true` can be used to exoise the edited node from the previous visitors.
  */
 
-interface MergeAllBase {
+export interface MergeAllSync {
   (
     visitors: any[],
     options?: {
@@ -75,15 +73,27 @@ interface MergeAllBase {
     enter: (node: any, ...rest: any[]) => any;
     leave: (node: any, ...rest: any[]) => any;
   };
+  [key: symbol]: MergeAllAsync;
 }
 
-interface MergeAllPromisify {
-  [customPromisifySymbol]: MergeAllBase;
+export interface MergeAllAsync {
+  (
+    visitors: any[],
+    options?: {
+      visitFnGetter?: typeof getVisitFn;
+      nodeTypeGetter?: typeof getNodeType;
+      breakSymbol?: typeof BREAK;
+      deleteNodeSymbol?: any;
+      skipVisitingNodeSymbol?: boolean;
+      exposeEdits?: boolean;
+    },
+  ): {
+    enter: (node: any, ...rest: any[]) => Promise<any>;
+    leave: (node: any, ...rest: any[]) => Promise<any>;
+  };
 }
 
-type MergeAll = MergeAllBase & MergeAllPromisify;
-
-export const mergeAll: MergeAll = ((
+export const mergeAll: MergeAllSync = ((
   visitors: any[],
   {
     visitFnGetter = getVisitFn,
@@ -150,9 +160,9 @@ export const mergeAll: MergeAll = ((
       return undefined;
     },
   };
-}) as MergeAll;
+}) as MergeAllSync;
 
-mergeAll[customPromisifySymbol] = (
+const mergeAllAsync: MergeAllAsync = (
   visitors: any[],
   {
     visitFnGetter = getVisitFn,
@@ -222,6 +232,8 @@ mergeAll[customPromisifySymbol] = (
     },
   };
 };
+
+mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
 
 /* eslint-disable no-continue, no-param-reassign */
 /**

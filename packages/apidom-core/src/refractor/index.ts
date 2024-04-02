@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import { dispatchPluginsSync } from './plugins/utils';
+import { dispatchPluginsSync } from './plugins/dispatcher';
 import { getNodeType } from '../traversal/visitor';
 import { cloneDeep } from '../clone';
 import { isElement } from '../predicates';

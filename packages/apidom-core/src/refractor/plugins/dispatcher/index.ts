@@ -14,20 +14,20 @@ export interface DispatchPluginsOptions {
 }
 
 export interface DispatchPluginsSync {
-  <T extends Element>(
+  <T extends Element, U extends Element = Element>(
     element: T,
     plugins: ((toolbox: any) => object)[],
     options?: Record<string, unknown>,
-  ): Element;
+  ): U;
   [key: symbol]: DispatchPluginsAsync;
 }
 
 export interface DispatchPluginsAsync {
-  <T extends Element>(
+  <T extends Element, U extends Element = Element>(
     element: T,
     plugins: ((toolbox: any) => object)[],
     options?: Record<string, unknown>,
-  ): Promise<Element>;
+  ): Promise<U>;
 }
 
 const defaultDispatchPluginsOptions: DispatchPluginsOptions = {
@@ -73,8 +73,7 @@ export const dispatchPluginsAsync: DispatchPluginsAsync = async (
   const toolbox = toolboxCreator();
   const pluginsSpecs = plugins.map((plugin) => plugin(toolbox));
   const mergeAllVisitorsAsync = mergeAllVisitors[Symbol.for('nodejs.util.promisify.custom')];
-  // @ts-ignore
-  const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
+  const visitAsync = (visit as any)[Symbol.for('nodejs.util.promisify.custom')];
   const mergedPluginsVisitor = mergeAllVisitorsAsync(pluginsSpecs.map(propOr({}, 'visitor')), {
     ...visitorOptions,
   });

@@ -12,7 +12,7 @@ const dispatchPluginsAsync = dispatchPluginsSync[Symbol.for('nodejs.util.promisi
 
 describe('refrator', function () {
   context('plugins', function () {
-    context('utils', function () {
+    context('dispatcher', function () {
       context('dispatchPluginsSync', function () {
         specify('should dispatch plugins synchronously', function () {
           const preSpy = sinon.spy();

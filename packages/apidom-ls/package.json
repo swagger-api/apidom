@@ -126,7 +126,7 @@
   "optionalDependencies": {
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
-    "ajv-formats": "^2.1.1",
+    "ajv-formats": "^3.0.1",
     "json-source-map": "^0.6.1",
     "yaml-js": "^0.3.0"
   },

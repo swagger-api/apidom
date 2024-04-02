@@ -71,9 +71,10 @@ export { default as ParseResult } from './ParseResult';
 export { isParseResult, isLiteral, isPoint, isPosition } from './predicates';
 // AST traversal related exports
 export {
-  getVisitFn,
+  customPromisifySymbol,
   BREAK,
   mergeAll as mergeAllVisitors,
+  getVisitFn,
   visit,
   getNodeType,
   isNode,

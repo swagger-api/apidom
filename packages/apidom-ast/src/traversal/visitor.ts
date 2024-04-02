@@ -6,6 +6,8 @@ import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
  * SPDX-License-Identifier: MIT
  */
 
+export const customPromisifySymbol: unique symbol = Symbol.for('nodejs.util.promisify.custom');
+
 // getVisitFn :: (Visitor, String, Boolean) -> Function
 export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
   const typeVisitor = visitor[type];
@@ -57,7 +59,31 @@ export const cloneNode = (node: any) =>
  * If a prior visitor edits a node, no following visitors will see that node.
  * `exposeEdits=true` can be used to exoise the edited node from the previous visitors.
  */
-export const mergeAll = (
+
+interface MergeAllBase {
+  (
+    visitors: any[],
+    options?: {
+      visitFnGetter?: typeof getVisitFn;
+      nodeTypeGetter?: typeof getNodeType;
+      breakSymbol?: typeof BREAK;
+      deleteNodeSymbol?: any;
+      skipVisitingNodeSymbol?: boolean;
+      exposeEdits?: boolean;
+    },
+  ): {
+    enter: (node: any, ...rest: any[]) => any;
+    leave: (node: any, ...rest: any[]) => any;
+  };
+}
+
+interface MergeAllPromisify {
+  [customPromisifySymbol]: MergeAllBase;
+}
+
+type MergeAll = MergeAllBase & MergeAllPromisify;
+
+export const mergeAll: MergeAll = ((
   visitors: any[],
   {
     visitFnGetter = getVisitFn,
@@ -110,6 +136,77 @@ export const mergeAll = (
 
           if (typeof visitFn === 'function') {
             const result = visitFn.call(visitors[i], node, ...rest);
+            if (result === breakSymbol) {
+              skipping[i] = breakSymbol;
+            } else if (result !== undefined && result !== skipVisitingNodeSymbol) {
+              return result;
+            }
+          }
+        } else if (skipping[i] === node) {
+          skipping[i] = skipSymbol;
+        }
+      }
+
+      return undefined;
+    },
+  };
+}) as MergeAll;
+
+mergeAll[customPromisifySymbol] = (
+  visitors: any[],
+  {
+    visitFnGetter = getVisitFn,
+    nodeTypeGetter = getNodeType,
+    breakSymbol = BREAK,
+    deleteNodeSymbol = null,
+    skipVisitingNodeSymbol = false,
+    exposeEdits = false,
+  } = {},
+) => {
+  const skipSymbol = Symbol('skip');
+  const skipping = new Array(visitors.length).fill(skipSymbol);
+
+  return {
+    async enter(node: any, ...rest: any[]) {
+      let currentNode = node;
+      let hasChanged = false;
+
+      for (let i = 0; i < visitors.length; i += 1) {
+        if (skipping[i] === skipSymbol) {
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(currentNode), false);
+
+          if (typeof visitFn === 'function') {
+            // eslint-disable-next-line no-await-in-loop
+            const result: any = await visitFn.call(visitors[i], currentNode, ...rest);
+
+            if (result === skipVisitingNodeSymbol) {
+              skipping[i] = node;
+            } else if (result === breakSymbol) {
+              skipping[i] = breakSymbol;
+            } else if (result === deleteNodeSymbol) {
+              return result;
+            } else if (result !== undefined) {
+              if (exposeEdits) {
+                currentNode = result;
+                hasChanged = true;
+              } else {
+                return result;
+              }
+            }
+          }
+        }
+      }
+
+      return hasChanged ? currentNode : undefined;
+    },
+    async leave(node: any, ...rest: any[]) {
+      for (let i = 0; i < visitors.length; i += 1) {
+        if (skipping[i] === skipSymbol) {
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(node), true);
+
+          if (typeof visitFn === 'function') {
+            // eslint-disable-next-line no-await-in-loop
+            const result = await visitFn.call(visitors[i], node, ...rest);
             if (result === breakSymbol) {
               skipping[i] = breakSymbol;
             } else if (result !== undefined && result !== skipVisitingNodeSymbol) {

@@ -60,7 +60,7 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
 
   async convert(file: IFile): Promise<ParseResultElement> {
     const annotations: AnnotationElement[] = [];
-    const parseResultElement = dispatchRefractorPlugins(
+    const parseResultElement: ParseResultElement = dispatchRefractorPlugins(
       cloneDeep(file.parseResult),
       [
         openAPIVersionRefractorPlugin(),

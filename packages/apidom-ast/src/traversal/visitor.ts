@@ -549,6 +549,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       }
       index = stack.index;
       keys = stack.keys;
+      // @ts-ignore
       edits = stack.edits;
       // @ts-ignore
       inArray = stack.inArray;

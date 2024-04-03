@@ -1,0 +1,50 @@
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/foo": {
+      "get": {
+        "summary": "foo",
+        "operationId": "foo",
+        "security": [
+          {
+            "mutualTLS-scheme2": [
+              "read",
+              "write"
+            ]
+          },
+          {
+            "oauth2-scheme2": [
+              "read",
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "foo"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "mutualTLS-scheme1": {
+        "$ref": "#/components/securitySchemes/mutualTLS-scheme2"
+      },
+      "apiKey-scheme1": {
+        "$ref": "#/components/securitySchemes/apiKey-scheme2"
+      },
+      "mutualTLS-scheme2": {
+        "type": "mutualTLS",
+        "name": "mutualTLS-scheme",
+        "in": "header"
+      },
+      "apiKey-scheme2": {
+        "type": "oauth2",
+        "name": "oauth2-scheme",
+        "in": "header"
+      }
+    }
+  }
+}

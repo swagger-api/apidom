@@ -10,9 +10,9 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-1';
 import {
   ParseResultElement,
-  dispatchRefractorPlugins,
   AnnotationElement,
   cloneDeep,
+  dispatchRefractorPlugins as dispatchPlugins,
 } from '@swagger-api/apidom-core';
 
 import ConvertStrategy, { IFile } from '../ConvertStrategy';
@@ -26,6 +26,8 @@ import infoSummaryRefractorPlugin from './refractor-plugins/info-summary';
 import licenseIdentifierRefractorPlugin from './refractor-plugins/license-identifier';
 import referenceDescriptionRefractorPlugin from './refractor-plugins/reference-description';
 import referenceSummaryRefractorPlugin from './refractor-plugins/reference-summary';
+
+const dispatchPluginsAsync = dispatchPlugins[Symbol.for('nodejs.util.promisify.custom')];
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const openAPI3_0_3MediaTypes = [
@@ -60,7 +62,7 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
 
   async convert(file: IFile): Promise<ParseResultElement> {
     const annotations: AnnotationElement[] = [];
-    const parseResultElement: ParseResultElement = dispatchRefractorPlugins(
+    const parseResultElement: ParseResultElement = await dispatchPluginsAsync(
       cloneDeep(file.parseResult),
       [
         openAPIVersionRefractorPlugin(),

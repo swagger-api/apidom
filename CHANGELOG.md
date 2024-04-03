@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.99.0](https://github.com/swagger-api/apidom/compare/v0.98.3...v0.99.0) (2024-04-03)
+
+### Features
+
+- **ast:** introduce async version of visitor merging mechanism ([#3993](https://github.com/swagger-api/apidom/issues/3993)) ([7dd0bbd](https://github.com/swagger-api/apidom/commit/7dd0bbd650eeeee9244cae6dafdf94df9c9150e3)), closes [#3832](https://github.com/swagger-api/apidom/issues/3832)
+- **converter:** add Reference Object removal support in security-scheme-type plugin ([#4001](https://github.com/swagger-api/apidom/issues/4001)) ([8266f5a](https://github.com/swagger-api/apidom/commit/8266f5acdd255a7e253bb2318d706ccc315f0c3d)), closes [#4000](https://github.com/swagger-api/apidom/issues/4000)
+- **converter:** add support for asynchronous conversion plugins ([#3997](https://github.com/swagger-api/apidom/issues/3997)) ([4bc1f53](https://github.com/swagger-api/apidom/commit/4bc1f534e221e999689d2a9606ba0078c79fe7b5)), closes [#3996](https://github.com/swagger-api/apidom/issues/3996)
+- **converter:** create unified error boundary interface ([#3999](https://github.com/swagger-api/apidom/issues/3999)) ([833a918](https://github.com/swagger-api/apidom/commit/833a918fb7b14435f02c3eb4eb116c20227392cd)), closes [#3998](https://github.com/swagger-api/apidom/issues/3998)
+- **core:** introduce async version of plugin dispatch mechanism ([#3994](https://github.com/swagger-api/apidom/issues/3994)) ([36011bc](https://github.com/swagger-api/apidom/commit/36011bc3b7e50e2d12c08b18b2d45aeb9aa6f594)), closes [#3993](https://github.com/swagger-api/apidom/issues/3993)
+
 ## [0.98.3](https://github.com/swagger-api/apidom/compare/v0.98.2...v0.98.3) (2024-03-29)
 
 ### Performance Improvements

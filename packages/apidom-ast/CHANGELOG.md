@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.99.0](https://github.com/swagger-api/apidom/compare/v0.98.3...v0.99.0) (2024-04-03)
+
+### Features
+
+- **ast:** introduce async version of visitor merging mechanism ([#3993](https://github.com/swagger-api/apidom/issues/3993)) ([7dd0bbd](https://github.com/swagger-api/apidom/commit/7dd0bbd650eeeee9244cae6dafdf94df9c9150e3)), closes [#3832](https://github.com/swagger-api/apidom/issues/3832)
+- **core:** introduce async version of plugin dispatch mechanism ([#3994](https://github.com/swagger-api/apidom/issues/3994)) ([36011bc](https://github.com/swagger-api/apidom/commit/36011bc3b7e50e2d12c08b18b2d45aeb9aa6f594)), closes [#3993](https://github.com/swagger-api/apidom/issues/3993)
+
 # [0.98.0](https://github.com/swagger-api/apidom/compare/v0.97.1...v0.98.0) (2024-03-21)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

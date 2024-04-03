@@ -1,11 +1,11 @@
 import path from 'node:path';
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import { toJSON } from '@swagger-api/apidom-core';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import { parse } from '@swagger-api/apidom-reference';
 
-import convert, { convertApiDOM } from '../src';
+import convert, { convertApiDOM, ConvertError } from '../src';
 
 describe('apidom-converter', function () {
   context('convert', function () {
@@ -28,6 +28,39 @@ describe('apidom-converter', function () {
         });
 
         expect(toJSON(convertedParseResult.api!, undefined, 2)).toMatchSnapshot();
+      });
+    });
+
+    context('given convert strategy throws error', function () {
+      specify('should throw ConvertError', async function () {
+        const fixturePath = path.join(
+          __dirname,
+          'strategies',
+          'openapi-3-1-to-openapi-3-0-3',
+          'refractor-plugins',
+          'openapi-version',
+          'fixtures',
+          'openapi-version.json',
+        );
+
+        try {
+          await convert(fixturePath, {
+            convert: {
+              strategies: [
+                {
+                  canConvert: () => true,
+                  convert: () => {
+                    throw new Error('test');
+                  },
+                },
+              ],
+            },
+          });
+          assert.fail('should throw ConvertError');
+        } catch (error: any) {
+          assert.instanceOf(error, ConvertError);
+          assert.strictEqual(error.cause.message, 'test');
+        }
       });
     });
   });

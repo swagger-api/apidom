@@ -1,5 +1,5 @@
-import { ApiDOMError } from '@swagger-api/apidom-error';
+import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 
-class ConvertError extends ApiDOMError {}
+class ConvertError extends ApiDOMStructuredError {}
 
 export default ConvertError;

@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type should remove Reference Objects pointing to removable Security Scheme Objects 1`] = `
+{
+  "openapi": "3.0.3",
+  "paths": {
+    "/foo": {
+      "get": {
+        "summary": "foo",
+        "operationId": "foo",
+        "security": [
+          {
+            "mutualTLS-scheme2": [
+              "read",
+              "write"
+            ]
+          },
+          {
+            "oauth2-scheme2": [
+              "read",
+              "write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "foo"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey-scheme1": {
+        "$ref": "#/components/securitySchemes/apiKey-scheme2"
+      },
+      "apiKey-scheme2": {
+        "type": "oauth2",
+        "name": "oauth2-scheme",
+        "in": "header"
+      }
+    }
+  }
+}
+`;
+
 exports[`converter strategies openapi-3-1-to-openapi-3-0-3 security-scheme-type should remove SecurityScheme object if it has "mutualTLS" type 1`] = `
 {
   "openapi": "3.0.3",

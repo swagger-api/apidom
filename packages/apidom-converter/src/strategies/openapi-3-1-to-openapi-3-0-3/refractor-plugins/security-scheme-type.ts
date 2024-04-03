@@ -5,8 +5,18 @@ import {
   SecuritySchemeElement,
   isSecuritySchemeElement,
   isComponentsElement,
+  isReferenceElement,
+  mediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-1';
-import { AnnotationElement, toValue, isObjectElement, Element } from '@swagger-api/apidom-core';
+import {
+  Element,
+  ParseResultElement,
+  AnnotationElement,
+  isObjectElement,
+  toValue,
+  cloneDeep,
+} from '@swagger-api/apidom-core';
+import { dereferenceApiDOM, ReferenceSet, Reference, url } from '@swagger-api/apidom-reference';
 
 import type { Toolbox } from '../toolbox';
 
@@ -17,6 +27,9 @@ type SecuritySchemeTypePluginOptions = {
 const securitySchemeTypeRefractorPlugin =
   ({ annotations }: SecuritySchemeTypePluginOptions) =>
   (toolbox: Toolbox) => {
+    let parseResultElement: ParseResultElement | undefined;
+    const isRemovableSecuritySchemeElement = (value: unknown): value is SecuritySchemeElement =>
+      isSecuritySchemeElement(value) && toValue(value.type) === 'mutualTLS';
     const removedSecuritySchemes: SecuritySchemeElement[] = [];
     const createAnnotation = <T extends Element>(element: T) =>
       toolbox.createAnnotation.fromElement(
@@ -28,6 +41,9 @@ const securitySchemeTypeRefractorPlugin =
 
     return {
       visitor: {
+        ParseResultElement(element: ParseResultElement) {
+          parseResultElement = element;
+        },
         OpenApi3_1Element(element: OpenApi3_1Element) {
           if (!isComponentsElement(element.components)) return undefined;
           if (!isObjectElement(element.components.securitySchemes)) return undefined;
@@ -40,11 +56,43 @@ const securitySchemeTypeRefractorPlugin =
 
           return undefined;
         },
-        ComponentsElement(element: ComponentsElement) {
+        async ComponentsElement(element: ComponentsElement) {
           if (!isObjectElement(element.securitySchemes)) return undefined;
 
+          /**
+           * Removing Reference Objects pointing to removable Security Scheme Objects.
+           * We need to remove Reference Objects first as they might be pointing
+           * to Security Scheme Objects that are going to be removed.
+           */
+          const baseURI = url.cwd();
+          const rootReference = Reference({ uri: baseURI, value: cloneDeep(parseResultElement!) });
+          for (const memberElement of element.securitySchemes) {
+            if (!isReferenceElement(memberElement.value)) continue; // eslint-disable-line no-continue
+
+            const { value: referenceElement } = memberElement;
+            const reference = Reference({
+              uri: `${baseURI}#reference`,
+              value: new ParseResultElement([referenceElement]),
+            });
+            const refSet = ReferenceSet({ refs: [reference, rootReference] });
+            // eslint-disable-next-line no-await-in-loop
+            const dereferenced = await dereferenceApiDOM(referenceElement, {
+              resolve: { baseURI: reference.uri },
+              parse: { mediaType: mediaTypes.latest() },
+              dereference: { refSet, immutable: false },
+            });
+
+            if (isRemovableSecuritySchemeElement(dereferenced)) {
+              element.securitySchemes.remove(toValue(memberElement.key));
+              annotations.push(createAnnotation(referenceElement));
+            }
+          }
+
+          /**
+           * Removing Security Scheme Objects.
+           */
           element.securitySchemes.forEach((value, key) => {
-            if (isSecuritySchemeElement(value) && toValue(value.type) === 'mutualTLS') {
+            if (isRemovableSecuritySchemeElement(value)) {
               if (!removedSecuritySchemes.includes(value)) removedSecuritySchemes.push(value);
               (element.securitySchemes as SecuritySchemeElement).remove(toValue(key));
               annotations.push(createAnnotation(value));
@@ -80,6 +128,7 @@ const securitySchemeTypeRefractorPlugin =
       },
       post() {
         removedSecuritySchemes.length = 0;
+        parseResultElement = undefined;
       },
     };
   };

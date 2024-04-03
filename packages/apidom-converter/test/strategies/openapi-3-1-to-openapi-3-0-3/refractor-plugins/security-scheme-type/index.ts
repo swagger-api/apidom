@@ -73,6 +73,21 @@ describe('converter', function () {
           assert.strictEqual(endColumn, 13);
           assert.strictEqual(endChar, 247);
         });
+
+        specify(
+          'should remove Reference Objects pointing to removable Security Scheme Objects',
+          async function () {
+            const fixturePath = path.join(__dirname, 'fixtures', 'reference-objects.json');
+            const convertedParseResult = await convert(fixturePath, {
+              convert: {
+                sourceMediaType: openAPI31MediaTypes.findBy('3.1.0', 'json'),
+                targetMediaType: openAPI30MediaTypes.findBy('3.0.3', 'json'),
+              },
+            });
+
+            expect(toJSON(convertedParseResult.api!, undefined, 2)).toMatchSnapshot();
+          },
+        );
       });
     });
   });

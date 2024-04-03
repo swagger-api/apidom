@@ -23,7 +23,11 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
     throw new UnmatchedConvertStrategyError(file.uri);
   }
 
-  return strategy.convert(file, mergedOptions);
+  try {
+    return strategy.convert(file, mergedOptions);
+  } catch (error) {
+    throw new ConvertError(`Error while converting file "${file.uri}"`, { cause: error, strategy });
+  }
 };
 
 const convert = async (uri: string, options = {}) => {

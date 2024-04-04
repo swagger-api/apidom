@@ -1,5 +1,6 @@
 import sinon from 'sinon';
 import { assert } from 'chai';
+import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 
 import { visit, mergeAllVisitors } from '../../src';
 
@@ -7,7 +8,7 @@ describe('visitor', function () {
   context('given structure with cycle', function () {
     specify('should skip over a sub-tree to avoid recursion', function () {
       const visitor = {
-        enter() {},
+        enter: sinon.spy(),
       };
       const structure = {
         type: 'object',
@@ -17,15 +18,37 @@ describe('visitor', function () {
           { type: 'object', children: [] },
         ],
       };
+
       // @ts-ignore
       structure.children[2].children.push(structure);
-
-      sinon.spy(visitor, 'enter');
       // @ts-ignore
       visit(structure, visitor, { keyMap: { object: ['children'] } });
 
-      // @ts-ignore
       assert.strictEqual(visitor.enter.callCount, 4);
+    });
+  });
+
+  context('given async visitor in sync mode', function () {
+    specify('should throw error', function () {
+      const visitor = {
+        async enter() {
+          return undefined;
+        },
+      };
+      const structure = {
+        type: 'object',
+        children: [
+          { type: 'number', value: 1 },
+          { type: 'string', value: 'test' },
+          { type: 'object', children: [] },
+        ],
+      };
+
+      assert.throws(
+        () => visit(structure, visitor),
+        ApiDOMStructuredError,
+        'Async visitor not supported in sync mode',
+      );
     });
   });
 
@@ -142,6 +165,36 @@ describe('visitor', function () {
           { type: 'foo', value: 'foo' },
           { type: 'object', children: [] },
         ],
+      });
+    });
+
+    context('given async visitor in sync mode', function () {
+      specify('should throw error', function () {
+        const visitor1 = {
+          enter() {
+            return undefined;
+          },
+        };
+        const visitor2 = {
+          async enter() {
+            return undefined;
+          },
+        };
+        const mergedVisitor = mergeAllVisitors([visitor1, visitor2]);
+        const structure = {
+          type: 'object',
+          children: [
+            { type: 'number', value: 1 },
+            { type: 'string', value: 'test' },
+            { type: 'object', children: [] },
+          ],
+        };
+
+        assert.throws(
+          () => visit(structure, mergedVisitor),
+          ApiDOMStructuredError,
+          'Async visitor not supported in sync mode',
+        );
       });
     });
   });

@@ -119,6 +119,14 @@ export const mergeAll: MergeAllSync = ((
           if (typeof visitFn === 'function') {
             const result: any = visitFn.call(visitors[i], currentNode, ...rest);
 
+            // check if the visitor is async
+            if (typeof result?.then === 'function') {
+              throw new ApiDOMStructuredError('Async visitor not supported in sync mode', {
+                visitor: visitors[i],
+                visitFn,
+              });
+            }
+
             if (result === skipVisitingNodeSymbol) {
               skipping[i] = node;
             } else if (result === breakSymbol) {
@@ -146,6 +154,15 @@ export const mergeAll: MergeAllSync = ((
 
           if (typeof visitFn === 'function') {
             const result = visitFn.call(visitors[i], node, ...rest);
+
+            // check if the visitor is async
+            if (typeof result?.then === 'function') {
+              throw new ApiDOMStructuredError('Async visitor not supported in sync mode', {
+                visitor: visitors[i],
+                visitFn,
+              });
+            }
+
             if (result === breakSymbol) {
               skipping[i] = breakSymbol;
             } else if (result !== undefined && result !== skipVisitingNodeSymbol) {
@@ -429,6 +446,14 @@ export const visit = (
         }
         // retrieve result
         result = visitFn.call(visitor, node, key, parent, path, ancestors);
+      }
+
+      // check if the visitor is async
+      if (typeof result?.then === 'function') {
+        throw new ApiDOMStructuredError('Async visitor not supported in sync mode', {
+          visitor,
+          visitFn,
+        });
       }
 
       if (result === breakSymbol) {
